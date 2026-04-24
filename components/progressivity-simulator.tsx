@@ -13,7 +13,6 @@ import {
   CalendarDays,
   Euro,
   Moon,
-  Sun,
 } from "lucide-react"
 import { useTheme } from "next-themes"
 
@@ -83,13 +82,8 @@ export function ProgressivitySimulator() {
   const [salaryCents, setSalaryCents] = React.useState<number>(salaryControlConfig.defaultCents)
   const [comparedYear, setComparedYear] = React.useState<FiscalYear>(2019)
   const [preciseTouched, setPreciseTouched] = React.useState(false)
-  const [sliderWarningSeen, setSliderWarningSeen] = React.useState(false)
   const [pendingSliderCents, setPendingSliderCents] = React.useState<number | null>(null)
   const [overwriteOpen, setOverwriteOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    setSliderWarningSeen(window.localStorage.getItem(sliderWarningStorageKey) === "true")
-  }, [])
 
   const comparison = React.useMemo(
     () =>
@@ -113,6 +107,7 @@ export function ProgressivitySimulator() {
 
   const applySliderValue = (valueInEuros: number) => {
     const nextCents = eurosToCents(valueInEuros)
+    const sliderWarningSeen = window.localStorage.getItem(sliderWarningStorageKey) === "true"
     if (preciseTouched && !sliderWarningSeen) {
       setPendingSliderCents(nextCents)
       setOverwriteOpen(true)
@@ -126,7 +121,6 @@ export function ProgressivitySimulator() {
       setSalaryCents(pendingSliderCents)
     }
     window.localStorage.setItem(sliderWarningStorageKey, "true")
-    setSliderWarningSeen(true)
     setPendingSliderCents(null)
     setPreciseTouched(false)
     setOverwriteOpen(false)
@@ -227,7 +221,6 @@ export function ProgressivitySimulator() {
                 render={<Button type="button" variant="outline" />}
                 onClick={() => {
                   window.localStorage.setItem(sliderWarningStorageKey, "true")
-                  setSliderWarningSeen(true)
                   setPendingSliderCents(null)
                 }}
               >
@@ -570,22 +563,6 @@ function ExplanationAccordion({ comparison }: { readonly comparison: InflationAd
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return (
-      <Button type="button" variant="outline" size="lg" className="w-fit" aria-label="Cambiar tema">
-        <span className="size-4" aria-hidden="true" />
-        <span className="inline-block w-[11ch] text-left">Modo oscuro</span>
-      </Button>
-    )
-  }
-
-  const isDark = resolvedTheme === "dark"
 
   return (
     <Button
@@ -593,12 +570,10 @@ function ThemeToggle() {
       variant="outline"
       size="lg"
       className="w-fit"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >
-      {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-      <span className="inline-block w-[11ch] text-left">
-        {isDark ? "Modo claro" : "Modo oscuro"}
-      </span>
+      <Moon className="size-4" />
+      Cambiar tema
     </Button>
   )
 }
