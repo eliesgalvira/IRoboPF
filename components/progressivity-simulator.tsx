@@ -576,7 +576,7 @@ function ThemeToggle() {
     return (
       <Button type="button" variant="outline" size="lg" className="w-fit" aria-label="Cambiar tema">
         <span className="size-4" aria-hidden="true" />
-        Tema
+        <span className="inline-block w-[6.5rem] text-left">Modo oscuro</span>
       </Button>
     )
   }
@@ -592,7 +592,9 @@ function ThemeToggle() {
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-      {isDark ? "Modo claro" : "Modo oscuro"}
+      <span className="inline-block w-[6.5rem] text-left">
+        {isDark ? "Modo claro" : "Modo oscuro"}
+      </span>
     </Button>
   )
 }
