@@ -1,20 +1,12 @@
 import type { Metadata } from "next"
-import { Geist, JetBrains_Mono } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils"
-
-const fontSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 export const metadata: Metadata = {
-  title: "Simulador de progresividad en frío",
-  description: "Auditoría educativa de salario neto, IRPF e inflación en España.",
+  title: "Progresividad en frio - tres lecturas posibles",
+  description:
+    "Tres rediseños divulgativos sobre salario neto, IRPF e inflación en España.",
 }
 
 export default function RootLayout({
@@ -23,12 +15,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="es"
-      suppressHydrationWarning
-      className={cn("antialiased", fontSans.variable, "font-mono", jetbrainsMono.variable)}
-    >
-      <body>
+    <html lang="es" suppressHydrationWarning>
+      <body className="antialiased">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

@@ -1,5 +1,5 @@
-import { ProgressivitySimulatorShell } from "@/components/progressivity-simulator-shell"
+import { DesignPicker } from "@/components/design-picker"
 
 export default function Page() {
-  return <ProgressivitySimulatorShell />
+  return <DesignPicker />
 }
