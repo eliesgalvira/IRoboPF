@@ -1,5 +1,5 @@
-import { ProgressivitySimulator } from "@/components/progressivity-simulator"
+import { ProgressivitySimulatorShell } from "@/components/progressivity-simulator-shell"
 
 export default function Page() {
-  return <ProgressivitySimulator />
+  return <ProgressivitySimulatorShell />
 }

@@ -6,6 +6,7 @@ import { NumberField } from "@base-ui/react/number-field"
 import { Slider } from "@base-ui/react/slider"
 import { Tabs } from "@base-ui/react/tabs"
 import { Effect } from "effect"
+import { useLocalStorage } from "@uidotdev/usehooks"
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -82,6 +83,7 @@ export function ProgressivitySimulator() {
   const [salaryCents, setSalaryCents] = React.useState<number>(salaryControlConfig.defaultCents)
   const [comparedYear, setComparedYear] = React.useState<FiscalYear>(2019)
   const [preciseTouched, setPreciseTouched] = React.useState(false)
+  const [sliderWarningSeen, setSliderWarningSeen] = useLocalStorage(sliderWarningStorageKey, false)
   const [pendingSliderCents, setPendingSliderCents] = React.useState<number | null>(null)
   const [overwriteOpen, setOverwriteOpen] = React.useState(false)
 
@@ -107,7 +109,6 @@ export function ProgressivitySimulator() {
 
   const applySliderValue = (valueInEuros: number) => {
     const nextCents = eurosToCents(valueInEuros)
-    const sliderWarningSeen = window.localStorage.getItem(sliderWarningStorageKey) === "true"
     if (preciseTouched && !sliderWarningSeen) {
       setPendingSliderCents(nextCents)
       setOverwriteOpen(true)
@@ -120,7 +121,7 @@ export function ProgressivitySimulator() {
     if (pendingSliderCents !== null) {
       setSalaryCents(pendingSliderCents)
     }
-    window.localStorage.setItem(sliderWarningStorageKey, "true")
+    setSliderWarningSeen(true)
     setPendingSliderCents(null)
     setPreciseTouched(false)
     setOverwriteOpen(false)
@@ -220,7 +221,7 @@ export function ProgressivitySimulator() {
               <Dialog.Close
                 render={<Button type="button" variant="outline" />}
                 onClick={() => {
-                  window.localStorage.setItem(sliderWarningStorageKey, "true")
+                  setSliderWarningSeen(true)
                   setPendingSliderCents(null)
                 }}
               >
