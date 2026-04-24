@@ -1,7 +1,11 @@
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
-import { compareInflationAdjusted, salaryControlConfig } from "../lib/domain/progressivity"
+import {
+  auditSalaryRange,
+  compareInflationAdjusted,
+  salaryControlConfig,
+} from "../lib/domain/progressivity"
 
 describe("compareInflationAdjusted", () => {
   it("defines the agreed salary controls", () => {
@@ -58,6 +62,24 @@ describe("compareInflationAdjusted", () => {
       expect(comparison.compared.adjusted.irpfFinalCents).toBe(16_675)
       expect(comparison.reference.irpfFinalCents).toBe(0)
       expect(comparison.netPurchasingPowerDeltaAnnualCents).toBe(-14_425)
+    })
+  )
+
+  it.effect("builds an audit range with findings for pedagogical exploration", () =>
+    Effect.gen(function* () {
+      const audit = yield* auditSalaryRange({
+        minGrossAnnualCents: 1_000_000,
+        maxGrossAnnualCents: 2_000_000,
+        stepCents: 500_000,
+        comparedYear: 2012,
+        referenceYear: 2026,
+      })
+
+      expect(audit.points).toHaveLength(3)
+      expect(audit.findings.length).toBeGreaterThanOrEqual(2)
+      expect(audit.findings.some((finding) => finding.title.includes("poder adquisitivo"))).toBe(
+        true,
+      )
     })
   )
 })

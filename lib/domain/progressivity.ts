@@ -46,6 +46,40 @@ export interface InflationAdjustedComparison {
   readonly netPurchasingPowerDeltaMonthlyCents: number
 }
 
+export interface SalaryRangeAuditInput {
+  readonly minGrossAnnualCents: number
+  readonly maxGrossAnnualCents: number
+  readonly stepCents: number
+  readonly comparedYear: FiscalYear
+  readonly referenceYear: FiscalYear
+}
+
+export interface SalaryRangeAuditPoint {
+  readonly grossAnnualCents: number
+  readonly comparison: InflationAdjustedComparison
+  readonly currentBurdenRate: number
+  readonly comparedBurdenRate: number
+  readonly currentLaborWedgeRate: number
+  readonly comparedLaborWedgeRate: number
+}
+
+export interface AuditFinding {
+  readonly title: string
+  readonly description: string
+  readonly salaryGrossAnnualCents: number
+  readonly severity: "loss" | "gain" | "info"
+}
+
+export interface SalaryRangeAudit {
+  readonly comparedYear: FiscalYear
+  readonly referenceYear: FiscalYear
+  readonly minGrossAnnualCents: number
+  readonly maxGrossAnnualCents: number
+  readonly stepCents: number
+  readonly points: ReadonlyArray<SalaryRangeAuditPoint>
+  readonly findings: ReadonlyArray<AuditFinding>
+}
+
 export const salaryControlConfig = {
   defaultCents: 1_800_000,
   precise: {
@@ -59,6 +93,14 @@ export const salaryControlConfig = {
     maxCents: 10_000_000,
     stepCents: 100_000,
   },
+} as const
+
+export const auditRangeConfig = {
+  defaultMinCents: 1_000_000,
+  defaultMaxCents: 6_000_000,
+  minCents: 1_000_000,
+  maxCents: 10_000_000,
+  stepCents: 500_000,
 } as const
 
 interface Parameters {
@@ -416,4 +458,97 @@ export const compareInflationAdjusted = (input: CompareInflationAdjustedInput) =
       netPurchasingPowerDeltaAnnualCents: deltaAnnual,
       netPurchasingPowerDeltaMonthlyCents: Math.round(deltaAnnual / 12),
     }
+  })
+
+const burdenRate = (breakdown: LiquidatedBreakdown) =>
+  (breakdown.workerContributionCents + breakdown.irpfFinalCents) / breakdown.grossAnnualCents
+
+const laborWedgeRate = (breakdown: LiquidatedBreakdown) =>
+  (breakdown.laborCostCents - breakdown.salaryNetAnnualCents) / breakdown.laborCostCents
+
+const sortByAbsoluteDelta = (points: ReadonlyArray<SalaryRangeAuditPoint>) =>
+  [...points].sort(
+    (a, b) =>
+      Math.abs(b.comparison.netPurchasingPowerDeltaAnnualCents) -
+      Math.abs(a.comparison.netPurchasingPowerDeltaAnnualCents),
+  )
+
+const buildFindings = (points: ReadonlyArray<SalaryRangeAuditPoint>): ReadonlyArray<AuditFinding> => {
+  const mostAffected = sortByAbsoluteDelta(points)[0]
+  const biggestBurdenGap = [...points].sort(
+    (a, b) =>
+      Math.abs(b.currentBurdenRate - b.comparedBurdenRate) -
+      Math.abs(a.currentBurdenRate - a.comparedBurdenRate),
+  )[0]
+  const firstCurrentIrpf = points.find((point) => point.comparison.reference.irpfFinalCents > 0)
+  const findings: Array<AuditFinding> = []
+
+  if (mostAffected) {
+    const delta = mostAffected.comparison.netPurchasingPowerDeltaAnnualCents
+    findings.push({
+      title: delta > 0 ? "Mayor pérdida de poder adquisitivo" : "Mayor mejora de poder adquisitivo",
+      description:
+        delta > 0
+          ? "En este salario, la legislación actual deja menos neto real que el año comparado ajustado por IPC."
+          : "En este salario, la legislación actual deja más neto real que el año comparado ajustado por IPC.",
+      salaryGrossAnnualCents: mostAffected.grossAnnualCents,
+      severity: delta > 0 ? "loss" : "gain",
+    })
+  }
+
+  if (biggestBurdenGap) {
+    findings.push({
+      title: "Mayor cambio de carga sobre salario bruto",
+      description: "Aquí se concentra la mayor diferencia de IRPF y cotización del trabajador sobre el salario bruto.",
+      salaryGrossAnnualCents: biggestBurdenGap.grossAnnualCents,
+      severity:
+        biggestBurdenGap.currentBurdenRate > biggestBurdenGap.comparedBurdenRate ? "loss" : "gain",
+    })
+  }
+
+  if (firstCurrentIrpf) {
+    findings.push({
+      title: "Primer salario con IRPF final en 2026",
+      description: "Marca la entrada visible del IRPF final dentro del rango explorado; por debajo siguen existiendo cotizaciones.",
+      salaryGrossAnnualCents: firstCurrentIrpf.grossAnnualCents,
+      severity: "info",
+    })
+  }
+
+  return findings
+}
+
+export const auditSalaryRange = (input: SalaryRangeAuditInput) =>
+  Effect.gen(function* () {
+    const points: Array<SalaryRangeAuditPoint> = []
+    for (
+      let grossAnnualCents = input.minGrossAnnualCents;
+      grossAnnualCents <= input.maxGrossAnnualCents;
+      grossAnnualCents += input.stepCents
+    ) {
+      const comparison = yield* compareInflationAdjusted({
+        referenceGrossAnnualCents: grossAnnualCents,
+        comparedYear: input.comparedYear,
+        referenceYear: input.referenceYear,
+      })
+
+      points.push({
+        grossAnnualCents,
+        comparison,
+        currentBurdenRate: burdenRate(comparison.reference),
+        comparedBurdenRate: burdenRate(comparison.compared.adjusted),
+        currentLaborWedgeRate: laborWedgeRate(comparison.reference),
+        comparedLaborWedgeRate: laborWedgeRate(comparison.compared.adjusted),
+      })
+    }
+
+    return {
+      comparedYear: input.comparedYear,
+      referenceYear: input.referenceYear,
+      minGrossAnnualCents: input.minGrossAnnualCents,
+      maxGrossAnnualCents: input.maxGrossAnnualCents,
+      stepCents: input.stepCents,
+      points,
+      findings: buildFindings(points),
+    } satisfies SalaryRangeAudit
   })

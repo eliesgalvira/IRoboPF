@@ -18,6 +18,7 @@ import {
 import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/button"
+import { SiteNav } from "@/components/site-nav"
 import {
   Accordion,
   AccordionContent,
@@ -136,6 +137,7 @@ export function ProgressivitySimulator() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-5 sm:px-6 lg:px-8">
         <header className="flex flex-col gap-4 border-b border-border pb-5 md:flex-row md:items-start md:justify-between">
           <div className="max-w-4xl">
+            <SiteNav />
             <div className="mb-3 inline-flex items-center gap-2 border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
               <ArrowDownRight className="size-3.5 text-destructive" />
               Comparacion ajustada por IPC
