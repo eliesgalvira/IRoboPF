@@ -6,7 +6,6 @@ import { Dialog } from "@base-ui/react/dialog"
 import { NumberField } from "@base-ui/react/number-field"
 import { Slider } from "@base-ui/react/slider"
 import { Effect } from "effect"
-import { useLocalStorage } from "@uidotdev/usehooks"
 
 import { SiteNav } from "@/components/site-nav"
 import {
@@ -28,13 +27,10 @@ import {
 import { useCountUp } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
-const sliderWarningStorageKey = "irobopf.sliderOverwriteWarningSeen"
-
 function SimulatorImpl() {
   const [salaryCents, setSalaryCents] = React.useState<number>(salaryControlConfig.defaultCents)
   const [comparedYear, setComparedYear] = React.useState<FiscalYear>(2019)
   const [preciseTouched, setPreciseTouched] = React.useState(false)
-  const [sliderWarningSeen, setSliderWarningSeen] = useLocalStorage(sliderWarningStorageKey, false)
   const [pendingSliderCents, setPendingSliderCents] = React.useState<number | null>(null)
   const [overwriteOpen, setOverwriteOpen] = React.useState(false)
   const [costView, setCostView] = React.useState<"gross" | "labor-cost">("gross")
@@ -61,7 +57,7 @@ function SimulatorImpl() {
 
   const applySliderValue = (valueInEuros: number) => {
     const nextCents = eurosToCents(valueInEuros)
-    if (preciseTouched && !sliderWarningSeen) {
+    if (preciseTouched) {
       setPendingSliderCents(nextCents)
       setOverwriteOpen(true)
       return
@@ -71,9 +67,13 @@ function SimulatorImpl() {
 
   const confirmSliderOverwrite = () => {
     if (pendingSliderCents !== null) setSalaryCents(pendingSliderCents)
-    setSliderWarningSeen(true)
     setPendingSliderCents(null)
     setPreciseTouched(false)
+    setOverwriteOpen(false)
+  }
+
+  const cancelSliderOverwrite = () => {
+    setPendingSliderCents(null)
     setOverwriteOpen(false)
   }
 
@@ -86,26 +86,18 @@ function SimulatorImpl() {
   return (
     <main className="min-h-svh">
       <div className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <header className="grid gap-3 border-b-2 border-[var(--rule)] pb-4">
+        <header className="border-b-2 border-[var(--rule)] pb-4">
           <SiteNav />
-          <div className="flex flex-wrap items-baseline justify-between gap-3 pt-2 text-[10px] uppercase tracking-[0.32em] text-[var(--ink-soft)]">
-            <span className="flex items-center gap-2">
-              <span className="size-2 animate-pulse bg-[var(--danger)]" />
-              expediente vivo · cálculo local
-            </span>
-            <span>boletín 26 / 12</span>
-          </div>
         </header>
 
         <section className="mt-8 grid items-end gap-4 border-b-2 border-[var(--rule)] pb-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-10 lg:pb-10">
-          <h1 className="font-[family-name:var(--display)] text-[clamp(3.4rem,12vw,9rem)] leading-[0.86] tracking-[0.01em] text-[var(--ink)]">
-            CALC.
-            <br />
-            IRPF
-            <br />
-            <span className="text-[var(--danger)]">2012</span>
-            <span className="text-[var(--ink-soft)]">/</span>
-            <span>2026</span>
+          <h1 className="font-[family-name:var(--display)] text-[clamp(3rem,11vw,8rem)] leading-[0.86] tracking-[0.01em] text-[var(--ink)]">
+            <span className="block">CALC. IRPF</span>
+            <span className="block">
+              <span className="text-[var(--danger)]">2012</span>
+              <span className="text-[var(--ink-soft)]"> / </span>
+              <span>2026</span>
+            </span>
           </h1>
           <div className="grid gap-3">
             <p className="text-sm leading-6 text-[var(--ink)]">
@@ -121,10 +113,6 @@ function SimulatorImpl() {
               <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
                 <span>Tramo autonómico</span>
                 <span className="text-[var(--ink)]">Estatalizado</span>
-              </li>
-              <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
-                <span>Ejecución</span>
-                <span className="text-[var(--ink)]">100 % local</span>
               </li>
             </ul>
           </div>
@@ -161,11 +149,11 @@ function SimulatorImpl() {
                 <span>EUR</span>
               </label>
               <NumberField.Group className="grid h-16 grid-cols-[3rem_minmax(0,1fr)_3rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
-                <NumberField.Decrement className="border-r-2 border-[var(--rule)] text-2xl outline-none transition hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)]">
+                <NumberField.Decrement className="border-r-2 border-[var(--rule)] text-2xl transition hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none">
                   −
                 </NumberField.Decrement>
-                <NumberField.Input className="min-w-0 bg-transparent px-3 text-center font-[family-name:var(--mono)] text-2xl font-bold tabular-nums outline-none sm:text-3xl" />
-                <NumberField.Increment className="border-l-2 border-[var(--rule)] text-2xl outline-none transition hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)]">
+                <NumberField.Input className="min-w-0 bg-transparent px-3 text-center font-[family-name:var(--mono)] text-2xl font-bold tabular-nums outline-none focus-visible:bg-[var(--mark)]/20 sm:text-3xl" />
+                <NumberField.Increment className="border-l-2 border-[var(--rule)] text-2xl transition hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none">
                   +
                 </NumberField.Increment>
               </NumberField.Group>
@@ -184,10 +172,10 @@ function SimulatorImpl() {
                 <Slider.Value className="font-[family-name:var(--mono)] text-sm font-bold text-[var(--ink)]" />
               </div>
               <Slider.Control className="relative flex h-8 touch-none items-center">
-                <Slider.Track className="h-3 w-full border-2 border-[var(--rule)] bg-[var(--paper)]">
-                  <Slider.Indicator className="h-full bg-[var(--mark)]" />
+                <Slider.Track className="relative h-3 w-full bg-[var(--paper)] [outline:2px_solid_var(--rule)]">
+                  <Slider.Indicator className="bg-[var(--mark)]" />
                 </Slider.Track>
-                <Slider.Thumb className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] outline-none transition focus-visible:bg-[var(--mark)]" />
+                <Slider.Thumb className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none" />
               </Slider.Control>
               <div className="flex justify-between text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
                 <span>{formatIntegerCents(salaryControlConfig.quick.minCents)}</span>
@@ -219,34 +207,33 @@ function SimulatorImpl() {
 
       <Dialog.Root open={overwriteOpen} onOpenChange={setOverwriteOpen}>
         <Dialog.Portal>
-          <Dialog.Backdrop className="fixed inset-0 z-40 bg-black/70" />
-          <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 border-2 border-[var(--rule)] bg-[var(--paper)] p-6">
-            <Dialog.Title className="font-[family-name:var(--display)] text-3xl uppercase tracking-wider">
-              SLIDER VS PRECISO
-            </Dialog.Title>
-            <Dialog.Description className="mt-3 text-sm leading-6 text-[var(--ink-soft)]">
-              El control rápido solo introduce salarios entre 10.000 y 100.000 € en saltos de 1.000 €. Si
-              continúas, se reemplazará el valor del campo numérico.
-            </Dialog.Description>
-            <div className="mt-5 flex justify-end gap-2 text-[11px] uppercase tracking-[0.22em]">
-              <Dialog.Close
-                onClick={() => {
-                  setSliderWarningSeen(true)
-                  setPendingSliderCents(null)
-                }}
-                className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 transition hover:bg-[var(--paper-2)]"
-              >
-                Cancelar
-              </Dialog.Close>
-              <button
-                type="button"
-                onClick={confirmSliderOverwrite}
-                className="border-2 border-[var(--rule)] bg-[var(--rule)] px-4 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)]"
-              >
-                Usar slider
-              </button>
-            </div>
-          </Dialog.Popup>
+          <Dialog.Backdrop className="fixed inset-0 z-40 bg-[oklch(0.1_0_0/0.72)] backdrop-blur-[2px] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 transition-opacity duration-150" />
+          <Dialog.Viewport className="fixed inset-0 z-50 flex items-center justify-center overflow-auto p-4">
+            <Dialog.Popup className="relative w-full max-w-md border-2 border-[var(--rule)] bg-[var(--paper)] p-6 text-[var(--ink)] shadow-[6px_6px_0_0_var(--rule)] outline-none data-[starting-style]:translate-y-2 data-[starting-style]:opacity-0 data-[ending-style]:translate-y-2 data-[ending-style]:opacity-0 transition-[opacity,translate] duration-150">
+              <Dialog.Title className="font-[family-name:var(--display)] text-3xl uppercase tracking-wider">
+                SLIDER VS PRECISO
+              </Dialog.Title>
+              <Dialog.Description className="mt-3 text-sm leading-6 text-[var(--ink-soft)]">
+                El control rápido solo introduce salarios entre 10.000 y 100.000 € en saltos de 1.000 €.
+                Si continúas, se reemplazará el valor del campo numérico.
+              </Dialog.Description>
+              <div className="mt-5 flex flex-wrap justify-end gap-2 text-[11px] uppercase tracking-[0.22em]">
+                <Dialog.Close
+                  onClick={cancelSliderOverwrite}
+                  className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 transition hover:bg-[var(--paper-2)] focus-visible:bg-[var(--paper-2)] focus-visible:outline-none"
+                >
+                  Cancelar
+                </Dialog.Close>
+                <button
+                  type="button"
+                  onClick={confirmSliderOverwrite}
+                  className="border-2 border-[var(--rule)] bg-[var(--rule)] px-4 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none"
+                >
+                  Usar slider
+                </button>
+              </div>
+            </Dialog.Popup>
+          </Dialog.Viewport>
         </Dialog.Portal>
       </Dialog.Root>
     </main>
@@ -266,7 +253,7 @@ function YearGrid({
   readonly onChange: (year: FiscalYear) => void
 }) {
   return (
-    <div role="radiogroup" className="grid grid-cols-7 gap-px bg-[var(--rule)] sm:grid-cols-7">
+    <div role="radiogroup" className="grid grid-cols-7 gap-px bg-[var(--rule)]">
       {COMPARABLE_YEARS.map((year) => {
         const active = year === value
         return (
@@ -277,8 +264,9 @@ function YearGrid({
             aria-checked={active}
             onClick={() => onChange(year)}
             className={cn(
-              "h-12 outline-none transition-all",
+              "h-12 transition-colors",
               "font-[family-name:var(--mono)] text-[11px] font-bold tracking-wider tabular-nums",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:ring-inset",
               active
                 ? "bg-[var(--mark)] text-[var(--mark-ink)]"
                 : "bg-[var(--paper)] text-[var(--ink-soft)] hover:bg-[var(--paper-2)] hover:text-[var(--ink)]",
@@ -307,12 +295,7 @@ function Stamp({
 }) {
   return (
     <section className="grid border-b-2 border-[var(--rule)] lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
-      <div
-        className={cn(
-          "grid gap-3 border-[var(--rule)] py-6 lg:border-r-2 lg:pr-8",
-          loss ? "" : "",
-        )}
-      >
+      <div className="grid gap-3 border-[var(--rule)] py-6 lg:border-r-2 lg:pr-8">
         <span className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em]">
           <span
             className={cn(
@@ -326,7 +309,7 @@ function Stamp({
           </span>
           <span className="text-[var(--ink-soft)]">poder adquisitivo neto · anual</span>
         </span>
-        <div className="font-[family-name:var(--display)] text-[clamp(3.5rem,11vw,8.5rem)] leading-[0.85] tabular-nums text-[var(--ink)]">
+        <div className="font-[family-name:var(--display)] text-[clamp(3rem,10vw,8rem)] leading-[0.85] tabular-nums text-[var(--ink)]">
           {formatCents(delta)}
         </div>
         <p className="text-sm leading-6 text-[var(--ink-soft)]">
@@ -340,7 +323,7 @@ function Stamp({
         <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
           Hoy · 2026
         </span>
-        <p className="font-[family-name:var(--display)] text-5xl leading-none tabular-nums text-[var(--ink)] sm:text-6xl">
+        <p className="font-[family-name:var(--display)] text-[clamp(2.5rem,7vw,4rem)] leading-none tabular-nums text-[var(--ink)]">
           {formatCents(animatedNet)}
         </p>
         <ul className="grid gap-1 text-[11px] uppercase tracking-wider text-[var(--ink-soft)]">
@@ -378,25 +361,35 @@ function Columns({
   return (
     <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="font-[family-name:var(--display)] text-3xl uppercase leading-none tracking-wider sm:text-4xl">
+        <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] uppercase leading-none tracking-wider">
           PARALELO 2 COLUMNAS
         </h2>
-        <div className="inline-flex divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-[11px] uppercase tracking-[0.22em]">
-          {(["gross", "labor-cost"] as const).map((m) => (
-            <button
-              key={m}
-              type="button"
-              onClick={() => setMode(m)}
-              className={cn(
-                "px-3 py-2 transition",
-                mode === m
-                  ? "bg-[var(--rule)] text-[var(--paper)]"
-                  : "bg-[var(--paper)] hover:bg-[var(--mark)]",
-              )}
-            >
-              {m === "gross" ? "Bruto" : "Coste"}
-            </button>
-          ))}
+        <div
+          role="tablist"
+          aria-label="Base de la comparación"
+          className="inline-flex divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-[11px] uppercase tracking-[0.22em]"
+        >
+          {(["gross", "labor-cost"] as const).map((m) => {
+            const active = mode === m
+            return (
+              <button
+                key={m}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                onClick={() => setMode(m)}
+                className={cn(
+                  "px-3 py-2 transition-colors",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:ring-inset",
+                  active
+                    ? "bg-[var(--rule)] text-[var(--paper)] hover:bg-[var(--rule)]"
+                    : "bg-[var(--paper)] hover:bg-[var(--mark)]",
+                )}
+              >
+                {m === "gross" ? "Bruto" : "Coste"}
+              </button>
+            )
+          })}
         </div>
       </div>
       <div className="mt-4 grid gap-px bg-[var(--rule)] lg:grid-cols-2">
@@ -454,13 +447,13 @@ function Column({
   return (
     <article
       className={cn(
-        "grid gap-4 bg-[var(--paper)] p-5 sm:p-6",
+        "grid gap-4 bg-[var(--paper)] p-4 sm:p-6",
         variant === "current" && "bg-[color-mix(in_oklab,var(--paper),var(--mark)_18%)]",
       )}
     >
-      <header className="flex items-baseline justify-between">
+      <header className="flex items-baseline justify-between gap-2">
         <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">{eyebrow}</p>
-        <p className="font-[family-name:var(--display)] text-5xl leading-none tracking-wider text-[var(--ink)]">
+        <p className="font-[family-name:var(--display)] text-[clamp(2rem,6vw,3rem)] leading-none tracking-wider text-[var(--ink)]">
           {title}
         </p>
       </header>
@@ -474,13 +467,13 @@ function Column({
         />
         <Row label="IRPF FINAL" value={`−${formatCents(breakdown.irpfFinalCents)}`} danger />
         <Row label="CARGA / BRUTO" value={percent.format(burden)} />
-        <Row label="CUNA LABORAL" value={percent.format(wedge)} />
+        <Row label="CUÑA LABORAL" value={percent.format(wedge)} />
       </ul>
-      <footer className="mt-2 flex items-baseline justify-between border-t-2 border-[var(--rule)] pt-3">
-        <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
+      <footer className="mt-2 flex items-baseline justify-between gap-3 border-t-2 border-[var(--rule)] pt-3">
+        <span className="shrink-0 text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
           Salario neto anual
         </span>
-        <span className="font-[family-name:var(--display)] text-3xl tracking-wider tabular-nums text-[var(--ink)] sm:text-4xl">
+        <span className="font-[family-name:var(--display)] text-[clamp(1.5rem,4.5vw,2.25rem)] tracking-wider tabular-nums text-[var(--ink)]">
           {formatCents(breakdown.salaryNetAnnualCents)}
         </span>
       </footer>
@@ -498,7 +491,7 @@ function Row({
   readonly danger?: boolean
 }) {
   return (
-    <li className="flex items-baseline justify-between border-b border-dashed border-[var(--rule)]/30 py-2 last:border-b-0">
+    <li className="flex items-baseline justify-between gap-3 border-b border-dashed border-[var(--rule)]/30 py-2 last:border-b-0">
       <span
         className={cn(
           "text-[11px] uppercase tracking-wider",
@@ -555,13 +548,13 @@ function Steps({ comparison }: { readonly comparison: InflationAdjustedCompariso
   ] as const
   return (
     <section className="border-b-2 border-[var(--rule)] py-6">
-      <h2 className="font-[family-name:var(--display)] text-3xl uppercase leading-none tracking-wider sm:text-4xl">
+      <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] uppercase leading-none tracking-wider">
         PROCEDIMIENTO · 6 PASOS
       </h2>
       <ol className="mt-5 grid gap-px bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-3">
         {steps.map((s) => (
-          <li key={s.n} className="grid gap-2 bg-[var(--paper)] p-5">
-            <span className="font-[family-name:var(--display)] text-5xl leading-none text-[var(--ink-soft)]">
+          <li key={s.n} className="grid gap-2 bg-[var(--paper)] p-4 sm:p-5">
+            <span className="font-[family-name:var(--display)] text-[clamp(2.5rem,6vw,3rem)] leading-none text-[var(--ink-soft)]">
               {s.n}
             </span>
             <h3 className="text-[11px] uppercase tracking-[0.22em] text-[var(--ink)]">

@@ -38,6 +38,11 @@ import {
 } from "@/lib/export/audit-excel"
 import { cn } from "@/lib/utils"
 
+function formatShortSalary(cents: number): string {
+  const thousand = Math.round(cents / 100_000)
+  return `${thousand}k`
+}
+
 function AuditImpl() {
   const [minCents, setMinCents] = React.useState<number>(auditRangeConfig.defaultMinCents)
   const [maxCents, setMaxCents] = React.useState<number>(auditRangeConfig.defaultMaxCents)
@@ -73,24 +78,16 @@ function AuditImpl() {
   return (
     <main className="min-h-svh">
       <div className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <header className="grid gap-3 border-b-2 border-[var(--rule)] pb-4">
+        <header className="border-b-2 border-[var(--rule)] pb-4">
           <SiteNav />
-          <div className="flex flex-wrap items-baseline justify-between gap-3 pt-2 text-[10px] uppercase tracking-[0.32em] text-[var(--ink-soft)]">
-            <span className="flex items-center gap-2">
-              <span className="size-2 animate-pulse bg-[var(--danger)]" />
-              auditoría · barrido salarial · {audit.points.length} puntos
-            </span>
-            <span>oracle legacy 2012 — 2026</span>
-          </div>
         </header>
 
-        <section className="mt-8 grid items-end gap-4 border-b-2 border-[var(--rule)] pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-10 lg:pb-10">
-          <h1 className="font-[family-name:var(--display)] text-[clamp(2.6rem,8vw,5.6rem)] leading-[0.9] tracking-wider text-[var(--ink)]">
-            AUDITORÍA
-            <br />
-            POR RANGO
-            <br />
-            <span className="text-[var(--ink-soft)]">SALARIAL</span>
+        <section className="mt-8 grid items-end gap-4 border-b-2 border-[var(--rule)] pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-10 lg:pb-10">
+          <h1 className="font-[family-name:var(--display)] text-[clamp(2.5rem,8vw,5.5rem)] leading-[0.9] tracking-wider text-[var(--ink)]">
+            <span className="block">AUDITORÍA POR</span>
+            <span className="block">
+              RANGO <span className="text-[var(--ink-soft)]">SALARIAL</span>
+            </span>
           </h1>
           <div className="grid gap-3 self-start">
             <p className="text-sm leading-6 text-[var(--ink)]">
@@ -103,7 +100,7 @@ function AuditImpl() {
                 type="button"
                 onClick={() => onExport("educational")}
                 disabled={exporting !== null}
-                className="border-2 border-[var(--rule)] bg-[var(--paper)] px-3 py-2 transition hover:bg-[var(--mark)] disabled:opacity-40"
+                className="border-2 border-[var(--rule)] bg-[var(--paper)] px-3 py-2 transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none disabled:opacity-40"
               >
                 ↓ XLSX educativo
               </button>
@@ -111,7 +108,7 @@ function AuditImpl() {
                 type="button"
                 onClick={() => onExport("compatible")}
                 disabled={exporting !== null}
-                className="border-2 border-[var(--rule)] bg-[var(--rule)] px-3 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] disabled:opacity-40"
+                className="border-2 border-[var(--rule)] bg-[var(--rule)] px-3 py-2 text-[var(--paper)] transition-colors hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none disabled:opacity-40"
               >
                 ↓ XLSX compatible
               </button>
@@ -182,11 +179,19 @@ function FilterBar({
             className="grid gap-2"
           >
             <Slider.Control className="relative flex h-8 touch-none items-center">
-              <Slider.Track className="h-3 w-full border-2 border-[var(--rule)] bg-[var(--paper)]">
-                <Slider.Indicator className="h-full bg-[var(--mark)]" />
+              <Slider.Track className="relative h-3 w-full bg-[var(--paper)] [outline:2px_solid_var(--rule)]">
+                <Slider.Indicator className="bg-[var(--mark)]" />
               </Slider.Track>
-              <Slider.Thumb className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] outline-none focus-visible:bg-[var(--mark)]" />
-              <Slider.Thumb className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] outline-none focus-visible:bg-[var(--mark)]" />
+              <Slider.Thumb
+                index={0}
+                aria-label="Salario mínimo"
+                className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none"
+              />
+              <Slider.Thumb
+                index={1}
+                aria-label="Salario máximo"
+                className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none"
+              />
             </Slider.Control>
             <div className="flex justify-between text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
               <span>{formatIntegerCents(auditRangeConfig.minCents)}</span>
@@ -209,10 +214,11 @@ function FilterBar({
                   aria-checked={active}
                   onClick={() => setComparedYear(y)}
                   className={cn(
-                    "h-12 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums outline-none transition",
+                    "h-12 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums transition-colors",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:ring-inset",
                     active
                       ? "bg-[var(--mark)] text-[var(--mark-ink)]"
-                      : "bg-[var(--paper)] text-[var(--ink-soft)] hover:bg-[var(--paper-2)]",
+                      : "bg-[var(--paper)] text-[var(--ink-soft)] hover:bg-[var(--paper-2)] hover:text-[var(--ink)]",
                   )}
                 >
                   {y}
@@ -248,11 +254,11 @@ function MoneyField({
     >
       <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">{label}</span>
       <NumberField.Group className="grid h-12 grid-cols-[2.25rem_minmax(0,1fr)_2.25rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
-        <NumberField.Decrement className="border-r-2 border-[var(--rule)] hover:bg-[var(--mark)]">
+        <NumberField.Decrement className="border-r-2 border-[var(--rule)] transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none">
           −
         </NumberField.Decrement>
-        <NumberField.Input className="min-w-0 bg-transparent px-2 text-center font-[family-name:var(--mono)] text-base font-bold tabular-nums outline-none" />
-        <NumberField.Increment className="border-l-2 border-[var(--rule)] hover:bg-[var(--mark)]">
+        <NumberField.Input className="min-w-0 bg-transparent px-2 text-center font-[family-name:var(--mono)] text-base font-bold tabular-nums outline-none focus-visible:bg-[var(--mark)]/20" />
+        <NumberField.Increment className="border-l-2 border-[var(--rule)] transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none">
           +
         </NumberField.Increment>
       </NumberField.Group>
@@ -276,21 +282,21 @@ function LeadFinding({
   return (
     <section className="grid border-b-2 border-[var(--rule)]">
       <div
-        className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 border-l-[10px] py-7 pl-5 sm:gap-6"
+        className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 border-l-[10px] py-6 pl-4 sm:gap-6 sm:pl-5"
         style={{ borderLeftColor: tone }}
       >
         <span
-          className="px-3 py-1 font-[family-name:var(--mono)] text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--paper)]"
+          className="px-2 py-1 font-[family-name:var(--mono)] text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--paper)] sm:px-3"
           style={{ background: tone }}
         >
           HALLAZGO 01
         </span>
-        <h2 className="font-[family-name:var(--display)] text-2xl uppercase leading-tight tracking-wider sm:text-3xl">
+        <h2 className="font-[family-name:var(--display)] text-xl uppercase leading-tight tracking-wider sm:text-3xl">
           {finding.title}
         </h2>
       </div>
-      <div className="grid gap-4 pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-end lg:gap-10">
-        <p className="font-[family-name:var(--display)] text-[clamp(3rem,9vw,6.5rem)] leading-[0.86] tabular-nums text-[var(--ink)]">
+      <div className="grid gap-3 pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-end lg:gap-10">
+        <p className="font-[family-name:var(--display)] text-[clamp(2.5rem,8vw,6rem)] leading-[0.86] tabular-nums text-[var(--ink)]">
           {formatIntegerCents(finding.salaryGrossAnnualCents)}
         </p>
         <p className="text-sm leading-6 text-[var(--ink-soft)]">
@@ -324,7 +330,7 @@ function SecondaryFindings({
           return (
             <li
               key={`${f.title}-${f.salaryGrossAnnualCents}`}
-              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 bg-[var(--paper)] px-4 py-4 sm:gap-6 sm:px-6"
+              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 bg-[var(--paper)] px-3 py-4 sm:gap-6 sm:px-6"
             >
               <span
                 className="px-2 py-0.5 font-[family-name:var(--mono)] text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--paper)]"
@@ -338,7 +344,7 @@ function SecondaryFindings({
                 </h3>
                 <p className="mt-1 text-xs leading-5 text-[var(--ink-soft)]">{f.description}</p>
               </div>
-              <span className="font-[family-name:var(--display)] text-2xl tabular-nums sm:text-3xl">
+              <span className="font-[family-name:var(--display)] text-xl tabular-nums sm:text-3xl">
                 {formatIntegerCents(f.salaryGrossAnnualCents)}
               </span>
             </li>
@@ -361,18 +367,27 @@ const lineChartConfig = {
 function chartRows(points: ReadonlyArray<SalaryRangeAuditPoint>) {
   return points.map((p) => ({
     salary: formatIntegerCents(p.grossAnnualCents),
+    salaryShort: formatShortSalary(p.grossAnnualCents),
     delta: centsToEuros(p.comparison.netPurchasingPowerDeltaAnnualCents),
     comparedNet: centsToEuros(p.comparison.compared.adjusted.salaryNetAnnualCents),
     referenceNet: centsToEuros(p.comparison.reference.salaryNetAnnualCents),
   }))
 }
 
+const tabButtonClass = cn(
+  "px-3 py-2 transition-colors",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:ring-inset",
+  "bg-[var(--paper)] text-[var(--ink)]",
+  "not-data-[active]:hover:bg-[var(--mark)]",
+  "data-[active]:bg-[var(--rule)] data-[active]:text-[var(--paper)]",
+)
+
 function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
   const data = React.useMemo(() => chartRows(audit.points), [audit.points])
   return (
     <section className="border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="font-[family-name:var(--display)] text-3xl uppercase leading-none tracking-wider sm:text-4xl">
+        <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] uppercase leading-none tracking-wider">
           DATA · 1 PANEL
         </h2>
         <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
@@ -380,26 +395,46 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
         </p>
       </div>
       <Tabs.Root defaultValue="bars" className="mt-5 grid gap-4">
-        <Tabs.List className="inline-flex divide-x-2 divide-[var(--rule)] self-start border-2 border-[var(--rule)] text-[11px] uppercase tracking-[0.22em]">
+        <Tabs.List className="inline-flex self-start divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-[11px] uppercase tracking-[0.22em]">
           {(["bars", "lines", "table"] as const).map((v) => (
-            <Tabs.Tab
-              key={v}
-              value={v}
-              className="bg-[var(--paper)] px-3 py-2 outline-none transition hover:bg-[var(--mark)] data-active:bg-[var(--rule)] data-active:text-[var(--paper)]"
-            >
+            <Tabs.Tab key={v} value={v} className={tabButtonClass}>
               {v === "bars" ? "BARRAS" : v === "lines" ? "LÍNEAS" : "TABLA"}
             </Tabs.Tab>
           ))}
         </Tabs.List>
-        <Tabs.Panel value="bars" className="border-2 border-[var(--rule)] bg-[var(--paper)] p-4 sm:p-5">
+        <Tabs.Panel value="bars" className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5">
           <p className="text-xs leading-5 text-[var(--ink-soft)]">
             DELTA ANUAL POR SALARIO. POSITIVO = AÑO COMPARADO MEJOR QUE 2026.
           </p>
-          <ChartContainer config={barChartConfig} className="mt-3 h-[clamp(18rem,42vw,24rem)] w-full">
-            <BarChart accessibilityLayer data={data} margin={{ left: 12, right: 12 }}>
+          <ChartContainer
+            config={barChartConfig}
+            className="mt-3 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
+          >
+            <BarChart
+              accessibilityLayer
+              data={data}
+              margin={{ left: 4, right: 4, top: 4, bottom: 4 }}
+            >
               <CartesianGrid vertical={false} stroke="var(--rule)" strokeDasharray="2 4" />
-              <XAxis dataKey="salary" tickLine={false} axisLine={{ stroke: "var(--rule)" }} tickMargin={8} interval="preserveStartEnd" />
-              <YAxis tickLine={false} axisLine={{ stroke: "var(--rule)" }} tickMargin={8} width={72} />
+              <XAxis
+                dataKey="salaryShort"
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={6}
+                interval="preserveStartEnd"
+                minTickGap={12}
+                fontSize={10}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={4}
+                width={44}
+                fontSize={10}
+                tickFormatter={(value: number) =>
+                  Math.abs(value) >= 1000 ? `${Math.round(value / 1000)}k` : String(value)
+                }
+              />
               <ChartTooltip
                 cursor={{ fill: "var(--mark)", opacity: 0.4 }}
                 content={
@@ -413,15 +448,39 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
             </BarChart>
           </ChartContainer>
         </Tabs.Panel>
-        <Tabs.Panel value="lines" className="border-2 border-[var(--rule)] bg-[var(--paper)] p-4 sm:p-5">
+        <Tabs.Panel value="lines" className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5">
           <p className="text-xs leading-5 text-[var(--ink-soft)]">
             NETO REAL · {audit.comparedYear} (REEXPRESADO) FRENTE A 2026.
           </p>
-          <ChartContainer config={lineChartConfig} className="mt-3 h-[clamp(18rem,42vw,24rem)] w-full">
-            <LineChart accessibilityLayer data={data} margin={{ left: 12, right: 12 }}>
+          <ChartContainer
+            config={lineChartConfig}
+            className="mt-3 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
+          >
+            <LineChart
+              accessibilityLayer
+              data={data}
+              margin={{ left: 4, right: 4, top: 4, bottom: 4 }}
+            >
               <CartesianGrid vertical={false} stroke="var(--rule)" strokeDasharray="2 4" />
-              <XAxis dataKey="salary" tickLine={false} axisLine={{ stroke: "var(--rule)" }} tickMargin={8} interval="preserveStartEnd" />
-              <YAxis tickLine={false} axisLine={{ stroke: "var(--rule)" }} tickMargin={8} width={72} />
+              <XAxis
+                dataKey="salaryShort"
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={6}
+                interval="preserveStartEnd"
+                minTickGap={12}
+                fontSize={10}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={4}
+                width={44}
+                fontSize={10}
+                tickFormatter={(value: number) =>
+                  Math.abs(value) >= 1000 ? `${Math.round(value / 1000)}k` : String(value)
+                }
+              />
               <ChartTooltip
                 cursor={false}
                 content={
@@ -438,27 +497,27 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
         </Tabs.Panel>
         <Tabs.Panel value="table" className="border-2 border-[var(--rule)] bg-[var(--paper)]">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[44rem] font-[family-name:var(--mono)] text-xs tabular-nums">
+            <table className="w-full font-[family-name:var(--mono)] text-xs tabular-nums">
               <thead className="border-b-2 border-[var(--rule)] text-left text-[10px] uppercase tracking-[0.22em] text-[var(--ink-soft)]">
                 <tr>
-                  <th className="px-3 py-3 font-bold">SALARIO 2026</th>
-                  <th className="px-3 py-3 font-bold">BRUTO NOM.</th>
-                  <th className="px-3 py-3 font-bold">NETO COMPARADO</th>
-                  <th className="px-3 py-3 font-bold">NETO 2026</th>
-                  <th className="px-3 py-3 font-bold">Δ ANUAL</th>
-                  <th className="px-3 py-3 font-bold">CARGA</th>
+                  <th className="px-2 py-3 font-bold sm:px-3">BRUTO</th>
+                  <th className="hidden px-2 py-3 font-bold sm:table-cell sm:px-3">NOM.</th>
+                  <th className="hidden px-2 py-3 font-bold md:table-cell md:px-3">NETO COMP.</th>
+                  <th className="px-2 py-3 font-bold sm:px-3">NETO 2026</th>
+                  <th className="px-2 py-3 font-bold sm:px-3">Δ ANUAL</th>
+                  <th className="hidden px-2 py-3 font-bold md:table-cell md:px-3">CARGA</th>
                 </tr>
               </thead>
               <tbody>
                 {audit.points.map((p) => (
                   <tr key={p.grossAnnualCents} className="border-b border-dashed border-[var(--rule)]/30">
-                    <td className="px-3 py-2.5">{formatIntegerCents(p.grossAnnualCents)}</td>
-                    <td className="px-3 py-2.5">{formatCents(p.comparison.compared.nominalGrossAnnualCents)}</td>
-                    <td className="px-3 py-2.5">{formatCents(p.comparison.compared.adjusted.salaryNetAnnualCents)}</td>
-                    <td className="px-3 py-2.5">{formatCents(p.comparison.reference.salaryNetAnnualCents)}</td>
+                    <td className="px-2 py-2.5 sm:px-3">{formatIntegerCents(p.grossAnnualCents)}</td>
+                    <td className="hidden px-2 py-2.5 sm:table-cell sm:px-3">{formatCents(p.comparison.compared.nominalGrossAnnualCents)}</td>
+                    <td className="hidden px-2 py-2.5 md:table-cell md:px-3">{formatCents(p.comparison.compared.adjusted.salaryNetAnnualCents)}</td>
+                    <td className="px-2 py-2.5 sm:px-3">{formatCents(p.comparison.reference.salaryNetAnnualCents)}</td>
                     <td
                       className={cn(
-                        "px-3 py-2.5 font-bold",
+                        "px-2 py-2.5 font-bold sm:px-3",
                         p.comparison.netPurchasingPowerDeltaAnnualCents > 0
                           ? "text-[var(--danger)]"
                           : "text-[var(--gain)]",
@@ -466,7 +525,7 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
                     >
                       {formatCents(p.comparison.netPurchasingPowerDeltaAnnualCents)}
                     </td>
-                    <td className="px-3 py-2.5">{percent.format(p.currentBurdenRate)}</td>
+                    <td className="hidden px-2 py-2.5 md:table-cell md:px-3">{percent.format(p.currentBurdenRate)}</td>
                   </tr>
                 ))}
               </tbody>
