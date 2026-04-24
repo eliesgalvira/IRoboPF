@@ -180,13 +180,13 @@ export function ProgressivitySimulator() {
           <Tabs.List className="inline-grid w-full grid-cols-2 border border-border bg-muted p-1 sm:w-fit">
             <Tabs.Tab
               value="gross"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground outline-none data-selected:bg-background data-selected:text-foreground data-selected:shadow-sm focus-visible:ring-1 focus-visible:ring-ring/50"
+              className="px-4 py-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-background/70 hover:text-foreground data-active:bg-background data-active:text-foreground data-active:shadow-sm focus-visible:ring-1 focus-visible:ring-ring/50"
             >
               Salario bruto
             </Tabs.Tab>
             <Tabs.Tab
               value="labor-cost"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground outline-none data-selected:bg-background data-selected:text-foreground data-selected:shadow-sm focus-visible:ring-1 focus-visible:ring-ring/50"
+              className="px-4 py-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-background/70 hover:text-foreground data-active:bg-background data-active:text-foreground data-active:shadow-sm focus-visible:ring-1 focus-visible:ring-ring/50"
             >
               Coste laboral
             </Tabs.Tab>
