@@ -13,8 +13,23 @@ import {
   TrendingDown,
   TrendingUp,
 } from "lucide-react"
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  XAxis,
+  YAxis,
+} from "recharts"
 
 import { Button } from "@/components/ui/button"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart"
 import {
   Accordion,
   AccordionContent,
@@ -353,12 +368,18 @@ function Findings({ findings }: { readonly findings: ReadonlyArray<AuditFinding>
 function AuditVisuals({ audit }: { readonly audit: SalaryRangeAudit }) {
   return (
     <Tabs.Root defaultValue="chart" className="grid gap-4">
-      <Tabs.List className="inline-grid w-full grid-cols-2 border border-border bg-muted p-1 sm:w-fit">
+      <Tabs.List className="inline-grid w-full grid-cols-3 border border-border bg-muted p-1 sm:w-fit">
         <Tabs.Tab
           value="chart"
           className="px-4 py-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-background/70 hover:text-foreground data-active:bg-background data-active:text-foreground data-active:shadow-sm"
         >
-          Visualización
+          Barras
+        </Tabs.Tab>
+        <Tabs.Tab
+          value="lines"
+          className="px-4 py-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-background/70 hover:text-foreground data-active:bg-background data-active:text-foreground data-active:shadow-sm"
+        >
+          Líneas
         </Tabs.Tab>
         <Tabs.Tab
           value="table"
@@ -368,7 +389,10 @@ function AuditVisuals({ audit }: { readonly audit: SalaryRangeAudit }) {
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="chart">
-        <DeltaChart points={audit.points} />
+        <DeltaBarChart points={audit.points} />
+      </Tabs.Panel>
+      <Tabs.Panel value="lines">
+        <NetLineChart audit={audit} />
       </Tabs.Panel>
       <Tabs.Panel value="table">
         <AuditTable points={audit.points} />
@@ -377,38 +401,111 @@ function AuditVisuals({ audit }: { readonly audit: SalaryRangeAudit }) {
   )
 }
 
-function DeltaChart({ points }: { readonly points: ReadonlyArray<SalaryRangeAuditPoint> }) {
-  const maxAbs = Math.max(
-    1,
-    ...points.map((point) => Math.abs(point.comparison.netPurchasingPowerDeltaAnnualCents)),
-  )
+const barChartConfig = {
+  delta: {
+    label: "Diferencia anual",
+    color: "var(--primary)",
+  },
+} satisfies ChartConfig
 
+function chartRows(points: ReadonlyArray<SalaryRangeAuditPoint>) {
+  return points.map((point) => ({
+    salary: formatIntegerCents(point.grossAnnualCents),
+    salaryValue: centsToEuros(point.grossAnnualCents),
+    delta: centsToEuros(point.comparison.netPurchasingPowerDeltaAnnualCents),
+    comparedNet: centsToEuros(point.comparison.compared.adjusted.salaryNetAnnualCents),
+    referenceNet: centsToEuros(point.comparison.reference.salaryNetAnnualCents),
+  }))
+}
+
+function DeltaBarChart({ points }: { readonly points: ReadonlyArray<SalaryRangeAuditPoint> }) {
   return (
     <section className="border border-border bg-card p-5 shadow-sm">
       <h2 className="text-lg font-semibold">Pérdida o ganancia anual por salario</h2>
-      <div className="mt-5 grid gap-3">
-        {points.map((point) => {
-          const delta = point.comparison.netPurchasingPowerDeltaAnnualCents
-          const width = `${Math.max(3, (Math.abs(delta) / maxAbs) * 100)}%`
-          const loss = delta > 0
-          return (
-            <div key={point.grossAnnualCents} className="grid gap-1">
-              <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground">
-                <span>{formatIntegerCents(point.grossAnnualCents)}</span>
-                <span className={loss ? "text-destructive" : "text-emerald-700 dark:text-emerald-300"}>
-                  {formatCents(delta)}
-                </span>
-              </div>
-              <div className="h-3 bg-muted">
-                <div
-                  className={cn("h-full", loss ? "bg-destructive" : "bg-emerald-600")}
-                  style={{ width }}
-                />
-              </div>
-            </div>
-          )
-        })}
-      </div>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Valores positivos significan que el año comparado dejaba más neto real que 2026.
+      </p>
+      <ChartContainer config={barChartConfig} className="mt-5 h-[22rem] w-full">
+        <BarChart accessibilityLayer data={chartRows(points)} margin={{ left: 12, right: 12 }}>
+          <CartesianGrid vertical={false} />
+          <XAxis
+            dataKey="salary"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            interval="preserveStartEnd"
+          />
+          <YAxis tickLine={false} axisLine={false} tickMargin={8} width={72} />
+          <ChartTooltip
+            cursor={false}
+            content={
+              <ChartTooltipContent
+                formatter={(value) => exactMoney.format(Number(value))}
+                labelFormatter={(_, payload) => payload[0]?.payload?.salary ?? ""}
+              />
+            }
+          />
+          <Bar dataKey="delta" fill="var(--color-delta)" radius={0} />
+        </BarChart>
+      </ChartContainer>
+    </section>
+  )
+}
+
+const lineChartConfig = {
+  comparedNet: {
+    label: "Neto año comparado",
+    color: "var(--primary)",
+  },
+  referenceNet: {
+    label: "Neto 2026",
+    color: "var(--destructive)",
+  },
+} satisfies ChartConfig
+
+function NetLineChart({ audit }: { readonly audit: SalaryRangeAudit }) {
+  return (
+    <section className="border border-border bg-card p-5 shadow-sm">
+      <h2 className="text-lg font-semibold">Neto real comparado frente a 2026</h2>
+      <p className="mt-1 text-sm text-muted-foreground">
+        La línea de {audit.comparedYear} muestra el neto de ese año reexpresado en euros de 2026.
+      </p>
+      <ChartContainer config={lineChartConfig} className="mt-5 h-[22rem] w-full">
+        <LineChart accessibilityLayer data={chartRows(audit.points)} margin={{ left: 12, right: 12 }}>
+          <CartesianGrid vertical={false} />
+          <XAxis
+            dataKey="salary"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            interval="preserveStartEnd"
+          />
+          <YAxis tickLine={false} axisLine={false} tickMargin={8} width={72} />
+          <ChartTooltip
+            cursor={false}
+            content={
+              <ChartTooltipContent
+                formatter={(value) => exactMoney.format(Number(value))}
+                labelFormatter={(_, payload) => payload[0]?.payload?.salary ?? ""}
+              />
+            }
+          />
+          <Line
+            dataKey="comparedNet"
+            type="monotone"
+            stroke="var(--color-comparedNet)"
+            strokeWidth={2}
+            dot={false}
+          />
+          <Line
+            dataKey="referenceNet"
+            type="monotone"
+            stroke="var(--color-referenceNet)"
+            strokeWidth={2}
+            dot={false}
+          />
+        </LineChart>
+      </ChartContainer>
     </section>
   )
 }

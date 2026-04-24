@@ -14,7 +14,7 @@ export function SiteNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="flex items-center gap-1 border border-border bg-card p-1">
+    <nav className="inline-flex w-fit items-center gap-1 border border-border bg-card p-1">
       {links.map((link) => {
         const active = pathname === link.href
         return (
