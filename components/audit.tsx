@@ -8,7 +8,7 @@ import { Tabs } from "@base-ui/react/tabs"
 import { Effect } from "effect"
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 
-import { VariantNav } from "@/components/designs/shared/variant-nav"
+import { SiteNav } from "@/components/site-nav"
 import {
   COMPARABLE_YEARS,
   centsToEuros,
@@ -18,7 +18,7 @@ import {
   money,
   percent,
   type FiscalYear,
-} from "@/components/designs/shared/format"
+} from "@/lib/format"
 import {
   ChartContainer,
   ChartTooltip,
@@ -38,7 +38,7 @@ import {
 } from "@/lib/export/audit-excel"
 import { cn } from "@/lib/utils"
 
-function V2AuditImpl() {
+function AuditImpl() {
   const [minCents, setMinCents] = React.useState<number>(auditRangeConfig.defaultMinCents)
   const [maxCents, setMaxCents] = React.useState<number>(auditRangeConfig.defaultMaxCents)
   const [comparedYear, setComparedYear] = React.useState<FiscalYear>(2019)
@@ -73,27 +73,27 @@ function V2AuditImpl() {
   return (
     <main className="min-h-svh">
       <div className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <header className="grid gap-3 border-b-2 border-[var(--v2-rule)] pb-4">
-          <VariantNav variant="v2" tone="civic" />
-          <div className="flex flex-wrap items-baseline justify-between gap-3 pt-2 text-[10px] uppercase tracking-[0.32em] text-[var(--v2-ink-soft)]">
+        <header className="grid gap-3 border-b-2 border-[var(--rule)] pb-4">
+          <SiteNav />
+          <div className="flex flex-wrap items-baseline justify-between gap-3 pt-2 text-[10px] uppercase tracking-[0.32em] text-[var(--ink-soft)]">
             <span className="flex items-center gap-2">
-              <span className="size-2 animate-pulse bg-[var(--v2-danger)]" />
+              <span className="size-2 animate-pulse bg-[var(--danger)]" />
               auditoría · barrido salarial · {audit.points.length} puntos
             </span>
             <span>oracle legacy 2012 — 2026</span>
           </div>
         </header>
 
-        <section className="mt-8 grid items-end gap-4 border-b-2 border-[var(--v2-rule)] pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-10 lg:pb-10">
-          <h1 className="font-[family-name:var(--v2-display)] text-[clamp(2.6rem,8vw,5.6rem)] leading-[0.9] tracking-wider text-[var(--v2-ink)]">
+        <section className="mt-8 grid items-end gap-4 border-b-2 border-[var(--rule)] pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-10 lg:pb-10">
+          <h1 className="font-[family-name:var(--display)] text-[clamp(2.6rem,8vw,5.6rem)] leading-[0.9] tracking-wider text-[var(--ink)]">
             AUDITORÍA
             <br />
             POR RANGO
             <br />
-            <span className="text-[var(--v2-ink-soft)]">SALARIAL</span>
+            <span className="text-[var(--ink-soft)]">SALARIAL</span>
           </h1>
           <div className="grid gap-3 self-start">
-            <p className="text-sm leading-6 text-[var(--v2-ink)]">
+            <p className="text-sm leading-6 text-[var(--ink)]">
               Barrido determinista del rango. La tabla está al final;{" "}
               <strong>los hallazgos van primero</strong>: el salario más afectado, la mayor brecha
               de carga y el primer salario con IRPF en 2026.
@@ -103,7 +103,7 @@ function V2AuditImpl() {
                 type="button"
                 onClick={() => onExport("educational")}
                 disabled={exporting !== null}
-                className="border-2 border-[var(--v2-rule)] bg-[var(--v2-paper)] px-3 py-2 transition hover:bg-[var(--v2-accent)] disabled:opacity-40"
+                className="border-2 border-[var(--rule)] bg-[var(--paper)] px-3 py-2 transition hover:bg-[var(--mark)] disabled:opacity-40"
               >
                 ↓ XLSX educativo
               </button>
@@ -111,7 +111,7 @@ function V2AuditImpl() {
                 type="button"
                 onClick={() => onExport("compatible")}
                 disabled={exporting !== null}
-                className="border-2 border-[var(--v2-rule)] bg-[var(--v2-rule)] px-3 py-2 text-[var(--v2-paper)] transition hover:bg-[var(--v2-accent)] hover:text-[var(--v2-accent-ink)] disabled:opacity-40"
+                className="border-2 border-[var(--rule)] bg-[var(--rule)] px-3 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] disabled:opacity-40"
               >
                 ↓ XLSX compatible
               </button>
@@ -138,9 +138,9 @@ function V2AuditImpl() {
   )
 }
 
-export const V2Audit = dynamic(
-  async () => ({ default: V2AuditImpl }),
-  { ssr: false, loading: () => <div className="min-h-svh bg-[var(--v2-paper)]" /> },
+export const Audit = dynamic(
+  async () => ({ default: AuditImpl }),
+  { ssr: false, loading: () => <div className="min-h-svh bg-[var(--paper)]" /> },
 )
 
 function FilterBar({
@@ -159,8 +159,8 @@ function FilterBar({
   readonly setComparedYear: (year: FiscalYear) => void
 }) {
   return (
-    <section className="grid gap-0 border-b-2 border-[var(--v2-rule)] py-6">
-      <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--v2-ink-soft)]">
+    <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
+      <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--ink-soft)]">
         FILTROS / BARRIDO
       </p>
       <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-8">
@@ -182,23 +182,23 @@ function FilterBar({
             className="grid gap-2"
           >
             <Slider.Control className="relative flex h-8 touch-none items-center">
-              <Slider.Track className="h-3 w-full border-2 border-[var(--v2-rule)] bg-[var(--v2-paper)]">
-                <Slider.Indicator className="h-full bg-[var(--v2-accent)]" />
+              <Slider.Track className="h-3 w-full border-2 border-[var(--rule)] bg-[var(--paper)]">
+                <Slider.Indicator className="h-full bg-[var(--mark)]" />
               </Slider.Track>
-              <Slider.Thumb className="size-6 border-2 border-[var(--v2-rule)] bg-[var(--v2-paper)] outline-none focus-visible:bg-[var(--v2-accent)]" />
-              <Slider.Thumb className="size-6 border-2 border-[var(--v2-rule)] bg-[var(--v2-paper)] outline-none focus-visible:bg-[var(--v2-accent)]" />
+              <Slider.Thumb className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] outline-none focus-visible:bg-[var(--mark)]" />
+              <Slider.Thumb className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] outline-none focus-visible:bg-[var(--mark)]" />
             </Slider.Control>
-            <div className="flex justify-between text-[10px] uppercase tracking-[0.3em] text-[var(--v2-ink-soft)]">
+            <div className="flex justify-between text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
               <span>{formatIntegerCents(auditRangeConfig.minCents)}</span>
               <span>{formatIntegerCents(auditRangeConfig.maxCents)}</span>
             </div>
           </Slider.Root>
         </div>
         <div className="grid gap-2">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--v2-ink-soft)]">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
             AÑO COMPARADO
           </span>
-          <div role="radiogroup" className="grid grid-cols-7 gap-px bg-[var(--v2-rule)]">
+          <div role="radiogroup" className="grid grid-cols-7 gap-px bg-[var(--rule)]">
             {COMPARABLE_YEARS.map((y) => {
               const active = y === comparedYear
               return (
@@ -209,10 +209,10 @@ function FilterBar({
                   aria-checked={active}
                   onClick={() => setComparedYear(y)}
                   className={cn(
-                    "h-12 font-[family-name:var(--v2-mono)] text-[11px] font-bold tabular-nums outline-none transition",
+                    "h-12 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums outline-none transition",
                     active
-                      ? "bg-[var(--v2-accent)] text-[var(--v2-accent-ink)]"
-                      : "bg-[var(--v2-paper)] text-[var(--v2-ink-soft)] hover:bg-[var(--v2-paper-2)]",
+                      ? "bg-[var(--mark)] text-[var(--mark-ink)]"
+                      : "bg-[var(--paper)] text-[var(--ink-soft)] hover:bg-[var(--paper-2)]",
                   )}
                 >
                   {y}
@@ -246,13 +246,13 @@ function MoneyField({
       onValueChange={(v) => v !== null && onChange(eurosToCents(v))}
       className="grid gap-1"
     >
-      <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--v2-ink-soft)]">{label}</span>
-      <NumberField.Group className="grid h-12 grid-cols-[2.25rem_minmax(0,1fr)_2.25rem] border-2 border-[var(--v2-rule)] bg-[var(--v2-paper)]">
-        <NumberField.Decrement className="border-r-2 border-[var(--v2-rule)] hover:bg-[var(--v2-accent)]">
+      <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">{label}</span>
+      <NumberField.Group className="grid h-12 grid-cols-[2.25rem_minmax(0,1fr)_2.25rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
+        <NumberField.Decrement className="border-r-2 border-[var(--rule)] hover:bg-[var(--mark)]">
           −
         </NumberField.Decrement>
-        <NumberField.Input className="min-w-0 bg-transparent px-2 text-center font-[family-name:var(--v2-mono)] text-base font-bold tabular-nums outline-none" />
-        <NumberField.Increment className="border-l-2 border-[var(--v2-rule)] hover:bg-[var(--v2-accent)]">
+        <NumberField.Input className="min-w-0 bg-transparent px-2 text-center font-[family-name:var(--mono)] text-base font-bold tabular-nums outline-none" />
+        <NumberField.Increment className="border-l-2 border-[var(--rule)] hover:bg-[var(--mark)]">
           +
         </NumberField.Increment>
       </NumberField.Group>
@@ -269,33 +269,33 @@ function LeadFinding({
 }) {
   const tone =
     finding.severity === "loss"
-      ? "var(--v2-danger)"
+      ? "var(--danger)"
       : finding.severity === "gain"
-        ? "var(--v2-gain)"
-        : "var(--v2-ink)"
+        ? "var(--gain)"
+        : "var(--ink)"
   return (
-    <section className="grid border-b-2 border-[var(--v2-rule)]">
+    <section className="grid border-b-2 border-[var(--rule)]">
       <div
         className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 border-l-[10px] py-7 pl-5 sm:gap-6"
         style={{ borderLeftColor: tone }}
       >
         <span
-          className="px-3 py-1 font-[family-name:var(--v2-mono)] text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--v2-paper)]"
+          className="px-3 py-1 font-[family-name:var(--mono)] text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--paper)]"
           style={{ background: tone }}
         >
           HALLAZGO 01
         </span>
-        <h2 className="font-[family-name:var(--v2-display)] text-2xl uppercase leading-tight tracking-wider sm:text-3xl">
+        <h2 className="font-[family-name:var(--display)] text-2xl uppercase leading-tight tracking-wider sm:text-3xl">
           {finding.title}
         </h2>
       </div>
       <div className="grid gap-4 pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-end lg:gap-10">
-        <p className="font-[family-name:var(--v2-display)] text-[clamp(3rem,9vw,6.5rem)] leading-[0.86] tabular-nums text-[var(--v2-ink)]">
+        <p className="font-[family-name:var(--display)] text-[clamp(3rem,9vw,6.5rem)] leading-[0.86] tabular-nums text-[var(--ink)]">
           {formatIntegerCents(finding.salaryGrossAnnualCents)}
         </p>
-        <p className="text-sm leading-6 text-[var(--v2-ink-soft)]">
+        <p className="text-sm leading-6 text-[var(--ink-soft)]">
           {finding.description} Punto identificado al comparar contra el año{" "}
-          <span className="text-[var(--v2-ink)]">{comparedYear}</span>.
+          <span className="text-[var(--ink)]">{comparedYear}</span>.
         </p>
       </div>
     </section>
@@ -309,36 +309,36 @@ function SecondaryFindings({
 }) {
   if (findings.length === 0) return null
   return (
-    <section className="border-b-2 border-[var(--v2-rule)] py-6">
-      <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--v2-ink-soft)]">
+    <section className="border-b-2 border-[var(--rule)] py-6">
+      <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
         OTROS HALLAZGOS
       </p>
-      <ul className="mt-3 grid gap-px bg-[var(--v2-rule)]">
+      <ul className="mt-3 grid gap-px bg-[var(--rule)]">
         {findings.map((f, i) => {
           const tone =
             f.severity === "loss"
-              ? "var(--v2-danger)"
+              ? "var(--danger)"
               : f.severity === "gain"
-                ? "var(--v2-gain)"
-                : "var(--v2-ink)"
+                ? "var(--gain)"
+                : "var(--ink)"
           return (
             <li
               key={`${f.title}-${f.salaryGrossAnnualCents}`}
-              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 bg-[var(--v2-paper)] px-4 py-4 sm:gap-6 sm:px-6"
+              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 bg-[var(--paper)] px-4 py-4 sm:gap-6 sm:px-6"
             >
               <span
-                className="px-2 py-0.5 font-[family-name:var(--v2-mono)] text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--v2-paper)]"
+                className="px-2 py-0.5 font-[family-name:var(--mono)] text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--paper)]"
                 style={{ background: tone }}
               >
                 0{i + 2}
               </span>
               <div className="min-w-0">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--v2-ink)]">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--ink)]">
                   {f.title}
                 </h3>
-                <p className="mt-1 text-xs leading-5 text-[var(--v2-ink-soft)]">{f.description}</p>
+                <p className="mt-1 text-xs leading-5 text-[var(--ink-soft)]">{f.description}</p>
               </div>
-              <span className="font-[family-name:var(--v2-display)] text-2xl tabular-nums sm:text-3xl">
+              <span className="font-[family-name:var(--display)] text-2xl tabular-nums sm:text-3xl">
                 {formatIntegerCents(f.salaryGrossAnnualCents)}
               </span>
             </li>
@@ -350,12 +350,12 @@ function SecondaryFindings({
 }
 
 const barChartConfig = {
-  delta: { label: "Diferencia anual", color: "var(--v2-danger)" },
+  delta: { label: "Diferencia anual", color: "var(--danger)" },
 } satisfies ChartConfig
 
 const lineChartConfig = {
-  comparedNet: { label: "Neto año comparado", color: "var(--v2-gain)" },
-  referenceNet: { label: "Neto 2026", color: "var(--v2-danger)" },
+  comparedNet: { label: "Neto año comparado", color: "var(--gain)" },
+  referenceNet: { label: "Neto 2026", color: "var(--danger)" },
 } satisfies ChartConfig
 
 function chartRows(points: ReadonlyArray<SalaryRangeAuditPoint>) {
@@ -370,38 +370,38 @@ function chartRows(points: ReadonlyArray<SalaryRangeAuditPoint>) {
 function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
   const data = React.useMemo(() => chartRows(audit.points), [audit.points])
   return (
-    <section className="border-b-2 border-[var(--v2-rule)] py-6">
+    <section className="border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="font-[family-name:var(--v2-display)] text-3xl uppercase leading-none tracking-wider sm:text-4xl">
+        <h2 className="font-[family-name:var(--display)] text-3xl uppercase leading-none tracking-wider sm:text-4xl">
           DATA · 1 PANEL
         </h2>
-        <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--v2-ink-soft)]">
+        <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--ink-soft)]">
           Tabla al final · gráficos arriba
         </p>
       </div>
       <Tabs.Root defaultValue="bars" className="mt-5 grid gap-4">
-        <Tabs.List className="inline-flex divide-x-2 divide-[var(--v2-rule)] self-start border-2 border-[var(--v2-rule)] text-[11px] uppercase tracking-[0.22em]">
+        <Tabs.List className="inline-flex divide-x-2 divide-[var(--rule)] self-start border-2 border-[var(--rule)] text-[11px] uppercase tracking-[0.22em]">
           {(["bars", "lines", "table"] as const).map((v) => (
             <Tabs.Tab
               key={v}
               value={v}
-              className="bg-[var(--v2-paper)] px-3 py-2 outline-none transition hover:bg-[var(--v2-accent)] data-active:bg-[var(--v2-rule)] data-active:text-[var(--v2-paper)]"
+              className="bg-[var(--paper)] px-3 py-2 outline-none transition hover:bg-[var(--mark)] data-active:bg-[var(--rule)] data-active:text-[var(--paper)]"
             >
               {v === "bars" ? "BARRAS" : v === "lines" ? "LÍNEAS" : "TABLA"}
             </Tabs.Tab>
           ))}
         </Tabs.List>
-        <Tabs.Panel value="bars" className="border-2 border-[var(--v2-rule)] bg-[var(--v2-paper)] p-4 sm:p-5">
-          <p className="text-xs leading-5 text-[var(--v2-ink-soft)]">
+        <Tabs.Panel value="bars" className="border-2 border-[var(--rule)] bg-[var(--paper)] p-4 sm:p-5">
+          <p className="text-xs leading-5 text-[var(--ink-soft)]">
             DELTA ANUAL POR SALARIO. POSITIVO = AÑO COMPARADO MEJOR QUE 2026.
           </p>
           <ChartContainer config={barChartConfig} className="mt-3 h-[clamp(18rem,42vw,24rem)] w-full">
             <BarChart accessibilityLayer data={data} margin={{ left: 12, right: 12 }}>
-              <CartesianGrid vertical={false} stroke="var(--v2-rule)" strokeDasharray="2 4" />
-              <XAxis dataKey="salary" tickLine={false} axisLine={{ stroke: "var(--v2-rule)" }} tickMargin={8} interval="preserveStartEnd" />
-              <YAxis tickLine={false} axisLine={{ stroke: "var(--v2-rule)" }} tickMargin={8} width={72} />
+              <CartesianGrid vertical={false} stroke="var(--rule)" strokeDasharray="2 4" />
+              <XAxis dataKey="salary" tickLine={false} axisLine={{ stroke: "var(--rule)" }} tickMargin={8} interval="preserveStartEnd" />
+              <YAxis tickLine={false} axisLine={{ stroke: "var(--rule)" }} tickMargin={8} width={72} />
               <ChartTooltip
-                cursor={{ fill: "var(--v2-accent)", opacity: 0.4 }}
+                cursor={{ fill: "var(--mark)", opacity: 0.4 }}
                 content={
                   <ChartTooltipContent
                     formatter={(v) => money.format(Number(v))}
@@ -413,15 +413,15 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
             </BarChart>
           </ChartContainer>
         </Tabs.Panel>
-        <Tabs.Panel value="lines" className="border-2 border-[var(--v2-rule)] bg-[var(--v2-paper)] p-4 sm:p-5">
-          <p className="text-xs leading-5 text-[var(--v2-ink-soft)]">
+        <Tabs.Panel value="lines" className="border-2 border-[var(--rule)] bg-[var(--paper)] p-4 sm:p-5">
+          <p className="text-xs leading-5 text-[var(--ink-soft)]">
             NETO REAL · {audit.comparedYear} (REEXPRESADO) FRENTE A 2026.
           </p>
           <ChartContainer config={lineChartConfig} className="mt-3 h-[clamp(18rem,42vw,24rem)] w-full">
             <LineChart accessibilityLayer data={data} margin={{ left: 12, right: 12 }}>
-              <CartesianGrid vertical={false} stroke="var(--v2-rule)" strokeDasharray="2 4" />
-              <XAxis dataKey="salary" tickLine={false} axisLine={{ stroke: "var(--v2-rule)" }} tickMargin={8} interval="preserveStartEnd" />
-              <YAxis tickLine={false} axisLine={{ stroke: "var(--v2-rule)" }} tickMargin={8} width={72} />
+              <CartesianGrid vertical={false} stroke="var(--rule)" strokeDasharray="2 4" />
+              <XAxis dataKey="salary" tickLine={false} axisLine={{ stroke: "var(--rule)" }} tickMargin={8} interval="preserveStartEnd" />
+              <YAxis tickLine={false} axisLine={{ stroke: "var(--rule)" }} tickMargin={8} width={72} />
               <ChartTooltip
                 cursor={false}
                 content={
@@ -436,10 +436,10 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
             </LineChart>
           </ChartContainer>
         </Tabs.Panel>
-        <Tabs.Panel value="table" className="border-2 border-[var(--v2-rule)] bg-[var(--v2-paper)]">
+        <Tabs.Panel value="table" className="border-2 border-[var(--rule)] bg-[var(--paper)]">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[44rem] font-[family-name:var(--v2-mono)] text-xs tabular-nums">
-              <thead className="border-b-2 border-[var(--v2-rule)] text-left text-[10px] uppercase tracking-[0.22em] text-[var(--v2-ink-soft)]">
+            <table className="w-full min-w-[44rem] font-[family-name:var(--mono)] text-xs tabular-nums">
+              <thead className="border-b-2 border-[var(--rule)] text-left text-[10px] uppercase tracking-[0.22em] text-[var(--ink-soft)]">
                 <tr>
                   <th className="px-3 py-3 font-bold">SALARIO 2026</th>
                   <th className="px-3 py-3 font-bold">BRUTO NOM.</th>
@@ -451,7 +451,7 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
               </thead>
               <tbody>
                 {audit.points.map((p) => (
-                  <tr key={p.grossAnnualCents} className="border-b border-dashed border-[var(--v2-rule)]/30">
+                  <tr key={p.grossAnnualCents} className="border-b border-dashed border-[var(--rule)]/30">
                     <td className="px-3 py-2.5">{formatIntegerCents(p.grossAnnualCents)}</td>
                     <td className="px-3 py-2.5">{formatCents(p.comparison.compared.nominalGrossAnnualCents)}</td>
                     <td className="px-3 py-2.5">{formatCents(p.comparison.compared.adjusted.salaryNetAnnualCents)}</td>
@@ -460,8 +460,8 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
                       className={cn(
                         "px-3 py-2.5 font-bold",
                         p.comparison.netPurchasingPowerDeltaAnnualCents > 0
-                          ? "text-[var(--v2-danger)]"
-                          : "text-[var(--v2-gain)]",
+                          ? "text-[var(--danger)]"
+                          : "text-[var(--gain)]",
                       )}
                     >
                       {formatCents(p.comparison.netPurchasingPowerDeltaAnnualCents)}

@@ -1,5 +1,5 @@
-import { DesignPicker } from "@/components/design-picker"
+import { Simulator } from "@/components/simulator"
 
 export default function Page() {
-  return <DesignPicker />
+  return <Simulator />
 }

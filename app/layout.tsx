@@ -1,12 +1,26 @@
 import type { Metadata } from "next"
+import { Anton, JetBrains_Mono } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { cn } from "@/lib/utils"
+
+const display = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--display",
+})
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--mono",
+})
 
 export const metadata: Metadata = {
-  title: "Progresividad en frio - tres lecturas posibles",
+  title: "Progresividad en frío · IRPF",
   description:
-    "Tres rediseños divulgativos sobre salario neto, IRPF e inflación en España.",
+    "Calculadora divulgativa de salario neto, IRPF y poder adquisitivo en España (2012 — 2026).",
 }
 
 export default function RootLayout({
@@ -16,7 +30,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className="antialiased">
+      <body
+        className={cn(display.variable, mono.variable, "site-theme antialiased")}
+        style={{
+          fontFamily: "var(--mono)",
+          background: "var(--paper)",
+          color: "var(--ink)",
+          ["--paper" as string]: "oklch(0.985 0 0)",
+          ["--paper-2" as string]: "oklch(0.96 0 0)",
+          ["--ink" as string]: "oklch(0.10 0 0)",
+          ["--ink-soft" as string]: "oklch(0.30 0 0)",
+          ["--rule" as string]: "oklch(0.10 0 0)",
+          ["--mark" as string]: "oklch(0.93 0.18 95)",
+          ["--mark-ink" as string]: "oklch(0.10 0 0)",
+          ["--danger" as string]: "oklch(0.58 0.22 27)",
+          ["--gain" as string]: "oklch(0.55 0.16 155)",
+        } as React.CSSProperties}
+      >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
