@@ -134,16 +134,18 @@ export function AuditExplorer() {
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="max-w-4xl">
               <SiteNav />
-              <div className="mb-3 mt-5 inline-flex items-center gap-2 border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
-                <BarChart3 className="size-3.5 text-primary" />
-                Auditoría por rango salarial
+              <div className="mt-6">
+                <div className="mb-3 inline-flex items-center gap-2 border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
+                  <BarChart3 className="size-3.5 text-primary" />
+                  Auditoría por rango salarial
+                </div>
+                <h1 className="text-3xl font-semibold sm:text-5xl">Auditoría completa explicada</h1>
+                <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
+                  Explora patrones de progresividad en frío en un rango de salarios. La tabla no es el
+                  producto: los hallazgos, umbrales y diferencias de carga ayudan a leer lo que el
+                  Excel legacy solo enumera fila a fila.
+                </p>
               </div>
-              <h1 className="text-3xl font-semibold sm:text-5xl">Auditoría completa explicada</h1>
-              <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
-                Explora patrones de progresividad en frío en un rango de salarios. La tabla no es el
-                producto: los hallazgos, umbrales y diferencias de carga ayudan a leer lo que el
-                Excel legacy solo enumera fila a fila.
-              </p>
             </div>
             <div className="flex flex-wrap gap-2">
               <Button

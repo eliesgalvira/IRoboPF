@@ -133,18 +133,20 @@ export function ProgressivitySimulator() {
         <header className="flex flex-col gap-4 border-b border-border pb-5 md:flex-row md:items-start md:justify-between">
           <div className="max-w-4xl">
             <SiteNav />
-            <div className="mb-3 mt-5 inline-flex items-center gap-2 border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
-              <ArrowDownRight className="size-3.5 text-destructive" />
-              Comparacion ajustada por IPC
+            <div className="mt-6">
+              <div className="mb-3 inline-flex items-center gap-2 border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
+                <ArrowDownRight className="size-3.5 text-destructive" />
+                Comparación ajustada por IPC
+              </div>
+              <h1 className="text-3xl font-semibold tracking-normal text-foreground sm:text-5xl">
+                Simulador de progresividad en frío
+              </h1>
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
+                Compara qué habría pasado con un salario equivalente si se aplicasen las reglas de
+                otro año frente a 2026. Los importes se muestran en euros de 2026 para que la
+                comparación no mezcle inflación con normativa.
+              </p>
             </div>
-            <h1 className="text-3xl font-semibold tracking-normal text-foreground sm:text-5xl">
-              Simulador de progresividad en frío
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
-              Compara qué habría pasado con un salario equivalente si se aplicasen las reglas de
-              otro año frente a 2026. Los importes se muestran en euros de 2026 para que la
-              comparación no mezcle inflación con normativa.
-            </p>
           </div>
           <ThemeToggle />
         </header>
