@@ -71,6 +71,7 @@ const percent = new Intl.NumberFormat("es-ES", {
 
 const centsToEuros = (cents: number) => cents / 100
 const eurosToCents = (euros: number) => Math.round(euros * 100)
+const sliderWarningStorageKey = "irobopf.sliderOverwriteWarningSeen"
 
 const formatCents = (cents: number) => money.format(centsToEuros(cents))
 const formatIntegerCents = (cents: number) => integerMoney.format(centsToEuros(cents))
@@ -81,8 +82,13 @@ export function ProgressivitySimulator() {
   const [salaryCents, setSalaryCents] = React.useState<number>(salaryControlConfig.defaultCents)
   const [comparedYear, setComparedYear] = React.useState<FiscalYear>(2019)
   const [preciseTouched, setPreciseTouched] = React.useState(false)
+  const [sliderWarningSeen, setSliderWarningSeen] = React.useState(false)
   const [pendingSliderCents, setPendingSliderCents] = React.useState<number | null>(null)
   const [overwriteOpen, setOverwriteOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    setSliderWarningSeen(window.localStorage.getItem(sliderWarningStorageKey) === "true")
+  }, [])
 
   const comparison = React.useMemo(
     () =>
@@ -106,7 +112,7 @@ export function ProgressivitySimulator() {
 
   const applySliderValue = (valueInEuros: number) => {
     const nextCents = eurosToCents(valueInEuros)
-    if (preciseTouched) {
+    if (preciseTouched && !sliderWarningSeen) {
       setPendingSliderCents(nextCents)
       setOverwriteOpen(true)
       return
@@ -118,6 +124,8 @@ export function ProgressivitySimulator() {
     if (pendingSliderCents !== null) {
       setSalaryCents(pendingSliderCents)
     }
+    window.localStorage.setItem(sliderWarningStorageKey, "true")
+    setSliderWarningSeen(true)
     setPendingSliderCents(null)
     setPreciseTouched(false)
     setOverwriteOpen(false)
@@ -215,7 +223,11 @@ export function ProgressivitySimulator() {
             <div className="mt-5 flex justify-end gap-2">
               <Dialog.Close
                 render={<Button type="button" variant="outline" />}
-                onClick={() => setPendingSliderCents(null)}
+                onClick={() => {
+                  window.localStorage.setItem(sliderWarningStorageKey, "true")
+                  setSliderWarningSeen(true)
+                  setPendingSliderCents(null)
+                }}
               >
                 Cancelar
               </Dialog.Close>
