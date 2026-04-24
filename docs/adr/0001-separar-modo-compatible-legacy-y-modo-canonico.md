@@ -1,0 +1,5 @@
+# Separar modo compatible legacy y modo canonico
+
+El motor tendra un **Modo compatible legacy** para replicar la equivalencia tabular del Excel generado por el proyecto Python original y un **Modo canonico** para aplicar reglas del dominio con decimal exacto y redondeo explicito. Esta separacion permite validar la migracion contra el output historico sin convertir artefactos tecnicos heredados, como floats o redondeos implicitos, en la verdad permanente del producto educativo.
+
+El codigo original expresa importes en euros con floats, pero el nuevo dominio distinguira entradas monetarias validadas a centimos, importes monetarios internos con decimal exacto e importes liquidados redondeados en fronteras explicitas. La razon es que el producto puede evolucionar hacia una calculadora exacta de nominas o compararse contra nominas reales al centimo; representar dinero con floats introduce deriva por IEEE754 y hace mas dificil explicar, auditar y garantizar resultados monetarios.
