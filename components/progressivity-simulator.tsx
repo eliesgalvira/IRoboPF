@@ -566,6 +566,21 @@ function ExplanationAccordion({ comparison }: { readonly comparison: InflationAd
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <Button type="button" variant="outline" size="lg" className="w-fit" aria-label="Cambiar tema">
+        <span className="size-4" aria-hidden="true" />
+        Tema
+      </Button>
+    )
+  }
+
   const isDark = resolvedTheme === "dark"
 
   return (
