@@ -329,26 +329,25 @@ function SalaryControl({
 
 function ImpactSummary({ comparison }: { readonly comparison: InflationAdjustedComparison }) {
   const delta = comparison.netPurchasingPowerDeltaAnnualCents
-  const positive = delta >= 0
+  const loss = delta > 0
+  const inflationRate = Number(comparison.inflationFactor) - 1
   return (
     <section
       className={cn(
         "grid gap-4 border p-5 md:grid-cols-[minmax(0,1fr)_18rem]",
-        positive
-          ? "border-emerald-500/30 bg-emerald-500/5"
-          : "border-destructive/30 bg-destructive/5",
+        loss ? "border-destructive/30 bg-destructive/5" : "border-emerald-500/30 bg-emerald-500/5",
       )}
     >
       <div className="flex min-w-0 gap-4">
         <div
           className={cn(
             "flex size-12 shrink-0 items-center justify-center border",
-            positive
-              ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-              : "border-destructive/30 bg-destructive/10 text-destructive",
+            loss
+              ? "border-destructive/30 bg-destructive/10 text-destructive"
+              : "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
           )}
         >
-          {positive ? <ArrowUpRight className="size-6" /> : <ArrowDownRight className="size-6" />}
+          {loss ? <ArrowDownRight className="size-6" /> : <ArrowUpRight className="size-6" />}
         </div>
         <div>
           <h2 className="text-xl font-semibold">Impacto de la progresividad en frío</h2>
@@ -361,19 +360,21 @@ function ImpactSummary({ comparison }: { readonly comparison: InflationAdjustedC
             <strong className="text-foreground">
               {formatCents(comparison.reference.grossAnnualCents)}
             </strong>{" "}
-            en {comparison.referenceYear}. Tras aplicar cada normativa y reexpresar importes a euros
-            de {comparison.referenceYear}, el salario neto real cambia asi:
+            en {comparison.referenceYear} tras una inflación acumulada del{" "}
+            <strong className="text-foreground">{percent.format(inflationRate)}</strong>. Tras
+            aplicar cada normativa y reexpresar importes a euros de {comparison.referenceYear}, el
+            salario neto real {loss ? "ha perdido poder adquisitivo" : "ha ganado poder adquisitivo"}:
           </p>
         </div>
       </div>
       <div className="border border-border bg-card p-4 text-center shadow-sm">
         <div className="text-xs font-medium uppercase text-muted-foreground">
-          {positive ? "Ganancia anual real" : "Perdida anual real"}
+          {loss ? "Pérdida anual de poder adquisitivo" : "Ganancia anual de poder adquisitivo"}
         </div>
         <div
           className={cn(
             "mt-2 text-3xl font-semibold",
-            positive ? "text-emerald-700 dark:text-emerald-300" : "text-destructive",
+            loss ? "text-destructive" : "text-emerald-700 dark:text-emerald-300",
           )}
         >
           {formatCents(Math.abs(delta))}
@@ -511,11 +512,12 @@ function MetricRow({
 
 function ExplanationAccordion({ comparison }: { readonly comparison: InflationAdjustedComparison }) {
   const factor = Number(comparison.inflationFactor)
+  const inflationRate = factor - 1
   const steps = [
     {
       id: "inflation",
       title: "Equivalencia por inflación",
-      body: `El factor IPC acumulado entre ${comparison.comparedYear} y ${comparison.referenceYear} es ${factor.toFixed(4)}. Por eso ${formatCents(comparison.compared.nominalGrossAnnualCents)} nominales de ${comparison.comparedYear} se comparan contra ${formatCents(comparison.reference.grossAnnualCents)} en euros de ${comparison.referenceYear}.`,
+      body: `El factor IPC acumulado entre ${comparison.comparedYear} y ${comparison.referenceYear} es ${factor.toFixed(4)}, equivalente a una inflación acumulada del ${percent.format(inflationRate)}. Por eso ${formatCents(comparison.compared.nominalGrossAnnualCents)} nominales de ${comparison.comparedYear} se comparan contra ${formatCents(comparison.reference.grossAnnualCents)} en euros de ${comparison.referenceYear}.`,
     },
     {
       id: "contributions",
@@ -540,7 +542,7 @@ function ExplanationAccordion({ comparison }: { readonly comparison: InflationAd
     {
       id: "net",
       title: "Salario neto y pérdida o ganancia real",
-      body: `El neto real cambia ${formatCents(comparison.netPurchasingPowerDeltaAnnualCents)} al año, equivalente a ${formatCents(comparison.netPurchasingPowerDeltaMonthlyCents)} al mes en 12 pagas.`,
+      body: `La diferencia de poder adquisitivo frente a ${comparison.referenceYear} es ${formatCents(comparison.netPurchasingPowerDeltaAnnualCents)} al año, equivalente a ${formatCents(comparison.netPurchasingPowerDeltaMonthlyCents)} al mes en 12 pagas. Si el importe es positivo, el año comparado dejaba más neto real que la legislación actual.`,
     },
   ] as const
 
