@@ -13,8 +13,8 @@ const fontSans = Geist({
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 export const metadata: Metadata = {
-  title: "Simulador de progresividad en frio",
-  description: "Auditoria educativa de salario neto, IRPF e inflacion en Espana.",
+  title: "Simulador de progresividad en frío",
+  description: "Auditoría educativa de salario neto, IRPF e inflación en España.",
 }
 
 export default function RootLayout({

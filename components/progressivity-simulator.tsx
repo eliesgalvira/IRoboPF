@@ -133,12 +133,12 @@ export function ProgressivitySimulator() {
               Comparacion ajustada por IPC
             </div>
             <h1 className="text-3xl font-semibold tracking-normal text-foreground sm:text-5xl">
-              Simulador de progresividad en frio
+              Simulador de progresividad en frío
             </h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
-              Compara que habria pasado con un salario equivalente si se aplicasen las reglas de
-              otro ano frente a 2026. Los importes se muestran en euros de 2026 para que la
-              comparacion no mezcle inflacion con normativa.
+              Compara qué habría pasado con un salario equivalente si se aplicasen las reglas de
+              otro año frente a 2026. Los importes se muestran en euros de 2026 para que la
+              comparación no mezcle inflación con normativa.
             </p>
           </div>
           <ThemeToggle />
@@ -158,7 +158,7 @@ export function ProgressivitySimulator() {
           <label className="flex min-w-0 flex-col gap-2 border-t border-border pt-4 md:border-l md:border-t-0 md:pl-5 md:pt-0">
             <span className="flex items-center gap-2 text-sm font-medium text-foreground">
               <CalendarDays className="size-4 text-primary" />
-              Comparar con el ano
+              Comparar con el año
             </span>
             <select
               value={comparedYear}
@@ -207,10 +207,10 @@ export function ProgressivitySimulator() {
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm" />
           <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 border border-border bg-card p-5 shadow-xl">
-            <Dialog.Title className="text-lg font-semibold">El slider sustituira tu valor exacto</Dialog.Title>
+            <Dialog.Title className="text-lg font-semibold">El slider sustituirá tu valor exacto</Dialog.Title>
             <Dialog.Description className="mt-2 text-sm leading-6 text-muted-foreground">
-              El control rapido solo introduce salarios entre 10.000 y 100.000 euros en saltos de
-              1.000 euros. Si continuas, se reemplazara el valor introducido en el campo numerico.
+              El control rápido solo introduce salarios entre 10.000 y 100.000 euros en saltos de
+              1.000 euros. Si continúas, se reemplazará el valor introducido en el campo numérico.
             </Dialog.Description>
             <div className="mt-5 flex justify-end gap-2">
               <Dialog.Close
@@ -297,7 +297,7 @@ function SalaryControl({
         className="grid gap-2"
       >
         <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <Slider.Label>Control rapido al millar</Slider.Label>
+          <Slider.Label>Control rápido al millar</Slider.Label>
           <Slider.Value />
         </div>
         <Slider.Control className="relative flex h-8 touch-none items-center">
@@ -339,7 +339,7 @@ function ImpactSummary({ comparison }: { readonly comparison: InflationAdjustedC
           {positive ? <ArrowUpRight className="size-6" /> : <ArrowDownRight className="size-6" />}
         </div>
         <div>
-          <h2 className="text-xl font-semibold">Impacto de la progresividad en frio</h2>
+          <h2 className="text-xl font-semibold">Impacto de la progresividad en frío</h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
             Un salario nominal de{" "}
             <strong className="text-foreground">
@@ -390,7 +390,7 @@ function ComparisonColumns({
   return (
     <section className="grid gap-4 lg:grid-cols-2">
       <ComparisonCard
-        eyebrow={`Si aplicasemos las leyes de ${comparison.comparedYear}`}
+        eyebrow={`Si aplicásemos las leyes de ${comparison.comparedYear}`}
         title={String(comparison.comparedYear)}
         subtitle={`Datos ajustados a euros de ${comparison.referenceYear}`}
         baseLabel={baseLabel}
@@ -399,9 +399,9 @@ function ComparisonColumns({
         highlightClassName="text-emerald-700 dark:text-emerald-300"
       />
       <ComparisonCard
-        eyebrow="Legislacion actual"
+        eyebrow="Legislación actual"
         title={String(comparison.referenceYear)}
-        subtitle="Ano de referencia"
+        subtitle="Año de referencia"
         baseLabel={baseLabel}
         baseCents={rightBase}
         breakdown={right}
@@ -502,7 +502,7 @@ function ExplanationAccordion({ comparison }: { readonly comparison: InflationAd
   const steps = [
     {
       id: "inflation",
-      title: "Equivalencia por inflacion",
+      title: "Equivalencia por inflación",
       body: `El factor IPC acumulado entre ${comparison.comparedYear} y ${comparison.referenceYear} es ${factor.toFixed(4)}. Por eso ${formatCents(comparison.compared.nominalGrossAnnualCents)} nominales de ${comparison.comparedYear} se comparan contra ${formatCents(comparison.reference.grossAnnualCents)} en euros de ${comparison.referenceYear}.`,
     },
     {
@@ -513,22 +513,22 @@ function ExplanationAccordion({ comparison }: { readonly comparison: InflationAd
     {
       id: "base",
       title: "Reduccion y base del IRPF",
-      body: "El motor aplica gastos fijos, reduccion por rendimientos del trabajo y base imponible antes de calcular cuotas. Este paso es donde aparecen muchas diferencias de umbral entre anos.",
+      body: "El motor aplica gastos fijos, reducción por rendimientos del trabajo y base imponible antes de calcular cuotas. Este paso es donde aparecen muchas diferencias de umbral entre años.",
     },
     {
       id: "brackets",
       title: "Tramos, minimos y deducciones",
-      body: "Una vez calculada la base, se aplican tramos de IRPF, minimo personal y deduccion SMI cuando corresponde. Esta version muestra el impacto agregado y dejara el rastro numerico completo en la siguiente iteracion.",
+      body: "Una vez calculada la base, se aplican tramos de IRPF, mínimo personal y deducción SMI cuando corresponde. Esta versión muestra el impacto agregado y dejará el rastro numérico completo en la siguiente iteración.",
     },
     {
       id: "final-irpf",
-      title: "Limite de retencion e IRPF final",
+      title: "Límite de retención e IRPF final",
       body: `El IRPF final comparable es ${formatCents(comparison.compared.adjusted.irpfFinalCents)} para ${comparison.comparedYear} frente a ${formatCents(comparison.reference.irpfFinalCents)} en ${comparison.referenceYear}.`,
     },
     {
       id: "net",
-      title: "Salario neto y perdida o ganancia real",
-      body: `El neto real cambia ${formatCents(comparison.netPurchasingPowerDeltaAnnualCents)} al ano, equivalente a ${formatCents(comparison.netPurchasingPowerDeltaMonthlyCents)} al mes en 12 pagas.`,
+      title: "Salario neto y pérdida o ganancia real",
+      body: `El neto real cambia ${formatCents(comparison.netPurchasingPowerDeltaAnnualCents)} al año, equivalente a ${formatCents(comparison.netPurchasingPowerDeltaMonthlyCents)} al mes en 12 pagas.`,
     },
   ] as const
 
@@ -536,7 +536,7 @@ function ExplanationAccordion({ comparison }: { readonly comparison: InflationAd
     <section className="border border-border bg-card p-5 shadow-sm">
       <div className="mb-3 flex items-center gap-2">
         <BriefcaseBusiness className="size-4 text-primary" />
-        <h2 className="text-lg font-semibold">Detalle del calculo</h2>
+        <h2 className="text-lg font-semibold">Detalle del cálculo</h2>
       </div>
       <Accordion defaultValue={["inflation"]} multiple>
         {steps.map((step) => (
