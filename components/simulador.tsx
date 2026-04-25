@@ -101,7 +101,7 @@ function SimuladorImpl() {
         </header>
 
         <section className="mt-8 grid items-end gap-4 border-b-2 border-[var(--rule)] pb-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-10 lg:pb-10">
-          <h1 className="font-[family-name:var(--display)] text-[clamp(3rem,11vw,8rem)] leading-[0.86] tracking-[0.01em] text-[var(--ink)]">
+          <h1 className="font-[family-name:var(--display)] text-[clamp(3rem,11vw,8rem)] leading-[0.92] tracking-[0.01em] text-[var(--ink)]">
             <span className="block">CALC. IRPF</span>
             <span className="block">
               <span className="text-[var(--danger)]">2012</span>
@@ -111,10 +111,10 @@ function SimuladorImpl() {
           </h1>
           <div className="grid gap-3">
             <p className="text-sm leading-6 text-[var(--ink)]">
-              Cálculo determinista de <strong>SALARIO NETO</strong>,{" "}
-              <strong>IRPF</strong> y <strong>COTIZACIONES</strong> sobre el
-              caso fiscal simplificado del oracle legacy. Comparación ajustada
-              por IPC contra 2026.
+              Elige un salario bruto anual y un año pasado. La página calcula
+              el <strong>SALARIO NETO</strong>, el <strong>IRPF</strong> y las{" "}
+              <strong>COTIZACIONES</strong>, corrige la inflación y compara ese
+              resultado con las reglas de 2026.
             </p>
             <ul className="grid gap-1 text-[11px] tracking-wider text-[var(--ink-soft)] uppercase">
               <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
@@ -419,7 +419,7 @@ function Columnas({
     <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
-          PARALELO 2 COLUMNAS
+          MISMO SALARIO, DOS REGLAS
         </h2>
         <div
           role="tablist"
@@ -538,7 +538,7 @@ function Columna({
         <Fila etiqueta="CARGA / BRUTO" valor={porcentaje.format(carga)} />
         <Fila etiqueta="CUÑA LABORAL" valor={porcentaje.format(cuna)} />
       </ul>
-      <footer className="mt-2 flex items-baseline justify-between gap-3 border-t-2 border-[var(--rule)] pt-3">
+      <footer className="mt-2 flex flex-wrap items-baseline justify-between gap-3 border-t-2 border-[var(--rule)] pt-3">
         <span className="shrink-0 text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
           Salario neto anual
         </span>
@@ -590,42 +590,47 @@ function Pasos({
   const pasos = [
     {
       numero: "01",
-      titulo: "EQUIVALENCIA POR INFLACIÓN",
-      cuerpo: `Factor IPC ${factor.toFixed(4)} entre ${comparacion.anioComparado} y ${comparacion.anioReferencia}. ${formatearCentimos(comparacion.comparado.salarioBrutoNominalAnualCentimos)} nominales del año comparado equivalen a ${formatearCentimos(comparacion.referencia.salarioBrutoAnualCentimos)} de hoy.`,
+      titulo: "PRIMERO IGUALAMOS EUROS",
+      cuerpo: `No comparamos euros nominales. Aplicamos el factor IPC acumulado ${factor.toFixed(4)}: ${formatearCentimos(comparacion.comparado.salarioBrutoNominalAnualCentimos)} de ${comparacion.anioComparado} compraban aproximadamente lo mismo que ${formatearCentimos(comparacion.referencia.salarioBrutoAnualCentimos)} en ${comparacion.anioReferencia}.`,
     },
     {
       numero: "02",
-      titulo: "COTIZACIONES SOCIALES",
-      cuerpo: `Trabajador ${formatearCentimos(comparacion.comparado.ajustado.cotizacionTrabajadorCentimos)} (ajustado) → ${formatearCentimos(comparacion.referencia.cotizacionTrabajadorCentimos)} (2026).`,
+      titulo: "RESTAMOS LA COTIZACIÓN DEL TRABAJADOR",
+      cuerpo: `Del salario bruto sale primero la cotización del trabajador. Con las reglas de ${comparacion.anioComparado}, reexpresada en euros de ${comparacion.anioReferencia}, son ${formatearCentimos(comparacion.comparado.ajustado.cotizacionTrabajadorCentimos)}. Con las reglas de ${comparacion.anioReferencia} son ${formatearCentimos(comparacion.referencia.cotizacionTrabajadorCentimos)}.`,
     },
     {
       numero: "03",
-      titulo: "REDUCCIÓN Y BASE IRPF",
+      titulo: "CONSTRUIMOS LA BASE DEL IRPF",
       cuerpo:
-        "Gastos fijos, reducción por rendimientos del trabajo y base imponible antes de cuotas. Aquí cambian muchos umbrales entre años.",
+        "Después entran los gastos fijos y la reducción por rendimientos del trabajo. Ese tramo del cálculo convierte el rendimiento del salario en base imponible: la cantidad sobre la que empiezan a aplicarse los tramos del IRPF.",
     },
     {
       numero: "04",
-      titulo: "TRAMOS Y MÍNIMOS",
+      titulo: "APLICAMOS TRAMOS, MÍNIMOS Y DEDUCCIONES",
       cuerpo:
-        "Tramos progresivos, mínimo personal y deducción SMI cuando corresponde. Esta versión muestra el impacto agregado.",
+        "El IRPF no se aplica a todo el salario con un único porcentaje. Cada tramo grava solo la parte que cae dentro de su intervalo; luego se descuentan el mínimo personal y, cuando corresponde, la deducción ligada al SMI.",
     },
     {
       numero: "05",
-      titulo: "LÍMITE DE RETENCIÓN",
-      cuerpo: `IRPF final comparable ${formatearCentimos(comparacion.comparado.ajustado.irpfFinalCentimos)} vs ${formatearCentimos(comparacion.referencia.irpfFinalCentimos)} en ${comparacion.anioReferencia}.`,
+      titulo: "LLEGAMOS AL IRPF FINAL",
+      cuerpo: `El cálculo todavía respeta el límite de retención. Tras ese límite, el IRPF final comparable queda en ${formatearCentimos(comparacion.comparado.ajustado.irpfFinalCentimos)} con reglas de ${comparacion.anioComparado}, frente a ${formatearCentimos(comparacion.referencia.irpfFinalCentimos)} con reglas de ${comparacion.anioReferencia}.`,
     },
     {
       numero: "06",
-      titulo: "SALARIO NETO Y DIFERENCIA",
-      cuerpo: `Δ poder adquisitivo ${formatearCentimos(comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos)}/año = ${formatearCentimos(comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos)}/mes en 12 pagas.`,
+      titulo: "COMPARAMOS EL PODER ADQUISITIVO NETO",
+      cuerpo: `Al salario bruto le quitamos cotización del trabajador e IRPF final. La diferencia de poder adquisitivo neto es ${formatearCentimos(comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos)} al año, equivalente a ${formatearCentimos(comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos)} al mes en 12 pagas.`,
     },
   ] as const
   return (
     <section className="border-b-2 border-[var(--rule)] py-6">
       <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
-        PROCEDIMIENTO · 6 PASOS
+        CÁLCULO GUIADO PASO A PASO
       </h2>
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--ink-soft)]">
+        La comparación no pregunta cuánto se cobraba nominalmente en el pasado,
+        sino qué pasaría con un salario equivalente por IPC. Por eso cada paso
+        separa inflación, cotizaciones, cálculo del IRPF y salario neto.
+      </p>
       <ol className="mt-5 grid gap-px bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-3">
         {pasos.map((paso) => (
           <li

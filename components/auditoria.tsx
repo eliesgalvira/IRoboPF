@@ -601,10 +601,12 @@ function HallazgoPrincipal({
         : "var(--ink)"
   return (
     <section className="grid border-b-2 border-[var(--rule)]">
-      <div
-        className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 border-l-[10px] py-6 pl-4 sm:gap-6 sm:pl-5"
-        style={{ borderLeftColor: tono }}
-      >
+      <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 py-6 pl-4 sm:gap-6 sm:pl-5">
+        <span
+          aria-hidden="true"
+          className="absolute top-0 left-0 h-24 w-[10px]"
+          style={{ background: tono }}
+        />
         <span
           className="px-2 py-1 font-[family-name:var(--mono)] text-[10px] font-bold tracking-[0.3em] text-[var(--paper)] uppercase sm:px-3"
           style={{ background: tono }}
@@ -723,10 +725,10 @@ function Visualizaciones({
     <section className="border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
-          DATOS · 1 PANEL
+          EXPLORACIÓN POR RANGO SALARIAL
         </h2>
         <p className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-          Tabla al final · gráficos arriba
+          Gráficos y tabla del barrido
         </p>
       </div>
       <Tabs.Root defaultValue="barras" className="mt-5 grid gap-4">
@@ -746,8 +748,8 @@ function Visualizaciones({
           className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
           <p className="text-xs leading-5 text-[var(--ink-soft)]">
-            DIFERENCIA ANUAL POR SALARIO. POSITIVO = AÑO COMPARADO MEJOR QUE
-            2026.
+            DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI
+            ES POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
           </p>
           <ChartContainer
             config={configuracionGraficoBarras}
@@ -806,7 +808,8 @@ function Visualizaciones({
           className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
           <p className="text-xs leading-5 text-[var(--ink-soft)]">
-            NETO REAL · {auditoria.anioComparado} (REEXPRESADO) FRENTE A 2026.
+            SALARIO NETO ANUAL REEXPRESADO EN EUROS DE 2026: REGLAS DE{" "}
+            {auditoria.anioComparado} FRENTE A REGLAS DE 2026.
           </p>
           <ChartContainer
             config={configuracionGraficoLineas}
