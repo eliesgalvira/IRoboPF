@@ -34,9 +34,6 @@ export function NavegacionSitio() {
       >
         Auditoría
       </Link>
-      <span className="ml-auto text-[var(--ink)]/55">
-        progresividad en frío · 2012 — 2026
-      </span>
     </nav>
   )
 }
