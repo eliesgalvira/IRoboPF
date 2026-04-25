@@ -691,11 +691,6 @@ const configuracionGraficoBarras = {
   diferencia: { label: "Diferencia anual", color: "var(--danger)" },
 } satisfies ChartConfig
 
-const configuracionGraficoLineas = {
-  netoComparado: { label: "Neto año comparado", color: "var(--gain)" },
-  netoReferencia: { label: "Neto 2026", color: "var(--danger)" },
-} satisfies ChartConfig
-
 const aniosTipoEfectivoIrpf = [
   ...ANIOS_COMPARABLES,
   2026,
@@ -737,12 +732,6 @@ function filasGrafico(puntos: ReadonlyArray<PuntoAuditoriaRangoSalarial>) {
     salarioCorto: formatearSalarioCorto(punto.salarioBrutoAnualCentimos),
     diferencia: centimosAEuros(
       punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
-    ),
-    netoComparado: centimosAEuros(
-      punto.comparacion.comparado.ajustado.salarioNetoAnualCentimos
-    ),
-    netoReferencia: centimosAEuros(
-      punto.comparacion.referencia.salarioNetoAnualCentimos
     ),
   }))
 }
@@ -800,6 +789,45 @@ function filasTipoEfectivoIrpf({
   })
 }
 
+function useTieneHoverPreciso() {
+  const [tieneHoverPreciso, fijarTieneHoverPreciso] = React.useState(false)
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)")
+    const actualizar = () => fijarTieneHoverPreciso(mediaQuery.matches)
+
+    actualizar()
+    mediaQuery.addEventListener("change", actualizar)
+    return () => mediaQuery.removeEventListener("change", actualizar)
+  }, [])
+
+  return tieneHoverPreciso
+}
+
+function useClaveTooltipDescartable(activo: boolean) {
+  const contenedor = React.useRef<HTMLDivElement>(null)
+  const [clave, fijarClave] = React.useState(0)
+
+  React.useEffect(() => {
+    if (!activo) return
+
+    const descartarSiClickFuera = (evento: PointerEvent) => {
+      const objetivo = evento.target
+      if (objetivo instanceof Node && contenedor.current?.contains(objetivo)) {
+        return
+      }
+
+      fijarClave((claveActual) => claveActual + 1)
+    }
+
+    document.addEventListener("pointerdown", descartarSiClickFuera, true)
+    return () =>
+      document.removeEventListener("pointerdown", descartarSiClickFuera, true)
+  }, [activo])
+
+  return { contenedor, clave }
+}
+
 const claseBotonPestana = cn(
   "px-3 py-2 transition-colors",
   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -829,6 +857,10 @@ function Visualizaciones({
       }),
     [aniosGraficoIrpf, auditoria]
   )
+  const tieneHoverPreciso = useTieneHoverPreciso()
+  const tooltipIrpf = useClaveTooltipDescartable(!tieneHoverPreciso)
+  const tooltipBarras = useClaveTooltipDescartable(!tieneHoverPreciso)
+  const [animarBarras, fijarAnimarBarras] = React.useState(true)
   const alternarAnioIrpf = (anio: AnioFiscal) => {
     const siguiente = aniosGraficoIrpf.includes(anio)
       ? aniosGraficoIrpf.filter((anioSeleccionado) => anioSeleccionado !== anio)
@@ -848,19 +880,11 @@ function Visualizaciones({
       </div>
       <Tabs.Root defaultValue="tipo-irpf" className="mt-5 grid gap-4">
         <Tabs.List className="inline-flex w-fit divide-x-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-[11px] tracking-[0.22em] uppercase">
-          {(["tipo-irpf", "barras", "lineas", "tabla"] as const).map(
-            (vista) => (
-              <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
-                {vista === "tipo-irpf"
-                  ? "TIPO IRPF"
-                  : vista === "barras"
-                    ? "BARRAS"
-                    : vista === "lineas"
-                      ? "LÍNEAS"
-                      : "TABLA"}
-              </Tabs.Tab>
-            )
-          )}
+          {(["tipo-irpf", "barras"] as const).map((vista) => (
+            <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
+              {vista === "tipo-irpf" ? "TIPO IRPF" : "BARRAS"}
+            </Tabs.Tab>
+          ))}
         </Tabs.List>
         <Tabs.Panel
           value="tipo-irpf"
@@ -869,13 +893,12 @@ function Visualizaciones({
           <div className="flex flex-wrap items-start justify-between gap-4">
             <p className="max-w-3xl text-xs leading-5 text-[var(--ink-soft)]">
               TIPO EFECTIVO DEL IRPF: IRPF FINAL COMO PORCENTAJE DEL SALARIO
-              BRUTO ANUAL AJUSTADO POR IPC. LA VISTA INICIAL COMPARA 2019 Y
-              2026.
+              BRUTO ANUAL AJUSTADO POR IPC.
             </p>
             <div
               role="group"
               aria-label="Años visibles en la gráfica de tipo efectivo del IRPF"
-              className="grid grid-cols-5 gap-px bg-[var(--rule)] sm:grid-cols-8 lg:[grid-template-columns:repeat(15,minmax(0,1fr))]"
+              className="grid w-full grid-cols-5 gap-px bg-[var(--rule)] lg:[grid-template-columns:repeat(15,minmax(0,1fr))]"
             >
               {aniosTipoEfectivoIrpf.map((anio) => {
                 const activo = aniosGraficoIrpf.includes(anio)
@@ -886,7 +909,7 @@ function Visualizaciones({
                     aria-pressed={activo}
                     onClick={() => alternarAnioIrpf(anio)}
                     className={cn(
-                      "h-9 min-w-12 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums transition-colors",
+                      "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums transition-colors",
                       "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
                       activo
                         ? "text-[var(--ink)]"
@@ -905,6 +928,8 @@ function Visualizaciones({
             </div>
           </div>
           <ChartContainer
+            ref={tooltipIrpf.contenedor}
+            key={`tipo-irpf-${tooltipIrpf.clave}`}
             config={configuracionTipoEfectivoIrpf}
             className="mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
           >
@@ -944,6 +969,10 @@ function Visualizaciones({
                 tickFormatter={(valor: number) => `${Math.round(valor * 100)}%`}
               />
               <ChartTooltip
+                trigger={tieneHoverPreciso ? "hover" : "click"}
+                isAnimationActive={false}
+                allowEscapeViewBox={{ x: true, y: true }}
+                wrapperStyle={{ zIndex: 10 }}
                 cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
                 content={
                   <ChartTooltipContent
@@ -988,6 +1017,8 @@ function Visualizaciones({
             POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
           </p>
           <ChartContainer
+            ref={tooltipBarras.contenedor}
+            key={`barras-${tooltipBarras.clave}`}
             config={configuracionGraficoBarras}
             className="mt-3 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
           >
@@ -1023,6 +1054,10 @@ function Visualizaciones({
                 }
               />
               <ChartTooltip
+                trigger={tieneHoverPreciso ? "hover" : "click"}
+                isAnimationActive={false}
+                allowEscapeViewBox={{ x: true, y: true }}
+                wrapperStyle={{ zIndex: 10 }}
                 cursor={{ fill: "var(--mark)", opacity: 0.4 }}
                 content={
                   <ChartTooltipContent
@@ -1035,151 +1070,11 @@ function Visualizaciones({
                 dataKey="diferencia"
                 fill="var(--color-diferencia)"
                 radius={0}
+                isAnimationActive={animarBarras}
+                onAnimationEnd={() => fijarAnimarBarras(false)}
               />
             </BarChart>
           </ChartContainer>
-        </Tabs.Panel>
-        <Tabs.Panel
-          value="lineas"
-          className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
-        >
-          <p className="text-xs leading-5 text-[var(--ink-soft)]">
-            SALARIO NETO ANUAL REEXPRESADO EN EUROS DE 2026: REGLAS DE{" "}
-            {auditoria.anioComparado} FRENTE A REGLAS DE 2026.
-          </p>
-          <ChartContainer
-            config={configuracionGraficoLineas}
-            className="mt-3 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
-          >
-            <LineChart
-              accessibilityLayer
-              data={datos}
-              margin={{ left: 4, right: 4, top: 4, bottom: 4 }}
-            >
-              <CartesianGrid
-                vertical={false}
-                stroke="var(--rule)"
-                strokeDasharray="2 4"
-              />
-              <XAxis
-                dataKey="salarioCorto"
-                tickLine={false}
-                axisLine={{ stroke: "var(--rule)" }}
-                tickMargin={6}
-                interval="preserveStartEnd"
-                minTickGap={12}
-                fontSize={10}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={{ stroke: "var(--rule)" }}
-                tickMargin={4}
-                width={44}
-                fontSize={10}
-                tickFormatter={(valor: number) =>
-                  Math.abs(valor) >= 1000
-                    ? `${Math.round(valor / 1000)}k`
-                    : String(valor)
-                }
-              />
-              <ChartTooltip
-                cursor={false}
-                content={
-                  <ChartTooltipContent
-                    formatter={(v) => dinero.format(Number(v))}
-                    labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
-                  />
-                }
-              />
-              <Line
-                dataKey="netoComparado"
-                type="monotone"
-                stroke="var(--color-netoComparado)"
-                strokeWidth={2}
-                dot={false}
-              />
-              <Line
-                dataKey="netoReferencia"
-                type="monotone"
-                stroke="var(--color-netoReferencia)"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ChartContainer>
-        </Tabs.Panel>
-        <Tabs.Panel
-          value="tabla"
-          className="border-2 border-[var(--rule)] bg-[var(--paper)]"
-        >
-          <div className="overflow-x-auto">
-            <table className="w-full font-[family-name:var(--mono)] text-xs tabular-nums">
-              <thead className="border-b-2 border-[var(--rule)] text-left text-[10px] tracking-[0.22em] text-[var(--ink-soft)] uppercase">
-                <tr>
-                  <th className="px-2 py-3 font-bold sm:px-3">BRUTO</th>
-                  <th className="hidden px-2 py-3 font-bold sm:table-cell sm:px-3">
-                    NOM.
-                  </th>
-                  <th className="hidden px-2 py-3 font-bold md:table-cell md:px-3">
-                    NETO COMP.
-                  </th>
-                  <th className="px-2 py-3 font-bold sm:px-3">NETO 2026</th>
-                  <th className="px-2 py-3 font-bold sm:px-3">Δ ANUAL</th>
-                  <th className="hidden px-2 py-3 font-bold md:table-cell md:px-3">
-                    CARGA
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {auditoria.puntos.map((punto) => (
-                  <tr
-                    key={punto.salarioBrutoAnualCentimos}
-                    className="border-b border-dashed border-[var(--rule)]/30"
-                  >
-                    <td className="px-2 py-2.5 sm:px-3">
-                      {formatearCentimosEnteros(
-                        punto.salarioBrutoAnualCentimos
-                      )}
-                    </td>
-                    <td className="hidden px-2 py-2.5 sm:table-cell sm:px-3">
-                      {formatearCentimos(
-                        punto.comparacion.comparado
-                          .salarioBrutoNominalAnualCentimos
-                      )}
-                    </td>
-                    <td className="hidden px-2 py-2.5 md:table-cell md:px-3">
-                      {formatearCentimos(
-                        punto.comparacion.comparado.ajustado
-                          .salarioNetoAnualCentimos
-                      )}
-                    </td>
-                    <td className="px-2 py-2.5 sm:px-3">
-                      {formatearCentimos(
-                        punto.comparacion.referencia.salarioNetoAnualCentimos
-                      )}
-                    </td>
-                    <td
-                      className={cn(
-                        "px-2 py-2.5 font-bold sm:px-3",
-                        punto.comparacion
-                          .diferenciaPoderAdquisitivoNetoAnualCentimos > 0
-                          ? "text-[var(--danger)]"
-                          : "text-[var(--gain)]"
-                      )}
-                    >
-                      {formatearCentimos(
-                        punto.comparacion
-                          .diferenciaPoderAdquisitivoNetoAnualCentimos
-                      )}
-                    </td>
-                    <td className="hidden px-2 py-2.5 md:table-cell md:px-3">
-                      {porcentaje.format(punto.tipoCargaActual)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </Tabs.Panel>
       </Tabs.Root>
     </section>
