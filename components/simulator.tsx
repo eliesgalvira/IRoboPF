@@ -386,7 +386,7 @@ function Columns({
                     : "bg-[var(--paper)] hover:bg-[var(--mark)]",
                 )}
               >
-                {m === "gross" ? "Bruto" : "Coste"}
+                {m === "gross" ? "Salario bruto" : "Coste laboral"}
               </button>
             )
           })}
