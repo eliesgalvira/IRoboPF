@@ -155,6 +155,12 @@ bun run typecheck
 bun run lint
 ```
 
+Validación pesada contra el fixture Excel legacy completo:
+
+```bash
+bun run test:legacy-completo
+```
+
 ## Ejecutar el legacy Python
 
 El script Python original sigue disponible para regenerar el Excel completo

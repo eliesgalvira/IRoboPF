@@ -116,6 +116,11 @@ const valoresFila = (
     valorCelda(hoja.getRow(numeroFila).getCell(indice + 1).value)
   )
 
+const valoresFilaExcel = (fila: ExcelJS.Row): FilaTabular =>
+  CABECERAS_COMPARATIVA_INFLACION.map((_, indice) =>
+    valorCelda(fila.getCell(indice + 1).value)
+  )
+
 const filasDatos = (hoja: ExcelJS.Worksheet): ReadonlyArray<FilaTabular> => {
   const filas: Array<FilaTabular> = []
 
@@ -152,12 +157,41 @@ const construirFilasCompatibles = Effect.fn(
 const cargarFilasLegacy = async () => {
   regenerarFixtureLegacyExcelSiFalta()
 
-  const libro = new ExcelJS.Workbook()
-  await libro.xlsx.readFile(rutaLegacyExcel)
-  const hoja = obtenerHojaComparativa(libro, "legacy")
+  const libro = new ExcelJS.stream.xlsx.WorkbookReader(rutaLegacyExcel, {
+    worksheets: "emit",
+    sharedStrings: "cache",
+    styles: "ignore",
+    hyperlinks: "ignore",
+  })
 
-  expect(valoresFila(hoja, 1)).toEqual(CABECERAS_COMPARATIVA_INFLACION)
-  return filasDatos(hoja)
+  let indiceHoja = 0
+  for await (const hoja of libro) {
+    const nombreHoja = HOJAS_LEGACY_COMPLETAS[indiceHoja]
+    indiceHoja += 1
+
+    if (nombreHoja !== HOJA_COMPARATIVA_INFLACION) {
+      continue
+    }
+
+    const filas: Array<FilaTabular> = []
+    for await (const fila of hoja) {
+      const valores = valoresFilaExcel(fila)
+      if (fila.number === 1) {
+        expect(valores).toEqual(CABECERAS_COMPARATIVA_INFLACION)
+        continue
+      }
+
+      if (valores.some((valor) => valor !== "")) {
+        filas.push(valores)
+      }
+    }
+
+    return filas
+  }
+
+  throw new Error(
+    `Falta la hoja ${HOJA_COMPARATIVA_INFLACION} en la exportacion legacy`
+  )
 }
 
 const compararCeldaTabular = (

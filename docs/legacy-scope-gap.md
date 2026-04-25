@@ -14,10 +14,10 @@ La brecha funcional detectada se cerró en el exportador Effect: la exportación
 compatible genera las hojas de control, la comparativa de inflación y las hojas
 anuales `DAT_2012` ... `DAT_2026`.
 
-Lo que sigue pendiente es una validación pesada con fixture completo que compare
-todas las filas `DAT_YYYY` contra el oracle Python. La suite rápida valida la
-comparativa contra el fixture versionado y cubre estructura, controles y detalle
-anual con rangos acotados.
+La validación pesada con fixture completo ya existe y compara todas las hojas y
+filas contra el oracle Python. Se ejecuta con `bun run test:legacy-completo`. La
+suite rápida valida la comparativa contra el fixture versionado en streaming y
+cubre estructura, controles y detalle anual con rangos acotados.
 
 ## Definiciones relevantes en CONTEXT.md
 
@@ -166,19 +166,17 @@ por `pandas.to_excel`.
 - Tests de contrato para estructura de hojas, hojas de control y columnas/filas
   `DAT_YYYY` con un rango acotado.
 
-### Parcialmente implementado
+### Validación implementada
 
-- **Equivalencia tabular exhaustiva**: la comparativa esta validada contra el
-  fixture versionado, pero falta una prueba pesada que compare todas las filas de
-  control y `DAT_YYYY` contra un fixture completo.
-- **Fixture legacy Excel**: el archivo versionado actual contiene solo
-  `COMPARATIVA_INFLACION`, aunque el script por defecto genera el libro completo.
+- **Equivalencia tabular exhaustiva**: `tests/auditoria-excel-pesada.test.ts`
+  compara el fixture completo contra las tablas Effect en streaming.
+- **Fixture legacy Excel completo**: el archivo versionado contiene las hojas de
+  control, `COMPARATIVA_INFLACION` y `DAT_2012` ... `DAT_2026`.
 
 ### No implementado
 
-- Regenerar o versionar un fixture completo que contenga todas las hojas del
-  oracle default.
-- Ejecutar en CI una prueba pesada hoja por hoja para todo el rango `DAT_YYYY`.
+- Ejecutar `bun run test:legacy-completo` en CI, si el coste de tiempo y memoria
+  es aceptable para la pipeline.
 
 ### Pendiente de decisión técnica
 
@@ -201,11 +199,8 @@ por `pandas.to_excel`.
 
 ## Siguiente estrategia con TDD
 
-1. Generar un fixture completo con `Calculo_Salario_IRPF.py`.
-2. Añadir una prueba pesada, separada de la suite rápida, que compare nombres de
-   hojas, cabeceras y conteos de filas.
-3. Añadir comparaciones por muestreo estratificado de `DAT_YYYY`: salario 0,
-   umbrales de base máxima, umbrales Art.20, umbrales SMI, 100.000 euros.
-4. Solo después, decidir si merece la pena una comparación exhaustiva de los
-   1.500.015 registros `DAT_YYYY` en CI o dejarla como verificación manual de
-   regeneración.
+1. Decidir si `bun run test:legacy-completo` entra en CI o queda como verificacion
+   manual antes de releases.
+2. Si entra en CI, asignarle un job separado con timeout amplio.
+3. Si no entra en CI, documentar en el checklist de release que debe ejecutarse
+   tras regenerar el fixture legacy.
