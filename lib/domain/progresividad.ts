@@ -64,6 +64,8 @@ export interface PuntoAuditoriaRangoSalarial {
   readonly comparacion: ComparacionAjustadaPorIpc
   readonly tipoCargaActual: number
   readonly tipoCargaComparada: number
+  readonly tipoEfectivoIrpfActual: number
+  readonly tipoEfectivoIrpfComparado: number
   readonly tipoCunaLaboralActual: number
   readonly tipoCunaLaboralComparada: number
 }
@@ -136,11 +138,11 @@ export const configuracionControlSalario = {
 } as const
 
 export const configuracionRangoAuditoria = {
-  minimoPorDefectoCentimos: 1_000_000,
-  maximoPorDefectoCentimos: 6_000_000,
+  minimoPorDefectoCentimos: 1_500_000,
+  maximoPorDefectoCentimos: 10_000_000,
   minimoCentimos: 1_000_000,
   maximoCentimos: 10_000_000,
-  pasoCentimos: 500_000,
+  pasoCentimos: 100_000,
 } as const
 
 const decimal = (valor: string | number) => new Decimal(valor)
@@ -1040,6 +1042,12 @@ const tipoCarga = (desglose: DesgloseLiquidado) =>
     desglose.salarioBrutoAnualCentimos
   )
 
+const tipoEfectivoIrpf = (desglose: DesgloseLiquidado) =>
+  proporcionSegura(
+    desglose.irpfFinalCentimos,
+    desglose.salarioBrutoAnualCentimos
+  )
+
 const tipoCunaLaboral = (desglose: DesgloseLiquidado) =>
   proporcionSegura(
     desglose.costeLaboralCentimos - desglose.salarioNetoAnualCentimos,
@@ -1200,6 +1208,8 @@ const construirPuntoAuditoria = Effect.fn(
     comparacion,
     tipoCargaActual: tipoCarga(comparacion.referencia),
     tipoCargaComparada: tipoCarga(comparacion.comparado.ajustado),
+    tipoEfectivoIrpfActual: tipoEfectivoIrpf(comparacion.referencia),
+    tipoEfectivoIrpfComparado: tipoEfectivoIrpf(comparacion.comparado.ajustado),
     tipoCunaLaboralActual: tipoCunaLaboral(comparacion.referencia),
     tipoCunaLaboralComparada: tipoCunaLaboral(comparacion.comparado.ajustado),
   } satisfies PuntoAuditoriaRangoSalarial

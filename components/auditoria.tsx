@@ -11,6 +11,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Legend,
   Line,
   LineChart,
   XAxis,
@@ -72,6 +73,9 @@ function AuditoriaImpl() {
     configuracionRangoAuditoria.maximoPorDefectoCentimos
   )
   const [anioComparado, fijarAnioComparado] = React.useState<AnioFiscal>(2019)
+  const [aniosGraficoIrpf, fijarAniosGraficoIrpf] = React.useState<
+    ReadonlyArray<AnioFiscal>
+  >([2019, 2026])
   const [exportando, fijarExportando] = React.useState<
     "educativa" | "compatible" | null
   >(null)
@@ -257,7 +261,11 @@ function AuditoriaImpl() {
 
         <HallazgosSecundarios hallazgos={auditoria.hallazgos.slice(1)} />
 
-        <Visualizaciones auditoria={auditoria} />
+        <Visualizaciones
+          auditoria={auditoria}
+          aniosGraficoIrpf={aniosGraficoIrpf}
+          fijarAniosGraficoIrpf={fijarAniosGraficoIrpf}
+        />
       </div>
 
       <DialogoExportacionCompatible
@@ -562,7 +570,7 @@ function CampoDinero({
       value={centimosAEuros(valorCentimos)}
       min={centimosAEuros(configuracionRangoAuditoria.minimoCentimos)}
       max={centimosAEuros(configuracionRangoAuditoria.maximoCentimos)}
-      step={5000}
+      step={1000}
       format={{ style: "currency", currency: "EUR", maximumFractionDigits: 0 }}
       locale="es-ES"
       onValueChange={(valor) =>
@@ -688,6 +696,41 @@ const configuracionGraficoLineas = {
   netoReferencia: { label: "Neto 2026", color: "var(--danger)" },
 } satisfies ChartConfig
 
+const aniosTipoEfectivoIrpf = [
+  ...ANIOS_COMPARABLES,
+  2026,
+] as const satisfies ReadonlyArray<AnioFiscal>
+
+const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
+  2012: "oklch(0.38 0 0)",
+  2013: "oklch(0.58 0 0)",
+  2014: "oklch(0.47 0 0)",
+  2015: "oklch(0.18 0 0)",
+  2016: "oklch(0.82 0 0)",
+  2017: "oklch(0.62 0 0)",
+  2018: "oklch(0.44 0.13 260)",
+  2019: "oklch(0.78 0.16 88)",
+  2020: "oklch(0.68 0 0)",
+  2021: "oklch(0.52 0 0)",
+  2022: "oklch(0.24 0 0)",
+  2023: "oklch(0.78 0 0)",
+  2024: "oklch(0.64 0 0)",
+  2025: "oklch(0.42 0 0)",
+  2026: "oklch(0.62 0.19 35)",
+}
+
+const claveAnio = (anio: AnioFiscal) => `anio${anio}`
+
+const configuracionTipoEfectivoIrpf = Object.fromEntries(
+  aniosTipoEfectivoIrpf.map((anio) => [
+    claveAnio(anio),
+    {
+      label: String(anio),
+      color: coloresTipoEfectivoIrpf[anio],
+    },
+  ])
+) satisfies ChartConfig
+
 function filasGrafico(puntos: ReadonlyArray<PuntoAuditoriaRangoSalarial>) {
   return puntos.map((punto) => ({
     salario: formatearCentimosEnteros(punto.salarioBrutoAnualCentimos),
@@ -704,6 +747,59 @@ function filasGrafico(puntos: ReadonlyArray<PuntoAuditoriaRangoSalarial>) {
   }))
 }
 
+function filasTipoEfectivoIrpf({
+  auditoria,
+  aniosSeleccionados,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+}) {
+  const series = new Map<
+    AnioFiscal,
+    ReadonlyArray<PuntoAuditoriaRangoSalarial>
+  >()
+
+  for (const anio of aniosSeleccionados) {
+    if (anio === auditoria.anioReferencia || anio === auditoria.anioComparado) {
+      series.set(anio, auditoria.puntos)
+      continue
+    }
+
+    series.set(
+      anio,
+      Effect.runSync(
+        auditarRangoSalarial({
+          salarioBrutoAnualMinimoCentimos:
+            auditoria.salarioBrutoAnualMinimoCentimos,
+          salarioBrutoAnualMaximoCentimos:
+            auditoria.salarioBrutoAnualMaximoCentimos,
+          pasoCentimos: auditoria.pasoCentimos,
+          anioComparado: anio,
+          anioReferencia: auditoria.anioReferencia,
+        })
+      ).puntos
+    )
+  }
+
+  return auditoria.puntos.map((puntoBase, indice) => {
+    const fila: Record<string, number | string> = {
+      salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
+      salarioCorto: formatearSalarioCorto(puntoBase.salarioBrutoAnualCentimos),
+    }
+
+    for (const anio of aniosSeleccionados) {
+      const punto = series.get(anio)?.[indice]
+      if (punto === undefined) continue
+      fila[claveAnio(anio)] =
+        anio === auditoria.anioReferencia
+          ? punto.tipoEfectivoIrpfActual
+          : punto.tipoEfectivoIrpfComparado
+    }
+
+    return fila
+  })
+}
+
 const claseBotonPestana = cn(
   "px-3 py-2 transition-colors",
   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -714,13 +810,32 @@ const claseBotonPestana = cn(
 
 function Visualizaciones({
   auditoria,
+  aniosGraficoIrpf,
+  fijarAniosGraficoIrpf,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
+  readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
+  readonly fijarAniosGraficoIrpf: (anios: ReadonlyArray<AnioFiscal>) => void
 }) {
   const datos = React.useMemo(
     () => filasGrafico(auditoria.puntos),
     [auditoria.puntos]
   )
+  const datosTipoEfectivoIrpf = React.useMemo(
+    () =>
+      filasTipoEfectivoIrpf({
+        auditoria,
+        aniosSeleccionados: aniosGraficoIrpf,
+      }),
+    [aniosGraficoIrpf, auditoria]
+  )
+  const alternarAnioIrpf = (anio: AnioFiscal) => {
+    const siguiente = aniosGraficoIrpf.includes(anio)
+      ? aniosGraficoIrpf.filter((anioSeleccionado) => anioSeleccionado !== anio)
+      : [...aniosGraficoIrpf, anio].sort((a, b) => a - b)
+    fijarAniosGraficoIrpf(siguiente.length > 0 ? siguiente : [anio])
+  }
+
   return (
     <section className="border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
@@ -731,25 +846,146 @@ function Visualizaciones({
           Gráficos y tabla del barrido
         </p>
       </div>
-      <Tabs.Root defaultValue="barras" className="mt-5 grid gap-4">
+      <Tabs.Root defaultValue="tipo-irpf" className="mt-5 grid gap-4">
         <Tabs.List className="inline-flex w-fit divide-x-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-[11px] tracking-[0.22em] uppercase">
-          {(["barras", "lineas", "tabla"] as const).map((vista) => (
-            <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
-              {vista === "barras"
-                ? "BARRAS"
-                : vista === "lineas"
-                  ? "LÍNEAS"
-                  : "TABLA"}
-            </Tabs.Tab>
-          ))}
+          {(["tipo-irpf", "barras", "lineas", "tabla"] as const).map(
+            (vista) => (
+              <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
+                {vista === "tipo-irpf"
+                  ? "TIPO IRPF"
+                  : vista === "barras"
+                    ? "BARRAS"
+                    : vista === "lineas"
+                      ? "LÍNEAS"
+                      : "TABLA"}
+              </Tabs.Tab>
+            )
+          )}
         </Tabs.List>
+        <Tabs.Panel
+          value="tipo-irpf"
+          className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
+        >
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <p className="max-w-3xl text-xs leading-5 text-[var(--ink-soft)]">
+              TIPO EFECTIVO DEL IRPF: IRPF FINAL COMO PORCENTAJE DEL SALARIO
+              BRUTO ANUAL AJUSTADO POR IPC. LA VISTA INICIAL COMPARA 2019 Y
+              2026.
+            </p>
+            <div
+              role="group"
+              aria-label="Años visibles en la gráfica de tipo efectivo del IRPF"
+              className="grid grid-cols-5 gap-px bg-[var(--rule)] sm:grid-cols-8 lg:[grid-template-columns:repeat(15,minmax(0,1fr))]"
+            >
+              {aniosTipoEfectivoIrpf.map((anio) => {
+                const activo = aniosGraficoIrpf.includes(anio)
+                return (
+                  <button
+                    key={anio}
+                    type="button"
+                    aria-pressed={activo}
+                    onClick={() => alternarAnioIrpf(anio)}
+                    className={cn(
+                      "h-9 min-w-12 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums transition-colors",
+                      "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
+                      activo
+                        ? "text-[var(--ink)]"
+                        : "text-[var(--ink-soft)] opacity-55 hover:opacity-100"
+                    )}
+                    style={{
+                      boxShadow: activo
+                        ? `inset 0 -4px 0 ${coloresTipoEfectivoIrpf[anio]}`
+                        : undefined,
+                    }}
+                  >
+                    {anio}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+          <ChartContainer
+            config={configuracionTipoEfectivoIrpf}
+            className="mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
+          >
+            <LineChart
+              accessibilityLayer
+              data={datosTipoEfectivoIrpf}
+              margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+            >
+              <CartesianGrid
+                vertical={false}
+                stroke="var(--rule)"
+                strokeDasharray="2 4"
+              />
+              <XAxis
+                dataKey="salarioCorto"
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={10}
+                interval="preserveStartEnd"
+                minTickGap={8}
+                angle={-90}
+                textAnchor="end"
+                height={66}
+                fontSize={10}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={6}
+                width={44}
+                domain={[0, 0.34]}
+                ticks={[
+                  0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2,
+                  0.22, 0.24, 0.26, 0.28, 0.3, 0.32, 0.34,
+                ]}
+                fontSize={12}
+                tickFormatter={(valor: number) => `${Math.round(valor * 100)}%`}
+              />
+              <ChartTooltip
+                cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                content={
+                  <ChartTooltipContent
+                    formatter={(v) => porcentaje.format(Number(v))}
+                    labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+                  />
+                }
+              />
+              <Legend
+                verticalAlign="bottom"
+                align="right"
+                iconType="plainline"
+                wrapperStyle={{
+                  fontFamily: "var(--mono)",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  paddingTop: 8,
+                }}
+              />
+              {aniosGraficoIrpf.map((anio) => (
+                <Line
+                  key={anio}
+                  dataKey={claveAnio(anio)}
+                  name={String(anio)}
+                  type="monotone"
+                  stroke={`var(--color-${claveAnio(anio)})`}
+                  strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                  dot={false}
+                  activeDot={{ r: 4, strokeWidth: 0 }}
+                  isAnimationActive={false}
+                />
+              ))}
+            </LineChart>
+          </ChartContainer>
+        </Tabs.Panel>
         <Tabs.Panel
           value="barras"
           className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
           <p className="text-xs leading-5 text-[var(--ink-soft)]">
-            DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI
-            ES POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
+            DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI ES
+            POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
           </p>
           <ChartContainer
             config={configuracionGraficoBarras}
