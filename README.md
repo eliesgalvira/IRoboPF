@@ -24,9 +24,8 @@ IPC.
   dispositivo del usuario.
 - Script Python legacy conservado en `Calculo_Salario_IRPF.py` como referencia
   histórica y oráculo de migración.
-- Brecha de alcance legacy documentada en `docs/legacy-scope-gap.md`: el motor
-  Effect actual cubre la comparativa, pero el objetivo de compatibilidad es el
-  Excel completo.
+- Compatibilidad legacy completa implementada en el exportador Effect: hojas de
+  control, comparativa de inflación y hojas `DAT_YYYY`.
 
 ## Origen del cálculo
 
@@ -85,12 +84,14 @@ Desde esta ruta se pueden descargar dos archivos Excel:
 
 - `IRoboPF_Auditoria_Educativa_YYYY_2026.xlsx`, con manual, hallazgos y tabla de
   exploración.
-- `IRoboPF_Compatible_YYYY_2026.xlsx`, con una hoja `COMPARATIVA_INFLACION` de
-  columnas compatibles con la comparativa legacy para el rango seleccionado.
+- `Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx`, con las hojas legacy
+  `CONTROL_GENERAL`, `CONTROL_TRAMOS_IRPF`, `COMPARATIVA_INFLACION` y
+  `DAT_2012` ... `DAT_2026`.
 
-Esta descarga es una **exportación compatible de comparativa** transitoria. La
-compatibilidad legacy completa sigue pendiente: debe replicar también las hojas
-de control y `DAT_YYYY`.
+La exportación compatible replica el alcance funcional del libro legacy. La suite
+rápida valida la comparativa contra el fixture versionado y comprueba estructura,
+controles y detalle anual con rangos acotados; una validación exhaustiva de todas
+las filas `DAT_YYYY` debe ejecutarse como prueba pesada.
 
 ## Hipótesis y alcance
 
@@ -111,7 +112,6 @@ Fuera de alcance por ahora:
 - comunidades autónomas reales;
 - situaciones familiares distintas;
 - otras rentas, deducciones personales o circunstancias laborales;
-- equivalencia tabular completa con todas las hojas del Excel legacy;
 - equivalencia binaria completa con el Excel legacy.
 
 ## Estructura del repo

@@ -22,6 +22,19 @@ const ANIOS_LEGACY = [
   2025, 2026,
 ] as const satisfies ReadonlyArray<AnioFiscal>
 
+const HOJAS_LEGACY_COMPLETAS = [
+  "CONTROL_GENERAL",
+  "CONTROL_TRAMOS_IRPF",
+  HOJA_COMPARATIVA_INFLACION,
+  ...ANIOS_LEGACY.map((anio) => `DAT_${anio}`),
+] as const
+
+const OPCIONES_FIXTURE_RAPIDO = {
+  detalle: {
+    salarioMaximoEuros: 2,
+  },
+} as const
+
 const CABECERAS_COMPARATIVA_INFLACION = [
   "Año a Comparar",
   "Salario Equivalente (2026)",
@@ -119,24 +132,21 @@ const filasDatos = (hoja: ExcelJS.Worksheet): ReadonlyArray<FilaTabular> => {
 const construirFilasCompatibles = Effect.fn(
   "tests.auditoriaExcel.construirFilasCompatibles"
 )(function* () {
-  const filas: Array<FilaTabular> = []
+  const auditoria = yield* auditarRangoSalarial({
+    salarioBrutoAnualMinimoCentimos: 1_500_000,
+    salarioBrutoAnualMaximoCentimos: 1_500_000,
+    pasoCentimos: 100_000,
+    anioComparado: 2012,
+    anioReferencia: 2026,
+  })
+  const libro = construirLibroAuditoriaCompatible(
+    auditoria,
+    OPCIONES_FIXTURE_RAPIDO
+  )
+  const hoja = obtenerHojaComparativa(libro, "compatible")
 
-  for (const anioComparado of ANIOS_LEGACY) {
-    const auditoria = yield* auditarRangoSalarial({
-      salarioBrutoAnualMinimoCentimos: 1_500_000,
-      salarioBrutoAnualMaximoCentimos: 10_000_000,
-      pasoCentimos: 100_000,
-      anioComparado,
-      anioReferencia: 2026,
-    })
-    const libro = construirLibroAuditoriaCompatible(auditoria)
-    const hoja = obtenerHojaComparativa(libro, "compatible")
-
-    expect(valoresFila(hoja, 1)).toEqual(CABECERAS_COMPARATIVA_INFLACION)
-    filas.push(...filasDatos(hoja))
-  }
-
-  return filas
+  expect(valoresFila(hoja, 1)).toEqual(CABECERAS_COMPARATIVA_INFLACION)
+  return filasDatos(hoja)
 })
 
 const cargarFilasLegacy = async () => {
@@ -216,6 +226,175 @@ const compararFilasTabulares = (
 }
 
 describe("construirLibroAuditoriaCompatible", () => {
+  it.effect(
+    "genera la estructura completa de hojas del Excel legacy",
+    () =>
+      Effect.gen(function* () {
+        const auditoria = yield* auditarRangoSalarial({
+          salarioBrutoAnualMinimoCentimos: 1_500_000,
+          salarioBrutoAnualMaximoCentimos: 1_500_000,
+          pasoCentimos: 100_000,
+          anioComparado: 2012,
+          anioReferencia: 2026,
+        })
+        const libro = construirLibroAuditoriaCompatible(
+          auditoria,
+          OPCIONES_FIXTURE_RAPIDO
+        )
+
+        expect(libro.worksheets.map((hoja) => hoja.name)).toEqual(
+          HOJAS_LEGACY_COMPLETAS
+        )
+      })
+  )
+
+  it.effect(
+    "incluye hojas de control normativo compatibles con el legacy",
+    () =>
+      Effect.gen(function* () {
+        const auditoria = yield* auditarRangoSalarial({
+          salarioBrutoAnualMinimoCentimos: 1_500_000,
+          salarioBrutoAnualMaximoCentimos: 1_500_000,
+          pasoCentimos: 100_000,
+          anioComparado: 2012,
+          anioReferencia: 2026,
+        })
+        const libro = construirLibroAuditoriaCompatible(
+          auditoria,
+          OPCIONES_FIXTURE_RAPIDO
+        )
+        const controlGeneral = libro.getWorksheet("CONTROL_GENERAL")
+        const controlTramos = libro.getWorksheet("CONTROL_TRAMOS_IRPF")
+
+        expect(controlGeneral?.getRow(1).values).toEqual([
+          ,
+          "Año",
+          "Base Máx. Anual",
+          "SS Empleador %",
+          "SS Empleado %",
+          "MEI Empleador %",
+          "MEI Empleado %",
+          "Gastos Fijos Art.19",
+          "Mín. Contribuyente",
+          "Mín. Exento Retención",
+          "Art.20 Umbral Inf",
+          "Art.20 Red. Máxima",
+          "Art.20 Umbral Sup",
+          "Art.20 Red. Mínima",
+        ])
+        expect(controlGeneral?.getRow(2).values).toEqual([
+          ,
+          2012,
+          39150,
+          31.4,
+          6.35,
+          0,
+          0,
+          0,
+          5151,
+          11162,
+          9180,
+          4080,
+          13260,
+          2652,
+        ])
+        expect(controlGeneral?.getRow(8).getCell(10).value).toBe("Transitorio")
+
+        expect(controlTramos?.getRow(1).values).toEqual([
+          ,
+          "Año",
+          "Nº Tramo",
+          "Hasta Base",
+          "Tipo %",
+        ])
+        expect(controlTramos?.getRow(2).values).toEqual([
+          ,
+          2012,
+          1,
+          17707,
+          24.75,
+        ])
+        expect(controlTramos?.getRow(8).values).toEqual([
+          ,
+          2012,
+          7,
+          "En adelante",
+          52,
+        ])
+      })
+  )
+
+  it.effect(
+    "incluye las columnas detalladas DAT_YYYY con granularidad anual legacy",
+    () =>
+      Effect.gen(function* () {
+        const auditoria = yield* auditarRangoSalarial({
+          salarioBrutoAnualMinimoCentimos: 1_500_000,
+          salarioBrutoAnualMaximoCentimos: 1_500_000,
+          pasoCentimos: 100_000,
+          anioComparado: 2012,
+          anioReferencia: 2026,
+        })
+        const libro = construirLibroAuditoriaCompatible(
+          auditoria,
+          OPCIONES_FIXTURE_RAPIDO
+        )
+        const hoja2026 = libro.getWorksheet("DAT_2026")
+
+        expect(hoja2026?.rowCount).toBe(4)
+        expect(hoja2026?.getRow(1).values).toEqual([
+          ,
+          "Salario Bruto",
+          "Cot. Soc. Empresa",
+          "Coste Laboral",
+          "Cot. Soc. Trab.",
+          "Ren. Previo",
+          "Gastos Fijos",
+          "Red. Ren. Trab.",
+          "Base Imponible",
+          "T1 (19.0%)",
+          "T2 (24.0%)",
+          "T3 (30.0%)",
+          "T4 (37.0%)",
+          "T5 (45.0%)",
+          "T6 (47.0%)",
+          "Cuota Íntegra",
+          "Cuota Mínimo Personal",
+          "Cuota Teórica",
+          "Deducción SMI",
+          "Cuota tras SMI",
+          "Límite 43% (Art 85.3)",
+          "IRPF Final",
+          "Salario Neto",
+        ])
+        expect(hoja2026?.getRow(2).values).toEqual([
+          ,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2000,
+          7302,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1054.5,
+          0,
+          590.89,
+          0,
+          0,
+          0,
+          0,
+        ])
+      })
+  )
+
   it.effect(
     "mantiene equivalencia tabular con el fixture legacy Excel en COMPARATIVA_INFLACION",
     () =>

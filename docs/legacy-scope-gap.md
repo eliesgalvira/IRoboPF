@@ -1,4 +1,4 @@
-# Brecha de alcance entre legacy Python y motor Effect
+# Alcance legacy del motor Effect
 
 Revisión: 2026-04-25.
 
@@ -10,12 +10,14 @@ columna, fila y celda de datos. Esa es la decisión de producto: la compatibilid
 legacy debe replicar el libro Excel original completo generado por
 `Calculo_Salario_IRPF.py`.
 
-El motor Effect actual no alcanza todavía esa equivalencia tabular completa. La
-brecha no es una contradicción del lenguaje de dominio; es trabajo de migración
-pendiente.
+La brecha funcional detectada se cerró en el exportador Effect: la exportación
+compatible genera las hojas de control, la comparativa de inflación y las hojas
+anuales `DAT_2012` ... `DAT_2026`.
 
-Hasta que se complete esa migración, no debe afirmarse que el motor Effect tiene el
-mismo alcance funcional que `Calculo_Salario_IRPF.py`.
+Lo que sigue pendiente es una validación pesada con fixture completo que compare
+todas las filas `DAT_YYYY` contra el oracle Python. La suite rápida valida la
+comparativa contra el fixture versionado y cubre estructura, controles y detalle
+anual con rangos acotados.
 
 ## Definiciones relevantes en CONTEXT.md
 
@@ -158,67 +160,52 @@ por `pandas.to_excel`.
 - Comparacion ajustada por IPC contra ano de referencia, con importes reexpresados
   en euros de referencia.
 - Barrido salarial configurable para la experiencia educativa.
-- Exportacion compatible parcial de una sola hoja `COMPARATIVA_INFLACION`.
+- Exportacion compatible completa con `CONTROL_GENERAL`,
+  `CONTROL_TRAMOS_IRPF`, `COMPARATIVA_INFLACION` y `DAT_2012` ... `DAT_2026`.
 - Tests que comparan `COMPARATIVA_INFLACION` contra el fixture existente.
+- Tests de contrato para estructura de hojas, hojas de control y columnas/filas
+  `DAT_YYYY` con un rango acotado.
 
 ### Parcialmente implementado
 
-- **Equivalencia tabular**: solo esta validada para `COMPARATIVA_INFLACION`, y
-  ademas el rango lo construyen los tests llamando 15 veces al exportador de un
-  ano/rango para reconstruir el rango legacy completo.
-- **Motor detallado de calculo unitario**: internamente calcula muchos conceptos,
-  pero la interfaz publica `DesgloseLiquidado` solo expone los agregados
-  necesarios para comparativa, no las cuotas por tramo ni columnas `DAT_YYYY`.
+- **Equivalencia tabular exhaustiva**: la comparativa esta validada contra el
+  fixture versionado, pero falta una prueba pesada que compare todas las filas de
+  control y `DAT_YYYY` contra un fixture completo.
 - **Fixture legacy Excel**: el archivo versionado actual contiene solo
   `COMPARATIVA_INFLACION`, aunque el script por defecto genera el libro completo.
 
 ### No implementado
 
-- Exportar `CONTROL_GENERAL`.
-- Exportar `CONTROL_TRAMOS_IRPF`.
-- Exportar `DAT_2012` ... `DAT_2026`.
-- Exponer un contrato publico para filas `DAT_YYYY` con cuotas por tramo y todos
-  los importes intermedios.
-- Validar hoja por hoja la equivalencia tabular completa del libro legacy.
 - Regenerar o versionar un fixture completo que contenga todas las hojas del
   oracle default.
+- Ejecutar en CI una prueba pesada hoja por hoja para todo el rango `DAT_YYYY`.
 
 ### Pendiente de decisión técnica
 
-- Si conviene mantener temporalmente un nombre interno como **Exportacion
-  compatible de comparativa** para la capacidad parcial actual, sin cambiar el
-  objetivo final de **Exportacion compatible** completa.
-- Si el boton actual `XLSX compatible` debe ocultarse, marcarse como parcial o
-  generar el libro completo cuando la migracion este terminada.
 - Si el fixture rapido debe ser el libro completo o un fixture reducido dedicado a
   `COMPARATIVA_INFLACION`.
 - Si el modo canonico debe ofrecer hojas educativas equivalentes a `DAT_YYYY` o si
   esas hojas pertenecen exclusivamente al modo compatible legacy.
 
-## Brechas de implementación observadas
+## Brecha de implementación corregida
 
-- `lib/export/auditoria-excel.ts` solo anade `COMPARATIVA_INFLACION` en
-  `construirLibroAuditoriaCompatible`; faltan las demas hojas del libro legacy.
-- `tests/auditoria-excel.test.ts` valida equivalencia tabular solo para
-  `COMPARATIVA_INFLACION`; no existe una prueba de contrato para todas las hojas.
-- El mensaje de regeneracion del test apunta a ejecutar el script legacy sin
-  `IROBOPF_LEGACY_SOLO_COMPARATIVA=1`; esa ejecucion produciria el libro completo,
-  pero el fixture versionado inspeccionado solo contiene `COMPARATIVA_INFLACION`.
-- `README.md` describe que la descarga compatible actual contiene una hoja
-  `COMPARATIVA_INFLACION`, pero debe quedar claro que eso es una implementacion
-  parcial y no el alcance final de compatibilidad.
+- `lib/export/auditoria-excel.ts` ahora construye el libro compatible completo.
+- La generación tabular legacy vive en `lib/domain/progresividad.ts` para mantener
+  el cálculo en el dominio y dejar ExcelJS como adaptador de salida.
+- `tests/auditoria-excel.test.ts` ya no reconstruye la comparativa llamando al
+  exportador parcial 15 veces; usa el libro compatible y valida su
+  `COMPARATIVA_INFLACION` contra el fixture.
+- La prueba rápida usa opciones de rango para acotar `DAT_YYYY`; la exportación
+  por defecto conserva el rango legacy completo de 0 a 100.000 euros en pasos de
+  1 euro.
 
-## Estrategia incremental con TDD
+## Siguiente estrategia con TDD
 
-1. Fijar una prueba de contrato que compare los nombres de hojas esperados del
-   libro legacy completo contra `construirLibroAuditoriaCompatible`. Debe fallar
-   antes de implementar nuevas hojas.
-2. Implementar `CONTROL_GENERAL` y `CONTROL_TRAMOS_IRPF` primero: son pequenas,
-   deterministas y validan que los parametros legacy estan exportables.
-3. Exponer un calculo unitario detallado publico para una fila `DAT_YYYY`, con
-   cuotas por tramo. Validarlo para pocos salarios representativos antes de barrer
-   100.001 filas.
-4. Implementar una hoja `DAT_YYYY` de un ano piloto, preferiblemente 2026 por
-   solidaridad y deduccion SMI, y despues generalizar al resto de anos.
-5. Separar tests rapidos por hoja de una prueba pesada de regeneracion/fixture
-   completo, para no convertir la suite diaria en una exportacion masiva.
+1. Generar un fixture completo con `Calculo_Salario_IRPF.py`.
+2. Añadir una prueba pesada, separada de la suite rápida, que compare nombres de
+   hojas, cabeceras y conteos de filas.
+3. Añadir comparaciones por muestreo estratificado de `DAT_YYYY`: salario 0,
+   umbrales de base máxima, umbrales Art.20, umbrales SMI, 100.000 euros.
+4. Solo después, decidir si merece la pena una comparación exhaustiva de los
+   1.500.015 registros `DAT_YYYY` en CI o dejarla como verificación manual de
+   regeneración.
