@@ -104,6 +104,10 @@ _Avoid_: Exportacion, contrato de compatibilidad
 Calculo y exportacion realizados en el dispositivo del usuario sin enviar datos salariales a un servidor.
 _Avoid_: Backend de calculo, subida de salario
 
+**Generacion incremental de exportacion compatible**:
+Ejecucion local de una exportacion compatible completa en lotes cooperativos con progreso visible por hoja y rango generado.
+_Avoid_: Backend de exportacion, descarga bloqueante, exportacion parcial
+
 **Equivalencia tabular**:
 Garantia de que cada hoja, columna, fila y celda de datos de la exportacion compatible coincide con el Excel original bajo reglas explicitas de tipos, orden y redondeo.
 _Avoid_: Igualdad binaria, igualdad visual
