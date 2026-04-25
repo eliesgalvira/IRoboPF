@@ -5,31 +5,38 @@ import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 
-const links = [
-  { href: "/", label: "Simulador" },
-  { href: "/auditoria", label: "Auditoría" },
-] as const
-
 export function SiteNav() {
   const pathname = usePathname()
+  const onAudit = pathname?.startsWith("/auditoria") ?? false
 
   return (
-    <nav className="inline-flex w-fit items-center gap-1 border border-border bg-card p-1">
-      {links.map((link) => {
-        const active = pathname === link.href
-        return (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={cn(
-              "px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground",
-              active && "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
-            )}
-          >
-            {link.label}
-          </Link>
-        )
-      })}
+    <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] uppercase tracking-[0.28em] text-[var(--ink)]/80">
+      <Link
+        href="/"
+        className={cn(
+          "border-b transition",
+          !onAudit
+            ? "border-current"
+            : "border-transparent hover:border-current/60",
+        )}
+      >
+        Simulador
+      </Link>
+      <span className="opacity-30">·</span>
+      <Link
+        href="/auditoria"
+        className={cn(
+          "border-b transition",
+          onAudit
+            ? "border-current"
+            : "border-transparent hover:border-current/60",
+        )}
+      >
+        Auditoría
+      </Link>
+      <span className="ml-auto text-[var(--ink)]/55">
+        progresividad en frío · 2012 — 2026
+      </span>
     </nav>
   )
 }

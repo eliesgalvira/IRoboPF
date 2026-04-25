@@ -1,5 +1,5 @@
-import { AuditExplorer } from "@/components/audit-explorer"
+import { Audit } from "@/components/audit"
 
 export default function AuditPage() {
-  return <AuditExplorer />
+  return <Audit />
 }
