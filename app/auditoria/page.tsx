@@ -1,5 +1,5 @@
-import { Audit } from "@/components/audit"
+import { Auditoria } from "@/components/auditoria"
 
-export default function AuditPage() {
-  return <Audit />
+export default function PaginaAuditoria() {
+  return <Auditoria />
 }
