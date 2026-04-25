@@ -16,11 +16,19 @@ const fuenteMono = JetBrains_Mono({
   variable: "--mono",
 })
 
+const urlSitio = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://i-robo-pf.vercel.app"
+)
+
 export const metadata: Metadata = {
+  metadataBase: urlSitio,
   title: "Progresividad en frío · IRPF",
   description:
     "Calculadora divulgativa de salario neto, IRPF y poder adquisitivo en España (2012 — 2026).",
   applicationName: "IRoboPF",
+  twitter: {
+    card: "summary_large_image",
+  },
   appleWebApp: {
     capable: true,
     title: "IRoboPF",
