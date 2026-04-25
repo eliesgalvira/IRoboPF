@@ -216,6 +216,10 @@ _Avoid_: Modo compatible legacy, output historico
 Proporcion de una base elegida absorbida por IRPF y cotizaciones bajo un caso fiscal.
 _Avoid_: Tipo marginal, IRPF final
 
+**Tipo efectivo del IRPF**:
+Proporcion del salario bruto anual absorbida por el IRPF final, excluyendo cotizaciones sociales.
+_Avoid_: Carga fiscal efectiva, tipo marginal, retencion
+
 **Vista de carga sobre salario bruto**:
 Lectura de la carga fiscal efectiva respecto al salario bruto anual.
 _Avoid_: Cuna fiscal laboral
@@ -345,11 +349,12 @@ _Avoid_: Informe, reporte
 - Una **Fuente pendiente** marca una **Regla de calculo** o un **Parametro normativo** que aun necesita verificacion.
 - Un **Dato economico** puede tener fuente propia sin ser una **Fuente normativa**.
 - Un **Factor IPC acumulado** es un **Dato economico** usado por una **Auditoria de progresividad en frio**.
-- Una **Auditoria de progresividad en frio** puede analizar **Poder adquisitivo neto** y **Carga fiscal efectiva**.
+- Una **Auditoria de progresividad en frio** puede analizar **Poder adquisitivo neto**, **Carga fiscal efectiva** y **Tipo efectivo del IRPF**.
 - Un **Calculo unitario** recibe **Entradas monetarias**, opera con **Importes monetarios** y produce **Importes liquidados** en fronteras explicitas.
 - Una **Exportacion compatible** usa **Modo compatible legacy**.
 - Una **Vista educativa del calculo** usa **Modo canonico** salvo que muestre una comparacion legacy explicita.
 - La **Carga fiscal efectiva** puede presentarse como **Vista de carga sobre salario bruto** o **Vista de cuna fiscal laboral**.
+- El **Tipo efectivo del IRPF** se calcula como **IRPF final** dividido entre **Salario bruto anual**.
 - La pantalla principal muestra **Vista de carga sobre salario bruto** por defecto y permite alternar a **Vista de cuna fiscal laboral**.
 - En la primera version, el input editable de la pantalla principal es siempre **Salario bruto anual**; la **Vista de cuna fiscal laboral** muestra **Coste laboral** derivado.
 - Un **Impacto normativo** explica una parte concreta de un **Desglose de salario neto e IRPF**.
@@ -395,3 +400,4 @@ _Avoid_: Informe, reporte
 - "resultado correcto" puede significar compatible con el Excel original o correcto bajo reglas decimales explicitas; resuelto: distinguir **Modo compatible legacy** y **Modo canonico**.
 - "minimo del slider" no debe confundirse con el primer salario con **IRPF final** positivo en el ano de referencia; resuelto: usar **Rango pedagogico del salario** para cubrir cotizaciones, IRPF historico y progresividad en frio.
 - "exportacion compatible" puede confundirse con una hoja de comparativa acotada, pero el objetivo de producto es el libro legacy completo; resuelto: usar **Exportacion compatible completa** para la replica del Excel original y **Exportacion compatible de comparativa** solo si se necesita nombrar una salida deliberadamente acotada.
+- "tipo efectivo" puede referirse a carga total o a IRPF puro; resuelto: usar **Tipo efectivo del IRPF** para `IRPF final / salario bruto anual` y **Carga fiscal efectiva** cuando incluya cotizaciones.
