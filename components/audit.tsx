@@ -395,7 +395,7 @@ function Visuals({ audit }: { readonly audit: SalaryRangeAudit }) {
         </p>
       </div>
       <Tabs.Root defaultValue="bars" className="mt-5 grid gap-4">
-        <Tabs.List className="inline-flex self-start divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-[11px] uppercase tracking-[0.22em]">
+        <Tabs.List className="inline-flex w-fit justify-self-start divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-[11px] uppercase tracking-[0.22em]">
           {(["bars", "lines", "table"] as const).map((v) => (
             <Tabs.Tab key={v} value={v} className={tabButtonClass}>
               {v === "bars" ? "BARRAS" : v === "lines" ? "LÍNEAS" : "TABLA"}
