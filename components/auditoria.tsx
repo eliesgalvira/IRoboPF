@@ -789,6 +789,41 @@ function filasTipoEfectivoIrpf({
   })
 }
 
+const valoresNumericosDeFilas = (
+  filas: ReadonlyArray<Record<string, number | string>>,
+  claves: ReadonlyArray<string>
+) =>
+  filas.flatMap((fila) =>
+    claves.flatMap((clave) => {
+      const valor = fila[clave]
+      return typeof valor === "number" && Number.isFinite(valor) ? [valor] : []
+    })
+  )
+
+const dominioPorcentaje = (valores: ReadonlyArray<number>) => {
+  if (valores.length === 0) return [0, 0.02] as const
+
+  const maximo = Math.max(...valores)
+  const superior = Math.min(1, Math.ceil((maximo + 0.01) / 0.02) * 0.02)
+  return [0, Math.max(0.02, superior)] as const
+}
+
+const ticksPorcentaje = (dominio: readonly [number, number]) => {
+  const [, superior] = dominio
+  const numeroTicks = Math.round(superior / 0.02)
+  return Array.from({ length: numeroTicks + 1 }, (_, indice) =>
+    Number((indice * 0.02).toFixed(2))
+  )
+}
+
+const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
+  if (valores.length === 0) return [-1000, 1000] as const
+
+  const maximoAbsoluto = Math.max(...valores.map(Math.abs))
+  const limite = Math.max(1000, Math.ceil((maximoAbsoluto * 1.1) / 1000) * 1000)
+  return [-limite, limite] as const
+}
+
 function useTieneHoverPreciso() {
   const [tieneHoverPreciso, fijarTieneHoverPreciso] = React.useState(false)
 
@@ -856,6 +891,25 @@ function Visualizaciones({
         aniosSeleccionados: aniosGraficoIrpf,
       }),
     [aniosGraficoIrpf, auditoria]
+  )
+  const clavesTipoEfectivoIrpf = React.useMemo(
+    () => aniosGraficoIrpf.map(claveAnio),
+    [aniosGraficoIrpf]
+  )
+  const dominioTipoEfectivoIrpf = React.useMemo(
+    () =>
+      dominioPorcentaje(
+        valoresNumericosDeFilas(datosTipoEfectivoIrpf, clavesTipoEfectivoIrpf)
+      ),
+    [clavesTipoEfectivoIrpf, datosTipoEfectivoIrpf]
+  )
+  const ticksTipoEfectivoIrpf = React.useMemo(
+    () => ticksPorcentaje(dominioTipoEfectivoIrpf),
+    [dominioTipoEfectivoIrpf]
+  )
+  const dominioDiferencia = React.useMemo(
+    () => dominioEurosSimetrico(datos.map((fila) => fila.diferencia)),
+    [datos]
   )
   const tieneHoverPreciso = useTieneHoverPreciso()
   const tooltipIrpf = useClaveTooltipDescartable(!tieneHoverPreciso)
@@ -957,11 +1011,8 @@ function Visualizaciones({
                 axisLine={false}
                 tickMargin={6}
                 width={44}
-                domain={[0, 0.34]}
-                ticks={[
-                  0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2,
-                  0.22, 0.24, 0.26, 0.28, 0.3, 0.32, 0.34,
-                ]}
+                domain={dominioTipoEfectivoIrpf}
+                ticks={ticksTipoEfectivoIrpf}
                 fontSize={12}
                 tickFormatter={(valor: number) => `${Math.round(valor * 100)}%`}
               />
@@ -1043,6 +1094,7 @@ function Visualizaciones({
                 axisLine={{ stroke: "var(--rule)" }}
                 tickMargin={4}
                 width={44}
+                domain={dominioDiferencia}
                 fontSize={10}
                 tickFormatter={(valor: number) =>
                   Math.abs(valor) >= 1000
