@@ -9,6 +9,7 @@ Original file is located at
 
 import pandas as pd
 import numpy as np
+import os
 
 # =============================================================================
 # 1. MÓDULO MACROECONÓMICO: INFLACIÓN ACUMULADA (DICIEMBRE A DICIEMBRE)
@@ -342,25 +343,40 @@ def generar_comparativa_inflacion():
 # 6. EJECUCIÓN MAESTRA Y GENERACIÓN DEL EXCEL COMPLETO
 # =============================================================================
 nombre_fichero = 'Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx'
-print("Iniciando la creación del mega-archivo Excel. ¡Paciencia, puede tardar un par de minutos!...")
 
-with pd.ExcelWriter(nombre_fichero, engine='openpyxl') as writer:
-
-    # 1. Pestañas de Parámetros de Control
-    print("Generando hojas de control normativo...")
-    df_gen, df_tra = generar_hojas_control()
-    df_gen.to_excel(writer, sheet_name='CONTROL_GENERAL', index=False)
-    df_tra.to_excel(writer, sheet_name='CONTROL_TRAMOS_IRPF', index=False)
-
-    # 2. Pestaña Comparativa Inflación
+def generar_excel_comparativa_inflacion():
     print("Calculando y generando comparativa ajustada por IPC...")
-    df_comparativa = generar_comparativa_inflacion()
-    df_comparativa.to_excel(writer, sheet_name='COMPARATIVA_INFLACION', index=False)
+    with pd.ExcelWriter(nombre_fichero, engine='openpyxl') as writer:
+        df_comparativa = generar_comparativa_inflacion()
+        df_comparativa.to_excel(writer, sheet_name='COMPARATIVA_INFLACION', index=False)
 
-    # 3. Pestañas Anuales Detalladas (de 1€ en 1€)
-    for anio in range(2012, 2027):
-        print(f"Calculando nóminas detalladas para el año {anio} (100.001 registros)...")
-        df_ano = procesar_ano(anio)
-        df_ano.to_excel(writer, sheet_name=f'DAT_{anio}', index=False)
 
-print(f"\n¡Éxito total! Archivo '{nombre_fichero}' creado correctamente con todas las auditorías solicitadas.")
+def generar_excel_completo():
+    print("Iniciando la creación del mega-archivo Excel. ¡Paciencia, puede tardar un par de minutos!...")
+
+    with pd.ExcelWriter(nombre_fichero, engine='openpyxl') as writer:
+
+        # 1. Pestañas de Parámetros de Control
+        print("Generando hojas de control normativo...")
+        df_gen, df_tra = generar_hojas_control()
+        df_gen.to_excel(writer, sheet_name='CONTROL_GENERAL', index=False)
+        df_tra.to_excel(writer, sheet_name='CONTROL_TRAMOS_IRPF', index=False)
+
+        # 2. Pestaña Comparativa Inflación
+        print("Calculando y generando comparativa ajustada por IPC...")
+        df_comparativa = generar_comparativa_inflacion()
+        df_comparativa.to_excel(writer, sheet_name='COMPARATIVA_INFLACION', index=False)
+
+        # 3. Pestañas Anuales Detalladas (de 1€ en 1€)
+        for anio in range(2012, 2027):
+            print(f"Calculando nóminas detalladas para el año {anio} (100.001 registros)...")
+            df_ano = procesar_ano(anio)
+            df_ano.to_excel(writer, sheet_name=f'DAT_{anio}', index=False)
+
+    print(f"\n¡Éxito total! Archivo '{nombre_fichero}' creado correctamente con todas las auditorías solicitadas.")
+
+
+if os.environ.get("IROBOPF_LEGACY_SOLO_COMPARATIVA") == "1":
+    generar_excel_comparativa_inflacion()
+else:
+    generar_excel_completo()
