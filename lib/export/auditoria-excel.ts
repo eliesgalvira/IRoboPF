@@ -10,6 +10,11 @@ const centimosAEuros = (centimos: number) => centimos / 100
 
 const porcentaje = (valor: number) => Number((valor * 100).toFixed(2))
 
+const porcentajeTextoLegacy = (valor: number) =>
+  Number.isInteger(Number(valor.toFixed(2)))
+    ? `${Number(valor.toFixed(2)).toFixed(1)}%`
+    : `${Number(valor.toFixed(2))}%`
+
 const crearLibro = () => {
   const libro = new ExcelJS.Workbook()
   libro.creator = "IRoboPF"
@@ -181,7 +186,7 @@ const filaAuditoriaCompatible =
       anio: auditoria.anioComparado,
       bruto: centimosAEuros(punto.salarioBrutoAnualCentimos),
       factor: Number(factor.toFixed(4)),
-      ipc: `${((factor - 1) * 100).toFixed(2)}%`,
+      ipc: porcentajeTextoLegacy((factor - 1) * 100),
       nominal: centimosAEuros(
         punto.comparacion.comparado.salarioBrutoNominalAnualCentimos
       ),
