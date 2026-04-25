@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-export default function manifest(): MetadataRoute.Manifest {
+export default function manifiesto(): MetadataRoute.Manifest {
   return {
     name: "Progresividad en frío · IRPF",
     short_name: "IRoboPF",
