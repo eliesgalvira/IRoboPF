@@ -329,7 +329,7 @@ const rangoNumerico = (inicio: number, fin: number): ReadonlyArray<number> => {
     return []
   }
 
-  return globalThis.Array.from(
+  return Array.from(
     { length: fin - inicio + 1 },
     (_, index) => inicio + index
   )
@@ -1062,7 +1062,7 @@ const rangoSalarioBrutoAnualCentimos = (
         entrada.pasoCentimos
     ) + 1
 
-  return globalThis.Array.from(
+  return Array.from(
     { length: numeroPuntos },
     (_, index) =>
       entrada.salarioBrutoAnualMinimoCentimos + index * entrada.pasoCentimos
