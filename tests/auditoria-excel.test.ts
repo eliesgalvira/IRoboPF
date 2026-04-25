@@ -7,7 +7,7 @@ import { construirLibroAuditoriaCompatible } from "../lib/export/auditoria-excel
 
 const valoresFila = (hoja: ExcelJS.Worksheet, numeroFila: number) => {
   const fila = hoja.getRow(numeroFila)
-  return globalThis.Array.from(
+  return Array.from(
     { length: hoja.columnCount },
     (_, indice) => fila.getCell(indice + 1).value
   )
@@ -31,7 +31,7 @@ describe("construirLibroAuditoriaCompatible", () => {
         expect(hoja).toBeDefined()
 
         if (hoja === undefined) {
-          return
+          throw new Error("No se encontró la hoja esperada COMPARATIVA_INFLACION")
         }
 
         expect(valoresFila(hoja, 1)).toEqual([
