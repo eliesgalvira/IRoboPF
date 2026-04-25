@@ -874,9 +874,6 @@ function Visualizaciones({
         <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
           EXPLORACIÓN POR RANGO SALARIAL
         </h2>
-        <p className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-          Gráficos y tabla del barrido
-        </p>
       </div>
       <Tabs.Root defaultValue="tipo-irpf" className="mt-5 grid gap-4">
         <Tabs.List className="inline-flex w-fit divide-x-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-[11px] tracking-[0.22em] uppercase">
