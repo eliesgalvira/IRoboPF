@@ -5,19 +5,19 @@ import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 
-export function SiteNav() {
-  const pathname = usePathname()
-  const onAudit = pathname?.startsWith("/auditoria") ?? false
+export function NavegacionSitio() {
+  const rutaActual = usePathname()
+  const enAuditoria = rutaActual?.startsWith("/auditoria") ?? false
 
   return (
-    <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] uppercase tracking-[0.28em] text-[var(--ink)]/80">
+    <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] tracking-[0.28em] text-[var(--ink)]/80 uppercase">
       <Link
         href="/"
         className={cn(
           "border-b transition",
-          !onAudit
+          !enAuditoria
             ? "border-current"
-            : "border-transparent hover:border-current/60",
+            : "border-transparent hover:border-current/60"
         )}
       >
         Simulador
@@ -27,9 +27,9 @@ export function SiteNav() {
         href="/auditoria"
         className={cn(
           "border-b transition",
-          onAudit
+          enAuditoria
             ? "border-current"
-            : "border-transparent hover:border-current/60",
+            : "border-transparent hover:border-current/60"
         )}
       >
         Auditoría

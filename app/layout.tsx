@@ -4,13 +4,13 @@ import { Anton, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 
-const display = Anton({
+const fuenteTitular = Anton({
   subsets: ["latin"],
   weight: "400",
   variable: "--display",
 })
 
-const mono = JetBrains_Mono({
+const fuenteMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--mono",
@@ -36,31 +36,37 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
 }
 
-export default function RootLayout({
-  children,
+export default function DisposicionRaiz({
+  children: hijos,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
     <html lang="es">
       <body
-        className={cn(display.variable, mono.variable, "site-theme antialiased")}
-        style={{
-          fontFamily: "var(--mono)",
-          background: "var(--paper)",
-          color: "var(--ink)",
-          ["--paper" as string]: "oklch(0.965 0.014 92)",
-          ["--paper-2" as string]: "oklch(0.935 0.02 92)",
-          ["--ink" as string]: "oklch(0.10 0 0)",
-          ["--ink-soft" as string]: "oklch(0.30 0 0)",
-          ["--rule" as string]: "oklch(0.10 0 0)",
-          ["--mark" as string]: "oklch(0.93 0.18 95)",
-          ["--mark-ink" as string]: "oklch(0.10 0 0)",
-          ["--danger" as string]: "oklch(0.58 0.22 27)",
-          ["--gain" as string]: "oklch(0.55 0.16 155)",
-        } as React.CSSProperties}
+        className={cn(
+          fuenteTitular.variable,
+          fuenteMono.variable,
+          "site-theme antialiased"
+        )}
+        style={
+          {
+            fontFamily: "var(--mono)",
+            background: "var(--paper)",
+            color: "var(--ink)",
+            ["--paper" as string]: "oklch(0.965 0.014 92)",
+            ["--paper-2" as string]: "oklch(0.935 0.02 92)",
+            ["--ink" as string]: "oklch(0.10 0 0)",
+            ["--ink-soft" as string]: "oklch(0.30 0 0)",
+            ["--rule" as string]: "oklch(0.10 0 0)",
+            ["--mark" as string]: "oklch(0.93 0.18 95)",
+            ["--mark-ink" as string]: "oklch(0.10 0 0)",
+            ["--danger" as string]: "oklch(0.58 0.22 27)",
+            ["--gain" as string]: "oklch(0.55 0.16 155)",
+          } as React.CSSProperties
+        }
       >
-        {children}
+        {hijos}
       </body>
     </html>
   )
