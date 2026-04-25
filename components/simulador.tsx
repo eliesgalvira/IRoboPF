@@ -5,6 +5,7 @@ import dynamic from "next/dynamic"
 import { Dialog } from "@base-ui/react/dialog"
 import { NumberField } from "@base-ui/react/number-field"
 import { Slider } from "@base-ui/react/slider"
+import { useLocalStorage } from "@uidotdev/usehooks"
 import { Effect } from "effect"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
@@ -39,6 +40,9 @@ function SimuladorImpl() {
     React.useState<number | null>(null)
   const [sobrescrituraAbierta, fijarSobrescrituraAbierta] =
     React.useState(false)
+  const [advertenciaSliderVista, fijarAdvertenciaSliderVista] =
+    useLocalStorage("irobopf.sliderOverwriteWarningSeen", false)
+  const ignorarCambioPrecisoPorSlider = React.useRef(false)
   const [vistaCoste, fijarVistaCoste] = React.useState<
     "bruto" | "coste-laboral"
   >("bruto")
@@ -77,15 +81,25 @@ function SimuladorImpl() {
 
   const aplicarValorSlider = (valorEnEuros: number) => {
     const siguientesCentimos = eurosACentimos(valorEnEuros)
-    if (precisoTocado) {
+    if (precisoTocado && !advertenciaSliderVista) {
       fijarSliderPendienteCentimos(siguientesCentimos)
-      fijarSobrescrituraAbierta(true)
+      window.setTimeout(() => fijarSobrescrituraAbierta(true), 0)
       return
     }
+    fijarPrecisoTocado(false)
     fijarSalarioCentimos(siguientesCentimos)
   }
 
+  const prepararInteraccionSlider = () => {
+    if (!advertenciaSliderVista) return
+    ignorarCambioPrecisoPorSlider.current = true
+    window.setTimeout(() => {
+      ignorarCambioPrecisoPorSlider.current = false
+    }, 0)
+  }
+
   const confirmarSobrescrituraSlider = () => {
+    fijarAdvertenciaSliderVista(true)
     if (sliderPendienteCentimos !== null)
       fijarSalarioCentimos(sliderPendienteCentimos)
     fijarSliderPendienteCentimos(null)
@@ -94,8 +108,17 @@ function SimuladorImpl() {
   }
 
   const cancelarSobrescrituraSlider = () => {
+    fijarAdvertenciaSliderVista(true)
     fijarSliderPendienteCentimos(null)
     fijarSobrescrituraAbierta(false)
+  }
+
+  const cambiarAperturaSobrescritura = (abierta: boolean) => {
+    if (abierta) {
+      fijarSobrescrituraAbierta(true)
+      return
+    }
+    cancelarSobrescrituraSlider()
   }
 
   const diferencia = comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
@@ -165,6 +188,7 @@ function SimuladorImpl() {
               locale="es-ES"
               onValueChange={(v) => {
                 if (v === null) return
+                if (ignorarCambioPrecisoPorSlider.current) return
                 const siguientesCentimos = limitar(
                   eurosACentimos(v),
                   configuracionControlSalario.preciso.minimoCentimos,
@@ -202,6 +226,7 @@ function SimuladorImpl() {
                 configuracionControlSalario.rapido.pasoCentimos
               )}
               onValueChange={aplicarValorSlider}
+              onPointerDownCapture={prepararInteraccionSlider}
               className="grid gap-2"
             >
               <div className="flex items-baseline justify-between text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
@@ -261,7 +286,7 @@ function SimuladorImpl() {
 
       <Dialog.Root
         open={sobrescrituraAbierta}
-        onOpenChange={fijarSobrescrituraAbierta}
+        onOpenChange={cambiarAperturaSobrescritura}
       >
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 z-40 bg-[oklch(0.1_0_0/0.72)] backdrop-blur-[2px] transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
@@ -273,7 +298,7 @@ function SimuladorImpl() {
               <Dialog.Description className="mt-3 text-sm leading-6 text-[var(--ink-soft)]">
                 El control rápido solo introduce salarios entre 10.000 y 100.000
                 € en saltos de 1.000 €. Si continúas, se reemplazará el valor
-                del campo numérico.
+                del campo numérico. Esta advertencia solo aparecerá una vez.
               </Dialog.Description>
               <div className="mt-5 flex flex-wrap justify-end gap-2 text-[11px] tracking-[0.22em] uppercase">
                 <Dialog.Close
