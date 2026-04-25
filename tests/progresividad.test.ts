@@ -3,6 +3,7 @@ import { describe, expect, it } from "@effect/vitest"
 
 import {
   auditarRangoSalarial,
+  calcularPerdidaAcumulada,
   compararAjustadoPorIpc,
   configuracionControlSalario,
 } from "../lib/domain/progresividad"
@@ -37,6 +38,28 @@ describe("compararAjustadoPorIpc", () => {
         expect(comparacion.comparado.salarioBrutoNominalAnualCentimos).toBe(
           1_430_607
         )
+      })
+  )
+
+  it.effect(
+    "acumula la perdida de poder adquisitivo neto entre el año comparado y el de referencia",
+    () =>
+      Effect.gen(function* () {
+        const perdidaAcumulada = yield* calcularPerdidaAcumulada({
+          salarioBrutoAnualReferenciaCentimos: 1_800_000,
+          anioComparado: 2019,
+          anioReferencia: 2026,
+        })
+
+        expect(
+          perdidaAcumulada.puntos.map((punto) => punto.anioComparado)
+        ).toEqual([2019, 2020, 2021, 2022, 2023, 2024, 2025])
+        expect(
+          perdidaAcumulada.puntos.map(
+            (punto) => punto.diferenciaPoderAdquisitivoNetoAnualCentimos
+          )
+        ).toEqual([48_522, 52_328, 5_867, -32_678, 936, 12_461, -1_031])
+        expect(perdidaAcumulada.totalCentimos).toBe(86_405)
       })
   )
 

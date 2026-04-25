@@ -19,10 +19,12 @@ import {
   type AnioFiscal,
 } from "@/lib/formato"
 import {
+  calcularPerdidaAcumulada,
   compararAjustadoPorIpc,
   configuracionControlSalario,
   type ComparacionAjustadaPorIpc,
   type DesgloseLiquidado,
+  type PerdidaAcumulada,
 } from "@/lib/domain/progresividad"
 import { useContadorAnimado } from "@/lib/animacion"
 import { cn } from "@/lib/utils"
@@ -45,6 +47,18 @@ function SimuladorImpl() {
     () =>
       Effect.runSync(
         compararAjustadoPorIpc({
+          salarioBrutoAnualReferenciaCentimos: salarioCentimos,
+          anioComparado,
+          anioReferencia: 2026,
+        })
+      ),
+    [salarioCentimos, anioComparado]
+  )
+
+  const perdidaAcumulada = React.useMemo(
+    () =>
+      Effect.runSync(
+        calcularPerdidaAcumulada({
           salarioBrutoAnualReferenciaCentimos: salarioCentimos,
           anioComparado,
           anioReferencia: 2026,
@@ -111,8 +125,8 @@ function SimuladorImpl() {
           </h1>
           <div className="grid gap-3">
             <p className="text-sm leading-6 text-[var(--ink)]">
-              Elige un salario bruto anual y un año pasado. La página calcula
-              el <strong>SALARIO NETO</strong>, el <strong>IRPF</strong> y las{" "}
+              Elige un salario bruto anual y un año pasado. La página calcula el{" "}
+              <strong>SALARIO NETO</strong>, el <strong>IRPF</strong> y las{" "}
               <strong>COTIZACIONES</strong>, corrige la inflación y compara ese
               resultado con las reglas de 2026.
             </p>
@@ -240,6 +254,8 @@ function SimuladorImpl() {
           fijarModo={fijarVistaCoste}
         />
 
+        <PerdidaAcumuladaPanel perdidaAcumulada={perdidaAcumulada} />
+
         <Pasos comparacion={comparacion} />
       </div>
 
@@ -286,6 +302,78 @@ export const Simulador = dynamic(async () => ({ default: SimuladorImpl }), {
   ssr: false,
   loading: () => <div className="min-h-svh bg-[var(--paper)]" />,
 })
+
+function PerdidaAcumuladaPanel({
+  perdidaAcumulada,
+}: {
+  readonly perdidaAcumulada: PerdidaAcumulada
+}) {
+  const perdida = perdidaAcumulada.totalCentimos > 0
+  const promedioCentimos =
+    perdidaAcumulada.puntos.length === 0
+      ? 0
+      : Math.round(
+          perdidaAcumulada.totalCentimos / perdidaAcumulada.puntos.length
+        )
+
+  return (
+    <section className="grid gap-5 border-b-2 border-[var(--rule)] py-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
+      <div className="grid content-start gap-3">
+        <span
+          className={cn(
+            "w-fit px-2 py-0.5 text-[10px] font-bold tracking-[0.35em] uppercase",
+            perdida
+              ? "bg-[var(--danger)] text-[var(--paper)]"
+              : "bg-[var(--gain)] text-[var(--paper)]"
+          )}
+        >
+          {perdida ? "PÉRDIDA ACUMULADA" : "GANANCIA ACUMULADA"}
+        </span>
+        <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
+          De {perdidaAcumulada.anioInicial} a {perdidaAcumulada.anioReferencia}
+        </h2>
+        <p className="font-[family-name:var(--display)] text-[clamp(2.5rem,8vw,5rem)] leading-none text-[var(--ink)] tabular-nums">
+          {formatearCentimos(Math.abs(perdidaAcumulada.totalCentimos))}
+        </p>
+        <p className="text-sm leading-6 text-[var(--ink-soft)]">
+          Suma de la diferencia anual de poder adquisitivo neto de cada año
+          comparado, reexpresada en euros de {perdidaAcumulada.anioReferencia}.
+          Promedio anual:{" "}
+          <strong className="text-[var(--ink)]">
+            {formatearCentimos(Math.abs(promedioCentimos))}
+          </strong>
+          .
+        </p>
+      </div>
+      <ol className="grid gap-px bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-3">
+        {perdidaAcumulada.puntos.map((punto) => {
+          const puntoPerdida =
+            punto.diferenciaPoderAdquisitivoNetoAnualCentimos > 0
+          return (
+            <li
+              key={punto.anioComparado}
+              className="flex items-baseline justify-between gap-3 bg-[var(--paper)] p-3"
+            >
+              <span className="font-[family-name:var(--display)] text-2xl leading-none tracking-wider text-[var(--ink)]">
+                {punto.anioComparado}
+              </span>
+              <span
+                className={cn(
+                  "font-[family-name:var(--mono)] text-sm font-bold tabular-nums",
+                  puntoPerdida ? "text-[var(--danger)]" : "text-[var(--gain)]"
+                )}
+              >
+                {formatearCentimos(
+                  Math.abs(punto.diferenciaPoderAdquisitivoNetoAnualCentimos)
+                )}
+              </span>
+            </li>
+          )
+        })}
+      </ol>
+    </section>
+  )
+}
 
 function RejillaAnios({
   valor,
@@ -504,6 +592,8 @@ function Columna({
   const cuna =
     (desglose.costeLaboralCentimos - desglose.salarioNetoAnualCentimos) /
     desglose.costeLaboralCentimos
+  const etiquetaCarga =
+    etiquetaBase === "BRUTO" ? "CARGA SOBRE BRUTO" : "CARGA SOBRE COSTE"
   return (
     <article
       className={cn(
@@ -535,7 +625,7 @@ function Columna({
           valor={`−${formatearCentimos(desglose.irpfFinalCentimos)}`}
           peligro
         />
-        <Fila etiqueta="CARGA / BRUTO" valor={porcentaje.format(carga)} />
+        <Fila etiqueta={etiquetaCarga} valor={porcentaje.format(carga)} />
         <Fila etiqueta="CUÑA LABORAL" valor={porcentaje.format(cuna)} />
       </ul>
       <footer className="mt-2 flex flex-wrap items-baseline justify-between gap-3 border-t-2 border-[var(--rule)] pt-3">

@@ -51,6 +51,18 @@ export interface ComparacionAjustadaPorIpc {
   readonly diferenciaPoderAdquisitivoNetoMensualCentimos: number
 }
 
+export interface PuntoPerdidaAcumulada {
+  readonly anioComparado: AnioFiscal
+  readonly diferenciaPoderAdquisitivoNetoAnualCentimos: number
+}
+
+export interface PerdidaAcumulada {
+  readonly anioInicial: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+  readonly totalCentimos: number
+  readonly puntos: ReadonlyArray<PuntoPerdidaAcumulada>
+}
+
 export interface EntradaAuditoriaRangoSalarial {
   readonly salarioBrutoAnualMinimoCentimos: number
   readonly salarioBrutoAnualMaximoCentimos: number
@@ -1026,6 +1038,40 @@ export const compararAjustadoPorIpc = Effect.fn(
   "progresividad.compararAjustadoPorIpc"
 )(function* (entrada: EntradaComparacionAjustadaPorIpc) {
   return construirComparacionAjustadaPorIpc(entrada)
+})
+
+export const calcularPerdidaAcumulada = Effect.fn(
+  "progresividad.calcularPerdidaAcumulada"
+)(function* (entrada: EntradaComparacionAjustadaPorIpc) {
+  const puntos = yield* Effect.forEach(
+    aniosFiscalesLegacy.filter(
+      (anio) => anio >= entrada.anioComparado && anio < entrada.anioReferencia
+    ),
+    (anioComparado) =>
+      Effect.gen(function* () {
+        const comparacion = yield* compararAjustadoPorIpc({
+          ...entrada,
+          anioComparado,
+        })
+
+        return {
+          anioComparado,
+          diferenciaPoderAdquisitivoNetoAnualCentimos:
+            comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos,
+        } satisfies PuntoPerdidaAcumulada
+      })
+  )
+
+  return {
+    anioInicial: entrada.anioComparado,
+    anioReferencia: entrada.anioReferencia,
+    totalCentimos: puntos.reduce(
+      (total, punto) =>
+        total + punto.diferenciaPoderAdquisitivoNetoAnualCentimos,
+      0
+    ),
+    puntos,
+  } satisfies PerdidaAcumulada
 })
 
 const proporcionSegura = (numerador: number, denominador: number) => {
