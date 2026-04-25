@@ -1,5 +1,6 @@
 import ExcelJS from "exceljs"
 import { Clock, Effect } from "effect"
+import { Deflate } from "fflate"
 
 import type {
   HallazgoAuditoria,
@@ -589,18 +590,21 @@ const fechaZip = () => {
 interface EntradaZip {
   readonly nombre: string
   readonly crc: number
-  readonly tamano: number
+  readonly tamanoComprimido: number
+  readonly tamanoSinComprimir: number
   readonly offset: number
 }
 
 interface EntradaZipAbierta {
   readonly nombre: string
   readonly offset: number
+  readonly deflate: Deflate
   crc: number
-  tamano: number
+  tamanoComprimido: number
+  tamanoSinComprimir: number
 }
 
-class ZipSinCompresion {
+class ZipComprimido {
   readonly partes: Array<Uint8Array> = []
   readonly entradas: Array<EntradaZip> = []
   private offset = 0
@@ -623,7 +627,7 @@ class ZipSinCompresion {
         escribirUint32(vista, 0, 0x04034b50)
         escribirUint16(vista, 4, 20)
         escribirUint16(vista, 6, 0x0808)
-        escribirUint16(vista, 8, 0)
+        escribirUint16(vista, 8, 8)
         escribirUint16(vista, 10, hora)
         escribirUint16(vista, 12, dia)
         escribirUint32(vista, 14, 0)
@@ -635,31 +639,44 @@ class ZipSinCompresion {
       })
     )
 
-    return { nombre, offset: offsetEntrada, crc: 0xffffffff, tamano: 0 }
+    const entrada: EntradaZipAbierta = {
+      nombre,
+      offset: offsetEntrada,
+      crc: 0xffffffff,
+      tamanoComprimido: 0,
+      tamanoSinComprimir: 0,
+      deflate: new Deflate({ level: 6, mem: 8 }, (datos) => {
+        entrada.tamanoComprimido += datos.byteLength
+        this.anadirBytes(datos)
+      }),
+    }
+    return entrada
   }
 
   anadirFragmento(entrada: EntradaZipAbierta, fragmento: string) {
     if (fragmento.length === 0) return
     const datos = codificadorTexto.encode(fragmento)
     entrada.crc = actualizarCrc32(entrada.crc, datos)
-    entrada.tamano += datos.byteLength
-    this.anadirBytes(datos)
+    entrada.tamanoSinComprimir += datos.byteLength
+    entrada.deflate.push(datos)
   }
 
   cerrar(entrada: EntradaZipAbierta) {
+    entrada.deflate.push(new Uint8Array(0), true)
     const crcFinal = (entrada.crc ^ 0xffffffff) >>> 0
     this.anadirBytes(
       bufferZip(16, (vista) => {
         escribirUint32(vista, 0, 0x08074b50)
         escribirUint32(vista, 4, crcFinal)
-        escribirUint32(vista, 8, entrada.tamano)
-        escribirUint32(vista, 12, entrada.tamano)
+        escribirUint32(vista, 8, entrada.tamanoComprimido)
+        escribirUint32(vista, 12, entrada.tamanoSinComprimir)
       })
     )
     this.entradas.push({
       nombre: entrada.nombre,
       crc: crcFinal,
-      tamano: entrada.tamano,
+      tamanoComprimido: entrada.tamanoComprimido,
+      tamanoSinComprimir: entrada.tamanoSinComprimir,
       offset: entrada.offset,
     })
   }
@@ -676,12 +693,12 @@ class ZipSinCompresion {
           escribirUint16(vista, 4, 20)
           escribirUint16(vista, 6, 20)
           escribirUint16(vista, 8, 0x0808)
-          escribirUint16(vista, 10, 0)
+          escribirUint16(vista, 10, 8)
           escribirUint16(vista, 12, hora)
           escribirUint16(vista, 14, dia)
           escribirUint32(vista, 16, entrada.crc)
-          escribirUint32(vista, 20, entrada.tamano)
-          escribirUint32(vista, 24, entrada.tamano)
+          escribirUint32(vista, 20, entrada.tamanoComprimido)
+          escribirUint32(vista, 24, entrada.tamanoSinComprimir)
           escribirUint16(vista, 28, nombreCodificado.byteLength)
           escribirUint16(vista, 30, 0)
           escribirUint16(vista, 32, 0)
@@ -787,7 +804,7 @@ export const construirBlobXlsxCompatibleConProgreso = Effect.fn(
   )
   const hojasTotales = planes.length
   const filasPorBloque = opciones.filasPorBloque ?? 1_000
-  const zip = new ZipSinCompresion()
+  const zip = new ZipComprimido()
   let filasProcesadas = 0
 
   zip.anadir("_rels/.rels", [
@@ -889,7 +906,7 @@ export const construirBlobXlsxCompatibleConProgreso = Effect.fn(
       filasProcesadas,
       hojasTotales,
       hojasProcesadas: hojasTotales,
-      mensaje: "Cerrando ZIP XLSX sin modelo ExcelJS en memoria",
+      mensaje: "Cerrando ZIP XLSX comprimido sin modelo ExcelJS en memoria",
     })
   )
   yield* Effect.yieldNow
