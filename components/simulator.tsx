@@ -220,7 +220,7 @@ function SimulatorImpl() {
               <div className="mt-5 flex flex-wrap justify-end gap-2 text-[11px] uppercase tracking-[0.22em]">
                 <Dialog.Close
                   onClick={cancelSliderOverwrite}
-                  className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 transition-colors hover:border-[var(--danger)] hover:bg-[var(--danger)] hover:text-[var(--paper)] focus-visible:border-[var(--danger)] focus-visible:bg-[var(--danger)] focus-visible:text-[var(--paper)] focus-visible:outline-none"
+                  className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 transition-colors hover:bg-[var(--danger)] hover:text-[var(--paper)] focus-visible:bg-[var(--danger)] focus-visible:text-[var(--paper)] focus-visible:outline-none"
                 >
                   Cancelar
                 </Dialog.Close>
