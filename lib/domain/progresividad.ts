@@ -18,6 +18,11 @@ export type AnioFiscal =
   | 2025
   | 2026
 
+export const aniosFiscalesLegacy = [
+  2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
+  2025, 2026,
+] as const satisfies ReadonlyArray<AnioFiscal>
+
 export interface EntradaComparacionAjustadaPorIpc {
   readonly salarioBrutoAnualReferenciaCentimos: number
   readonly anioComparado: AnioFiscal
@@ -78,6 +83,25 @@ export interface AuditoriaRangoSalarial {
   readonly pasoCentimos: number
   readonly puntos: ReadonlyArray<PuntoAuditoriaRangoSalarial>
   readonly hallazgos: ReadonlyArray<HallazgoAuditoria>
+}
+
+export interface RangoSalarialEuros {
+  readonly salarioMinimoEuros: number
+  readonly salarioMaximoEuros: number
+  readonly pasoEuros: number
+}
+
+export interface OpcionesRangoSalarialEuros {
+  readonly salarioMinimoEuros?: number
+  readonly salarioMaximoEuros?: number
+  readonly pasoEuros?: number
+}
+
+export type ValorCeldaCompatible = number | string
+
+export interface TablaCompatible {
+  readonly cabeceras: ReadonlyArray<string>
+  readonly filas: Iterable<ReadonlyArray<ValorCeldaCompatible>>
 }
 
 export const configuracionControlSalario = {
@@ -294,6 +318,18 @@ const SIN_SOLIDARIDAD = {
   _tag: "SinSolidaridad",
 } as const satisfies PoliticaSolidaridad
 
+const rangoComparativaInflacionLegacy = {
+  salarioMinimoEuros: 15_000,
+  salarioMaximoEuros: 100_000,
+  pasoEuros: 1_000,
+} as const satisfies RangoSalarialEuros
+
+const rangoDetalleAnualLegacy = {
+  salarioMinimoEuros: 0,
+  salarioMaximoEuros: 100_000,
+  pasoEuros: 1,
+} as const satisfies RangoSalarialEuros
+
 const centimosAEuros = (centimos: number) => decimal(centimos).div(100)
 
 const eurosACentimos = (euros: Decimal) =>
@@ -301,6 +337,14 @@ const eurosACentimos = (euros: Decimal) =>
 
 const redondearDinero = (euros: Decimal) =>
   euros.toDecimalPlaces(2, Decimal.ROUND_HALF_EVEN)
+
+const numeroRedondeado = (valor: Decimal, decimales: number) =>
+  Number(valor.toDecimalPlaces(decimales, Decimal.ROUND_HALF_EVEN).toString())
+
+const dineroCompatible = (euros: Decimal) => numeroRedondeado(euros, 2)
+
+const porcentajeCompatible = (tipo: Decimal, decimales: number) =>
+  numeroRedondeado(tipo.mul(100), decimales)
 
 const min = (a: Decimal, b: Decimal) => {
   if (a.lessThan(b)) {
@@ -584,6 +628,71 @@ const obtenerDeduccionSmi = (anio: AnioFiscal): PoliticaMonetaria => {
   }
 
   return sinDeduccionSmi
+}
+
+type ValorMetadatoArticulo20 = number | "Transitorio"
+
+interface MetadatosArticulo20 {
+  readonly umbralInferior: ValorMetadatoArticulo20
+  readonly reduccionMaxima: ValorMetadatoArticulo20
+  readonly umbralSuperior: ValorMetadatoArticulo20
+  readonly reduccionMinima: ValorMetadatoArticulo20
+}
+
+const obtenerMetadatosArticulo20 = (
+  anio: AnioFiscal
+): MetadatosArticulo20 => {
+  if (anio <= 2014) {
+    return {
+      umbralInferior: 9180,
+      reduccionMaxima: 4080,
+      umbralSuperior: 13260,
+      reduccionMinima: 2652,
+    }
+  }
+
+  if (anio <= 2017) {
+    return {
+      umbralInferior: 11250,
+      reduccionMaxima: 3700,
+      umbralSuperior: 14450,
+      reduccionMinima: 0,
+    }
+  }
+
+  if (anio === 2018) {
+    return {
+      umbralInferior: "Transitorio",
+      reduccionMaxima: "Transitorio",
+      umbralSuperior: "Transitorio",
+      reduccionMinima: "Transitorio",
+    }
+  }
+
+  if (anio <= 2022) {
+    return {
+      umbralInferior: 13115,
+      reduccionMaxima: 5565,
+      umbralSuperior: 16825,
+      reduccionMinima: 0,
+    }
+  }
+
+  if (anio === 2023) {
+    return {
+      umbralInferior: 14047.5,
+      reduccionMaxima: 6498,
+      umbralSuperior: 19747.5,
+      reduccionMinima: 0,
+    }
+  }
+
+  return {
+    umbralInferior: 14852,
+    reduccionMaxima: 7302,
+    umbralSuperior: 19747.5,
+    reduccionMinima: 0,
+  }
 }
 
 const obtenerParametros = (anio: AnioFiscal): Parametros => {
@@ -1110,3 +1219,245 @@ export const auditarRangoSalarial = Effect.fn(
     hallazgos: construirHallazgos(puntos),
   } satisfies AuditoriaRangoSalarial
 })
+
+const rangoSalarialEuros = (
+  rangoPorDefecto: RangoSalarialEuros,
+  opciones: OpcionesRangoSalarialEuros | undefined
+): RangoSalarialEuros => ({
+  salarioMinimoEuros:
+    opciones?.salarioMinimoEuros ?? rangoPorDefecto.salarioMinimoEuros,
+  salarioMaximoEuros:
+    opciones?.salarioMaximoEuros ?? rangoPorDefecto.salarioMaximoEuros,
+  pasoEuros: opciones?.pasoEuros ?? rangoPorDefecto.pasoEuros,
+})
+
+function* salariosDelRango(
+  rango: RangoSalarialEuros
+): Iterable<number> {
+  if (rango.pasoEuros <= 0) {
+    return
+  }
+
+  for (
+    let salario = rango.salarioMinimoEuros;
+    salario <= rango.salarioMaximoEuros;
+    salario += rango.pasoEuros
+  ) {
+    yield salario
+  }
+}
+
+const textoPorcentajeLegacy = (valor: number) =>
+  Number.isInteger(Number(valor.toFixed(2)))
+    ? `${Number(valor.toFixed(2)).toFixed(1)}%`
+    : `${Number(valor.toFixed(2))}%`
+
+const cabeceraTramoIrpf = (indice: number, tramo: TramoIrpf) => {
+  const [, tipo] = tramo
+  return `T${indice + 1} (${tipo.mul(100).toDecimalPlaces(1, Decimal.ROUND_HALF_EVEN).toFixed(1)}%)`
+}
+
+const valorLimiteTramo = (limite: Decimal): ValorCeldaCompatible => {
+  if (!limite.isFinite()) {
+    return "En adelante"
+  }
+
+  return limite.toNumber()
+}
+
+const calcularCuotasPorTramo = (
+  baseImponible: Decimal,
+  tramos: TramosIrpf
+): ReadonlyArray<Decimal> =>
+  tramos.map(([limite], indice) => {
+    const limiteAnterior = indice === 0 ? CERO : tramos[indice - 1][0]
+    return importeBaseEnTramo(baseImponible, limiteAnterior, limite).mul(
+      tramos[indice][1]
+    )
+  })
+
+const cabecerasDetalleAnualCompatible = (anio: AnioFiscal) => [
+  "Salario Bruto",
+  "Cot. Soc. Empresa",
+  "Coste Laboral",
+  "Cot. Soc. Trab.",
+  "Ren. Previo",
+  "Gastos Fijos",
+  "Red. Ren. Trab.",
+  "Base Imponible",
+  ...obtenerTramosIrpf(anio).map((tramo, indice) =>
+    cabeceraTramoIrpf(indice, tramo)
+  ),
+  "Cuota Íntegra",
+  "Cuota Mínimo Personal",
+  "Cuota Teórica",
+  "Deducción SMI",
+  "Cuota tras SMI",
+  "Límite 43% (Art 85.3)",
+  "IRPF Final",
+  "Salario Neto",
+]
+
+const construirFilaDetalleAnualCompatible = (
+  anio: AnioFiscal,
+  salarioBrutoEuros: number
+): ReadonlyArray<ValorCeldaCompatible> => {
+  const bruto = decimal(salarioBrutoEuros)
+  const parametros = obtenerParametros(anio)
+  const cotizaciones = calcularCotizacionesSociales(bruto, parametros)
+  const irpf = calcularIrpf(bruto, parametros, cotizaciones)
+  const cuotasPorTramo = calcularCuotasPorTramo(
+    irpf.baseImponible,
+    parametros.tramosIrpf
+  )
+  const salarioNeto = bruto
+    .minus(cotizaciones.cotizacionTrabajador)
+    .minus(irpf.irpfFinal)
+
+  return [
+    salarioBrutoEuros,
+    dineroCompatible(cotizaciones.cotizacionEmpresarial),
+    dineroCompatible(bruto.plus(cotizaciones.cotizacionEmpresarial)),
+    dineroCompatible(cotizaciones.cotizacionTrabajador),
+    dineroCompatible(irpf.rendimientoPrevioNeto),
+    parametros.gastosFijos.toNumber(),
+    dineroCompatible(irpf.reduccionTrabajo),
+    dineroCompatible(irpf.baseImponible),
+    ...cuotasPorTramo.map(dineroCompatible),
+    dineroCompatible(irpf.cuotaIntegra),
+    dineroCompatible(irpf.cuotaMinimoPersonal),
+    dineroCompatible(irpf.cuotaTeorica),
+    dineroCompatible(irpf.deduccionSmi),
+    dineroCompatible(irpf.cuotaTrasSmi),
+    dineroCompatible(irpf.limiteRetencion),
+    dineroCompatible(irpf.irpfFinal),
+    dineroCompatible(salarioNeto),
+  ]
+}
+
+export const construirTablaControlGeneralCompatible = (): TablaCompatible => ({
+  cabeceras: [
+    "Año",
+    "Base Máx. Anual",
+    "SS Empleador %",
+    "SS Empleado %",
+    "MEI Empleador %",
+    "MEI Empleado %",
+    "Gastos Fijos Art.19",
+    "Mín. Contribuyente",
+    "Mín. Exento Retención",
+    "Art.20 Umbral Inf",
+    "Art.20 Red. Máxima",
+    "Art.20 Umbral Sup",
+    "Art.20 Red. Mínima",
+  ],
+  filas: aniosFiscalesLegacy.map((anio) => {
+    const parametros = obtenerParametros(anio)
+    const articulo20 = obtenerMetadatosArticulo20(anio)
+
+    return [
+      anio,
+      parametros.baseMaxima.toNumber(),
+      porcentajeCompatible(sumarTipoCotizacion(parametros, "empresarial"), 2),
+      porcentajeCompatible(sumarTipoCotizacion(parametros, "trabajador"), 2),
+      porcentajeCompatible(parametros.mei.empresarial, 3),
+      porcentajeCompatible(parametros.mei.trabajador, 3),
+      parametros.gastosFijos.toNumber(),
+      parametros.minimoPersonalIrpf.toNumber(),
+      parametros.minimoExentoRetencion.toNumber(),
+      articulo20.umbralInferior,
+      articulo20.reduccionMaxima,
+      articulo20.umbralSuperior,
+      articulo20.reduccionMinima,
+    ] satisfies ReadonlyArray<ValorCeldaCompatible>
+  }),
+})
+
+export const construirTablaControlTramosIrpfCompatible =
+  (): TablaCompatible => ({
+    cabeceras: ["Año", "Nº Tramo", "Hasta Base", "Tipo %"],
+    filas: aniosFiscalesLegacy.flatMap((anio) =>
+      obtenerTramosIrpf(anio).map(
+        ([limite, tipo], indice) =>
+          [
+            anio,
+            indice + 1,
+            valorLimiteTramo(limite),
+            porcentajeCompatible(tipo, 2),
+          ] satisfies ReadonlyArray<ValorCeldaCompatible>
+      )
+    ),
+  })
+
+export const construirTablaComparativaInflacionCompatible = (
+  opciones?: OpcionesRangoSalarialEuros
+): TablaCompatible => {
+  const rango = rangoSalarialEuros(rangoComparativaInflacionLegacy, opciones)
+
+  function* filas(): Iterable<ReadonlyArray<ValorCeldaCompatible>> {
+    for (const anio of aniosFiscalesLegacy) {
+      for (const salario of salariosDelRango(rango)) {
+        const salarioReferencia = Number(salario)
+        const comparacion = construirComparacionAjustadaPorIpc({
+          salarioBrutoAnualReferenciaCentimos: salarioReferencia * 100,
+          anioComparado: anio,
+          anioReferencia: 2026,
+        })
+        const factor = Number(comparacion.factorIpc)
+
+        yield [
+          anio,
+          salarioReferencia,
+          Number(factor.toFixed(4)),
+          textoPorcentajeLegacy((factor - 1) * 100),
+          comparacion.comparado.salarioBrutoNominalAnualCentimos / 100,
+          comparacion.comparado.ajustado.costeLaboralCentimos / 100,
+          comparacion.comparado.ajustado.cotizacionEmpresarialCentimos / 100,
+          comparacion.comparado.ajustado.cotizacionTrabajadorCentimos / 100,
+          comparacion.comparado.ajustado.irpfFinalCentimos / 100,
+          comparacion.comparado.ajustado.salarioNetoAnualCentimos / 100,
+          comparacion.referencia.salarioNetoAnualCentimos / 100,
+          comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos / 100,
+          comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos / 100,
+        ]
+      }
+    }
+  }
+
+  return {
+    cabeceras: [
+      "Año a Comparar",
+      "Salario Equivalente (2026)",
+      "Multiplicador IPC Acum.",
+      "IPC Acumulado (%)",
+      "Salario Bruto Nominal",
+      "Coste Lab. (Euros 2026)",
+      "SS Emp. (Euros 2026)",
+      "SS Tra. (Euros 2026)",
+      "IRPF (Euros 2026)",
+      "Neto Real en su Año",
+      "Neto Real en 2026",
+      "Variación Poder Adquisitivo Mensual vs 2026 (12 pagas)",
+      "Pérdida/Ganancia Anual Poder Adq.",
+    ],
+    filas: filas(),
+  }
+}
+
+export const construirTablaDetalleAnualCompatible = (
+  anio: AnioFiscal,
+  opciones?: OpcionesRangoSalarialEuros
+): TablaCompatible => {
+  const rango = rangoSalarialEuros(rangoDetalleAnualLegacy, opciones)
+
+  function* filas(): Iterable<ReadonlyArray<ValorCeldaCompatible>> {
+    for (const salario of salariosDelRango(rango)) {
+      yield construirFilaDetalleAnualCompatible(anio, Number(salario))
+    }
+  }
+
+  return {
+    cabeceras: cabecerasDetalleAnualCompatible(anio),
+    filas: filas(),
+  }
+}

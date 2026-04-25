@@ -3,17 +3,26 @@ import ExcelJS from "exceljs"
 import type {
   HallazgoAuditoria,
   AuditoriaRangoSalarial,
+  OpcionesRangoSalarialEuros,
   PuntoAuditoriaRangoSalarial,
-} from "@/lib/domain/progresividad"
+  TablaCompatible,
+} from "../domain/progresividad"
+import {
+  aniosFiscalesLegacy,
+  construirTablaComparativaInflacionCompatible,
+  construirTablaControlGeneralCompatible,
+  construirTablaControlTramosIrpfCompatible,
+  construirTablaDetalleAnualCompatible,
+} from "../domain/progresividad"
 
 const centimosAEuros = (centimos: number) => centimos / 100
 
 const porcentaje = (valor: number) => Number((valor * 100).toFixed(2))
 
-const porcentajeTextoLegacy = (valor: number) =>
-  Number.isInteger(Number(valor.toFixed(2)))
-    ? `${Number(valor.toFixed(2)).toFixed(1)}%`
-    : `${Number(valor.toFixed(2))}%`
+export interface OpcionesLibroAuditoriaCompatible {
+  readonly comparativa?: OpcionesRangoSalarialEuros
+  readonly detalle?: OpcionesRangoSalarialEuros
+}
 
 const crearLibro = () => {
   const libro = new ExcelJS.Workbook()
@@ -64,6 +73,24 @@ const aplicarEstiloCabecera = (hoja: ExcelJS.Worksheet) => {
   hoja.columns.forEach((columna) => {
     columna.width = Math.max(textoCabecera(columna.header).length, 16)
   })
+}
+
+const anadirTabla = (
+  libro: ExcelJS.Workbook,
+  nombreHoja: string,
+  tabla: TablaCompatible
+) => {
+  const hoja = libro.addWorksheet(nombreHoja)
+  hoja.columns = tabla.cabeceras.map((cabecera) => ({
+    header: cabecera,
+    key: cabecera,
+  }))
+
+  for (const fila of tabla.filas) {
+    hoja.addRow([...fila])
+  }
+
+  aplicarEstiloCabecera(hoja)
 }
 
 const anadirHojaManual = (
@@ -177,78 +204,33 @@ export const exportarAuditoriaEducativaExcel = async (
   )
 }
 
-const filaAuditoriaCompatible =
-  (auditoria: AuditoriaRangoSalarial) =>
-  (punto: PuntoAuditoriaRangoSalarial) => {
-    const factor = Number(punto.comparacion.factorIpc)
-
-    return {
-      anio: auditoria.anioComparado,
-      bruto: centimosAEuros(punto.salarioBrutoAnualCentimos),
-      factor: Number(factor.toFixed(4)),
-      ipc: porcentajeTextoLegacy((factor - 1) * 100),
-      nominal: centimosAEuros(
-        punto.comparacion.comparado.salarioBrutoNominalAnualCentimos
-      ),
-      costeLaboral: centimosAEuros(
-        punto.comparacion.comparado.ajustado.costeLaboralCentimos
-      ),
-      cotizacionEmpresarial: centimosAEuros(
-        punto.comparacion.comparado.ajustado.cotizacionEmpresarialCentimos
-      ),
-      cotizacionTrabajador: centimosAEuros(
-        punto.comparacion.comparado.ajustado.cotizacionTrabajadorCentimos
-      ),
-      irpf: centimosAEuros(
-        punto.comparacion.comparado.ajustado.irpfFinalCentimos
-      ),
-      netoComparado: centimosAEuros(
-        punto.comparacion.comparado.ajustado.salarioNetoAnualCentimos
-      ),
-      netoReferencia: centimosAEuros(
-        punto.comparacion.referencia.salarioNetoAnualCentimos
-      ),
-      mensual: centimosAEuros(
-        punto.comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos
-      ),
-      anual: centimosAEuros(
-        punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
-      ),
-    }
-  }
-
-const anadirHojaComparativaCompatible = (
-  libro: ExcelJS.Workbook,
-  auditoria: AuditoriaRangoSalarial
-) => {
-  const hoja = libro.addWorksheet("COMPARATIVA_INFLACION")
-  hoja.columns = [
-    { header: "Año a Comparar", key: "anio" },
-    { header: "Salario Equivalente (2026)", key: "bruto" },
-    { header: "Multiplicador IPC Acum.", key: "factor" },
-    { header: "IPC Acumulado (%)", key: "ipc" },
-    { header: "Salario Bruto Nominal", key: "nominal" },
-    { header: "Coste Lab. (Euros 2026)", key: "costeLaboral" },
-    { header: "SS Emp. (Euros 2026)", key: "cotizacionEmpresarial" },
-    { header: "SS Tra. (Euros 2026)", key: "cotizacionTrabajador" },
-    { header: "IRPF (Euros 2026)", key: "irpf" },
-    { header: "Neto Real en su Año", key: "netoComparado" },
-    { header: "Neto Real en 2026", key: "netoReferencia" },
-    {
-      header: "Variación Poder Adquisitivo Mensual vs 2026 (12 pagas)",
-      key: "mensual",
-    },
-    { header: "Pérdida/Ganancia Anual Poder Adq.", key: "anual" },
-  ]
-  hoja.addRows(auditoria.puntos.map(filaAuditoriaCompatible(auditoria)))
-  aplicarEstiloCabecera(hoja)
-}
-
 export const construirLibroAuditoriaCompatible = (
-  auditoria: AuditoriaRangoSalarial
+  _auditoria: AuditoriaRangoSalarial,
+  opciones: OpcionesLibroAuditoriaCompatible = {}
 ) => {
   const libro = crearLibro()
-  anadirHojaComparativaCompatible(libro, auditoria)
+  anadirTabla(libro, "CONTROL_GENERAL", construirTablaControlGeneralCompatible())
+  anadirTabla(
+    libro,
+    "CONTROL_TRAMOS_IRPF",
+    construirTablaControlTramosIrpfCompatible()
+  )
+  anadirTabla(
+    libro,
+    "COMPARATIVA_INFLACION",
+    construirTablaComparativaInflacionCompatible(opciones.comparativa)
+  )
+
+  // La exportacion compatible replica el oracle congelado completo; por eso las
+  // hojas DAT_YYYY no dependen del rango educativo elegido en la pantalla.
+  for (const anio of aniosFiscalesLegacy) {
+    anadirTabla(
+      libro,
+      `DAT_${anio}`,
+      construirTablaDetalleAnualCompatible(anio, opciones.detalle)
+    )
+  }
+
   return libro
 }
 
@@ -257,6 +239,6 @@ export const exportarAuditoriaCompatibleExcel = async (
 ) => {
   await descargarLibro(
     construirLibroAuditoriaCompatible(auditoria),
-    `IRoboPF_Compatible_${auditoria.anioComparado}_${auditoria.anioReferencia}.xlsx`
+    "Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx"
   )
 }
