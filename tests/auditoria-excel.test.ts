@@ -10,7 +10,12 @@ import {
   auditarRangoSalarial,
   type AnioFiscal,
 } from "../lib/domain/progresividad"
-import { construirLibroAuditoriaCompatible } from "../lib/export/auditoria-excel"
+import {
+  construirBlobXlsxCompatibleConProgreso,
+  construirLibroAuditoriaCompatible,
+  construirLibroAuditoriaCompatibleConProgreso,
+  type ProgresoExportacionCompatible,
+} from "../lib/export/auditoria-excel"
 
 const HOJA_COMPARATIVA_INFLACION = "COMPARATIVA_INFLACION"
 const ARCHIVO_LEGACY_EXCEL =
@@ -260,8 +265,28 @@ const compararFilasTabulares = (
 }
 
 describe("construirLibroAuditoriaCompatible", () => {
+  it.effect("genera la estructura completa de hojas del Excel legacy", () =>
+    Effect.gen(function* () {
+      const auditoria = yield* auditarRangoSalarial({
+        salarioBrutoAnualMinimoCentimos: 1_500_000,
+        salarioBrutoAnualMaximoCentimos: 1_500_000,
+        pasoCentimos: 100_000,
+        anioComparado: 2012,
+        anioReferencia: 2026,
+      })
+      const libro = construirLibroAuditoriaCompatible(
+        auditoria,
+        OPCIONES_FIXTURE_RAPIDO
+      )
+
+      expect(libro.worksheets.map((hoja) => hoja.name)).toEqual(
+        HOJAS_LEGACY_COMPLETAS
+      )
+    })
+  )
+
   it.effect(
-    "genera la estructura completa de hojas del Excel legacy",
+    "genera la estructura completa de forma incremental con progreso",
     () =>
       Effect.gen(function* () {
         const auditoria = yield* auditarRangoSalarial({
@@ -271,14 +296,52 @@ describe("construirLibroAuditoriaCompatible", () => {
           anioComparado: 2012,
           anioReferencia: 2026,
         })
-        const libro = construirLibroAuditoriaCompatible(
+        const eventos: Array<ProgresoExportacionCompatible> = []
+        const libro = yield* construirLibroAuditoriaCompatibleConProgreso(
           auditoria,
-          OPCIONES_FIXTURE_RAPIDO
+          {
+            ...OPCIONES_FIXTURE_RAPIDO,
+            filasPorBloque: 500,
+            onProgreso: (progreso) => eventos.push(progreso),
+          }
         )
 
         expect(libro.worksheets.map((hoja) => hoja.name)).toEqual(
           HOJAS_LEGACY_COMPLETAS
         )
+        expect(eventos.some((evento) => evento.hoja === "DAT_2026")).toBe(true)
+        expect(eventos.at(-1)?.porcentaje).toBe(100)
+      })
+  )
+
+  it.effect(
+    "genera un XLSX compatible progresivo sin retener un Workbook ExcelJS",
+    () =>
+      Effect.gen(function* () {
+        const eventos: Array<ProgresoExportacionCompatible> = []
+        const archivo = yield* construirBlobXlsxCompatibleConProgreso(
+          {
+            ...OPCIONES_FIXTURE_RAPIDO,
+            filasPorBloque: 2,
+            onProgreso: (progreso) => eventos.push(progreso),
+          },
+          0
+        )
+        const libro = new ExcelJS.Workbook()
+        yield* Effect.promise(() => archivo.arrayBuffer()).pipe(
+          Effect.flatMap((buffer) =>
+            Effect.promise(() => libro.xlsx.load(buffer))
+          )
+        )
+
+        expect(libro.worksheets.map((hoja) => hoja.name)).toEqual(
+          HOJAS_LEGACY_COMPLETAS
+        )
+        expect(libro.getWorksheet("DAT_2026")?.rowCount).toBe(4)
+        expect(eventos.at(-1)?.porcentaje).toBe(100)
+        expect(
+          eventos.at(-1)?.milisegundosTranscurridos
+        ).toBeGreaterThanOrEqual(0)
       })
   )
 

@@ -2,10 +2,11 @@
 
 import * as React from "react"
 import dynamic from "next/dynamic"
+import { Dialog } from "@base-ui/react/dialog"
 import { NumberField } from "@base-ui/react/number-field"
 import { Slider } from "@base-ui/react/slider"
 import { Tabs } from "@base-ui/react/tabs"
-import { Effect } from "effect"
+import { Cause, Effect, Exit, Fiber } from "effect"
 import {
   Bar,
   BarChart,
@@ -41,15 +42,27 @@ import {
   type PuntoAuditoriaRangoSalarial,
 } from "@/lib/domain/progresividad"
 import {
-  exportarAuditoriaCompatibleExcel,
+  exportarAuditoriaCompatibleExcelConProgreso,
   exportarAuditoriaEducativaExcel,
+  type ProgresoExportacionCompatible,
 } from "@/lib/export/auditoria-excel"
 import { cn } from "@/lib/utils"
+
+const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
 
 function formatearSalarioCorto(centimos: number): string {
   const miles = Math.round(centimos / 100_000)
   return `${miles}k`
 }
+
+function formatearDuracion(milisegundos: number): string {
+  const segundosTotales = Math.floor(milisegundos / 1000)
+  const minutos = Math.floor(segundosTotales / 60)
+  const segundos = segundosTotales % 60
+  return `${minutos}:${segundos.toString().padStart(2, "0")}`
+}
+
+type DialogoExportacionCompatible = "advertencia" | "progreso" | null
 
 function AuditoriaImpl() {
   const [minimoCentimos, fijarMinimoCentimos] = React.useState<number>(
@@ -62,6 +75,18 @@ function AuditoriaImpl() {
   const [exportando, fijarExportando] = React.useState<
     "educativa" | "compatible" | null
   >(null)
+  const [dialogoExportacionCompatible, fijarDialogoExportacionCompatible] =
+    React.useState<DialogoExportacionCompatible>(null)
+  const [progresoExportacionCompatible, fijarProgresoExportacionCompatible] =
+    React.useState<ProgresoExportacionCompatible | null>(null)
+  const [logsExportacionCompatible, fijarLogsExportacionCompatible] =
+    React.useState<ReadonlyArray<string>>([])
+  const [errorExportacionCompatible, fijarErrorExportacionCompatible] =
+    React.useState<string | null>(null)
+  const fibraExportacionCompatible = React.useRef<Fiber.Fiber<
+    void,
+    unknown
+  > | null>(null)
 
   const auditoria = React.useMemo(
     () =>
@@ -83,15 +108,92 @@ function AuditoriaImpl() {
     [anioComparado, maximoCentimos, minimoCentimos]
   )
 
+  const registrarProgresoExportacionCompatible = React.useCallback(
+    (progreso: ProgresoExportacionCompatible) => {
+      fijarProgresoExportacionCompatible(progreso)
+      fijarLogsExportacionCompatible((logsActuales) =>
+        [
+          ...logsActuales,
+          `${formatearDuracion(progreso.milisegundosTranscurridos)} · ${progreso.mensaje}`,
+        ].slice(-MAX_LOGS_EXPORTACION_COMPATIBLE)
+      )
+    },
+    []
+  )
+
   const exportar = async (tipo: "educativa" | "compatible") => {
+    if (tipo === "compatible") {
+      fijarDialogoExportacionCompatible("advertencia")
+      return
+    }
+
     fijarExportando(tipo)
     try {
-      if (tipo === "educativa") await exportarAuditoriaEducativaExcel(auditoria)
-      else await exportarAuditoriaCompatibleExcel(auditoria)
+      await exportarAuditoriaEducativaExcel(auditoria)
     } finally {
       fijarExportando(null)
     }
   }
+
+  const iniciarExportacionCompatible = () => {
+    if (fibraExportacionCompatible.current !== null) return
+
+    fijarExportando("compatible")
+    fijarDialogoExportacionCompatible("progreso")
+    fijarProgresoExportacionCompatible(null)
+    fijarLogsExportacionCompatible([])
+    fijarErrorExportacionCompatible(null)
+
+    const fibra = Effect.runFork(
+      exportarAuditoriaCompatibleExcelConProgreso(auditoria, {
+        onProgreso: registrarProgresoExportacionCompatible,
+      })
+    )
+    fibraExportacionCompatible.current = fibra
+    fibra.addObserver((exit) => {
+      fibraExportacionCompatible.current = null
+      fijarExportando(null)
+
+      if (Exit.isSuccess(exit)) return
+
+      if (Cause.hasInterruptsOnly(exit.cause)) {
+        fijarErrorExportacionCompatible("Exportación cancelada")
+        fijarLogsExportacionCompatible((logsActuales) =>
+          [...logsActuales, "Exportación cancelada por el usuario"].slice(
+            -MAX_LOGS_EXPORTACION_COMPATIBLE
+          )
+        )
+        return
+      }
+
+      fijarErrorExportacionCompatible("No se pudo generar el XLSX compatible")
+      fijarLogsExportacionCompatible((logsActuales) =>
+        [
+          ...logsActuales,
+          `Error generando la exportación: ${String(Cause.squash(exit.cause))}`,
+        ].slice(-MAX_LOGS_EXPORTACION_COMPATIBLE)
+      )
+    })
+  }
+
+  const cancelarExportacionCompatible = () => {
+    const fibra = fibraExportacionCompatible.current
+    if (fibra === null) return
+    fijarLogsExportacionCompatible((logsActuales) =>
+      [...logsActuales, "Cancelando exportación compatible..."].slice(
+        -MAX_LOGS_EXPORTACION_COMPATIBLE
+      )
+    )
+    Effect.runFork(Fiber.interrupt(fibra))
+  }
+
+  React.useEffect(
+    () => () => {
+      const fibra = fibraExportacionCompatible.current
+      if (fibra !== null) Effect.runFork(Fiber.interrupt(fibra))
+    },
+    []
+  )
 
   const hallazgoPrincipal = auditoria.hallazgos[0]
 
@@ -157,6 +259,18 @@ function AuditoriaImpl() {
 
         <Visualizaciones auditoria={auditoria} />
       </div>
+
+      <DialogoExportacionCompatible
+        dialogo={dialogoExportacionCompatible}
+        progreso={progresoExportacionCompatible}
+        logs={logsExportacionCompatible}
+        error={errorExportacionCompatible}
+        exportando={exportando === "compatible"}
+        alCancelarAdvertencia={() => fijarDialogoExportacionCompatible(null)}
+        alConfirmarAdvertencia={iniciarExportacionCompatible}
+        alCancelarGeneracion={cancelarExportacionCompatible}
+        alCerrarProgreso={() => fijarDialogoExportacionCompatible(null)}
+      />
     </main>
   )
 }
@@ -165,6 +279,157 @@ export const Auditoria = dynamic(async () => ({ default: AuditoriaImpl }), {
   ssr: false,
   loading: () => <div className="min-h-svh bg-[var(--paper)]" />,
 })
+
+function DialogoExportacionCompatible({
+  dialogo,
+  progreso,
+  logs,
+  error,
+  exportando,
+  alCancelarAdvertencia,
+  alConfirmarAdvertencia,
+  alCancelarGeneracion,
+  alCerrarProgreso,
+}: {
+  readonly dialogo: DialogoExportacionCompatible
+  readonly progreso: ProgresoExportacionCompatible | null
+  readonly logs: ReadonlyArray<string>
+  readonly error: string | null
+  readonly exportando: boolean
+  readonly alCancelarAdvertencia: () => void
+  readonly alConfirmarAdvertencia: () => void
+  readonly alCancelarGeneracion: () => void
+  readonly alCerrarProgreso: () => void
+}) {
+  const progresoVisible = progreso?.porcentaje ?? 0
+  const tiempoTranscurrido = formatearDuracion(
+    progreso?.milisegundosTranscurridos ?? 0
+  )
+  const puedeCerrarProgreso =
+    exportando === false && (error !== null || progreso?.fase === "completado")
+
+  return (
+    <>
+      <Dialog.Root
+        open={dialogo === "advertencia"}
+        onOpenChange={(abierto) => {
+          if (!abierto) alCancelarAdvertencia()
+        }}
+      >
+        <Dialog.Portal>
+          <Dialog.Backdrop className="fixed inset-0 z-40 bg-[oklch(0.1_0_0/0.72)] backdrop-blur-[2px] transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
+          <Dialog.Viewport className="fixed inset-0 z-50 flex items-center justify-center overflow-auto p-4">
+            <Dialog.Popup className="relative w-full max-w-lg border-2 border-[var(--rule)] bg-[var(--paper)] p-6 text-[var(--ink)] shadow-[6px_6px_0_0_var(--rule)] transition-[opacity,translate] duration-150 outline-none data-[ending-style]:translate-y-2 data-[ending-style]:opacity-0 data-[starting-style]:translate-y-2 data-[starting-style]:opacity-0">
+              <Dialog.Title className="font-[family-name:var(--display)] text-3xl tracking-wider uppercase">
+                Exportación pesada
+              </Dialog.Title>
+              <Dialog.Description className="mt-3 text-sm leading-6 text-[var(--ink-soft)]">
+                El XLSX compatible replica el Excel legacy completo: hojas de
+                control, comparativa de inflación y `DAT_2012`...`DAT_2026` con
+                granularidad de 1 €. Se generará localmente por lotes y podrás
+                seguir el progreso sin bloquear la página.
+              </Dialog.Description>
+              <div className="mt-5 flex flex-wrap justify-end gap-2 text-[11px] tracking-[0.22em] uppercase">
+                <Dialog.Close
+                  onClick={alCancelarAdvertencia}
+                  className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 transition-colors hover:bg-[var(--danger)] hover:text-[var(--paper)] focus-visible:bg-[var(--danger)] focus-visible:text-[var(--paper)] focus-visible:outline-none"
+                >
+                  Cancelar
+                </Dialog.Close>
+                <button
+                  type="button"
+                  onClick={alConfirmarAdvertencia}
+                  className="border-2 border-[var(--rule)] bg-[var(--rule)] px-4 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none"
+                >
+                  Generar XLSX
+                </button>
+              </div>
+            </Dialog.Popup>
+          </Dialog.Viewport>
+        </Dialog.Portal>
+      </Dialog.Root>
+
+      <Dialog.Root open={dialogo === "progreso"}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className="fixed inset-0 z-40 bg-[oklch(0.1_0_0/0.72)] backdrop-blur-[2px] transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
+          <Dialog.Viewport className="fixed inset-0 z-50 flex items-center justify-center overflow-auto p-4">
+            <Dialog.Popup className="relative grid max-h-[90svh] w-full max-w-3xl gap-4 border-2 border-[var(--rule)] bg-[var(--paper)] p-6 text-[var(--ink)] shadow-[6px_6px_0_0_var(--rule)] outline-none">
+              <Dialog.Title className="font-[family-name:var(--display)] text-3xl tracking-wider uppercase">
+                Generando XLSX compatible
+              </Dialog.Title>
+              <Dialog.Description className="text-sm leading-6 text-[var(--ink-soft)]">
+                {error ??
+                  progreso?.mensaje ??
+                  "Preparando el runtime de generación incremental..."}
+              </Dialog.Description>
+
+              <div className="grid gap-2">
+                <div className="flex justify-between font-[family-name:var(--mono)] text-xs tabular-nums">
+                  <span>{progreso?.hoja ?? "LIBRO"}</span>
+                  <span>{progresoVisible.toFixed(1)}%</span>
+                </div>
+                <div className="h-4 border-2 border-[var(--rule)] bg-[var(--paper-2)]">
+                  <div
+                    className="h-full bg-[var(--mark)] transition-[width]"
+                    style={{ width: `${progresoVisible}%` }}
+                  />
+                </div>
+                <div className="grid gap-1 font-[family-name:var(--mono)] text-[11px] text-[var(--ink-soft)] tabular-nums sm:grid-cols-4">
+                  <span>
+                    Hojas {progreso?.hojasProcesadas ?? 0}/
+                    {progreso?.hojasTotales ?? 18}
+                  </span>
+                  <span>
+                    Fila hoja {progreso?.filasHoja.toLocaleString("es-ES") ?? 0}
+                    /{progreso?.filasHojaTotales.toLocaleString("es-ES") ?? 0}
+                  </span>
+                  <span>
+                    Total{" "}
+                    {progreso?.filasProcesadas.toLocaleString("es-ES") ?? 0}/
+                    {progreso?.filasTotales.toLocaleString("es-ES") ?? 0}
+                  </span>
+                  <span>Tiempo {tiempoTranscurrido}</span>
+                </div>
+              </div>
+
+              <div className="min-h-0 border-2 border-[var(--rule)] bg-[var(--paper-2)] p-3">
+                <p className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+                  Logs de cálculo
+                </p>
+                <ol className="mt-2 grid max-h-64 gap-1 overflow-auto font-[family-name:var(--mono)] text-[11px] leading-5 tabular-nums">
+                  {logs.map((log, indice) => (
+                    <li key={`${indice}-${log}`}>{log}</li>
+                  ))}
+                </ol>
+              </div>
+
+              <div className="flex flex-wrap justify-end gap-2 text-[11px] tracking-[0.22em] uppercase">
+                {exportando ? (
+                  <button
+                    type="button"
+                    onClick={alCancelarGeneracion}
+                    className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 transition-colors hover:bg-[var(--danger)] hover:text-[var(--paper)] focus-visible:bg-[var(--danger)] focus-visible:text-[var(--paper)] focus-visible:outline-none"
+                  >
+                    Cancelar generación
+                  </button>
+                ) : null}
+                {puedeCerrarProgreso ? (
+                  <button
+                    type="button"
+                    onClick={alCerrarProgreso}
+                    className="border-2 border-[var(--rule)] bg-[var(--rule)] px-4 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none"
+                  >
+                    Cerrar
+                  </button>
+                ) : null}
+              </div>
+            </Dialog.Popup>
+          </Dialog.Viewport>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </>
+  )
+}
 
 function BarraFiltros({
   minimoCentimos,
@@ -439,7 +704,7 @@ function filasGrafico(puntos: ReadonlyArray<PuntoAuditoriaRangoSalarial>) {
 
 const claseBotonPestana = cn(
   "px-3 py-2 transition-colors",
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:ring-inset",
+  "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
   "bg-[var(--paper)] text-[var(--ink)]",
   "not-data-[active]:hover:bg-[var(--mark)]",
   "data-[active]:bg-[var(--rule)] data-[active]:text-[var(--paper)]"

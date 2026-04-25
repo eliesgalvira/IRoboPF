@@ -104,6 +104,22 @@ export interface TablaCompatible {
   readonly filas: Iterable<ReadonlyArray<ValorCeldaCompatible>>
 }
 
+export const configuracionExportacionCompatibleLegacy = {
+  comparativa: {
+    salarioMinimoEuros: 15_000,
+    salarioMaximoEuros: 100_000,
+    pasoEuros: 1_000,
+  },
+  detalleAnual: {
+    salarioMinimoEuros: 0,
+    salarioMaximoEuros: 100_000,
+    pasoEuros: 1,
+  },
+} as const satisfies {
+  readonly comparativa: RangoSalarialEuros
+  readonly detalleAnual: RangoSalarialEuros
+}
+
 export const configuracionControlSalario = {
   valorPorDefectoCentimos: 1_800_000,
   preciso: {
@@ -318,17 +334,11 @@ const SIN_SOLIDARIDAD = {
   _tag: "SinSolidaridad",
 } as const satisfies PoliticaSolidaridad
 
-const rangoComparativaInflacionLegacy = {
-  salarioMinimoEuros: 15_000,
-  salarioMaximoEuros: 100_000,
-  pasoEuros: 1_000,
-} as const satisfies RangoSalarialEuros
+const rangoComparativaInflacionLegacy =
+  configuracionExportacionCompatibleLegacy.comparativa
 
-const rangoDetalleAnualLegacy = {
-  salarioMinimoEuros: 0,
-  salarioMaximoEuros: 100_000,
-  pasoEuros: 1,
-} as const satisfies RangoSalarialEuros
+const rangoDetalleAnualLegacy =
+  configuracionExportacionCompatibleLegacy.detalleAnual
 
 const centimosAEuros = (centimos: number) => decimal(centimos).div(100)
 
@@ -373,10 +383,7 @@ const rangoNumerico = (inicio: number, fin: number): ReadonlyArray<number> => {
     return []
   }
 
-  return Array.from(
-    { length: fin - inicio + 1 },
-    (_, index) => inicio + index
-  )
+  return Array.from({ length: fin - inicio + 1 }, (_, index) => inicio + index)
 }
 
 const factorIpc = (anioBase: AnioFiscal, anioReferencia: AnioFiscal) => {
@@ -639,9 +646,7 @@ interface MetadatosArticulo20 {
   readonly reduccionMinima: ValorMetadatoArticulo20
 }
 
-const obtenerMetadatosArticulo20 = (
-  anio: AnioFiscal
-): MetadatosArticulo20 => {
+const obtenerMetadatosArticulo20 = (anio: AnioFiscal): MetadatosArticulo20 => {
   if (anio <= 2014) {
     return {
       umbralInferior: 9180,
@@ -1231,9 +1236,7 @@ const rangoSalarialEuros = (
   pasoEuros: opciones?.pasoEuros ?? rangoPorDefecto.pasoEuros,
 })
 
-function* salariosDelRango(
-  rango: RangoSalarialEuros
-): Iterable<number> {
+function* salariosDelRango(rango: RangoSalarialEuros): Iterable<number> {
   if (rango.pasoEuros <= 0) {
     return
   }
