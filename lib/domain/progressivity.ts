@@ -103,20 +103,81 @@ export const auditRangeConfig = {
   stepCents: 500_000,
 } as const
 
+const d = (value: string | number) => new Decimal(value)
+const ZERO = d(0)
+const ONE = d(1)
+
+type ContributionSide = "employer" | "worker"
+type IrpfBracket = readonly [limit: Decimal, rate: Decimal]
+type IrpfBrackets = ReadonlyArray<IrpfBracket>
+type MoneyPolicy = (value: Decimal) => Decimal
+
+interface ContributionRates {
+  readonly employer: Decimal
+  readonly worker: Decimal
+}
+
 interface Parameters {
   readonly baseMax: Decimal
-  readonly ssTypes: Readonly<Record<string, readonly [Decimal, Decimal]>>
-  readonly mei: readonly [Decimal, Decimal]
-  readonly solidarity: ReadonlyArray<readonly [Decimal, Decimal]>
+  readonly socialSecurityRates: Readonly<Record<string, ContributionRates>>
+  readonly mei: ContributionRates
+  readonly solidarity: SolidarityPolicy
   readonly irpfMinimum: Decimal
   readonly withholdingMinimum: Decimal
   readonly fixedExpenses: Decimal
-  readonly irpfBrackets: ReadonlyArray<readonly [Decimal, Decimal]>
-  readonly workReduction: (previousNetIncome: Decimal) => Decimal
-  readonly smiDeduction: (gross: Decimal) => Decimal
+  readonly irpfBrackets: IrpfBrackets
+  readonly workReduction: MoneyPolicy
+  readonly smiDeduction: MoneyPolicy
 }
 
-const d = (value: string | number) => new Decimal(value)
+type SolidarityPolicy =
+  | {
+      readonly _tag: "NoSolidarity"
+    }
+  | {
+      readonly _tag: "Solidarity"
+      readonly firstExcessRate: Decimal
+      readonly secondExcessRate: Decimal
+      readonly remainingExcessRate: Decimal
+    }
+
+interface ContributionBase {
+  readonly regularBase: Decimal
+  readonly excessBase: Decimal
+}
+
+interface SocialContributions {
+  readonly employerContribution: Decimal
+  readonly workerContribution: Decimal
+}
+
+interface IrpfCalculation {
+  readonly previousNetIncome: Decimal
+  readonly workReduction: Decimal
+  readonly netIncome: Decimal
+  readonly taxableBase: Decimal
+  readonly fullQuota: Decimal
+  readonly personalMinimumQuota: Decimal
+  readonly theoreticalQuota: Decimal
+  readonly smiDeduction: Decimal
+  readonly quotaAfterSmi: Decimal
+  readonly withholdingLimit: Decimal
+  readonly irpfFinal: Decimal
+}
+
+interface EuroBreakdown {
+  readonly grossAnnual: Decimal
+  readonly employerContribution: Decimal
+  readonly laborCost: Decimal
+  readonly workerContribution: Decimal
+  readonly irpfFinal: Decimal
+  readonly salaryNetAnnual: Decimal
+}
+
+interface QuotaState {
+  readonly previousLimit: Decimal
+  readonly quota: Decimal
+}
 
 const IPC_ANNUAL_DECEMBER: Readonly<Record<number, Decimal>> = {
   2013: d("0.003"),
@@ -171,376 +232,807 @@ const WITHHOLDING_MINIMUM: Readonly<Record<FiscalYear, Decimal>> = {
   2026: d(15876),
 }
 
+const SOCIAL_SECURITY_RATES = {
+  comunes: {
+    employer: d("0.236"),
+    worker: d("0.047"),
+  },
+  desempleo: {
+    employer: d("0.055"),
+    worker: d("0.0155"),
+  },
+  fogasa: {
+    employer: d("0.002"),
+    worker: ZERO,
+  },
+  fp: {
+    employer: d("0.006"),
+    worker: d("0.001"),
+  },
+  atep: {
+    employer: d("0.015"),
+    worker: ZERO,
+  },
+} satisfies Parameters["socialSecurityRates"]
+
+const IRPF_BRACKETS_UNTIL_2014: IrpfBrackets = [
+  [d(17707), d("0.2475")],
+  [d(33007), d("0.30")],
+  [d(53407), d("0.40")],
+  [d(120000), d("0.47")],
+  [d(175000), d("0.49")],
+  [d(300000), d("0.51")],
+  [d(Infinity), d("0.52")],
+]
+
+const IRPF_BRACKETS_2015: IrpfBrackets = [
+  [d(12450), d("0.195")],
+  [d(20200), d("0.245")],
+  [d(34000), d("0.305")],
+  [d(60000), d("0.38")],
+  [d(Infinity), d("0.46")],
+]
+
+const IRPF_BRACKETS_2016_TO_2020: IrpfBrackets = [
+  [d(12450), d("0.19")],
+  [d(20200), d("0.24")],
+  [d(35200), d("0.30")],
+  [d(60000), d("0.37")],
+  [d(Infinity), d("0.45")],
+]
+
+const IRPF_BRACKETS_FROM_2021: IrpfBrackets = [
+  [d(12450), d("0.19")],
+  [d(20200), d("0.24")],
+  [d(35200), d("0.30")],
+  [d(60000), d("0.37")],
+  [d(300000), d("0.45")],
+  [d(Infinity), d("0.47")],
+]
+
+const NO_SOLIDARITY = {
+  _tag: "NoSolidarity",
+} as const satisfies SolidarityPolicy
+
 const centsToEuros = (cents: number) => d(cents).div(100)
 
 const eurosToCents = (euros: Decimal) =>
   euros.mul(100).toDecimalPlaces(0, Decimal.ROUND_HALF_EVEN).toNumber()
 
-const roundMoney = (euros: Decimal) => euros.toDecimalPlaces(2, Decimal.ROUND_HALF_EVEN)
+const roundMoney = (euros: Decimal) =>
+  euros.toDecimalPlaces(2, Decimal.ROUND_HALF_EVEN)
 
-const min = (a: Decimal, b: Decimal) => (a.lessThan(b) ? a : b)
-const max = (a: Decimal, b: Decimal) => (a.greaterThan(b) ? a : b)
-
-const inflationFactor = (baseYear: FiscalYear, referenceYear: FiscalYear) => {
-  if (baseYear === referenceYear) {
-    return d(1)
+const min = (a: Decimal, b: Decimal) => {
+  if (a.lessThan(b)) {
+    return a
   }
-
-  let factor = d(1)
-  for (let year = baseYear + 1; year <= referenceYear; year += 1) {
-    factor = factor.mul(d(1).plus(IPC_ANNUAL_DECEMBER[year] ?? d(0)))
-  }
-  return factor
+  return b
 }
 
-const getWorkReduction = (year: FiscalYear) => (previousNetIncome: Decimal) => {
-  if (year <= 2014) {
-    if (previousNetIncome.lte(9180)) return d(4080)
-    if (previousNetIncome.lte(13260)) {
-      return d(4080).minus(d("0.35").mul(previousNetIncome.minus(9180)))
-    }
-    return d(2652)
+const max = (a: Decimal, b: Decimal) => {
+  if (a.greaterThan(b)) {
+    return a
   }
-  if (year <= 2017) {
-    if (previousNetIncome.lte(11250)) return d(3700)
-    if (previousNetIncome.lte(14450)) {
-      return d(3700).minus(d("1.15625").mul(previousNetIncome.minus(11250)))
-    }
-    return d(0)
+  return b
+}
+
+const knownAnnualIpc = (year: number) => {
+  const rate = IPC_ANNUAL_DECEMBER[year]
+  if (rate === undefined) {
+    return ZERO
   }
-  if (year === 2018) {
-    const pre = previousNetIncome.lte(11250)
-      ? d(3700)
-      : previousNetIncome.lte(14450)
-        ? d(3700).minus(d("1.15625").mul(previousNetIncome.minus(11250)))
-        : d(0)
-    const post = previousNetIncome.lte(13115)
-      ? d(5565)
-      : previousNetIncome.lte(16825)
-        ? max(d(0), d(5565).minus(d("1.5").mul(previousNetIncome.minus(13115))))
-        : d(0)
-    return pre.div(2).plus(post.div(2))
+  return rate
+}
+
+const numberRange = (start: number, end: number): ReadonlyArray<number> => {
+  if (start > end) {
+    return []
   }
-  if (year <= 2022) {
-    if (previousNetIncome.lte(13115)) return d(5565)
-    if (previousNetIncome.lte(16825)) {
-      return max(d(0), d(5565).minus(d("1.5").mul(previousNetIncome.minus(13115))))
-    }
-    return d(0)
+
+  return globalThis.Array.from(
+    { length: end - start + 1 },
+    (_, index) => start + index
+  )
+}
+
+const inflationFactor = (baseYear: FiscalYear, referenceYear: FiscalYear) => {
+  const years = numberRange(baseYear + 1, referenceYear)
+  return years.reduce(
+    (factor, year) => factor.mul(ONE.plus(knownAnnualIpc(year))),
+    ONE
+  )
+}
+
+const workReductionUntil2014 = (previousNetIncome: Decimal) => {
+  if (previousNetIncome.lte(9180)) {
+    return d(4080)
   }
-  if (year === 2023) {
-    if (previousNetIncome.lte("14047.50")) return d(6498)
-    if (previousNetIncome.lte("19747.50")) {
-      return max(d(0), d(6498).minus(d("1.14").mul(previousNetIncome.minus("14047.50"))))
-    }
-    return d(0)
+
+  if (previousNetIncome.lte(13260)) {
+    return d(4080).minus(d("0.35").mul(previousNetIncome.minus(9180)))
   }
-  if (previousNetIncome.lte(14852)) return d(7302)
+
+  return d(2652)
+}
+
+const workReduction2015To2017 = (previousNetIncome: Decimal) => {
+  if (previousNetIncome.lte(11250)) {
+    return d(3700)
+  }
+
+  if (previousNetIncome.lte(14450)) {
+    return d(3700).minus(d("1.15625").mul(previousNetIncome.minus(11250)))
+  }
+
+  return ZERO
+}
+
+const workReduction2019To2022 = (previousNetIncome: Decimal) => {
+  if (previousNetIncome.lte(13115)) {
+    return d(5565)
+  }
+
+  if (previousNetIncome.lte(16825)) {
+    return max(
+      ZERO,
+      d(5565).minus(d("1.5").mul(previousNetIncome.minus(13115)))
+    )
+  }
+
+  return ZERO
+}
+
+const workReduction2018 = (previousNetIncome: Decimal) => {
+  const preTransitionReduction = workReduction2015To2017(previousNetIncome)
+  const postTransitionReduction = workReduction2019To2022(previousNetIncome)
+  return preTransitionReduction.div(2).plus(postTransitionReduction.div(2))
+}
+
+const workReduction2023 = (previousNetIncome: Decimal) => {
+  if (previousNetIncome.lte("14047.50")) {
+    return d(6498)
+  }
+
+  if (previousNetIncome.lte("19747.50")) {
+    return max(
+      ZERO,
+      d(6498).minus(d("1.14").mul(previousNetIncome.minus("14047.50")))
+    )
+  }
+
+  return ZERO
+}
+
+const workReductionFrom2024 = (previousNetIncome: Decimal) => {
+  if (previousNetIncome.lte(14852)) {
+    return d(7302)
+  }
+
   if (previousNetIncome.lte("17673.52")) {
     return d(7302).minus(d("1.75").mul(previousNetIncome.minus(14852)))
   }
+
   if (previousNetIncome.lte("19747.50")) {
-    return d("2364.34").minus(d("1.14").mul(previousNetIncome.minus("17673.52")))
+    return d("2364.34").minus(
+      d("1.14").mul(previousNetIncome.minus("17673.52"))
+    )
   }
-  return d(0)
+
+  return ZERO
+}
+
+const getWorkReduction = (year: FiscalYear): MoneyPolicy => {
+  if (year <= 2014) {
+    return workReductionUntil2014
+  }
+
+  if (year <= 2017) {
+    return workReduction2015To2017
+  }
+
+  if (year === 2018) {
+    return workReduction2018
+  }
+
+  if (year <= 2022) {
+    return workReduction2019To2022
+  }
+
+  if (year === 2023) {
+    return workReduction2023
+  }
+
+  return workReductionFrom2024
+}
+
+const getMeiRates = (year: FiscalYear): ContributionRates => {
+  if (year === 2023) {
+    return {
+      employer: d("0.005"),
+      worker: d("0.001"),
+    }
+  }
+
+  if (year === 2024) {
+    return {
+      employer: d("0.0058"),
+      worker: d("0.0012"),
+    }
+  }
+
+  if (year === 2025) {
+    return {
+      employer: d("0.0067"),
+      worker: d("0.0013"),
+    }
+  }
+
+  if (year >= 2026) {
+    return {
+      employer: d("0.0075"),
+      worker: d("0.0015"),
+    }
+  }
+
+  return {
+    employer: ZERO,
+    worker: ZERO,
+  }
+}
+
+const getSolidarityPolicy = (year: FiscalYear): SolidarityPolicy => {
+  if (year === 2025) {
+    return {
+      _tag: "Solidarity",
+      firstExcessRate: d("0.0092"),
+      secondExcessRate: d("0.0100"),
+      remainingExcessRate: d("0.0117"),
+    }
+  }
+
+  if (year >= 2026) {
+    return {
+      _tag: "Solidarity",
+      firstExcessRate: d("0.0115"),
+      secondExcessRate: d("0.0125"),
+      remainingExcessRate: d("0.0146"),
+    }
+  }
+
+  return NO_SOLIDARITY
+}
+
+const getIrpfBrackets = (year: FiscalYear): IrpfBrackets => {
+  if (year <= 2014) {
+    return IRPF_BRACKETS_UNTIL_2014
+  }
+
+  if (year === 2015) {
+    return IRPF_BRACKETS_2015
+  }
+
+  if (year <= 2020) {
+    return IRPF_BRACKETS_2016_TO_2020
+  }
+
+  return IRPF_BRACKETS_FROM_2021
+}
+
+const getIrpfMinimum = (year: FiscalYear) => {
+  if (year <= 2014) {
+    return d(5151)
+  }
+  return d(5550)
+}
+
+const getFixedExpenses = (year: FiscalYear) => {
+  if (year <= 2014) {
+    return ZERO
+  }
+  return d(2000)
+}
+
+const smiDeduction2026 = (gross: Decimal) => {
+  if (gross.lte(17094)) {
+    return d("590.89")
+  }
+
+  return max(ZERO, d("590.89").minus(d("0.20").mul(gross.minus(17094))))
+}
+
+const smiDeduction2025 = (gross: Decimal) => {
+  if (gross.lte(16576)) {
+    return d(340)
+  }
+
+  if (gross.lte(18276)) {
+    return max(ZERO, d(340).minus(d("0.20").mul(gross.minus(16576))))
+  }
+
+  return ZERO
+}
+
+const noSmiDeduction = () => ZERO
+
+const getSmiDeduction = (year: FiscalYear): MoneyPolicy => {
+  if (year === 2026) {
+    return smiDeduction2026
+  }
+
+  if (year === 2025) {
+    return smiDeduction2025
+  }
+
+  return noSmiDeduction
 }
 
 const getParameters = (year: FiscalYear): Parameters => {
-  const ssTypes = {
-    comunes: [d("0.236"), d("0.047")],
-    desempleo: [d("0.055"), d("0.0155")],
-    fogasa: [d("0.002"), d("0")],
-    fp: [d("0.006"), d("0.001")],
-    atep: [d("0.015"), d("0")],
-  } satisfies Parameters["ssTypes"]
-
-  const mei: readonly [Decimal, Decimal] =
-    year === 2023
-      ? [d("0.005"), d("0.001")]
-      : year === 2024
-        ? [d("0.0058"), d("0.0012")]
-        : year === 2025
-          ? [d("0.0067"), d("0.0013")]
-          : year >= 2026
-            ? [d("0.0075"), d("0.0015")]
-            : [d(0), d(0)]
-
-  const solidarity: Parameters["solidarity"] =
-    year === 2025
-      ? [
-          [d("1.10"), d("0.0092")],
-          [d("1.50"), d("0.0100")],
-          [d(Infinity), d("0.0117")],
-        ]
-      : year >= 2026
-        ? [
-            [d("1.10"), d("0.0115")],
-            [d("1.50"), d("0.0125")],
-            [d(Infinity), d("0.0146")],
-          ]
-        : []
-
-  const irpfBrackets: Parameters["irpfBrackets"] =
-    year <= 2014
-      ? [
-          [d(17707), d("0.2475")],
-          [d(33007), d("0.30")],
-          [d(53407), d("0.40")],
-          [d(120000), d("0.47")],
-          [d(175000), d("0.49")],
-          [d(300000), d("0.51")],
-          [d(Infinity), d("0.52")],
-        ]
-      : year === 2015
-        ? [
-            [d(12450), d("0.195")],
-            [d(20200), d("0.245")],
-            [d(34000), d("0.305")],
-            [d(60000), d("0.38")],
-            [d(Infinity), d("0.46")],
-          ]
-        : year <= 2020
-          ? [
-              [d(12450), d("0.19")],
-              [d(20200), d("0.24")],
-              [d(35200), d("0.30")],
-              [d(60000), d("0.37")],
-              [d(Infinity), d("0.45")],
-            ]
-          : [
-              [d(12450), d("0.19")],
-              [d(20200), d("0.24")],
-              [d(35200), d("0.30")],
-              [d(60000), d("0.37")],
-              [d(300000), d("0.45")],
-              [d(Infinity), d("0.47")],
-            ]
-
   return {
     baseMax: BASE_MAX[year],
-    ssTypes,
-    mei,
-    solidarity,
-    irpfMinimum: year <= 2014 ? d(5151) : d(5550),
+    socialSecurityRates: SOCIAL_SECURITY_RATES,
+    mei: getMeiRates(year),
+    solidarity: getSolidarityPolicy(year),
+    irpfMinimum: getIrpfMinimum(year),
     withholdingMinimum: WITHHOLDING_MINIMUM[year],
-    fixedExpenses: year <= 2014 ? d(0) : d(2000),
-    irpfBrackets,
+    fixedExpenses: getFixedExpenses(year),
+    irpfBrackets: getIrpfBrackets(year),
     workReduction: getWorkReduction(year),
-    smiDeduction: (gross) => {
-      if (year === 2026) {
-        if (gross.lte(17094)) return d("590.89")
-        return max(d(0), d("590.89").minus(d("0.20").mul(gross.minus(17094))))
-      }
-      if (year === 2025) {
-        if (gross.lte(16576)) return d(340)
-        if (gross.lte(18276)) return max(d(0), d(340).minus(d("0.20").mul(gross.minus(16576))))
-      }
-      return d(0)
-    },
+    smiDeduction: getSmiDeduction(year),
   }
 }
 
-const sumContributionRate = (parameters: Parameters, side: 0 | 1) =>
-  Object.values(parameters.ssTypes).reduce((sum, pair) => sum.plus(pair[side]), d(0))
+const sumContributionRate = (parameters: Parameters, side: ContributionSide) =>
+  Object.values(parameters.socialSecurityRates).reduce(
+    (sum, rates) => sum.plus(contributionRateForSide(rates, side)),
+    ZERO
+  )
 
-const calculateIrpfQuota = (
-  taxableBase: Decimal,
-  brackets: ReadonlyArray<readonly [Decimal, Decimal]>,
+const contributionRateForSide = (
+  rates: ContributionRates,
+  side: ContributionSide
 ) => {
-  if (taxableBase.lte(0)) return d(0)
-
-  let total = d(0)
-  let previousLimit = d(0)
-  for (const [limit, rate] of brackets) {
-    if (taxableBase.greaterThan(limit)) {
-      total = total.plus(limit.minus(previousLimit).mul(rate))
-      previousLimit = limit
-    } else {
-      total = total.plus(taxableBase.minus(previousLimit).mul(rate))
-      break
-    }
+  if (side === "employer") {
+    return rates.employer
   }
-  return total
+
+  return rates.worker
 }
 
-const calculateBreakdownEuros = (gross: Decimal, year: FiscalYear) => {
-  const parameters = getParameters(year)
-  const contributionBase = min(gross, parameters.baseMax)
-  const baseExcess = max(d(0), gross.minus(parameters.baseMax))
+const contributionBaseFor = (
+  gross: Decimal,
+  parameters: Parameters
+): ContributionBase => ({
+  regularBase: min(gross, parameters.baseMax),
+  excessBase: max(ZERO, gross.minus(parameters.baseMax)),
+})
 
-  const employerRate = sumContributionRate(parameters, 0).plus(parameters.mei[0])
-  const workerRate = sumContributionRate(parameters, 1).plus(parameters.mei[1])
-
-  let employerContribution = contributionBase.mul(employerRate)
-  let workerContribution = contributionBase.mul(workerRate)
-
-  if (parameters.solidarity.length > 0 && baseExcess.gt(0)) {
-    const firstLimit = parameters.baseMax.mul("0.10")
-    const secondLimit = parameters.baseMax.mul("0.50")
-    const excess1 = min(baseExcess, firstLimit)
-    const excess2 = min(max(d(0), baseExcess.minus(firstLimit)), secondLimit.minus(firstLimit))
-    const excess3 = max(d(0), baseExcess.minus(secondLimit))
-    const solidarityTotal = excess1
-      .mul(parameters.solidarity[0]?.[1] ?? 0)
-      .plus(excess2.mul(parameters.solidarity[1]?.[1] ?? 0))
-      .plus(excess3.mul(parameters.solidarity[2]?.[1] ?? 0))
-    employerContribution = employerContribution.plus(solidarityTotal.mul(5).div(6))
-    workerContribution = workerContribution.plus(solidarityTotal.div(6))
+const calculateSolidarityTotal = (
+  contributionBase: ContributionBase,
+  parameters: Parameters
+) => {
+  if (parameters.solidarity._tag === "NoSolidarity") {
+    return ZERO
   }
 
-  const previousNetIncome = gross.minus(workerContribution)
+  if (contributionBase.excessBase.lte(0)) {
+    return ZERO
+  }
+
+  const firstBandLimit = parameters.baseMax.mul("0.10")
+  const secondBandLimit = parameters.baseMax.mul("0.50")
+  const firstBandExcess = min(contributionBase.excessBase, firstBandLimit)
+  const secondBandExcess = min(
+    max(ZERO, contributionBase.excessBase.minus(firstBandLimit)),
+    secondBandLimit.minus(firstBandLimit)
+  )
+  const remainingExcess = max(
+    ZERO,
+    contributionBase.excessBase.minus(secondBandLimit)
+  )
+
+  return firstBandExcess
+    .mul(parameters.solidarity.firstExcessRate)
+    .plus(secondBandExcess.mul(parameters.solidarity.secondExcessRate))
+    .plus(remainingExcess.mul(parameters.solidarity.remainingExcessRate))
+}
+
+const splitSolidarityContribution = (
+  solidarityTotal: Decimal
+): SocialContributions => ({
+  employerContribution: solidarityTotal.mul(5).div(6),
+  workerContribution: solidarityTotal.div(6),
+})
+
+const addSocialContributions = (
+  left: SocialContributions,
+  right: SocialContributions
+): SocialContributions => ({
+  employerContribution: left.employerContribution.plus(
+    right.employerContribution
+  ),
+  workerContribution: left.workerContribution.plus(right.workerContribution),
+})
+
+// Cotizaciones are split into the ordinary capped base plus, from 2025, the
+// solidarity quota on salary above the cap. The split mirrors the Python oracle:
+// 5/6 employer and 1/6 worker.
+const calculateSocialContributions = (
+  gross: Decimal,
+  parameters: Parameters
+): SocialContributions => {
+  const contributionBase = contributionBaseFor(gross, parameters)
+  const generalContributions = {
+    employerContribution: contributionBase.regularBase.mul(
+      sumContributionRate(parameters, "employer").plus(parameters.mei.employer)
+    ),
+    workerContribution: contributionBase.regularBase.mul(
+      sumContributionRate(parameters, "worker").plus(parameters.mei.worker)
+    ),
+  }
+  const solidarityContributions = splitSolidarityContribution(
+    calculateSolidarityTotal(contributionBase, parameters)
+  )
+
+  return addSocialContributions(generalContributions, solidarityContributions)
+}
+
+const taxableAmountInBracket = (
+  taxableBase: Decimal,
+  previousLimit: Decimal,
+  limit: Decimal
+) => {
+  const remainingTaxableBase = max(ZERO, taxableBase.minus(previousLimit))
+  const bracketWidth = limit.minus(previousLimit)
+  return min(remainingTaxableBase, bracketWidth)
+}
+
+// Folding every bracket avoids mutable "break" control flow while preserving the
+// progressive quota formula: exhausted brackets contribute zero after the taxable
+// base is fully allocated.
+const addBracketQuota =
+  (taxableBase: Decimal) => (state: QuotaState, bracket: IrpfBracket) => {
+    const [limit, rate] = bracket
+    const taxableAmount = taxableAmountInBracket(
+      taxableBase,
+      state.previousLimit,
+      limit
+    )
+
+    return {
+      previousLimit: limit,
+      quota: state.quota.plus(taxableAmount.mul(rate)),
+    } satisfies QuotaState
+  }
+
+const calculateIrpfQuota = (taxableBase: Decimal, brackets: IrpfBrackets) => {
+  if (taxableBase.lte(0)) {
+    return ZERO
+  }
+
+  return brackets.reduce(addBracketQuota(taxableBase), {
+    previousLimit: ZERO,
+    quota: ZERO,
+  }).quota
+}
+
+const firstIrpfRate = (brackets: IrpfBrackets) => {
+  const first = brackets[0]
+  if (first === undefined) {
+    return ZERO
+  }
+
+  return first[1]
+}
+
+// The IRPF chain is intentionally expanded step by step because each value is an
+// auditable fiscal concept, not just an intermediate arithmetic detail.
+const calculateIrpf = (
+  gross: Decimal,
+  parameters: Parameters,
+  contributions: SocialContributions
+): IrpfCalculation => {
+  const previousNetIncome = gross.minus(contributions.workerContribution)
   const workReduction = parameters.workReduction(previousNetIncome)
-  const netIncome = max(d(0), previousNetIncome.minus(parameters.fixedExpenses))
-  const taxableBase = max(d(0), netIncome.minus(workReduction))
+  const netIncome = max(ZERO, previousNetIncome.minus(parameters.fixedExpenses))
+  const taxableBase = max(ZERO, netIncome.minus(workReduction))
   const fullQuota = calculateIrpfQuota(taxableBase, parameters.irpfBrackets)
-  const personalMinimumQuota = parameters.irpfMinimum.mul(parameters.irpfBrackets[0]?.[1] ?? 0)
-  const theoreticalQuota = max(d(0), fullQuota.minus(personalMinimumQuota))
-  const afterSmi = max(d(0), theoreticalQuota.minus(parameters.smiDeduction(gross)))
-  const withholdingLimit = max(d(0), gross.minus(parameters.withholdingMinimum).mul("0.43"))
-  const irpfFinal = min(afterSmi, withholdingLimit)
-  const salaryNetAnnual = gross.minus(workerContribution).minus(irpfFinal)
+  const personalMinimumQuota = parameters.irpfMinimum.mul(
+    firstIrpfRate(parameters.irpfBrackets)
+  )
+  const theoreticalQuota = max(ZERO, fullQuota.minus(personalMinimumQuota))
+  const smiDeduction = parameters.smiDeduction(gross)
+  const quotaAfterSmi = max(ZERO, theoreticalQuota.minus(smiDeduction))
+  const withholdingLimit = max(
+    ZERO,
+    gross.minus(parameters.withholdingMinimum).mul("0.43")
+  )
+  const irpfFinal = min(quotaAfterSmi, withholdingLimit)
+
+  return {
+    previousNetIncome,
+    workReduction,
+    netIncome,
+    taxableBase,
+    fullQuota,
+    personalMinimumQuota,
+    theoreticalQuota,
+    smiDeduction,
+    quotaAfterSmi,
+    withholdingLimit,
+    irpfFinal,
+  }
+}
+
+// Money is Decimal euros inside the engine. Cents are only accepted and emitted at API boundaries.
+const calculateBreakdownEuros = (
+  gross: Decimal,
+  year: FiscalYear
+): EuroBreakdown => {
+  const parameters = getParameters(year)
+  const contributions = calculateSocialContributions(gross, parameters)
+  const irpf = calculateIrpf(gross, parameters, contributions)
+  const salaryNetAnnual = gross
+    .minus(contributions.workerContribution)
+    .minus(irpf.irpfFinal)
 
   return {
     grossAnnual: gross,
-    employerContribution,
-    laborCost: gross.plus(employerContribution),
-    workerContribution,
-    irpfFinal,
+    employerContribution: contributions.employerContribution,
+    laborCost: gross.plus(contributions.employerContribution),
+    workerContribution: contributions.workerContribution,
+    irpfFinal: irpf.irpfFinal,
     salaryNetAnnual,
   }
 }
 
-const liquidate = (breakdown: ReturnType<typeof calculateBreakdownEuros>): LiquidatedBreakdown => ({
-  grossAnnualCents: eurosToCents(roundMoney(breakdown.grossAnnual)),
-  employerContributionCents: eurosToCents(roundMoney(breakdown.employerContribution)),
-  laborCostCents: eurosToCents(roundMoney(breakdown.laborCost)),
-  workerContributionCents: eurosToCents(roundMoney(breakdown.workerContribution)),
-  irpfFinalCents: eurosToCents(roundMoney(breakdown.irpfFinal)),
-  salaryNetAnnualCents: eurosToCents(roundMoney(breakdown.salaryNetAnnual)),
+const liquidatedCents = (euros: Decimal) => eurosToCents(roundMoney(euros))
+
+const liquidate = (breakdown: EuroBreakdown): LiquidatedBreakdown => ({
+  grossAnnualCents: liquidatedCents(breakdown.grossAnnual),
+  employerContributionCents: liquidatedCents(breakdown.employerContribution),
+  laborCostCents: liquidatedCents(breakdown.laborCost),
+  workerContributionCents: liquidatedCents(breakdown.workerContribution),
+  irpfFinalCents: liquidatedCents(breakdown.irpfFinal),
+  salaryNetAnnualCents: liquidatedCents(breakdown.salaryNetAnnual),
 })
 
 const adjustBreakdown = (
-  breakdown: ReturnType<typeof calculateBreakdownEuros>,
-  factor: Decimal,
-): LiquidatedBreakdown =>
-  liquidate({
-    grossAnnual: breakdown.grossAnnual.mul(factor),
-    employerContribution: breakdown.employerContribution.mul(factor),
-    laborCost: breakdown.laborCost.mul(factor),
-    workerContribution: breakdown.workerContribution.mul(factor),
-    irpfFinal: breakdown.irpfFinal.mul(factor),
-    salaryNetAnnual: breakdown.salaryNetAnnual.mul(factor),
-  })
+  breakdown: EuroBreakdown,
+  factor: Decimal
+): LiquidatedBreakdown => liquidate(scaleBreakdown(breakdown, factor))
 
-export const compareInflationAdjusted = (input: CompareInflationAdjustedInput) =>
-  Effect.sync((): InflationAdjustedComparison => {
-    const referenceGross = centsToEuros(input.referenceGrossAnnualCents)
-    const factor = inflationFactor(input.comparedYear, input.referenceYear)
-    const comparedNominalGross = referenceGross.div(factor)
+const scaleBreakdown = (
+  breakdown: EuroBreakdown,
+  factor: Decimal
+): EuroBreakdown => ({
+  grossAnnual: breakdown.grossAnnual.mul(factor),
+  employerContribution: breakdown.employerContribution.mul(factor),
+  laborCost: breakdown.laborCost.mul(factor),
+  workerContribution: breakdown.workerContribution.mul(factor),
+  irpfFinal: breakdown.irpfFinal.mul(factor),
+  salaryNetAnnual: breakdown.salaryNetAnnual.mul(factor),
+})
 
-    const reference = liquidate(calculateBreakdownEuros(referenceGross, input.referenceYear))
-    const comparedRaw = calculateBreakdownEuros(comparedNominalGross, input.comparedYear)
-    const adjusted = adjustBreakdown(comparedRaw, factor)
-    const referenceRaw = calculateBreakdownEuros(referenceGross, input.referenceYear)
-    const deltaAnnual = eurosToCents(
-      roundMoney(comparedRaw.salaryNetAnnual.mul(factor).minus(referenceRaw.salaryNetAnnual)),
-    )
+const deltaAnnualCents = (
+  comparedRaw: EuroBreakdown,
+  referenceRaw: EuroBreakdown,
+  factor: Decimal
+) =>
+  liquidatedCents(
+    comparedRaw.salaryNetAnnual.mul(factor).minus(referenceRaw.salaryNetAnnual)
+  )
 
-    return {
-      referenceYear: input.referenceYear,
-      comparedYear: input.comparedYear,
-      inflationFactor: factor.toFixed(12),
-      reference,
-      compared: {
-        nominalGrossAnnualCents: eurosToCents(roundMoney(comparedNominalGross)),
-        adjusted,
-      },
-      netPurchasingPowerDeltaAnnualCents: deltaAnnual,
-      netPurchasingPowerDeltaMonthlyCents: Math.round(deltaAnnual / 12),
-    }
-  })
+const deltaMonthlyCents = (deltaAnnual: number) => Math.round(deltaAnnual / 12)
+
+const buildInflationAdjustedComparison = (
+  input: CompareInflationAdjustedInput
+): InflationAdjustedComparison => {
+  const referenceGross = centsToEuros(input.referenceGrossAnnualCents)
+  const factor = inflationFactor(input.comparedYear, input.referenceYear)
+  const comparedNominalGross = referenceGross.div(factor)
+  const referenceRaw = calculateBreakdownEuros(
+    referenceGross,
+    input.referenceYear
+  )
+  const comparedRaw = calculateBreakdownEuros(
+    comparedNominalGross,
+    input.comparedYear
+  )
+  const deltaAnnual = deltaAnnualCents(comparedRaw, referenceRaw, factor)
+
+  return {
+    referenceYear: input.referenceYear,
+    comparedYear: input.comparedYear,
+    inflationFactor: factor.toFixed(12),
+    reference: liquidate(referenceRaw),
+    compared: {
+      nominalGrossAnnualCents: liquidatedCents(comparedNominalGross),
+      adjusted: adjustBreakdown(comparedRaw, factor),
+    },
+    netPurchasingPowerDeltaAnnualCents: deltaAnnual,
+    netPurchasingPowerDeltaMonthlyCents: deltaMonthlyCents(deltaAnnual),
+  }
+}
+
+// Exported calculation effects are named with Effect.fn so failures or future
+// instrumentation get useful call-site spans without hiding the pure formulas.
+export const compareInflationAdjusted = Effect.fn(
+  "progressivity.compareInflationAdjusted"
+)(function* (input: CompareInflationAdjustedInput) {
+  return buildInflationAdjustedComparison(input)
+})
+
+const safeRate = (numerator: number, denominator: number) => {
+  if (denominator === 0) {
+    return 0
+  }
+
+  return numerator / denominator
+}
 
 const burdenRate = (breakdown: LiquidatedBreakdown) =>
-  (breakdown.workerContributionCents + breakdown.irpfFinalCents) / breakdown.grossAnnualCents
+  safeRate(
+    breakdown.workerContributionCents + breakdown.irpfFinalCents,
+    breakdown.grossAnnualCents
+  )
 
 const laborWedgeRate = (breakdown: LiquidatedBreakdown) =>
-  (breakdown.laborCostCents - breakdown.salaryNetAnnualCents) / breakdown.laborCostCents
+  safeRate(
+    breakdown.laborCostCents - breakdown.salaryNetAnnualCents,
+    breakdown.laborCostCents
+  )
 
 const sortByAbsoluteDelta = (points: ReadonlyArray<SalaryRangeAuditPoint>) =>
   [...points].sort(
     (a, b) =>
       Math.abs(b.comparison.netPurchasingPowerDeltaAnnualCents) -
-      Math.abs(a.comparison.netPurchasingPowerDeltaAnnualCents),
+      Math.abs(a.comparison.netPurchasingPowerDeltaAnnualCents)
   )
 
-const buildFindings = (points: ReadonlyArray<SalaryRangeAuditPoint>): ReadonlyArray<AuditFinding> => {
-  const mostAffected = sortByAbsoluteDelta(points)[0]
-  const biggestBurdenGap = [...points].sort(
+const sortByBurdenGap = (points: ReadonlyArray<SalaryRangeAuditPoint>) =>
+  [...points].sort(
     (a, b) =>
       Math.abs(b.currentBurdenRate - b.comparedBurdenRate) -
-      Math.abs(a.currentBurdenRate - a.comparedBurdenRate),
-  )[0]
-  const firstCurrentIrpf = points.find((point) => point.comparison.reference.irpfFinalCents > 0)
-  const findings: Array<AuditFinding> = []
+      Math.abs(a.currentBurdenRate - a.comparedBurdenRate)
+  )
 
-  if (mostAffected) {
-    const delta = mostAffected.comparison.netPurchasingPowerDeltaAnnualCents
-    findings.push({
-      title: delta > 0 ? "Mayor pérdida de poder adquisitivo" : "Mayor mejora de poder adquisitivo",
+const first = <A>(values: ReadonlyArray<A>) => values[0]
+
+const mostAffectedFinding = (
+  point: SalaryRangeAuditPoint | undefined
+): AuditFinding | undefined => {
+  if (point === undefined) {
+    return undefined
+  }
+
+  const delta = point.comparison.netPurchasingPowerDeltaAnnualCents
+  if (delta > 0) {
+    return {
+      title: "Mayor pérdida de poder adquisitivo",
       description:
-        delta > 0
-          ? "En este salario, la legislación actual deja menos neto real que el año comparado ajustado por IPC."
-          : "En este salario, la legislación actual deja más neto real que el año comparado ajustado por IPC.",
-      salaryGrossAnnualCents: mostAffected.grossAnnualCents,
-      severity: delta > 0 ? "loss" : "gain",
-    })
+        "En este salario, la legislación actual deja menos neto real que el año comparado ajustado por IPC.",
+      salaryGrossAnnualCents: point.grossAnnualCents,
+      severity: "loss",
+    }
   }
 
-  if (biggestBurdenGap) {
-    findings.push({
-      title: "Mayor cambio de carga sobre salario bruto",
-      description: "Aquí se concentra la mayor diferencia de IRPF y cotización del trabajador sobre el salario bruto.",
-      salaryGrossAnnualCents: biggestBurdenGap.grossAnnualCents,
-      severity:
-        biggestBurdenGap.currentBurdenRate > biggestBurdenGap.comparedBurdenRate ? "loss" : "gain",
-    })
+  return {
+    title: "Mayor mejora de poder adquisitivo",
+    description:
+      "En este salario, la legislación actual deja más neto real que el año comparado ajustado por IPC.",
+    salaryGrossAnnualCents: point.grossAnnualCents,
+    severity: "gain",
   }
-
-  if (firstCurrentIrpf) {
-    findings.push({
-      title: "Primer salario con IRPF final en 2026",
-      description: "Marca la entrada visible del IRPF final dentro del rango explorado; por debajo siguen existiendo cotizaciones.",
-      salaryGrossAnnualCents: firstCurrentIrpf.grossAnnualCents,
-      severity: "info",
-    })
-  }
-
-  return findings
 }
 
-export const auditSalaryRange = (input: SalaryRangeAuditInput) =>
-  Effect.gen(function* () {
-    const points: Array<SalaryRangeAuditPoint> = []
-    for (
-      let grossAnnualCents = input.minGrossAnnualCents;
-      grossAnnualCents <= input.maxGrossAnnualCents;
-      grossAnnualCents += input.stepCents
-    ) {
-      const comparison = yield* compareInflationAdjusted({
-        referenceGrossAnnualCents: grossAnnualCents,
-        comparedYear: input.comparedYear,
-        referenceYear: input.referenceYear,
-      })
+const burdenGapFinding = (
+  point: SalaryRangeAuditPoint | undefined
+): AuditFinding | undefined => {
+  if (point === undefined) {
+    return undefined
+  }
 
-      points.push({
-        grossAnnualCents,
-        comparison,
-        currentBurdenRate: burdenRate(comparison.reference),
-        comparedBurdenRate: burdenRate(comparison.compared.adjusted),
-        currentLaborWedgeRate: laborWedgeRate(comparison.reference),
-        comparedLaborWedgeRate: laborWedgeRate(comparison.compared.adjusted),
-      })
+  if (point.currentBurdenRate > point.comparedBurdenRate) {
+    return {
+      title: "Mayor cambio de carga sobre salario bruto",
+      description:
+        "Aquí se concentra la mayor diferencia de IRPF y cotización del trabajador sobre el salario bruto.",
+      salaryGrossAnnualCents: point.grossAnnualCents,
+      severity: "loss",
     }
+  }
+
+  return {
+    title: "Mayor cambio de carga sobre salario bruto",
+    description:
+      "Aquí se concentra la mayor diferencia de IRPF y cotización del trabajador sobre el salario bruto.",
+    salaryGrossAnnualCents: point.grossAnnualCents,
+    severity: "gain",
+  }
+}
+
+const firstCurrentIrpfFinding = (
+  point: SalaryRangeAuditPoint | undefined
+): AuditFinding | undefined => {
+  if (point === undefined) {
+    return undefined
+  }
+
+  return {
+    title: "Primer salario con IRPF final en 2026",
+    description:
+      "Marca la entrada visible del IRPF final dentro del rango explorado; por debajo siguen existiendo cotizaciones.",
+    salaryGrossAnnualCents: point.grossAnnualCents,
+    severity: "info",
+  }
+}
+
+const isPresent = <A>(value: A | undefined): value is A => value !== undefined
+
+const buildFindings = (
+  points: ReadonlyArray<SalaryRangeAuditPoint>
+): ReadonlyArray<AuditFinding> => {
+  const mostAffected = first(sortByAbsoluteDelta(points))
+  const biggestBurdenGap = first(sortByBurdenGap(points))
+  const firstCurrentIrpf = points.find(
+    (point) => point.comparison.reference.irpfFinalCents > 0
+  )
+
+  return [
+    mostAffectedFinding(mostAffected),
+    burdenGapFinding(biggestBurdenGap),
+    firstCurrentIrpfFinding(firstCurrentIrpf),
+  ].filter(isPresent)
+}
+
+const grossAnnualCentsRange = (
+  input: SalaryRangeAuditInput
+): ReadonlyArray<number> => {
+  if (input.stepCents <= 0) {
+    return []
+  }
+
+  if (input.minGrossAnnualCents > input.maxGrossAnnualCents) {
+    return []
+  }
+
+  const pointCount =
+    Math.floor(
+      (input.maxGrossAnnualCents - input.minGrossAnnualCents) / input.stepCents
+    ) + 1
+
+  return globalThis.Array.from(
+    { length: pointCount },
+    (_, index) => input.minGrossAnnualCents + index * input.stepCents
+  )
+}
+
+const buildAuditPoint = Effect.fn("progressivity.buildAuditPoint")(function* (
+  input: SalaryRangeAuditInput,
+  grossAnnualCents: number
+) {
+  const comparison = yield* compareInflationAdjusted({
+    referenceGrossAnnualCents: grossAnnualCents,
+    comparedYear: input.comparedYear,
+    referenceYear: input.referenceYear,
+  })
+
+  return {
+    grossAnnualCents,
+    comparison,
+    currentBurdenRate: burdenRate(comparison.reference),
+    comparedBurdenRate: burdenRate(comparison.compared.adjusted),
+    currentLaborWedgeRate: laborWedgeRate(comparison.reference),
+    comparedLaborWedgeRate: laborWedgeRate(comparison.compared.adjusted),
+  } satisfies SalaryRangeAuditPoint
+})
+
+export const auditSalaryRange = Effect.fn("progressivity.auditSalaryRange")(
+  function* (input: SalaryRangeAuditInput) {
+    const points = yield* Effect.forEach(
+      grossAnnualCentsRange(input),
+      (grossAnnualCents) => buildAuditPoint(input, grossAnnualCents)
+    )
 
     return {
       comparedYear: input.comparedYear,
@@ -551,4 +1043,5 @@ export const auditSalaryRange = (input: SalaryRangeAuditInput) =>
       points,
       findings: buildFindings(points),
     } satisfies SalaryRangeAudit
-  })
+  }
+)
