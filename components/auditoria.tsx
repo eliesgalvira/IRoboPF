@@ -604,7 +604,7 @@ function HallazgoPrincipal({
       <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 py-6 pl-4 sm:gap-6 sm:pl-5">
         <span
           aria-hidden="true"
-          className="absolute top-0 left-0 h-24 w-[10px]"
+          className="absolute top-6 left-0 h-10 w-[10px]"
           style={{ background: tono }}
         />
         <span
