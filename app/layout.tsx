@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Anton, JetBrains_Mono } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
 const display = Anton({
@@ -29,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es">
       <body
         className={cn(display.variable, mono.variable, "site-theme antialiased")}
         style={{
@@ -47,7 +46,7 @@ export default function RootLayout({
           ["--gain" as string]: "oklch(0.55 0.16 155)",
         } as React.CSSProperties}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        {children}
       </body>
     </html>
   )
