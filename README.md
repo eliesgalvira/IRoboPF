@@ -24,6 +24,8 @@ IPC.
   dispositivo del usuario.
 - Script Python legacy conservado en `Calculo_Salario_IRPF.py` como referencia
   histórica y oráculo de migración.
+- Compatibilidad legacy completa implementada en el exportador Effect: hojas de
+  control, comparativa de inflación y hojas `DAT_YYYY`.
 
 ## Origen del cálculo
 
@@ -82,8 +84,14 @@ Desde esta ruta se pueden descargar dos archivos Excel:
 
 - `IRoboPF_Auditoria_Educativa_YYYY_2026.xlsx`, con manual, hallazgos y tabla de
   exploración.
-- `IRoboPF_Compatible_YYYY_2026.xlsx`, con una hoja `COMPARATIVA_INFLACION` de
-  columnas compatibles con la comparativa legacy para el rango seleccionado.
+- `Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx`, con las hojas legacy
+  `CONTROL_GENERAL`, `CONTROL_TRAMOS_IRPF`, `COMPARATIVA_INFLACION` y
+  `DAT_2012` ... `DAT_2026`.
+
+La exportación compatible replica el alcance funcional del libro legacy. La suite
+rápida valida la comparativa contra el fixture versionado y comprueba estructura,
+controles y detalle anual con rangos acotados; una validación exhaustiva de todas
+las filas `DAT_YYYY` debe ejecutarse como prueba pesada.
 
 ## Hipótesis y alcance
 
@@ -145,6 +153,12 @@ Comprobaciones habituales:
 bun run test
 bun run typecheck
 bun run lint
+```
+
+Validación pesada contra el fixture Excel legacy completo:
+
+```bash
+bun run test:legacy-completo
 ```
 
 ## Ejecutar el legacy Python
