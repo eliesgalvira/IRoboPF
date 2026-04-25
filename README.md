@@ -24,6 +24,9 @@ IPC.
   dispositivo del usuario.
 - Script Python legacy conservado en `Calculo_Salario_IRPF.py` como referencia
   histórica y oráculo de migración.
+- Brecha de alcance legacy documentada en `docs/legacy-scope-gap.md`: el motor
+  Effect actual cubre la comparativa, pero el objetivo de compatibilidad es el
+  Excel completo.
 
 ## Origen del cálculo
 
@@ -85,6 +88,10 @@ Desde esta ruta se pueden descargar dos archivos Excel:
 - `IRoboPF_Compatible_YYYY_2026.xlsx`, con una hoja `COMPARATIVA_INFLACION` de
   columnas compatibles con la comparativa legacy para el rango seleccionado.
 
+Esta descarga es una **exportación compatible de comparativa** transitoria. La
+compatibilidad legacy completa sigue pendiente: debe replicar también las hojas
+de control y `DAT_YYYY`.
+
 ## Hipótesis y alcance
 
 El modelo actual calcula un **caso fiscal simplificado**:
@@ -104,6 +111,7 @@ Fuera de alcance por ahora:
 - comunidades autónomas reales;
 - situaciones familiares distintas;
 - otras rentas, deducciones personales o circunstancias laborales;
+- equivalencia tabular completa con todas las hojas del Excel legacy;
 - equivalencia binaria completa con el Excel legacy.
 
 ## Estructura del repo

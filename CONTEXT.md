@@ -84,6 +84,14 @@ _Avoid_: Calculadora, UI
 Salida que replica el Excel del proyecto original, incluyendo nombres de hojas, columnas, orden y redondeos.
 _Avoid_: Vista educativa, exportacion Excel generica
 
+**Exportacion compatible de comparativa**:
+Salida parcial y transitoria actualmente implementada que replica la hoja `COMPARATIVA_INFLACION` del Excel original para un rango salarial declarado.
+_Avoid_: Exportacion compatible completa, equivalencia tabular completa
+
+**Exportacion compatible completa**:
+Salida objetivo que replica todas las hojas del Excel original: control, comparativa de inflacion y hojas anuales `DAT_YYYY`.
+_Avoid_: Exportacion compatible de comparativa, exportacion educativa
+
 **Exportacion educativa**:
 Salida descargable orientada a explicar resultados, hallazgos e impactos normativos sin obligacion de coincidir con el Excel legacy.
 _Avoid_: Exportacion compatible, fixture legacy
@@ -360,6 +368,13 @@ _Avoid_: Informe, reporte
 - Un **Fixture legacy Excel** materializa el resultado de un **Oracle legacy congelado**.
 - Una **Regeneracion legacy** comprueba o actualiza un **Fixture legacy Excel** ejecutando el script Python original.
 
+## Estado de implementacion
+
+- La implementacion Effect actual solo entrega **Exportacion compatible de comparativa**: una hoja `COMPARATIVA_INFLACION` generada desde `lib/export/auditoria-excel.ts`.
+- La **Exportacion compatible completa** del libro legacy es el objetivo de producto, pero no esta implementada todavia: faltan `CONTROL_GENERAL`, `CONTROL_TRAMOS_IRPF` y `DAT_2012` ... `DAT_2026`.
+- La brecha de alcance esta documentada en `docs/legacy-scope-gap.md`.
+- Hasta completar esa migracion, no se debe afirmar **Equivalencia tabular** completa para el motor Effect.
+
 ## Example dialogue
 
 > **Dev:** "Cuando el usuario cambia el salario bruto, estamos recalculando toda la auditoria?"
@@ -375,3 +390,4 @@ _Avoid_: Informe, reporte
 - "dinero" puede significar entrada, valor intermedio o salida comparable; resuelto: distinguir **Entrada monetaria**, **Importe monetario** e **Importe liquidado**.
 - "resultado correcto" puede significar compatible con el Excel original o correcto bajo reglas decimales explicitas; resuelto: distinguir **Modo compatible legacy** y **Modo canonico**.
 - "minimo del slider" no debe confundirse con el primer salario con **IRPF final** positivo en el ano de referencia; resuelto: usar **Rango pedagogico del salario** para cubrir cotizaciones, IRPF historico y progresividad en frio.
+- "exportacion compatible" puede confundirse con la hoja de comparativa actualmente implementada, pero el objetivo de producto es el libro legacy completo; resuelto: usar **Exportacion compatible de comparativa** solo para la capacidad parcial transitoria y **Exportacion compatible completa** para la replica del Excel original.
