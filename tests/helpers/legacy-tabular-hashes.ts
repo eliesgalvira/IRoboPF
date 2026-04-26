@@ -29,13 +29,6 @@ export interface HashHojaLegacyDerivada {
   readonly dataRows: number
   readonly headerHash: string
   readonly dataHash: string
-  readonly tolerancePatches?: ReadonlyArray<PatchToleranciaCentimo>
-}
-
-export interface PatchToleranciaCentimo {
-  readonly row: number
-  readonly column: number
-  readonly legacyCents: number
 }
 
 export interface FixtureLegacyDerivado {
@@ -141,60 +134,19 @@ export const hashTablaCompatible = (
   name: nombreHoja,
 })
 
-const aplicarParchesTolerancia = (
+export const hashTablaCompatibleExacta = (
   nombreHoja: string,
-  fila: ReadonlyArray<ValorCeldaCompatible>,
-  numeroFilaDatos: number,
-  parches: ReadonlyMap<string, PatchToleranciaCentimo>
-) =>
-  fila.map((valor, indice) => {
-    const parche = parches.get(`${numeroFilaDatos}:${indice + 1}`)
-    if (parche === undefined) {
-      return valor
-    }
-    if (typeof valor !== "number") {
-      throw new Error(
-        `Parche de tolerancia numerica aplicado a celda no numerica en ${nombreHoja} fila ${numeroFilaDatos}, columna ${indice + 1}`
-      )
-    }
-    const diferenciaCentimos = Math.abs(
-      valorACentimos(valor) - parche.legacyCents
-    )
-    if (diferenciaCentimos > 1) {
-      throw new Error(
-        `Parche de tolerancia excedido en ${nombreHoja} fila ${numeroFilaDatos}, columna ${indice + 1}: esperado=${parche.legacyCents}, actual=${valorACentimos(valor)}`
-      )
-    }
-    return parche.legacyCents / 100
-  })
-
-export const hashTablaCompatibleConParches = (
-  nombreHoja: string,
-  tabla: TablaCompatible,
-  parches: ReadonlyArray<PatchToleranciaCentimo> = []
+  tabla: TablaCompatible
 ): HashHojaLegacyDerivada => {
-  const parchesPorCelda = new Map(
-    parches.map((parche) => [`${parche.row}:${parche.column}`, parche])
-  )
   const acumulador = crearAcumuladorHashTabular(tabla.cabeceras)
-  let numeroFilaDatos = 0
 
   for (const fila of tabla.filas) {
-    numeroFilaDatos += 1
-    acumulador.anadirFilaDatos(
-      aplicarParchesTolerancia(
-        nombreHoja,
-        fila,
-        numeroFilaDatos,
-        parchesPorCelda
-      )
-    )
+    acumulador.anadirFilaDatos(fila)
   }
 
   return {
     name: nombreHoja,
     ...acumulador.finalizar(),
-    ...(parches.length > 0 ? { tolerancePatches: parches } : {}),
   }
 }
 

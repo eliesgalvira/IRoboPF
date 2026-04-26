@@ -18,9 +18,9 @@ La validación pesada con fixture completo ya existe y compara todas las hojas y
 filas contra el oracle Python. Se ejecuta con `bun run test:legacy-completo`. La
 suite rápida valida la comparativa contra el fixture versionado en streaming,
 cubre estructura, controles y detalle anual con rangos acotados, e incluye una
-validación de equivalencia tabular completa contra un fixture derivado del Excel
-legacy. El fixture derivado versiona hashes por hoja y las tolerancias explícitas
-de 1 céntimo, para evitar leer el `.xlsx` completo en cada ejecución normal.
+validación de equivalencia tabular completa contra un fixture canónico del
+contrato legacy. El fixture versiona hashes exactos por hoja generados desde las
+tablas Effect para evitar leer el `.xlsx` completo en cada ejecución normal.
 
 ## Definiciones relevantes en CONTEXT.md
 
@@ -93,7 +93,7 @@ Redondeos visibles: `Tipo %` a 2 decimales. El ultimo tramo usa el texto
 ### `COMPARATIVA_INFLACION`
 
 Rango: anos 2012-2026 y salarios equivalentes 2026 de 15.000 a 100.000 euros en
-saltos de 1.000 euros. Son 15 * 86 = 1.290 filas de datos.
+saltos de 1.000 euros. Son 15 \* 86 = 1.290 filas de datos.
 
 Columnas:
 

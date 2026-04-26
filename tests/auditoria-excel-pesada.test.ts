@@ -134,12 +134,11 @@ const compararCelda = (
   }
 
   if (typeof legacy === "number" && typeof esperado === "number") {
-    const diferenciaCentimos = Math.abs(
-      Math.round(legacy * 100) - Math.round(esperado * 100)
-    )
-    if (diferenciaCentimos > 1) {
+    const centimosLegacy = Math.round(legacy * 100)
+    const centimosEsperado = Math.round(esperado * 100)
+    if (centimosLegacy !== centimosEsperado) {
       throw new Error(
-        `Valor distinto en ${posicion}: legacy=${legacy}, esperado=${esperado}, diferenciaCentimos=${diferenciaCentimos}`
+        `Valor distinto en ${posicion}: legacy=${legacy}, esperado=${esperado}, diferenciaCentimos=${Math.abs(centimosLegacy - centimosEsperado)}`
       )
     }
     return
