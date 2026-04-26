@@ -29,13 +29,6 @@ export default function PaginaErrata() {
             <h1 className="font-[family-name:var(--display)] text-[clamp(3rem,9vw,7rem)] leading-[0.9] tracking-wider">
               Redondeo del script Python
             </h1>
-            <p className="text-sm leading-7 text-[var(--ink-soft)]">
-              El Excel legacy contiene importes monetarios que quedan un céntimo
-              por debajo del criterio fiscal esperado cuando el tercer decimal
-              es 5. El problema aparece en la combinación de números{" "}
-              <code className="font-bold text-[var(--ink)]">float</code> y{" "}
-              <code className="font-bold text-[var(--ink)]">round()</code>.
-            </p>
           </div>
         </header>
 
@@ -59,11 +52,12 @@ export default function PaginaErrata() {
               16206,19.
             </p>
             <p>
-              Además, un <strong>float</strong> no guarda muchos decimales de
-              forma exacta. Internamente puede representar 3152,715 como un
-              número ligeramente menor o mayor. Por eso algunos empates parecen
-              redondearse de forma irregular: el programa no está comparando el
-              decimal exacto que vemos en pantalla.
+              Además, un <strong>float</strong> (número binario aproximado) no
+              guarda muchos decimales de forma exacta. Internamente puede
+              representar 3152,715 como un número ligeramente menor o mayor. Por
+              eso algunos empates parecen redondearse de forma irregular: el
+              programa no está comparando el decimal exacto que vemos en
+              pantalla.
             </p>
           </div>
         </section>
