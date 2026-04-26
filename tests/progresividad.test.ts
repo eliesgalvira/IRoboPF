@@ -6,6 +6,7 @@ import {
   calcularPerdidaAcumulada,
   compararAjustadoPorIpc,
   configuracionControlSalario,
+  construirTablaDetalleAnualCompatible,
 } from "../lib/domain/progresividad"
 
 describe("compararAjustadoPorIpc", () => {
@@ -191,19 +192,28 @@ describe("compararAjustadoPorIpc", () => {
       })
   )
 
-  it.effect(
-    "liquida al centimo superior cuando el tercer decimal es 5",
-    () =>
-      Effect.gen(function* () {
-        const comparacion = yield* compararAjustadoPorIpc({
-          salarioBrutoAnualReferenciaCentimos: 1_720_000,
-          anioComparado: 2026,
-          anioReferencia: 2026,
-        })
-
-        expect(comparacion.referencia.irpfFinalCentimos).toBe(7_299)
+  it.effect("liquida al centimo superior cuando el tercer decimal es 5", () =>
+    Effect.gen(function* () {
+      const comparacion = yield* compararAjustadoPorIpc({
+        salarioBrutoAnualReferenciaCentimos: 1_720_000,
+        anioComparado: 2026,
+        anioReferencia: 2026,
       })
+
+      expect(comparacion.referencia.irpfFinalCentimos).toBe(7_299)
+    })
   )
+
+  it("redondea importes tabulares al centimo superior cuando el tercer decimal es 5", () => {
+    const tabla2012 = construirTablaDetalleAnualCompatible(2012, {
+      salarioMinimoEuros: 590,
+      salarioMaximoEuros: 590,
+      pasoEuros: 1,
+    })
+    const [fila] = [...tabla2012.filas]
+
+    expect(fila?.[3]).toBe(37.47)
+  })
 
   it.effect(
     "construye un rango de auditoria con hallazgos para exploracion pedagogica",

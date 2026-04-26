@@ -365,7 +365,8 @@ const redondearDinero = (euros: Decimal) =>
 const numeroRedondeado = (valor: Decimal, decimales: number) =>
   Number(valor.toDecimalPlaces(decimales, Decimal.ROUND_HALF_EVEN).toString())
 
-const dineroCompatible = (euros: Decimal) => numeroRedondeado(euros, 2)
+const dineroCompatible = (euros: Decimal) =>
+  Number(redondearDinero(euros).toString())
 
 const porcentajeCompatible = (tipo: Decimal, decimales: number) =>
   numeroRedondeado(tipo.mul(100), decimales)
