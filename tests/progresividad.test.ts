@@ -6,6 +6,7 @@ import {
   calcularPerdidaAcumulada,
   compararAjustadoPorIpc,
   configuracionControlSalario,
+  configuracionRangoAuditoria,
   construirTablaDetalleAnualCompatible,
 } from "../lib/domain/progresividad"
 
@@ -17,6 +18,7 @@ describe("compararAjustadoPorIpc", () => {
     expect(configuracionControlSalario.rapido.maximoCentimos).toBe(10_000_000)
     expect(configuracionControlSalario.rapido.pasoCentimos).toBe(100_000)
     expect(configuracionControlSalario.valorPorDefectoCentimos).toBe(1_800_000)
+    expect(configuracionRangoAuditoria.pasoCentimos).toBe(10_000)
   })
 
   it.effect(
@@ -235,5 +237,21 @@ describe("compararAjustadoPorIpc", () => {
           )
         ).toBe(true)
       })
+  )
+
+  it.effect("construye el rango de auditoria en saltos de 100 euros", () =>
+    Effect.gen(function* () {
+      const auditoria = yield* auditarRangoSalarial({
+        salarioBrutoAnualMinimoCentimos: 1_500_000,
+        salarioBrutoAnualMaximoCentimos: 1_530_000,
+        pasoCentimos: 10_000,
+        anioComparado: 2019,
+        anioReferencia: 2026,
+      })
+
+      expect(
+        auditoria.puntos.map((punto) => punto.salarioBrutoAnualCentimos / 100)
+      ).toEqual([15_000, 15_100, 15_200, 15_300])
+    })
   )
 })

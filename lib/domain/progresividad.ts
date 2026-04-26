@@ -154,7 +154,7 @@ export const configuracionRangoAuditoria = {
   maximoPorDefectoCentimos: 10_000_000,
   minimoCentimos: 1_000_000,
   maximoCentimos: 10_000_000,
-  pasoCentimos: 100_000,
+  pasoCentimos: 10_000,
 } as const
 
 const decimal = (valor: string | number) => new Decimal(valor)
