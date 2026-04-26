@@ -569,7 +569,7 @@ function CampoDinero({
       value={centimosAEuros(valorCentimos)}
       min={centimosAEuros(configuracionRangoAuditoria.minimoCentimos)}
       max={centimosAEuros(configuracionRangoAuditoria.maximoCentimos)}
-      step={1000}
+      step={centimosAEuros(configuracionRangoAuditoria.pasoCentimos)}
       format={{ style: "currency", currency: "EUR", maximumFractionDigits: 0 }}
       locale="es-ES"
       onValueChange={(valor) =>
@@ -727,8 +727,8 @@ const configuracionTipoEfectivoIrpf = Object.fromEntries(
 
 function filasGrafico(puntos: ReadonlyArray<PuntoAuditoriaRangoSalarial>) {
   return puntos.map((punto) => ({
+    salarioEuros: centimosAEuros(punto.salarioBrutoAnualCentimos),
     salario: formatearCentimosEnteros(punto.salarioBrutoAnualCentimos),
-    salarioCorto: formatearSalarioCorto(punto.salarioBrutoAnualCentimos),
     diferencia: centimosAEuros(
       punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
     ),
@@ -771,8 +771,8 @@ function filasTipoEfectivoIrpf({
 
   return auditoria.puntos.map((puntoBase, indice) => {
     const fila: Record<string, number | string> = {
+      salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
       salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
-      salarioCorto: formatearSalarioCorto(puntoBase.salarioBrutoAnualCentimos),
     }
 
     for (const anio of aniosSeleccionados) {
@@ -823,6 +823,22 @@ const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
   return [-limite, limite] as const
 }
 
+const ticksSalarioEuros = (auditoria: AuditoriaRangoSalarial) => {
+  const minimo = centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos)
+  const maximo = centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos)
+  const primerTick = Math.ceil(minimo / 5000) * 5000
+  const ticks = []
+
+  for (let salario = primerTick; salario <= maximo; salario += 5000) {
+    ticks.push(salario)
+  }
+
+  if (ticks[0] !== minimo) ticks.unshift(minimo)
+  if (ticks.at(-1) !== maximo) ticks.push(maximo)
+
+  return ticks
+}
+
 const claseBotonPestana = cn(
   "px-3 py-2 transition-colors",
   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -866,6 +882,18 @@ function Visualizaciones({
   const ticksTipoEfectivoIrpf = React.useMemo(
     () => ticksPorcentaje(dominioTipoEfectivoIrpf),
     [dominioTipoEfectivoIrpf]
+  )
+  const ticksSalario = React.useMemo(
+    () => ticksSalarioEuros(auditoria),
+    [auditoria]
+  )
+  const dominioSalario = React.useMemo(
+    () =>
+      [
+        centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos),
+        centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos),
+      ] as const,
+    [auditoria]
   )
   const dominioDiferencia = React.useMemo(
     () => dominioEurosSimetrico(datos.map((fila) => fila.diferencia)),
@@ -950,11 +978,17 @@ function Visualizaciones({
                 strokeDasharray="2 4"
               />
               <XAxis
-                dataKey="salarioCorto"
+                type="number"
+                dataKey="salarioEuros"
+                domain={dominioSalario}
+                ticks={ticksSalario}
+                tickFormatter={(valor: number) =>
+                  formatearSalarioCorto(eurosACentimos(valor))
+                }
                 tickLine={false}
                 axisLine={{ stroke: "var(--rule)" }}
                 tickMargin={10}
-                interval="preserveStartEnd"
+                interval={0}
                 minTickGap={8}
                 angle={-90}
                 textAnchor="end"
@@ -1033,11 +1067,17 @@ function Visualizaciones({
                 strokeDasharray="2 4"
               />
               <XAxis
-                dataKey="salarioCorto"
+                type="number"
+                dataKey="salarioEuros"
+                domain={dominioSalario}
+                ticks={ticksSalario}
+                tickFormatter={(valor: number) =>
+                  formatearSalarioCorto(eurosACentimos(valor))
+                }
                 tickLine={false}
                 axisLine={{ stroke: "var(--rule)" }}
                 tickMargin={6}
-                interval="preserveStartEnd"
+                interval={0}
                 minTickGap={12}
                 fontSize={10}
               />
