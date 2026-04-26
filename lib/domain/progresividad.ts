@@ -357,10 +357,10 @@ const rangoDetalleAnualLegacy =
 const centimosAEuros = (centimos: number) => decimal(centimos).div(100)
 
 const eurosACentimos = (euros: Decimal) =>
-  euros.mul(100).toDecimalPlaces(0, Decimal.ROUND_HALF_EVEN).toNumber()
+  euros.mul(100).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber()
 
 const redondearDinero = (euros: Decimal) =>
-  euros.toDecimalPlaces(2, Decimal.ROUND_HALF_EVEN)
+  euros.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
 
 const numeroRedondeado = (valor: Decimal, decimales: number) =>
   Number(valor.toDecimalPlaces(decimales, Decimal.ROUND_HALF_EVEN).toString())
