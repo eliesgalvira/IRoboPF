@@ -28,7 +28,7 @@ describe("compararAjustadoPorIpc", () => {
           anioReferencia: 2026,
         })
 
-        expect(comparacion.referencia.salarioNetoAnualCentimos).toBe(1_620_618)
+        expect(comparacion.referencia.salarioNetoAnualCentimos).toBe(1_620_619)
         expect(comparacion.comparado.ajustado.salarioNetoAnualCentimos).toBe(
           1_669_141
         )
@@ -188,6 +188,20 @@ describe("compararAjustadoPorIpc", () => {
         expect(comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos).toBe(
           340
         )
+      })
+  )
+
+  it.effect(
+    "liquida al centimo superior cuando el tercer decimal es 5",
+    () =>
+      Effect.gen(function* () {
+        const comparacion = yield* compararAjustadoPorIpc({
+          salarioBrutoAnualReferenciaCentimos: 1_720_000,
+          anioComparado: 2026,
+          anioReferencia: 2026,
+        })
+
+        expect(comparacion.referencia.irpfFinalCentimos).toBe(7_299)
       })
   )
 
