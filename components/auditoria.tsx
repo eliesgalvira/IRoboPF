@@ -75,6 +75,9 @@ function AuditoriaImpl() {
   const [aniosGraficoIrpf, fijarAniosGraficoIrpf] = React.useState<
     ReadonlyArray<AnioFiscal>
   >([2019, 2026])
+  const [aniosGraficoNetoReal, fijarAniosGraficoNetoReal] = React.useState<
+    ReadonlyArray<AnioFiscal>
+  >([2019])
   const [exportando, fijarExportando] = React.useState<
     "educativa" | "compatible" | null
   >(null)
@@ -264,6 +267,8 @@ function AuditoriaImpl() {
           auditoria={auditoria}
           aniosGraficoIrpf={aniosGraficoIrpf}
           fijarAniosGraficoIrpf={fijarAniosGraficoIrpf}
+          aniosGraficoNetoReal={aniosGraficoNetoReal}
+          fijarAniosGraficoNetoReal={fijarAniosGraficoNetoReal}
         />
       </div>
 
@@ -686,15 +691,11 @@ function HallazgosSecundarios({
   )
 }
 
-const configuracionGraficoBarras = {
-  diferenciaPositiva: { label: "Diferencia anual", color: "var(--danger)" },
-  diferenciaNegativa: { label: "Diferencia anual", color: "var(--gain)" },
-} satisfies ChartConfig
-
 const aniosTipoEfectivoIrpf = [
   ...ANIOS_COMPARABLES,
   2026,
 ] as const satisfies ReadonlyArray<AnioFiscal>
+const aniosNetoReal = ANIOS_COMPARABLES
 
 const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
   2012: "oklch(0.38 0 0)",
@@ -715,6 +716,11 @@ const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
 }
 
 const claveAnio = (anio: AnioFiscal) => `anio${anio}`
+const claveDiferenciaNeta = (anio: AnioFiscal) => `neto${anio}`
+const claveDiferenciaNetaPositiva = (anio: AnioFiscal) =>
+  `${claveDiferenciaNeta(anio)}Positiva`
+const claveDiferenciaNetaNegativa = (anio: AnioFiscal) =>
+  `${claveDiferenciaNeta(anio)}Negativa`
 
 const configuracionTipoEfectivoIrpf = Object.fromEntries(
   aniosTipoEfectivoIrpf.map((anio) => [
@@ -726,21 +732,24 @@ const configuracionTipoEfectivoIrpf = Object.fromEntries(
   ])
 ) satisfies ChartConfig
 
-function filasGrafico(puntos: ReadonlyArray<PuntoAuditoriaRangoSalarial>) {
-  return puntos.map((punto) => {
-    const diferencia = centimosAEuros(
-      punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
-    )
-
-    return {
-      salarioEuros: centimosAEuros(punto.salarioBrutoAnualCentimos),
-      salario: formatearCentimosEnteros(punto.salarioBrutoAnualCentimos),
-      diferencia,
-      diferenciaPositiva: diferencia >= 0 ? diferencia : null,
-      diferenciaNegativa: diferencia <= 0 ? diferencia : null,
-    }
-  })
-}
+const configuracionNetoReal = Object.fromEntries(
+  aniosNetoReal.flatMap((anio) => [
+    [
+      claveDiferenciaNetaPositiva(anio),
+      {
+        label: String(anio),
+        color: coloresTipoEfectivoIrpf[anio],
+      },
+    ],
+    [
+      claveDiferenciaNetaNegativa(anio),
+      {
+        label: String(anio),
+        color: "var(--gain)",
+      },
+    ],
+  ])
+) satisfies ChartConfig
 
 function filasTipoEfectivoIrpf({
   auditoria,
@@ -795,8 +804,67 @@ function filasTipoEfectivoIrpf({
   })
 }
 
+function filasNetoReal({
+  auditoria,
+  aniosSeleccionados,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+}) {
+  const series = new Map<
+    AnioFiscal,
+    ReadonlyArray<PuntoAuditoriaRangoSalarial>
+  >()
+
+  for (const anio of aniosSeleccionados) {
+    if (anio === auditoria.anioComparado) {
+      series.set(anio, auditoria.puntos)
+      continue
+    }
+
+    series.set(
+      anio,
+      Effect.runSync(
+        auditarRangoSalarial({
+          salarioBrutoAnualMinimoCentimos:
+            auditoria.salarioBrutoAnualMinimoCentimos,
+          salarioBrutoAnualMaximoCentimos:
+            auditoria.salarioBrutoAnualMaximoCentimos,
+          pasoCentimos: auditoria.pasoCentimos,
+          anioComparado: anio,
+          anioReferencia: auditoria.anioReferencia,
+        })
+      ).puntos
+    )
+  }
+
+  return auditoria.puntos.map((puntoBase, indice) => {
+    const fila: Record<string, number | string | null> = {
+      salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
+      salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
+    }
+
+    for (const anio of aniosSeleccionados) {
+      const punto = series.get(anio)?.[indice]
+      if (punto === undefined) continue
+
+      const diferencia = centimosAEuros(
+        punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
+      )
+
+      fila[claveDiferenciaNeta(anio)] = diferencia
+      fila[claveDiferenciaNetaPositiva(anio)] =
+        diferencia >= 0 ? diferencia : null
+      fila[claveDiferenciaNetaNegativa(anio)] =
+        diferencia <= 0 ? diferencia : null
+    }
+
+    return fila
+  })
+}
+
 const valoresNumericosDeFilas = (
-  filas: ReadonlyArray<Record<string, number | string>>,
+  filas: ReadonlyArray<Record<string, number | string | null>>,
   claves: ReadonlyArray<string>
 ) =>
   filas.flatMap((fila) =>
@@ -854,19 +922,56 @@ const claseBotonPestana = cn(
   "data-[active]:bg-[var(--rule)] data-[active]:text-[var(--paper)]"
 )
 
+function LeyendaNetoReal({
+  payload,
+}: {
+  readonly payload?: ReadonlyArray<{
+    readonly color?: string
+    readonly dataKey?: unknown
+    readonly value?: unknown
+  }>
+}) {
+  const items = []
+  const valoresIncluidos = new Set<string>()
+
+  for (const item of payload ?? []) {
+    const valor = String(item.value)
+    if (valoresIncluidos.has(valor)) continue
+    valoresIncluidos.add(valor)
+    items.push(item)
+  }
+
+  return (
+    <div className="flex flex-wrap justify-end gap-4 pt-2 font-[family-name:var(--mono)] text-[13px] font-bold tabular-nums">
+      {items.map((item) => (
+        <span
+          key={String(item.dataKey)}
+          className="inline-flex items-center gap-2"
+        >
+          <span
+            className="h-0 w-5 border-t-[3px]"
+            style={{ borderColor: item.color }}
+          />
+          {String(item.value)}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 function Visualizaciones({
   auditoria,
   aniosGraficoIrpf,
   fijarAniosGraficoIrpf,
+  aniosGraficoNetoReal,
+  fijarAniosGraficoNetoReal,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoIrpf: (anios: ReadonlyArray<AnioFiscal>) => void
+  readonly aniosGraficoNetoReal: ReadonlyArray<AnioFiscal>
+  readonly fijarAniosGraficoNetoReal: (anios: ReadonlyArray<AnioFiscal>) => void
 }) {
-  const datos = React.useMemo(
-    () => filasGrafico(auditoria.puntos),
-    [auditoria.puntos]
-  )
   const datosTipoEfectivoIrpf = React.useMemo(
     () =>
       filasTipoEfectivoIrpf({
@@ -875,9 +980,21 @@ function Visualizaciones({
       }),
     [aniosGraficoIrpf, auditoria]
   )
+  const datosNetoReal = React.useMemo(
+    () =>
+      filasNetoReal({
+        auditoria,
+        aniosSeleccionados: aniosGraficoNetoReal,
+      }),
+    [aniosGraficoNetoReal, auditoria]
+  )
   const clavesTipoEfectivoIrpf = React.useMemo(
     () => aniosGraficoIrpf.map(claveAnio),
     [aniosGraficoIrpf]
+  )
+  const clavesNetoReal = React.useMemo(
+    () => aniosGraficoNetoReal.map(claveDiferenciaNeta),
+    [aniosGraficoNetoReal]
   )
   const dominioTipoEfectivoIrpf = React.useMemo(
     () =>
@@ -903,14 +1020,25 @@ function Visualizaciones({
     [auditoria]
   )
   const dominioDiferencia = React.useMemo(
-    () => dominioEurosSimetrico(datos.map((fila) => fila.diferencia)),
-    [datos]
+    () =>
+      dominioEurosSimetrico(
+        valoresNumericosDeFilas(datosNetoReal, clavesNetoReal)
+      ),
+    [clavesNetoReal, datosNetoReal]
   )
   const alternarAnioIrpf = (anio: AnioFiscal) => {
     const siguiente = aniosGraficoIrpf.includes(anio)
       ? aniosGraficoIrpf.filter((anioSeleccionado) => anioSeleccionado !== anio)
       : [...aniosGraficoIrpf, anio].sort((a, b) => a - b)
     fijarAniosGraficoIrpf(siguiente.length > 0 ? siguiente : [anio])
+  }
+  const alternarAnioNetoReal = (anio: AnioFiscal) => {
+    const siguiente = aniosGraficoNetoReal.includes(anio)
+      ? aniosGraficoNetoReal.filter(
+          (anioSeleccionado) => anioSeleccionado !== anio
+        )
+      : [...aniosGraficoNetoReal, anio].sort((a, b) => a - b)
+    fijarAniosGraficoNetoReal(siguiente.length > 0 ? siguiente : [anio])
   }
 
   return (
@@ -1062,17 +1190,50 @@ function Visualizaciones({
           value="neto-real"
           className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
-          <p className="text-xs leading-5 text-[var(--ink-soft)]">
-            DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI ES
-            POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <p className="max-w-3xl text-xs leading-5 text-[var(--ink-soft)]">
+              DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI
+              ES POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
+            </p>
+            <div
+              role="group"
+              aria-label="Años visibles en la gráfica de neto real"
+              className="grid w-full grid-cols-5 gap-px bg-[var(--rule)] lg:[grid-template-columns:repeat(15,minmax(0,1fr))]"
+            >
+              {aniosNetoReal.map((anio) => {
+                const activo = aniosGraficoNetoReal.includes(anio)
+                return (
+                  <button
+                    key={anio}
+                    type="button"
+                    aria-pressed={activo}
+                    onClick={() => alternarAnioNetoReal(anio)}
+                    className={cn(
+                      "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums transition-colors",
+                      "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
+                      activo
+                        ? "text-[var(--ink)]"
+                        : "text-[var(--ink-soft)] opacity-55 hover:opacity-100"
+                    )}
+                    style={{
+                      boxShadow: activo
+                        ? `inset 0 -4px 0 ${coloresTipoEfectivoIrpf[anio]}`
+                        : undefined,
+                    }}
+                  >
+                    {anio}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
           <ChartContainer
-            config={configuracionGraficoBarras}
-            className="mt-3 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
+            config={configuracionNetoReal}
+            className="mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
           >
             <AreaChart
               accessibilityLayer
-              data={datos}
+              data={datosNetoReal}
               baseValue={0}
               margin={{ left: 4, right: 4, top: 4, bottom: 4 }}
             >
@@ -1116,38 +1277,65 @@ function Visualizaciones({
                 cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
                 content={
                   <ChartTooltipContent
-                    formatter={(v) => dinero.format(Number(v))}
-                    nameKey="diferencia"
+                    formatter={(valor, nombre, item) => (
+                      <span
+                        className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                        style={{ color: item.color }}
+                      >
+                        {dinero.format(Number(valor))} ({nombre})
+                      </span>
+                    )}
+                    labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
                     labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
                   />
                 }
               />
-              <Area
-                dataKey="diferenciaPositiva"
-                name="Diferencia anual"
-                type="monotone"
-                stroke="var(--danger)"
-                strokeWidth={3}
-                fill="var(--danger)"
-                fillOpacity={0.18}
-                baseValue={0}
-                dot={false}
-                activeDot={{ r: 4, strokeWidth: 0 }}
-                isAnimationActive={false}
+              <Legend
+                verticalAlign="bottom"
+                align="right"
+                iconType="plainline"
+                content={<LeyendaNetoReal />}
+                wrapperStyle={{
+                  fontFamily: "var(--mono)",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  paddingTop: 8,
+                }}
               />
-              <Area
-                dataKey="diferenciaNegativa"
-                name="Diferencia anual"
-                type="monotone"
-                stroke="var(--gain)"
-                strokeWidth={3}
-                fill="var(--gain)"
-                fillOpacity={0.18}
-                baseValue={0}
-                dot={false}
-                activeDot={{ r: 4, strokeWidth: 0 }}
-                isAnimationActive={false}
-              />
+              {aniosGraficoNetoReal.flatMap((anio) => [
+                <Area
+                  key={`${anio}-positiva`}
+                  dataKey={claveDiferenciaNetaPositiva(anio)}
+                  name={String(anio)}
+                  type="monotone"
+                  stroke={coloresTipoEfectivoIrpf[anio]}
+                  strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                  fill={coloresTipoEfectivoIrpf[anio]}
+                  fillOpacity={0.16}
+                  legendType="plainline"
+                  baseValue={0}
+                  dot={false}
+                  activeDot={{ r: 4, strokeWidth: 0 }}
+                  connectNulls={false}
+                  isAnimationActive={false}
+                />,
+                <Area
+                  key={`${anio}-negativa`}
+                  dataKey={claveDiferenciaNetaNegativa(anio)}
+                  name={String(anio)}
+                  type="monotone"
+                  stroke="var(--gain)"
+                  strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                  fill="var(--gain)"
+                  fillOpacity={0.18}
+                  legendType="plainline"
+                  baseValue={0}
+                  dot={false}
+                  activeDot={{ r: 4, strokeWidth: 0 }}
+                  connectNulls={false}
+                  isAnimationActive={false}
+                />,
+              ])}
             </AreaChart>
           </ChartContainer>
         </Tabs.Panel>
