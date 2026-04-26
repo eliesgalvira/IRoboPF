@@ -1,59 +1,5 @@
 import type { Metadata } from "next"
 
-const casosIrpf = [
-  {
-    origen: "DAT_2012",
-    caso: "Salario bruto 21.900 €",
-    concepto: "IRPF Final",
-    calculo: "3152,715 €",
-    python: "3152.71",
-    correcto: "3152.72",
-  },
-  {
-    origen: "DAT_2012",
-    caso: "Salario bruto 22.100 €",
-    concepto: "IRPF Final",
-    calculo: "3208,905 €",
-    python: "3208.90",
-    correcto: "3208.91",
-  },
-  {
-    origen: "DAT_2012",
-    caso: "Salario bruto 22.900 €",
-    concepto: "IRPF Final",
-    calculo: "3433,665 €",
-    python: "3433.66",
-    correcto: "3433.67",
-  },
-  {
-    origen: "DAT_2012",
-    caso: "Salario bruto 24.500 €",
-    concepto: "IRPF Final",
-    calculo: "3883,185 €",
-    python: "3883.18",
-    correcto: "3883.19",
-  },
-]
-
-const casosNeto = [
-  {
-    origen: "COMPARATIVA_INFLACION",
-    caso: "Año 2026 · salario bruto 18.000 €",
-    concepto: "Neto Real en 2026",
-    calculo: "18000 - 1170 - 623,815 = 16206,185 €",
-    python: "16206.18",
-    correcto: "16206.19",
-  },
-  {
-    origen: "COMPARATIVA_INFLACION",
-    caso: "Año 2026 · salario bruto 18.000 €",
-    concepto: "Neto Real en su Año",
-    calculo: "16206,185 €",
-    python: "16206.18",
-    correcto: "16206.19",
-  },
-]
-
 const fragmentosPython = [
   "round(irpf_final, 2)",
   "round(salario_neto, 2)",
@@ -141,18 +87,42 @@ export default function PaginaErrata() {
 
         <section className="grid gap-5">
           <EncabezadoSeccion
-            titulo="Casos de IRPF"
-            descripcion="En todos estos casos el cálculo exacto queda en medio céntimo y el Excel Python queda un céntimo por debajo del half-up."
+            titulo="Casos clave"
+            descripcion="Tres ejemplos suficientes para separar el problema de criterio de redondeo y el problema de representación float."
           />
-          <TablaCasos casos={casosIrpf} />
-        </section>
-
-        <section className="grid gap-5">
-          <EncabezadoSeccion
-            titulo="Caso de neto"
-            descripcion="El salario neto de 18.000 € en 2026 es el ejemplo más visible porque se propaga a la comparativa de inflación."
-          />
-          <TablaCasos casos={casosNeto} />
+          <div className="grid gap-4">
+            <Caso
+              etiqueta="Deriva de float"
+              titulo="DAT_2012 · salario bruto 21.900 € · IRPF Final"
+              texto="El cálculo decimal esperado llega exactamente a 3152,715 €. Si round() recibiera ese decimal exacto, half-even redondearía a 3152.72 porque el 2 es la cifra par. Pero el script opera con float y el valor que llega al redondeo es ligeramente menor."
+              codigo={[
+                "decimal esperado: 3152.715",
+                "float recibido: 3152.7149999999997",
+                "Excel Python: 3152.71",
+                "resultado half-up: 3152.72",
+              ]}
+            />
+            <Caso
+              etiqueta="Criterio half-even"
+              titulo="COMPARATIVA_INFLACION · 18.000 € en 2026 · Neto Real"
+              texto="Aquí el importe visible queda en 16206,185 €. Con half-even se puede redondear hacia 16206.18 porque el 8 es par. Con half-up, cualquier tercer decimal igual a 5 debe subir."
+              codigo={[
+                "calculo: 18000 - 1170 - 623.815 = 16206.185",
+                "Excel Python: 16206.18",
+                "resultado half-up: 16206.19",
+              ]}
+            />
+            <Caso
+              etiqueta="Propagación"
+              titulo="Variación mensual de poder adquisitivo"
+              texto="El mismo céntimo se propaga a columnas derivadas: neto anual, diferencia anual y variación mensual. Por eso no conviene corregirlo con tolerancias, sino arreglar la regla de redondeo en el origen."
+              codigo={[
+                "entrada afectada: Neto Real en 2026",
+                "síntoma: diferencias repetidas de 0.01 €",
+                "corrección: Decimal + ROUND_HALF_UP",
+              ]}
+            />
+          </div>
         </section>
 
         <section className="border-y-2 border-[var(--rule)] py-5">
@@ -182,56 +152,29 @@ function EncabezadoSeccion({
   )
 }
 
-function TablaCasos({
-  casos,
+function Caso({
+  etiqueta,
+  titulo,
+  texto,
+  codigo,
 }: {
-  readonly casos: ReadonlyArray<{
-    readonly origen: string
-    readonly caso: string
-    readonly concepto: string
-    readonly calculo: string
-    readonly python: string
-    readonly correcto: string
-  }>
+  readonly etiqueta: string
+  readonly titulo: string
+  readonly texto: string
+  readonly codigo: ReadonlyArray<string>
 }) {
   return (
-    <div className="overflow-x-auto border-2 border-[var(--rule)]">
-      <table className="w-full min-w-[760px] border-collapse text-left text-sm">
-        <thead className="bg-[var(--rule)] text-[var(--paper)]">
-          <tr>
-            <th className="px-3 py-3 font-bold">Origen</th>
-            <th className="px-3 py-3 font-bold">Caso</th>
-            <th className="px-3 py-3 font-bold">Concepto</th>
-            <th className="px-3 py-3 font-bold">Cálculo</th>
-            <th className="px-3 py-3 font-bold">Python</th>
-            <th className="px-3 py-3 font-bold">Half-up</th>
-          </tr>
-        </thead>
-        <tbody>
-          {casos.map((caso) => (
-            <tr key={`${caso.origen}-${caso.caso}-${caso.concepto}`}>
-              <td className="border-t-2 border-[var(--rule)] px-3 py-3 align-top font-bold">
-                {caso.origen}
-              </td>
-              <td className="border-t-2 border-[var(--rule)] px-3 py-3 align-top">
-                {caso.caso}
-              </td>
-              <td className="border-t-2 border-[var(--rule)] px-3 py-3 align-top">
-                {caso.concepto}
-              </td>
-              <td className="border-t-2 border-[var(--rule)] px-3 py-3 align-top">
-                {caso.calculo}
-              </td>
-              <td className="border-t-2 border-[var(--rule)] px-3 py-3 align-top text-[var(--danger)] tabular-nums">
-                {caso.python}
-              </td>
-              <td className="border-t-2 border-[var(--rule)] px-3 py-3 align-top font-bold tabular-nums">
-                {caso.correcto}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <article className="grid gap-4 border-2 border-[var(--rule)] bg-[var(--paper)] p-4 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]">
+      <div className="grid content-start gap-3">
+        <p className="text-xs font-bold tracking-[0.24em] text-[var(--danger)] uppercase">
+          {etiqueta}
+        </p>
+        <h3 className="text-lg leading-tight font-bold">{titulo}</h3>
+        <p className="text-sm leading-7 text-[var(--ink-soft)]">{texto}</p>
+      </div>
+      <pre className="overflow-x-auto border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-sm leading-7 font-bold">
+        {codigo.join("\n")}
+      </pre>
+    </article>
   )
 }
