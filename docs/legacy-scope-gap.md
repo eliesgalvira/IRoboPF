@@ -173,11 +173,11 @@ por `pandas.to_excel`.
 
 - **Equivalencia tabular exhaustiva**: `tests/auditoria-excel-pesada.test.ts`
   compara el fixture completo contra las tablas Effect en streaming.
-- **Equivalencia tabular derivada**: `tests/auditoria-fixture-derivado.test.ts`
-  compara las tablas Effect contra `tests/fixtures/legacy-tabular-hashes.json`,
-  generado desde el Excel legacy con `bun run fixture:legacy-derivado`.
-- **Fixture legacy Excel completo**: el archivo versionado contiene las hojas de
-  control, `COMPARATIVA_INFLACION` y `DAT_2012` ... `DAT_2026`.
+- **Equivalencia tabular canónica**: `tests/auditoria-fixture-canonico.test.ts`
+  compara las tablas Effect contra `tests/fixtures/canonical-tabular-hashes.json`,
+  generado desde las tablas Effect con `bun run fixture:canonico-tabular`.
+- **Fixture Excel legacy completo**: el archivo local sin versionar contiene las
+  hojas de control, `COMPARATIVA_INFLACION` y `DAT_2012` ... `DAT_2026`.
 
 ### No implementado
 

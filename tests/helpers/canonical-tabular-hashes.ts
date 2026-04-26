@@ -23,7 +23,7 @@ export const HOJAS_LEGACY_COMPLETAS = [
   ...aniosFiscalesLegacy.map((anio) => `DAT_${anio}`),
 ] as const
 
-export interface HashHojaLegacyDerivada {
+export interface HashHojaCanonica {
   readonly name: string
   readonly columns: number
   readonly dataRows: number
@@ -31,16 +31,16 @@ export interface HashHojaLegacyDerivada {
   readonly dataHash: string
 }
 
-export interface FixtureLegacyDerivado {
+export interface FixtureCanonicoTabular {
   readonly schemaVersion: 1
   readonly source: string
   readonly canonicalization: string
-  readonly sheets: ReadonlyArray<HashHojaLegacyDerivada>
+  readonly sheets: ReadonlyArray<HashHojaCanonica>
 }
 
 export interface AcumuladorHashTabular {
   readonly anadirFilaDatos: (fila: ReadonlyArray<ValorCeldaCompatible>) => void
-  readonly finalizar: () => Omit<HashHojaLegacyDerivada, "name">
+  readonly finalizar: () => Omit<HashHojaCanonica, "name">
 }
 
 const normalizarValor = (valor: ValorCeldaCompatible) => {
@@ -69,7 +69,7 @@ const anadirFila = (
 export const hashFilasTabulares = (
   cabeceras: ReadonlyArray<ValorCeldaCompatible>,
   filas: Iterable<ReadonlyArray<ValorCeldaCompatible>>
-): HashHojaLegacyDerivada => {
+): HashHojaCanonica => {
   const acumulador = crearAcumuladorHashTabular(cabeceras)
   for (const fila of filas) {
     acumulador.anadirFilaDatos(fila)
@@ -129,7 +129,7 @@ export const tablaEsperadaPorHoja = (nombreHoja: string): TablaCompatible => {
 export const hashTablaCompatible = (
   nombreHoja: string,
   tabla: TablaCompatible
-): HashHojaLegacyDerivada => ({
+): HashHojaCanonica => ({
   ...hashFilasTabulares(tabla.cabeceras, tabla.filas),
   name: nombreHoja,
 })
@@ -137,7 +137,7 @@ export const hashTablaCompatible = (
 export const hashTablaCompatibleExacta = (
   nombreHoja: string,
   tabla: TablaCompatible
-): HashHojaLegacyDerivada => {
+): HashHojaCanonica => {
   const acumulador = crearAcumuladorHashTabular(tabla.cabeceras)
 
   for (const fila of tabla.filas) {
@@ -150,8 +150,8 @@ export const hashTablaCompatibleExacta = (
   }
 }
 
-export const construirFixtureDerivadoDesdeTablasEffect =
-  (): FixtureLegacyDerivado => ({
+export const construirFixtureCanonicoDesdeTablasEffect =
+  (): FixtureCanonicoTabular => ({
     schemaVersion: 1,
     source: ARCHIVO_LEGACY_EXCEL,
     canonicalization: "tipo+valor-tabular-normalizado-a-2-decimales-v1",

@@ -1,12 +1,12 @@
 import { mkdir, writeFile } from "node:fs/promises"
 import { resolve } from "node:path"
 
-import { construirFixtureDerivadoDesdeTablasEffect } from "../tests/helpers/legacy-tabular-hashes"
+import { construirFixtureCanonicoDesdeTablasEffect } from "../tests/helpers/canonical-tabular-hashes"
 
-const SALIDA_FIXTURE = "tests/fixtures/legacy-tabular-hashes.json"
+const SALIDA_FIXTURE = "tests/fixtures/canonical-tabular-hashes.json"
 
 const main = async () => {
-  const fixture = construirFixtureDerivadoDesdeTablasEffect()
+  const fixture = construirFixtureCanonicoDesdeTablasEffect()
 
   await mkdir(resolve(process.cwd(), "tests/fixtures"), { recursive: true })
   await writeFile(

@@ -1,20 +1,20 @@
 import { spawn } from "node:child_process"
 
-import fixtureLegacyDerivado from "./fixtures/legacy-tabular-hashes.json"
+import fixtureCanonico from "./fixtures/canonical-tabular-hashes.json"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
-  type HashHojaLegacyDerivada,
-  type FixtureLegacyDerivado,
-} from "./helpers/legacy-tabular-hashes"
+  type HashHojaCanonica,
+  type FixtureCanonicoTabular,
+} from "./helpers/canonical-tabular-hashes"
 
-const fixture = fixtureLegacyDerivado as FixtureLegacyDerivado
+const fixture = fixtureCanonico as FixtureCanonicoTabular
 const CONCURRENCIA_HASH_EFFECT = Number(
-  process.env.IROBOPF_CONCURRENCIA_FIXTURE_DERIVADO ?? 8
+  process.env.IROBOPF_CONCURRENCIA_FIXTURE_CANONICO ?? 8
 )
 
 const hashearHojaEffect = (nombreHoja: string) =>
-  new Promise<HashHojaLegacyDerivada>((resolve, reject) => {
+  new Promise<HashHojaCanonica>((resolve, reject) => {
     const proceso = spawn("bun", ["scripts/hash-effect-sheet.ts", nombreHoja], {
       cwd: process.cwd(),
       stdio: ["ignore", "pipe", "pipe"],
@@ -37,14 +37,12 @@ const hashearHojaEffect = (nombreHoja: string) =>
         return
       }
 
-      resolve(JSON.parse(stdout) as HashHojaLegacyDerivada)
+      resolve(JSON.parse(stdout) as HashHojaCanonica)
     })
   })
 
-const hashearHojasEffect = async (
-  hojas: ReadonlyArray<HashHojaLegacyDerivada>
-) => {
-  const resultados = new Array<HashHojaLegacyDerivada>()
+const hashearHojasEffect = async (hojas: ReadonlyArray<HashHojaCanonica>) => {
+  const resultados = new Array<HashHojaCanonica>()
   let indice = 0
 
   const worker = async () => {
@@ -67,8 +65,8 @@ const hashearHojasEffect = async (
   return resultados.sort((a, b) => a.name.localeCompare(b.name))
 }
 
-describe("fixture legacy derivado", () => {
-  it("versiona hashes tabulares del Excel legacy completo", () => {
+describe("fixture canónico tabular", () => {
+  it("versiona hashes tabulares canónicos del contrato legacy", () => {
     expect(fixture.schemaVersion).toBe(1)
     expect(fixture.sheets).toHaveLength(18)
   })

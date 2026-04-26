@@ -11,7 +11,7 @@
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "fixture:legacy-derivado": "bun scripts/derive-legacy-fixture.ts",
+    "fixture:canonico-tabular": "bun scripts/generate-canonical-fixture.ts",
     "test:legacy-completo": "IROBOPF_VALIDACION_LEGACY_COMPLETA=1 vitest run tests/auditoria-excel-pesada.test.ts",
     "test:watch": "vitest",
     "prepare": "effect-language-service patch"
