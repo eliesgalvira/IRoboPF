@@ -155,11 +155,25 @@ bun run typecheck
 bun run lint
 ```
 
+La suite normal incluye una validación de equivalencia tabular completa contra
+un fixture derivado del Excel legacy. Ese fixture no guarda el XLSX completo:
+guarda hashes por hoja y las tolerancias explícitas de 1 céntimo ya aceptadas por
+el contrato legacy.
+
+Regenerar el fixture derivado desde el Excel legacy local:
+
+```bash
+bun run fixture:legacy-derivado
+```
+
 Validación pesada contra el fixture Excel legacy completo:
 
 ```bash
 bun run test:legacy-completo
 ```
+
+Esta validación pesada sigue leyendo el `.xlsx` original sin tratar y queda como
+opción para comprobar la derivación del fixture o investigar discrepancias.
 
 ## Ejecutar el legacy Python
 
