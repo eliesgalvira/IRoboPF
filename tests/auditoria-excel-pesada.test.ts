@@ -1,8 +1,8 @@
+import { spawn } from "node:child_process"
 import { existsSync } from "node:fs"
+import { performance } from "node:perf_hooks"
 import { resolve } from "node:path"
 
-import ExcelJS from "exceljs"
-import type { CellValue } from "exceljs"
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
@@ -22,6 +22,8 @@ const COMANDO_REGENERACION_LEGACY =
   "uv run --with-requirements requirements.txt python Calculo_Salario_IRPF.py"
 const EJECUTAR_VALIDACION_PESADA =
   process.env.IROBOPF_VALIDACION_LEGACY_COMPLETA === "1"
+const MOSTRAR_OBSERVABILIDAD =
+  process.env.IROBOPF_OBSERVABILIDAD_LEGACY_COMPLETA === "1"
 
 const rutaLegacyExcel = resolve(process.cwd(), ARCHIVO_LEGACY_EXCEL)
 
@@ -33,45 +35,78 @@ const HOJAS_LEGACY_COMPLETAS = [
 ] as const
 
 type ValorTabular = number | string
-type HojaLegacy = ExcelJS.stream.xlsx.WorksheetReader & {
-  readonly name: string
+
+interface MedicionHoja {
+  readonly hoja: string
+  readonly filasDatos: number
+  readonly columnas: number
+  readonly millis: number
 }
 
-const valorCelda = (valor: CellValue): ValorTabular => {
-  if (valor === null || valor === undefined) {
-    return ""
-  }
-
-  if (typeof valor === "number") {
-    return Number(valor.toFixed(2))
-  }
-
-  if (typeof valor === "string") {
-    return valor
-  }
-
-  if (valor instanceof Date) {
-    return valor.toISOString()
-  }
-
-  if (typeof valor === "object" && "result" in valor) {
-    return valorCelda(valor.result)
-  }
-
-  if (typeof valor === "object" && "text" in valor) {
-    return valor.text
-  }
-
-  return String(valor)
+interface HojaLegacyEsperada {
+  readonly nombre: (typeof HOJAS_LEGACY_COMPLETAS)[number]
+  readonly ruta: string
 }
 
-const valoresFila = (
-  fila: ExcelJS.Row,
-  numeroColumnas: number
-): ReadonlyArray<ValorTabular> =>
-  Array.from({ length: numeroColumnas }, (_, indice) =>
-    valorCelda(fila.getCell(indice + 1).value)
+const HOJAS_LEGACY_ESPERADAS = HOJAS_LEGACY_COMPLETAS.map(
+  (nombre, indice): HojaLegacyEsperada => ({
+    nombre,
+    ruta: `xl/worksheets/sheet${indice + 1}.xml`,
+  })
+)
+
+const medir = () => performance.now()
+
+const segundos = (millis: number) => `${(millis / 1000).toFixed(2)}s`
+
+const decodificarXml = (valor: string) =>
+  valor
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&apos;", "'")
+    .replaceAll("&amp;", "&")
+
+const escribirObservabilidad = (medicion: MedicionHoja) => {
+  if (!MOSTRAR_OBSERVABILIDAD) {
+    return
+  }
+
+  process.stderr.write(
+    [
+      `[observabilidad legacy] ${medicion.hoja}`,
+      `filas=${medicion.filasDatos.toLocaleString("es-ES")}`,
+      `columnas=${medicion.columnas}`,
+      `tiempo=${segundos(medicion.millis)}`,
+      `filas/s=${Math.round(
+        medicion.filasDatos / Math.max(medicion.millis / 1000, 0.001)
+      ).toLocaleString("es-ES")}`,
+      "\n",
+    ].join("\n")
   )
+}
+
+const valoresFilaXml = (filaXml: string): ReadonlyArray<ValorTabular> => {
+  const valores = new Array<ValorTabular>()
+  const celdas =
+    /<c ([^>]*)>(?:<v>(.*?)<\/v>|<is><t[^>]*>(.*?)<\/t><\/is>)<\/c>/g
+
+  for (const celda of filaXml.matchAll(celdas)) {
+    const atributos = celda[1] ?? ""
+    const tipo = /\bt="([^"]+)"/.exec(atributos)?.[1]
+    const valorNumerico = celda[2]
+    const valorTexto = celda[3]
+
+    if (tipo === "inlineStr") {
+      valores.push(decodificarXml(valorTexto ?? ""))
+      continue
+    }
+
+    valores.push(Number(Number(valorNumerico ?? 0).toFixed(2)))
+  }
+
+  return valores
+}
 
 const normalizarEsperado = (valor: ValorTabular): ValorTabular => {
   if (typeof valor === "number") {
@@ -152,20 +187,21 @@ const compararFila = (
   })
 }
 
-const compararHoja = async (hojaLegacy: HojaLegacy) => {
-  const tablaEsperada = tablaEsperadaPorHoja(hojaLegacy.name)
+const compararHoja = async (nombreHoja: string, rutaHoja: string) => {
+  const inicioHoja = medir()
+  const tablaEsperada = tablaEsperadaPorHoja(nombreHoja)
   const filasEsperadas = tablaEsperada.filas[Symbol.iterator]()
   let numeroFila = 0
   let filasDatos = 0
 
-  for await (const filaLegacy of hojaLegacy) {
+  for await (const filaXml of filasXmlLegacy(rutaHoja)) {
     numeroFila += 1
 
     if (numeroFila === 1) {
       compararFila(
-        hojaLegacy.name,
+        nombreHoja,
         numeroFila,
-        valoresFila(filaLegacy, tablaEsperada.cabeceras.length),
+        valoresFilaXml(filaXml),
         tablaEsperada.cabeceras
       )
       continue
@@ -174,15 +210,15 @@ const compararHoja = async (hojaLegacy: HojaLegacy) => {
     const siguienteEsperada = filasEsperadas.next()
     if (siguienteEsperada.done === true) {
       throw new Error(
-        `La hoja ${hojaLegacy.name} tiene mas filas legacy que filas Effect esperadas`
+        `La hoja ${nombreHoja} tiene mas filas legacy que filas Effect esperadas`
       )
     }
 
     filasDatos += 1
     compararFila(
-      hojaLegacy.name,
+      nombreHoja,
       numeroFila,
-      valoresFila(filaLegacy, tablaEsperada.cabeceras.length),
+      valoresFilaXml(filaXml),
       siguienteEsperada.value
     )
   }
@@ -190,24 +226,66 @@ const compararHoja = async (hojaLegacy: HojaLegacy) => {
   const sobrante = filasEsperadas.next()
   if (sobrante.done !== true) {
     throw new Error(
-      `La hoja ${hojaLegacy.name} tiene menos filas legacy que filas Effect esperadas`
+      `La hoja ${nombreHoja} tiene menos filas legacy que filas Effect esperadas`
     )
   }
 
-  return filasDatos
+  return {
+    hoja: nombreHoja,
+    filasDatos,
+    columnas: tablaEsperada.cabeceras.length,
+    millis: medir() - inicioHoja,
+  } satisfies MedicionHoja
 }
 
-const hojaConNombreLegacy = (
-  hojaLegacy: ExcelJS.stream.xlsx.WorksheetReader,
-  nombreHoja: string
-): HojaLegacy => {
-  Object.assign(hojaLegacy, { name: nombreHoja })
-  return hojaLegacy as HojaLegacy
+async function* filasXmlLegacy(rutaHoja: string): AsyncIterable<string> {
+  const proceso = spawn("unzip", ["-p", rutaLegacyExcel, rutaHoja], {
+    stdio: ["ignore", "pipe", "pipe"],
+  })
+  let pendiente = ""
+  let error = ""
+
+  proceso.stderr.setEncoding("utf8")
+  proceso.stderr.on("data", (trozo) => {
+    error += trozo
+  })
+
+  proceso.stdout.setEncoding("utf8")
+  for await (const trozo of proceso.stdout) {
+    pendiente += trozo
+
+    while (true) {
+      const inicio = pendiente.indexOf("<row")
+      if (inicio === -1) {
+        pendiente = pendiente.slice(-20)
+        break
+      }
+
+      const fin = pendiente.indexOf("</row>", inicio)
+      if (fin === -1) {
+        pendiente = pendiente.slice(inicio)
+        break
+      }
+
+      const fila = pendiente.slice(inicio, fin)
+      pendiente = pendiente.slice(fin + "</row>".length)
+      yield fila
+    }
+  }
+
+  const codigo = await new Promise<number | null>((resolve) => {
+    proceso.on("close", resolve)
+  })
+  if (codigo !== 0) {
+    throw new Error(
+      `No se pudo leer ${rutaHoja} del fixture legacy XLSX: ${error}`
+    )
+  }
 }
 
-const validarFixtureLegacyCompleto = Effect.fn(
-  "tests.auditoriaExcelPesada.validarFixtureLegacyCompleto"
-)(function* () {
+const validarHojaFixtureLegacyCompleto = Effect.fn(
+  "tests.auditoriaExcelPesada.validarHojaFixtureLegacyCompleto"
+)(function* (hoja: HojaLegacyEsperada) {
   if (!existsSync(rutaLegacyExcel)) {
     throw new Error(
       `Falta el fixture legacy Excel ${ARCHIVO_LEGACY_EXCEL}. Regeneralo con: ${COMANDO_REGENERACION_LEGACY}`
@@ -215,41 +293,29 @@ const validarFixtureLegacyCompleto = Effect.fn(
   }
 
   yield* Effect.promise(async () => {
-    const hojasLeidas = new Array<string>()
-    const filasPorHoja = new Map<string, number>()
-    const lector = new ExcelJS.stream.xlsx.WorkbookReader(rutaLegacyExcel, {
-      worksheets: "emit",
-      sharedStrings: "cache",
-      styles: "ignore",
-      hyperlinks: "ignore",
-    })
+    const medicion = await compararHoja(hoja.nombre, hoja.ruta)
+    escribirObservabilidad(medicion)
 
-    for await (const hojaLegacy of lector) {
-      const nombreEsperado = HOJAS_LEGACY_COMPLETAS[hojasLeidas.length]
-      if (nombreEsperado === undefined) {
-        throw new Error("El fixture legacy contiene mas hojas de las esperadas")
-      }
-
-      const hoja = hojaConNombreLegacy(hojaLegacy, nombreEsperado)
-      hojasLeidas.push(nombreEsperado)
-      const filas = await compararHoja(hoja)
-      filasPorHoja.set(nombreEsperado, filas)
+    if (hoja.nombre === "CONTROL_GENERAL") {
+      expect(medicion.filasDatos).toBe(15)
     }
-
-    expect(hojasLeidas).toEqual(HOJAS_LEGACY_COMPLETAS)
-    expect(filasPorHoja.get("CONTROL_GENERAL")).toBe(15)
-    expect(filasPorHoja.get("COMPARATIVA_INFLACION")).toBe(1_290)
-    expect(filasPorHoja.get("DAT_2012")).toBe(100_001)
-    expect(filasPorHoja.get("DAT_2026")).toBe(100_001)
+    if (hoja.nombre === "COMPARATIVA_INFLACION") {
+      expect(medicion.filasDatos).toBe(1_290)
+    }
+    if (hoja.nombre === "DAT_2012" || hoja.nombre === "DAT_2026") {
+      expect(medicion.filasDatos).toBe(100_001)
+    }
   })
 })
 
-const pruebaPesada = EJECUTAR_VALIDACION_PESADA ? it.effect : it.effect.skip
+const pruebaPesada = EJECUTAR_VALIDACION_PESADA ? it.concurrent : it.skip
 
 describe("validacion pesada de equivalencia tabular legacy", () => {
-  pruebaPesada(
-    "compara el fixture Excel completo contra las tablas Effect",
-    () => validarFixtureLegacyCompleto(),
-    900_000
-  )
+  for (const hoja of HOJAS_LEGACY_ESPERADAS) {
+    pruebaPesada(
+      `compara ${hoja.nombre} del fixture Excel contra las tablas Effect`,
+      () => Effect.runPromise(validarHojaFixtureLegacyCompleto(hoja)),
+      900_000
+    )
+  }
 })
