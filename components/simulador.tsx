@@ -178,7 +178,7 @@ function SimuladorImpl() {
               max={centimosAEuros(
                 configuracionControlSalario.preciso.maximoCentimos
               )}
-              step={0.01}
+              step={100}
               format={{
                 style: "currency",
                 currency: "EUR",
