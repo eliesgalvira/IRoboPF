@@ -23,7 +23,6 @@ import {
   ANIOS_COMPARABLES,
   centimosAEuros,
   eurosACentimos,
-  formatearCentimos,
   formatearCentimosEnteros,
   dinero,
   porcentaje,
@@ -824,45 +823,6 @@ const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
   return [-limite, limite] as const
 }
 
-function useTieneHoverPreciso() {
-  const [tieneHoverPreciso, fijarTieneHoverPreciso] = React.useState(false)
-
-  React.useEffect(() => {
-    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)")
-    const actualizar = () => fijarTieneHoverPreciso(mediaQuery.matches)
-
-    actualizar()
-    mediaQuery.addEventListener("change", actualizar)
-    return () => mediaQuery.removeEventListener("change", actualizar)
-  }, [])
-
-  return tieneHoverPreciso
-}
-
-function useClaveTooltipDescartable(activo: boolean) {
-  const contenedor = React.useRef<HTMLDivElement>(null)
-  const [clave, fijarClave] = React.useState(0)
-
-  React.useEffect(() => {
-    if (!activo) return
-
-    const descartarSiClickFuera = (evento: PointerEvent) => {
-      const objetivo = evento.target
-      if (objetivo instanceof Node && contenedor.current?.contains(objetivo)) {
-        return
-      }
-
-      fijarClave((claveActual) => claveActual + 1)
-    }
-
-    document.addEventListener("pointerdown", descartarSiClickFuera, true)
-    return () =>
-      document.removeEventListener("pointerdown", descartarSiClickFuera, true)
-  }, [activo])
-
-  return { contenedor, clave }
-}
-
 const claseBotonPestana = cn(
   "px-3 py-2 transition-colors",
   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -911,9 +871,6 @@ function Visualizaciones({
     () => dominioEurosSimetrico(datos.map((fila) => fila.diferencia)),
     [datos]
   )
-  const tieneHoverPreciso = useTieneHoverPreciso()
-  const tooltipIrpf = useClaveTooltipDescartable(!tieneHoverPreciso)
-  const tooltipBarras = useClaveTooltipDescartable(!tieneHoverPreciso)
   const [animarBarras, fijarAnimarBarras] = React.useState(true)
   const alternarAnioIrpf = (anio: AnioFiscal) => {
     const siguiente = aniosGraficoIrpf.includes(anio)
@@ -979,8 +936,6 @@ function Visualizaciones({
             </div>
           </div>
           <ChartContainer
-            ref={tooltipIrpf.contenedor}
-            key={`tipo-irpf-${tooltipIrpf.clave}`}
             config={configuracionTipoEfectivoIrpf}
             className="mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
           >
@@ -1017,7 +972,6 @@ function Visualizaciones({
                 tickFormatter={(valor: number) => `${Math.round(valor * 100)}%`}
               />
               <ChartTooltip
-                trigger={tieneHoverPreciso ? "hover" : "click"}
                 isAnimationActive={false}
                 allowEscapeViewBox={{ x: true, y: true }}
                 wrapperStyle={{ zIndex: 10 }}
@@ -1065,8 +1019,6 @@ function Visualizaciones({
             POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
           </p>
           <ChartContainer
-            ref={tooltipBarras.contenedor}
-            key={`barras-${tooltipBarras.clave}`}
             config={configuracionGraficoBarras}
             className="mt-3 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
           >
@@ -1103,7 +1055,6 @@ function Visualizaciones({
                 }
               />
               <ChartTooltip
-                trigger={tieneHoverPreciso ? "hover" : "click"}
                 isAnimationActive={false}
                 allowEscapeViewBox={{ x: true, y: true }}
                 wrapperStyle={{ zIndex: 10 }}
