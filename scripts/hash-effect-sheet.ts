@@ -1,6 +1,6 @@
 import fixtureLegacyDerivado from "../tests/fixtures/legacy-tabular-hashes.json"
 import {
-  hashTablaCompatibleConParches,
+  hashTablaCompatibleExacta,
   tablaEsperadaPorHoja,
   type FixtureLegacyDerivado,
 } from "../tests/helpers/legacy-tabular-hashes"
@@ -16,10 +16,9 @@ if (hoja === undefined) {
   throw new Error(`Hoja no encontrada en fixture derivado: ${nombreHoja}`)
 }
 
-const hash = hashTablaCompatibleConParches(
+const hash = hashTablaCompatibleExacta(
   hoja.name,
-  tablaEsperadaPorHoja(hoja.name),
-  hoja.tolerancePatches
+  tablaEsperadaPorHoja(hoja.name)
 )
 
 process.stdout.write(`${JSON.stringify(hash)}\n`)
