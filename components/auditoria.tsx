@@ -8,8 +8,8 @@ import { Slider } from "@base-ui/react/slider"
 import { Tabs } from "@base-ui/react/tabs"
 import { Cause, Effect, Exit, Fiber } from "effect"
 import {
-  Bar,
-  BarChart,
+  Area,
+  AreaChart,
   CartesianGrid,
   Legend,
   Line,
@@ -687,7 +687,8 @@ function HallazgosSecundarios({
 }
 
 const configuracionGraficoBarras = {
-  diferencia: { label: "Diferencia anual", color: "var(--danger)" },
+  diferenciaPositiva: { label: "Diferencia anual", color: "var(--danger)" },
+  diferenciaNegativa: { label: "Diferencia anual", color: "var(--gain)" },
 } satisfies ChartConfig
 
 const aniosTipoEfectivoIrpf = [
@@ -726,13 +727,19 @@ const configuracionTipoEfectivoIrpf = Object.fromEntries(
 ) satisfies ChartConfig
 
 function filasGrafico(puntos: ReadonlyArray<PuntoAuditoriaRangoSalarial>) {
-  return puntos.map((punto) => ({
-    salarioEuros: centimosAEuros(punto.salarioBrutoAnualCentimos),
-    salario: formatearCentimosEnteros(punto.salarioBrutoAnualCentimos),
-    diferencia: centimosAEuros(
+  return puntos.map((punto) => {
+    const diferencia = centimosAEuros(
       punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
-    ),
-  }))
+    )
+
+    return {
+      salarioEuros: centimosAEuros(punto.salarioBrutoAnualCentimos),
+      salario: formatearCentimosEnteros(punto.salarioBrutoAnualCentimos),
+      diferencia,
+      diferenciaPositiva: diferencia >= 0 ? diferencia : null,
+      diferenciaNegativa: diferencia <= 0 ? diferencia : null,
+    }
+  })
 }
 
 function filasTipoEfectivoIrpf({
@@ -899,7 +906,6 @@ function Visualizaciones({
     () => dominioEurosSimetrico(datos.map((fila) => fila.diferencia)),
     [datos]
   )
-  const [animarBarras, fijarAnimarBarras] = React.useState(true)
   const alternarAnioIrpf = (anio: AnioFiscal) => {
     const siguiente = aniosGraficoIrpf.includes(anio)
       ? aniosGraficoIrpf.filter((anioSeleccionado) => anioSeleccionado !== anio)
@@ -916,9 +922,9 @@ function Visualizaciones({
       </div>
       <Tabs.Root defaultValue="tipo-irpf" className="mt-5 grid gap-4">
         <Tabs.List className="inline-flex w-fit divide-x-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-[11px] tracking-[0.22em] uppercase">
-          {(["tipo-irpf", "barras"] as const).map((vista) => (
+          {(["tipo-irpf", "neto-real"] as const).map((vista) => (
             <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
-              {vista === "tipo-irpf" ? "TIPO IRPF" : "BARRAS"}
+              {vista === "tipo-irpf" ? "TIPO IRPF" : "NETO REAL"}
             </Tabs.Tab>
           ))}
         </Tabs.List>
@@ -1053,7 +1059,7 @@ function Visualizaciones({
           </ChartContainer>
         </Tabs.Panel>
         <Tabs.Panel
-          value="barras"
+          value="neto-real"
           className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
           <p className="text-xs leading-5 text-[var(--ink-soft)]">
@@ -1064,9 +1070,10 @@ function Visualizaciones({
             config={configuracionGraficoBarras}
             className="mt-3 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
           >
-            <BarChart
+            <AreaChart
               accessibilityLayer
               data={datos}
+              baseValue={0}
               margin={{ left: 4, right: 4, top: 4, bottom: 4 }}
             >
               <CartesianGrid
@@ -1106,22 +1113,42 @@ function Visualizaciones({
                 isAnimationActive={false}
                 allowEscapeViewBox={{ x: true, y: true }}
                 wrapperStyle={{ zIndex: 10 }}
-                cursor={{ fill: "var(--mark)", opacity: 0.4 }}
+                cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
                 content={
                   <ChartTooltipContent
                     formatter={(v) => dinero.format(Number(v))}
+                    nameKey="diferencia"
                     labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
                   />
                 }
               />
-              <Bar
-                dataKey="diferencia"
-                fill="var(--color-diferencia)"
-                radius={0}
-                isAnimationActive={animarBarras}
-                onAnimationEnd={() => fijarAnimarBarras(false)}
+              <Area
+                dataKey="diferenciaPositiva"
+                name="Diferencia anual"
+                type="monotone"
+                stroke="var(--danger)"
+                strokeWidth={3}
+                fill="var(--danger)"
+                fillOpacity={0.18}
+                baseValue={0}
+                dot={false}
+                activeDot={{ r: 4, strokeWidth: 0 }}
+                isAnimationActive={false}
               />
-            </BarChart>
+              <Area
+                dataKey="diferenciaNegativa"
+                name="Diferencia anual"
+                type="monotone"
+                stroke="var(--gain)"
+                strokeWidth={3}
+                fill="var(--gain)"
+                fillOpacity={0.18}
+                baseValue={0}
+                dot={false}
+                activeDot={{ r: 4, strokeWidth: 0 }}
+                isAnimationActive={false}
+              />
+            </AreaChart>
           </ChartContainer>
         </Tabs.Panel>
       </Tabs.Root>
