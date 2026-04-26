@@ -1012,7 +1012,15 @@ function Visualizaciones({
                 cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
                 content={
                   <ChartTooltipContent
-                    formatter={(v) => porcentaje.format(Number(v))}
+                    formatter={(valor, nombre, item) => (
+                      <span
+                        className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                        style={{ color: item.color }}
+                      >
+                        {porcentaje.format(Number(valor))} ({nombre})
+                      </span>
+                    )}
+                    labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
                     labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
                   />
                 }
