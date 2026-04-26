@@ -162,7 +162,7 @@ guarda hashes exactos por hoja generados desde las tablas Effect.
 Regenerar el fixture canónico:
 
 ```bash
-bun run fixture:legacy-derivado
+bun run fixture:canonico-tabular
 ```
 
 Validación pesada contra el fixture Excel legacy completo:

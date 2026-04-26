@@ -1,19 +1,19 @@
-import fixtureLegacyDerivado from "../tests/fixtures/legacy-tabular-hashes.json"
+import fixtureCanonico from "../tests/fixtures/canonical-tabular-hashes.json"
 import {
   hashTablaCompatibleExacta,
   tablaEsperadaPorHoja,
-  type FixtureLegacyDerivado,
-} from "../tests/helpers/legacy-tabular-hashes"
+  type FixtureCanonicoTabular,
+} from "../tests/helpers/canonical-tabular-hashes"
 
 const nombreHoja = process.argv[2]
 if (nombreHoja === undefined) {
   throw new Error("Uso: bun scripts/hash-effect-sheet.ts <HOJA>")
 }
 
-const fixture = fixtureLegacyDerivado as FixtureLegacyDerivado
+const fixture = fixtureCanonico as FixtureCanonicoTabular
 const hoja = fixture.sheets.find((sheet) => sheet.name === nombreHoja)
 if (hoja === undefined) {
-  throw new Error(`Hoja no encontrada en fixture derivado: ${nombreHoja}`)
+  throw new Error(`Hoja no encontrada en fixture canónico: ${nombreHoja}`)
 }
 
 const hash = hashTablaCompatibleExacta(
