@@ -1,9 +1,8 @@
 import { spawn } from "node:child_process"
 import { existsSync } from "node:fs"
-import { performance } from "node:perf_hooks"
 import { resolve } from "node:path"
 
-import { Effect } from "effect"
+import { Clock, Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -24,6 +23,8 @@ const EJECUTAR_VALIDACION_PESADA =
   process.env.IROBOPF_VALIDACION_LEGACY_COMPLETA === "1"
 const MOSTRAR_OBSERVABILIDAD =
   process.env.IROBOPF_OBSERVABILIDAD_LEGACY_COMPLETA === "1"
+const CONCURRENCIA_VALIDACION_LEGACY =
+  Number(process.env.IROBOPF_CONCURRENCIA_LEGACY_COMPLETA ?? 3) || 1
 
 const rutaLegacyExcel = resolve(process.cwd(), ARCHIVO_LEGACY_EXCEL)
 
@@ -55,7 +56,8 @@ const HOJAS_LEGACY_ESPERADAS = HOJAS_LEGACY_COMPLETAS.map(
   })
 )
 
-const medir = () => performance.now()
+const millisEntre = (inicioNanos: bigint, finNanos: bigint) =>
+  Number(finNanos - inicioNanos) / 1_000_000
 
 const segundos = (millis: number) => `${(millis / 1000).toFixed(2)}s`
 
@@ -188,7 +190,6 @@ const compararFila = (
 }
 
 const compararHoja = async (nombreHoja: string, rutaHoja: string) => {
-  const inicioHoja = medir()
   const tablaEsperada = tablaEsperadaPorHoja(nombreHoja)
   const filasEsperadas = tablaEsperada.filas[Symbol.iterator]()
   let numeroFila = 0
@@ -234,8 +235,7 @@ const compararHoja = async (nombreHoja: string, rutaHoja: string) => {
     hoja: nombreHoja,
     filasDatos,
     columnas: tablaEsperada.cabeceras.length,
-    millis: medir() - inicioHoja,
-  } satisfies MedicionHoja
+  }
 }
 
 async function* filasXmlLegacy(rutaHoja: string): AsyncIterable<string> {
@@ -292,30 +292,49 @@ const validarHojaFixtureLegacyCompleto = Effect.fn(
     )
   }
 
-  yield* Effect.promise(async () => {
-    const medicion = await compararHoja(hoja.nombre, hoja.ruta)
-    escribirObservabilidad(medicion)
+  const inicioHoja = yield* Clock.currentTimeNanos
+  const resultado = yield* Effect.promise(() =>
+    compararHoja(hoja.nombre, hoja.ruta)
+  )
+  const finHoja = yield* Clock.currentTimeNanos
+  const medicion = {
+    ...resultado,
+    millis: millisEntre(inicioHoja, finHoja),
+  } satisfies MedicionHoja
+  escribirObservabilidad(medicion)
 
-    if (hoja.nombre === "CONTROL_GENERAL") {
-      expect(medicion.filasDatos).toBe(15)
-    }
-    if (hoja.nombre === "COMPARATIVA_INFLACION") {
-      expect(medicion.filasDatos).toBe(1_290)
-    }
-    if (hoja.nombre === "DAT_2012" || hoja.nombre === "DAT_2026") {
-      expect(medicion.filasDatos).toBe(100_001)
-    }
-  })
+  if (hoja.nombre === "CONTROL_GENERAL") {
+    expect(medicion.filasDatos).toBe(15)
+  }
+  if (hoja.nombre === "COMPARATIVA_INFLACION") {
+    expect(medicion.filasDatos).toBe(1_290)
+  }
+  if (hoja.nombre === "DAT_2012" || hoja.nombre === "DAT_2026") {
+    expect(medicion.filasDatos).toBe(100_001)
+  }
 })
 
-const pruebaPesada = EJECUTAR_VALIDACION_PESADA ? it.concurrent : it.skip
+const validarFixtureLegacyCompletoConcurrente = Effect.fn(
+  "tests.auditoriaExcelPesada.validarFixtureLegacyCompletoConcurrente"
+)(function* () {
+  yield* Effect.forEach(
+    HOJAS_LEGACY_ESPERADAS,
+    validarHojaFixtureLegacyCompleto,
+    {
+      concurrency: CONCURRENCIA_VALIDACION_LEGACY,
+      discard: true,
+    }
+  )
+})
 
 describe("validacion pesada de equivalencia tabular legacy", () => {
-  for (const hoja of HOJAS_LEGACY_ESPERADAS) {
-    pruebaPesada(
-      `compara ${hoja.nombre} del fixture Excel contra las tablas Effect`,
-      () => Effect.runPromise(validarHojaFixtureLegacyCompleto(hoja)),
+  if (EJECUTAR_VALIDACION_PESADA) {
+    it.live(
+      "compara el fixture Excel completo contra las tablas Effect",
+      () => validarFixtureLegacyCompletoConcurrente(),
       900_000
     )
+  } else {
+    it.skip("compara el fixture Excel completo contra las tablas Effect", () => {})
   }
 })
