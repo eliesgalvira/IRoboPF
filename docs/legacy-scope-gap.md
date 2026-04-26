@@ -16,8 +16,11 @@ anuales `DAT_2012` ... `DAT_2026`.
 
 La validación pesada con fixture completo ya existe y compara todas las hojas y
 filas contra el oracle Python. Se ejecuta con `bun run test:legacy-completo`. La
-suite rápida valida la comparativa contra el fixture versionado en streaming y
-cubre estructura, controles y detalle anual con rangos acotados.
+suite rápida valida la comparativa contra el fixture versionado en streaming,
+cubre estructura, controles y detalle anual con rangos acotados, e incluye una
+validación de equivalencia tabular completa contra un fixture derivado del Excel
+legacy. El fixture derivado versiona hashes por hoja y las tolerancias explícitas
+de 1 céntimo, para evitar leer el `.xlsx` completo en cada ejecución normal.
 
 ## Definiciones relevantes en CONTEXT.md
 
@@ -170,6 +173,9 @@ por `pandas.to_excel`.
 
 - **Equivalencia tabular exhaustiva**: `tests/auditoria-excel-pesada.test.ts`
   compara el fixture completo contra las tablas Effect en streaming.
+- **Equivalencia tabular derivada**: `tests/auditoria-fixture-derivado.test.ts`
+  compara las tablas Effect contra `tests/fixtures/legacy-tabular-hashes.json`,
+  generado desde el Excel legacy con `bun run fixture:legacy-derivado`.
 - **Fixture legacy Excel completo**: el archivo versionado contiene las hojas de
   control, `COMPARATIVA_INFLACION` y `DAT_2012` ... `DAT_2026`.
 
