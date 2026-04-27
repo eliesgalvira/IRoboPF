@@ -6,7 +6,7 @@ import {
 } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 
 describe("liquidarIrpfAnual", () => {
-  it("liquida una primera vertical slice individual con rendimientos del trabajo", () => {
+  it("liquida un primer caso individual con rendimientos del trabajo", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -206,7 +206,7 @@ describe("liquidarIrpfAnual", () => {
     expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
       _tag: "ResultadoNoSoportado",
       motivo:
-        "Minimo por ascendientes fuera de la vertical slice aun no implementado",
+        "Minimo por ascendientes fuera del caso soportado aun no implementado",
     })
   })
 })

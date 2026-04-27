@@ -9,7 +9,10 @@ import {
 } from "../../dinero/importe-monetario"
 import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
-import { calcularCuotaPorEscalaGeneral } from "../cuotas/escalas-gravamen"
+import {
+  calcularCuotaPorEscalaGeneral,
+  calcularDesgloseCuotaPorEscalaGeneral,
+} from "../cuotas/escalas-gravamen"
 import { calcularBaseImponibleGeneral } from "../integracion/base-imponible-general"
 import { obtenerMinimoAscendientes } from "../minimos/minimo-ascendientes"
 import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
@@ -89,7 +92,7 @@ const liquidarTrabajoIndividualSimple = (
         tituloFuentePaso: "Manual Renta 2025 Parte 2",
         tituloPaso: "Comunidad autonoma no soportada",
         descripcionPaso:
-          "El caso fiscal reconoce una comunidad autonoma real, pero esta vertical slice solo liquida la comunidad simulada-estatal.",
+          "El caso fiscal reconoce una comunidad autonoma real, pero esta version del motor solo calcula el caso tecnico de contraste con tramo autonomico igualado al estatal.",
       }),
     }
   }
@@ -115,6 +118,10 @@ const liquidarTrabajoIndividualSimple = (
     anio: caso.anio,
     base: baseLiquidableGeneral,
   })
+  const desgloseCuotaIntegraGeneral = calcularDesgloseCuotaPorEscalaGeneral({
+    anio: caso.anio,
+    base: baseLiquidableGeneral,
+  })
   const minimoContribuyente = obtenerMinimoContribuyente({
     anio: caso.anio,
     edad: caso.situacionFamiliar.edad,
@@ -124,6 +131,10 @@ const liquidarTrabajoIndividualSimple = (
   )
   const minimoPersonalYFamiliar = minimoContribuyente.plus(minimoAscendientes)
   const cuotaMinimoPersonal = calcularCuotaPorEscalaGeneral({
+    anio: caso.anio,
+    base: minimoPersonalYFamiliar,
+  })
+  const desgloseCuotaMinimoPersonal = calcularDesgloseCuotaPorEscalaGeneral({
     anio: caso.anio,
     base: minimoPersonalYFamiliar,
   })
@@ -164,6 +175,33 @@ const liquidarTrabajoIndividualSimple = (
           _tag: "PasoExplicacion",
           titulo: "Rendimientos del trabajo",
           descripcion: `Rendimiento integro ${rendimientoIntegroTrabajo.toFixed(2)} euros menos cotizacion del trabajador y gastos deducibles.`,
+          lineasCalculo: [
+            {
+              etiqueta: "Rendimiento integro del trabajo",
+              formula: "Suma de importes declarados como trabajo",
+              resultado: euros(rendimientoTrabajo.rendimientoIntegro),
+            },
+            {
+              etiqueta: "Cotizacion deducible del trabajador",
+              formula: "Cotizaciones sociales calculadas para el salario anual",
+              resultado: euros(rendimientoTrabajo.cotizacionTrabajador),
+            },
+            {
+              etiqueta: "Rendimiento previo neto",
+              formula: `${euros(rendimientoTrabajo.rendimientoIntegro)} - ${euros(rendimientoTrabajo.cotizacionTrabajador)}`,
+              resultado: euros(rendimientoTrabajo.rendimientoPrevioNeto),
+            },
+            {
+              etiqueta: "Gastos deducibles aplicados",
+              formula: "Gasto fijo del rendimiento del trabajo",
+              resultado: euros(rendimientoTrabajo.gastosDeducibles),
+            },
+            {
+              etiqueta: "Rendimiento neto del trabajo",
+              formula: `max(0, ${euros(rendimientoTrabajo.rendimientoPrevioNeto)} - ${euros(rendimientoTrabajo.gastosDeducibles)})`,
+              resultado: euros(rendimientoTrabajo.rendimientoNeto),
+            },
+          ],
           fuentes: [
             {
               titulo: "Manual Renta 2025 Parte 1",
@@ -175,6 +213,21 @@ const liquidarTrabajoIndividualSimple = (
           _tag: "PasoExplicacion",
           titulo: "Rendimientos de capital inmobiliario",
           descripcion: `Rendimiento integro ${rendimientoCapitalInmobiliario.rendimientoIntegro.toFixed(2)} euros integrado como rendimiento neto simplificado en la base general.`,
+          lineasCalculo: [
+            {
+              etiqueta: "Rendimiento integro de capital inmobiliario",
+              formula: "Suma de importes declarados en el formulario",
+              resultado: euros(
+                rendimientoCapitalInmobiliario.rendimientoIntegro
+              ),
+            },
+            {
+              etiqueta: "Rendimiento neto simplificado",
+              formula:
+                "Sin gastos, amortizaciones ni reducciones especificas todavia implementadas",
+              resultado: euros(rendimientoCapitalInmobiliario.rendimientoNeto),
+            },
+          ],
           fuentes: [
             {
               titulo: "Manual Renta 2025 Parte 1",
@@ -186,6 +239,34 @@ const liquidarTrabajoIndividualSimple = (
           _tag: "PasoExplicacion",
           titulo: "Base general y minimo personal",
           descripcion: `Base liquidable general ${baseLiquidableGeneral.toFixed(2)} euros y minimo personal y familiar ${minimoPersonalYFamiliar.toFixed(2)} euros.`,
+          lineasCalculo: [
+            {
+              etiqueta: "Base imponible general",
+              formula: `${euros(rendimientoTrabajo.rendimientoNeto)} + ${euros(rendimientoCapitalInmobiliario.rendimientoNeto)}`,
+              resultado: euros(baseImponibleGeneral),
+            },
+            {
+              etiqueta: "Base liquidable general",
+              formula:
+                "Base imponible general sin reducciones de base aplicadas",
+              resultado: euros(baseLiquidableGeneral),
+            },
+            {
+              etiqueta: "Minimo del contribuyente",
+              formula: `Edad del contribuyente: ${caso.situacionFamiliar.edad}`,
+              resultado: euros(minimoContribuyente),
+            },
+            {
+              etiqueta: "Minimo por ascendientes",
+              formula: `${caso.situacionFamiliar.ascendientes.length} ascendiente(s) computados`,
+              resultado: euros(minimoAscendientes),
+            },
+            {
+              etiqueta: "Minimo personal y familiar",
+              formula: `${euros(minimoContribuyente)} + ${euros(minimoAscendientes)}`,
+              resultado: euros(minimoPersonalYFamiliar),
+            },
+          ],
           fuentes: [
             {
               titulo: "Parametros IRPF estatal 2012-2026",
@@ -198,7 +279,7 @@ const liquidarTrabajoIndividualSimple = (
           _tag: "PasoExplicacion",
           titulo: "Comunidad autonoma",
           descripcion: parametrosComunidad.escalaAutonomicaIgualEstatal
-            ? "La comunidad simulada-estatal usa minimos y escala autonomica igualados al tramo estatal para esta vertical slice."
+            ? "Caso tecnico de contraste: los minimos y la escala autonomica se igualan a los parametros estatales. No representa la normativa propia de una comunidad autonoma real."
             : "La comunidad autonoma aplica parametros propios.",
           fuentes: [
             {
@@ -210,8 +291,91 @@ const liquidarTrabajoIndividualSimple = (
         },
         {
           _tag: "PasoExplicacion",
+          titulo: "Cuota integra general",
+          descripcion:
+            "Aplicacion de la escala general a la base liquidable general.",
+          lineasCalculo: [
+            ...desgloseCuotaIntegraGeneral.map((tramo) => ({
+              etiqueta: `Tramo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              resultado: euros(tramo.cuota),
+            })),
+            {
+              etiqueta: "Cuota integra general",
+              formula: "Suma de cuotas por tramo",
+              resultado: euros(cuotaIntegraGeneral),
+            },
+          ],
+          fuentes: [
+            {
+              titulo: "Parametros IRPF estatal 2012-2026",
+              referencia:
+                "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+            },
+          ],
+        },
+        {
+          _tag: "PasoExplicacion",
+          titulo: "Cuota correspondiente al minimo personal",
+          descripcion:
+            "Aplicacion de la misma escala general al minimo personal y familiar.",
+          lineasCalculo: [
+            ...desgloseCuotaMinimoPersonal.map((tramo) => ({
+              etiqueta: `Tramo minimo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              resultado: euros(tramo.cuota),
+            })),
+            {
+              etiqueta: "Cuota del minimo personal y familiar",
+              formula: "Suma de cuotas por tramo del minimo",
+              resultado: euros(cuotaMinimoPersonal),
+            },
+          ],
+          fuentes: [
+            {
+              titulo: "Parametros IRPF estatal 2012-2026",
+              referencia:
+                "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+            },
+          ],
+        },
+        {
+          _tag: "PasoExplicacion",
           titulo: "Cuota diferencial",
           descripcion: `Cuota liquida ${cuotaLiquida.toFixed(2)} euros menos retenciones y pagos a cuenta declarados.`,
+          lineasCalculo: [
+            {
+              etiqueta: "Cuota liquida",
+              formula: `max(0, ${euros(cuotaIntegraGeneral)} - ${euros(cuotaMinimoPersonal)})`,
+              resultado: euros(cuotaLiquida),
+            },
+            {
+              etiqueta: "Retenciones soportadas",
+              formula: "Importe declarado en el caso fiscal",
+              resultado: euros(
+                centimosAEuros(caso.retencionesSoportadasCentimos)
+              ),
+            },
+            {
+              etiqueta: "Pagos a cuenta",
+              formula: "Importe declarado en el caso fiscal",
+              resultado: euros(centimosAEuros(caso.pagosACuentaCentimos)),
+            },
+            {
+              etiqueta: "Cuota diferencial",
+              formula: `${euros(cuotaLiquida)} - ${euros(centimosAEuros(caso.retencionesSoportadasCentimos))} - ${euros(centimosAEuros(caso.pagosACuentaCentimos))}`,
+              resultado: euros(
+                centimosAEuros(
+                  calcularCuotaDiferencialCentimos({
+                    cuotaLiquidaCentimos,
+                    pagosACuentaCentimos: caso.pagosACuentaCentimos,
+                    retencionesSoportadasCentimos:
+                      caso.retencionesSoportadasCentimos,
+                  })
+                )
+              ),
+            },
+          ],
           fuentes: [],
         },
       ],
@@ -227,7 +391,7 @@ const detectarCasoNoSoportado = (
       motivo: "Minimo por descendientes aun no implementado",
       tituloPaso: "Circunstancia familiar no soportada",
       descripcionPaso:
-        "El caso fiscal incluye descendientes, pero esta vertical slice solo liquida persona individual sin descendientes.",
+        "El caso fiscal incluye descendientes, pero esta version del motor solo calcula persona individual sin descendientes.",
     })
   }
 
@@ -240,10 +404,10 @@ const detectarCasoNoSoportado = (
   ) {
     return resultadoNoSoportado(caso, {
       motivo:
-        "Minimo por ascendientes fuera de la vertical slice aun no implementado",
+        "Minimo por ascendientes fuera del caso soportado aun no implementado",
       tituloPaso: "Circunstancia familiar no soportada",
       descripcionPaso:
-        "Esta vertical slice solo liquida ascendientes mayores de 65 anos sin discapacidad.",
+        "Esta version del motor solo calcula ascendientes mayores de 65 anos sin discapacidad.",
     })
   }
 
@@ -267,6 +431,10 @@ const resultadoNoSoportado = (
     descripcionPaso: opciones.descripcionPaso,
   }),
 })
+
+const euros = (importe: Decimal): string => `${importe.toFixed(2)} euros`
+
+const porcentaje = (tipo: Decimal): string => `${tipo.mul(100).toFixed(2)}%`
 
 const rastroResultadoNoSoportado = ({
   caso,
