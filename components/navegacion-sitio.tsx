@@ -10,7 +10,7 @@ export function NavegacionSitio() {
   const enAuditoria = rutaActual?.startsWith("/auditoria") ?? false
 
   return (
-    <nav className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-[11px] tracking-[0.28em] text-[var(--ink)]/80 uppercase">
+    <nav className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-sm tracking-[0.28em] text-[var(--ink)]/80 uppercase">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <Link
           href="/"
