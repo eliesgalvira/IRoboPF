@@ -46,18 +46,28 @@ const OPCIONES_COMUNIDAD_AUTONOMA: ReadonlyArray<{
 const AYUDAS_RESUMEN = {
   "Base liquidable":
     "Cantidad sobre la que se aplican los tramos despues de restar gastos y reducciones soportadas.",
-  "Cotización empresarial":
+  "Cotización empresa":
     "Aportacion a la Seguridad Social que paga la empresa por el trabajador.",
   "Cotización trabajador":
     "Aportacion a la Seguridad Social que se descuenta al trabajador.",
   "Coste laboral": "Salario bruto mas cotizacion empresarial estimada.",
-  "MEI empresarial":
-    "Parte empresarial del Mecanismo de Equidad Intergeneracional.",
-  "MEI trabajador": "Parte del MEI descontada al trabajador.",
+  "MEI empresa": "Mecanismo de Equidad Intergeneracional que paga la empresa.",
+  "MEI trabajador":
+    "Mecanismo de Equidad Intergeneracional descontado al trabajador.",
   "Cuota líquida":
     "Impuesto resultante antes de restar retenciones y pagos a cuenta.",
   "Cuota diferencial":
     "Resultado tras restar retenciones y pagos a cuenta. Positivo: a pagar; negativo: a devolver.",
+} satisfies Record<string, string>
+const AYUDAS_FORMULARIO = {
+  "Rendimientos del trabajo":
+    "Ingresos brutos anuales por salario o trabajo antes de restar cotizaciones.",
+  "Capital inmobiliario":
+    "Ingresos anuales por inmuebles alquilados u otros rendimientos inmobiliarios.",
+  Descendientes:
+    "Hijos, nietos u otros familiares hacia abajo que pueden computar si cumplen requisitos fiscales.",
+  Ascendientes:
+    "Padres, madres o abuelos que pueden computar solo si cumplen requisitos fiscales.",
 } satisfies Record<string, string>
 
 function formatearEuros(centimos: number) {
@@ -203,6 +213,7 @@ function FormularioCaso({
 
       <div className="grid gap-4">
         <NumberField
+          ayuda={AYUDAS_FORMULARIO["Rendimientos del trabajo"]}
           etiqueta="Rendimientos del trabajo"
           formato={FORMATO_ENTERO}
           onChange={fijarRendimientosTrabajoEuros}
@@ -210,6 +221,7 @@ function FormularioCaso({
           valor={rendimientosTrabajoEuros}
         />
         <NumberField
+          ayuda={AYUDAS_FORMULARIO["Capital inmobiliario"]}
           etiqueta="Capital inmobiliario"
           formato={FORMATO_ENTERO}
           onChange={fijarCapitalInmobiliarioEuros}
@@ -237,6 +249,7 @@ function FormularioCaso({
           valor={edad}
         />
         <NumberField
+          ayuda={AYUDAS_FORMULARIO["Descendientes"]}
           etiqueta="Descendientes"
           formato={FORMATO_ENTERO}
           max={8}
@@ -244,6 +257,7 @@ function FormularioCaso({
           valor={descendientes}
         />
         <NumberField
+          ayuda={AYUDAS_FORMULARIO["Ascendientes"]}
           etiqueta="Ascendientes"
           formato={FORMATO_ENTERO}
           max={12}
@@ -283,9 +297,9 @@ function Resultado({
                   : "Liquidación calculada"}
               </p>
               <p className="mt-1 text-sm leading-6 text-[var(--ink-soft)]">
-                Interfaz experta en desarrollo. Este resultado puede contener
-                errores y discrepar de forma sustancial del cálculo real de la
-                declaración; contrástalo con el rastro antes de usarlo.
+                Este resultado puede contener errores y discrepar de forma
+                sustancial del cálculo real de la declaración; contrástalo con
+                el rastro antes de usarlo.
               </p>
             </div>
           </div>
@@ -306,8 +320,8 @@ function Resultado({
                 valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
               />
               <DatoResultado
-                etiqueta="Cotización empresarial"
-                ayuda={AYUDAS_RESUMEN["Cotización empresarial"]}
+                etiqueta="Cotización empresa"
+                ayuda={AYUDAS_RESUMEN["Cotización empresa"]}
                 valor={formatearEuros(resultado.cotizacionEmpresarialCentimos)}
               />
               <DatoResultado
@@ -321,8 +335,8 @@ function Resultado({
                 valor={formatearEuros(resultado.costeLaboralCentimos)}
               />
               <DatoResultado
-                etiqueta="MEI empresarial"
-                ayuda={AYUDAS_RESUMEN["MEI empresarial"]}
+                etiqueta="MEI empresa"
+                ayuda={AYUDAS_RESUMEN["MEI empresa"]}
                 valor={formatearEuros(resultado.meiEmpresarialCentimos)}
               />
               <DatoResultado
