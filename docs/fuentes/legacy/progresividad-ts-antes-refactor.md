@@ -1,36 +1,38 @@
+# Progresividad TypeScript antes de refactor
+
+Procedencia:
+- Titulo original: lib/domain/progresividad.ts
+- Archivo original: lib/domain/progresividad.ts
+- Fecha del documento: snapshot local previo al refactor arquitectonico
+- Paginas incluidas: no aplica
+- SHA-256 del archivo: 4d5bf07778b995c37f61a6b15d1b7646947a5d005254dd091c8323d0676c46b9
+- Nota: este texto es una transcripcion operativa del motor TypeScript legacy; no es una fuente normativa nueva.
+
+```ts
 import Decimal from "decimal.js"
 import { Effect } from "effect"
 
-import {
-  centimosAEuros,
-  crearImporteMonetario,
-  eurosACentimos,
-  redondearImporteLiquidado,
-} from "../dominio/dinero/importe-monetario"
-import { redondearHalfEvenTabularLegacy } from "../dominio/dinero/redondeo"
-import {
-  aniosFiscalesLegacy,
-  type AnioFiscal,
-} from "../dominio/normativa/anio-fiscal"
-import {
-  calcularCotizacionesSocialesLegacy,
-  obtenerParametrosCotizacionLegacy,
-  sumarTipoCotizacionLegacy,
-} from "../dominio/laboral/cotizaciones-sociales"
-import {
-  GASTOS_FIJOS_IRPF_LEGACY,
-  METADATOS_ARTICULO_20_LEGACY,
-  MINIMO_EXENTO_RETENCION_LEGACY,
-  MINIMO_PERSONAL_IRPF_LEGACY,
-  obtenerTramosIrpfLegacy,
-  type MetadatosArticulo20,
-  type TramoIrpf,
-  type TramosIrpf,
-} from "../dominio/normativa/datos/irpf-estatal-2012-2026"
-import { IPC_ANUAL_DICIEMBRE } from "../dominio/normativa/datos/ipc-2012-2026"
+export type AnioFiscal =
+  | 2012
+  | 2013
+  | 2014
+  | 2015
+  | 2016
+  | 2017
+  | 2018
+  | 2019
+  | 2020
+  | 2021
+  | 2022
+  | 2023
+  | 2024
+  | 2025
+  | 2026
 
-export type { AnioFiscal } from "../dominio/normativa/anio-fiscal"
-export { aniosFiscalesLegacy } from "../dominio/normativa/anio-fiscal"
+export const aniosFiscalesLegacy = [
+  2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
+  2025, 2026,
+] as const satisfies ReadonlyArray<AnioFiscal>
 
 export interface EntradaComparacionAjustadaPorIpc {
   readonly salarioBrutoAnualReferenciaCentimos: number
@@ -166,19 +168,47 @@ export const configuracionRangoAuditoria = {
   pasoCentimos: 10_000,
 } as const
 
-const decimal = (valor: string | number) => crearImporteMonetario(valor)
+const decimal = (valor: string | number) => new Decimal(valor)
 const CERO = decimal(0)
 const UNO = decimal(1)
 
+type LadoCotizacion = "empresarial" | "trabajador"
+type TramoIrpf = readonly [limite: Decimal, tipo: Decimal]
+type TramosIrpf = ReadonlyArray<TramoIrpf>
 type PoliticaMonetaria = (valor: Decimal) => Decimal
 
+interface TiposCotizacion {
+  readonly empresarial: Decimal
+  readonly trabajador: Decimal
+}
+
 interface Parametros {
+  readonly baseMaxima: Decimal
+  readonly tiposSeguridadSocial: Readonly<Record<string, TiposCotizacion>>
+  readonly mei: TiposCotizacion
+  readonly solidaridad: PoliticaSolidaridad
   readonly minimoPersonalIrpf: Decimal
   readonly minimoExentoRetencion: Decimal
   readonly gastosFijos: Decimal
   readonly tramosIrpf: TramosIrpf
   readonly reduccionTrabajo: PoliticaMonetaria
   readonly deduccionSmi: PoliticaMonetaria
+}
+
+type PoliticaSolidaridad =
+  | {
+      readonly _tag: "SinSolidaridad"
+    }
+  | {
+      readonly _tag: "ConSolidaridad"
+      readonly tipoPrimerExceso: Decimal
+      readonly tipoSegundoExceso: Decimal
+      readonly tipoExcesoRestante: Decimal
+    }
+
+interface BaseCotizacion {
+  readonly baseOrdinaria: Decimal
+  readonly excesoBase: Decimal
 }
 
 interface CotizacionesSociales {
@@ -214,20 +244,144 @@ interface EstadoCuota {
   readonly cuota: Decimal
 }
 
+const IPC_ANUAL_DICIEMBRE: Readonly<Record<number, Decimal>> = {
+  2013: decimal("0.003"),
+  2014: decimal("-0.010"),
+  2015: decimal("0.000"),
+  2016: decimal("0.016"),
+  2017: decimal("0.011"),
+  2018: decimal("0.012"),
+  2019: decimal("0.008"),
+  2020: decimal("-0.005"),
+  2021: decimal("0.065"),
+  2022: decimal("0.057"),
+  2023: decimal("0.031"),
+  2024: decimal("0.028"),
+  2025: decimal("0.029"),
+  2026: decimal("0.030"),
+}
+
+const BASE_MAXIMA: Readonly<Record<AnioFiscal, Decimal>> = {
+  2012: decimal("39150.0"),
+  2013: decimal("41108.4"),
+  2014: decimal("43164.0"),
+  2015: decimal("43272.0"),
+  2016: decimal("43704.0"),
+  2017: decimal("45014.4"),
+  2018: decimal("45014.4"),
+  2019: decimal("48841.2"),
+  2020: decimal("48841.2"),
+  2021: decimal("48841.2"),
+  2022: decimal("49672.8"),
+  2023: decimal("53946.0"),
+  2024: decimal("56646.0"),
+  2025: decimal("58914.0"),
+  2026: decimal("61214.4"),
+}
+
+const MINIMO_EXENTO_RETENCION: Readonly<Record<AnioFiscal, Decimal>> = {
+  2012: decimal(11162),
+  2013: decimal(11162),
+  2014: decimal(11162),
+  2015: decimal(12000),
+  2016: decimal(12000),
+  2017: decimal(12000),
+  2018: decimal(12643),
+  2019: decimal(14000),
+  2020: decimal(14000),
+  2021: decimal(14000),
+  2022: decimal(14000),
+  2023: decimal(15000),
+  2024: decimal(15876),
+  2025: decimal(15876),
+  2026: decimal(15876),
+}
+
+const TIPOS_SEGURIDAD_SOCIAL = {
+  comunes: {
+    empresarial: decimal("0.236"),
+    trabajador: decimal("0.047"),
+  },
+  desempleo: {
+    empresarial: decimal("0.055"),
+    trabajador: decimal("0.0155"),
+  },
+  fogasa: {
+    empresarial: decimal("0.002"),
+    trabajador: CERO,
+  },
+  fp: {
+    empresarial: decimal("0.006"),
+    trabajador: decimal("0.001"),
+  },
+  atep: {
+    empresarial: decimal("0.015"),
+    trabajador: CERO,
+  },
+} satisfies Parametros["tiposSeguridadSocial"]
+
+const TRAMOS_IRPF_HASTA_2014: TramosIrpf = [
+  [decimal(17707), decimal("0.2475")],
+  [decimal(33007), decimal("0.30")],
+  [decimal(53407), decimal("0.40")],
+  [decimal(120000), decimal("0.47")],
+  [decimal(175000), decimal("0.49")],
+  [decimal(300000), decimal("0.51")],
+  [decimal(Infinity), decimal("0.52")],
+]
+
+const TRAMOS_IRPF_2015: TramosIrpf = [
+  [decimal(12450), decimal("0.195")],
+  [decimal(20200), decimal("0.245")],
+  [decimal(34000), decimal("0.305")],
+  [decimal(60000), decimal("0.38")],
+  [decimal(Infinity), decimal("0.46")],
+]
+
+const TRAMOS_IRPF_2016_A_2020: TramosIrpf = [
+  [decimal(12450), decimal("0.19")],
+  [decimal(20200), decimal("0.24")],
+  [decimal(35200), decimal("0.30")],
+  [decimal(60000), decimal("0.37")],
+  [decimal(Infinity), decimal("0.45")],
+]
+
+const TRAMOS_IRPF_DESDE_2021: TramosIrpf = [
+  [decimal(12450), decimal("0.19")],
+  [decimal(20200), decimal("0.24")],
+  [decimal(35200), decimal("0.30")],
+  [decimal(60000), decimal("0.37")],
+  [decimal(300000), decimal("0.45")],
+  [decimal(Infinity), decimal("0.47")],
+]
+
+const SIN_SOLIDARIDAD = {
+  _tag: "SinSolidaridad",
+} as const satisfies PoliticaSolidaridad
+
 const rangoComparativaInflacionLegacy =
   configuracionExportacionCompatibleLegacy.comparativa
 
 const rangoDetalleAnualLegacy =
   configuracionExportacionCompatibleLegacy.detalleAnual
 
+const centimosAEuros = (centimos: number) => decimal(centimos).div(100)
+
+const eurosACentimos = (euros: Decimal) =>
+  euros.mul(100).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber()
+
+const redondearDinero = (euros: Decimal) =>
+  euros.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+
+const numeroRedondeado = (valor: Decimal, decimales: number) =>
+  Number(valor.toDecimalPlaces(decimales, Decimal.ROUND_HALF_EVEN).toString())
+
 const dineroCompatible = (euros: Decimal) =>
-  Number(redondearImporteLiquidado(euros).toString())
+  Number(redondearDinero(euros).toString())
 
 const porcentajeCompatible = (tipo: Decimal, decimales: number) =>
-  Number(redondearHalfEvenTabularLegacy(tipo.mul(100), decimales).toString())
+  numeroRedondeado(tipo.mul(100), decimales)
 
-// Los conceptos fiscales abreviados del perfil legacy estan definidos en:
-// docs/glosario-fiscal-motor.md
 const min = (a: Decimal, b: Decimal) => {
   if (a.lessThan(b)) {
     return a
@@ -382,6 +536,93 @@ const obtenerReduccionTrabajo = (anio: AnioFiscal): PoliticaMonetaria => {
   return reduccionTrabajoDesde2024
 }
 
+const obtenerTiposMei = (anio: AnioFiscal): TiposCotizacion => {
+  if (anio === 2023) {
+    return {
+      empresarial: decimal("0.005"),
+      trabajador: decimal("0.001"),
+    }
+  }
+
+  if (anio === 2024) {
+    return {
+      empresarial: decimal("0.0058"),
+      trabajador: decimal("0.0012"),
+    }
+  }
+
+  if (anio === 2025) {
+    return {
+      empresarial: decimal("0.0067"),
+      trabajador: decimal("0.0013"),
+    }
+  }
+
+  if (anio >= 2026) {
+    return {
+      empresarial: decimal("0.0075"),
+      trabajador: decimal("0.0015"),
+    }
+  }
+
+  return {
+    empresarial: CERO,
+    trabajador: CERO,
+  }
+}
+
+const obtenerPoliticaSolidaridad = (anio: AnioFiscal): PoliticaSolidaridad => {
+  if (anio === 2025) {
+    return {
+      _tag: "ConSolidaridad",
+      tipoPrimerExceso: decimal("0.0092"),
+      tipoSegundoExceso: decimal("0.0100"),
+      tipoExcesoRestante: decimal("0.0117"),
+    }
+  }
+
+  if (anio >= 2026) {
+    return {
+      _tag: "ConSolidaridad",
+      tipoPrimerExceso: decimal("0.0115"),
+      tipoSegundoExceso: decimal("0.0125"),
+      tipoExcesoRestante: decimal("0.0146"),
+    }
+  }
+
+  return SIN_SOLIDARIDAD
+}
+
+const obtenerTramosIrpf = (anio: AnioFiscal): TramosIrpf => {
+  if (anio <= 2014) {
+    return TRAMOS_IRPF_HASTA_2014
+  }
+
+  if (anio === 2015) {
+    return TRAMOS_IRPF_2015
+  }
+
+  if (anio <= 2020) {
+    return TRAMOS_IRPF_2016_A_2020
+  }
+
+  return TRAMOS_IRPF_DESDE_2021
+}
+
+const obtenerMinimoPersonalIrpf = (anio: AnioFiscal) => {
+  if (anio <= 2014) {
+    return decimal(5151)
+  }
+  return decimal(5550)
+}
+
+const obtenerGastosFijos = (anio: AnioFiscal) => {
+  if (anio <= 2014) {
+    return CERO
+  }
+  return decimal(2000)
+}
+
 const deduccionSmi2026 = (bruto: Decimal) => {
   if (bruto.lte(17094)) {
     return decimal("590.89")
@@ -422,15 +663,186 @@ const obtenerDeduccionSmi = (anio: AnioFiscal): PoliticaMonetaria => {
   return sinDeduccionSmi
 }
 
+type ValorMetadatoArticulo20 = number | "Transitorio"
+
+interface MetadatosArticulo20 {
+  readonly umbralInferior: ValorMetadatoArticulo20
+  readonly reduccionMaxima: ValorMetadatoArticulo20
+  readonly umbralSuperior: ValorMetadatoArticulo20
+  readonly reduccionMinima: ValorMetadatoArticulo20
+}
+
+const obtenerMetadatosArticulo20 = (anio: AnioFiscal): MetadatosArticulo20 => {
+  if (anio <= 2014) {
+    return {
+      umbralInferior: 9180,
+      reduccionMaxima: 4080,
+      umbralSuperior: 13260,
+      reduccionMinima: 2652,
+    }
+  }
+
+  if (anio <= 2017) {
+    return {
+      umbralInferior: 11250,
+      reduccionMaxima: 3700,
+      umbralSuperior: 14450,
+      reduccionMinima: 0,
+    }
+  }
+
+  if (anio === 2018) {
+    return {
+      umbralInferior: "Transitorio",
+      reduccionMaxima: "Transitorio",
+      umbralSuperior: "Transitorio",
+      reduccionMinima: "Transitorio",
+    }
+  }
+
+  if (anio <= 2022) {
+    return {
+      umbralInferior: 13115,
+      reduccionMaxima: 5565,
+      umbralSuperior: 16825,
+      reduccionMinima: 0,
+    }
+  }
+
+  if (anio === 2023) {
+    return {
+      umbralInferior: 14047.5,
+      reduccionMaxima: 6498,
+      umbralSuperior: 19747.5,
+      reduccionMinima: 0,
+    }
+  }
+
+  return {
+    umbralInferior: 14852,
+    reduccionMaxima: 7302,
+    umbralSuperior: 19747.5,
+    reduccionMinima: 0,
+  }
+}
+
 const obtenerParametros = (anio: AnioFiscal): Parametros => {
   return {
-    minimoPersonalIrpf: MINIMO_PERSONAL_IRPF_LEGACY[anio],
-    minimoExentoRetencion: MINIMO_EXENTO_RETENCION_LEGACY[anio],
-    gastosFijos: GASTOS_FIJOS_IRPF_LEGACY[anio],
-    tramosIrpf: obtenerTramosIrpfLegacy(anio),
+    baseMaxima: BASE_MAXIMA[anio],
+    tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL,
+    mei: obtenerTiposMei(anio),
+    solidaridad: obtenerPoliticaSolidaridad(anio),
+    minimoPersonalIrpf: obtenerMinimoPersonalIrpf(anio),
+    minimoExentoRetencion: MINIMO_EXENTO_RETENCION[anio],
+    gastosFijos: obtenerGastosFijos(anio),
+    tramosIrpf: obtenerTramosIrpf(anio),
     reduccionTrabajo: obtenerReduccionTrabajo(anio),
     deduccionSmi: obtenerDeduccionSmi(anio),
   }
+}
+
+const sumarTipoCotizacion = (parametros: Parametros, lado: LadoCotizacion) =>
+  Object.values(parametros.tiposSeguridadSocial).reduce(
+    (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)),
+    CERO
+  )
+
+const tipoCotizacionPorLado = (
+  tipos: TiposCotizacion,
+  lado: LadoCotizacion
+) => {
+  if (lado === "empresarial") {
+    return tipos.empresarial
+  }
+
+  return tipos.trabajador
+}
+
+const baseCotizacionPara = (
+  bruto: Decimal,
+  parametros: Parametros
+): BaseCotizacion => ({
+  baseOrdinaria: min(bruto, parametros.baseMaxima),
+  excesoBase: max(CERO, bruto.minus(parametros.baseMaxima)),
+})
+
+const calcularTotalSolidaridad = (
+  baseCotizacion: BaseCotizacion,
+  parametros: Parametros
+) => {
+  if (parametros.solidaridad._tag === "SinSolidaridad") {
+    return CERO
+  }
+
+  if (baseCotizacion.excesoBase.lte(0)) {
+    return CERO
+  }
+
+  const limitePrimerTramo = parametros.baseMaxima.mul("0.10")
+  const limiteSegundoTramo = parametros.baseMaxima.mul("0.50")
+  const excesoPrimerTramo = min(baseCotizacion.excesoBase, limitePrimerTramo)
+  const excesoSegundoTramo = min(
+    max(CERO, baseCotizacion.excesoBase.minus(limitePrimerTramo)),
+    limiteSegundoTramo.minus(limitePrimerTramo)
+  )
+  const excesoRestante = max(
+    CERO,
+    baseCotizacion.excesoBase.minus(limiteSegundoTramo)
+  )
+
+  return excesoPrimerTramo
+    .mul(parametros.solidaridad.tipoPrimerExceso)
+    .plus(excesoSegundoTramo.mul(parametros.solidaridad.tipoSegundoExceso))
+    .plus(excesoRestante.mul(parametros.solidaridad.tipoExcesoRestante))
+}
+
+const repartirCotizacionSolidaridad = (
+  totalSolidaridad: Decimal
+): CotizacionesSociales => ({
+  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
+  cotizacionTrabajador: totalSolidaridad.div(6),
+})
+
+const sumarCotizacionesSociales = (
+  izquierda: CotizacionesSociales,
+  derecha: CotizacionesSociales
+): CotizacionesSociales => ({
+  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
+    derecha.cotizacionEmpresarial
+  ),
+  cotizacionTrabajador: izquierda.cotizacionTrabajador.plus(
+    derecha.cotizacionTrabajador
+  ),
+})
+
+// Las cotizaciones separan la base ordinaria topada y, desde 2025, la cuota de
+// solidaridad sobre el salario que supera la base maxima. El reparto replica el
+// oraculo Python: 5/6 para empresa y 1/6 para trabajador.
+const calcularCotizacionesSociales = (
+  bruto: Decimal,
+  parametros: Parametros
+): CotizacionesSociales => {
+  const baseCotizacion = baseCotizacionPara(bruto, parametros)
+  const cotizacionesGenerales = {
+    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
+      sumarTipoCotizacion(parametros, "empresarial").plus(
+        parametros.mei.empresarial
+      )
+    ),
+    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mul(
+      sumarTipoCotizacion(parametros, "trabajador").plus(
+        parametros.mei.trabajador
+      )
+    ),
+  }
+  const cotizacionesSolidaridad = repartirCotizacionSolidaridad(
+    calcularTotalSolidaridad(baseCotizacion, parametros)
+  )
+
+  return sumarCotizacionesSociales(
+    cotizacionesGenerales,
+    cotizacionesSolidaridad
+  )
 }
 
 const importeBaseEnTramo = (
@@ -530,10 +942,7 @@ const calcularDesgloseEuros = (
   anio: AnioFiscal
 ): DesgloseEuros => {
   const parametros = obtenerParametros(anio)
-  const cotizaciones = calcularCotizacionesSocialesLegacy({
-    salarioBrutoAnual: bruto,
-    anio,
-  })
+  const cotizaciones = calcularCotizacionesSociales(bruto, parametros)
   const irpf = calcularIrpf(bruto, parametros, cotizaciones)
   const salarioNetoAnual = bruto
     .minus(cotizaciones.cotizacionTrabajador)
@@ -550,7 +959,7 @@ const calcularDesgloseEuros = (
 }
 
 const centimosLiquidados = (euros: Decimal) =>
-  eurosACentimos(redondearImporteLiquidado(euros))
+  eurosACentimos(redondearDinero(euros))
 
 const liquidar = (desglose: DesgloseEuros): DesgloseLiquidado => ({
   salarioBrutoAnualCentimos: centimosLiquidados(desglose.salarioBrutoAnual),
@@ -916,7 +1325,7 @@ const textoPorcentajeLegacy = (valor: number) =>
 
 const cabeceraTramoIrpf = (indice: number, tramo: TramoIrpf) => {
   const [, tipo] = tramo
-  return `T${indice + 1} (${redondearHalfEvenTabularLegacy(tipo.mul(100), 1).toFixed(1)}%)`
+  return `T${indice + 1} (${tipo.mul(100).toDecimalPlaces(1, Decimal.ROUND_HALF_EVEN).toFixed(1)}%)`
 }
 
 const valorLimiteTramo = (limite: Decimal): ValorCeldaCompatible => {
@@ -947,7 +1356,7 @@ const cabecerasDetalleAnualCompatible = (anio: AnioFiscal) => [
   "Gastos Fijos",
   "Red. Ren. Trab.",
   "Base Imponible",
-  ...obtenerTramosIrpfLegacy(anio).map((tramo, indice) =>
+  ...obtenerTramosIrpf(anio).map((tramo, indice) =>
     cabeceraTramoIrpf(indice, tramo)
   ),
   "Cuota Íntegra",
@@ -966,10 +1375,7 @@ const construirFilaDetalleAnualCompatible = (
 ): ReadonlyArray<ValorCeldaCompatible> => {
   const bruto = decimal(salarioBrutoEuros)
   const parametros = obtenerParametros(anio)
-  const cotizaciones = calcularCotizacionesSocialesLegacy({
-    salarioBrutoAnual: bruto,
-    anio,
-  })
+  const cotizaciones = calcularCotizacionesSociales(bruto, parametros)
   const irpf = calcularIrpf(bruto, parametros, cotizaciones)
   const cuotasPorTramo = calcularCuotasPorTramo(
     irpf.baseImponible,
@@ -1018,22 +1424,15 @@ export const construirTablaControlGeneralCompatible = (): TablaCompatible => ({
   ],
   filas: aniosFiscalesLegacy.map((anio) => {
     const parametros = obtenerParametros(anio)
-    const parametrosCotizacion = obtenerParametrosCotizacionLegacy(anio)
-    const articulo20 = METADATOS_ARTICULO_20_LEGACY[anio]
+    const articulo20 = obtenerMetadatosArticulo20(anio)
 
     return [
       anio,
-      parametrosCotizacion.baseMaxima.toNumber(),
-      porcentajeCompatible(
-        sumarTipoCotizacionLegacy(parametrosCotizacion, "empresarial"),
-        2
-      ),
-      porcentajeCompatible(
-        sumarTipoCotizacionLegacy(parametrosCotizacion, "trabajador"),
-        2
-      ),
-      porcentajeCompatible(parametrosCotizacion.mei.empresarial, 3),
-      porcentajeCompatible(parametrosCotizacion.mei.trabajador, 3),
+      parametros.baseMaxima.toNumber(),
+      porcentajeCompatible(sumarTipoCotizacion(parametros, "empresarial"), 2),
+      porcentajeCompatible(sumarTipoCotizacion(parametros, "trabajador"), 2),
+      porcentajeCompatible(parametros.mei.empresarial, 3),
+      porcentajeCompatible(parametros.mei.trabajador, 3),
       parametros.gastosFijos.toNumber(),
       parametros.minimoPersonalIrpf.toNumber(),
       parametros.minimoExentoRetencion.toNumber(),
@@ -1049,7 +1448,7 @@ export const construirTablaControlTramosIrpfCompatible =
   (): TablaCompatible => ({
     cabeceras: ["Año", "Nº Tramo", "Hasta Base", "Tipo %"],
     filas: aniosFiscalesLegacy.flatMap((anio) =>
-      obtenerTramosIrpfLegacy(anio).map(
+      obtenerTramosIrpf(anio).map(
         ([limite, tipo], indice) =>
           [
             anio,
@@ -1133,3 +1532,4 @@ export const construirTablaDetalleAnualCompatible = (
     filas: filas(),
   }
 }
+```

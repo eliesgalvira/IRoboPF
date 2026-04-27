@@ -16,13 +16,21 @@ _Avoid_: Hachazo fiscal silencioso
 Aplicacion de reglas de cotizacion, reducciones, minimos, deducciones y tramos de IRPF a un caso fiscal simplificado para estimar salario neto, coste laboral y carga fiscal.
 _Avoid_: Nomina, simulacion fiscal generica
 
-**Calculo del IRPF**:
-Cadena de bases, cuotas, minimos, deducciones y limites que determina el IRPF final.
-_Avoid_: IRPF final, retencion sin desglose
+**Estimacion IRPF legacy**:
+Cadena simplificada heredada que obtiene el IRPF final del caso fiscal simplificado legacy.
+_Avoid_: Liquidacion anual del IRPF, procedimiento de retencion, calculo del IRPF
+
+**Liquidacion anual del IRPF**:
+Resultado del calculo de la declaracion anual del IRPF a partir de bases, minimos, escalas, deducciones, retenciones y pagos a cuenta.
+_Avoid_: Retencion, tipo de nomina, interfaz de liquidacion
+
+**Procedimiento de retencion**:
+Calculo del tipo e importe de retencion a cuenta sobre rendimientos del trabajo.
+_Avoid_: Liquidacion anual del IRPF, estimacion IRPF legacy, tipo de nomina
 
 **IRPF final**:
 Importe de IRPF aplicado al salario bruto tras minimos, deducciones y limites.
-_Avoid_: Calculo del IRPF, cuota integra
+_Avoid_: Estimacion IRPF legacy, Liquidacion anual del IRPF, cuota integra
 
 **Cotizacion del trabajador**:
 Cotizacion social deducida del salario bruto para calcular el salario neto.
@@ -148,6 +156,10 @@ _Avoid_: Orden ad hoc de acordeones
 Exploracion educativa de un caso fiscal simplificado para un salario bruto anual concreto.
 _Avoid_: Auditoria completa, barrido salarial
 
+**Interfaz experta de liquidacion IRPF**:
+Ruta de producto para tecnicos y expertos que captura las variables necesarias de una liquidacion anual del IRPF.
+_Avoid_: Simulador completo, consulta individual, calculadora de nomina
+
 **Comparacion ajustada por IPC**:
 Comparacion entre el ano de referencia y un ano comparado usando salarios equivalentes por IPC e importes reexpresados en euros del ano de referencia.
 _Avoid_: Comparacion nominal, aplicar leyes pasadas a salario actual sin ajuste
@@ -212,6 +224,10 @@ _Avoid_: Modo canonico, verdad normativa
 Modo de salida que aplica reglas del dominio con decimal exacto y redondeo explicito.
 _Avoid_: Modo compatible legacy, output historico
 
+**Perfil de calculo**:
+Conjunto de hipotesis que decide que reglas de calculo se activan.
+_Avoid_: Modo visual, configuracion UI
+
 **Carga fiscal efectiva**:
 Proporcion de una base elegida absorbida por IRPF y cotizaciones bajo un caso fiscal.
 _Avoid_: Tipo marginal, IRPF final
@@ -236,29 +252,33 @@ _Avoid_: Enciclopedia legal, documentacion normativa aislada
 Dato numerico concreto que justifica un impacto normativo dentro de un desglose.
 _Avoid_: Texto explicativo sin dato, conclusion no trazable
 
-**Fuente normativa**:
-Referencia externa o interna que respalda un parametro normativo o regla de calculo.
-_Avoid_: Comentario informal, supuesto no trazado
+**Fuente normativa normalizada**:
+Transcripcion o resumen estructurado de una fuente oficial convertido a Markdown o texto para trabajo humano y trazabilidad.
+_Avoid_: Parametro normativo ejecutable, regla de calculo, PDF operativo
 
 **Fuente pendiente**:
-Estado explicito de un parametro normativo o regla de calculo cuya procedencia aun no ha sido verificada.
-_Avoid_: Fuente normativa, valor sin marcar
+Estado explicito de un parametro normativo ejecutable o regla de calculo cuya procedencia aun no ha sido verificada.
+_Avoid_: Fuente normativa normalizada, valor sin marcar
 
-**Parametro normativo**:
-Valor legal o economico aplicable a uno o varios anos fiscales y usado por una regla de calculo.
-_Avoid_: Regla, formula
+**Parametro normativo ejecutable**:
+Dato numerico o tabla derivada de una fuente normativa normalizada y usada por el motor exacto.
+_Avoid_: Fuente normativa normalizada, comentario, regla de calculo
 
 **Dato economico**:
 Valor macroeconomico usado para ajustar o interpretar resultados fiscales sin ser una regla normativa.
-_Avoid_: Parametro normativo, regla de calculo
+_Avoid_: Parametro normativo ejecutable, regla de calculo
 
 **Factor IPC acumulado**:
 Multiplicador entre un ano base y el ano de referencia usado para expresar importes en euros comparables.
 _Avoid_: Inflacion suelta, tasa anual aislada
 
 **Regla de calculo**:
-Comportamiento fiscal o laboral versionado que transforma importes de entrada en importes derivados.
-_Avoid_: Parametro, dato normativo
+Transformacion determinista que usa entradas del caso fiscal y parametros normativos ejecutables para producir una parte del desglose.
+_Avoid_: Funcion tecnica privada, formula suelta, parametro normativo ejecutable
+
+**Resultado no soportado**:
+Estado explicito que indica que el motor reconoce un caso fiscal pero todavia no implementa sus reglas.
+_Avoid_: Cero silencioso, fallback aproximado, limitacion de alcance
 
 **Caso de referencia canonico**:
 Entrada y salida esperada versionadas que permiten validar implementaciones alternativas del motor sin depender del Excel.
@@ -272,9 +292,17 @@ _Avoid_: Suite exhaustiva, fixture legacy Excel
 Conjunto masivo de casos de referencia canonicos usado para validar equivalencia completa del motor.
 _Avoid_: Suite minima, smoke test
 
-**Caso fiscal simplificado**:
-Supuesto fiscal usado para calcular salario neto e IRPF bajo restricciones conocidas: soltero sin hijos y tramo autonomico igual al estatal.
-_Avoid_: Salario bruto, perfil, contribuyente
+**Caso fiscal anual**:
+Representacion completa de las circunstancias fiscales de una persona o unidad familiar para un ano fiscal concreto.
+_Avoid_: Salario bruto, nomina, consulta individual
+
+**Caso fiscal simplificado legacy**:
+Caso fiscal anual reducido usado por el modelo historico heredado de progresividad en frio.
+_Avoid_: Caso general de Renta, verdad normativa completa, caso fiscal simplificado
+
+**Perfil de progresividad en frio legacy**:
+Perfil de calculo que reproduce las hipotesis y resultados observables del modelo historico de progresividad en frio.
+_Avoid_: Motor general de Renta, modo canonico, verdad normativa completa
 
 **Hipotesis fiscal**:
 Restriccion o simplificacion declarada que limita el alcance de un caso fiscal o auditoria.
@@ -286,7 +314,7 @@ _Avoid_: Tramo autonomico real, comunidad autonoma
 
 **Limitacion de alcance**:
 Condicion reconocida por el modelo pero no calculable todavia con garantias.
-_Avoid_: Error tecnico, opcion visible no soportada
+_Avoid_: Error tecnico, cero silencioso
 
 **Situacion familiar fiscal**:
 Conjunto de circunstancias personales y familiares que afectan minimos, deducciones y retenciones.
@@ -314,15 +342,21 @@ _Avoid_: Informe, reporte
 
 ## Relationships
 
-- Un **Caso fiscal simplificado** es la entrada de un **Calculo de salario neto e IRPF**.
-- Un **Caso fiscal simplificado** declara sus **Hipotesis fiscales**.
-- Un **Caso fiscal simplificado** incluye una **Situacion familiar fiscal**.
-- Un **Caso fiscal simplificado** incluye un **Salario bruto anual**.
+- Un **Caso fiscal simplificado legacy** es un tipo de **Caso fiscal anual**.
+- Un **Caso fiscal simplificado legacy** es la entrada legacy de un **Calculo de salario neto e IRPF**.
+- Un **Caso fiscal simplificado legacy** declara sus **Hipotesis fiscales**.
+- Un **Caso fiscal simplificado legacy** incluye una **Situacion familiar fiscal**.
+- Un **Caso fiscal simplificado legacy** incluye un **Salario bruto anual** como unica renta relevante.
+- Un **Caso fiscal simplificado legacy** asume persona individual, sin descendientes, sin ascendientes, sin discapacidad y tramo autonomico igualado al estatal.
+- Un **Calculo unitario** usa un **Perfil de calculo**.
+- El **Perfil de progresividad en frio legacy** aplica al **Caso fiscal simplificado legacy**.
 - La **Hipotesis de tramo autonomico estatalizado** es una **Hipotesis fiscal** actual del proyecto.
-- Una **Limitacion de alcance** se devuelve cuando una entrada solicita condiciones fuera de las hipotesis fiscales soportadas.
+- Una **Limitacion de alcance** describe una frontera de producto o documentacion; un **Resultado no soportado** es el estado devuelto por el motor.
 - La **Situacion familiar individual sin descendientes** es la **Situacion familiar fiscal** actual del proyecto.
-- Un **Calculo de salario neto e IRPF** incluye un **Calculo del IRPF**.
-- Un **Calculo del IRPF** produce un **IRPF final**.
+- Un **Calculo de salario neto e IRPF** incluye una **Estimacion IRPF legacy** cuando usa el **Perfil de progresividad en frio legacy**.
+- Una **Estimacion IRPF legacy** produce un **IRPF final**.
+- Una **Liquidacion anual del IRPF** no es un **Procedimiento de retencion**.
+- Un **Procedimiento de retencion** puede usarse como evidencia o comparacion, pero no sustituye a una **Liquidacion anual del IRPF**.
 - Un **Calculo de salario neto e IRPF** produce una **Cotizacion del trabajador**, una **Cotizacion empresarial** y un **Coste laboral**.
 - Un **Calculo de salario neto e IRPF** produce un **Salario neto anual**.
 - Un **Salario neto mensual equivalente** se deriva de un **Salario neto anual** mediante una **Distribucion de pagas**.
@@ -338,6 +372,11 @@ _Avoid_: Informe, reporte
 - Un **Rastro de calculo** se organiza en **Pasos de explicacion** segun su **Version de explicacion**.
 - **Explicacion v1** es la **Version de explicacion** inicial.
 - Una **Consulta individual** presenta una **Vista educativa del calculo** para un salario concreto.
+- Una **Interfaz experta de liquidacion IRPF** presenta una **Liquidacion anual del IRPF** para un **Caso fiscal anual**.
+- Una **Consulta individual** no sustituye a una **Interfaz experta de liquidacion IRPF**.
+- La ruta `/liquidacion-irpf` aloja la **Interfaz experta de liquidacion IRPF**.
+- La **Interfaz experta de liquidacion IRPF** prioriza cobertura y precision de variables sobre brevedad de formulario.
+- Una **Liquidacion anual del IRPF** es dominio fiscal; una **Interfaz experta de liquidacion IRPF** es producto.
 - La pantalla principal presenta una **Comparacion ajustada por IPC** para una **Consulta individual**.
 - La pantalla principal usa un **Control preciso de salario** como fuente exacta y un **Control rapido de salario** para cambios al millar.
 - El **Control rapido de salario** usa un **Rango pedagogico del salario**, no el primer salario con IRPF positivo en el ano de referencia.
@@ -345,9 +384,11 @@ _Avoid_: Informe, reporte
 - Una **Exploracion por rango salarial** presenta patrones de una **Auditoria de progresividad en frio** para muchos salarios.
 - Un **Barrido salarial** produce los calculos unitarios necesarios para una **Exploracion por rango salarial** o una **Exportacion compatible** sobre un **Rango nominal** o un **Rango equivalente de referencia**.
 - Una **Exploracion por rango salarial** produce **Hallazgos de auditoria**.
-- Un **Impacto normativo** se apoya en **Evidencias de calculo** y, cuando sea posible, en **Fuentes normativas**.
-- Una **Fuente pendiente** marca una **Regla de calculo** o un **Parametro normativo** que aun necesita verificacion.
-- Un **Dato economico** puede tener fuente propia sin ser una **Fuente normativa**.
+- Un **Impacto normativo** se apoya en **Evidencias de calculo** y, cuando sea posible, en **Fuentes normativas normalizadas**.
+- Una **Fuente pendiente** marca una **Regla de calculo** o un **Parametro normativo ejecutable** que aun necesita verificacion.
+- Un **Parametro normativo ejecutable** debe poder apuntar a una **Fuente normativa normalizada**.
+- Una **Regla de calculo** usa **Parametros normativos ejecutables**.
+- Un **Dato economico** puede tener fuente propia sin ser una **Fuente normativa normalizada**.
 - Un **Factor IPC acumulado** es un **Dato economico** usado por una **Auditoria de progresividad en frio**.
 - Una **Auditoria de progresividad en frio** puede analizar **Poder adquisitivo neto**, **Carga fiscal efectiva** y **Tipo efectivo del IRPF**.
 - Un **Calculo unitario** recibe **Entradas monetarias**, opera con **Importes monetarios** y produce **Importes liquidados** en fronteras explicitas.
@@ -358,7 +399,9 @@ _Avoid_: Informe, reporte
 - La pantalla principal muestra **Vista de carga sobre salario bruto** por defecto y permite alternar a **Vista de cuna fiscal laboral**.
 - En la primera version, el input editable de la pantalla principal es siempre **Salario bruto anual**; la **Vista de cuna fiscal laboral** muestra **Coste laboral** derivado.
 - Un **Impacto normativo** explica una parte concreta de un **Desglose de salario neto e IRPF**.
-- Una **Regla de calculo** usa **Parametros normativos** para producir importes de un **Desglose de salario neto e IRPF**.
+- El **Modo compatible legacy** prioriza reproducir el **Oracle legacy congelado**.
+- El **Modo canonico** prioriza decimal exacto, half-up y fronteras explicitas de redondeo.
+- Un **Resultado no soportado** debe ser visible en tests y rastros; nunca debe convertirse en cero por defecto.
 - Un **Caso de referencia canonico** valida una implementacion alternativa del **Motor exacto**.
 - Una **Suite de referencia minima** contiene pocos **Casos de referencia canonicos** revisables a mano.
 - Una **Suite de referencia exhaustiva** contiene muchos **Casos de referencia canonicos** para equivalencia completa.
@@ -383,11 +426,12 @@ _Avoid_: Informe, reporte
 - La validacion rapida compara `COMPARATIVA_INFLACION` contra el fixture versionado y comprueba estructura, controles y detalle anual con rangos acotados.
 - La validacion pesada pendiente es regenerar o versionar un fixture completo para comparar todas las filas `DAT_YYYY` contra el oracle Python por equivalencia tabular exhaustiva.
 - El historial de la brecha de alcance esta documentado en `docs/legacy-scope-gap.md`.
+- Los terminos fiscales abreviados que aparecen en el codigo de dominio se explican en `docs/glosario-fiscal-motor.md`.
 
 ## Example dialogue
 
-> **Dev:** "Cuando el usuario cambia el salario bruto, estamos recalculando toda la auditoria?"
-> **Domain expert:** "No, esta usando la calculadora para un calculo de salario neto e IRPF concreto; la auditoria historica compara ese resultado contra anos equivalentes por IPC."
+> **Dev:** "Cuando el usuario cambia el salario bruto en la consulta individual, estamos liquidando su declaracion de Renta?"
+> **Domain expert:** "No. Esa consulta usa el perfil legacy de progresividad en frio; la declaracion completa vivira en la interfaz experta `/liquidacion-irpf` y devolvera una liquidacion anual del IRPF o un resultado no soportado."
 
 ## Flagged ambiguities
 
@@ -401,3 +445,8 @@ _Avoid_: Informe, reporte
 - "minimo del slider" no debe confundirse con el primer salario con **IRPF final** positivo en el ano de referencia; resuelto: usar **Rango pedagogico del salario** para cubrir cotizaciones, IRPF historico y progresividad en frio.
 - "exportacion compatible" puede confundirse con una hoja de comparativa acotada, pero el objetivo de producto es el libro legacy completo; resuelto: usar **Exportacion compatible completa** para la replica del Excel original y **Exportacion compatible de comparativa** solo si se necesita nombrar una salida deliberadamente acotada.
 - "tipo efectivo" puede referirse a carga total o a IRPF puro; resuelto: usar **Tipo efectivo del IRPF** para `IRPF final / salario bruto anual` y **Carga fiscal efectiva** cuando incluya cotizaciones.
+- "Calculo del IRPF" podia confundirse con la declaracion anual completa; resuelto: usar **Estimacion IRPF legacy** para el calculo heredado y **Liquidacion anual del IRPF** para el resultado de Renta.
+- "retencion" podia mezclarse con la declaracion anual; resuelto: usar **Procedimiento de retencion** para el calculo a cuenta sobre rendimientos del trabajo.
+- "fuente normativa" podia significar PDF, transcripcion o dato ejecutable; resuelto: distinguir **Fuente normativa normalizada** y **Parametro normativo ejecutable**.
+- "simulador completo" podia sugerir una version mejorada de la consulta actual; resuelto: usar **Interfaz experta de liquidacion IRPF** para la ruta `/liquidacion-irpf`.
+- "caso fiscal simplificado" era demasiado generico; resuelto: usar **Caso fiscal simplificado legacy** para el contrato historico y **Caso fiscal anual** como concepto padre.

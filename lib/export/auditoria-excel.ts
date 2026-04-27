@@ -9,7 +9,7 @@ import type {
   PuntoAuditoriaRangoSalarial,
   RangoSalarialEuros,
   TablaCompatible,
-} from "../domain/progresividad"
+} from "../dominio/auditoria/auditoria-progresividad-frio"
 import {
   aniosFiscalesLegacy,
   configuracionExportacionCompatibleLegacy,
@@ -17,7 +17,7 @@ import {
   construirTablaControlGeneralCompatible,
   construirTablaControlTramosIrpfCompatible,
   construirTablaDetalleAnualCompatible,
-} from "../domain/progresividad"
+} from "../dominio/auditoria/auditoria-progresividad-frio"
 
 const centimosAEuros = (centimos: number) => centimos / 100
 

@@ -1,0 +1,267 @@
+import type Decimal from "decimal.js"
+
+import {
+  IMPORTE_CERO,
+  crearImporteMonetario,
+} from "../dinero/importe-monetario"
+import type { AnioFiscal } from "../normativa/anio-fiscal"
+import { BASE_MAXIMA_COTIZACION_LEGACY } from "../normativa/datos/seguridad-social-2012-2026"
+
+type LadoCotizacion = "empresarial" | "trabajador"
+
+interface TiposCotizacion {
+  readonly empresarial: Decimal
+  readonly trabajador: Decimal
+}
+
+type PoliticaSolidaridad =
+  | {
+      readonly _tag: "SinSolidaridad"
+    }
+  | {
+      readonly _tag: "ConSolidaridad"
+      readonly tipoPrimerExceso: Decimal
+      readonly tipoSegundoExceso: Decimal
+      readonly tipoExcesoRestante: Decimal
+    }
+
+interface ParametrosCotizacionLegacy {
+  readonly baseMaxima: Decimal
+  readonly tiposSeguridadSocial: Readonly<Record<string, TiposCotizacion>>
+  readonly mei: TiposCotizacion
+  readonly solidaridad: PoliticaSolidaridad
+}
+
+interface BaseCotizacion {
+  readonly baseOrdinaria: Decimal
+  readonly excesoBase: Decimal
+}
+
+export interface CotizacionesSociales {
+  readonly cotizacionEmpresarial: Decimal
+  readonly cotizacionTrabajador: Decimal
+}
+
+export interface EntradaCotizacionesSocialesLegacy {
+  readonly salarioBrutoAnual: Decimal
+  readonly anio: AnioFiscal
+}
+
+// Glosario de MEI, base maxima y cuota de solidaridad:
+// docs/glosario-fiscal-motor.md
+export const TIPOS_SEGURIDAD_SOCIAL_LEGACY = {
+  comunes: {
+    empresarial: crearImporteMonetario("0.236"),
+    trabajador: crearImporteMonetario("0.047"),
+  },
+  desempleo: {
+    empresarial: crearImporteMonetario("0.055"),
+    trabajador: crearImporteMonetario("0.0155"),
+  },
+  fogasa: {
+    empresarial: crearImporteMonetario("0.002"),
+    trabajador: IMPORTE_CERO,
+  },
+  fp: {
+    empresarial: crearImporteMonetario("0.006"),
+    trabajador: crearImporteMonetario("0.001"),
+  },
+  atep: {
+    empresarial: crearImporteMonetario("0.015"),
+    trabajador: IMPORTE_CERO,
+  },
+} satisfies ParametrosCotizacionLegacy["tiposSeguridadSocial"]
+
+const SIN_SOLIDARIDAD = {
+  _tag: "SinSolidaridad",
+} as const satisfies PoliticaSolidaridad
+
+const minimo = (a: Decimal, b: Decimal) => {
+  if (a.lessThan(b)) {
+    return a
+  }
+  return b
+}
+
+const maximo = (a: Decimal, b: Decimal) => {
+  if (a.greaterThan(b)) {
+    return a
+  }
+  return b
+}
+
+const tipoCotizacionPorLado = (
+  tipos: TiposCotizacion,
+  lado: LadoCotizacion
+) => {
+  if (lado === "empresarial") {
+    return tipos.empresarial
+  }
+
+  return tipos.trabajador
+}
+
+export const sumarTipoCotizacionLegacy = (
+  parametros: ParametrosCotizacionLegacy,
+  lado: LadoCotizacion
+) =>
+  Object.values(parametros.tiposSeguridadSocial).reduce(
+    (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)),
+    IMPORTE_CERO
+  )
+
+const obtenerTiposMei = (anio: AnioFiscal): TiposCotizacion => {
+  if (anio === 2023) {
+    return {
+      empresarial: crearImporteMonetario("0.005"),
+      trabajador: crearImporteMonetario("0.001"),
+    }
+  }
+
+  if (anio === 2024) {
+    return {
+      empresarial: crearImporteMonetario("0.0058"),
+      trabajador: crearImporteMonetario("0.0012"),
+    }
+  }
+
+  if (anio === 2025) {
+    return {
+      empresarial: crearImporteMonetario("0.0067"),
+      trabajador: crearImporteMonetario("0.0013"),
+    }
+  }
+
+  if (anio >= 2026) {
+    return {
+      empresarial: crearImporteMonetario("0.0075"),
+      trabajador: crearImporteMonetario("0.0015"),
+    }
+  }
+
+  return {
+    empresarial: IMPORTE_CERO,
+    trabajador: IMPORTE_CERO,
+  }
+}
+
+const obtenerPoliticaSolidaridad = (
+  anio: AnioFiscal
+): PoliticaSolidaridad => {
+  if (anio === 2025) {
+    return {
+      _tag: "ConSolidaridad",
+      tipoPrimerExceso: crearImporteMonetario("0.0092"),
+      tipoSegundoExceso: crearImporteMonetario("0.0100"),
+      tipoExcesoRestante: crearImporteMonetario("0.0117"),
+    }
+  }
+
+  if (anio >= 2026) {
+    return {
+      _tag: "ConSolidaridad",
+      tipoPrimerExceso: crearImporteMonetario("0.0115"),
+      tipoSegundoExceso: crearImporteMonetario("0.0125"),
+      tipoExcesoRestante: crearImporteMonetario("0.0146"),
+    }
+  }
+
+  return SIN_SOLIDARIDAD
+}
+
+export const obtenerParametrosCotizacionLegacy = (
+  anio: AnioFiscal
+): ParametrosCotizacionLegacy => ({
+  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
+  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
+  mei: obtenerTiposMei(anio),
+  solidaridad: obtenerPoliticaSolidaridad(anio),
+})
+
+const baseCotizacionPara = (
+  bruto: Decimal,
+  parametros: ParametrosCotizacionLegacy
+): BaseCotizacion => ({
+  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
+  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
+})
+
+const calcularTotalSolidaridad = (
+  baseCotizacion: BaseCotizacion,
+  parametros: ParametrosCotizacionLegacy
+) => {
+  if (parametros.solidaridad._tag === "SinSolidaridad") {
+    return IMPORTE_CERO
+  }
+
+  if (baseCotizacion.excesoBase.lte(0)) {
+    return IMPORTE_CERO
+  }
+
+  const limitePrimerTramo = parametros.baseMaxima.mul("0.10")
+  const limiteSegundoTramo = parametros.baseMaxima.mul("0.50")
+  const excesoPrimerTramo = minimo(
+    baseCotizacion.excesoBase,
+    limitePrimerTramo
+  )
+  const excesoSegundoTramo = minimo(
+    maximo(IMPORTE_CERO, baseCotizacion.excesoBase.minus(limitePrimerTramo)),
+    limiteSegundoTramo.minus(limitePrimerTramo)
+  )
+  const excesoRestante = maximo(
+    IMPORTE_CERO,
+    baseCotizacion.excesoBase.minus(limiteSegundoTramo)
+  )
+
+  return excesoPrimerTramo
+    .mul(parametros.solidaridad.tipoPrimerExceso)
+    .plus(excesoSegundoTramo.mul(parametros.solidaridad.tipoSegundoExceso))
+    .plus(excesoRestante.mul(parametros.solidaridad.tipoExcesoRestante))
+}
+
+const repartirCotizacionSolidaridad = (
+  totalSolidaridad: Decimal
+): CotizacionesSociales => ({
+  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
+  cotizacionTrabajador: totalSolidaridad.div(6),
+})
+
+const sumarCotizacionesSociales = (
+  izquierda: CotizacionesSociales,
+  derecha: CotizacionesSociales
+): CotizacionesSociales => ({
+  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
+    derecha.cotizacionEmpresarial
+  ),
+  cotizacionTrabajador: izquierda.cotizacionTrabajador.plus(
+    derecha.cotizacionTrabajador
+  ),
+})
+
+export const calcularCotizacionesSocialesLegacy = ({
+  salarioBrutoAnual,
+  anio,
+}: EntradaCotizacionesSocialesLegacy): CotizacionesSociales => {
+  const parametros = obtenerParametrosCotizacionLegacy(anio)
+  const baseCotizacion = baseCotizacionPara(salarioBrutoAnual, parametros)
+  const cotizacionesOrdinarias = {
+    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
+      sumarTipoCotizacionLegacy(parametros, "empresarial").plus(
+        parametros.mei.empresarial
+      )
+    ),
+    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mul(
+      sumarTipoCotizacionLegacy(parametros, "trabajador").plus(
+        parametros.mei.trabajador
+      )
+    ),
+  }
+  const cotizacionesSolidaridad = repartirCotizacionSolidaridad(
+    calcularTotalSolidaridad(baseCotizacion, parametros)
+  )
+
+  return sumarCotizacionesSociales(
+    cotizacionesOrdinarias,
+    cotizacionesSolidaridad
+  )
+}

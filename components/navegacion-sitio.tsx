@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 export function NavegacionSitio() {
   const rutaActual = usePathname()
   const enAuditoria = rutaActual?.startsWith("/auditoria") ?? false
+  const enLiquidacion = rutaActual?.startsWith("/liquidacion-irpf") ?? false
 
   return (
     <nav className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-sm tracking-[0.28em] text-[var(--ink)]/80 uppercase">
@@ -16,7 +17,7 @@ export function NavegacionSitio() {
           href="/"
           className={cn(
             "border-b transition",
-            !enAuditoria
+            !enAuditoria && !enLiquidacion
               ? "border-current"
               : "border-transparent hover:border-current/60"
           )}
@@ -34,6 +35,18 @@ export function NavegacionSitio() {
           )}
         >
           Auditoría
+        </Link>
+        <span className="opacity-30">·</span>
+        <Link
+          href="/liquidacion-irpf"
+          className={cn(
+            "border-b transition",
+            enLiquidacion
+              ? "border-current"
+              : "border-transparent hover:border-current/60"
+          )}
+        >
+          Liquidación
         </Link>
       </div>
       <a
