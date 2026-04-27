@@ -8,12 +8,18 @@ import {
   redondearImporteLiquidado,
 } from "../../dinero/importe-monetario"
 import { calcularDesgloseCotizacionesSocialesLegacy } from "../../laboral/cotizaciones-sociales"
+import { obtenerDeduccionAutonomicaCatalogada } from "../../normativa/datos/deducciones-autonomicas-2025"
 import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
+import {
+  calcularCuotaPorEscalaAhorro,
+  calcularDesgloseCuotaPorEscalaAhorro,
+} from "../cuotas/cuota-integra-ahorro"
 import {
   calcularCuotaPorEscalaGeneral,
   calcularDesgloseCuotaPorEscalaGeneral,
 } from "../cuotas/escalas-gravamen"
+import { calcularBaseImponibleAhorro } from "../integracion/base-imponible-ahorro"
 import { calcularBaseImponibleGeneral } from "../integracion/base-imponible-general"
 import { obtenerMinimoAscendientes } from "../minimos/minimo-ascendientes"
 import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
@@ -30,6 +36,8 @@ import {
   calcularRendimientoNetoTrabajo,
   sumarRendimientosTrabajo,
 } from "../rendimientos/rendimientos-trabajo"
+import { calcularGananciasPatrimonialesPorTransmision } from "../rendimientos/ganancias-perdidas-patrimoniales"
+import { calcularReduccionRendimientosTrabajo } from "../reducciones/reduccion-rendimientos-trabajo"
 
 export type { CasoFiscalAnual } from "../caso-fiscal-anual"
 
@@ -52,9 +60,13 @@ export interface ResultadoLiquidacionIrpfSoportada {
   readonly rendimientoNetoTrabajoCentimos: number
   readonly rendimientoNetoCapitalInmobiliarioCentimos: number
   readonly gastosDeduciblesTrabajoCentimos: number
+  readonly reduccionRendimientosTrabajoCentimos: number
   readonly totalGastosYDeduccionesTrabajoCentimos: number
   readonly baseImponibleGeneralCentimos: number
   readonly baseLiquidableGeneralCentimos: number
+  readonly gananciaPatrimonialTotalCentimos: number
+  readonly gananciaPatrimonialExentaCentimos: number
+  readonly baseLiquidableAhorroCentimos: number
   readonly cotizacionEmpresarialCentimos: number
   readonly cotizacionTrabajadorCentimos: number
   readonly costeLaboralCentimos: number
@@ -63,7 +75,9 @@ export interface ResultadoLiquidacionIrpfSoportada {
   readonly solidaridadEmpresarialCentimos: number
   readonly solidaridadTrabajadorCentimos: number
   readonly cuotaIntegraGeneralCentimos: number
+  readonly cuotaIntegraAhorroCentimos: number
   readonly cuotaMinimoPersonalCentimos: number
+  readonly cuotaMinimoPersonalAhorroCentimos: number
   readonly deduccionesAutonomicasCentimos: number
   readonly cuotaLiquidaCentimos: number
   readonly retencionesYPagosACuentaCentimos: number
@@ -133,18 +147,39 @@ const liquidarTrabajoIndividualSimple = (
     calcularRendimientoNetoCapitalInmobiliarioSimplificado({
       rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
     })
+  const reduccionRendimientosTrabajo = calcularReduccionRendimientosTrabajo({
+    anio: caso.anio,
+    rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
+  })
   const baseImponibleGeneral = calcularBaseImponibleGeneral({
+    reduccionRendimientosTrabajo,
     rendimientoCapitalInmobiliario,
     rendimientoTrabajo,
   })
   const baseLiquidableGeneral = baseImponibleGeneral
+  const gananciasPatrimoniales = calcularGananciasPatrimonialesPorTransmision({
+    edadContribuyente: caso.situacionFamiliar.edad,
+    ganancias: caso.rendimientos.gananciasPatrimoniales ?? [],
+    convertirCentimos: centimosAEuros,
+  })
+  const baseLiquidableAhorro = calcularBaseImponibleAhorro({
+    gananciasPatrimoniales,
+  })
   const cuotaIntegraGeneral = calcularCuotaPorEscalaGeneral({
     anio: caso.anio,
     base: baseLiquidableGeneral,
   })
+  const cuotaIntegraAhorro = calcularCuotaPorEscalaAhorro({
+    anio: caso.anio,
+    base: baseLiquidableAhorro,
+  })
   const desgloseCuotaIntegraGeneral = calcularDesgloseCuotaPorEscalaGeneral({
     anio: caso.anio,
     base: baseLiquidableGeneral,
+  })
+  const desgloseCuotaIntegraAhorro = calcularDesgloseCuotaPorEscalaAhorro({
+    anio: caso.anio,
+    base: baseLiquidableAhorro,
   })
   const minimoContribuyente = obtenerMinimoContribuyente({
     anio: caso.anio,
@@ -171,14 +206,30 @@ const liquidarTrabajoIndividualSimple = (
     anio: caso.anio,
     base: minimoPersonalYFamiliar,
   })
+  const remanenteMinimoPersonalParaAhorro = Decimal.max(
+    0,
+    minimoPersonalYFamiliar.minus(baseLiquidableGeneral)
+  )
+  const cuotaMinimoPersonalAhorro = calcularCuotaPorEscalaAhorro({
+    anio: caso.anio,
+    base: Decimal.min(remanenteMinimoPersonalParaAhorro, baseLiquidableAhorro),
+  })
   const desgloseCuotaMinimoPersonal = calcularDesgloseCuotaPorEscalaGeneral({
     anio: caso.anio,
     base: minimoPersonalYFamiliar,
   })
+  const cuotaGeneralDespuesMinimo = Decimal.max(
+    0,
+    cuotaIntegraGeneral.minus(cuotaMinimoPersonal)
+  )
+  const cuotaAhorroDespuesMinimo = Decimal.max(
+    0,
+    cuotaIntegraAhorro.minus(cuotaMinimoPersonalAhorro)
+  )
   const cuotaLiquida = Decimal.max(
     0,
-    cuotaIntegraGeneral
-      .minus(cuotaMinimoPersonal)
+    cuotaGeneralDespuesMinimo
+      .plus(cuotaAhorroDespuesMinimo)
       .minus(centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso)))
   )
   const cuotaLiquidaCentimos = eurosACentimos(
@@ -201,11 +252,14 @@ const liquidarTrabajoIndividualSimple = (
     gastosDeduciblesTrabajoCentimos: eurosACentimos(
       redondearImporteLiquidado(rendimientoTrabajo.gastosDeducibles)
     ),
+    reduccionRendimientosTrabajoCentimos: eurosACentimos(
+      redondearImporteLiquidado(reduccionRendimientosTrabajo)
+    ),
     totalGastosYDeduccionesTrabajoCentimos: eurosACentimos(
       redondearImporteLiquidado(
-        rendimientoTrabajo.cotizacionTrabajador.plus(
-          rendimientoTrabajo.gastosDeducibles
-        )
+        rendimientoTrabajo.cotizacionTrabajador
+          .plus(rendimientoTrabajo.gastosDeducibles)
+          .plus(reduccionRendimientosTrabajo)
       )
     ),
     baseImponibleGeneralCentimos: eurosACentimos(
@@ -213,6 +267,15 @@ const liquidarTrabajoIndividualSimple = (
     ),
     baseLiquidableGeneralCentimos: eurosACentimos(
       redondearImporteLiquidado(baseLiquidableGeneral)
+    ),
+    gananciaPatrimonialTotalCentimos: eurosACentimos(
+      redondearImporteLiquidado(gananciasPatrimoniales.gananciaTotal)
+    ),
+    gananciaPatrimonialExentaCentimos: eurosACentimos(
+      redondearImporteLiquidado(gananciasPatrimoniales.gananciaExenta)
+    ),
+    baseLiquidableAhorroCentimos: eurosACentimos(
+      redondearImporteLiquidado(baseLiquidableAhorro)
     ),
     cotizacionEmpresarialCentimos: eurosACentimos(
       redondearImporteLiquidado(cotizacionesSociales.cotizacionEmpresarial)
@@ -242,8 +305,14 @@ const liquidarTrabajoIndividualSimple = (
     cuotaIntegraGeneralCentimos: eurosACentimos(
       redondearImporteLiquidado(cuotaIntegraGeneral)
     ),
+    cuotaIntegraAhorroCentimos: eurosACentimos(
+      redondearImporteLiquidado(cuotaIntegraAhorro)
+    ),
     cuotaMinimoPersonalCentimos: eurosACentimos(
       redondearImporteLiquidado(cuotaMinimoPersonal)
+    ),
+    cuotaMinimoPersonalAhorroCentimos: eurosACentimos(
+      redondearImporteLiquidado(cuotaMinimoPersonalAhorro)
     ),
     deduccionesAutonomicasCentimos: sumarDeduccionesAutonomicasCentimos(caso),
     cuotaLiquidaCentimos,
@@ -286,6 +355,12 @@ const liquidarTrabajoIndividualSimple = (
               etiqueta: "Rendimiento neto del trabajo",
               formula: `max(0, ${euros(rendimientoTrabajo.rendimientoPrevioNeto)} - ${euros(rendimientoTrabajo.gastosDeducibles)})`,
               resultado: euros(rendimientoTrabajo.rendimientoNeto),
+            },
+            {
+              etiqueta: "Reduccion por rendimientos del trabajo",
+              formula:
+                "Reduccion estatal por obtencion de rendimientos del trabajo",
+              resultado: euros(reduccionRendimientosTrabajo),
             },
           ],
           fuentes: [
@@ -417,7 +492,7 @@ const liquidarTrabajoIndividualSimple = (
           lineasCalculo: [
             {
               etiqueta: "Base imponible general",
-              formula: `${euros(rendimientoTrabajo.rendimientoNeto)} + ${euros(rendimientoCapitalInmobiliario.rendimientoNeto)}`,
+              formula: `max(0, ${euros(rendimientoTrabajo.rendimientoNeto)} - ${euros(reduccionRendimientosTrabajo)}) + ${euros(rendimientoCapitalInmobiliario.rendimientoNeto)}`,
               resultado: euros(baseImponibleGeneral),
             },
             {
@@ -462,6 +537,40 @@ const liquidarTrabajoIndividualSimple = (
               titulo: "Parametros IRPF estatal 2012-2026",
               referencia:
                 "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+            },
+          ],
+        },
+        {
+          _tag: "PasoExplicacion",
+          titulo: "Ganancias patrimoniales y base del ahorro",
+          descripcion:
+            "Las ganancias patrimoniales por transmision se integran en la base del ahorro salvo la parte exenta reconocida para mayores de 65 anos.",
+          lineasCalculo: [
+            {
+              etiqueta: "Ganancias patrimoniales declaradas",
+              formula: "Suma de ganancias por transmision",
+              resultado: euros(gananciasPatrimoniales.gananciaTotal),
+            },
+            {
+              etiqueta: "Ganancia patrimonial exenta",
+              formula:
+                "Exenciones por vivienda habitual o reinversion en renta vitalicia para mayores de 65 anos",
+              resultado: euros(gananciasPatrimoniales.gananciaExenta),
+            },
+            {
+              etiqueta: "Base liquidable del ahorro",
+              formula: `max(0, ${euros(gananciasPatrimoniales.gananciaTotal)} - ${euros(gananciasPatrimoniales.gananciaExenta)})`,
+              resultado: euros(baseLiquidableAhorro),
+            },
+          ],
+          fuentes: [
+            {
+              titulo: "Manual especifico mayores de 65 anos",
+              referencia: "docs/fuentes/aeat/manual-renta-2025-mayores-65.md",
+            },
+            {
+              titulo: "Manual Renta 2025 Parte 1",
+              referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
             },
           ],
         },
@@ -531,12 +640,42 @@ const liquidarTrabajoIndividualSimple = (
         },
         {
           _tag: "PasoExplicacion",
+          titulo: "Cuota integra del ahorro",
+          descripcion:
+            "Aplicacion de la escala del ahorro a la base liquidable del ahorro.",
+          lineasCalculo: [
+            ...desgloseCuotaIntegraAhorro.map((tramo) => ({
+              etiqueta: `Tramo ahorro ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              resultado: euros(tramo.cuota),
+            })),
+            {
+              etiqueta: "Cuota integra del ahorro",
+              formula: "Suma de cuotas por tramo",
+              resultado: euros(cuotaIntegraAhorro),
+            },
+            {
+              etiqueta: "Cuota del remanente del minimo personal",
+              formula:
+                "Parte del minimo personal y familiar no absorbida por la base general",
+              resultado: euros(cuotaMinimoPersonalAhorro),
+            },
+          ],
+          fuentes: [
+            {
+              titulo: "Manual Renta 2025 Parte 1",
+              referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
+            },
+          ],
+        },
+        {
+          _tag: "PasoExplicacion",
           titulo: "Cuota diferencial",
           descripcion: `Cuota liquida ${cuotaLiquida.toFixed(2)} euros menos retenciones y pagos a cuenta declarados.`,
           lineasCalculo: [
             {
               etiqueta: "Cuota liquida",
-              formula: `max(0, ${euros(cuotaIntegraGeneral)} - ${euros(cuotaMinimoPersonal)} - ${euros(centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso)))})`,
+              formula: `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso)))})`,
               resultado: euros(cuotaLiquida),
             },
             {
@@ -583,59 +722,50 @@ const liquidarTrabajoIndividualSimple = (
 const detectarCasoNoSoportado = (
   caso: CasoFiscalAnual
 ): ResultadoNoSoportado | null => {
-  if (
-    caso.situacionFamiliar.ascendientes.some(
-      (ascendiente) =>
-        ascendiente.edad <= 65 &&
-        ascendiente.discapacidad._tag === "SinDiscapacidad"
+  const deduccionPendiente = caso.deducciones[0]
+  if (deduccionPendiente) {
+    const catalogada = obtenerDeduccionAutonomicaCatalogada(
+      deduccionPendiente.codigo
     )
-  ) {
-    return resultadoNoSoportado(caso, {
-      motivo:
-        "Minimo por ascendientes fuera del caso soportado aun no implementado",
-      tituloPaso: "Circunstancia familiar no soportada",
-      descripcionPaso:
-        "Esta version del motor solo calcula ascendientes mayores de 65 anos sin discapacidad.",
-    })
+
+    return {
+      _tag: "ResultadoNoSoportado",
+      motivo: catalogada
+        ? `Deduccion autonomica catalogada pendiente de implementacion: ${catalogada.nombre}`
+        : `Deduccion autonomica no catalogada: ${deduccionPendiente.codigo}`,
+      fuenteReconocida:
+        "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+      rastro: rastroResultadoNoSoportado({
+        caso,
+        fuentePaso:
+          "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+        tituloFuentePaso: "Manual Renta 2025 Parte 2",
+        tituloPaso: catalogada
+          ? "Deduccion autonomica catalogada pendiente"
+          : "Deduccion autonomica no catalogada",
+        descripcionPaso: catalogada
+          ? `El motor reconoce ${catalogada.codigo}, pero todavia no tiene formula, limites, requisitos, incompatibilidades y tests para liquidarla.`
+          : `El motor ha recibido el codigo ${deduccionPendiente.codigo}, que no existe en el catalogo normalizado actual.`,
+      }),
+    }
   }
 
   return null
 }
-
-const resultadoNoSoportado = (
-  caso: CasoFiscalAnual,
-  opciones: {
-    readonly motivo: string
-    readonly tituloPaso: string
-    readonly descripcionPaso: string
-  }
-): ResultadoNoSoportado => ({
-  _tag: "ResultadoNoSoportado",
-  motivo: opciones.motivo,
-  fuenteReconocida: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
-  rastro: rastroResultadoNoSoportado({
-    caso,
-    tituloPaso: opciones.tituloPaso,
-    descripcionPaso: opciones.descripcionPaso,
-  }),
-})
 
 const euros = (importe: Decimal): string => `${importe.toFixed(2)} euros`
 
 const porcentaje = (tipo: Decimal): string => `${tipo.mul(100).toFixed(2)}%`
 
 const sumarDeduccionesAutonomicasCentimos = (caso: CasoFiscalAnual): number =>
-  caso.deducciones.reduce(
-    (total, deduccion) => total + deduccion.importeCentimos,
-    0
-  )
+  caso.deduccionAutonomicaAgregadaCentimos ?? 0
 
 const deduccionesAutonomicasDescripcion = (caso: CasoFiscalAnual): string => {
-  if (caso.deducciones.length === 0) {
+  if (!caso.deduccionAutonomicaAgregadaCentimos) {
     return "Sin deducciones autonomicas declaradas en el caso"
   }
 
-  return caso.deducciones.map((deduccion) => deduccion.descripcion).join(" + ")
+  return "importe_agregado_no_desglosado"
 }
 
 const rastroResultadoNoSoportado = ({

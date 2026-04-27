@@ -57,24 +57,23 @@ export const MINIMO_PERSONAL_IRPF_LEGACY: Readonly<
   2026: importe(5550),
 }
 
-export const GASTOS_FIJOS_IRPF_LEGACY: Readonly<Record<AnioFiscal, Decimal>> =
-  {
-    2012: importe(0),
-    2013: importe(0),
-    2014: importe(0),
-    2015: importe(2000),
-    2016: importe(2000),
-    2017: importe(2000),
-    2018: importe(2000),
-    2019: importe(2000),
-    2020: importe(2000),
-    2021: importe(2000),
-    2022: importe(2000),
-    2023: importe(2000),
-    2024: importe(2000),
-    2025: importe(2000),
-    2026: importe(2000),
-  }
+export const GASTOS_FIJOS_IRPF_LEGACY: Readonly<Record<AnioFiscal, Decimal>> = {
+  2012: importe(0),
+  2013: importe(0),
+  2014: importe(0),
+  2015: importe(2000),
+  2016: importe(2000),
+  2017: importe(2000),
+  2018: importe(2000),
+  2019: importe(2000),
+  2020: importe(2000),
+  2021: importe(2000),
+  2022: importe(2000),
+  2023: importe(2000),
+  2024: importe(2000),
+  2025: importe(2000),
+  2026: importe(2000),
+}
 
 export const TRAMOS_IRPF_HASTA_2014: TramosIrpf = [
   [importe(17707), importe("0.2475")],
@@ -111,6 +110,14 @@ export const TRAMOS_IRPF_DESDE_2021: TramosIrpf = [
   [importe(Infinity), importe("0.47")],
 ]
 
+export const TRAMOS_IRPF_AHORRO_2025: TramosIrpf = [
+  [importe(6000), importe("0.19")],
+  [importe(50000), importe("0.21")],
+  [importe(200000), importe("0.23")],
+  [importe(300000), importe("0.27")],
+  [importe(Infinity), importe("0.30")],
+]
+
 export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf => {
   if (anio <= 2014) {
     return TRAMOS_IRPF_HASTA_2014
@@ -125,6 +132,11 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf => {
   }
 
   return TRAMOS_IRPF_DESDE_2021
+}
+
+export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
+  void anio
+  return TRAMOS_IRPF_AHORRO_2025
 }
 
 export const METADATOS_ARTICULO_20_LEGACY: Readonly<

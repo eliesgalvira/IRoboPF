@@ -69,14 +69,29 @@ export interface RendimientoCapitalInmobiliario {
   readonly importeIntegroCentimos: number
 }
 
+export type TratamientoGananciaPatrimonialMayores65 =
+  | { readonly _tag: "SinExencionMayores65" }
+  | { readonly _tag: "ViviendaHabitualMayores65" }
+  | {
+      readonly _tag: "ReinversionRentaVitaliciaMayores65"
+      readonly importeTransmisionCentimos: number
+      readonly importeReinvertidoRentaVitaliciaCentimos: number
+      readonly reinversionesPreviasRentaVitaliciaCentimos: number
+    }
+
+export interface GananciaPatrimonialTransmision {
+  readonly importeGananciaCentimos: number
+  readonly tratamientoMayores65: TratamientoGananciaPatrimonialMayores65
+}
+
 export interface RendimientosCasoFiscal {
   readonly trabajo: ReadonlyArray<RendimientoTrabajo>
   readonly capitalInmobiliario?: ReadonlyArray<RendimientoCapitalInmobiliario>
+  readonly gananciasPatrimoniales?: ReadonlyArray<GananciaPatrimonialTransmision>
 }
 
-export interface DeduccionAutonomicaAplicada {
-  readonly importeCentimos: number
-  readonly descripcion: string
+export interface DeduccionAutonomicaCatalogadaAplicada {
+  readonly codigo: string
 }
 
 export interface CasoFiscalAnual {
@@ -85,7 +100,8 @@ export interface CasoFiscalAnual {
   readonly situacionFamiliar: SituacionFamiliarIndividual
   readonly rendimientos: RendimientosCasoFiscal
   readonly reducciones: ReadonlyArray<never>
-  readonly deducciones: ReadonlyArray<DeduccionAutonomicaAplicada>
+  readonly deducciones: ReadonlyArray<DeduccionAutonomicaCatalogadaAplicada>
+  readonly deduccionAutonomicaAgregadaCentimos?: number
   readonly retencionesSoportadasCentimos: number
   readonly pagosACuentaCentimos: number
 }

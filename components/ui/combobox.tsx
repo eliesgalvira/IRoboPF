@@ -12,11 +12,15 @@ export interface OpcionCombobox<TValor extends string> {
 }
 
 export function Combobox<TValor extends string>({
+  className,
+  compacto = false,
   etiqueta,
   opciones,
   onChange,
   valor,
 }: {
+  readonly className?: string
+  readonly compacto?: boolean
   readonly etiqueta: string
   readonly opciones: ReadonlyArray<OpcionCombobox<TValor>>
   readonly onChange: (valor: TValor) => void
@@ -38,11 +42,16 @@ export function Combobox<TValor extends string>({
   }, [])
 
   return (
-    <div className="relative grid gap-2" ref={contenedor}>
-      <span className="text-sm font-bold">{etiqueta}</span>
+    <div className={cn("relative grid gap-2", className)} ref={contenedor}>
+      <span className="flex min-h-10 items-end text-sm leading-tight font-bold">
+        {etiqueta}
+      </span>
       <Button
         aria-expanded={abierto}
-        className="h-11 justify-between border-[var(--rule)] bg-[var(--paper-2)] px-3 text-base font-[var(--mono)] text-[var(--ink)] hover:bg-[var(--paper-2)]"
+        className={cn(
+          "justify-between border-[var(--rule)] bg-[var(--paper-2)] px-3 font-[var(--mono)] text-[var(--ink)] hover:bg-[var(--paper-2)]",
+          compacto ? "h-9 text-sm" : "h-11 text-base"
+        )}
         onClick={() => fijarAbierto((actual) => !actual)}
         role="combobox"
         type="button"
