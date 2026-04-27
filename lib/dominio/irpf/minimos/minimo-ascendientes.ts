@@ -11,7 +11,10 @@ export const obtenerMinimoAscendientes = (
 ): Decimal =>
   ascendientes.reduce((total, ascendiente) => {
     const minimoPorEdad =
-      ascendiente.edad > 65 ? crearImporteMonetario(1150) : IMPORTE_CERO
+      ascendiente.edad > 65 ||
+      ascendiente.discapacidad._tag !== "SinDiscapacidad"
+        ? crearImporteMonetario(1150)
+        : IMPORTE_CERO
     const incrementoMayor75 =
       ascendiente.edad > 75 ? crearImporteMonetario(1400) : IMPORTE_CERO
 

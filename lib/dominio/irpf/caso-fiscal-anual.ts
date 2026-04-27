@@ -19,7 +19,34 @@ export type ComunidadAutonoma =
   | "comunitat-valenciana"
   | "ceuta"
   | "melilla"
-export type DiscapacidadFiscal = "sin-discapacidad" | "discapacidad"
+export type DiscapacidadFiscal =
+  | {
+      readonly _tag: "SinDiscapacidad"
+    }
+  | {
+      readonly _tag: "Discapacidad33a64"
+      readonly necesitaAyudaOMovilidadReducida: boolean
+    }
+  | {
+      readonly _tag: "Discapacidad65OMas"
+    }
+
+export const sinDiscapacidad = {
+  _tag: "SinDiscapacidad",
+} as const satisfies DiscapacidadFiscal
+
+export const discapacidad33a64 = ({
+  necesitaAyudaOMovilidadReducida = false,
+}: {
+  readonly necesitaAyudaOMovilidadReducida?: boolean
+} = {}): DiscapacidadFiscal => ({
+  _tag: "Discapacidad33a64",
+  necesitaAyudaOMovilidadReducida,
+})
+
+export const discapacidad65OMas = {
+  _tag: "Discapacidad65OMas",
+} as const satisfies DiscapacidadFiscal
 
 export interface FamiliarFiscal {
   readonly edad: number
@@ -47,13 +74,18 @@ export interface RendimientosCasoFiscal {
   readonly capitalInmobiliario?: ReadonlyArray<RendimientoCapitalInmobiliario>
 }
 
+export interface DeduccionAutonomicaAplicada {
+  readonly importeCentimos: number
+  readonly descripcion: string
+}
+
 export interface CasoFiscalAnual {
   readonly anio: AnioFiscal
   readonly comunidadAutonoma: ComunidadAutonoma
   readonly situacionFamiliar: SituacionFamiliarIndividual
   readonly rendimientos: RendimientosCasoFiscal
   readonly reducciones: ReadonlyArray<never>
-  readonly deducciones: ReadonlyArray<never>
+  readonly deducciones: ReadonlyArray<DeduccionAutonomicaAplicada>
   readonly retencionesSoportadasCentimos: number
   readonly pagosACuentaCentimos: number
 }

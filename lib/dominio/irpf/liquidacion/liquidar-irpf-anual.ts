@@ -19,6 +19,10 @@ import { obtenerMinimoAscendientes } from "../minimos/minimo-ascendientes"
 import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
 import { obtenerMinimoDescendientes } from "../minimos/minimo-descendientes"
 import {
+  obtenerMinimoDiscapacidadContribuyente,
+  obtenerMinimoDiscapacidadFamiliares,
+} from "../minimos/minimo-discapacidad"
+import {
   calcularRendimientoNetoCapitalInmobiliarioSimplificado,
   sumarRendimientosCapitalInmobiliario,
 } from "../rendimientos/rendimientos-capital-inmobiliario"
@@ -60,6 +64,7 @@ export interface ResultadoLiquidacionIrpfSoportada {
   readonly solidaridadTrabajadorCentimos: number
   readonly cuotaIntegraGeneralCentimos: number
   readonly cuotaMinimoPersonalCentimos: number
+  readonly deduccionesAutonomicasCentimos: number
   readonly cuotaLiquidaCentimos: number
   readonly retencionesYPagosACuentaCentimos: number
   readonly cuotaDiferencialCentimos: number
@@ -151,9 +156,17 @@ const liquidarTrabajoIndividualSimple = (
   const minimoDescendientes = obtenerMinimoDescendientes(
     caso.situacionFamiliar.descendientes
   )
+  const minimoDiscapacidadContribuyente =
+    obtenerMinimoDiscapacidadContribuyente(caso.situacionFamiliar)
+  const minimoDiscapacidadFamiliares = obtenerMinimoDiscapacidadFamiliares([
+    ...caso.situacionFamiliar.descendientes,
+    ...caso.situacionFamiliar.ascendientes,
+  ])
   const minimoPersonalYFamiliar = minimoContribuyente
     .plus(minimoDescendientes)
     .plus(minimoAscendientes)
+    .plus(minimoDiscapacidadContribuyente)
+    .plus(minimoDiscapacidadFamiliares)
   const cuotaMinimoPersonal = calcularCuotaPorEscalaGeneral({
     anio: caso.anio,
     base: minimoPersonalYFamiliar,
@@ -164,7 +177,9 @@ const liquidarTrabajoIndividualSimple = (
   })
   const cuotaLiquida = Decimal.max(
     0,
-    cuotaIntegraGeneral.minus(cuotaMinimoPersonal)
+    cuotaIntegraGeneral
+      .minus(cuotaMinimoPersonal)
+      .minus(centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso)))
   )
   const cuotaLiquidaCentimos = eurosACentimos(
     redondearImporteLiquidado(cuotaLiquida)
@@ -230,6 +245,7 @@ const liquidarTrabajoIndividualSimple = (
     cuotaMinimoPersonalCentimos: eurosACentimos(
       redondearImporteLiquidado(cuotaMinimoPersonal)
     ),
+    deduccionesAutonomicasCentimos: sumarDeduccionesAutonomicasCentimos(caso),
     cuotaLiquidaCentimos,
     retencionesYPagosACuentaCentimos:
       caso.retencionesSoportadasCentimos + caso.pagosACuentaCentimos,
@@ -427,8 +443,18 @@ const liquidarTrabajoIndividualSimple = (
             },
             {
               etiqueta: "Minimo personal y familiar",
-              formula: `${euros(minimoContribuyente)} + ${euros(minimoDescendientes)} + ${euros(minimoAscendientes)}`,
+              formula: `${euros(minimoContribuyente)} + ${euros(minimoDescendientes)} + ${euros(minimoAscendientes)} + ${euros(minimoDiscapacidadContribuyente)} + ${euros(minimoDiscapacidadFamiliares)}`,
               resultado: euros(minimoPersonalYFamiliar),
+            },
+            {
+              etiqueta: "Minimo por discapacidad",
+              formula:
+                "Contribuyente, descendientes y ascendientes con discapacidad computados",
+              resultado: euros(
+                minimoDiscapacidadContribuyente.plus(
+                  minimoDiscapacidadFamiliares
+                )
+              ),
             },
           ],
           fuentes: [
@@ -510,8 +536,15 @@ const liquidarTrabajoIndividualSimple = (
           lineasCalculo: [
             {
               etiqueta: "Cuota liquida",
-              formula: `max(0, ${euros(cuotaIntegraGeneral)} - ${euros(cuotaMinimoPersonal)})`,
+              formula: `max(0, ${euros(cuotaIntegraGeneral)} - ${euros(cuotaMinimoPersonal)} - ${euros(centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso)))})`,
               resultado: euros(cuotaLiquida),
+            },
+            {
+              etiqueta: "Deducciones autonomicas aplicadas",
+              formula: deduccionesAutonomicasDescripcion(caso),
+              resultado: euros(
+                centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso))
+              ),
             },
             {
               etiqueta: "Retenciones soportadas",
@@ -551,23 +584,10 @@ const detectarCasoNoSoportado = (
   caso: CasoFiscalAnual
 ): ResultadoNoSoportado | null => {
   if (
-    caso.situacionFamiliar.descendientes.some(
-      (descendiente) => descendiente.discapacidad !== "sin-discapacidad"
-    )
-  ) {
-    return resultadoNoSoportado(caso, {
-      motivo: "Minimo por descendientes con discapacidad aun no implementado",
-      tituloPaso: "Circunstancia familiar no soportada",
-      descripcionPaso:
-        "El caso fiscal incluye descendientes con discapacidad, pero esta version del motor solo calcula el minimo general por descendientes.",
-    })
-  }
-
-  if (
     caso.situacionFamiliar.ascendientes.some(
       (ascendiente) =>
-        ascendiente.discapacidad !== "sin-discapacidad" ||
-        ascendiente.edad <= 65
+        ascendiente.edad <= 65 &&
+        ascendiente.discapacidad._tag === "SinDiscapacidad"
     )
   ) {
     return resultadoNoSoportado(caso, {
@@ -603,6 +623,20 @@ const resultadoNoSoportado = (
 const euros = (importe: Decimal): string => `${importe.toFixed(2)} euros`
 
 const porcentaje = (tipo: Decimal): string => `${tipo.mul(100).toFixed(2)}%`
+
+const sumarDeduccionesAutonomicasCentimos = (caso: CasoFiscalAnual): number =>
+  caso.deducciones.reduce(
+    (total, deduccion) => total + deduccion.importeCentimos,
+    0
+  )
+
+const deduccionesAutonomicasDescripcion = (caso: CasoFiscalAnual): string => {
+  if (caso.deducciones.length === 0) {
+    return "Sin deducciones autonomicas declaradas en el caso"
+  }
+
+  return caso.deducciones.map((deduccion) => deduccion.descripcion).join(" + ")
+}
 
 const rastroResultadoNoSoportado = ({
   caso,

@@ -7,7 +7,12 @@ import { NavegacionSitio } from "@/components/navegacion-sitio"
 import { Combobox } from "@/components/ui/combobox"
 import { NumberField } from "@/components/ui/number-field"
 import { Tooltip } from "@/components/ui/tooltip"
-import type { ComunidadAutonoma } from "@/lib/dominio/irpf/caso-fiscal-anual"
+import {
+  discapacidad33a64,
+  discapacidad65OMas,
+  sinDiscapacidad,
+  type ComunidadAutonoma,
+} from "@/lib/dominio/irpf/caso-fiscal-anual"
 import {
   liquidarIrpfAnual,
   type CasoFiscalAnual,
@@ -65,6 +70,8 @@ const AYUDAS_RESUMEN = {
     "Impuesto resultante antes de restar retenciones y pagos a cuenta.",
   "Retenciones/pagos a cuenta":
     "Importes ya pagados durante el año que se restan de la cuota liquida.",
+  "Deducciones autonómicas 2025":
+    "Importe total de deducciones autonómicas aplicables, si ya lo conoces.",
   "Cuota diferencial":
     "Resultado tras restar retenciones y pagos a cuenta. Positivo: a pagar; negativo: a devolver.",
 } satisfies Record<string, string>
@@ -75,11 +82,19 @@ const AYUDAS_FORMULARIO = {
     "Ingresos anuales por inmuebles alquilados u otros rendimientos inmobiliarios.",
   Descendientes:
     "Hijos, nietos u otros familiares hacia abajo que pueden computar si cumplen requisitos fiscales.",
+  "Descendientes con discapacidad":
+    "Descendientes que cumplen los requisitos fiscales y tienen discapacidad reconocida.",
+  "Descendientes discapacidad 65%":
+    "Descendientes con discapacidad reconocida igual o superior al 65%.",
+  "Descendientes con asistencia":
+    "Descendientes con discapacidad de 33% a 64% que necesitan ayuda de terceras personas o tienen movilidad reducida.",
   Ascendientes:
     "Padres, madres o abuelos que pueden computar solo si cumplen requisitos fiscales.",
   "Retenciones soportadas":
     "IRPF ya retenido durante el año, por ejemplo en la nomina.",
   "Pagos a cuenta": "Otros pagos anticipados del impuesto ya realizados.",
+  "Deducciones autonómicas 2025":
+    "Importe total de deducciones autonómicas del ejercicio 2025 que quieras aplicar como dato revisable.",
 } satisfies Record<string, string>
 
 function formatearEuros(centimos: number) {
@@ -99,10 +114,18 @@ export function LiquidacionIrpf() {
     React.useState<ComunidadAutonoma>("simulada-estatal")
   const [edad, fijarEdad] = React.useState(40)
   const [descendientes, fijarDescendientes] = React.useState(0)
+  const [descendientesConDiscapacidad, fijarDescendientesConDiscapacidad] =
+    React.useState(0)
+  const [descendientesDiscapacidad65, fijarDescendientesDiscapacidad65] =
+    React.useState(0)
+  const [descendientesConAsistencia, fijarDescendientesConAsistencia] =
+    React.useState(0)
   const [ascendientes, fijarAscendientes] = React.useState(0)
   const [retencionesSoportadasEuros, fijarRetencionesSoportadasEuros] =
     React.useState(0)
   const [pagosACuentaEuros, fijarPagosACuentaEuros] = React.useState(0)
+  const [deduccionesAutonomicasEuros, fijarDeduccionesAutonomicasEuros] =
+    React.useState(0)
 
   const caso = React.useMemo(
     () =>
@@ -112,15 +135,23 @@ export function LiquidacionIrpf() {
         situacionFamiliar: {
           tipo: "individual",
           edad,
-          descendientes: Array.from({ length: descendientes }, () => ({
+          descendientes: Array.from({ length: descendientes }, (_, indice) => ({
             edad: 10,
-            discapacidad: "sin-discapacidad",
+            discapacidad:
+              indice < descendientesDiscapacidad65
+                ? discapacidad65OMas
+                : indice < descendientesConDiscapacidad
+                  ? discapacidad33a64({
+                      necesitaAyudaOMovilidadReducida:
+                        indice < descendientesConAsistencia,
+                    })
+                  : sinDiscapacidad,
           })),
           ascendientes: Array.from({ length: ascendientes }, () => ({
             edad: 78,
-            discapacidad: "sin-discapacidad",
+            discapacidad: sinDiscapacidad,
           })),
-          discapacidad: "sin-discapacidad",
+          discapacidad: sinDiscapacidad,
         },
         rendimientos: {
           trabajo: [
@@ -140,7 +171,16 @@ export function LiquidacionIrpf() {
               : [],
         },
         reducciones: [],
-        deducciones: [],
+        deducciones:
+          deduccionesAutonomicasEuros > 0
+            ? [
+                {
+                  importeCentimos: eurosACentimos(deduccionesAutonomicasEuros),
+                  descripcion:
+                    "Deducciones autonomicas indicadas por el usuario",
+                },
+              ]
+            : [],
         retencionesSoportadasCentimos: eurosACentimos(
           retencionesSoportadasEuros
         ),
@@ -151,6 +191,10 @@ export function LiquidacionIrpf() {
       capitalInmobiliarioEuros,
       comunidadAutonoma,
       descendientes,
+      descendientesConAsistencia,
+      descendientesConDiscapacidad,
+      descendientesDiscapacidad65,
+      deduccionesAutonomicasEuros,
       edad,
       pagosACuentaEuros,
       rendimientosTrabajoEuros,
@@ -173,11 +217,20 @@ export function LiquidacionIrpf() {
             capitalInmobiliarioEuros={capitalInmobiliarioEuros}
             comunidadAutonoma={comunidadAutonoma}
             descendientes={descendientes}
+            descendientesConAsistencia={descendientesConAsistencia}
+            descendientesConDiscapacidad={descendientesConDiscapacidad}
+            descendientesDiscapacidad65={descendientesDiscapacidad65}
             edad={edad}
             fijarAscendientes={fijarAscendientes}
             fijarCapitalInmobiliarioEuros={fijarCapitalInmobiliarioEuros}
             fijarComunidadAutonoma={fijarComunidadAutonoma}
             fijarDescendientes={fijarDescendientes}
+            fijarDescendientesConAsistencia={fijarDescendientesConAsistencia}
+            fijarDescendientesConDiscapacidad={
+              fijarDescendientesConDiscapacidad
+            }
+            fijarDescendientesDiscapacidad65={fijarDescendientesDiscapacidad65}
+            fijarDeduccionesAutonomicasEuros={fijarDeduccionesAutonomicasEuros}
             fijarEdad={fijarEdad}
             fijarPagosACuentaEuros={fijarPagosACuentaEuros}
             fijarRendimientosTrabajoEuros={fijarRendimientosTrabajoEuros}
@@ -185,6 +238,7 @@ export function LiquidacionIrpf() {
             pagosACuentaEuros={pagosACuentaEuros}
             rendimientosTrabajoEuros={rendimientosTrabajoEuros}
             retencionesSoportadasEuros={retencionesSoportadasEuros}
+            deduccionesAutonomicasEuros={deduccionesAutonomicasEuros}
           />
           <Resultado resultado={resultado} />
         </section>
@@ -198,11 +252,19 @@ function FormularioCaso({
   capitalInmobiliarioEuros,
   comunidadAutonoma,
   descendientes,
+  descendientesConAsistencia,
+  descendientesConDiscapacidad,
+  descendientesDiscapacidad65,
+  deduccionesAutonomicasEuros,
   edad,
   fijarAscendientes,
   fijarCapitalInmobiliarioEuros,
   fijarComunidadAutonoma,
   fijarDescendientes,
+  fijarDescendientesConAsistencia,
+  fijarDescendientesConDiscapacidad,
+  fijarDescendientesDiscapacidad65,
+  fijarDeduccionesAutonomicasEuros,
   fijarEdad,
   fijarPagosACuentaEuros,
   fijarRendimientosTrabajoEuros,
@@ -215,11 +277,19 @@ function FormularioCaso({
   readonly capitalInmobiliarioEuros: number
   readonly comunidadAutonoma: ComunidadAutonoma
   readonly descendientes: number
+  readonly descendientesConAsistencia: number
+  readonly descendientesConDiscapacidad: number
+  readonly descendientesDiscapacidad65: number
+  readonly deduccionesAutonomicasEuros: number
   readonly edad: number
   readonly fijarAscendientes: (valor: number) => void
   readonly fijarCapitalInmobiliarioEuros: (valor: number) => void
   readonly fijarComunidadAutonoma: (valor: ComunidadAutonoma) => void
   readonly fijarDescendientes: (valor: number) => void
+  readonly fijarDescendientesConAsistencia: (valor: number) => void
+  readonly fijarDescendientesConDiscapacidad: (valor: number) => void
+  readonly fijarDescendientesDiscapacidad65: (valor: number) => void
+  readonly fijarDeduccionesAutonomicasEuros: (valor: number) => void
   readonly fijarEdad: (valor: number) => void
   readonly fijarPagosACuentaEuros: (valor: number) => void
   readonly fijarRendimientosTrabajoEuros: (valor: number) => void
@@ -275,6 +345,14 @@ function FormularioCaso({
           paso={250}
           valor={pagosACuentaEuros}
         />
+        <NumberField
+          ayuda={AYUDAS_FORMULARIO["Deducciones autonómicas 2025"]}
+          etiqueta="Deducciones autonómicas 2025"
+          formato={FORMATO_ENTERO}
+          onChange={fijarDeduccionesAutonomicasEuros}
+          paso={100}
+          valor={deduccionesAutonomicasEuros}
+        />
       </div>
 
       <div className="mt-6">
@@ -300,8 +378,57 @@ function FormularioCaso({
           etiqueta="Descendientes"
           formato={FORMATO_ENTERO}
           max={8}
-          onChange={fijarDescendientes}
+          onChange={(valor) => {
+            fijarDescendientes(valor)
+            fijarDescendientesConDiscapacidad(
+              Math.min(descendientesConDiscapacidad, valor)
+            )
+            fijarDescendientesDiscapacidad65(
+              Math.min(descendientesDiscapacidad65, valor)
+            )
+            fijarDescendientesConAsistencia(
+              Math.min(descendientesConAsistencia, valor)
+            )
+          }}
           valor={descendientes}
+        />
+        <NumberField
+          ayuda={AYUDAS_FORMULARIO["Descendientes con discapacidad"]}
+          etiqueta="Desc. discapacidad 33%-64%"
+          formato={FORMATO_ENTERO}
+          max={descendientes}
+          onChange={(valor) => {
+            const siguiente = Math.max(valor, descendientesDiscapacidad65)
+            fijarDescendientesConDiscapacidad(siguiente)
+            fijarDescendientesConAsistencia(
+              Math.min(descendientesConAsistencia, siguiente)
+            )
+          }}
+          valor={descendientesConDiscapacidad}
+        />
+        <NumberField
+          ayuda={AYUDAS_FORMULARIO["Descendientes discapacidad 65%"]}
+          etiqueta="Desc. discapacidad ≥65%"
+          formato={FORMATO_ENTERO}
+          max={descendientes}
+          onChange={(valor) => {
+            fijarDescendientesDiscapacidad65(valor)
+            fijarDescendientesConDiscapacidad(
+              Math.max(descendientesConDiscapacidad, valor)
+            )
+          }}
+          valor={descendientesDiscapacidad65}
+        />
+        <NumberField
+          ayuda={AYUDAS_FORMULARIO["Descendientes con asistencia"]}
+          etiqueta="Desc. asistencia/movilidad"
+          formato={FORMATO_ENTERO}
+          max={Math.max(
+            0,
+            descendientesConDiscapacidad - descendientesDiscapacidad65
+          )}
+          onChange={fijarDescendientesConAsistencia}
+          valor={descendientesConAsistencia}
         />
         <NumberField
           ayuda={AYUDAS_FORMULARIO["Ascendientes"]}
@@ -414,6 +541,11 @@ function Resultado({
                 etiqueta="Cuota líquida"
                 ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
                 valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
+              />
+              <DatoResultado
+                etiqueta="Deducciones autonómicas 2025"
+                ayuda={AYUDAS_RESUMEN["Deducciones autonómicas 2025"]}
+                valor={formatearEuros(resultado.deduccionesAutonomicasCentimos)}
               />
               <DatoResultado
                 etiqueta="Retenciones/pagos a cuenta"
