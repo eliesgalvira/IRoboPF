@@ -36,11 +36,11 @@ import {
 } from "@/components/ui/chart"
 import {
   configuracionRangoAuditoria,
-  auditarRangoSalarial,
+  auditarProgresividadFrio,
   type HallazgoAuditoria,
   type AuditoriaRangoSalarial,
   type PuntoAuditoriaRangoSalarial,
-} from "@/lib/domain/progresividad"
+} from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
 import {
   exportarAuditoriaCompatibleExcelConProgreso,
   exportarAuditoriaEducativaExcel,
@@ -98,20 +98,24 @@ function AuditoriaImpl() {
   const auditoria = React.useMemo(
     () =>
       Effect.runSync(
-        auditarRangoSalarial({
-          salarioBrutoAnualMinimoCentimos: Math.min(
-            minimoCentimos,
-            maximoCentimos
-          ),
-          salarioBrutoAnualMaximoCentimos: Math.max(
-            minimoCentimos,
-            maximoCentimos
-          ),
-          pasoCentimos: configuracionRangoAuditoria.pasoCentimos,
-          anioComparado,
-          anioReferencia: 2026,
-        })
-      ),
+        auditarProgresividadFrio(
+          {
+            perfil: "legacy-progresividad-frio",
+            salarioBrutoAnualMinimoCentimos: Math.min(
+              minimoCentimos,
+              maximoCentimos
+            ),
+            salarioBrutoAnualMaximoCentimos: Math.max(
+              minimoCentimos,
+              maximoCentimos
+            ),
+            pasoCentimos: configuracionRangoAuditoria.pasoCentimos,
+            anioComparado,
+            anioReferencia: 2026,
+          },
+          { modo: "compatible-legacy" }
+        )
+      ).auditoria,
     [anioComparado, maximoCentimos, minimoCentimos]
   )
 
@@ -773,16 +777,20 @@ function filasTipoEfectivoIrpf({
     series.set(
       anio,
       Effect.runSync(
-        auditarRangoSalarial({
-          salarioBrutoAnualMinimoCentimos:
-            auditoria.salarioBrutoAnualMinimoCentimos,
-          salarioBrutoAnualMaximoCentimos:
-            auditoria.salarioBrutoAnualMaximoCentimos,
-          pasoCentimos: auditoria.pasoCentimos,
-          anioComparado: anio,
-          anioReferencia: auditoria.anioReferencia,
-        })
-      ).puntos
+        auditarProgresividadFrio(
+          {
+            perfil: "legacy-progresividad-frio",
+            salarioBrutoAnualMinimoCentimos:
+              auditoria.salarioBrutoAnualMinimoCentimos,
+            salarioBrutoAnualMaximoCentimos:
+              auditoria.salarioBrutoAnualMaximoCentimos,
+            pasoCentimos: auditoria.pasoCentimos,
+            anioComparado: anio,
+            anioReferencia: auditoria.anioReferencia,
+          },
+          { modo: "compatible-legacy" }
+        )
+      ).auditoria.puntos
     )
   }
 
@@ -826,16 +834,20 @@ function filasNetoReal({
     series.set(
       anio,
       Effect.runSync(
-        auditarRangoSalarial({
-          salarioBrutoAnualMinimoCentimos:
-            auditoria.salarioBrutoAnualMinimoCentimos,
-          salarioBrutoAnualMaximoCentimos:
-            auditoria.salarioBrutoAnualMaximoCentimos,
-          pasoCentimos: auditoria.pasoCentimos,
-          anioComparado: anio,
-          anioReferencia: auditoria.anioReferencia,
-        })
-      ).puntos
+        auditarProgresividadFrio(
+          {
+            perfil: "legacy-progresividad-frio",
+            salarioBrutoAnualMinimoCentimos:
+              auditoria.salarioBrutoAnualMinimoCentimos,
+            salarioBrutoAnualMaximoCentimos:
+              auditoria.salarioBrutoAnualMaximoCentimos,
+            pasoCentimos: auditoria.pasoCentimos,
+            anioComparado: anio,
+            anioReferencia: auditoria.anioReferencia,
+          },
+          { modo: "compatible-legacy" }
+        )
+      ).auditoria.puntos
     )
   }
 

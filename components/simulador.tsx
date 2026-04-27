@@ -26,7 +26,7 @@ import {
   type ComparacionAjustadaPorIpc,
   type DesgloseLiquidado,
   type PerdidaAcumulada,
-} from "@/lib/domain/progresividad"
+} from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
 import { useContadorAnimado } from "@/lib/animacion"
 import { cn } from "@/lib/utils"
 
