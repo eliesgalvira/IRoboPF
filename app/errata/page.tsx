@@ -22,7 +22,7 @@ export default function PaginaErrata() {
     <main className="min-h-svh">
       <div className="mx-auto grid w-full max-w-[1120px] gap-10 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <header className="grid gap-6 border-b-2 border-[var(--rule)] pb-8">
-          <p className="text-xs tracking-[0.3em] text-[var(--danger)] uppercase">
+          <p className="text-sm tracking-[0.3em] text-[var(--danger)] uppercase">
             Errata técnica
           </p>
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.7fr)] lg:items-end">
@@ -160,7 +160,7 @@ function Caso({
   return (
     <article className="grid gap-4 border-2 border-[var(--rule)] bg-[var(--paper)] p-4 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]">
       <div className="grid content-start gap-3">
-        <p className="text-xs font-bold tracking-[0.24em] text-[var(--danger)] uppercase">
+        <p className="text-sm font-bold tracking-[0.24em] text-[var(--danger)] uppercase">
           {etiqueta}
         </p>
         <h3 className="text-lg leading-tight font-bold">{titulo}</h3>
