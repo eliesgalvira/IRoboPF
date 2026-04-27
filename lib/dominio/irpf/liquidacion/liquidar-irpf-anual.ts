@@ -7,6 +7,7 @@ import {
   eurosACentimos,
   redondearImporteLiquidado,
 } from "../../dinero/importe-monetario"
+import { calcularDesgloseCotizacionesSocialesLegacy } from "../../laboral/cotizaciones-sociales"
 import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
 import {
@@ -44,6 +45,13 @@ export interface ResultadoLiquidacionIrpfSoportada {
   readonly anio: CasoFiscalAnual["anio"]
   readonly baseImponibleGeneralCentimos: number
   readonly baseLiquidableGeneralCentimos: number
+  readonly cotizacionEmpresarialCentimos: number
+  readonly cotizacionTrabajadorCentimos: number
+  readonly costeLaboralCentimos: number
+  readonly meiEmpresarialCentimos: number
+  readonly meiTrabajadorCentimos: number
+  readonly solidaridadEmpresarialCentimos: number
+  readonly solidaridadTrabajadorCentimos: number
   readonly cuotaIntegraGeneralCentimos: number
   readonly cuotaMinimoPersonalCentimos: number
   readonly cuotaLiquidaCentimos: number
@@ -99,6 +107,10 @@ const liquidarTrabajoIndividualSimple = (
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
+  })
+  const cotizacionesSociales = calcularDesgloseCotizacionesSocialesLegacy({
+    anio: caso.anio,
+    salarioBrutoAnual: rendimientoIntegroTrabajo,
   })
   const rendimientoIntegroCapitalInmobiliario =
     sumarRendimientosCapitalInmobiliario(
@@ -156,6 +168,31 @@ const liquidarTrabajoIndividualSimple = (
     baseLiquidableGeneralCentimos: eurosACentimos(
       redondearImporteLiquidado(baseLiquidableGeneral)
     ),
+    cotizacionEmpresarialCentimos: eurosACentimos(
+      redondearImporteLiquidado(cotizacionesSociales.cotizacionEmpresarial)
+    ),
+    cotizacionTrabajadorCentimos: eurosACentimos(
+      redondearImporteLiquidado(cotizacionesSociales.cotizacionTrabajador)
+    ),
+    costeLaboralCentimos: eurosACentimos(
+      redondearImporteLiquidado(
+        rendimientoIntegroTrabajo.plus(
+          cotizacionesSociales.cotizacionEmpresarial
+        )
+      )
+    ),
+    meiEmpresarialCentimos: eurosACentimos(
+      redondearImporteLiquidado(cotizacionesSociales.meiEmpresarial)
+    ),
+    meiTrabajadorCentimos: eurosACentimos(
+      redondearImporteLiquidado(cotizacionesSociales.meiTrabajador)
+    ),
+    solidaridadEmpresarialCentimos: eurosACentimos(
+      redondearImporteLiquidado(cotizacionesSociales.solidaridadEmpresarial)
+    ),
+    solidaridadTrabajadorCentimos: eurosACentimos(
+      redondearImporteLiquidado(cotizacionesSociales.solidaridadTrabajador)
+    ),
     cuotaIntegraGeneralCentimos: eurosACentimos(
       redondearImporteLiquidado(cuotaIntegraGeneral)
     ),
@@ -206,6 +243,95 @@ const liquidarTrabajoIndividualSimple = (
             {
               titulo: "Manual Renta 2025 Parte 1",
               referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
+            },
+          ],
+        },
+        {
+          _tag: "PasoExplicacion",
+          titulo: "Cotizaciones a la Seguridad Social",
+          descripcion:
+            "Desglose de cotizaciones sociales usado por el caso tecnico actual: aportacion empresarial, aportacion del trabajador, MEI y cuota adicional de solidaridad cuando existe exceso sobre la base maxima.",
+          lineasCalculo: [
+            {
+              etiqueta: "Base ordinaria de cotizacion",
+              formula:
+                "min(rendimiento integro del trabajo, base maxima anual)",
+              resultado: euros(cotizacionesSociales.baseOrdinaria),
+            },
+            {
+              etiqueta: "Exceso sobre base maxima",
+              formula:
+                "max(0, rendimiento integro del trabajo - base maxima anual)",
+              resultado: euros(cotizacionesSociales.excesoBase),
+            },
+            {
+              etiqueta: "Cotizacion empresarial ordinaria",
+              formula:
+                "Base ordinaria x tipos empresariales sin MEI ni solidaridad",
+              resultado: euros(
+                cotizacionesSociales.cotizacionEmpresarialOrdinaria
+              ),
+            },
+            {
+              etiqueta: "Cotizacion del trabajador ordinaria",
+              formula:
+                "Base ordinaria x tipos del trabajador sin MEI ni solidaridad",
+              resultado: euros(
+                cotizacionesSociales.cotizacionTrabajadorOrdinaria
+              ),
+            },
+            {
+              etiqueta: "MEI empresarial",
+              formula: "Base ordinaria x tipo empresarial del MEI",
+              resultado: euros(cotizacionesSociales.meiEmpresarial),
+            },
+            {
+              etiqueta: "MEI del trabajador",
+              formula: "Base ordinaria x tipo del trabajador del MEI",
+              resultado: euros(cotizacionesSociales.meiTrabajador),
+            },
+            {
+              etiqueta: "Solidaridad empresarial",
+              formula: "5/6 de la cuota adicional de solidaridad",
+              resultado: euros(cotizacionesSociales.solidaridadEmpresarial),
+            },
+            {
+              etiqueta: "Solidaridad del trabajador",
+              formula: "1/6 de la cuota adicional de solidaridad",
+              resultado: euros(cotizacionesSociales.solidaridadTrabajador),
+            },
+            {
+              etiqueta: "Cotizacion empresarial total",
+              formula:
+                "Ordinaria empresarial + MEI empresarial + solidaridad empresarial",
+              resultado: euros(cotizacionesSociales.cotizacionEmpresarial),
+            },
+            {
+              etiqueta: "Cotizacion total del trabajador",
+              formula:
+                "Ordinaria trabajador + MEI trabajador + solidaridad trabajador",
+              resultado: euros(cotizacionesSociales.cotizacionTrabajador),
+            },
+            {
+              etiqueta: "Coste laboral",
+              formula:
+                "Rendimiento integro del trabajo + cotizacion empresarial",
+              resultado: euros(
+                rendimientoIntegroTrabajo.plus(
+                  cotizacionesSociales.cotizacionEmpresarial
+                )
+              ),
+            },
+          ],
+          fuentes: [
+            {
+              titulo: "Parametros Seguridad Social 2012-2026",
+              referencia:
+                "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+            },
+            {
+              titulo: "Glosario fiscal del motor",
+              referencia: "docs/glosario-fiscal-motor.md",
             },
           ],
         },

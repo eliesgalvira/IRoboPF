@@ -6,6 +6,7 @@ import { AlertTriangle, FileText } from "lucide-react"
 import { NavegacionSitio } from "@/components/navegacion-sitio"
 import { Combobox } from "@/components/ui/combobox"
 import { NumberField } from "@/components/ui/number-field"
+import { Tooltip } from "@/components/ui/tooltip"
 import type { ComunidadAutonoma } from "@/lib/dominio/irpf/caso-fiscal-anual"
 import {
   liquidarIrpfAnual,
@@ -42,6 +43,22 @@ const OPCIONES_COMUNIDAD_AUTONOMA: ReadonlyArray<{
   { valor: "ceuta", etiqueta: "Ceuta" },
   { valor: "melilla", etiqueta: "Melilla" },
 ]
+const AYUDAS_RESUMEN = {
+  "Base liquidable":
+    "Cantidad sobre la que se aplican los tramos despues de restar gastos y reducciones soportadas.",
+  "Cotización empresarial":
+    "Aportacion a la Seguridad Social que paga la empresa por el trabajador.",
+  "Cotización trabajador":
+    "Aportacion a la Seguridad Social que se descuenta al trabajador.",
+  "Coste laboral": "Salario bruto mas cotizacion empresarial estimada.",
+  "MEI empresarial":
+    "Parte empresarial del Mecanismo de Equidad Intergeneracional.",
+  "MEI trabajador": "Parte del MEI descontada al trabajador.",
+  "Cuota líquida":
+    "Impuesto resultante antes de restar retenciones y pagos a cuenta.",
+  "Cuota diferencial":
+    "Resultado tras restar retenciones y pagos a cuenta. Positivo: a pagar; negativo: a devolver.",
+} satisfies Record<string, string>
 
 function formatearEuros(centimos: number) {
   return new Intl.NumberFormat("es-ES", {
@@ -229,7 +246,7 @@ function FormularioCaso({
         <NumberField
           etiqueta="Ascendientes"
           formato={FORMATO_ENTERO}
-          max={4}
+          max={12}
           onChange={fijarAscendientes}
           valor={ascendientes}
         />
@@ -282,17 +299,45 @@ function Resultado({
               </>
             </div>
           ) : (
-            <div className="grid gap-3 pl-8 sm:grid-cols-3">
+            <div className="grid gap-3 pl-8 sm:grid-cols-2 xl:grid-cols-4">
               <DatoResultado
                 etiqueta="Base liquidable"
+                ayuda={AYUDAS_RESUMEN["Base liquidable"]}
                 valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
               />
               <DatoResultado
+                etiqueta="Cotización empresarial"
+                ayuda={AYUDAS_RESUMEN["Cotización empresarial"]}
+                valor={formatearEuros(resultado.cotizacionEmpresarialCentimos)}
+              />
+              <DatoResultado
+                etiqueta="Cotización trabajador"
+                ayuda={AYUDAS_RESUMEN["Cotización trabajador"]}
+                valor={formatearEuros(resultado.cotizacionTrabajadorCentimos)}
+              />
+              <DatoResultado
+                etiqueta="Coste laboral"
+                ayuda={AYUDAS_RESUMEN["Coste laboral"]}
+                valor={formatearEuros(resultado.costeLaboralCentimos)}
+              />
+              <DatoResultado
+                etiqueta="MEI empresarial"
+                ayuda={AYUDAS_RESUMEN["MEI empresarial"]}
+                valor={formatearEuros(resultado.meiEmpresarialCentimos)}
+              />
+              <DatoResultado
+                etiqueta="MEI trabajador"
+                ayuda={AYUDAS_RESUMEN["MEI trabajador"]}
+                valor={formatearEuros(resultado.meiTrabajadorCentimos)}
+              />
+              <DatoResultado
                 etiqueta="Cuota líquida"
+                ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
                 valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
               />
               <DatoResultado
                 etiqueta="Cuota diferencial"
+                ayuda={AYUDAS_RESUMEN["Cuota diferencial"]}
                 valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
               />
             </div>
@@ -382,15 +427,26 @@ function Resultado({
 }
 
 function DatoResultado({
+  ayuda,
   etiqueta,
   valor,
 }: {
+  readonly ayuda: string
   readonly etiqueta: string
   readonly valor: string
 }) {
   return (
     <div className="border border-[var(--rule)] bg-[var(--paper-2)] p-3">
-      <dt className="text-xs text-[var(--ink-soft)]">{etiqueta}</dt>
+      <dt className="text-xs text-[var(--ink-soft)]">
+        <Tooltip contenido={ayuda}>
+          <button
+            className="cursor-help border-b border-dotted border-current text-left"
+            type="button"
+          >
+            {etiqueta}
+          </button>
+        </Tooltip>
+      </dt>
       <dd className="mt-1 font-bold">{valor}</dd>
     </div>
   )

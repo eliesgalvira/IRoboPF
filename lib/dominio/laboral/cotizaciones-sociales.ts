@@ -42,6 +42,19 @@ export interface CotizacionesSociales {
   readonly cotizacionTrabajador: Decimal
 }
 
+export interface DesgloseCotizacionesSociales {
+  readonly baseOrdinaria: Decimal
+  readonly excesoBase: Decimal
+  readonly cotizacionEmpresarial: Decimal
+  readonly cotizacionTrabajador: Decimal
+  readonly cotizacionEmpresarialOrdinaria: Decimal
+  readonly cotizacionTrabajadorOrdinaria: Decimal
+  readonly meiEmpresarial: Decimal
+  readonly meiTrabajador: Decimal
+  readonly solidaridadEmpresarial: Decimal
+  readonly solidaridadTrabajador: Decimal
+}
+
 export interface EntradaCotizacionesSocialesLegacy {
   readonly salarioBrutoAnual: Decimal
   readonly anio: AnioFiscal
@@ -145,9 +158,7 @@ const obtenerTiposMei = (anio: AnioFiscal): TiposCotizacion => {
   }
 }
 
-const obtenerPoliticaSolidaridad = (
-  anio: AnioFiscal
-): PoliticaSolidaridad => {
+const obtenerPoliticaSolidaridad = (anio: AnioFiscal): PoliticaSolidaridad => {
   if (anio === 2025) {
     return {
       _tag: "ConSolidaridad",
@@ -200,10 +211,7 @@ const calcularTotalSolidaridad = (
 
   const limitePrimerTramo = parametros.baseMaxima.mul("0.10")
   const limiteSegundoTramo = parametros.baseMaxima.mul("0.50")
-  const excesoPrimerTramo = minimo(
-    baseCotizacion.excesoBase,
-    limitePrimerTramo
-  )
+  const excesoPrimerTramo = minimo(baseCotizacion.excesoBase, limitePrimerTramo)
   const excesoSegundoTramo = minimo(
     maximo(IMPORTE_CERO, baseCotizacion.excesoBase.minus(limitePrimerTramo)),
     limiteSegundoTramo.minus(limitePrimerTramo)
@@ -242,26 +250,58 @@ export const calcularCotizacionesSocialesLegacy = ({
   salarioBrutoAnual,
   anio,
 }: EntradaCotizacionesSocialesLegacy): CotizacionesSociales => {
+  const desglose = calcularDesgloseCotizacionesSocialesLegacy({
+    salarioBrutoAnual,
+    anio,
+  })
+
+  return {
+    cotizacionEmpresarial: desglose.cotizacionEmpresarial,
+    cotizacionTrabajador: desglose.cotizacionTrabajador,
+  }
+}
+
+export const calcularDesgloseCotizacionesSocialesLegacy = ({
+  salarioBrutoAnual,
+  anio,
+}: EntradaCotizacionesSocialesLegacy): DesgloseCotizacionesSociales => {
   const parametros = obtenerParametrosCotizacionLegacy(anio)
   const baseCotizacion = baseCotizacionPara(salarioBrutoAnual, parametros)
   const cotizacionesOrdinarias = {
     cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "empresarial").plus(
-        parametros.mei.empresarial
-      )
+      sumarTipoCotizacionLegacy(parametros, "empresarial")
     ),
     cotizacionTrabajador: baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "trabajador").plus(
-        parametros.mei.trabajador
-      )
+      sumarTipoCotizacionLegacy(parametros, "trabajador")
+    ),
+  }
+  const cotizacionesMei = {
+    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
+      parametros.mei.empresarial
+    ),
+    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mul(
+      parametros.mei.trabajador
     ),
   }
   const cotizacionesSolidaridad = repartirCotizacionSolidaridad(
     calcularTotalSolidaridad(baseCotizacion, parametros)
   )
-
-  return sumarCotizacionesSociales(
-    cotizacionesOrdinarias,
+  const cotizacionesTotales = sumarCotizacionesSociales(
+    sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei),
     cotizacionesSolidaridad
   )
+
+  return {
+    baseOrdinaria: baseCotizacion.baseOrdinaria,
+    excesoBase: baseCotizacion.excesoBase,
+    cotizacionEmpresarial: cotizacionesTotales.cotizacionEmpresarial,
+    cotizacionTrabajador: cotizacionesTotales.cotizacionTrabajador,
+    cotizacionEmpresarialOrdinaria:
+      cotizacionesOrdinarias.cotizacionEmpresarial,
+    cotizacionTrabajadorOrdinaria: cotizacionesOrdinarias.cotizacionTrabajador,
+    meiEmpresarial: cotizacionesMei.cotizacionEmpresarial,
+    meiTrabajador: cotizacionesMei.cotizacionTrabajador,
+    solidaridadEmpresarial: cotizacionesSolidaridad.cotizacionEmpresarial,
+    solidaridadTrabajador: cotizacionesSolidaridad.cotizacionTrabajador,
+  }
 }
