@@ -1,7 +1,7 @@
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 
 export type ComunidadAutonoma = "simulada-estatal"
-export type DiscapacidadFiscal = "sin-discapacidad"
+export type DiscapacidadFiscal = "sin-discapacidad" | "discapacidad"
 
 export interface FamiliarFiscal {
   readonly edad: number

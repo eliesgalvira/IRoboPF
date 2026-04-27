@@ -8,6 +8,8 @@ export const crearImporteMonetario = (
   valor: Decimal.Value
 ): ImporteMonetario => new Decimal(valor)
 
+// Constantes Decimal compartidas para evitar mezclar literales `number` en
+// acumuladores monetarios y para expresar identidades aritmeticas de dominio.
 export const IMPORTE_CERO = crearImporteMonetario(0)
 export const IMPORTE_UNO = crearImporteMonetario(1)
 

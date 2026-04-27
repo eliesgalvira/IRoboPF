@@ -7,9 +7,11 @@ import {
   eurosACentimos,
   redondearImporteLiquidado,
 } from "../../dinero/importe-monetario"
+import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
 import { calcularCuotaPorEscalaGeneral } from "../cuotas/escalas-gravamen"
 import { calcularBaseImponibleGeneral } from "../integracion/base-imponible-general"
+import { obtenerMinimoAscendientes } from "../minimos/minimo-ascendientes"
 import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
 import {
   calcularRendimientoNetoTrabajo,
@@ -79,6 +81,10 @@ const liquidarTrabajoIndividualSimple = (
     caso.rendimientos.trabajo,
     centimosAEuros
   )
+  const parametrosComunidad = obtenerParametrosComunidadAutonoma({
+    anio: caso.anio,
+    comunidadAutonoma: caso.comunidadAutonoma,
+  })
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
@@ -91,9 +97,17 @@ const liquidarTrabajoIndividualSimple = (
     anio: caso.anio,
     base: baseLiquidableGeneral,
   })
+  const minimoContribuyente = obtenerMinimoContribuyente({
+    anio: caso.anio,
+    edad: caso.situacionFamiliar.edad,
+  })
+  const minimoAscendientes = obtenerMinimoAscendientes(
+    caso.situacionFamiliar.ascendientes
+  )
+  const minimoPersonalYFamiliar = minimoContribuyente.plus(minimoAscendientes)
   const cuotaMinimoPersonal = calcularCuotaPorEscalaGeneral({
     anio: caso.anio,
-    base: obtenerMinimoContribuyente(caso.anio),
+    base: minimoPersonalYFamiliar,
   })
   const cuotaLiquida = Decimal.max(
     0,
@@ -142,12 +156,26 @@ const liquidarTrabajoIndividualSimple = (
         {
           _tag: "PasoExplicacion",
           titulo: "Base general y minimo personal",
-          descripcion: `Base liquidable general ${baseLiquidableGeneral.toFixed(2)} euros y minimo del contribuyente ${obtenerMinimoContribuyente(caso.anio).toFixed(2)} euros.`,
+          descripcion: `Base liquidable general ${baseLiquidableGeneral.toFixed(2)} euros y minimo personal y familiar ${minimoPersonalYFamiliar.toFixed(2)} euros.`,
           fuentes: [
             {
               titulo: "Parametros IRPF estatal 2012-2026",
               referencia:
                 "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+            },
+          ],
+        },
+        {
+          _tag: "PasoExplicacion",
+          titulo: "Comunidad autonoma",
+          descripcion: parametrosComunidad.escalaAutonomicaIgualEstatal
+            ? "La comunidad simulada-estatal usa minimos y escala autonomica igualados al tramo estatal para esta vertical slice."
+            : "La comunidad autonoma aplica parametros propios.",
+          fuentes: [
+            {
+              titulo: "Manual Renta 2025 Parte 2",
+              referencia:
+                "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
             },
           ],
         },
@@ -174,12 +202,19 @@ const detectarCasoNoSoportado = (
     })
   }
 
-  if (caso.situacionFamiliar.ascendientes.length > 0) {
+  if (
+    caso.situacionFamiliar.ascendientes.some(
+      (ascendiente) =>
+        ascendiente.discapacidad !== "sin-discapacidad" ||
+        ascendiente.edad <= 65
+    )
+  ) {
     return resultadoNoSoportado(caso, {
-      motivo: "Minimo por ascendientes aun no implementado",
+      motivo:
+        "Minimo por ascendientes fuera de la vertical slice aun no implementado",
       tituloPaso: "Circunstancia familiar no soportada",
       descripcionPaso:
-        "El caso fiscal incluye ascendientes, pero esta vertical slice solo liquida persona individual sin ascendientes.",
+        "Esta vertical slice solo liquida ascendientes mayores de 65 anos sin discapacidad.",
     })
   }
 
