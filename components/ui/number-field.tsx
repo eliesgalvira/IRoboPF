@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils"
 
 export function NumberField({
   ayuda,
+  className,
+  compacto = false,
   etiqueta,
   formato,
   max,
@@ -17,6 +19,8 @@ export function NumberField({
   valor,
 }: {
   readonly ayuda?: string
+  readonly className?: string
+  readonly compacto?: boolean
   readonly etiqueta: string
   readonly formato?: Intl.NumberFormatOptions
   readonly max?: number
@@ -27,7 +31,7 @@ export function NumberField({
 }) {
   return (
     <NumberFieldPrimitive.Root
-      className="grid gap-2"
+      className={cn("grid gap-2", className)}
       format={formato}
       locale="es-ES"
       max={max}
@@ -37,13 +41,13 @@ export function NumberField({
       step={paso}
       value={valor}
     >
-      <div className="flex items-center gap-1.5">
-        <label className="text-sm font-bold">{etiqueta}</label>
+      <div className="flex min-h-10 items-end gap-1.5">
+        <label className="text-sm leading-tight font-bold">{etiqueta}</label>
         {ayuda ? (
           <Tooltip contenido={ayuda}>
             <button
               aria-label={`Ayuda sobre ${etiqueta}`}
-              className="text-[var(--ink-soft)] hover:text-[var(--ink)]"
+              className="mb-0.5 text-[var(--ink-soft)] hover:text-[var(--ink)]"
               type="button"
             >
               <CircleHelp aria-hidden className="size-3.5" />
@@ -51,9 +55,21 @@ export function NumberField({
           </Tooltip>
         ) : null}
       </div>
-      <NumberFieldPrimitive.Group className="grid h-11 grid-cols-[2.25rem_1fr_2.25rem] border border-[var(--rule)] bg-[var(--paper-2)] focus-within:ring-2 focus-within:ring-[var(--mark)]">
+      <NumberFieldPrimitive.Group
+        className={cn(
+          "grid border border-[var(--rule)] bg-[var(--paper-2)] focus-within:ring-2 focus-within:ring-[var(--mark)]",
+          compacto
+            ? "h-9 grid-cols-[1.9rem_1fr_1.9rem]"
+            : "h-11 grid-cols-[2.25rem_1fr_2.25rem]"
+        )}
+      >
         <ControlNumero direccion="menos" />
-        <NumberFieldPrimitive.Input className="min-w-0 bg-transparent px-3 text-base font-[var(--mono)] outline-none" />
+        <NumberFieldPrimitive.Input
+          className={cn(
+            "min-w-0 bg-transparent px-3 font-[var(--mono)] outline-none",
+            compacto ? "text-sm" : "text-base"
+          )}
+        />
         <ControlNumero direccion="mas" />
       </NumberFieldPrimitive.Group>
     </NumberFieldPrimitive.Root>
