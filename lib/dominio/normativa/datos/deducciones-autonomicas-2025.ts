@@ -119,6 +119,34 @@ const pendiente = (
   estado: "catalogada",
 })
 
+const implementada = (
+  codigo: string,
+  nombre: string,
+  categoria: CategoriaDeduccionAutonomica,
+  cuantia: CuantiaDeduccionAutonomica,
+  limites: ReadonlyArray<string>,
+  paginas: ReadonlyArray<number>,
+  entradaNecesaria: ReadonlyArray<string> = [
+    "importeBase",
+    "cumpleRequisitosYLimites",
+  ],
+  requisitos: ReadonlyArray<string> = [
+    "Cumplir los requisitos indicados en la ficha normativa normalizada",
+  ]
+): FichaDeduccionAutonomica => ({
+  ...pendiente(codigo, nombre, categoria),
+  normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
+  cuantia,
+  requisitos,
+  limites,
+  entradaNecesaria,
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas,
+  },
+  estado: "implementada",
+})
+
 export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
   codigo: "andalucia_nacimiento_adopcion_acogimiento_menores",
   comunidad: "andalucia",
@@ -1235,6 +1263,705 @@ export const CATALUNYA_INTERESES_PRESTAMOS_MASTER_DOCTORADO_2025 = {
   estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
+export const ANDALUCIA_INVERSION_VIVIENDA_HABITUAL_PROTEGIDA_JOVENES_2025 =
+  implementada(
+    "andalucia_inversion_vivienda_habitual_protegida_jovenes",
+    "Por inversión en vivienda habitual que tenga la consideración de protegida y por las personas jóvenes",
+    "vivienda_habitual",
+    {
+      tipo: "porcentaje",
+      porcentaje: "6",
+      base: "cantidades satisfechas por adquisición o rehabilitación de vivienda habitual",
+      limiteMaximoEuros: "542.40",
+    },
+    [
+      "6% de las cantidades satisfechas",
+      "Base máxima anual de deducción: 9.040 euros",
+      "Deducción máxima derivada de la base máxima: 542,40 euros",
+      "Base imponible general + ahorro: máximo 25.000 euros individual y 30.000 conjunta",
+    ],
+    [37, 38]
+  )
+
+export const ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
+  "andalucia_alquiler_vivienda_habitual",
+  "Por cantidades invertidas en el alquiler de la vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "15% del alquiler; límite 1.200 euros, o 1.500 euros si el contribuyente tiene discapacidad",
+  },
+  [
+    "15% de las cantidades satisfechas",
+    "Límite general: 1.200 euros anuales",
+    "Límite para contribuyente con discapacidad: 1.500 euros anuales",
+    "Base imponible general + ahorro: máximo 25.000 euros individual y 30.000 conjunta",
+  ],
+  [39, 40]
+)
+
+export const ARAGON_GUARDERIA_MENORES_3_2025 = implementada(
+  "aragon_guarderia_menores_3",
+  "Por gastos de guardería de hijos menores de 3 años",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "15% de gastos de custodia; límite 250/125 euros general o 300/150 euros con fiscalidad diferenciada",
+  },
+  [
+    "15% de las cantidades satisfechas",
+    "Régimen general: 250 euros por hijo, 125 euros si cumple 3 años",
+    "Fiscalidad diferenciada: 300 euros por hijo, 150 euros si cumple 3 años",
+    "Base liquidable general + ahorro inferior a 35.000 euros individual y 50.000 conjunta",
+    "Base imponible del ahorro máximo 4.000 euros",
+  ],
+  [80, 81, 82]
+)
+
+export const ASTURIAS_ACOGIMIENTO_MAYORES_65_2025 = implementada(
+  "asturias_acogimiento_no_remunerado_mayores_65",
+  "Por acogimiento no remunerado de mayores de 65 años",
+  "circunstancias_personales_familiares",
+  { tipo: "importe_fijo", euros: "500", por: "persona mayor de 65 años acogida" },
+  [
+    "500 euros por persona acogida",
+    "Base imponible general + ahorro: máximo 26.000 euros individual y 37.000 conjunta",
+  ],
+  [89, 90]
+)
+
+export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+  "asturias_arrendamiento_vivienda_habitual",
+  "Por arrendamiento de vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "10% con límite 500 euros; 30% con límite 1.500 euros para colectivos protegidos o concejos en riesgo",
+  },
+  [
+    "General: 10%, máximo 500 euros",
+    "Jóvenes hasta 35, familias numerosas, monoparentales, víctimas de violencia de género o despoblamiento: 30%, máximo 1.500 euros",
+    "Base imponible general + ahorro: máximo 35.000 euros individual y 45.000 conjunta",
+  ],
+  [93, 94]
+)
+
+export const ASTURIAS_FAMILIAS_NUMEROSAS_2025 = implementada(
+  "asturias_familias_numerosas",
+  "Para familias numerosas",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion: "1.000 euros categoría general; 2.000 euros categoría especial",
+  },
+  [
+    "1.000 euros para categoría general",
+    "2.000 euros para categoría especial",
+  ],
+  [96, 97]
+)
+
+export const ASTURIAS_CENTROS_CERO_TRES_2025 = implementada(
+  "asturias_centros_cero_tres",
+  "Por gastos de descendientes en centros de cero a tres años",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "15% con límite 500 euros por descendiente; 30% con límite 1.000 euros en concejos en riesgo",
+  },
+  [
+    "General: 15%, máximo 500 euros por descendiente",
+    "Despoblamiento: 30%, máximo 1.000 euros por descendiente",
+    "General: base imponible general + ahorro máximo 26.000 euros individual y 37.000 conjunta",
+    "Despoblamiento: máximo 35.000 euros individual y 45.000 conjunta",
+  ],
+  [100, 101, 102]
+)
+
+export const BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+  "balears_arrendamiento_vivienda_habitual",
+  "Por arrendamiento de la vivienda habitual en el territorio de las Illes Balears",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "15% límite 530 euros; 20% límite 650 euros para colectivos cualificados",
+  },
+  [
+    "15%, límite 530 euros: menores de 36 o mayores de 65 sin actividad",
+    "20%, límite 650 euros: menores de 30, discapacidad, familia numerosa/monoparental o autónomos",
+    "Límite base general: 33.000 euros individual y 52.800 conjunta",
+  ],
+  [132, 133, 134]
+)
+
+export const BALEARS_LIBROS_TEXTO_2025 = implementada(
+  "balears_libros_texto",
+  "Por gastos de adquisición de libros de texto",
+  "otros_conceptos",
+  {
+    tipo: "mixta",
+    descripcion:
+      "100% de importes destinados a libros de texto, límite 220 euros por hijo o 350 euros con límite incrementado",
+  },
+  [
+    "100% del gasto en libros de texto",
+    "Límite general: 220 euros por hijo",
+    "Límite incrementado: 350 euros por hijo",
+  ],
+  [135, 136, 137]
+)
+
+export const BALEARS_NACIMIENTO_2025 = implementada(
+  "balears_nacimiento",
+  "Por nacimiento",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "800 euros primer hijo, 1.000 segundo, 1.200 tercero y 1.400 cuarto y siguientes; 50% si supera límites",
+  },
+  [
+    "800 euros primer hijo",
+    "1.000 euros segundo hijo",
+    "1.200 euros tercer hijo",
+    "1.400 euros cuarto y siguientes",
+    "Si se superan límites de renta, puede aplicarse el 50%",
+  ],
+  [154, 155]
+)
+
+export const BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025 = implementada(
+  "balears_gastos_mayores_65_discapacidad",
+  "Por determinados gastos relativos a personas mayores de 65 años o a personas con discapacidad",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "porcentaje",
+    porcentaje: "40",
+    base: "gastos por servicios de residencia, centros de día, comedor, custodia o contratación de cuidador",
+    limiteMaximoEuros: "660",
+  },
+  [
+    "40% de los gastos satisfechos",
+    "Máximo 660 euros anuales por persona que genere derecho",
+    "Base imponible general + ahorro máximo 33.000 euros individual y 52.800 conjunta",
+  ],
+  [159, 160]
+)
+
+export const CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
+  "canarias_alquiler_vivienda_habitual",
+  "Por alquiler de vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "24% del alquiler; límite 740 euros, o 760 euros si menor de 40 o mayor de 75",
+  },
+  [
+    "24% de cantidades satisfechas",
+    "Límite general: 740 euros",
+    "Límite incrementado: 760 euros",
+    "Base imponible general + ahorro máximo 46.455 euros individual y 61.770 conjunta",
+  ],
+  [193, 194]
+)
+
+export const CANARIAS_GASTO_ENFERMEDAD_2025 = implementada(
+  "canarias_gasto_enfermedad",
+  "Por gasto de enfermedad",
+  "otros_conceptos",
+  {
+    tipo: "mixta",
+    descripcion:
+      "12% de gastos médicos/sanitarios y aparatos; límite 500/700 euros, incremento 100 euros, o límite 150 euros si supera umbral",
+  },
+  [
+    "12% de gastos deducibles",
+    "Límite 500 euros individual y 700 euros conjunta si cumple umbral de bases",
+    "Incremento 100 euros por mayor de 65 o discapacidad igual/superior al 65%",
+    "Si se superan umbrales de base: límite 150 euros por contribuyente",
+  ],
+  [201, 202]
+)
+
+export const CANTABRIA_ARRENDAMIENTO_JOVENES_MAYORES_DISCAPACIDAD_2025 =
+  implementada(
+    "cantabria_arrendamiento_jovenes_mayores_discapacidad",
+    "Por arrendamiento de vivienda habitual por jóvenes, mayores y personas con discapacidad",
+    "vivienda_habitual",
+    {
+      tipo: "porcentaje",
+      porcentaje: "10",
+      base: "cantidades satisfechas por arrendamiento de vivienda habitual",
+      limiteMaximoEuros: "300",
+    },
+    [
+      "10% de cantidades satisfechas",
+      "Límite 300 euros en tributación individual",
+      "Límite 600 euros en tributación conjunta",
+    ],
+    [207, 208]
+  )
+
+export const CANTABRIA_CUIDADO_FAMILIARES_2025 = implementada(
+  "cantabria_cuidado_familiares",
+  "Por cuidado de familiares",
+  "circunstancias_personales_familiares",
+  { tipo: "importe_fijo", euros: "100", por: "familiar que cumpla requisitos" },
+  [
+    "100 euros por familiar",
+    "Un menor de 3 años con discapacidad igual o superior al 65% puede generar doble derecho según la ficha",
+    "Base liquidable general + ahorro minorada por mínimo personal y familiar inferior a 31.485 euros",
+  ],
+  [208, 209]
+)
+
+export const CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
+  "cantabria_nacimiento_adopcion_hijos",
+  "Por nacimiento o adopción de hijos",
+  "circunstancias_personales_familiares",
+  { tipo: "importe_fijo", euros: "1400", por: "hijo nacido o adoptado" },
+  [
+    "1.400 euros por nacimiento o adopción",
+    "Aplicable en el ejercicio del nacimiento o adopción y en los dos ejercicios siguientes",
+  ],
+  [219, 220]
+)
+
+export const CLM_MAYORES_75_2025 = implementada(
+  "clm_mayores_75",
+  "Para contribuyentes mayores de 75 años",
+  "circunstancias_personales_familiares",
+  { tipo: "importe_fijo", euros: "150", por: "contribuyente mayor de 75 años" },
+  [
+    "150 euros por contribuyente mayor de 75 años",
+    "Base imponible general + ahorro máximo 27.000 euros individual y 36.000 conjunta",
+  ],
+  [248, 249]
+)
+
+export const CYL_FAMILIA_NUMEROSA_2025 = implementada(
+  "cyl_familia_numerosa",
+  "Por familia numerosa",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "600 euros general; 1.500 con cuatro descendientes; 2.500 con cinco; +1.000 por sexto y sucesivos; +600 por discapacidad",
+  },
+  [
+    "600 euros con carácter general",
+    "1.500 euros con cuatro descendientes con mínimo",
+    "2.500 euros con cinco descendientes con mínimo",
+    "Incremento de 1.000 euros por cada descendiente a partir del sexto",
+    "Incremento de 600 euros por discapacidad igual o superior al 65%",
+  ],
+  [282, 283]
+)
+
+export const CYL_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
+  "cyl_nacimiento_adopcion_hijos",
+  "Por nacimiento o adopción de hijos",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "General: 1.010/1.475/2.351 euros según orden. Medio rural: 1.420/2.070/3.300 euros. Se duplica por discapacidad ≥33%",
+  },
+  [
+    "General: 1.010 euros primer hijo, 1.475 segundo, 2.351 tercero y sucesivos",
+    "Medio rural: 1.420 euros primer hijo, 2.070 segundo, 3.300 tercero y sucesivos",
+    "Duplicación si discapacidad del nacido/adoptado igual o superior al 33%",
+  ],
+  [283, 284]
+)
+
+export const CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025 = implementada(
+  "cyl_arrendamiento_vivienda_jovenes",
+  "Por arrendamiento de vivienda habitual por jóvenes",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "20% del alquiler, límite 459 euros; 25%, límite 612 euros, en municipio o entidad local menor con población reducida",
+  },
+  [
+    "20%, límite 459 euros",
+    "25%, límite 612 euros en municipios o entidades locales menores de población reducida",
+    "Base imponible general + ahorro - mínimo personal y familiar máximo 18.900 euros individual y 31.500 conjunta",
+  ],
+  [302, 303]
+)
+
+export const CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = implementada(
+  "cataluna_nacimiento_adopcion_acogimiento",
+  "Por nacimiento o adopción de un hijo o de una hija o por acogimiento familiar",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "150 euros en individual; 300 euros en conjunta o familia monoparental",
+  },
+  [
+    "150 euros en declaración individual de cada progenitor",
+    "300 euros en declaración conjunta de ambos progenitores",
+    "300 euros en declaración del progenitor o progenitora de familia monoparental",
+  ],
+  [314, 315]
+)
+
+export const CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
+  "cataluna_alquiler_vivienda_habitual",
+  "Por alquiler de la vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "10% del alquiler; límite 500 euros general y 1.000 euros en conjunta, familia numerosa o monoparental",
+  },
+  [
+    "10% de cantidades satisfechas",
+    "Límite general: 500 euros",
+    "Límite en conjunta o familia numerosa/monoparental: 1.000 euros",
+    "Base imponible general + ahorro - mínimo personal y familiar máximo 30.000 euros individual y 45.000 conjunta",
+  ],
+  [316, 317]
+)
+
+export const CATALUNYA_OBLIGACION_DECLARAR_MAS_DE_UN_PAGADOR_2025 =
+  implementada(
+    "cataluna_obligacion_declarar_mas_de_un_pagador",
+    "Por obligación de presentar la declaración del IRPF por razón de tener más de un pagador",
+    "otros_conceptos",
+    {
+      tipo: "mixta",
+      descripcion:
+        "Deducción = max(cuota íntegra autonómica - cuota íntegra estatal, 0)",
+    },
+    ["Deducción = max(cuota íntegra autonómica - cuota íntegra estatal, 0)"],
+    [323, 324, 325]
+  )
+
+export const EXTREMADURA_TRABAJO_DEPENDIENTE_2025 = implementada(
+  "extremadura_trabajo_dependiente",
+  "Por trabajo dependiente",
+  "otros_conceptos",
+  {
+    tipo: "importe_fijo",
+    euros: "75",
+    por: "contribuyente con trabajo dependiente",
+  },
+  ["75 euros por contribuyente"],
+  [330]
+)
+
+export const EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025 = implementada(
+  "extremadura_cuidado_familiares_discapacidad",
+  "Por cuidado de familiares con discapacidad",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "150 euros por ascendiente o descendiente con discapacidad ≥65%; 220 euros si tiene derecho reconocido a ayuda a la dependencia y no la percibe",
+  },
+  [
+    "150 euros con carácter general",
+    "220 euros si tiene derecho reconocido a ayuda a la dependencia pero no la percibe",
+    "Base imponible general + ahorro máximo 19.000 euros individual y 24.000 conjunta, con reglas especiales para municipios de menos de 3.000 habitantes",
+  ],
+  [333, 334, 335]
+)
+
+export const EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+  "extremadura_arrendamiento_vivienda_habitual",
+  "Por arrendamiento de vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "30% del alquiler; límite 1.000 euros, o 1.500 euros si vivienda habitual en medio rural",
+  },
+  [
+    "30% de cantidades satisfechas",
+    "Límite general: 1.000 euros",
+    "Límite medio rural: 1.500 euros",
+    "Base imponible general + ahorro máximo 28.000 euros individual y 45.000 conjunta, con excepciones por municipio",
+  ],
+  [342, 343, 344]
+)
+
+export const GALICIA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
+  "galicia_nacimiento_adopcion_hijos",
+  "Por nacimiento o adopción de hijos",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "Cuantías por orden y base: 360/1.200/2.400 euros o 300/360 euros; incremento 20% en municipios pequeños; duplicación por discapacidad ≥33%",
+  },
+  [
+    "Hasta 22.000 euros de base: 360 euros primer hijo, 1.200 segundo, 2.400 tercero y sucesivos",
+    "Desde 22.000,01 euros en año de nacimiento: 300 euros por hijo o 360 en parto múltiple",
+    "Incremento del 20% en municipios de menos de 5.000 habitantes o fusionados/incorporados",
+    "Duplicación si discapacidad del nacido/adoptado igual o superior al 33%",
+  ],
+  [364, 365]
+)
+
+export const GALICIA_FAMILIA_NUMEROSA_2025 = implementada(
+  "galicia_familia_numerosa",
+  "Por familia numerosa",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "250 euros hasta dos hijos; 400 euros categoría especial hasta dos hijos; +250 euros por hijo a partir de más de dos; cuantías duplicadas por discapacidad ≥65%",
+  },
+  [
+    "250 euros hasta dos hijos",
+    "400 euros hasta dos hijos con categoría especial",
+    "Incremento 250 euros por cada hijo en familias numerosas de más de dos hijos",
+    "Cuantías duplicadas si contribuyente o descendiente tiene discapacidad igual o superior al 65%",
+  ],
+  [367, 368]
+)
+
+export const GALICIA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
+  "galicia_alquiler_vivienda_habitual",
+  "Por alquiler de la vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "10% límite 300 euros; 20% límite 600 euros si dos o más hijos menores. Cuantías duplicadas por discapacidad ≥33%",
+  },
+  [
+    "10%, límite 300 euros por contrato y año",
+    "20%, límite 600 euros si dos o más hijos menores de edad",
+    "Duplicación de cuantías si arrendatario con discapacidad igual o superior al 33%",
+    "Base imponible general + ahorro máximo 22.000 euros",
+  ],
+  [371, 372]
+)
+
+export const MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+  "madrid_arrendamiento_vivienda_habitual",
+  "Por arrendamiento de la vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "porcentaje",
+    porcentaje: "30",
+    base: "cantidades satisfechas por arrendamiento de vivienda habitual",
+    limiteMaximoEuros: "1237.20",
+  },
+  [
+    "30% de cantidades satisfechas",
+    "Límite máximo 1.237,20 euros",
+    "Base imponible general + ahorro del contribuyente máximo 26.414,22 euros individual y 37.322,20 conjunta",
+    "Base imponible general + ahorro de la unidad familiar máximo 61.860 euros",
+  ],
+  [408, 409]
+)
+
+export const MADRID_GASTOS_EDUCATIVOS_2025 = implementada(
+  "madrid_gastos_educativos",
+  "Por gastos educativos",
+  "otros_conceptos",
+  {
+    tipo: "mixta",
+    descripcion:
+      "15% escolaridad, 15% idiomas y 5% vestuario escolar. Límites 412,40/927,90/1.031 euros por hijo según conceptos",
+  },
+  [
+    "15% de gastos de escolaridad",
+    "15% de gastos de enseñanza de idiomas",
+    "5% de vestuario de uso exclusivo escolar",
+    "Límite 412,40 euros si solo idiomas y/o vestuario",
+    "Límite 927,90 euros si hay escolaridad",
+    "Límite 1.031 euros para primer ciclo de Educación Infantil",
+  ],
+  [419, 420, 421]
+)
+
+export const MURCIA_GASTOS_GUARDERIA_2025 = implementada(
+  "murcia_gastos_guarderia",
+  "Por gastos de guardería",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "porcentaje",
+    porcentaje: "20",
+    base: "gastos educativos de primer ciclo de Educación Infantil",
+    limiteMaximoEuros: "1000",
+  },
+  [
+    "20% de cantidades satisfechas",
+    "Máximo 1.000 euros por hijo o descendiente",
+    "Base imponible general + ahorro máximo 30.000 euros individual y 50.000 conjunta",
+  ],
+  [446, 447]
+)
+
+export const MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+  "murcia_arrendamiento_vivienda_habitual",
+  "Por arrendamiento de vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "porcentaje",
+    porcentaje: "10",
+    base: "cantidades no subvencionadas satisfechas por alquiler de vivienda habitual",
+    limiteMaximoEuros: "300",
+  },
+  [
+    "10% de cantidades no subvencionadas",
+    "Máximo 300 euros anuales por contrato",
+    "Base imponible general menos mínimo personal y familiar inferior a 40.000 euros",
+    "Base imponible del ahorro no superior a 1.800 euros",
+  ],
+  [461, 462]
+)
+
+export const MURCIA_GASTOS_VETERINARIOS_2025 = implementada(
+  "murcia_gastos_veterinarios",
+  "Por gastos veterinarios",
+  "otros_conceptos",
+  {
+    tipo: "porcentaje",
+    porcentaje: "30",
+    base: "gastos por servicios veterinarios prestados a animales domésticos",
+    limiteMaximoEuros: "100",
+  },
+  [
+    "30% de cantidades satisfechas",
+    "Límite máximo 100 euros anuales por declaración",
+    "Base imponible general + ahorro máximo 25.000 euros individual y 40.000 conjunta",
+  ],
+  [478]
+)
+
+export const RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
+  "rioja_nacimiento_adopcion_hijos",
+  "Por nacimiento y adopción de hijos",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "mixta",
+    descripcion:
+      "600 euros primer hijo, 750 segundo, 900 tercero y sucesivos; 60 euros adicionales por hijo en múltiples",
+  },
+  [
+    "600 euros primer hijo",
+    "750 euros segundo hijo",
+    "900 euros tercero y sucesivos",
+    "60 euros adicionales por cada hijo en nacimientos o adopciones múltiples",
+  ],
+  [481]
+)
+
+export const RIOJA_ARRENDAMIENTO_MENORES_36_2025 = implementada(
+  "rioja_arrendamiento_menores_36",
+  "Por arrendamiento de vivienda habitual para contribuyentes menores de 36 años",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "10% límite 300 euros; 20% límite 400 euros si vivienda en pequeño municipio",
+  },
+  [
+    "General: 10%, máximo 300 euros por contrato",
+    "Pequeños municipios: 20%, máximo 400 euros por contrato",
+    "Deducción total máxima 400 euros",
+    "Base liquidable general sometida a tributación máximo 18.030 euros individual y 30.050 conjunta",
+    "Base liquidable del ahorro sometida a tributación máximo 1.800 euros",
+  ],
+  [500, 501, 502]
+)
+
+export const RIOJA_ENFERMEDAD_CELIACA_2025 = implementada(
+  "rioja_enfermedad_celiaca",
+  "Por enfermedad celíaca diagnosticada",
+  "circunstancias_personales_familiares",
+  {
+    tipo: "importe_fijo",
+    euros: "250",
+    por: "persona integrante del núcleo familiar con enfermedad celíaca diagnosticada",
+  },
+  ["250 euros por persona integrante del núcleo familiar con enfermedad celíaca diagnosticada"],
+  [519]
+)
+
+export const VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025 =
+  implementada(
+    "valenciana_nacimiento_adopcion_guarda_acogimiento",
+    "Por nacimiento, adopción, delegación de guarda con fines de adopción o acogimiento familiar",
+    "circunstancias_personales_familiares",
+    {
+      tipo: "mixta",
+      descripcion:
+        "600 euros primero, 750 segundo, 900 tercero y sucesivos; 300 euros para fallecidos antes de 1/6/2025; reducción por base liquidable",
+    },
+    [
+      "600 euros primero, 750 segundo, 900 tercero y sucesivos",
+      "300 euros para fallecidos antes del 1 de junio de 2025",
+      "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
+      "Entre umbrales, aplicar fórmula reductora",
+    ],
+    [527, 528, 529, 530, 531]
+  )
+
+export const VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025 = implementada(
+  "valenciana_ascendientes_mayores_discapacidad",
+  "Por ascendientes mayores de 75 años o mayores de 65 años con discapacidad",
+  "circunstancias_personales_familiares",
+  { tipo: "importe_fijo", euros: "197", por: "ascendiente que cumpla requisitos" },
+  [
+    "197 euros por ascendiente",
+    "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
+    "Entre umbrales, aplicar fórmula reductora",
+  ],
+  [551, 552]
+)
+
+export const VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025 = implementada(
+  "valenciana_arrendamiento_cesion_uso_vivienda",
+  "Por arrendamiento o pago por la cesión en uso de la vivienda habitual",
+  "vivienda_habitual",
+  {
+    tipo: "mixta",
+    descripcion:
+      "20% límite 800 euros; 25% límite 950 euros si cumple una condición; 30% límite 1.100 euros si cumple dos o más",
+  },
+  [
+    "20%, límite 800 euros",
+    "25%, límite 950 euros si edad <=35, discapacidad cualificada o víctima de violencia de género",
+    "30%, límite 1.100 euros si cumple dos o más condiciones",
+    "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
+  ],
+  [564, 565, 566]
+)
+
+export const VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025 = implementada(
+  "valenciana_deporte_actividades_saludables",
+  "Por cantidades satisfechas en gastos asociados a la práctica del deporte y actividades saludables",
+  "otros_conceptos",
+  {
+    tipo: "mixta",
+    descripcion:
+      "30%, 50% o 100% según edad/discapacidad, con límite máximo 150 euros anuales por contribuyente y reducción por base liquidable",
+  },
+  [
+    "30% general",
+    "50% si mayor de 65 o discapacidad igual/superior al 33%",
+    "100% si mayor de 75 o discapacidad igual/superior al 65%",
+    "Límite máximo 150 euros anuales por contribuyente",
+    "Base liquidable general + ahorro máximo 60.000 euros individual y 78.000 conjunta",
+  ],
+  [614, 615, 616]
+)
+
 /**
  * Catálogo reconocido de deducciones autonómicas del IRPF 2025.
  *
@@ -1255,16 +1982,8 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Andalucía",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 2 y 15",
       deducciones: [
-        pendiente(
-          "andalucia_inversion_vivienda_habitual_protegida_jovenes",
-          "Por inversión en vivienda habitual que tenga la consideración de protegida y por las personas jóvenes",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "andalucia_alquiler_vivienda_habitual",
-          "Por cantidades invertidas en el alquiler de la vivienda habitual",
-          "vivienda_habitual"
-        ),
+        ANDALUCIA_INVERSION_VIVIENDA_HABITUAL_PROTEGIDA_JOVENES_2025,
+        ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025,
         ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025,
         ANDALUCIA_ADOPCION_INTERNACIONAL_2025,
         ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025,
@@ -1283,63 +2002,27 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
         ARAGON_NACIMIENTO_ADOPCION_TERCER_HIJO_SUCESIVOS_2025,
         ARAGON_CUIDADO_PERSONAS_DEPENDIENTES_2025,
         ARAGON_MAYORES_70_2025,
-        pendiente(
-          "aragon_guarderia_menores_3",
-          "Por gastos de guardería de hijos menores de 3 años",
-          "circunstancias_personales_familiares"
-        ),
+        ARAGON_GUARDERIA_MENORES_3_2025,
       ],
     },
     asturias: {
       comunidad: "Principado de Asturias",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 3 y 17",
       deducciones: [
-        pendiente(
-          "asturias_acogimiento_no_remunerado_mayores_65",
-          "Por acogimiento no remunerado de mayores de 65 años",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "asturias_arrendamiento_vivienda_habitual",
-          "Por arrendamiento de vivienda habitual",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "asturias_familias_numerosas",
-          "Para familias numerosas",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "asturias_centros_cero_tres",
-          "Por gastos de descendientes en centros de cero a tres años",
-          "circunstancias_personales_familiares"
-        ),
+        ASTURIAS_ACOGIMIENTO_MAYORES_65_2025,
+        ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
+        ASTURIAS_FAMILIAS_NUMEROSAS_2025,
+        ASTURIAS_CENTROS_CERO_TRES_2025,
       ],
     },
     "illes-balears": {
       comunidad: "Illes Balears",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 3, 4, 18 y 19",
       deducciones: [
-        pendiente(
-          "balears_arrendamiento_vivienda_habitual",
-          "Por arrendamiento de la vivienda habitual en el territorio de las Illes Balears",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "balears_libros_texto",
-          "Por gastos de adquisición de libros de texto",
-          "otros_conceptos"
-        ),
-        pendiente(
-          "balears_nacimiento",
-          "Por nacimiento",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "balears_gastos_mayores_65_discapacidad",
-          "Por determinados gastos relativos a personas mayores de 65 años o a personas con discapacidad",
-          "circunstancias_personales_familiares"
-        ),
+        BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
+        BALEARS_LIBROS_TEXTO_2025,
+        BALEARS_NACIMIENTO_2025,
+        BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025,
       ],
     },
     canarias: {
@@ -1349,16 +2032,8 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
         CANARIAS_NACIMIENTO_ADOPCION_2025,
         CANARIAS_DISCAPACIDAD_MAYORES_65_2025,
         CANARIAS_FAMILIA_NUMEROSA_2025,
-        pendiente(
-          "canarias_alquiler_vivienda_habitual",
-          "Por alquiler de vivienda habitual",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "canarias_gasto_enfermedad",
-          "Por gasto de enfermedad",
-          "otros_conceptos"
-        ),
+        CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025,
+        CANARIAS_GASTO_ENFERMEDAD_2025,
         CANARIAS_CONTRIBUYENTES_DESEMPLEADOS_2025,
       ],
     },
@@ -1366,21 +2041,9 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Cantabria",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 5, 6 y 21",
       deducciones: [
-        pendiente(
-          "cantabria_arrendamiento_jovenes_mayores_discapacidad",
-          "Por arrendamiento de vivienda habitual por jóvenes, mayores y personas con discapacidad",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "cantabria_cuidado_familiares",
-          "Por cuidado de familiares",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "cantabria_nacimiento_adopcion_hijos",
-          "Por nacimiento o adopción de hijos",
-          "circunstancias_personales_familiares"
-        ),
+        CANTABRIA_ARRENDAMIENTO_JOVENES_MAYORES_DISCAPACIDAD_2025,
+        CANTABRIA_CUIDADO_FAMILIARES_2025,
+        CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025,
       ],
     },
     "castilla-la-mancha": {
@@ -1391,53 +2054,25 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
         CLM_FAMILIA_NUMEROSA_2025,
         CLM_DISCAPACIDAD_CONTRIBUYENTE_2025,
         CLM_DISCAPACIDAD_ASCENDIENTES_DESCENDIENTES_2025,
-        pendiente(
-          "clm_mayores_75",
-          "Para contribuyentes mayores de 75 años",
-          "circunstancias_personales_familiares"
-        ),
+        CLM_MAYORES_75_2025,
       ],
     },
     "castilla-y-leon": {
       comunidad: "Castilla y León",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 7 y 23",
       deducciones: [
-        pendiente(
-          "cyl_familia_numerosa",
-          "Por familia numerosa",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "cyl_nacimiento_adopcion_hijos",
-          "Por nacimiento o adopción de hijos",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "cyl_arrendamiento_vivienda_jovenes",
-          "Por arrendamiento de vivienda habitual por jóvenes",
-          "vivienda_habitual"
-        ),
+        CYL_FAMILIA_NUMEROSA_2025,
+        CYL_NACIMIENTO_ADOPCION_HIJOS_2025,
+        CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025,
       ],
     },
     catalunya: {
       comunidad: "Catalunya",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 7, 8 y 24",
       deducciones: [
-        pendiente(
-          "cataluna_nacimiento_adopcion_acogimiento",
-          "Por nacimiento o adopción de un hijo o de una hija o por acogimiento familiar",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "cataluna_alquiler_vivienda_habitual",
-          "Por alquiler de la vivienda habitual",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "cataluna_obligacion_declarar_mas_de_un_pagador",
-          "Por obligación de presentar la declaración del IRPF por razón de tener más de un pagador",
-          "otros_conceptos"
-        ),
+        CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025,
+        CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025,
+        CATALUNYA_OBLIGACION_DECLARAR_MAS_DE_UN_PAGADOR_2025,
         CATALUNYA_VIUDEDAD_2025,
         CATALUNYA_REHABILITACION_VIVIENDA_HABITUAL_2025,
         CATALUNYA_INTERESES_PRESTAMOS_MASTER_DOCTORADO_2025,
@@ -1449,42 +2084,18 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Extremadura",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 8 y 25",
       deducciones: [
-        pendiente(
-          "extremadura_trabajo_dependiente",
-          "Por trabajo dependiente",
-          "otros_conceptos"
-        ),
-        pendiente(
-          "extremadura_cuidado_familiares_discapacidad",
-          "Por cuidado de familiares con discapacidad",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "extremadura_arrendamiento_vivienda_habitual",
-          "Por arrendamiento de vivienda habitual",
-          "vivienda_habitual"
-        ),
+        EXTREMADURA_TRABAJO_DEPENDIENTE_2025,
+        EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025,
+        EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
       ],
     },
     galicia: {
       comunidad: "Galicia",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 8, 9, 26 y 27",
       deducciones: [
-        pendiente(
-          "galicia_nacimiento_adopcion_hijos",
-          "Por nacimiento o adopción de hijos",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "galicia_familia_numerosa",
-          "Por familia numerosa",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "galicia_alquiler_vivienda_habitual",
-          "Por alquiler de la vivienda habitual",
-          "vivienda_habitual"
-        ),
+        GALICIA_NACIMIENTO_ADOPCION_HIJOS_2025,
+        GALICIA_FAMILIA_NUMEROSA_2025,
+        GALICIA_ALQUILER_VIVIENDA_HABITUAL_2025,
       ],
     },
     madrid: {
@@ -1492,58 +2103,26 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 9, 10 y 28",
       deducciones: [
         MADRID_NACIMIENTO_ADOPCION_2025,
-        pendiente(
-          "madrid_arrendamiento_vivienda_habitual",
-          "Por arrendamiento de la vivienda habitual",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "madrid_gastos_educativos",
-          "Por gastos educativos",
-          "otros_conceptos"
-        ),
+        MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
+        MADRID_GASTOS_EDUCATIVOS_2025,
       ],
     },
     murcia: {
       comunidad: "Región de Murcia",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 10, 11, 29 y 30",
       deducciones: [
-        pendiente(
-          "murcia_gastos_guarderia",
-          "Por gastos de guardería",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "murcia_arrendamiento_vivienda_habitual",
-          "Por arrendamiento de vivienda habitual",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "murcia_gastos_veterinarios",
-          "Por gastos veterinarios",
-          "otros_conceptos"
-        ),
+        MURCIA_GASTOS_GUARDERIA_2025,
+        MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
+        MURCIA_GASTOS_VETERINARIOS_2025,
       ],
     },
     "la-rioja": {
       comunidad: "La Rioja",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 11, 12, 31 y 32",
       deducciones: [
-        pendiente(
-          "rioja_nacimiento_adopcion_hijos",
-          "Por nacimiento y adopción de hijos",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "rioja_arrendamiento_menores_36",
-          "Por arrendamiento de vivienda habitual para contribuyentes menores de 36 años",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "rioja_enfermedad_celiaca",
-          "Por enfermedad celíaca diagnosticada",
-          "circunstancias_personales_familiares"
-        ),
+        RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025,
+        RIOJA_ARRENDAMIENTO_MENORES_36_2025,
+        RIOJA_ENFERMEDAD_CELIACA_2025,
       ],
     },
     "comunitat-valenciana": {
@@ -1551,26 +2130,10 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       fuente:
         "Manual práctico de Renta 2025 Parte 2, páginas 12, 13, 33, 34, 621 y 624",
       deducciones: [
-        pendiente(
-          "valenciana_nacimiento_adopcion_guarda_acogimiento",
-          "Por nacimiento, adopción, delegación de guarda con fines de adopción o acogimiento familiar",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "valenciana_ascendientes_mayores_discapacidad",
-          "Por ascendientes mayores de 75 años o mayores de 65 años con discapacidad",
-          "circunstancias_personales_familiares"
-        ),
-        pendiente(
-          "valenciana_arrendamiento_cesion_uso_vivienda",
-          "Por arrendamiento o pago por la cesión en uso de la vivienda habitual",
-          "vivienda_habitual"
-        ),
-        pendiente(
-          "valenciana_deporte_actividades_saludables",
-          "Por cantidades satisfechas en gastos asociados a la práctica del deporte y actividades saludables",
-          "otros_conceptos"
-        ),
+        VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025,
+        VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025,
+        VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025,
+        VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025,
       ],
     },
     ceuta: {
@@ -1591,6 +2154,8 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
 export const DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS = parametroNormativo({
   nombre: "Deducciones autonómicas implementadas",
   valor: [
+    ANDALUCIA_INVERSION_VIVIENDA_HABITUAL_PROTEGIDA_JOVENES_2025,
+    ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025,
     ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025,
     ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025,
     ANDALUCIA_ADOPCION_INTERNACIONAL_2025,
@@ -1603,15 +2168,48 @@ export const DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS = parametroNormativo({
     ARAGON_NACIMIENTO_ADOPCION_TERCER_HIJO_SUCESIVOS_2025,
     ARAGON_CUIDADO_PERSONAS_DEPENDIENTES_2025,
     ARAGON_MAYORES_70_2025,
+    ARAGON_GUARDERIA_MENORES_3_2025,
+    ASTURIAS_ACOGIMIENTO_MAYORES_65_2025,
+    ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
+    ASTURIAS_FAMILIAS_NUMEROSAS_2025,
+    ASTURIAS_CENTROS_CERO_TRES_2025,
+    BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
+    BALEARS_LIBROS_TEXTO_2025,
+    BALEARS_NACIMIENTO_2025,
+    BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025,
     CANARIAS_NACIMIENTO_ADOPCION_2025,
     CANARIAS_DISCAPACIDAD_MAYORES_65_2025,
     CANARIAS_FAMILIA_NUMEROSA_2025,
+    CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025,
+    CANARIAS_GASTO_ENFERMEDAD_2025,
     CANARIAS_CONTRIBUYENTES_DESEMPLEADOS_2025,
+    CANTABRIA_ARRENDAMIENTO_JOVENES_MAYORES_DISCAPACIDAD_2025,
+    CANTABRIA_CUIDADO_FAMILIARES_2025,
+    CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025,
     CLM_NACIMIENTO_ADOPCION_2025,
     CLM_FAMILIA_NUMEROSA_2025,
     CLM_DISCAPACIDAD_CONTRIBUYENTE_2025,
     CLM_DISCAPACIDAD_ASCENDIENTES_DESCENDIENTES_2025,
+    CLM_MAYORES_75_2025,
+    CYL_FAMILIA_NUMEROSA_2025,
+    CYL_NACIMIENTO_ADOPCION_HIJOS_2025,
+    CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025,
     MADRID_NACIMIENTO_ADOPCION_2025,
+    MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
+    MADRID_GASTOS_EDUCATIVOS_2025,
+    MURCIA_GASTOS_GUARDERIA_2025,
+    MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
+    MURCIA_GASTOS_VETERINARIOS_2025,
+    RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025,
+    RIOJA_ARRENDAMIENTO_MENORES_36_2025,
+    RIOJA_ENFERMEDAD_CELIACA_2025,
+    VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025,
+    VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025,
+    VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025,
+    VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025,
+    CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025,
+    CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025,
+    CATALUNYA_OBLIGACION_DECLARAR_MAS_DE_UN_PAGADOR_2025,
     CATALUNYA_VIUDEDAD_2025,
     CATALUNYA_REHABILITACION_VIVIENDA_HABITUAL_2025,
     CATALUNYA_INTERESES_PRESTAMOS_MASTER_DOCTORADO_2025,
