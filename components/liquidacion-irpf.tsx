@@ -45,17 +45,26 @@ const OPCIONES_COMUNIDAD_AUTONOMA: ReadonlyArray<{
 ]
 const AYUDAS_RESUMEN = {
   "Base liquidable":
-    "Cantidad sobre la que se aplican los tramos despues de restar gastos y reducciones soportadas.",
+    "Resultado que queda para aplicar los tramos: rendimientos netos menos reducciones de base.",
+  "Rendimiento neto trabajo":
+    "Salario bruto menos cotizacion del trabajador y gastos deducibles aplicados.",
+  "Capital inmobiliario neto":
+    "Rendimiento de inmuebles, por ejemplo alquileres, que se suma a la base general.",
+  "Gastos y deducciones trabajo":
+    "Total que se resta al rendimiento del trabajo: cotizacion del trabajador y gastos deducibles.",
   "Cotización empresa":
     "Aportacion a la Seguridad Social que paga la empresa por el trabajador.",
   "Cotización trabajador":
-    "Aportacion a la Seguridad Social que se descuenta al trabajador.",
-  "Coste laboral": "Salario bruto mas cotizacion empresarial estimada.",
-  "MEI empresa": "Mecanismo de Equidad Intergeneracional que paga la empresa.",
+    "Aportacion a la Seguridad Social descontada al trabajador. Incluye MEI y, si procede, solidaridad.",
+  "Coste laboral": "Salario bruto mas la cotizacion de empresa.",
+  "MEI empresa":
+    "Mecanismo de Equidad Intergeneracional que paga la empresa. Esta parte esta incluida en la cotizacion de empresa.",
   "MEI trabajador":
-    "Mecanismo de Equidad Intergeneracional descontado al trabajador.",
+    "Mecanismo de Equidad Intergeneracional descontado al trabajador. Esta parte esta incluida en la cotizacion del trabajador.",
   "Cuota líquida":
     "Impuesto resultante antes de restar retenciones y pagos a cuenta.",
+  "Retenciones/pagos a cuenta":
+    "Importes ya pagados durante el año que se restan de la cuota liquida.",
   "Cuota diferencial":
     "Resultado tras restar retenciones y pagos a cuenta. Positivo: a pagar; negativo: a devolver.",
 } satisfies Record<string, string>
@@ -68,6 +77,9 @@ const AYUDAS_FORMULARIO = {
     "Hijos, nietos u otros familiares hacia abajo que pueden computar si cumplen requisitos fiscales.",
   Ascendientes:
     "Padres, madres o abuelos que pueden computar solo si cumplen requisitos fiscales.",
+  "Retenciones soportadas":
+    "IRPF ya retenido durante el año, por ejemplo en la nomina.",
+  "Pagos a cuenta": "Otros pagos anticipados del impuesto ya realizados.",
 } satisfies Record<string, string>
 
 function formatearEuros(centimos: number) {
@@ -88,6 +100,9 @@ export function LiquidacionIrpf() {
   const [edad, fijarEdad] = React.useState(40)
   const [descendientes, fijarDescendientes] = React.useState(0)
   const [ascendientes, fijarAscendientes] = React.useState(0)
+  const [retencionesSoportadasEuros, fijarRetencionesSoportadasEuros] =
+    React.useState(0)
+  const [pagosACuentaEuros, fijarPagosACuentaEuros] = React.useState(0)
 
   const caso = React.useMemo(
     () =>
@@ -126,8 +141,10 @@ export function LiquidacionIrpf() {
         },
         reducciones: [],
         deducciones: [],
-        retencionesSoportadasCentimos: 0,
-        pagosACuentaCentimos: 0,
+        retencionesSoportadasCentimos: eurosACentimos(
+          retencionesSoportadasEuros
+        ),
+        pagosACuentaCentimos: eurosACentimos(pagosACuentaEuros),
       }) satisfies CasoFiscalAnual,
     [
       ascendientes,
@@ -135,7 +152,9 @@ export function LiquidacionIrpf() {
       comunidadAutonoma,
       descendientes,
       edad,
+      pagosACuentaEuros,
       rendimientosTrabajoEuros,
+      retencionesSoportadasEuros,
     ]
   )
   const resultado = React.useMemo(
@@ -160,8 +179,12 @@ export function LiquidacionIrpf() {
             fijarComunidadAutonoma={fijarComunidadAutonoma}
             fijarDescendientes={fijarDescendientes}
             fijarEdad={fijarEdad}
+            fijarPagosACuentaEuros={fijarPagosACuentaEuros}
             fijarRendimientosTrabajoEuros={fijarRendimientosTrabajoEuros}
+            fijarRetencionesSoportadasEuros={fijarRetencionesSoportadasEuros}
+            pagosACuentaEuros={pagosACuentaEuros}
             rendimientosTrabajoEuros={rendimientosTrabajoEuros}
+            retencionesSoportadasEuros={retencionesSoportadasEuros}
           />
           <Resultado resultado={resultado} />
         </section>
@@ -181,8 +204,12 @@ function FormularioCaso({
   fijarComunidadAutonoma,
   fijarDescendientes,
   fijarEdad,
+  fijarPagosACuentaEuros,
   fijarRendimientosTrabajoEuros,
+  fijarRetencionesSoportadasEuros,
+  pagosACuentaEuros,
   rendimientosTrabajoEuros,
+  retencionesSoportadasEuros,
 }: {
   readonly ascendientes: number
   readonly capitalInmobiliarioEuros: number
@@ -194,8 +221,12 @@ function FormularioCaso({
   readonly fijarComunidadAutonoma: (valor: ComunidadAutonoma) => void
   readonly fijarDescendientes: (valor: number) => void
   readonly fijarEdad: (valor: number) => void
+  readonly fijarPagosACuentaEuros: (valor: number) => void
   readonly fijarRendimientosTrabajoEuros: (valor: number) => void
+  readonly fijarRetencionesSoportadasEuros: (valor: number) => void
+  readonly pagosACuentaEuros: number
   readonly rendimientosTrabajoEuros: number
+  readonly retencionesSoportadasEuros: number
 }) {
   return (
     <section className="border border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[6px_6px_0_var(--rule)] lg:sticky lg:top-5">
@@ -227,6 +258,22 @@ function FormularioCaso({
           onChange={fijarCapitalInmobiliarioEuros}
           paso={250}
           valor={capitalInmobiliarioEuros}
+        />
+        <NumberField
+          ayuda={AYUDAS_FORMULARIO["Retenciones soportadas"]}
+          etiqueta="Retenciones soportadas"
+          formato={FORMATO_ENTERO}
+          onChange={fijarRetencionesSoportadasEuros}
+          paso={250}
+          valor={retencionesSoportadasEuros}
+        />
+        <NumberField
+          ayuda={AYUDAS_FORMULARIO["Pagos a cuenta"]}
+          etiqueta="Pagos a cuenta"
+          formato={FORMATO_ENTERO}
+          onChange={fijarPagosACuentaEuros}
+          paso={250}
+          valor={pagosACuentaEuros}
         />
       </div>
 
@@ -315,24 +362,19 @@ function Resultado({
           ) : (
             <div className="grid gap-3 pl-8 sm:grid-cols-2 xl:grid-cols-4">
               <DatoResultado
-                etiqueta="Base liquidable"
-                ayuda={AYUDAS_RESUMEN["Base liquidable"]}
-                valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
-              />
-              <DatoResultado
                 etiqueta="Cotización empresa"
                 ayuda={AYUDAS_RESUMEN["Cotización empresa"]}
                 valor={formatearEuros(resultado.cotizacionEmpresarialCentimos)}
               />
               <DatoResultado
-                etiqueta="Cotización trabajador"
-                ayuda={AYUDAS_RESUMEN["Cotización trabajador"]}
-                valor={formatearEuros(resultado.cotizacionTrabajadorCentimos)}
-              />
-              <DatoResultado
                 etiqueta="Coste laboral"
                 ayuda={AYUDAS_RESUMEN["Coste laboral"]}
                 valor={formatearEuros(resultado.costeLaboralCentimos)}
+              />
+              <DatoResultado
+                etiqueta="Cotización trabajador"
+                ayuda={AYUDAS_RESUMEN["Cotización trabajador"]}
+                valor={formatearEuros(resultado.cotizacionTrabajadorCentimos)}
               />
               <DatoResultado
                 etiqueta="MEI empresa"
@@ -345,9 +387,40 @@ function Resultado({
                 valor={formatearEuros(resultado.meiTrabajadorCentimos)}
               />
               <DatoResultado
+                etiqueta="Gastos y deducciones trabajo"
+                ayuda={AYUDAS_RESUMEN["Gastos y deducciones trabajo"]}
+                valor={formatearEuros(
+                  resultado.totalGastosYDeduccionesTrabajoCentimos
+                )}
+              />
+              <DatoResultado
+                etiqueta="Rendimiento neto trabajo"
+                ayuda={AYUDAS_RESUMEN["Rendimiento neto trabajo"]}
+                valor={formatearEuros(resultado.rendimientoNetoTrabajoCentimos)}
+              />
+              <DatoResultado
+                etiqueta="Capital inmobiliario neto"
+                ayuda={AYUDAS_RESUMEN["Capital inmobiliario neto"]}
+                valor={formatearEuros(
+                  resultado.rendimientoNetoCapitalInmobiliarioCentimos
+                )}
+              />
+              <DatoResultado
+                etiqueta="Base liquidable"
+                ayuda={AYUDAS_RESUMEN["Base liquidable"]}
+                valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
+              />
+              <DatoResultado
                 etiqueta="Cuota líquida"
                 ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
                 valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
+              />
+              <DatoResultado
+                etiqueta="Retenciones/pagos a cuenta"
+                ayuda={AYUDAS_RESUMEN["Retenciones/pagos a cuenta"]}
+                valor={formatearEuros(
+                  resultado.retencionesYPagosACuentaCentimos
+                )}
               />
               <DatoResultado
                 etiqueta="Cuota diferencial"

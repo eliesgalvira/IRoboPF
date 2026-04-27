@@ -54,11 +54,15 @@ export function Tooltip({
         "aria-haspopup": "dialog",
         onClick: (evento: React.MouseEvent<HTMLElement>) => {
           children.props.onClick?.(evento)
-          fijarAbierto((actual) => !actual)
         },
         onFocus: (evento: React.FocusEvent<HTMLElement>) => {
           children.props.onFocus?.(evento)
           fijarAbierto(true)
+        },
+        onPointerDown: (evento: React.PointerEvent<HTMLElement>) => {
+          children.props.onPointerDown?.(evento)
+          evento.stopPropagation()
+          fijarAbierto((actual) => !actual)
         },
       })}
       {abierto ? (
