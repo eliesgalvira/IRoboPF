@@ -172,6 +172,7 @@ const describirEstadoDeduccion = (
 
   return "Reconocida en el manual, pendiente de convertir a ficha y fórmula revisadas."
 }
+
 const AYUDAS_RESUMEN = {
   "Base liquidable":
     "Resultado que queda para aplicar los tramos: rendimientos netos menos reducciones de base.",
