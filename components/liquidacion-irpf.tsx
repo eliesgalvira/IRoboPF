@@ -180,12 +180,14 @@ function Resultado({
 }: {
   readonly resultado: ResultadoLiquidacionIrpf
 }) {
+  const esNoSoportado = resultado._tag === "ResultadoNoSoportado"
+
   return (
     <section className="grid gap-5">
       <div
         className={cn(
           "border p-4",
-          resultado._tag === "ResultadoNoSoportado"
+          esNoSoportado
             ? "border-[var(--danger)] bg-[var(--paper)]"
             : "border-[var(--rule)] bg-[var(--paper)]"
         )}
@@ -199,10 +201,31 @@ function Resultado({
             <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
               {resultado._tag}
             </p>
-            <h2 className="mt-1 text-xl font-bold">{resultado.motivo}</h2>
-            <p className="mt-2 text-sm break-all text-[var(--ink-soft)]">
-              {resultado.fuenteReconocida}
-            </p>
+            {esNoSoportado ? (
+              <>
+                <h2 className="mt-1 text-xl font-bold">{resultado.motivo}</h2>
+                <p className="mt-2 text-sm break-all text-[var(--ink-soft)]">
+                  {resultado.fuenteReconocida}
+                </p>
+              </>
+            ) : (
+              <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                <DatoResultado
+                  etiqueta="Base liquidable"
+                  valor={formatearEuros(
+                    resultado.baseLiquidableGeneralCentimos
+                  )}
+                />
+                <DatoResultado
+                  etiqueta="Cuota líquida"
+                  valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
+                />
+                <DatoResultado
+                  etiqueta="Cuota diferencial"
+                  valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -246,5 +269,20 @@ function Resultado({
         </ol>
       </section>
     </section>
+  )
+}
+
+function DatoResultado({
+  etiqueta,
+  valor,
+}: {
+  readonly etiqueta: string
+  readonly valor: string
+}) {
+  return (
+    <div className="border border-[var(--rule)] bg-[var(--paper-2)] p-3">
+      <dt className="text-xs text-[var(--ink-soft)]">{etiqueta}</dt>
+      <dd className="mt-1 font-bold">{valor}</dd>
+    </div>
   )
 }
