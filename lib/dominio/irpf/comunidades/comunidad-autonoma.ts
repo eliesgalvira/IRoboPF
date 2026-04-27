@@ -1,5 +1,5 @@
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
-import { DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS } from "../../normativa/datos/deducciones-autonomicas-2025"
+import type { FichaDeduccionAutonomica } from "../../normativa/datos/deducciones-autonomicas-2025"
 import { MINIMOS_AUTONOMICOS_2025_SOPORTADOS } from "../../normativa/datos/minimos-autonomicos-2025"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
@@ -14,7 +14,7 @@ export interface ParametrosComunidadAutonoma {
   readonly anio: AnioFiscal
   readonly minimoAutonomicoIgualEstatal: boolean
   readonly escalaAutonomicaIgualEstatal: boolean
-  readonly deduccionesAutonomicasSoportadas: ReadonlyArray<never>
+  readonly deduccionesAutonomicasSoportadas: ReadonlyArray<FichaDeduccionAutonomica>
 }
 
 export interface ComunidadAutonomaNoSoportada {
@@ -51,7 +51,6 @@ export const obtenerParametrosComunidadAutonoma = ({
     minimoAutonomicoIgualEstatal:
       MINIMOS_AUTONOMICOS_2025_SOPORTADOS.valor.includes(comunidadAutonoma),
     escalaAutonomicaIgualEstatal: true,
-    deduccionesAutonomicasSoportadas:
-      DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor,
+    deduccionesAutonomicasSoportadas: [],
   }
 }

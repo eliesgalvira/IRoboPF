@@ -731,7 +731,7 @@ const detectarCasoNoSoportado = (
     return {
       _tag: "ResultadoNoSoportado",
       motivo: catalogada
-        ? `Deduccion autonomica catalogada pendiente de implementacion: ${catalogada.nombre}`
+        ? `Deduccion autonomica reconocida no implementada: ${catalogada.nombre}`
         : `Deduccion autonomica no catalogada: ${deduccionPendiente.codigo}`,
       fuenteReconocida:
         "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
@@ -741,10 +741,10 @@ const detectarCasoNoSoportado = (
           "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
         tituloFuentePaso: "Manual Renta 2025 Parte 2",
         tituloPaso: catalogada
-          ? "Deduccion autonomica catalogada pendiente"
+          ? "Deduccion autonomica reconocida no implementada"
           : "Deduccion autonomica no catalogada",
         descripcionPaso: catalogada
-          ? `El motor reconoce ${catalogada.codigo}, pero todavia no tiene formula, limites, requisitos, incompatibilidades y tests para liquidarla.`
+          ? `El motor reconoce ${catalogada.codigo} con estado ${catalogada.estado}, pero todavia no tiene evaluador y tests para liquidarla.`
           : `El motor ha recibido el codigo ${deduccionPendiente.codigo}, que no existe en el catalogo normalizado actual.`,
       }),
     }

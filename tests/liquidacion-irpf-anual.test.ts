@@ -426,7 +426,7 @@ describe("liquidarIrpfAnual", () => {
     expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
       _tag: "ResultadoNoSoportado",
       motivo:
-        "Deduccion autonomica catalogada pendiente de implementacion: Por gastos educativos",
+        "Deduccion autonomica reconocida no implementada: Por gastos educativos",
       fuenteReconocida:
         "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
     })

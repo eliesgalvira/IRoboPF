@@ -4,6 +4,7 @@ import * as React from "react"
 import { AlertTriangle, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Combobox } from "@/components/ui/combobox"
 import { NumberField } from "@/components/ui/number-field"
 import { Tooltip } from "@/components/ui/tooltip"
@@ -19,13 +20,20 @@ import {
   type ResultadoLiquidacionIrpf,
 } from "@/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 import { CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
-import type { CatalogoDeduccionesAutonomicasPorComunidad } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
+import type {
+  CuantiaDeduccionAutonomica,
+  CatalogoDeduccionesAutonomicasPorComunidad,
+  FichaDeduccionAutonomica,
+} from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import { cn } from "@/lib/utils"
 
 const eurosACentimos = (euros: number) => Math.round(euros * 100)
 const centimosAEuros = (centimos: number) => centimos / 100
 const FORMATO_ENTERO = {
   maximumFractionDigits: 0,
+} satisfies Intl.NumberFormatOptions
+const FORMATO_EUROS = {
+  maximumFractionDigits: 2,
 } satisfies Intl.NumberFormatOptions
 const OPCIONES_COMUNIDAD_AUTONOMA: ReadonlyArray<{
   readonly valor: ComunidadAutonoma
@@ -68,6 +76,102 @@ const OPCIONES_GANANCIA_PATRIMONIAL: ReadonlyArray<{
     etiqueta: "Reinversión en renta vitalicia",
   },
 ]
+type EntradasDeduccionesAutonomicas = {
+  readonly andaluciaHijosNacimientoAdopcion: number
+  readonly andaluciaMenoresAcogidos: number
+  readonly andaluciaMunicipioDespoblacion: boolean
+  readonly andaluciaFamiliaMonoparental: boolean
+  readonly andaluciaAscendientesMayores75: number
+  readonly madridHijosNacimientoAdopcion: number
+  readonly madridProrrateoDosProgenitores: boolean
+  readonly catalunyaAlquilerVictima: number
+  readonly catalunyaVictimaViolenciaMachista: boolean
+  readonly catalunyaAlquilerIncrementado: boolean
+  readonly catalunyaAportacionesCooperativas: number
+}
+
+const ENTRADAS_DEDUCCIONES_INICIALES: EntradasDeduccionesAutonomicas = {
+  andaluciaHijosNacimientoAdopcion: 0,
+  andaluciaMenoresAcogidos: 0,
+  andaluciaMunicipioDespoblacion: false,
+  andaluciaFamiliaMonoparental: false,
+  andaluciaAscendientesMayores75: 0,
+  madridHijosNacimientoAdopcion: 0,
+  madridProrrateoDosProgenitores: false,
+  catalunyaAlquilerVictima: 0,
+  catalunyaVictimaViolenciaMachista: false,
+  catalunyaAlquilerIncrementado: false,
+  catalunyaAportacionesCooperativas: 0,
+}
+
+const calcularDeduccionesAutonomicasAplicadas = (
+  entradas: EntradasDeduccionesAutonomicas
+): number => {
+  const andaluciaNacimiento =
+    (entradas.andaluciaHijosNacimientoAdopcion +
+      entradas.andaluciaMenoresAcogidos) *
+    (entradas.andaluciaMunicipioDespoblacion ? 400 : 200)
+  const andaluciaMonoparental = entradas.andaluciaFamiliaMonoparental
+    ? 100 + entradas.andaluciaAscendientesMayores75 * 100
+    : 0
+  const madridNacimiento =
+    entradas.madridHijosNacimientoAdopcion *
+    721.7 *
+    (entradas.madridProrrateoDosProgenitores ? 0.5 : 1)
+  const catalunyaAlquiler = entradas.catalunyaVictimaViolenciaMachista
+    ? Math.min(
+        entradas.catalunyaAlquilerVictima *
+          (entradas.catalunyaAlquilerIncrementado ? 0.25 : 0.2),
+        entradas.catalunyaAlquilerIncrementado ? 1200 : 1000
+      )
+    : 0
+  const catalunyaCooperativas = Math.min(
+    entradas.catalunyaAportacionesCooperativas * 0.2,
+    3000
+  )
+
+  return (
+    Math.round(
+      (andaluciaNacimiento +
+        andaluciaMonoparental +
+        madridNacimiento +
+        catalunyaAlquiler +
+        catalunyaCooperativas) *
+        100
+    ) / 100
+  )
+}
+
+const describirCuantiaDeduccion = (
+  cuantia: CuantiaDeduccionAutonomica
+): string => {
+  if (cuantia.tipo === "mixta") return cuantia.descripcion
+  if (cuantia.tipo === "importe_fijo") {
+    return `${cuantia.euros} euros por ${cuantia.por}.`
+  }
+
+  return `${cuantia.porcentaje}% sobre ${cuantia.base}${
+    cuantia.limiteMaximoEuros
+      ? `, con límite máximo de ${cuantia.limiteMaximoEuros} euros.`
+      : "."
+  }`
+}
+
+const describirEstadoDeduccion = (
+  deduccion: FichaDeduccionAutonomica
+): string => {
+  if (deduccion.estado === "implementada") {
+    return "Calculable en esta interfaz con los campos de abajo."
+  }
+  if (deduccion.estado === "normalizada_pendiente_tests") {
+    return "Ficha estructurada, pendiente de tests antes de aplicarla automáticamente."
+  }
+  if (deduccion.estado === "no_soportada") {
+    return "Revisada y no calculable con los datos actuales; debe tratarse como caso no soportado."
+  }
+
+  return "Reconocida en el manual, pendiente de convertir a ficha y fórmula revisadas."
+}
 const AYUDAS_RESUMEN = {
   "Base liquidable":
     "Resultado que queda para aplicar los tramos: rendimientos netos menos reducciones de base.",
@@ -156,10 +260,17 @@ export function LiquidacionIrpf() {
   const [retencionesSoportadasEuros, fijarRetencionesSoportadasEuros] =
     React.useState(0)
   const [pagosACuentaEuros, fijarPagosACuentaEuros] = React.useState(0)
-  const [deduccionesAutonomicasEuros, fijarDeduccionesAutonomicasEuros] =
+  const [
+    deduccionAutonomicaManualEuros,
+    fijarDeduccionAutonomicaManualEuros,
+  ] =
     React.useState(0)
   const [catalogoDeduccionesAbierto, fijarCatalogoDeduccionesAbierto] =
     React.useState(false)
+  const [entradasDeduccionesAutonomicas, fijarEntradasDeduccionesAutonomicas] =
+    React.useState<EntradasDeduccionesAutonomicas>(
+      ENTRADAS_DEDUCCIONES_INICIALES
+    )
   const [gananciaPatrimonialEuros, fijarGananciaPatrimonialEuros] =
     React.useState(0)
   const [tratamientoGananciaPatrimonial, fijarTratamientoGananciaPatrimonial] =
@@ -170,6 +281,20 @@ export function LiquidacionIrpf() {
     React.useState(0)
   const [reinversionesPreviasEuros, fijarReinversionesPreviasEuros] =
     React.useState(0)
+
+  const deduccionesAutonomicasAplicadasEuros = React.useMemo(
+    () =>
+      comunidadAutonoma === "simulada-estatal"
+        ? 0
+        : calcularDeduccionesAutonomicasAplicadas(
+            entradasDeduccionesAutonomicas
+          ),
+    [comunidadAutonoma, entradasDeduccionesAutonomicas]
+  )
+  const deduccionesAutonomicasEuros =
+    comunidadAutonoma === "simulada-estatal"
+      ? 0
+      : deduccionAutonomicaManualEuros + deduccionesAutonomicasAplicadasEuros
 
   const caso = React.useMemo(
     () =>
@@ -286,7 +411,7 @@ export function LiquidacionIrpf() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
         <NavegacionSitio />
 
-        <section className="grid items-start gap-6 lg:grid-cols-[minmax(320px,420px)_1fr]">
+        <section className="grid items-start gap-6 lg:grid-cols-[minmax(320px,470px)_1fr]">
           <FormularioCaso
             ascendientes={ascendientes}
             capitalInmobiliarioEuros={capitalInmobiliarioEuros}
@@ -297,6 +422,7 @@ export function LiquidacionIrpf() {
             descendientesDiscapacidad65={descendientesDiscapacidad65}
             catalogoDeduccionesAbierto={catalogoDeduccionesAbierto}
             edad={edad}
+            entradasDeduccionesAutonomicas={entradasDeduccionesAutonomicas}
             fijarCatalogoDeduccionesAbierto={fijarCatalogoDeduccionesAbierto}
             fijarAscendientes={fijarAscendientes}
             fijarCapitalInmobiliarioEuros={fijarCapitalInmobiliarioEuros}
@@ -307,8 +433,13 @@ export function LiquidacionIrpf() {
               fijarDescendientesConDiscapacidad
             }
             fijarDescendientesDiscapacidad65={fijarDescendientesDiscapacidad65}
-            fijarDeduccionesAutonomicasEuros={fijarDeduccionesAutonomicasEuros}
+            fijarDeduccionAutonomicaManualEuros={
+              fijarDeduccionAutonomicaManualEuros
+            }
             fijarEdad={fijarEdad}
+            fijarEntradasDeduccionesAutonomicas={
+              fijarEntradasDeduccionesAutonomicas
+            }
             fijarGananciaPatrimonialEuros={fijarGananciaPatrimonialEuros}
             fijarImporteTransmisionEuros={fijarImporteTransmisionEuros}
             fijarPagosACuentaEuros={fijarPagosACuentaEuros}
@@ -330,6 +461,9 @@ export function LiquidacionIrpf() {
             retencionesSoportadasEuros={retencionesSoportadasEuros}
             tratamientoGananciaPatrimonial={tratamientoGananciaPatrimonial}
             deduccionesAutonomicasEuros={deduccionesAutonomicasEuros}
+            deduccionesAutonomicasAplicadasEuros={
+              deduccionesAutonomicasAplicadasEuros
+            }
           />
           <Resultado resultado={resultado} />
         </section>
@@ -348,7 +482,9 @@ function FormularioCaso({
   descendientesDiscapacidad65,
   catalogoDeduccionesAbierto,
   deduccionesAutonomicasEuros,
+  deduccionesAutonomicasAplicadasEuros,
   edad,
+  entradasDeduccionesAutonomicas,
   fijarAscendientes,
   fijarCapitalInmobiliarioEuros,
   fijarComunidadAutonoma,
@@ -357,8 +493,9 @@ function FormularioCaso({
   fijarDescendientesConDiscapacidad,
   fijarDescendientesDiscapacidad65,
   fijarCatalogoDeduccionesAbierto,
-  fijarDeduccionesAutonomicasEuros,
+  fijarDeduccionAutonomicaManualEuros,
   fijarEdad,
+  fijarEntradasDeduccionesAutonomicas,
   fijarGananciaPatrimonialEuros,
   fijarImporteTransmisionEuros,
   fijarPagosACuentaEuros,
@@ -385,7 +522,9 @@ function FormularioCaso({
   readonly descendientesDiscapacidad65: number
   readonly catalogoDeduccionesAbierto: boolean
   readonly deduccionesAutonomicasEuros: number
+  readonly deduccionesAutonomicasAplicadasEuros: number
   readonly edad: number
+  readonly entradasDeduccionesAutonomicas: EntradasDeduccionesAutonomicas
   readonly fijarAscendientes: (valor: number) => void
   readonly fijarCapitalInmobiliarioEuros: (valor: number) => void
   readonly fijarComunidadAutonoma: (valor: ComunidadAutonoma) => void
@@ -394,8 +533,11 @@ function FormularioCaso({
   readonly fijarDescendientesConDiscapacidad: (valor: number) => void
   readonly fijarDescendientesDiscapacidad65: (valor: number) => void
   readonly fijarCatalogoDeduccionesAbierto: (valor: boolean) => void
-  readonly fijarDeduccionesAutonomicasEuros: (valor: number) => void
+  readonly fijarDeduccionAutonomicaManualEuros: (valor: number) => void
   readonly fijarEdad: (valor: number) => void
+  readonly fijarEntradasDeduccionesAutonomicas: React.Dispatch<
+    React.SetStateAction<EntradasDeduccionesAutonomicas>
+  >
   readonly fijarGananciaPatrimonialEuros: (valor: number) => void
   readonly fijarImporteTransmisionEuros: (valor: number) => void
   readonly fijarPagosACuentaEuros: (valor: number) => void
@@ -555,10 +697,9 @@ function FormularioCaso({
               </button>
             </div>
             <p className="mt-3 text-sm leading-6 text-[var(--ink-soft)]">
-              Estas deducciones están catalogadas, pero no tienen fórmula
-              implementada salvo que se indique lo contrario. Si se usan como
-              deducción concreta, el motor debe devolver un resultado no
-              soportado; el importe agregado manual queda marcado en el rastro.
+              Estas deducciones existen en el manual. Las fichas implementadas
+              debajo actualizan la deducción agregada del formulario; el importe
+              agregado queda marcado en el rastro.
             </p>
             <ul className="mt-4 grid gap-2">
               {(catalogoDeducciones?.deducciones ?? []).map((deduccion) => (
@@ -570,6 +711,39 @@ function FormularioCaso({
                   <p className="mt-1 text-xs break-all text-[var(--ink-soft)]">
                     {deduccion.codigo}
                   </p>
+                  <p className="mt-2 text-sm leading-6">
+                    {describirCuantiaDeduccion(deduccion.cuantia)}
+                  </p>
+                  <p className="mt-2 text-xs font-bold text-[var(--ink-soft)]">
+                    {describirEstadoDeduccion(deduccion)}
+                  </p>
+                  {deduccion.requisitos.length > 0 ? (
+                    <div className="mt-2">
+                      <p className="text-xs font-bold uppercase">
+                        Requisitos
+                      </p>
+                      <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
+                        {deduccion.requisitos.map((requisito) => (
+                          <li key={requisito}>{requisito}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                  {deduccion.limites.length > 0 ? (
+                    <div className="mt-2">
+                      <p className="text-xs font-bold uppercase">Límites</p>
+                      <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
+                        {deduccion.limites.map((limite) => (
+                          <li key={limite}>{limite}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                  <ControlesDeduccionAutonomica
+                    deduccion={deduccion}
+                    entradas={entradasDeduccionesAutonomicas}
+                    fijarEntradas={fijarEntradasDeduccionesAutonomicas}
+                  />
                 </li>
               ))}
             </ul>
@@ -592,7 +766,11 @@ function FormularioCaso({
               compacto
               etiqueta="Deducción agregada"
               formato={FORMATO_ENTERO}
-              onChange={fijarDeduccionesAutonomicasEuros}
+              onChange={(valor) =>
+                fijarDeduccionAutonomicaManualEuros(
+                  Math.max(0, valor - deduccionesAutonomicasAplicadasEuros)
+                )
+              }
               paso={100}
               valor={deduccionesAutonomicasEuros}
             />
@@ -607,7 +785,7 @@ function FormularioCaso({
                 onClick={() => fijarCatalogoDeduccionesAbierto(true)}
                 type="button"
               >
-                Ver deducciones
+                Aplicar
               </button>
             </div>
           </>
@@ -693,6 +871,161 @@ function FormularioCaso({
         />
       </div>
     </section>
+  )
+}
+
+function ControlesDeduccionAutonomica({
+  deduccion,
+  entradas,
+  fijarEntradas,
+}: {
+  readonly deduccion: FichaDeduccionAutonomica
+  readonly entradas: EntradasDeduccionesAutonomicas
+  readonly fijarEntradas: React.Dispatch<
+    React.SetStateAction<EntradasDeduccionesAutonomicas>
+  >
+}) {
+  const { codigo } = deduccion
+  const actualizar = <TClave extends keyof EntradasDeduccionesAutonomicas>(
+    clave: TClave,
+    valor: EntradasDeduccionesAutonomicas[TClave]
+  ) => fijarEntradas((actual) => ({ ...actual, [clave]: valor }))
+
+  if (codigo === "andalucia_nacimiento_adopcion_acogimiento_menores") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <NumberField
+          compacto
+          etiqueta="Hijos nacidos/adoptados"
+          formato={FORMATO_ENTERO}
+          onChange={(valor) =>
+            actualizar("andaluciaHijosNacimientoAdopcion", valor)
+          }
+          valor={entradas.andaluciaHijosNacimientoAdopcion}
+        />
+        <NumberField
+          compacto
+          etiqueta="Menores acogidos"
+          formato={FORMATO_ENTERO}
+          onChange={(valor) => actualizar("andaluciaMenoresAcogidos", valor)}
+          valor={entradas.andaluciaMenoresAcogidos}
+        />
+        <div className="sm:col-span-2">
+          <Checkbox
+            checked={entradas.andaluciaMunicipioDespoblacion}
+            etiqueta="Reside en municipio con problemas de despoblación"
+            onCheckedChange={(checked) =>
+              actualizar("andaluciaMunicipioDespoblacion", checked)
+            }
+          />
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "andalucia_familia_monoparental_ascendientes_mayores_75") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <div className="sm:col-span-2">
+          <Checkbox
+            checked={entradas.andaluciaFamiliaMonoparental}
+            etiqueta="Familia monoparental"
+            onCheckedChange={(checked) =>
+              actualizar("andaluciaFamiliaMonoparental", checked)
+            }
+          />
+        </div>
+        <NumberField
+          compacto
+          etiqueta="Ascendientes mayores de 75"
+          formato={FORMATO_ENTERO}
+          onChange={(valor) =>
+            actualizar("andaluciaAscendientesMayores75", valor)
+          }
+          valor={entradas.andaluciaAscendientesMayores75}
+        />
+      </div>
+    )
+  }
+
+  if (codigo === "madrid_nacimiento_adopcion_hijos") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <NumberField
+          compacto
+          etiqueta="Hijos nacidos/adoptados"
+          formato={FORMATO_ENTERO}
+          onChange={(valor) =>
+            actualizar("madridHijosNacimientoAdopcion", valor)
+          }
+          valor={entradas.madridHijosNacimientoAdopcion}
+        />
+        <div className="flex items-end pb-1">
+          <Checkbox
+            checked={entradas.madridProrrateoDosProgenitores}
+            etiqueta="Prorratear entre dos progenitores"
+            onCheckedChange={(checked) =>
+              actualizar("madridProrrateoDosProgenitores", checked)
+            }
+          />
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "cataluna_alquiler_victimas_violencia_machista") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <NumberField
+          compacto
+          etiqueta="Alquiler pagado"
+          formato={FORMATO_EUROS}
+          onChange={(valor) => actualizar("catalunyaAlquilerVictima", valor)}
+          paso={100}
+          valor={entradas.catalunyaAlquilerVictima}
+        />
+        <div className="grid gap-2">
+          <Checkbox
+            checked={entradas.catalunyaVictimaViolenciaMachista}
+            etiqueta="Víctima de violencia machista"
+            onCheckedChange={(checked) =>
+              actualizar("catalunyaVictimaViolenciaMachista", checked)
+            }
+          />
+          <Checkbox
+            checked={entradas.catalunyaAlquilerIncrementado}
+            etiqueta="Discapacidad ≥65% o hijo menor a cargo"
+            onCheckedChange={(checked) =>
+              actualizar("catalunyaAlquilerIncrementado", checked)
+            }
+          />
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "cataluna_inversion_cooperativas_agrarias_vivienda") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <NumberField
+          compacto
+          etiqueta="Aportaciones de capital"
+          formato={FORMATO_EUROS}
+          onChange={(valor) =>
+            actualizar("catalunyaAportacionesCooperativas", valor)
+          }
+          paso={100}
+          valor={entradas.catalunyaAportacionesCooperativas}
+        />
+      </div>
+    )
+  }
+
+  return (
+    <p className="mt-3 border-l-4 border-[var(--rule)] pl-3 text-xs leading-5 text-[var(--ink-soft)]">
+      Esta deducción está reconocida, pero todavía no está convertida en campos
+      y fórmula revisada. No se suma automáticamente a la deducción agregada.
+    </p>
   )
 }
 
