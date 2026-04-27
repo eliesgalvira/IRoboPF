@@ -69,8 +69,9 @@ al rango pedagógico de 10.000 a 100.000 euros en saltos de 1.000 euros.
 ### Auditoría por rango salarial
 
 La ruta `/auditoria` ejecuta un barrido salarial local, por defecto entre
-15.000 y 100.000 euros, con puntos cada 100 euros y etiquetas de gráfica cada
-5.000 euros. El usuario puede cambiar mínimo, máximo y año comparado.
+15.000 y 100.000 euros, con puntos cada 100 euros y etiquetas de gráfica
+equidistantes adaptadas al rango elegido. El usuario puede cambiar mínimo,
+máximo y año comparado.
 
 La pantalla prioriza hallazgos antes que la tabla completa:
 
