@@ -6,6 +6,39 @@ import {
 } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 
 describe("liquidarIrpfAnual", () => {
+  it("liquida una primera vertical slice individual con rendimientos del trabajo", () => {
+    const caso = {
+      anio: 2025,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: "sin-discapacidad",
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
+      _tag: "ResultadoLiquidacionIrpf",
+      anio: 2025,
+      perfil: "renta-individual-general",
+      baseImponibleGeneralCentimos: 2_605_600,
+      baseLiquidableGeneralCentimos: 2_605_600,
+      cuotaIntegraGeneralCentimos: 598_230,
+      cuotaMinimoPersonalCentimos: 105_450,
+      cuotaLiquidaCentimos: 492_780,
+      cuotaDiferencialCentimos: 492_780,
+    })
+  })
+
   it("devuelve ResultadoNoSoportado para rendimientos reconocidos aun no implementados", () => {
     const caso = {
       anio: 2025,
@@ -49,8 +82,7 @@ describe("liquidarIrpfAnual", () => {
             fuentes: [
               {
                 titulo: "Manual Renta 2025 Parte 1",
-                referencia:
-                  "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
+                referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
               },
             ],
           },
