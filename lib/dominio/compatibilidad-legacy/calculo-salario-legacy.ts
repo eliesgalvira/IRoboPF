@@ -9,7 +9,7 @@ export interface EntradaCalculoSalarioLegacy {
 }
 
 // Este adaptador conserva el contrato observable del perfil legacy mientras el
-// calculo se va moviendo desde `lib/domain/progresividad.ts` por vertical slices.
+// calculo se va moviendo desde `lib/domain/progresividad.ts` por partes.
 export const calcularSalarioLegacy = Effect.fn(
   "compatibilidadLegacy.calcularSalarioLegacy"
 )(function* (entrada: EntradaCalculoSalarioLegacy) {

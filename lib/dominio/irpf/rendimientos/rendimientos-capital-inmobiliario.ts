@@ -18,7 +18,7 @@ export const sumarRendimientosCapitalInmobiliario = (
   )
 
 /**
- * Primera vertical slice del rendimiento de capital inmobiliario.
+ * Primer caso soportado del rendimiento de capital inmobiliario.
  *
  * El Manual de Renta separa este rendimiento de los rendimientos del trabajo,
  * pero la interfaz experta necesita producir una liquidacion trazable desde el

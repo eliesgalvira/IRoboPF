@@ -6,7 +6,7 @@ El motor actual concentra auditoria de progresividad en frio, salario neto, coti
 
 - Seguir ampliando `progresividad.ts`: minimiza archivos a corto plazo, pero mezcla el oraculo legacy con reglas fiscales nuevas y hace mas probable romper la exportacion compatible.
 - Reescritura completa: permitiria un modelo limpio desde el inicio, pero perderia el contrato legacy y haria dificil aislar regresiones.
-- Refactor incremental con fachada y tests de caracterizacion: mantiene el comportamiento actual bajo `legacy-progresividad-frio` y permite anadir casos de Renta por vertical slices.
+- Refactor incremental con fachada y tests de caracterizacion: mantiene el comportamiento actual bajo `legacy-progresividad-frio` y permite anadir casos de Renta por incrementos funcionales pequenos.
 
 **Consequences**
 

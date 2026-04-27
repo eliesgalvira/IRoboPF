@@ -5,6 +5,7 @@ import { AlertTriangle, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
 import { Combobox } from "@/components/ui/combobox"
+import { NumberField } from "@/components/ui/number-field"
 import type { ComunidadAutonoma } from "@/lib/dominio/irpf/caso-fiscal-anual"
 import {
   liquidarIrpfAnual,
@@ -15,6 +16,9 @@ import { cn } from "@/lib/utils"
 
 const eurosACentimos = (euros: number) => Math.round(euros * 100)
 const centimosAEuros = (centimos: number) => centimos / 100
+const FORMATO_ENTERO = {
+  maximumFractionDigits: 0,
+} satisfies Intl.NumberFormatOptions
 const OPCIONES_COMUNIDAD_AUTONOMA: ReadonlyArray<{
   readonly valor: ComunidadAutonoma
   readonly etiqueta: string
@@ -54,6 +58,9 @@ export function LiquidacionIrpf() {
     React.useState(1_000)
   const [comunidadAutonoma, fijarComunidadAutonoma] =
     React.useState<ComunidadAutonoma>("simulada-estatal")
+  const [edad, fijarEdad] = React.useState(40)
+  const [descendientes, fijarDescendientes] = React.useState(0)
+  const [ascendientes, fijarAscendientes] = React.useState(0)
 
   const caso = React.useMemo(
     () =>
@@ -62,9 +69,15 @@ export function LiquidacionIrpf() {
         comunidadAutonoma,
         situacionFamiliar: {
           tipo: "individual",
-          edad: 40,
-          descendientes: [],
-          ascendientes: [],
+          edad,
+          descendientes: Array.from({ length: descendientes }, () => ({
+            edad: 10,
+            discapacidad: "sin-discapacidad",
+          })),
+          ascendientes: Array.from({ length: ascendientes }, () => ({
+            edad: 78,
+            discapacidad: "sin-discapacidad",
+          })),
           discapacidad: "sin-discapacidad",
         },
         rendimientos: {
@@ -89,7 +102,14 @@ export function LiquidacionIrpf() {
         retencionesSoportadasCentimos: 0,
         pagosACuentaCentimos: 0,
       }) satisfies CasoFiscalAnual,
-    [capitalInmobiliarioEuros, comunidadAutonoma, rendimientosTrabajoEuros]
+    [
+      ascendientes,
+      capitalInmobiliarioEuros,
+      comunidadAutonoma,
+      descendientes,
+      edad,
+      rendimientosTrabajoEuros,
+    ]
   )
   const resultado = React.useMemo(
     () => liquidarIrpfAnual(caso, { modo: "canonico" }),
@@ -101,12 +121,18 @@ export function LiquidacionIrpf() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
         <NavegacionSitio />
 
-        <section className="grid gap-6 lg:grid-cols-[minmax(320px,420px)_1fr]">
+        <section className="grid items-start gap-6 lg:grid-cols-[minmax(320px,420px)_1fr]">
           <FormularioCaso
+            ascendientes={ascendientes}
             capitalInmobiliarioEuros={capitalInmobiliarioEuros}
             comunidadAutonoma={comunidadAutonoma}
+            descendientes={descendientes}
+            edad={edad}
+            fijarAscendientes={fijarAscendientes}
             fijarCapitalInmobiliarioEuros={fijarCapitalInmobiliarioEuros}
             fijarComunidadAutonoma={fijarComunidadAutonoma}
+            fijarDescendientes={fijarDescendientes}
+            fijarEdad={fijarEdad}
             fijarRendimientosTrabajoEuros={fijarRendimientosTrabajoEuros}
             rendimientosTrabajoEuros={rendimientosTrabajoEuros}
           />
@@ -118,22 +144,34 @@ export function LiquidacionIrpf() {
 }
 
 function FormularioCaso({
+  ascendientes,
   capitalInmobiliarioEuros,
   comunidadAutonoma,
+  descendientes,
+  edad,
+  fijarAscendientes,
   fijarCapitalInmobiliarioEuros,
   fijarComunidadAutonoma,
+  fijarDescendientes,
+  fijarEdad,
   fijarRendimientosTrabajoEuros,
   rendimientosTrabajoEuros,
 }: {
+  readonly ascendientes: number
   readonly capitalInmobiliarioEuros: number
   readonly comunidadAutonoma: ComunidadAutonoma
+  readonly descendientes: number
+  readonly edad: number
+  readonly fijarAscendientes: (valor: number) => void
   readonly fijarCapitalInmobiliarioEuros: (valor: number) => void
   readonly fijarComunidadAutonoma: (valor: ComunidadAutonoma) => void
+  readonly fijarDescendientes: (valor: number) => void
+  readonly fijarEdad: (valor: number) => void
   readonly fijarRendimientosTrabajoEuros: (valor: number) => void
   readonly rendimientosTrabajoEuros: number
 }) {
   return (
-    <section className="border border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[6px_6px_0_var(--rule)]">
+    <section className="border border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[6px_6px_0_var(--rule)] lg:sticky lg:top-5">
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
@@ -147,15 +185,19 @@ function FormularioCaso({
       </div>
 
       <div className="grid gap-4">
-        <CampoEuros
+        <NumberField
           etiqueta="Rendimientos del trabajo"
-          valor={rendimientosTrabajoEuros}
+          formato={FORMATO_ENTERO}
           onChange={fijarRendimientosTrabajoEuros}
+          paso={500}
+          valor={rendimientosTrabajoEuros}
         />
-        <CampoEuros
+        <NumberField
           etiqueta="Capital inmobiliario"
-          valor={capitalInmobiliarioEuros}
+          formato={FORMATO_ENTERO}
           onChange={fijarCapitalInmobiliarioEuros}
+          paso={250}
+          valor={capitalInmobiliarioEuros}
         />
       </div>
 
@@ -168,51 +210,31 @@ function FormularioCaso({
         />
       </div>
 
-      <dl className="mt-3 grid grid-cols-2 gap-3 text-xs">
-        <DatoCaso etiqueta="Edad" valor="40" />
-        <DatoCaso etiqueta="Descendientes" valor="0" />
-        <DatoCaso etiqueta="Ascendientes" valor="0" />
-      </dl>
+      <div className="mt-3 grid grid-cols-2 gap-3">
+        <NumberField
+          etiqueta="Edad"
+          formato={FORMATO_ENTERO}
+          max={120}
+          min={18}
+          onChange={fijarEdad}
+          valor={edad}
+        />
+        <NumberField
+          etiqueta="Descendientes"
+          formato={FORMATO_ENTERO}
+          max={8}
+          onChange={fijarDescendientes}
+          valor={descendientes}
+        />
+        <NumberField
+          etiqueta="Ascendientes"
+          formato={FORMATO_ENTERO}
+          max={4}
+          onChange={fijarAscendientes}
+          valor={ascendientes}
+        />
+      </div>
     </section>
-  )
-}
-
-function CampoEuros({
-  etiqueta,
-  onChange,
-  valor,
-}: {
-  readonly etiqueta: string
-  readonly onChange: (valor: number) => void
-  readonly valor: number
-}) {
-  return (
-    <label className="grid gap-2 text-sm font-bold">
-      <span>{etiqueta}</span>
-      <input
-        className="h-11 border border-[var(--rule)] bg-[var(--paper-2)] px-3 text-base font-[var(--mono)] outline-none focus:ring-2 focus:ring-[var(--mark)]"
-        inputMode="decimal"
-        min={0}
-        onChange={(evento) => onChange(Number(evento.currentTarget.value))}
-        type="number"
-        value={valor}
-      />
-    </label>
-  )
-}
-
-function DatoCaso({
-  etiqueta,
-  valor,
-}: {
-  readonly etiqueta: string
-  readonly valor: string
-}) {
-  return (
-    <div className="border border-[var(--rule)] bg-[var(--paper-2)] p-3">
-      <dt className="text-[var(--ink-soft)]">{etiqueta}</dt>
-      <dd className="mt-1 font-bold">{valor}</dd>
-    </div>
   )
 }
 
@@ -227,47 +249,54 @@ function Resultado({
     <section className="grid gap-5">
       <div
         className={cn(
-          "border p-4",
-          esNoSoportado
-            ? "border-[var(--danger)] bg-[var(--paper)]"
-            : "border-[var(--rule)] bg-[var(--paper)]"
+          "border bg-[var(--paper)] p-4",
+          esNoSoportado ? "border-[var(--danger)]" : "border-[var(--rule)]"
         )}
       >
-        <div className="flex items-start gap-3">
-          <AlertTriangle
-            aria-hidden
-            className="mt-0.5 size-5 shrink-0 text-[var(--danger)]"
-          />
-          <div>
-            <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
-              {resultado._tag}
-            </p>
-            {esNoSoportado ? (
+        <div className="grid gap-4">
+          <div className="flex items-start gap-3">
+            <AlertTriangle
+              aria-hidden
+              className="mt-0.5 size-5 shrink-0 text-[var(--danger)]"
+            />
+            <div className="max-w-3xl">
+              <p className="text-xs tracking-[0.12em] text-[var(--ink-soft)] uppercase">
+                {esNoSoportado
+                  ? "Resultado no soportado"
+                  : "Liquidación calculada"}
+              </p>
+              <p className="mt-1 text-sm leading-6 text-[var(--ink-soft)]">
+                Interfaz experta en desarrollo. Este resultado puede contener
+                errores y discrepar de forma sustancial del cálculo real de la
+                declaración; contrástalo con el rastro antes de usarlo.
+              </p>
+            </div>
+          </div>
+          {esNoSoportado ? (
+            <div className="pl-8">
               <>
-                <h2 className="mt-1 text-xl font-bold">{resultado.motivo}</h2>
+                <h2 className="text-xl font-bold">{resultado.motivo}</h2>
                 <p className="mt-2 text-sm break-all text-[var(--ink-soft)]">
                   {resultado.fuenteReconocida}
                 </p>
               </>
-            ) : (
-              <div className="mt-3 grid gap-3 sm:grid-cols-3">
-                <DatoResultado
-                  etiqueta="Base liquidable"
-                  valor={formatearEuros(
-                    resultado.baseLiquidableGeneralCentimos
-                  )}
-                />
-                <DatoResultado
-                  etiqueta="Cuota líquida"
-                  valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
-                />
-                <DatoResultado
-                  etiqueta="Cuota diferencial"
-                  valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
-                />
-              </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="grid gap-3 pl-8 sm:grid-cols-3">
+              <DatoResultado
+                etiqueta="Base liquidable"
+                valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
+              />
+              <DatoResultado
+                etiqueta="Cuota líquida"
+                valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
+              />
+              <DatoResultado
+                etiqueta="Cuota diferencial"
+                valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -289,6 +318,24 @@ function Resultado({
                 <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">
                   {paso.descripcion}
                 </p>
+                {paso.lineasCalculo?.length ? (
+                  <dl className="mt-4 grid gap-2">
+                    {paso.lineasCalculo.map((linea) => (
+                      <div
+                        className="grid gap-2 border border-[var(--rule)] bg-[var(--paper-2)] p-3 md:grid-cols-[minmax(10rem,0.9fr)_minmax(14rem,1.4fr)_minmax(8rem,0.7fr)]"
+                        key={`${paso.titulo}-${linea.etiqueta}`}
+                      >
+                        <dt className="text-xs font-bold">{linea.etiqueta}</dt>
+                        <dd className="text-xs break-words text-[var(--ink-soft)]">
+                          {linea.formula}
+                        </dd>
+                        <dd className="text-sm font-bold tabular-nums md:text-right">
+                          {linea.resultado}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : null}
                 {paso.fuentes.length > 0 ? (
                   <ul className="mt-3 grid gap-2">
                     {paso.fuentes.map((fuente) => (
