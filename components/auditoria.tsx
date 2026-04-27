@@ -224,7 +224,7 @@ function AuditoriaImpl() {
               afectado, la mayor brecha de carga y el primer salario con IRPF en
               2026.
             </p>
-            <div className="flex flex-wrap gap-2 text-[11px] tracking-[0.22em] uppercase">
+            <div className="flex flex-wrap gap-2 text-sm tracking-[0.22em] uppercase">
               <button
                 type="button"
                 onClick={() => exportar("educativa")}
@@ -341,7 +341,7 @@ function DialogoExportacionCompatible({
                 granularidad de 1 €. Se generará localmente por lotes y podrás
                 seguir el progreso sin bloquear la página.
               </Dialog.Description>
-              <div className="mt-5 flex flex-wrap justify-end gap-2 text-[11px] tracking-[0.22em] uppercase">
+              <div className="mt-5 flex flex-wrap justify-end gap-2 text-sm tracking-[0.22em] uppercase">
                 <Dialog.Close
                   onClick={alCancelarAdvertencia}
                   className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 transition-colors hover:bg-[var(--danger)] hover:text-[var(--paper)] focus-visible:bg-[var(--danger)] focus-visible:text-[var(--paper)] focus-visible:outline-none"
@@ -376,7 +376,7 @@ function DialogoExportacionCompatible({
               </Dialog.Description>
 
               <div className="grid gap-2">
-                <div className="flex justify-between font-[family-name:var(--mono)] text-xs tabular-nums">
+                <div className="flex justify-between font-[family-name:var(--mono)] text-sm tabular-nums">
                   <span>{progreso?.hoja ?? "LIBRO"}</span>
                   <span>{progresoVisible.toFixed(1)}%</span>
                 </div>
@@ -386,7 +386,7 @@ function DialogoExportacionCompatible({
                     style={{ width: `${progresoVisible}%` }}
                   />
                 </div>
-                <div className="grid gap-1 font-[family-name:var(--mono)] text-[11px] text-[var(--ink-soft)] tabular-nums sm:grid-cols-4">
+                <div className="grid gap-1 font-[family-name:var(--mono)] text-sm text-[var(--ink-soft)] tabular-nums sm:grid-cols-4">
                   <span>
                     Hojas {progreso?.hojasProcesadas ?? 0}/
                     {progreso?.hojasTotales ?? 18}
@@ -405,17 +405,17 @@ function DialogoExportacionCompatible({
               </div>
 
               <div className="min-h-0 border-2 border-[var(--rule)] bg-[var(--paper-2)] p-3">
-                <p className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+                <p className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
                   Logs de cálculo
                 </p>
-                <ol className="mt-2 grid max-h-64 gap-1 overflow-auto font-[family-name:var(--mono)] text-[11px] leading-5 tabular-nums">
+                <ol className="mt-2 grid max-h-64 gap-1 overflow-auto font-[family-name:var(--mono)] text-sm leading-5 tabular-nums">
                   {logs.map((log, indice) => (
                     <li key={`${indice}-${log}`}>{log}</li>
                   ))}
                 </ol>
               </div>
 
-              <div className="flex flex-wrap justify-end gap-2 text-[11px] tracking-[0.22em] uppercase">
+              <div className="flex flex-wrap justify-end gap-2 text-sm tracking-[0.22em] uppercase">
                 {exportando ? (
                   <button
                     type="button"
@@ -460,7 +460,7 @@ function BarraFiltros({
 }) {
   return (
     <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
-      <p className="text-[10px] tracking-[0.32em] text-[var(--ink-soft)] uppercase">
+      <p className="text-sm tracking-[0.32em] text-[var(--ink-soft)] uppercase">
         FILTROS / BARRIDO
       </p>
       <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-8">
@@ -510,7 +510,7 @@ function BarraFiltros({
                 className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none"
               />
             </Slider.Control>
-            <div className="flex justify-between text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+            <div className="flex justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
               <span>
                 {formatearCentimosEnteros(
                   configuracionRangoAuditoria.minimoCentimos
@@ -525,7 +525,7 @@ function BarraFiltros({
           </Slider.Root>
         </div>
         <div className="grid gap-2">
-          <span className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+          <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
             AÑO COMPARADO
           </span>
           <div
@@ -542,7 +542,7 @@ function BarraFiltros({
                   aria-checked={activo}
                   onClick={() => fijarAnioComparado(anio)}
                   className={cn(
-                    "h-12 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums transition-colors",
+                    "h-12 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
                     "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
                     activo
                       ? "bg-[var(--mark)] text-[var(--mark-ink)]"
@@ -582,7 +582,7 @@ function CampoDinero({
       }
       className="grid gap-1"
     >
-      <span className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+      <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
         {etiqueta}
       </span>
       <NumberField.Group className="grid h-12 grid-cols-[2.25rem_minmax(0,1fr)_2.25rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
@@ -620,7 +620,7 @@ function HallazgoPrincipal({
           style={{ background: tono }}
         />
         <span
-          className="px-2 py-1 font-[family-name:var(--mono)] text-[10px] font-bold tracking-[0.3em] text-[var(--paper)] uppercase sm:px-3"
+          className="px-2 py-1 font-[family-name:var(--mono)] text-sm font-bold tracking-[0.3em] text-[var(--paper)] uppercase sm:px-3"
           style={{ background: tono }}
         >
           HALLAZGO 01
@@ -650,7 +650,7 @@ function HallazgosSecundarios({
   if (hallazgos.length === 0) return null
   return (
     <section className="border-b-2 border-[var(--rule)] py-6">
-      <p className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+      <p className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
         OTROS HALLAZGOS
       </p>
       <ul className="mt-3 grid gap-px bg-[var(--rule)]">
@@ -667,7 +667,7 @@ function HallazgosSecundarios({
               className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 bg-[var(--paper)] px-3 py-4 sm:gap-6 sm:px-6"
             >
               <span
-                className="px-2 py-0.5 font-[family-name:var(--mono)] text-[10px] font-bold tracking-[0.3em] text-[var(--paper)] uppercase"
+                className="px-2 py-0.5 font-[family-name:var(--mono)] text-sm font-bold tracking-[0.3em] text-[var(--paper)] uppercase"
                 style={{ background: tono }}
               >
                 0{indice + 2}
@@ -676,7 +676,7 @@ function HallazgosSecundarios({
                 <h3 className="text-sm font-bold tracking-wider text-[var(--ink)] uppercase">
                   {hallazgo.titulo}
                 </h3>
-                <p className="mt-1 text-xs leading-5 text-[var(--ink-soft)]">
+                <p className="mt-1 text-sm leading-5 text-[var(--ink-soft)]">
                   {hallazgo.descripcion}
                 </p>
               </div>
@@ -942,7 +942,7 @@ function LeyendaNetoReal({
   }
 
   return (
-    <div className="flex flex-wrap justify-end gap-4 pt-2 font-[family-name:var(--mono)] text-[13px] font-bold tabular-nums">
+    <div className="flex flex-wrap justify-end gap-4 pt-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums">
       {items.map((item) => (
         <span
           key={String(item.dataKey)}
@@ -1049,7 +1049,7 @@ function Visualizaciones({
         </h2>
       </div>
       <Tabs.Root defaultValue="tipo-irpf" className="mt-5 grid gap-4">
-        <Tabs.List className="inline-flex w-fit divide-x-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-[11px] tracking-[0.22em] uppercase">
+        <Tabs.List className="inline-flex w-fit divide-x-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-sm tracking-[0.22em] uppercase">
           {(["tipo-irpf", "neto-real"] as const).map((vista) => (
             <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
               {vista === "tipo-irpf" ? "TIPO IRPF" : "NETO REAL"}
@@ -1061,7 +1061,7 @@ function Visualizaciones({
           className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
           <div className="flex flex-wrap items-start justify-between gap-4">
-            <p className="max-w-3xl text-xs leading-5 text-[var(--ink-soft)]">
+            <p className="max-w-3xl text-sm leading-5 text-[var(--ink-soft)]">
               TIPO EFECTIVO DEL IRPF: IRPF FINAL COMO PORCENTAJE DEL SALARIO
               BRUTO ANUAL AJUSTADO POR IPC.
             </p>
@@ -1079,7 +1079,7 @@ function Visualizaciones({
                     aria-pressed={activo}
                     onClick={() => alternarAnioIrpf(anio)}
                     className={cn(
-                      "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums transition-colors",
+                      "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
                       "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
                       activo
                         ? "text-[var(--ink)]"
@@ -1127,7 +1127,7 @@ function Visualizaciones({
                 angle={-90}
                 textAnchor="end"
                 height={66}
-                fontSize={10}
+                fontSize={14}
               />
               <YAxis
                 tickLine={false}
@@ -1136,7 +1136,7 @@ function Visualizaciones({
                 width={44}
                 domain={dominioTipoEfectivoIrpf}
                 ticks={ticksTipoEfectivoIrpf}
-                fontSize={12}
+                fontSize={14}
                 tickFormatter={(valor: number) => `${Math.round(valor * 100)}%`}
               />
               <ChartTooltip
@@ -1165,7 +1165,7 @@ function Visualizaciones({
                 iconType="plainline"
                 wrapperStyle={{
                   fontFamily: "var(--mono)",
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: 700,
                   paddingTop: 8,
                 }}
@@ -1191,7 +1191,7 @@ function Visualizaciones({
           className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
           <div className="flex flex-wrap items-start justify-between gap-4">
-            <p className="max-w-3xl text-xs leading-5 text-[var(--ink-soft)]">
+            <p className="max-w-3xl text-sm leading-5 text-[var(--ink-soft)]">
               DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI
               ES POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
             </p>
@@ -1209,7 +1209,7 @@ function Visualizaciones({
                     aria-pressed={activo}
                     onClick={() => alternarAnioNetoReal(anio)}
                     className={cn(
-                      "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-[11px] font-bold tabular-nums transition-colors",
+                      "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
                       "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
                       activo
                         ? "text-[var(--ink)]"
@@ -1255,7 +1255,7 @@ function Visualizaciones({
                 tickMargin={6}
                 interval={0}
                 minTickGap={12}
-                fontSize={10}
+                fontSize={14}
               />
               <YAxis
                 tickLine={false}
@@ -1263,7 +1263,7 @@ function Visualizaciones({
                 tickMargin={4}
                 width={44}
                 domain={dominioDiferencia}
-                fontSize={10}
+                fontSize={14}
                 tickFormatter={(valor: number) =>
                   Math.abs(valor) >= 1000
                     ? `${Math.round(valor / 1000)}k`
@@ -1297,7 +1297,7 @@ function Visualizaciones({
                 content={<LeyendaNetoReal />}
                 wrapperStyle={{
                   fontFamily: "var(--mono)",
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: 700,
                   paddingTop: 8,
                 }}
