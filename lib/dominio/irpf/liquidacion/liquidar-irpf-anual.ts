@@ -17,6 +17,7 @@ import {
 import { calcularBaseImponibleGeneral } from "../integracion/base-imponible-general"
 import { obtenerMinimoAscendientes } from "../minimos/minimo-ascendientes"
 import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
+import { obtenerMinimoDescendientes } from "../minimos/minimo-descendientes"
 import {
   calcularRendimientoNetoCapitalInmobiliarioSimplificado,
   sumarRendimientosCapitalInmobiliario,
@@ -43,6 +44,11 @@ export interface ResultadoLiquidacionIrpfSoportada {
   readonly _tag: "ResultadoLiquidacionIrpf"
   readonly perfil: "renta-individual-general"
   readonly anio: CasoFiscalAnual["anio"]
+  readonly rendimientoIntegroTrabajoCentimos: number
+  readonly rendimientoNetoTrabajoCentimos: number
+  readonly rendimientoNetoCapitalInmobiliarioCentimos: number
+  readonly gastosDeduciblesTrabajoCentimos: number
+  readonly totalGastosYDeduccionesTrabajoCentimos: number
   readonly baseImponibleGeneralCentimos: number
   readonly baseLiquidableGeneralCentimos: number
   readonly cotizacionEmpresarialCentimos: number
@@ -55,6 +61,7 @@ export interface ResultadoLiquidacionIrpfSoportada {
   readonly cuotaIntegraGeneralCentimos: number
   readonly cuotaMinimoPersonalCentimos: number
   readonly cuotaLiquidaCentimos: number
+  readonly retencionesYPagosACuentaCentimos: number
   readonly cuotaDiferencialCentimos: number
   readonly rastro: RastroCalculo
 }
@@ -141,7 +148,12 @@ const liquidarTrabajoIndividualSimple = (
   const minimoAscendientes = obtenerMinimoAscendientes(
     caso.situacionFamiliar.ascendientes
   )
-  const minimoPersonalYFamiliar = minimoContribuyente.plus(minimoAscendientes)
+  const minimoDescendientes = obtenerMinimoDescendientes(
+    caso.situacionFamiliar.descendientes
+  )
+  const minimoPersonalYFamiliar = minimoContribuyente
+    .plus(minimoDescendientes)
+    .plus(minimoAscendientes)
   const cuotaMinimoPersonal = calcularCuotaPorEscalaGeneral({
     anio: caso.anio,
     base: minimoPersonalYFamiliar,
@@ -162,6 +174,25 @@ const liquidarTrabajoIndividualSimple = (
     _tag: "ResultadoLiquidacionIrpf",
     perfil: "renta-individual-general",
     anio: caso.anio,
+    rendimientoIntegroTrabajoCentimos: eurosACentimos(
+      redondearImporteLiquidado(rendimientoTrabajo.rendimientoIntegro)
+    ),
+    rendimientoNetoTrabajoCentimos: eurosACentimos(
+      redondearImporteLiquidado(rendimientoTrabajo.rendimientoNeto)
+    ),
+    rendimientoNetoCapitalInmobiliarioCentimos: eurosACentimos(
+      redondearImporteLiquidado(rendimientoCapitalInmobiliario.rendimientoNeto)
+    ),
+    gastosDeduciblesTrabajoCentimos: eurosACentimos(
+      redondearImporteLiquidado(rendimientoTrabajo.gastosDeducibles)
+    ),
+    totalGastosYDeduccionesTrabajoCentimos: eurosACentimos(
+      redondearImporteLiquidado(
+        rendimientoTrabajo.cotizacionTrabajador.plus(
+          rendimientoTrabajo.gastosDeducibles
+        )
+      )
+    ),
     baseImponibleGeneralCentimos: eurosACentimos(
       redondearImporteLiquidado(baseImponibleGeneral)
     ),
@@ -200,6 +231,8 @@ const liquidarTrabajoIndividualSimple = (
       redondearImporteLiquidado(cuotaMinimoPersonal)
     ),
     cuotaLiquidaCentimos,
+    retencionesYPagosACuentaCentimos:
+      caso.retencionesSoportadasCentimos + caso.pagosACuentaCentimos,
     cuotaDiferencialCentimos: calcularCuotaDiferencialCentimos({
       cuotaLiquidaCentimos,
       pagosACuentaCentimos: caso.pagosACuentaCentimos,
@@ -388,8 +421,13 @@ const liquidarTrabajoIndividualSimple = (
               resultado: euros(minimoAscendientes),
             },
             {
+              etiqueta: "Minimo por descendientes",
+              formula: `${caso.situacionFamiliar.descendientes.length} descendiente(s) computados`,
+              resultado: euros(minimoDescendientes),
+            },
+            {
               etiqueta: "Minimo personal y familiar",
-              formula: `${euros(minimoContribuyente)} + ${euros(minimoAscendientes)}`,
+              formula: `${euros(minimoContribuyente)} + ${euros(minimoDescendientes)} + ${euros(minimoAscendientes)}`,
               resultado: euros(minimoPersonalYFamiliar),
             },
           ],
@@ -512,12 +550,16 @@ const liquidarTrabajoIndividualSimple = (
 const detectarCasoNoSoportado = (
   caso: CasoFiscalAnual
 ): ResultadoNoSoportado | null => {
-  if (caso.situacionFamiliar.descendientes.length > 0) {
+  if (
+    caso.situacionFamiliar.descendientes.some(
+      (descendiente) => descendiente.discapacidad !== "sin-discapacidad"
+    )
+  ) {
     return resultadoNoSoportado(caso, {
-      motivo: "Minimo por descendientes aun no implementado",
+      motivo: "Minimo por descendientes con discapacidad aun no implementado",
       tituloPaso: "Circunstancia familiar no soportada",
       descripcionPaso:
-        "El caso fiscal incluye descendientes, pero esta version del motor solo calcula persona individual sin descendientes.",
+        "El caso fiscal incluye descendientes con discapacidad, pero esta version del motor solo calcula el minimo general por descendientes.",
     })
   }
 

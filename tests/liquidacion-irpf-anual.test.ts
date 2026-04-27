@@ -127,6 +127,34 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it("aplica minimo por descendientes", () => {
+    const caso = {
+      anio: 2025,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [{ edad: 10, discapacidad: "sin-discapacidad" }],
+        ascendientes: [],
+        discapacidad: "sin-discapacidad",
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
+      _tag: "ResultadoLiquidacionIrpf",
+      cuotaMinimoPersonalCentimos: 151_050,
+      cuotaLiquidaCentimos: 447_180,
+      cuotaDiferencialCentimos: 447_180,
+    })
+  })
+
   it("devuelve ResultadoNoSoportado para comunidades reconocidas aun no implementadas", () => {
     const caso = {
       anio: 2025,
