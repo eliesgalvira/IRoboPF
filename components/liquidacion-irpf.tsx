@@ -19,7 +19,10 @@ import {
   type CasoFiscalAnual,
   type ResultadoLiquidacionIrpf,
 } from "@/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
-import { CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
+import {
+  CATALOGO_DEDUCCIONES_AUTONOMICAS_2025,
+  DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS,
+} from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import type {
   CuantiaDeduccionAutonomica,
   CatalogoDeduccionesAutonomicasPorComunidad,
@@ -184,6 +187,65 @@ const textoDeduccion = (
 
 const importeSi = (condicion: boolean, importe: number): number =>
   condicion ? importe : 0
+
+const CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO = new Set([
+  "andalucia_nacimiento_adopcion_acogimiento_menores",
+  "andalucia_familia_monoparental_ascendientes_mayores_75",
+  "andalucia_adopcion_internacional",
+  "andalucia_familia_numerosa",
+  "andalucia_contribuyente_discapacidad",
+  "andalucia_conyuge_pareja_discapacidad",
+  "andalucia_asistencia_personas_discapacidad",
+  "andalucia_ayuda_domestica",
+  "andalucia_inversion_acciones_participaciones_mercantiles",
+  "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+  "aragon_cuidado_personas_dependientes",
+  "aragon_mayores_70",
+  "canarias_nacimiento_adopcion_hijos",
+  "canarias_discapacidad_mayores_65",
+  "canarias_familia_numerosa",
+  "canarias_contribuyentes_desempleados",
+  "clm_nacimiento_adopcion_hijos",
+  "clm_familia_numerosa",
+  "clm_discapacidad_contribuyente",
+  "clm_discapacidad_ascendientes_descendientes",
+  "madrid_nacimiento_adopcion_hijos",
+  "cataluna_viudedad_2023_2024_2025",
+  "cataluna_rehabilitacion_vivienda_habitual",
+  "cataluna_intereses_prestamos_master_doctorado",
+  "cataluna_alquiler_victimas_violencia_machista",
+  "cataluna_inversion_cooperativas_agrarias_vivienda",
+])
+
+const calcularDeduccionGenerica = (
+  deduccion: FichaDeduccionAutonomica,
+  entradas: EntradasDeduccionesAutonomicas
+): number => {
+  if (CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO.has(deduccion.codigo)) {
+    return 0
+  }
+  if (!booleanoDeduccion(entradas, `${deduccion.codigo}:cumple`)) {
+    return 0
+  }
+
+  const base = numeroDeduccion(entradas, `${deduccion.codigo}:base`)
+  const unidades = Math.max(1, numeroDeduccion(entradas, `${deduccion.codigo}:unidades`))
+
+  if (deduccion.cuantia.tipo === "importe_fijo") {
+    return Number(deduccion.cuantia.euros) * unidades
+  }
+  if (deduccion.cuantia.tipo === "porcentaje") {
+    const importe = base * (Number(deduccion.cuantia.porcentaje) / 100)
+    return Math.min(
+      importe,
+      deduccion.cuantia.limiteMaximoEuros
+        ? Number(deduccion.cuantia.limiteMaximoEuros)
+        : importe
+    )
+  }
+
+  return numeroDeduccion(entradas, `${deduccion.codigo}:importe`)
+}
 
 const calcularDeduccionesAutonomicasAplicadas = (
   entradas: EntradasDeduccionesAutonomicas
@@ -364,6 +426,12 @@ const calcularDeduccionesAutonomicasAplicadas = (
     entradas,
     "catalunyaInteresesMasterDoctorado"
   )
+  const deduccionesGenericas =
+    DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.reduce(
+      (total, deduccion) =>
+        total + calcularDeduccionGenerica(deduccion, entradas),
+      0
+    )
   const madridNacimiento =
     numeroDeduccion(entradas, "madridHijosNacimientoAdopcion") *
     721.7 *
@@ -412,6 +480,7 @@ const calcularDeduccionesAutonomicasAplicadas = (
         catalunyaViudedad +
         catalunyaRehabilitacion +
         catalunyaInteresesMasterDoctorado +
+        deduccionesGenericas +
         madridNacimiento +
         catalunyaAlquiler +
         catalunyaCooperativas) *
@@ -1710,6 +1779,32 @@ function ControlesDeduccionAutonomica({
             "catalunyaAportacionesCooperativas"
           )}
         />
+      </div>
+    )
+  }
+
+  if (deduccion.estado === "implementada") {
+    const claveBase = `${deduccion.codigo}:base`
+    const claveImporte = `${deduccion.codigo}:importe`
+    const claveUnidades = `${deduccion.codigo}:unidades`
+    const claveCumple = `${deduccion.codigo}:cumple`
+
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {deduccion.cuantia.tipo === "importe_fijo"
+          ? campoNumero(claveUnidades, "Unidades/personas")
+          : deduccion.cuantia.tipo === "porcentaje"
+            ? campoNumero(claveBase, "Base de deducción", {
+                euros: true,
+                paso: 100,
+              })
+            : campoNumero(claveImporte, "Importe calculado", {
+                euros: true,
+                paso: 100,
+              })}
+        <div className="flex items-end pb-1">
+          {campoCheckbox(claveCumple, "Cumple requisitos y límites")}
+        </div>
       </div>
     )
   }
