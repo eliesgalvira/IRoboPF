@@ -47,6 +47,7 @@ import {
   type ProgresoExportacionCompatible,
 } from "@/lib/export/auditoria-excel"
 import { cn } from "@/lib/utils"
+import { ticksSalarioEuros } from "@/lib/auditoria-graficos"
 
 const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
 
@@ -898,22 +899,6 @@ const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
   return [-limite, limite] as const
 }
 
-const ticksSalarioEuros = (auditoria: AuditoriaRangoSalarial) => {
-  const minimo = centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos)
-  const maximo = centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos)
-  const primerTick = Math.ceil(minimo / 5000) * 5000
-  const ticks = []
-
-  for (let salario = primerTick; salario <= maximo; salario += 5000) {
-    ticks.push(salario)
-  }
-
-  if (ticks[0] !== minimo) ticks.unshift(minimo)
-  if (ticks.at(-1) !== maximo) ticks.push(maximo)
-
-  return ticks
-}
-
 const claseBotonPestana = cn(
   "px-3 py-2 transition-colors",
   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -1008,7 +993,11 @@ function Visualizaciones({
     [dominioTipoEfectivoIrpf]
   )
   const ticksSalario = React.useMemo(
-    () => ticksSalarioEuros(auditoria),
+    () =>
+      ticksSalarioEuros({
+        minimoEuros: centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos),
+        maximoEuros: centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos),
+      }),
     [auditoria]
   )
   const dominioSalario = React.useMemo(
@@ -1235,7 +1224,7 @@ function Visualizaciones({
               accessibilityLayer
               data={datosNetoReal}
               baseValue={0}
-              margin={{ left: 4, right: 4, top: 4, bottom: 4 }}
+              margin={{ left: 4, right: 18, top: 4, bottom: 28 }}
             >
               <CartesianGrid
                 vertical={false}
@@ -1252,9 +1241,12 @@ function Visualizaciones({
                 }
                 tickLine={false}
                 axisLine={{ stroke: "var(--rule)" }}
-                tickMargin={6}
+                tickMargin={10}
                 interval={0}
-                minTickGap={12}
+                minTickGap={8}
+                angle={-90}
+                textAnchor="end"
+                height={66}
                 fontSize={14}
               />
               <YAxis
