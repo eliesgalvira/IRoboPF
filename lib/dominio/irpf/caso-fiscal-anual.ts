@@ -1,6 +1,24 @@
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 
-export type ComunidadAutonoma = "simulada-estatal"
+export type ComunidadAutonoma =
+  | "simulada-estatal"
+  | "andalucia"
+  | "aragon"
+  | "asturias"
+  | "illes-balears"
+  | "canarias"
+  | "cantabria"
+  | "castilla-la-mancha"
+  | "castilla-y-leon"
+  | "catalunya"
+  | "extremadura"
+  | "galicia"
+  | "madrid"
+  | "murcia"
+  | "la-rioja"
+  | "comunitat-valenciana"
+  | "ceuta"
+  | "melilla"
 export type DiscapacidadFiscal = "sin-discapacidad" | "discapacidad"
 
 export interface FamiliarFiscal {

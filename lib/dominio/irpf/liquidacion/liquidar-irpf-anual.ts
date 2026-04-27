@@ -14,6 +14,10 @@ import { calcularBaseImponibleGeneral } from "../integracion/base-imponible-gene
 import { obtenerMinimoAscendientes } from "../minimos/minimo-ascendientes"
 import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
 import {
+  calcularRendimientoNetoCapitalInmobiliarioSimplificado,
+  sumarRendimientosCapitalInmobiliario,
+} from "../rendimientos/rendimientos-capital-inmobiliario"
+import {
   calcularRendimientoNetoTrabajo,
   sumarRendimientosTrabajo,
 } from "../rendimientos/rendimientos-trabajo"
@@ -52,19 +56,7 @@ export const liquidarIrpfAnual = (
   caso: CasoFiscalAnual,
   _contexto: ContextoLiquidacionIrpf
 ): ResultadoLiquidacionIrpf => {
-  if ((caso.rendimientos.capitalInmobiliario?.length ?? 0) > 0) {
-    return {
-      _tag: "ResultadoNoSoportado",
-      motivo: "Rendimientos de capital inmobiliario aun no implementados",
-      fuenteReconocida: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
-      rastro: rastroResultadoNoSoportado({
-        caso,
-        tituloPaso: "Rendimiento no soportado",
-        descripcionPaso:
-          "Los rendimientos de capital inmobiliario estan reconocidos por el dominio, pero esta vertical slice aun no liquida sus reglas.",
-      }),
-    }
-  }
+  void _contexto
 
   const resultadoNoSoportado = detectarCasoNoSoportado(caso)
   if (resultadoNoSoportado !== null) {
@@ -76,7 +68,7 @@ export const liquidarIrpfAnual = (
 
 const liquidarTrabajoIndividualSimple = (
   caso: CasoFiscalAnual
-): ResultadoLiquidacionIrpfSoportada => {
+): ResultadoLiquidacionIrpf => {
   const rendimientoIntegroTrabajo = sumarRendimientosTrabajo(
     caso.rendimientos.trabajo,
     centimosAEuros
@@ -85,11 +77,37 @@ const liquidarTrabajoIndividualSimple = (
     anio: caso.anio,
     comunidadAutonoma: caso.comunidadAutonoma,
   })
+  if (parametrosComunidad._tag === "ComunidadAutonomaNoSoportada") {
+    return {
+      _tag: "ResultadoNoSoportado",
+      motivo: parametrosComunidad.motivo,
+      fuenteReconocida: parametrosComunidad.fuenteReconocida,
+      rastro: rastroResultadoNoSoportado({
+        caso,
+        fuentePaso:
+          "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+        tituloFuentePaso: "Manual Renta 2025 Parte 2",
+        tituloPaso: "Comunidad autonoma no soportada",
+        descripcionPaso:
+          "El caso fiscal reconoce una comunidad autonoma real, pero esta vertical slice solo liquida la comunidad simulada-estatal.",
+      }),
+    }
+  }
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
   })
+  const rendimientoIntegroCapitalInmobiliario =
+    sumarRendimientosCapitalInmobiliario(
+      caso.rendimientos.capitalInmobiliario ?? [],
+      centimosAEuros
+    )
+  const rendimientoCapitalInmobiliario =
+    calcularRendimientoNetoCapitalInmobiliarioSimplificado({
+      rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
+    })
   const baseImponibleGeneral = calcularBaseImponibleGeneral({
+    rendimientoCapitalInmobiliario,
     rendimientoTrabajo,
   })
   const baseLiquidableGeneral = baseImponibleGeneral
@@ -146,6 +164,17 @@ const liquidarTrabajoIndividualSimple = (
           _tag: "PasoExplicacion",
           titulo: "Rendimientos del trabajo",
           descripcion: `Rendimiento integro ${rendimientoIntegroTrabajo.toFixed(2)} euros menos cotizacion del trabajador y gastos deducibles.`,
+          fuentes: [
+            {
+              titulo: "Manual Renta 2025 Parte 1",
+              referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
+            },
+          ],
+        },
+        {
+          _tag: "PasoExplicacion",
+          titulo: "Rendimientos de capital inmobiliario",
+          descripcion: `Rendimiento integro ${rendimientoCapitalInmobiliario.rendimientoIntegro.toFixed(2)} euros integrado como rendimiento neto simplificado en la base general.`,
           fuentes: [
             {
               titulo: "Manual Renta 2025 Parte 1",
@@ -243,10 +272,14 @@ const rastroResultadoNoSoportado = ({
   caso,
   tituloPaso,
   descripcionPaso,
+  fuentePaso = "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
+  tituloFuentePaso = "Manual Renta 2025 Parte 1",
 }: {
   readonly caso: CasoFiscalAnual
   readonly tituloPaso: string
   readonly descripcionPaso: string
+  readonly fuentePaso?: string
+  readonly tituloFuentePaso?: string
 }): RastroCalculo => ({
   titulo: `Liquidacion anual del IRPF ${caso.anio}`,
   pasos: [
@@ -262,8 +295,8 @@ const rastroResultadoNoSoportado = ({
       descripcion: descripcionPaso,
       fuentes: [
         {
-          titulo: "Manual Renta 2025 Parte 1",
-          referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
+          titulo: tituloFuentePaso,
+          referencia: fuentePaso,
         },
       ],
     },

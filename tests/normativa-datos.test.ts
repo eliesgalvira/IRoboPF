@@ -9,6 +9,7 @@ import {
   obtenerTramosIrpfLegacy,
 } from "../lib/dominio/normativa/datos/irpf-estatal-2012-2026"
 import { IPC_ANUAL_DICIEMBRE } from "../lib/dominio/normativa/datos/ipc-2012-2026"
+import { LIMITE_RETENCION_LEGACY_43_POR_CIENTO } from "../lib/dominio/normativa/datos/irpf-retenciones-2026"
 import { BASE_MAXIMA_COTIZACION_LEGACY } from "../lib/dominio/normativa/datos/seguridad-social-2012-2026"
 
 describe("parametros normativos ejecutables legacy", () => {
@@ -36,6 +37,13 @@ describe("parametros normativos ejecutables legacy", () => {
     expect(obtenerTramosIrpfLegacy(2026)).toHaveLength(6)
     expect(METADATOS_ARTICULO_20_LEGACY[2018].umbralInferior).toBe(
       "Transitorio"
+    )
+  })
+
+  it("traza parametros ejecutables a fuentes normalizadas", () => {
+    expect(LIMITE_RETENCION_LEGACY_43_POR_CIENTO.valor.toString()).toBe("0.43")
+    expect(LIMITE_RETENCION_LEGACY_43_POR_CIENTO.fuente.referencia).toBe(
+      "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
     )
   })
 })

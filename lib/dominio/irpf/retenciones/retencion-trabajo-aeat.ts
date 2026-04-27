@@ -27,25 +27,29 @@ export type ResultadoRetencionTrabajo = ResultadoNoSoportadoRetencion
 export const calcularRetencionTrabajoAeat = (
   caso: CasoRetencionTrabajo,
   _contexto: ContextoRetencionTrabajo
-): ResultadoRetencionTrabajo => ({
-  _tag: "ResultadoNoSoportado",
-  motivo: "Procedimiento de retencion de trabajo AEAT aun no implementado",
-  fuenteReconocida: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
-  rastro: {
-    titulo: `Procedimiento de retencion de trabajo AEAT ${caso.anio}`,
-    pasos: [
-      {
-        _tag: "PasoExplicacion",
-        titulo: "Caso de retencion reconocido",
-        descripcion:
-          "El motor ha recibido rendimientos del trabajo para calcular una retencion a cuenta, no una liquidacion anual del IRPF.",
-        fuentes: [
-          {
-            titulo: "Algoritmo de retenciones 2026",
-            referencia: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
-          },
-        ],
-      },
-    ],
-  },
-})
+): ResultadoRetencionTrabajo => {
+  void _contexto
+
+  return {
+    _tag: "ResultadoNoSoportado",
+    motivo: "Procedimiento de retencion de trabajo AEAT aun no implementado",
+    fuenteReconocida: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
+    rastro: {
+      titulo: `Procedimiento de retencion de trabajo AEAT ${caso.anio}`,
+      pasos: [
+        {
+          _tag: "PasoExplicacion",
+          titulo: "Caso de retencion reconocido",
+          descripcion:
+            "El motor ha recibido rendimientos del trabajo para calcular una retencion a cuenta, no una liquidacion anual del IRPF.",
+          fuentes: [
+            {
+              titulo: "Algoritmo de retenciones 2026",
+              referencia: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
+            },
+          ],
+        },
+      ],
+    },
+  }
+}

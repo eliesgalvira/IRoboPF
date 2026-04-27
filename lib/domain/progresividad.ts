@@ -23,11 +23,11 @@ import {
   MINIMO_EXENTO_RETENCION_LEGACY,
   MINIMO_PERSONAL_IRPF_LEGACY,
   obtenerTramosIrpfLegacy,
-  type MetadatosArticulo20,
   type TramoIrpf,
   type TramosIrpf,
 } from "../dominio/normativa/datos/irpf-estatal-2012-2026"
 import { IPC_ANUAL_DICIEMBRE } from "../dominio/normativa/datos/ipc-2012-2026"
+import { LIMITE_RETENCION_LEGACY_43_POR_CIENTO } from "../dominio/normativa/datos/irpf-retenciones-2026"
 
 export type { AnioFiscal } from "../dominio/normativa/anio-fiscal"
 export { aniosFiscalesLegacy } from "../dominio/normativa/anio-fiscal"
@@ -504,7 +504,9 @@ const calcularIrpf = (
   const cuotaTrasSmi = max(CERO, cuotaTeorica.minus(deduccionSmi))
   const limiteRetencion = max(
     CERO,
-    bruto.minus(parametros.minimoExentoRetencion).mul("0.43")
+    bruto
+      .minus(parametros.minimoExentoRetencion)
+      .mul(LIMITE_RETENCION_LEGACY_43_POR_CIENTO.valor)
   )
   const irpfFinal = min(cuotaTrasSmi, limiteRetencion)
 
