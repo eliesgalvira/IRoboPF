@@ -153,7 +153,7 @@ function SimuladorImpl() {
               <strong>COTIZACIONES</strong>, corrige la inflación y compara ese
               resultado con las reglas de 2026.
             </p>
-            <ul className="grid gap-1 text-[11px] tracking-wider text-[var(--ink-soft)] uppercase">
+            <ul className="grid gap-1 text-sm tracking-wider text-[var(--ink-soft)] uppercase">
               <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
                 <span>Hipótesis</span>
                 <span className="text-[var(--ink)]">
@@ -199,7 +199,7 @@ function SimuladorImpl() {
               }}
               className="grid gap-2"
             >
-              <label className="flex items-baseline justify-between text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+              <label className="flex items-baseline justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
                 <span>SALARIO BRUTO ANUAL · 2026</span>
                 <span>EUR</span>
               </label>
@@ -229,7 +229,7 @@ function SimuladorImpl() {
               onPointerDownCapture={prepararInteraccionSlider}
               className="grid gap-2"
             >
-              <div className="flex items-baseline justify-between text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+              <div className="flex items-baseline justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
                 <Slider.Label>CONTROL RÁPIDO · PASO 1.000 €</Slider.Label>
                 <Slider.Value className="font-[family-name:var(--mono)] text-sm font-bold text-[var(--ink)]" />
               </div>
@@ -239,7 +239,7 @@ function SimuladorImpl() {
                 </Slider.Track>
                 <Slider.Thumb className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none" />
               </Slider.Control>
-              <div className="flex justify-between text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+              <div className="flex justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
                 <span>
                   {formatearCentimosEnteros(
                     configuracionControlSalario.rapido.minimoCentimos
@@ -255,7 +255,7 @@ function SimuladorImpl() {
           </div>
 
           <div className="grid gap-2 py-6 lg:pl-8">
-            <span className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+            <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
               AÑO COMPARADO
             </span>
             <RejillaAnios
@@ -300,7 +300,7 @@ function SimuladorImpl() {
                 € en saltos de 1.000 €. Si continúas, se reemplazará el valor
                 del campo numérico. Esta advertencia solo aparecerá una vez.
               </Dialog.Description>
-              <div className="mt-5 flex flex-wrap justify-end gap-2 text-[11px] tracking-[0.22em] uppercase">
+              <div className="mt-5 flex flex-wrap justify-end gap-2 text-sm tracking-[0.22em] uppercase">
                 <Dialog.Close
                   onClick={cancelarSobrescrituraSlider}
                   className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 transition-colors hover:bg-[var(--danger)] hover:text-[var(--paper)] focus-visible:bg-[var(--danger)] focus-visible:text-[var(--paper)] focus-visible:outline-none"
@@ -346,7 +346,7 @@ function PerdidaAcumuladaPanel({
       <div className="grid content-start gap-3">
         <span
           className={cn(
-            "w-fit px-2 py-0.5 text-[10px] font-bold tracking-[0.35em] uppercase",
+            "w-fit px-2 py-0.5 text-sm font-bold tracking-[0.35em] uppercase",
             perdida
               ? "bg-[var(--danger)] text-[var(--paper)]"
               : "bg-[var(--gain)] text-[var(--paper)]"
@@ -420,7 +420,7 @@ function RejillaAnios({
             onClick={() => alCambiar(anio)}
             className={cn(
               "h-12 transition-colors",
-              "font-[family-name:var(--mono)] text-[11px] font-bold tracking-wider tabular-nums",
+              "font-[family-name:var(--mono)] text-sm font-bold tracking-wider tabular-nums",
               "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
               activo
                 ? "bg-[var(--mark)] text-[var(--mark-ink)]"
@@ -451,7 +451,7 @@ function SelloPrincipal({
   return (
     <section className="grid border-b-2 border-[var(--rule)] lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
       <div className="grid gap-3 border-[var(--rule)] py-6 lg:border-r-2 lg:pr-8">
-        <span className="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase">
+        <span className="flex items-center gap-2 text-sm tracking-[0.3em] uppercase">
           <span
             className={cn(
               "px-2 py-0.5 font-bold tracking-[0.4em]",
@@ -486,13 +486,13 @@ function SelloPrincipal({
         </p>
       </div>
       <div className="grid content-start gap-3 py-6 lg:pl-8">
-        <span className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+        <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
           Hoy · 2026
         </span>
         <p className="font-[family-name:var(--display)] text-[clamp(2.5rem,7vw,4rem)] leading-none text-[var(--ink)] tabular-nums">
           {formatearCentimos(netoAnimado)}
         </p>
-        <ul className="grid gap-1 text-[11px] tracking-wider text-[var(--ink-soft)] uppercase">
+        <ul className="grid gap-1 text-sm tracking-wider text-[var(--ink-soft)] uppercase">
           <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
             <span>IPC acumulado</span>
             <span className="text-[var(--ink)] tabular-nums">
@@ -537,7 +537,7 @@ function Columnas({
         <div
           role="tablist"
           aria-label="Base de la comparación"
-          className="inline-flex divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-[11px] tracking-[0.22em] uppercase"
+          className="inline-flex divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.22em] uppercase"
         >
           {(["bruto", "coste-laboral"] as const).map((modoColumna) => {
             const activo = modo === modoColumna
@@ -628,14 +628,14 @@ function Columna({
       )}
     >
       <header className="flex items-baseline justify-between gap-2">
-        <p className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+        <p className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
           {rotuloSuperior}
         </p>
         <p className="font-[family-name:var(--display)] text-[clamp(2rem,6vw,3rem)] leading-none tracking-wider text-[var(--ink)]">
           {titulo}
         </p>
       </header>
-      <p className="text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+      <p className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
         {subtitulo}
       </p>
       <ul className="grid gap-0 text-sm">
@@ -654,7 +654,7 @@ function Columna({
         <Fila etiqueta="CUÑA LABORAL" valor={porcentaje.format(cuna)} />
       </ul>
       <footer className="mt-2 flex flex-wrap items-baseline justify-between gap-3 border-t-2 border-[var(--rule)] pt-3">
-        <span className="shrink-0 text-[10px] tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+        <span className="shrink-0 text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
           Salario neto anual
         </span>
         <span className="font-[family-name:var(--display)] text-[clamp(1.5rem,4.5vw,2.25rem)] tracking-wider text-[var(--ink)] tabular-nums">
@@ -678,7 +678,7 @@ function Fila({
     <li className="flex items-baseline justify-between gap-3 border-b border-dashed border-[var(--rule)]/30 py-2 last:border-b-0">
       <span
         className={cn(
-          "text-[11px] tracking-wider uppercase",
+          "text-sm tracking-wider uppercase",
           peligro ? "text-[var(--danger)]" : "text-[var(--ink-soft)]"
         )}
       >
@@ -755,10 +755,10 @@ function Pasos({
             <span className="font-[family-name:var(--display)] text-[clamp(2.5rem,6vw,3rem)] leading-none text-[var(--ink-soft)]">
               {paso.numero}
             </span>
-            <h3 className="text-[11px] tracking-[0.22em] text-[var(--ink)] uppercase">
+            <h3 className="text-sm tracking-[0.22em] text-[var(--ink)] uppercase">
               {paso.titulo}
             </h3>
-            <p className="text-xs leading-5 text-[var(--ink-soft)]">
+            <p className="text-sm leading-5 text-[var(--ink-soft)]">
               {paso.cuerpo}
             </p>
           </li>
