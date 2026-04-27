@@ -1,11 +1,13 @@
 "use client"
 
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field"
-import { Minus, Plus } from "lucide-react"
+import { CircleHelp, Minus, Plus } from "lucide-react"
 
+import { Tooltip } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 
 export function NumberField({
+  ayuda,
   etiqueta,
   formato,
   max,
@@ -14,6 +16,7 @@ export function NumberField({
   paso = 1,
   valor,
 }: {
+  readonly ayuda?: string
   readonly etiqueta: string
   readonly formato?: Intl.NumberFormatOptions
   readonly max?: number
@@ -34,7 +37,20 @@ export function NumberField({
       step={paso}
       value={valor}
     >
-      <label className="text-sm font-bold">{etiqueta}</label>
+      <div className="flex items-center gap-1.5">
+        <label className="text-sm font-bold">{etiqueta}</label>
+        {ayuda ? (
+          <Tooltip contenido={ayuda}>
+            <button
+              aria-label={`Ayuda sobre ${etiqueta}`}
+              className="text-[var(--ink-soft)] hover:text-[var(--ink)]"
+              type="button"
+            >
+              <CircleHelp aria-hidden className="size-3.5" />
+            </button>
+          </Tooltip>
+        ) : null}
+      </div>
       <NumberFieldPrimitive.Group className="grid h-11 grid-cols-[2.25rem_1fr_2.25rem] border border-[var(--rule)] bg-[var(--paper-2)] focus-within:ring-2 focus-within:ring-[var(--mark)]">
         <ControlNumero direccion="menos" />
         <NumberFieldPrimitive.Input className="min-w-0 bg-transparent px-3 text-base font-[var(--mono)] outline-none" />
