@@ -4,6 +4,8 @@ import * as React from "react"
 import { AlertTriangle, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
+import { Combobox } from "@/components/ui/combobox"
+import type { ComunidadAutonoma } from "@/lib/dominio/irpf/caso-fiscal-anual"
 import {
   liquidarIrpfAnual,
   type CasoFiscalAnual,
@@ -13,6 +15,29 @@ import { cn } from "@/lib/utils"
 
 const eurosACentimos = (euros: number) => Math.round(euros * 100)
 const centimosAEuros = (centimos: number) => centimos / 100
+const OPCIONES_COMUNIDAD_AUTONOMA: ReadonlyArray<{
+  readonly valor: ComunidadAutonoma
+  readonly etiqueta: string
+}> = [
+  { valor: "simulada-estatal", etiqueta: "Simulada estatal" },
+  { valor: "andalucia", etiqueta: "Andalucía" },
+  { valor: "aragon", etiqueta: "Aragón" },
+  { valor: "asturias", etiqueta: "Asturias" },
+  { valor: "illes-balears", etiqueta: "Illes Balears" },
+  { valor: "canarias", etiqueta: "Canarias" },
+  { valor: "cantabria", etiqueta: "Cantabria" },
+  { valor: "castilla-la-mancha", etiqueta: "Castilla-La Mancha" },
+  { valor: "castilla-y-leon", etiqueta: "Castilla y León" },
+  { valor: "catalunya", etiqueta: "Catalunya" },
+  { valor: "extremadura", etiqueta: "Extremadura" },
+  { valor: "galicia", etiqueta: "Galicia" },
+  { valor: "madrid", etiqueta: "Madrid" },
+  { valor: "murcia", etiqueta: "Murcia" },
+  { valor: "la-rioja", etiqueta: "La Rioja" },
+  { valor: "comunitat-valenciana", etiqueta: "Comunitat Valenciana" },
+  { valor: "ceuta", etiqueta: "Ceuta" },
+  { valor: "melilla", etiqueta: "Melilla" },
+]
 
 function formatearEuros(centimos: number) {
   return new Intl.NumberFormat("es-ES", {
@@ -27,12 +52,14 @@ export function LiquidacionIrpf() {
     React.useState(30_000)
   const [capitalInmobiliarioEuros, fijarCapitalInmobiliarioEuros] =
     React.useState(1_000)
+  const [comunidadAutonoma, fijarComunidadAutonoma] =
+    React.useState<ComunidadAutonoma>("simulada-estatal")
 
   const caso = React.useMemo(
     () =>
       ({
         anio: 2025,
-        comunidadAutonoma: "simulada-estatal",
+        comunidadAutonoma,
         situacionFamiliar: {
           tipo: "individual",
           edad: 40,
@@ -62,7 +89,7 @@ export function LiquidacionIrpf() {
         retencionesSoportadasCentimos: 0,
         pagosACuentaCentimos: 0,
       }) satisfies CasoFiscalAnual,
-    [capitalInmobiliarioEuros, rendimientosTrabajoEuros]
+    [capitalInmobiliarioEuros, comunidadAutonoma, rendimientosTrabajoEuros]
   )
   const resultado = React.useMemo(
     () => liquidarIrpfAnual(caso, { modo: "canonico" }),
@@ -77,7 +104,9 @@ export function LiquidacionIrpf() {
         <section className="grid gap-6 lg:grid-cols-[minmax(320px,420px)_1fr]">
           <FormularioCaso
             capitalInmobiliarioEuros={capitalInmobiliarioEuros}
+            comunidadAutonoma={comunidadAutonoma}
             fijarCapitalInmobiliarioEuros={fijarCapitalInmobiliarioEuros}
+            fijarComunidadAutonoma={fijarComunidadAutonoma}
             fijarRendimientosTrabajoEuros={fijarRendimientosTrabajoEuros}
             rendimientosTrabajoEuros={rendimientosTrabajoEuros}
           />
@@ -90,12 +119,16 @@ export function LiquidacionIrpf() {
 
 function FormularioCaso({
   capitalInmobiliarioEuros,
+  comunidadAutonoma,
   fijarCapitalInmobiliarioEuros,
+  fijarComunidadAutonoma,
   fijarRendimientosTrabajoEuros,
   rendimientosTrabajoEuros,
 }: {
   readonly capitalInmobiliarioEuros: number
+  readonly comunidadAutonoma: ComunidadAutonoma
   readonly fijarCapitalInmobiliarioEuros: (valor: number) => void
+  readonly fijarComunidadAutonoma: (valor: ComunidadAutonoma) => void
   readonly fijarRendimientosTrabajoEuros: (valor: number) => void
   readonly rendimientosTrabajoEuros: number
 }) {
@@ -126,8 +159,16 @@ function FormularioCaso({
         />
       </div>
 
-      <dl className="mt-6 grid grid-cols-2 gap-3 text-xs">
-        <DatoCaso etiqueta="Comunidad" valor="simulada-estatal" />
+      <div className="mt-6">
+        <Combobox
+          etiqueta="Comunidad autónoma"
+          onChange={fijarComunidadAutonoma}
+          opciones={OPCIONES_COMUNIDAD_AUTONOMA}
+          valor={comunidadAutonoma}
+        />
+      </div>
+
+      <dl className="mt-3 grid grid-cols-2 gap-3 text-xs">
         <DatoCaso etiqueta="Edad" valor="40" />
         <DatoCaso etiqueta="Descendientes" valor="0" />
         <DatoCaso etiqueta="Ascendientes" valor="0" />
@@ -267,6 +308,27 @@ function Resultado({
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="border border-[var(--rule)] bg-[var(--paper)] p-4">
+        <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+          Revisión técnica
+        </p>
+        <h2 className="mt-1 text-xl font-bold">Reportar una discrepancia</h2>
+        <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">
+          Si detectas un error, referencia esta ruta, el año fiscal, el tipo de
+          resultado y los pasos del rastro de cálculo. El caso se puede
+          reproducir con los importes visibles en el formulario y las fuentes
+          enlazadas en cada paso.
+        </p>
+        <a
+          className="mt-3 inline-block border-b border-current text-sm font-bold"
+          href="https://github.com/eliesgalvira/IRoboPF/issues"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Abrir incidencia en GitHub
+        </a>
       </section>
     </section>
   )

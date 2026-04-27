@@ -1,9 +1,6 @@
 import { Effect } from "effect"
 
-import {
-  compararAjustadoPorIpc,
-  type DesgloseLiquidado,
-} from "../../domain/progresividad"
+import { compararAjustadoPorIpc } from "../../domain/progresividad"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 
 export interface EntradaCalculoSalarioLegacy {
