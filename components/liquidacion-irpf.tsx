@@ -76,18 +76,23 @@ const OPCIONES_GANANCIA_PATRIMONIAL: ReadonlyArray<{
     etiqueta: "Reinversión en renta vitalicia",
   },
 ]
+const OPCIONES_CATEGORIA_FAMILIA_NUMEROSA = [
+  { valor: "ninguna", etiqueta: "No aplicar" },
+  { valor: "general", etiqueta: "General" },
+  { valor: "especial", etiqueta: "Especial" },
+] as const
+const OPCIONES_REGIMEN_INVERSION_ANDALUCIA = [
+  { valor: "general", etiqueta: "General" },
+  { valor: "universidad", etiqueta: "Universidad/centro I+D" },
+] as const
+const OPCIONES_ORDEN_HIJO_CANARIAS = [
+  { valor: "primero-segundo", etiqueta: "1º o 2º" },
+  { valor: "tercero", etiqueta: "3º" },
+  { valor: "cuarto", etiqueta: "4º" },
+  { valor: "quinto-sucesivos", etiqueta: "5º o sucesivos" },
+] as const
 type EntradasDeduccionesAutonomicas = {
-  readonly andaluciaHijosNacimientoAdopcion: number
-  readonly andaluciaMenoresAcogidos: number
-  readonly andaluciaMunicipioDespoblacion: boolean
-  readonly andaluciaFamiliaMonoparental: boolean
-  readonly andaluciaAscendientesMayores75: number
-  readonly madridHijosNacimientoAdopcion: number
-  readonly madridProrrateoDosProgenitores: boolean
-  readonly catalunyaAlquilerVictima: number
-  readonly catalunyaVictimaViolenciaMachista: boolean
-  readonly catalunyaAlquilerIncrementado: boolean
-  readonly catalunyaAportacionesCooperativas: number
+  readonly [clave: string]: boolean | number | string
 }
 
 const ENTRADAS_DEDUCCIONES_INICIALES: EntradasDeduccionesAutonomicas = {
@@ -96,6 +101,56 @@ const ENTRADAS_DEDUCCIONES_INICIALES: EntradasDeduccionesAutonomicas = {
   andaluciaMunicipioDespoblacion: false,
   andaluciaFamiliaMonoparental: false,
   andaluciaAscendientesMayores75: 0,
+  andaluciaHijosAdopcionInternacional: 0,
+  andaluciaAdopcionInternacionalCumpleLimites: false,
+  andaluciaAdopcionInternacionalProrrateada: false,
+  andaluciaCategoriaFamiliaNumerosa: "ninguna",
+  andaluciaFamiliaNumerosaCumpleLimites: false,
+  andaluciaContribuyenteDiscapacidad: false,
+  andaluciaContribuyenteDiscapacidadCumpleLimites: false,
+  andaluciaConyugeParejaDiscapacidad65: false,
+  andaluciaConyugeParejaDiscapacidadCumpleRequisitos: false,
+  andaluciaPersonasDiscapacidadConMinimo: 0,
+  andaluciaAsistenciaDiscapacidadCumpleLimites: false,
+  andaluciaAsistenciaTercerasPersonas: false,
+  andaluciaCuotasHogarDiscapacidad: 0,
+  andaluciaCuotasAyudaDomestica: 0,
+  andaluciaAyudaDomesticaCumpleRequisitos: false,
+  andaluciaInversionAccionesImporte: 0,
+  andaluciaInversionAccionesRegimen: "general",
+  andaluciaInversionAccionesCumpleRequisitos: false,
+  aragonTercerHijoSucesivos: 0,
+  aragonTercerHijoFiscalidadDiferenciada: false,
+  aragonTercerHijoBaseReducida: false,
+  aragonPersonasDependientes: 0,
+  aragonDependientesFiscalidadDiferenciada: false,
+  aragonDependientesCumpleLimites: false,
+  aragonMayor70CumpleRequisitos: false,
+  canariasOrdenHijoNacimientoAdopcion: "primero-segundo",
+  canariasHijosNacimientoAdopcion: 0,
+  canariasHijosNacimientoAdopcionDiscapacidad65: 0,
+  canariasNacimientoCumpleLimites: false,
+  canariasContribuyenteDiscapacidad33: false,
+  canariasContribuyenteMayor65: false,
+  canariasDiscapacidadMayoresCumpleLimites: false,
+  canariasCategoriaFamiliaNumerosa: "ninguna",
+  canariasFamiliaNumerosaDiscapacidad65: false,
+  canariasDesempleadoCumpleRequisitos: false,
+  clmPartosAdopcionesUnHijo: 0,
+  clmPartosAdopcionesDosHijos: 0,
+  clmPartosAdopcionesTresOMas: 0,
+  clmNacimientoCumpleLimites: false,
+  clmCategoriaFamiliaNumerosa: "ninguna",
+  clmFamiliaNumerosaDiscapacidad65: false,
+  clmFamiliaNumerosaCumpleLimites: false,
+  clmContribuyenteDiscapacidad65: false,
+  clmDiscapacidadContribuyenteCumpleLimites: false,
+  clmAscDescDiscapacidad65: 0,
+  clmAscDescDiscapacidadCumpleLimites: false,
+  catalunyaViudedad: false,
+  catalunyaViudedadConDescendientes: false,
+  catalunyaRehabilitacionVivienda: 0,
+  catalunyaInteresesMasterDoctorado: 0,
   madridHijosNacimientoAdopcion: 0,
   madridProrrateoDosProgenitores: false,
   catalunyaAlquilerVictima: 0,
@@ -104,29 +159,231 @@ const ENTRADAS_DEDUCCIONES_INICIALES: EntradasDeduccionesAutonomicas = {
   catalunyaAportacionesCooperativas: 0,
 }
 
+const numeroDeduccion = (
+  entradas: EntradasDeduccionesAutonomicas,
+  clave: string
+): number => {
+  const valor = entradas[clave]
+
+  return typeof valor === "number" ? valor : 0
+}
+
+const booleanoDeduccion = (
+  entradas: EntradasDeduccionesAutonomicas,
+  clave: string
+): boolean => entradas[clave] === true
+
+const textoDeduccion = (
+  entradas: EntradasDeduccionesAutonomicas,
+  clave: string
+): string => {
+  const valor = entradas[clave]
+
+  return typeof valor === "string" ? valor : ""
+}
+
+const importeSi = (condicion: boolean, importe: number): number =>
+  condicion ? importe : 0
+
 const calcularDeduccionesAutonomicasAplicadas = (
   entradas: EntradasDeduccionesAutonomicas
 ): number => {
   const andaluciaNacimiento =
-    (entradas.andaluciaHijosNacimientoAdopcion +
-      entradas.andaluciaMenoresAcogidos) *
-    (entradas.andaluciaMunicipioDespoblacion ? 400 : 200)
-  const andaluciaMonoparental = entradas.andaluciaFamiliaMonoparental
-    ? 100 + entradas.andaluciaAscendientesMayores75 * 100
+    (numeroDeduccion(entradas, "andaluciaHijosNacimientoAdopcion") +
+      numeroDeduccion(entradas, "andaluciaMenoresAcogidos")) *
+    (booleanoDeduccion(entradas, "andaluciaMunicipioDespoblacion") ? 400 : 200)
+  const andaluciaMonoparental = booleanoDeduccion(
+    entradas,
+    "andaluciaFamiliaMonoparental"
+  )
+    ? 100 + numeroDeduccion(entradas, "andaluciaAscendientesMayores75") * 100
     : 0
+  const andaluciaAdopcionInternacional = importeSi(
+    booleanoDeduccion(entradas, "andaluciaAdopcionInternacionalCumpleLimites"),
+    numeroDeduccion(entradas, "andaluciaHijosAdopcionInternacional") *
+      600 *
+      (booleanoDeduccion(entradas, "andaluciaAdopcionInternacionalProrrateada")
+        ? 0.5
+        : 1)
+  )
+  const andaluciaFamiliaNumerosa = importeSi(
+    booleanoDeduccion(entradas, "andaluciaFamiliaNumerosaCumpleLimites"),
+    textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa") ===
+      "especial"
+      ? 400
+      : textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa") ===
+          "general"
+        ? 200
+        : 0
+  )
+  const andaluciaContribuyenteDiscapacidad = importeSi(
+    booleanoDeduccion(entradas, "andaluciaContribuyenteDiscapacidad") &&
+      booleanoDeduccion(
+        entradas,
+        "andaluciaContribuyenteDiscapacidadCumpleLimites"
+      ),
+    150
+  )
+  const andaluciaConyugeParejaDiscapacidad = importeSi(
+    booleanoDeduccion(entradas, "andaluciaConyugeParejaDiscapacidad65") &&
+      booleanoDeduccion(
+        entradas,
+        "andaluciaConyugeParejaDiscapacidadCumpleRequisitos"
+      ),
+    100
+  )
+  const andaluciaAsistenciaDiscapacidad = importeSi(
+    booleanoDeduccion(
+      entradas,
+      "andaluciaAsistenciaDiscapacidadCumpleLimites"
+    ),
+    numeroDeduccion(entradas, "andaluciaPersonasDiscapacidadConMinimo") * 100 +
+      importeSi(
+        booleanoDeduccion(entradas, "andaluciaAsistenciaTercerasPersonas"),
+        Math.min(
+          numeroDeduccion(entradas, "andaluciaCuotasHogarDiscapacidad") * 0.2,
+          500
+        )
+      )
+  )
+  const andaluciaAyudaDomestica = importeSi(
+    booleanoDeduccion(entradas, "andaluciaAyudaDomesticaCumpleRequisitos"),
+    Math.min(numeroDeduccion(entradas, "andaluciaCuotasAyudaDomestica") * 0.2, 500)
+  )
+  const andaluciaInversionAcciones = importeSi(
+    booleanoDeduccion(entradas, "andaluciaInversionAccionesCumpleRequisitos"),
+    textoDeduccion(entradas, "andaluciaInversionAccionesRegimen") ===
+      "universidad"
+      ? Math.min(
+          numeroDeduccion(entradas, "andaluciaInversionAccionesImporte") * 0.5,
+          12_000
+        )
+      : Math.min(
+          numeroDeduccion(entradas, "andaluciaInversionAccionesImporte") * 0.2,
+          4_000
+        )
+  )
+  const aragonTercerHijo =
+    numeroDeduccion(entradas, "aragonTercerHijoSucesivos") *
+    (booleanoDeduccion(entradas, "aragonTercerHijoFiscalidadDiferenciada")
+      ? booleanoDeduccion(entradas, "aragonTercerHijoBaseReducida")
+        ? 720
+        : 600
+      : booleanoDeduccion(entradas, "aragonTercerHijoBaseReducida")
+        ? 600
+        : 500)
+  const aragonDependientes = importeSi(
+    booleanoDeduccion(entradas, "aragonDependientesCumpleLimites"),
+    numeroDeduccion(entradas, "aragonPersonasDependientes") *
+      (booleanoDeduccion(entradas, "aragonDependientesFiscalidadDiferenciada")
+        ? 300
+        : 150)
+  )
+  const aragonMayores70 = importeSi(
+    booleanoDeduccion(entradas, "aragonMayor70CumpleRequisitos"),
+    75
+  )
+  const canariasNacimientoPorHijo =
+    textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") === "tercero"
+      ? 530
+      : textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") ===
+          "cuarto"
+        ? 796
+        : textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") ===
+            "quinto-sucesivos"
+          ? 928
+          : 265
+  const canariasNacimiento = importeSi(
+    booleanoDeduccion(entradas, "canariasNacimientoCumpleLimites"),
+    numeroDeduccion(entradas, "canariasHijosNacimientoAdopcion") *
+      canariasNacimientoPorHijo +
+      numeroDeduccion(entradas, "canariasHijosNacimientoAdopcionDiscapacidad65") *
+        (canariasNacimientoPorHijo <= 265 ? 600 : 1100)
+  )
+  const canariasDiscapacidadMayores = importeSi(
+    booleanoDeduccion(entradas, "canariasDiscapacidadMayoresCumpleLimites"),
+    importeSi(
+      booleanoDeduccion(entradas, "canariasContribuyenteDiscapacidad33"),
+      400
+    ) + importeSi(booleanoDeduccion(entradas, "canariasContribuyenteMayor65"), 160)
+  )
+  const canariasFamiliaNumerosa =
+    textoDeduccion(entradas, "canariasCategoriaFamiliaNumerosa") === "especial"
+      ? booleanoDeduccion(entradas, "canariasFamiliaNumerosaDiscapacidad65")
+        ? 1459
+        : 796
+      : textoDeduccion(entradas, "canariasCategoriaFamiliaNumerosa") ===
+          "general"
+        ? booleanoDeduccion(entradas, "canariasFamiliaNumerosaDiscapacidad65")
+          ? 1326
+          : 597
+        : 0
+  const canariasDesempleados = importeSi(
+    booleanoDeduccion(entradas, "canariasDesempleadoCumpleRequisitos"),
+    120
+  )
+  const clmNacimiento = importeSi(
+    booleanoDeduccion(entradas, "clmNacimientoCumpleLimites"),
+    numeroDeduccion(entradas, "clmPartosAdopcionesUnHijo") * 100 +
+      numeroDeduccion(entradas, "clmPartosAdopcionesDosHijos") * 500 +
+      numeroDeduccion(entradas, "clmPartosAdopcionesTresOMas") * 900
+  )
+  const clmFamiliaNumerosa = importeSi(
+    booleanoDeduccion(entradas, "clmFamiliaNumerosaCumpleLimites"),
+    textoDeduccion(entradas, "clmCategoriaFamiliaNumerosa") === "especial"
+      ? booleanoDeduccion(entradas, "clmFamiliaNumerosaDiscapacidad65")
+        ? 900
+        : 400
+      : textoDeduccion(entradas, "clmCategoriaFamiliaNumerosa") === "general"
+        ? booleanoDeduccion(entradas, "clmFamiliaNumerosaDiscapacidad65")
+          ? 300
+          : 200
+        : 0
+  )
+  const clmDiscapacidadContribuyente = importeSi(
+    booleanoDeduccion(entradas, "clmContribuyenteDiscapacidad65") &&
+      booleanoDeduccion(
+        entradas,
+        "clmDiscapacidadContribuyenteCumpleLimites"
+      ),
+    300
+  )
+  const clmDiscapacidadAscDesc = importeSi(
+    booleanoDeduccion(entradas, "clmAscDescDiscapacidadCumpleLimites"),
+    numeroDeduccion(entradas, "clmAscDescDiscapacidad65") * 300
+  )
+  const catalunyaViudedad = importeSi(
+    booleanoDeduccion(entradas, "catalunyaViudedad"),
+    booleanoDeduccion(entradas, "catalunyaViudedadConDescendientes") ? 300 : 150
+  )
+  const catalunyaRehabilitacion = Math.min(
+    numeroDeduccion(entradas, "catalunyaRehabilitacionVivienda") * 0.015,
+    135.6
+  )
+  const catalunyaInteresesMasterDoctorado = numeroDeduccion(
+    entradas,
+    "catalunyaInteresesMasterDoctorado"
+  )
   const madridNacimiento =
-    entradas.madridHijosNacimientoAdopcion *
+    numeroDeduccion(entradas, "madridHijosNacimientoAdopcion") *
     721.7 *
-    (entradas.madridProrrateoDosProgenitores ? 0.5 : 1)
-  const catalunyaAlquiler = entradas.catalunyaVictimaViolenciaMachista
+    (booleanoDeduccion(entradas, "madridProrrateoDosProgenitores") ? 0.5 : 1)
+  const catalunyaAlquiler = booleanoDeduccion(
+    entradas,
+    "catalunyaVictimaViolenciaMachista"
+  )
     ? Math.min(
-        entradas.catalunyaAlquilerVictima *
-          (entradas.catalunyaAlquilerIncrementado ? 0.25 : 0.2),
-        entradas.catalunyaAlquilerIncrementado ? 1200 : 1000
+        numeroDeduccion(entradas, "catalunyaAlquilerVictima") *
+          (booleanoDeduccion(entradas, "catalunyaAlquilerIncrementado")
+            ? 0.25
+            : 0.2),
+        booleanoDeduccion(entradas, "catalunyaAlquilerIncrementado")
+          ? 1200
+          : 1000
       )
     : 0
   const catalunyaCooperativas = Math.min(
-    entradas.catalunyaAportacionesCooperativas * 0.2,
+    numeroDeduccion(entradas, "catalunyaAportacionesCooperativas") * 0.2,
     3000
   )
 
@@ -134,6 +391,27 @@ const calcularDeduccionesAutonomicasAplicadas = (
     Math.round(
       (andaluciaNacimiento +
         andaluciaMonoparental +
+        andaluciaAdopcionInternacional +
+        andaluciaFamiliaNumerosa +
+        andaluciaContribuyenteDiscapacidad +
+        andaluciaConyugeParejaDiscapacidad +
+        andaluciaAsistenciaDiscapacidad +
+        andaluciaAyudaDomestica +
+        andaluciaInversionAcciones +
+        aragonTercerHijo +
+        aragonDependientes +
+        aragonMayores70 +
+        canariasNacimiento +
+        canariasDiscapacidadMayores +
+        canariasFamiliaNumerosa +
+        canariasDesempleados +
+        clmNacimiento +
+        clmFamiliaNumerosa +
+        clmDiscapacidadContribuyente +
+        clmDiscapacidadAscDesc +
+        catalunyaViudedad +
+        catalunyaRehabilitacion +
+        catalunyaInteresesMasterDoctorado +
         madridNacimiento +
         catalunyaAlquiler +
         catalunyaCooperativas) *
@@ -887,10 +1165,34 @@ function ControlesDeduccionAutonomica({
   >
 }) {
   const { codigo } = deduccion
-  const actualizar = <TClave extends keyof EntradasDeduccionesAutonomicas>(
-    clave: TClave,
-    valor: EntradasDeduccionesAutonomicas[TClave]
-  ) => fijarEntradas((actual) => ({ ...actual, [clave]: valor }))
+  const actualizar = (clave: string, valor: boolean | number | string) =>
+    fijarEntradas((actual) => ({ ...actual, [clave]: valor }))
+  const campoNumero = (
+    clave: string,
+    etiqueta: string,
+    opciones?: { readonly euros?: boolean; readonly paso?: number }
+  ) => {
+    const propiedadesPaso =
+      opciones?.paso === undefined ? {} : { paso: opciones.paso }
+
+    return (
+      <NumberField
+        compacto
+        etiqueta={etiqueta}
+        formato={opciones?.euros ? FORMATO_EUROS : FORMATO_ENTERO}
+        onChange={(valor) => actualizar(clave, valor)}
+        valor={numeroDeduccion(entradas, clave)}
+        {...propiedadesPaso}
+      />
+    )
+  }
+  const campoCheckbox = (clave: string, etiqueta: string) => (
+    <Checkbox
+      checked={booleanoDeduccion(entradas, clave)}
+      etiqueta={etiqueta}
+      onCheckedChange={(checked) => actualizar(clave, checked)}
+    />
+  )
 
   if (codigo === "andalucia_nacimiento_adopcion_acogimiento_menores") {
     return (
@@ -902,18 +1204,24 @@ function ControlesDeduccionAutonomica({
           onChange={(valor) =>
             actualizar("andaluciaHijosNacimientoAdopcion", valor)
           }
-          valor={entradas.andaluciaHijosNacimientoAdopcion}
+          valor={numeroDeduccion(
+            entradas,
+            "andaluciaHijosNacimientoAdopcion"
+          )}
         />
         <NumberField
           compacto
           etiqueta="Menores acogidos"
           formato={FORMATO_ENTERO}
           onChange={(valor) => actualizar("andaluciaMenoresAcogidos", valor)}
-          valor={entradas.andaluciaMenoresAcogidos}
+          valor={numeroDeduccion(entradas, "andaluciaMenoresAcogidos")}
         />
         <div className="sm:col-span-2">
           <Checkbox
-            checked={entradas.andaluciaMunicipioDespoblacion}
+            checked={booleanoDeduccion(
+              entradas,
+              "andaluciaMunicipioDespoblacion"
+            )}
             etiqueta="Reside en municipio con problemas de despoblación"
             onCheckedChange={(checked) =>
               actualizar("andaluciaMunicipioDespoblacion", checked)
@@ -929,7 +1237,10 @@ function ControlesDeduccionAutonomica({
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <div className="sm:col-span-2">
           <Checkbox
-            checked={entradas.andaluciaFamiliaMonoparental}
+            checked={booleanoDeduccion(
+              entradas,
+              "andaluciaFamiliaMonoparental"
+            )}
             etiqueta="Familia monoparental"
             onCheckedChange={(checked) =>
               actualizar("andaluciaFamiliaMonoparental", checked)
@@ -943,8 +1254,338 @@ function ControlesDeduccionAutonomica({
           onChange={(valor) =>
             actualizar("andaluciaAscendientesMayores75", valor)
           }
-          valor={entradas.andaluciaAscendientesMayores75}
+          valor={numeroDeduccion(entradas, "andaluciaAscendientesMayores75")}
         />
+      </div>
+    )
+  }
+
+  if (codigo === "andalucia_adopcion_internacional") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero("andaluciaHijosAdopcionInternacional", "Hijos adoptados")}
+        <div className="grid gap-2 sm:col-span-2">
+          {campoCheckbox(
+            "andaluciaAdopcionInternacionalCumpleLimites",
+            "Cumple limites de base"
+          )}
+          {campoCheckbox(
+            "andaluciaAdopcionInternacionalProrrateada",
+            "Prorratear entre dos contribuyentes"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "andalucia_familia_numerosa") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <Combobox
+          compacto
+          etiqueta="Categoría"
+          onChange={(valor) =>
+            actualizar("andaluciaCategoriaFamiliaNumerosa", valor)
+          }
+          opciones={OPCIONES_CATEGORIA_FAMILIA_NUMEROSA}
+          valor={textoDeduccion(
+            entradas,
+            "andaluciaCategoriaFamiliaNumerosa"
+          )}
+        />
+        <div className="flex items-end pb-1">
+          {campoCheckbox(
+            "andaluciaFamiliaNumerosaCumpleLimites",
+            "Cumple limites de base"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "andalucia_contribuyente_discapacidad") {
+    return (
+      <div className="mt-3 grid gap-2">
+        {campoCheckbox(
+          "andaluciaContribuyenteDiscapacidad",
+          "Discapacidad del contribuyente ≥33%"
+        )}
+        {campoCheckbox(
+          "andaluciaContribuyenteDiscapacidadCumpleLimites",
+          "Cumple limites de base"
+        )}
+      </div>
+    )
+  }
+
+  if (codigo === "andalucia_conyuge_pareja_discapacidad") {
+    return (
+      <div className="mt-3 grid gap-2">
+        {campoCheckbox(
+          "andaluciaConyugeParejaDiscapacidad65",
+          "Cónyuge o pareja con discapacidad ≥65%"
+        )}
+        {campoCheckbox(
+          "andaluciaConyugeParejaDiscapacidadCumpleRequisitos",
+          "Cumple limites, inscripción y no declaración individual"
+        )}
+      </div>
+    )
+  }
+
+  if (codigo === "andalucia_asistencia_personas_discapacidad") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero(
+          "andaluciaPersonasDiscapacidadConMinimo",
+          "Personas con mínimo"
+        )}
+        {campoNumero("andaluciaCuotasHogarDiscapacidad", "Cuotas hogar", {
+          euros: true,
+          paso: 100,
+        })}
+        <div className="grid gap-2 sm:col-span-2">
+          {campoCheckbox(
+            "andaluciaAsistenciaDiscapacidadCumpleLimites",
+            "Cumple limites de base"
+          )}
+          {campoCheckbox(
+            "andaluciaAsistenciaTercerasPersonas",
+            "Precisa ayuda de terceras personas"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "andalucia_ayuda_domestica") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero("andaluciaCuotasAyudaDomestica", "Cuotas empleador", {
+          euros: true,
+          paso: 100,
+        })}
+        <div className="flex items-end pb-1">
+          {campoCheckbox(
+            "andaluciaAyudaDomesticaCumpleRequisitos",
+            "Cumple requisitos"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "andalucia_inversion_acciones_participaciones_mercantiles") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero("andaluciaInversionAccionesImporte", "Importe invertido", {
+          euros: true,
+          paso: 500,
+        })}
+        <Combobox
+          compacto
+          etiqueta="Régimen"
+          onChange={(valor) =>
+            actualizar("andaluciaInversionAccionesRegimen", valor)
+          }
+          opciones={OPCIONES_REGIMEN_INVERSION_ANDALUCIA}
+          valor={textoDeduccion(entradas, "andaluciaInversionAccionesRegimen")}
+        />
+        <div className="sm:col-span-2">
+          {campoCheckbox(
+            "andaluciaInversionAccionesCumpleRequisitos",
+            "Cumple forma jurídica, participación y mantenimiento"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "aragon_nacimiento_adopcion_tercer_hijo_sucesivos") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero("aragonTercerHijoSucesivos", "Terceros o sucesivos")}
+        <div className="grid gap-2">
+          {campoCheckbox(
+            "aragonTercerHijoFiscalidadDiferenciada",
+            "Fiscalidad diferenciada"
+          )}
+          {campoCheckbox("aragonTercerHijoBaseReducida", "Base reducida")}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "aragon_cuidado_personas_dependientes") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero("aragonPersonasDependientes", "Personas dependientes")}
+        <div className="grid gap-2">
+          {campoCheckbox(
+            "aragonDependientesFiscalidadDiferenciada",
+            "Fiscalidad diferenciada"
+          )}
+          {campoCheckbox(
+            "aragonDependientesCumpleLimites",
+            "Cumple limites y convivencia"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "aragon_mayores_70") {
+    return (
+      <div className="mt-3">
+        {campoCheckbox("aragonMayor70CumpleRequisitos", "Cumple requisitos")}
+      </div>
+    )
+  }
+
+  if (codigo === "canarias_nacimiento_adopcion_hijos") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <Combobox
+          compacto
+          etiqueta="Orden del hijo"
+          onChange={(valor) =>
+            actualizar("canariasOrdenHijoNacimientoAdopcion", valor)
+          }
+          opciones={OPCIONES_ORDEN_HIJO_CANARIAS}
+          valor={textoDeduccion(
+            entradas,
+            "canariasOrdenHijoNacimientoAdopcion"
+          )}
+        />
+        {campoNumero("canariasHijosNacimientoAdopcion", "Hijos")}
+        {campoNumero(
+          "canariasHijosNacimientoAdopcionDiscapacidad65",
+          "Hijos discapacidad ≥65%"
+        )}
+        <div className="flex items-end pb-1">
+          {campoCheckbox(
+            "canariasNacimientoCumpleLimites",
+            "Cumple limites de base"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "canarias_discapacidad_mayores_65") {
+    return (
+      <div className="mt-3 grid gap-2">
+        {campoCheckbox(
+          "canariasContribuyenteDiscapacidad33",
+          "Discapacidad ≥33%"
+        )}
+        {campoCheckbox("canariasContribuyenteMayor65", "Mayor de 65 años")}
+        {campoCheckbox(
+          "canariasDiscapacidadMayoresCumpleLimites",
+          "Cumple limites de base"
+        )}
+      </div>
+    )
+  }
+
+  if (codigo === "canarias_familia_numerosa") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <Combobox
+          compacto
+          etiqueta="Categoría"
+          onChange={(valor) =>
+            actualizar("canariasCategoriaFamiliaNumerosa", valor)
+          }
+          opciones={OPCIONES_CATEGORIA_FAMILIA_NUMEROSA}
+          valor={textoDeduccion(entradas, "canariasCategoriaFamiliaNumerosa")}
+        />
+        <div className="flex items-end pb-1">
+          {campoCheckbox(
+            "canariasFamiliaNumerosaDiscapacidad65",
+            "Discapacidad ≥65% en cónyuge o descendiente"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "canarias_contribuyentes_desempleados") {
+    return (
+      <div className="mt-3">
+        {campoCheckbox(
+          "canariasDesempleadoCumpleRequisitos",
+          "Cumple desempleo, rendimientos y bases"
+        )}
+      </div>
+    )
+  }
+
+  if (codigo === "clm_nacimiento_adopcion_hijos") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero("clmPartosAdopcionesUnHijo", "Partos/adop. 1 hijo")}
+        {campoNumero("clmPartosAdopcionesDosHijos", "Partos/adop. 2 hijos")}
+        {campoNumero("clmPartosAdopcionesTresOMas", "Partos/adop. 3+ hijos")}
+        <div className="flex items-end pb-1">
+          {campoCheckbox(
+            "clmNacimientoCumpleLimites",
+            "Cumple limites de base"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "clm_familia_numerosa") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <Combobox
+          compacto
+          etiqueta="Categoría"
+          onChange={(valor) => actualizar("clmCategoriaFamiliaNumerosa", valor)}
+          opciones={OPCIONES_CATEGORIA_FAMILIA_NUMEROSA}
+          valor={textoDeduccion(entradas, "clmCategoriaFamiliaNumerosa")}
+        />
+        <div className="grid gap-2">
+          {campoCheckbox(
+            "clmFamiliaNumerosaDiscapacidad65",
+            "Discapacidad ≥65%"
+          )}
+          {campoCheckbox(
+            "clmFamiliaNumerosaCumpleLimites",
+            "Cumple limites de base"
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (codigo === "clm_discapacidad_contribuyente") {
+    return (
+      <div className="mt-3 grid gap-2">
+        {campoCheckbox(
+          "clmContribuyenteDiscapacidad65",
+          "Discapacidad del contribuyente ≥65%"
+        )}
+        {campoCheckbox(
+          "clmDiscapacidadContribuyenteCumpleLimites",
+          "Cumple limites de base"
+        )}
+      </div>
+    )
+  }
+
+  if (codigo === "clm_discapacidad_ascendientes_descendientes") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero("clmAscDescDiscapacidad65", "Asc./desc. discapacidad ≥65%")}
+        <div className="flex items-end pb-1">
+          {campoCheckbox(
+            "clmAscDescDiscapacidadCumpleLimites",
+            "Cumple limites de base"
+          )}
+        </div>
       </div>
     )
   }
@@ -959,11 +1600,14 @@ function ControlesDeduccionAutonomica({
           onChange={(valor) =>
             actualizar("madridHijosNacimientoAdopcion", valor)
           }
-          valor={entradas.madridHijosNacimientoAdopcion}
+          valor={numeroDeduccion(entradas, "madridHijosNacimientoAdopcion")}
         />
         <div className="flex items-end pb-1">
           <Checkbox
-            checked={entradas.madridProrrateoDosProgenitores}
+            checked={booleanoDeduccion(
+              entradas,
+              "madridProrrateoDosProgenitores"
+            )}
             etiqueta="Prorratear entre dos progenitores"
             onCheckedChange={(checked) =>
               actualizar("madridProrrateoDosProgenitores", checked)
@@ -983,24 +1627,69 @@ function ControlesDeduccionAutonomica({
           formato={FORMATO_EUROS}
           onChange={(valor) => actualizar("catalunyaAlquilerVictima", valor)}
           paso={100}
-          valor={entradas.catalunyaAlquilerVictima}
+          valor={numeroDeduccion(entradas, "catalunyaAlquilerVictima")}
         />
         <div className="grid gap-2">
           <Checkbox
-            checked={entradas.catalunyaVictimaViolenciaMachista}
+            checked={booleanoDeduccion(
+              entradas,
+              "catalunyaVictimaViolenciaMachista"
+            )}
             etiqueta="Víctima de violencia machista"
             onCheckedChange={(checked) =>
               actualizar("catalunyaVictimaViolenciaMachista", checked)
             }
           />
           <Checkbox
-            checked={entradas.catalunyaAlquilerIncrementado}
+            checked={booleanoDeduccion(entradas, "catalunyaAlquilerIncrementado")}
             etiqueta="Discapacidad ≥65% o hijo menor a cargo"
             onCheckedChange={(checked) =>
               actualizar("catalunyaAlquilerIncrementado", checked)
             }
           />
         </div>
+      </div>
+    )
+  }
+
+  if (codigo === "cataluna_viudedad_2023_2024_2025") {
+    return (
+      <div className="mt-3 grid gap-2">
+        {campoCheckbox("catalunyaViudedad", "Viudedad 2023, 2024 o 2025")}
+        {campoCheckbox(
+          "catalunyaViudedadConDescendientes",
+          "Con descendientes con derecho al mínimo"
+        )}
+      </div>
+    )
+  }
+
+  if (codigo === "cataluna_rehabilitacion_vivienda_habitual") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero(
+          "catalunyaRehabilitacionVivienda",
+          "Importe rehabilitación",
+          {
+            euros: true,
+            paso: 500,
+          }
+        )}
+      </div>
+    )
+  }
+
+  if (codigo === "cataluna_intereses_prestamos_master_doctorado") {
+    return (
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campoNumero(
+          "catalunyaInteresesMasterDoctorado",
+          "Intereses pagados",
+          {
+            euros: true,
+            paso: 100,
+          }
+        )}
       </div>
     )
   }
@@ -1016,7 +1705,10 @@ function ControlesDeduccionAutonomica({
             actualizar("catalunyaAportacionesCooperativas", valor)
           }
           paso={100}
-          valor={entradas.catalunyaAportacionesCooperativas}
+          valor={numeroDeduccion(
+            entradas,
+            "catalunyaAportacionesCooperativas"
+          )}
         />
       </div>
     )
