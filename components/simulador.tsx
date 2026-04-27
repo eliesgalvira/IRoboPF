@@ -40,8 +40,10 @@ function SimuladorImpl() {
     React.useState<number | null>(null)
   const [sobrescrituraAbierta, fijarSobrescrituraAbierta] =
     React.useState(false)
-  const [advertenciaSliderVista, fijarAdvertenciaSliderVista] =
-    useLocalStorage("irobopf.sliderOverwriteWarningSeen", false)
+  const [advertenciaSliderVista, fijarAdvertenciaSliderVista] = useLocalStorage(
+    "irobopf.sliderOverwriteWarningSeen",
+    false
+  )
   const ignorarCambioPrecisoPorSlider = React.useRef(false)
   const [vistaCoste, fijarVistaCoste] = React.useState<
     "bruto" | "coste-laboral"
@@ -231,7 +233,6 @@ function SimuladorImpl() {
             >
               <div className="flex items-baseline justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
                 <Slider.Label>CONTROL RÁPIDO · PASO 1.000 €</Slider.Label>
-                <Slider.Value className="font-[family-name:var(--mono)] text-sm font-bold text-[var(--ink)]" />
               </div>
               <Slider.Control className="relative flex h-8 touch-none items-center">
                 <Slider.Track className="relative h-3 w-full bg-[var(--paper)] [outline:2px_solid_var(--rule)]">
