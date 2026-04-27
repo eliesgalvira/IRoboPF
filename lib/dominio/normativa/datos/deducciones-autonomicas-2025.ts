@@ -7,33 +7,290 @@ export type CategoriaDeduccionAutonomica =
   | "donativos_donaciones"
   | "otros_conceptos"
 
-export type EstadoImplementacionDeduccionAutonomica =
-  | "catalogada_pendiente_normalizacion"
+/**
+ * Estados del ciclo de vida de una deduccion autonomica en el motor.
+ *
+ * - catalogada: existe en el manual y el motor puede reconocerla, pero todavia
+ *   no hay una ficha revisada con datos suficientes para calcularla.
+ * - normalizada_pendiente_tests: ya hay ficha estructurada, pero falta cubrirla
+ *   con tests antes de usarla en una liquidacion.
+ * - implementada: tiene ficha, evaluador de interfaz y tests o verificacion de
+ *   comportamiento suficiente para poder aplicarla.
+ * - no_soportada: se ha revisado y se sabe que este motor no puede calcularla
+ *   con los datos disponibles; debe producir diagnostico visible, no cero.
+ */
+export type EstadoDeduccionAutonomica =
+  | "catalogada"
+  | "normalizada_pendiente_tests"
   | "implementada"
+  | "no_soportada"
 
-export type DeduccionAutonomicaCatalogada = {
-  readonly codigo: string
-  readonly nombre: string
-  readonly categoria: CategoriaDeduccionAutonomica
-  readonly estadoImplementacion: EstadoImplementacionDeduccionAutonomica
+export type CuantiaDeduccionAutonomica =
+  | {
+      readonly tipo: "importe_fijo"
+      readonly euros: string
+      readonly por: string
+    }
+  | {
+      readonly tipo: "porcentaje"
+      readonly porcentaje: string
+      readonly base: string
+      readonly limiteMaximoEuros?: string
+    }
+  | {
+      readonly tipo: "mixta"
+      readonly descripcion: string
+    }
+
+export interface FuenteManualDeduccionAutonomica {
+  readonly documento: "ManualRenta2025Parte2"
+  readonly paginas: ReadonlyArray<number>
 }
+
+export type FichaDeduccionAutonomica = {
+  readonly codigo: string
+  readonly comunidad: string
+  readonly nombre: string
+  readonly normativa: string
+  readonly categoria: CategoriaDeduccionAutonomica
+  readonly cuantia: CuantiaDeduccionAutonomica
+  readonly requisitos: ReadonlyArray<string>
+  readonly limites: ReadonlyArray<string>
+  readonly prorrateo: ReadonlyArray<string>
+  readonly compatibilidades: ReadonlyArray<string>
+  readonly incompatibilidades: ReadonlyArray<string>
+  readonly entradaNecesaria: ReadonlyArray<string>
+  readonly fuenteManual: FuenteManualDeduccionAutonomica
+  readonly estado: EstadoDeduccionAutonomica
+}
+
+export type DeduccionAutonomicaCatalogada = FichaDeduccionAutonomica
 
 export type CatalogoDeduccionesAutonomicasPorComunidad = {
   readonly comunidad: string
   readonly fuente: string
-  readonly deducciones: ReadonlyArray<DeduccionAutonomicaCatalogada>
+  readonly deducciones: ReadonlyArray<FichaDeduccionAutonomica>
+}
+
+const comunidadDesdeCodigo = (codigo: string): string => {
+  if (codigo.startsWith("andalucia_")) return "andalucia"
+  if (codigo.startsWith("aragon_")) return "aragon"
+  if (codigo.startsWith("asturias_")) return "asturias"
+  if (codigo.startsWith("balears_")) return "illes-balears"
+  if (codigo.startsWith("canarias_")) return "canarias"
+  if (codigo.startsWith("cantabria_")) return "cantabria"
+  if (codigo.startsWith("clm_")) return "castilla-la-mancha"
+  if (codigo.startsWith("cyl_")) return "castilla-y-leon"
+  if (codigo.startsWith("cataluna_")) return "catalunya"
+  if (codigo.startsWith("extremadura_")) return "extremadura"
+  if (codigo.startsWith("galicia_")) return "galicia"
+  if (codigo.startsWith("madrid_")) return "madrid"
+  if (codigo.startsWith("murcia_")) return "murcia"
+  if (codigo.startsWith("rioja_")) return "la-rioja"
+  if (codigo.startsWith("valenciana_")) return "comunitat-valenciana"
+  return "simulada-estatal"
 }
 
 const pendiente = (
   codigo: string,
   nombre: string,
   categoria: CategoriaDeduccionAutonomica
-): DeduccionAutonomicaCatalogada => ({
+): FichaDeduccionAutonomica => ({
   codigo,
+  comunidad: comunidadDesdeCodigo(codigo),
   nombre,
+  normativa: "Pendiente de normalización desde el Manual Renta 2025 Parte 2",
   categoria,
-  estadoImplementacion: "catalogada_pendiente_normalizacion",
+  cuantia: {
+    tipo: "mixta",
+    descripcion:
+      "Ficha catalogada en el manual; cuantía pendiente de normalización ejecutable revisada.",
+  },
+  requisitos: [],
+  limites: [],
+  prorrateo: [],
+  compatibilidades: [],
+  incompatibilidades: [],
+  entradaNecesaria: [],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [],
+  },
+  estado: "catalogada",
 })
+
+export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
+  codigo: "andalucia_nacimiento_adopcion_acogimiento_menores",
+  comunidad: "andalucia",
+  nombre: "Por nacimiento, adopción de hijos o acogimiento familiar de menores",
+  normativa: "Art. 11 Ley 5/2021, de Tributos Cedidos de Andalucía",
+  categoria: "circunstancias_personales_familiares",
+  cuantia: {
+    tipo: "mixta",
+    descripcion:
+      "200 euros por hijo nacido/adoptado o menor acogido; 400 euros si el contribuyente reside en municipio con problemas de despoblación",
+  },
+  requisitos: [
+    "Nacimiento, adopción o acogimiento en el período impositivo",
+    "En acogimiento, convivencia con el contribuyente según los requisitos del manual",
+    "Para aplicar 400 euros, residencia en municipio andaluz con problemas de despoblación",
+  ],
+  limites: [
+    "Ver límites de base imponible y requisitos completos en ficha normativa",
+  ],
+  prorrateo: ["Normalizar reglas cuando dos contribuyentes tengan derecho"],
+  compatibilidades: [],
+  incompatibilidades: [
+    "Incompatible respecto de los mismos hijos con adopción internacional",
+    "Incompatible con familia numerosa",
+  ],
+  entradaNecesaria: [
+    "numeroHijosNacidosOAdoptados",
+    "numeroMenoresAcogidos",
+    "resideMunicipioDespoblacion",
+    "datosConvivenciaAcogimiento",
+    "baseImponibleGeneral",
+    "baseImponibleAhorro",
+  ],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [41, 42, 43],
+  },
+  estado: "implementada",
+} as const satisfies FichaDeduccionAutonomica
+
+export const ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025 = {
+  ...pendiente(
+    "andalucia_familia_monoparental_ascendientes_mayores_75",
+    "Para el padre o madre de familia monoparental y, en su caso, con ascendientes mayores de 75 años",
+    "circunstancias_personales_familiares"
+  ),
+  normativa: "Pendiente de completar desde ficha normativa de Andalucía",
+  cuantia: {
+    tipo: "mixta",
+    descripcion:
+      "100 euros para padres o madres de familia monoparental; incremento adicional de 100 euros por ascendiente mayor de 75 años que genere derecho al mínimo por ascendientes",
+  },
+  requisitos: [
+    "Ser padre o madre de familia monoparental según la ficha autonómica",
+    "El ascendiente mayor de 75 años debe generar derecho al mínimo por ascendientes para aplicar el incremento",
+  ],
+  limites: ["Normalizar límites de base imponible indicados en la ficha"],
+  prorrateo: [
+    "Normalizar reglas de aplicación cuando existan varios contribuyentes con derecho",
+  ],
+  entradaNecesaria: [
+    "esFamiliaMonoparental",
+    "numeroAscendientesMayores75ConDerechoMinimo",
+    "baseImponibleGeneral",
+    "baseImponibleAhorro",
+  ],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [],
+  },
+  estado: "implementada",
+} as const satisfies FichaDeduccionAutonomica
+
+export const MADRID_NACIMIENTO_ADOPCION_2025 = {
+  ...pendiente(
+    "madrid_nacimiento_adopcion_hijos",
+    "Por nacimiento o adopción de hijos",
+    "circunstancias_personales_familiares"
+  ),
+  normativa: "Pendiente de completar desde ficha normativa de Madrid",
+  cuantia: {
+    tipo: "importe_fijo",
+    euros: "721.70",
+    por: "hijo nacido o adoptado",
+  },
+  requisitos: [
+    "Nacimiento o adopción de hijo",
+    "Aplicable en el año del nacimiento o adopción y en los dos ejercicios siguientes",
+  ],
+  limites: ["Sujeta a límites de base imponible de la ficha autonómica"],
+  prorrateo: ["Prorrateo cuando convivan ambos padres y ambos tengan derecho"],
+  entradaNecesaria: [
+    "numeroHijosNacidosOAdoptados",
+    "ejercicioNacimientoOAdopcion",
+    "convivenAmbosProgenitores",
+    "baseImponibleGeneral",
+    "baseImponibleAhorro",
+  ],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [],
+  },
+  estado: "implementada",
+} as const satisfies FichaDeduccionAutonomica
+
+export const CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025 = {
+  ...pendiente(
+    "cataluna_alquiler_victimas_violencia_machista",
+    "Por alquiler de la vivienda habitual de víctimas de violencia machista",
+    "vivienda_habitual"
+  ),
+  normativa: "Pendiente de completar desde ficha normativa de Cataluña",
+  cuantia: {
+    tipo: "mixta",
+    descripcion:
+      "20% de las cantidades pagadas con máximo de 1.000 euros; 25% con máximo de 1.200 euros si hay discapacidad igual o superior al 65% o hijo menor a cargo",
+  },
+  requisitos: [
+    "Alquiler de vivienda habitual",
+    "Condición de víctima de violencia machista según la ficha autonómica",
+    "Para el tramo incrementado, discapacidad igual o superior al 65% o hijo menor a cargo",
+  ],
+  limites: ["Sujeta a requisitos y límites de la ficha autonómica"],
+  prorrateo: [
+    "Normalizar reglas de prorrateo si varias personas tienen derecho",
+  ],
+  entradaNecesaria: [
+    "importeAlquilerPagado",
+    "esVictimaViolenciaMachista",
+    "discapacidad65OMas",
+    "hijosMenoresACargo",
+    "baseImponibleGeneral",
+    "baseImponibleAhorro",
+  ],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [],
+  },
+  estado: "implementada",
+} as const satisfies FichaDeduccionAutonomica
+
+export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
+  ...pendiente(
+    "cataluna_inversion_cooperativas_agrarias_vivienda",
+    "Por inversión en sociedades cooperativas agrarias y de vivienda",
+    "otros_conceptos"
+  ),
+  normativa: "Pendiente de completar desde ficha normativa de Cataluña",
+  cuantia: {
+    tipo: "porcentaje",
+    porcentaje: "20",
+    base: "aportaciones de capital",
+    limiteMaximoEuros: "3000",
+  },
+  requisitos: [
+    "Aportaciones de capital a sociedades cooperativas agrarias o de vivienda",
+    "Cumplimiento de los requisitos específicos de la ficha autonómica",
+  ],
+  limites: ["Límite máximo de 3.000 euros anuales por contribuyente"],
+  prorrateo: [],
+  entradaNecesaria: [
+    "importeAportacionesCapital",
+    "tipoCooperativa",
+    "baseImponibleGeneral",
+    "baseImponibleAhorro",
+  ],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [],
+  },
+  estado: "implementada",
+} as const satisfies FichaDeduccionAutonomica
 
 /**
  * Catálogo reconocido de deducciones autonómicas del IRPF 2025.
@@ -65,11 +322,8 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
           "Por cantidades invertidas en el alquiler de la vivienda habitual",
           "vivienda_habitual"
         ),
-        pendiente(
-          "andalucia_nacimiento_adopcion_acogimiento_menores",
-          "Por nacimiento, adopción de hijos o acogimiento familiar de menores",
-          "circunstancias_personales_familiares"
-        ),
+        ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025,
+        ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025,
         pendiente(
           "andalucia_familia_numerosa",
           "Para familia numerosa",
@@ -268,6 +522,8 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
           "Por obligación de presentar la declaración del IRPF por razón de tener más de un pagador",
           "otros_conceptos"
         ),
+        CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025,
+        CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025,
       ],
     },
     extremadura: {
@@ -316,11 +572,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Comunidad de Madrid",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 9, 10 y 28",
       deducciones: [
-        pendiente(
-          "madrid_nacimiento_adopcion_hijos",
-          "Por nacimiento o adopción de hijos",
-          "circunstancias_personales_familiares"
-        ),
+        MADRID_NACIMIENTO_ADOPCION_2025,
         pendiente(
           "madrid_arrendamiento_vivienda_habitual",
           "Por arrendamiento de la vivienda habitual",
@@ -402,6 +654,16 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
         ),
       ],
     },
+    ceuta: {
+      comunidad: "Ceuta",
+      fuente: "Manual práctico de Renta 2025 Parte 2",
+      deducciones: [],
+    },
+    melilla: {
+      comunidad: "Melilla",
+      fuente: "Manual práctico de Renta 2025 Parte 2",
+      deducciones: [],
+    },
   } satisfies Partial<
     Record<string, CatalogoDeduccionesAutonomicasPorComunidad>
   >,
@@ -409,7 +671,13 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
 
 export const DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS = parametroNormativo({
   nombre: "Deducciones autonómicas implementadas",
-  valor: [],
+  valor: [
+    ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025,
+    ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025,
+    MADRID_NACIMIENTO_ADOPCION_2025,
+    CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025,
+    CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025,
+  ],
   fuente: fuenteAeatDeduccionesAutonomicas2025,
 })
 
