@@ -3,6 +3,7 @@
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field"
 import { CircleHelp, Minus, Plus } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
 import { Tooltip } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 
@@ -45,13 +46,14 @@ export function NumberField({
         <label className="text-sm leading-tight font-bold">{etiqueta}</label>
         {ayuda ? (
           <Tooltip contenido={ayuda}>
-            <button
+            <Button
               aria-label={`Ayuda sobre ${etiqueta}`}
               className="mb-0.5 text-[var(--ink-soft)] hover:text-[var(--ink)]"
               type="button"
+              variant="unstyled"
             >
               <CircleHelp aria-hidden className="size-3.5" />
-            </button>
+            </Button>
           </Tooltip>
         ) : null}
       </div>

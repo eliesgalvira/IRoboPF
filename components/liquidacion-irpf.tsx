@@ -6,6 +6,7 @@ import { Effect, Option, Result } from "effect"
 import { AlertTriangle, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
+import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Combobox } from "@/components/ui/combobox"
 import { NumberField } from "@/components/ui/number-field"
@@ -766,13 +767,14 @@ function FormularioCaso({
                   Deducciones autonómicas
                 </p>
               </div>
-              <button
+              <Button
                 className="h-9 w-full border border-[var(--rule)] bg-[var(--paper-2)] px-3 text-left text-sm font-bold hover:bg-[var(--paper)]"
                 onClick={() => fijarCatalogoDeduccionesAbierto(true)}
                 type="button"
+                variant="unstyled"
               >
                 Aplicar
-              </button>
+              </Button>
             </div>
           </>
         ) : null}
@@ -1897,12 +1899,13 @@ function EtiquetaConAyuda({
 }) {
   return (
     <Tooltip contenido={ayuda}>
-      <button
+      <Button
         className="cursor-help border-b border-dotted border-current text-left text-sm text-[var(--ink-soft)] hover:text-[var(--ink)]"
         type="button"
+        variant="unstyled"
       >
         {etiqueta}
-      </button>
+      </Button>
     </Tooltip>
   )
 }
