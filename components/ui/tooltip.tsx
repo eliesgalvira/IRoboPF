@@ -4,6 +4,9 @@ import * as React from "react"
 import { createPortal } from "react-dom"
 import type { ReactElement } from "react"
 
+const hayDialogoModalActivo = () =>
+  document.querySelector('[role="dialog"][aria-modal="true"]') !== null
+
 export function Tooltip({
   children,
   contenido,
@@ -62,7 +65,11 @@ export function Tooltip({
           fijarAbierto(false)
         }
       }}
-      onMouseEnter={() => fijarAbierto(true)}
+      onMouseEnter={() => {
+        if (!hayDialogoModalActivo()) {
+          fijarAbierto(true)
+        }
+      }}
       onMouseLeave={() => fijarAbierto(false)}
       ref={contenedor}
     >
@@ -74,28 +81,32 @@ export function Tooltip({
         },
         onFocus: (evento: React.FocusEvent<HTMLElement>) => {
           children.props.onFocus?.(evento)
-          fijarAbierto(true)
+          if (!hayDialogoModalActivo()) {
+            fijarAbierto(true)
+          }
         },
         onPointerDown: (evento: React.PointerEvent<HTMLElement>) => {
           children.props.onPointerDown?.(evento)
           evento.stopPropagation()
-          fijarAbierto((actual) => !actual)
+          if (!hayDialogoModalActivo()) {
+            fijarAbierto((actual) => !actual)
+          }
         },
       })}
       {abierto && posicion
         ? createPortal(
-        <span
-          className="fixed z-[1000] w-[min(16rem,calc(100vw-2rem))] -translate-y-full border-2 border-[var(--rule)] bg-[oklch(0.965_0.014_92)] px-3 py-2 text-xs leading-5 text-[var(--ink)] opacity-100 shadow-[5px_5px_0_var(--rule)]"
-          role="tooltip"
-          style={{
-            left: posicion.izquierda,
-            top: posicion.arriba,
-          }}
-        >
-          {contenido}
-        </span>,
-          document.body
-        )
+            <span
+              className="fixed z-[1000] w-[min(16rem,calc(100vw-2rem))] -translate-y-full border-2 border-[var(--rule)] bg-[oklch(0.965_0.014_92)] px-3 py-2 text-xs leading-5 text-[var(--ink)] opacity-100 shadow-[5px_5px_0_var(--rule)]"
+              role="tooltip"
+              style={{
+                left: posicion.izquierda,
+                top: posicion.arriba,
+              }}
+            >
+              {contenido}
+            </span>,
+            document.body
+          )
         : null}
     </span>
   )

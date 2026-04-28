@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { Dialog } from "@base-ui/react/dialog"
 import { AlertTriangle, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
@@ -1022,86 +1023,82 @@ function FormularioCaso({
         </div>
       </div>
 
-      {catalogoDeduccionesAbierto && usaComunidadAutonomicaReal ? (
-        <div
-          aria-modal="true"
-          className="fixed inset-0 z-50 grid place-items-center bg-black/35 p-4"
-          onClick={() => fijarCatalogoDeduccionesAbierto(false)}
-          role="dialog"
-        >
-          <div
-            className="max-h-[80vh] w-full max-w-2xl overflow-auto border border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[6px_6px_0_var(--rule)]"
-            onClick={(evento) => evento.stopPropagation()}
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-xs tracking-[0.18em] text-[var(--ink-soft)] uppercase">
-                  Deducciones autonómicas
-                </p>
-                <h2 className="mt-1 text-xl font-bold">
-                  {catalogoDeducciones?.comunidad ?? comunidadAutonoma}
-                </h2>
+      <Dialog.Root
+        open={catalogoDeduccionesAbierto && usaComunidadAutonomicaReal}
+        onOpenChange={(abierto) => fijarCatalogoDeduccionesAbierto(abierto)}
+      >
+        <Dialog.Portal>
+          <Dialog.Backdrop className="fixed inset-0 z-40 bg-black/35 transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
+          <Dialog.Viewport className="fixed inset-0 z-50 flex items-center justify-center overflow-auto p-4">
+            <Dialog.Popup className="relative max-h-[80vh] w-full max-w-2xl overflow-auto border border-[var(--rule)] bg-[var(--paper)] p-4 text-[var(--ink)] shadow-[6px_6px_0_var(--rule)] transition-[opacity,translate] duration-150 outline-none data-[ending-style]:translate-y-2 data-[ending-style]:opacity-0 data-[starting-style]:translate-y-2 data-[starting-style]:opacity-0">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs tracking-[0.18em] text-[var(--ink-soft)] uppercase">
+                    Deducciones autonómicas
+                  </p>
+                  <Dialog.Title className="mt-1 text-xl font-bold">
+                    {catalogoDeducciones?.comunidad ?? comunidadAutonoma}
+                  </Dialog.Title>
+                </div>
+                <Dialog.Close className="border border-[var(--rule)] bg-[var(--paper-2)] px-3 py-1 text-sm font-bold hover:bg-[var(--paper)]">
+                  Cerrar
+                </Dialog.Close>
               </div>
-              <button
-                className="border border-[var(--rule)] bg-[var(--paper-2)] px-3 py-1 text-sm font-bold hover:bg-[var(--paper)]"
-                onClick={() => fijarCatalogoDeduccionesAbierto(false)}
-                type="button"
-              >
-                Cerrar
-              </button>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-[var(--ink-soft)]">
-              Estas deducciones existen en el manual. Las fichas implementadas
-              debajo actualizan la deducción agregada del formulario; el importe
-              agregado queda marcado en el rastro.
-            </p>
-            <ul className="mt-4 grid gap-2">
-              {(catalogoDeducciones?.deducciones ?? []).map((deduccion) => (
-                <li
-                  className="border border-[var(--rule)] bg-[var(--paper-2)] p-3"
-                  key={deduccion.codigo}
-                >
-                  <p className="font-bold">{deduccion.nombre}</p>
-                  <p className="mt-1 text-xs break-all text-[var(--ink-soft)]">
-                    {deduccion.codigo}
-                  </p>
-                  <p className="mt-2 text-sm leading-6">
-                    {describirCuantiaDeduccion(deduccion.cuantia)}
-                  </p>
-                  <p className="mt-2 text-xs font-bold text-[var(--ink-soft)]">
-                    {describirEstadoDeduccion(deduccion)}
-                  </p>
-                  {deduccion.requisitos.length > 0 ? (
-                    <div className="mt-2">
-                      <p className="text-xs font-bold uppercase">Requisitos</p>
-                      <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
-                        {deduccion.requisitos.map((requisito) => (
-                          <li key={requisito}>{requisito}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                  {deduccion.limites.length > 0 ? (
-                    <div className="mt-2">
-                      <p className="text-xs font-bold uppercase">Límites</p>
-                      <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
-                        {deduccion.limites.map((limite) => (
-                          <li key={limite}>{limite}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                  <ControlesDeduccionAutonomica
-                    deduccion={deduccion}
-                    entradas={entradasDeduccionesAutonomicas}
-                    fijarEntradas={fijarEntradasDeduccionesAutonomicas}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : null}
+              <Dialog.Description className="mt-3 block text-sm leading-6 text-[var(--ink-soft)]">
+                Estas deducciones existen en el manual. Las fichas implementadas
+                debajo actualizan la deducción agregada del formulario; el
+                importe agregado queda marcado en el rastro.
+              </Dialog.Description>
+              <ul className="mt-4 grid gap-2">
+                {(catalogoDeducciones?.deducciones ?? []).map((deduccion) => (
+                  <li
+                    className="border border-[var(--rule)] bg-[var(--paper-2)] p-3"
+                    key={deduccion.codigo}
+                  >
+                    <p className="font-bold">{deduccion.nombre}</p>
+                    <p className="mt-1 text-xs break-all text-[var(--ink-soft)]">
+                      {deduccion.codigo}
+                    </p>
+                    <p className="mt-2 text-sm leading-6">
+                      {describirCuantiaDeduccion(deduccion.cuantia)}
+                    </p>
+                    <p className="mt-2 text-xs font-bold text-[var(--ink-soft)]">
+                      {describirEstadoDeduccion(deduccion)}
+                    </p>
+                    {deduccion.requisitos.length > 0 ? (
+                      <div className="mt-2">
+                        <p className="text-xs font-bold uppercase">
+                          Requisitos
+                        </p>
+                        <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
+                          {deduccion.requisitos.map((requisito) => (
+                            <li key={requisito}>{requisito}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                    {deduccion.limites.length > 0 ? (
+                      <div className="mt-2">
+                        <p className="text-xs font-bold uppercase">Límites</p>
+                        <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
+                          {deduccion.limites.map((limite) => (
+                            <li key={limite}>{limite}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                    <ControlesDeduccionAutonomica
+                      deduccion={deduccion}
+                      entradas={entradasDeduccionesAutonomicas}
+                      fijarEntradas={fijarEntradasDeduccionesAutonomicas}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </Dialog.Popup>
+          </Dialog.Viewport>
+        </Dialog.Portal>
+      </Dialog.Root>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <Combobox
