@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { createPortal } from "react-dom"
 import type { ReactElement } from "react"
 
 export function Tooltip({
@@ -11,7 +12,23 @@ export function Tooltip({
   readonly contenido: string
 }) {
   const [abierto, fijarAbierto] = React.useState(false)
+  const [posicion, fijarPosicion] = React.useState<{
+    readonly izquierda: number
+    readonly arriba: number
+  } | null>(null)
   const contenedor = React.useRef<HTMLSpanElement>(null)
+
+  React.useLayoutEffect(() => {
+    if (!abierto || !contenedor.current) {
+      return
+    }
+
+    const rectangulo = contenedor.current.getBoundingClientRect()
+    fijarPosicion({
+      izquierda: Math.min(rectangulo.left, window.innerWidth - 280),
+      arriba: Math.max(16, rectangulo.top - 12),
+    })
+  }, [abierto])
 
   React.useEffect(() => {
     if (!abierto) {
@@ -65,14 +82,21 @@ export function Tooltip({
           fijarAbierto((actual) => !actual)
         },
       })}
-      {abierto ? (
+      {abierto && posicion
+        ? createPortal(
         <span
-          className="fixed right-4 bottom-4 left-4 z-50 border border-[var(--rule)] bg-[var(--paper)] px-3 py-2 text-xs leading-5 text-[var(--ink)] shadow-[3px_3px_0_var(--rule)] sm:absolute sm:bottom-full sm:left-0 sm:mb-2 sm:w-64"
+          className="fixed z-[1000] w-[min(16rem,calc(100vw-2rem))] -translate-y-full border-2 border-[var(--rule)] bg-[oklch(0.965_0.014_92)] px-3 py-2 text-xs leading-5 text-[var(--ink)] opacity-100 shadow-[5px_5px_0_var(--rule)]"
           role="tooltip"
+          style={{
+            left: posicion.izquierda,
+            top: posicion.arriba,
+          }}
         >
           {contenido}
-        </span>
-      ) : null}
+        </span>,
+          document.body
+        )
+        : null}
     </span>
   )
 }
