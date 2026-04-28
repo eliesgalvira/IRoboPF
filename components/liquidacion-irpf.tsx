@@ -521,11 +521,11 @@ const describirEstadoDeduccion = (
 }
 
 const AYUDAS_RESUMEN = {
-  "Rendimiento íntegro trabajo":
+  "Rendimientos del trabajo":
     "Ingresos brutos anuales por salario o trabajo antes de restar cotizaciones y gastos deducibles.",
   "Base liquidable":
     "Resultado que queda para aplicar los tramos: rendimientos netos menos reducciones de base.",
-  "Rendimiento neto trabajo":
+  "Rendimiento neto del trabajo":
     "Salario bruto menos cotizacion del trabajador y gastos deducibles aplicados.",
   "Capital inmobiliario neto":
     "Rendimiento de inmuebles, por ejemplo alquileres, que se suma a la base general.",
@@ -533,7 +533,7 @@ const AYUDAS_RESUMEN = {
     "Parte de la ganancia que no tributa por exención reconocida, por ejemplo vivienda habitual de mayores de 65.",
   "Base ahorro":
     "Importe de ganancias y rentas del ahorro que queda sujeto a la escala del ahorro.",
-  "Gastos y deducciones trabajo":
+  "Gastos y reducciones del trabajo":
     "Total que se resta al rendimiento del trabajo: cotizacion del trabajador, gastos deducibles y reduccion por rendimientos del trabajo.",
   "Cotización empresa":
     "Aportacion a la Seguridad Social que paga la empresa por el trabajador.",
@@ -1879,8 +1879,8 @@ function Resultado({
 
               <GrupoResumen tono="verde" titulo="1 · Rendimiento del trabajo">
                 <LineaResumen
-                  ayuda={AYUDAS_RESUMEN["Rendimiento íntegro trabajo"]}
-                  etiqueta="Rendimiento íntegro trabajo"
+                  ayuda={AYUDAS_RESUMEN["Rendimientos del trabajo"]}
+                  etiqueta="Rendimientos del trabajo"
                   signo="+"
                   valor={formatearEuros(resultado.rendimientoIntegroTrabajoCentimos)}
                 />
@@ -1892,8 +1892,8 @@ function Resultado({
                   valor={formatearEuros(resultado.cotizacionTrabajadorCentimos)}
                 />
                 <LineaResumen
-                  ayuda={AYUDAS_RESUMEN["Gastos y deducciones trabajo"]}
-                  etiqueta="Gastos y reducciones trabajo"
+                  ayuda={AYUDAS_RESUMEN["Gastos y reducciones del trabajo"]}
+                  etiqueta="Gastos y reducciones del trabajo"
                   signo="-"
                   valor={formatearEuros(
                     resultado.totalGastosYDeduccionesTrabajoCentimos -
@@ -1901,9 +1901,9 @@ function Resultado({
                   )}
                 />
                 <LineaResumen
-                  ayuda={AYUDAS_RESUMEN["Rendimiento neto trabajo"]}
+                  ayuda={AYUDAS_RESUMEN["Rendimiento neto del trabajo"]}
                   destacado
-                  etiqueta="Rendimiento neto trabajo"
+                  etiqueta="Rendimiento neto del trabajo"
                   signo="="
                   valor={formatearEuros(resultado.rendimientoNetoTrabajoCentimos)}
                 />
@@ -1917,8 +1917,8 @@ function Resultado({
 
               <GrupoResumen tono="azul" titulo="2 · Base liquidable">
                 <LineaResumen
-                  ayuda={AYUDAS_RESUMEN["Rendimiento neto trabajo"]}
-                  etiqueta="Rendimiento neto trabajo"
+                  ayuda={AYUDAS_RESUMEN["Rendimiento neto del trabajo"]}
+                  etiqueta="Rendimiento neto del trabajo"
                   signo="+"
                   valor={formatearEuros(resultado.rendimientoNetoTrabajoCentimos)}
                 />
