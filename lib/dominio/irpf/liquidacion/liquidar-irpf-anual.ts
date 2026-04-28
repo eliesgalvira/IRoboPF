@@ -9,6 +9,7 @@ import {
 } from "../../dinero/importe-monetario"
 import { calcularDesgloseCotizacionesSocialesLegacy } from "../../laboral/cotizaciones-sociales"
 import { obtenerDeduccionAutonomicaCatalogada } from "../../normativa/datos/deducciones-autonomicas-2025"
+import { TRAMOS_IRPF_ESTATAL_GENERAL_2025 } from "../../normativa/datos/irpf-autonomico-2025"
 import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
 import {
@@ -16,7 +17,9 @@ import {
   calcularDesgloseCuotaPorEscalaAhorro,
 } from "../cuotas/cuota-integra-ahorro"
 import {
+  calcularCuotaPorEscala,
   calcularCuotaPorEscalaGeneral,
+  calcularDesgloseCuotaPorEscala,
   calcularDesgloseCuotaPorEscalaGeneral,
 } from "../cuotas/escalas-gravamen"
 import { calcularBaseImponibleAhorro } from "../integracion/base-imponible-ahorro"
@@ -165,18 +168,45 @@ const liquidarTrabajoIndividualSimple = (
   const baseLiquidableAhorro = calcularBaseImponibleAhorro({
     gananciasPatrimoniales,
   })
-  const cuotaIntegraGeneral = calcularCuotaPorEscalaGeneral({
-    anio: caso.anio,
-    base: baseLiquidableGeneral,
-  })
+  const usaEscalaAutonomicaReal =
+    !parametrosComunidad.escalaAutonomicaIgualEstatal
+  const cuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal
+    ? calcularCuotaPorEscala({
+        base: baseLiquidableGeneral,
+        tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+      })
+    : calcularCuotaPorEscalaGeneral({
+        anio: caso.anio,
+        base: baseLiquidableGeneral,
+      })
+  const cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
+    ? calcularCuotaPorEscala({
+        base: baseLiquidableGeneral,
+        tramos: parametrosComunidad.escalaAutonomica.tramos,
+      })
+    : baseLiquidableGeneral.mul(0)
+  const cuotaIntegraGeneral = cuotaIntegraGeneralEstatal.plus(
+    cuotaIntegraGeneralAutonomica
+  )
   const cuotaIntegraAhorro = calcularCuotaPorEscalaAhorro({
     anio: caso.anio,
     base: baseLiquidableAhorro,
   })
-  const desgloseCuotaIntegraGeneral = calcularDesgloseCuotaPorEscalaGeneral({
-    anio: caso.anio,
-    base: baseLiquidableGeneral,
-  })
+  const desgloseCuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal
+    ? calcularDesgloseCuotaPorEscala({
+        base: baseLiquidableGeneral,
+        tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+      })
+    : calcularDesgloseCuotaPorEscalaGeneral({
+        anio: caso.anio,
+        base: baseLiquidableGeneral,
+      })
+  const desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
+    ? calcularDesgloseCuotaPorEscala({
+        base: baseLiquidableGeneral,
+        tramos: parametrosComunidad.escalaAutonomica.tramos,
+      })
+    : []
   const desgloseCuotaIntegraAhorro = calcularDesgloseCuotaPorEscalaAhorro({
     anio: caso.anio,
     base: baseLiquidableAhorro,
@@ -202,10 +232,24 @@ const liquidarTrabajoIndividualSimple = (
     .plus(minimoAscendientes)
     .plus(minimoDiscapacidadContribuyente)
     .plus(minimoDiscapacidadFamiliares)
-  const cuotaMinimoPersonal = calcularCuotaPorEscalaGeneral({
-    anio: caso.anio,
-    base: minimoPersonalYFamiliar,
-  })
+  const cuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
+    ? calcularCuotaPorEscala({
+        base: minimoPersonalYFamiliar,
+        tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+      })
+    : calcularCuotaPorEscalaGeneral({
+        anio: caso.anio,
+        base: minimoPersonalYFamiliar,
+      })
+  const cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
+    ? calcularCuotaPorEscala({
+        base: minimoPersonalYFamiliar,
+        tramos: parametrosComunidad.escalaAutonomica.tramos,
+      })
+    : minimoPersonalYFamiliar.mul(0)
+  const cuotaMinimoPersonal = cuotaMinimoPersonalEstatal.plus(
+    cuotaMinimoPersonalAutonomica
+  )
   const remanenteMinimoPersonalParaAhorro = Decimal.max(
     0,
     minimoPersonalYFamiliar.minus(baseLiquidableGeneral)
@@ -214,23 +258,50 @@ const liquidarTrabajoIndividualSimple = (
     anio: caso.anio,
     base: Decimal.min(remanenteMinimoPersonalParaAhorro, baseLiquidableAhorro),
   })
-  const desgloseCuotaMinimoPersonal = calcularDesgloseCuotaPorEscalaGeneral({
-    anio: caso.anio,
-    base: minimoPersonalYFamiliar,
-  })
+  const desgloseCuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
+    ? calcularDesgloseCuotaPorEscala({
+        base: minimoPersonalYFamiliar,
+        tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+      })
+    : calcularDesgloseCuotaPorEscalaGeneral({
+        anio: caso.anio,
+        base: minimoPersonalYFamiliar,
+      })
+  const desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
+    ? calcularDesgloseCuotaPorEscala({
+        base: minimoPersonalYFamiliar,
+        tramos: parametrosComunidad.escalaAutonomica.tramos,
+      })
+    : []
   const cuotaGeneralDespuesMinimo = Decimal.max(
     0,
     cuotaIntegraGeneral.minus(cuotaMinimoPersonal)
+  )
+  const cuotaAutonomicaGeneralDespuesMinimo = Decimal.max(
+    0,
+    cuotaIntegraGeneralAutonomica.minus(cuotaMinimoPersonalAutonomica)
   )
   const cuotaAhorroDespuesMinimo = Decimal.max(
     0,
     cuotaIntegraAhorro.minus(cuotaMinimoPersonalAhorro)
   )
+  const deduccionesAutonomicasDeclaradas = centimosAEuros(
+    sumarDeduccionesAutonomicasCentimos(caso)
+  )
+  const deduccionesAutonomicasAplicadas = usaEscalaAutonomicaReal
+    ? Decimal.min(
+        deduccionesAutonomicasDeclaradas,
+        cuotaAutonomicaGeneralDespuesMinimo
+      )
+    : deduccionesAutonomicasDeclaradas
+  const deduccionesAutonomicasAplicadasCentimos = eurosACentimos(
+    redondearImporteLiquidado(deduccionesAutonomicasAplicadas)
+  )
   const cuotaLiquida = Decimal.max(
     0,
     cuotaGeneralDespuesMinimo
       .plus(cuotaAhorroDespuesMinimo)
-      .minus(centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso)))
+      .minus(deduccionesAutonomicasAplicadas)
   )
   const cuotaLiquidaCentimos = eurosACentimos(
     redondearImporteLiquidado(cuotaLiquida)
@@ -314,7 +385,7 @@ const liquidarTrabajoIndividualSimple = (
     cuotaMinimoPersonalAhorroCentimos: eurosACentimos(
       redondearImporteLiquidado(cuotaMinimoPersonalAhorro)
     ),
-    deduccionesAutonomicasCentimos: sumarDeduccionesAutonomicasCentimos(caso),
+    deduccionesAutonomicasCentimos: deduccionesAutonomicasAplicadasCentimos,
     cuotaLiquidaCentimos,
     retencionesYPagosACuentaCentimos:
       caso.retencionesSoportadasCentimos + caso.pagosACuentaCentimos,
@@ -579,29 +650,39 @@ const liquidarTrabajoIndividualSimple = (
           titulo: "Comunidad autonoma",
           descripcion: parametrosComunidad.escalaAutonomicaIgualEstatal
             ? "Caso tecnico de contraste: los minimos y la escala autonomica se igualan a los parametros estatales. No representa la normativa propia de una comunidad autonoma real."
-            : "La comunidad autonoma aplica parametros propios.",
+            : `La comunidad autonoma ${parametrosComunidad.escalaAutonomica.nombre} aplica su escala autonomica general de 2025. La cuota general se calcula como cuota estatal mas cuota autonomica, y las deducciones autonomicas se restan despues de minorar por el minimo personal y familiar.`,
           fuentes: [
             {
-              titulo: "Manual Renta 2025 Parte 2",
+              titulo: parametrosComunidad.escalaAutonomica.fuente.titulo,
               referencia:
-                "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+                parametrosComunidad.escalaAutonomica.fuente.referencia,
             },
           ],
         },
         {
           _tag: "PasoExplicacion",
           titulo: "Cuota integra general",
-          descripcion:
-            "Aplicacion de la escala general a la base liquidable general.",
+          descripcion: usaEscalaAutonomicaReal
+            ? "Aplicacion separada de la escala estatal y la escala autonomica de la comunidad a la base liquidable general."
+            : "Aplicacion de la escala general a la base liquidable general.",
           lineasCalculo: [
-            ...desgloseCuotaIntegraGeneral.map((tramo) => ({
-              etiqueta: `Tramo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+            ...desgloseCuotaIntegraGeneralEstatal.map((tramo) => ({
+              etiqueta: usaEscalaAutonomicaReal
+                ? `Tramo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
+                : `Tramo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              resultado: euros(tramo.cuota),
+            })),
+            ...desgloseCuotaIntegraGeneralAutonomica.map((tramo) => ({
+              etiqueta: `Tramo autonomico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
               formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
               resultado: euros(tramo.cuota),
             })),
             {
               etiqueta: "Cuota integra general",
-              formula: "Suma de cuotas por tramo",
+              formula: usaEscalaAutonomicaReal
+                ? "Suma de cuota estatal general y cuota autonomica general"
+                : "Suma de cuotas por tramo",
               resultado: euros(cuotaIntegraGeneral),
             },
           ],
@@ -616,11 +697,19 @@ const liquidarTrabajoIndividualSimple = (
         {
           _tag: "PasoExplicacion",
           titulo: "Cuota correspondiente al minimo personal",
-          descripcion:
-            "Aplicacion de la misma escala general al minimo personal y familiar.",
+          descripcion: usaEscalaAutonomicaReal
+            ? "Aplicacion de la escala estatal y autonomica al minimo personal y familiar para minorar la cuota integra general."
+            : "Aplicacion de la misma escala general al minimo personal y familiar.",
           lineasCalculo: [
-            ...desgloseCuotaMinimoPersonal.map((tramo) => ({
-              etiqueta: `Tramo minimo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+            ...desgloseCuotaMinimoPersonalEstatal.map((tramo) => ({
+              etiqueta: usaEscalaAutonomicaReal
+                ? `Tramo minimo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
+                : `Tramo minimo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              resultado: euros(tramo.cuota),
+            })),
+            ...desgloseCuotaMinimoPersonalAutonomica.map((tramo) => ({
+              etiqueta: `Tramo minimo autonomico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
               formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
               resultado: euros(tramo.cuota),
             })),
@@ -675,15 +764,15 @@ const liquidarTrabajoIndividualSimple = (
           lineasCalculo: [
             {
               etiqueta: "Cuota liquida",
-              formula: `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso)))})`,
+              formula: `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(deduccionesAutonomicasAplicadas)})`,
               resultado: euros(cuotaLiquida),
             },
             {
               etiqueta: "Deducciones autonomicas aplicadas",
-              formula: deduccionesAutonomicasDescripcion(caso),
-              resultado: euros(
-                centimosAEuros(sumarDeduccionesAutonomicasCentimos(caso))
-              ),
+              formula: usaEscalaAutonomicaReal
+                ? `${deduccionesAutonomicasDescripcion(caso)}; limite por cuota autonomica general disponible ${euros(cuotaAutonomicaGeneralDespuesMinimo)}`
+                : deduccionesAutonomicasDescripcion(caso),
+              resultado: euros(deduccionesAutonomicasAplicadas),
             },
             {
               etiqueta: "Retenciones soportadas",

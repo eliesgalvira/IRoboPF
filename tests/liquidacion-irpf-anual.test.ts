@@ -432,7 +432,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("devuelve ResultadoNoSoportado para comunidades reconocidas aun no implementadas", () => {
+  it("liquida una comunidad real con su escala autonomica de 2025", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "madrid",
@@ -453,10 +453,50 @@ describe("liquidarIrpfAnual", () => {
     } satisfies CasoFiscalAnual
 
     expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoNoSoportado",
-      motivo: "Comunidad autonoma madrid aun no implementada",
-      fuenteReconocida:
-        "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+      _tag: "ResultadoLiquidacionIrpf",
+      cuotaIntegraGeneralCentimos: 563_325,
+      cuotaMinimoPersonalCentimos: 99_900,
+      cuotaLiquidaCentimos: 463_425,
+      cuotaDiferencialCentimos: 463_425,
+      rastro: {
+        pasos: expect.arrayContaining([
+          expect.objectContaining({
+            titulo: "Comunidad autonoma",
+            descripcion: expect.stringContaining(
+              "escala autonomica general de 2025"
+            ),
+          }),
+        ]),
+      },
+    })
+  })
+
+  it("limita las deducciones autonomicas a la cuota autonomica disponible", () => {
+    const caso = {
+      anio: 2025,
+      comunidadAutonoma: "madrid",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      deduccionAutonomicaAgregadaCentimos: 999_999_00,
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
+      _tag: "ResultadoLiquidacionIrpf",
+      deduccionesAutonomicasCentimos: 217_035,
+      cuotaLiquidaCentimos: 246_390,
+      cuotaDiferencialCentimos: 246_390,
     })
   })
 
