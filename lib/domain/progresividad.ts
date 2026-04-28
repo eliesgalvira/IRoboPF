@@ -645,6 +645,52 @@ export const compararAjustadoPorIpc = Effect.fn(
   return construirComparacionAjustadaPorIpc(entrada)
 })
 
+const construirComparacionPasadaAjustadaPorIpc = (
+  entrada: EntradaComparacionAjustadaPorIpc
+): ComparacionAjustadaPorIpc => {
+  const salarioBrutoReferencia = centimosAEuros(
+    entrada.salarioBrutoAnualReferenciaCentimos
+  )
+  const factor = factorIpc(entrada.anioReferencia, entrada.anioComparado)
+  const factorAjustePasado = UNO.div(factor)
+  const salarioBrutoNominalComparado = salarioBrutoReferencia.mul(factor)
+  const referenciaSinLiquidar = calcularDesgloseEuros(
+    salarioBrutoReferencia,
+    entrada.anioReferencia
+  )
+  const comparadoSinLiquidar = calcularDesgloseEuros(
+    salarioBrutoNominalComparado,
+    entrada.anioComparado
+  )
+  const diferenciaAnual = diferenciaAnualCentimos(
+    comparadoSinLiquidar,
+    referenciaSinLiquidar,
+    factorAjustePasado
+  )
+
+  return {
+    anioReferencia: entrada.anioReferencia,
+    anioComparado: entrada.anioComparado,
+    factorIpc: factor.toFixed(12),
+    referencia: liquidar(referenciaSinLiquidar),
+    comparado: {
+      salarioBrutoNominalAnualCentimos: centimosLiquidados(
+        salarioBrutoNominalComparado
+      ),
+      ajustado: ajustarDesglose(comparadoSinLiquidar, factorAjustePasado),
+    },
+    diferenciaPoderAdquisitivoNetoAnualCentimos: diferenciaAnual,
+    diferenciaPoderAdquisitivoNetoMensualCentimos:
+      diferenciaMensualCentimos(diferenciaAnual),
+  }
+}
+
+export const compararPasadoAjustadoPorIpc = Effect.fn(
+  "progresividad.compararPasadoAjustadoPorIpc"
+)(function* (entrada: EntradaComparacionAjustadaPorIpc) {
+  return construirComparacionPasadaAjustadaPorIpc(entrada)
+})
+
 export const calcularPerdidaAcumulada = Effect.fn(
   "progresividad.calcularPerdidaAcumulada"
 )(function* (entrada: EntradaComparacionAjustadaPorIpc) {

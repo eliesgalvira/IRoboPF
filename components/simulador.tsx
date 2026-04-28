@@ -22,6 +22,7 @@ import {
 import {
   calcularPerdidaAcumulada,
   compararAjustadoPorIpc,
+  compararPasadoAjustadoPorIpc,
   configuracionControlSalario,
   type ComparacionAjustadaPorIpc,
   type DesgloseLiquidado,
@@ -29,6 +30,8 @@ import {
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
 import { useContadorAnimado } from "@/lib/animacion"
 import { cn } from "@/lib/utils"
+
+type VistaComparacion = "bruto" | "coste-laboral" | "pasado"
 
 function SimuladorImpl() {
   const [salarioCentimos, fijarSalarioCentimos] = React.useState<number>(
@@ -45,9 +48,8 @@ function SimuladorImpl() {
     false
   )
   const ignorarCambioPrecisoPorSlider = React.useRef(false)
-  const [vistaCoste, fijarVistaCoste] = React.useState<
-    "bruto" | "coste-laboral"
-  >("bruto")
+  const [vistaCoste, fijarVistaCoste] =
+    React.useState<VistaComparacion>("bruto")
 
   const comparacion = React.useMemo(
     () =>
@@ -56,6 +58,18 @@ function SimuladorImpl() {
           salarioBrutoAnualReferenciaCentimos: salarioCentimos,
           anioComparado,
           anioReferencia: 2026,
+        })
+      ),
+    [salarioCentimos, anioComparado]
+  )
+
+  const comparacionPasada = React.useMemo(
+    () =>
+      Effect.runSync(
+        compararPasadoAjustadoPorIpc({
+          salarioBrutoAnualReferenciaCentimos: salarioCentimos,
+          anioComparado: 2026,
+          anioReferencia: anioComparado,
         })
       ),
     [salarioCentimos, anioComparado]
@@ -202,7 +216,10 @@ function SimuladorImpl() {
               className="grid gap-2"
             >
               <label className="flex items-baseline justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-                <span>SALARIO BRUTO ANUAL · 2026</span>
+                <span>
+                  SALARIO BRUTO ANUAL ·{" "}
+                  {vistaCoste === "pasado" ? anioComparado : 2026}
+                </span>
                 <span>EUR</span>
               </label>
               <NumberField.Group className="grid h-16 grid-cols-[3rem_minmax(0,1fr)_3rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
@@ -257,7 +274,7 @@ function SimuladorImpl() {
 
           <div className="grid gap-2 py-6 lg:pl-8">
             <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-              AÑO COMPARADO
+              {vistaCoste === "pasado" ? "AÑO DE REFERENCIA" : "AÑO COMPARADO"}
             </span>
             <RejillaAnios
               valor={anioComparado}
@@ -276,6 +293,7 @@ function SimuladorImpl() {
 
         <Columnas
           comparacion={comparacion}
+          comparacionPasada={comparacionPasada}
           modo={vistaCoste}
           fijarModo={fijarVistaCoste}
         />
@@ -522,13 +540,28 @@ function SelloPrincipal({
 
 function Columnas({
   comparacion,
+  comparacionPasada,
   modo,
   fijarModo,
 }: {
   readonly comparacion: ComparacionAjustadaPorIpc
-  readonly modo: "bruto" | "coste-laboral"
-  readonly fijarModo: (modo: "bruto" | "coste-laboral") => void
+  readonly comparacionPasada: ComparacionAjustadaPorIpc
+  readonly modo: VistaComparacion
+  readonly fijarModo: (modo: VistaComparacion) => void
 }) {
+  const comparacionMostrada =
+    modo === "pasado" ? comparacionPasada : comparacion
+  const usarCosteLaboral = modo === "coste-laboral"
+  const etiquetaBase = usarCosteLaboral ? "COSTE LABORAL" : "BRUTO"
+  const opcionesVista = [
+    { modo: "bruto", etiqueta: "Salario bruto" },
+    { modo: "coste-laboral", etiqueta: "Coste laboral" },
+    { modo: "pasado", etiqueta: "Pasado" },
+  ] as const satisfies ReadonlyArray<{
+    readonly modo: VistaComparacion
+    readonly etiqueta: string
+  }>
+
   return (
     <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
@@ -540,15 +573,15 @@ function Columnas({
           aria-label="Base de la comparación"
           className="inline-flex divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.22em] uppercase"
         >
-          {(["bruto", "coste-laboral"] as const).map((modoColumna) => {
-            const activo = modo === modoColumna
+          {opcionesVista.map((opcion) => {
+            const activo = modo === opcion.modo
             return (
               <button
-                key={modoColumna}
+                key={opcion.modo}
                 type="button"
                 role="tab"
                 aria-selected={activo}
-                onClick={() => fijarModo(modoColumna)}
+                onClick={() => fijarModo(opcion.modo)}
                 className={cn(
                   "px-3 py-2 transition-colors",
                   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -557,7 +590,7 @@ function Columnas({
                     : "bg-[var(--paper)] hover:bg-[var(--mark)]"
                 )}
               >
-                {modoColumna === "bruto" ? "Salario bruto" : "Coste laboral"}
+                {opcion.etiqueta}
               </button>
             )
           })}
@@ -565,29 +598,34 @@ function Columnas({
       </div>
       <div className="mt-4 grid gap-px bg-[var(--rule)] lg:grid-cols-2">
         <Columna
-          rotuloSuperior={`leyes ${comparacion.anioComparado}`}
-          titulo={String(comparacion.anioComparado)}
-          subtitulo={`euros de ${comparacion.anioReferencia}`}
-          etiquetaBase={modo === "bruto" ? "BRUTO" : "COSTE LABORAL"}
+          rotuloSuperior={`leyes ${comparacionMostrada.anioComparado}`}
+          titulo={String(comparacionMostrada.anioComparado)}
+          subtitulo={`euros de ${comparacionMostrada.anioReferencia}`}
+          etiquetaBase={etiquetaBase}
           baseCentimos={
-            modo === "bruto"
-              ? comparacion.comparado.ajustado.salarioBrutoAnualCentimos
-              : comparacion.comparado.ajustado.costeLaboralCentimos
+            usarCosteLaboral
+              ? comparacionMostrada.comparado.ajustado.costeLaboralCentimos
+              : comparacionMostrada.comparado.ajustado
+                  .salarioBrutoAnualCentimos
           }
-          desglose={comparacion.comparado.ajustado}
+          desglose={comparacionMostrada.comparado.ajustado}
           variante="comparado"
         />
         <Columna
-          rotuloSuperior="legislación actual"
-          titulo={String(comparacion.anioReferencia)}
-          subtitulo="año de referencia"
-          etiquetaBase={modo === "bruto" ? "BRUTO" : "COSTE LABORAL"}
-          baseCentimos={
-            modo === "bruto"
-              ? comparacion.referencia.salarioBrutoAnualCentimos
-              : comparacion.referencia.costeLaboralCentimos
+          rotuloSuperior={
+            modo === "pasado" ? "año de referencia" : "legislación actual"
           }
-          desglose={comparacion.referencia}
+          titulo={String(comparacionMostrada.anioReferencia)}
+          subtitulo={
+            modo === "pasado" ? "salario introducido" : "año de referencia"
+          }
+          etiquetaBase={etiquetaBase}
+          baseCentimos={
+            usarCosteLaboral
+              ? comparacionMostrada.referencia.costeLaboralCentimos
+              : comparacionMostrada.referencia.salarioBrutoAnualCentimos
+          }
+          desglose={comparacionMostrada.referencia}
           variante="actual"
         />
       </div>

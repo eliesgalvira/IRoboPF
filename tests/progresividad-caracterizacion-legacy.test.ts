@@ -4,6 +4,7 @@ import { describe, expect, it } from "@effect/vitest"
 import fixture from "./fixtures/caracterizacion-legacy.json"
 import {
   compararAjustadoPorIpc,
+  compararPasadoAjustadoPorIpc,
   construirTablaDetalleAnualCompatible,
   type AnioFiscal,
   type ValorCeldaCompatible,
@@ -62,6 +63,30 @@ describe("perfil legacy de progresividad en frio", () => {
             caso.filaDetalleAnualCompatible
           )
         }
+      })
+  )
+
+  it.effect(
+    "permite fijar el salario nominal en un año pasado y comparar 2026 contra ese año",
+    () =>
+      Effect.gen(function* () {
+        const comparacion = yield* compararPasadoAjustadoPorIpc({
+          salarioBrutoAnualReferenciaCentimos: 3_000_000,
+          anioComparado: 2026,
+          anioReferencia: 2025,
+        })
+
+        expect(comparacion.anioReferencia).toBe(2025)
+        expect(comparacion.anioComparado).toBe(2026)
+        expect(comparacion.referencia.salarioBrutoAnualCentimos).toBe(
+          3_000_000
+        )
+        expect(
+          comparacion.comparado.salarioBrutoNominalAnualCentimos
+        ).toBeGreaterThan(3_000_000)
+        expect(
+          comparacion.comparado.ajustado.salarioBrutoAnualCentimos
+        ).toBe(3_000_000)
       })
   )
 })
