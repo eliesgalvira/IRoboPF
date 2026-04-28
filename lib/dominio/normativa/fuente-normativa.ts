@@ -23,7 +23,7 @@ export const fuenteAeatDeduccionesAutonomicas2025: FuenteNormativaNormalizada =
 
 export const fuenteAeatMayores65Renta2025: FuenteNormativaNormalizada = {
   _tag: "FuenteNormativaNormalizada",
-  titulo: "Manual especifico de Renta 2025 para personas mayores de 65 anos",
+  titulo: "Manual específico de Renta 2025 para personas mayores de 65 años",
   referencia: "docs/fuentes/aeat/manual-renta-2025-mayores-65.md",
   nota: "Transcripcion operativa normalizada; no sustituye a la fuente oficial.",
 }

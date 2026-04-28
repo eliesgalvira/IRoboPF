@@ -209,7 +209,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("exime la transmision de vivienda habitual por contribuyente mayor de 65 anos", () => {
+  it("exime la transmisión de vivienda habitual por contribuyente mayor de 65 años", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -246,7 +246,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("exime proporcionalmente la reinversion en renta vitalicia para mayores de 65 anos", () => {
+  it("exime proporcionalmente la reinversión en renta vitalicia para mayores de 65 años", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -572,7 +572,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica minimo por ascendientes con discapacidad aunque no superen 65 anos", () => {
+  it("aplica minimo por ascendientes con discapacidad aunque no superen 65 años", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -600,7 +600,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("ignora ascendientes menores de 65 anos sin discapacidad sin bloquear el calculo", () => {
+  it("ignora ascendientes menores de 65 años sin discapacidad sin bloquear el calculo", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
