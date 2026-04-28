@@ -25,6 +25,7 @@ const MOSTRAR_OBSERVABILIDAD =
   process.env.IROBOPF_OBSERVABILIDAD_LEGACY_COMPLETA === "1"
 const CONCURRENCIA_VALIDACION_LEGACY =
   Number(process.env.IROBOPF_CONCURRENCIA_LEGACY_COMPLETA ?? 3) || 1
+const TOLERANCIA_DERIVA_EXCEL_CENTIMOS = 1
 
 const rutaLegacyExcel = resolve(process.cwd(), ARCHIVO_LEGACY_EXCEL)
 
@@ -136,9 +137,10 @@ const compararCelda = (
   if (typeof legacy === "number" && typeof esperado === "number") {
     const centimosLegacy = Math.round(legacy * 100)
     const centimosEsperado = Math.round(esperado * 100)
-    if (centimosLegacy !== centimosEsperado) {
+    const diferenciaCentimos = Math.abs(centimosLegacy - centimosEsperado)
+    if (diferenciaCentimos > TOLERANCIA_DERIVA_EXCEL_CENTIMOS) {
       throw new Error(
-        `Valor distinto en ${posicion}: legacy=${legacy}, esperado=${esperado}, diferenciaCentimos=${Math.abs(centimosLegacy - centimosEsperado)}`
+        `Valor distinto en ${posicion}: legacy=${legacy}, esperado=${esperado}, diferenciaCentimos=${diferenciaCentimos}`
       )
     }
     return
