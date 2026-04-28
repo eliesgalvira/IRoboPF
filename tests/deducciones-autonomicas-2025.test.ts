@@ -18,41 +18,15 @@ describe("deducciones autonomicas 2025", () => {
       DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA
     ).flat()
 
-    expect(codigosFaltantes).toHaveLength(124)
+    expect(codigosFaltantes).toHaveLength(0)
     expect(deduccionesCatalogadas).toHaveLength(351)
     expect(
       codigosFaltantes.every((codigo) => codigosCatalogados.has(codigo))
     ).toBe(true)
   })
 
-  it("mantiene las deducciones faltantes como catalogadas, no implementadas", () => {
-    const deduccionesCatalogadas = Object.values(
-      CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor
-    ).flatMap((catalogo) => catalogo.deducciones)
-    const deduccionesPorCodigo = new Map(
-      deduccionesCatalogadas.map((deduccion) => [deduccion.codigo, deduccion])
-    )
-
-    expect(
-      deduccionesPorCodigo.get("galicia_familias_dos_hijos")
-    ).toMatchObject({
-      estado: "catalogada",
-      nombre: "Por familias dos hijos",
-      comunidad: "galicia",
-    })
-    expect(
-      deduccionesPorCodigo.get(
-        "valenciana_dana_danos_materiales_vivienda_habitual"
-      )
-    ).toMatchObject({
-      estado: "catalogada",
-      nombre: "Por DANA daños materiales vivienda habitual",
-      comunidad: "comunitat-valenciana",
-    })
-  })
-
-  it("expone las 227 deducciones catalogadas de 2025 como implementadas", () => {
-    expect(DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor).toHaveLength(227)
+  it("expone las 351 deducciones catalogadas de 2025 como implementadas", () => {
+    expect(DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor).toHaveLength(351)
   })
 
   it("publica como implementadas todas y solo las fichas catalogadas con estado implementada", () => {

@@ -521,6 +521,8 @@ function FormularioCaso({
     >
   )[comunidadAutonoma]
   const usaComunidadAutonomicaReal = comunidadAutonoma !== "simulada-estatal"
+  const deduccionesCatalogadas = catalogoDeducciones?.deducciones ?? []
+  const catalogoDeduccionesVacio = deduccionesCatalogadas.length === 0
 
   return (
     <section className="border border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[6px_6px_0_var(--rule)] lg:sticky lg:top-5">
@@ -648,56 +650,77 @@ function FormularioCaso({
                 </Dialog.Close>
               </div>
               <Dialog.Description className="mt-3 block text-sm leading-6 text-[var(--ink-soft)]">
-                Estas deducciones existen en el manual. Las fichas implementadas
-                debajo actualizan la deducción agregada del formulario; el
-                importe agregado queda marcado en el rastro.
+                {catalogoDeduccionesVacio
+                  ? "La Parte 2 del manual práctico de la renta no lista deducciones autonómicas para esta ciudad."
+                  : "Estas deducciones existen en el manual. Las fichas implementadas debajo actualizan la deducción agregada del formulario; el importe agregado queda marcado en el rastro."}
               </Dialog.Description>
-              <ul className="mt-4 grid gap-2">
-                {(catalogoDeducciones?.deducciones ?? []).map((deduccion) => (
-                  <li
-                    className="border border-[var(--rule)] bg-[var(--paper-2)] p-3"
-                    key={deduccion.codigo}
-                  >
-                    <p className="font-bold">{deduccion.nombre}</p>
-                    <p className="mt-1 text-xs break-all text-[var(--ink-soft)]">
-                      {deduccion.codigo}
-                    </p>
-                    <p className="mt-2 text-sm leading-6">
-                      {describirCuantiaDeduccion(deduccion.cuantia)}
-                    </p>
-                    <p className="mt-2 text-xs font-bold text-[var(--ink-soft)]">
-                      {describirEstadoDeduccion(deduccion)}
-                    </p>
-                    {deduccion.requisitos.length > 0 ? (
-                      <div className="mt-2">
-                        <p className="text-xs font-bold uppercase">
-                          Requisitos
-                        </p>
-                        <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
-                          {deduccion.requisitos.map((requisito) => (
-                            <li key={requisito}>{requisito}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
-                    {deduccion.limites.length > 0 ? (
-                      <div className="mt-2">
-                        <p className="text-xs font-bold uppercase">Límites</p>
-                        <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
-                          {deduccion.limites.map((limite) => (
-                            <li key={limite}>{limite}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
-                    <ControlesDeduccionAutonomica
-                      deduccion={deduccion}
-                      entradas={entradasDeduccionesAutonomicas}
-                      fijarEntradas={fijarEntradasDeduccionesAutonomicas}
+              {catalogoDeduccionesVacio ? (
+                <div className="mt-4 border border-dashed border-[var(--rule)] bg-[var(--paper-2)] p-4">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle
+                      aria-hidden
+                      className="mt-0.5 size-5 shrink-0 text-[var(--ink-soft)]"
                     />
-                  </li>
-                ))}
-              </ul>
+                    <div>
+                      <p className="font-bold">
+                        Sin deducciones autonómicas en este catálogo
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">
+                        Ceuta y Melilla mantienen reglas estatales y
+                        territoriales específicas, pero no aportan fichas a este
+                        catálogo autonómico.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <ul className="mt-4 grid gap-2">
+                  {deduccionesCatalogadas.map((deduccion) => (
+                    <li
+                      className="border border-[var(--rule)] bg-[var(--paper-2)] p-3"
+                      key={deduccion.codigo}
+                    >
+                      <p className="font-bold">{deduccion.nombre}</p>
+                      <p className="mt-1 text-xs break-all text-[var(--ink-soft)]">
+                        {deduccion.codigo}
+                      </p>
+                      <p className="mt-2 text-sm leading-6">
+                        {describirCuantiaDeduccion(deduccion.cuantia)}
+                      </p>
+                      <p className="mt-2 text-xs font-bold text-[var(--ink-soft)]">
+                        {describirEstadoDeduccion(deduccion)}
+                      </p>
+                      {deduccion.requisitos.length > 0 ? (
+                        <div className="mt-2">
+                          <p className="text-xs font-bold uppercase">
+                            Requisitos
+                          </p>
+                          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
+                            {deduccion.requisitos.map((requisito) => (
+                              <li key={requisito}>{requisito}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                      {deduccion.limites.length > 0 ? (
+                        <div className="mt-2">
+                          <p className="text-xs font-bold uppercase">Límites</p>
+                          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
+                            {deduccion.limites.map((limite) => (
+                              <li key={limite}>{limite}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                      <ControlesDeduccionAutonomica
+                        deduccion={deduccion}
+                        entradas={entradasDeduccionesAutonomicas}
+                        fijarEntradas={fijarEntradasDeduccionesAutonomicas}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
             </Dialog.Popup>
           </Dialog.Viewport>
         </Dialog.Portal>

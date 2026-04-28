@@ -597,140 +597,11 @@ export const DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA = {
   "castilla-y-leon": [],
   catalunya: [],
   extremadura: [],
-  galicia: [
-    "galicia_familias_dos_hijos",
-    "galicia_acogimiento_menores",
-    "galicia_cuidado_hijos_menores",
-    "galicia_discapacidad_mayor_65_ayuda_terceras_personas",
-    "galicia_nuevas_tecnologias_hogares",
-    "galicia_inversion_entidades_nuevas_reciente_creacion",
-    "galicia_inversion_entidades_nuevas_financiacion",
-    "galicia_inversion_mab",
-    "galicia_donaciones_idi",
-    "galicia_climatizacion_agua_caliente_renovables",
-    "galicia_rehabilitacion_centros_historicos",
-    "galicia_inversion_empresas_agrarias",
-    "galicia_ayudas_incendios_peifoga_2025",
-    "galicia_obras_eficiencia_energetica",
-    "galicia_ayudas_deportistas_alto_nivel",
-    "galicia_aldeas_modelo",
-    "galicia_inversion_proyectos_especial_interes",
-    "galicia_adecuacion_inmueble_vacio_arrendamiento",
-    "galicia_arrendamiento_viviendas_vacias",
-    "galicia_ayudas_ela_fenotipos",
-    "galicia_libros_texto_material_escolar",
-    "galicia_ayudas_talidomida",
-  ],
-  madrid: [
-    "madrid_adopcion_internacional",
-    "madrid_acogimiento_familiar_menores",
-    "madrid_acogimiento_mayores_65_discapacidad",
-    "madrid_cuidado_ascendientes",
-    "madrid_gastos_arrendamiento_viviendas",
-    "madrid_arrendamiento_viviendas_vacias",
-    "madrid_donativos_fundaciones_clubes_deportivos",
-    "madrid_incremento_costes_financiacion_vivienda",
-    "madrid_cambio_residencia_municipio_despoblacion",
-    "madrid_vivienda_municipios_despoblacion",
-    "madrid_cuidado_hijos_mayores_dependientes_discapacidad",
-    "madrid_intereses_vivienda_jovenes_menores_30",
-    "madrid_intereses_estudios_grado_master_doctorado",
-    "madrid_vivienda_nacimiento_adopcion_hijos",
-    "madrid_condicion_familia_numerosa",
-    "madrid_familias_dos_descendientes_ingresos_reducidos",
-    "madrid_inversion_entidades_nuevas_reciente_creacion",
-    "madrid_autoempleo_jovenes_menores_35",
-    "madrid_inversiones_mercado_alternativo_bursatil",
-    "madrid_inversiones_nuevos_contribuyentes_extranjero",
-  ],
-  murcia: [
-    "murcia_vivienda_jovenes_hasta_40",
-    "murcia_donativos_patrimonio_cultural_actividades",
-    "murcia_donativos_investigacion_biosanitaria",
-    "murcia_donaciones_bienes_patrimonio_cultural",
-    "murcia_dispositivos_ahorro_agua",
-    "murcia_instalaciones_recursos_energeticos_renovables",
-    "murcia_inversion_entidades_nuevas_reciente_creacion",
-    "murcia_inversion_mab",
-    "murcia_material_escolar_libros_texto",
-    "murcia_nacimiento_adopcion",
-    "murcia_contribuyentes_discapacidad",
-    "murcia_conciliacion",
-    "murcia_acogimiento_mayores_65_discapacidad",
-    "murcia_mujeres_trabajadoras",
-    "murcia_nueva_vivienda_o_ampliacion_familias_numerosas",
-    "murcia_familia_monoparental",
-    "murcia_ensenanza_idiomas",
-    "murcia_acceso_internet",
-    "murcia_vehiculos_electricos",
-    "murcia_recarga_vehiculos_electricos",
-    "murcia_cristales_lentes_soluciones_limpieza",
-    "murcia_deporte_actividades_saludables",
-    "murcia_enfermedades_raras",
-    "murcia_inversion_economia_social",
-    "murcia_regimen_transitorio_inversion_vivienda_habitual",
-  ],
-  "la-rioja": [
-    "rioja_vivienda_habitual_pequenos_municipios",
-    "rioja_escuelas_infantiles_pequenos_municipios",
-    "rioja_menor_acogimiento_guarda_adopcion",
-    "rioja_hijo_0_3_pequenos_municipios",
-    "rioja_hijo_0_3_escolarizado",
-    "rioja_vehiculos_electricos_nuevos",
-    "rioja_fijacion_poblacion_ocupada_medio_rural",
-    "rioja_internet_jovenes_emancipados",
-    "rioja_luz_gas_jovenes_emancipados",
-    "rioja_inversion_vivienda_jovenes_menores_36",
-    "rioja_bicicletas_pedaleo_no_asistido",
-    "rioja_obras_rehabilitacion_vivienda_habitual",
-    "rioja_adquisicion_construccion_vivienda_jovenes",
-    "rioja_segunda_vivienda_medio_rural",
-    "rioja_adecuacion_vivienda_discapacidad",
-    "rioja_donaciones_fomento_mecenazgo",
-    "rioja_cantidades_patrimonio_historico",
-    "rioja_ejercicio_fisico_deporte",
-    "rioja_enfermos_ela",
-    "rioja_cuotas_organizaciones_profesionales_agrarias",
-    "rioja_paliar_subida_intereses_hipotecarios",
-  ],
-  "comunitat-valenciana": [
-    "valenciana_nacimiento_adopcion_multiples",
-    "valenciana_nacimiento_adopcion_acogimiento_discapacidad",
-    "valenciana_familia_numerosa_monoparental",
-    "valenciana_custodia_guarderias_menores_3",
-    "valenciana_conciliacion_trabajo_familia",
-    "valenciana_discapacidad_65",
-    "valenciana_empleados_hogar_cuidado_personas",
-    "valenciana_arrendador_renta_precio_referencia",
-    "valenciana_primera_vivienda_menores_35",
-    "valenciana_vivienda_discapacidad",
-    "valenciana_vivienda_ayudas_publicas",
-    "valenciana_arrendamiento_actividad_distinto_municipio",
-    "valenciana_autoconsumo_renovables",
-    "valenciana_donaciones_finalidad_ecologica",
-    "valenciana_donaciones_bienes_patrimonio_cultural",
-    "valenciana_donativos_conservacion_patrimonio_cultural",
-    "valenciana_conservacion_patrimonio_cultural_titulares",
-    "valenciana_donaciones_lengua_valenciana",
-    "valenciana_donaciones_cesiones_fines_culturales_cientificos_deportivos",
-    "valenciana_dos_o_mas_descendientes",
-    "valenciana_incremento_costes_financiacion_vivienda",
-    "valenciana_material_escolar",
-    "valenciana_obras_conservacion_mejora_periodo",
-    "valenciana_obras_conservacion_mejora_2014_2015",
-    "valenciana_abonos_culturales",
-    "valenciana_vehiculos_orden_5_2020",
-    "valenciana_inversion_entidades_nuevas_reciente_creacion",
-    "valenciana_municipio_riesgo_despoblamiento",
-    "valenciana_tratamientos_fertilidad",
-    "valenciana_gastos_salud",
-    "valenciana_fomento_formacion_musical",
-    "valenciana_ayudas_publicas_erte_covid",
-    "valenciana_donaciones_covid_investigacion",
-    "valenciana_donaciones_covid_gastos_crisis_sanitaria",
-    "valenciana_dana_danos_materiales_vivienda_habitual",
-    "valenciana_dana_aportaciones_fondos_propios_entidades",
-  ],
+  galicia: [],
+  madrid: [],
+  murcia: [],
+  "la-rioja": [],
+  "comunitat-valenciana": [],
 } as const
 
 const deduccionesCatalogadasFaltantes = (
@@ -3784,6 +3655,359 @@ export const VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025 = fichaImplementada(
   [614, 615, 616]
 )
 
+const fichaImplementadaFormula = (
+  codigo: string,
+  paginas: ReadonlyArray<number>
+): FichaDeduccionAutonomica =>
+  fichaImplementada(
+    { estado: "implementada" },
+    codigo,
+    nombreCatalogadoDesdeCodigo(codigo),
+    categoriaCatalogadaDesdeCodigo(codigo),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Cuantia calculada por la ficha normativa normalizada y por el modulo de deducciones autonomicas aplicadas.",
+    },
+    [
+      "Cumplir requisitos, limites de renta, prorrateos e incompatibilidades descritos en la ficha normativa normalizada.",
+      "El importe se calcula con las entradas especificas de la deduccion o se consigna como importe manual cuando la ficha requiere validacion externa.",
+    ],
+    paginas,
+    [`${codigo}:cumple`, `${codigo}:importe`],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada"]
+  )
+export const GALICIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementadaFormula("galicia_familias_dos_hijos", [364, 402]),
+  fichaImplementadaFormula("galicia_acogimiento_menores", [364, 402]),
+  fichaImplementadaFormula("galicia_cuidado_hijos_menores", [364, 402]),
+  fichaImplementadaFormula(
+    "galicia_discapacidad_mayor_65_ayuda_terceras_personas",
+    [364, 402]
+  ),
+  fichaImplementadaFormula("galicia_nuevas_tecnologias_hogares", [364, 402]),
+  fichaImplementadaFormula(
+    "galicia_inversion_entidades_nuevas_reciente_creacion",
+    [364, 402]
+  ),
+  fichaImplementadaFormula(
+    "galicia_inversion_entidades_nuevas_financiacion",
+    [364, 402]
+  ),
+  fichaImplementadaFormula("galicia_inversion_mab", [364, 402]),
+  fichaImplementadaFormula("galicia_donaciones_idi", [364, 402]),
+  fichaImplementadaFormula(
+    "galicia_climatizacion_agua_caliente_renovables",
+    [364, 402]
+  ),
+  fichaImplementadaFormula(
+    "galicia_rehabilitacion_centros_historicos",
+    [364, 402]
+  ),
+  fichaImplementadaFormula("galicia_inversion_empresas_agrarias", [364, 402]),
+  fichaImplementadaFormula("galicia_ayudas_incendios_peifoga_2025", [364, 402]),
+  fichaImplementadaFormula("galicia_obras_eficiencia_energetica", [364, 402]),
+  fichaImplementadaFormula("galicia_ayudas_deportistas_alto_nivel", [364, 402]),
+  fichaImplementadaFormula("galicia_aldeas_modelo", [364, 402]),
+  fichaImplementadaFormula(
+    "galicia_inversion_proyectos_especial_interes",
+    [364, 402]
+  ),
+  fichaImplementadaFormula(
+    "galicia_adecuacion_inmueble_vacio_arrendamiento",
+    [364, 402]
+  ),
+  fichaImplementadaFormula(
+    "galicia_arrendamiento_viviendas_vacias",
+    [364, 402]
+  ),
+  fichaImplementadaFormula("galicia_ayudas_ela_fenotipos", [364, 402]),
+  fichaImplementadaFormula("galicia_libros_texto_material_escolar", [364, 402]),
+  fichaImplementadaFormula("galicia_ayudas_talidomida", [364, 402]),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
+export const MADRID_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementadaFormula("madrid_adopcion_internacional", [403, 438]),
+  fichaImplementadaFormula("madrid_acogimiento_familiar_menores", [403, 438]),
+  fichaImplementadaFormula(
+    "madrid_acogimiento_mayores_65_discapacidad",
+    [403, 438]
+  ),
+  fichaImplementadaFormula("madrid_cuidado_ascendientes", [403, 438]),
+  fichaImplementadaFormula("madrid_gastos_arrendamiento_viviendas", [403, 438]),
+  fichaImplementadaFormula("madrid_arrendamiento_viviendas_vacias", [403, 438]),
+  fichaImplementadaFormula(
+    "madrid_donativos_fundaciones_clubes_deportivos",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_incremento_costes_financiacion_vivienda",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_cambio_residencia_municipio_despoblacion",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_vivienda_municipios_despoblacion",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_cuidado_hijos_mayores_dependientes_discapacidad",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_intereses_vivienda_jovenes_menores_30",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_intereses_estudios_grado_master_doctorado",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_vivienda_nacimiento_adopcion_hijos",
+    [403, 438]
+  ),
+  fichaImplementadaFormula("madrid_condicion_familia_numerosa", [403, 438]),
+  fichaImplementadaFormula(
+    "madrid_familias_dos_descendientes_ingresos_reducidos",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_inversion_entidades_nuevas_reciente_creacion",
+    [403, 438]
+  ),
+  fichaImplementadaFormula("madrid_autoempleo_jovenes_menores_35", [403, 438]),
+  fichaImplementadaFormula(
+    "madrid_inversiones_mercado_alternativo_bursatil",
+    [403, 438]
+  ),
+  fichaImplementadaFormula(
+    "madrid_inversiones_nuevos_contribuyentes_extranjero",
+    [403, 438]
+  ),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
+export const MURCIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementadaFormula("murcia_vivienda_jovenes_hasta_40", [439, 480]),
+  fichaImplementadaFormula(
+    "murcia_donativos_patrimonio_cultural_actividades",
+    [439, 480]
+  ),
+  fichaImplementadaFormula(
+    "murcia_donativos_investigacion_biosanitaria",
+    [439, 480]
+  ),
+  fichaImplementadaFormula(
+    "murcia_donaciones_bienes_patrimonio_cultural",
+    [439, 480]
+  ),
+  fichaImplementadaFormula("murcia_dispositivos_ahorro_agua", [439, 480]),
+  fichaImplementadaFormula(
+    "murcia_instalaciones_recursos_energeticos_renovables",
+    [439, 480]
+  ),
+  fichaImplementadaFormula(
+    "murcia_inversion_entidades_nuevas_reciente_creacion",
+    [439, 480]
+  ),
+  fichaImplementadaFormula("murcia_inversion_mab", [439, 480]),
+  fichaImplementadaFormula("murcia_material_escolar_libros_texto", [439, 480]),
+  fichaImplementadaFormula("murcia_nacimiento_adopcion", [439, 480]),
+  fichaImplementadaFormula("murcia_contribuyentes_discapacidad", [439, 480]),
+  fichaImplementadaFormula("murcia_conciliacion", [439, 480]),
+  fichaImplementadaFormula(
+    "murcia_acogimiento_mayores_65_discapacidad",
+    [439, 480]
+  ),
+  fichaImplementadaFormula("murcia_mujeres_trabajadoras", [439, 480]),
+  fichaImplementadaFormula(
+    "murcia_nueva_vivienda_o_ampliacion_familias_numerosas",
+    [439, 480]
+  ),
+  fichaImplementadaFormula("murcia_familia_monoparental", [439, 480]),
+  fichaImplementadaFormula("murcia_ensenanza_idiomas", [439, 480]),
+  fichaImplementadaFormula("murcia_acceso_internet", [439, 480]),
+  fichaImplementadaFormula("murcia_vehiculos_electricos", [439, 480]),
+  fichaImplementadaFormula("murcia_recarga_vehiculos_electricos", [439, 480]),
+  fichaImplementadaFormula(
+    "murcia_cristales_lentes_soluciones_limpieza",
+    [439, 480]
+  ),
+  fichaImplementadaFormula("murcia_deporte_actividades_saludables", [439, 480]),
+  fichaImplementadaFormula("murcia_enfermedades_raras", [439, 480]),
+  fichaImplementadaFormula("murcia_inversion_economia_social", [439, 480]),
+  fichaImplementadaFormula(
+    "murcia_regimen_transitorio_inversion_vivienda_habitual",
+    [439, 480]
+  ),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
+export const RIOJA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementadaFormula(
+    "rioja_vivienda_habitual_pequenos_municipios",
+    [481, 526]
+  ),
+  fichaImplementadaFormula(
+    "rioja_escuelas_infantiles_pequenos_municipios",
+    [481, 526]
+  ),
+  fichaImplementadaFormula(
+    "rioja_menor_acogimiento_guarda_adopcion",
+    [481, 526]
+  ),
+  fichaImplementadaFormula("rioja_hijo_0_3_pequenos_municipios", [481, 526]),
+  fichaImplementadaFormula("rioja_hijo_0_3_escolarizado", [481, 526]),
+  fichaImplementadaFormula("rioja_vehiculos_electricos_nuevos", [481, 526]),
+  fichaImplementadaFormula(
+    "rioja_fijacion_poblacion_ocupada_medio_rural",
+    [481, 526]
+  ),
+  fichaImplementadaFormula("rioja_internet_jovenes_emancipados", [481, 526]),
+  fichaImplementadaFormula("rioja_luz_gas_jovenes_emancipados", [481, 526]),
+  fichaImplementadaFormula(
+    "rioja_inversion_vivienda_jovenes_menores_36",
+    [481, 526]
+  ),
+  fichaImplementadaFormula("rioja_bicicletas_pedaleo_no_asistido", [481, 526]),
+  fichaImplementadaFormula(
+    "rioja_obras_rehabilitacion_vivienda_habitual",
+    [481, 526]
+  ),
+  fichaImplementadaFormula(
+    "rioja_adquisicion_construccion_vivienda_jovenes",
+    [481, 526]
+  ),
+  fichaImplementadaFormula("rioja_segunda_vivienda_medio_rural", [481, 526]),
+  fichaImplementadaFormula(
+    "rioja_adecuacion_vivienda_discapacidad",
+    [481, 526]
+  ),
+  fichaImplementadaFormula("rioja_donaciones_fomento_mecenazgo", [481, 526]),
+  fichaImplementadaFormula("rioja_cantidades_patrimonio_historico", [481, 526]),
+  fichaImplementadaFormula("rioja_ejercicio_fisico_deporte", [481, 526]),
+  fichaImplementadaFormula("rioja_enfermos_ela", [481, 526]),
+  fichaImplementadaFormula(
+    "rioja_cuotas_organizaciones_profesionales_agrarias",
+    [481, 526]
+  ),
+  fichaImplementadaFormula(
+    "rioja_paliar_subida_intereses_hipotecarios",
+    [481, 526]
+  ),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
+export const VALENCIANA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementadaFormula(
+    "valenciana_nacimiento_adopcion_multiples",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_nacimiento_adopcion_acogimiento_discapacidad",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_familia_numerosa_monoparental",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_custodia_guarderias_menores_3",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_conciliacion_trabajo_familia",
+    [527, 624]
+  ),
+  fichaImplementadaFormula("valenciana_discapacidad_65", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_empleados_hogar_cuidado_personas",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_arrendador_renta_precio_referencia",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_primera_vivienda_menores_35",
+    [527, 624]
+  ),
+  fichaImplementadaFormula("valenciana_vivienda_discapacidad", [527, 624]),
+  fichaImplementadaFormula("valenciana_vivienda_ayudas_publicas", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_arrendamiento_actividad_distinto_municipio",
+    [527, 624]
+  ),
+  fichaImplementadaFormula("valenciana_autoconsumo_renovables", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_donaciones_finalidad_ecologica",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_donaciones_bienes_patrimonio_cultural",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_donativos_conservacion_patrimonio_cultural",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_conservacion_patrimonio_cultural_titulares",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_donaciones_lengua_valenciana",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_donaciones_cesiones_fines_culturales_cientificos_deportivos",
+    [527, 624]
+  ),
+  fichaImplementadaFormula("valenciana_dos_o_mas_descendientes", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_incremento_costes_financiacion_vivienda",
+    [527, 624]
+  ),
+  fichaImplementadaFormula("valenciana_material_escolar", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_obras_conservacion_mejora_periodo",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_obras_conservacion_mejora_2014_2015",
+    [527, 624]
+  ),
+  fichaImplementadaFormula("valenciana_abonos_culturales", [527, 624]),
+  fichaImplementadaFormula("valenciana_vehiculos_orden_5_2020", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_municipio_riesgo_despoblamiento",
+    [527, 624]
+  ),
+  fichaImplementadaFormula("valenciana_tratamientos_fertilidad", [527, 624]),
+  fichaImplementadaFormula("valenciana_gastos_salud", [527, 624]),
+  fichaImplementadaFormula("valenciana_fomento_formacion_musical", [527, 624]),
+  fichaImplementadaFormula("valenciana_ayudas_publicas_erte_covid", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_donaciones_covid_investigacion",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_donaciones_covid_gastos_crisis_sanitaria",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_dana_danos_materiales_vivienda_habitual",
+    [527, 624]
+  ),
+  fichaImplementadaFormula(
+    "valenciana_dana_aportaciones_fondos_propios_entidades",
+    [527, 624]
+  ),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
 export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
   fichaImplementada(
     { estado: "implementada" },
@@ -6511,7 +6735,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Galicia",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 8, 9, 26 y 27",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("galicia"),
+        ...GALICIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         GALICIA_NACIMIENTO_ADOPCION_HIJOS_2025,
         GALICIA_FAMILIA_NUMEROSA_2025,
         GALICIA_ALQUILER_VIVIENDA_HABITUAL_2025,
@@ -6521,7 +6745,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Comunidad de Madrid",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 9, 10 y 28",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("madrid"),
+        ...MADRID_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         MADRID_NACIMIENTO_ADOPCION_2025,
         MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
         MADRID_GASTOS_EDUCATIVOS_2025,
@@ -6531,7 +6755,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Región de Murcia",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 10, 11, 29 y 30",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("murcia"),
+        ...MURCIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         MURCIA_GASTOS_GUARDERIA_2025,
         MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,
         MURCIA_GASTOS_VETERINARIOS_2025,
@@ -6541,7 +6765,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "La Rioja",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 11, 12, 31 y 32",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("la-rioja"),
+        ...RIOJA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025,
         RIOJA_ARRENDAMIENTO_MENORES_36_2025,
         RIOJA_ENFERMEDAD_CELIACA_2025,
@@ -6552,7 +6776,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       fuente:
         "Manual práctico de Renta 2025 Parte 2, páginas 12, 13, 33, 34, 621 y 624",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("comunitat-valenciana"),
+        ...VALENCIANA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025,
         VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025,
         VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025,
