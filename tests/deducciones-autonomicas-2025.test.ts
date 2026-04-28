@@ -2,11 +2,30 @@ import { describe, expect, it } from "@effect/vitest"
 
 import {
   CATALOGO_DEDUCCIONES_AUTONOMICAS_2025,
+  DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD,
   DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS,
   DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA,
 } from "../lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 
 describe("deducciones autonomicas 2025", () => {
+  it("organiza las fichas normativas por comunidad autónoma", () => {
+    expect(
+      DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD.madrid.map(
+        (deduccion) => deduccion.codigo
+      )
+    ).toContain("madrid_nacimiento_adopcion_hijos")
+    expect(
+      DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD.madrid.map(
+        (deduccion) => deduccion.codigo
+      )
+    ).toContain("madrid_adopcion_internacional")
+    expect(DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD.ceuta).toEqual([])
+    expect(DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD.melilla).toEqual([])
+    expect(CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor.madrid.deducciones).toBe(
+      DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD.madrid
+    )
+  })
+
   it("cataloga las deducciones faltantes de la guía para mostrarlas en la interfaz", () => {
     const deduccionesCatalogadas = Object.values(
       CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor
