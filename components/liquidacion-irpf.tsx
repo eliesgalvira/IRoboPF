@@ -521,6 +521,8 @@ const describirEstadoDeduccion = (
 }
 
 const AYUDAS_RESUMEN = {
+  "Rendimiento íntegro trabajo":
+    "Ingresos brutos anuales por salario o trabajo antes de restar cotizaciones y gastos deducibles.",
   "Base liquidable":
     "Resultado que queda para aplicar los tramos: rendimientos netos menos reducciones de base.",
   "Rendimiento neto trabajo":
@@ -1866,97 +1868,116 @@ function Resultado({
                 <p className="text-xs tracking-[0.18em] text-[var(--ink-soft)] uppercase">
                   Resultado final
                 </p>
-                <div className="mt-2 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(16rem,0.65fr)] md:items-end">
-                  <div>
-                    <EtiquetaConAyuda
-                      ayuda={AYUDAS_RESUMEN["Cuota diferencial"]}
-                      etiqueta="Cuota diferencial"
-                    />
-                    <p className="mt-1 font-[var(--display)] text-5xl leading-none tabular-nums">
-                      {formatearEuros(resultado.cuotaDiferencialCentimos)}
-                    </p>
-                  </div>
-                  <dl className="grid gap-2">
-                    <LineaResumen
-                      ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
-                      etiqueta="Cuota líquida"
-                      valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
-                    />
-                    <LineaResumen
-                      ayuda={AYUDAS_RESUMEN["Retenciones/pagos a cuenta"]}
-                      etiqueta="Retenciones y pagos"
-                      valor={formatearEuros(
-                        resultado.retencionesYPagosACuentaCentimos
-                      )}
-                    />
-                  </dl>
-                </div>
+                <EtiquetaConAyuda
+                  ayuda={AYUDAS_RESUMEN["Cuota diferencial"]}
+                  etiqueta="Cuota diferencial"
+                />
+                <p className="mt-1 font-[var(--display)] text-5xl leading-none tabular-nums">
+                  {formatearEuros(resultado.cuotaDiferencialCentimos)}
+                </p>
               </div>
 
-              <div className="grid gap-5 xl:grid-cols-2">
-                <GrupoResumen tono="verde" titulo="Trabajo y cotizaciones">
-                  <LineaResumen
-                    ayuda={AYUDAS_RESUMEN["Coste laboral"]}
-                    detalle={`Incluye ${formatearEuros(resultado.cotizacionEmpresarialCentimos)} de cotización empresa, con ${formatearEuros(resultado.meiEmpresarialCentimos)} de MEI.`}
-                    etiqueta="Coste laboral"
-                    valor={formatearEuros(resultado.costeLaboralCentimos)}
-                  />
-                  <LineaResumen
-                    ayuda={AYUDAS_RESUMEN["Cotización trabajador"]}
-                    detalle={`Incluye ${formatearEuros(resultado.meiTrabajadorCentimos)} de MEI descontado al trabajador.`}
-                    etiqueta="Cotización trabajador"
-                    valor={formatearEuros(resultado.cotizacionTrabajadorCentimos)}
-                  />
-                  <LineaResumen
-                    ayuda={AYUDAS_RESUMEN["Gastos y deducciones trabajo"]}
-                    etiqueta="Gastos y reducciones trabajo"
-                    valor={formatearEuros(
-                      resultado.totalGastosYDeduccionesTrabajoCentimos
-                    )}
-                  />
-                  <LineaResumen
-                    ayuda={AYUDAS_RESUMEN["Rendimiento neto trabajo"]}
-                    destacado
-                    etiqueta="Rendimiento neto trabajo"
-                    valor={formatearEuros(
-                      resultado.rendimientoNetoTrabajoCentimos
-                    )}
-                  />
-                </GrupoResumen>
+              <GrupoResumen tono="verde" titulo="1 · Rendimiento del trabajo">
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Rendimiento íntegro trabajo"]}
+                  etiqueta="Rendimiento íntegro trabajo"
+                  signo="+"
+                  valor={formatearEuros(resultado.rendimientoIntegroTrabajoCentimos)}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Cotización trabajador"]}
+                  detalle={`Incluye ${formatearEuros(resultado.meiTrabajadorCentimos)} de MEI descontado al trabajador.`}
+                  etiqueta="Cotización trabajador"
+                  signo="-"
+                  valor={formatearEuros(resultado.cotizacionTrabajadorCentimos)}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Gastos y deducciones trabajo"]}
+                  etiqueta="Gastos y reducciones trabajo"
+                  signo="-"
+                  valor={formatearEuros(
+                    resultado.totalGastosYDeduccionesTrabajoCentimos -
+                      resultado.cotizacionTrabajadorCentimos
+                  )}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Rendimiento neto trabajo"]}
+                  destacado
+                  etiqueta="Rendimiento neto trabajo"
+                  signo="="
+                  valor={formatearEuros(resultado.rendimientoNetoTrabajoCentimos)}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Coste laboral"]}
+                  detalle={`Dato laboral complementario: incluye ${formatearEuros(resultado.cotizacionEmpresarialCentimos)} de cotización empresa, con ${formatearEuros(resultado.meiEmpresarialCentimos)} de MEI.`}
+                  etiqueta="Coste laboral empresa"
+                  valor={formatearEuros(resultado.costeLaboralCentimos)}
+                />
+              </GrupoResumen>
 
-                <GrupoResumen tono="azul" titulo="Bases imponibles">
-                  <LineaResumen
-                    ayuda={AYUDAS_RESUMEN["Base liquidable"]}
-                    destacado
-                    etiqueta="Base liquidable general"
-                    valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
-                  />
-                  <LineaResumen
-                    ayuda={AYUDAS_RESUMEN["Capital inmobiliario neto"]}
-                    etiqueta="Capital inmobiliario neto"
-                    valor={formatearEuros(
-                      resultado.rendimientoNetoCapitalInmobiliarioCentimos
-                    )}
-                  />
-                  <LineaResumen
-                    ayuda={AYUDAS_RESUMEN["Ganancia patrimonial exenta"]}
-                    etiqueta="Ganancia patrimonial exenta"
-                    valor={formatearEuros(
-                      resultado.gananciaPatrimonialExentaCentimos
-                    )}
-                  />
-                  <LineaResumen
-                    ayuda={AYUDAS_RESUMEN["Base ahorro"]}
-                    etiqueta="Base del ahorro"
-                    valor={formatearEuros(resultado.baseLiquidableAhorroCentimos)}
-                  />
-                </GrupoResumen>
-              </div>
+              <GrupoResumen tono="azul" titulo="2 · Base liquidable">
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Rendimiento neto trabajo"]}
+                  etiqueta="Rendimiento neto trabajo"
+                  signo="+"
+                  valor={formatearEuros(resultado.rendimientoNetoTrabajoCentimos)}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Capital inmobiliario neto"]}
+                  etiqueta="Capital inmobiliario neto"
+                  signo="+"
+                  valor={formatearEuros(
+                    resultado.rendimientoNetoCapitalInmobiliarioCentimos
+                  )}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Ganancia patrimonial exenta"]}
+                  etiqueta="Ganancia patrimonial exenta"
+                  valor={formatearEuros(
+                    resultado.gananciaPatrimonialExentaCentimos
+                  )}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Base liquidable"]}
+                  destacado
+                  etiqueta="Base liquidable general"
+                  signo="="
+                  valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Base ahorro"]}
+                  etiqueta="Base del ahorro"
+                  valor={formatearEuros(resultado.baseLiquidableAhorroCentimos)}
+                />
+              </GrupoResumen>
 
-              <GrupoResumen tono="rosa" titulo="Cuota y ajustes">
+              <GrupoResumen tono="rosa" titulo="3 · Cuota y pagos">
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Base liquidable"]}
+                  etiqueta="Cuota íntegra general"
+                  signo="+"
+                  valor={formatearEuros(resultado.cuotaIntegraGeneralCentimos)}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Base ahorro"]}
+                  etiqueta="Cuota íntegra ahorro"
+                  signo="+"
+                  valor={formatearEuros(resultado.cuotaIntegraAhorroCentimos)}
+                />
                 <LineaResumen
                   ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
-                  etiqueta="Cuota líquida antes de pagos"
+                  etiqueta="Mínimo personal y familiar"
+                  signo="-"
+                  valor={formatearEuros(
+                    resultado.cuotaMinimoPersonalCentimos +
+                      resultado.cuotaMinimoPersonalAhorroCentimos
+                  )}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
+                  destacado
+                  etiqueta="Cuota líquida"
+                  signo="="
                   valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
                 />
                 <LineaResumen
@@ -1968,9 +1989,17 @@ function Resultado({
                 <LineaResumen
                   ayuda={AYUDAS_RESUMEN["Retenciones/pagos a cuenta"]}
                   etiqueta="Retenciones y pagos a cuenta"
+                  signo="-"
                   valor={formatearEuros(
                     resultado.retencionesYPagosACuentaCentimos
                   )}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Cuota diferencial"]}
+                  destacado
+                  etiqueta="Cuota diferencial"
+                  signo="="
+                  valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
                 />
               </GrupoResumen>
             </div>
@@ -2094,23 +2123,30 @@ function LineaResumen({
   destacado = false,
   detalle,
   etiqueta,
+  signo,
   valor,
 }: {
   readonly ayuda: string
   readonly destacado?: boolean
   readonly detalle?: string
   readonly etiqueta: string
+  readonly signo?: "+" | "-" | "="
   readonly valor: string
 }) {
   return (
-    <div className="grid gap-1 rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-4">
-      <dt>
-        <EtiquetaConAyuda ayuda={ayuda} etiqueta={etiqueta} />
-        {detalle ? (
-          <p className="mt-1 text-xs leading-5 text-[var(--ink-soft)]">
-            {detalle}
-          </p>
-        ) : null}
+    <div className="grid gap-2 rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-4">
+      <dt className="grid min-w-0 grid-cols-[1.25rem_minmax(0,1fr)] gap-2">
+        <span className="pt-0.5 text-sm font-bold text-[var(--ink-soft)]">
+          {signo ?? ""}
+        </span>
+        <span className="min-w-0">
+          <EtiquetaConAyuda ayuda={ayuda} etiqueta={etiqueta} />
+          {detalle ? (
+            <span className="mt-1 block text-xs leading-5 text-[var(--ink-soft)]">
+              {detalle}
+            </span>
+          ) : null}
+        </span>
       </dt>
       <dd
         className={cn(
