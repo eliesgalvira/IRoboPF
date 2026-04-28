@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { Option } from "effect"
 
 import {
   centimosAEuros,
@@ -41,7 +42,10 @@ const deduccionSmi2025: PoliticaDeduccionSmi = (bruto) => {
   }
 
   if (bruto.lte(18276)) {
-    return max(CERO, importe(340).minus(importe("0.20").mul(bruto.minus(16576))))
+    return max(
+      CERO,
+      importe(340).minus(importe("0.20").mul(bruto.minus(16576)))
+    )
   }
 
   return CERO
@@ -67,35 +71,37 @@ export const calcularConciliacionSimuladorLegacy = ({
   readonly rendimientoIntegroTrabajoCentimos: number
   readonly cuotaLiquidaCentimos: number
   readonly cuotaDiferencialCentimos: number
-}): ConciliacionSimuladorLegacy | null => {
+}): Option.Option<ConciliacionSimuladorLegacy> => {
   const especificacion = ESPECIFICACIONES_CONCILIACION_SIMULADOR_LEGACY[anio]
   if (especificacion === undefined) {
-    return null
+    return Option.none()
   }
 
   const bruto = centimosAEuros(rendimientoIntegroTrabajoCentimos)
   const cuotaLiquidadaAnual = centimosAEuros(cuotaLiquidaCentimos)
   const deduccionSmi = especificacion.deduccionSmi(bruto)
-  const cuotaTrasDeduccionSmi = max(CERO, cuotaLiquidadaAnual.minus(deduccionSmi))
+  const cuotaTrasDeduccionSmi = max(
+    CERO,
+    cuotaLiquidadaAnual.minus(deduccionSmi)
+  )
   const limiteRetencionNomina = max(
     CERO,
     bruto
       .minus(especificacion.minimoExentoRetencion)
       .mul(especificacion.tipoMaximoRetencionNomina)
   )
-  const irpfFinalSimulador = min(
-    cuotaTrasDeduccionSmi,
-    limiteRetencionNomina
-  )
+  const irpfFinalSimulador = min(cuotaTrasDeduccionSmi, limiteRetencionNomina)
   const irpfFinalSimuladorCentimos = eurosACentimos(
     redondearImporteLiquidado(irpfFinalSimulador)
   )
 
-  return {
+  return Option.some({
     _tag: "ConciliacionSimuladorLegacy",
     anio,
     cuotaLiquidadaAnualCentimos: cuotaLiquidaCentimos,
-    deduccionSmiCentimos: eurosACentimos(redondearImporteLiquidado(deduccionSmi)),
+    deduccionSmiCentimos: eurosACentimos(
+      redondearImporteLiquidado(deduccionSmi)
+    ),
     cuotaTrasDeduccionSmiCentimos: eurosACentimos(
       redondearImporteLiquidado(cuotaTrasDeduccionSmi)
     ),
@@ -103,15 +109,13 @@ export const calcularConciliacionSimuladorLegacy = ({
     minimoExentoRetencionCentimos: eurosACentimos(
       redondearImporteLiquidado(especificacion.minimoExentoRetencion)
     ),
-    tipoMaximoRetencionNominaPorcentaje: especificacion
-      .tipoMaximoRetencionNomina
-      .mul(100)
-      .toFixed(0),
+    tipoMaximoRetencionNominaPorcentaje:
+      especificacion.tipoMaximoRetencionNomina.mul(100).toFixed(0),
     limiteRetencionNominaCentimos: eurosACentimos(
       redondearImporteLiquidado(limiteRetencionNomina)
     ),
     irpfFinalSimuladorCentimos,
     diferenciaCuotaDiferencialEIrpfFinalCentimos:
       cuotaDiferencialCentimos - irpfFinalSimuladorCentimos,
-  }
+  })
 }

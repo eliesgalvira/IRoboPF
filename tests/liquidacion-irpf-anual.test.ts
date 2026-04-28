@@ -1,6 +1,8 @@
+import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
+  LiquidacionIrpfAnual,
   liquidarIrpfAnual,
   type CasoFiscalAnual,
 } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
@@ -10,39 +12,81 @@ import {
   sinDiscapacidad,
 } from "../lib/dominio/irpf/caso-fiscal-anual"
 
-describe("liquidarIrpfAnual", () => {
-  it("liquida un primer caso individual con rendimientos del trabajo", () => {
-    const caso = {
-      anio: 2025,
-      comunidadAutonoma: "simulada-estatal",
-      situacionFamiliar: {
-        tipo: "individual",
-        edad: 40,
-        descendientes: [],
-        ascendientes: [],
-        discapacidad: sinDiscapacidad,
-      },
-      rendimientos: {
-        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
-      },
-      reducciones: [],
-      deducciones: [],
-      retencionesSoportadasCentimos: 0,
-      pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
+const liquidarCasoCanonico = (caso: CasoFiscalAnual) =>
+  Effect.runSync(liquidarIrpfAnual(caso, { modo: "canonico" }))
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
-      anio: 2025,
-      perfil: "renta-individual-general",
-      baseImponibleGeneralCentimos: 2_605_600,
-      baseLiquidableGeneralCentimos: 2_605_600,
-      cuotaIntegraGeneralCentimos: 598_230,
-      cuotaMinimoPersonalCentimos: 105_450,
-      cuotaLiquidaCentimos: 492_780,
-      cuotaDiferencialCentimos: 492_780,
-    })
-  })
+describe("liquidarIrpfAnual", () => {
+  it.effect("expone la liquidacion anual como servicio Effect", () =>
+    Effect.gen(function* () {
+      const caso = {
+        anio: 2025,
+        comunidadAutonoma: "simulada-estatal",
+        situacionFamiliar: {
+          tipo: "individual",
+          edad: 40,
+          descendientes: [],
+          ascendientes: [],
+          discapacidad: sinDiscapacidad,
+        },
+        rendimientos: {
+          trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        },
+        reducciones: [],
+        deducciones: [],
+        retencionesSoportadasCentimos: 0,
+        pagosACuentaCentimos: 0,
+      } satisfies CasoFiscalAnual
+      const liquidacion = yield* LiquidacionIrpfAnual
+
+      const resultado = yield* liquidacion.liquidar(caso, {
+        modo: "canonico",
+      })
+
+      expect(resultado).toMatchObject({
+        _tag: "LiquidacionIrpfAnualCalculada",
+        cuotaLiquidaCentimos: 492_780,
+      })
+    }).pipe(Effect.provide(LiquidacionIrpfAnual.layer))
+  )
+
+  it.effect(
+    "liquida un primer caso individual con rendimientos del trabajo",
+    () =>
+      Effect.gen(function* () {
+        const caso = {
+          anio: 2025,
+          comunidadAutonoma: "simulada-estatal",
+          situacionFamiliar: {
+            tipo: "individual",
+            edad: 40,
+            descendientes: [],
+            ascendientes: [],
+            discapacidad: sinDiscapacidad,
+          },
+          rendimientos: {
+            trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+          },
+          reducciones: [],
+          deducciones: [],
+          retencionesSoportadasCentimos: 0,
+          pagosACuentaCentimos: 0,
+        } satisfies CasoFiscalAnual
+
+        const resultado = yield* liquidarIrpfAnual(caso, { modo: "canonico" })
+
+        expect(resultado).toMatchObject({
+          _tag: "LiquidacionIrpfAnualCalculada",
+          anio: 2025,
+          perfil: "renta-individual-general",
+          baseImponibleGeneralCentimos: 2_605_600,
+          baseLiquidableGeneralCentimos: 2_605_600,
+          cuotaIntegraGeneralCentimos: 598_230,
+          cuotaMinimoPersonalCentimos: 105_450,
+          cuotaLiquidaCentimos: 492_780,
+          cuotaDiferencialCentimos: 492_780,
+        })
+      })
+  )
 
   it("explica la conciliacion entre cuota anual e IRPF final del simulador legacy", () => {
     const caso = {
@@ -64,22 +108,25 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaLiquidaCentimos: 103_539,
       cuotaDiferencialCentimos: 103_539,
       conciliacionSimuladorLegacy: {
-        _tag: "ConciliacionSimuladorLegacy",
-        anio: 2025,
-        cuotaLiquidadaAnualCentimos: 103_539,
-        deduccionSmiCentimos: 5_520,
-        cuotaTrasDeduccionSmiCentimos: 98_019,
-        rendimientoIntegroTrabajoCentimos: 1_800_000,
-        minimoExentoRetencionCentimos: 1_587_600,
-        tipoMaximoRetencionNominaPorcentaje: "43",
-        limiteRetencionNominaCentimos: 91_332,
-        irpfFinalSimuladorCentimos: 91_332,
-        diferenciaCuotaDiferencialEIrpfFinalCentimos: 12_207,
+        _tag: "Some",
+        value: {
+          _tag: "ConciliacionSimuladorLegacy",
+          anio: 2025,
+          cuotaLiquidadaAnualCentimos: 103_539,
+          deduccionSmiCentimos: 5_520,
+          cuotaTrasDeduccionSmiCentimos: 98_019,
+          rendimientoIntegroTrabajoCentimos: 1_800_000,
+          minimoExentoRetencionCentimos: 1_587_600,
+          tipoMaximoRetencionNominaPorcentaje: "43",
+          limiteRetencionNominaCentimos: 91_332,
+          irpfFinalSimuladorCentimos: 91_332,
+          diferenciaCuotaDiferencialEIrpfFinalCentimos: 12_207,
+        },
       },
     })
   })
@@ -104,8 +151,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaMinimoPersonalCentimos: 127_300,
       cuotaLiquidaCentimos: 470_930,
       cuotaDiferencialCentimos: 470_930,
@@ -132,8 +179,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaMinimoPersonalCentimos: 153_900,
       cuotaLiquidaCentimos: 444_330,
       cuotaDiferencialCentimos: 444_330,
@@ -161,8 +208,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       baseImponibleGeneralCentimos: 2_705_600,
       baseLiquidableGeneralCentimos: 2_705_600,
       cuotaIntegraGeneralCentimos: 628_230,
@@ -198,8 +245,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       gananciaPatrimonialTotalCentimos: 1_000_000,
       gananciaPatrimonialExentaCentimos: 0,
       baseLiquidableAhorroCentimos: 1_000_000,
@@ -235,8 +282,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       gananciaPatrimonialTotalCentimos: 8_000_000,
       gananciaPatrimonialExentaCentimos: 8_000_000,
       baseLiquidableAhorroCentimos: 0,
@@ -277,8 +324,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       gananciaPatrimonialTotalCentimos: 5_000_000,
       gananciaPatrimonialExentaCentimos: 2_500_000,
       baseLiquidableAhorroCentimos: 2_500_000,
@@ -308,8 +355,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       baseImponibleGeneralCentimos: 472_600,
       baseLiquidableGeneralCentimos: 472_600,
       reduccionRendimientosTrabajoCentimos: 730_200,
@@ -338,8 +385,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaMinimoPersonalCentimos: 151_050,
       cuotaLiquidaCentimos: 447_180,
       cuotaDiferencialCentimos: 447_180,
@@ -366,8 +413,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaMinimoPersonalCentimos: 208_050,
       cuotaLiquidaCentimos: 390_180,
       cuotaDiferencialCentimos: 390_180,
@@ -402,8 +449,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaMinimoPersonalCentimos: 598_230,
       cuotaLiquidaCentimos: 0,
       cuotaDiferencialCentimos: 0,
@@ -431,46 +478,54 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       deduccionesAutonomicasCentimos: 100_00,
       cuotaLiquidaCentimos: 482_780,
       cuotaDiferencialCentimos: 482_780,
     })
   })
 
-  it("devuelve ResultadoNoSoportado para deducciones autonomicas catalogadas no implementadas", () => {
-    const caso = {
-      anio: 2025,
-      comunidadAutonoma: "simulada-estatal",
-      situacionFamiliar: {
-        tipo: "individual",
-        edad: 40,
-        descendientes: [],
-        ascendientes: [],
-        discapacidad: sinDiscapacidad,
-      },
-      rendimientos: {
-        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
-      },
-      reducciones: [],
-      deducciones: [
-        {
-          codigo: "madrid_gastos_educativos",
-        },
-      ],
-      retencionesSoportadasCentimos: 0,
-      pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
+  it.effect(
+    "falla con ResultadoNoSoportado para deducciones autonomicas catalogadas no implementadas",
+    () =>
+      Effect.gen(function* () {
+        const caso = {
+          anio: 2025,
+          comunidadAutonoma: "simulada-estatal",
+          situacionFamiliar: {
+            tipo: "individual",
+            edad: 40,
+            descendientes: [],
+            ascendientes: [],
+            discapacidad: sinDiscapacidad,
+          },
+          rendimientos: {
+            trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+          },
+          reducciones: [],
+          deducciones: [
+            {
+              codigo: "madrid_gastos_educativos",
+            },
+          ],
+          retencionesSoportadasCentimos: 0,
+          pagosACuentaCentimos: 0,
+        } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoNoSoportado",
-      motivo:
-        "Deduccion autonomica reconocida no implementada: Por gastos educativos",
-      fuenteReconocida:
-        "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
-    })
-  })
+        const error = yield* liquidarIrpfAnual(caso, {
+          modo: "canonico",
+        }).pipe(Effect.flip)
+
+        expect(error).toMatchObject({
+          _tag: "ResultadoNoSoportado",
+          motivo:
+            "Deduccion autonomica reconocida no implementada: Por gastos educativos",
+          fuenteReconocida:
+            "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+        })
+      })
+  )
 
   it("liquida una comunidad real con su escala autonomica de 2025", () => {
     const caso = {
@@ -492,8 +547,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaIntegraGeneralCentimos: 563_325,
       cuotaMinimoPersonalCentimos: 103_357,
       cuotaLiquidaCentimos: 459_969,
@@ -536,8 +591,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       deduccionesAutonomicasCentimos: 213_579,
       cuotaLiquidaCentimos: 246_390,
       cuotaDiferencialCentimos: 246_390,
@@ -564,8 +619,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaMinimoPersonalCentimos: 153_900,
       cuotaLiquidaCentimos: 444_330,
       cuotaDiferencialCentimos: 444_330,
@@ -592,8 +647,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaMinimoPersonalCentimos: 184_300,
       cuotaLiquidaCentimos: 413_930,
       cuotaDiferencialCentimos: 413_930,
@@ -620,8 +675,8 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
-      _tag: "ResultadoLiquidacionIrpf",
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
       cuotaMinimoPersonalCentimos: 105_450,
       cuotaLiquidaCentimos: 492_780,
       cuotaDiferencialCentimos: 492_780,

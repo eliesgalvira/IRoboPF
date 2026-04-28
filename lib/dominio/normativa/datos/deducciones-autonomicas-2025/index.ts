@@ -1,3 +1,5 @@
+import { Array as EffectArray, Option } from "effect"
+
 import { fuenteAeatDeduccionesAutonomicas2025 } from "../../fuente-normativa"
 import { parametroNormativo } from "../../repositorio-parametros"
 
@@ -194,17 +196,10 @@ export const DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS = parametroNormativo({
 
 export const obtenerDeduccionAutonomicaCatalogada = (
   codigo: string
-): DeduccionAutonomicaCatalogada | null => {
-  for (const comunidad of Object.values(
-    CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor
-  )) {
-    const deduccion = comunidad.deducciones.find(
-      (candidata) => candidata.codigo === codigo
-    )
-    if (deduccion) {
-      return deduccion
-    }
-  }
-
-  return null
-}
+): Option.Option<DeduccionAutonomicaCatalogada> =>
+  EffectArray.findFirst(
+    Object.values(CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor).flatMap(
+      (comunidad) => comunidad.deducciones
+    ),
+    (candidata) => candidata.codigo === codigo
+  )

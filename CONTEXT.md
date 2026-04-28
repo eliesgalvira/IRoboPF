@@ -24,6 +24,26 @@ _Avoid_: Liquidacion anual del IRPF, procedimiento de retencion, calculo del IRP
 Resultado del calculo de la declaracion anual del IRPF a partir de bases, minimos, escalas, deducciones, retenciones y pagos a cuenta.
 _Avoid_: Retencion, tipo de nomina, interfaz de liquidacion
 
+**Liquidacion IRPF anual calculada**:
+Liquidacion anual del IRPF completada por el motor para un caso fiscal soportado.
+_Avoid_: Resultado liquidacion IRPF, resultado soportado, estado de frontera
+
+**Etapa de liquidacion**:
+Transformacion nombrada dentro de una liquidacion anual que produce importes fiscalmente significativos.
+_Avoid_: Bloque auxiliar, paso tecnico, variable temporal
+
+**Valor intermedio de liquidacion**:
+Resultado tipado de una etapa de liquidacion con significado fiscal propio.
+_Avoid_: Variable temporal, cache, campo auxiliar
+
+**Redondeo de liquidacion**:
+Frontera explicita donde importes monetarios exactos se convierten en importes liquidados.
+_Avoid_: Redondeo implicito, redondeo por etapa, formato visual
+
+**Politica monetaria**:
+Servicio de dominio que define redondeos y conversiones monetarias de una ejecucion.
+_Avoid_: If por modo, helper global implicito, formato visual
+
 **Procedimiento de retencion**:
 Calculo del tipo e importe de retencion a cuenta sobre rendimientos del trabajo.
 _Avoid_: Liquidacion anual del IRPF, estimacion IRPF legacy, tipo de nomina
@@ -71,6 +91,10 @@ _Avoid_: Desglose fiscal-laboral, nomina
 **Rastro de calculo**:
 Secuencia estructurada de pasos, importes e impactos que explica como el motor produjo un desglose.
 _Avoid_: Log tecnico, exposicion de funciones internas
+
+**Explicacion de liquidacion IRPF**:
+Construccion de un rastro de calculo a partir de una liquidacion IRPF anual calculada y sus valores intermedios.
+_Avoid_: Etapa de liquidacion, regla fiscal, texto embebido en calculo
 
 **Version de explicacion**:
 Version del esquema usado para representar rastros de calculo, impactos normativos y evidencias educativas.
@@ -264,6 +288,14 @@ _Avoid_: Fuente normativa normalizada, valor sin marcar
 Dato numerico o tabla derivada de una fuente normativa normalizada y usada por el motor exacto.
 _Avoid_: Fuente normativa normalizada, comentario, regla de calculo
 
+**Repositorio normativo**:
+Servicio de dominio que entrega parametros normativos ejecutables para un area concreta.
+_Avoid_: Archivo de datos, helper de constante, fuente normativa normalizada
+
+**Fachada de parametros normativos**:
+Servicio de dominio que compone repositorios normativos especializados para los consumidores de alto nivel.
+_Avoid_: Servicio gigante de datos, import directo de constantes normativas
+
 **Dato economico**:
 Valor macroeconomico usado para ajustar o interpretar resultados fiscales sin ser una regla normativa.
 _Avoid_: Parametro normativo ejecutable, regla de calculo
@@ -276,6 +308,14 @@ _Avoid_: Inflacion suelta, tasa anual aislada
 Transformacion determinista que usa entradas del caso fiscal y parametros normativos ejecutables para producir una parte del desglose.
 _Avoid_: Funcion tecnica privada, formula suelta, parametro normativo ejecutable
 
+**Servicio de dominio**:
+Capacidad de dominio con frontera clara y composicion explicita mediante Effect.
+_Avoid_: Funcion pura pequena, modulo tecnico, motor impuestos
+
+**Ausencia legitima**:
+Estado esperado donde un dato puede no existir sin invalidar ni des-soportar el caso.
+_Avoid_: Null, undefined, resultado no soportado, error tecnico
+
 **Ficha catalogada**:
 Deduccion autonomica reconocida en una fuente normativa normalizada pero no habilitada para calculo automatico.
 _Avoid_: Pendiente, ficha base, implementada parcial
@@ -287,6 +327,14 @@ _Avoid_: Pendiente, ficha catalogada, entrada provisional
 **Resultado no soportado**:
 Estado explicito que indica que el motor reconoce un caso fiscal pero todavia no implementa sus reglas.
 _Avoid_: Cero silencioso, fallback aproximado, limitacion de alcance
+
+**Fallo esperado de dominio**:
+Resultado recuperable previsto por el dominio y transportado en el canal de error de Effect.
+_Avoid_: Defect, excepcion inesperada, valor de exito ambiguo
+
+**Estado de frontera**:
+Union presentable producida por un adaptador externo al nucleo de dominio.
+_Avoid_: Resultado interno, liquidacion calculada, fallo esperado
 
 **Caso de referencia canonico**:
 Entrada y salida esperada versionadas que permiten validar implementaciones alternativas del motor sin depender del Excel.
@@ -364,6 +412,7 @@ _Avoid_: Informe, reporte
 - Un **Calculo de salario neto e IRPF** incluye una **Estimacion IRPF legacy** cuando usa el **Perfil de progresividad en frio legacy**.
 - Una **Estimacion IRPF legacy** produce un **IRPF final**.
 - Una **Liquidacion anual del IRPF** no es un **Procedimiento de retencion**.
+- Una **Liquidacion IRPF anual calculada** es el exito de una **Liquidacion anual del IRPF** para un caso soportado.
 - Un **Procedimiento de retencion** puede usarse como evidencia o comparacion, pero no sustituye a una **Liquidacion anual del IRPF**.
 - Un **Calculo de salario neto e IRPF** produce una **Cotizacion del trabajador**, una **Cotizacion empresarial** y un **Coste laboral**.
 - Un **Calculo de salario neto e IRPF** produce un **Salario neto anual**.
@@ -375,6 +424,24 @@ _Avoid_: Informe, reporte
 - Un **Calculo unitario** declara una **Version de datos de referencia** y una **Version del algoritmo**.
 - Una **Auditoria de progresividad en frio** declara una **Version de datos de referencia**, una **Version del algoritmo** y una **Version de explicacion** cuando incluye rastros educativos.
 - Un **Motor exacto** produce **Desgloses de salario neto e IRPF**.
+- Un **Servicio de dominio** encapsula una capacidad con frontera clara o dependencias intercambiables, no cada funcion aritmetica pura.
+- Un **Servicio de dominio** usa primitivas de Effect cuando evitan `undefined`, mutacion, casts o estados invalidos.
+- Una **Ausencia legitima** se modela con `Option`, no con `null` ni `undefined`.
+- Un **Resultado no soportado** es un **Fallo esperado de dominio** cuando debe interrumpir una liquidacion o auditoria.
+- Un **Resultado no soportado** viaja por el canal de error esperado dentro de los servicios de dominio.
+- Un adaptador de frontera puede recuperar un **Resultado no soportado** y convertirlo en un **Estado de frontera**.
+- Un **Fallo esperado de dominio** no sustituye a una **Ausencia legitima**.
+- Una entrada invalida, un parametro normativo ausente o un **Resultado no soportado** se modelan como errores esperados tipados si el llamador puede recuperarlos.
+- Una ruptura de invariantes que indique bug se modela como defecto, no como **Fallo esperado de dominio**.
+- Una **Liquidacion anual del IRPF** se compone de **Etapas de liquidacion** ordenadas y nombradas.
+- Una **Etapa de liquidacion** produce uno o mas **Valores intermedios de liquidacion**.
+- Un **Valor intermedio de liquidacion** puede alimentar **Evidencias de calculo** y trazabilidad tecnica.
+- Un **Valor intermedio de liquidacion** conserva precision monetaria exacta hasta el **Redondeo de liquidacion**.
+- El **Redondeo de liquidacion** produce **Importes liquidados** para salida publica, exportacion o comparacion.
+- El **Modo compatible legacy** y el **Modo canonico** seleccionan una **Politica monetaria** mediante capas Effect.
+- Una **Etapa de liquidacion** consume una **Politica monetaria** cuando necesita una frontera monetaria; no inspecciona directamente el modo.
+- Una **Explicacion de liquidacion IRPF** deriva el **Rastro de calculo** desde una **Liquidacion IRPF anual calculada** y sus **Valores intermedios de liquidacion**.
+- Una **Etapa de liquidacion** no debe depender de textos educativos para calcular.
 - Una **Vista educativa del calculo** explica un **Desglose de salario neto e IRPF**.
 - Una **Vista educativa del calculo** usa **Detalle progresivo**.
 - Un **Rastro de calculo** se organiza en **Pasos de explicacion** segun su **Version de explicacion**.
@@ -396,6 +463,9 @@ _Avoid_: Informe, reporte
 - Una **Fuente pendiente** marca una **Regla de calculo** o un **Parametro normativo ejecutable** que aun necesita verificacion.
 - Un **Parametro normativo ejecutable** debe poder apuntar a una **Fuente normativa normalizada**.
 - Una **Regla de calculo** usa **Parametros normativos ejecutables**.
+- Un **Repositorio normativo** entrega **Parametros normativos ejecutables** de un area concreta.
+- Una **Fachada de parametros normativos** compone varios **Repositorios normativos** para las capacidades raiz.
+- Una **Etapa de liquidacion** consume una **Fachada de parametros normativos** o un **Repositorio normativo**; no importa archivos de datos directamente.
 - Una **Ficha catalogada** puede pasar a **Ficha implementada** solo cambiando su estado y datos normalizados de forma explicita; no debe heredar nombres ni constructores de pendiente.
 - Una **Ficha implementada** puede aparecer en una lista derivada de implementadas, pero la lista no es una segunda fuente de verdad.
 - Un **Dato economico** puede tener fuente propia sin ser una **Fuente normativa normalizada**.
@@ -460,3 +530,4 @@ _Avoid_: Informe, reporte
 - "fuente normativa" podia significar PDF, transcripcion o dato ejecutable; resuelto: distinguir **Fuente normativa normalizada** y **Parametro normativo ejecutable**.
 - "simulador completo" podia sugerir una version mejorada de la consulta actual; resuelto: usar **Interfaz experta de liquidacion IRPF** para la ruta `/liquidacion-irpf`.
 - "caso fiscal simplificado" era demasiado generico; resuelto: usar **Caso fiscal simplificado legacy** para el contrato historico y **Caso fiscal anual** como concepto padre.
+- "motor impuestos" es demasiado amplio y reabre una mezcla ya separada por ADR; resuelto: distinguir **Auditoria de progresividad en frio**, **Liquidacion anual del IRPF** y **Procedimiento de retencion** como capacidades raiz del dominio.

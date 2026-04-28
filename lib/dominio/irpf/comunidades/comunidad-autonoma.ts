@@ -1,13 +1,21 @@
+import { Context, Effect, Layer, Option } from "effect"
+
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
-import type { FichaDeduccionAutonomica } from "../../normativa/datos/deducciones-autonomicas-2025"
+import type {
+  DeduccionAutonomicaCatalogada,
+  FichaDeduccionAutonomica,
+} from "../../normativa/datos/deducciones-autonomicas-2025"
 import {
   DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS,
   CATALOGO_DEDUCCIONES_AUTONOMICAS_2025,
+  obtenerDeduccionAutonomicaCatalogada,
 } from "../../normativa/datos/deducciones-autonomicas-2025"
 import {
   obtenerEscalaAutonomicaIrpf2025,
+  TRAMOS_IRPF_ESTATAL_GENERAL_2025,
   type EscalaAutonomicaIrpf2025,
 } from "../../normativa/datos/irpf-autonomico-2025"
+import type { TramosIrpf } from "../../normativa/datos/irpf-estatal-2012-2026"
 import {
   MINIMOS_ESTATALES_2025,
   obtenerMinimosAutonomicosIrpf2025,
@@ -57,14 +65,14 @@ export const obtenerParametrosComunidadAutonoma = ({
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html",
     }
   }
-  const minimosAutonomicos = obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma)
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma)
 
   return {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio,
-    minimoAutonomicoIgualEstatal:
-      minimosAutonomicos === MINIMOS_ESTATALES_2025,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2025,
     escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
     escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
     minimosAutonomicos,
@@ -94,7 +102,38 @@ const deduccionesImplementadasPorComunidad = (
     )
   )
 
-  return DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.filter(
-    (deduccion) => codigosCatalogados.has(deduccion.codigo)
+  return DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.filter((deduccion) =>
+    codigosCatalogados.has(deduccion.codigo)
   )
+}
+
+export interface ServicioParametrosNormativosIrpf {
+  readonly minimosEstatales2025: MinimosPersonalesFamiliaresIrpf
+  readonly tramosIrpfEstatalGeneral2025: TramosIrpf
+  readonly obtenerParametrosComunidadAutonoma: (
+    entrada: EntradaParametrosComunidadAutonoma
+  ) => Effect.Effect<ResultadoParametrosComunidadAutonoma>
+  readonly obtenerDeduccionAutonomicaCatalogada: (
+    codigo: string
+  ) => Effect.Effect<Option.Option<DeduccionAutonomicaCatalogada>>
+}
+
+export class ParametrosNormativosIrpf extends Context.Service<
+  ParametrosNormativosIrpf,
+  ServicioParametrosNormativosIrpf
+>()("@irobopf/dominio/normativa/ParametrosNormativosIrpf") {
+  static readonly layer = Layer.succeed(ParametrosNormativosIrpf, {
+    minimosEstatales2025: MINIMOS_ESTATALES_2025,
+    tramosIrpfEstatalGeneral2025: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+    obtenerParametrosComunidadAutonoma: Effect.fn(
+      "ParametrosNormativosIrpf.obtenerParametrosComunidadAutonoma"
+    )(function* (entrada: EntradaParametrosComunidadAutonoma) {
+      return obtenerParametrosComunidadAutonoma(entrada)
+    }),
+    obtenerDeduccionAutonomicaCatalogada: Effect.fn(
+      "ParametrosNormativosIrpf.obtenerDeduccionAutonomicaCatalogada"
+    )(function* (codigo: string) {
+      return obtenerDeduccionAutonomicaCatalogada(codigo)
+    }),
+  })
 }

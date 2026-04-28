@@ -1,6 +1,9 @@
-import { Effect } from "effect"
+import { Context, Effect, Layer } from "effect"
 
-import { compararAjustadoPorIpc } from "../../domain/progresividad"
+import {
+  compararAjustadoPorIpc,
+  type DesgloseLiquidado,
+} from "../../domain/progresividad"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 
 export interface EntradaCalculoSalarioLegacy {
@@ -10,7 +13,7 @@ export interface EntradaCalculoSalarioLegacy {
 
 // Este adaptador conserva el contrato observable del perfil legacy mientras el
 // calculo se va moviendo desde `lib/domain/progresividad.ts` por partes.
-export const calcularSalarioLegacy = Effect.fn(
+const calcularSalarioLegacyImpl = Effect.fn(
   "compatibilidadLegacy.calcularSalarioLegacy"
 )(function* (entrada: EntradaCalculoSalarioLegacy) {
   const calculo = yield* compararAjustadoPorIpc({
@@ -21,3 +24,31 @@ export const calcularSalarioLegacy = Effect.fn(
 
   return calculo.referencia
 })
+
+export class CompatibilidadSalarioLegacy extends Context.Service<
+  CompatibilidadSalarioLegacy,
+  {
+    readonly calcular: (
+      entrada: EntradaCalculoSalarioLegacy
+    ) => Effect.Effect<DesgloseLiquidado>
+  }
+>()("@irobopf/dominio/compatibilidadLegacy/CompatibilidadSalarioLegacy") {
+  static readonly layer = Layer.succeed(CompatibilidadSalarioLegacy, {
+    calcular: calcularSalarioLegacyImpl,
+  })
+}
+
+const calcularSalarioLegacyDesdeServicio = Effect.fn(
+  "compatibilidadLegacy.calcularSalarioLegacyDesdeServicio"
+)(function* (entrada: EntradaCalculoSalarioLegacy) {
+  const compatibilidad = yield* CompatibilidadSalarioLegacy
+
+  return yield* compatibilidad.calcular(entrada)
+})
+
+export const calcularSalarioLegacy = (
+  entrada: EntradaCalculoSalarioLegacy
+): Effect.Effect<DesgloseLiquidado> =>
+  calcularSalarioLegacyDesdeServicio(entrada).pipe(
+    Effect.provide(CompatibilidadSalarioLegacy.layer)
+  )

@@ -1,4 +1,4 @@
-import { Effect } from "effect"
+import { Context, Effect, Layer } from "effect"
 
 import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
 import {
@@ -58,7 +58,7 @@ export interface ResultadoAuditoriaProgresividadFrio {
   readonly auditoria: AuditoriaRangoSalarial
 }
 
-export const auditarProgresividadFrio = Effect.fn(
+const auditarProgresividadFrioImpl = Effect.fn(
   "auditoria.auditarProgresividadFrio"
 )(function* (
   entrada: EntradaAuditoriaProgresividadFrio,
@@ -79,3 +79,36 @@ export const auditarProgresividadFrio = Effect.fn(
     auditoria,
   } satisfies ResultadoAuditoriaProgresividadFrio
 })
+
+export class AuditoriaProgresividadFrio extends Context.Service<
+  AuditoriaProgresividadFrio,
+  {
+    readonly auditar: (
+      entrada: EntradaAuditoriaProgresividadFrio,
+      contexto: ContextoAuditoriaProgresividadFrio
+    ) => Effect.Effect<ResultadoAuditoriaProgresividadFrio>
+  }
+>()("@irobopf/dominio/auditoria/AuditoriaProgresividadFrio") {
+  static readonly layer = Layer.succeed(AuditoriaProgresividadFrio, {
+    auditar: auditarProgresividadFrioImpl,
+  })
+}
+
+const auditarProgresividadFrioDesdeServicio = Effect.fn(
+  "auditoria.auditarProgresividadFrioDesdeServicio"
+)(function* (
+  entrada: EntradaAuditoriaProgresividadFrio,
+  contexto: ContextoAuditoriaProgresividadFrio
+) {
+  const auditoria = yield* AuditoriaProgresividadFrio
+
+  return yield* auditoria.auditar(entrada, contexto)
+})
+
+export const auditarProgresividadFrio = (
+  entrada: EntradaAuditoriaProgresividadFrio,
+  contexto: ContextoAuditoriaProgresividadFrio
+): Effect.Effect<ResultadoAuditoriaProgresividadFrio> =>
+  auditarProgresividadFrioDesdeServicio(entrada, contexto).pipe(
+    Effect.provide(AuditoriaProgresividadFrio.layer)
+  )

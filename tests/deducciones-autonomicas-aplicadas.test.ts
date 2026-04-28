@@ -1,4 +1,4 @@
-import { Effect } from "effect"
+import { Effect, Option } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -47,14 +47,12 @@ describe("deducciones autonómicas aplicadas", () => {
           obtenerControlDeduccionAutonomica
         )
 
-        expect(controles).not.toContain(null)
+        expect(controles.every(Option.isSome)).toBe(true)
         expect(controles).toHaveLength(351)
 
-        yield* Effect.forEach(controles, (control) =>
+        yield* Effect.forEach(controles, (controlOption) =>
           Effect.sync(() => {
-            if (control === null) {
-              throw new Error("Control de deducción inesperadamente ausente")
-            }
+            const control = Option.getOrThrow(controlOption)
 
             const importeCalculado = calcularDeduccionesAutonomicasAplicadas(
               control.entradasPrueba
@@ -80,11 +78,16 @@ describe("deducciones autonómicas aplicadas", () => {
     const control = obtenerControlDeduccionAutonomica(deduccion!)
 
     expect(control).toMatchObject({
-      tipo: "especifico",
-      importeEsperadoPrueba: 200,
+      _tag: "Some",
+      value: {
+        tipo: "especifico",
+        importeEsperadoPrueba: 200,
+      },
     })
     expect(
-      calcularDeduccionesAutonomicasAplicadas(control!.entradasPrueba)
+      calcularDeduccionesAutonomicasAplicadas(
+        Option.getOrThrow(control).entradasPrueba
+      )
     ).toBe(200)
   })
 })

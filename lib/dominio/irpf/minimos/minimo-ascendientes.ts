@@ -1,8 +1,7 @@
 import type Decimal from "decimal.js"
+import { Array as EffectArray } from "effect"
 
-import {
-  IMPORTE_CERO,
-} from "../../dinero/importe-monetario"
+import { IMPORTE_CERO } from "../../dinero/importe-monetario"
 import {
   MINIMOS_ESTATALES_2025,
   type MinimosPersonalesFamiliaresIrpf,
@@ -13,7 +12,7 @@ export const obtenerMinimoAscendientes = (
   ascendientes: ReadonlyArray<FamiliarFiscal>,
   minimos: MinimosPersonalesFamiliaresIrpf = MINIMOS_ESTATALES_2025
 ): Decimal =>
-  ascendientes.reduce((total, ascendiente) => {
+  EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) => {
     const minimoPorEdad =
       ascendiente.edad > 65 ||
       ascendiente.discapacidad._tag !== "SinDiscapacidad"
@@ -25,4 +24,4 @@ export const obtenerMinimoAscendientes = (
         : IMPORTE_CERO
 
     return total.plus(minimoPorEdad).plus(incrementoMayor75)
-  }, IMPORTE_CERO)
+  })

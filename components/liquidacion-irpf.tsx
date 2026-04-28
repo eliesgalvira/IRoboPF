@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Dialog } from "@base-ui/react/dialog"
+import { Effect, Option, Result } from "effect"
 import { AlertTriangle, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
@@ -20,6 +21,7 @@ import {
   type CasoFiscalAnual,
   type ResultadoLiquidacionIrpf,
 } from "@/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+import type { ConciliacionSimuladorLegacy } from "@/lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy"
 import { CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import {
   booleanoDeduccion,
@@ -360,7 +362,16 @@ export function LiquidacionIrpf() {
     ]
   )
   const resultado = React.useMemo(
-    () => liquidarIrpfAnual(caso, { modo: "canonico" }),
+    () =>
+      Result.match(
+        Effect.runSync(
+          Effect.result(liquidarIrpfAnual(caso, { modo: "canonico" }))
+        ),
+        {
+          onFailure: (error) => error,
+          onSuccess: (liquidacion) => liquidacion,
+        }
+      ),
     [caso]
   )
 
@@ -1630,11 +1641,14 @@ function Resultado({
                   valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
                 />
               </GrupoResumen>
-              {resultado.conciliacionSimuladorLegacy ? (
-                <ConciliacionSimuladorLegacyPanel
-                  conciliacion={resultado.conciliacionSimuladorLegacy}
-                />
-              ) : null}
+              {Option.match(resultado.conciliacionSimuladorLegacy, {
+                onNone: () => null,
+                onSome: (conciliacion) => (
+                  <ConciliacionSimuladorLegacyPanel
+                    conciliacion={conciliacion}
+                  />
+                ),
+              })}
             </div>
           )}
         </div>
@@ -1724,12 +1738,7 @@ function Resultado({
 function ConciliacionSimuladorLegacyPanel({
   conciliacion,
 }: {
-  readonly conciliacion: NonNullable<
-    Extract<
-      ResultadoLiquidacionIrpf,
-      { readonly _tag: "ResultadoLiquidacionIrpf" }
-    >["conciliacionSimuladorLegacy"]
-  >
+  readonly conciliacion: ConciliacionSimuladorLegacy
 }) {
   return (
     <GrupoResumen
