@@ -1734,7 +1734,7 @@ function ConciliacionSimuladorLegacyPanel({
   return (
     <GrupoResumen
       tono="amarillo"
-      titulo={`4 · Conciliación con simulador simplificado ${conciliacion.anio}`}
+      titulo={`Conciliación con simulador simplificado ${conciliacion.anio}`}
     >
       <div className="rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-3 text-sm leading-6 text-[var(--ink-soft)]">
         La cuota diferencial es una magnitud de declaración anual. El simulador
