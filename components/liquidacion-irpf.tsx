@@ -2007,6 +2007,11 @@ function Resultado({
                   valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
                 />
               </GrupoResumen>
+              {resultado.conciliacionSimuladorLegacy ? (
+                <ConciliacionSimuladorLegacyPanel
+                  conciliacion={resultado.conciliacionSimuladorLegacy}
+                />
+              ) : null}
             </div>
           )}
         </div>
@@ -2093,16 +2098,102 @@ function Resultado({
   )
 }
 
+function ConciliacionSimuladorLegacyPanel({
+  conciliacion,
+}: {
+  readonly conciliacion: NonNullable<
+    Extract<
+      ResultadoLiquidacionIrpf,
+      { readonly _tag: "ResultadoLiquidacionIrpf" }
+    >["conciliacionSimuladorLegacy"]
+  >
+}) {
+  return (
+    <GrupoResumen
+      tono="amarillo"
+      titulo={`4 · Conciliación con simulador simplificado ${conciliacion.anio}`}
+    >
+      <div className="rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-3 text-sm leading-6 text-[var(--ink-soft)]">
+        La cuota diferencial es una magnitud de declaración anual. El
+        simulador simplificado muestra una estimación de IRPF de nómina: parte
+        de la cuota anual y después aplica la deducción vinculada al SMI y el
+        límite legal de retención de nómina.
+      </div>
+      <LineaResumen
+        ayuda="Cuota anual antes de restar retenciones y pagos a cuenta; es la base comparable con el cálculo de nómina."
+        etiqueta="Cuota liquidada anual"
+        signo="+"
+        valor={formatearEuros(conciliacion.cuotaLiquidadaAnualCentimos)}
+      />
+      <LineaResumen
+        ayuda="Deducción vinculada al SMI usada para estimar el IRPF final de nómina."
+        etiqueta="Deducción SMI"
+        signo="-"
+        valor={formatearEuros(conciliacion.deduccionSmiCentimos)}
+      />
+      <LineaResumen
+        ayuda="Cuota anual después de aplicar la deducción vinculada al SMI."
+        etiqueta="Cuota tras SMI"
+        signo="="
+        valor={formatearEuros(conciliacion.cuotaTrasDeduccionSmiCentimos)}
+      />
+      <LineaResumen
+        ayuda="Límite máximo de retención en nómina aplicado por el simulador simplificado."
+        detalle={
+          <>
+            <span>
+              Rendimientos del trabajo - mínimo exento de retención:{" "}
+              {formatearEuros(conciliacion.rendimientoIntegroTrabajoCentimos)} -{" "}
+              {formatearEuros(conciliacion.minimoExentoRetencionCentimos)} ={" "}
+              {formatearEuros(
+                conciliacion.rendimientoIntegroTrabajoCentimos -
+                  conciliacion.minimoExentoRetencionCentimos
+              )}
+              .
+            </span>
+            <span className="block">
+              Límite máximo legal de retención en nómina, art. 85.3 RIRPF:{" "}
+              {formatearEuros(
+                conciliacion.rendimientoIntegroTrabajoCentimos -
+                  conciliacion.minimoExentoRetencionCentimos
+              )}{" "}
+              × {conciliacion.tipoMaximoRetencionNominaPorcentaje}% ={" "}
+              {formatearEuros(conciliacion.limiteRetencionNominaCentimos)}.
+            </span>
+          </>
+        }
+        etiqueta="Límite retención nómina"
+        valor={formatearEuros(conciliacion.limiteRetencionNominaCentimos)}
+      />
+      <LineaResumen
+        ayuda="Resultado que muestra el simulador simplificado como IRPF final: el menor entre cuota tras SMI y límite de retención."
+        destacado
+        etiqueta="IRPF final simulador"
+        signo="="
+        valor={formatearEuros(conciliacion.irpfFinalSimuladorCentimos)}
+      />
+      <LineaResumen
+        ayuda="Diferencia entre la cuota diferencial visible en esta liquidación y el IRPF final de nómina del simulador simplificado."
+        etiqueta="Diferencia explicada"
+        valor={formatearEuros(
+          conciliacion.diferenciaCuotaDiferencialEIrpfFinalCentimos
+        )}
+      />
+    </GrupoResumen>
+  )
+}
+
 function GrupoResumen({
   children,
   tono,
   titulo,
 }: {
   readonly children: React.ReactNode
-  readonly tono: "azul" | "rosa" | "verde"
+  readonly tono: "amarillo" | "azul" | "rosa" | "verde"
   readonly titulo: string
 }) {
   const fondoPorTono = {
+    amarillo: "bg-[oklch(0.955_0.045_90)]",
     azul: "bg-[oklch(0.94_0.035_235)]",
     rosa: "bg-[oklch(0.945_0.04_15)]",
     verde: "bg-[oklch(0.94_0.04_150)]",
@@ -2133,7 +2224,7 @@ function LineaResumen({
 }: {
   readonly ayuda: string
   readonly destacado?: boolean
-  readonly detalle?: string
+  readonly detalle?: React.ReactNode
   readonly etiqueta: string
   readonly signo?: "+" | "-" | "="
   readonly valor: string

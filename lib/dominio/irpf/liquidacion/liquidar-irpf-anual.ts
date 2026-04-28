@@ -49,6 +49,10 @@ import {
 } from "../rendimientos/rendimientos-trabajo"
 import { calcularGananciasPatrimonialesPorTransmision } from "../rendimientos/ganancias-perdidas-patrimoniales"
 import { calcularReduccionRendimientosTrabajo } from "../reducciones/reduccion-rendimientos-trabajo"
+import {
+  calcularConciliacionSimuladorLegacy,
+  type ConciliacionSimuladorLegacy,
+} from "./conciliacion-simulador-legacy"
 
 export type { CasoFiscalAnual } from "../caso-fiscal-anual"
 
@@ -93,6 +97,7 @@ export interface ResultadoLiquidacionIrpfSoportada {
   readonly cuotaLiquidaCentimos: number
   readonly retencionesYPagosACuentaCentimos: number
   readonly cuotaDiferencialCentimos: number
+  readonly conciliacionSimuladorLegacy: ConciliacionSimuladorLegacy | null
   readonly rastro: RastroCalculo
 }
 
@@ -340,14 +345,20 @@ const liquidarTrabajoIndividualSimple = (
   const cuotaLiquidaCentimos = eurosACentimos(
     redondearImporteLiquidado(cuotaLiquida)
   )
+  const rendimientoIntegroTrabajoCentimos = eurosACentimos(
+    redondearImporteLiquidado(rendimientoTrabajo.rendimientoIntegro)
+  )
+  const cuotaDiferencialCentimos = calcularCuotaDiferencialCentimos({
+    cuotaLiquidaCentimos,
+    pagosACuentaCentimos: caso.pagosACuentaCentimos,
+    retencionesSoportadasCentimos: caso.retencionesSoportadasCentimos,
+  })
 
   return {
     _tag: "ResultadoLiquidacionIrpf",
     perfil: "renta-individual-general",
     anio: caso.anio,
-    rendimientoIntegroTrabajoCentimos: eurosACentimos(
-      redondearImporteLiquidado(rendimientoTrabajo.rendimientoIntegro)
-    ),
+    rendimientoIntegroTrabajoCentimos,
     rendimientoNetoTrabajoCentimos: eurosACentimos(
       redondearImporteLiquidado(rendimientoTrabajo.rendimientoNeto)
     ),
@@ -423,10 +434,12 @@ const liquidarTrabajoIndividualSimple = (
     cuotaLiquidaCentimos,
     retencionesYPagosACuentaCentimos:
       caso.retencionesSoportadasCentimos + caso.pagosACuentaCentimos,
-    cuotaDiferencialCentimos: calcularCuotaDiferencialCentimos({
+    cuotaDiferencialCentimos,
+    conciliacionSimuladorLegacy: calcularConciliacionSimuladorLegacy({
+      anio: caso.anio,
+      rendimientoIntegroTrabajoCentimos,
       cuotaLiquidaCentimos,
-      pagosACuentaCentimos: caso.pagosACuentaCentimos,
-      retencionesSoportadasCentimos: caso.retencionesSoportadasCentimos,
+      cuotaDiferencialCentimos,
     }),
     rastro: {
       titulo: `Liquidacion anual del IRPF ${caso.anio}`,
