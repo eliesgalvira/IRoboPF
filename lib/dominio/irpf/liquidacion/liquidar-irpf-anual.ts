@@ -267,12 +267,15 @@ const liquidarTrabajoIndividualSimple = (
         tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
       })
     : calcularCuotaPorEscalaGeneral({
-      anio: caso.anio,
-      base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
-    })
+        anio: caso.anio,
+        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
+      })
   const cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
     ? calcularCuotaPorEscala({
-        base: Decimal.min(minimoPersonalYFamiliarAutonomico, baseLiquidableGeneral),
+        base: Decimal.min(
+          minimoPersonalYFamiliarAutonomico,
+          baseLiquidableGeneral
+        ),
         tramos: parametrosComunidad.escalaAutonomica.tramos,
       })
     : minimoPersonalYFamiliar.mul(0)
@@ -303,12 +306,15 @@ const liquidarTrabajoIndividualSimple = (
         tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
       })
     : calcularDesgloseCuotaPorEscalaGeneral({
-      anio: caso.anio,
-      base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
-    })
+        anio: caso.anio,
+        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
+      })
   const desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
     ? calcularDesgloseCuotaPorEscala({
-        base: Decimal.min(minimoPersonalYFamiliarAutonomico, baseLiquidableGeneral),
+        base: Decimal.min(
+          minimoPersonalYFamiliarAutonomico,
+          baseLiquidableGeneral
+        ),
         tramos: parametrosComunidad.escalaAutonomica.tramos,
       })
     : []
@@ -668,17 +674,17 @@ const liquidarTrabajoIndividualSimple = (
           _tag: "PasoExplicacion",
           titulo: "Ganancias patrimoniales y base del ahorro",
           descripcion:
-            "Las ganancias patrimoniales por transmision se integran en la base del ahorro salvo la parte exenta reconocida para mayores de 65 anos.",
+            "Las ganancias patrimoniales por transmisión se integran en la base del ahorro salvo la parte exenta reconocida para mayores de 65 años.",
           lineasCalculo: [
             {
               etiqueta: "Ganancias patrimoniales declaradas",
-              formula: "Suma de ganancias por transmision",
+              formula: "Suma de ganancias por transmisión",
               resultado: euros(gananciasPatrimoniales.gananciaTotal),
             },
             {
               etiqueta: "Ganancia patrimonial exenta",
               formula:
-                "Exenciones por vivienda habitual o reinversion en renta vitalicia para mayores de 65 anos",
+                "Exenciones por vivienda habitual o reinversión en renta vitalicia para mayores de 65 años",
               resultado: euros(gananciasPatrimoniales.gananciaExenta),
             },
             {
@@ -689,7 +695,7 @@ const liquidarTrabajoIndividualSimple = (
           ],
           fuentes: [
             {
-              titulo: "Manual especifico mayores de 65 anos",
+              titulo: "Manual específico mayores de 65 años",
               referencia: "docs/fuentes/aeat/manual-renta-2025-mayores-65.md",
             },
             {
