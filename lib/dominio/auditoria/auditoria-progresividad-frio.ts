@@ -11,6 +11,7 @@ export {
   aniosFiscalesLegacy,
   calcularPerdidaAcumulada,
   compararAjustadoPorIpc,
+  compararPasadoAjustadoPorIpc,
   configuracionControlSalario,
   configuracionExportacionCompatibleLegacy,
   configuracionRangoAuditoria,

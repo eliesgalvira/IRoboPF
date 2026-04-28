@@ -229,7 +229,10 @@ const calcularDeduccionGenerica = (
   }
 
   const base = numeroDeduccion(entradas, `${deduccion.codigo}:base`)
-  const unidades = Math.max(1, numeroDeduccion(entradas, `${deduccion.codigo}:unidades`))
+  const unidades = Math.max(
+    1,
+    numeroDeduccion(entradas, `${deduccion.codigo}:unidades`)
+  )
 
   if (deduccion.cuantia.tipo === "importe_fijo") {
     return Number(deduccion.cuantia.euros) * unidades
@@ -270,8 +273,7 @@ const calcularDeduccionesAutonomicasAplicadas = (
   )
   const andaluciaFamiliaNumerosa = importeSi(
     booleanoDeduccion(entradas, "andaluciaFamiliaNumerosaCumpleLimites"),
-    textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa") ===
-      "especial"
+    textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa") === "especial"
       ? 400
       : textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa") ===
           "general"
@@ -295,10 +297,7 @@ const calcularDeduccionesAutonomicasAplicadas = (
     100
   )
   const andaluciaAsistenciaDiscapacidad = importeSi(
-    booleanoDeduccion(
-      entradas,
-      "andaluciaAsistenciaDiscapacidadCumpleLimites"
-    ),
+    booleanoDeduccion(entradas, "andaluciaAsistenciaDiscapacidadCumpleLimites"),
     numeroDeduccion(entradas, "andaluciaPersonasDiscapacidadConMinimo") * 100 +
       importeSi(
         booleanoDeduccion(entradas, "andaluciaAsistenciaTercerasPersonas"),
@@ -310,7 +309,10 @@ const calcularDeduccionesAutonomicasAplicadas = (
   )
   const andaluciaAyudaDomestica = importeSi(
     booleanoDeduccion(entradas, "andaluciaAyudaDomesticaCumpleRequisitos"),
-    Math.min(numeroDeduccion(entradas, "andaluciaCuotasAyudaDomestica") * 0.2, 500)
+    Math.min(
+      numeroDeduccion(entradas, "andaluciaCuotasAyudaDomestica") * 0.2,
+      500
+    )
   )
   const andaluciaInversionAcciones = importeSi(
     booleanoDeduccion(entradas, "andaluciaInversionAccionesCumpleRequisitos"),
@@ -346,7 +348,8 @@ const calcularDeduccionesAutonomicasAplicadas = (
     75
   )
   const canariasNacimientoPorHijo =
-    textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") === "tercero"
+    textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") ===
+    "tercero"
       ? 530
       : textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") ===
           "cuarto"
@@ -359,7 +362,10 @@ const calcularDeduccionesAutonomicasAplicadas = (
     booleanoDeduccion(entradas, "canariasNacimientoCumpleLimites"),
     numeroDeduccion(entradas, "canariasHijosNacimientoAdopcion") *
       canariasNacimientoPorHijo +
-      numeroDeduccion(entradas, "canariasHijosNacimientoAdopcionDiscapacidad65") *
+      numeroDeduccion(
+        entradas,
+        "canariasHijosNacimientoAdopcionDiscapacidad65"
+      ) *
         (canariasNacimientoPorHijo <= 265 ? 600 : 1100)
   )
   const canariasDiscapacidadMayores = importeSi(
@@ -367,7 +373,11 @@ const calcularDeduccionesAutonomicasAplicadas = (
     importeSi(
       booleanoDeduccion(entradas, "canariasContribuyenteDiscapacidad33"),
       400
-    ) + importeSi(booleanoDeduccion(entradas, "canariasContribuyenteMayor65"), 160)
+    ) +
+      importeSi(
+        booleanoDeduccion(entradas, "canariasContribuyenteMayor65"),
+        160
+      )
   )
   const canariasFamiliaNumerosa =
     textoDeduccion(entradas, "canariasCategoriaFamiliaNumerosa") === "especial"
@@ -404,10 +414,7 @@ const calcularDeduccionesAutonomicasAplicadas = (
   )
   const clmDiscapacidadContribuyente = importeSi(
     booleanoDeduccion(entradas, "clmContribuyenteDiscapacidad65") &&
-      booleanoDeduccion(
-        entradas,
-        "clmDiscapacidadContribuyenteCumpleLimites"
-      ),
+      booleanoDeduccion(entradas, "clmDiscapacidadContribuyenteCumpleLimites"),
     300
   )
   const clmDiscapacidadAscDesc = importeSi(
@@ -593,9 +600,9 @@ function formatearEuros(centimos: number) {
 
 export function LiquidacionIrpf() {
   const [rendimientosTrabajoEuros, fijarRendimientosTrabajoEuros] =
-    React.useState(30_000)
+    React.useState(18_000)
   const [capitalInmobiliarioEuros, fijarCapitalInmobiliarioEuros] =
-    React.useState(1_000)
+    React.useState(0)
   const [comunidadAutonoma, fijarComunidadAutonoma] =
     React.useState<ComunidadAutonoma>("simulada-estatal")
   const [edad, fijarEdad] = React.useState(40)
@@ -610,10 +617,7 @@ export function LiquidacionIrpf() {
   const [retencionesSoportadasEuros, fijarRetencionesSoportadasEuros] =
     React.useState(0)
   const [pagosACuentaEuros, fijarPagosACuentaEuros] = React.useState(0)
-  const [
-    deduccionAutonomicaManualEuros,
-    fijarDeduccionAutonomicaManualEuros,
-  ] =
+  const [deduccionAutonomicaManualEuros, fijarDeduccionAutonomicaManualEuros] =
     React.useState(0)
   const [catalogoDeduccionesAbierto, fijarCatalogoDeduccionesAbierto] =
     React.useState(false)
@@ -1069,9 +1073,7 @@ function FormularioCaso({
                   </p>
                   {deduccion.requisitos.length > 0 ? (
                     <div className="mt-2">
-                      <p className="text-xs font-bold uppercase">
-                        Requisitos
-                      </p>
+                      <p className="text-xs font-bold uppercase">Requisitos</p>
                       <ul className="mt-1 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--ink-soft)]">
                         {deduccion.requisitos.map((requisito) => (
                           <li key={requisito}>{requisito}</li>
@@ -1275,10 +1277,7 @@ function ControlesDeduccionAutonomica({
           onChange={(valor) =>
             actualizar("andaluciaHijosNacimientoAdopcion", valor)
           }
-          valor={numeroDeduccion(
-            entradas,
-            "andaluciaHijosNacimientoAdopcion"
-          )}
+          valor={numeroDeduccion(entradas, "andaluciaHijosNacimientoAdopcion")}
         />
         <NumberField
           compacto
@@ -1359,10 +1358,7 @@ function ControlesDeduccionAutonomica({
             actualizar("andaluciaCategoriaFamiliaNumerosa", valor)
           }
           opciones={OPCIONES_CATEGORIA_FAMILIA_NUMEROSA}
-          valor={textoDeduccion(
-            entradas,
-            "andaluciaCategoriaFamiliaNumerosa"
-          )}
+          valor={textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa")}
         />
         <div className="flex items-end pb-1">
           {campoCheckbox(
@@ -1650,7 +1646,10 @@ function ControlesDeduccionAutonomica({
   if (codigo === "clm_discapacidad_ascendientes_descendientes") {
     return (
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        {campoNumero("clmAscDescDiscapacidad65", "Asc./desc. discapacidad ≥65%")}
+        {campoNumero(
+          "clmAscDescDiscapacidad65",
+          "Asc./desc. discapacidad ≥65%"
+        )}
         <div className="flex items-end pb-1">
           {campoCheckbox(
             "clmAscDescDiscapacidadCumpleLimites",
@@ -1712,7 +1711,10 @@ function ControlesDeduccionAutonomica({
             }
           />
           <Checkbox
-            checked={booleanoDeduccion(entradas, "catalunyaAlquilerIncrementado")}
+            checked={booleanoDeduccion(
+              entradas,
+              "catalunyaAlquilerIncrementado"
+            )}
             etiqueta="Discapacidad ≥65% o hijo menor a cargo"
             onCheckedChange={(checked) =>
               actualizar("catalunyaAlquilerIncrementado", checked)
@@ -1753,14 +1755,10 @@ function ControlesDeduccionAutonomica({
   if (codigo === "cataluna_intereses_prestamos_master_doctorado") {
     return (
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        {campoNumero(
-          "catalunyaInteresesMasterDoctorado",
-          "Intereses pagados",
-          {
-            euros: true,
-            paso: 100,
-          }
-        )}
+        {campoNumero("catalunyaInteresesMasterDoctorado", "Intereses pagados", {
+          euros: true,
+          paso: 100,
+        })}
       </div>
     )
   }
@@ -1776,10 +1774,7 @@ function ControlesDeduccionAutonomica({
             actualizar("catalunyaAportacionesCooperativas", valor)
           }
           paso={100}
-          valor={numeroDeduccion(
-            entradas,
-            "catalunyaAportacionesCooperativas"
-          )}
+          valor={numeroDeduccion(entradas, "catalunyaAportacionesCooperativas")}
         />
       </div>
     )
@@ -1872,7 +1867,7 @@ function Resultado({
                   ayuda={AYUDAS_RESUMEN["Cuota diferencial"]}
                   etiqueta="Cuota diferencial"
                 />
-                <p className="mt-1 font-[var(--display)] text-5xl leading-none tabular-nums">
+                <p className="mt-1 text-5xl leading-none font-[var(--display)] tabular-nums">
                   {formatearEuros(resultado.cuotaDiferencialCentimos)}
                 </p>
               </div>
@@ -1882,7 +1877,9 @@ function Resultado({
                   ayuda={AYUDAS_RESUMEN["Rendimientos del trabajo"]}
                   etiqueta="Rendimientos del trabajo"
                   signo="+"
-                  valor={formatearEuros(resultado.rendimientoIntegroTrabajoCentimos)}
+                  valor={formatearEuros(
+                    resultado.rendimientoIntegroTrabajoCentimos
+                  )}
                 />
                 <LineaResumen
                   ayuda={AYUDAS_RESUMEN["Cotización trabajador"]}
@@ -1905,7 +1902,9 @@ function Resultado({
                   destacado
                   etiqueta="Rendimiento neto del trabajo"
                   signo="="
-                  valor={formatearEuros(resultado.rendimientoNetoTrabajoCentimos)}
+                  valor={formatearEuros(
+                    resultado.rendimientoNetoTrabajoCentimos
+                  )}
                 />
                 <LineaResumen
                   ayuda={AYUDAS_RESUMEN["Coste laboral"]}
@@ -1920,7 +1919,9 @@ function Resultado({
                   ayuda={AYUDAS_RESUMEN["Rendimiento neto del trabajo"]}
                   etiqueta="Rendimiento neto del trabajo"
                   signo="+"
-                  valor={formatearEuros(resultado.rendimientoNetoTrabajoCentimos)}
+                  valor={formatearEuros(
+                    resultado.rendimientoNetoTrabajoCentimos
+                  )}
                 />
                 <LineaResumen
                   ayuda={AYUDAS_RESUMEN["Capital inmobiliario neto"]}
@@ -1942,7 +1943,9 @@ function Resultado({
                   destacado
                   etiqueta="Base liquidable general"
                   signo="="
-                  valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
+                  valor={formatearEuros(
+                    resultado.baseLiquidableGeneralCentimos
+                  )}
                 />
                 <LineaResumen
                   ayuda={AYUDAS_RESUMEN["Base ahorro"]}
@@ -1984,7 +1987,9 @@ function Resultado({
                   ayuda={AYUDAS_RESUMEN["Deducciones autonómicas"]}
                   detalle="Se aplican contra la parte autonómica disponible."
                   etiqueta="Deducciones autonómicas"
-                  valor={formatearEuros(resultado.deduccionesAutonomicasCentimos)}
+                  valor={formatearEuros(
+                    resultado.deduccionesAutonomicasCentimos
+                  )}
                 />
                 <LineaResumen
                   ayuda={AYUDAS_RESUMEN["Retenciones/pagos a cuenta"]}
