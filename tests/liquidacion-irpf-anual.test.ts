@@ -44,6 +44,46 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it("explica la conciliacion entre cuota anual e IRPF final del simulador legacy", () => {
+    const caso = {
+      anio: 2025,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 18_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
+      _tag: "ResultadoLiquidacionIrpf",
+      cuotaLiquidaCentimos: 103_539,
+      cuotaDiferencialCentimos: 103_539,
+      conciliacionSimuladorLegacy: {
+        _tag: "ConciliacionSimuladorLegacy",
+        anio: 2025,
+        cuotaLiquidadaAnualCentimos: 103_539,
+        deduccionSmiCentimos: 5_520,
+        cuotaTrasDeduccionSmiCentimos: 98_019,
+        rendimientoIntegroTrabajoCentimos: 1_800_000,
+        minimoExentoRetencionCentimos: 1_587_600,
+        tipoMaximoRetencionNominaPorcentaje: "43",
+        limiteRetencionNominaCentimos: 91_332,
+        irpfFinalSimuladorCentimos: 91_332,
+        diferenciaCuotaDiferencialEIrpfFinalCentimos: 12_207,
+      },
+    })
+  })
+
   it("aplica incremento de minimo del contribuyente por edad", () => {
     const caso = {
       anio: 2025,
