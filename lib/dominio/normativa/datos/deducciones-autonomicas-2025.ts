@@ -25,6 +25,8 @@ export type EstadoDeduccionAutonomica =
   | "implementada"
   | "no_soportada"
 
+type EstadoImplementada = Extract<EstadoDeduccionAutonomica, "implementada">
+
 export type CuantiaDeduccionAutonomica =
   | {
       readonly tipo: "importe_fijo"
@@ -91,7 +93,7 @@ const comunidadDesdeCodigo = (codigo: string): string => {
   return "simulada-estatal"
 }
 
-const pendiente = (
+const fichaCatalogada = (
   codigo: string,
   nombre: string,
   categoria: CategoriaDeduccionAutonomica
@@ -119,7 +121,36 @@ const pendiente = (
   estado: "catalogada",
 })
 
-const implementada = (
+const fichaImplementadaBasica = (
+  estado: { readonly estado: EstadoImplementada },
+  codigo: string,
+  nombre: string,
+  categoria: CategoriaDeduccionAutonomica
+): FichaDeduccionAutonomica => ({
+  codigo,
+  comunidad: comunidadDesdeCodigo(codigo),
+  nombre,
+  normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
+  categoria,
+  cuantia: {
+    tipo: "mixta",
+    descripcion: "Cuantía definida por la ficha normativa implementada.",
+  },
+  requisitos: [],
+  limites: [],
+  prorrateo: [],
+  compatibilidades: [],
+  incompatibilidades: [],
+  entradaNecesaria: [],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [],
+  },
+  estado: estado.estado,
+})
+
+const fichaImplementada = (
+  estado: { readonly estado: EstadoImplementada },
   codigo: string,
   nombre: string,
   categoria: CategoriaDeduccionAutonomica,
@@ -134,8 +165,7 @@ const implementada = (
     "Cumplir los requisitos indicados en la ficha normativa normalizada",
   ]
 ): FichaDeduccionAutonomica => ({
-  ...pendiente(codigo, nombre, categoria),
-  normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
+  ...fichaImplementadaBasica(estado, codigo, nombre, categoria),
   cuantia,
   requisitos,
   limites,
@@ -144,7 +174,6 @@ const implementada = (
     documento: "ManualRenta2025Parte2",
     paginas,
   },
-  estado: "implementada",
 })
 
 export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
@@ -192,7 +221,8 @@ export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "andalucia_familia_monoparental_ascendientes_mayores_75",
     "Para el padre o madre de familia monoparental y, en su caso, con ascendientes mayores de 75 años",
     "circunstancias_personales_familiares"
@@ -226,11 +256,11 @@ export const ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const MADRID_NACIMIENTO_ADOPCION_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "madrid_nacimiento_adopcion_hijos",
     "Por nacimiento o adopción de hijos",
     "circunstancias_personales_familiares"
@@ -268,11 +298,11 @@ export const MADRID_NACIMIENTO_ADOPCION_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "cataluna_alquiler_victimas_violencia_machista",
     "Por alquiler de la vivienda habitual de víctimas de violencia machista",
     "vivienda_habitual"
@@ -311,11 +341,11 @@ export const CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "cataluna_inversion_cooperativas_agrarias_vivienda",
     "Por inversión en sociedades cooperativas agrarias y de vivienda",
     "otros_conceptos"
@@ -352,11 +382,11 @@ export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_ADOPCION_INTERNACIONAL_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "andalucia_adopcion_internacional",
     "Por adopción de hijos en el ámbito internacional",
     "circunstancias_personales_familiares"
@@ -395,11 +425,11 @@ export const ANDALUCIA_ADOPCION_INTERNACIONAL_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [43],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_FAMILIA_NUMEROSA_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "andalucia_familia_numerosa",
     "Para familia numerosa",
     "circunstancias_personales_familiares"
@@ -439,11 +469,11 @@ export const ANDALUCIA_FAMILIA_NUMEROSA_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [45, 46],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_CONTRIBUYENTE_DISCAPACIDAD_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "andalucia_contribuyente_discapacidad",
     "Para contribuyentes con discapacidad",
     "circunstancias_personales_familiares"
@@ -478,11 +508,11 @@ export const ANDALUCIA_CONTRIBUYENTE_DISCAPACIDAD_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [48],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_CONYUGE_PAREJA_DISCAPACIDAD_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "andalucia_conyuge_pareja_discapacidad",
     "Para contribuyentes con cónyuges o parejas de hecho con discapacidad",
     "circunstancias_personales_familiares"
@@ -520,11 +550,11 @@ export const ANDALUCIA_CONYUGE_PAREJA_DISCAPACIDAD_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [49],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_ASISTENCIA_PERSONAS_DISCAPACIDAD_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "andalucia_asistencia_personas_discapacidad",
     "Por asistencia a personas con discapacidad",
     "circunstancias_personales_familiares"
@@ -567,11 +597,11 @@ export const ANDALUCIA_ASISTENCIA_PERSONAS_DISCAPACIDAD_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [49, 50],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_AYUDA_DOMESTICA_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "andalucia_ayuda_domestica",
     "Por ayuda doméstica",
     "circunstancias_personales_familiares"
@@ -612,11 +642,11 @@ export const ANDALUCIA_AYUDA_DOMESTICA_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [50, 51],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_INVERSION_ACCIONES_PARTICIPACIONES_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "andalucia_inversion_acciones_participaciones_mercantiles",
     "Por inversión en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en sociedades mercantiles",
     "otros_conceptos"
@@ -652,11 +682,11 @@ export const ANDALUCIA_INVERSION_ACCIONES_PARTICIPACIONES_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [52],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ARAGON_NACIMIENTO_ADOPCION_TERCER_HIJO_SUCESIVOS_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
     "Por nacimiento o adopción del tercer hijo o sucesivos",
     "circunstancias_personales_familiares"
@@ -703,11 +733,11 @@ export const ARAGON_NACIMIENTO_ADOPCION_TERCER_HIJO_SUCESIVOS_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [61, 62],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ARAGON_CUIDADO_PERSONAS_DEPENDIENTES_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "aragon_cuidado_personas_dependientes",
     "Por el cuidado de personas dependientes",
     "circunstancias_personales_familiares"
@@ -754,11 +784,11 @@ export const ARAGON_CUIDADO_PERSONAS_DEPENDIENTES_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [66],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ARAGON_MAYORES_70_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "aragon_mayores_70",
     "Para mayores de 70 años",
     "circunstancias_personales_familiares"
@@ -796,11 +826,11 @@ export const ARAGON_MAYORES_70_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [78, 79],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CANARIAS_NACIMIENTO_ADOPCION_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "canarias_nacimiento_adopcion_hijos",
     "Por nacimiento o adopción de hijos",
     "circunstancias_personales_familiares"
@@ -848,11 +878,11 @@ export const CANARIAS_NACIMIENTO_ADOPCION_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [181, 182],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CANARIAS_DISCAPACIDAD_MAYORES_65_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "canarias_discapacidad_mayores_65",
     "Por contribuyentes con discapacidad y mayores de 65 años",
     "circunstancias_personales_familiares"
@@ -891,11 +921,11 @@ export const CANARIAS_DISCAPACIDAD_MAYORES_65_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [183],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CANARIAS_FAMILIA_NUMEROSA_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "canarias_familia_numerosa",
     "Por familia numerosa",
     "circunstancias_personales_familiares"
@@ -935,11 +965,11 @@ export const CANARIAS_FAMILIA_NUMEROSA_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [186, 187],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CANARIAS_CONTRIBUYENTES_DESEMPLEADOS_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "canarias_contribuyentes_desempleados",
     "Por contribuyentes desempleados",
     "circunstancias_personales_familiares"
@@ -975,11 +1005,11 @@ export const CANARIAS_CONTRIBUYENTES_DESEMPLEADOS_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [200, 201],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CLM_NACIMIENTO_ADOPCION_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "clm_nacimiento_adopcion_hijos",
     "Por nacimiento o adopción de hijos",
     "circunstancias_personales_familiares"
@@ -1021,11 +1051,11 @@ export const CLM_NACIMIENTO_ADOPCION_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [238],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CLM_FAMILIA_NUMEROSA_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "clm_familia_numerosa",
     "Por familia numerosa",
     "circunstancias_personales_familiares"
@@ -1068,11 +1098,11 @@ export const CLM_FAMILIA_NUMEROSA_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [239, 240],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CLM_DISCAPACIDAD_CONTRIBUYENTE_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "clm_discapacidad_contribuyente",
     "Por discapacidad del contribuyente",
     "circunstancias_personales_familiares"
@@ -1110,11 +1140,11 @@ export const CLM_DISCAPACIDAD_CONTRIBUYENTE_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [246, 247],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CLM_DISCAPACIDAD_ASCENDIENTES_DESCENDIENTES_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "clm_discapacidad_ascendientes_descendientes",
     "Por discapacidad de ascendientes o descendientes",
     "circunstancias_personales_familiares"
@@ -1155,11 +1185,11 @@ export const CLM_DISCAPACIDAD_ASCENDIENTES_DESCENDIENTES_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [247, 248],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CATALUNYA_VIUDEDAD_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "cataluna_viudedad_2023_2024_2025",
     "Para contribuyentes que hayan quedado viudos en los ejercicios 2023, 2024 y 2025",
     "circunstancias_personales_familiares"
@@ -1189,11 +1219,11 @@ export const CATALUNYA_VIUDEDAD_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [316],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CATALUNYA_REHABILITACION_VIVIENDA_HABITUAL_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "cataluna_rehabilitacion_vivienda_habitual",
     "Por rehabilitación de la vivienda habitual",
     "vivienda_habitual"
@@ -1226,11 +1256,11 @@ export const CATALUNYA_REHABILITACION_VIVIENDA_HABITUAL_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [318, 319],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const CATALUNYA_INTERESES_PRESTAMOS_MASTER_DOCTORADO_2025 = {
-  ...pendiente(
+  ...fichaImplementadaBasica(
+    { estado: "implementada" },
     "cataluna_intereses_prestamos_master_doctorado",
     "Por el pago de intereses de préstamos para los estudios de máster y doctorado",
     "otros_conceptos"
@@ -1260,11 +1290,11 @@ export const CATALUNYA_INTERESES_PRESTAMOS_MASTER_DOCTORADO_2025 = {
     documento: "ManualRenta2025Parte2",
     paginas: [319],
   },
-  estado: "implementada",
 } as const satisfies FichaDeduccionAutonomica
 
 export const ANDALUCIA_INVERSION_VIVIENDA_HABITUAL_PROTEGIDA_JOVENES_2025 =
-  implementada(
+  fichaImplementada(
+    { estado: "implementada" },
     "andalucia_inversion_vivienda_habitual_protegida_jovenes",
     "Por inversión en vivienda habitual que tenga la consideración de protegida y por las personas jóvenes",
     "vivienda_habitual",
@@ -1283,7 +1313,8 @@ export const ANDALUCIA_INVERSION_VIVIENDA_HABITUAL_PROTEGIDA_JOVENES_2025 =
     [37, 38]
   )
 
-export const ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
+export const ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025 = fichaImplementada(
+  { estado: "implementada" },
   "andalucia_alquiler_vivienda_habitual",
   "Por cantidades invertidas en el alquiler de la vivienda habitual",
   "vivienda_habitual",
@@ -1301,7 +1332,8 @@ export const ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
   [39, 40]
 )
 
-export const ARAGON_GUARDERIA_MENORES_3_2025 = implementada(
+export const ARAGON_GUARDERIA_MENORES_3_2025 = fichaImplementada(
+  { estado: "implementada" },
   "aragon_guarderia_menores_3",
   "Por gastos de guardería de hijos menores de 3 años",
   "circunstancias_personales_familiares",
@@ -1320,11 +1352,16 @@ export const ARAGON_GUARDERIA_MENORES_3_2025 = implementada(
   [80, 81, 82]
 )
 
-export const ASTURIAS_ACOGIMIENTO_MAYORES_65_2025 = implementada(
+export const ASTURIAS_ACOGIMIENTO_MAYORES_65_2025 = fichaImplementada(
+  { estado: "implementada" },
   "asturias_acogimiento_no_remunerado_mayores_65",
   "Por acogimiento no remunerado de mayores de 65 años",
   "circunstancias_personales_familiares",
-  { tipo: "importe_fijo", euros: "500", por: "persona mayor de 65 años acogida" },
+  {
+    tipo: "importe_fijo",
+    euros: "500",
+    por: "persona mayor de 65 años acogida",
+  },
   [
     "500 euros por persona acogida",
     "Base imponible general + ahorro: máximo 26.000 euros individual y 37.000 conjunta",
@@ -1332,7 +1369,8 @@ export const ASTURIAS_ACOGIMIENTO_MAYORES_65_2025 = implementada(
   [89, 90]
 )
 
-export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
+  { estado: "implementada" },
   "asturias_arrendamiento_vivienda_habitual",
   "Por arrendamiento de vivienda habitual",
   "vivienda_habitual",
@@ -1349,22 +1387,22 @@ export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
   [93, 94]
 )
 
-export const ASTURIAS_FAMILIAS_NUMEROSAS_2025 = implementada(
+export const ASTURIAS_FAMILIAS_NUMEROSAS_2025 = fichaImplementada(
+  { estado: "implementada" },
   "asturias_familias_numerosas",
   "Para familias numerosas",
   "circunstancias_personales_familiares",
   {
     tipo: "mixta",
-    descripcion: "1.000 euros categoría general; 2.000 euros categoría especial",
+    descripcion:
+      "1.000 euros categoría general; 2.000 euros categoría especial",
   },
-  [
-    "1.000 euros para categoría general",
-    "2.000 euros para categoría especial",
-  ],
+  ["1.000 euros para categoría general", "2.000 euros para categoría especial"],
   [96, 97]
 )
 
-export const ASTURIAS_CENTROS_CERO_TRES_2025 = implementada(
+export const ASTURIAS_CENTROS_CERO_TRES_2025 = fichaImplementada(
+  { estado: "implementada" },
   "asturias_centros_cero_tres",
   "Por gastos de descendientes en centros de cero a tres años",
   "circunstancias_personales_familiares",
@@ -1382,7 +1420,8 @@ export const ASTURIAS_CENTROS_CERO_TRES_2025 = implementada(
   [100, 101, 102]
 )
 
-export const BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+export const BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
+  { estado: "implementada" },
   "balears_arrendamiento_vivienda_habitual",
   "Por arrendamiento de la vivienda habitual en el territorio de las Illes Balears",
   "vivienda_habitual",
@@ -1399,7 +1438,8 @@ export const BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
   [132, 133, 134]
 )
 
-export const BALEARS_LIBROS_TEXTO_2025 = implementada(
+export const BALEARS_LIBROS_TEXTO_2025 = fichaImplementada(
+  { estado: "implementada" },
   "balears_libros_texto",
   "Por gastos de adquisición de libros de texto",
   "otros_conceptos",
@@ -1416,7 +1456,8 @@ export const BALEARS_LIBROS_TEXTO_2025 = implementada(
   [135, 136, 137]
 )
 
-export const BALEARS_NACIMIENTO_2025 = implementada(
+export const BALEARS_NACIMIENTO_2025 = fichaImplementada(
+  { estado: "implementada" },
   "balears_nacimiento",
   "Por nacimiento",
   "circunstancias_personales_familiares",
@@ -1435,7 +1476,8 @@ export const BALEARS_NACIMIENTO_2025 = implementada(
   [154, 155]
 )
 
-export const BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025 = implementada(
+export const BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025 = fichaImplementada(
+  { estado: "implementada" },
   "balears_gastos_mayores_65_discapacidad",
   "Por determinados gastos relativos a personas mayores de 65 años o a personas con discapacidad",
   "circunstancias_personales_familiares",
@@ -1453,7 +1495,8 @@ export const BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025 = implementada(
   [159, 160]
 )
 
-export const CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
+export const CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025 = fichaImplementada(
+  { estado: "implementada" },
   "canarias_alquiler_vivienda_habitual",
   "Por alquiler de vivienda habitual",
   "vivienda_habitual",
@@ -1471,7 +1514,8 @@ export const CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
   [193, 194]
 )
 
-export const CANARIAS_GASTO_ENFERMEDAD_2025 = implementada(
+export const CANARIAS_GASTO_ENFERMEDAD_2025 = fichaImplementada(
+  { estado: "implementada" },
   "canarias_gasto_enfermedad",
   "Por gasto de enfermedad",
   "otros_conceptos",
@@ -1490,7 +1534,8 @@ export const CANARIAS_GASTO_ENFERMEDAD_2025 = implementada(
 )
 
 export const CANTABRIA_ARRENDAMIENTO_JOVENES_MAYORES_DISCAPACIDAD_2025 =
-  implementada(
+  fichaImplementada(
+    { estado: "implementada" },
     "cantabria_arrendamiento_jovenes_mayores_discapacidad",
     "Por arrendamiento de vivienda habitual por jóvenes, mayores y personas con discapacidad",
     "vivienda_habitual",
@@ -1508,7 +1553,8 @@ export const CANTABRIA_ARRENDAMIENTO_JOVENES_MAYORES_DISCAPACIDAD_2025 =
     [207, 208]
   )
 
-export const CANTABRIA_CUIDADO_FAMILIARES_2025 = implementada(
+export const CANTABRIA_CUIDADO_FAMILIARES_2025 = fichaImplementada(
+  { estado: "implementada" },
   "cantabria_cuidado_familiares",
   "Por cuidado de familiares",
   "circunstancias_personales_familiares",
@@ -1521,7 +1567,8 @@ export const CANTABRIA_CUIDADO_FAMILIARES_2025 = implementada(
   [208, 209]
 )
 
-export const CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
+export const CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025 = fichaImplementada(
+  { estado: "implementada" },
   "cantabria_nacimiento_adopcion_hijos",
   "Por nacimiento o adopción de hijos",
   "circunstancias_personales_familiares",
@@ -1533,7 +1580,8 @@ export const CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
   [219, 220]
 )
 
-export const CLM_MAYORES_75_2025 = implementada(
+export const CLM_MAYORES_75_2025 = fichaImplementada(
+  { estado: "implementada" },
   "clm_mayores_75",
   "Para contribuyentes mayores de 75 años",
   "circunstancias_personales_familiares",
@@ -1545,7 +1593,8 @@ export const CLM_MAYORES_75_2025 = implementada(
   [248, 249]
 )
 
-export const CYL_FAMILIA_NUMEROSA_2025 = implementada(
+export const CYL_FAMILIA_NUMEROSA_2025 = fichaImplementada(
+  { estado: "implementada" },
   "cyl_familia_numerosa",
   "Por familia numerosa",
   "circunstancias_personales_familiares",
@@ -1564,7 +1613,8 @@ export const CYL_FAMILIA_NUMEROSA_2025 = implementada(
   [282, 283]
 )
 
-export const CYL_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
+export const CYL_NACIMIENTO_ADOPCION_HIJOS_2025 = fichaImplementada(
+  { estado: "implementada" },
   "cyl_nacimiento_adopcion_hijos",
   "Por nacimiento o adopción de hijos",
   "circunstancias_personales_familiares",
@@ -1581,7 +1631,8 @@ export const CYL_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
   [283, 284]
 )
 
-export const CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025 = implementada(
+export const CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025 = fichaImplementada(
+  { estado: "implementada" },
   "cyl_arrendamiento_vivienda_jovenes",
   "Por arrendamiento de vivienda habitual por jóvenes",
   "vivienda_habitual",
@@ -1598,7 +1649,8 @@ export const CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025 = implementada(
   [302, 303]
 )
 
-export const CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = implementada(
+export const CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = fichaImplementada(
+  { estado: "implementada" },
   "cataluna_nacimiento_adopcion_acogimiento",
   "Por nacimiento o adopción de un hijo o de una hija o por acogimiento familiar",
   "circunstancias_personales_familiares",
@@ -1615,7 +1667,8 @@ export const CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = implementada(
   [314, 315]
 )
 
-export const CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
+export const CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025 = fichaImplementada(
+  { estado: "implementada" },
   "cataluna_alquiler_vivienda_habitual",
   "Por alquiler de la vivienda habitual",
   "vivienda_habitual",
@@ -1634,7 +1687,8 @@ export const CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
 )
 
 export const CATALUNYA_OBLIGACION_DECLARAR_MAS_DE_UN_PAGADOR_2025 =
-  implementada(
+  fichaImplementada(
+    { estado: "implementada" },
     "cataluna_obligacion_declarar_mas_de_un_pagador",
     "Por obligación de presentar la declaración del IRPF por razón de tener más de un pagador",
     "otros_conceptos",
@@ -1647,7 +1701,8 @@ export const CATALUNYA_OBLIGACION_DECLARAR_MAS_DE_UN_PAGADOR_2025 =
     [323, 324, 325]
   )
 
-export const EXTREMADURA_TRABAJO_DEPENDIENTE_2025 = implementada(
+export const EXTREMADURA_TRABAJO_DEPENDIENTE_2025 = fichaImplementada(
+  { estado: "implementada" },
   "extremadura_trabajo_dependiente",
   "Por trabajo dependiente",
   "otros_conceptos",
@@ -1660,42 +1715,47 @@ export const EXTREMADURA_TRABAJO_DEPENDIENTE_2025 = implementada(
   [330]
 )
 
-export const EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025 = implementada(
-  "extremadura_cuidado_familiares_discapacidad",
-  "Por cuidado de familiares con discapacidad",
-  "circunstancias_personales_familiares",
-  {
-    tipo: "mixta",
-    descripcion:
-      "150 euros por ascendiente o descendiente con discapacidad ≥65%; 220 euros si tiene derecho reconocido a ayuda a la dependencia y no la percibe",
-  },
-  [
-    "150 euros con carácter general",
-    "220 euros si tiene derecho reconocido a ayuda a la dependencia pero no la percibe",
-    "Base imponible general + ahorro máximo 19.000 euros individual y 24.000 conjunta, con reglas especiales para municipios de menos de 3.000 habitantes",
-  ],
-  [333, 334, 335]
-)
+export const EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025 =
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_cuidado_familiares_discapacidad",
+    "Por cuidado de familiares con discapacidad",
+    "circunstancias_personales_familiares",
+    {
+      tipo: "mixta",
+      descripcion:
+        "150 euros por ascendiente o descendiente con discapacidad ≥65%; 220 euros si tiene derecho reconocido a ayuda a la dependencia y no la percibe",
+    },
+    [
+      "150 euros con carácter general",
+      "220 euros si tiene derecho reconocido a ayuda a la dependencia pero no la percibe",
+      "Base imponible general + ahorro máximo 19.000 euros individual y 24.000 conjunta, con reglas especiales para municipios de menos de 3.000 habitantes",
+    ],
+    [333, 334, 335]
+  )
 
-export const EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
-  "extremadura_arrendamiento_vivienda_habitual",
-  "Por arrendamiento de vivienda habitual",
-  "vivienda_habitual",
-  {
-    tipo: "mixta",
-    descripcion:
-      "30% del alquiler; límite 1.000 euros, o 1.500 euros si vivienda habitual en medio rural",
-  },
-  [
-    "30% de cantidades satisfechas",
-    "Límite general: 1.000 euros",
-    "Límite medio rural: 1.500 euros",
-    "Base imponible general + ahorro máximo 28.000 euros individual y 45.000 conjunta, con excepciones por municipio",
-  ],
-  [342, 343, 344]
-)
+export const EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 =
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_arrendamiento_vivienda_habitual",
+    "Por arrendamiento de vivienda habitual",
+    "vivienda_habitual",
+    {
+      tipo: "mixta",
+      descripcion:
+        "30% del alquiler; límite 1.000 euros, o 1.500 euros si vivienda habitual en medio rural",
+    },
+    [
+      "30% de cantidades satisfechas",
+      "Límite general: 1.000 euros",
+      "Límite medio rural: 1.500 euros",
+      "Base imponible general + ahorro máximo 28.000 euros individual y 45.000 conjunta, con excepciones por municipio",
+    ],
+    [342, 343, 344]
+  )
 
-export const GALICIA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
+export const GALICIA_NACIMIENTO_ADOPCION_HIJOS_2025 = fichaImplementada(
+  { estado: "implementada" },
   "galicia_nacimiento_adopcion_hijos",
   "Por nacimiento o adopción de hijos",
   "circunstancias_personales_familiares",
@@ -1713,7 +1773,8 @@ export const GALICIA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
   [364, 365]
 )
 
-export const GALICIA_FAMILIA_NUMEROSA_2025 = implementada(
+export const GALICIA_FAMILIA_NUMEROSA_2025 = fichaImplementada(
+  { estado: "implementada" },
   "galicia_familia_numerosa",
   "Por familia numerosa",
   "circunstancias_personales_familiares",
@@ -1731,7 +1792,8 @@ export const GALICIA_FAMILIA_NUMEROSA_2025 = implementada(
   [367, 368]
 )
 
-export const GALICIA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
+export const GALICIA_ALQUILER_VIVIENDA_HABITUAL_2025 = fichaImplementada(
+  { estado: "implementada" },
   "galicia_alquiler_vivienda_habitual",
   "Por alquiler de la vivienda habitual",
   "vivienda_habitual",
@@ -1749,7 +1811,8 @@ export const GALICIA_ALQUILER_VIVIENDA_HABITUAL_2025 = implementada(
   [371, 372]
 )
 
-export const MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+export const MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
+  { estado: "implementada" },
   "madrid_arrendamiento_vivienda_habitual",
   "Por arrendamiento de la vivienda habitual",
   "vivienda_habitual",
@@ -1768,7 +1831,8 @@ export const MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
   [408, 409]
 )
 
-export const MADRID_GASTOS_EDUCATIVOS_2025 = implementada(
+export const MADRID_GASTOS_EDUCATIVOS_2025 = fichaImplementada(
+  { estado: "implementada" },
   "madrid_gastos_educativos",
   "Por gastos educativos",
   "otros_conceptos",
@@ -1788,7 +1852,8 @@ export const MADRID_GASTOS_EDUCATIVOS_2025 = implementada(
   [419, 420, 421]
 )
 
-export const MURCIA_GASTOS_GUARDERIA_2025 = implementada(
+export const MURCIA_GASTOS_GUARDERIA_2025 = fichaImplementada(
+  { estado: "implementada" },
   "murcia_gastos_guarderia",
   "Por gastos de guardería",
   "circunstancias_personales_familiares",
@@ -1806,7 +1871,8 @@ export const MURCIA_GASTOS_GUARDERIA_2025 = implementada(
   [446, 447]
 )
 
-export const MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
+export const MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
+  { estado: "implementada" },
   "murcia_arrendamiento_vivienda_habitual",
   "Por arrendamiento de vivienda habitual",
   "vivienda_habitual",
@@ -1825,7 +1891,8 @@ export const MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = implementada(
   [461, 462]
 )
 
-export const MURCIA_GASTOS_VETERINARIOS_2025 = implementada(
+export const MURCIA_GASTOS_VETERINARIOS_2025 = fichaImplementada(
+  { estado: "implementada" },
   "murcia_gastos_veterinarios",
   "Por gastos veterinarios",
   "otros_conceptos",
@@ -1843,7 +1910,8 @@ export const MURCIA_GASTOS_VETERINARIOS_2025 = implementada(
   [478]
 )
 
-export const RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
+export const RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025 = fichaImplementada(
+  { estado: "implementada" },
   "rioja_nacimiento_adopcion_hijos",
   "Por nacimiento y adopción de hijos",
   "circunstancias_personales_familiares",
@@ -1861,7 +1929,8 @@ export const RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025 = implementada(
   [481]
 )
 
-export const RIOJA_ARRENDAMIENTO_MENORES_36_2025 = implementada(
+export const RIOJA_ARRENDAMIENTO_MENORES_36_2025 = fichaImplementada(
+  { estado: "implementada" },
   "rioja_arrendamiento_menores_36",
   "Por arrendamiento de vivienda habitual para contribuyentes menores de 36 años",
   "vivienda_habitual",
@@ -1880,7 +1949,8 @@ export const RIOJA_ARRENDAMIENTO_MENORES_36_2025 = implementada(
   [500, 501, 502]
 )
 
-export const RIOJA_ENFERMEDAD_CELIACA_2025 = implementada(
+export const RIOJA_ENFERMEDAD_CELIACA_2025 = fichaImplementada(
+  { estado: "implementada" },
   "rioja_enfermedad_celiaca",
   "Por enfermedad celíaca diagnosticada",
   "circunstancias_personales_familiares",
@@ -1889,12 +1959,15 @@ export const RIOJA_ENFERMEDAD_CELIACA_2025 = implementada(
     euros: "250",
     por: "persona integrante del núcleo familiar con enfermedad celíaca diagnosticada",
   },
-  ["250 euros por persona integrante del núcleo familiar con enfermedad celíaca diagnosticada"],
+  [
+    "250 euros por persona integrante del núcleo familiar con enfermedad celíaca diagnosticada",
+  ],
   [519]
 )
 
 export const VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025 =
-  implementada(
+  fichaImplementada(
+    { estado: "implementada" },
     "valenciana_nacimiento_adopcion_guarda_acogimiento",
     "Por nacimiento, adopción, delegación de guarda con fines de adopción o acogimiento familiar",
     "circunstancias_personales_familiares",
@@ -1912,38 +1985,47 @@ export const VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025 =
     [527, 528, 529, 530, 531]
   )
 
-export const VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025 = implementada(
-  "valenciana_ascendientes_mayores_discapacidad",
-  "Por ascendientes mayores de 75 años o mayores de 65 años con discapacidad",
-  "circunstancias_personales_familiares",
-  { tipo: "importe_fijo", euros: "197", por: "ascendiente que cumpla requisitos" },
-  [
-    "197 euros por ascendiente",
-    "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
-    "Entre umbrales, aplicar fórmula reductora",
-  ],
-  [551, 552]
-)
+export const VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025 =
+  fichaImplementada(
+    { estado: "implementada" },
+    "valenciana_ascendientes_mayores_discapacidad",
+    "Por ascendientes mayores de 75 años o mayores de 65 años con discapacidad",
+    "circunstancias_personales_familiares",
+    {
+      tipo: "importe_fijo",
+      euros: "197",
+      por: "ascendiente que cumpla requisitos",
+    },
+    [
+      "197 euros por ascendiente",
+      "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
+      "Entre umbrales, aplicar fórmula reductora",
+    ],
+    [551, 552]
+  )
 
-export const VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025 = implementada(
-  "valenciana_arrendamiento_cesion_uso_vivienda",
-  "Por arrendamiento o pago por la cesión en uso de la vivienda habitual",
-  "vivienda_habitual",
-  {
-    tipo: "mixta",
-    descripcion:
-      "20% límite 800 euros; 25% límite 950 euros si cumple una condición; 30% límite 1.100 euros si cumple dos o más",
-  },
-  [
-    "20%, límite 800 euros",
-    "25%, límite 950 euros si edad <=35, discapacidad cualificada o víctima de violencia de género",
-    "30%, límite 1.100 euros si cumple dos o más condiciones",
-    "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
-  ],
-  [564, 565, 566]
-)
+export const VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025 =
+  fichaImplementada(
+    { estado: "implementada" },
+    "valenciana_arrendamiento_cesion_uso_vivienda",
+    "Por arrendamiento o pago por la cesión en uso de la vivienda habitual",
+    "vivienda_habitual",
+    {
+      tipo: "mixta",
+      descripcion:
+        "20% límite 800 euros; 25% límite 950 euros si cumple una condición; 30% límite 1.100 euros si cumple dos o más",
+    },
+    [
+      "20%, límite 800 euros",
+      "25%, límite 950 euros si edad <=35, discapacidad cualificada o víctima de violencia de género",
+      "30%, límite 1.100 euros si cumple dos o más condiciones",
+      "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
+    ],
+    [564, 565, 566]
+  )
 
-export const VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025 = implementada(
+export const VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025 = fichaImplementada(
+  { estado: "implementada" },
   "valenciana_deporte_actividades_saludables",
   "Por cantidades satisfechas en gastos asociados a la práctica del deporte y actividades saludables",
   "otros_conceptos",
