@@ -1833,17 +1833,17 @@ function Resultado({
         )}
       >
         <div className="grid gap-4">
-          <div className="flex items-start gap-3">
-            <AlertTriangle
-              aria-hidden
-              className="mt-0.5 size-5 shrink-0 text-[var(--danger)]"
-            />
-            <div className="max-w-3xl">
-              <p className="text-xs tracking-[0.12em] text-[var(--ink-soft)] uppercase">
-                {esNoSoportado
-                  ? "Resultado no soportado"
-                  : "Liquidación calculada"}
-              </p>
+          <div className="grid gap-3">
+            <p className="text-xs tracking-[0.12em] text-[var(--ink-soft)] uppercase">
+              {esNoSoportado
+                ? "Resultado no soportado"
+                : "Liquidación calculada"}
+            </p>
+            <div className="flex items-start gap-3 rounded-md border border-[color-mix(in_oklab,var(--danger),var(--rule)_25%)] bg-[oklch(0.94_0.045_27)] p-3 text-[color-mix(in_oklab,var(--danger),var(--ink)_24%)]">
+              <AlertTriangle
+                aria-hidden
+                className="mt-0.5 size-5 shrink-0 text-[var(--danger)]"
+              />
               <p className="mt-1 text-sm leading-6 text-[var(--ink-soft)]">
                 Este resultado puede contener errores y discrepar de forma
                 sustancial del cálculo real de la declaración; contrástalo con
@@ -1861,90 +1861,118 @@ function Resultado({
               </>
             </div>
           ) : (
-            <div className="grid gap-3 pl-8 sm:grid-cols-2 xl:grid-cols-4">
-              <DatoResultado
-                etiqueta="Cotización empresa"
-                ayuda={AYUDAS_RESUMEN["Cotización empresa"]}
-                valor={formatearEuros(resultado.cotizacionEmpresarialCentimos)}
-              />
-              <DatoResultado
-                etiqueta="Coste laboral"
-                ayuda={AYUDAS_RESUMEN["Coste laboral"]}
-                valor={formatearEuros(resultado.costeLaboralCentimos)}
-              />
-              <DatoResultado
-                etiqueta="Cotización trabajador"
-                ayuda={AYUDAS_RESUMEN["Cotización trabajador"]}
-                valor={formatearEuros(resultado.cotizacionTrabajadorCentimos)}
-              />
-              <DatoResultado
-                etiqueta="MEI empresa"
-                ayuda={AYUDAS_RESUMEN["MEI empresa"]}
-                valor={formatearEuros(resultado.meiEmpresarialCentimos)}
-              />
-              <DatoResultado
-                etiqueta="MEI trabajador"
-                ayuda={AYUDAS_RESUMEN["MEI trabajador"]}
-                valor={formatearEuros(resultado.meiTrabajadorCentimos)}
-              />
-              <DatoResultado
-                etiqueta="Gastos y deducciones trabajo"
-                ayuda={AYUDAS_RESUMEN["Gastos y deducciones trabajo"]}
-                valor={formatearEuros(
-                  resultado.totalGastosYDeduccionesTrabajoCentimos
-                )}
-              />
-              <DatoResultado
-                etiqueta="Rendimiento neto trabajo"
-                ayuda={AYUDAS_RESUMEN["Rendimiento neto trabajo"]}
-                valor={formatearEuros(resultado.rendimientoNetoTrabajoCentimos)}
-              />
-              <DatoResultado
-                etiqueta="Capital inmobiliario neto"
-                ayuda={AYUDAS_RESUMEN["Capital inmobiliario neto"]}
-                valor={formatearEuros(
-                  resultado.rendimientoNetoCapitalInmobiliarioCentimos
-                )}
-              />
-              <DatoResultado
-                etiqueta="Ganancia patrimonial exenta"
-                ayuda={AYUDAS_RESUMEN["Ganancia patrimonial exenta"]}
-                valor={formatearEuros(
-                  resultado.gananciaPatrimonialExentaCentimos
-                )}
-              />
-              <DatoResultado
-                etiqueta="Base ahorro"
-                ayuda={AYUDAS_RESUMEN["Base ahorro"]}
-                valor={formatearEuros(resultado.baseLiquidableAhorroCentimos)}
-              />
-              <DatoResultado
-                etiqueta="Base liquidable"
-                ayuda={AYUDAS_RESUMEN["Base liquidable"]}
-                valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
-              />
-              <DatoResultado
-                etiqueta="Cuota líquida"
-                ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
-                valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
-              />
-              <DatoResultado
-                etiqueta="Deducciones autonómicas"
-                ayuda={AYUDAS_RESUMEN["Deducciones autonómicas"]}
-                valor={formatearEuros(resultado.deduccionesAutonomicasCentimos)}
-              />
-              <DatoResultado
-                etiqueta="Retenciones/pagos a cuenta"
-                ayuda={AYUDAS_RESUMEN["Retenciones/pagos a cuenta"]}
-                valor={formatearEuros(
-                  resultado.retencionesYPagosACuentaCentimos
-                )}
-              />
-              <DatoResultado
-                etiqueta="Cuota diferencial"
-                ayuda={AYUDAS_RESUMEN["Cuota diferencial"]}
-                valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
-              />
+            <div className="grid gap-4">
+              <div className="rounded-md border border-[color-mix(in_oklab,var(--rule),transparent_72%)] bg-[oklch(0.94_0.045_105)] p-4">
+                <p className="text-xs tracking-[0.18em] text-[var(--ink-soft)] uppercase">
+                  Resultado final
+                </p>
+                <div className="mt-2 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(16rem,0.65fr)] md:items-end">
+                  <div>
+                    <EtiquetaConAyuda
+                      ayuda={AYUDAS_RESUMEN["Cuota diferencial"]}
+                      etiqueta="Cuota diferencial"
+                    />
+                    <p className="mt-1 font-[var(--display)] text-5xl leading-none tabular-nums">
+                      {formatearEuros(resultado.cuotaDiferencialCentimos)}
+                    </p>
+                  </div>
+                  <dl className="grid gap-2">
+                    <LineaResumen
+                      ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
+                      etiqueta="Cuota líquida"
+                      valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
+                    />
+                    <LineaResumen
+                      ayuda={AYUDAS_RESUMEN["Retenciones/pagos a cuenta"]}
+                      etiqueta="Retenciones y pagos"
+                      valor={formatearEuros(
+                        resultado.retencionesYPagosACuentaCentimos
+                      )}
+                    />
+                  </dl>
+                </div>
+              </div>
+
+              <div className="grid gap-5 xl:grid-cols-2">
+                <GrupoResumen tono="verde" titulo="Trabajo y cotizaciones">
+                  <LineaResumen
+                    ayuda={AYUDAS_RESUMEN["Coste laboral"]}
+                    detalle={`Incluye ${formatearEuros(resultado.cotizacionEmpresarialCentimos)} de cotización empresa, con ${formatearEuros(resultado.meiEmpresarialCentimos)} de MEI.`}
+                    etiqueta="Coste laboral"
+                    valor={formatearEuros(resultado.costeLaboralCentimos)}
+                  />
+                  <LineaResumen
+                    ayuda={AYUDAS_RESUMEN["Cotización trabajador"]}
+                    detalle={`Incluye ${formatearEuros(resultado.meiTrabajadorCentimos)} de MEI descontado al trabajador.`}
+                    etiqueta="Cotización trabajador"
+                    valor={formatearEuros(resultado.cotizacionTrabajadorCentimos)}
+                  />
+                  <LineaResumen
+                    ayuda={AYUDAS_RESUMEN["Gastos y deducciones trabajo"]}
+                    etiqueta="Gastos y reducciones trabajo"
+                    valor={formatearEuros(
+                      resultado.totalGastosYDeduccionesTrabajoCentimos
+                    )}
+                  />
+                  <LineaResumen
+                    ayuda={AYUDAS_RESUMEN["Rendimiento neto trabajo"]}
+                    destacado
+                    etiqueta="Rendimiento neto trabajo"
+                    valor={formatearEuros(
+                      resultado.rendimientoNetoTrabajoCentimos
+                    )}
+                  />
+                </GrupoResumen>
+
+                <GrupoResumen tono="azul" titulo="Bases imponibles">
+                  <LineaResumen
+                    ayuda={AYUDAS_RESUMEN["Base liquidable"]}
+                    destacado
+                    etiqueta="Base liquidable general"
+                    valor={formatearEuros(resultado.baseLiquidableGeneralCentimos)}
+                  />
+                  <LineaResumen
+                    ayuda={AYUDAS_RESUMEN["Capital inmobiliario neto"]}
+                    etiqueta="Capital inmobiliario neto"
+                    valor={formatearEuros(
+                      resultado.rendimientoNetoCapitalInmobiliarioCentimos
+                    )}
+                  />
+                  <LineaResumen
+                    ayuda={AYUDAS_RESUMEN["Ganancia patrimonial exenta"]}
+                    etiqueta="Ganancia patrimonial exenta"
+                    valor={formatearEuros(
+                      resultado.gananciaPatrimonialExentaCentimos
+                    )}
+                  />
+                  <LineaResumen
+                    ayuda={AYUDAS_RESUMEN["Base ahorro"]}
+                    etiqueta="Base del ahorro"
+                    valor={formatearEuros(resultado.baseLiquidableAhorroCentimos)}
+                  />
+                </GrupoResumen>
+              </div>
+
+              <GrupoResumen tono="rosa" titulo="Cuota y ajustes">
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Cuota líquida"]}
+                  etiqueta="Cuota líquida antes de pagos"
+                  valor={formatearEuros(resultado.cuotaLiquidaCentimos)}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Deducciones autonómicas"]}
+                  detalle="Se aplican contra la parte autonómica disponible."
+                  etiqueta="Deducciones autonómicas"
+                  valor={formatearEuros(resultado.deduccionesAutonomicasCentimos)}
+                />
+                <LineaResumen
+                  ayuda={AYUDAS_RESUMEN["Retenciones/pagos a cuenta"]}
+                  etiqueta="Retenciones y pagos a cuenta"
+                  valor={formatearEuros(
+                    resultado.retencionesYPagosACuentaCentimos
+                  )}
+                />
+              </GrupoResumen>
             </div>
           )}
         </div>
@@ -2031,28 +2059,86 @@ function Resultado({
   )
 }
 
-function DatoResultado({
+function GrupoResumen({
+  children,
+  tono,
+  titulo,
+}: {
+  readonly children: React.ReactNode
+  readonly tono: "azul" | "rosa" | "verde"
+  readonly titulo: string
+}) {
+  const fondoPorTono = {
+    azul: "bg-[oklch(0.94_0.035_235)]",
+    rosa: "bg-[oklch(0.945_0.04_15)]",
+    verde: "bg-[oklch(0.94_0.04_150)]",
+  } as const
+
+  return (
+    <section
+      className={cn(
+        "rounded-md border border-[color-mix(in_oklab,var(--rule),transparent_76%)] p-4",
+        fondoPorTono[tono]
+      )}
+    >
+      <h3 className="text-xs tracking-[0.18em] text-[var(--ink-soft)] uppercase">
+        {titulo}
+      </h3>
+      <dl className="mt-2 grid gap-1">{children}</dl>
+    </section>
+  )
+}
+
+function LineaResumen({
   ayuda,
+  destacado = false,
+  detalle,
   etiqueta,
   valor,
 }: {
   readonly ayuda: string
+  readonly destacado?: boolean
+  readonly detalle?: string
   readonly etiqueta: string
   readonly valor: string
 }) {
   return (
-    <div className="border border-[var(--rule)] bg-[var(--paper-2)] p-3">
-      <dt className="text-xs text-[var(--ink-soft)]">
-        <Tooltip contenido={ayuda}>
-          <button
-            className="cursor-help border-b border-dotted border-current text-left"
-            type="button"
-          >
-            {etiqueta}
-          </button>
-        </Tooltip>
+    <div className="grid gap-1 rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-4">
+      <dt>
+        <EtiquetaConAyuda ayuda={ayuda} etiqueta={etiqueta} />
+        {detalle ? (
+          <p className="mt-1 text-xs leading-5 text-[var(--ink-soft)]">
+            {detalle}
+          </p>
+        ) : null}
       </dt>
-      <dd className="mt-1 font-bold">{valor}</dd>
+      <dd
+        className={cn(
+          "font-bold tabular-nums sm:text-right",
+          destacado ? "text-xl" : "text-base"
+        )}
+      >
+        {valor}
+      </dd>
     </div>
+  )
+}
+
+function EtiquetaConAyuda({
+  ayuda,
+  etiqueta,
+}: {
+  readonly ayuda: string
+  readonly etiqueta: string
+}) {
+  return (
+    <Tooltip contenido={ayuda}>
+      <button
+        className="cursor-help border-b border-dotted border-current text-left text-sm text-[var(--ink-soft)] hover:text-[var(--ink)]"
+        type="button"
+      >
+        {etiqueta}
+      </button>
+    </Tooltip>
   )
 }
