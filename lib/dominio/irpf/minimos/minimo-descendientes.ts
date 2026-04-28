@@ -1,8 +1,7 @@
 import type Decimal from "decimal.js"
+import { Array as EffectArray, Match } from "effect"
 
-import {
-  IMPORTE_CERO,
-} from "../../dinero/importe-monetario"
+import { IMPORTE_CERO } from "../../dinero/importe-monetario"
 import {
   MINIMOS_ESTATALES_2025,
   type MinimosPersonalesFamiliaresIrpf,
@@ -13,25 +12,22 @@ const minimoPorOrden = (
   indice: number,
   minimos: MinimosPersonalesFamiliaresIrpf
 ): Decimal => {
-  switch (indice) {
-    case 0:
-      return minimos.descendientes.primero
-    case 1:
-      return minimos.descendientes.segundo
-    case 2:
-      return minimos.descendientes.tercero
-    default:
-      return minimos.descendientes.cuartoYSiguientes
-  }
+  return Match.value(indice).pipe(
+    Match.when(0, () => minimos.descendientes.primero),
+    Match.when(1, () => minimos.descendientes.segundo),
+    Match.when(2, () => minimos.descendientes.tercero),
+    Match.orElse(() => minimos.descendientes.cuartoYSiguientes)
+  )
 }
 
 export const obtenerMinimoDescendientes = (
   descendientes: ReadonlyArray<FamiliarFiscal>,
   minimos: MinimosPersonalesFamiliaresIrpf = MINIMOS_ESTATALES_2025
 ): Decimal =>
-  descendientes
-    .toSorted((a, b) => b.edad - a.edad)
-    .reduce((total, descendiente, indice) => {
+  EffectArray.reduce(
+    descendientes.toSorted((a, b) => b.edad - a.edad),
+    IMPORTE_CERO,
+    (total, descendiente, indice) => {
       const incrementoMenorTres =
         descendiente.edad < 3
           ? minimos.descendientes.adicionalMenorTres
@@ -40,4 +36,5 @@ export const obtenerMinimoDescendientes = (
       return total
         .plus(minimoPorOrden(indice, minimos))
         .plus(incrementoMenorTres)
-    }, IMPORTE_CERO)
+    }
+  )

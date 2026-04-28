@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { Array as EffectArray } from "effect"
 
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
 import {
@@ -23,10 +24,14 @@ export const calcularCuotaPorEscalaGeneral = ({
   readonly anio: AnioFiscal
   readonly base: Decimal
 }): Decimal =>
-  calcularDesgloseCuotaPorEscala({
-    base,
-    tramos: obtenerTramosIrpfLegacy(anio),
-  }).reduce((total, tramo) => total.plus(tramo.cuota), base.mul(0))
+  EffectArray.reduce(
+    calcularDesgloseCuotaPorEscala({
+      base,
+      tramos: obtenerTramosIrpfLegacy(anio),
+    }),
+    base.mul(0),
+    (total, tramo) => total.plus(tramo.cuota)
+  )
 
 export const calcularDesgloseCuotaPorEscalaGeneral = ({
   anio,
@@ -48,9 +53,10 @@ export const calcularCuotaPorEscala = ({
   readonly base: Decimal
   readonly tramos: TramosIrpf
 }): Decimal =>
-  calcularDesgloseCuotaPorEscala({ base, tramos }).reduce(
-    (total, tramo) => total.plus(tramo.cuota),
-    base.mul(0)
+  EffectArray.reduce(
+    calcularDesgloseCuotaPorEscala({ base, tramos }),
+    base.mul(0),
+    (total, tramo) => total.plus(tramo.cuota)
   )
 
 export const calcularDesgloseCuotaPorEscala = ({
@@ -64,7 +70,12 @@ export const calcularDesgloseCuotaPorEscala = ({
     return []
   }
 
-  return tramos.reduce(
+  return EffectArray.reduce(
+    tramos,
+    {
+      limiteAnterior: base.mul(0),
+      tramos: [] as ReadonlyArray<TramoCuotaGeneralCalculado>,
+    },
     (estado, [limite, tipo]) => {
       const baseRestante = Decimal.max(0, base.minus(estado.limiteAnterior))
       const anchoTramo = limite.minus(estado.limiteAnterior)
@@ -83,10 +94,6 @@ export const calcularDesgloseCuotaPorEscala = ({
           ? [...estado.tramos, tramo]
           : estado.tramos,
       }
-    },
-    {
-      limiteAnterior: base.mul(0),
-      tramos: [] as ReadonlyArray<TramoCuotaGeneralCalculado>,
     }
   ).tramos
 }

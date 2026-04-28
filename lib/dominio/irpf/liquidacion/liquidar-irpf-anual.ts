@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { Context, Effect, Layer, Option } from "effect"
 
 import type {
   CasoFiscalAnual,
@@ -7,17 +8,18 @@ import type {
 import type { RastroCalculo } from "../../explicacion/rastro-calculo"
 import {
   centimosAEuros,
-  eurosACentimos,
-  redondearImporteLiquidado,
+  PoliticaMonetaria,
+  type ServicioPoliticaMonetaria,
 } from "../../dinero/importe-monetario"
-import { calcularDesgloseCotizacionesSocialesLegacy } from "../../laboral/cotizaciones-sociales"
-import { obtenerDeduccionAutonomicaCatalogada } from "../../normativa/datos/deducciones-autonomicas-2025"
-import { TRAMOS_IRPF_ESTATAL_GENERAL_2025 } from "../../normativa/datos/irpf-autonomico-2025"
 import {
-  MINIMOS_ESTATALES_2025,
-  type MinimosPersonalesFamiliaresIrpf,
-} from "../../normativa/datos/minimos-autonomicos-2025"
-import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
+  CotizacionesSociales,
+  type ServicioCotizacionesSociales,
+} from "../../laboral/cotizaciones-sociales"
+import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
+import {
+  ParametrosNormativosIrpf,
+  type ServicioParametrosNormativosIrpf,
+} from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
 import {
   calcularCuotaPorEscalaAhorro,
@@ -67,8 +69,8 @@ export interface ResultadoNoSoportado {
   readonly rastro: RastroCalculo
 }
 
-export interface ResultadoLiquidacionIrpfSoportada {
-  readonly _tag: "ResultadoLiquidacionIrpf"
+export interface LiquidacionIrpfAnualCalculada {
+  readonly _tag: "LiquidacionIrpfAnualCalculada"
   readonly perfil: "renta-individual-general"
   readonly anio: CasoFiscalAnual["anio"]
   readonly rendimientoIntegroTrabajoCentimos: number
@@ -97,41 +99,119 @@ export interface ResultadoLiquidacionIrpfSoportada {
   readonly cuotaLiquidaCentimos: number
   readonly retencionesYPagosACuentaCentimos: number
   readonly cuotaDiferencialCentimos: number
-  readonly conciliacionSimuladorLegacy: ConciliacionSimuladorLegacy | null
+  readonly conciliacionSimuladorLegacy: Option.Option<ConciliacionSimuladorLegacy>
   readonly rastro: RastroCalculo
 }
 
 export type ResultadoLiquidacionIrpf =
-  | ResultadoLiquidacionIrpfSoportada
+  | LiquidacionIrpfAnualCalculada
   | ResultadoNoSoportado
+
+export type LiquidarIrpfAnualError = ResultadoNoSoportado
+
+interface DependenciasLiquidacionIrpfAnual {
+  readonly cotizacionesSociales: ServicioCotizacionesSociales
+  readonly parametrosNormativos: ServicioParametrosNormativosIrpf
+  readonly politicaMonetaria: ServicioPoliticaMonetaria
+}
+
+const construirLiquidarIrpfAnual = (
+  dependencias: DependenciasLiquidacionIrpfAnual
+) =>
+  Effect.fn("LiquidacionIrpfAnual.liquidar")(function* (
+    caso: CasoFiscalAnual,
+    contexto: ContextoLiquidacionIrpf
+  ) {
+    yield* Effect.annotateCurrentSpan("irpf.anio", caso.anio)
+    yield* Effect.annotateCurrentSpan(
+      "irpf.comunidadAutonoma",
+      caso.comunidadAutonoma
+    )
+    yield* Effect.annotateCurrentSpan("irpf.modo", contexto.modo)
+
+    const resultadoNoSoportado = yield* detectarCasoNoSoportado(
+      caso,
+      dependencias.parametrosNormativos
+    )
+    if (Option.isSome(resultadoNoSoportado)) {
+      return yield* Effect.fail(resultadoNoSoportado.value)
+    }
+
+    return yield* liquidarTrabajoIndividualSimple(caso, dependencias)
+  })
+
+export class LiquidacionIrpfAnual extends Context.Service<
+  LiquidacionIrpfAnual,
+  {
+    readonly liquidar: (
+      caso: CasoFiscalAnual,
+      contexto: ContextoLiquidacionIrpf
+    ) => Effect.Effect<LiquidacionIrpfAnualCalculada, LiquidarIrpfAnualError>
+  }
+>()("@irobopf/dominio/irpf/LiquidacionIrpfAnual") {
+  static readonly layer = Layer.effect(
+    LiquidacionIrpfAnual,
+    Effect.gen(function* () {
+      const cotizacionesSociales = yield* CotizacionesSociales
+      const parametrosNormativos = yield* ParametrosNormativosIrpf
+      const politicaMonetaria = yield* PoliticaMonetaria
+
+      return {
+        liquidar: construirLiquidarIrpfAnual({
+          cotizacionesSociales,
+          parametrosNormativos,
+          politicaMonetaria,
+        }),
+      }
+    })
+  ).pipe(
+    Layer.provideMerge(CotizacionesSociales.layer),
+    Layer.provideMerge(ParametrosNormativosIrpf.layer),
+    Layer.provideMerge(PoliticaMonetaria.layer)
+  )
+}
+
+const liquidarIrpfAnualDesdeServicio = Effect.fn(
+  "LiquidacionIrpfAnual.liquidarDesdeServicio"
+)(function* (caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf) {
+  const liquidacion = yield* LiquidacionIrpfAnual
+  return yield* liquidacion.liquidar(caso, contexto)
+})
 
 export const liquidarIrpfAnual = (
   caso: CasoFiscalAnual,
-  _contexto: ContextoLiquidacionIrpf
-): ResultadoLiquidacionIrpf => {
-  void _contexto
+  contexto: ContextoLiquidacionIrpf
+): Effect.Effect<LiquidacionIrpfAnualCalculada, LiquidarIrpfAnualError> =>
+  liquidarIrpfAnualDesdeServicio(caso, contexto).pipe(
+    Effect.provide(LiquidacionIrpfAnual.layer)
+  )
 
-  const resultadoNoSoportado = detectarCasoNoSoportado(caso)
-  if (resultadoNoSoportado !== null) {
-    return resultadoNoSoportado
-  }
+const liquidarTrabajoIndividualSimple = Effect.fn(
+  "LiquidacionIrpfAnual.liquidarTrabajoIndividualSimple"
+)(function* (
+  caso: CasoFiscalAnual,
+  dependencias: DependenciasLiquidacionIrpfAnual
+) {
+  const liquidarCentimos = (importe: Decimal) =>
+    dependencias.politicaMonetaria.importeLiquidadoACentimos(importe)
 
-  return liquidarTrabajoIndividualSimple(caso)
-}
-
-const liquidarTrabajoIndividualSimple = (
-  caso: CasoFiscalAnual
-): ResultadoLiquidacionIrpf => {
   const rendimientoIntegroTrabajo = sumarRendimientosTrabajo(
     caso.rendimientos.trabajo,
     centimosAEuros
   )
-  const parametrosComunidad = obtenerParametrosComunidadAutonoma({
-    anio: caso.anio,
-    comunidadAutonoma: caso.comunidadAutonoma,
-  })
+  const minimosEstatales =
+    dependencias.parametrosNormativos.minimosEstatales2025
+  const tramosIrpfEstatalGeneral =
+    dependencias.parametrosNormativos.tramosIrpfEstatalGeneral2025
+  const parametrosComunidad =
+    yield* dependencias.parametrosNormativos.obtenerParametrosComunidadAutonoma(
+      {
+        anio: caso.anio,
+        comunidadAutonoma: caso.comunidadAutonoma,
+      }
+    )
   if (parametrosComunidad._tag === "ComunidadAutonomaNoSoportada") {
-    return {
+    const resultadoNoSoportado = {
       _tag: "ResultadoNoSoportado",
       motivo: parametrosComunidad.motivo,
       fuenteReconocida: parametrosComunidad.fuenteReconocida,
@@ -144,16 +224,19 @@ const liquidarTrabajoIndividualSimple = (
         descripcionPaso:
           "El caso fiscal reconoce una comunidad autonoma real, pero esta version del motor solo calcula el caso tecnico de contraste con tramo autonomico igualado al estatal.",
       }),
-    }
+    } satisfies ResultadoNoSoportado
+
+    return yield* Effect.fail(resultadoNoSoportado)
   }
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
   })
-  const cotizacionesSociales = calcularDesgloseCotizacionesSocialesLegacy({
-    anio: caso.anio,
-    salarioBrutoAnual: rendimientoIntegroTrabajo,
-  })
+  const cotizacionesSociales =
+    yield* dependencias.cotizacionesSociales.desglosarLegacy({
+      anio: caso.anio,
+      salarioBrutoAnual: rendimientoIntegroTrabajo,
+    })
   const rendimientoIntegroCapitalInmobiliario =
     sumarRendimientosCapitalInmobiliario(
       caso.rendimientos.capitalInmobiliario ?? [],
@@ -186,7 +269,7 @@ const liquidarTrabajoIndividualSimple = (
   const cuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal
     ? calcularCuotaPorEscala({
         base: baseLiquidableGeneral,
-        tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+        tramos: tramosIrpfEstatalGeneral,
       })
     : calcularCuotaPorEscalaGeneral({
         anio: caso.anio,
@@ -208,7 +291,7 @@ const liquidarTrabajoIndividualSimple = (
   const desgloseCuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal
     ? calcularDesgloseCuotaPorEscala({
         base: baseLiquidableGeneral,
-        tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+        tramos: tramosIrpfEstatalGeneral,
       })
     : calcularDesgloseCuotaPorEscalaGeneral({
         anio: caso.anio,
@@ -227,28 +310,28 @@ const liquidarTrabajoIndividualSimple = (
   const minimoContribuyente = obtenerMinimoContribuyente({
     anio: caso.anio,
     edad: caso.situacionFamiliar.edad,
-    minimos: MINIMOS_ESTATALES_2025,
+    minimos: minimosEstatales,
   })
   const minimoAscendientes = obtenerMinimoAscendientes(
     caso.situacionFamiliar.ascendientes,
-    MINIMOS_ESTATALES_2025
+    minimosEstatales
   )
   const minimoDescendientes = obtenerMinimoDescendientes(
     caso.situacionFamiliar.descendientes,
-    MINIMOS_ESTATALES_2025
+    minimosEstatales
   )
   const minimoDiscapacidadContribuyente =
     obtenerMinimoDiscapacidadContribuyente(
       caso.situacionFamiliar,
-      MINIMOS_ESTATALES_2025
+      minimosEstatales
     )
   const minimoDiscapacidadFamiliares = obtenerMinimoDiscapacidadFamiliares(
     caso.situacionFamiliar.descendientes,
-    MINIMOS_ESTATALES_2025
+    minimosEstatales
   ).plus(
     obtenerMinimoDiscapacidadAscendientes(
       caso.situacionFamiliar.ascendientes,
-      MINIMOS_ESTATALES_2025
+      minimosEstatales
     )
   )
   const minimoPersonalYFamiliar = minimoContribuyente
@@ -264,7 +347,7 @@ const liquidarTrabajoIndividualSimple = (
   const cuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
     ? calcularCuotaPorEscala({
         base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
-        tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+        tramos: tramosIrpfEstatalGeneral,
       })
     : calcularCuotaPorEscalaGeneral({
         anio: caso.anio,
@@ -303,7 +386,7 @@ const liquidarTrabajoIndividualSimple = (
   const desgloseCuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
     ? calcularDesgloseCuotaPorEscala({
         base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
-        tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+        tramos: tramosIrpfEstatalGeneral,
       })
     : calcularDesgloseCuotaPorEscalaGeneral({
         anio: caso.anio,
@@ -339,112 +422,133 @@ const liquidarTrabajoIndividualSimple = (
         cuotaAutonomicaGeneralDespuesMinimo
       )
     : deduccionesAutonomicasDeclaradas
-  const deduccionesAutonomicasAplicadasCentimos = eurosACentimos(
-    redondearImporteLiquidado(deduccionesAutonomicasAplicadas)
-  )
   const cuotaLiquida = Decimal.max(
     0,
     cuotaGeneralDespuesMinimo
       .plus(cuotaAhorroDespuesMinimo)
       .minus(deduccionesAutonomicasAplicadas)
   )
-  const cuotaLiquidaCentimos = eurosACentimos(
-    redondearImporteLiquidado(cuotaLiquida)
-  )
-  const rendimientoIntegroTrabajoCentimos = eurosACentimos(
-    redondearImporteLiquidado(rendimientoTrabajo.rendimientoIntegro)
-  )
+  const importesLiquidacion = yield* Effect.all({
+    rendimientoIntegroTrabajoCentimos: liquidarCentimos(
+      rendimientoTrabajo.rendimientoIntegro
+    ),
+    rendimientoNetoTrabajoCentimos: liquidarCentimos(
+      rendimientoTrabajo.rendimientoNeto
+    ),
+    rendimientoNetoCapitalInmobiliarioCentimos: liquidarCentimos(
+      rendimientoCapitalInmobiliario.rendimientoNeto
+    ),
+    gastosDeduciblesTrabajoCentimos: liquidarCentimos(
+      rendimientoTrabajo.gastosDeducibles
+    ),
+    reduccionRendimientosTrabajoCentimos: liquidarCentimos(
+      reduccionRendimientosTrabajo
+    ),
+    totalGastosYDeduccionesTrabajoCentimos: liquidarCentimos(
+      rendimientoTrabajo.cotizacionTrabajador
+        .plus(rendimientoTrabajo.gastosDeducibles)
+        .plus(reduccionRendimientosTrabajo)
+    ),
+    baseImponibleGeneralCentimos: liquidarCentimos(baseImponibleGeneral),
+    baseLiquidableGeneralCentimos: liquidarCentimos(baseLiquidableGeneral),
+    gananciaPatrimonialTotalCentimos: liquidarCentimos(
+      gananciasPatrimoniales.gananciaTotal
+    ),
+    gananciaPatrimonialExentaCentimos: liquidarCentimos(
+      gananciasPatrimoniales.gananciaExenta
+    ),
+    baseLiquidableAhorroCentimos: liquidarCentimos(baseLiquidableAhorro),
+    cotizacionEmpresarialCentimos: liquidarCentimos(
+      cotizacionesSociales.cotizacionEmpresarial
+    ),
+    cotizacionTrabajadorCentimos: liquidarCentimos(
+      cotizacionesSociales.cotizacionTrabajador
+    ),
+    costeLaboralCentimos: liquidarCentimos(
+      rendimientoIntegroTrabajo.plus(cotizacionesSociales.cotizacionEmpresarial)
+    ),
+    meiEmpresarialCentimos: liquidarCentimos(
+      cotizacionesSociales.meiEmpresarial
+    ),
+    meiTrabajadorCentimos: liquidarCentimos(cotizacionesSociales.meiTrabajador),
+    solidaridadEmpresarialCentimos: liquidarCentimos(
+      cotizacionesSociales.solidaridadEmpresarial
+    ),
+    solidaridadTrabajadorCentimos: liquidarCentimos(
+      cotizacionesSociales.solidaridadTrabajador
+    ),
+    cuotaIntegraGeneralCentimos: liquidarCentimos(cuotaIntegraGeneral),
+    cuotaIntegraAhorroCentimos: liquidarCentimos(cuotaIntegraAhorro),
+    cuotaMinimoPersonalCentimos: liquidarCentimos(cuotaMinimoPersonal),
+    cuotaMinimoPersonalAhorroCentimos: liquidarCentimos(
+      cuotaMinimoPersonalAhorro
+    ),
+    deduccionesAutonomicasAplicadasCentimos: liquidarCentimos(
+      deduccionesAutonomicasAplicadas
+    ),
+    cuotaLiquidaCentimos: liquidarCentimos(cuotaLiquida),
+  })
   const cuotaDiferencialCentimos = calcularCuotaDiferencialCentimos({
-    cuotaLiquidaCentimos,
+    cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
     pagosACuentaCentimos: caso.pagosACuentaCentimos,
     retencionesSoportadasCentimos: caso.retencionesSoportadasCentimos,
   })
 
   return {
-    _tag: "ResultadoLiquidacionIrpf",
+    _tag: "LiquidacionIrpfAnualCalculada",
     perfil: "renta-individual-general",
     anio: caso.anio,
-    rendimientoIntegroTrabajoCentimos,
-    rendimientoNetoTrabajoCentimos: eurosACentimos(
-      redondearImporteLiquidado(rendimientoTrabajo.rendimientoNeto)
-    ),
-    rendimientoNetoCapitalInmobiliarioCentimos: eurosACentimos(
-      redondearImporteLiquidado(rendimientoCapitalInmobiliario.rendimientoNeto)
-    ),
-    gastosDeduciblesTrabajoCentimos: eurosACentimos(
-      redondearImporteLiquidado(rendimientoTrabajo.gastosDeducibles)
-    ),
-    reduccionRendimientosTrabajoCentimos: eurosACentimos(
-      redondearImporteLiquidado(reduccionRendimientosTrabajo)
-    ),
-    totalGastosYDeduccionesTrabajoCentimos: eurosACentimos(
-      redondearImporteLiquidado(
-        rendimientoTrabajo.cotizacionTrabajador
-          .plus(rendimientoTrabajo.gastosDeducibles)
-          .plus(reduccionRendimientosTrabajo)
-      )
-    ),
-    baseImponibleGeneralCentimos: eurosACentimos(
-      redondearImporteLiquidado(baseImponibleGeneral)
-    ),
-    baseLiquidableGeneralCentimos: eurosACentimos(
-      redondearImporteLiquidado(baseLiquidableGeneral)
-    ),
-    gananciaPatrimonialTotalCentimos: eurosACentimos(
-      redondearImporteLiquidado(gananciasPatrimoniales.gananciaTotal)
-    ),
-    gananciaPatrimonialExentaCentimos: eurosACentimos(
-      redondearImporteLiquidado(gananciasPatrimoniales.gananciaExenta)
-    ),
-    baseLiquidableAhorroCentimos: eurosACentimos(
-      redondearImporteLiquidado(baseLiquidableAhorro)
-    ),
-    cotizacionEmpresarialCentimos: eurosACentimos(
-      redondearImporteLiquidado(cotizacionesSociales.cotizacionEmpresarial)
-    ),
-    cotizacionTrabajadorCentimos: eurosACentimos(
-      redondearImporteLiquidado(cotizacionesSociales.cotizacionTrabajador)
-    ),
-    costeLaboralCentimos: eurosACentimos(
-      redondearImporteLiquidado(
-        rendimientoIntegroTrabajo.plus(
-          cotizacionesSociales.cotizacionEmpresarial
-        )
-      )
-    ),
-    meiEmpresarialCentimos: eurosACentimos(
-      redondearImporteLiquidado(cotizacionesSociales.meiEmpresarial)
-    ),
-    meiTrabajadorCentimos: eurosACentimos(
-      redondearImporteLiquidado(cotizacionesSociales.meiTrabajador)
-    ),
-    solidaridadEmpresarialCentimos: eurosACentimos(
-      redondearImporteLiquidado(cotizacionesSociales.solidaridadEmpresarial)
-    ),
-    solidaridadTrabajadorCentimos: eurosACentimos(
-      redondearImporteLiquidado(cotizacionesSociales.solidaridadTrabajador)
-    ),
-    cuotaIntegraGeneralCentimos: eurosACentimos(
-      redondearImporteLiquidado(cuotaIntegraGeneral)
-    ),
-    cuotaIntegraAhorroCentimos: eurosACentimos(
-      redondearImporteLiquidado(cuotaIntegraAhorro)
-    ),
-    cuotaMinimoPersonalCentimos: eurosACentimos(
-      redondearImporteLiquidado(cuotaMinimoPersonal)
-    ),
-    cuotaMinimoPersonalAhorroCentimos: eurosACentimos(
-      redondearImporteLiquidado(cuotaMinimoPersonalAhorro)
-    ),
-    deduccionesAutonomicasCentimos: deduccionesAutonomicasAplicadasCentimos,
-    cuotaLiquidaCentimos,
+    rendimientoIntegroTrabajoCentimos:
+      importesLiquidacion.rendimientoIntegroTrabajoCentimos,
+    rendimientoNetoTrabajoCentimos:
+      importesLiquidacion.rendimientoNetoTrabajoCentimos,
+    rendimientoNetoCapitalInmobiliarioCentimos:
+      importesLiquidacion.rendimientoNetoCapitalInmobiliarioCentimos,
+    gastosDeduciblesTrabajoCentimos:
+      importesLiquidacion.gastosDeduciblesTrabajoCentimos,
+    reduccionRendimientosTrabajoCentimos:
+      importesLiquidacion.reduccionRendimientosTrabajoCentimos,
+    totalGastosYDeduccionesTrabajoCentimos:
+      importesLiquidacion.totalGastosYDeduccionesTrabajoCentimos,
+    baseImponibleGeneralCentimos:
+      importesLiquidacion.baseImponibleGeneralCentimos,
+    baseLiquidableGeneralCentimos:
+      importesLiquidacion.baseLiquidableGeneralCentimos,
+    gananciaPatrimonialTotalCentimos:
+      importesLiquidacion.gananciaPatrimonialTotalCentimos,
+    gananciaPatrimonialExentaCentimos:
+      importesLiquidacion.gananciaPatrimonialExentaCentimos,
+    baseLiquidableAhorroCentimos:
+      importesLiquidacion.baseLiquidableAhorroCentimos,
+    cotizacionEmpresarialCentimos:
+      importesLiquidacion.cotizacionEmpresarialCentimos,
+    cotizacionTrabajadorCentimos:
+      importesLiquidacion.cotizacionTrabajadorCentimos,
+    costeLaboralCentimos: importesLiquidacion.costeLaboralCentimos,
+    meiEmpresarialCentimos: importesLiquidacion.meiEmpresarialCentimos,
+    meiTrabajadorCentimos: importesLiquidacion.meiTrabajadorCentimos,
+    solidaridadEmpresarialCentimos:
+      importesLiquidacion.solidaridadEmpresarialCentimos,
+    solidaridadTrabajadorCentimos:
+      importesLiquidacion.solidaridadTrabajadorCentimos,
+    cuotaIntegraGeneralCentimos:
+      importesLiquidacion.cuotaIntegraGeneralCentimos,
+    cuotaIntegraAhorroCentimos: importesLiquidacion.cuotaIntegraAhorroCentimos,
+    cuotaMinimoPersonalCentimos:
+      importesLiquidacion.cuotaMinimoPersonalCentimos,
+    cuotaMinimoPersonalAhorroCentimos:
+      importesLiquidacion.cuotaMinimoPersonalAhorroCentimos,
+    deduccionesAutonomicasCentimos:
+      importesLiquidacion.deduccionesAutonomicasAplicadasCentimos,
+    cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
     retencionesYPagosACuentaCentimos:
       caso.retencionesSoportadasCentimos + caso.pagosACuentaCentimos,
     cuotaDiferencialCentimos,
     conciliacionSimuladorLegacy: calcularConciliacionSimuladorLegacy({
       anio: caso.anio,
-      rendimientoIntegroTrabajoCentimos,
-      cuotaLiquidaCentimos,
+      rendimientoIntegroTrabajoCentimos:
+        importesLiquidacion.rendimientoIntegroTrabajoCentimos,
+      cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
       cuotaDiferencialCentimos,
     }),
     rastro: {
@@ -851,7 +955,8 @@ const liquidarTrabajoIndividualSimple = (
               resultado: euros(
                 centimosAEuros(
                   calcularCuotaDiferencialCentimos({
-                    cuotaLiquidaCentimos,
+                    cuotaLiquidaCentimos:
+                      importesLiquidacion.cuotaLiquidaCentimos,
                     pagosACuentaCentimos: caso.pagosACuentaCentimos,
                     retencionesSoportadasCentimos:
                       caso.retencionesSoportadasCentimos,
@@ -864,23 +969,30 @@ const liquidarTrabajoIndividualSimple = (
         },
       ],
     },
-  }
-}
+  } satisfies LiquidacionIrpfAnualCalculada
+})
 
-const detectarCasoNoSoportado = (
-  caso: CasoFiscalAnual
-): ResultadoNoSoportado | null => {
+const detectarCasoNoSoportado = Effect.fn(
+  "LiquidacionIrpfAnual.detectarCasoNoSoportado"
+)(function* (
+  caso: CasoFiscalAnual,
+  parametrosNormativos: ServicioParametrosNormativosIrpf
+) {
   const deduccionPendiente = caso.deducciones[0]
   if (deduccionPendiente) {
-    const catalogada = obtenerDeduccionAutonomicaCatalogada(
-      deduccionPendiente.codigo
-    )
+    const catalogada =
+      yield* parametrosNormativos.obtenerDeduccionAutonomicaCatalogada(
+        deduccionPendiente.codigo
+      )
 
-    return {
+    const resultadoNoSoportado = {
       _tag: "ResultadoNoSoportado",
-      motivo: catalogada
-        ? `Deduccion autonomica reconocida no implementada: ${catalogada.nombre}`
-        : `Deduccion autonomica no catalogada: ${deduccionPendiente.codigo}`,
+      motivo: Option.match(catalogada, {
+        onNone: () =>
+          `Deduccion autonomica no catalogada: ${deduccionPendiente.codigo}`,
+        onSome: (deduccionCatalogada) =>
+          `Deduccion autonomica reconocida no implementada: ${deduccionCatalogada.nombre}`,
+      }),
       fuenteReconocida:
         "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
       rastro: rastroResultadoNoSoportado({
@@ -888,18 +1000,24 @@ const detectarCasoNoSoportado = (
         fuentePaso:
           "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
         tituloFuentePaso: "Manual Renta 2025 Parte 2",
-        tituloPaso: catalogada
-          ? "Deduccion autonomica reconocida no implementada"
-          : "Deduccion autonomica no catalogada",
-        descripcionPaso: catalogada
-          ? `El motor reconoce ${catalogada.codigo} con estado ${catalogada.estado}, pero todavia no tiene evaluador y tests para liquidarla.`
-          : `El motor ha recibido el codigo ${deduccionPendiente.codigo}, que no existe en el catalogo normalizado actual.`,
+        tituloPaso: Option.match(catalogada, {
+          onNone: () => "Deduccion autonomica no catalogada",
+          onSome: () => "Deduccion autonomica reconocida no implementada",
+        }),
+        descripcionPaso: Option.match(catalogada, {
+          onNone: () =>
+            `El motor ha recibido el codigo ${deduccionPendiente.codigo}, que no existe en el catalogo normalizado actual.`,
+          onSome: (deduccionCatalogada) =>
+            `El motor reconoce ${deduccionCatalogada.codigo} con estado ${deduccionCatalogada.estado}, pero todavia no tiene evaluador y tests para liquidarla.`,
+        }),
       }),
-    }
+    } satisfies ResultadoNoSoportado
+
+    return Option.some(resultadoNoSoportado)
   }
 
-  return null
-}
+  return Option.none()
+})
 
 const calcularMinimoPersonalYFamiliar = ({
   anio,

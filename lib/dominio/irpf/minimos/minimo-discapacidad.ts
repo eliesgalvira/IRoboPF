@@ -1,4 +1,5 @@
 import type Decimal from "decimal.js"
+import { Array as EffectArray, Match } from "effect"
 
 import { IMPORTE_CERO } from "../../dinero/importe-monetario"
 import {
@@ -16,16 +17,15 @@ const obtenerMinimoPorDiscapacidad = (
   discapacidad: DiscapacidadFiscal,
   minimos: MinimoDiscapacidadIrpf
 ): Decimal => {
-  switch (discapacidad._tag) {
-    case "SinDiscapacidad":
-      return IMPORTE_CERO
-    case "Discapacidad33a64":
-      return discapacidad.necesitaAyudaOMovilidadReducida
+  return Match.valueTags(discapacidad, {
+    SinDiscapacidad: () => IMPORTE_CERO,
+    Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
+      necesitaAyudaOMovilidadReducida
         ? minimos.grado33Hasta65.plus(minimos.gastosAsistencia)
-        : minimos.grado33Hasta65
-    case "Discapacidad65OMas":
-      return minimos.grado65OMas.plus(minimos.gastosAsistencia)
-  }
+        : minimos.grado33Hasta65,
+    Discapacidad65OMas: () =>
+      minimos.grado65OMas.plus(minimos.gastosAsistencia),
+  })
 }
 
 export const obtenerMinimoDiscapacidadContribuyente = (
@@ -41,28 +41,24 @@ export const obtenerMinimoDiscapacidadFamiliares = (
   familiares: ReadonlyArray<FamiliarFiscal>,
   minimos: MinimosPersonalesFamiliaresIrpf = MINIMOS_ESTATALES_2025
 ): Decimal =>
-  familiares.reduce(
-    (total, familiar) =>
-      total.plus(
-        obtenerMinimoPorDiscapacidad(
-          familiar.discapacidad,
-          minimos.discapacidad.descendiente
-        )
-      ),
-    IMPORTE_CERO
+  EffectArray.reduce(familiares, IMPORTE_CERO, (total, familiar) =>
+    total.plus(
+      obtenerMinimoPorDiscapacidad(
+        familiar.discapacidad,
+        minimos.discapacidad.descendiente
+      )
+    )
   )
 
 export const obtenerMinimoDiscapacidadAscendientes = (
   ascendientes: ReadonlyArray<FamiliarFiscal>,
   minimos: MinimosPersonalesFamiliaresIrpf = MINIMOS_ESTATALES_2025
 ): Decimal =>
-  ascendientes.reduce(
-    (total, ascendiente) =>
-      total.plus(
-        obtenerMinimoPorDiscapacidad(
-          ascendiente.discapacidad,
-          minimos.discapacidad.ascendiente
-        )
-      ),
-    IMPORTE_CERO
+  EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) =>
+    total.plus(
+      obtenerMinimoPorDiscapacidad(
+        ascendiente.discapacidad,
+        minimos.discapacidad.ascendiente
+      )
+    )
   )

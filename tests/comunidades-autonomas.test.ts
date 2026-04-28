@@ -1,6 +1,10 @@
+import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
-import { obtenerParametrosComunidadAutonoma } from "../lib/dominio/irpf/comunidades/comunidad-autonoma"
+import {
+  obtenerParametrosComunidadAutonoma,
+  ParametrosNormativosIrpf,
+} from "../lib/dominio/irpf/comunidades/comunidad-autonoma"
 import type { ComunidadAutonoma } from "../lib/dominio/irpf/caso-fiscal-anual"
 import { obtenerMinimosAutonomicosIrpf2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
 
@@ -25,6 +29,27 @@ const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
 ]
 
 describe("comunidad autonoma", () => {
+  it.effect(
+    "expone los parametros normativos del IRPF como servicio Effect",
+    () =>
+      Effect.gen(function* () {
+        const parametros = yield* ParametrosNormativosIrpf
+
+        const comunidad = yield* parametros.obtenerParametrosComunidadAutonoma({
+          anio: 2025,
+          comunidadAutonoma: "madrid",
+        })
+
+        expect(comunidad).toMatchObject({
+          _tag: "ParametrosComunidadAutonoma",
+          comunidadAutonoma: "madrid",
+        })
+        expect(
+          parametros.minimosEstatales2025.contribuyente.general.toString()
+        ).toBe("5550")
+      }).pipe(Effect.provide(ParametrosNormativosIrpf.layer))
+  )
+
   it("resuelve la comunidad simulada estatal como tramo autonomico igualado al estatal", () => {
     expect(
       obtenerParametrosComunidadAutonoma({
@@ -75,20 +100,20 @@ describe("comunidad autonoma", () => {
   it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {
     const minimosRioja = obtenerMinimosAutonomicosIrpf2025("la-rioja")
 
-    expect(minimosRioja.discapacidad.contribuyente.grado33Hasta65.toString()).toBe(
-      "3000"
-    )
+    expect(
+      minimosRioja.discapacidad.contribuyente.grado33Hasta65.toString()
+    ).toBe("3000")
     expect(minimosRioja.discapacidad.ascendiente.grado65OMas.toString()).toBe(
       "9000"
     )
-    expect(minimosRioja.discapacidad.descendiente.grado33Hasta65.toString()).toBe(
-      "3300"
-    )
+    expect(
+      minimosRioja.discapacidad.descendiente.grado33Hasta65.toString()
+    ).toBe("3300")
     expect(minimosRioja.discapacidad.descendiente.grado65OMas.toString()).toBe(
       "9900"
     )
-    expect(minimosRioja.discapacidad.descendiente.gastosAsistencia.toString()).toBe(
-      "3000"
-    )
+    expect(
+      minimosRioja.discapacidad.descendiente.gastosAsistencia.toString()
+    ).toBe("3000")
   })
 })

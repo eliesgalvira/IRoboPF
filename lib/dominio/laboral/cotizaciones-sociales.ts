@@ -1,4 +1,5 @@
 import type Decimal from "decimal.js"
+import { Array as EffectArray, Context, Effect, Layer, Match } from "effect"
 
 import {
   IMPORTE_CERO,
@@ -37,7 +38,7 @@ interface BaseCotizacion {
   readonly excesoBase: Decimal
 }
 
-export interface CotizacionesSociales {
+export interface TotalesCotizacionesSociales {
   readonly cotizacionEmpresarial: Decimal
   readonly cotizacionTrabajador: Decimal
 }
@@ -107,20 +108,21 @@ const tipoCotizacionPorLado = (
   tipos: TiposCotizacion,
   lado: LadoCotizacion
 ) => {
-  if (lado === "empresarial") {
-    return tipos.empresarial
-  }
-
-  return tipos.trabajador
+  return Match.value(lado).pipe(
+    Match.when("empresarial", () => tipos.empresarial),
+    Match.when("trabajador", () => tipos.trabajador),
+    Match.exhaustive
+  )
 }
 
 export const sumarTipoCotizacionLegacy = (
   parametros: ParametrosCotizacionLegacy,
   lado: LadoCotizacion
 ) =>
-  Object.values(parametros.tiposSeguridadSocial).reduce(
-    (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)),
-    IMPORTE_CERO
+  EffectArray.reduce(
+    Object.values(parametros.tiposSeguridadSocial),
+    IMPORTE_CERO,
+    (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado))
   )
 
 const obtenerTiposMei = (anio: AnioFiscal): TiposCotizacion => {
@@ -229,15 +231,15 @@ const calcularTotalSolidaridad = (
 
 const repartirCotizacionSolidaridad = (
   totalSolidaridad: Decimal
-): CotizacionesSociales => ({
+): TotalesCotizacionesSociales => ({
   cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
   cotizacionTrabajador: totalSolidaridad.div(6),
 })
 
 const sumarCotizacionesSociales = (
-  izquierda: CotizacionesSociales,
-  derecha: CotizacionesSociales
-): CotizacionesSociales => ({
+  izquierda: TotalesCotizacionesSociales,
+  derecha: TotalesCotizacionesSociales
+): TotalesCotizacionesSociales => ({
   cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
     derecha.cotizacionEmpresarial
   ),
@@ -249,7 +251,7 @@ const sumarCotizacionesSociales = (
 export const calcularCotizacionesSocialesLegacy = ({
   salarioBrutoAnual,
   anio,
-}: EntradaCotizacionesSocialesLegacy): CotizacionesSociales => {
+}: EntradaCotizacionesSocialesLegacy): TotalesCotizacionesSociales => {
   const desglose = calcularDesgloseCotizacionesSocialesLegacy({
     salarioBrutoAnual,
     anio,
@@ -304,4 +306,31 @@ export const calcularDesgloseCotizacionesSocialesLegacy = ({
     solidaridadEmpresarial: cotizacionesSolidaridad.cotizacionEmpresarial,
     solidaridadTrabajador: cotizacionesSolidaridad.cotizacionTrabajador,
   }
+}
+
+export interface ServicioCotizacionesSociales {
+  readonly calcularLegacy: (
+    entrada: EntradaCotizacionesSocialesLegacy
+  ) => Effect.Effect<TotalesCotizacionesSociales>
+  readonly desglosarLegacy: (
+    entrada: EntradaCotizacionesSocialesLegacy
+  ) => Effect.Effect<DesgloseCotizacionesSociales>
+}
+
+export class CotizacionesSociales extends Context.Service<
+  CotizacionesSociales,
+  ServicioCotizacionesSociales
+>()("@irobopf/dominio/laboral/CotizacionesSociales") {
+  static readonly layer = Layer.succeed(CotizacionesSociales, {
+    calcularLegacy: Effect.fn("CotizacionesSociales.calcularLegacy")(function* (
+      entrada: EntradaCotizacionesSocialesLegacy
+    ) {
+      return calcularCotizacionesSocialesLegacy(entrada)
+    }),
+    desglosarLegacy: Effect.fn("CotizacionesSociales.desglosarLegacy")(
+      function* (entrada: EntradaCotizacionesSocialesLegacy) {
+        return calcularDesgloseCotizacionesSocialesLegacy(entrada)
+      }
+    ),
+  })
 }

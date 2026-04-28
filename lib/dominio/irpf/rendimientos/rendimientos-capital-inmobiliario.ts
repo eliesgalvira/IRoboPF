@@ -1,4 +1,5 @@
 import type Decimal from "decimal.js"
+import { Array as EffectArray } from "effect"
 
 import type { RendimientoCapitalInmobiliario } from "../caso-fiscal-anual"
 
@@ -11,10 +12,11 @@ export const sumarRendimientosCapitalInmobiliario = (
   rendimientos: ReadonlyArray<RendimientoCapitalInmobiliario>,
   convertirCentimosAEuros: (centimos: number) => Decimal
 ): Decimal =>
-  rendimientos.reduce(
+  EffectArray.reduce(
+    rendimientos,
+    convertirCentimosAEuros(0),
     (total, rendimiento) =>
-      total.plus(convertirCentimosAEuros(rendimiento.importeIntegroCentimos)),
-    convertirCentimosAEuros(0)
+      total.plus(convertirCentimosAEuros(rendimiento.importeIntegroCentimos))
   )
 
 /**

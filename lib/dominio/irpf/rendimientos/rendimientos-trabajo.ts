@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { Array as EffectArray } from "effect"
 
 import { calcularCotizacionesSocialesLegacy } from "../../laboral/cotizaciones-sociales"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
@@ -45,8 +46,6 @@ export const sumarRendimientosTrabajo = (
   rendimientos: ReadonlyArray<RendimientoTrabajo>,
   crearImporte: (centimos: number) => Decimal
 ): Decimal =>
-  rendimientos.reduce(
-    (total, rendimiento) =>
-      total.plus(crearImporte(rendimiento.importeIntegroCentimos)),
-    crearImporte(0)
+  EffectArray.reduce(rendimientos, crearImporte(0), (total, rendimiento) =>
+    total.plus(crearImporte(rendimiento.importeIntegroCentimos))
   )

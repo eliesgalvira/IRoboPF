@@ -1,3 +1,5 @@
+import { Array as EffectArray, Match, Option } from "effect"
+
 import {
   DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS,
   type FichaDeduccionAutonomica,
@@ -727,20 +729,25 @@ const IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS = Object.fromEntries(
 export const calcularDeduccionEspecificaAutonomica = (
   codigo: string,
   entradas: EntradasDeduccionesAutonomicas
-): number | null => {
+): Option.Option<number> => {
   const deduccion = deduccionesEspecificasAutonomicasPorCodigo.get(codigo)
-  if (!deduccion || deduccion.formula.tipo === "calculo_existente") return null
+  if (!deduccion) return Option.none()
 
-  if (!booleanoDeduccion(entradas, `${deduccion.codigo}:cumple`)) return 0
+  if (!booleanoDeduccion(entradas, `${deduccion.codigo}:cumple`)) {
+    return Option.some(0)
+  }
 
-  switch (deduccion.formula.tipo) {
-    case "importe_manual":
-      return (
+  return Match.value(deduccion.formula.tipo).pipe(
+    Match.when("calculo_existente", () => Option.none<number>()),
+    Match.when("importe_manual", () =>
+      Option.some(
         Math.round(
           numeroDeduccion(entradas, `${deduccion.codigo}:importe`) * 100
         ) / 100
       )
-  }
+    ),
+    Match.exhaustive
+  )
 }
 
 export const CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO = new Set(
@@ -806,7 +813,7 @@ const calcularDeduccionGenerica = (
     deduccion.codigo,
     entradas
   )
-  if (deduccionFinal !== null) return deduccionFinal
+  if (Option.isSome(deduccionFinal)) return deduccionFinal.value
 
   if (CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO.has(deduccion.codigo)) {
     return 0
@@ -1020,12 +1027,11 @@ export const calcularDeduccionesAutonomicasAplicadas = (
     entradas,
     "catalunyaInteresesMasterDoctorado"
   )
-  const deduccionesGenericas =
-    DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.reduce(
-      (total, deduccion) =>
-        total + calcularDeduccionGenerica(deduccion, entradas),
-      0
-    )
+  const deduccionesGenericas = EffectArray.reduce(
+    DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor,
+    0,
+    (total, deduccion) => total + calcularDeduccionGenerica(deduccion, entradas)
+  )
   const madridNacimiento =
     numeroDeduccion(entradas, "madridHijosNacimientoAdopcion") *
     721.7 *
@@ -1085,9 +1091,9 @@ export const calcularDeduccionesAutonomicasAplicadas = (
 
 export const obtenerControlDeduccionAutonomica = (
   deduccion: FichaDeduccionAutonomica
-): ControlDeduccionAutonomica | null => {
+): Option.Option<ControlDeduccionAutonomica> => {
   if (deduccion.estado !== "implementada") {
-    return null
+    return Option.none()
   }
 
   const entradasEspecificas =
@@ -1096,7 +1102,7 @@ export const obtenerControlDeduccionAutonomica = (
     ]
   if (entradasEspecificas) {
     const entradasPrueba = entradasCon(entradasEspecificas)
-    return {
+    return Option.some({
       tipo: "especifico",
       codigo: deduccion.codigo,
       entradasPrueba,
@@ -1104,14 +1110,14 @@ export const obtenerControlDeduccionAutonomica = (
         IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS[
           deduccion.codigo as keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS
         ],
-    }
+    })
   }
 
   const entradasPrueba = entradasGenericasPara(deduccion)
-  return {
+  return Option.some({
     tipo: "generico",
     codigo: deduccion.codigo,
     entradasPrueba,
     importeEsperadoPrueba: importeEsperadoGenericoPara(deduccion),
-  }
+  })
 }

@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { Array as EffectArray, Match } from "effect"
 
 import {
   IMPORTE_CERO,
@@ -34,28 +35,27 @@ export const calcularGananciasPatrimonialesPorTransmision = ({
   readonly ganancias: ReadonlyArray<GananciaPatrimonialTransmision>
   readonly convertirCentimos: typeof centimosAEuros
 }): GananciasPatrimonialesCalculadas =>
-  ganancias
-    .map((ganancia) =>
+  EffectArray.reduce(
+    EffectArray.map(ganancias, (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         edadContribuyente,
         ganancia,
         convertirCentimos,
       })
-    )
-    .reduce(
-      (total, ganancia) => ({
-        gananciaTotal: total.gananciaTotal.plus(ganancia.gananciaTotal),
-        gananciaExenta: total.gananciaExenta.plus(ganancia.gananciaExenta),
-        gananciaSujetaAhorro: total.gananciaSujetaAhorro.plus(
-          ganancia.gananciaSujeta
-        ),
-      }),
-      {
-        gananciaTotal: IMPORTE_CERO,
-        gananciaExenta: IMPORTE_CERO,
-        gananciaSujetaAhorro: IMPORTE_CERO,
-      }
-    )
+    ),
+    {
+      gananciaTotal: IMPORTE_CERO,
+      gananciaExenta: IMPORTE_CERO,
+      gananciaSujetaAhorro: IMPORTE_CERO,
+    },
+    (total, ganancia) => ({
+      gananciaTotal: total.gananciaTotal.plus(ganancia.gananciaTotal),
+      gananciaExenta: total.gananciaExenta.plus(ganancia.gananciaExenta),
+      gananciaSujetaAhorro: total.gananciaSujetaAhorro.plus(
+        ganancia.gananciaSujeta
+      ),
+    })
+  )
 
 const calcularGananciaPatrimonialPorTransmision = ({
   edadContribuyente,
@@ -96,25 +96,25 @@ const calcularGananciaExentaMayores65 = ({
     return IMPORTE_CERO
   }
 
-  switch (tratamiento._tag) {
-    case "SinExencionMayores65":
-      return IMPORTE_CERO
-    case "ViviendaHabitualMayores65":
-      return gananciaTotal
-    case "ReinversionRentaVitaliciaMayores65":
-      return calcularExencionPorReinversionEnRentaVitalicia({
+  return Match.valueTags(tratamiento, {
+    SinExencionMayores65: () => IMPORTE_CERO,
+    ViviendaHabitualMayores65: () => gananciaTotal,
+    ReinversionRentaVitaliciaMayores65: ({
+      importeReinvertidoRentaVitaliciaCentimos,
+      importeTransmisionCentimos,
+      reinversionesPreviasRentaVitaliciaCentimos,
+    }) =>
+      calcularExencionPorReinversionEnRentaVitalicia({
         gananciaTotal,
-        importeTransmision: convertirCentimos(
-          tratamiento.importeTransmisionCentimos
-        ),
+        importeTransmision: convertirCentimos(importeTransmisionCentimos),
         importeReinvertido: convertirCentimos(
-          tratamiento.importeReinvertidoRentaVitaliciaCentimos
+          importeReinvertidoRentaVitaliciaCentimos
         ),
         reinversionesPrevias: convertirCentimos(
-          tratamiento.reinversionesPreviasRentaVitaliciaCentimos
+          reinversionesPreviasRentaVitaliciaCentimos
         ),
-      })
-  }
+      }),
+  })
 }
 
 const calcularExencionPorReinversionEnRentaVitalicia = ({
