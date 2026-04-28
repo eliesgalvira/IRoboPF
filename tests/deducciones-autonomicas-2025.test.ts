@@ -74,4 +74,50 @@ describe("deducciones autonomicas 2025", () => {
       codigosCatalogadosImplementados
     )
   })
+
+  it("mantiene referencia de páginas del manual en todas las fichas implementadas", () => {
+    expect(
+      DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.filter(
+        (deduccion) => deduccion.fuenteManual.paginas.length === 0
+      )
+    ).toEqual([])
+  })
+
+  it("no marca como pendiente la normativa de las fichas implementadas con páginas verificadas", () => {
+    const deduccionesPorCodigo = new Map(
+      DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.map((deduccion) => [
+        deduccion.codigo,
+        deduccion,
+      ])
+    )
+
+    expect(
+      deduccionesPorCodigo.get(
+        "andalucia_familia_monoparental_ascendientes_mayores_75"
+      )
+    ).toMatchObject({
+      normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
+      fuenteManual: { paginas: [44, 45] },
+    })
+    expect(
+      deduccionesPorCodigo.get("madrid_nacimiento_adopcion_hijos")
+    ).toMatchObject({
+      normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
+      fuenteManual: { paginas: [403, 404] },
+    })
+    expect(
+      deduccionesPorCodigo.get("cataluna_alquiler_victimas_violencia_machista")
+    ).toMatchObject({
+      normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
+      fuenteManual: { paginas: [325, 326] },
+    })
+    expect(
+      deduccionesPorCodigo.get(
+        "cataluna_inversion_cooperativas_agrarias_vivienda"
+      )
+    ).toMatchObject({
+      normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
+      fuenteManual: { paginas: [326, 327, 328] },
+    })
+  })
 })

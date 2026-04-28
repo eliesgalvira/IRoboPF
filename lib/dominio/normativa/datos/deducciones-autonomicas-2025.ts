@@ -1016,7 +1016,6 @@ export const ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025 = {
     "Para el padre o madre de familia monoparental y, en su caso, con ascendientes mayores de 75 años",
     "circunstancias_personales_familiares"
   ),
-  normativa: "Pendiente de completar desde ficha normativa de Andalucía",
   cuantia: {
     tipo: "mixta",
     descripcion:
@@ -1043,7 +1042,7 @@ export const ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [],
+    paginas: [44, 45],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -1054,7 +1053,6 @@ export const MADRID_NACIMIENTO_ADOPCION_2025 = {
     "Por nacimiento o adopción de hijos",
     "circunstancias_personales_familiares"
   ),
-  normativa: "Pendiente de completar desde ficha normativa de Madrid",
   cuantia: {
     tipo: "importe_fijo",
     euros: "721.70",
@@ -1085,7 +1083,7 @@ export const MADRID_NACIMIENTO_ADOPCION_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [],
+    paginas: [403, 404],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -1096,7 +1094,6 @@ export const CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025 = {
     "Por alquiler de la vivienda habitual de víctimas de violencia machista",
     "vivienda_habitual"
   ),
-  normativa: "Pendiente de completar desde ficha normativa de Cataluña",
   cuantia: {
     tipo: "mixta",
     descripcion:
@@ -1128,7 +1125,7 @@ export const CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [],
+    paginas: [325, 326],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -1139,7 +1136,6 @@ export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
     "Por inversión en sociedades cooperativas agrarias y de vivienda",
     "otros_conceptos"
   ),
-  normativa: "Pendiente de completar desde ficha normativa de Cataluña",
   cuantia: {
     tipo: "porcentaje",
     porcentaje: "20",
@@ -1169,7 +1165,7 @@ export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [],
+    paginas: [326, 327, 328],
   },
 } as const satisfies FichaDeduccionAutonomica
 
