@@ -18,7 +18,7 @@ describe("deducciones autonomicas 2025", () => {
       DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA
     ).flat()
 
-    expect(codigosFaltantes).toHaveLength(181)
+    expect(codigosFaltantes).toHaveLength(124)
     expect(deduccionesCatalogadas).toHaveLength(351)
     expect(
       codigosFaltantes.every((codigo) => codigosCatalogados.has(codigo))
@@ -33,10 +33,12 @@ describe("deducciones autonomicas 2025", () => {
       deduccionesCatalogadas.map((deduccion) => [deduccion.codigo, deduccion])
     )
 
-    expect(deduccionesPorCodigo.get("clm_familia_monoparental")).toMatchObject({
+    expect(
+      deduccionesPorCodigo.get("galicia_familias_dos_hijos")
+    ).toMatchObject({
       estado: "catalogada",
-      nombre: "Por familia monoparental",
-      comunidad: "castilla-la-mancha",
+      nombre: "Por familias dos hijos",
+      comunidad: "galicia",
     })
     expect(
       deduccionesPorCodigo.get(
@@ -49,8 +51,8 @@ describe("deducciones autonomicas 2025", () => {
     })
   })
 
-  it("expone las 170 deducciones catalogadas de 2025 como implementadas", () => {
-    expect(DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor).toHaveLength(170)
+  it("expone las 227 deducciones catalogadas de 2025 como implementadas", () => {
+    expect(DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor).toHaveLength(227)
   })
 
   it("publica como implementadas todas y solo las fichas catalogadas con estado implementada", () => {

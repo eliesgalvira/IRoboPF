@@ -593,71 +593,10 @@ export const DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA = {
   "illes-balears": [],
   canarias: [],
   cantabria: [],
-  "castilla-la-mancha": [
-    "clm_familia_monoparental",
-    "clm_libros_idiomas_otros_gastos_educacion",
-    "clm_gastos_guarderia",
-    "clm_cuidado_ascendientes_mayores_75",
-    "clm_acogimiento_familiar_no_remunerado_menores",
-    "clm_acogimiento_no_remunerado_mayores_65_discapacidad",
-    "clm_arrendamiento_menores_36",
-    "clm_arrendamiento_dacion_pago",
-    "clm_arrendamiento_familias_numerosas",
-    "clm_arrendamiento_familias_monoparentales",
-    "clm_arrendamiento_personas_discapacidad",
-    "clm_donaciones_cooperacion_lucha_pobreza_discapacidad",
-    "clm_donaciones_idi_innovacion_empresarial",
-    "clm_donaciones_bienes_culturales_mecenazgo",
-    "clm_intereses_primera_vivienda_menores_40",
-    "clm_residencia_zonas_rurales",
-    "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
-    "clm_traslado_vivienda_habitual",
-    "clm_inversion_acciones_participaciones_mercantiles",
-    "clm_inversion_economia_social",
-    "clm_ahorro_inversion_primera_vivienda",
-    "clm_controles_veterinarios_perros_asistencia",
-  ],
-  "castilla-y-leon": [
-    "cyl_partos_adopciones_multiples",
-    "cyl_gastos_adopcion",
-    "cyl_cuidado_hijos_menores",
-    "cyl_cuotas_seguridad_social_empleados_hogar",
-    "cyl_contribuyentes_discapacidad",
-    "cyl_vivienda_jovenes_medio_rural",
-    "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad",
-    "cyl_rehabilitacion_viviendas_medio_rural_alquiler",
-    "cyl_fomento_emprendimiento",
-    "cyl_recuperacion_patrimonio_historico_cultural_natural",
-    "cyl_donaciones_fundaciones_patrimonio",
-    "cyl_donaciones_idi",
-    "cyl_movilidad_sostenible",
-    "cyl_vivienda_nueva_construccion",
-  ],
-  catalunya: [
-    "cataluna_donativos_lengua_catalana_occitana",
-    "cataluna_donativos_idi",
-    "cataluna_donaciones_medio_ambiente_patrimonio_natural",
-    "cataluna_angel_inversor",
-    "cataluna_tramo_autonomico_inversion_vivienda_habitual",
-  ],
-  extremadura: [
-    "extremadura_partos_multiples",
-    "extremadura_acogimiento_menores",
-    "extremadura_cuidado_hijos_hasta_14",
-    "extremadura_contribuyentes_viudos",
-    "extremadura_vivienda_jovenes_victimas_terrorismo",
-    "extremadura_arrendadores_viviendas_vacias",
-    "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",
-    "extremadura_material_escolar",
-    "extremadura_inversion_acciones_participaciones_mercantiles",
-    "extremadura_vivienda_zonas_rurales",
-    "extremadura_residencia_municipios_menos_3000",
-    "extremadura_intereses_vivienda_jovenes",
-    "extremadura_donaciones_entidades_culturales_deportistas",
-    "extremadura_traslado_residencia_habitual",
-    "extremadura_ayudas_subvenciones_ela",
-    "extremadura_enfermos_ela_familiares",
-  ],
+  "castilla-la-mancha": [],
+  "castilla-y-leon": [],
+  catalunya: [],
+  extremadura: [],
   galicia: [
     "galicia_familias_dos_hijos",
     "galicia_acogimiento_menores",
@@ -5183,6 +5122,1254 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
   ),
 ] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
 
+export const CLM_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_familia_monoparental",
+    nombreCatalogadoDesdeCodigo("clm_familia_monoparental"),
+    categoriaCatalogadaDesdeCodigo("clm_familia_monoparental"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    ["clm_familia_monoparental:importe", "clm_familia_monoparental:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_libros_idiomas_otros_gastos_educacion",
+    nombreCatalogadoDesdeCodigo("clm_libros_idiomas_otros_gastos_educacion"),
+    categoriaCatalogadaDesdeCodigo("clm_libros_idiomas_otros_gastos_educacion"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_libros_idiomas_otros_gastos_educacion:importe",
+      "clm_libros_idiomas_otros_gastos_educacion:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_gastos_guarderia",
+    nombreCatalogadoDesdeCodigo("clm_gastos_guarderia"),
+    categoriaCatalogadaDesdeCodigo("clm_gastos_guarderia"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    ["clm_gastos_guarderia:importe", "clm_gastos_guarderia:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_cuidado_ascendientes_mayores_75",
+    nombreCatalogadoDesdeCodigo("clm_cuidado_ascendientes_mayores_75"),
+    categoriaCatalogadaDesdeCodigo("clm_cuidado_ascendientes_mayores_75"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_cuidado_ascendientes_mayores_75:importe",
+      "clm_cuidado_ascendientes_mayores_75:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_acogimiento_familiar_no_remunerado_menores",
+    nombreCatalogadoDesdeCodigo(
+      "clm_acogimiento_familiar_no_remunerado_menores"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "clm_acogimiento_familiar_no_remunerado_menores"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_acogimiento_familiar_no_remunerado_menores:importe",
+      "clm_acogimiento_familiar_no_remunerado_menores:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_acogimiento_no_remunerado_mayores_65_discapacidad",
+    nombreCatalogadoDesdeCodigo(
+      "clm_acogimiento_no_remunerado_mayores_65_discapacidad"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "clm_acogimiento_no_remunerado_mayores_65_discapacidad"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_acogimiento_no_remunerado_mayores_65_discapacidad:importe",
+      "clm_acogimiento_no_remunerado_mayores_65_discapacidad:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_arrendamiento_menores_36",
+    nombreCatalogadoDesdeCodigo("clm_arrendamiento_menores_36"),
+    categoriaCatalogadaDesdeCodigo("clm_arrendamiento_menores_36"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_arrendamiento_menores_36:importe",
+      "clm_arrendamiento_menores_36:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_arrendamiento_dacion_pago",
+    nombreCatalogadoDesdeCodigo("clm_arrendamiento_dacion_pago"),
+    categoriaCatalogadaDesdeCodigo("clm_arrendamiento_dacion_pago"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_arrendamiento_dacion_pago:importe",
+      "clm_arrendamiento_dacion_pago:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_arrendamiento_familias_numerosas",
+    nombreCatalogadoDesdeCodigo("clm_arrendamiento_familias_numerosas"),
+    categoriaCatalogadaDesdeCodigo("clm_arrendamiento_familias_numerosas"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_arrendamiento_familias_numerosas:importe",
+      "clm_arrendamiento_familias_numerosas:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_arrendamiento_familias_monoparentales",
+    nombreCatalogadoDesdeCodigo("clm_arrendamiento_familias_monoparentales"),
+    categoriaCatalogadaDesdeCodigo("clm_arrendamiento_familias_monoparentales"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_arrendamiento_familias_monoparentales:importe",
+      "clm_arrendamiento_familias_monoparentales:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_arrendamiento_personas_discapacidad",
+    nombreCatalogadoDesdeCodigo("clm_arrendamiento_personas_discapacidad"),
+    categoriaCatalogadaDesdeCodigo("clm_arrendamiento_personas_discapacidad"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_arrendamiento_personas_discapacidad:importe",
+      "clm_arrendamiento_personas_discapacidad:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_donaciones_cooperacion_lucha_pobreza_discapacidad",
+    nombreCatalogadoDesdeCodigo(
+      "clm_donaciones_cooperacion_lucha_pobreza_discapacidad"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "clm_donaciones_cooperacion_lucha_pobreza_discapacidad"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_donaciones_cooperacion_lucha_pobreza_discapacidad:importe",
+      "clm_donaciones_cooperacion_lucha_pobreza_discapacidad:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_donaciones_idi_innovacion_empresarial",
+    nombreCatalogadoDesdeCodigo("clm_donaciones_idi_innovacion_empresarial"),
+    categoriaCatalogadaDesdeCodigo("clm_donaciones_idi_innovacion_empresarial"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_donaciones_idi_innovacion_empresarial:importe",
+      "clm_donaciones_idi_innovacion_empresarial:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_donaciones_bienes_culturales_mecenazgo",
+    nombreCatalogadoDesdeCodigo("clm_donaciones_bienes_culturales_mecenazgo"),
+    categoriaCatalogadaDesdeCodigo(
+      "clm_donaciones_bienes_culturales_mecenazgo"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_donaciones_bienes_culturales_mecenazgo:importe",
+      "clm_donaciones_bienes_culturales_mecenazgo:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_intereses_primera_vivienda_menores_40",
+    nombreCatalogadoDesdeCodigo("clm_intereses_primera_vivienda_menores_40"),
+    categoriaCatalogadaDesdeCodigo("clm_intereses_primera_vivienda_menores_40"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_intereses_primera_vivienda_menores_40:importe",
+      "clm_intereses_primera_vivienda_menores_40:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_residencia_zonas_rurales",
+    nombreCatalogadoDesdeCodigo("clm_residencia_zonas_rurales"),
+    categoriaCatalogadaDesdeCodigo("clm_residencia_zonas_rurales"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_residencia_zonas_rurales:importe",
+      "clm_residencia_zonas_rurales:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
+    nombreCatalogadoDesdeCodigo(
+      "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales:importe",
+      "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_traslado_vivienda_habitual",
+    nombreCatalogadoDesdeCodigo("clm_traslado_vivienda_habitual"),
+    categoriaCatalogadaDesdeCodigo("clm_traslado_vivienda_habitual"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_traslado_vivienda_habitual:importe",
+      "clm_traslado_vivienda_habitual:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_inversion_acciones_participaciones_mercantiles",
+    nombreCatalogadoDesdeCodigo(
+      "clm_inversion_acciones_participaciones_mercantiles"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "clm_inversion_acciones_participaciones_mercantiles"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_inversion_acciones_participaciones_mercantiles:importe",
+      "clm_inversion_acciones_participaciones_mercantiles:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_inversion_economia_social",
+    nombreCatalogadoDesdeCodigo("clm_inversion_economia_social"),
+    categoriaCatalogadaDesdeCodigo("clm_inversion_economia_social"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_inversion_economia_social:importe",
+      "clm_inversion_economia_social:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_ahorro_inversion_primera_vivienda",
+    nombreCatalogadoDesdeCodigo("clm_ahorro_inversion_primera_vivienda"),
+    categoriaCatalogadaDesdeCodigo("clm_ahorro_inversion_primera_vivienda"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_ahorro_inversion_primera_vivienda:importe",
+      "clm_ahorro_inversion_primera_vivienda:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "clm_controles_veterinarios_perros_asistencia",
+    nombreCatalogadoDesdeCodigo("clm_controles_veterinarios_perros_asistencia"),
+    categoriaCatalogadaDesdeCodigo(
+      "clm_controles_veterinarios_perros_asistencia"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 238 a 281.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [238, 281],
+    [
+      "clm_controles_veterinarios_perros_asistencia:importe",
+      "clm_controles_veterinarios_perros_asistencia:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
+export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_partos_adopciones_multiples",
+    nombreCatalogadoDesdeCodigo("cyl_partos_adopciones_multiples"),
+    categoriaCatalogadaDesdeCodigo("cyl_partos_adopciones_multiples"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_partos_adopciones_multiples:importe",
+      "cyl_partos_adopciones_multiples:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_gastos_adopcion",
+    nombreCatalogadoDesdeCodigo("cyl_gastos_adopcion"),
+    categoriaCatalogadaDesdeCodigo("cyl_gastos_adopcion"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    ["cyl_gastos_adopcion:importe", "cyl_gastos_adopcion:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_cuidado_hijos_menores",
+    nombreCatalogadoDesdeCodigo("cyl_cuidado_hijos_menores"),
+    categoriaCatalogadaDesdeCodigo("cyl_cuidado_hijos_menores"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    ["cyl_cuidado_hijos_menores:importe", "cyl_cuidado_hijos_menores:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_cuotas_seguridad_social_empleados_hogar",
+    nombreCatalogadoDesdeCodigo("cyl_cuotas_seguridad_social_empleados_hogar"),
+    categoriaCatalogadaDesdeCodigo(
+      "cyl_cuotas_seguridad_social_empleados_hogar"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_cuotas_seguridad_social_empleados_hogar:importe",
+      "cyl_cuotas_seguridad_social_empleados_hogar:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_contribuyentes_discapacidad",
+    nombreCatalogadoDesdeCodigo("cyl_contribuyentes_discapacidad"),
+    categoriaCatalogadaDesdeCodigo("cyl_contribuyentes_discapacidad"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_contribuyentes_discapacidad:importe",
+      "cyl_contribuyentes_discapacidad:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_vivienda_jovenes_medio_rural",
+    nombreCatalogadoDesdeCodigo("cyl_vivienda_jovenes_medio_rural"),
+    categoriaCatalogadaDesdeCodigo("cyl_vivienda_jovenes_medio_rural"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_vivienda_jovenes_medio_rural:importe",
+      "cyl_vivienda_jovenes_medio_rural:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad",
+    nombreCatalogadoDesdeCodigo(
+      "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad:importe",
+      "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_rehabilitacion_viviendas_medio_rural_alquiler",
+    nombreCatalogadoDesdeCodigo(
+      "cyl_rehabilitacion_viviendas_medio_rural_alquiler"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "cyl_rehabilitacion_viviendas_medio_rural_alquiler"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_rehabilitacion_viviendas_medio_rural_alquiler:importe",
+      "cyl_rehabilitacion_viviendas_medio_rural_alquiler:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_fomento_emprendimiento",
+    nombreCatalogadoDesdeCodigo("cyl_fomento_emprendimiento"),
+    categoriaCatalogadaDesdeCodigo("cyl_fomento_emprendimiento"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    ["cyl_fomento_emprendimiento:importe", "cyl_fomento_emprendimiento:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_recuperacion_patrimonio_historico_cultural_natural",
+    nombreCatalogadoDesdeCodigo(
+      "cyl_recuperacion_patrimonio_historico_cultural_natural"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "cyl_recuperacion_patrimonio_historico_cultural_natural"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_recuperacion_patrimonio_historico_cultural_natural:importe",
+      "cyl_recuperacion_patrimonio_historico_cultural_natural:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_donaciones_fundaciones_patrimonio",
+    nombreCatalogadoDesdeCodigo("cyl_donaciones_fundaciones_patrimonio"),
+    categoriaCatalogadaDesdeCodigo("cyl_donaciones_fundaciones_patrimonio"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_donaciones_fundaciones_patrimonio:importe",
+      "cyl_donaciones_fundaciones_patrimonio:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_donaciones_idi",
+    nombreCatalogadoDesdeCodigo("cyl_donaciones_idi"),
+    categoriaCatalogadaDesdeCodigo("cyl_donaciones_idi"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    ["cyl_donaciones_idi:importe", "cyl_donaciones_idi:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_movilidad_sostenible",
+    nombreCatalogadoDesdeCodigo("cyl_movilidad_sostenible"),
+    categoriaCatalogadaDesdeCodigo("cyl_movilidad_sostenible"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    ["cyl_movilidad_sostenible:importe", "cyl_movilidad_sostenible:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cyl_vivienda_nueva_construccion",
+    nombreCatalogadoDesdeCodigo("cyl_vivienda_nueva_construccion"),
+    categoriaCatalogadaDesdeCodigo("cyl_vivienda_nueva_construccion"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [282, 313],
+    [
+      "cyl_vivienda_nueva_construccion:importe",
+      "cyl_vivienda_nueva_construccion:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
+export const CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementada(
+    { estado: "implementada" },
+    "cataluna_donativos_lengua_catalana_occitana",
+    nombreCatalogadoDesdeCodigo("cataluna_donativos_lengua_catalana_occitana"),
+    categoriaCatalogadaDesdeCodigo(
+      "cataluna_donativos_lengua_catalana_occitana"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [314, 328],
+    [
+      "cataluna_donativos_lengua_catalana_occitana:importe",
+      "cataluna_donativos_lengua_catalana_occitana:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cataluna_donativos_idi",
+    nombreCatalogadoDesdeCodigo("cataluna_donativos_idi"),
+    categoriaCatalogadaDesdeCodigo("cataluna_donativos_idi"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [314, 328],
+    ["cataluna_donativos_idi:importe", "cataluna_donativos_idi:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cataluna_donaciones_medio_ambiente_patrimonio_natural",
+    nombreCatalogadoDesdeCodigo(
+      "cataluna_donaciones_medio_ambiente_patrimonio_natural"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "cataluna_donaciones_medio_ambiente_patrimonio_natural"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [314, 328],
+    [
+      "cataluna_donaciones_medio_ambiente_patrimonio_natural:importe",
+      "cataluna_donaciones_medio_ambiente_patrimonio_natural:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cataluna_angel_inversor",
+    nombreCatalogadoDesdeCodigo("cataluna_angel_inversor"),
+    categoriaCatalogadaDesdeCodigo("cataluna_angel_inversor"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [314, 328],
+    ["cataluna_angel_inversor:importe", "cataluna_angel_inversor:cumple"],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+    nombreCatalogadoDesdeCodigo(
+      "cataluna_tramo_autonomico_inversion_vivienda_habitual"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "cataluna_tramo_autonomico_inversion_vivienda_habitual"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [314, 328],
+    [
+      "cataluna_tramo_autonomico_inversion_vivienda_habitual:importe",
+      "cataluna_tramo_autonomico_inversion_vivienda_habitual:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
+export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_partos_multiples",
+    nombreCatalogadoDesdeCodigo("extremadura_partos_multiples"),
+    categoriaCatalogadaDesdeCodigo("extremadura_partos_multiples"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_partos_multiples:importe",
+      "extremadura_partos_multiples:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_acogimiento_menores",
+    nombreCatalogadoDesdeCodigo("extremadura_acogimiento_menores"),
+    categoriaCatalogadaDesdeCodigo("extremadura_acogimiento_menores"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_acogimiento_menores:importe",
+      "extremadura_acogimiento_menores:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_cuidado_hijos_hasta_14",
+    nombreCatalogadoDesdeCodigo("extremadura_cuidado_hijos_hasta_14"),
+    categoriaCatalogadaDesdeCodigo("extremadura_cuidado_hijos_hasta_14"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_cuidado_hijos_hasta_14:importe",
+      "extremadura_cuidado_hijos_hasta_14:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_contribuyentes_viudos",
+    nombreCatalogadoDesdeCodigo("extremadura_contribuyentes_viudos"),
+    categoriaCatalogadaDesdeCodigo("extremadura_contribuyentes_viudos"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_contribuyentes_viudos:importe",
+      "extremadura_contribuyentes_viudos:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_vivienda_jovenes_victimas_terrorismo",
+    nombreCatalogadoDesdeCodigo(
+      "extremadura_vivienda_jovenes_victimas_terrorismo"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "extremadura_vivienda_jovenes_victimas_terrorismo"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_vivienda_jovenes_victimas_terrorismo:importe",
+      "extremadura_vivienda_jovenes_victimas_terrorismo:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_arrendadores_viviendas_vacias",
+    nombreCatalogadoDesdeCodigo("extremadura_arrendadores_viviendas_vacias"),
+    categoriaCatalogadaDesdeCodigo("extremadura_arrendadores_viviendas_vacias"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_arrendadores_viviendas_vacias:importe",
+      "extremadura_arrendadores_viviendas_vacias:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",
+    nombreCatalogadoDesdeCodigo(
+      "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler:importe",
+      "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_material_escolar",
+    nombreCatalogadoDesdeCodigo("extremadura_material_escolar"),
+    categoriaCatalogadaDesdeCodigo("extremadura_material_escolar"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_material_escolar:importe",
+      "extremadura_material_escolar:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_inversion_acciones_participaciones_mercantiles",
+    nombreCatalogadoDesdeCodigo(
+      "extremadura_inversion_acciones_participaciones_mercantiles"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "extremadura_inversion_acciones_participaciones_mercantiles"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_inversion_acciones_participaciones_mercantiles:importe",
+      "extremadura_inversion_acciones_participaciones_mercantiles:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_vivienda_zonas_rurales",
+    nombreCatalogadoDesdeCodigo("extremadura_vivienda_zonas_rurales"),
+    categoriaCatalogadaDesdeCodigo("extremadura_vivienda_zonas_rurales"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_vivienda_zonas_rurales:importe",
+      "extremadura_vivienda_zonas_rurales:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_residencia_municipios_menos_3000",
+    nombreCatalogadoDesdeCodigo("extremadura_residencia_municipios_menos_3000"),
+    categoriaCatalogadaDesdeCodigo(
+      "extremadura_residencia_municipios_menos_3000"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_residencia_municipios_menos_3000:importe",
+      "extremadura_residencia_municipios_menos_3000:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_intereses_vivienda_jovenes",
+    nombreCatalogadoDesdeCodigo("extremadura_intereses_vivienda_jovenes"),
+    categoriaCatalogadaDesdeCodigo("extremadura_intereses_vivienda_jovenes"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_intereses_vivienda_jovenes:importe",
+      "extremadura_intereses_vivienda_jovenes:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_donaciones_entidades_culturales_deportistas",
+    nombreCatalogadoDesdeCodigo(
+      "extremadura_donaciones_entidades_culturales_deportistas"
+    ),
+    categoriaCatalogadaDesdeCodigo(
+      "extremadura_donaciones_entidades_culturales_deportistas"
+    ),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_donaciones_entidades_culturales_deportistas:importe",
+      "extremadura_donaciones_entidades_culturales_deportistas:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_traslado_residencia_habitual",
+    nombreCatalogadoDesdeCodigo("extremadura_traslado_residencia_habitual"),
+    categoriaCatalogadaDesdeCodigo("extremadura_traslado_residencia_habitual"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_traslado_residencia_habitual:importe",
+      "extremadura_traslado_residencia_habitual:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_ayudas_subvenciones_ela",
+    nombreCatalogadoDesdeCodigo("extremadura_ayudas_subvenciones_ela"),
+    categoriaCatalogadaDesdeCodigo("extremadura_ayudas_subvenciones_ela"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_ayudas_subvenciones_ela:importe",
+      "extremadura_ayudas_subvenciones_ela:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+  fichaImplementada(
+    { estado: "implementada" },
+    "extremadura_enfermos_ela_familiares",
+    nombreCatalogadoDesdeCodigo("extremadura_enfermos_ela_familiares"),
+    categoriaCatalogadaDesdeCodigo("extremadura_enfermos_ela_familiares"),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+    },
+    [
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
+      "El cálculo se verifica mediante el control de deducción correspondiente.",
+    ],
+    [330, 363],
+    [
+      "extremadura_enfermos_ela_familiares:importe",
+      "extremadura_enfermos_ela_familiares:cumple",
+    ],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+  ),
+] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
+
 /**
  * Catálogo reconocido de deducciones autonómicas del IRPF 2025.
  *
@@ -5277,7 +6464,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Castilla-La Mancha",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 6, 7 y 22",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("castilla-la-mancha"),
+        ...CLM_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         CLM_NACIMIENTO_ADOPCION_2025,
         CLM_FAMILIA_NUMEROSA_2025,
         CLM_DISCAPACIDAD_CONTRIBUYENTE_2025,
@@ -5289,7 +6476,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Castilla y León",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 7 y 23",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("castilla-y-leon"),
+        ...CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         CYL_FAMILIA_NUMEROSA_2025,
         CYL_NACIMIENTO_ADOPCION_HIJOS_2025,
         CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025,
@@ -5299,7 +6486,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Catalunya",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 7, 8 y 24",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("catalunya"),
+        ...CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025,
         CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025,
         CATALUNYA_OBLIGACION_DECLARAR_MAS_DE_UN_PAGADOR_2025,
@@ -5314,7 +6501,7 @@ export const CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 = parametroNormativo({
       comunidad: "Extremadura",
       fuente: "Manual práctico de Renta 2025 Parte 2, páginas 8 y 25",
       deducciones: [
-        ...deduccionesCatalogadasFaltantes("extremadura"),
+        ...EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025,
         EXTREMADURA_TRABAJO_DEPENDIENTE_2025,
         EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025,
         EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025,

@@ -17,7 +17,7 @@ describe("deducciones autonómicas aplicadas", () => {
         )
 
         expect(controles).not.toContain(null)
-        expect(controles).toHaveLength(170)
+        expect(controles).toHaveLength(227)
 
         yield* Effect.forEach(controles, (control) =>
           Effect.sync(() => {
