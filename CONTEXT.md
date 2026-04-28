@@ -276,6 +276,14 @@ _Avoid_: Inflacion suelta, tasa anual aislada
 Transformacion determinista que usa entradas del caso fiscal y parametros normativos ejecutables para producir una parte del desglose.
 _Avoid_: Funcion tecnica privada, formula suelta, parametro normativo ejecutable
 
+**Ficha catalogada**:
+Deduccion autonomica reconocida en una fuente normativa normalizada pero no habilitada para calculo automatico.
+_Avoid_: Pendiente, ficha base, implementada parcial
+
+**Ficha implementada**:
+Deduccion autonomica con estado explicito `implementada`, datos normalizados suficientes y comportamiento habilitado por el motor o la interfaz.
+_Avoid_: Pendiente, ficha catalogada, entrada provisional
+
 **Resultado no soportado**:
 Estado explicito que indica que el motor reconoce un caso fiscal pero todavia no implementa sus reglas.
 _Avoid_: Cero silencioso, fallback aproximado, limitacion de alcance
@@ -388,6 +396,8 @@ _Avoid_: Informe, reporte
 - Una **Fuente pendiente** marca una **Regla de calculo** o un **Parametro normativo ejecutable** que aun necesita verificacion.
 - Un **Parametro normativo ejecutable** debe poder apuntar a una **Fuente normativa normalizada**.
 - Una **Regla de calculo** usa **Parametros normativos ejecutables**.
+- Una **Ficha catalogada** puede pasar a **Ficha implementada** solo cambiando su estado y datos normalizados de forma explicita; no debe heredar nombres ni constructores de pendiente.
+- Una **Ficha implementada** puede aparecer en una lista derivada de implementadas, pero la lista no es una segunda fuente de verdad.
 - Un **Dato economico** puede tener fuente propia sin ser una **Fuente normativa normalizada**.
 - Un **Factor IPC acumulado** es un **Dato economico** usado por una **Auditoria de progresividad en frio**.
 - Una **Auditoria de progresividad en frio** puede analizar **Poder adquisitivo neto**, **Carga fiscal efectiva** y **Tipo efectivo del IRPF**.
