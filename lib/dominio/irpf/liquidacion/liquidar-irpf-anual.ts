@@ -1,6 +1,9 @@
 import Decimal from "decimal.js"
 
-import type { CasoFiscalAnual } from "../caso-fiscal-anual"
+import type {
+  CasoFiscalAnual,
+  SituacionFamiliarIndividual,
+} from "../caso-fiscal-anual"
 import type { RastroCalculo } from "../../explicacion/rastro-calculo"
 import {
   centimosAEuros,
@@ -10,6 +13,10 @@ import {
 import { calcularDesgloseCotizacionesSocialesLegacy } from "../../laboral/cotizaciones-sociales"
 import { obtenerDeduccionAutonomicaCatalogada } from "../../normativa/datos/deducciones-autonomicas-2025"
 import { TRAMOS_IRPF_ESTATAL_GENERAL_2025 } from "../../normativa/datos/irpf-autonomico-2025"
+import {
+  MINIMOS_ESTATALES_2025,
+  type MinimosPersonalesFamiliaresIrpf,
+} from "../../normativa/datos/minimos-autonomicos-2025"
 import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
 import {
@@ -28,6 +35,7 @@ import { obtenerMinimoAscendientes } from "../minimos/minimo-ascendientes"
 import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
 import { obtenerMinimoDescendientes } from "../minimos/minimo-descendientes"
 import {
+  obtenerMinimoDiscapacidadAscendientes,
   obtenerMinimoDiscapacidadContribuyente,
   obtenerMinimoDiscapacidadFamiliares,
 } from "../minimos/minimo-discapacidad"
@@ -214,36 +222,52 @@ const liquidarTrabajoIndividualSimple = (
   const minimoContribuyente = obtenerMinimoContribuyente({
     anio: caso.anio,
     edad: caso.situacionFamiliar.edad,
+    minimos: MINIMOS_ESTATALES_2025,
   })
   const minimoAscendientes = obtenerMinimoAscendientes(
-    caso.situacionFamiliar.ascendientes
+    caso.situacionFamiliar.ascendientes,
+    MINIMOS_ESTATALES_2025
   )
   const minimoDescendientes = obtenerMinimoDescendientes(
-    caso.situacionFamiliar.descendientes
+    caso.situacionFamiliar.descendientes,
+    MINIMOS_ESTATALES_2025
   )
   const minimoDiscapacidadContribuyente =
-    obtenerMinimoDiscapacidadContribuyente(caso.situacionFamiliar)
-  const minimoDiscapacidadFamiliares = obtenerMinimoDiscapacidadFamiliares([
-    ...caso.situacionFamiliar.descendientes,
-    ...caso.situacionFamiliar.ascendientes,
-  ])
+    obtenerMinimoDiscapacidadContribuyente(
+      caso.situacionFamiliar,
+      MINIMOS_ESTATALES_2025
+    )
+  const minimoDiscapacidadFamiliares = obtenerMinimoDiscapacidadFamiliares(
+    caso.situacionFamiliar.descendientes,
+    MINIMOS_ESTATALES_2025
+  ).plus(
+    obtenerMinimoDiscapacidadAscendientes(
+      caso.situacionFamiliar.ascendientes,
+      MINIMOS_ESTATALES_2025
+    )
+  )
   const minimoPersonalYFamiliar = minimoContribuyente
     .plus(minimoDescendientes)
     .plus(minimoAscendientes)
     .plus(minimoDiscapacidadContribuyente)
     .plus(minimoDiscapacidadFamiliares)
+  const minimoPersonalYFamiliarAutonomico = calcularMinimoPersonalYFamiliar({
+    situacionFamiliar: caso.situacionFamiliar,
+    anio: caso.anio,
+    minimos: parametrosComunidad.minimosAutonomicos,
+  })
   const cuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
     ? calcularCuotaPorEscala({
-        base: minimoPersonalYFamiliar,
+        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
         tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
       })
     : calcularCuotaPorEscalaGeneral({
-        anio: caso.anio,
-        base: minimoPersonalYFamiliar,
-      })
+      anio: caso.anio,
+      base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
+    })
   const cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
     ? calcularCuotaPorEscala({
-        base: minimoPersonalYFamiliar,
+        base: Decimal.min(minimoPersonalYFamiliarAutonomico, baseLiquidableGeneral),
         tramos: parametrosComunidad.escalaAutonomica.tramos,
       })
     : minimoPersonalYFamiliar.mul(0)
@@ -254,22 +278,32 @@ const liquidarTrabajoIndividualSimple = (
     0,
     minimoPersonalYFamiliar.minus(baseLiquidableGeneral)
   )
+  const remanenteMinimoPersonalAutonomicoParaAhorro = Decimal.max(
+    0,
+    minimoPersonalYFamiliarAutonomico.minus(baseLiquidableGeneral)
+  )
   const cuotaMinimoPersonalAhorro = calcularCuotaPorEscalaAhorro({
     anio: caso.anio,
-    base: Decimal.min(remanenteMinimoPersonalParaAhorro, baseLiquidableAhorro),
+    base: Decimal.min(
+      Decimal.max(
+        remanenteMinimoPersonalParaAhorro,
+        remanenteMinimoPersonalAutonomicoParaAhorro
+      ),
+      baseLiquidableAhorro
+    ),
   })
   const desgloseCuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
     ? calcularDesgloseCuotaPorEscala({
-        base: minimoPersonalYFamiliar,
+        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
         tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
       })
     : calcularDesgloseCuotaPorEscalaGeneral({
-        anio: caso.anio,
-        base: minimoPersonalYFamiliar,
-      })
+      anio: caso.anio,
+      base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
+    })
   const desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
     ? calcularDesgloseCuotaPorEscala({
-        base: minimoPersonalYFamiliar,
+        base: Decimal.min(minimoPersonalYFamiliarAutonomico, baseLiquidableGeneral),
         tramos: parametrosComunidad.escalaAutonomica.tramos,
       })
     : []
@@ -559,7 +593,7 @@ const liquidarTrabajoIndividualSimple = (
         {
           _tag: "PasoExplicacion",
           titulo: "Base general y minimo personal",
-          descripcion: `Base liquidable general ${baseLiquidableGeneral.toFixed(2)} euros y minimo personal y familiar ${minimoPersonalYFamiliar.toFixed(2)} euros.`,
+          descripcion: `Base liquidable general ${baseLiquidableGeneral.toFixed(2)} euros, minimo estatal ${minimoPersonalYFamiliar.toFixed(2)} euros y minimo autonomico ${minimoPersonalYFamiliarAutonomico.toFixed(2)} euros.`,
           lineasCalculo: [
             {
               etiqueta: "Base imponible general",
@@ -593,6 +627,13 @@ const liquidarTrabajoIndividualSimple = (
               resultado: euros(minimoPersonalYFamiliar),
             },
             {
+              etiqueta: "Minimo personal y familiar autonomico",
+              formula: parametrosComunidad.minimoAutonomicoIgualEstatal
+                ? "Coincide con el minimo estatal"
+                : `Minimos autonomicos IRPF 2025 de ${parametrosComunidad.escalaAutonomica.nombre}`,
+              resultado: euros(minimoPersonalYFamiliarAutonomico),
+            },
+            {
               etiqueta: "Minimo por discapacidad",
               formula:
                 "Contribuyente, descendientes y ascendientes con discapacidad computados",
@@ -605,9 +646,8 @@ const liquidarTrabajoIndividualSimple = (
           ],
           fuentes: [
             {
-              titulo: "Parametros IRPF estatal 2012-2026",
-              referencia:
-                "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+              titulo: "Manual Renta 2025 Parte 1",
+              referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
             },
           ],
         },
@@ -840,6 +880,47 @@ const detectarCasoNoSoportado = (
   }
 
   return null
+}
+
+const calcularMinimoPersonalYFamiliar = ({
+  anio,
+  minimos,
+  situacionFamiliar,
+}: {
+  readonly anio: CasoFiscalAnual["anio"]
+  readonly minimos: MinimosPersonalesFamiliaresIrpf
+  readonly situacionFamiliar: SituacionFamiliarIndividual
+}): Decimal => {
+  const minimoContribuyente = obtenerMinimoContribuyente({
+    anio,
+    edad: situacionFamiliar.edad,
+    minimos,
+  })
+  const minimoAscendientes = obtenerMinimoAscendientes(
+    situacionFamiliar.ascendientes,
+    minimos
+  )
+  const minimoDescendientes = obtenerMinimoDescendientes(
+    situacionFamiliar.descendientes,
+    minimos
+  )
+  const minimoDiscapacidadContribuyente =
+    obtenerMinimoDiscapacidadContribuyente(situacionFamiliar, minimos)
+  const minimoDiscapacidadFamiliares = obtenerMinimoDiscapacidadFamiliares(
+    situacionFamiliar.descendientes,
+    minimos
+  ).plus(
+    obtenerMinimoDiscapacidadAscendientes(
+      situacionFamiliar.ascendientes,
+      minimos
+    )
+  )
+
+  return minimoContribuyente
+    .plus(minimoDescendientes)
+    .plus(minimoAscendientes)
+    .plus(minimoDiscapacidadContribuyente)
+    .plus(minimoDiscapacidadFamiliares)
 }
 
 const euros = (importe: Decimal): string => `${importe.toFixed(2)} euros`

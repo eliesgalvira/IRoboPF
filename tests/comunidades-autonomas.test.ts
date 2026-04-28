@@ -2,6 +2,7 @@ import { describe, expect, it } from "@effect/vitest"
 
 import { obtenerParametrosComunidadAutonoma } from "../lib/dominio/irpf/comunidades/comunidad-autonoma"
 import type { ComunidadAutonoma } from "../lib/dominio/irpf/caso-fiscal-anual"
+import { obtenerMinimosAutonomicosIrpf2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -69,5 +70,25 @@ describe("comunidad autonoma", () => {
         escalaAutonomicaIgualEstatal: false,
       })
     }
+  })
+
+  it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {
+    const minimosRioja = obtenerMinimosAutonomicosIrpf2025("la-rioja")
+
+    expect(minimosRioja.discapacidad.contribuyente.grado33Hasta65.toString()).toBe(
+      "3000"
+    )
+    expect(minimosRioja.discapacidad.ascendiente.grado65OMas.toString()).toBe(
+      "9000"
+    )
+    expect(minimosRioja.discapacidad.descendiente.grado33Hasta65.toString()).toBe(
+      "3300"
+    )
+    expect(minimosRioja.discapacidad.descendiente.grado65OMas.toString()).toBe(
+      "9900"
+    )
+    expect(minimosRioja.discapacidad.descendiente.gastosAsistencia.toString()).toBe(
+      "3000"
+    )
   })
 })
