@@ -8,7 +8,11 @@ import {
   obtenerEscalaAutonomicaIrpf2025,
   type EscalaAutonomicaIrpf2025,
 } from "../../normativa/datos/irpf-autonomico-2025"
-import { MINIMOS_AUTONOMICOS_2025_SOPORTADOS } from "../../normativa/datos/minimos-autonomicos-2025"
+import {
+  MINIMOS_ESTATALES_2025,
+  obtenerMinimosAutonomicosIrpf2025,
+  type MinimosPersonalesFamiliaresIrpf,
+} from "../../normativa/datos/minimos-autonomicos-2025"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
 export interface EntradaParametrosComunidadAutonoma {
@@ -23,6 +27,7 @@ export interface ParametrosComunidadAutonoma {
   readonly minimoAutonomicoIgualEstatal: boolean
   readonly escalaAutonomicaIgualEstatal: boolean
   readonly escalaAutonomica: EscalaAutonomicaIrpf2025
+  readonly minimosAutonomicos: MinimosPersonalesFamiliaresIrpf
   readonly deduccionesAutonomicasSoportadas: ReadonlyArray<FichaDeduccionAutonomica>
 }
 
@@ -52,15 +57,17 @@ export const obtenerParametrosComunidadAutonoma = ({
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html",
     }
   }
+  const minimosAutonomicos = obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma)
 
   return {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio,
     minimoAutonomicoIgualEstatal:
-      MINIMOS_AUTONOMICOS_2025_SOPORTADOS.valor.includes(comunidadAutonoma),
+      minimosAutonomicos === MINIMOS_ESTATALES_2025,
     escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
     escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
+    minimosAutonomicos,
     deduccionesAutonomicasSoportadas:
       comunidadAutonoma === "simulada-estatal"
         ? []

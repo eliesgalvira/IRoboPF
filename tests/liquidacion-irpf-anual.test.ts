@@ -364,7 +364,7 @@ describe("liquidarIrpfAnual", () => {
 
     expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
       _tag: "ResultadoLiquidacionIrpf",
-      cuotaMinimoPersonalCentimos: 676_050,
+      cuotaMinimoPersonalCentimos: 598_230,
       cuotaLiquidaCentimos: 0,
       cuotaDiferencialCentimos: 0,
     })
@@ -455,9 +455,9 @@ describe("liquidarIrpfAnual", () => {
     expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
       _tag: "ResultadoLiquidacionIrpf",
       cuotaIntegraGeneralCentimos: 563_325,
-      cuotaMinimoPersonalCentimos: 99_900,
-      cuotaLiquidaCentimos: 463_425,
-      cuotaDiferencialCentimos: 463_425,
+      cuotaMinimoPersonalCentimos: 103_357,
+      cuotaLiquidaCentimos: 459_969,
+      cuotaDiferencialCentimos: 459_969,
       rastro: {
         pasos: expect.arrayContaining([
           expect.objectContaining({
@@ -465,6 +465,10 @@ describe("liquidarIrpfAnual", () => {
             descripcion: expect.stringContaining(
               "escala autonomica general de 2025"
             ),
+          }),
+          expect.objectContaining({
+            titulo: "Base general y minimo personal",
+            descripcion: expect.stringContaining("minimo autonomico"),
           }),
         ]),
       },
@@ -494,7 +498,7 @@ describe("liquidarIrpfAnual", () => {
 
     expect(liquidarIrpfAnual(caso, { modo: "canonico" })).toMatchObject({
       _tag: "ResultadoLiquidacionIrpf",
-      deduccionesAutonomicasCentimos: 217_035,
+      deduccionesAutonomicasCentimos: 213_579,
       cuotaLiquidaCentimos: 246_390,
       cuotaDiferencialCentimos: 246_390,
     })

@@ -1,43 +1,68 @@
 import type Decimal from "decimal.js"
 
+import { IMPORTE_CERO } from "../../dinero/importe-monetario"
 import {
-  IMPORTE_CERO,
-  crearImporteMonetario,
-} from "../../dinero/importe-monetario"
+  MINIMOS_ESTATALES_2025,
+  type MinimoDiscapacidadIrpf,
+  type MinimosPersonalesFamiliaresIrpf,
+} from "../../normativa/datos/minimos-autonomicos-2025"
 import type {
   DiscapacidadFiscal,
   FamiliarFiscal,
   SituacionFamiliarIndividual,
 } from "../caso-fiscal-anual"
 
-const MINIMO_DISCAPACIDAD_33_A_64 = crearImporteMonetario(3000)
-const INCREMENTO_ASISTENCIA = crearImporteMonetario(3000)
-const MINIMO_DISCAPACIDAD_65_O_MAS = crearImporteMonetario(9000)
-
 const obtenerMinimoPorDiscapacidad = (
-  discapacidad: DiscapacidadFiscal
+  discapacidad: DiscapacidadFiscal,
+  minimos: MinimoDiscapacidadIrpf
 ): Decimal => {
   switch (discapacidad._tag) {
     case "SinDiscapacidad":
       return IMPORTE_CERO
     case "Discapacidad33a64":
       return discapacidad.necesitaAyudaOMovilidadReducida
-        ? MINIMO_DISCAPACIDAD_33_A_64.plus(INCREMENTO_ASISTENCIA)
-        : MINIMO_DISCAPACIDAD_33_A_64
+        ? minimos.grado33Hasta65.plus(minimos.gastosAsistencia)
+        : minimos.grado33Hasta65
     case "Discapacidad65OMas":
-      return MINIMO_DISCAPACIDAD_65_O_MAS.plus(INCREMENTO_ASISTENCIA)
+      return minimos.grado65OMas.plus(minimos.gastosAsistencia)
   }
 }
 
 export const obtenerMinimoDiscapacidadContribuyente = (
-  situacionFamiliar: SituacionFamiliarIndividual
-): Decimal => obtenerMinimoPorDiscapacidad(situacionFamiliar.discapacidad)
+  situacionFamiliar: SituacionFamiliarIndividual,
+  minimos: MinimosPersonalesFamiliaresIrpf = MINIMOS_ESTATALES_2025
+): Decimal =>
+  obtenerMinimoPorDiscapacidad(
+    situacionFamiliar.discapacidad,
+    minimos.discapacidad.contribuyente
+  )
 
 export const obtenerMinimoDiscapacidadFamiliares = (
-  familiares: ReadonlyArray<FamiliarFiscal>
+  familiares: ReadonlyArray<FamiliarFiscal>,
+  minimos: MinimosPersonalesFamiliaresIrpf = MINIMOS_ESTATALES_2025
 ): Decimal =>
   familiares.reduce(
     (total, familiar) =>
-      total.plus(obtenerMinimoPorDiscapacidad(familiar.discapacidad)),
+      total.plus(
+        obtenerMinimoPorDiscapacidad(
+          familiar.discapacidad,
+          minimos.discapacidad.descendiente
+        )
+      ),
+    IMPORTE_CERO
+  )
+
+export const obtenerMinimoDiscapacidadAscendientes = (
+  ascendientes: ReadonlyArray<FamiliarFiscal>,
+  minimos: MinimosPersonalesFamiliaresIrpf = MINIMOS_ESTATALES_2025
+): Decimal =>
+  ascendientes.reduce(
+    (total, ascendiente) =>
+      total.plus(
+        obtenerMinimoPorDiscapacidad(
+          ascendiente.discapacidad,
+          minimos.discapacidad.ascendiente
+        )
+      ),
     IMPORTE_CERO
   )
