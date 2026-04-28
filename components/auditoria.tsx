@@ -34,6 +34,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart"
+import { Button } from "@/components/ui/button"
 import {
   configuracionRangoAuditoria,
   auditarProgresividadFrio,
@@ -230,22 +231,24 @@ function AuditoriaImpl() {
               2026.
             </p>
             <div className="flex flex-wrap gap-2 text-sm tracking-[0.22em] uppercase">
-              <button
+              <Button
                 type="button"
                 onClick={() => exportar("educativa")}
                 disabled={exportando !== null}
+                variant="unstyled"
                 className="border-2 border-[var(--rule)] bg-[var(--paper)] px-3 py-2 transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none disabled:opacity-40"
               >
                 ↓ XLSX educativo
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
                 onClick={() => exportar("compatible")}
                 disabled={exportando !== null}
+                variant="unstyled"
                 className="border-2 border-[var(--rule)] bg-[var(--rule)] px-3 py-2 text-[var(--paper)] transition-colors hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none disabled:opacity-40"
               >
                 ↓ XLSX compatible
-              </button>
+              </Button>
             </div>
           </div>
         </section>
@@ -353,13 +356,14 @@ function DialogoExportacionCompatible({
                 >
                   Cancelar
                 </Dialog.Close>
-                <button
+                <Button
                   type="button"
                   onClick={alConfirmarAdvertencia}
+                  variant="unstyled"
                   className="border-2 border-[var(--rule)] bg-[var(--rule)] px-4 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none"
                 >
                   Generar XLSX
-                </button>
+                </Button>
               </div>
             </Dialog.Popup>
           </Dialog.Viewport>
@@ -422,22 +426,24 @@ function DialogoExportacionCompatible({
 
               <div className="flex flex-wrap justify-end gap-2 text-sm tracking-[0.22em] uppercase">
                 {exportando ? (
-                  <button
+                  <Button
                     type="button"
                     onClick={alCancelarGeneracion}
+                    variant="unstyled"
                     className="border-2 border-[var(--rule)] bg-[var(--paper)] px-4 py-2 shadow-[3px_3px_0_0_var(--rule)] transition-[background-color,color,border-color,box-shadow,translate] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:border-[var(--danger)] hover:bg-[var(--danger)] hover:text-[var(--paper)] hover:shadow-[5px_5px_0_0_var(--rule)] focus-visible:-translate-x-0.5 focus-visible:-translate-y-0.5 focus-visible:border-[var(--danger)] focus-visible:bg-[var(--danger)] focus-visible:text-[var(--paper)] focus-visible:shadow-[5px_5px_0_0_var(--rule)] focus-visible:outline-none active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0_0_var(--rule)]"
                   >
                     Cancelar generación
-                  </button>
+                  </Button>
                 ) : null}
                 {puedeCerrarProgreso ? (
-                  <button
+                  <Button
                     type="button"
                     onClick={alCerrarProgreso}
+                    variant="unstyled"
                     className="border-2 border-[var(--rule)] bg-[var(--rule)] px-4 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none"
                   >
                     Cerrar
-                  </button>
+                  </Button>
                 ) : null}
               </div>
             </Dialog.Popup>
@@ -540,12 +546,13 @@ function BarraFiltros({
             {ANIOS_COMPARABLES.map((anio) => {
               const activo = anio === anioComparado
               return (
-                <button
+                <Button
                   key={anio}
                   type="button"
                   role="radio"
                   aria-checked={activo}
                   onClick={() => fijarAnioComparado(anio)}
+                  variant="unstyled"
                   className={cn(
                     "h-12 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
                     "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -555,7 +562,7 @@ function BarraFiltros({
                   )}
                 >
                   {anio}
-                </button>
+                </Button>
               )
             })}
           </div>
@@ -1074,11 +1081,12 @@ function Visualizaciones({
               {aniosTipoEfectivoIrpf.map((anio) => {
                 const activo = aniosGraficoIrpf.includes(anio)
                 return (
-                  <button
+                  <Button
                     key={anio}
                     type="button"
                     aria-pressed={activo}
                     onClick={() => alternarAnioIrpf(anio)}
+                    variant="unstyled"
                     className={cn(
                       "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
                       "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -1093,7 +1101,7 @@ function Visualizaciones({
                     }}
                   >
                     {anio}
-                  </button>
+                  </Button>
                 )
               })}
             </div>
@@ -1204,11 +1212,12 @@ function Visualizaciones({
               {aniosNetoReal.map((anio) => {
                 const activo = aniosGraficoNetoReal.includes(anio)
                 return (
-                  <button
+                  <Button
                     key={anio}
                     type="button"
                     aria-pressed={activo}
                     onClick={() => alternarAnioNetoReal(anio)}
+                    variant="unstyled"
                     className={cn(
                       "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
                       "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -1223,7 +1232,7 @@ function Visualizaciones({
                     }}
                   >
                     {anio}
-                  </button>
+                  </Button>
                 )
               })}
             </div>

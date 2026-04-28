@@ -9,6 +9,7 @@ import { useLocalStorage } from "@uidotdev/usehooks"
 import { Effect } from "effect"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
+import { Button } from "@/components/ui/button"
 import {
   ANIOS_COMPARABLES,
   centimosAEuros,
@@ -326,13 +327,14 @@ function SimuladorImpl() {
                 >
                   Cancelar
                 </Dialog.Close>
-                <button
+                <Button
                   type="button"
                   onClick={confirmarSobrescrituraSlider}
+                  variant="unstyled"
                   className="border-2 border-[var(--rule)] bg-[var(--rule)] px-4 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none"
                 >
                   Usar control rápido
-                </button>
+                </Button>
               </div>
             </Dialog.Popup>
           </Dialog.Viewport>
@@ -431,12 +433,13 @@ function RejillaAnios({
       {ANIOS_COMPARABLES.map((anio) => {
         const activo = anio === valor
         return (
-          <button
+          <Button
             key={anio}
             type="button"
             role="radio"
             aria-checked={activo}
             onClick={() => alCambiar(anio)}
+            variant="unstyled"
             className={cn(
               "h-12 transition-colors",
               "font-[family-name:var(--mono)] text-sm font-bold tracking-wider tabular-nums",
@@ -447,7 +450,7 @@ function RejillaAnios({
             )}
           >
             {anio}
-          </button>
+          </Button>
         )
       })}
     </div>
@@ -576,12 +579,13 @@ function Columnas({
           {opcionesVista.map((opcion) => {
             const activo = modo === opcion.modo
             return (
-              <button
+              <Button
                 key={opcion.modo}
                 type="button"
                 role="tab"
                 aria-selected={activo}
                 onClick={() => fijarModo(opcion.modo)}
+                variant="unstyled"
                 className={cn(
                   "px-3 py-2 transition-colors",
                   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -591,7 +595,7 @@ function Columnas({
                 )}
               >
                 {opcion.etiqueta}
-              </button>
+              </Button>
             )
           })}
         </div>

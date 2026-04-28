@@ -68,7 +68,7 @@ export function Combobox<TValor extends string>({
           role="listbox"
         >
           {opciones.map((opcion) => (
-            <button
+            <Button
               aria-selected={opcion.valor === valor}
               className={cn(
                 "flex min-h-10 w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm hover:bg-[var(--paper-2)]",
@@ -81,12 +81,13 @@ export function Combobox<TValor extends string>({
               }}
               role="option"
               type="button"
+              variant="unstyled"
             >
               <span>{opcion.etiqueta}</span>
               {opcion.valor === valor ? (
                 <Check aria-hidden className="size-4 shrink-0" />
               ) : null}
-            </button>
+            </Button>
           ))}
         </div>
       ) : null}
