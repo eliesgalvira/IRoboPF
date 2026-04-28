@@ -8,8 +8,8 @@ import { AlertTriangle, FileText } from "lucide-react"
 import { NavegacionSitio } from "@/components/navegacion-sitio"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Combobox } from "@/components/ui/combobox"
 import { NumberField } from "@/components/ui/number-field"
+import { Select } from "@/components/ui/select"
 import { Tooltip } from "@/components/ui/tooltip"
 import {
   discapacidad33a64,
@@ -579,7 +579,7 @@ function FormularioCaso({
             paso={1_000}
             valor={gananciaPatrimonialEuros}
           />
-          <Combobox
+          <Select
             compacto
             etiqueta="Tratamiento ganancia"
             onChange={fijarTratamientoGananciaPatrimonial}
@@ -739,45 +739,6 @@ function FormularioCaso({
       </Dialog.Root>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <Combobox
-          compacto
-          etiqueta="Comunidad autónoma"
-          onChange={fijarComunidadAutonoma}
-          opciones={OPCIONES_COMUNIDAD_AUTONOMA}
-          valor={comunidadAutonoma}
-        />
-        {usaComunidadAutonomicaReal ? (
-          <>
-            <NumberField
-              ayuda={AYUDAS_FORMULARIO["Deducciones autonómicas"]}
-              compacto
-              etiqueta="Deducción agregada"
-              formato={FORMATO_ENTERO}
-              onChange={(valor) =>
-                fijarDeduccionAutonomicaManualEuros(
-                  Math.max(0, valor - deduccionesAutonomicasAplicadasEuros)
-                )
-              }
-              paso={100}
-              valor={deduccionesAutonomicasEuros}
-            />
-            <div className="grid gap-2">
-              <div className="flex min-h-10 items-end">
-                <p className="text-sm leading-tight font-bold">
-                  Deducciones autonómicas
-                </p>
-              </div>
-              <Button
-                className="h-9 w-full border border-[var(--rule)] bg-[var(--paper-2)] px-3 text-left text-sm font-bold hover:bg-[var(--paper)]"
-                onClick={() => fijarCatalogoDeduccionesAbierto(true)}
-                type="button"
-                variant="unstyled"
-              >
-                Aplicar
-              </Button>
-            </div>
-          </>
-        ) : null}
         <NumberField
           compacto
           etiqueta="Edad"
@@ -857,6 +818,59 @@ function FormularioCaso({
           onChange={fijarAscendientes}
           valor={ascendientes}
         />
+      </div>
+
+      <div className="mt-5">
+        <Select
+          compacto
+          etiqueta="Comunidad autónoma"
+          onChange={fijarComunidadAutonoma}
+          opciones={OPCIONES_COMUNIDAD_AUTONOMA}
+          valor={comunidadAutonoma}
+        />
+        <div
+          aria-hidden={!usaComunidadAutonomicaReal}
+          inert={!usaComunidadAutonomicaReal}
+          className={cn(
+            "grid transition-[grid-template-rows,opacity,margin-top] duration-200 ease-out motion-reduce:transition-none",
+            usaComunidadAutonomicaReal
+              ? "mt-3 grid-rows-[1fr] opacity-100"
+              : "mt-0 grid-rows-[0fr] opacity-0"
+          )}
+        >
+          <div className="min-h-0 overflow-hidden">
+            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)]">
+              <NumberField
+                ayuda={AYUDAS_FORMULARIO["Deducciones autonómicas"]}
+                compacto
+                etiqueta="Deducción agregada"
+                formato={FORMATO_ENTERO}
+                onChange={(valor) =>
+                  fijarDeduccionAutonomicaManualEuros(
+                    Math.max(0, valor - deduccionesAutonomicasAplicadasEuros)
+                  )
+                }
+                paso={100}
+                valor={deduccionesAutonomicasEuros}
+              />
+              <div className="grid gap-2">
+                <div className="flex min-h-10 items-end">
+                  <p className="text-sm leading-tight font-bold">
+                    Deducciones autonómicas
+                  </p>
+                </div>
+                <Button
+                  className="h-9 w-full border border-[var(--rule)] bg-[var(--paper-2)] px-3 text-left text-sm font-bold hover:bg-[var(--paper)]"
+                  onClick={() => fijarCatalogoDeduccionesAbierto(true)}
+                  type="button"
+                  variant="unstyled"
+                >
+                  Aplicar
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -987,7 +1001,7 @@ function ControlesDeduccionAutonomica({
   if (codigo === "andalucia_familia_numerosa") {
     return (
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <Combobox
+        <Select
           compacto
           etiqueta="Categoría"
           onChange={(valor) =>
@@ -1085,7 +1099,7 @@ function ControlesDeduccionAutonomica({
           euros: true,
           paso: 500,
         })}
-        <Combobox
+        <Select
           compacto
           etiqueta="Régimen"
           onChange={(valor) =>
@@ -1148,7 +1162,7 @@ function ControlesDeduccionAutonomica({
   if (codigo === "canarias_nacimiento_adopcion_hijos") {
     return (
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <Combobox
+        <Select
           compacto
           etiqueta="Orden del hijo"
           onChange={(valor) =>
@@ -1194,7 +1208,7 @@ function ControlesDeduccionAutonomica({
   if (codigo === "canarias_familia_numerosa") {
     return (
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <Combobox
+        <Select
           compacto
           etiqueta="Categoría"
           onChange={(valor) =>
@@ -1243,7 +1257,7 @@ function ControlesDeduccionAutonomica({
   if (codigo === "clm_familia_numerosa") {
     return (
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <Combobox
+        <Select
           compacto
           etiqueta="Categoría"
           onChange={(valor) => actualizar("clmCategoriaFamiliaNumerosa", valor)}
