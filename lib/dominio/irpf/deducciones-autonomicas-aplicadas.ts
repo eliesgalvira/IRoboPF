@@ -111,138 +111,641 @@ export type ControlDeduccionAutonomica =
       readonly importeEsperadoPrueba: number
     }
 
-export const CONTROLES_DEDUCCIONES_ESPECIFICAS = {
-  andalucia_nacimiento_adopcion_acogimiento_menores: {
-    andaluciaHijosNacimientoAdopcion: 1,
+type FormulaDeduccionEspecificaAutonomica =
+  | { readonly tipo: "calculo_existente" }
+  | {
+      readonly tipo: "importe_manual"
+      readonly importeEsperadoPrueba: number
+    }
+
+type DeduccionEspecificaAutonomica<Codigo extends string = string> = {
+  readonly codigo: Codigo
+  readonly entradasPrueba: EntradasDeduccionesAutonomicas
+  readonly importeEsperadoPrueba: number
+  readonly formula: FormulaDeduccionEspecificaAutonomica
+}
+
+const deduccionEspecificaControl = <const Codigo extends string>({
+  codigo,
+  entradasPrueba,
+  importeEsperadoPrueba,
+}: {
+  readonly codigo: Codigo
+  readonly entradasPrueba: EntradasDeduccionesAutonomicas
+  readonly importeEsperadoPrueba: number
+}): DeduccionEspecificaAutonomica<Codigo> => ({
+  codigo,
+  entradasPrueba,
+  importeEsperadoPrueba,
+  formula: { tipo: "calculo_existente" },
+})
+
+const deduccionEspecificaManual = <const Codigo extends string>({
+  codigo,
+  importeEsperadoPrueba = 123,
+}: {
+  readonly codigo: Codigo
+  readonly importeEsperadoPrueba?: number
+}): DeduccionEspecificaAutonomica<Codigo> => ({
+  codigo,
+  entradasPrueba: {
+    [`${codigo}:cumple`]: true,
+    [`${codigo}:importe`]: importeEsperadoPrueba,
   },
-  andalucia_familia_monoparental_ascendientes_mayores_75: {
-    andaluciaFamiliaMonoparental: true,
-    andaluciaAscendientesMayores75: 1,
+  importeEsperadoPrueba,
+  formula: {
+    tipo: "importe_manual",
+    importeEsperadoPrueba,
   },
-  andalucia_adopcion_internacional: {
-    andaluciaHijosAdopcionInternacional: 1,
-    andaluciaAdopcionInternacionalCumpleLimites: true,
-  },
-  andalucia_familia_numerosa: {
-    andaluciaCategoriaFamiliaNumerosa: "general",
-    andaluciaFamiliaNumerosaCumpleLimites: true,
-  },
-  andalucia_contribuyente_discapacidad: {
-    andaluciaContribuyenteDiscapacidad: true,
-    andaluciaContribuyenteDiscapacidadCumpleLimites: true,
-  },
-  andalucia_conyuge_pareja_discapacidad: {
-    andaluciaConyugeParejaDiscapacidad65: true,
-    andaluciaConyugeParejaDiscapacidadCumpleRequisitos: true,
-  },
-  andalucia_asistencia_personas_discapacidad: {
-    andaluciaPersonasDiscapacidadConMinimo: 1,
-    andaluciaAsistenciaDiscapacidadCumpleLimites: true,
-  },
-  andalucia_ayuda_domestica: {
-    andaluciaCuotasAyudaDomestica: 1000,
-    andaluciaAyudaDomesticaCumpleRequisitos: true,
-  },
-  andalucia_inversion_acciones_participaciones_mercantiles: {
-    andaluciaInversionAccionesImporte: 1000,
-    andaluciaInversionAccionesCumpleRequisitos: true,
-  },
-  aragon_nacimiento_adopcion_tercer_hijo_sucesivos: {
-    aragonTercerHijoSucesivos: 1,
-  },
-  aragon_cuidado_personas_dependientes: {
-    aragonPersonasDependientes: 1,
-    aragonDependientesCumpleLimites: true,
-  },
-  aragon_mayores_70: {
-    aragonMayor70CumpleRequisitos: true,
-  },
-  canarias_nacimiento_adopcion_hijos: {
-    canariasHijosNacimientoAdopcion: 1,
-    canariasNacimientoCumpleLimites: true,
-  },
-  canarias_discapacidad_mayores_65: {
-    canariasContribuyenteDiscapacidad33: true,
-    canariasDiscapacidadMayoresCumpleLimites: true,
-  },
-  canarias_familia_numerosa: {
-    canariasCategoriaFamiliaNumerosa: "general",
-  },
-  canarias_contribuyentes_desempleados: {
-    canariasDesempleadoCumpleRequisitos: true,
-  },
-  clm_nacimiento_adopcion_hijos: {
-    clmPartosAdopcionesUnHijo: 1,
-    clmNacimientoCumpleLimites: true,
-  },
-  clm_familia_numerosa: {
-    clmCategoriaFamiliaNumerosa: "general",
-    clmFamiliaNumerosaCumpleLimites: true,
-  },
-  clm_discapacidad_contribuyente: {
-    clmContribuyenteDiscapacidad65: true,
-    clmDiscapacidadContribuyenteCumpleLimites: true,
-  },
-  clm_discapacidad_ascendientes_descendientes: {
-    clmAscDescDiscapacidad65: 1,
-    clmAscDescDiscapacidadCumpleLimites: true,
-  },
-  madrid_nacimiento_adopcion_hijos: {
-    madridHijosNacimientoAdopcion: 1,
-  },
-  cataluna_viudedad_2023_2024_2025: {
-    catalunyaViudedad: true,
-  },
-  cataluna_rehabilitacion_vivienda_habitual: {
-    catalunyaRehabilitacionVivienda: 1000,
-  },
-  cataluna_intereses_prestamos_master_doctorado: {
-    catalunyaInteresesMasterDoctorado: 100,
-  },
-  cataluna_alquiler_victimas_violencia_machista: {
-    catalunyaAlquilerVictima: 1000,
-    catalunyaVictimaViolenciaMachista: true,
-  },
-  cataluna_inversion_cooperativas_agrarias_vivienda: {
-    catalunyaAportacionesCooperativas: 1000,
-  },
-} as const satisfies Record<string, EntradasDeduccionesAutonomicas>
+})
+
+export const ANDALUCIA_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaControl({
+    codigo: "andalucia_nacimiento_adopcion_acogimiento_menores",
+    entradasPrueba: {
+      andaluciaHijosNacimientoAdopcion: 1,
+    },
+    importeEsperadoPrueba: 200,
+  }),
+  deduccionEspecificaControl({
+    codigo: "andalucia_familia_monoparental_ascendientes_mayores_75",
+    entradasPrueba: {
+      andaluciaFamiliaMonoparental: true,
+      andaluciaAscendientesMayores75: 1,
+    },
+    importeEsperadoPrueba: 200,
+  }),
+  deduccionEspecificaControl({
+    codigo: "andalucia_adopcion_internacional",
+    entradasPrueba: {
+      andaluciaHijosAdopcionInternacional: 1,
+      andaluciaAdopcionInternacionalCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 600,
+  }),
+  deduccionEspecificaControl({
+    codigo: "andalucia_familia_numerosa",
+    entradasPrueba: {
+      andaluciaCategoriaFamiliaNumerosa: "general",
+      andaluciaFamiliaNumerosaCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 200,
+  }),
+  deduccionEspecificaControl({
+    codigo: "andalucia_contribuyente_discapacidad",
+    entradasPrueba: {
+      andaluciaContribuyenteDiscapacidad: true,
+      andaluciaContribuyenteDiscapacidadCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 150,
+  }),
+  deduccionEspecificaControl({
+    codigo: "andalucia_conyuge_pareja_discapacidad",
+    entradasPrueba: {
+      andaluciaConyugeParejaDiscapacidad65: true,
+      andaluciaConyugeParejaDiscapacidadCumpleRequisitos: true,
+    },
+    importeEsperadoPrueba: 100,
+  }),
+  deduccionEspecificaControl({
+    codigo: "andalucia_asistencia_personas_discapacidad",
+    entradasPrueba: {
+      andaluciaPersonasDiscapacidadConMinimo: 1,
+      andaluciaAsistenciaDiscapacidadCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 100,
+  }),
+  deduccionEspecificaControl({
+    codigo: "andalucia_ayuda_domestica",
+    entradasPrueba: {
+      andaluciaCuotasAyudaDomestica: 1000,
+      andaluciaAyudaDomesticaCumpleRequisitos: true,
+    },
+    importeEsperadoPrueba: 200,
+  }),
+  deduccionEspecificaControl({
+    codigo: "andalucia_inversion_acciones_participaciones_mercantiles",
+    entradasPrueba: {
+      andaluciaInversionAccionesImporte: 1000,
+      andaluciaInversionAccionesCumpleRequisitos: true,
+    },
+    importeEsperadoPrueba: 200,
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const ARAGON_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaControl({
+    codigo: "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+    entradasPrueba: {
+      aragonTercerHijoSucesivos: 1,
+    },
+    importeEsperadoPrueba: 500,
+  }),
+  deduccionEspecificaControl({
+    codigo: "aragon_cuidado_personas_dependientes",
+    entradasPrueba: {
+      aragonPersonasDependientes: 1,
+      aragonDependientesCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 150,
+  }),
+  deduccionEspecificaControl({
+    codigo: "aragon_mayores_70",
+    entradasPrueba: {
+      aragonMayor70CumpleRequisitos: true,
+    },
+    importeEsperadoPrueba: 75,
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const ASTURIAS_DEDUCCIONES_ESPECIFICAS_2025 =
+  [] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const BALEARS_DEDUCCIONES_ESPECIFICAS_2025 =
+  [] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const CANARIAS_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaControl({
+    codigo: "canarias_nacimiento_adopcion_hijos",
+    entradasPrueba: {
+      canariasHijosNacimientoAdopcion: 1,
+      canariasNacimientoCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 265,
+  }),
+  deduccionEspecificaControl({
+    codigo: "canarias_discapacidad_mayores_65",
+    entradasPrueba: {
+      canariasContribuyenteDiscapacidad33: true,
+      canariasDiscapacidadMayoresCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 400,
+  }),
+  deduccionEspecificaControl({
+    codigo: "canarias_familia_numerosa",
+    entradasPrueba: {
+      canariasCategoriaFamiliaNumerosa: "general",
+    },
+    importeEsperadoPrueba: 597,
+  }),
+  deduccionEspecificaControl({
+    codigo: "canarias_contribuyentes_desempleados",
+    entradasPrueba: {
+      canariasDesempleadoCumpleRequisitos: true,
+    },
+    importeEsperadoPrueba: 120,
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const CANTABRIA_DEDUCCIONES_ESPECIFICAS_2025 =
+  [] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const CLM_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaControl({
+    codigo: "clm_nacimiento_adopcion_hijos",
+    entradasPrueba: {
+      clmPartosAdopcionesUnHijo: 1,
+      clmNacimientoCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 100,
+  }),
+  deduccionEspecificaControl({
+    codigo: "clm_familia_numerosa",
+    entradasPrueba: {
+      clmCategoriaFamiliaNumerosa: "general",
+      clmFamiliaNumerosaCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 200,
+  }),
+  deduccionEspecificaControl({
+    codigo: "clm_discapacidad_contribuyente",
+    entradasPrueba: {
+      clmContribuyenteDiscapacidad65: true,
+      clmDiscapacidadContribuyenteCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 300,
+  }),
+  deduccionEspecificaControl({
+    codigo: "clm_discapacidad_ascendientes_descendientes",
+    entradasPrueba: {
+      clmAscDescDiscapacidad65: 1,
+      clmAscDescDiscapacidadCumpleLimites: true,
+    },
+    importeEsperadoPrueba: 300,
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const CYL_DEDUCCIONES_ESPECIFICAS_2025 =
+  [] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const CATALUNYA_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaControl({
+    codigo: "cataluna_viudedad_2023_2024_2025",
+    entradasPrueba: {
+      catalunyaViudedad: true,
+    },
+    importeEsperadoPrueba: 150,
+  }),
+  deduccionEspecificaControl({
+    codigo: "cataluna_rehabilitacion_vivienda_habitual",
+    entradasPrueba: {
+      catalunyaRehabilitacionVivienda: 1000,
+    },
+    importeEsperadoPrueba: 15,
+  }),
+  deduccionEspecificaControl({
+    codigo: "cataluna_intereses_prestamos_master_doctorado",
+    entradasPrueba: {
+      catalunyaInteresesMasterDoctorado: 100,
+    },
+    importeEsperadoPrueba: 100,
+  }),
+  deduccionEspecificaControl({
+    codigo: "cataluna_alquiler_victimas_violencia_machista",
+    entradasPrueba: {
+      catalunyaAlquilerVictima: 1000,
+      catalunyaVictimaViolenciaMachista: true,
+    },
+    importeEsperadoPrueba: 200,
+  }),
+  deduccionEspecificaControl({
+    codigo: "cataluna_inversion_cooperativas_agrarias_vivienda",
+    entradasPrueba: {
+      catalunyaAportacionesCooperativas: 1000,
+    },
+    importeEsperadoPrueba: 200,
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const EXTREMADURA_DEDUCCIONES_ESPECIFICAS_2025 =
+  [] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const GALICIA_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaManual({ codigo: "galicia_familias_dos_hijos" }),
+  deduccionEspecificaManual({ codigo: "galicia_acogimiento_menores" }),
+  deduccionEspecificaManual({ codigo: "galicia_cuidado_hijos_menores" }),
+  deduccionEspecificaManual({
+    codigo: "galicia_discapacidad_mayor_65_ayuda_terceras_personas",
+  }),
+  deduccionEspecificaManual({ codigo: "galicia_nuevas_tecnologias_hogares" }),
+  deduccionEspecificaManual({
+    codigo: "galicia_inversion_entidades_nuevas_reciente_creacion",
+  }),
+  deduccionEspecificaManual({
+    codigo: "galicia_inversion_entidades_nuevas_financiacion",
+  }),
+  deduccionEspecificaManual({ codigo: "galicia_inversion_mab" }),
+  deduccionEspecificaManual({ codigo: "galicia_donaciones_idi" }),
+  deduccionEspecificaManual({
+    codigo: "galicia_climatizacion_agua_caliente_renovables",
+  }),
+  deduccionEspecificaManual({
+    codigo: "galicia_rehabilitacion_centros_historicos",
+  }),
+  deduccionEspecificaManual({ codigo: "galicia_inversion_empresas_agrarias" }),
+  deduccionEspecificaManual({
+    codigo: "galicia_ayudas_incendios_peifoga_2025",
+  }),
+  deduccionEspecificaManual({ codigo: "galicia_obras_eficiencia_energetica" }),
+  deduccionEspecificaManual({
+    codigo: "galicia_ayudas_deportistas_alto_nivel",
+  }),
+  deduccionEspecificaManual({ codigo: "galicia_aldeas_modelo" }),
+  deduccionEspecificaManual({
+    codigo: "galicia_inversion_proyectos_especial_interes",
+  }),
+  deduccionEspecificaManual({
+    codigo: "galicia_adecuacion_inmueble_vacio_arrendamiento",
+  }),
+  deduccionEspecificaManual({
+    codigo: "galicia_arrendamiento_viviendas_vacias",
+  }),
+  deduccionEspecificaManual({ codigo: "galicia_ayudas_ela_fenotipos" }),
+  deduccionEspecificaManual({
+    codigo: "galicia_libros_texto_material_escolar",
+  }),
+  deduccionEspecificaManual({ codigo: "galicia_ayudas_talidomida" }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const MADRID_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaControl({
+    codigo: "madrid_nacimiento_adopcion_hijos",
+    entradasPrueba: {
+      madridHijosNacimientoAdopcion: 1,
+    },
+    importeEsperadoPrueba: 721.7,
+  }),
+  deduccionEspecificaManual({ codigo: "madrid_adopcion_internacional" }),
+  deduccionEspecificaManual({ codigo: "madrid_acogimiento_familiar_menores" }),
+  deduccionEspecificaManual({
+    codigo: "madrid_acogimiento_mayores_65_discapacidad",
+  }),
+  deduccionEspecificaManual({ codigo: "madrid_cuidado_ascendientes" }),
+  deduccionEspecificaManual({
+    codigo: "madrid_gastos_arrendamiento_viviendas",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_arrendamiento_viviendas_vacias",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_donativos_fundaciones_clubes_deportivos",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_incremento_costes_financiacion_vivienda",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_cambio_residencia_municipio_despoblacion",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_vivienda_municipios_despoblacion",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_cuidado_hijos_mayores_dependientes_discapacidad",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_intereses_vivienda_jovenes_menores_30",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_intereses_estudios_grado_master_doctorado",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_vivienda_nacimiento_adopcion_hijos",
+  }),
+  deduccionEspecificaManual({ codigo: "madrid_condicion_familia_numerosa" }),
+  deduccionEspecificaManual({
+    codigo: "madrid_familias_dos_descendientes_ingresos_reducidos",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_inversion_entidades_nuevas_reciente_creacion",
+  }),
+  deduccionEspecificaManual({ codigo: "madrid_autoempleo_jovenes_menores_35" }),
+  deduccionEspecificaManual({
+    codigo: "madrid_inversiones_mercado_alternativo_bursatil",
+  }),
+  deduccionEspecificaManual({
+    codigo: "madrid_inversiones_nuevos_contribuyentes_extranjero",
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const MURCIA_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaManual({ codigo: "murcia_vivienda_jovenes_hasta_40" }),
+  deduccionEspecificaManual({
+    codigo: "murcia_donativos_patrimonio_cultural_actividades",
+  }),
+  deduccionEspecificaManual({
+    codigo: "murcia_donativos_investigacion_biosanitaria",
+  }),
+  deduccionEspecificaManual({
+    codigo: "murcia_donaciones_bienes_patrimonio_cultural",
+  }),
+  deduccionEspecificaManual({ codigo: "murcia_dispositivos_ahorro_agua" }),
+  deduccionEspecificaManual({
+    codigo: "murcia_instalaciones_recursos_energeticos_renovables",
+  }),
+  deduccionEspecificaManual({
+    codigo: "murcia_inversion_entidades_nuevas_reciente_creacion",
+  }),
+  deduccionEspecificaManual({ codigo: "murcia_inversion_mab" }),
+  deduccionEspecificaManual({ codigo: "murcia_material_escolar_libros_texto" }),
+  deduccionEspecificaManual({ codigo: "murcia_nacimiento_adopcion" }),
+  deduccionEspecificaManual({ codigo: "murcia_contribuyentes_discapacidad" }),
+  deduccionEspecificaManual({ codigo: "murcia_conciliacion" }),
+  deduccionEspecificaManual({
+    codigo: "murcia_acogimiento_mayores_65_discapacidad",
+  }),
+  deduccionEspecificaManual({ codigo: "murcia_mujeres_trabajadoras" }),
+  deduccionEspecificaManual({
+    codigo: "murcia_nueva_vivienda_o_ampliacion_familias_numerosas",
+  }),
+  deduccionEspecificaManual({ codigo: "murcia_familia_monoparental" }),
+  deduccionEspecificaManual({ codigo: "murcia_ensenanza_idiomas" }),
+  deduccionEspecificaManual({ codigo: "murcia_acceso_internet" }),
+  deduccionEspecificaManual({ codigo: "murcia_vehiculos_electricos" }),
+  deduccionEspecificaManual({ codigo: "murcia_recarga_vehiculos_electricos" }),
+  deduccionEspecificaManual({
+    codigo: "murcia_cristales_lentes_soluciones_limpieza",
+  }),
+  deduccionEspecificaManual({
+    codigo: "murcia_deporte_actividades_saludables",
+  }),
+  deduccionEspecificaManual({ codigo: "murcia_enfermedades_raras" }),
+  deduccionEspecificaManual({ codigo: "murcia_inversion_economia_social" }),
+  deduccionEspecificaManual({
+    codigo: "murcia_regimen_transitorio_inversion_vivienda_habitual",
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const RIOJA_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaManual({
+    codigo: "rioja_vivienda_habitual_pequenos_municipios",
+  }),
+  deduccionEspecificaManual({
+    codigo: "rioja_escuelas_infantiles_pequenos_municipios",
+  }),
+  deduccionEspecificaManual({
+    codigo: "rioja_menor_acogimiento_guarda_adopcion",
+  }),
+  deduccionEspecificaManual({ codigo: "rioja_hijo_0_3_pequenos_municipios" }),
+  deduccionEspecificaManual({ codigo: "rioja_hijo_0_3_escolarizado" }),
+  deduccionEspecificaManual({ codigo: "rioja_vehiculos_electricos_nuevos" }),
+  deduccionEspecificaManual({
+    codigo: "rioja_fijacion_poblacion_ocupada_medio_rural",
+  }),
+  deduccionEspecificaManual({ codigo: "rioja_internet_jovenes_emancipados" }),
+  deduccionEspecificaManual({ codigo: "rioja_luz_gas_jovenes_emancipados" }),
+  deduccionEspecificaManual({
+    codigo: "rioja_inversion_vivienda_jovenes_menores_36",
+  }),
+  deduccionEspecificaManual({ codigo: "rioja_bicicletas_pedaleo_no_asistido" }),
+  deduccionEspecificaManual({
+    codigo: "rioja_obras_rehabilitacion_vivienda_habitual",
+  }),
+  deduccionEspecificaManual({
+    codigo: "rioja_adquisicion_construccion_vivienda_jovenes",
+  }),
+  deduccionEspecificaManual({ codigo: "rioja_segunda_vivienda_medio_rural" }),
+  deduccionEspecificaManual({
+    codigo: "rioja_adecuacion_vivienda_discapacidad",
+  }),
+  deduccionEspecificaManual({ codigo: "rioja_donaciones_fomento_mecenazgo" }),
+  deduccionEspecificaManual({
+    codigo: "rioja_cantidades_patrimonio_historico",
+  }),
+  deduccionEspecificaManual({ codigo: "rioja_ejercicio_fisico_deporte" }),
+  deduccionEspecificaManual({ codigo: "rioja_enfermos_ela" }),
+  deduccionEspecificaManual({
+    codigo: "rioja_cuotas_organizaciones_profesionales_agrarias",
+  }),
+  deduccionEspecificaManual({
+    codigo: "rioja_paliar_subida_intereses_hipotecarios",
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const VALENCIANA_DEDUCCIONES_ESPECIFICAS_2025 = [
+  deduccionEspecificaManual({
+    codigo: "valenciana_nacimiento_adopcion_multiples",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_nacimiento_adopcion_acogimiento_discapacidad",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_familia_numerosa_monoparental",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_custodia_guarderias_menores_3",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_conciliacion_trabajo_familia",
+  }),
+  deduccionEspecificaManual({ codigo: "valenciana_discapacidad_65" }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_empleados_hogar_cuidado_personas",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_arrendador_renta_precio_referencia",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_primera_vivienda_menores_35",
+  }),
+  deduccionEspecificaManual({ codigo: "valenciana_vivienda_discapacidad" }),
+  deduccionEspecificaManual({ codigo: "valenciana_vivienda_ayudas_publicas" }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_arrendamiento_actividad_distinto_municipio",
+  }),
+  deduccionEspecificaManual({ codigo: "valenciana_autoconsumo_renovables" }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_donaciones_finalidad_ecologica",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_donaciones_bienes_patrimonio_cultural",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_donativos_conservacion_patrimonio_cultural",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_conservacion_patrimonio_cultural_titulares",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_donaciones_lengua_valenciana",
+  }),
+  deduccionEspecificaManual({
+    codigo:
+      "valenciana_donaciones_cesiones_fines_culturales_cientificos_deportivos",
+  }),
+  deduccionEspecificaManual({ codigo: "valenciana_dos_o_mas_descendientes" }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_incremento_costes_financiacion_vivienda",
+  }),
+  deduccionEspecificaManual({ codigo: "valenciana_material_escolar" }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_obras_conservacion_mejora_periodo",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_obras_conservacion_mejora_2014_2015",
+  }),
+  deduccionEspecificaManual({ codigo: "valenciana_abonos_culturales" }),
+  deduccionEspecificaManual({ codigo: "valenciana_vehiculos_orden_5_2020" }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_inversion_entidades_nuevas_reciente_creacion",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_municipio_riesgo_despoblamiento",
+  }),
+  deduccionEspecificaManual({ codigo: "valenciana_tratamientos_fertilidad" }),
+  deduccionEspecificaManual({ codigo: "valenciana_gastos_salud" }),
+  deduccionEspecificaManual({ codigo: "valenciana_fomento_formacion_musical" }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_ayudas_publicas_erte_covid",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_donaciones_covid_investigacion",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_donaciones_covid_gastos_crisis_sanitaria",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_dana_danos_materiales_vivienda_habitual",
+  }),
+  deduccionEspecificaManual({
+    codigo: "valenciana_dana_aportaciones_fondos_propios_entidades",
+  }),
+] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const CEUTA_DEDUCCIONES_ESPECIFICAS_2025 =
+  [] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const MELILLA_DEDUCCIONES_ESPECIFICAS_2025 =
+  [] as const satisfies ReadonlyArray<DeduccionEspecificaAutonomica>
+
+export const DEDUCCIONES_ESPECIFICAS_AUTONOMICAS_2025 = {
+  andalucia: ANDALUCIA_DEDUCCIONES_ESPECIFICAS_2025,
+  aragon: ARAGON_DEDUCCIONES_ESPECIFICAS_2025,
+  asturias: ASTURIAS_DEDUCCIONES_ESPECIFICAS_2025,
+  "illes-balears": BALEARS_DEDUCCIONES_ESPECIFICAS_2025,
+  canarias: CANARIAS_DEDUCCIONES_ESPECIFICAS_2025,
+  cantabria: CANTABRIA_DEDUCCIONES_ESPECIFICAS_2025,
+  "castilla-la-mancha": CLM_DEDUCCIONES_ESPECIFICAS_2025,
+  "castilla-y-leon": CYL_DEDUCCIONES_ESPECIFICAS_2025,
+  catalunya: CATALUNYA_DEDUCCIONES_ESPECIFICAS_2025,
+  extremadura: EXTREMADURA_DEDUCCIONES_ESPECIFICAS_2025,
+  galicia: GALICIA_DEDUCCIONES_ESPECIFICAS_2025,
+  madrid: MADRID_DEDUCCIONES_ESPECIFICAS_2025,
+  murcia: MURCIA_DEDUCCIONES_ESPECIFICAS_2025,
+  "la-rioja": RIOJA_DEDUCCIONES_ESPECIFICAS_2025,
+  "comunitat-valenciana": VALENCIANA_DEDUCCIONES_ESPECIFICAS_2025,
+  ceuta: CEUTA_DEDUCCIONES_ESPECIFICAS_2025,
+  melilla: MELILLA_DEDUCCIONES_ESPECIFICAS_2025,
+} as const
+const deduccionesEspecificasAutonomicas = Object.values(
+  DEDUCCIONES_ESPECIFICAS_AUTONOMICAS_2025
+).flat()
+
+const deduccionesEspecificasAutonomicasPorCodigo: ReadonlyMap<
+  string,
+  DeduccionEspecificaAutonomica
+> = new Map(
+  deduccionesEspecificasAutonomicas.map((deduccion) => [
+    deduccion.codigo,
+    deduccion,
+  ])
+)
+
+export const CONTROLES_DEDUCCIONES_ESPECIFICAS = Object.fromEntries(
+  deduccionesEspecificasAutonomicas.map((deduccion) => [
+    deduccion.codigo,
+    deduccion.entradasPrueba,
+  ])
+) as Record<string, EntradasDeduccionesAutonomicas>
+
+const IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS = Object.fromEntries(
+  deduccionesEspecificasAutonomicas.map((deduccion) => [
+    deduccion.codigo,
+    deduccion.importeEsperadoPrueba,
+  ])
+) as Record<string, number>
+
+export const calcularDeduccionEspecificaAutonomica = (
+  codigo: string,
+  entradas: EntradasDeduccionesAutonomicas
+): number | null => {
+  const deduccion = deduccionesEspecificasAutonomicasPorCodigo.get(codigo)
+  if (!deduccion || deduccion.formula.tipo === "calculo_existente") return null
+
+  if (!booleanoDeduccion(entradas, `${deduccion.codigo}:cumple`)) return 0
+
+  switch (deduccion.formula.tipo) {
+    case "importe_manual":
+      return (
+        Math.round(
+          numeroDeduccion(entradas, `${deduccion.codigo}:importe`) * 100
+        ) / 100
+      )
+  }
+}
 
 export const CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO = new Set(
   Object.keys(CONTROLES_DEDUCCIONES_ESPECIFICAS)
 )
-
-const IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS = {
-  andalucia_nacimiento_adopcion_acogimiento_menores: 200,
-  andalucia_familia_monoparental_ascendientes_mayores_75: 200,
-  andalucia_adopcion_internacional: 600,
-  andalucia_familia_numerosa: 200,
-  andalucia_contribuyente_discapacidad: 150,
-  andalucia_conyuge_pareja_discapacidad: 100,
-  andalucia_asistencia_personas_discapacidad: 100,
-  andalucia_ayuda_domestica: 200,
-  andalucia_inversion_acciones_participaciones_mercantiles: 200,
-  aragon_nacimiento_adopcion_tercer_hijo_sucesivos: 500,
-  aragon_cuidado_personas_dependientes: 150,
-  aragon_mayores_70: 75,
-  canarias_nacimiento_adopcion_hijos: 265,
-  canarias_discapacidad_mayores_65: 400,
-  canarias_familia_numerosa: 597,
-  canarias_contribuyentes_desempleados: 120,
-  clm_nacimiento_adopcion_hijos: 100,
-  clm_familia_numerosa: 200,
-  clm_discapacidad_contribuyente: 300,
-  clm_discapacidad_ascendientes_descendientes: 300,
-  madrid_nacimiento_adopcion_hijos: 721.7,
-  cataluna_viudedad_2023_2024_2025: 150,
-  cataluna_rehabilitacion_vivienda_habitual: 15,
-  cataluna_intereses_prestamos_master_doctorado: 100,
-  cataluna_alquiler_victimas_violencia_machista: 200,
-  cataluna_inversion_cooperativas_agrarias_vivienda: 200,
-} as const satisfies Record<
-  keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS,
-  number
->
 
 const entradasCon = (
   entradas: EntradasDeduccionesAutonomicas
@@ -299,6 +802,12 @@ const calcularDeduccionGenerica = (
   deduccion: FichaDeduccionAutonomica,
   entradas: EntradasDeduccionesAutonomicas
 ): number => {
+  const deduccionFinal = calcularDeduccionEspecificaAutonomica(
+    deduccion.codigo,
+    entradas
+  )
+  if (deduccionFinal !== null) return deduccionFinal
+
   if (CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO.has(deduccion.codigo)) {
     return 0
   }
