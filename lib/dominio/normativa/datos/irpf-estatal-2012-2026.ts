@@ -1,4 +1,5 @@
 import type Decimal from "decimal.js"
+import { Match } from "effect"
 
 import { crearImporteMonetario } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../anio-fiscal"
@@ -118,21 +119,19 @@ export const TRAMOS_IRPF_AHORRO_2025: TramosIrpf = [
   [importe(Infinity), importe("0.30")],
 ]
 
-export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf => {
-  if (anio <= 2014) {
-    return TRAMOS_IRPF_HASTA_2014
-  }
-
-  if (anio === 2015) {
-    return TRAMOS_IRPF_2015
-  }
-
-  if (anio <= 2020) {
-    return TRAMOS_IRPF_2016_A_2020
-  }
-
-  return TRAMOS_IRPF_DESDE_2021
-}
+export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
+  Match.value(anio).pipe(
+    Match.when(
+      (anio) => anio <= 2014,
+      () => TRAMOS_IRPF_HASTA_2014
+    ),
+    Match.when(2015, () => TRAMOS_IRPF_2015),
+    Match.when(
+      (anio) => anio <= 2020,
+      () => TRAMOS_IRPF_2016_A_2020
+    ),
+    Match.orElse(() => TRAMOS_IRPF_DESDE_2021)
+  )
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
   void anio
