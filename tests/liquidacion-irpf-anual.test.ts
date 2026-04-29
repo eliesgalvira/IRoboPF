@@ -131,6 +131,65 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it.effect(
+    "resta la retencion estimada y la incorpora al rastro general",
+    () =>
+      Effect.gen(function* () {
+        const caso = {
+          anio: 2025,
+          comunidadAutonoma: "simulada-estatal",
+          situacionFamiliar: {
+            tipo: "individual",
+            edad: 40,
+            descendientes: [],
+            ascendientes: [],
+            discapacidad: sinDiscapacidad,
+          },
+          rendimientos: {
+            trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+          },
+          reducciones: [],
+          deducciones: [],
+          retencionesSoportadasCentimos: 0,
+          pagosACuentaCentimos: 0,
+          retencionTrabajoAeat: {
+            anio: 2025,
+            edad: 40,
+            retribucionAnualCentimos: 30_000_00,
+            cotizacionesCentimos: 1_944_00,
+            situacionFamiliar: "situacion3",
+            situacionLaboral: "activo",
+            contrato: "general",
+            discapacidad: "sin-discapacidad",
+            movilidadGeografica: false,
+            descendientes: [],
+            ascendientes: [],
+            irregular1Centimos: 0,
+            irregular2Centimos: 0,
+            pensionCompensatoriaConyugeCentimos: 0,
+            anualidadesAlimentosHijosCentimos: 0,
+            residenciaCeutaMelilla: false,
+            rendimientosCeutaMelilla: false,
+            pagosViviendaHabitual: false,
+          },
+        } satisfies CasoFiscalAnual
+
+        const resultado = yield* liquidarIrpfAnual(caso, { modo: "canonico" })
+
+        expect(resultado).toMatchObject({
+          _tag: "LiquidacionIrpfAnualCalculada",
+          cuotaLiquidaCentimos: 492_780,
+          retencionesYPagosACuentaCentimos: 492_600,
+          cuotaDiferencialCentimos: 180,
+        })
+        expect(
+          resultado.rastro.pasos.some(
+            (paso) => paso.titulo === "Retencion estimada de trabajo"
+          )
+        ).toBe(true)
+      })
+  )
+
   it("aplica incremento de minimo del contribuyente por edad", () => {
     const caso = {
       anio: 2025,
