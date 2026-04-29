@@ -11,6 +11,7 @@ export function NumberField({
   ayuda,
   className,
   compacto = false,
+  disabled = false,
   etiqueta,
   formato,
   max,
@@ -22,6 +23,7 @@ export function NumberField({
   readonly ayuda?: string
   readonly className?: string
   readonly compacto?: boolean
+  readonly disabled?: boolean
   readonly etiqueta: string
   readonly formato?: Intl.NumberFormatOptions
   readonly max?: number
@@ -37,6 +39,7 @@ export function NumberField({
       locale="es-ES"
       max={max}
       min={min}
+      disabled={disabled}
       onValueChange={(siguiente) => onChange(siguiente ?? min)}
       snapOnStep
       step={paso}
@@ -60,6 +63,7 @@ export function NumberField({
       <NumberFieldPrimitive.Group
         className={cn(
           "grid border border-[var(--rule)] bg-[var(--paper-2)] focus-within:ring-2 focus-within:ring-[var(--mark)]",
+          disabled && "opacity-55",
           compacto
             ? "h-9 grid-cols-[1.9rem_1fr_1.9rem]"
             : "h-11 grid-cols-[2.25rem_1fr_2.25rem]"
@@ -69,6 +73,7 @@ export function NumberField({
         <NumberFieldPrimitive.Input
           className={cn(
             "min-w-0 bg-transparent px-3 font-[var(--mono)] outline-none",
+            disabled && "cursor-not-allowed",
             compacto ? "text-sm" : "text-base"
           )}
         />

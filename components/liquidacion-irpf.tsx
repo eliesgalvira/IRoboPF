@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { NumberField } from "@/components/ui/number-field"
 import { Select } from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
 import { Tooltip } from "@/components/ui/tooltip"
 import {
   discapacidad33a64,
@@ -23,6 +24,15 @@ import {
   type ResultadoLiquidacionIrpf,
 } from "@/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 import type { ConciliacionSimuladorLegacy } from "@/lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy"
+import { calcularCotizacionesSocialesLegacy } from "@/lib/dominio/laboral/cotizaciones-sociales"
+import { crearImporteMonetario } from "@/lib/dominio/dinero/importe-monetario"
+import type {
+  CasoRetencionTrabajo,
+  ContratoRetencion,
+  DiscapacidadRetencion,
+  SituacionFamiliarRetencion,
+  SituacionLaboralRetencion,
+} from "@/lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
 import { CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import {
   booleanoDeduccion,
@@ -74,6 +84,71 @@ type TratamientoGananciaPatrimonial =
   | "sin-exencion"
   | "vivienda-habitual-mayores-65"
   | "renta-vitalicia-mayores-65"
+
+interface EntradasRetencionAeat {
+  readonly retribucionAnualEuros: number
+  readonly cotizacionesEuros: number
+  readonly situacionFamiliar: Exclude<SituacionFamiliarRetencion, "general">
+  readonly situacionLaboral: SituacionLaboralRetencion
+  readonly contrato: ContratoRetencion
+  readonly discapacidad: DiscapacidadRetencion
+  readonly movilidadGeografica: boolean
+  readonly movilidadReducidaPerceptor: boolean
+  readonly descendientes: number
+  readonly descendientesMenoresTres: number
+  readonly descendientesComputoEntero: number
+  readonly descendientesDiscapacidad33a64: number
+  readonly descendientesDiscapacidad65: number
+  readonly descendientesMovilidadReducida: number
+  readonly ascendientes: number
+  readonly ascendientesMayores75: number
+  readonly ascendientesComputoEntero: number
+  readonly ascendientesDiscapacidad33a64: number
+  readonly ascendientesDiscapacidad65: number
+  readonly ascendientesMovilidadReducida: number
+  readonly irregular1Euros: number
+  readonly irregular2Euros: number
+  readonly pensionCompensatoriaConyugeEuros: number
+  readonly anualidadesAlimentosHijosEuros: number
+  readonly residenciaCeutaMelilla: boolean
+  readonly rendimientosCeutaMelilla: boolean
+  readonly pagosViviendaHabitual: boolean
+}
+
+const OPCIONES_SITUACION_FAMILIAR_RETENCION: ReadonlyArray<{
+  readonly valor: Exclude<SituacionFamiliarRetencion, "general">
+  readonly etiqueta: string
+}> = [
+  { valor: "situacion3", etiqueta: "Situación 3: general" },
+  { valor: "situacion1", etiqueta: "Situación 1: monoparental" },
+  { valor: "situacion2", etiqueta: "Situación 2: cónyuge sin rentas" },
+]
+const OPCIONES_SITUACION_LABORAL_RETENCION: ReadonlyArray<{
+  readonly valor: SituacionLaboralRetencion
+  readonly etiqueta: string
+}> = [
+  { valor: "activo", etiqueta: "Activo" },
+  { valor: "pensionista", etiqueta: "Pensionista" },
+  { valor: "desempleado", etiqueta: "Desempleado" },
+  { valor: "otra-situacion", etiqueta: "Otra situación" },
+]
+const OPCIONES_CONTRATO_RETENCION: ReadonlyArray<{
+  readonly valor: ContratoRetencion
+  readonly etiqueta: string
+}> = [
+  { valor: "general", etiqueta: "General" },
+  { valor: "inferior-anio", etiqueta: "Inferior al año" },
+  { valor: "especial", etiqueta: "Relación especial" },
+  { valor: "manuales", etiqueta: "Manuales" },
+]
+const OPCIONES_DISCAPACIDAD_RETENCION: ReadonlyArray<{
+  readonly valor: DiscapacidadRetencion
+  readonly etiqueta: string
+}> = [
+  { valor: "sin-discapacidad", etiqueta: "Sin discapacidad" },
+  { valor: "de33a65", etiqueta: "33% a 64%" },
+  { valor: "desde65", etiqueta: "65% o más" },
+]
 const OPCIONES_GANANCIA_PATRIMONIAL: ReadonlyArray<{
   readonly valor: TratamientoGananciaPatrimonial
   readonly etiqueta: string
@@ -192,10 +267,260 @@ const AYUDAS_FORMULARIO = {
     "Padres, madres o abuelos que pueden computar solo si cumplen requisitos fiscales.",
   "Retenciones soportadas":
     "IRPF ya retenido durante el año, por ejemplo en la nomina.",
-  "Pagos a cuenta": "Otros pagos anticipados del impuesto ya realizados.",
+  "Pagos a cuenta":
+    "Otros pagos anticipados del impuesto ya realizados, incluidas retenciones de trabajo si decides estimarlas aqui.",
   "Deducciones autonómicas":
     "Importe total de deducciones autonómicas que quieras aplicar como dato revisable.",
 } satisfies Record<string, string>
+
+const estimarCotizacionTrabajadorEuros = (salarioBrutoAnualEuros: number) =>
+  calcularCotizacionesSocialesLegacy({
+    anio: 2025,
+    salarioBrutoAnual: crearImporteMonetario(salarioBrutoAnualEuros),
+  }).cotizacionTrabajador.toNumber()
+
+const limitarConteo = (valor: number, maximo: number) =>
+  Math.max(0, Math.min(Math.trunc(valor), Math.trunc(maximo)))
+
+const discapacidadRetencionPorIndice = ({
+  discapacidad33a64,
+  discapacidad65,
+  indice,
+}: {
+  readonly discapacidad33a64: number
+  readonly discapacidad65: number
+  readonly indice: number
+}): DiscapacidadRetencion => {
+  if (indice < discapacidad65) {
+    return "desde65"
+  }
+
+  if (indice < discapacidad65 + discapacidad33a64) {
+    return "de33a65"
+  }
+
+  return "sin-discapacidad"
+}
+
+const edadDescendienteRetencion = ({
+  descendientesMenoresTres,
+  indice,
+}: {
+  readonly descendientesMenoresTres: number
+  readonly indice: number
+}) => {
+  if (indice < descendientesMenoresTres) {
+    return 2
+  }
+
+  return 10
+}
+
+const edadAscendienteRetencion = ({
+  ascendientesMayores75,
+  indice,
+}: {
+  readonly ascendientesMayores75: number
+  readonly indice: number
+}) => {
+  if (indice < ascendientesMayores75) {
+    return 78
+  }
+
+  return 70
+}
+
+const convivenciaAscendienteRetencion = ({
+  ascendientesComputoEntero,
+  indice,
+}: {
+  readonly ascendientesComputoEntero: number
+  readonly indice: number
+}) => {
+  if (indice < ascendientesComputoEntero) {
+    return 1
+  }
+
+  return 2
+}
+
+const entradasRetencionPorDefecto = ({
+  ascendientes,
+  descendientes,
+  descendientesConAsistencia = 0,
+  descendientesConDiscapacidad = 0,
+  descendientesDiscapacidad65 = 0,
+  rendimientosTrabajoEuros,
+}: {
+  readonly ascendientes: number
+  readonly descendientes: number
+  readonly descendientesConAsistencia?: number
+  readonly descendientesConDiscapacidad?: number
+  readonly descendientesDiscapacidad65?: number
+  readonly rendimientosTrabajoEuros: number
+}): EntradasRetencionAeat => {
+  const descendientesComputables = limitarConteo(descendientes, 16)
+  const descendientesDiscapacidad65Computables = limitarConteo(
+    descendientesDiscapacidad65,
+    descendientesComputables
+  )
+  const descendientesDiscapacidad33a64Computables = limitarConteo(
+    descendientesConDiscapacidad - descendientesDiscapacidad65Computables,
+    descendientesComputables - descendientesDiscapacidad65Computables
+  )
+  const ascendientesComputables = limitarConteo(ascendientes, 6)
+
+  return {
+    retribucionAnualEuros: rendimientosTrabajoEuros,
+    cotizacionesEuros: estimarCotizacionTrabajadorEuros(
+      rendimientosTrabajoEuros
+    ),
+    situacionFamiliar: "situacion3",
+    situacionLaboral: "activo",
+    contrato: "general",
+    discapacidad: "sin-discapacidad",
+    movilidadGeografica: false,
+    movilidadReducidaPerceptor: false,
+    descendientes: descendientesComputables,
+    descendientesMenoresTres: 0,
+    descendientesComputoEntero: descendientesComputables,
+    descendientesDiscapacidad33a64: descendientesDiscapacidad33a64Computables,
+    descendientesDiscapacidad65: descendientesDiscapacidad65Computables,
+    descendientesMovilidadReducida: limitarConteo(
+      descendientesConAsistencia,
+      descendientesDiscapacidad33a64Computables
+    ),
+    ascendientes: ascendientesComputables,
+    ascendientesMayores75: ascendientesComputables,
+    ascendientesComputoEntero: ascendientesComputables,
+    ascendientesDiscapacidad33a64: 0,
+    ascendientesDiscapacidad65: 0,
+    ascendientesMovilidadReducida: 0,
+    irregular1Euros: 0,
+    irregular2Euros: 0,
+    pensionCompensatoriaConyugeEuros: 0,
+    anualidadesAlimentosHijosEuros: 0,
+    residenciaCeutaMelilla: false,
+    rendimientosCeutaMelilla: false,
+    pagosViviendaHabitual: false,
+  }
+}
+
+const construirCasoRetencionAeat = ({
+  edad,
+  entradas,
+}: {
+  readonly edad: number
+  readonly entradas: EntradasRetencionAeat
+}): CasoRetencionTrabajo => {
+  const descendientes = limitarConteo(entradas.descendientes, 16)
+  const descendientesMenoresTres = limitarConteo(
+    entradas.descendientesMenoresTres,
+    descendientes
+  )
+  const descendientesComputoEntero = limitarConteo(
+    entradas.descendientesComputoEntero,
+    descendientes
+  )
+  const descendientesDiscapacidad65 = limitarConteo(
+    entradas.descendientesDiscapacidad65,
+    descendientes
+  )
+  const descendientesDiscapacidad33a64 = limitarConteo(
+    entradas.descendientesDiscapacidad33a64,
+    descendientes - descendientesDiscapacidad65
+  )
+  const descendientesMovilidadReducida = limitarConteo(
+    entradas.descendientesMovilidadReducida,
+    descendientesDiscapacidad33a64
+  )
+  const ascendientes = limitarConteo(entradas.ascendientes, 6)
+  const ascendientesMayores75 = limitarConteo(
+    entradas.ascendientesMayores75,
+    ascendientes
+  )
+  const ascendientesComputoEntero = limitarConteo(
+    entradas.ascendientesComputoEntero,
+    ascendientes
+  )
+  const ascendientesDiscapacidad65 = limitarConteo(
+    entradas.ascendientesDiscapacidad65,
+    ascendientes
+  )
+  const ascendientesDiscapacidad33a64 = limitarConteo(
+    entradas.ascendientesDiscapacidad33a64,
+    ascendientes - ascendientesDiscapacidad65
+  )
+  const ascendientesMovilidadReducida = limitarConteo(
+    entradas.ascendientesMovilidadReducida,
+    ascendientesDiscapacidad33a64
+  )
+
+  return {
+    anio: 2025,
+    edad,
+    retribucionAnualCentimos: eurosACentimos(entradas.retribucionAnualEuros),
+    cotizacionesCentimos: eurosACentimos(entradas.cotizacionesEuros),
+    situacionFamiliar: entradas.situacionFamiliar,
+    situacionLaboral: entradas.situacionLaboral,
+    contrato: entradas.contrato,
+    discapacidad: entradas.discapacidad,
+    movilidadGeografica: entradas.movilidadGeografica,
+    movilidadReducidaPerceptor: entradas.movilidadReducidaPerceptor,
+    descendientes: Array.from({ length: descendientes }, (_, indice) => {
+      const discapacidad = discapacidadRetencionPorIndice({
+        discapacidad33a64: descendientesDiscapacidad33a64,
+        discapacidad65: descendientesDiscapacidad65,
+        indice,
+      })
+      const indiceDiscapacidad33a64 = indice - descendientesDiscapacidad65
+
+      return {
+        edad: edadDescendienteRetencion({
+          descendientesMenoresTres,
+          indice,
+        }),
+        computoPorEntero: indice < descendientesComputoEntero,
+        discapacidad,
+        movilidadReducida:
+          discapacidad === "de33a65" &&
+          indiceDiscapacidad33a64 < descendientesMovilidadReducida,
+        adopcionOAcogimientoMenosTresAnios: indice < descendientesMenoresTres,
+      }
+    }),
+    ascendientes: Array.from({ length: ascendientes }, (_, indice) => {
+      const discapacidad = discapacidadRetencionPorIndice({
+        discapacidad33a64: ascendientesDiscapacidad33a64,
+        discapacidad65: ascendientesDiscapacidad65,
+        indice,
+      })
+      const indiceDiscapacidad33a64 = indice - ascendientesDiscapacidad65
+
+      return {
+        edad: edadAscendienteRetencion({ ascendientesMayores75, indice }),
+        convivencia: convivenciaAscendienteRetencion({
+          ascendientesComputoEntero,
+          indice,
+        }),
+        discapacidad,
+        movilidadReducida:
+          discapacidad === "de33a65" &&
+          indiceDiscapacidad33a64 < ascendientesMovilidadReducida,
+      }
+    }),
+    irregular1Centimos: eurosACentimos(entradas.irregular1Euros),
+    irregular2Centimos: eurosACentimos(entradas.irregular2Euros),
+    pensionCompensatoriaConyugeCentimos: eurosACentimos(
+      entradas.pensionCompensatoriaConyugeEuros
+    ),
+    anualidadesAlimentosHijosCentimos: eurosACentimos(
+      entradas.anualidadesAlimentosHijosEuros
+    ),
+    residenciaCeutaMelilla: entradas.residenciaCeutaMelilla,
+    rendimientosCeutaMelilla: entradas.rendimientosCeutaMelilla,
+    pagosViviendaHabitual: entradas.pagosViviendaHabitual,
+  }
+}
 
 function formatearEuros(centimos: number) {
   return new Intl.NumberFormat("es-ES", {
@@ -242,6 +567,17 @@ export function LiquidacionIrpf() {
     React.useState(0)
   const [reinversionesPreviasEuros, fijarReinversionesPreviasEuros] =
     React.useState(0)
+  const [dialogoPagosACuentaAbierto, fijarDialogoPagosACuentaAbierto] =
+    React.useState(false)
+  const [usarRetencionAeat, fijarUsarRetencionAeat] = React.useState(false)
+  const [entradasRetencionAeat, fijarEntradasRetencionAeat] =
+    React.useState<EntradasRetencionAeat>(() =>
+      entradasRetencionPorDefecto({
+        ascendientes: 0,
+        descendientes: 0,
+        rendimientosTrabajoEuros: 18_000,
+      })
+    )
 
   const deduccionesAutonomicasAplicadasEuros = React.useMemo(
     () =>
@@ -256,6 +592,53 @@ export function LiquidacionIrpf() {
     comunidadAutonoma === "simulada-estatal"
       ? 0
       : deduccionAutonomicaManualEuros + deduccionesAutonomicasAplicadasEuros
+  const activarRetencionAeat = React.useCallback(
+    (activo: boolean) => {
+      fijarUsarRetencionAeat(activo)
+      if (activo) {
+        fijarEntradasRetencionAeat(
+          entradasRetencionPorDefecto({
+            ascendientes,
+            descendientes,
+            descendientesConAsistencia,
+            descendientesConDiscapacidad,
+            descendientesDiscapacidad65,
+            rendimientosTrabajoEuros,
+          })
+        )
+      }
+    },
+    [
+      ascendientes,
+      descendientes,
+      descendientesConAsistencia,
+      descendientesConDiscapacidad,
+      descendientesDiscapacidad65,
+      rendimientosTrabajoEuros,
+    ]
+  )
+  const actualizarEntradaRetencionAeat = React.useCallback(
+    <TClave extends keyof EntradasRetencionAeat>(
+      clave: TClave,
+      valor: EntradasRetencionAeat[TClave]
+    ) => {
+      fijarEntradasRetencionAeat((actual) => ({
+        ...actual,
+        [clave]: valor,
+      }))
+    },
+    []
+  )
+  const retencionTrabajoAeat = React.useMemo(
+    () =>
+      usarRetencionAeat
+        ? construirCasoRetencionAeat({
+            edad,
+            entradas: entradasRetencionAeat,
+          })
+        : undefined,
+    [edad, entradasRetencionAeat, usarRetencionAeat]
+  )
 
   const caso = React.useMemo(
     () =>
@@ -340,7 +723,10 @@ export function LiquidacionIrpf() {
         retencionesSoportadasCentimos: eurosACentimos(
           retencionesSoportadasEuros
         ),
-        pagosACuentaCentimos: eurosACentimos(pagosACuentaEuros),
+        pagosACuentaCentimos: usarRetencionAeat
+          ? 0
+          : eurosACentimos(pagosACuentaEuros),
+        ...(retencionTrabajoAeat ? { retencionTrabajoAeat } : {}),
       }) satisfies CasoFiscalAnual,
     [
       ascendientes,
@@ -359,7 +745,9 @@ export function LiquidacionIrpf() {
       reinversionRentaVitaliciaEuros,
       reinversionesPreviasEuros,
       retencionesSoportadasEuros,
+      retencionTrabajoAeat,
       tratamientoGananciaPatrimonial,
+      usarRetencionAeat,
     ]
   )
   const resultado = React.useMemo(
@@ -391,8 +779,11 @@ export function LiquidacionIrpf() {
             descendientesConDiscapacidad={descendientesConDiscapacidad}
             descendientesDiscapacidad65={descendientesDiscapacidad65}
             catalogoDeduccionesAbierto={catalogoDeduccionesAbierto}
+            dialogoPagosACuentaAbierto={dialogoPagosACuentaAbierto}
             edad={edad}
+            entradasRetencionAeat={entradasRetencionAeat}
             entradasDeduccionesAutonomicas={entradasDeduccionesAutonomicas}
+            activarRetencionAeat={activarRetencionAeat}
             fijarCatalogoDeduccionesAbierto={fijarCatalogoDeduccionesAbierto}
             fijarAscendientes={fijarAscendientes}
             fijarCapitalInmobiliarioEuros={fijarCapitalInmobiliarioEuros}
@@ -406,6 +797,7 @@ export function LiquidacionIrpf() {
             fijarDeduccionAutonomicaManualEuros={
               fijarDeduccionAutonomicaManualEuros
             }
+            fijarDialogoPagosACuentaAbierto={fijarDialogoPagosACuentaAbierto}
             fijarEdad={fijarEdad}
             fijarEntradasDeduccionesAutonomicas={
               fijarEntradasDeduccionesAutonomicas
@@ -430,10 +822,12 @@ export function LiquidacionIrpf() {
             reinversionesPreviasEuros={reinversionesPreviasEuros}
             retencionesSoportadasEuros={retencionesSoportadasEuros}
             tratamientoGananciaPatrimonial={tratamientoGananciaPatrimonial}
+            actualizarEntradaRetencionAeat={actualizarEntradaRetencionAeat}
             deduccionesAutonomicasEuros={deduccionesAutonomicasEuros}
             deduccionesAutonomicasAplicadasEuros={
               deduccionesAutonomicasAplicadasEuros
             }
+            usarRetencionAeat={usarRetencionAeat}
           />
           <Resultado resultado={resultado} />
         </section>
@@ -453,8 +847,11 @@ function FormularioCaso({
   catalogoDeduccionesAbierto,
   deduccionesAutonomicasEuros,
   deduccionesAutonomicasAplicadasEuros,
+  dialogoPagosACuentaAbierto,
   edad,
+  entradasRetencionAeat,
   entradasDeduccionesAutonomicas,
+  activarRetencionAeat,
   fijarAscendientes,
   fijarCapitalInmobiliarioEuros,
   fijarComunidadAutonoma,
@@ -464,6 +861,7 @@ function FormularioCaso({
   fijarDescendientesDiscapacidad65,
   fijarCatalogoDeduccionesAbierto,
   fijarDeduccionAutonomicaManualEuros,
+  fijarDialogoPagosACuentaAbierto,
   fijarEdad,
   fijarEntradasDeduccionesAutonomicas,
   fijarGananciaPatrimonialEuros,
@@ -482,7 +880,10 @@ function FormularioCaso({
   reinversionesPreviasEuros,
   retencionesSoportadasEuros,
   tratamientoGananciaPatrimonial,
+  actualizarEntradaRetencionAeat,
+  usarRetencionAeat,
 }: {
+  readonly activarRetencionAeat: (activo: boolean) => void
   readonly ascendientes: number
   readonly capitalInmobiliarioEuros: number
   readonly comunidadAutonoma: ComunidadAutonoma
@@ -493,8 +894,16 @@ function FormularioCaso({
   readonly catalogoDeduccionesAbierto: boolean
   readonly deduccionesAutonomicasEuros: number
   readonly deduccionesAutonomicasAplicadasEuros: number
+  readonly dialogoPagosACuentaAbierto: boolean
   readonly edad: number
+  readonly entradasRetencionAeat: EntradasRetencionAeat
   readonly entradasDeduccionesAutonomicas: EntradasDeduccionesAutonomicas
+  readonly actualizarEntradaRetencionAeat: <
+    TClave extends keyof EntradasRetencionAeat,
+  >(
+    clave: TClave,
+    valor: EntradasRetencionAeat[TClave]
+  ) => void
   readonly fijarAscendientes: (valor: number) => void
   readonly fijarCapitalInmobiliarioEuros: (valor: number) => void
   readonly fijarComunidadAutonoma: (valor: ComunidadAutonoma) => void
@@ -504,6 +913,7 @@ function FormularioCaso({
   readonly fijarDescendientesDiscapacidad65: (valor: number) => void
   readonly fijarCatalogoDeduccionesAbierto: (valor: boolean) => void
   readonly fijarDeduccionAutonomicaManualEuros: (valor: number) => void
+  readonly fijarDialogoPagosACuentaAbierto: (valor: boolean) => void
   readonly fijarEdad: (valor: number) => void
   readonly fijarEntradasDeduccionesAutonomicas: React.Dispatch<
     React.SetStateAction<EntradasDeduccionesAutonomicas>
@@ -526,6 +936,7 @@ function FormularioCaso({
   readonly reinversionesPreviasEuros: number
   readonly retencionesSoportadasEuros: number
   readonly tratamientoGananciaPatrimonial: TratamientoGananciaPatrimonial
+  readonly usarRetencionAeat: boolean
 }) {
   const catalogoDeducciones = (
     CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor as Partial<
@@ -628,17 +1039,52 @@ function FormularioCaso({
             paso={250}
             valor={retencionesSoportadasEuros}
           />
-          <NumberField
-            ayuda={AYUDAS_FORMULARIO["Pagos a cuenta"]}
-            compacto
-            etiqueta="Pagos a cuenta"
-            formato={FORMATO_ENTERO}
-            onChange={fijarPagosACuentaEuros}
-            paso={250}
-            valor={pagosACuentaEuros}
-          />
+          <div className="grid gap-2">
+            <div className="flex min-h-10 items-end gap-1.5">
+              <span className="text-sm leading-tight font-bold">
+                Pagos a cuenta
+              </span>
+              <Tooltip contenido={AYUDAS_FORMULARIO["Pagos a cuenta"]}>
+                <Button
+                  aria-label="Ayuda sobre pagos a cuenta"
+                  className="mb-0.5 text-[var(--ink-soft)] hover:text-[var(--ink)]"
+                  type="button"
+                  variant="unstyled"
+                >
+                  <FileText aria-hidden className="size-3.5" />
+                </Button>
+              </Tooltip>
+            </div>
+            <Button
+              className="grid h-11 w-full grid-cols-[2rem_minmax(0,1fr)_2rem] items-center border border-[var(--rule)] bg-[var(--paper-2)] px-2 text-base font-[var(--mono)] font-bold text-[var(--ink)] tabular-nums hover:bg-[var(--paper)] focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none"
+              onClick={() => fijarDialogoPagosACuentaAbierto(true)}
+              type="button"
+              variant="unstyled"
+            >
+              <span className="col-start-2 min-w-0 justify-self-center truncate">
+                {usarRetencionAeat
+                  ? "Retención estimada"
+                  : formatearEuros(eurosACentimos(pagosACuentaEuros))}
+              </span>
+              <FileText
+                aria-hidden
+                className="col-start-3 size-4 justify-self-end opacity-70"
+              />
+            </Button>
+          </div>
         </div>
       </div>
+
+      <DialogoPagosACuentaRetenciones
+        abierto={dialogoPagosACuentaAbierto}
+        activarRetencionAeat={activarRetencionAeat}
+        actualizarEntradaRetencionAeat={actualizarEntradaRetencionAeat}
+        entradasRetencionAeat={entradasRetencionAeat}
+        fijarAbierto={fijarDialogoPagosACuentaAbierto}
+        fijarPagosACuentaEuros={fijarPagosACuentaEuros}
+        pagosACuentaEuros={pagosACuentaEuros}
+        usarRetencionAeat={usarRetencionAeat}
+      />
 
       <Dialog.Root
         open={catalogoDeduccionesAbierto && usaComunidadAutonomicaReal}
@@ -1461,6 +1907,542 @@ function ControlesDeduccionAutonomica({
       Esta deducción está reconocida, pero todavía no está convertida en campos
       y fórmula revisada. No se suma automáticamente a la deducción agregada.
     </p>
+  )
+}
+
+function DialogoPagosACuentaRetenciones({
+  abierto,
+  activarRetencionAeat,
+  actualizarEntradaRetencionAeat,
+  entradasRetencionAeat,
+  fijarAbierto,
+  fijarPagosACuentaEuros,
+  pagosACuentaEuros,
+  usarRetencionAeat,
+}: {
+  readonly abierto: boolean
+  readonly activarRetencionAeat: (activo: boolean) => void
+  readonly actualizarEntradaRetencionAeat: <
+    TClave extends keyof EntradasRetencionAeat,
+  >(
+    clave: TClave,
+    valor: EntradasRetencionAeat[TClave]
+  ) => void
+  readonly entradasRetencionAeat: EntradasRetencionAeat
+  readonly fijarAbierto: (abierto: boolean) => void
+  readonly fijarPagosACuentaEuros: (valor: number) => void
+  readonly pagosACuentaEuros: number
+  readonly usarRetencionAeat: boolean
+}) {
+  const maxDescendientesDiscapacidad33a64 = Math.max(
+    0,
+    entradasRetencionAeat.descendientes -
+      entradasRetencionAeat.descendientesDiscapacidad65
+  )
+  const maxAscendientesDiscapacidad33a64 = Math.max(
+    0,
+    entradasRetencionAeat.ascendientes -
+      entradasRetencionAeat.ascendientesDiscapacidad65
+  )
+  const fijarDescendientesRetencion = (valor: number) => {
+    const discapacidad65 = Math.min(
+      entradasRetencionAeat.descendientesDiscapacidad65,
+      valor
+    )
+    const discapacidad33a64 = Math.min(
+      entradasRetencionAeat.descendientesDiscapacidad33a64,
+      Math.max(0, valor - discapacidad65)
+    )
+    actualizarEntradaRetencionAeat("descendientes", valor)
+    actualizarEntradaRetencionAeat(
+      "descendientesMenoresTres",
+      Math.min(entradasRetencionAeat.descendientesMenoresTres, valor)
+    )
+    actualizarEntradaRetencionAeat(
+      "descendientesComputoEntero",
+      Math.min(entradasRetencionAeat.descendientesComputoEntero, valor)
+    )
+    actualizarEntradaRetencionAeat(
+      "descendientesDiscapacidad65",
+      discapacidad65
+    )
+    actualizarEntradaRetencionAeat(
+      "descendientesDiscapacidad33a64",
+      discapacidad33a64
+    )
+    actualizarEntradaRetencionAeat(
+      "descendientesMovilidadReducida",
+      Math.min(
+        entradasRetencionAeat.descendientesMovilidadReducida,
+        discapacidad33a64
+      )
+    )
+  }
+  const fijarAscendientesRetencion = (valor: number) => {
+    const discapacidad65 = Math.min(
+      entradasRetencionAeat.ascendientesDiscapacidad65,
+      valor
+    )
+    const discapacidad33a64 = Math.min(
+      entradasRetencionAeat.ascendientesDiscapacidad33a64,
+      Math.max(0, valor - discapacidad65)
+    )
+    actualizarEntradaRetencionAeat("ascendientes", valor)
+    actualizarEntradaRetencionAeat(
+      "ascendientesMayores75",
+      Math.min(entradasRetencionAeat.ascendientesMayores75, valor)
+    )
+    actualizarEntradaRetencionAeat(
+      "ascendientesComputoEntero",
+      Math.min(entradasRetencionAeat.ascendientesComputoEntero, valor)
+    )
+    actualizarEntradaRetencionAeat("ascendientesDiscapacidad65", discapacidad65)
+    actualizarEntradaRetencionAeat(
+      "ascendientesDiscapacidad33a64",
+      discapacidad33a64
+    )
+    actualizarEntradaRetencionAeat(
+      "ascendientesMovilidadReducida",
+      Math.min(
+        entradasRetencionAeat.ascendientesMovilidadReducida,
+        discapacidad33a64
+      )
+    )
+  }
+
+  return (
+    <Dialog.Root open={abierto} onOpenChange={fijarAbierto}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 z-40 bg-black/35 transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
+        <Dialog.Viewport className="fixed inset-0 z-50 flex items-center justify-center overflow-auto p-4">
+          <Dialog.Popup className="relative grid max-h-[90svh] w-full max-w-2xl gap-4 overflow-auto border border-[var(--rule)] bg-[var(--paper)] p-5 text-[var(--ink)] shadow-[6px_6px_0_var(--rule)] transition-[opacity,translate] duration-150 outline-none data-[ending-style]:translate-y-2 data-[ending-style]:opacity-0 data-[starting-style]:translate-y-2 data-[starting-style]:opacity-0">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs tracking-[0.18em] text-[var(--ink-soft)] uppercase">
+                  Pagos a cuenta
+                </p>
+                <Dialog.Title className="mt-1 text-xl font-bold">
+                  Retenciones y pagos anticipados
+                </Dialog.Title>
+              </div>
+              <Dialog.Close className="border border-[var(--rule)] bg-[var(--paper-2)] px-3 py-1 text-sm font-bold hover:bg-[var(--paper)]">
+                Cerrar
+              </Dialog.Close>
+            </div>
+            <Dialog.Description className="text-sm leading-6 text-[var(--ink-soft)]">
+              Introduce un importe manual o estima la retención de trabajo.
+            </Dialog.Description>
+
+            <div className="grid items-end gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(13rem,15rem)]">
+              <NumberField
+                ayuda="Importe total ya ingresado que quieres restar sin estimarlo automáticamente."
+                disabled={usarRetencionAeat}
+                etiqueta="Pagos a cuenta"
+                formato={FORMATO_ENTERO}
+                onChange={fijarPagosACuentaEuros}
+                paso={250}
+                valor={pagosACuentaEuros}
+              />
+              <Switch
+                checked={usarRetencionAeat}
+                etiqueta="Estimar retención"
+                onCheckedChange={activarRetencionAeat}
+              />
+            </div>
+
+            {usarRetencionAeat ? (
+              <div className="grid gap-5">
+                <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
+                  <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
+                    1. Trabajo
+                  </h3>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <NumberField
+                      etiqueta="Retribuciones anuales"
+                      formato={FORMATO_ENTERO}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "retribucionAnualEuros",
+                          valor
+                        )
+                      }
+                      paso={500}
+                      valor={entradasRetencionAeat.retribucionAnualEuros}
+                    />
+                    <NumberField
+                      etiqueta="Cotizaciones deducibles"
+                      formato={FORMATO_ENTERO}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "cotizacionesEuros",
+                          valor
+                        )
+                      }
+                      paso={100}
+                      valor={entradasRetencionAeat.cotizacionesEuros}
+                    />
+                    <Select
+                      etiqueta="Situación laboral"
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "situacionLaboral",
+                          valor
+                        )
+                      }
+                      opciones={OPCIONES_SITUACION_LABORAL_RETENCION}
+                      valor={entradasRetencionAeat.situacionLaboral}
+                    />
+                    <Select
+                      etiqueta="Contrato"
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat("contrato", valor)
+                      }
+                      opciones={OPCIONES_CONTRATO_RETENCION}
+                      valor={entradasRetencionAeat.contrato}
+                    />
+                  </div>
+                </section>
+
+                <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
+                  <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
+                    2. Persona y familia
+                  </h3>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Select
+                      etiqueta="Situación familiar"
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "situacionFamiliar",
+                          valor
+                        )
+                      }
+                      opciones={OPCIONES_SITUACION_FAMILIAR_RETENCION}
+                      valor={entradasRetencionAeat.situacionFamiliar}
+                    />
+                    <Select
+                      etiqueta="Discapacidad perceptor"
+                      onChange={(valor) => {
+                        actualizarEntradaRetencionAeat("discapacidad", valor)
+                        if (valor !== "de33a65") {
+                          actualizarEntradaRetencionAeat(
+                            "movilidadReducidaPerceptor",
+                            false
+                          )
+                        }
+                      }}
+                      opciones={OPCIONES_DISCAPACIDAD_RETENCION}
+                      valor={entradasRetencionAeat.discapacidad}
+                    />
+                    <div className="flex items-end pb-1">
+                      <Checkbox
+                        checked={
+                          entradasRetencionAeat.movilidadReducidaPerceptor
+                        }
+                        etiqueta="Ayuda o movilidad perceptor"
+                        onCheckedChange={(checked) =>
+                          actualizarEntradaRetencionAeat(
+                            "movilidadReducidaPerceptor",
+                            checked
+                          )
+                        }
+                      />
+                    </div>
+                    <NumberField
+                      etiqueta="Descendientes"
+                      formato={FORMATO_ENTERO}
+                      max={16}
+                      onChange={fijarDescendientesRetencion}
+                      valor={entradasRetencionAeat.descendientes}
+                    />
+                    <NumberField
+                      etiqueta="Menores de 3 años"
+                      formato={FORMATO_ENTERO}
+                      max={entradasRetencionAeat.descendientes}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "descendientesMenoresTres",
+                          valor
+                        )
+                      }
+                      valor={entradasRetencionAeat.descendientesMenoresTres}
+                    />
+                    <NumberField
+                      etiqueta="Desc. por entero"
+                      formato={FORMATO_ENTERO}
+                      max={entradasRetencionAeat.descendientes}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "descendientesComputoEntero",
+                          valor
+                        )
+                      }
+                      valor={entradasRetencionAeat.descendientesComputoEntero}
+                    />
+                    <NumberField
+                      etiqueta="Desc. disc. 33-64%"
+                      formato={FORMATO_ENTERO}
+                      max={maxDescendientesDiscapacidad33a64}
+                      onChange={(valor) => {
+                        actualizarEntradaRetencionAeat(
+                          "descendientesDiscapacidad33a64",
+                          valor
+                        )
+                        actualizarEntradaRetencionAeat(
+                          "descendientesMovilidadReducida",
+                          Math.min(
+                            entradasRetencionAeat.descendientesMovilidadReducida,
+                            valor
+                          )
+                        )
+                      }}
+                      valor={
+                        entradasRetencionAeat.descendientesDiscapacidad33a64
+                      }
+                    />
+                    <NumberField
+                      etiqueta="Desc. disc. 65%+"
+                      formato={FORMATO_ENTERO}
+                      max={entradasRetencionAeat.descendientes}
+                      onChange={(valor) => {
+                        const discapacidad33a64 = Math.min(
+                          entradasRetencionAeat.descendientesDiscapacidad33a64,
+                          Math.max(
+                            0,
+                            entradasRetencionAeat.descendientes - valor
+                          )
+                        )
+                        actualizarEntradaRetencionAeat(
+                          "descendientesDiscapacidad65",
+                          valor
+                        )
+                        actualizarEntradaRetencionAeat(
+                          "descendientesDiscapacidad33a64",
+                          discapacidad33a64
+                        )
+                        actualizarEntradaRetencionAeat(
+                          "descendientesMovilidadReducida",
+                          Math.min(
+                            entradasRetencionAeat.descendientesMovilidadReducida,
+                            discapacidad33a64
+                          )
+                        )
+                      }}
+                      valor={entradasRetencionAeat.descendientesDiscapacidad65}
+                    />
+                    <NumberField
+                      etiqueta="Desc. movilidad reducida"
+                      formato={FORMATO_ENTERO}
+                      max={entradasRetencionAeat.descendientesDiscapacidad33a64}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "descendientesMovilidadReducida",
+                          valor
+                        )
+                      }
+                      valor={
+                        entradasRetencionAeat.descendientesMovilidadReducida
+                      }
+                    />
+                    <NumberField
+                      etiqueta="Ascendientes"
+                      formato={FORMATO_ENTERO}
+                      max={6}
+                      onChange={fijarAscendientesRetencion}
+                      valor={entradasRetencionAeat.ascendientes}
+                    />
+                    <NumberField
+                      etiqueta="Asc. mayores 75"
+                      formato={FORMATO_ENTERO}
+                      max={entradasRetencionAeat.ascendientes}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "ascendientesMayores75",
+                          valor
+                        )
+                      }
+                      valor={entradasRetencionAeat.ascendientesMayores75}
+                    />
+                    <NumberField
+                      etiqueta="Asc. por entero"
+                      formato={FORMATO_ENTERO}
+                      max={entradasRetencionAeat.ascendientes}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "ascendientesComputoEntero",
+                          valor
+                        )
+                      }
+                      valor={entradasRetencionAeat.ascendientesComputoEntero}
+                    />
+                    <NumberField
+                      etiqueta="Asc. disc. 33-64%"
+                      formato={FORMATO_ENTERO}
+                      max={maxAscendientesDiscapacidad33a64}
+                      onChange={(valor) => {
+                        actualizarEntradaRetencionAeat(
+                          "ascendientesDiscapacidad33a64",
+                          valor
+                        )
+                        actualizarEntradaRetencionAeat(
+                          "ascendientesMovilidadReducida",
+                          Math.min(
+                            entradasRetencionAeat.ascendientesMovilidadReducida,
+                            valor
+                          )
+                        )
+                      }}
+                      valor={
+                        entradasRetencionAeat.ascendientesDiscapacidad33a64
+                      }
+                    />
+                    <NumberField
+                      etiqueta="Asc. disc. 65%+"
+                      formato={FORMATO_ENTERO}
+                      max={entradasRetencionAeat.ascendientes}
+                      onChange={(valor) => {
+                        const discapacidad33a64 = Math.min(
+                          entradasRetencionAeat.ascendientesDiscapacidad33a64,
+                          Math.max(
+                            0,
+                            entradasRetencionAeat.ascendientes - valor
+                          )
+                        )
+                        actualizarEntradaRetencionAeat(
+                          "ascendientesDiscapacidad65",
+                          valor
+                        )
+                        actualizarEntradaRetencionAeat(
+                          "ascendientesDiscapacidad33a64",
+                          discapacidad33a64
+                        )
+                        actualizarEntradaRetencionAeat(
+                          "ascendientesMovilidadReducida",
+                          Math.min(
+                            entradasRetencionAeat.ascendientesMovilidadReducida,
+                            discapacidad33a64
+                          )
+                        )
+                      }}
+                      valor={entradasRetencionAeat.ascendientesDiscapacidad65}
+                    />
+                    <NumberField
+                      etiqueta="Asc. movilidad reducida"
+                      formato={FORMATO_ENTERO}
+                      max={entradasRetencionAeat.ascendientesDiscapacidad33a64}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "ascendientesMovilidadReducida",
+                          valor
+                        )
+                      }
+                      valor={
+                        entradasRetencionAeat.ascendientesMovilidadReducida
+                      }
+                    />
+                  </div>
+                </section>
+
+                <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
+                  <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
+                    3. Ajustes comunicados
+                  </h3>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <NumberField
+                      etiqueta="Reducción irregular art. 18.2"
+                      formato={FORMATO_ENTERO}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat("irregular1Euros", valor)
+                      }
+                      paso={500}
+                      valor={entradasRetencionAeat.irregular1Euros}
+                    />
+                    <NumberField
+                      etiqueta="Otras reducciones irregulares"
+                      formato={FORMATO_ENTERO}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat("irregular2Euros", valor)
+                      }
+                      paso={500}
+                      valor={entradasRetencionAeat.irregular2Euros}
+                    />
+                    <NumberField
+                      etiqueta="Pensión compensatoria"
+                      formato={FORMATO_ENTERO}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "pensionCompensatoriaConyugeEuros",
+                          valor
+                        )
+                      }
+                      paso={500}
+                      valor={
+                        entradasRetencionAeat.pensionCompensatoriaConyugeEuros
+                      }
+                    />
+                    <NumberField
+                      etiqueta="Anualidades alimentos"
+                      formato={FORMATO_ENTERO}
+                      onChange={(valor) =>
+                        actualizarEntradaRetencionAeat(
+                          "anualidadesAlimentosHijosEuros",
+                          valor
+                        )
+                      }
+                      paso={500}
+                      valor={
+                        entradasRetencionAeat.anualidadesAlimentosHijosEuros
+                      }
+                    />
+                  </div>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <Checkbox
+                      checked={entradasRetencionAeat.movilidadGeografica}
+                      etiqueta="Movilidad geográfica"
+                      onCheckedChange={(checked) =>
+                        actualizarEntradaRetencionAeat(
+                          "movilidadGeografica",
+                          checked
+                        )
+                      }
+                    />
+                    <Checkbox
+                      checked={entradasRetencionAeat.pagosViviendaHabitual}
+                      etiqueta="Pagos vivienda habitual"
+                      onCheckedChange={(checked) =>
+                        actualizarEntradaRetencionAeat(
+                          "pagosViviendaHabitual",
+                          checked
+                        )
+                      }
+                    />
+                    <Checkbox
+                      checked={entradasRetencionAeat.residenciaCeutaMelilla}
+                      etiqueta="Residencia Ceuta/Melilla"
+                      onCheckedChange={(checked) =>
+                        actualizarEntradaRetencionAeat(
+                          "residenciaCeutaMelilla",
+                          checked
+                        )
+                      }
+                    />
+                    <Checkbox
+                      checked={entradasRetencionAeat.rendimientosCeutaMelilla}
+                      etiqueta="Rendimientos Ceuta/Melilla"
+                      onCheckedChange={(checked) =>
+                        actualizarEntradaRetencionAeat(
+                          "rendimientosCeutaMelilla",
+                          checked
+                        )
+                      }
+                    />
+                  </div>
+                </section>
+              </div>
+            ) : null}
+          </Dialog.Popup>
+        </Dialog.Viewport>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }
 

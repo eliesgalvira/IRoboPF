@@ -1,4 +1,5 @@
 import type { AnioFiscal } from "../normativa/anio-fiscal"
+import type { CasoRetencionTrabajo } from "./retenciones/retencion-trabajo-aeat"
 
 export type ComunidadAutonoma =
   | "simulada-estatal"
@@ -104,4 +105,5 @@ export interface CasoFiscalAnual {
   readonly deduccionAutonomicaAgregadaCentimos?: number
   readonly retencionesSoportadasCentimos: number
   readonly pagosACuentaCentimos: number
+  readonly retencionTrabajoAeat?: CasoRetencionTrabajo
 }

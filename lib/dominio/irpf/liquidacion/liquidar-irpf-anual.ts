@@ -55,6 +55,12 @@ import {
   calcularConciliacionSimuladorLegacy,
   type ConciliacionSimuladorLegacy,
 } from "./conciliacion-simulador-legacy"
+import {
+  RetencionTrabajoAeat,
+  type ResultadoNoSoportadoRetencion,
+  type RetencionTrabajoCalculada,
+  type ServicioRetencionTrabajoAeat,
+} from "../retenciones/retencion-trabajo-aeat"
 
 export type { CasoFiscalAnual } from "../caso-fiscal-anual"
 
@@ -107,12 +113,15 @@ export type ResultadoLiquidacionIrpf =
   | LiquidacionIrpfAnualCalculada
   | ResultadoNoSoportado
 
-export type LiquidarIrpfAnualError = ResultadoNoSoportado
+export type LiquidarIrpfAnualError =
+  | ResultadoNoSoportado
+  | ResultadoNoSoportadoRetencion
 
 interface DependenciasLiquidacionIrpfAnual {
   readonly cotizacionesSociales: ServicioCotizacionesSociales
   readonly parametrosNormativos: ServicioParametrosNormativosIrpf
   readonly politicaMonetaria: ServicioPoliticaMonetaria
+  readonly retencionTrabajoAeat: ServicioRetencionTrabajoAeat
 }
 
 const construirLiquidarIrpfAnual = (
@@ -155,19 +164,22 @@ export class LiquidacionIrpfAnual extends Context.Service<
       const cotizacionesSociales = yield* CotizacionesSociales
       const parametrosNormativos = yield* ParametrosNormativosIrpf
       const politicaMonetaria = yield* PoliticaMonetaria
+      const retencionTrabajoAeat = yield* RetencionTrabajoAeat
 
       return {
         liquidar: construirLiquidarIrpfAnual({
           cotizacionesSociales,
           parametrosNormativos,
           politicaMonetaria,
+          retencionTrabajoAeat,
         }),
       }
     })
   ).pipe(
     Layer.provideMerge(CotizacionesSociales.layer),
     Layer.provideMerge(ParametrosNormativosIrpf.layer),
-    Layer.provideMerge(PoliticaMonetaria.layer)
+    Layer.provideMerge(PoliticaMonetaria.layer),
+    Layer.provideMerge(RetencionTrabajoAeat.layer)
   )
 }
 
@@ -488,9 +500,19 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     ),
     cuotaLiquidaCentimos: liquidarCentimos(cuotaLiquida),
   })
+  const retencionTrabajoAeat = caso.retencionTrabajoAeat
+    ? yield* dependencias.retencionTrabajoAeat.calcular(
+        caso.retencionTrabajoAeat,
+        { modo: "canonico" }
+      )
+    : undefined
+  const retencionTrabajoAeatCentimos =
+    retencionTrabajoAeat?.importeRetencionAnualCentimos ?? 0
+  const pagosACuentaAplicadosCentimos =
+    caso.pagosACuentaCentimos + retencionTrabajoAeatCentimos
   const cuotaDiferencialCentimos = calcularCuotaDiferencialCentimos({
     cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
-    pagosACuentaCentimos: caso.pagosACuentaCentimos,
+    pagosACuentaCentimos: pagosACuentaAplicadosCentimos,
     retencionesSoportadasCentimos: caso.retencionesSoportadasCentimos,
   })
 
@@ -542,7 +564,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       importesLiquidacion.deduccionesAutonomicasAplicadasCentimos,
     cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
     retencionesYPagosACuentaCentimos:
-      caso.retencionesSoportadasCentimos + caso.pagosACuentaCentimos,
+      caso.retencionesSoportadasCentimos + pagosACuentaAplicadosCentimos,
     cuotaDiferencialCentimos,
     conciliacionSimuladorLegacy: calcularConciliacionSimuladorLegacy({
       anio: caso.anio,
@@ -920,10 +942,16 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             },
           ],
         },
+        ...(retencionTrabajoAeat
+          ? [
+              pasoRetencionTrabajoAeat(retencionTrabajoAeat),
+              ...retencionTrabajoAeat.rastro.pasos,
+            ]
+          : []),
         {
           _tag: "PasoExplicacion",
           titulo: "Cuota diferencial",
-          descripcion: `Cuota liquida ${cuotaLiquida.toFixed(2)} euros menos retenciones y pagos a cuenta declarados.`,
+          descripcion: `Cuota liquida ${cuotaLiquida.toFixed(2)} euros menos retenciones y pagos a cuenta declarados o calculados.`,
           lineasCalculo: [
             {
               etiqueta: "Cuota liquida",
@@ -946,18 +974,20 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             },
             {
               etiqueta: "Pagos a cuenta",
-              formula: "Importe declarado en el caso fiscal",
-              resultado: euros(centimosAEuros(caso.pagosACuentaCentimos)),
+              formula: retencionTrabajoAeat
+                ? "Importe declarado mas retencion de trabajo estimada"
+                : "Importe declarado en el caso fiscal",
+              resultado: euros(centimosAEuros(pagosACuentaAplicadosCentimos)),
             },
             {
               etiqueta: "Cuota diferencial",
-              formula: `${euros(cuotaLiquida)} - ${euros(centimosAEuros(caso.retencionesSoportadasCentimos))} - ${euros(centimosAEuros(caso.pagosACuentaCentimos))}`,
+              formula: `${euros(cuotaLiquida)} - ${euros(centimosAEuros(caso.retencionesSoportadasCentimos))} - ${euros(centimosAEuros(pagosACuentaAplicadosCentimos))}`,
               resultado: euros(
                 centimosAEuros(
                   calcularCuotaDiferencialCentimos({
                     cuotaLiquidaCentimos:
                       importesLiquidacion.cuotaLiquidaCentimos,
-                    pagosACuentaCentimos: caso.pagosACuentaCentimos,
+                    pagosACuentaCentimos: pagosACuentaAplicadosCentimos,
                     retencionesSoportadasCentimos:
                       caso.retencionesSoportadasCentimos,
                   })
@@ -1063,6 +1093,43 @@ const calcularMinimoPersonalYFamiliar = ({
 const euros = (importe: Decimal): string => `${importe.toFixed(2)} euros`
 
 const porcentaje = (tipo: Decimal): string => `${tipo.mul(100).toFixed(2)}%`
+
+const pasoRetencionTrabajoAeat = (
+  retencion: RetencionTrabajoCalculada
+): RastroCalculo["pasos"][number] => ({
+  _tag: "PasoExplicacion",
+  titulo: "Retencion estimada de trabajo",
+  descripcion:
+    "Retencion anual estimada con el procedimiento no regularizado para rendimientos del trabajo.",
+  lineasCalculo: [
+    {
+      etiqueta: "Base de retencion",
+      formula: "Rendimiento neto reducido menos reducciones comunicadas",
+      resultado: euros(centimosAEuros(retencion.baseRetencionCentimos)),
+    },
+    {
+      etiqueta: "Cuota de retencion",
+      formula: "Escala de retencion sobre base menos escala sobre minimo",
+      resultado: euros(centimosAEuros(retencion.cuotaRetencionCentimos)),
+    },
+    {
+      etiqueta: "Tipo de retencion",
+      formula: "Tipo truncado a dos decimales",
+      resultado: `${retencion.tipoRetencionPorcentaje}%`,
+    },
+    {
+      etiqueta: "Retencion anual",
+      formula: "Retribuciones x tipo de retencion",
+      resultado: euros(centimosAEuros(retencion.importeRetencionAnualCentimos)),
+    },
+  ],
+  fuentes: [
+    {
+      titulo: "Algoritmo de retenciones 2026",
+      referencia: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
+    },
+  ],
+})
 
 const sumarDeduccionesAutonomicasCentimos = (caso: CasoFiscalAnual): number =>
   caso.deduccionAutonomicaAgregadaCentimos ?? 0
