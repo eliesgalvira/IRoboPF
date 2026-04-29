@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Dialog } from "@base-ui/react/dialog"
-import { Effect, Option, Result } from "effect"
+import { Effect, Match, Option, Result } from "effect"
 import { AlertTriangle, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
@@ -180,34 +180,46 @@ const OPCIONES_ORDEN_HIJO_CANARIAS = [
 ] as const
 const describirCuantiaDeduccion = (
   cuantia: CuantiaDeduccionAutonomica
-): string => {
-  if (cuantia.tipo === "mixta") return cuantia.descripcion
-  if (cuantia.tipo === "importe_fijo") {
-    return `${cuantia.euros} euros por ${cuantia.por}.`
-  }
-
-  return `${cuantia.porcentaje}% sobre ${cuantia.base}${
-    cuantia.limiteMaximoEuros
-      ? `, con límite máximo de ${cuantia.limiteMaximoEuros} euros.`
-      : "."
-  }`
-}
+): string =>
+  Match.value(cuantia).pipe(
+    Match.when({ tipo: "mixta" }, (cuantia) => cuantia.descripcion),
+    Match.when(
+      { tipo: "importe_fijo" },
+      (cuantia) => `${cuantia.euros} euros por ${cuantia.por}.`
+    ),
+    Match.orElse(
+      (cuantia) =>
+        `${cuantia.porcentaje}% sobre ${cuantia.base}${
+          cuantia.limiteMaximoEuros
+            ? `, con límite máximo de ${cuantia.limiteMaximoEuros} euros.`
+            : "."
+        }`
+    )
+  )
 
 const describirEstadoDeduccion = (
   deduccion: FichaDeduccionAutonomica
-): string => {
-  if (deduccion.estado === "implementada") {
-    return "Calculable en esta interfaz con los campos de abajo."
-  }
-  if (deduccion.estado === "normalizada_pendiente_tests") {
-    return "Ficha estructurada, pendiente de tests antes de aplicarla automáticamente."
-  }
-  if (deduccion.estado === "no_soportada") {
-    return "Revisada y no calculable con los datos actuales; debe tratarse como caso no soportado."
-  }
-
-  return "Reconocida en el manual, pendiente de convertir a ficha y fórmula revisadas."
-}
+): string =>
+  Match.value(deduccion.estado).pipe(
+    Match.when(
+      "implementada",
+      () => "Calculable en esta interfaz con los campos de abajo."
+    ),
+    Match.when(
+      "normalizada_pendiente_tests",
+      () =>
+        "Ficha estructurada, pendiente de tests antes de aplicarla automáticamente."
+    ),
+    Match.when(
+      "no_soportada",
+      () =>
+        "Revisada y no calculable con los datos actuales; debe tratarse como caso no soportado."
+    ),
+    Match.orElse(
+      () =>
+        "Reconocida en el manual, pendiente de convertir a ficha y fórmula revisadas."
+    )
+  )
 
 const AYUDAS_RESUMEN = {
   "Rendimientos del trabajo":

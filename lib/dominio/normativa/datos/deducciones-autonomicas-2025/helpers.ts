@@ -1,3 +1,5 @@
+import { Match } from "effect"
+
 import type {
   CategoriaDeduccionAutonomica,
   CuantiaDeduccionAutonomica,
@@ -6,24 +8,70 @@ import type {
   FichaDeduccionAutonomica,
 } from "./tipos"
 
-export const comunidadDesdeCodigo = (codigo: string): string => {
-  if (codigo.startsWith("andalucia_")) return "andalucia"
-  if (codigo.startsWith("aragon_")) return "aragon"
-  if (codigo.startsWith("asturias_")) return "asturias"
-  if (codigo.startsWith("balears_")) return "illes-balears"
-  if (codigo.startsWith("canarias_")) return "canarias"
-  if (codigo.startsWith("cantabria_")) return "cantabria"
-  if (codigo.startsWith("clm_")) return "castilla-la-mancha"
-  if (codigo.startsWith("cyl_")) return "castilla-y-leon"
-  if (codigo.startsWith("cataluna_")) return "catalunya"
-  if (codigo.startsWith("extremadura_")) return "extremadura"
-  if (codigo.startsWith("galicia_")) return "galicia"
-  if (codigo.startsWith("madrid_")) return "madrid"
-  if (codigo.startsWith("murcia_")) return "murcia"
-  if (codigo.startsWith("rioja_")) return "la-rioja"
-  if (codigo.startsWith("valenciana_")) return "comunitat-valenciana"
-  return "simulada-estatal"
-}
+export const comunidadDesdeCodigo = (codigo: string): string =>
+  Match.value(codigo).pipe(
+    Match.when(
+      (codigo) => codigo.startsWith("andalucia_"),
+      () => "andalucia"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("aragon_"),
+      () => "aragon"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("asturias_"),
+      () => "asturias"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("balears_"),
+      () => "illes-balears"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("canarias_"),
+      () => "canarias"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("cantabria_"),
+      () => "cantabria"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("clm_"),
+      () => "castilla-la-mancha"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("cyl_"),
+      () => "castilla-y-leon"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("cataluna_"),
+      () => "catalunya"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("extremadura_"),
+      () => "extremadura"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("galicia_"),
+      () => "galicia"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("madrid_"),
+      () => "madrid"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("murcia_"),
+      () => "murcia"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("rioja_"),
+      () => "la-rioja"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("valenciana_"),
+      () => "comunitat-valenciana"
+    ),
+    Match.orElse(() => "simulada-estatal")
+  )
 
 const fichaCatalogada = (
   codigo: string,
@@ -55,47 +103,46 @@ const fichaCatalogada = (
 
 export const categoriaCatalogadaDesdeCodigo = (
   codigo: string
-): CategoriaDeduccionAutonomica => {
-  if (
-    codigo.includes("vivienda") ||
-    codigo.includes("arrendamiento") ||
-    codigo.includes("arrendador") ||
-    codigo.includes("hipotecarios")
-  ) {
-    return "vivienda_habitual"
-  }
-
-  if (
-    codigo.includes("donacion") ||
-    codigo.includes("donaciones") ||
-    codigo.includes("donativo") ||
-    codigo.includes("donativos") ||
-    codigo.includes("mecenazgo")
-  ) {
-    return "donativos_donaciones"
-  }
-
-  if (
-    codigo.includes("familia") ||
-    codigo.includes("hijo") ||
-    codigo.includes("hijos") ||
-    codigo.includes("nacimiento") ||
-    codigo.includes("adopcion") ||
-    codigo.includes("acogimiento") ||
-    codigo.includes("descend") ||
-    codigo.includes("ascend") ||
-    codigo.includes("discapacidad") ||
-    codigo.includes("conciliacion") ||
-    codigo.includes("guarderia") ||
-    codigo.includes("custodia") ||
-    codigo.includes("mayores") ||
-    codigo.includes("viudos")
-  ) {
-    return "circunstancias_personales_familiares"
-  }
-
-  return "otros_conceptos"
-}
+): CategoriaDeduccionAutonomica =>
+  Match.value(codigo).pipe(
+    Match.withReturnType<CategoriaDeduccionAutonomica>(),
+    Match.when(
+      (codigo) =>
+        codigo.includes("vivienda") ||
+        codigo.includes("arrendamiento") ||
+        codigo.includes("arrendador") ||
+        codigo.includes("hipotecarios"),
+      () => "vivienda_habitual"
+    ),
+    Match.when(
+      (codigo) =>
+        codigo.includes("donacion") ||
+        codigo.includes("donaciones") ||
+        codigo.includes("donativo") ||
+        codigo.includes("donativos") ||
+        codigo.includes("mecenazgo"),
+      () => "donativos_donaciones"
+    ),
+    Match.when(
+      (codigo) =>
+        codigo.includes("familia") ||
+        codigo.includes("hijo") ||
+        codigo.includes("hijos") ||
+        codigo.includes("nacimiento") ||
+        codigo.includes("adopcion") ||
+        codigo.includes("acogimiento") ||
+        codigo.includes("descend") ||
+        codigo.includes("ascend") ||
+        codigo.includes("discapacidad") ||
+        codigo.includes("conciliacion") ||
+        codigo.includes("guarderia") ||
+        codigo.includes("custodia") ||
+        codigo.includes("mayores") ||
+        codigo.includes("viudos"),
+      () => "circunstancias_personales_familiares"
+    ),
+    Match.orElse(() => "otros_conceptos")
+  )
 
 export const nombreCatalogadoDesdeCodigo = (codigo: string): string => {
   const prefijos = [
@@ -598,8 +645,6 @@ export const fichaImplementada = (
   },
 })
 
-
-
 export const fichaImplementadaFormula = (
   codigo: string,
   paginas: ReadonlyArray<number>
@@ -619,9 +664,6 @@ export const fichaImplementadaFormula = (
       "El importe se calcula con las entradas especificas de la deduccion o se consigna como importe manual cuando la ficha requiere validacion externa.",
     ],
     paginas,
-    [
-      `${codigo}:cumple`,
-      `${codigo}:importe`,
-    ],
+    [`${codigo}:cumple`, `${codigo}:importe`],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada"]
   )

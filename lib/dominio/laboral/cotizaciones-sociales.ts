@@ -125,62 +125,53 @@ export const sumarTipoCotizacionLegacy = (
     (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado))
   )
 
-const obtenerTiposMei = (anio: AnioFiscal): TiposCotizacion => {
-  if (anio === 2023) {
-    return {
+const obtenerTiposMei = (anio: AnioFiscal): TiposCotizacion =>
+  Match.value(anio).pipe(
+    Match.when(2023, () => ({
       empresarial: crearImporteMonetario("0.005"),
       trabajador: crearImporteMonetario("0.001"),
-    }
-  }
-
-  if (anio === 2024) {
-    return {
+    })),
+    Match.when(2024, () => ({
       empresarial: crearImporteMonetario("0.0058"),
       trabajador: crearImporteMonetario("0.0012"),
-    }
-  }
-
-  if (anio === 2025) {
-    return {
+    })),
+    Match.when(2025, () => ({
       empresarial: crearImporteMonetario("0.0067"),
       trabajador: crearImporteMonetario("0.0013"),
-    }
-  }
+    })),
+    Match.when(
+      (anio) => anio >= 2026,
+      () => ({
+        empresarial: crearImporteMonetario("0.0075"),
+        trabajador: crearImporteMonetario("0.0015"),
+      })
+    ),
+    Match.orElse(() => ({
+      empresarial: IMPORTE_CERO,
+      trabajador: IMPORTE_CERO,
+    }))
+  )
 
-  if (anio >= 2026) {
-    return {
-      empresarial: crearImporteMonetario("0.0075"),
-      trabajador: crearImporteMonetario("0.0015"),
-    }
-  }
-
-  return {
-    empresarial: IMPORTE_CERO,
-    trabajador: IMPORTE_CERO,
-  }
-}
-
-const obtenerPoliticaSolidaridad = (anio: AnioFiscal): PoliticaSolidaridad => {
-  if (anio === 2025) {
-    return {
+const obtenerPoliticaSolidaridad = (anio: AnioFiscal): PoliticaSolidaridad =>
+  Match.value(anio).pipe(
+    Match.withReturnType<PoliticaSolidaridad>(),
+    Match.when(2025, () => ({
       _tag: "ConSolidaridad",
       tipoPrimerExceso: crearImporteMonetario("0.0092"),
       tipoSegundoExceso: crearImporteMonetario("0.0100"),
       tipoExcesoRestante: crearImporteMonetario("0.0117"),
-    }
-  }
-
-  if (anio >= 2026) {
-    return {
-      _tag: "ConSolidaridad",
-      tipoPrimerExceso: crearImporteMonetario("0.0115"),
-      tipoSegundoExceso: crearImporteMonetario("0.0125"),
-      tipoExcesoRestante: crearImporteMonetario("0.0146"),
-    }
-  }
-
-  return SIN_SOLIDARIDAD
-}
+    })),
+    Match.when(
+      (anio) => anio >= 2026,
+      () => ({
+        _tag: "ConSolidaridad",
+        tipoPrimerExceso: crearImporteMonetario("0.0115"),
+        tipoSegundoExceso: crearImporteMonetario("0.0125"),
+        tipoExcesoRestante: crearImporteMonetario("0.0146"),
+      })
+    ),
+    Match.orElse(() => SIN_SOLIDARIDAD)
+  )
 
 export const obtenerParametrosCotizacionLegacy = (
   anio: AnioFiscal

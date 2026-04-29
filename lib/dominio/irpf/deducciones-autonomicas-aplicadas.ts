@@ -763,47 +763,43 @@ const entradasCon = (
 
 const entradasGenericasPara = (
   deduccion: FichaDeduccionAutonomica
-): EntradasDeduccionesAutonomicas => {
-  const claveCumple = `${deduccion.codigo}:cumple`
-
-  if (deduccion.cuantia.tipo === "importe_fijo") {
-    return entradasCon({
-      [claveCumple]: true,
-      [`${deduccion.codigo}:unidades`]: 1,
-    })
-  }
-  if (deduccion.cuantia.tipo === "porcentaje") {
-    return entradasCon({
-      [claveCumple]: true,
-      [`${deduccion.codigo}:base`]: 1000,
-    })
-  }
-
-  return entradasCon({
-    [claveCumple]: true,
-    [`${deduccion.codigo}:importe`]: 123,
-  })
-}
+): EntradasDeduccionesAutonomicas =>
+  Match.value(deduccion.cuantia).pipe(
+    Match.when({ tipo: "importe_fijo" }, () =>
+      entradasCon({
+        [`${deduccion.codigo}:cumple`]: true,
+        [`${deduccion.codigo}:unidades`]: 1,
+      })
+    ),
+    Match.when({ tipo: "porcentaje" }, () =>
+      entradasCon({
+        [`${deduccion.codigo}:cumple`]: true,
+        [`${deduccion.codigo}:base`]: 1000,
+      })
+    ),
+    Match.orElse(() =>
+      entradasCon({
+        [`${deduccion.codigo}:cumple`]: true,
+        [`${deduccion.codigo}:importe`]: 123,
+      })
+    )
+  )
 
 const importeEsperadoGenericoPara = (
   deduccion: FichaDeduccionAutonomica
-): number => {
-  if (deduccion.cuantia.tipo === "importe_fijo") {
-    return Number(deduccion.cuantia.euros)
-  }
-  if (deduccion.cuantia.tipo === "porcentaje") {
-    const importe = 1000 * (Number(deduccion.cuantia.porcentaje) / 100)
+): number =>
+  Match.value(deduccion.cuantia).pipe(
+    Match.when({ tipo: "importe_fijo" }, (cuantia) => Number(cuantia.euros)),
+    Match.when({ tipo: "porcentaje" }, (cuantia) => {
+      const importe = 1000 * (Number(cuantia.porcentaje) / 100)
 
-    return Math.min(
-      importe,
-      deduccion.cuantia.limiteMaximoEuros
-        ? Number(deduccion.cuantia.limiteMaximoEuros)
-        : importe
-    )
-  }
-
-  return 123
-}
+      return Math.min(
+        importe,
+        cuantia.limiteMaximoEuros ? Number(cuantia.limiteMaximoEuros) : importe
+      )
+    }),
+    Match.orElse(() => 123)
+  )
 
 const calcularDeduccionGenerica = (
   deduccion: FichaDeduccionAutonomica,
@@ -828,20 +824,20 @@ const calcularDeduccionGenerica = (
     numeroDeduccion(entradas, `${deduccion.codigo}:unidades`)
   )
 
-  if (deduccion.cuantia.tipo === "importe_fijo") {
-    return Number(deduccion.cuantia.euros) * unidades
-  }
-  if (deduccion.cuantia.tipo === "porcentaje") {
-    const importe = base * (Number(deduccion.cuantia.porcentaje) / 100)
-    return Math.min(
-      importe,
-      deduccion.cuantia.limiteMaximoEuros
-        ? Number(deduccion.cuantia.limiteMaximoEuros)
-        : importe
-    )
-  }
-
-  return numeroDeduccion(entradas, `${deduccion.codigo}:importe`)
+  return Match.value(deduccion.cuantia).pipe(
+    Match.when(
+      { tipo: "importe_fijo" },
+      (cuantia) => Number(cuantia.euros) * unidades
+    ),
+    Match.when({ tipo: "porcentaje" }, (cuantia) => {
+      const importe = base * (Number(cuantia.porcentaje) / 100)
+      return Math.min(
+        importe,
+        cuantia.limiteMaximoEuros ? Number(cuantia.limiteMaximoEuros) : importe
+      )
+    }),
+    Match.orElse(() => numeroDeduccion(entradas, `${deduccion.codigo}:importe`))
+  )
 }
 
 export const calcularDeduccionesAutonomicasAplicadas = (
