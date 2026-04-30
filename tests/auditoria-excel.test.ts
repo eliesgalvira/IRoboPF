@@ -6,7 +6,7 @@ import { describe, expect, it } from "@effect/vitest"
 import {
   auditarRangoSalarial,
   type AnioFiscal,
-} from "../lib/domain/progresividad"
+} from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
 import {
   construirBlobXlsxCompatibleConProgreso,
   construirLibroAuditoriaCompatible,

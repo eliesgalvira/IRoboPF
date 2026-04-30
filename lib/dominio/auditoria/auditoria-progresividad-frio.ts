@@ -5,7 +5,7 @@ import {
   auditarRangoSalarial,
   type AuditoriaRangoSalarial,
   type EntradaAuditoriaRangoSalarial,
-} from "../../domain/progresividad"
+} from "../compatibilidad-legacy/progresividad-frio"
 
 export {
   aniosFiscalesLegacy,
@@ -19,7 +19,7 @@ export {
   construirTablaControlGeneralCompatible,
   construirTablaControlTramosIrpfCompatible,
   construirTablaDetalleAnualCompatible,
-} from "../../domain/progresividad"
+} from "../compatibilidad-legacy/progresividad-frio"
 
 export type {
   AnioFiscal,
@@ -36,7 +36,7 @@ export type {
   RangoSalarialEuros,
   TablaCompatible,
   ValorCeldaCompatible,
-} from "../../domain/progresividad"
+} from "../compatibilidad-legacy/progresividad-frio"
 
 export type PerfilAuditoriaProgresividadFrio = Extract<
   PerfilCalculo,

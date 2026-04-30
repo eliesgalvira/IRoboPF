@@ -1,6 +1,6 @@
 # Separar motor legacy, retenciones y liquidacion anual
 
-El motor actual concentra auditoria de progresividad en frio, salario neto, cotizaciones, IRPF simplificado, comparaciones por IPC, exportacion compatible y parametros en `lib/domain/progresividad.ts`. Decidimos separar el calculo por dominios fiscales y laborales, preservando el **Perfil de progresividad en frio legacy** como contrato observable antes de abrir un motor general de **Liquidacion anual del IRPF** y un **Procedimiento de retencion** independiente.
+El motor original concentraba auditoria de progresividad en frio, salario neto, cotizaciones, IRPF simplificado, comparaciones por IPC, exportacion compatible y parametros en `lib/domain/progresividad.ts`. Decidimos separar el calculo por dominios fiscales y laborales, preservando el **Perfil de progresividad en frio legacy** como contrato observable antes de abrir un motor general de **Liquidacion anual del IRPF** y un **Procedimiento de retencion** independiente.
 
 **Considered Options**
 

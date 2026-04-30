@@ -8,7 +8,7 @@ import {
   construirTablaDetalleAnualCompatible,
   type AnioFiscal,
   type ValorCeldaCompatible,
-} from "../lib/domain/progresividad"
+} from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
 const primeraFila = (
   filas: Iterable<ReadonlyArray<ValorCeldaCompatible>>
@@ -28,14 +28,12 @@ describe("perfil legacy de progresividad en frio", () => {
         for (const caso of fixture.casos) {
           const anio = caso.anio as AnioFiscal
           const calculoUnitario = yield* compararAjustadoPorIpc({
-            salarioBrutoAnualReferenciaCentimos:
-              caso.salarioBrutoAnualCentimos,
+            salarioBrutoAnualReferenciaCentimos: caso.salarioBrutoAnualCentimos,
             anioComparado: anio,
             anioReferencia: anio,
           })
           const comparativaIpc = yield* compararAjustadoPorIpc({
-            salarioBrutoAnualReferenciaCentimos:
-              caso.salarioBrutoAnualCentimos,
+            salarioBrutoAnualReferenciaCentimos: caso.salarioBrutoAnualCentimos,
             anioComparado: anio,
             anioReferencia: fixture.anioReferenciaIpc as AnioFiscal,
           })
@@ -78,15 +76,13 @@ describe("perfil legacy de progresividad en frio", () => {
 
         expect(comparacion.anioReferencia).toBe(2025)
         expect(comparacion.anioComparado).toBe(2026)
-        expect(comparacion.referencia.salarioBrutoAnualCentimos).toBe(
-          3_000_000
-        )
+        expect(comparacion.referencia.salarioBrutoAnualCentimos).toBe(3_000_000)
         expect(
           comparacion.comparado.salarioBrutoNominalAnualCentimos
         ).toBeGreaterThan(3_000_000)
-        expect(
-          comparacion.comparado.ajustado.salarioBrutoAnualCentimos
-        ).toBe(3_000_000)
+        expect(comparacion.comparado.ajustado.salarioBrutoAnualCentimos).toBe(
+          3_000_000
+        )
       })
   )
 })

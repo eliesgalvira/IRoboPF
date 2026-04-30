@@ -13,7 +13,7 @@ import {
   construirTablaDetalleAnualCompatible,
   type AnioFiscal,
   type TablaCompatible,
-} from "../lib/domain/progresividad"
+} from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
 const ARCHIVO_LEGACY_EXCEL =
   "Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx"

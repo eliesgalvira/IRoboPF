@@ -1,11 +1,7 @@
 import Decimal from "decimal.js"
 import { Option } from "effect"
 
-import {
-  centimosAEuros,
-  eurosACentimos,
-  redondearImporteLiquidado,
-} from "../../dinero/importe-monetario"
+import { centimosAEuros, eurosACentimos } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
 
 export interface ConciliacionSimuladorLegacy {
@@ -91,29 +87,21 @@ export const calcularConciliacionSimuladorLegacy = ({
       .mul(especificacion.tipoMaximoRetencionNomina)
   )
   const irpfFinalSimulador = min(cuotaTrasDeduccionSmi, limiteRetencionNomina)
-  const irpfFinalSimuladorCentimos = eurosACentimos(
-    redondearImporteLiquidado(irpfFinalSimulador)
-  )
+  const irpfFinalSimuladorCentimos = eurosACentimos(irpfFinalSimulador)
 
   return Option.some({
     _tag: "ConciliacionSimuladorLegacy",
     anio,
     cuotaLiquidadaAnualCentimos: cuotaLiquidaCentimos,
-    deduccionSmiCentimos: eurosACentimos(
-      redondearImporteLiquidado(deduccionSmi)
-    ),
-    cuotaTrasDeduccionSmiCentimos: eurosACentimos(
-      redondearImporteLiquidado(cuotaTrasDeduccionSmi)
-    ),
+    deduccionSmiCentimos: eurosACentimos(deduccionSmi),
+    cuotaTrasDeduccionSmiCentimos: eurosACentimos(cuotaTrasDeduccionSmi),
     rendimientoIntegroTrabajoCentimos,
     minimoExentoRetencionCentimos: eurosACentimos(
-      redondearImporteLiquidado(especificacion.minimoExentoRetencion)
+      especificacion.minimoExentoRetencion
     ),
     tipoMaximoRetencionNominaPorcentaje:
       especificacion.tipoMaximoRetencionNomina.mul(100).toFixed(0),
-    limiteRetencionNominaCentimos: eurosACentimos(
-      redondearImporteLiquidado(limiteRetencionNomina)
-    ),
+    limiteRetencionNominaCentimos: eurosACentimos(limiteRetencionNomina),
     irpfFinalSimuladorCentimos,
     diferenciaCuotaDiferencialEIrpfFinalCentimos:
       cuotaDiferencialCentimos - irpfFinalSimuladorCentimos,
