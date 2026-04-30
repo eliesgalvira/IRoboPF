@@ -36,11 +36,15 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart"
 import { Button } from "@/components/ui/button"
+import { Combobox } from "@/components/ui/combobox"
 import {
   type CambioEscenarioAuditoriaNormativa,
+  comunidadesAuditoriaNormativa,
+  decodificarComunidadAutonomaAuditoria,
   decodificarEstrategiaProyeccionSalarial,
   decodificarMagnitudAuditada,
   decodificarPerfilAuditoriaNormativa,
+  describirComunidadAutonomaAuditoria,
   describirEstrategiaAuditoriaNormativa,
   describirMagnitudAuditoriaNormativa,
   describirPerfilAuditoriaNormativa,
@@ -515,6 +519,12 @@ function ControlesAuditoriaNormativa({
   const magnitudActiva = describirMagnitudAuditoriaNormativa(
     escenario.magnitudAuditada
   )
+  const comunidadActiva = describirComunidadAutonomaAuditoria(
+    escenario.comunidadAutonoma
+  )
+  const opcionesComunidadAutonoma = comunidadesAuditoriaNormativa.map(
+    describirComunidadAutonomaAuditoria
+  )
 
   return (
     <section className="grid gap-4 border-b-2 border-[var(--rule)] py-6">
@@ -529,11 +539,11 @@ function ControlesAuditoriaNormativa({
         </div>
         <p className="max-w-xl text-sm leading-5 text-[var(--ink-soft)]">
           {perfilActivo.detalle} · {estrategiaActiva.detalle} ·{" "}
-          {magnitudActiva.detalle}
+          {magnitudActiva.detalle} · {comunidadActiva.detalle}
         </p>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1.7fr)_minmax(18rem,0.8fr)]">
         <Tabs.Root
           value={escenario.perfil}
           onValueChange={(valor) => {
@@ -565,6 +575,33 @@ function ControlesAuditoriaNormativa({
             })}
           </Tabs.List>
         </Tabs.Root>
+
+        <Combobox
+          compacto
+          etiqueta="Comunidad autónoma"
+          opciones={opcionesComunidadAutonoma}
+          valor={escenario.comunidadAutonoma}
+          onChange={(valor) => {
+            decodificarComunidadAutonomaAuditoria(valor).pipe(
+              Option.match({
+                onNone: () => {},
+                onSome: (comunidadAutonoma) =>
+                  alCambiarEscenario({ comunidadAutonoma }),
+              })
+            )
+          }}
+          classNames={{
+            etiqueta:
+              "min-h-0 text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase",
+            trigger:
+              "h-10 rounded-none border-2 border-[var(--rule)] bg-[var(--paper)] px-3 font-[family-name:var(--mono)] text-sm font-bold tracking-[0.12em] uppercase shadow-[3px_3px_0_0_var(--rule)] hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)]",
+            listbox:
+              "border-2 border-[var(--rule)] shadow-[5px_5px_0_0_var(--rule)]",
+            opcion:
+              "rounded-none font-[family-name:var(--mono)] tracking-[0.08em] uppercase hover:bg-[var(--mark)] hover:text-[var(--mark-ink)]",
+            opcionActiva: "bg-[var(--rule)] text-[var(--paper)]",
+          }}
+        />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
