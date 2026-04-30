@@ -11,6 +11,8 @@ import { obtenerMinimosAutonomicosIrpf2024 } from "../lib/dominio/normativa/dato
 import { obtenerMinimosAutonomicosIrpf2023 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2023"
 import { obtenerMinimosAutonomicosIrpf2022 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2022"
 import { obtenerMinimosAutonomicosIrpf2021 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2021"
+import { obtenerMinimosAutonomicosIrpf2020 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2020"
+import { obtenerMinimosAutonomicosIrpf2019 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2019"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -343,6 +345,111 @@ describe("comunidad autonoma", () => {
     expect(minimosBalears2021.contribuyente.general.toString()).toBe("5550")
     expect(minimosBalears2021.contribuyente.adicionalMayor65.toString()).toBe(
       "1820"
+    )
+  })
+
+  it("resuelve 2020 con escala estatal general y autonomica propias del ejercicio", () => {
+    const simulada2020 = obtenerParametrosComunidadAutonoma({
+      anio: 2020,
+      comunidadAutonoma: "simulada-estatal",
+    })
+    const madrid2020 = obtenerParametrosComunidadAutonoma({
+      anio: 2020,
+      comunidadAutonoma: "madrid",
+    })
+    const andalucia2020 = obtenerParametrosComunidadAutonoma({
+      anio: 2020,
+      comunidadAutonoma: "andalucia",
+    })
+    const minimosBalears2020 =
+      obtenerMinimosAutonomicosIrpf2020("illes-balears")
+    const minimosCatalunya2020 = obtenerMinimosAutonomicosIrpf2020("catalunya")
+
+    expect(simulada2020).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "simulada-estatal",
+      anio: 2020,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: true,
+    })
+
+    if (madrid2020._tag === "ParametrosComunidadAutonoma") {
+      const ultimoTramoEstatal =
+        madrid2020.escalaEstatalGeneral[
+          madrid2020.escalaEstatalGeneral.length - 1
+        ]
+
+      expect(ultimoTramoEstatal[1].toString()).toBe("0.225")
+      expect(madrid2020.escalaAutonomica.tramos[0][1].toString()).toBe("0.09")
+      expect(
+        madrid2020.minimosAutonomicos.contribuyente.general.toString()
+      ).toBe("5550")
+    }
+
+    expect(andalucia2020).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "andalucia",
+      anio: 2020,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+    })
+
+    expect(minimosBalears2020.contribuyente.adicionalMayor65.toString()).toBe(
+      "1820"
+    )
+    expect(minimosCatalunya2020.contribuyente.general.toString()).toBe("5550")
+  })
+
+  it("resuelve 2019 con escala estatal general y autonomica propias del ejercicio", () => {
+    const simulada2019 = obtenerParametrosComunidadAutonoma({
+      anio: 2019,
+      comunidadAutonoma: "simulada-estatal",
+    })
+    const madrid2019 = obtenerParametrosComunidadAutonoma({
+      anio: 2019,
+      comunidadAutonoma: "madrid",
+    })
+    const andalucia2019 = obtenerParametrosComunidadAutonoma({
+      anio: 2019,
+      comunidadAutonoma: "andalucia",
+    })
+    const minimosBalears2019 =
+      obtenerMinimosAutonomicosIrpf2019("illes-balears")
+    const minimosCastillaLeon2019 =
+      obtenerMinimosAutonomicosIrpf2019("castilla-y-leon")
+
+    expect(simulada2019).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "simulada-estatal",
+      anio: 2019,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: true,
+    })
+
+    if (madrid2019._tag === "ParametrosComunidadAutonoma") {
+      const ultimoTramoEstatal =
+        madrid2019.escalaEstatalGeneral[
+          madrid2019.escalaEstatalGeneral.length - 1
+        ]
+
+      expect(ultimoTramoEstatal[1].toString()).toBe("0.225")
+      expect(madrid2019.escalaAutonomica.tramos[0][1].toString()).toBe("0.09")
+      expect(
+        madrid2019.minimosAutonomicos.contribuyente.general.toString()
+      ).toBe("5550")
+    }
+
+    if (andalucia2019._tag === "ParametrosComunidadAutonoma") {
+      expect(andalucia2019.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.0975"
+      )
+    }
+
+    expect(minimosBalears2019.contribuyente.adicionalMayor65.toString()).toBe(
+      "1820"
+    )
+    expect(minimosCastillaLeon2019.contribuyente.general.toString()).toBe(
+      "5550"
     )
   })
 

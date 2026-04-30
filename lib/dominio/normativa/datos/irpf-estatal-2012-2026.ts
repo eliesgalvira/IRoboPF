@@ -138,6 +138,14 @@ export const TRAMOS_IRPF_AHORRO_2022: TramosIrpf = [
 
 export const TRAMOS_IRPF_AHORRO_2021: TramosIrpf = TRAMOS_IRPF_AHORRO_2022
 
+export const TRAMOS_IRPF_AHORRO_2020: TramosIrpf = [
+  [importe(6000), importe("0.19")],
+  [importe(50000), importe("0.21")],
+  [importe(Infinity), importe("0.23")],
+]
+
+export const TRAMOS_IRPF_AHORRO_2019: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
+
 export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
   Match.value(anio).pipe(
     Match.when(
@@ -154,6 +162,8 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
   return Match.value(anio).pipe(
+    Match.when(2019, () => TRAMOS_IRPF_AHORRO_2019),
+    Match.when(2020, () => TRAMOS_IRPF_AHORRO_2020),
     Match.when(2021, () => TRAMOS_IRPF_AHORRO_2021),
     Match.when(2022, () => TRAMOS_IRPF_AHORRO_2022),
     Match.when(2023, () => TRAMOS_IRPF_AHORRO_2023),
