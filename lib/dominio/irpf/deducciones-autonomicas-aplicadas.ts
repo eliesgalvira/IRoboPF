@@ -79,7 +79,10 @@ export const numeroDeduccion = (
 ): number => {
   const valor = entradas[clave]
 
-  return typeof valor === "number" ? valor : 0
+  return Match.value(valor).pipe(
+    Match.when(Match.number, (valor) => valor),
+    Match.orElse(() => 0)
+  )
 }
 
 export const booleanoDeduccion = (
@@ -93,11 +96,38 @@ export const textoDeduccion = (
 ): string => {
   const valor = entradas[clave]
 
-  return typeof valor === "string" ? valor : ""
+  return Match.value(valor).pipe(
+    Match.when(Match.string, (valor) => valor),
+    Match.orElse(() => "")
+  )
 }
 
 const importeSi = (condicion: boolean, importe: number): number =>
-  condicion ? importe : 0
+  Match.value(condicion).pipe(
+    Match.when(true, () => importe),
+    Match.orElse(() => 0)
+  )
+
+const numeroSi = (
+  condicion: boolean,
+  valorVerdadero: number,
+  valorFalso: number
+): number =>
+  Match.value(condicion).pipe(
+    Match.when(true, () => valorVerdadero),
+    Match.orElse(() => valorFalso)
+  )
+
+const limitarImporteMaximo = (
+  importe: number,
+  limiteMaximoEuros?: unknown
+): number =>
+  Match.value(limiteMaximoEuros).pipe(
+    Match.when(Match.undefined, () => importe),
+    Match.orElse((limiteMaximoEuros) =>
+      Math.min(importe, Number(limiteMaximoEuros))
+    )
+  )
 
 export type ControlDeduccionAutonomica =
   | {
@@ -730,23 +760,33 @@ export const calcularDeduccionEspecificaAutonomica = (
   codigo: string,
   entradas: EntradasDeduccionesAutonomicas
 ): Option.Option<number> => {
-  const deduccion = deduccionesEspecificasAutonomicasPorCodigo.get(codigo)
-  if (!deduccion) return Option.none()
-
-  if (!booleanoDeduccion(entradas, `${deduccion.codigo}:cumple`)) {
-    return Option.some(0)
-  }
-
-  return Match.value(deduccion.formula.tipo).pipe(
-    Match.when("calculo_existente", () => Option.none<number>()),
-    Match.when("importe_manual", () =>
-      Option.some(
-        Math.round(
-          numeroDeduccion(entradas, `${deduccion.codigo}:importe`) * 100
-        ) / 100
-      )
+  return Option.match(
+    Option.fromNullishOr(
+      deduccionesEspecificasAutonomicasPorCodigo.get(codigo)
     ),
-    Match.exhaustive
+    {
+      onNone: () => Option.none(),
+      onSome: (deduccion) =>
+        Match.value(
+          booleanoDeduccion(entradas, `${deduccion.codigo}:cumple`)
+        ).pipe(
+          Match.when(false, () => Option.some(0)),
+          Match.orElse(() =>
+            Match.value(deduccion.formula.tipo).pipe(
+              Match.when("calculo_existente", () => Option.none<number>()),
+              Match.when("importe_manual", () =>
+                Option.some(
+                  Math.round(
+                    numeroDeduccion(entradas, `${deduccion.codigo}:importe`) *
+                      100
+                  ) / 100
+                )
+              ),
+              Match.orElse(() => Option.none<number>())
+            )
+          )
+        ),
+    }
   )
 }
 
@@ -793,10 +833,7 @@ const importeEsperadoGenericoPara = (
     Match.when({ tipo: "porcentaje" }, (cuantia) => {
       const importe = 1000 * (Number(cuantia.porcentaje) / 100)
 
-      return Math.min(
-        importe,
-        cuantia.limiteMaximoEuros ? Number(cuantia.limiteMaximoEuros) : importe
-      )
+      return limitarImporteMaximo(importe, cuantia.limiteMaximoEuros)
     }),
     Match.orElse(() => 123)
   )
@@ -809,35 +846,40 @@ const calcularDeduccionGenerica = (
     deduccion.codigo,
     entradas
   )
-  if (Option.isSome(deduccionFinal)) return deduccionFinal.value
+  return Option.match(deduccionFinal, {
+    onSome: (deduccionFinal) => deduccionFinal,
+    onNone: () =>
+      Match.value({
+        controlEspecifico: CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO.has(
+          deduccion.codigo
+        ),
+        cumple: booleanoDeduccion(entradas, `${deduccion.codigo}:cumple`),
+      }).pipe(
+        Match.when({ controlEspecifico: true }, () => 0),
+        Match.when({ cumple: false }, () => 0),
+        Match.orElse(() => {
+          const base = numeroDeduccion(entradas, `${deduccion.codigo}:base`)
+          const unidades = Math.max(
+            1,
+            numeroDeduccion(entradas, `${deduccion.codigo}:unidades`)
+          )
 
-  if (CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO.has(deduccion.codigo)) {
-    return 0
-  }
-  if (!booleanoDeduccion(entradas, `${deduccion.codigo}:cumple`)) {
-    return 0
-  }
-
-  const base = numeroDeduccion(entradas, `${deduccion.codigo}:base`)
-  const unidades = Math.max(
-    1,
-    numeroDeduccion(entradas, `${deduccion.codigo}:unidades`)
-  )
-
-  return Match.value(deduccion.cuantia).pipe(
-    Match.when(
-      { tipo: "importe_fijo" },
-      (cuantia) => Number(cuantia.euros) * unidades
-    ),
-    Match.when({ tipo: "porcentaje" }, (cuantia) => {
-      const importe = base * (Number(cuantia.porcentaje) / 100)
-      return Math.min(
-        importe,
-        cuantia.limiteMaximoEuros ? Number(cuantia.limiteMaximoEuros) : importe
-      )
-    }),
-    Match.orElse(() => numeroDeduccion(entradas, `${deduccion.codigo}:importe`))
-  )
+          return Match.value(deduccion.cuantia).pipe(
+            Match.when(
+              { tipo: "importe_fijo" },
+              (cuantia) => Number(cuantia.euros) * unidades
+            ),
+            Match.when({ tipo: "porcentaje" }, (cuantia) => {
+              const importe = base * (Number(cuantia.porcentaje) / 100)
+              return limitarImporteMaximo(importe, cuantia.limiteMaximoEuros)
+            }),
+            Match.orElse(() =>
+              numeroDeduccion(entradas, `${deduccion.codigo}:importe`)
+            )
+          )
+        })
+      ),
+  })
 }
 
 export const calcularDeduccionesAutonomicasAplicadas = (
@@ -846,29 +888,37 @@ export const calcularDeduccionesAutonomicasAplicadas = (
   const andaluciaNacimiento =
     (numeroDeduccion(entradas, "andaluciaHijosNacimientoAdopcion") +
       numeroDeduccion(entradas, "andaluciaMenoresAcogidos")) *
-    (booleanoDeduccion(entradas, "andaluciaMunicipioDespoblacion") ? 400 : 200)
-  const andaluciaMonoparental = booleanoDeduccion(
-    entradas,
-    "andaluciaFamiliaMonoparental"
+    numeroSi(
+      booleanoDeduccion(entradas, "andaluciaMunicipioDespoblacion"),
+      400,
+      200
+    )
+  const andaluciaMonoparental = importeSi(
+    booleanoDeduccion(entradas, "andaluciaFamiliaMonoparental"),
+    100 + numeroDeduccion(entradas, "andaluciaAscendientesMayores75") * 100
   )
-    ? 100 + numeroDeduccion(entradas, "andaluciaAscendientesMayores75") * 100
-    : 0
   const andaluciaAdopcionInternacional = importeSi(
     booleanoDeduccion(entradas, "andaluciaAdopcionInternacionalCumpleLimites"),
     numeroDeduccion(entradas, "andaluciaHijosAdopcionInternacional") *
       600 *
-      (booleanoDeduccion(entradas, "andaluciaAdopcionInternacionalProrrateada")
-        ? 0.5
-        : 1)
+      numeroSi(
+        booleanoDeduccion(
+          entradas,
+          "andaluciaAdopcionInternacionalProrrateada"
+        ),
+        0.5,
+        1
+      )
   )
   const andaluciaFamiliaNumerosa = importeSi(
     booleanoDeduccion(entradas, "andaluciaFamiliaNumerosaCumpleLimites"),
-    textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa") === "especial"
-      ? 400
-      : textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa") ===
-          "general"
-        ? 200
-        : 0
+    Match.value(
+      textoDeduccion(entradas, "andaluciaCategoriaFamiliaNumerosa")
+    ).pipe(
+      Match.when("especial", () => 400),
+      Match.when("general", () => 200),
+      Match.orElse(() => 0)
+    )
   )
   const andaluciaContribuyenteDiscapacidad = importeSi(
     booleanoDeduccion(entradas, "andaluciaContribuyenteDiscapacidad") &&
@@ -937,17 +987,14 @@ export const calcularDeduccionesAutonomicasAplicadas = (
     booleanoDeduccion(entradas, "aragonMayor70CumpleRequisitos"),
     75
   )
-  const canariasNacimientoPorHijo =
-    textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") ===
-    "tercero"
-      ? 530
-      : textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") ===
-          "cuarto"
-        ? 796
-        : textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion") ===
-            "quinto-sucesivos"
-          ? 928
-          : 265
+  const canariasNacimientoPorHijo = Match.value(
+    textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion")
+  ).pipe(
+    Match.when("tercero", () => 530),
+    Match.when("cuarto", () => 796),
+    Match.when("quinto-sucesivos", () => 928),
+    Match.orElse(() => 265)
+  )
   const canariasNacimiento = importeSi(
     booleanoDeduccion(entradas, "canariasNacimientoCumpleLimites"),
     numeroDeduccion(entradas, "canariasHijosNacimientoAdopcion") *
@@ -956,7 +1003,7 @@ export const calcularDeduccionesAutonomicasAplicadas = (
         entradas,
         "canariasHijosNacimientoAdopcionDiscapacidad65"
       ) *
-        (canariasNacimientoPorHijo <= 265 ? 600 : 1100)
+        numeroSi(canariasNacimientoPorHijo <= 265, 600, 1100)
   )
   const canariasDiscapacidadMayores = importeSi(
     booleanoDeduccion(entradas, "canariasDiscapacidadMayoresCumpleLimites"),
@@ -1013,7 +1060,11 @@ export const calcularDeduccionesAutonomicasAplicadas = (
   )
   const catalunyaViudedad = importeSi(
     booleanoDeduccion(entradas, "catalunyaViudedad"),
-    booleanoDeduccion(entradas, "catalunyaViudedadConDescendientes") ? 300 : 150
+    numeroSi(
+      booleanoDeduccion(entradas, "catalunyaViudedadConDescendientes"),
+      300,
+      150
+    )
   )
   const catalunyaRehabilitacion = Math.min(
     numeroDeduccion(entradas, "catalunyaRehabilitacionVivienda") * 0.015,
@@ -1031,21 +1082,27 @@ export const calcularDeduccionesAutonomicasAplicadas = (
   const madridNacimiento =
     numeroDeduccion(entradas, "madridHijosNacimientoAdopcion") *
     721.7 *
-    (booleanoDeduccion(entradas, "madridProrrateoDosProgenitores") ? 0.5 : 1)
-  const catalunyaAlquiler = booleanoDeduccion(
-    entradas,
-    "catalunyaVictimaViolenciaMachista"
-  )
-    ? Math.min(
-        numeroDeduccion(entradas, "catalunyaAlquilerVictima") *
-          (booleanoDeduccion(entradas, "catalunyaAlquilerIncrementado")
-            ? 0.25
-            : 0.2),
-        booleanoDeduccion(entradas, "catalunyaAlquilerIncrementado")
-          ? 1200
-          : 1000
+    numeroSi(
+      booleanoDeduccion(entradas, "madridProrrateoDosProgenitores"),
+      0.5,
+      1
+    )
+  const catalunyaAlquiler = importeSi(
+    booleanoDeduccion(entradas, "catalunyaVictimaViolenciaMachista"),
+    Math.min(
+      numeroDeduccion(entradas, "catalunyaAlquilerVictima") *
+        numeroSi(
+          booleanoDeduccion(entradas, "catalunyaAlquilerIncrementado"),
+          0.25,
+          0.2
+        ),
+      numeroSi(
+        booleanoDeduccion(entradas, "catalunyaAlquilerIncrementado"),
+        1200,
+        1000
       )
-    : 0
+    )
+  )
   const catalunyaCooperativas = Math.min(
     numeroDeduccion(entradas, "catalunyaAportacionesCooperativas") * 0.2,
     3000
@@ -1088,32 +1145,37 @@ export const calcularDeduccionesAutonomicasAplicadas = (
 export const obtenerControlDeduccionAutonomica = (
   deduccion: FichaDeduccionAutonomica
 ): Option.Option<ControlDeduccionAutonomica> => {
-  if (deduccion.estado !== "implementada") {
-    return Option.none()
-  }
-
-  const entradasEspecificas =
-    CONTROLES_DEDUCCIONES_ESPECIFICAS[
-      deduccion.codigo as keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS
-    ]
-  if (entradasEspecificas) {
-    const entradasPrueba = entradasCon(entradasEspecificas)
-    return Option.some({
-      tipo: "especifico",
-      codigo: deduccion.codigo,
-      entradasPrueba,
-      importeEsperadoPrueba:
-        IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS[
+  return Match.value(deduccion.estado).pipe(
+    Match.not("implementada", () => Option.none<ControlDeduccionAutonomica>()),
+    Match.orElse(() => {
+      const entradasEspecificas =
+        CONTROLES_DEDUCCIONES_ESPECIFICAS[
           deduccion.codigo as keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS
-        ],
-    })
-  }
+        ]
 
-  const entradasPrueba = entradasGenericasPara(deduccion)
-  return Option.some({
-    tipo: "generico",
-    codigo: deduccion.codigo,
-    entradasPrueba,
-    importeEsperadoPrueba: importeEsperadoGenericoPara(deduccion),
-  })
+      return Option.match(Option.fromNullishOr(entradasEspecificas), {
+        onSome: (entradasEspecificas) => {
+          const entradasPrueba = entradasCon(entradasEspecificas)
+          return Option.some({
+            tipo: "especifico",
+            codigo: deduccion.codigo,
+            entradasPrueba,
+            importeEsperadoPrueba:
+              IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS[
+                deduccion.codigo as keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS
+              ],
+          } satisfies ControlDeduccionAutonomica)
+        },
+        onNone: () => {
+          const entradasPrueba = entradasGenericasPara(deduccion)
+          return Option.some({
+            tipo: "generico",
+            codigo: deduccion.codigo,
+            entradasPrueba,
+            importeEsperadoPrueba: importeEsperadoGenericoPara(deduccion),
+          } satisfies ControlDeduccionAutonomica)
+        },
+      })
+    })
+  )
 }

@@ -1,4 +1,4 @@
-import { Context, Effect, Layer, Option } from "effect"
+import { Context, Effect, Layer, Match, Option } from "effect"
 
 import {
   compararAjustadoPorIpc,
@@ -22,17 +22,23 @@ export interface EntradaCalculoSalarioLegacy {
 const calcularSalarioLegacyImpl = Effect.fn(
   "compatibilidadLegacy.calcularSalarioLegacy"
 )(function* (entrada: EntradaCalculoSalarioLegacy) {
-  if (entrada.anio === 2025) {
-    return yield* calcularSalarioLegacy2025ConLiquidacionIrpfAnual(entrada)
-  }
+  return yield* Match.value(entrada.anio).pipe(
+    Match.when(2025, () =>
+      calcularSalarioLegacy2025ConLiquidacionIrpfAnual(entrada)
+    ),
+    Match.orElse(() =>
+      Effect.gen(function* () {
+        const calculo = yield* compararAjustadoPorIpc({
+          salarioBrutoAnualReferenciaCentimos:
+            entrada.salarioBrutoAnualCentimos,
+          anioComparado: entrada.anio,
+          anioReferencia: entrada.anio,
+        })
 
-  const calculo = yield* compararAjustadoPorIpc({
-    salarioBrutoAnualReferenciaCentimos: entrada.salarioBrutoAnualCentimos,
-    anioComparado: entrada.anio,
-    anioReferencia: entrada.anio,
-  })
-
-  return calculo.referencia
+        return calculo.referencia
+      })
+    )
+  )
 })
 
 const calcularSalarioLegacy2025ConLiquidacionIrpfAnual = Effect.fn(

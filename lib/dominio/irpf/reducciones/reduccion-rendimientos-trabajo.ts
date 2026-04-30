@@ -7,7 +7,14 @@ import {
 } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
 
-const maximo = (a: Decimal, b: Decimal): Decimal => (a.greaterThan(b) ? a : b)
+const maximo = (a: Decimal, b: Decimal): Decimal =>
+  Match.value(a).pipe(
+    Match.when(
+      (a) => a.greaterThan(b),
+      () => a
+    ),
+    Match.orElse(() => b)
+  )
 
 export const calcularReduccionRendimientosTrabajo = ({
   anio,

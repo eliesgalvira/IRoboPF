@@ -164,7 +164,10 @@ export const nombreCatalogadoDesdeCodigo = (codigo: string): string => {
   ]
   const sinPrefijo =
     prefijos.find((prefijo) => codigo.startsWith(`${prefijo}_`)) ?? ""
-  const cuerpo = sinPrefijo ? codigo.slice(sinPrefijo.length + 1) : codigo
+  const cuerpo = Match.value(sinPrefijo).pipe(
+    Match.when("", () => codigo),
+    Match.orElse((sinPrefijo) => codigo.slice(sinPrefijo.length + 1))
+  )
   const terminos: Record<string, string> = {
     0: "0",
     3: "3",

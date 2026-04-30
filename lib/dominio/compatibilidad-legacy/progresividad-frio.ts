@@ -1,5 +1,10 @@
 import Decimal from "decimal.js"
-import { Effect, Iterable as EffectIterable, Match } from "effect"
+import {
+  Array as EffectArray,
+  Effect,
+  Iterable as EffectIterable,
+  Match,
+} from "effect"
 
 import {
   centimosAEuros,
@@ -222,35 +227,31 @@ const dineroCompatible = (euros: Decimal) =>
 
 // Los conceptos fiscales abreviados del perfil legacy estan definidos en:
 // docs/glosario-fiscal-motor.md
-const min = (a: Decimal, b: Decimal) => {
-  if (a.lessThan(b)) {
-    return a
-  }
-  return b
-}
+const min = (a: Decimal, b: Decimal) =>
+  Match.value(a.lessThan(b)).pipe(
+    Match.when(true, () => a),
+    Match.orElse(() => b)
+  )
 
-const max = (a: Decimal, b: Decimal) => {
-  if (a.greaterThan(b)) {
-    return a
-  }
-  return b
-}
+const max = (a: Decimal, b: Decimal) =>
+  Match.value(a.greaterThan(b)).pipe(
+    Match.when(true, () => a),
+    Match.orElse(() => b)
+  )
 
-const ipcAnualConocido = (anio: number) => {
-  const tipo = IPC_ANUAL_DICIEMBRE[anio]
-  if (tipo === undefined) {
-    return CERO
-  }
-  return tipo
-}
+const ipcAnualConocido = (anio: number) =>
+  Match.value(IPC_ANUAL_DICIEMBRE[anio]).pipe(
+    Match.when(Match.undefined, () => CERO),
+    Match.orElse((tipo) => tipo)
+  )
 
-const rangoNumerico = (inicio: number, fin: number): ReadonlyArray<number> => {
-  if (inicio > fin) {
-    return []
-  }
-
-  return Array.from({ length: fin - inicio + 1 }, (_, index) => inicio + index)
-}
+const rangoNumerico = (inicio: number, fin: number): ReadonlyArray<number> =>
+  Match.value(inicio > fin).pipe(
+    Match.when(true, () => []),
+    Match.orElse(() =>
+      EffectArray.makeBy(fin - inicio + 1, (index) => inicio + index)
+    )
+  )
 
 const factorIpc = (anioBase: AnioFiscal, anioReferencia: AnioFiscal) => {
   const anios = rangoNumerico(anioBase + 1, anioReferencia)
@@ -260,50 +261,56 @@ const factorIpc = (anioBase: AnioFiscal, anioReferencia: AnioFiscal) => {
   )
 }
 
-const reduccionTrabajoHasta2014 = (rendimientoPrevioNeto: Decimal) => {
-  if (rendimientoPrevioNeto.lte(9180)) {
-    return decimal(4080)
-  }
+const reduccionTrabajoHasta2014 = (rendimientoPrevioNeto: Decimal) =>
+  Match.value(rendimientoPrevioNeto).pipe(
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(9180),
+      () => decimal(4080)
+    ),
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(13260),
+      (rendimientoPrevioNeto) =>
+        decimal(4080).minus(
+          decimal("0.35").mul(rendimientoPrevioNeto.minus(9180))
+        )
+    ),
+    Match.orElse(() => decimal(2652))
+  )
 
-  if (rendimientoPrevioNeto.lte(13260)) {
-    return decimal(4080).minus(
-      decimal("0.35").mul(rendimientoPrevioNeto.minus(9180))
-    )
-  }
+const reduccionTrabajo2015A2017 = (rendimientoPrevioNeto: Decimal) =>
+  Match.value(rendimientoPrevioNeto).pipe(
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(11250),
+      () => decimal(3700)
+    ),
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(14450),
+      (rendimientoPrevioNeto) =>
+        decimal(3700).minus(
+          decimal("1.15625").mul(rendimientoPrevioNeto.minus(11250))
+        )
+    ),
+    Match.orElse(() => CERO)
+  )
 
-  return decimal(2652)
-}
-
-const reduccionTrabajo2015A2017 = (rendimientoPrevioNeto: Decimal) => {
-  if (rendimientoPrevioNeto.lte(11250)) {
-    return decimal(3700)
-  }
-
-  if (rendimientoPrevioNeto.lte(14450)) {
-    return decimal(3700).minus(
-      decimal("1.15625").mul(rendimientoPrevioNeto.minus(11250))
-    )
-  }
-
-  return CERO
-}
-
-const reduccionTrabajo2019A2022 = (rendimientoPrevioNeto: Decimal) => {
-  if (rendimientoPrevioNeto.lte(13115)) {
-    return decimal(5565)
-  }
-
-  if (rendimientoPrevioNeto.lte(16825)) {
-    return max(
-      CERO,
-      decimal(5565).minus(
-        decimal("1.5").mul(rendimientoPrevioNeto.minus(13115))
-      )
-    )
-  }
-
-  return CERO
-}
+const reduccionTrabajo2019A2022 = (rendimientoPrevioNeto: Decimal) =>
+  Match.value(rendimientoPrevioNeto).pipe(
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(13115),
+      () => decimal(5565)
+    ),
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(16825),
+      (rendimientoPrevioNeto) =>
+        max(
+          CERO,
+          decimal(5565).minus(
+            decimal("1.5").mul(rendimientoPrevioNeto.minus(13115))
+          )
+        )
+    ),
+    Match.orElse(() => CERO)
+  )
 
 const reduccionTrabajo2018 = (rendimientoPrevioNeto: Decimal) => {
   const reduccionPreTransitoria = reduccionTrabajo2015A2017(
@@ -315,42 +322,47 @@ const reduccionTrabajo2018 = (rendimientoPrevioNeto: Decimal) => {
   return reduccionPreTransitoria.div(2).plus(reduccionPostTransitoria.div(2))
 }
 
-const reduccionTrabajo2023 = (rendimientoPrevioNeto: Decimal) => {
-  if (rendimientoPrevioNeto.lte("14047.50")) {
-    return decimal(6498)
-  }
+const reduccionTrabajo2023 = (rendimientoPrevioNeto: Decimal) =>
+  Match.value(rendimientoPrevioNeto).pipe(
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte("14047.50"),
+      () => decimal(6498)
+    ),
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte("19747.50"),
+      (rendimientoPrevioNeto) =>
+        max(
+          CERO,
+          decimal(6498).minus(
+            decimal("1.14").mul(rendimientoPrevioNeto.minus("14047.50"))
+          )
+        )
+    ),
+    Match.orElse(() => CERO)
+  )
 
-  if (rendimientoPrevioNeto.lte("19747.50")) {
-    return max(
-      CERO,
-      decimal(6498).minus(
-        decimal("1.14").mul(rendimientoPrevioNeto.minus("14047.50"))
-      )
-    )
-  }
-
-  return CERO
-}
-
-const reduccionTrabajoDesde2024 = (rendimientoPrevioNeto: Decimal) => {
-  if (rendimientoPrevioNeto.lte(14852)) {
-    return decimal(7302)
-  }
-
-  if (rendimientoPrevioNeto.lte("17673.52")) {
-    return decimal(7302).minus(
-      decimal("1.75").mul(rendimientoPrevioNeto.minus(14852))
-    )
-  }
-
-  if (rendimientoPrevioNeto.lte("19747.50")) {
-    return decimal("2364.34").minus(
-      decimal("1.14").mul(rendimientoPrevioNeto.minus("17673.52"))
-    )
-  }
-
-  return CERO
-}
+const reduccionTrabajoDesde2024 = (rendimientoPrevioNeto: Decimal) =>
+  Match.value(rendimientoPrevioNeto).pipe(
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(14852),
+      () => decimal(7302)
+    ),
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte("17673.52"),
+      (rendimientoPrevioNeto) =>
+        decimal(7302).minus(
+          decimal("1.75").mul(rendimientoPrevioNeto.minus(14852))
+        )
+    ),
+    Match.when(
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte("19747.50"),
+      (rendimientoPrevioNeto) =>
+        decimal("2364.34").minus(
+          decimal("1.14").mul(rendimientoPrevioNeto.minus("17673.52"))
+        )
+    ),
+    Match.orElse(() => CERO)
+  )
 
 const obtenerReduccionTrabajo = (anio: AnioFiscal): PoliticaMonetaria =>
   Match.value(anio).pipe(
@@ -371,31 +383,33 @@ const obtenerReduccionTrabajo = (anio: AnioFiscal): PoliticaMonetaria =>
     Match.orElse(() => reduccionTrabajoDesde2024)
   )
 
-const deduccionSmi2026 = (bruto: Decimal) => {
-  if (bruto.lte(17094)) {
-    return decimal("590.89")
-  }
-
-  return max(
-    CERO,
-    decimal("590.89").minus(decimal("0.20").mul(bruto.minus(17094)))
-  )
-}
-
-const deduccionSmi2025 = (bruto: Decimal) => {
-  if (bruto.lte(16576)) {
-    return decimal(340)
-  }
-
-  if (bruto.lte(18276)) {
-    return max(
-      CERO,
-      decimal(340).minus(decimal("0.20").mul(bruto.minus(16576)))
+const deduccionSmi2026 = (bruto: Decimal) =>
+  Match.value(bruto).pipe(
+    Match.when(
+      (bruto) => bruto.lte(17094),
+      () => decimal("590.89")
+    ),
+    Match.orElse((bruto) =>
+      max(
+        CERO,
+        decimal("590.89").minus(decimal("0.20").mul(bruto.minus(17094)))
+      )
     )
-  }
+  )
 
-  return CERO
-}
+const deduccionSmi2025 = (bruto: Decimal) =>
+  Match.value(bruto).pipe(
+    Match.when(
+      (bruto) => bruto.lte(16576),
+      () => decimal(340)
+    ),
+    Match.when(
+      (bruto) => bruto.lte(18276),
+      (bruto) =>
+        max(CERO, decimal(340).minus(decimal("0.20").mul(bruto.minus(16576))))
+    ),
+    Match.orElse(() => CERO)
+  )
 
 const sinDeduccionSmi = () => CERO
 
@@ -446,23 +460,26 @@ const sumarCuotaTramo =
   }
 
 const calcularCuotaIrpf = (baseImponible: Decimal, tramos: TramosIrpf) => {
-  if (baseImponible.lte(0)) {
-    return CERO
-  }
-
-  return tramos.reduce(sumarCuotaTramo(baseImponible), {
-    limiteAnterior: CERO,
-    cuota: CERO,
-  }).cuota
+  return Match.value(baseImponible).pipe(
+    Match.when(
+      (baseImponible) => baseImponible.lte(0),
+      () => CERO
+    ),
+    Match.orElse(
+      (baseImponible) =>
+        tramos.reduce(sumarCuotaTramo(baseImponible), {
+          limiteAnterior: CERO,
+          cuota: CERO,
+        }).cuota
+    )
+  )
 }
 
 const primerTipoIrpf = (tramos: TramosIrpf) => {
-  const primerTramo = tramos[0]
-  if (primerTramo === undefined) {
-    return CERO
-  }
-
-  return primerTramo[1]
+  return Match.value(tramos[0]).pipe(
+    Match.when(Match.undefined, () => CERO),
+    Match.orElse((primerTramo) => primerTramo[1])
+  )
 }
 
 // La cadena del IRPF queda desplegada paso a paso porque cada importe es un
@@ -708,13 +725,11 @@ export const calcularPerdidaAcumulada = Effect.fn(
   } satisfies PerdidaAcumulada
 })
 
-const proporcionSegura = (numerador: number, denominador: number) => {
-  if (denominador === 0) {
-    return 0
-  }
-
-  return numerador / denominador
-}
+const proporcionSegura = (numerador: number, denominador: number) =>
+  Match.value(denominador).pipe(
+    Match.when(0, () => 0),
+    Match.orElse((denominador) => numerador / denominador)
+  )
 
 const tipoCarga = (desglose: DesgloseLiquidado) =>
   proporcionSegura(
@@ -756,73 +771,77 @@ const primero = <A>(valores: ReadonlyArray<A>) => valores[0]
 
 const hallazgoMasAfectado = (
   punto: PuntoAuditoriaRangoSalarial | undefined
-): HallazgoAuditoria | undefined => {
-  if (punto === undefined) {
-    return undefined
-  }
-
-  const diferencia =
-    punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
-  if (diferencia > 0) {
-    return {
-      titulo: "Mayor pérdida de poder adquisitivo",
-      descripcion:
-        "En este salario, la legislación actual deja menos neto real que el año comparado ajustado por IPC.",
-      salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
-      severidad: "perdida",
-    }
-  }
-
-  return {
-    titulo: "Mayor mejora de poder adquisitivo",
-    descripcion:
-      "En este salario, la legislación actual deja más neto real que el año comparado ajustado por IPC.",
-    salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
-    severidad: "ganancia",
-  }
-}
+): HallazgoAuditoria | undefined =>
+  Match.value(punto).pipe(
+    Match.when(Match.undefined, () => undefined),
+    Match.when(
+      (punto) =>
+        punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos > 0,
+      (punto) =>
+        ({
+          titulo: "Mayor pérdida de poder adquisitivo",
+          descripcion:
+            "En este salario, la legislación actual deja menos neto real que el año comparado ajustado por IPC.",
+          salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
+          severidad: "perdida",
+        }) satisfies HallazgoAuditoria
+    ),
+    Match.orElse(
+      (punto) =>
+        ({
+          titulo: "Mayor mejora de poder adquisitivo",
+          descripcion:
+            "En este salario, la legislación actual deja más neto real que el año comparado ajustado por IPC.",
+          salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
+          severidad: "ganancia",
+        }) satisfies HallazgoAuditoria
+    )
+  )
 
 const hallazgoBrechaCarga = (
   punto: PuntoAuditoriaRangoSalarial | undefined
-): HallazgoAuditoria | undefined => {
-  if (punto === undefined) {
-    return undefined
-  }
-
-  if (punto.tipoCargaActual > punto.tipoCargaComparada) {
-    return {
-      titulo: "Mayor cambio de carga sobre salario bruto",
-      descripcion:
-        "Aquí se concentra la mayor diferencia de IRPF y cotización del trabajador sobre el salario bruto.",
-      salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
-      severidad: "perdida",
-    }
-  }
-
-  return {
-    titulo: "Mayor cambio de carga sobre salario bruto",
-    descripcion:
-      "Aquí se concentra la mayor diferencia de IRPF y cotización del trabajador sobre el salario bruto.",
-    salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
-    severidad: "ganancia",
-  }
-}
+): HallazgoAuditoria | undefined =>
+  Match.value(punto).pipe(
+    Match.when(Match.undefined, () => undefined),
+    Match.when(
+      (punto) => punto.tipoCargaActual > punto.tipoCargaComparada,
+      (punto) =>
+        ({
+          titulo: "Mayor cambio de carga sobre salario bruto",
+          descripcion:
+            "Aquí se concentra la mayor diferencia de IRPF y cotización del trabajador sobre el salario bruto.",
+          salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
+          severidad: "perdida",
+        }) satisfies HallazgoAuditoria
+    ),
+    Match.orElse(
+      (punto) =>
+        ({
+          titulo: "Mayor cambio de carga sobre salario bruto",
+          descripcion:
+            "Aquí se concentra la mayor diferencia de IRPF y cotización del trabajador sobre el salario bruto.",
+          salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
+          severidad: "ganancia",
+        }) satisfies HallazgoAuditoria
+    )
+  )
 
 const hallazgoPrimerIrpfActual = (
   punto: PuntoAuditoriaRangoSalarial | undefined
-): HallazgoAuditoria | undefined => {
-  if (punto === undefined) {
-    return undefined
-  }
-
-  return {
-    titulo: "Primer salario con IRPF final en 2026",
-    descripcion:
-      "Marca la entrada visible del IRPF final dentro del rango explorado; por debajo siguen existiendo cotizaciones.",
-    salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
-    severidad: "info",
-  }
-}
+): HallazgoAuditoria | undefined =>
+  Match.value(punto).pipe(
+    Match.when(Match.undefined, () => undefined),
+    Match.orElse(
+      (punto) =>
+        ({
+          titulo: "Primer salario con IRPF final en 2026",
+          descripcion:
+            "Marca la entrada visible del IRPF final dentro del rango explorado; por debajo siguen existiendo cotizaciones.",
+          salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
+          severidad: "info",
+        }) satisfies HallazgoAuditoria
+    )
+  )
 
 const estaPresente = <A>(valor: A | undefined): valor is A =>
   valor !== undefined
@@ -845,31 +864,27 @@ const construirHallazgos = (
 
 const rangoSalarioBrutoAnualCentimos = (
   entrada: EntradaAuditoriaRangoSalarial
-): ReadonlyArray<number> => {
-  if (entrada.pasoCentimos <= 0) {
-    return []
-  }
-
-  if (
-    entrada.salarioBrutoAnualMinimoCentimos >
-    entrada.salarioBrutoAnualMaximoCentimos
-  ) {
-    return []
-  }
-
-  const numeroPuntos =
-    Math.floor(
-      (entrada.salarioBrutoAnualMaximoCentimos -
-        entrada.salarioBrutoAnualMinimoCentimos) /
-        entrada.pasoCentimos
-    ) + 1
-
-  return Array.from(
-    { length: numeroPuntos },
-    (_, index) =>
-      entrada.salarioBrutoAnualMinimoCentimos + index * entrada.pasoCentimos
+): ReadonlyArray<number> =>
+  Match.value(entrada).pipe(
+    Match.when({ pasoCentimos: (paso) => paso <= 0 }, () => []),
+    Match.when(
+      (entrada) =>
+        entrada.salarioBrutoAnualMinimoCentimos >
+        entrada.salarioBrutoAnualMaximoCentimos,
+      () => []
+    ),
+    Match.orElse((entrada) =>
+      EffectArray.makeBy(
+        Math.floor(
+          (entrada.salarioBrutoAnualMaximoCentimos -
+            entrada.salarioBrutoAnualMinimoCentimos) /
+            entrada.pasoCentimos
+        ) + 1,
+        (index) =>
+          entrada.salarioBrutoAnualMinimoCentimos + index * entrada.pasoCentimos
+      )
+    )
   )
-}
 
 const construirPuntoAuditoria = Effect.fn(
   "progresividad.construirPuntoAuditoria"
@@ -965,20 +980,21 @@ const cabeceraTramoIrpf = (indice: number, tramo: TramoIrpf) => {
   return `T${indice + 1} (${porcentajeCompatibleLegacy(tipo, 1).toFixed(1)}%)`
 }
 
-const valorLimiteTramo = (limite: Decimal): ValorCeldaCompatible => {
-  if (!limite.isFinite()) {
-    return "En adelante"
-  }
-
-  return limite.toNumber()
-}
+const valorLimiteTramo = (limite: Decimal): ValorCeldaCompatible =>
+  Match.value(limite.isFinite()).pipe(
+    Match.when(false, () => "En adelante"),
+    Match.orElse(() => limite.toNumber())
+  )
 
 const calcularCuotasPorTramo = (
   baseImponible: Decimal,
   tramos: TramosIrpf
 ): ReadonlyArray<Decimal> =>
   tramos.map(([limite], indice) => {
-    const limiteAnterior = indice === 0 ? CERO : tramos[indice - 1][0]
+    const limiteAnterior = Match.value(indice).pipe(
+      Match.when(0, () => CERO),
+      Match.orElse((indice) => tramos[indice - 1][0])
+    )
     return importeBaseEnTramo(baseImponible, limiteAnterior, limite).mul(
       tramos[indice][1]
     )
