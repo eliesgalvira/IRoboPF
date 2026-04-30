@@ -9,6 +9,7 @@ import type { ComunidadAutonoma } from "../lib/dominio/irpf/caso-fiscal-anual"
 import { obtenerMinimosAutonomicosIrpf2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
 import { obtenerMinimosAutonomicosIrpf2024 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2024"
 import { obtenerMinimosAutonomicosIrpf2023 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2023"
+import { obtenerMinimosAutonomicosIrpf2022 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2022"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -217,6 +218,82 @@ describe("comunidad autonoma", () => {
     expect(balearsFallecido.ascendientes.mayor65OConDiscapacidad.toString()).toBe(
       "1150"
     )
+  })
+
+  it("resuelve 2022 con escalas y minimos autonomicos propios del ejercicio", () => {
+    const aragon2022 = obtenerParametrosComunidadAutonoma({
+      anio: 2022,
+      comunidadAutonoma: "aragon",
+    })
+    const aragon2025 = obtenerParametrosComunidadAutonoma({
+      anio: 2025,
+      comunidadAutonoma: "aragon",
+    })
+    const asturias2022 = obtenerParametrosComunidadAutonoma({
+      anio: 2022,
+      comunidadAutonoma: "asturias",
+    })
+    const madrid2022 = obtenerMinimosAutonomicosIrpf2022({
+      comunidadAutonoma: "madrid",
+    })
+    const balears2022 = obtenerMinimosAutonomicosIrpf2022({
+      comunidadAutonoma: "illes-balears",
+    })
+
+    expect(asturias2022).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "asturias",
+      anio: 2022,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+    })
+
+    if (
+      aragon2022._tag === "ParametrosComunidadAutonoma" &&
+      aragon2025._tag === "ParametrosComunidadAutonoma"
+    ) {
+      expect(aragon2022.escalaAutonomica.tramos[0][0].toString()).toBe("12450")
+      expect(aragon2025.escalaAutonomica.tramos[0][0].toString()).toBe(
+        "13072.5"
+      )
+    }
+
+    expect(madrid2022.contribuyente.general.toString()).toBe("5777.55")
+    expect(balears2022.descendientes.segundo.toString()).toBe("2700")
+  })
+
+  it("aplica reglas especiales de 2022 para fallecidos en Comunitat Valenciana", () => {
+    const comunitatGeneral = obtenerParametrosComunidadAutonoma({
+      anio: 2022,
+      comunidadAutonoma: "comunitat-valenciana",
+    })
+    const comunitatFallecido = obtenerParametrosComunidadAutonoma({
+      anio: 2022,
+      comunidadAutonoma: "comunitat-valenciana",
+      fechaFallecimiento: new Date("2022-10-27T12:00:00.000Z"),
+    })
+    const minimosGenerales = obtenerMinimosAutonomicosIrpf2022({
+      comunidadAutonoma: "comunitat-valenciana",
+    })
+    const minimosFallecido = obtenerMinimosAutonomicosIrpf2022({
+      comunidadAutonoma: "comunitat-valenciana",
+      fechaFallecimiento: new Date("2022-10-27T12:00:00.000Z"),
+    })
+
+    if (
+      comunitatGeneral._tag === "ParametrosComunidadAutonoma" &&
+      comunitatFallecido._tag === "ParametrosComunidadAutonoma"
+    ) {
+      expect(comunitatGeneral.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.09"
+      )
+      expect(comunitatFallecido.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.1"
+      )
+    }
+
+    expect(minimosGenerales.contribuyente.general.toString()).toBe("6105")
+    expect(minimosFallecido.contribuyente.general.toString()).toBe("5550")
   })
 
   it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {

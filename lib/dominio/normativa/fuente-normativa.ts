@@ -28,6 +28,14 @@ export const fuenteAeatManualRenta2023Parte1: FuenteNormativaNormalizada = {
   nota: "Fuente oficial AEAT consultada para parametros 2023; no sustituye a la normativa publicada.",
 }
 
+export const fuenteAeatManualRenta2022Parte1: FuenteNormativaNormalizada = {
+  _tag: "FuenteNormativaNormalizada",
+  titulo: "Manual practico de Renta 2022. Parte 1",
+  referencia:
+    "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/",
+  nota: "Fuente oficial AEAT consultada para parametros 2022; no sustituye a la normativa publicada.",
+}
+
 export const fuenteAeatDeduccionesAutonomicas2025: FuenteNormativaNormalizada =
   {
     _tag: "FuenteNormativaNormalizada",
