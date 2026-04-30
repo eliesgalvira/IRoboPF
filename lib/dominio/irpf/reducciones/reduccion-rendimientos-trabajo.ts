@@ -1,5 +1,5 @@
 import Decimal from "decimal.js"
-import { Match } from "effect"
+import { Match, Option } from "effect"
 
 import {
   IMPORTE_CERO,
@@ -18,9 +18,11 @@ const maximo = (a: Decimal, b: Decimal): Decimal =>
 
 export const calcularReduccionRendimientosTrabajo = ({
   anio,
+  fechaFallecimiento,
   rendimientoPrevioNeto,
 }: {
   readonly anio: AnioFiscal
+  readonly fechaFallecimiento?: Date | undefined
   readonly rendimientoPrevioNeto: Decimal
 }): Decimal =>
   Match.value(anio).pipe(
@@ -32,7 +34,9 @@ export const calcularReduccionRendimientosTrabajo = ({
       (anio) => anio <= 2017,
       () => reduccionTrabajo2015A2017(rendimientoPrevioNeto)
     ),
-    Match.when(2018, () => reduccionTrabajo2018(rendimientoPrevioNeto)),
+    Match.when(2018, () =>
+      reduccionTrabajo2018({ fechaFallecimiento, rendimientoPrevioNeto })
+    ),
     Match.when(
       (anio) => anio <= 2022,
       () => reduccionTrabajo2019A2022(rendimientoPrevioNeto)
@@ -94,10 +98,54 @@ const reduccionTrabajo2019A2022 = (rendimientoPrevioNeto: Decimal): Decimal =>
     Match.orElse(() => IMPORTE_CERO)
   )
 
-const reduccionTrabajo2018 = (rendimientoPrevioNeto: Decimal): Decimal =>
-  reduccionTrabajo2015A2017(rendimientoPrevioNeto)
-    .div(2)
-    .plus(reduccionTrabajo2019A2022(rendimientoPrevioNeto).div(2))
+const FECHA_CORTE_REDUCCION_TRABAJO_2018 = "2018-07-05"
+
+const fechaCivilIsoUtc = (fecha: Date): string =>
+  [
+    fecha.getUTCFullYear(),
+    String(fecha.getUTCMonth() + 1).padStart(2, "0"),
+    String(fecha.getUTCDate()).padStart(2, "0"),
+  ].join("-")
+
+const fallecidoAntesDeFechaCivil = ({
+  fechaCorte,
+  fechaFallecimiento,
+}: {
+  readonly fechaCorte: string
+  readonly fechaFallecimiento?: Date | undefined
+}): boolean =>
+  Option.fromNullishOr(fechaFallecimiento).pipe(
+    Option.match({
+      onNone: () => false,
+      onSome: (fechaFallecimiento) =>
+        fechaCivilIsoUtc(fechaFallecimiento) < fechaCorte,
+    })
+  )
+
+const reduccionTrabajo2018 = ({
+  fechaFallecimiento,
+  rendimientoPrevioNeto,
+}: {
+  readonly fechaFallecimiento?: Date | undefined
+  readonly rendimientoPrevioNeto: Decimal
+}): Decimal => {
+  const reduccionAnterior = reduccionTrabajo2015A2017(rendimientoPrevioNeto)
+  const reduccionNueva = reduccionTrabajo2019A2022(rendimientoPrevioNeto)
+
+  return Match.value(
+    fallecidoAntesDeFechaCivil({
+      fechaCorte: FECHA_CORTE_REDUCCION_TRABAJO_2018,
+      fechaFallecimiento,
+    })
+  ).pipe(
+    Match.when(true, () => reduccionAnterior),
+    Match.orElse(() =>
+      reduccionAnterior.plus(
+        maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)).div(2)
+      )
+    )
+  )
+}
 
 const reduccionTrabajo2023 = (rendimientoPrevioNeto: Decimal): Decimal =>
   Match.value(rendimientoPrevioNeto).pipe(

@@ -146,6 +146,8 @@ export const TRAMOS_IRPF_AHORRO_2020: TramosIrpf = [
 
 export const TRAMOS_IRPF_AHORRO_2019: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
 
+export const TRAMOS_IRPF_AHORRO_2018: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
+
 export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
   Match.value(anio).pipe(
     Match.when(
@@ -162,6 +164,7 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
   return Match.value(anio).pipe(
+    Match.when(2018, () => TRAMOS_IRPF_AHORRO_2018),
     Match.when(2019, () => TRAMOS_IRPF_AHORRO_2019),
     Match.when(2020, () => TRAMOS_IRPF_AHORRO_2020),
     Match.when(2021, () => TRAMOS_IRPF_AHORRO_2021),

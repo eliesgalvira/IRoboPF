@@ -23,6 +23,10 @@ import {
   obtenerEscalaAutonomicaIrpf2019,
   TRAMOS_IRPF_ESTATAL_GENERAL_2019,
 } from "../../normativa/datos/irpf-autonomico-2019"
+import {
+  obtenerEscalaAutonomicaIrpf2018,
+  TRAMOS_IRPF_ESTATAL_GENERAL_2018,
+} from "../../normativa/datos/irpf-autonomico-2018"
 import { obtenerEscalaAutonomicaIrpf2021 } from "../../normativa/datos/irpf-autonomico-2021"
 import { obtenerEscalaAutonomicaIrpf2022 } from "../../normativa/datos/irpf-autonomico-2022"
 import { obtenerEscalaAutonomicaIrpf2023 } from "../../normativa/datos/irpf-autonomico-2023"
@@ -57,6 +61,10 @@ import {
   MINIMOS_ESTATALES_2019,
   obtenerMinimosAutonomicosIrpf2019,
 } from "../../normativa/datos/minimos-autonomicos-2019"
+import {
+  MINIMOS_ESTATALES_2018,
+  obtenerMinimosAutonomicosIrpf2018,
+} from "../../normativa/datos/minimos-autonomicos-2018"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
 export interface EntradaParametrosComunidadAutonoma {
@@ -88,6 +96,25 @@ export interface ComunidadAutonomaNoSoportada {
 export type ResultadoParametrosComunidadAutonoma =
   | ParametrosComunidadAutonoma
   | ComunidadAutonomaNoSoportada
+
+const resolverParametrosComunidadAutonoma2018 = (
+  comunidadAutonoma: ComunidadAutonoma
+): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2018(comunidadAutonoma)
+
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2018,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2018,
+    escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2018,
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2018(comunidadAutonoma),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas: [],
+  }
+}
 
 const resolverParametrosComunidadAutonoma2019 = (
   comunidadAutonoma: ComunidadAutonoma
@@ -247,6 +274,9 @@ export const obtenerParametrosComunidadAutonoma = ({
   fechaFallecimiento,
 }: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>
   Match.value(anio).pipe(
+    Match.when(2018, () =>
+      resolverParametrosComunidadAutonoma2018(comunidadAutonoma)
+    ),
     Match.when(2019, () =>
       resolverParametrosComunidadAutonoma2019(comunidadAutonoma)
     ),

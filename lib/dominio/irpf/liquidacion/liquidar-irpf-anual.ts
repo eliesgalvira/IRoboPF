@@ -263,6 +263,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     })
   const reduccionRendimientosTrabajo = calcularReduccionRendimientosTrabajo({
     anio: caso.anio,
+    fechaFallecimiento: caso.fechaFallecimiento,
     rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
   })
   const baseImponibleGeneral = calcularBaseImponibleGeneral({
