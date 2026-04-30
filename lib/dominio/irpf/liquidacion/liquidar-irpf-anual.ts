@@ -573,6 +573,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       anio: caso.anio,
       rendimientoIntegroTrabajoCentimos:
         importesLiquidacion.rendimientoIntegroTrabajoCentimos,
+      cuotaLiquida,
       cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
       cuotaDiferencialCentimos,
     }),

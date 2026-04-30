@@ -48,6 +48,10 @@ _Avoid_: If por modo, helper global implicito, formato visual
 Calculo del tipo e importe de retencion a cuenta sobre rendimientos del trabajo.
 _Avoid_: Liquidacion anual del IRPF, estimacion IRPF legacy, tipo de nomina
 
+**Deduccion por obtencion de rendimientos del trabajo**:
+Deduccion estatal introducida en la Ley 35/2006 para reducir o eliminar el IRPF de perceptores del SMI y rentas de trabajo proximas. En el codigo puede aparecer historicamente como deduccion SMI, pero ese nombre es un alias pedagogico o legacy, no el nombre juridico canonico.
+_Avoid_: Deduccion SMI canonica, minimo exento de retencion, reduccion por rendimientos del trabajo
+
 **IRPF final**:
 Importe de IRPF aplicado al salario bruto tras minimos, deducciones y limites.
 _Avoid_: Estimacion IRPF legacy, Liquidacion anual del IRPF, cuota integra
@@ -84,6 +88,46 @@ _Avoid_: Regla fiscal, cambio de calculo anual
 Calculo de salario neto e IRPF para un unico caso fiscal simplificado en un unico ano fiscal.
 _Avoid_: Auditoria completa, exportacion Excel
 
+**Caso fiscal ponderado**:
+Caso fiscal anual acompanado de un peso de agregacion y un origen de muestra. Un caso individual tiene peso 1; un barrido salarial y una poblacion representativa se expresan como conjuntos de casos fiscales ponderados para reutilizar la misma logica de calculo e impacto.
+_Avoid_: Fila de barrido sin caso fiscal, poblacion separada del motor, salario suelto como unidad agregable
+
+**Perfil fiscal construible**:
+Definicion reusable de circunstancias personales, familiares, territoriales, laborales y de rentas que puede materializarse como uno o varios casos fiscales anuales. Debe servir tanto a perfiles predefinidos de auditoria como a un futuro constructor custom de usuario.
+_Avoid_: Plantilla cerrada, formulario de liquidacion, caso anual ya materializado
+
+**Perfil longitudinal proyectable**:
+Perfil fiscal construible que declara como proyectar circunstancias, salarios, edades, comunidad y rentas a traves de varios anos fiscales. Permite que `/liquidacion-irpf` materialice un caso anual y que `auditoria/` materialice una serie historica comparable.
+_Avoid_: Caso anual duplicado por ano, regla de proyeccion escondida en auditoria, comparacion historica sin perfil
+
+**Estrategia de proyeccion salarial**:
+Regla declarada por un perfil longitudinal proyectable para materializar salarios en varios anos fiscales. Las estrategias soportadas inicialmente son salario bruto real constante, coste laboral real constante y trayectoria salarial propia basada en datos economicos o entrada del usuario.
+_Avoid_: IPC implicito, salario historico hardcodeado, selector visual sin semantica
+
+**Variante de auditoria**:
+Resultado alternativo dentro de una misma auditoria normativa historica que cambia una dimension navegable, como la estrategia de proyeccion salarial, sin cambiar el perfil, periodo, medida normativa ni ano de referencia base del analisis.
+_Avoid_: Auditoria independiente, estado visual sin URL, comparacion fuera de contexto
+
+**Magnitud auditada**:
+Resultado fiscal o laboral sobre el que se calcula y presenta impacto normativo, como IRPF final, cotizacion del trabajador, cotizacion empresarial, salario neto anual, coste laboral o carga fiscal efectiva. La magnitud por defecto de la auditoria normativa historica es IRPF final.
+_Avoid_: Coste ambiguo, una unica metrica implicita, eje de grafico sin dominio
+
+**Perspectiva ciudadano**:
+Convencion de signo para impactos normativos donde un valor positivo mejora la posicion economica del ciudadano y un valor negativo empeora su posicion. Es la perspectiva por defecto de la auditoria normativa historica.
+_Avoid_: Signo recaudatorio implicito, delta de cuota sin interpretacion, coste ambiguo
+
+**Vista de bolsillo**:
+Presentacion de impacto normativo sobre salario neto anual o mensual equivalente desde la perspectiva ciudadano. Complementa la magnitud auditada por defecto de IRPF final cuando el usuario necesita leer el efecto como dinero disponible.
+_Avoid_: IRPF pagado, recaudacion, coste laboral
+
+**Contrato URL de auditoria**:
+Esquema versionado de parametros de URL que serializa una auditoria normativa historica y su variante seleccionada. La version inicial usa `v=1` para estabilizar enlaces compartidos y permitir migraciones futuras del contrato.
+_Avoid_: Estado local no compartible, nombres internos de componentes, URL sin version
+
+**Perfil fiscal predefinido**:
+Perfil fiscal construible mantenido por el producto para auditoria y comparacion publica, como persona soltera sin hijos, pareja con hijos, trabajador medio por comunidad o distribucion sintetica por salario y comunidad.
+_Avoid_: Caso fiscal fijo, input libre de liquidacion, segmento estadistico sin definicion fiscal
+
 **Desglose de salario neto e IRPF**:
 Resultado explicable del calculo que muestra como se pasa del salario bruto al salario neto y que parte corresponde a cotizaciones, IRPF y ajustes normativos.
 _Avoid_: Desglose fiscal-laboral, nomina
@@ -103,6 +147,30 @@ _Avoid_: Version del algoritmo, version normativa
 **Version de datos de referencia**:
 Identificador del conjunto de parametros normativos y datos economicos usados por un calculo o auditoria.
 _Avoid_: Version del algoritmo, version de explicacion
+
+**Procedencia normativa ejecutable**:
+Identidad trazable que enlaza un parametro normativo ejecutable o regla de calculo con la medida normativa computable, paquete normativo y fuentes que justifican su valor. Es la base para auditar por que un numero existe antes de construir escenarios contrafactuales.
+_Avoid_: Comentario de codigo, fuente suelta, nombre de archivo como procedencia
+
+**Medida normativa computable**:
+Unidad trazable de cambio normativo que altera una regla, parametro, escala, minimo, deduccion, cotizacion o limite ejecutado por el motor. Es la unidad principal para atribuir impacto; las normas juridicas publicadas son fuentes o evidencias asociadas, no necesariamente la unidad de impacto.
+_Avoid_: Norma juridica completa, BOE como unidad de coste, cambio de codigo sin fuente
+
+**Regla normativa computable**:
+Formula, condicion de aplicabilidad o etapa de liquidacion trazada a una medida normativa computable. Complementa a los parametros normativos ejecutables cuando el cambio normativo no se reduce a un valor escalar.
+_Avoid_: Formula anonima, parametro complejo sin etapa, logica fiscal sin fuente
+
+**Escala autonomica anual computable**:
+Medida normativa computable que agrupa la escala autonomica completa de una comunidad autonoma para un ano fiscal. En la primera version se trata como unidad indivisible de impacto salvo que una fuente normalizada justifique descomponer cambios de tramos o tipos.
+_Avoid_: Tramo autonomico aislado sin fuente, escala estatalizada, deduccion autonomica
+
+**Catalogo interactivo de deducciones autonomicas**:
+Conjunto de fichas de deducciones autonomicas expuestas para consulta e interaccion en la liquidacion IRPF de un ano cubierto. No forma parte de la auditoria normativa historica salvo decision explicita, porque auditar todas las deducciones de todos los anos multiplicaria el alcance y los requisitos de entrada.
+_Avoid_: Medida obligatoria de auditoria, cobertura historica de deducciones, coste ciudadano agregado por deducciones
+
+**Paquete normativo**:
+Agrupacion presentable de medidas normativas computables que comparten una intencion politica, una norma fuente o una explicacion publica. Sirve para comunicar impacto agregado al usuario, mientras que el calculo atribuible se mantiene en las medidas computables que lo componen.
+_Avoid_: Medida computable indivisible, BOE completo, categoria visual sin medidas
 
 **Version del algoritmo**:
 Identificador de las reglas de calculo ejecutadas por el motor exacto.
@@ -184,9 +252,41 @@ _Avoid_: Auditoria completa, barrido salarial
 Ruta de producto para tecnicos y expertos que captura las variables necesarias de una liquidacion anual del IRPF.
 _Avoid_: Simulador completo, consulta individual, calculadora de nomina
 
+**Auditoria normativa historica**:
+Analisis historico en `auditoria/` que calcula impactos normativos entre anos con casos y escenarios trazables. Su objetivo es atribuir cambios de IRPF, cotizaciones, salario neto o coste laboral sin las simplificaciones legacy de persona soltera, sin hijos y autonomia estatalizada.
+_Avoid_: Catalogo completo de deducciones autonomicas, liquidacion individual interactiva, perfil legacy simplificado
+
 **Comparacion ajustada por IPC**:
 Comparacion entre el ano de referencia y un ano comparado usando salarios equivalentes por IPC e importes reexpresados en euros del ano de referencia.
 _Avoid_: Comparacion nominal, aplicar leyes pasadas a salario actual sin ajuste
+
+**Escenario contrafactual normativo**:
+Calculo alternativo que mantiene fijo el caso fiscal, el ano economico y el conjunto de datos de poblacion o barrido, cambiando solo una medida normativa declarada para aislar su impacto atribuible.
+_Avoid_: Comparacion interanual, evolucion historica observada, simulacion sin versionar
+
+**Escenario normativo versionado**:
+Conjunto identificado de medidas normativas computables activas e inactivas que construye una variante reproducible de los parametros y reglas de un ano fiscal. Sirve para ejecutar escenarios reales y contrafactuales sin perder la procedencia normativa de cada valor.
+_Avoid_: Flag suelto, modo de UI, parche temporal de parametros
+
+**Impacto atribuible a una medida normativa**:
+Diferencia entre el resultado con una medida normativa aplicada y su escenario contrafactual normativo equivalente. No debe inferirse por simple comparacion con el ano anterior porque ahi se mezclan IPC, salarios, otras reformas y cambios territoriales.
+_Avoid_: Coste de legislacion ambiguo, variacion anual, perdida recaudatoria sin contrafactual
+
+**Impacto marginal secuenciado**:
+Impacto atribuible calculado aplicando medidas normativas computables en un orden explicito y versionado dentro de un paquete normativo. Es la metrica principal para presentar desgloses agregables por paquete, porque respeta interacciones entre reducciones, minimos, deducciones, escalas y limites.
+_Avoid_: Impacto independiente, reparto proporcional implicito, suma de deltas sin orden
+
+**Impacto aislado**:
+Impacto atribuible calculado activando una sola medida normativa computable contra el escenario contrafactual base. Sirve para auditoria y vista experta, pero no garantiza que la suma de impactos aislados coincida con el impacto agregado cuando hay interacciones entre medidas.
+_Avoid_: Coste agregado del paquete, impacto marginal secuenciado
+
+**Impacto acumulado ajustado por IPC**:
+Suma de impactos atribuibles de una medida normativa computable o paquete normativo desde su ano de introduccion hasta el ano de referencia, reexpresando cada impacto anual en euros del ano de referencia mediante IPC. Sirve para responder cuanto IRPF, cotizaciones o salario neto ha cambiado acumuladamente para un caso o barrido desde que existe la medida.
+_Avoid_: Impacto anual, comparacion nominal acumulada, coste exacto sin ano de referencia
+
+**Baseline anual sin medida**:
+Escenario contrafactual normativo de un ano fiscal concreto que conserva la normativa real de ese mismo ano excepto la medida normativa computable evaluada. Es el baseline para calcular impacto anual atribuible y para acumular impactos por IPC a traves de varios anos.
+_Avoid_: Normativa anterior prorrogada, mundo historico alternativo, comparacion interanual
 
 **Control preciso de salario**:
 Entrada numerica que conserva el salario bruto anual exacto introducido por el usuario.
@@ -251,6 +351,10 @@ _Avoid_: Modo compatible legacy, output historico
 **Perfil de calculo**:
 Conjunto de hipotesis que decide que reglas de calculo se activan.
 _Avoid_: Modo visual, configuracion UI
+
+**Perfil de compatibilidad historica**:
+Perfil de calculo que reproduce el caso simplificado observable del oracle historico: persona individual sin descendientes ni ascendientes, sin discapacidad, tramo autonomico estatalizado, deduccion por obtencion de rendimientos del trabajo cuando aplique y limite final de retencion del 43 por ciento. Puede implementarse sobre datos normativos trazados sin convertir esas hipotesis en la verdad fiscal general.
+_Avoid_: Legacy como nombre de dominio, liquidacion completa, perfil fiscal real del usuario
 
 **Carga fiscal efectiva**:
 Proporcion de una base elegida absorbida por IRPF y cotizaciones bajo un caso fiscal.
@@ -406,6 +510,7 @@ _Avoid_: Informe, reporte
 - Un **Caso fiscal simplificado legacy** asume persona individual, sin descendientes, sin ascendientes, sin discapacidad y tramo autonomico igualado al estatal.
 - Un **Calculo unitario** usa un **Perfil de calculo**.
 - El **Perfil de progresividad en frio legacy** aplica al **Caso fiscal simplificado legacy**.
+- El **Perfil de compatibilidad historica** nombra la semantica fiscal del caso simplificado que hoy se implementa en rutas legacy.
 - La **Hipotesis de tramo autonomico estatalizado** es una **Hipotesis fiscal** actual del proyecto.
 - Una **Limitacion de alcance** describe una frontera de producto o documentacion; un **Resultado no soportado** es el estado devuelto por el motor.
 - La **Situacion familiar individual sin descendientes** es la **Situacion familiar fiscal** actual del proyecto.
@@ -418,10 +523,27 @@ _Avoid_: Informe, reporte
 - Un **Calculo de salario neto e IRPF** produce un **Salario neto anual**.
 - Un **Salario neto mensual equivalente** se deriva de un **Salario neto anual** mediante una **Distribucion de pagas**.
 - Un **Calculo unitario** aplica un **Calculo de salario neto e IRPF** a un unico ano fiscal.
+- Un **Caso fiscal ponderado** envuelve un **Caso fiscal anual** para agregacion.
+- Un **Perfil fiscal construible** materializa uno o varios **Casos fiscales ponderados**.
+- Un **Perfil longitudinal proyectable** es un **Perfil fiscal construible** para auditorias historicas.
+- Un **Perfil longitudinal proyectable** declara una **Estrategia de proyeccion salarial**.
+- La estrategia por defecto de una **Auditoria normativa historica** es salario bruto real constante salvo que el perfil predefinido declare una trayectoria salarial propia.
+- Una **Auditoria normativa historica** puede contener varias **Variantes de auditoria** navegables y serializadas en parametros de URL.
+- Una **Variante de auditoria** declara una **Magnitud auditada**.
+- Una **Auditoria normativa historica** presenta impactos por defecto desde la **Perspectiva ciudadano**.
+- Una **Auditoria normativa historica** puede presentar una **Vista de bolsillo** junto a la magnitud auditada cuando el impacto en dinero disponible difiera o sea pedagogicamente util.
+- Una **Auditoria normativa historica** usa un **Contrato URL de auditoria** para reproducir perfil, periodo, ano de referencia, medida o paquete, comunidad, estrategia salarial y vista.
+- Un **Perfil fiscal predefinido** es un **Perfil fiscal construible** mantenido por el producto.
+- Un **Barrido salarial** produce **Casos fiscales ponderados** sinteticos.
 - Un **Calculo de salario neto e IRPF** produce un **Desglose de salario neto e IRPF**.
 - Un **Desglose de salario neto e IRPF** puede incluir un **Rastro de calculo**.
 - Un **Rastro de calculo** declara una **Version de explicacion**.
 - Un **Calculo unitario** declara una **Version de datos de referencia** y una **Version del algoritmo**.
+- Una **Procedencia normativa ejecutable** enlaza un **Parametro normativo ejecutable** o una **Regla de calculo** con una **Medida normativa computable**.
+- Una **Medida normativa computable** puede incluir **Parametros normativos ejecutables** y **Reglas normativas computables**.
+- Una **Regla normativa computable** declara condiciones de aplicabilidad, etapa de liquidacion y metrica afectada cuando sea relevante para calcular impacto.
+- Un **Escenario normativo versionado** declara que **Medidas normativas computables** estan activas para un calculo.
+- Un **Escenario contrafactual normativo** es un **Escenario normativo versionado** construido para desactivar o sustituir una medida concreta.
 - Una **Auditoria de progresividad en frio** declara una **Version de datos de referencia**, una **Version del algoritmo** y una **Version de explicacion** cuando incluye rastros educativos.
 - Un **Motor exacto** produce **Desgloses de salario neto e IRPF**.
 - Un **Servicio de dominio** encapsula una capacidad con frontera clara o dependencias intercambiables, no cada funcion aritmetica pura.
@@ -451,7 +573,10 @@ _Avoid_: Informe, reporte
 - Una **Consulta individual** no sustituye a una **Interfaz experta de liquidacion IRPF**.
 - La ruta `/liquidacion-irpf` aloja la **Interfaz experta de liquidacion IRPF**.
 - La **Interfaz experta de liquidacion IRPF** prioriza cobertura y precision de variables sobre brevedad de formulario.
+- La **Interfaz experta de liquidacion IRPF** puede incluir un **Catalogo interactivo de deducciones autonomicas** para un ano cubierto.
 - Una **Liquidacion anual del IRPF** es dominio fiscal; una **Interfaz experta de liquidacion IRPF** es producto.
+- Una **Auditoria normativa historica** no incluye el **Catalogo interactivo de deducciones autonomicas** salvo decision explicita de alcance.
+- Una **Auditoria normativa historica** debe evitar las simplificaciones legacy cuando el objetivo sea atribucion historica precisa.
 - La pantalla principal presenta una **Comparacion ajustada por IPC** para una **Consulta individual**.
 - La pantalla principal usa un **Control preciso de salario** como fuente exacta y un **Control rapido de salario** para cambios al millar.
 - El **Control rapido de salario** usa un **Rango pedagogico del salario**, no el primer salario con IRPF positivo en el ano de referencia.

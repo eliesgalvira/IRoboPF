@@ -22,14 +22,13 @@ import {
 import {
   GASTOS_FIJOS_IRPF_LEGACY,
   METADATOS_ARTICULO_20_LEGACY,
-  MINIMO_EXENTO_RETENCION_LEGACY,
   MINIMO_PERSONAL_IRPF_LEGACY,
   obtenerTramosIrpfLegacy,
   type TramoIrpf,
   type TramosIrpf,
 } from "../normativa/datos/irpf-estatal-2012-2026"
 import { IPC_ANUAL_DICIEMBRE } from "../normativa/datos/ipc-2012-2026"
-import { LIMITE_RETENCION_LEGACY_43_POR_CIENTO } from "../normativa/datos/irpf-retenciones-2026"
+import { obtenerEspecificacionCompatibilidadHistorica } from "../normativa/datos/compatibilidad-historica"
 
 export type { AnioFiscal } from "../normativa/anio-fiscal"
 export { aniosFiscalesLegacy } from "../normativa/anio-fiscal"
@@ -177,6 +176,7 @@ type PoliticaMonetaria = (valor: Decimal) => Decimal
 interface Parametros {
   readonly minimoPersonalIrpf: Decimal
   readonly minimoExentoRetencion: Decimal
+  readonly tipoMaximoRetencionNomina: Decimal
   readonly gastosFijos: Decimal
   readonly tramosIrpf: TramosIrpf
   readonly reduccionTrabajo: PoliticaMonetaria
@@ -383,51 +383,20 @@ const obtenerReduccionTrabajo = (anio: AnioFiscal): PoliticaMonetaria =>
     Match.orElse(() => reduccionTrabajoDesde2024)
   )
 
-const deduccionSmi2026 = (bruto: Decimal) =>
-  Match.value(bruto).pipe(
-    Match.when(
-      (bruto) => bruto.lte(17094),
-      () => decimal("590.89")
-    ),
-    Match.orElse((bruto) =>
-      max(
-        CERO,
-        decimal("590.89").minus(decimal("0.20").mul(bruto.minus(17094)))
-      )
-    )
-  )
-
-const deduccionSmi2025 = (bruto: Decimal) =>
-  Match.value(bruto).pipe(
-    Match.when(
-      (bruto) => bruto.lte(16576),
-      () => decimal(340)
-    ),
-    Match.when(
-      (bruto) => bruto.lte(18276),
-      (bruto) =>
-        max(CERO, decimal(340).minus(decimal("0.20").mul(bruto.minus(16576))))
-    ),
-    Match.orElse(() => CERO)
-  )
-
-const sinDeduccionSmi = () => CERO
-
-const obtenerDeduccionSmi = (anio: AnioFiscal): PoliticaMonetaria =>
-  Match.value(anio).pipe(
-    Match.when(2026, () => deduccionSmi2026),
-    Match.when(2025, () => deduccionSmi2025),
-    Match.orElse(() => sinDeduccionSmi)
-  )
-
 const obtenerParametros = (anio: AnioFiscal): Parametros => {
+  const especificacionCompatibilidad =
+    obtenerEspecificacionCompatibilidadHistorica(anio)
+
   return {
     minimoPersonalIrpf: MINIMO_PERSONAL_IRPF_LEGACY[anio],
-    minimoExentoRetencion: MINIMO_EXENTO_RETENCION_LEGACY[anio],
+    minimoExentoRetencion: especificacionCompatibilidad.minimoExentoRetencion,
+    tipoMaximoRetencionNomina:
+      especificacionCompatibilidad.tipoMaximoRetencionNomina,
     gastosFijos: GASTOS_FIJOS_IRPF_LEGACY[anio],
     tramosIrpf: obtenerTramosIrpfLegacy(anio),
     reduccionTrabajo: obtenerReduccionTrabajo(anio),
-    deduccionSmi: obtenerDeduccionSmi(anio),
+    deduccionSmi:
+      especificacionCompatibilidad.deduccionObtencionRendimientosTrabajo,
   }
 }
 
@@ -507,7 +476,7 @@ const calcularIrpf = (
     CERO,
     bruto
       .minus(parametros.minimoExentoRetencion)
-      .mul(LIMITE_RETENCION_LEGACY_43_POR_CIENTO.valor)
+      .mul(parametros.tipoMaximoRetencionNomina)
   )
   const irpfFinal = min(cuotaTrasSmi, limiteRetencion)
 
