@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto"
 
+import { Match } from "effect"
+
 import {
   aniosFiscalesLegacy,
   construirTablaComparativaInflacionCompatible,
@@ -104,27 +106,28 @@ export const crearAcumuladorHashTabular = (
   }
 }
 
-export const tablaEsperadaPorHoja = (nombreHoja: string): TablaCompatible => {
-  if (nombreHoja === "CONTROL_GENERAL") {
-    return construirTablaControlGeneralCompatible()
-  }
-
-  if (nombreHoja === "CONTROL_TRAMOS_IRPF") {
-    return construirTablaControlTramosIrpfCompatible()
-  }
-
-  if (nombreHoja === "COMPARATIVA_INFLACION") {
-    return construirTablaComparativaInflacionCompatible()
-  }
-
-  if (nombreHoja.startsWith("DAT_")) {
-    return construirTablaDetalleAnualCompatible(
-      Number(nombreHoja.slice(4)) as AnioFiscal
-    )
-  }
-
-  throw new Error(`Hoja legacy no esperada: ${nombreHoja}`)
-}
+export const tablaEsperadaPorHoja = (nombreHoja: string): TablaCompatible =>
+  Match.value(nombreHoja).pipe(
+    Match.when("CONTROL_GENERAL", () =>
+      construirTablaControlGeneralCompatible()
+    ),
+    Match.when("CONTROL_TRAMOS_IRPF", () =>
+      construirTablaControlTramosIrpfCompatible()
+    ),
+    Match.when("COMPARATIVA_INFLACION", () =>
+      construirTablaComparativaInflacionCompatible()
+    ),
+    Match.when(
+      (nombreHoja) => nombreHoja.startsWith("DAT_"),
+      (nombreHoja) =>
+        construirTablaDetalleAnualCompatible(
+          Number(nombreHoja.slice(4)) as AnioFiscal
+        )
+    ),
+    Match.orElse((nombreHoja) => {
+      throw new Error(`Hoja legacy no esperada: ${nombreHoja}`)
+    })
+  )
 
 export const hashTablaCompatible = (
   nombreHoja: string,
