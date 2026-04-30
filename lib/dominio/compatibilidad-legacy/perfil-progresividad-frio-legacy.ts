@@ -1,6 +1,6 @@
 import { Context, Effect, Layer } from "effect"
 
-import type { DesgloseLiquidado } from "../../domain/progresividad"
+import type { DesgloseLiquidado } from "./progresividad-frio"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
 import { CompatibilidadSalarioLegacy } from "./calculo-salario-legacy"

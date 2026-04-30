@@ -9,7 +9,7 @@ import {
   type AnioFiscal,
   type DesgloseLiquidado,
   type ValorCeldaCompatible,
-} from "../lib/domain/progresividad"
+} from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
 interface CasoCaracterizacionLegacy {
   readonly anio: AnioFiscal
@@ -69,45 +69,45 @@ const primeraFila = (
   throw new Error("La tabla compatible no contiene filas")
 }
 
-const construirCaso = Effect.fn(
-  "fixtures.legacyCaracterizacion.construirCaso"
-)(function* (anio: AnioFiscal, salarioBrutoAnualCentimos: number) {
-  const calculoUnitario = yield* compararAjustadoPorIpc({
-    salarioBrutoAnualReferenciaCentimos: salarioBrutoAnualCentimos,
-    anioComparado: anio,
-    anioReferencia: anio,
-  })
-  const comparativaIpc = yield* compararAjustadoPorIpc({
-    salarioBrutoAnualReferenciaCentimos: salarioBrutoAnualCentimos,
-    anioComparado: anio,
-    anioReferencia: 2026,
-  })
-  const salarioBrutoEuros = salarioBrutoAnualCentimos / 100
-  const filaDetalleAnualCompatible = primeraFila(
-    construirTablaDetalleAnualCompatible(anio, {
-      salarioMinimoEuros: salarioBrutoEuros,
-      salarioMaximoEuros: salarioBrutoEuros,
-      pasoEuros: 1,
-    }).filas
-  )
+const construirCaso = Effect.fn("fixtures.legacyCaracterizacion.construirCaso")(
+  function* (anio: AnioFiscal, salarioBrutoAnualCentimos: number) {
+    const calculoUnitario = yield* compararAjustadoPorIpc({
+      salarioBrutoAnualReferenciaCentimos: salarioBrutoAnualCentimos,
+      anioComparado: anio,
+      anioReferencia: anio,
+    })
+    const comparativaIpc = yield* compararAjustadoPorIpc({
+      salarioBrutoAnualReferenciaCentimos: salarioBrutoAnualCentimos,
+      anioComparado: anio,
+      anioReferencia: 2026,
+    })
+    const salarioBrutoEuros = salarioBrutoAnualCentimos / 100
+    const filaDetalleAnualCompatible = primeraFila(
+      construirTablaDetalleAnualCompatible(anio, {
+        salarioMinimoEuros: salarioBrutoEuros,
+        salarioMaximoEuros: salarioBrutoEuros,
+        pasoEuros: 1,
+      }).filas
+    )
 
-  return {
-    anio,
-    salarioBrutoAnualCentimos,
-    desglose: calculoUnitario.referencia,
-    comparativaIpcContra2026: {
-      salarioBrutoNominalAnualCentimos:
-        comparativaIpc.comparado.salarioBrutoNominalAnualCentimos,
-      factorIpc: comparativaIpc.factorIpc,
-      diferenciaPoderAdquisitivoNetoAnualCentimos:
-        comparativaIpc.diferenciaPoderAdquisitivoNetoAnualCentimos,
-      diferenciaPoderAdquisitivoNetoMensualCentimos:
-        comparativaIpc.diferenciaPoderAdquisitivoNetoMensualCentimos,
-      ajustado: comparativaIpc.comparado.ajustado,
-    },
-    filaDetalleAnualCompatible,
-  } satisfies CasoCaracterizacionLegacy
-})
+    return {
+      anio,
+      salarioBrutoAnualCentimos,
+      desglose: calculoUnitario.referencia,
+      comparativaIpcContra2026: {
+        salarioBrutoNominalAnualCentimos:
+          comparativaIpc.comparado.salarioBrutoNominalAnualCentimos,
+        factorIpc: comparativaIpc.factorIpc,
+        diferenciaPoderAdquisitivoNetoAnualCentimos:
+          comparativaIpc.diferenciaPoderAdquisitivoNetoAnualCentimos,
+        diferenciaPoderAdquisitivoNetoMensualCentimos:
+          comparativaIpc.diferenciaPoderAdquisitivoNetoMensualCentimos,
+        ajustado: comparativaIpc.comparado.ajustado,
+      },
+      filaDetalleAnualCompatible,
+    } satisfies CasoCaracterizacionLegacy
+  }
+)
 
 const construirFixture = Effect.fn(
   "fixtures.legacyCaracterizacion.construirFixture"
@@ -120,7 +120,8 @@ const construirFixture = Effect.fn(
 
   return {
     schemaVersion: 1,
-    source: "lib/domain/progresividad.ts antes de refactor",
+    source:
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts tras refactor",
     generatedBy: "scripts/generar-fixture-caracterizacion-legacy.ts",
     anioReferenciaIpc: 2026,
     casos: casos.flat(),

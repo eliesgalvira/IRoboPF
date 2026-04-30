@@ -1,10 +1,12 @@
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
+import fixture from "./fixtures/caracterizacion-legacy.json"
 import {
   calcularSalarioLegacy,
   CompatibilidadSalarioLegacy,
 } from "../lib/dominio/compatibilidad-legacy/calculo-salario-legacy"
+import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
 
 describe("calcularSalarioLegacy", () => {
   it.effect("expone el adaptador salarial legacy como servicio Effect", () =>
@@ -37,6 +39,36 @@ describe("calcularSalarioLegacy", () => {
           irpfFinalCentimos: 492_600,
           salarioNetoAnualCentimos: 2_312_400,
         })
+      })
+  )
+
+  it.effect(
+    "mantiene los casos 2025 de la fixture usando la conciliacion del simulador legacy",
+    () =>
+      Effect.gen(function* () {
+        const casos2025 = fixture.casos.filter((caso) => caso.anio === 2025)
+
+        for (const caso of casos2025) {
+          const resultado = yield* calcularSalarioLegacy({
+            anio: caso.anio as AnioFiscal,
+            salarioBrutoAnualCentimos: caso.salarioBrutoAnualCentimos,
+          })
+          const netoCorrecto =
+            resultado.salarioBrutoAnualCentimos -
+            resultado.cotizacionTrabajadorCentimos -
+            resultado.irpfFinalCentimos
+
+          expect(resultado).toEqual({
+            ...caso.desglose,
+            salarioNetoAnualCentimos: netoCorrecto,
+          })
+          expect(
+            Math.abs(
+              resultado.salarioNetoAnualCentimos -
+                caso.desglose.salarioNetoAnualCentimos
+            )
+          ).toBeLessThanOrEqual(1)
+        }
       })
   )
 })

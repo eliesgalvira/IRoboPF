@@ -21,7 +21,7 @@ export const redondearImporteLiquidado = (
 ): ImporteMonetario => redondearHalfUp(euros, 2)
 
 export const eurosACentimos = (euros: ImporteMonetario): number =>
-  redondearHalfUp(euros.mul(100), 0).toNumber()
+  redondearImporteLiquidado(euros).mul(100).toNumber()
 
 export const truncarImporteMonetario = (
   euros: ImporteMonetario,
@@ -62,7 +62,7 @@ export class PoliticaMonetaria extends Context.Service<
     importeLiquidadoACentimos: Effect.fn(
       "PoliticaMonetaria.importeLiquidadoACentimos"
     )(function* (euros: ImporteMonetario) {
-      return eurosACentimos(redondearImporteLiquidado(euros))
+      return eurosACentimos(euros)
     }),
   })
 }

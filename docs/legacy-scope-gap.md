@@ -194,8 +194,9 @@ por `pandas.to_excel`.
 ## Brecha de implementación corregida
 
 - `lib/export/auditoria-excel.ts` ahora construye el libro compatible completo.
-- La generación tabular legacy vive en `lib/domain/progresividad.ts` para mantener
-  el cálculo en el dominio y dejar ExcelJS como adaptador de salida.
+- La generación tabular legacy vive en
+  `lib/dominio/compatibilidad-legacy/progresividad-frio.ts` para mantener el
+  contrato histórico y dejar ExcelJS como adaptador de salida.
 - `tests/auditoria-excel.test.ts` ya no reconstruye la comparativa llamando al
   exportador parcial 15 veces; usa el libro compatible y valida su
   `COMPARATIVA_INFLACION` contra el fixture.

@@ -112,7 +112,7 @@ const CIEN = new Decimal(100)
 
 const redondear1 = redondearImporteLiquidado
 const truncar = (valor: Decimal) => truncarImporteMonetario(valor, 2)
-const aCentimos = (euros: Decimal) => eurosACentimos(redondear1(euros))
+const aCentimos = (euros: Decimal) => eurosACentimos(euros)
 const euros = (valor: Decimal) => `${valor.toFixed(2)} euros`
 const porcentaje = (valor: Decimal) => `${valor.toFixed(2)}%`
 

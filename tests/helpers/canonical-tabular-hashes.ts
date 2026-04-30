@@ -9,9 +9,9 @@ import {
   type AnioFiscal,
   type TablaCompatible,
   type ValorCeldaCompatible,
-} from "../../lib/domain/progresividad"
+} from "../../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
-export type { ValorCeldaCompatible } from "../../lib/domain/progresividad"
+export type { ValorCeldaCompatible } from "../../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
 export const ARCHIVO_LEGACY_EXCEL =
   "Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx"

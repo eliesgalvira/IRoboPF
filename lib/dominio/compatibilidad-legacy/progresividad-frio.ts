@@ -1,22 +1,19 @@
 import Decimal from "decimal.js"
-import { Effect } from "effect"
+import { Effect, Iterable as EffectIterable, Match } from "effect"
 
 import {
   centimosAEuros,
   crearImporteMonetario,
   eurosACentimos,
   redondearImporteLiquidado,
-} from "../dominio/dinero/importe-monetario"
-import { redondearHalfEvenTabularLegacy } from "../dominio/dinero/redondeo"
-import {
-  aniosFiscalesLegacy,
-  type AnioFiscal,
-} from "../dominio/normativa/anio-fiscal"
+} from "../dinero/importe-monetario"
+import { porcentajeCompatibleLegacy } from "../dinero/porcentaje"
+import { aniosFiscalesLegacy, type AnioFiscal } from "../normativa/anio-fiscal"
 import {
   calcularCotizacionesSocialesLegacy,
   obtenerParametrosCotizacionLegacy,
   sumarTipoCotizacionLegacy,
-} from "../dominio/laboral/cotizaciones-sociales"
+} from "../laboral/cotizaciones-sociales"
 import {
   GASTOS_FIJOS_IRPF_LEGACY,
   METADATOS_ARTICULO_20_LEGACY,
@@ -25,12 +22,12 @@ import {
   obtenerTramosIrpfLegacy,
   type TramoIrpf,
   type TramosIrpf,
-} from "../dominio/normativa/datos/irpf-estatal-2012-2026"
-import { IPC_ANUAL_DICIEMBRE } from "../dominio/normativa/datos/ipc-2012-2026"
-import { LIMITE_RETENCION_LEGACY_43_POR_CIENTO } from "../dominio/normativa/datos/irpf-retenciones-2026"
+} from "../normativa/datos/irpf-estatal-2012-2026"
+import { IPC_ANUAL_DICIEMBRE } from "../normativa/datos/ipc-2012-2026"
+import { LIMITE_RETENCION_LEGACY_43_POR_CIENTO } from "../normativa/datos/irpf-retenciones-2026"
 
-export type { AnioFiscal } from "../dominio/normativa/anio-fiscal"
-export { aniosFiscalesLegacy } from "../dominio/normativa/anio-fiscal"
+export type { AnioFiscal } from "../normativa/anio-fiscal"
+export { aniosFiscalesLegacy } from "../normativa/anio-fiscal"
 
 export interface EntradaComparacionAjustadaPorIpc {
   readonly salarioBrutoAnualReferenciaCentimos: number
@@ -223,9 +220,6 @@ const rangoDetalleAnualLegacy =
 const dineroCompatible = (euros: Decimal) =>
   Number(redondearImporteLiquidado(euros).toString())
 
-const porcentajeCompatible = (tipo: Decimal, decimales: number) =>
-  Number(redondearHalfEvenTabularLegacy(tipo.mul(100), decimales).toString())
-
 // Los conceptos fiscales abreviados del perfil legacy estan definidos en:
 // docs/glosario-fiscal-motor.md
 const min = (a: Decimal, b: Decimal) => {
@@ -358,29 +352,24 @@ const reduccionTrabajoDesde2024 = (rendimientoPrevioNeto: Decimal) => {
   return CERO
 }
 
-const obtenerReduccionTrabajo = (anio: AnioFiscal): PoliticaMonetaria => {
-  if (anio <= 2014) {
-    return reduccionTrabajoHasta2014
-  }
-
-  if (anio <= 2017) {
-    return reduccionTrabajo2015A2017
-  }
-
-  if (anio === 2018) {
-    return reduccionTrabajo2018
-  }
-
-  if (anio <= 2022) {
-    return reduccionTrabajo2019A2022
-  }
-
-  if (anio === 2023) {
-    return reduccionTrabajo2023
-  }
-
-  return reduccionTrabajoDesde2024
-}
+const obtenerReduccionTrabajo = (anio: AnioFiscal): PoliticaMonetaria =>
+  Match.value(anio).pipe(
+    Match.when(
+      (anio) => anio <= 2014,
+      () => reduccionTrabajoHasta2014
+    ),
+    Match.when(
+      (anio) => anio <= 2017,
+      () => reduccionTrabajo2015A2017
+    ),
+    Match.when(2018, () => reduccionTrabajo2018),
+    Match.when(
+      (anio) => anio <= 2022,
+      () => reduccionTrabajo2019A2022
+    ),
+    Match.when(2023, () => reduccionTrabajo2023),
+    Match.orElse(() => reduccionTrabajoDesde2024)
+  )
 
 const deduccionSmi2026 = (bruto: Decimal) => {
   if (bruto.lte(17094)) {
@@ -410,17 +399,12 @@ const deduccionSmi2025 = (bruto: Decimal) => {
 
 const sinDeduccionSmi = () => CERO
 
-const obtenerDeduccionSmi = (anio: AnioFiscal): PoliticaMonetaria => {
-  if (anio === 2026) {
-    return deduccionSmi2026
-  }
-
-  if (anio === 2025) {
-    return deduccionSmi2025
-  }
-
-  return sinDeduccionSmi
-}
+const obtenerDeduccionSmi = (anio: AnioFiscal): PoliticaMonetaria =>
+  Match.value(anio).pipe(
+    Match.when(2026, () => deduccionSmi2026),
+    Match.when(2025, () => deduccionSmi2025),
+    Match.orElse(() => sinDeduccionSmi)
+  )
 
 const obtenerParametros = (anio: AnioFiscal): Parametros => {
   return {
@@ -551,8 +535,7 @@ const calcularDesgloseEuros = (
   }
 }
 
-const centimosLiquidados = (euros: Decimal) =>
-  eurosACentimos(redondearImporteLiquidado(euros))
+const centimosLiquidados = (euros: Decimal) => eurosACentimos(euros)
 
 const liquidar = (desglose: DesgloseEuros): DesgloseLiquidado => ({
   salarioBrutoAnualCentimos: centimosLiquidados(desglose.salarioBrutoAnual),
@@ -943,28 +926,43 @@ const rangoSalarialEuros = (
   pasoEuros: opciones?.pasoEuros ?? rangoPorDefecto.pasoEuros,
 })
 
-function* salariosDelRango(rango: RangoSalarialEuros): Iterable<number> {
-  if (rango.pasoEuros <= 0) {
-    return
-  }
+const numeroSalariosDelRango = (rango: RangoSalarialEuros): number =>
+  Match.value(rango).pipe(
+    Match.when({ pasoEuros: (paso) => paso <= 0 }, () => 0),
+    Match.when(
+      (rango) => rango.salarioMinimoEuros > rango.salarioMaximoEuros,
+      () => 0
+    ),
+    Match.orElse(
+      (rango) =>
+        Math.floor(
+          (rango.salarioMaximoEuros - rango.salarioMinimoEuros) /
+            rango.pasoEuros
+        ) + 1
+    )
+  )
 
-  for (
-    let salario = rango.salarioMinimoEuros;
-    salario <= rango.salarioMaximoEuros;
-    salario += rango.pasoEuros
-  ) {
-    yield salario
-  }
+const salariosDelRango = (rango: RangoSalarialEuros): Iterable<number> =>
+  EffectIterable.makeBy(
+    (indice) => rango.salarioMinimoEuros + indice * rango.pasoEuros,
+    { length: numeroSalariosDelRango(rango) }
+  )
+
+const formatearNumeroPorcentajeLegacy = (valor: number): string => {
+  const porcentajeRedondeado = Number(valor.toFixed(2))
+
+  return Match.value(Number.isInteger(porcentajeRedondeado)).pipe(
+    Match.when(true, () => porcentajeRedondeado.toFixed(1)),
+    Match.orElse(() => String(porcentajeRedondeado))
+  )
 }
 
 const textoPorcentajeLegacy = (valor: number) =>
-  Number.isInteger(Number(valor.toFixed(2)))
-    ? `${Number(valor.toFixed(2)).toFixed(1)}%`
-    : `${Number(valor.toFixed(2))}%`
+  `${formatearNumeroPorcentajeLegacy(valor)}%`
 
 const cabeceraTramoIrpf = (indice: number, tramo: TramoIrpf) => {
   const [, tipo] = tramo
-  return `T${indice + 1} (${redondearHalfEvenTabularLegacy(tipo.mul(100), 1).toFixed(1)}%)`
+  return `T${indice + 1} (${porcentajeCompatibleLegacy(tipo, 1).toFixed(1)}%)`
 }
 
 const valorLimiteTramo = (limite: Decimal): ValorCeldaCompatible => {
@@ -1072,16 +1070,16 @@ export const construirTablaControlGeneralCompatible = (): TablaCompatible => ({
     return [
       anio,
       parametrosCotizacion.baseMaxima.toNumber(),
-      porcentajeCompatible(
+      porcentajeCompatibleLegacy(
         sumarTipoCotizacionLegacy(parametrosCotizacion, "empresarial"),
         2
       ),
-      porcentajeCompatible(
+      porcentajeCompatibleLegacy(
         sumarTipoCotizacionLegacy(parametrosCotizacion, "trabajador"),
         2
       ),
-      porcentajeCompatible(parametrosCotizacion.mei.empresarial, 3),
-      porcentajeCompatible(parametrosCotizacion.mei.trabajador, 3),
+      porcentajeCompatibleLegacy(parametrosCotizacion.mei.empresarial, 3),
+      porcentajeCompatibleLegacy(parametrosCotizacion.mei.trabajador, 3),
       parametros.gastosFijos.toNumber(),
       parametros.minimoPersonalIrpf.toNumber(),
       parametros.minimoExentoRetencion.toNumber(),
@@ -1103,7 +1101,7 @@ export const construirTablaControlTramosIrpfCompatible =
             anio,
             indice + 1,
             valorLimiteTramo(limite),
-            porcentajeCompatible(tipo, 2),
+            porcentajeCompatibleLegacy(tipo, 2),
           ] satisfies ReadonlyArray<ValorCeldaCompatible>
       )
     ),

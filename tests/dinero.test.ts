@@ -9,7 +9,6 @@ import {
   redondearImporteLiquidado,
   truncarImporteMonetario,
 } from "../lib/dominio/dinero/importe-monetario"
-import { redondearHalfEvenTabularLegacy } from "../lib/dominio/dinero/redondeo"
 
 describe("importe monetario", () => {
   it.effect("expone la politica monetaria como servicio Effect", () =>
@@ -46,14 +45,5 @@ describe("importe monetario", () => {
     expect(
       truncarImporteMonetario(crearImporteMonetario("1.999"), 2).toString()
     ).toBe("1.99")
-  })
-
-  it("mantiene half-even solo para artefactos tabulares legacy observables", () => {
-    expect(
-      redondearHalfEvenTabularLegacy(crearImporteMonetario("2.5"), 0).toNumber()
-    ).toBe(2)
-    expect(
-      redondearHalfEvenTabularLegacy(crearImporteMonetario("3.5"), 0).toNumber()
-    ).toBe(4)
   })
 })

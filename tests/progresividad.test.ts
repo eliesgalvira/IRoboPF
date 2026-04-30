@@ -8,7 +8,7 @@ import {
   configuracionControlSalario,
   configuracionRangoAuditoria,
   construirTablaDetalleAnualCompatible,
-} from "../lib/domain/progresividad"
+} from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
 describe("compararAjustadoPorIpc", () => {
   it("define los controles de salario acordados", () => {
