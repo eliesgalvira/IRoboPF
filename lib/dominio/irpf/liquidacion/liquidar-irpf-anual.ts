@@ -219,6 +219,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       {
         anio: caso.anio,
         comunidadAutonoma: caso.comunidadAutonoma,
+        fechaFallecimiento: caso.fechaFallecimiento,
       }
     )
   const parametrosComunidad = yield* Match.valueTags(
@@ -779,7 +780,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               etiqueta: "Minimo personal y familiar autonomico",
               formula: parametrosComunidad.minimoAutonomicoIgualEstatal
                 ? "Coincide con el minimo estatal"
-                : `Minimos autonomicos IRPF 2025 de ${parametrosComunidad.escalaAutonomica.nombre}`,
+                : `Minimos autonomicos IRPF ${caso.anio} de ${parametrosComunidad.escalaAutonomica.nombre}`,
               resultado: euros(minimoPersonalYFamiliarAutonomico),
             },
             {

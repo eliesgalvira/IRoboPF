@@ -8,6 +8,7 @@ import {
 import type { ComunidadAutonoma } from "../lib/dominio/irpf/caso-fiscal-anual"
 import { obtenerMinimosAutonomicosIrpf2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
 import { obtenerMinimosAutonomicosIrpf2024 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2024"
+import { obtenerMinimosAutonomicosIrpf2023 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2023"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -138,6 +139,84 @@ describe("comunidad autonoma", () => {
       expect(minimos.contribuyente.adicionalMayor65.toString()).toBe("1820")
       expect(minimos.contribuyente.adicionalMayor75.toString()).toBe("1540")
     }
+  })
+
+  it("resuelve 2023 con escalas y minimos autonómicos propios del ejercicio", () => {
+    const canarias2023 = obtenerParametrosComunidadAutonoma({
+      anio: 2023,
+      comunidadAutonoma: "canarias",
+    })
+    const canarias2025 = obtenerParametrosComunidadAutonoma({
+      anio: 2025,
+      comunidadAutonoma: "canarias",
+    })
+    const cantabria2023 = obtenerParametrosComunidadAutonoma({
+      anio: 2023,
+      comunidadAutonoma: "cantabria",
+    })
+
+    expect(canarias2023).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "canarias",
+      anio: 2023,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+    })
+
+    if (
+      canarias2023._tag === "ParametrosComunidadAutonoma" &&
+      canarias2025._tag === "ParametrosComunidadAutonoma"
+    ) {
+      expect(canarias2023.escalaAutonomica.tramos[0][0].toString()).toBe(
+        "13010"
+      )
+      expect(canarias2025.escalaAutonomica.tramos[0][0].toString()).toBe(
+        "13748"
+      )
+    }
+
+    if (cantabria2023._tag === "ParametrosComunidadAutonoma") {
+      expect(cantabria2023.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.095"
+      )
+    }
+  })
+
+  it("aplica reglas especiales de 2023 para contribuyentes fallecidos", () => {
+    const extremaduraGeneral = obtenerParametrosComunidadAutonoma({
+      anio: 2023,
+      comunidadAutonoma: "extremadura",
+    })
+    const extremaduraFallecido = obtenerParametrosComunidadAutonoma({
+      anio: 2023,
+      comunidadAutonoma: "extremadura",
+      fechaFallecimiento: new Date("2023-09-14T00:00:00.000Z"),
+    })
+    const balearsGeneral = obtenerMinimosAutonomicosIrpf2023({
+      comunidadAutonoma: "illes-balears",
+    })
+    const balearsFallecido = obtenerMinimosAutonomicosIrpf2023({
+      comunidadAutonoma: "illes-balears",
+      fechaFallecimiento: new Date("2023-11-25T00:00:00.000Z"),
+    })
+
+    if (
+      extremaduraGeneral._tag === "ParametrosComunidadAutonoma" &&
+      extremaduraFallecido._tag === "ParametrosComunidadAutonoma"
+    ) {
+      expect(extremaduraGeneral.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.08"
+      )
+      expect(extremaduraFallecido.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.095"
+      )
+    }
+
+    expect(balearsGeneral.descendientes.segundo.toString()).toBe("2970")
+    expect(balearsFallecido.descendientes.segundo.toString()).toBe("2700")
+    expect(balearsFallecido.ascendientes.mayor65OConDiscapacidad.toString()).toBe(
+      "1150"
+    )
   })
 
   it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {

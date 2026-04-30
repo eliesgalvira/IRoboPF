@@ -315,9 +315,9 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2024 con el ultimo tramo del ahorro al 28 por ciento total", () => {
-    const caso2024 = {
-      anio: 2024,
+  it("liquida 2023 y 2024 con el ultimo tramo del ahorro al 28 por ciento total", () => {
+    const caso2023 = {
+      anio: 2023,
       comunidadAutonoma: "simulada-estatal",
       situacionFamiliar: {
         tipo: "individual",
@@ -340,14 +340,24 @@ describe("liquidarIrpfAnual", () => {
       retencionesSoportadasCentimos: 0,
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
+    const caso2024 = {
+      ...caso2023,
+      anio: 2024,
+    } satisfies CasoFiscalAnual
     const caso2025 = {
-      ...caso2024,
+      ...caso2023,
       anio: 2025,
     } satisfies CasoFiscalAnual
 
+    const liquidacion2023 = liquidarCasoCanonico(caso2023)
     const liquidacion2024 = liquidarCasoCanonico(caso2024)
     const liquidacion2025 = liquidarCasoCanonico(caso2025)
 
+    expect(liquidacion2023).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 40_000_000,
+      cuotaIntegraAhorroCentimos: 9_988_000,
+    })
     expect(liquidacion2024).toMatchObject({
       _tag: "LiquidacionIrpfAnualCalculada",
       baseLiquidableAhorroCentimos: 40_000_000,
@@ -464,6 +474,36 @@ describe("liquidarIrpfAnual", () => {
       baseImponibleGeneralCentimos: 472_600,
       baseLiquidableGeneralCentimos: 472_600,
       reduccionRendimientosTrabajoCentimos: 730_200,
+      cuotaLiquidaCentimos: 0,
+      cuotaDiferencialCentimos: 0,
+    })
+  })
+
+  it("liquida 2023 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+    const caso = {
+      anio: 2023,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 15_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseImponibleGeneralCentimos: 553_450,
+      baseLiquidableGeneralCentimos: 553_450,
+      reduccionRendimientosTrabajoCentimos: 649_800,
       cuotaLiquidaCentimos: 0,
       cuotaDiferencialCentimos: 0,
     })

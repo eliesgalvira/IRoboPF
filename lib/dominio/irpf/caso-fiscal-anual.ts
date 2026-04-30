@@ -98,6 +98,7 @@ export interface DeduccionAutonomicaCatalogadaAplicada {
 export interface CasoFiscalAnual {
   readonly anio: AnioFiscal
   readonly comunidadAutonoma: ComunidadAutonoma
+  readonly fechaFallecimiento?: Date | undefined
   readonly situacionFamiliar: SituacionFamiliarIndividual
   readonly rendimientos: RendimientosCasoFiscal
   readonly reducciones: ReadonlyArray<never>
