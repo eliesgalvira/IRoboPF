@@ -13,6 +13,7 @@ export interface OpcionCombobox<TValor extends string> {
 
 export function Combobox<TValor extends string>({
   className,
+  classNames,
   compacto = false,
   etiqueta,
   opciones,
@@ -20,6 +21,13 @@ export function Combobox<TValor extends string>({
   valor,
 }: {
   readonly className?: string
+  readonly classNames?: {
+    readonly etiqueta?: string
+    readonly trigger?: string
+    readonly listbox?: string
+    readonly opcion?: string
+    readonly opcionActiva?: string
+  }
   readonly compacto?: boolean
   readonly etiqueta: string
   readonly opciones: ReadonlyArray<OpcionCombobox<TValor>>
@@ -43,14 +51,20 @@ export function Combobox<TValor extends string>({
 
   return (
     <div className={cn("relative grid gap-2", className)} ref={contenedor}>
-      <span className="flex min-h-10 items-end text-sm leading-tight font-bold">
+      <span
+        className={cn(
+          "flex min-h-10 items-end text-sm leading-tight font-bold",
+          classNames?.etiqueta
+        )}
+      >
         {etiqueta}
       </span>
       <Button
         aria-expanded={abierto}
         className={cn(
           "justify-between border-[var(--rule)] bg-[var(--paper-2)] px-3 font-[var(--mono)] text-[var(--ink)] hover:bg-[var(--paper-2)]",
-          compacto ? "h-9 text-sm" : "h-11 text-base"
+          compacto ? "h-9 text-sm" : "h-11 text-base",
+          classNames?.trigger
         )}
         onClick={() => fijarAbierto((actual) => !actual)}
         role="combobox"
@@ -64,7 +78,10 @@ export function Combobox<TValor extends string>({
       </Button>
       {abierto ? (
         <div
-          className="absolute top-full z-20 mt-1 max-h-72 w-full overflow-auto border border-[var(--rule)] bg-[var(--paper)] shadow-[4px_4px_0_var(--rule)]"
+          className={cn(
+            "absolute top-full z-20 mt-1 max-h-72 w-full overflow-auto border border-[var(--rule)] bg-[var(--paper)] shadow-[4px_4px_0_var(--rule)]",
+            classNames?.listbox
+          )}
           role="listbox"
         >
           {opciones.map((opcion) => (
@@ -72,7 +89,9 @@ export function Combobox<TValor extends string>({
               aria-selected={opcion.valor === valor}
               className={cn(
                 "flex min-h-10 w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm hover:bg-[var(--paper-2)]",
-                opcion.valor === valor && "font-bold"
+                classNames?.opcion,
+                opcion.valor === valor && "font-bold",
+                opcion.valor === valor && classNames?.opcionActiva
               )}
               key={opcion.valor}
               onClick={() => {

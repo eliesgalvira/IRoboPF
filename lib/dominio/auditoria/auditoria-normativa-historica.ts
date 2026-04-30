@@ -86,6 +86,27 @@ export const magnitudesAuditoriaNormativa = [
   "coste_laboral",
 ] as const satisfies ReadonlyArray<MagnitudAuditada>
 
+export const comunidadesAuditoriaNormativa = [
+  "simulada-estatal",
+  "andalucia",
+  "aragon",
+  "asturias",
+  "illes-balears",
+  "canarias",
+  "cantabria",
+  "castilla-la-mancha",
+  "castilla-y-leon",
+  "catalunya",
+  "extremadura",
+  "galicia",
+  "madrid",
+  "murcia",
+  "la-rioja",
+  "comunitat-valenciana",
+  "ceuta",
+  "melilla",
+] as const satisfies ReadonlyArray<ComunidadAutonoma>
+
 export interface FichaOpcionAuditoriaNormativa<Valor extends string> {
   readonly valor: Valor
   readonly etiqueta: string
@@ -198,6 +219,104 @@ export const describirMagnitudAuditoriaNormativa = (
     Match.exhaustive
   )
 
+export const describirComunidadAutonomaAuditoria = (
+  comunidad: ComunidadAutonoma
+): FichaOpcionAuditoriaNormativa<ComunidadAutonoma> =>
+  Match.value(comunidad).pipe(
+    Match.withReturnType<FichaOpcionAuditoriaNormativa<ComunidadAutonoma>>(),
+    Match.when("simulada-estatal", (valor) => ({
+      valor,
+      etiqueta: "Simulada estatal",
+      detalle: "Escala estatal de compatibilidad",
+    })),
+    Match.when("andalucia", (valor) => ({
+      valor,
+      etiqueta: "Andalucía",
+      detalle: "Comunidad Autónoma de Andalucía",
+    })),
+    Match.when("aragon", (valor) => ({
+      valor,
+      etiqueta: "Aragón",
+      detalle: "Comunidad Autónoma de Aragón",
+    })),
+    Match.when("asturias", (valor) => ({
+      valor,
+      etiqueta: "Asturias",
+      detalle: "Principado de Asturias",
+    })),
+    Match.when("illes-balears", (valor) => ({
+      valor,
+      etiqueta: "Illes Balears",
+      detalle: "Illes Balears",
+    })),
+    Match.when("canarias", (valor) => ({
+      valor,
+      etiqueta: "Canarias",
+      detalle: "Canarias",
+    })),
+    Match.when("cantabria", (valor) => ({
+      valor,
+      etiqueta: "Cantabria",
+      detalle: "Cantabria",
+    })),
+    Match.when("castilla-la-mancha", (valor) => ({
+      valor,
+      etiqueta: "Castilla-La Mancha",
+      detalle: "Castilla-La Mancha",
+    })),
+    Match.when("castilla-y-leon", (valor) => ({
+      valor,
+      etiqueta: "Castilla y León",
+      detalle: "Castilla y León",
+    })),
+    Match.when("catalunya", (valor) => ({
+      valor,
+      etiqueta: "Catalunya",
+      detalle: "Catalunya",
+    })),
+    Match.when("extremadura", (valor) => ({
+      valor,
+      etiqueta: "Extremadura",
+      detalle: "Extremadura",
+    })),
+    Match.when("galicia", (valor) => ({
+      valor,
+      etiqueta: "Galicia",
+      detalle: "Galicia",
+    })),
+    Match.when("madrid", (valor) => ({
+      valor,
+      etiqueta: "Madrid",
+      detalle: "Comunidad de Madrid",
+    })),
+    Match.when("murcia", (valor) => ({
+      valor,
+      etiqueta: "Murcia",
+      detalle: "Región de Murcia",
+    })),
+    Match.when("la-rioja", (valor) => ({
+      valor,
+      etiqueta: "La Rioja",
+      detalle: "La Rioja",
+    })),
+    Match.when("comunitat-valenciana", (valor) => ({
+      valor,
+      etiqueta: "Comunitat Valenciana",
+      detalle: "Comunitat Valenciana",
+    })),
+    Match.when("ceuta", (valor) => ({
+      valor,
+      etiqueta: "Ceuta",
+      detalle: "Ciudad Autónoma de Ceuta",
+    })),
+    Match.when("melilla", (valor) => ({
+      valor,
+      etiqueta: "Melilla",
+      detalle: "Ciudad Autónoma de Melilla",
+    })),
+    Match.exhaustive
+  )
+
 export const decodificarPerfilAuditoriaNormativa = (
   valor: string
 ): Option.Option<PerfilAuditoriaNormativa> =>
@@ -246,7 +365,7 @@ export const decodificarMagnitudAuditada = (
     Match.orElse(() => Option.none())
   )
 
-const decodificarComunidadAutonomaAuditoria = (
+export const decodificarComunidadAutonomaAuditoria = (
   valor: string
 ): Option.Option<ComunidadAutonoma> =>
   Match.value(valor).pipe(

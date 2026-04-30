@@ -2,6 +2,8 @@ import { describe, expect, it } from "@effect/vitest"
 
 import {
   construirContratoUrlAuditoriaNormativaV1,
+  comunidadesAuditoriaNormativa,
+  describirComunidadAutonomaAuditoria,
   describirPerfilAuditoriaNormativa,
   escenarioAuditoriaPorDefecto,
   impactoDesdePerspectivaCiudadano,
@@ -37,6 +39,14 @@ describe("auditoria normativa historica", () => {
       describirPerfilAuditoriaNormativa("trabajador_mediano_comunidad")
     ).toMatchObject({
       etiqueta: "MEDIANO CCAA",
+    })
+  })
+
+  it("declara las comunidades navegables para los perfiles de auditoria", () => {
+    expect(comunidadesAuditoriaNormativa).toContain("simulada-estatal")
+    expect(comunidadesAuditoriaNormativa).toContain("comunitat-valenciana")
+    expect(describirComunidadAutonomaAuditoria("andalucia")).toMatchObject({
+      etiqueta: "Andalucía",
     })
   })
 
