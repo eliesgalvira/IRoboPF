@@ -32,7 +32,7 @@ const calcularSalarioLegacyImpl = Effect.fn(
 )(function* (entrada: EntradaCalculoSalarioLegacy) {
   return yield* Match.value(entrada.anio).pipe(
     Match.when(
-      (anio) => anio >= 2018 && anio <= 2025,
+      (anio) => anio >= 2017 && anio <= 2025,
       () => calcularSalarioLegacyConLiquidacionIrpfAnual(entrada)
     ),
     Match.orElse(() =>

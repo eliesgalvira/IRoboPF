@@ -14,6 +14,7 @@ import { obtenerMinimosAutonomicosIrpf2021 } from "../lib/dominio/normativa/dato
 import { obtenerMinimosAutonomicosIrpf2020 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2020"
 import { obtenerMinimosAutonomicosIrpf2019 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2019"
 import { obtenerMinimosAutonomicosIrpf2018 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2018"
+import { obtenerMinimosAutonomicosIrpf2017 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2017"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -504,6 +505,58 @@ describe("comunidad autonoma", () => {
     expect(minimosCastillaLeon2018.contribuyente.general.toString()).toBe(
       "5550"
     )
+  })
+
+  it("resuelve 2017 con escala estatal general, autonomica y minimos propios del ejercicio", () => {
+    const simulada2017 = obtenerParametrosComunidadAutonoma({
+      anio: 2017,
+      comunidadAutonoma: "simulada-estatal",
+    })
+    const madrid2017 = obtenerParametrosComunidadAutonoma({
+      anio: 2017,
+      comunidadAutonoma: "madrid",
+    })
+    const extremadura2017 = obtenerParametrosComunidadAutonoma({
+      anio: 2017,
+      comunidadAutonoma: "extremadura",
+    })
+    const minimosBalears2017 =
+      obtenerMinimosAutonomicosIrpf2017("illes-balears")
+    const minimosRioja2017 = obtenerMinimosAutonomicosIrpf2017("la-rioja")
+
+    expect(simulada2017).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "simulada-estatal",
+      anio: 2017,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: true,
+    })
+
+    if (madrid2017._tag === "ParametrosComunidadAutonoma") {
+      const ultimoTramoEstatal =
+        madrid2017.escalaEstatalGeneral[
+          madrid2017.escalaEstatalGeneral.length - 1
+        ]
+
+      expect(ultimoTramoEstatal[1].toString()).toBe("0.225")
+      expect(madrid2017.escalaAutonomica.tramos[0][1].toString()).toBe("0.095")
+      expect(
+        madrid2017.minimosAutonomicos.contribuyente.general.toString()
+      ).toBe("5550")
+    }
+
+    if (extremadura2017._tag === "ParametrosComunidadAutonoma") {
+      expect(extremadura2017.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.105"
+      )
+    }
+
+    expect(minimosBalears2017.contribuyente.adicionalMayor65.toString()).toBe(
+      "1820"
+    )
+    expect(
+      minimosRioja2017.discapacidad.descendiente.grado33Hasta65.toString()
+    ).toBe("3000")
   })
 
   it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {

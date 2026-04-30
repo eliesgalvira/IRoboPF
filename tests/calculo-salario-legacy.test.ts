@@ -13,7 +13,7 @@ import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
 const EJECUTAR_VALIDACION_LIQUIDACION_LEGACY_COMPLETA =
   process.env.IROBOPF_VALIDACION_LIQUIDACION_LEGACY_COMPLETA === "1"
 const ANIOS_CON_LIQUIDACION_LEGACY = [
-  2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
+  2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
 ] as const satisfies ReadonlyArray<AnioFiscal>
 
 describe("calcularSalarioLegacy", () => {
@@ -90,7 +90,7 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
-    "mantiene los casos 2018-2025 de la fixture usando la conciliacion del simulador legacy",
+    "mantiene los casos 2017-2025 de la fixture usando la conciliacion del simulador legacy",
     () =>
       Effect.gen(function* () {
         const casosConLiquidacionNueva = fixture.casos.filter((caso) =>
@@ -109,7 +109,7 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
-    "mantiene la compatibilidad 2018-2025 contra puntos representativos del detalle anual canonico",
+    "mantiene la compatibilidad 2017-2025 contra puntos representativos del detalle anual canonico",
     () =>
       Effect.gen(function* () {
         const compatibilidad = yield* CompatibilidadSalarioLegacy
@@ -141,7 +141,7 @@ describe("calcularSalarioLegacy", () => {
     : it.effect.skip
 
   pruebaCompleta(
-    "mantiene la compatibilidad 2018-2025 euro a euro contra el detalle anual canonico",
+    "mantiene la compatibilidad 2017-2025 euro a euro contra el detalle anual canonico",
     () =>
       Effect.gen(function* () {
         const compatibilidad = yield* CompatibilidadSalarioLegacy
