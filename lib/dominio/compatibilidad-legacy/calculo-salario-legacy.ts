@@ -5,6 +5,8 @@ import {
   type DesgloseLiquidado,
 } from "./progresividad-frio"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
+import { centimosAEuros, eurosACentimos } from "../dinero/importe-monetario"
+import { calcularCotizacionesSocialesLegacy } from "../laboral/cotizaciones-sociales"
 import {
   liquidarIrpfAnual,
   type CasoFiscalAnual,
@@ -50,10 +52,16 @@ const calcularSalarioLegacy2025ConLiquidacionIrpfAnual = Effect.fn(
   const conciliacion = Option.getOrThrow(
     liquidacion.conciliacionSimuladorLegacy
   )
-  const salarioNetoAnualCentimos =
-    entrada.salarioBrutoAnualCentimos -
-    liquidacion.cotizacionTrabajadorCentimos -
-    conciliacion.irpfFinalSimuladorCentimos
+  const salarioBrutoAnual = centimosAEuros(entrada.salarioBrutoAnualCentimos)
+  const cotizaciones = calcularCotizacionesSocialesLegacy({
+    salarioBrutoAnual,
+    anio: entrada.anio,
+  })
+  const salarioNetoAnualCentimos = eurosACentimos(
+    salarioBrutoAnual
+      .minus(cotizaciones.cotizacionTrabajador)
+      .minus(conciliacion.irpfFinalSimulador)
+  )
 
   return {
     salarioBrutoAnualCentimos: entrada.salarioBrutoAnualCentimos,

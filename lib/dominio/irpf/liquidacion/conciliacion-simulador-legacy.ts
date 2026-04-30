@@ -3,6 +3,7 @@ import { Match, Option } from "effect"
 
 import { centimosAEuros, eurosACentimos } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
+import { obtenerEspecificacionCompatibilidadHistorica } from "../../normativa/datos/compatibilidad-historica"
 
 export interface ConciliacionSimuladorLegacy {
   readonly _tag: "ConciliacionSimuladorLegacy"
@@ -14,16 +15,9 @@ export interface ConciliacionSimuladorLegacy {
   readonly minimoExentoRetencionCentimos: number
   readonly tipoMaximoRetencionNominaPorcentaje: string
   readonly limiteRetencionNominaCentimos: number
+  readonly irpfFinalSimulador: Decimal
   readonly irpfFinalSimuladorCentimos: number
   readonly diferenciaCuotaDiferencialEIrpfFinalCentimos: number
-}
-
-type PoliticaDeduccionSmi = (bruto: Decimal) => Decimal
-
-interface EspecificacionConciliacionSimuladorLegacy {
-  readonly minimoExentoRetencion: Decimal
-  readonly tipoMaximoRetencionNomina: Decimal
-  readonly deduccionSmi: PoliticaDeduccionSmi
 }
 
 const importe = (valor: Decimal.Value): Decimal => new Decimal(valor)
@@ -41,47 +35,27 @@ const min = (a: Decimal, b: Decimal): Decimal =>
     Match.orElse(() => b)
   )
 
-const deduccionSmi2025: PoliticaDeduccionSmi = (bruto) =>
-  Match.value(bruto).pipe(
-    Match.when(
-      (bruto) => bruto.lte(16576),
-      () => importe(340)
-    ),
-    Match.when(
-      (bruto) => bruto.lte(18276),
-      (bruto) =>
-        max(CERO, importe(340).minus(importe("0.20").mul(bruto.minus(16576))))
-    ),
-    Match.orElse(() => CERO)
-  )
-
-const ESPECIFICACIONES_CONCILIACION_SIMULADOR_LEGACY: Partial<
-  Record<AnioFiscal, EspecificacionConciliacionSimuladorLegacy>
-> = {
-  2025: {
-    minimoExentoRetencion: importe(15876),
-    tipoMaximoRetencionNomina: importe("0.43"),
-    deduccionSmi: deduccionSmi2025,
-  },
-}
-
 export const calcularConciliacionSimuladorLegacy = ({
   anio,
   rendimientoIntegroTrabajoCentimos,
+  cuotaLiquida,
   cuotaLiquidaCentimos,
   cuotaDiferencialCentimos,
 }: {
   readonly anio: AnioFiscal
   readonly rendimientoIntegroTrabajoCentimos: number
+  readonly cuotaLiquida: Decimal
   readonly cuotaLiquidaCentimos: number
   readonly cuotaDiferencialCentimos: number
 }): Option.Option<ConciliacionSimuladorLegacy> => {
-  return Match.value(ESPECIFICACIONES_CONCILIACION_SIMULADOR_LEGACY[anio]).pipe(
-    Match.when(Match.undefined, () => Option.none()),
-    Match.orElse((especificacion) => {
+  const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
+
+  return Option.some(
+    (() => {
       const bruto = centimosAEuros(rendimientoIntegroTrabajoCentimos)
-      const cuotaLiquidadaAnual = centimosAEuros(cuotaLiquidaCentimos)
-      const deduccionSmi = especificacion.deduccionSmi(bruto)
+      const cuotaLiquidadaAnual = cuotaLiquida
+      const deduccionSmi =
+        especificacion.deduccionObtencionRendimientosTrabajo(bruto)
       const cuotaTrasDeduccionSmi = max(
         CERO,
         cuotaLiquidadaAnual.minus(deduccionSmi)
@@ -98,7 +72,7 @@ export const calcularConciliacionSimuladorLegacy = ({
       )
       const irpfFinalSimuladorCentimos = eurosACentimos(irpfFinalSimulador)
 
-      return Option.some({
+      return {
         _tag: "ConciliacionSimuladorLegacy",
         anio,
         cuotaLiquidadaAnualCentimos: cuotaLiquidaCentimos,
@@ -111,10 +85,11 @@ export const calcularConciliacionSimuladorLegacy = ({
         tipoMaximoRetencionNominaPorcentaje:
           especificacion.tipoMaximoRetencionNomina.mul(100).toFixed(0),
         limiteRetencionNominaCentimos: eurosACentimos(limiteRetencionNomina),
+        irpfFinalSimulador,
         irpfFinalSimuladorCentimos,
         diferenciaCuotaDiferencialEIrpfFinalCentimos:
           cuotaDiferencialCentimos - irpfFinalSimuladorCentimos,
-      } satisfies ConciliacionSimuladorLegacy)
-    })
+      } satisfies ConciliacionSimuladorLegacy
+    })()
   )
 }
