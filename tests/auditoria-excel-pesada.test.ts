@@ -2,7 +2,7 @@ import { spawn } from "node:child_process"
 import { existsSync } from "node:fs"
 import { resolve } from "node:path"
 
-import { Clock, Effect } from "effect"
+import { Clock, Effect, Match } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -149,27 +149,28 @@ const compararCelda = (
   expect(legacy, posicion).toBe(esperado)
 }
 
-const tablaEsperadaPorHoja = (nombreHoja: string): TablaCompatible => {
-  if (nombreHoja === "CONTROL_GENERAL") {
-    return construirTablaControlGeneralCompatible()
-  }
-
-  if (nombreHoja === "CONTROL_TRAMOS_IRPF") {
-    return construirTablaControlTramosIrpfCompatible()
-  }
-
-  if (nombreHoja === "COMPARATIVA_INFLACION") {
-    return construirTablaComparativaInflacionCompatible()
-  }
-
-  if (nombreHoja.startsWith("DAT_")) {
-    return construirTablaDetalleAnualCompatible(
-      Number(nombreHoja.slice(4)) as AnioFiscal
-    )
-  }
-
-  throw new Error(`Hoja legacy no esperada: ${nombreHoja}`)
-}
+const tablaEsperadaPorHoja = (nombreHoja: string): TablaCompatible =>
+  Match.value(nombreHoja).pipe(
+    Match.when("CONTROL_GENERAL", () =>
+      construirTablaControlGeneralCompatible()
+    ),
+    Match.when("CONTROL_TRAMOS_IRPF", () =>
+      construirTablaControlTramosIrpfCompatible()
+    ),
+    Match.when("COMPARATIVA_INFLACION", () =>
+      construirTablaComparativaInflacionCompatible()
+    ),
+    Match.when(
+      (nombreHoja) => nombreHoja.startsWith("DAT_"),
+      (nombreHoja) =>
+        construirTablaDetalleAnualCompatible(
+          Number(nombreHoja.slice(4)) as AnioFiscal
+        )
+    ),
+    Match.orElse((nombreHoja) => {
+      throw new Error(`Hoja legacy no esperada: ${nombreHoja}`)
+    })
+  )
 
 const compararFila = (
   hoja: string,
@@ -304,15 +305,16 @@ const validarHojaFixtureLegacyCompleto = Effect.fn(
   } satisfies MedicionHoja
   escribirObservabilidad(medicion)
 
-  if (hoja.nombre === "CONTROL_GENERAL") {
-    expect(medicion.filasDatos).toBe(15)
-  }
-  if (hoja.nombre === "COMPARATIVA_INFLACION") {
-    expect(medicion.filasDatos).toBe(1_290)
-  }
-  if (hoja.nombre === "DAT_2012" || hoja.nombre === "DAT_2026") {
-    expect(medicion.filasDatos).toBe(100_001)
-  }
+  Match.value(hoja.nombre).pipe(
+    Match.when("CONTROL_GENERAL", () => expect(medicion.filasDatos).toBe(15)),
+    Match.when("COMPARATIVA_INFLACION", () =>
+      expect(medicion.filasDatos).toBe(1_290)
+    ),
+    Match.when(Match.is("DAT_2012", "DAT_2026"), () =>
+      expect(medicion.filasDatos).toBe(100_001)
+    ),
+    Match.orElse(() => undefined)
+  )
 })
 
 const validarFixtureLegacyCompletoConcurrente = Effect.fn(
