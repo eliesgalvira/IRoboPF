@@ -135,8 +135,8 @@ const MINIMOS_ASTURIAS_2025 = minimos({
 
 const MINIMOS_ILLES_BALEARS_2025 = minimos({
   contribuyente: {
-    general: importe("6105"),
-    adicionalMayor65: importe("1265"),
+    general: importe("5550"),
+    adicionalMayor65: importe("1820"),
     adicionalMayor75: importe("1540"),
   },
   descendientes: {
@@ -290,7 +290,9 @@ export const MINIMOS_AUTONOMICOS_IRPF_2025 = parametroNormativo({
     "comunitat-valenciana": MINIMOS_COMUNITAT_VALENCIANA_2025,
     ceuta: MINIMOS_ESTATALES_2025,
     melilla: MINIMOS_ESTATALES_2025,
-  } satisfies Readonly<Record<ComunidadAutonoma, MinimosPersonalesFamiliaresIrpf>>,
+  } satisfies Readonly<
+    Record<ComunidadAutonoma, MinimosPersonalesFamiliaresIrpf>
+  >,
   fuente: fuenteAeatManualRenta2025Parte1,
 })
 

@@ -7,6 +7,7 @@ import {
 } from "../lib/dominio/irpf/comunidades/comunidad-autonoma"
 import type { ComunidadAutonoma } from "../lib/dominio/irpf/caso-fiscal-anual"
 import { obtenerMinimosAutonomicosIrpf2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
+import { obtenerMinimosAutonomicosIrpf2024 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2024"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -94,6 +95,48 @@ describe("comunidad autonoma", () => {
         anio: 2025,
         escalaAutonomicaIgualEstatal: false,
       })
+    }
+  })
+
+  it("resuelve 2024 reutilizando 2025 salvo diferencias normativas conocidas", () => {
+    const asturias2024 = obtenerParametrosComunidadAutonoma({
+      anio: 2024,
+      comunidadAutonoma: "asturias",
+    })
+    const asturias2025 = obtenerParametrosComunidadAutonoma({
+      anio: 2025,
+      comunidadAutonoma: "asturias",
+    })
+
+    expect(asturias2024).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "asturias",
+      anio: 2024,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+    })
+    expect(asturias2025).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      minimoAutonomicoIgualEstatal: false,
+    })
+
+    if (
+      asturias2024._tag === "ParametrosComunidadAutonoma" &&
+      asturias2025._tag === "ParametrosComunidadAutonoma"
+    ) {
+      expect(asturias2024.escalaAutonomica.tramos[0][1].toString()).toBe("0.1")
+      expect(asturias2025.escalaAutonomica.tramos[0][1].toString()).toBe("0.09")
+    }
+  })
+
+  it("codifica Illes Balears con minimo general y adicionales por edad separados", () => {
+    const minimos2024 = obtenerMinimosAutonomicosIrpf2024("illes-balears")
+    const minimos2025 = obtenerMinimosAutonomicosIrpf2025("illes-balears")
+
+    for (const minimos of [minimos2024, minimos2025]) {
+      expect(minimos.contribuyente.general.toString()).toBe("5550")
+      expect(minimos.contribuyente.adicionalMayor65.toString()).toBe("1820")
+      expect(minimos.contribuyente.adicionalMayor75.toString()).toBe("1540")
     }
   })
 

@@ -12,6 +12,14 @@ export const fuenteAeatManualRenta2025Parte1: FuenteNormativaNormalizada = {
   nota: "Transcripcion operativa normalizada; no sustituye a la fuente oficial.",
 }
 
+export const fuenteAeatManualRenta2024Parte1: FuenteNormativaNormalizada = {
+  _tag: "FuenteNormativaNormalizada",
+  titulo: "Manual practico de Renta 2024. Parte 1",
+  referencia:
+    "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2024/",
+  nota: "Fuente oficial AEAT consultada para parametros 2024; no sustituye a la normativa publicada.",
+}
+
 export const fuenteAeatDeduccionesAutonomicas2025: FuenteNormativaNormalizada =
   {
     _tag: "FuenteNormativaNormalizada",

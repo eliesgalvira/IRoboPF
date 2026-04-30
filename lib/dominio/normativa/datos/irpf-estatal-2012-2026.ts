@@ -119,6 +119,14 @@ export const TRAMOS_IRPF_AHORRO_2025: TramosIrpf = [
   [importe(Infinity), importe("0.30")],
 ]
 
+export const TRAMOS_IRPF_AHORRO_2024: TramosIrpf = [
+  [importe(6000), importe("0.19")],
+  [importe(50000), importe("0.21")],
+  [importe(200000), importe("0.23")],
+  [importe(300000), importe("0.27")],
+  [importe(Infinity), importe("0.28")],
+]
+
 export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
   Match.value(anio).pipe(
     Match.when(
@@ -134,8 +142,10 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
   )
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
-  void anio
-  return TRAMOS_IRPF_AHORRO_2025
+  return Match.value(anio).pipe(
+    Match.when(2024, () => TRAMOS_IRPF_AHORRO_2024),
+    Match.orElse(() => TRAMOS_IRPF_AHORRO_2025)
+  )
 }
 
 export const METADATOS_ARTICULO_20_LEGACY: Readonly<
