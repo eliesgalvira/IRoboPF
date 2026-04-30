@@ -44,6 +44,22 @@ export const fuenteAeatManualRenta2021Parte1: FuenteNormativaNormalizada = {
   nota: "Fuente oficial AEAT consultada para parametros 2021; no sustituye a la normativa publicada.",
 }
 
+export const fuenteAeatManualRenta2020Parte1: FuenteNormativaNormalizada = {
+  _tag: "FuenteNormativaNormalizada",
+  titulo: "Manual practico de Renta 2020. Parte 1",
+  referencia:
+    "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2020/",
+  nota: "Fuente oficial AEAT consultada para parametros 2020; no sustituye a la normativa publicada.",
+}
+
+export const fuenteAeatManualRenta2019Parte1: FuenteNormativaNormalizada = {
+  _tag: "FuenteNormativaNormalizada",
+  titulo: "Manual practico de Renta 2019. Parte 1",
+  referencia:
+    "https://sede.agenciatributaria.gob.es/Sede/Ayuda/19Manual/100.shtml",
+  nota: "Fuente oficial AEAT consultada para parametros 2019; no sustituye a la normativa publicada.",
+}
+
 export const fuenteAeatDeduccionesAutonomicas2025: FuenteNormativaNormalizada =
   {
     _tag: "FuenteNormativaNormalizada",

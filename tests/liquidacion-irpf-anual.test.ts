@@ -440,6 +440,76 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it("liquida 2020 con la escala del ahorro al 23 por ciento desde 50000 euros", () => {
+    const caso = {
+      anio: 2020,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        gananciasPatrimoniales: [
+          {
+            importeGananciaCentimos: 400_000_00,
+            tratamientoMayores65: { _tag: "SinExencionMayores65" },
+          },
+        ],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 40_000_000,
+      cuotaIntegraAhorroCentimos: 9_088_000,
+      cuotaLiquidaCentimos: 9_581_950,
+      cuotaDiferencialCentimos: 9_581_950,
+    })
+  })
+
+  it("liquida 2019 con la escala del ahorro al 23 por ciento desde 50000 euros", () => {
+    const caso = {
+      anio: 2019,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        gananciasPatrimoniales: [
+          {
+            importeGananciaCentimos: 400_000_00,
+            tratamientoMayores65: { _tag: "SinExencionMayores65" },
+          },
+        ],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 40_000_000,
+      cuotaIntegraAhorroCentimos: 9_088_000,
+      cuotaLiquidaCentimos: 9_581_950,
+      cuotaDiferencialCentimos: 9_581_950,
+    })
+  })
+
   it("exime la transmisión de vivienda habitual por contribuyente mayor de 65 años", () => {
     const caso = {
       anio: 2025,
@@ -636,6 +706,124 @@ describe("liquidarIrpfAnual", () => {
       reduccionRendimientosTrabajoCentimos: 416_625,
       cuotaLiquidaCentimos: 44_294,
       cuotaDiferencialCentimos: 44_294,
+    })
+  })
+
+  it("liquida 2020 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+    const caso = {
+      anio: 2020,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 15_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseImponibleGeneralCentimos: 788_125,
+      baseLiquidableGeneralCentimos: 788_125,
+      reduccionRendimientosTrabajoCentimos: 416_625,
+      cuotaLiquidaCentimos: 44_294,
+      cuotaDiferencialCentimos: 44_294,
+    })
+  })
+
+  it("liquida 2019 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+    const caso = {
+      anio: 2019,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 15_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseImponibleGeneralCentimos: 788_125,
+      baseLiquidableGeneralCentimos: 788_125,
+      reduccionRendimientosTrabajoCentimos: 416_625,
+      cuotaLiquidaCentimos: 44_294,
+      cuotaDiferencialCentimos: 44_294,
+    })
+  })
+
+  it("liquida comunidades reales de 2020 con la escala estatal sin tramo adicional de 300000 euros", () => {
+    const caso = {
+      anio: 2020,
+      comunidadAutonoma: "madrid",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 400_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableGeneralCentimos: 39_489_858,
+      cuotaIntegraGeneralCentimos: 16_341_193,
+      cuotaMinimoPersonalCentimos: 102_675,
+      cuotaLiquidaCentimos: 16_238_518,
+    })
+  })
+
+  it("liquida comunidades reales de 2019 con la escala estatal sin tramo adicional de 300000 euros", () => {
+    const caso = {
+      anio: 2019,
+      comunidadAutonoma: "madrid",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 400_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableGeneralCentimos: 39_489_858,
+      cuotaIntegraGeneralCentimos: 16_341_193,
+      cuotaMinimoPersonalCentimos: 102_675,
+      cuotaLiquidaCentimos: 16_238_518,
     })
   })
 

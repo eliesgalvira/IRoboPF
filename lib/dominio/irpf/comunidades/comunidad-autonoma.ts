@@ -15,6 +15,14 @@ import {
   TRAMOS_IRPF_ESTATAL_GENERAL_2025,
   type EscalaAutonomicaIrpf2025,
 } from "../../normativa/datos/irpf-autonomico-2025"
+import {
+  obtenerEscalaAutonomicaIrpf2020,
+  TRAMOS_IRPF_ESTATAL_GENERAL_2020,
+} from "../../normativa/datos/irpf-autonomico-2020"
+import {
+  obtenerEscalaAutonomicaIrpf2019,
+  TRAMOS_IRPF_ESTATAL_GENERAL_2019,
+} from "../../normativa/datos/irpf-autonomico-2019"
 import { obtenerEscalaAutonomicaIrpf2021 } from "../../normativa/datos/irpf-autonomico-2021"
 import { obtenerEscalaAutonomicaIrpf2022 } from "../../normativa/datos/irpf-autonomico-2022"
 import { obtenerEscalaAutonomicaIrpf2023 } from "../../normativa/datos/irpf-autonomico-2023"
@@ -41,6 +49,14 @@ import {
   MINIMOS_ESTATALES_2021,
   obtenerMinimosAutonomicosIrpf2021,
 } from "../../normativa/datos/minimos-autonomicos-2021"
+import {
+  MINIMOS_ESTATALES_2020,
+  obtenerMinimosAutonomicosIrpf2020,
+} from "../../normativa/datos/minimos-autonomicos-2020"
+import {
+  MINIMOS_ESTATALES_2019,
+  obtenerMinimosAutonomicosIrpf2019,
+} from "../../normativa/datos/minimos-autonomicos-2019"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
 export interface EntradaParametrosComunidadAutonoma {
@@ -55,6 +71,7 @@ export interface ParametrosComunidadAutonoma {
   readonly anio: AnioFiscal
   readonly minimoAutonomicoIgualEstatal: boolean
   readonly escalaAutonomicaIgualEstatal: boolean
+  readonly escalaEstatalGeneral: TramosIrpf
   readonly escalaAutonomica: EscalaAutonomicaIrpf2025
   readonly minimosAutonomicos: MinimosPersonalesFamiliaresIrpf
   readonly deduccionesAutonomicasSoportadas: ReadonlyArray<FichaDeduccionAutonomica>
@@ -72,6 +89,44 @@ export type ResultadoParametrosComunidadAutonoma =
   | ParametrosComunidadAutonoma
   | ComunidadAutonomaNoSoportada
 
+const resolverParametrosComunidadAutonoma2019 = (
+  comunidadAutonoma: ComunidadAutonoma
+): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2019(comunidadAutonoma)
+
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2019,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2019,
+    escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2019,
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2019(comunidadAutonoma),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas: [],
+  }
+}
+
+const resolverParametrosComunidadAutonoma2020 = (
+  comunidadAutonoma: ComunidadAutonoma
+): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2020(comunidadAutonoma)
+
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2020,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2020,
+    escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2020,
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2020(comunidadAutonoma),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas: [],
+  }
+}
+
 const resolverParametrosComunidadAutonoma2021 = (
   comunidadAutonoma: ComunidadAutonoma
 ): ParametrosComunidadAutonoma => {
@@ -84,6 +139,7 @@ const resolverParametrosComunidadAutonoma2021 = (
     anio: 2021,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2021,
     escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
     escalaAutonomica: obtenerEscalaAutonomicaIrpf2021(comunidadAutonoma),
     minimosAutonomicos,
     deduccionesAutonomicasSoportadas: [],
@@ -102,6 +158,7 @@ const resolverParametrosComunidadAutonoma2024 = (
     anio: 2024,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2024,
     escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
     escalaAutonomica: obtenerEscalaAutonomicaIrpf2024(comunidadAutonoma),
     minimosAutonomicos,
     deduccionesAutonomicasSoportadas: [],
@@ -126,6 +183,7 @@ const resolverParametrosComunidadAutonoma2023 = ({
     anio: 2023,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2023,
     escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
     escalaAutonomica: obtenerEscalaAutonomicaIrpf2023({
       comunidadAutonoma,
       fechaFallecimiento,
@@ -153,6 +211,7 @@ const resolverParametrosComunidadAutonoma2022 = ({
     anio: 2022,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2022,
     escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
     escalaAutonomica: obtenerEscalaAutonomicaIrpf2022({
       comunidadAutonoma,
       fechaFallecimiento,
@@ -174,6 +233,7 @@ const resolverParametrosComunidadAutonoma2025 = (
     anio: 2025,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2025,
     escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
     escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
     minimosAutonomicos,
     deduccionesAutonomicasSoportadas:
@@ -187,6 +247,12 @@ export const obtenerParametrosComunidadAutonoma = ({
   fechaFallecimiento,
 }: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>
   Match.value(anio).pipe(
+    Match.when(2019, () =>
+      resolverParametrosComunidadAutonoma2019(comunidadAutonoma)
+    ),
+    Match.when(2020, () =>
+      resolverParametrosComunidadAutonoma2020(comunidadAutonoma)
+    ),
     Match.when(2021, () =>
       resolverParametrosComunidadAutonoma2021(comunidadAutonoma)
     ),

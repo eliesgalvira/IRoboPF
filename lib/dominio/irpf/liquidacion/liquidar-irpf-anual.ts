@@ -212,8 +212,6 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   )
   const minimosEstatales =
     dependencias.parametrosNormativos.minimosEstatales2025
-  const tramosIrpfEstatalGeneral =
-    dependencias.parametrosNormativos.tramosIrpfEstatalGeneral2025
   const resultadoParametrosComunidad =
     yield* dependencias.parametrosNormativos.obtenerParametrosComunidadAutonoma(
       {
@@ -244,6 +242,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         Effect.succeed(parametrosComunidad),
     }
   )
+  const tramosIrpfEstatalGeneral = parametrosComunidad.escalaEstatalGeneral
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
