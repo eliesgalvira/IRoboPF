@@ -15,12 +15,17 @@ import {
   TRAMOS_IRPF_ESTATAL_GENERAL_2025,
   type EscalaAutonomicaIrpf2025,
 } from "../../normativa/datos/irpf-autonomico-2025"
+import { obtenerEscalaAutonomicaIrpf2024 } from "../../normativa/datos/irpf-autonomico-2024"
 import type { TramosIrpf } from "../../normativa/datos/irpf-estatal-2012-2026"
 import {
   MINIMOS_ESTATALES_2025,
   obtenerMinimosAutonomicosIrpf2025,
   type MinimosPersonalesFamiliaresIrpf,
 } from "../../normativa/datos/minimos-autonomicos-2025"
+import {
+  MINIMOS_ESTATALES_2024,
+  obtenerMinimosAutonomicosIrpf2024,
+} from "../../normativa/datos/minimos-autonomicos-2024"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
 export interface EntradaParametrosComunidadAutonoma {
@@ -51,28 +56,54 @@ export type ResultadoParametrosComunidadAutonoma =
   | ParametrosComunidadAutonoma
   | ComunidadAutonomaNoSoportada
 
+const resolverParametrosComunidadAutonoma2024 = (
+  comunidadAutonoma: ComunidadAutonoma
+): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2024(comunidadAutonoma)
+
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2024,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2024,
+    escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2024(comunidadAutonoma),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas: [],
+  }
+}
+
+const resolverParametrosComunidadAutonoma2025 = (
+  comunidadAutonoma: ComunidadAutonoma
+): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma)
+
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2025,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2025,
+    escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas:
+      deduccionesImplementadasPorComunidad(comunidadAutonoma),
+  }
+}
+
 export const obtenerParametrosComunidadAutonoma = ({
   anio,
   comunidadAutonoma,
 }: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>
   Match.value(anio).pipe(
-    Match.when(2025, () => {
-      const minimosAutonomicos =
-        obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma)
-
-      return {
-        _tag: "ParametrosComunidadAutonoma",
-        comunidadAutonoma,
-        anio,
-        minimoAutonomicoIgualEstatal:
-          minimosAutonomicos === MINIMOS_ESTATALES_2025,
-        escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
-        escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
-        minimosAutonomicos,
-        deduccionesAutonomicasSoportadas:
-          deduccionesImplementadasPorComunidad(comunidadAutonoma),
-      } satisfies ParametrosComunidadAutonoma
-    }),
+    Match.when(2024, () =>
+      resolverParametrosComunidadAutonoma2024(comunidadAutonoma)
+    ),
+    Match.when(2025, () =>
+      resolverParametrosComunidadAutonoma2025(comunidadAutonoma)
+    ),
     Match.orElse(
       (anio) =>
         ({

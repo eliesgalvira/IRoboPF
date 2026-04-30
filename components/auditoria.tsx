@@ -2,11 +2,12 @@
 
 import * as React from "react"
 import dynamic from "next/dynamic"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { Dialog } from "@base-ui/react/dialog"
 import { NumberField } from "@base-ui/react/number-field"
 import { Slider } from "@base-ui/react/slider"
 import { Tabs } from "@base-ui/react/tabs"
-import { Cause, Effect, Exit, Fiber } from "effect"
+import { Cause, Effect, Exit, Fiber, Match, Option } from "effect"
 import {
   Area,
   AreaChart,
@@ -35,6 +36,21 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart"
 import { Button } from "@/components/ui/button"
+import {
+  type CambioEscenarioAuditoriaNormativa,
+  decodificarEstrategiaProyeccionSalarial,
+  decodificarMagnitudAuditada,
+  decodificarPerfilAuditoriaNormativa,
+  describirEstrategiaAuditoriaNormativa,
+  describirMagnitudAuditoriaNormativa,
+  describirPerfilAuditoriaNormativa,
+  estrategiasAuditoriaNormativa,
+  leerEscenarioAuditoriaNormativaDesdeUrl,
+  magnitudesAuditoriaNormativa,
+  perfilesAuditoriaNormativa,
+  serializarEscenarioAuditoriaNormativa,
+  type EscenarioAuditoriaNormativaHistorica,
+} from "@/lib/dominio/auditoria/auditoria-normativa-historica"
 import {
   configuracionRangoAuditoria,
   auditarProgresividadFrio,
@@ -67,13 +83,19 @@ function formatearDuracion(milisegundos: number): string {
 type DialogoExportacionCompatible = "advertencia" | "progreso" | null
 
 function AuditoriaImpl() {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const escenarioAuditoria = React.useMemo(
+    () => leerEscenarioAuditoriaNormativaDesdeUrl(searchParams),
+    [searchParams]
+  )
   const [minimoCentimos, fijarMinimoCentimos] = React.useState<number>(
     configuracionRangoAuditoria.minimoPorDefectoCentimos
   )
   const [maximoCentimos, fijarMaximoCentimos] = React.useState<number>(
     configuracionRangoAuditoria.maximoPorDefectoCentimos
   )
-  const [anioComparado, fijarAnioComparado] = React.useState<AnioFiscal>(2019)
   const [aniosGraficoIrpf, fijarAniosGraficoIrpf] = React.useState<
     ReadonlyArray<AnioFiscal>
   >([2019, 2026])
@@ -111,13 +133,29 @@ function AuditoriaImpl() {
               maximoCentimos
             ),
             pasoCentimos: configuracionRangoAuditoria.pasoCentimos,
-            anioComparado,
-            anioReferencia: 2026,
+            anioComparado: escenarioAuditoria.anioComparado,
+            anioReferencia: escenarioAuditoria.anioReferencia,
           },
           { modo: "compatible-legacy" }
         )
       ).auditoria,
-    [anioComparado, maximoCentimos, minimoCentimos]
+    [
+      escenarioAuditoria.anioComparado,
+      escenarioAuditoria.anioReferencia,
+      maximoCentimos,
+      minimoCentimos,
+    ]
+  )
+
+  const actualizarEscenarioAuditoria = React.useCallback(
+    (cambio: CambioEscenarioAuditoriaNormativa) => {
+      const parametros = serializarEscenarioAuditoriaNormativa({
+        ...escenarioAuditoria,
+        ...cambio,
+      })
+      router.replace(`${pathname}?${parametros.toString()}`, { scroll: false })
+    },
+    [escenarioAuditoria, pathname, router]
   )
 
   const registrarProgresoExportacionCompatible = React.useCallback(
@@ -256,10 +294,17 @@ function AuditoriaImpl() {
         <BarraFiltros
           minimoCentimos={minimoCentimos}
           maximoCentimos={maximoCentimos}
-          anioComparado={anioComparado}
+          anioComparado={escenarioAuditoria.anioComparado}
           fijarMinimoCentimos={fijarMinimoCentimos}
           fijarMaximoCentimos={fijarMaximoCentimos}
-          fijarAnioComparado={fijarAnioComparado}
+          fijarAnioComparado={(anioComparado) =>
+            actualizarEscenarioAuditoria({ anioComparado })
+          }
+        />
+
+        <ControlesAuditoriaNormativa
+          escenario={escenarioAuditoria}
+          alCambiarEscenario={actualizarEscenarioAuditoria}
         />
 
         {hallazgoPrincipal ? (
@@ -454,6 +499,145 @@ function DialogoExportacionCompatible({
   )
 }
 
+function ControlesAuditoriaNormativa({
+  escenario,
+  alCambiarEscenario,
+}: {
+  readonly escenario: EscenarioAuditoriaNormativaHistorica
+  readonly alCambiarEscenario: (
+    cambio: CambioEscenarioAuditoriaNormativa
+  ) => void
+}) {
+  const perfilActivo = describirPerfilAuditoriaNormativa(escenario.perfil)
+  const estrategiaActiva = describirEstrategiaAuditoriaNormativa(
+    escenario.estrategiaProyeccionSalarial
+  )
+  const magnitudActiva = describirMagnitudAuditoriaNormativa(
+    escenario.magnitudAuditada
+  )
+
+  return (
+    <section className="grid gap-4 border-b-2 border-[var(--rule)] py-6">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="text-sm tracking-[0.32em] text-[var(--ink-soft)] uppercase">
+            AUDITORÍA NORMATIVA / ESCENARIO
+          </p>
+          <h2 className="mt-2 font-[family-name:var(--display)] text-[clamp(1.5rem,4vw,2.25rem)] leading-none tracking-wider uppercase">
+            PERFIL Y MAGNITUD
+          </h2>
+        </div>
+        <p className="max-w-xl text-sm leading-5 text-[var(--ink-soft)]">
+          {perfilActivo.detalle} · {estrategiaActiva.detalle} ·{" "}
+          {magnitudActiva.detalle}
+        </p>
+      </div>
+
+      <div className="grid gap-4">
+        <Tabs.Root
+          value={escenario.perfil}
+          onValueChange={(valor) => {
+            Option.fromNullishOr(valor).pipe(
+              Option.flatMap(decodificarPerfilAuditoriaNormativa),
+              Option.match({
+                onNone: () => {},
+                onSome: (perfil) => alCambiarEscenario({ perfil }),
+              })
+            )
+          }}
+          className="grid gap-3"
+        >
+          <Tabs.List
+            aria-label="Perfil de auditoría"
+            className="grid divide-y-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.18em] uppercase md:grid-cols-5 md:divide-x-2 md:divide-y-0"
+          >
+            {perfilesAuditoriaNormativa.map((perfil) => {
+              const ficha = describirPerfilAuditoriaNormativa(perfil)
+              return (
+                <Tabs.Tab
+                  key={ficha.valor}
+                  value={ficha.valor}
+                  className={claseBotonPestana}
+                >
+                  {ficha.etiqueta}
+                </Tabs.Tab>
+              )
+            })}
+          </Tabs.List>
+        </Tabs.Root>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Tabs.Root
+          value={escenario.estrategiaProyeccionSalarial}
+          onValueChange={(valor) => {
+            Option.fromNullishOr(valor).pipe(
+              Option.flatMap(decodificarEstrategiaProyeccionSalarial),
+              Option.match({
+                onNone: () => {},
+                onSome: (estrategiaProyeccionSalarial) =>
+                  alCambiarEscenario({ estrategiaProyeccionSalarial }),
+              })
+            )
+          }}
+          className="grid gap-3"
+        >
+          <Tabs.List
+            aria-label="Estrategia de proyección salarial"
+            className="grid divide-y-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.18em] uppercase sm:grid-cols-3 sm:divide-x-2 sm:divide-y-0"
+          >
+            {estrategiasAuditoriaNormativa.map((estrategia) => {
+              const ficha = describirEstrategiaAuditoriaNormativa(estrategia)
+              return (
+                <Tabs.Tab
+                  key={ficha.valor}
+                  value={ficha.valor}
+                  className={claseBotonPestana}
+                >
+                  {ficha.etiqueta}
+                </Tabs.Tab>
+              )
+            })}
+          </Tabs.List>
+        </Tabs.Root>
+
+        <Tabs.Root
+          value={escenario.magnitudAuditada}
+          onValueChange={(valor) => {
+            Option.fromNullishOr(valor).pipe(
+              Option.flatMap(decodificarMagnitudAuditada),
+              Option.match({
+                onNone: () => {},
+                onSome: (magnitudAuditada) =>
+                  alCambiarEscenario({ magnitudAuditada }),
+              })
+            )
+          }}
+          className="grid gap-3"
+        >
+          <Tabs.List
+            aria-label="Magnitud auditada"
+            className="grid divide-y-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.18em] uppercase sm:grid-cols-5 sm:divide-x-2 sm:divide-y-0"
+          >
+            {magnitudesAuditoriaNormativa.map((magnitud) => {
+              const ficha = describirMagnitudAuditoriaNormativa(magnitud)
+              return (
+                <Tabs.Tab
+                  key={ficha.valor}
+                  value={ficha.valor}
+                  className={claseBotonPestana}
+                >
+                  {ficha.etiqueta}
+                </Tabs.Tab>
+              )
+            })}
+          </Tabs.List>
+        </Tabs.Root>
+      </div>
+    </section>
+  )
+}
+
 function BarraFiltros({
   minimoCentimos,
   maximoCentimos,
@@ -617,12 +801,11 @@ function HallazgoPrincipal({
   readonly hallazgo: HallazgoAuditoria
   readonly anioComparado: AnioFiscal
 }) {
-  const tono =
-    hallazgo.severidad === "perdida"
-      ? "var(--danger)"
-      : hallazgo.severidad === "ganancia"
-        ? "var(--gain)"
-        : "var(--ink)"
+  const tono = Match.value(hallazgo.severidad).pipe(
+    Match.when("perdida", () => "var(--danger)"),
+    Match.when("ganancia", () => "var(--gain)"),
+    Match.orElse(() => "var(--ink)")
+  )
   return (
     <section className="grid border-b-2 border-[var(--rule)]">
       <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 py-6 pl-4 sm:gap-6 sm:pl-5">
@@ -667,12 +850,11 @@ function HallazgosSecundarios({
       </p>
       <ul className="mt-3 grid gap-px bg-[var(--rule)]">
         {hallazgos.map((hallazgo, indice) => {
-          const tono =
-            hallazgo.severidad === "perdida"
-              ? "var(--danger)"
-              : hallazgo.severidad === "ganancia"
-                ? "var(--gain)"
-                : "var(--ink)"
+          const tono = Match.value(hallazgo.severidad).pipe(
+            Match.when("perdida", () => "var(--danger)"),
+            Match.when("ganancia", () => "var(--gain)"),
+            Match.orElse(() => "var(--ink)")
+          )
           return (
             <li
               key={`${hallazgo.titulo}-${hallazgo.salarioBrutoAnualCentimos}`}

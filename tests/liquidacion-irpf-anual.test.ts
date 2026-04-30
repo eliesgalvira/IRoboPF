@@ -315,6 +315,51 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it("liquida 2024 con el ultimo tramo del ahorro al 28 por ciento total", () => {
+    const caso2024 = {
+      anio: 2024,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        gananciasPatrimoniales: [
+          {
+            importeGananciaCentimos: 400_000_00,
+            tratamientoMayores65: { _tag: "SinExencionMayores65" },
+          },
+        ],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+    const caso2025 = {
+      ...caso2024,
+      anio: 2025,
+    } satisfies CasoFiscalAnual
+
+    const liquidacion2024 = liquidarCasoCanonico(caso2024)
+    const liquidacion2025 = liquidarCasoCanonico(caso2025)
+
+    expect(liquidacion2024).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 40_000_000,
+      cuotaIntegraAhorroCentimos: 9_988_000,
+    })
+    expect(liquidacion2025).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 40_000_000,
+      cuotaIntegraAhorroCentimos: 10_188_000,
+    })
+  })
+
   it("exime la transmisión de vivienda habitual por contribuyente mayor de 65 años", () => {
     const caso = {
       anio: 2025,
