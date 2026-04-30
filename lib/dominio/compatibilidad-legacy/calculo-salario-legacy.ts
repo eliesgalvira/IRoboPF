@@ -18,6 +18,12 @@ export interface EntradaCalculoSalarioLegacy {
   readonly salarioBrutoAnualCentimos: number
 }
 
+export interface ServicioCompatibilidadSalarioLegacy {
+  readonly calcular: (
+    entrada: EntradaCalculoSalarioLegacy
+  ) => Effect.Effect<DesgloseLiquidado>
+}
+
 // Este adaptador conserva el contrato observable del perfil legacy mientras el
 // calculo se va moviendo desde la compatibilidad historica hacia servicios
 // fiscales explicitos.
@@ -25,8 +31,9 @@ const calcularSalarioLegacyImpl = Effect.fn(
   "compatibilidadLegacy.calcularSalarioLegacy"
 )(function* (entrada: EntradaCalculoSalarioLegacy) {
   return yield* Match.value(entrada.anio).pipe(
-    Match.when(2025, () =>
-      calcularSalarioLegacy2025ConLiquidacionIrpfAnual(entrada)
+    Match.when(
+      (anio) => anio >= 2018 && anio <= 2025,
+      () => calcularSalarioLegacyConLiquidacionIrpfAnual(entrada)
     ),
     Match.orElse(() =>
       Effect.gen(function* () {
@@ -43,8 +50,8 @@ const calcularSalarioLegacyImpl = Effect.fn(
   )
 })
 
-const calcularSalarioLegacy2025ConLiquidacionIrpfAnual = Effect.fn(
-  "compatibilidadLegacy.calcularSalarioLegacy2025ConLiquidacionIrpfAnual"
+const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
+  "compatibilidadLegacy.calcularSalarioLegacyConLiquidacionIrpfAnual"
 )(function* (entrada: EntradaCalculoSalarioLegacy) {
   const liquidacion = yield* liquidarIrpfAnual(casoFiscalLegacy(entrada), {
     modo: "compatible-legacy",
@@ -100,11 +107,7 @@ const casoFiscalLegacy = (
 
 export class CompatibilidadSalarioLegacy extends Context.Service<
   CompatibilidadSalarioLegacy,
-  {
-    readonly calcular: (
-      entrada: EntradaCalculoSalarioLegacy
-    ) => Effect.Effect<DesgloseLiquidado>
-  }
+  ServicioCompatibilidadSalarioLegacy
 >()("@irobopf/dominio/compatibilidadLegacy/CompatibilidadSalarioLegacy") {
   static readonly layer = Layer.succeed(CompatibilidadSalarioLegacy, {
     calcular: calcularSalarioLegacyImpl,

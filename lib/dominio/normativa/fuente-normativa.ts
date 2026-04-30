@@ -60,6 +60,14 @@ export const fuenteAeatManualRenta2019Parte1: FuenteNormativaNormalizada = {
   nota: "Fuente oficial AEAT consultada para parametros 2019; no sustituye a la normativa publicada.",
 }
 
+export const fuenteAeatManualRenta2018Parte1: FuenteNormativaNormalizada = {
+  _tag: "FuenteNormativaNormalizada",
+  titulo: "Manual practico de Renta 2018. Parte 1",
+  referencia:
+    "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2018/ManualRentaPatrimonio2018_V8_es_es.pdf",
+  nota: "Fuente oficial AEAT consultada para parametros 2018; no sustituye a la normativa publicada.",
+}
+
 export const fuenteAeatDeduccionesAutonomicas2025: FuenteNormativaNormalizada =
   {
     _tag: "FuenteNormativaNormalizada",
