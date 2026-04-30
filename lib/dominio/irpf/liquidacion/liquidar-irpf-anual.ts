@@ -1,5 +1,5 @@
 import Decimal from "decimal.js"
-import { Context, Effect, Layer, Option } from "effect"
+import { Context, Effect, Layer, Match, Option } from "effect"
 
 import type {
   CasoFiscalAnual,
@@ -142,11 +142,10 @@ const construirLiquidarIrpfAnual = (
       caso,
       dependencias.parametrosNormativos
     )
-    if (Option.isSome(resultadoNoSoportado)) {
-      return yield* Effect.fail(resultadoNoSoportado.value)
-    }
-
-    return yield* liquidarTrabajoIndividualSimple(caso, dependencias)
+    return yield* Option.match(resultadoNoSoportado, {
+      onNone: () => liquidarTrabajoIndividualSimple(caso, dependencias),
+      onSome: (resultadoNoSoportado) => Effect.fail(resultadoNoSoportado),
+    })
   })
 
 export class LiquidacionIrpfAnual extends Context.Service<
@@ -215,31 +214,35 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     dependencias.parametrosNormativos.minimosEstatales2025
   const tramosIrpfEstatalGeneral =
     dependencias.parametrosNormativos.tramosIrpfEstatalGeneral2025
-  const parametrosComunidad =
+  const resultadoParametrosComunidad =
     yield* dependencias.parametrosNormativos.obtenerParametrosComunidadAutonoma(
       {
         anio: caso.anio,
         comunidadAutonoma: caso.comunidadAutonoma,
       }
     )
-  if (parametrosComunidad._tag === "ComunidadAutonomaNoSoportada") {
-    const resultadoNoSoportado = {
-      _tag: "ResultadoNoSoportado",
-      motivo: parametrosComunidad.motivo,
-      fuenteReconocida: parametrosComunidad.fuenteReconocida,
-      rastro: rastroResultadoNoSoportado({
-        caso,
-        fuentePaso:
-          "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
-        tituloFuentePaso: "Manual Renta 2025 Parte 2",
-        tituloPaso: "Comunidad autonoma no soportada",
-        descripcionPaso:
-          "El caso fiscal reconoce una comunidad autonoma real, pero esta version del motor solo calcula el caso tecnico de contraste con tramo autonomico igualado al estatal.",
-      }),
-    } satisfies ResultadoNoSoportado
-
-    return yield* Effect.fail(resultadoNoSoportado)
-  }
+  const parametrosComunidad = yield* Match.valueTags(
+    resultadoParametrosComunidad,
+    {
+      ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
+        Effect.fail({
+          _tag: "ResultadoNoSoportado",
+          motivo: parametrosComunidad.motivo,
+          fuenteReconocida: parametrosComunidad.fuenteReconocida,
+          rastro: rastroResultadoNoSoportado({
+            caso,
+            fuentePaso:
+              "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+            tituloFuentePaso: "Manual Renta 2025 Parte 2",
+            tituloPaso: "Comunidad autonoma no soportada",
+            descripcionPaso:
+              "El caso fiscal reconoce una comunidad autonoma real, pero esta version del motor solo calcula el caso tecnico de contraste con tramo autonomico igualado al estatal.",
+          }),
+        } satisfies ResultadoNoSoportado),
+      ParametrosComunidadAutonoma: (parametrosComunidad) =>
+        Effect.succeed(parametrosComunidad),
+    }
+  )
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
@@ -833,9 +836,19 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         {
           _tag: "PasoExplicacion",
           titulo: "Comunidad autonoma",
-          descripcion: parametrosComunidad.escalaAutonomicaIgualEstatal
-            ? "Caso tecnico de contraste: los minimos y la escala autonomica se igualan a los parametros estatales. No representa la normativa propia de una comunidad autonoma real."
-            : `La comunidad autonoma ${parametrosComunidad.escalaAutonomica.nombre} aplica su escala autonomica general de 2025. La cuota general se calcula como cuota estatal mas cuota autonomica, y las deducciones autonomicas se restan despues de minorar por el minimo personal y familiar.`,
+          descripcion: Match.value(
+            parametrosComunidad.escalaAutonomicaIgualEstatal
+          ).pipe(
+            Match.when(
+              true,
+              () =>
+                "Caso tecnico de contraste: los minimos y la escala autonomica se igualan a los parametros estatales. No representa la normativa propia de una comunidad autonoma real."
+            ),
+            Match.orElse(
+              () =>
+                `La comunidad autonoma ${parametrosComunidad.escalaAutonomica.nombre} aplica su escala autonomica general de 2025. La cuota general se calcula como cuota estatal mas cuota autonomica, y las deducciones autonomicas se restan despues de minorar por el minimo personal y familiar.`
+            )
+          ),
           fuentes: [
             {
               titulo: parametrosComunidad.escalaAutonomica.fuente.titulo,
@@ -1008,45 +1021,46 @@ const detectarCasoNoSoportado = Effect.fn(
   caso: CasoFiscalAnual,
   parametrosNormativos: ServicioParametrosNormativosIrpf
 ) {
-  const deduccionPendiente = caso.deducciones[0]
-  if (deduccionPendiente) {
-    const catalogada =
-      yield* parametrosNormativos.obtenerDeduccionAutonomicaCatalogada(
-        deduccionPendiente.codigo
-      )
+  return yield* Option.match(Option.fromNullishOr(caso.deducciones[0]), {
+    onNone: () => Effect.succeed(Option.none()),
+    onSome: (deduccionPendiente) =>
+      Effect.gen(function* () {
+        const catalogada =
+          yield* parametrosNormativos.obtenerDeduccionAutonomicaCatalogada(
+            deduccionPendiente.codigo
+          )
 
-    const resultadoNoSoportado = {
-      _tag: "ResultadoNoSoportado",
-      motivo: Option.match(catalogada, {
-        onNone: () =>
-          `Deduccion autonomica no catalogada: ${deduccionPendiente.codigo}`,
-        onSome: (deduccionCatalogada) =>
-          `Deduccion autonomica reconocida no implementada: ${deduccionCatalogada.nombre}`,
+        const resultadoNoSoportado = {
+          _tag: "ResultadoNoSoportado",
+          motivo: Option.match(catalogada, {
+            onNone: () =>
+              `Deduccion autonomica no catalogada: ${deduccionPendiente.codigo}`,
+            onSome: (deduccionCatalogada) =>
+              `Deduccion autonomica reconocida no implementada: ${deduccionCatalogada.nombre}`,
+          }),
+          fuenteReconocida:
+            "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+          rastro: rastroResultadoNoSoportado({
+            caso,
+            fuentePaso:
+              "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+            tituloFuentePaso: "Manual Renta 2025 Parte 2",
+            tituloPaso: Option.match(catalogada, {
+              onNone: () => "Deduccion autonomica no catalogada",
+              onSome: () => "Deduccion autonomica reconocida no implementada",
+            }),
+            descripcionPaso: Option.match(catalogada, {
+              onNone: () =>
+                `El motor ha recibido el codigo ${deduccionPendiente.codigo}, que no existe en el catalogo normalizado actual.`,
+              onSome: (deduccionCatalogada) =>
+                `El motor reconoce ${deduccionCatalogada.codigo} con estado ${deduccionCatalogada.estado}, pero todavia no tiene evaluador y tests para liquidarla.`,
+            }),
+          }),
+        } satisfies ResultadoNoSoportado
+
+        return Option.some(resultadoNoSoportado)
       }),
-      fuenteReconocida:
-        "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
-      rastro: rastroResultadoNoSoportado({
-        caso,
-        fuentePaso:
-          "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
-        tituloFuentePaso: "Manual Renta 2025 Parte 2",
-        tituloPaso: Option.match(catalogada, {
-          onNone: () => "Deduccion autonomica no catalogada",
-          onSome: () => "Deduccion autonomica reconocida no implementada",
-        }),
-        descripcionPaso: Option.match(catalogada, {
-          onNone: () =>
-            `El motor ha recibido el codigo ${deduccionPendiente.codigo}, que no existe en el catalogo normalizado actual.`,
-          onSome: (deduccionCatalogada) =>
-            `El motor reconoce ${deduccionCatalogada.codigo} con estado ${deduccionCatalogada.estado}, pero todavia no tiene evaluador y tests para liquidarla.`,
-        }),
-      }),
-    } satisfies ResultadoNoSoportado
-
-    return Option.some(resultadoNoSoportado)
-  }
-
-  return Option.none()
+  })
 })
 
 const calcularMinimoPersonalYFamiliar = ({
@@ -1134,13 +1148,15 @@ const pasoRetencionTrabajoAeat = (
 const sumarDeduccionesAutonomicasCentimos = (caso: CasoFiscalAnual): number =>
   caso.deduccionAutonomicaAgregadaCentimos ?? 0
 
-const deduccionesAutonomicasDescripcion = (caso: CasoFiscalAnual): string => {
-  if (!caso.deduccionAutonomicaAgregadaCentimos) {
-    return "Sin deducciones autonomicas declaradas en el caso"
-  }
-
-  return "importe_agregado_no_desglosado"
-}
+const deduccionesAutonomicasDescripcion = (caso: CasoFiscalAnual): string =>
+  Match.value(caso.deduccionAutonomicaAgregadaCentimos).pipe(
+    Match.when(
+      (deduccionAutonomicaAgregadaCentimos) =>
+        !deduccionAutonomicaAgregadaCentimos,
+      () => "Sin deducciones autonomicas declaradas en el caso"
+    ),
+    Match.orElse(() => "importe_agregado_no_desglosado")
+  )
 
 const rastroResultadoNoSoportado = ({
   caso,

@@ -90,19 +90,17 @@ const SIN_SOLIDARIDAD = {
   _tag: "SinSolidaridad",
 } as const satisfies PoliticaSolidaridad
 
-const minimo = (a: Decimal, b: Decimal) => {
-  if (a.lessThan(b)) {
-    return a
-  }
-  return b
-}
+const minimo = (a: Decimal, b: Decimal) =>
+  Match.value(a.lessThan(b)).pipe(
+    Match.when(true, () => a),
+    Match.orElse(() => b)
+  )
 
-const maximo = (a: Decimal, b: Decimal) => {
-  if (a.greaterThan(b)) {
-    return a
-  }
-  return b
-}
+const maximo = (a: Decimal, b: Decimal) =>
+  Match.value(a.greaterThan(b)).pipe(
+    Match.when(true, () => a),
+    Match.orElse(() => b)
+  )
 
 const tipoCotizacionPorLado = (
   tipos: TiposCotizacion,
@@ -193,32 +191,41 @@ const baseCotizacionPara = (
 const calcularTotalSolidaridad = (
   baseCotizacion: BaseCotizacion,
   parametros: ParametrosCotizacionLegacy
-) => {
-  if (parametros.solidaridad._tag === "SinSolidaridad") {
-    return IMPORTE_CERO
-  }
+) =>
+  Match.valueTags(parametros.solidaridad, {
+    SinSolidaridad: () => IMPORTE_CERO,
+    ConSolidaridad: (politica) =>
+      Match.value(baseCotizacion.excesoBase).pipe(
+        Match.when(
+          (excesoBase) => excesoBase.lte(0),
+          () => IMPORTE_CERO
+        ),
+        Match.orElse(() => {
+          const limitePrimerTramo = parametros.baseMaxima.mul("0.10")
+          const limiteSegundoTramo = parametros.baseMaxima.mul("0.50")
+          const excesoPrimerTramo = minimo(
+            baseCotizacion.excesoBase,
+            limitePrimerTramo
+          )
+          const excesoSegundoTramo = minimo(
+            maximo(
+              IMPORTE_CERO,
+              baseCotizacion.excesoBase.minus(limitePrimerTramo)
+            ),
+            limiteSegundoTramo.minus(limitePrimerTramo)
+          )
+          const excesoRestante = maximo(
+            IMPORTE_CERO,
+            baseCotizacion.excesoBase.minus(limiteSegundoTramo)
+          )
 
-  if (baseCotizacion.excesoBase.lte(0)) {
-    return IMPORTE_CERO
-  }
-
-  const limitePrimerTramo = parametros.baseMaxima.mul("0.10")
-  const limiteSegundoTramo = parametros.baseMaxima.mul("0.50")
-  const excesoPrimerTramo = minimo(baseCotizacion.excesoBase, limitePrimerTramo)
-  const excesoSegundoTramo = minimo(
-    maximo(IMPORTE_CERO, baseCotizacion.excesoBase.minus(limitePrimerTramo)),
-    limiteSegundoTramo.minus(limitePrimerTramo)
-  )
-  const excesoRestante = maximo(
-    IMPORTE_CERO,
-    baseCotizacion.excesoBase.minus(limiteSegundoTramo)
-  )
-
-  return excesoPrimerTramo
-    .mul(parametros.solidaridad.tipoPrimerExceso)
-    .plus(excesoSegundoTramo.mul(parametros.solidaridad.tipoSegundoExceso))
-    .plus(excesoRestante.mul(parametros.solidaridad.tipoExcesoRestante))
-}
+          return excesoPrimerTramo
+            .mul(politica.tipoPrimerExceso)
+            .plus(excesoSegundoTramo.mul(politica.tipoSegundoExceso))
+            .plus(excesoRestante.mul(politica.tipoExcesoRestante))
+        })
+      ),
+  })
 
 const repartirCotizacionSolidaridad = (
   totalSolidaridad: Decimal

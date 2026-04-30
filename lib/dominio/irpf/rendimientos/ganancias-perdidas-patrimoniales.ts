@@ -92,29 +92,33 @@ const calcularGananciaExentaMayores65 = ({
   readonly tratamiento: TratamientoGananciaPatrimonialMayores65
   readonly convertirCentimos: typeof centimosAEuros
 }): Decimal => {
-  if (edadContribuyente < 65) {
-    return IMPORTE_CERO
-  }
-
-  return Match.valueTags(tratamiento, {
-    SinExencionMayores65: () => IMPORTE_CERO,
-    ViviendaHabitualMayores65: () => gananciaTotal,
-    ReinversionRentaVitaliciaMayores65: ({
-      importeReinvertidoRentaVitaliciaCentimos,
-      importeTransmisionCentimos,
-      reinversionesPreviasRentaVitaliciaCentimos,
-    }) =>
-      calcularExencionPorReinversionEnRentaVitalicia({
-        gananciaTotal,
-        importeTransmision: convertirCentimos(importeTransmisionCentimos),
-        importeReinvertido: convertirCentimos(
-          importeReinvertidoRentaVitaliciaCentimos
-        ),
-        reinversionesPrevias: convertirCentimos(
-          reinversionesPreviasRentaVitaliciaCentimos
-        ),
-      }),
-  })
+  return Match.value(edadContribuyente).pipe(
+    Match.when(
+      (edadContribuyente) => edadContribuyente < 65,
+      () => IMPORTE_CERO
+    ),
+    Match.orElse(() =>
+      Match.valueTags(tratamiento, {
+        SinExencionMayores65: () => IMPORTE_CERO,
+        ViviendaHabitualMayores65: () => gananciaTotal,
+        ReinversionRentaVitaliciaMayores65: ({
+          importeReinvertidoRentaVitaliciaCentimos,
+          importeTransmisionCentimos,
+          reinversionesPreviasRentaVitaliciaCentimos,
+        }) =>
+          calcularExencionPorReinversionEnRentaVitalicia({
+            gananciaTotal,
+            importeTransmision: convertirCentimos(importeTransmisionCentimos),
+            importeReinvertido: convertirCentimos(
+              importeReinvertidoRentaVitaliciaCentimos
+            ),
+            reinversionesPrevias: convertirCentimos(
+              reinversionesPreviasRentaVitaliciaCentimos
+            ),
+          }),
+      })
+    )
+  )
 }
 
 const calcularExencionPorReinversionEnRentaVitalicia = ({
@@ -128,22 +132,28 @@ const calcularExencionPorReinversionEnRentaVitalicia = ({
   readonly importeReinvertido: Decimal
   readonly reinversionesPrevias: Decimal
 }): Decimal => {
-  if (importeTransmision.lte(0)) {
-    return IMPORTE_CERO
-  }
+  return Match.value(importeTransmision).pipe(
+    Match.when(
+      (importeTransmision) => importeTransmision.lte(0),
+      () => IMPORTE_CERO
+    ),
+    Match.orElse((importeTransmision) => {
+      const margenReinversion = Decimal.max(
+        0,
+        LIMITE_REINVERSION_RENTA_VITALICIA_MAYORES_65.minus(
+          reinversionesPrevias
+        )
+      )
+      const reinversionComputable = Decimal.min(
+        importeReinvertido,
+        margenReinversion
+      )
+      const proporcionExenta = Decimal.min(
+        1,
+        reinversionComputable.div(importeTransmision)
+      )
 
-  const margenReinversion = Decimal.max(
-    0,
-    LIMITE_REINVERSION_RENTA_VITALICIA_MAYORES_65.minus(reinversionesPrevias)
+      return gananciaTotal.mul(proporcionExenta)
+    })
   )
-  const reinversionComputable = Decimal.min(
-    importeReinvertido,
-    margenReinversion
-  )
-  const proporcionExenta = Decimal.min(
-    1,
-    reinversionComputable.div(importeTransmision)
-  )
-
-  return gananciaTotal.mul(proporcionExenta)
 }

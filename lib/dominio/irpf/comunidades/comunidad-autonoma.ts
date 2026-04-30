@@ -1,4 +1,4 @@
-import { Context, Effect, Layer, Option } from "effect"
+import { Context, Effect, Layer, Match, Option } from "effect"
 
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
 import type {
@@ -54,58 +54,62 @@ export type ResultadoParametrosComunidadAutonoma =
 export const obtenerParametrosComunidadAutonoma = ({
   anio,
   comunidadAutonoma,
-}: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma => {
-  if (anio !== 2025) {
-    return {
-      _tag: "ComunidadAutonomaNoSoportada",
-      comunidadAutonoma,
-      anio,
-      motivo: `Escalas autonomicas del anio ${anio} aun no implementadas`,
-      fuenteReconocida:
-        "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html",
-    }
-  }
-  const minimosAutonomicos =
-    obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma)
+}: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>
+  Match.value(anio).pipe(
+    Match.when(2025, () => {
+      const minimosAutonomicos =
+        obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma)
 
-  return {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2025,
-    escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
-    escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
-    minimosAutonomicos,
-    deduccionesAutonomicasSoportadas:
-      comunidadAutonoma === "simulada-estatal"
-        ? []
-        : deduccionesImplementadasPorComunidad(comunidadAutonoma),
-  }
-}
-
-const deduccionesImplementadasPorComunidad = (
-  comunidadAutonoma: ComunidadAutonoma
-): ReadonlyArray<FichaDeduccionAutonomica> => {
-  if (comunidadAutonoma === "simulada-estatal") {
-    return []
-  }
-
-  const catalogo =
-    CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor[comunidadAutonoma]
-  if (!catalogo) {
-    return []
-  }
-
-  const codigosCatalogados = new Set(
-    catalogo.deducciones.map(
-      (deduccion: FichaDeduccionAutonomica) => deduccion.codigo
+      return {
+        _tag: "ParametrosComunidadAutonoma",
+        comunidadAutonoma,
+        anio,
+        minimoAutonomicoIgualEstatal:
+          minimosAutonomicos === MINIMOS_ESTATALES_2025,
+        escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+        escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
+        minimosAutonomicos,
+        deduccionesAutonomicasSoportadas:
+          deduccionesImplementadasPorComunidad(comunidadAutonoma),
+      } satisfies ParametrosComunidadAutonoma
+    }),
+    Match.orElse(
+      (anio) =>
+        ({
+          _tag: "ComunidadAutonomaNoSoportada",
+          comunidadAutonoma,
+          anio,
+          motivo: `Escalas autonomicas del anio ${anio} aun no implementadas`,
+          fuenteReconocida:
+            "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html",
+        }) satisfies ComunidadAutonomaNoSoportada
     )
   )
 
-  return DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.filter((deduccion) =>
-    codigosCatalogados.has(deduccion.codigo)
+const deduccionesImplementadasPorComunidad = (
+  comunidadAutonoma: ComunidadAutonoma
+): ReadonlyArray<FichaDeduccionAutonomica> =>
+  Match.value(comunidadAutonoma).pipe(
+    Match.when("simulada-estatal", () => []),
+    Match.orElse((comunidadAutonoma) =>
+      Match.value(
+        CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor[comunidadAutonoma]
+      ).pipe(
+        Match.when(Match.undefined, () => []),
+        Match.orElse((catalogo) => {
+          const codigosCatalogados = new Set(
+            catalogo.deducciones.map(
+              (deduccion: FichaDeduccionAutonomica) => deduccion.codigo
+            )
+          )
+
+          return DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.filter(
+            (deduccion) => codigosCatalogados.has(deduccion.codigo)
+          )
+        })
+      )
+    )
   )
-}
 
 export interface ServicioParametrosNormativosIrpf {
   readonly minimosEstatales2025: MinimosPersonalesFamiliaresIrpf
