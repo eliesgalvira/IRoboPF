@@ -10,6 +10,7 @@ import { obtenerMinimosAutonomicosIrpf2025 } from "../lib/dominio/normativa/dato
 import { obtenerMinimosAutonomicosIrpf2024 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2024"
 import { obtenerMinimosAutonomicosIrpf2023 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2023"
 import { obtenerMinimosAutonomicosIrpf2022 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2022"
+import { obtenerMinimosAutonomicosIrpf2021 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2021"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -208,16 +209,16 @@ describe("comunidad autonoma", () => {
       expect(extremaduraGeneral.escalaAutonomica.tramos[0][1].toString()).toBe(
         "0.08"
       )
-      expect(extremaduraFallecido.escalaAutonomica.tramos[0][1].toString()).toBe(
-        "0.095"
-      )
+      expect(
+        extremaduraFallecido.escalaAutonomica.tramos[0][1].toString()
+      ).toBe("0.095")
     }
 
     expect(balearsGeneral.descendientes.segundo.toString()).toBe("2970")
     expect(balearsFallecido.descendientes.segundo.toString()).toBe("2700")
-    expect(balearsFallecido.ascendientes.mayor65OConDiscapacidad.toString()).toBe(
-      "1150"
-    )
+    expect(
+      balearsFallecido.ascendientes.mayor65OConDiscapacidad.toString()
+    ).toBe("1150")
   })
 
   it("resuelve 2022 con escalas y minimos autonomicos propios del ejercicio", () => {
@@ -294,6 +295,55 @@ describe("comunidad autonoma", () => {
 
     expect(minimosGenerales.contribuyente.general.toString()).toBe("6105")
     expect(minimosFallecido.contribuyente.general.toString()).toBe("5550")
+  })
+
+  it("resuelve 2021 con escalas y minimos autonomicos propios del ejercicio", () => {
+    const andalucia2021 = obtenerParametrosComunidadAutonoma({
+      anio: 2021,
+      comunidadAutonoma: "andalucia",
+    })
+    const andalucia2025 = obtenerParametrosComunidadAutonoma({
+      anio: 2025,
+      comunidadAutonoma: "andalucia",
+    })
+    const madrid2021 = obtenerParametrosComunidadAutonoma({
+      anio: 2021,
+      comunidadAutonoma: "madrid",
+    })
+    const minimosMadrid2021 = obtenerMinimosAutonomicosIrpf2021("madrid")
+    const minimosBalears2021 =
+      obtenerMinimosAutonomicosIrpf2021("illes-balears")
+
+    expect(andalucia2021).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "andalucia",
+      anio: 2021,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+    })
+
+    if (
+      andalucia2021._tag === "ParametrosComunidadAutonoma" &&
+      andalucia2025._tag === "ParametrosComunidadAutonoma"
+    ) {
+      expect(andalucia2021.escalaAutonomica.tramos[0][0].toString()).toBe(
+        "12450"
+      )
+      expect(andalucia2025.escalaAutonomica.tramos[0][0].toString()).toBe(
+        "13000"
+      )
+    }
+
+    if (madrid2021._tag === "ParametrosComunidadAutonoma") {
+      expect(madrid2021.escalaAutonomica.tramos[0][1].toString()).toBe("0.09")
+    }
+
+    expect(minimosMadrid2021.contribuyente.general.toString()).toBe("5550")
+    expect(minimosMadrid2021.descendientes.tercero.toString()).toBe("4400")
+    expect(minimosBalears2021.contribuyente.general.toString()).toBe("5550")
+    expect(minimosBalears2021.contribuyente.adicionalMayor65.toString()).toBe(
+      "1820"
+    )
   })
 
   it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {

@@ -405,6 +405,41 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it("liquida 2021 con la escala del ahorro al 26 por ciento desde 200000 euros", () => {
+    const caso = {
+      anio: 2021,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        gananciasPatrimoniales: [
+          {
+            importeGananciaCentimos: 400_000_00,
+            tratamientoMayores65: { _tag: "SinExencionMayores65" },
+          },
+        ],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 40_000_000,
+      cuotaIntegraAhorroCentimos: 9_688_000,
+      cuotaLiquidaCentimos: 10_181_950,
+      cuotaDiferencialCentimos: 10_181_950,
+    })
+  })
+
   it("exime la transmisión de vivienda habitual por contribuyente mayor de 65 años", () => {
     const caso = {
       anio: 2025,
@@ -547,6 +582,36 @@ describe("liquidarIrpfAnual", () => {
   it("liquida 2022 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2022,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 15_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseImponibleGeneralCentimos: 788_125,
+      baseLiquidableGeneralCentimos: 788_125,
+      reduccionRendimientosTrabajoCentimos: 416_625,
+      cuotaLiquidaCentimos: 44_294,
+      cuotaDiferencialCentimos: 44_294,
+    })
+  })
+
+  it("liquida 2021 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+    const caso = {
+      anio: 2021,
       comunidadAutonoma: "simulada-estatal",
       situacionFamiliar: {
         tipo: "individual",

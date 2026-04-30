@@ -15,6 +15,7 @@ import {
   TRAMOS_IRPF_ESTATAL_GENERAL_2025,
   type EscalaAutonomicaIrpf2025,
 } from "../../normativa/datos/irpf-autonomico-2025"
+import { obtenerEscalaAutonomicaIrpf2021 } from "../../normativa/datos/irpf-autonomico-2021"
 import { obtenerEscalaAutonomicaIrpf2022 } from "../../normativa/datos/irpf-autonomico-2022"
 import { obtenerEscalaAutonomicaIrpf2023 } from "../../normativa/datos/irpf-autonomico-2023"
 import { obtenerEscalaAutonomicaIrpf2024 } from "../../normativa/datos/irpf-autonomico-2024"
@@ -36,6 +37,10 @@ import {
   MINIMOS_ESTATALES_2022,
   obtenerMinimosAutonomicosIrpf2022,
 } from "../../normativa/datos/minimos-autonomicos-2022"
+import {
+  MINIMOS_ESTATALES_2021,
+  obtenerMinimosAutonomicosIrpf2021,
+} from "../../normativa/datos/minimos-autonomicos-2021"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
 export interface EntradaParametrosComunidadAutonoma {
@@ -66,6 +71,24 @@ export interface ComunidadAutonomaNoSoportada {
 export type ResultadoParametrosComunidadAutonoma =
   | ParametrosComunidadAutonoma
   | ComunidadAutonomaNoSoportada
+
+const resolverParametrosComunidadAutonoma2021 = (
+  comunidadAutonoma: ComunidadAutonoma
+): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2021(comunidadAutonoma)
+
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2021,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2021,
+    escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2021(comunidadAutonoma),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas: [],
+  }
+}
 
 const resolverParametrosComunidadAutonoma2024 = (
   comunidadAutonoma: ComunidadAutonoma
@@ -164,6 +187,9 @@ export const obtenerParametrosComunidadAutonoma = ({
   fechaFallecimiento,
 }: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>
   Match.value(anio).pipe(
+    Match.when(2021, () =>
+      resolverParametrosComunidadAutonoma2021(comunidadAutonoma)
+    ),
     Match.when(2022, () =>
       resolverParametrosComunidadAutonoma2022({
         comunidadAutonoma,
