@@ -11,3 +11,9 @@ El motor original concentraba auditoria de progresividad en frio, salario neto, 
 **Consequences**
 
 La opcion elegida es el refactor incremental. Habra mas modulos y datos normativos versionados, pero la compatibilidad legacy queda protegida, las retenciones no se confundiran con la declaracion anual, y los PDFs se convierten primero a fuentes normalizadas Markdown antes de alimentar parametros ejecutables.
+
+## Actualizacion 2026-05-01
+
+Con la incorporacion de IRPF 2012, el rango legacy 2012-2025 ya esta cubierto por `LiquidacionIrpfAnual` para el perfil canonico de contraste: contribuyente individual, soltero sin hijos y comunidad `simulada-estatal`. El adaptador salarial `calculo-salario-legacy` deja de caer al motor tabular legacy y solo acepta ejercicios 2012-2025 migrados a la liquidacion anual.
+
+`progresividad-frio` queda como oraculo historico y generador tabular para auditoria contra las hojas `DAT_YYYY`, no como ruta de calculo de compatibilidad salarial.

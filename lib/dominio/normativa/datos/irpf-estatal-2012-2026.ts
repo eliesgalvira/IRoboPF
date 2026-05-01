@@ -166,6 +166,8 @@ export const TRAMOS_IRPF_AHORRO_2014: TramosIrpf = [
 
 export const TRAMOS_IRPF_AHORRO_2013: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
 
+export const TRAMOS_IRPF_AHORRO_2012: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
+
 export const REDUCCION_MOVILIDAD_GEOGRAFICA_TRANSITORIA_2015 = {
   condicionAplicacion:
     "Aceptacion de puesto de trabajo en 2014 con derecho a reduccion por movilidad geografica y continuidad en dicho trabajo en 2015",
@@ -206,6 +208,35 @@ export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2013 = {
       "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2013_es_es.pdf",
   },
 } as const
+
+export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2012 = {
+  transmisionDeElementoPatrimonial: "base-ahorro",
+  noDerivadaDeTransmision: "base-general",
+  limiteCompensacionSaldoNegativoGananciasGeneralContraRendimientos:
+    importe("0.25"),
+  permiteCompensacionCruzadaEnBaseAhorroEntreCapitalYGanancias: false,
+  fuente: {
+    titulo:
+      "AEAT Manual practico Renta 2012. Integracion y compensacion de ganancias y perdidas patrimoniales",
+    referencia:
+      "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2012_es_es.pdf",
+  },
+} as const
+
+export const EXENCION_50_POR_CIENTO_GANANCIAS_INMUEBLES_URBANOS_ADQUIRIDOS_2012 =
+  {
+    fechaInicioAdquisicion: "2012-05-12",
+    fechaFinAdquisicion: "2012-12-31",
+    porcentajeExento: importe("0.50"),
+    aplicaSoloInmueblesUrbanos: true,
+    requiereAdquisicionATituloOneroso: true,
+    fuente: {
+      titulo:
+        "Ley 35/2006 LIRPF. Disposicion adicional 37. Ganancias patrimoniales procedentes de transmision de determinados inmuebles",
+      referencia:
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#datrigesimaseptima",
+    },
+  } as const
 
 export type BaseIntegracionGananciaPatrimonialHasta2014 =
   | "base-general"
@@ -259,6 +290,7 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
   return Match.value(anio).pipe(
+    Match.when(2012, () => TRAMOS_IRPF_AHORRO_2012),
     Match.when(2013, () => TRAMOS_IRPF_AHORRO_2013),
     Match.when(2014, () => TRAMOS_IRPF_AHORRO_2014),
     Match.when(2015, () => TRAMOS_IRPF_AHORRO_2015),
