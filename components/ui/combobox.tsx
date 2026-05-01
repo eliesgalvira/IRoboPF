@@ -85,10 +85,13 @@ function ComboboxContent({
 }: React.ComponentProps<typeof ComboboxPrimitive.Popup>) {
   return (
     <ComboboxPrimitive.Portal>
-      <ComboboxPrimitive.Positioner sideOffset={4} className="z-30">
+      <ComboboxPrimitive.Positioner
+        sideOffset={4}
+        className="z-30 w-[var(--anchor-width)]"
+      >
         <ComboboxPrimitive.Popup
           className={cn(
-            "max-h-72 min-w-[var(--anchor-width)] overflow-auto border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)] outline-none",
+            "max-h-72 w-[var(--anchor-width)] overflow-auto border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)] outline-none",
             className
           )}
           {...props}
@@ -127,7 +130,7 @@ function ComboboxItem({
   return (
     <ComboboxPrimitive.Item
       className={cn(
-        "grid min-h-10 cursor-default grid-cols-[1rem_minmax(0,1fr)] items-center gap-2 px-3 py-2 text-sm outline-none",
+        "flex min-h-10 cursor-default items-center gap-2 px-3 py-2 text-sm outline-none",
         "data-[highlighted]:bg-[var(--mark)] data-[highlighted]:text-[var(--mark-ink)] data-[selected]:font-bold",
         className
       )}
@@ -136,7 +139,7 @@ function ComboboxItem({
       <ComboboxPrimitive.ItemIndicator className="text-[var(--ink)] data-[highlighted]:text-[var(--mark-ink)]">
         <Check aria-hidden className="size-4" />
       </ComboboxPrimitive.ItemIndicator>
-      <span className="truncate">{children}</span>
+      <span className="min-w-0">{children}</span>
     </ComboboxPrimitive.Item>
   )
 }
