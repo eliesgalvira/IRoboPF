@@ -164,6 +164,8 @@ export const TRAMOS_IRPF_AHORRO_2014: TramosIrpf = [
   [importe(Infinity), importe("0.27")],
 ]
 
+export const TRAMOS_IRPF_AHORRO_2013: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
+
 export const REDUCCION_MOVILIDAD_GEOGRAFICA_TRANSITORIA_2015 = {
   condicionAplicacion:
     "Aceptacion de puesto de trabajo en 2014 con derecho a reduccion por movilidad geografica y continuidad en dicho trabajo en 2015",
@@ -191,7 +193,21 @@ export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2014 = {
   },
 } as const
 
-export type BaseIntegracionGananciaPatrimonial2014 =
+export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2013 = {
+  transmisionConPermanenciaUnAnioOMenos: "base-general",
+  transmisionConPermanenciaSuperiorAUnAnio: "base-ahorro",
+  noDerivadaDeTransmision: "base-general",
+  limiteCompensacionSaldoNegativoGananciasGeneralContraRendimientos:
+    importe("0.10"),
+  fuente: {
+    titulo:
+      "AEAT Manual practico Renta 2013. Integracion y compensacion de ganancias y perdidas patrimoniales",
+    referencia:
+      "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2013_es_es.pdf",
+  },
+} as const
+
+export type BaseIntegracionGananciaPatrimonialHasta2014 =
   | "base-general"
   | "base-ahorro"
 
@@ -205,7 +221,7 @@ const sumarUnAnioFechaCivilIso = (fechaIso: string): string => {
   return `${yyyy}-${mm}-${dd}`
 }
 
-export const clasificarGananciaPatrimonial2014 = ({
+export const clasificarGananciaPatrimonialHasta2014 = ({
   derivaDeTransmision,
   fechaAdquisicion,
   fechaTransmision,
@@ -213,7 +229,7 @@ export const clasificarGananciaPatrimonial2014 = ({
   readonly derivaDeTransmision: boolean
   readonly fechaAdquisicion?: string | undefined
   readonly fechaTransmision?: string | undefined
-}): BaseIntegracionGananciaPatrimonial2014 => {
+}): BaseIntegracionGananciaPatrimonialHasta2014 => {
   if (!derivaDeTransmision) {
     return "base-general"
   }
@@ -243,6 +259,7 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
   return Match.value(anio).pipe(
+    Match.when(2013, () => TRAMOS_IRPF_AHORRO_2013),
     Match.when(2014, () => TRAMOS_IRPF_AHORRO_2014),
     Match.when(2015, () => TRAMOS_IRPF_AHORRO_2015),
     Match.when(2016, () => TRAMOS_IRPF_AHORRO_2016),

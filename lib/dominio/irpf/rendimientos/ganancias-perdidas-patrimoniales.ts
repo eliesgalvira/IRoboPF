@@ -7,7 +7,7 @@ import {
   type centimosAEuros,
 } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
-import { clasificarGananciaPatrimonial2014 } from "../../normativa/datos/irpf-estatal-2012-2026"
+import { clasificarGananciaPatrimonialHasta2014 } from "../../normativa/datos/irpf-estatal-2012-2026"
 import type {
   GananciaPatrimonialTransmision,
   TratamientoGananciaPatrimonialMayores65,
@@ -107,12 +107,14 @@ const clasificarBaseGanancia = ({
   readonly ganancia: GananciaPatrimonialTransmision
 }): "base-general" | "base-ahorro" =>
   Match.value(anio).pipe(
-    Match.when(2014, () =>
-      clasificarGananciaPatrimonial2014({
-        derivaDeTransmision: true,
-        fechaAdquisicion: ganancia.fechaAdquisicion,
-        fechaTransmision: ganancia.fechaTransmision,
-      })
+    Match.when(
+      (anio) => anio === 2013 || anio === 2014,
+      () =>
+        clasificarGananciaPatrimonialHasta2014({
+          derivaDeTransmision: true,
+          fechaAdquisicion: ganancia.fechaAdquisicion,
+          fechaTransmision: ganancia.fechaTransmision,
+        })
     ),
     Match.orElse(() => "base-ahorro" as const)
   )

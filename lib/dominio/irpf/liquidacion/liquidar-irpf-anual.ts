@@ -17,6 +17,7 @@ import {
 } from "../../laboral/cotizaciones-sociales"
 import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
 import { MINIMOS_ESTATALES_2014 } from "../../normativa/datos/minimos-autonomicos-2014"
+import { MINIMOS_ESTATALES_2013 } from "../../normativa/datos/minimos-autonomicos-2013"
 import {
   ParametrosNormativosIrpf,
   type ServicioParametrosNormativosIrpf,
@@ -212,9 +213,11 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     centimosAEuros
   )
   const minimosEstatales =
-    caso.anio === 2014
-      ? MINIMOS_ESTATALES_2014
-      : dependencias.parametrosNormativos.minimosEstatales2025
+    Match.value(caso.anio).pipe(
+      Match.when(2013, () => MINIMOS_ESTATALES_2013),
+      Match.when(2014, () => MINIMOS_ESTATALES_2014),
+      Match.orElse(() => dependencias.parametrosNormativos.minimosEstatales2025)
+    )
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
