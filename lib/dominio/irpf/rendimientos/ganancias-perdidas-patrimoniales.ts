@@ -124,33 +124,44 @@ const calcularGananciaExentaInmuebleUrbanoAdquirido2012 = ({
   readonly gananciaTotal: Decimal
   readonly gananciaExentaPrevia: Decimal
 }): Decimal => {
-  if (anio !== 2012) {
-    return IMPORTE_CERO
-  }
+  return Match.value(anio).pipe(
+    Match.withReturnType<Decimal>(),
+    Match.when(2012, () =>
+      Match.value(ganancia.exencionInmuebleUrbanoAdquirido2012).pipe(
+        Match.withReturnType<Decimal>(),
+        Match.when(Match.undefined, () => IMPORTE_CERO),
+        Match.orElse((exencion) => {
+          const parametro =
+            EXENCION_50_POR_CIENTO_GANANCIAS_INMUEBLES_URBANOS_ADQUIRIDOS_2012
+          const cumpleRangoFecha =
+            exencion.fechaAdquisicion >= parametro.fechaInicioAdquisicion &&
+            exencion.fechaAdquisicion <= parametro.fechaFinAdquisicion
 
-  const exencion = ganancia.exencionInmuebleUrbanoAdquirido2012
-
-  if (exencion === undefined) {
-    return IMPORTE_CERO
-  }
-
-  const parametro =
-    EXENCION_50_POR_CIENTO_GANANCIAS_INMUEBLES_URBANOS_ADQUIRIDOS_2012
-  const cumpleRangoFecha =
-    exencion.fechaAdquisicion >= parametro.fechaInicioAdquisicion &&
-    exencion.fechaAdquisicion <= parametro.fechaFinAdquisicion
-
-  if (
-    !exencion.inmuebleUrbano ||
-    !exencion.tituloOneroso ||
-    exencion.operacionConPersonaOEntidadVinculada === true ||
-    !cumpleRangoFecha
-  ) {
-    return IMPORTE_CERO
-  }
-
-  return Decimal.max(0, gananciaTotal.minus(gananciaExentaPrevia)).mul(
-    parametro.porcentajeExento
+          return Match.value({
+            inmuebleUrbano: exencion.inmuebleUrbano,
+            tituloOneroso: exencion.tituloOneroso,
+            vinculada: exencion.operacionConPersonaOEntidadVinculada === true,
+            cumpleRangoFecha,
+          }).pipe(
+            Match.withReturnType<Decimal>(),
+            Match.when(
+              {
+                inmuebleUrbano: true,
+                tituloOneroso: true,
+                vinculada: false,
+                cumpleRangoFecha: true,
+              },
+              () =>
+                Decimal.max(0, gananciaTotal.minus(gananciaExentaPrevia)).mul(
+                  parametro.porcentajeExento
+                )
+            ),
+            Match.orElse(() => IMPORTE_CERO)
+          )
+        })
+      )
+    ),
+    Match.orElse(() => IMPORTE_CERO)
   )
 }
 

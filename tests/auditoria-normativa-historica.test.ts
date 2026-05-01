@@ -6,8 +6,10 @@ import {
   describirComunidadAutonomaAuditoria,
   describirPerfilAuditoriaNormativa,
   escenarioAuditoriaPorDefecto,
+  escenarioPermiteReferenciaTecnica2026,
   impactoDesdePerspectivaCiudadano,
   leerEscenarioAuditoriaNormativaDesdeUrl,
+  normalizarEscenarioAuditoriaNormativa,
   perfilesAuditoriaNormativa,
   serializarEscenarioAuditoriaNormativa,
   varianteAuditoriaPorDefecto,
@@ -60,10 +62,31 @@ describe("auditoria normativa historica", () => {
     expect(escenario).toEqual({
       perfil: "trabajador_medio_comunidad",
       comunidadAutonoma: "madrid",
-      anioReferencia: 2026,
+      anioReferencia: 2025,
       anioComparado: 2024,
       estrategiaProyeccionSalarial: "coste_laboral_real_constante",
       magnitudAuditada: "coste_laboral",
+    })
+  })
+
+  it("reserva 2026 al caso tecnico de soltero sin hijos y comunidad simulada estatal", () => {
+    expect(escenarioPermiteReferenciaTecnica2026(escenarioAuditoriaPorDefecto))
+      .toBe(true)
+    expect(
+      escenarioPermiteReferenciaTecnica2026({
+        ...escenarioAuditoriaPorDefecto,
+        comunidadAutonoma: "madrid",
+      })
+    ).toBe(false)
+    expect(
+      normalizarEscenarioAuditoriaNormativa({
+        ...escenarioAuditoriaPorDefecto,
+        perfil: "pareja_con_hijos",
+        anioReferencia: 2026,
+      })
+    ).toMatchObject({
+      perfil: "pareja_con_hijos",
+      anioReferencia: 2025,
     })
   })
 
@@ -87,7 +110,7 @@ describe("auditoria normativa historica", () => {
     })
 
     expect(parametros.toString()).toBe(
-      "v=1&perfil=pareja_con_hijos&anioReferencia=2026&periodo=2024-2026&estrategiaSalario=salario_bruto_real_constante&magnitud=salario_neto_anual&comunidad=catalunya"
+      "v=1&perfil=pareja_con_hijos&anioReferencia=2025&periodo=2024-2025&estrategiaSalario=salario_bruto_real_constante&magnitud=salario_neto_anual&comunidad=catalunya"
     )
     expect(
       construirContratoUrlAuditoriaNormativaV1({

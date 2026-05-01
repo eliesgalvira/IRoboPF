@@ -1,5 +1,5 @@
 import Decimal from "decimal.js"
-import { Effect } from "effect"
+import { Effect, Match } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -838,35 +838,79 @@ describe("comunidad autonoma", () => {
       escalaAutonomicaIgualEstatal: false,
     })
 
-    if (simulada2012._tag === "ParametrosComunidadAutonoma") {
-      expect(simulada2012.escalaEstatalGeneral[0][1].toString()).toBe("0.1275")
-      expect(simulada2012.escalaAutonomica.tramos[0][1].toString()).toBe(
-        "0.12"
-      )
-      expect(
-        simulada2012.minimosAutonomicos.contribuyente.general.toString()
-      ).toBe("5151")
-    }
+    Match.valueTags(simulada2012, {
+      ParametrosComunidadAutonoma: (parametros) => {
+        expect(parametros.escalaEstatalGeneral[0][1].toString()).toBe("0.1275")
+        expect(parametros.escalaAutonomica.tramos[0][1].toString()).toBe(
+          "0.12"
+        )
+        expect(parametros.minimosAutonomicos.contribuyente.general.toString())
+          .toBe("5151")
+      },
+      ComunidadAutonomaNoSoportada: (resultado) =>
+        expect.fail(resultado.motivo),
+    })
 
-    if (asturias2012._tag === "ParametrosComunidadAutonoma") {
-      expect(asturias2012.escalaAutonomica.tramos[4][1].toString()).toBe(
-        "0.24"
-      )
-    }
+    Match.valueTags(asturias2012, {
+      ParametrosComunidadAutonoma: (parametros) => {
+        expect(parametros.escalaAutonomica.tramos[4][1].toString()).toBe(
+          "0.24"
+        )
+      },
+      ComunidadAutonomaNoSoportada: (resultado) =>
+        expect.fail(resultado.motivo),
+    })
 
-    if (galicia2012._tag === "ParametrosComunidadAutonoma") {
-      expect(galicia2012.escalaAutonomica.tramos[0][1].toString()).toBe("0.12")
-    }
+    Match.valueTags(galicia2012, {
+      ParametrosComunidadAutonoma: (parametros) => {
+        expect(parametros.escalaAutonomica.tramos[0][1].toString()).toBe(
+          "0.12"
+        )
+      },
+      ComunidadAutonomaNoSoportada: (resultado) =>
+        expect.fail(resultado.motivo),
+    })
 
-    if (madrid2012._tag === "ParametrosComunidadAutonoma") {
-      expect(madrid2012.escalaAutonomica.tramos[0][1].toString()).toBe(
-        "0.116"
-      )
-      expect(madrid2012.minimoAutonomicoIgualEstatal).toBe(false)
-    }
+    Match.valueTags(madrid2012, {
+      ParametrosComunidadAutonoma: (parametros) => {
+        expect(parametros.escalaAutonomica.tramos[0][1].toString()).toBe(
+          "0.116"
+        )
+        expect(parametros.minimoAutonomicoIgualEstatal).toBe(false)
+      },
+      ComunidadAutonomaNoSoportada: (resultado) =>
+        expect.fail(resultado.motivo),
+    })
 
     expect(minimosMadrid2012.descendientes.tercero.toString()).toBe("4039.2")
     expect(minimosCantabria2012.descendientes.primero.toString()).toBe("1836")
+  })
+
+  it("reserva 2026 al caso tecnico con comunidad simulada estatal", () => {
+    const simulada2026 = obtenerParametrosComunidadAutonoma({
+      anio: 2026,
+      comunidadAutonoma: "simulada-estatal",
+    })
+    const madrid2026 = obtenerParametrosComunidadAutonoma({
+      anio: 2026,
+      comunidadAutonoma: "madrid",
+    })
+
+    Match.valueTags(simulada2026, {
+      ParametrosComunidadAutonoma: (parametros) => {
+        expect(parametros.minimoAutonomicoIgualEstatal).toBe(true)
+        expect(parametros.escalaAutonomicaIgualEstatal).toBe(true)
+      },
+      ComunidadAutonomaNoSoportada: (resultado) =>
+        expect.fail(resultado.motivo),
+    })
+
+    Match.valueTags(madrid2026, {
+      ParametrosComunidadAutonoma: () =>
+        expect.fail("Madrid 2026 no debe estar soportado en auditoria"),
+      ComunidadAutonomaNoSoportada: (resultado) =>
+        expect(resultado.motivo).toContain("caso tecnico"),
+    })
   })
 
   it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {

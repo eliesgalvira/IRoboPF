@@ -21,20 +21,22 @@ export interface ServicioCompatibilidadSalarioLegacy {
   ) => Effect.Effect<DesgloseLiquidado>
 }
 
-// Este adaptador conserva el contrato observable salarial del perfil legacy,
-// pero para 2012-2025 ya calcula mediante la liquidacion anual IRPF migrada.
+// Este adaptador conserva el contrato observable salarial del perfil legacy.
+// 2012-2025 usan liquidacion anual IRPF migrada; 2026 es solo el caso tecnico
+// de soltero sin hijos y comunidad simulada estatal con parametros laborales y
+// deduccion SMI 2026.
 const calcularSalarioLegacyImpl = Effect.fn(
   "compatibilidadLegacy.calcularSalarioLegacy"
 )(function* (entrada: EntradaCalculoSalarioLegacy) {
   return yield* Match.value(entrada.anio).pipe(
     Match.when(
-      (anio) => anio >= 2012 && anio <= 2025,
+      (anio) => anio >= 2012 && anio <= 2026,
       () => calcularSalarioLegacyConLiquidacionIrpfAnual(entrada)
     ),
     Match.orElse(() =>
       Effect.die(
         new Error(
-          `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2025; recibido ${entrada.anio}.`
+          `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2026 para el perfil tecnico soltero sin hijos estatal; recibido ${entrada.anio}.`
         )
       )
     )
