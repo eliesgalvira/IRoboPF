@@ -7,7 +7,10 @@ import {
   type centimosAEuros,
 } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
-import { clasificarGananciaPatrimonialHasta2014 } from "../../normativa/datos/irpf-estatal-2012-2026"
+import {
+  EXENCION_50_POR_CIENTO_GANANCIAS_INMUEBLES_URBANOS_ADQUIRIDOS_2012,
+  clasificarGananciaPatrimonialHasta2014,
+} from "../../normativa/datos/irpf-estatal-2012-2026"
 import type {
   GananciaPatrimonialTransmision,
   TratamientoGananciaPatrimonialMayores65,
@@ -84,12 +87,23 @@ const calcularGananciaPatrimonialPorTransmision = ({
   readonly convertirCentimos: typeof centimosAEuros
 }): GananciaPatrimonialCalculada => {
   const gananciaTotal = convertirCentimos(ganancia.importeGananciaCentimos)
-  const gananciaExenta = calcularGananciaExentaMayores65({
+  const gananciaExentaMayores65 = calcularGananciaExentaMayores65({
     edadContribuyente,
     gananciaTotal,
     tratamiento: ganancia.tratamientoMayores65,
     convertirCentimos,
   })
+  const gananciaExentaInmueble2012 =
+    calcularGananciaExentaInmuebleUrbanoAdquirido2012({
+      anio,
+      ganancia,
+      gananciaTotal,
+      gananciaExentaPrevia: gananciaExentaMayores65,
+    })
+  const gananciaExenta = Decimal.min(
+    gananciaTotal,
+    gananciaExentaMayores65.plus(gananciaExentaInmueble2012)
+  )
 
   return {
     gananciaTotal,
@@ -97,6 +111,47 @@ const calcularGananciaPatrimonialPorTransmision = ({
     gananciaSujeta: Decimal.max(0, gananciaTotal.minus(gananciaExenta)),
     baseIntegracion: clasificarBaseGanancia({ anio, ganancia }),
   }
+}
+
+const calcularGananciaExentaInmuebleUrbanoAdquirido2012 = ({
+  anio,
+  ganancia,
+  gananciaTotal,
+  gananciaExentaPrevia,
+}: {
+  readonly anio: AnioFiscal
+  readonly ganancia: GananciaPatrimonialTransmision
+  readonly gananciaTotal: Decimal
+  readonly gananciaExentaPrevia: Decimal
+}): Decimal => {
+  if (anio !== 2012) {
+    return IMPORTE_CERO
+  }
+
+  const exencion = ganancia.exencionInmuebleUrbanoAdquirido2012
+
+  if (exencion === undefined) {
+    return IMPORTE_CERO
+  }
+
+  const parametro =
+    EXENCION_50_POR_CIENTO_GANANCIAS_INMUEBLES_URBANOS_ADQUIRIDOS_2012
+  const cumpleRangoFecha =
+    exencion.fechaAdquisicion >= parametro.fechaInicioAdquisicion &&
+    exencion.fechaAdquisicion <= parametro.fechaFinAdquisicion
+
+  if (
+    !exencion.inmuebleUrbano ||
+    !exencion.tituloOneroso ||
+    exencion.operacionConPersonaOEntidadVinculada === true ||
+    !cumpleRangoFecha
+  ) {
+    return IMPORTE_CERO
+  }
+
+  return Decimal.max(0, gananciaTotal.minus(gananciaExentaPrevia)).mul(
+    parametro.porcentajeExento
+  )
 }
 
 const clasificarBaseGanancia = ({

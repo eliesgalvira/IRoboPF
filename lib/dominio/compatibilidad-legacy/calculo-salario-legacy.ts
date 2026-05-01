@@ -1,9 +1,6 @@
 import { Context, Effect, Layer, Match, Option } from "effect"
 
-import {
-  compararAjustadoPorIpc,
-  type DesgloseLiquidado,
-} from "./progresividad-frio"
+import type { DesgloseLiquidado } from "./progresividad-frio"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import { centimosAEuros, eurosACentimos } from "../dinero/importe-monetario"
 import { calcularCotizacionesSocialesLegacy } from "../laboral/cotizaciones-sociales"
@@ -24,28 +21,22 @@ export interface ServicioCompatibilidadSalarioLegacy {
   ) => Effect.Effect<DesgloseLiquidado>
 }
 
-// Este adaptador conserva el contrato observable del perfil legacy mientras el
-// calculo se va moviendo desde la compatibilidad historica hacia servicios
-// fiscales explicitos.
+// Este adaptador conserva el contrato observable salarial del perfil legacy,
+// pero para 2012-2025 ya calcula mediante la liquidacion anual IRPF migrada.
 const calcularSalarioLegacyImpl = Effect.fn(
   "compatibilidadLegacy.calcularSalarioLegacy"
 )(function* (entrada: EntradaCalculoSalarioLegacy) {
   return yield* Match.value(entrada.anio).pipe(
     Match.when(
-      (anio) => anio >= 2013 && anio <= 2025,
+      (anio) => anio >= 2012 && anio <= 2025,
       () => calcularSalarioLegacyConLiquidacionIrpfAnual(entrada)
     ),
     Match.orElse(() =>
-      Effect.gen(function* () {
-        const calculo = yield* compararAjustadoPorIpc({
-          salarioBrutoAnualReferenciaCentimos:
-            entrada.salarioBrutoAnualCentimos,
-          anioComparado: entrada.anio,
-          anioReferencia: entrada.anio,
-        })
-
-        return calculo.referencia
-      })
+      Effect.die(
+        new Error(
+          `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2025; recibido ${entrada.anio}.`
+        )
+      )
     )
   )
 })

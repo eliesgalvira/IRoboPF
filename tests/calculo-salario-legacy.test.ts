@@ -13,8 +13,8 @@ import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
 const EJECUTAR_VALIDACION_LIQUIDACION_LEGACY_COMPLETA =
   process.env.IROBOPF_VALIDACION_LIQUIDACION_LEGACY_COMPLETA === "1"
 const ANIOS_CON_LIQUIDACION_LEGACY = [
-  2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
-  2025,
+  2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023,
+  2024, 2025,
 ] as const satisfies ReadonlyArray<AnioFiscal>
 
 describe("calcularSalarioLegacy", () => {
@@ -62,11 +62,11 @@ describe("calcularSalarioLegacy", () => {
       const compatibilidad = yield* CompatibilidadSalarioLegacy
 
       const resultado = yield* compatibilidad.calcular({
-        anio: 2026,
+        anio: 2025,
         salarioBrutoAnualCentimos: 3_000_000,
       })
 
-      expect(resultado.irpfFinalCentimos).toBe(492_600)
+      expect(resultado.irpfFinalCentimos).toBe(492_780)
     }).pipe(Effect.provide(CompatibilidadSalarioLegacy.layer))
   )
 
@@ -75,23 +75,23 @@ describe("calcularSalarioLegacy", () => {
     () =>
       Effect.gen(function* () {
         const resultado = yield* calcularSalarioLegacy({
-          anio: 2026,
+          anio: 2025,
           salarioBrutoAnualCentimos: 3_000_000,
         })
 
         expect(resultado).toEqual({
           salarioBrutoAnualCentimos: 3_000_000,
-          cotizacionEmpresarialCentimos: 964_500,
-          costeLaboralCentimos: 3_964_500,
-          cotizacionTrabajadorCentimos: 195_000,
-          irpfFinalCentimos: 492_600,
-          salarioNetoAnualCentimos: 2_312_400,
+          cotizacionEmpresarialCentimos: 962_100,
+          costeLaboralCentimos: 3_962_100,
+          cotizacionTrabajadorCentimos: 194_400,
+          irpfFinalCentimos: 492_780,
+          salarioNetoAnualCentimos: 2_312_820,
         })
       })
   )
 
   it.effect(
-    "mantiene los casos 2013-2025 de la fixture usando la conciliacion del simulador legacy",
+    "mantiene los casos 2012-2025 de la fixture usando la conciliacion del simulador legacy",
     () =>
       Effect.gen(function* () {
         const casosConLiquidacionNueva = fixture.casos.filter((caso) =>
@@ -110,7 +110,7 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
-    "mantiene la compatibilidad 2013-2025 contra puntos representativos del detalle anual canonico",
+    "mantiene la compatibilidad 2012-2025 contra puntos representativos del detalle anual canonico",
     () =>
       Effect.gen(function* () {
         const compatibilidad = yield* CompatibilidadSalarioLegacy
@@ -142,7 +142,7 @@ describe("calcularSalarioLegacy", () => {
     : it.effect.skip
 
   pruebaCompleta(
-    "mantiene la compatibilidad 2013-2025 euro a euro contra el detalle anual canonico",
+    "mantiene la compatibilidad 2012-2025 euro a euro contra el detalle anual canonico",
     () =>
       Effect.gen(function* () {
         const compatibilidad = yield* CompatibilidadSalarioLegacy

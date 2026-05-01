@@ -18,6 +18,7 @@ import {
 import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
 import { MINIMOS_ESTATALES_2014 } from "../../normativa/datos/minimos-autonomicos-2014"
 import { MINIMOS_ESTATALES_2013 } from "../../normativa/datos/minimos-autonomicos-2013"
+import { MINIMOS_ESTATALES_2012 } from "../../normativa/datos/minimos-autonomicos-2012"
 import {
   ParametrosNormativosIrpf,
   type ServicioParametrosNormativosIrpf,
@@ -214,6 +215,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   )
   const minimosEstatales =
     Match.value(caso.anio).pipe(
+      Match.when(2012, () => MINIMOS_ESTATALES_2012),
       Match.when(2013, () => MINIMOS_ESTATALES_2013),
       Match.when(2014, () => MINIMOS_ESTATALES_2014),
       Match.orElse(() => dependencias.parametrosNormativos.minimosEstatales2025)

@@ -85,6 +85,14 @@ export interface GananciaPatrimonialTransmision {
   readonly tratamientoMayores65: TratamientoGananciaPatrimonialMayores65
   readonly fechaAdquisicion?: string | undefined
   readonly fechaTransmision?: string | undefined
+  readonly exencionInmuebleUrbanoAdquirido2012?:
+    | {
+        readonly inmuebleUrbano: boolean
+        readonly tituloOneroso: boolean
+        readonly fechaAdquisicion: string
+        readonly operacionConPersonaOEntidadVinculada?: boolean | undefined
+      }
+    | undefined
 }
 
 export interface RendimientosCasoFiscal {

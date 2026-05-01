@@ -18,7 +18,7 @@ describe("calcularSalarioNetoEIrpf", () => {
       })
 
       expect(resultado._tag).toBe("ResultadoCalculoSalarioNetoIrpf")
-      expect(resultado.desglose.irpfFinalCentimos).toBe(492_600)
+      expect(resultado.desglose.irpfFinalCentimos).toBe(492_780)
     }).pipe(Effect.provide(PerfilProgresividadFrioLegacy.layer))
   )
 
@@ -34,14 +34,14 @@ describe("calcularSalarioNetoEIrpf", () => {
         _tag: "ResultadoCalculoSalarioNetoIrpf",
         perfil: "legacy-progresividad-frio",
         modo: "compatible-legacy",
-        anio: 2026,
+        anio: 2025,
         desglose: {
           salarioBrutoAnualCentimos: 3_000_000,
-          cotizacionEmpresarialCentimos: 964_500,
-          costeLaboralCentimos: 3_964_500,
-          cotizacionTrabajadorCentimos: 195_000,
-          irpfFinalCentimos: 492_600,
-          salarioNetoAnualCentimos: 2_312_400,
+          cotizacionEmpresarialCentimos: 962_100,
+          costeLaboralCentimos: 3_962_100,
+          cotizacionTrabajadorCentimos: 194_400,
+          irpfFinalCentimos: 492_780,
+          salarioNetoAnualCentimos: 2_312_820,
         },
       })
     })
@@ -50,6 +50,6 @@ describe("calcularSalarioNetoEIrpf", () => {
 
 const entradaPerfilLegacy = (): EntradaCalculoSalarioNetoIrpf => ({
   perfil: "legacy-progresividad-frio",
-  anio: 2026,
+  anio: 2025,
   salarioBrutoAnualCentimos: 3_000_000,
 })
