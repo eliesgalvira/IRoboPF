@@ -2,6 +2,7 @@ import Decimal from "decimal.js"
 import { Array as EffectArray, Context, Effect, Layer, Match } from "effect"
 
 import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
+import type { ComunidadAutonoma } from "../irpf/caso-fiscal-anual"
 import {
   type AuditoriaRangoSalarial,
   type ComparacionAjustadaPorIpc,
@@ -57,6 +58,12 @@ export type PerfilAuditoriaProgresividadFrio = Extract<
 
 export interface EntradaAuditoriaProgresividadFrio extends EntradaAuditoriaRangoSalarial {
   readonly perfil: PerfilAuditoriaProgresividadFrio
+  readonly comunidadAutonoma?: ComunidadAutonoma | undefined
+}
+
+interface EntradaAuditoriaRangoSalarialConComunidad
+  extends EntradaAuditoriaRangoSalarial {
+  readonly comunidadAutonoma?: ComunidadAutonoma | undefined
 }
 
 export interface ContextoAuditoriaProgresividadFrio {
@@ -128,6 +135,7 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   readonly salarioBrutoAnualReferenciaCentimos: number
   readonly anioComparado: AnioFiscal
   readonly anioReferencia: AnioFiscal
+  readonly comunidadAutonoma?: ComunidadAutonoma | undefined
 }) {
   const factor = factorIpc(entrada.anioComparado, entrada.anioReferencia)
   const salarioBrutoNominalAnualCentimos = eurosACentimos(
@@ -136,10 +144,12 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   const referencia = yield* calcularSalarioLegacy({
     anio: entrada.anioReferencia,
     salarioBrutoAnualCentimos: entrada.salarioBrutoAnualReferenciaCentimos,
+    comunidadAutonoma: entrada.comunidadAutonoma,
   })
   const comparadoNominal = yield* calcularSalarioLegacy({
     anio: entrada.anioComparado,
     salarioBrutoAnualCentimos: salarioBrutoNominalAnualCentimos,
+    comunidadAutonoma: entrada.comunidadAutonoma,
   })
   const comparadoAjustado = ajustarDesglose(comparadoNominal, factor)
 
@@ -188,7 +198,7 @@ const tipoCunaLaboral = (desglose: DesgloseLiquidado) =>
   )
 
 const rangoSalarioBrutoAnualCentimos = (
-  entrada: EntradaAuditoriaRangoSalarial
+  entrada: EntradaAuditoriaRangoSalarialConComunidad
 ): ReadonlyArray<number> =>
   Match.value(entrada).pipe(
     Match.when({ pasoCentimos: (paso) => paso <= 0 }, () => []),
@@ -231,13 +241,14 @@ const esHallazgoAuditoria = (
 const construirPuntoAuditoriaConLiquidacion = Effect.fn(
   "auditoria.construirPuntoAuditoriaConLiquidacion"
 )(function* (
-  entrada: EntradaAuditoriaRangoSalarial,
+  entrada: EntradaAuditoriaRangoSalarialConComunidad,
   salarioBrutoAnualCentimos: number
 ) {
   const comparacion = yield* compararAjustadoPorIpcConLiquidacion({
     salarioBrutoAnualReferenciaCentimos: salarioBrutoAnualCentimos,
     anioComparado: entrada.anioComparado,
     anioReferencia: entrada.anioReferencia,
+    comunidadAutonoma: entrada.comunidadAutonoma,
   })
 
   return {
@@ -329,7 +340,7 @@ const construirHallazgos = (
 
 const auditarRangoSalarialConLiquidacionIrpf = Effect.fn(
   "auditoria.auditarRangoSalarialConLiquidacionIrpf"
-)(function* (entrada: EntradaAuditoriaRangoSalarial) {
+)(function* (entrada: EntradaAuditoriaRangoSalarialConComunidad) {
   const lotes = partirEnLotes(
     rangoSalarioBrutoAnualCentimos(entrada),
     TAMANO_LOTE_AUDITORIA_RANGO
@@ -370,6 +381,7 @@ const auditarProgresividadFrioImpl = Effect.fn(
     pasoCentimos: entrada.pasoCentimos,
     anioComparado: entrada.anioComparado,
     anioReferencia: entrada.anioReferencia,
+    comunidadAutonoma: entrada.comunidadAutonoma,
   })
 
   return {

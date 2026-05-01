@@ -91,6 +91,27 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
+    "distingue el umbral visible de IRPF final entre 2025 y la referencia tecnica 2026",
+    () =>
+      Effect.gen(function* () {
+        const salarioBrutoAnualCentimos = 1_700_000
+        const resultado2025 = yield* calcularSalarioLegacy({
+          anio: 2025,
+          salarioBrutoAnualCentimos,
+          comunidadAutonoma: "simulada-estatal",
+        })
+        const resultado2026 = yield* calcularSalarioLegacy({
+          anio: 2026,
+          salarioBrutoAnualCentimos,
+          comunidadAutonoma: "simulada-estatal",
+        })
+
+        expect(resultado2025.irpfFinalCentimos).toBe(29_154)
+        expect(resultado2026.irpfFinalCentimos).toBe(0)
+      })
+  )
+
+  it.effect(
     "mantiene los casos 2012-2025 de la fixture usando la conciliacion del simulador legacy",
     () =>
       Effect.gen(function* () {

@@ -8,11 +8,15 @@ import {
   liquidarIrpfAnual,
   type CasoFiscalAnual,
 } from "../irpf/liquidacion/liquidar-irpf-anual"
-import { sinDiscapacidad } from "../irpf/caso-fiscal-anual"
+import {
+  sinDiscapacidad,
+  type ComunidadAutonoma,
+} from "../irpf/caso-fiscal-anual"
 
 export interface EntradaCalculoSalarioLegacy {
   readonly anio: AnioFiscal
   readonly salarioBrutoAnualCentimos: number
+  readonly comunidadAutonoma?: ComunidadAutonoma | undefined
 }
 
 export interface ServicioCompatibilidadSalarioLegacy {
@@ -77,7 +81,7 @@ const casoFiscalLegacy = (
   entrada: EntradaCalculoSalarioLegacy
 ): CasoFiscalAnual => ({
   anio: entrada.anio,
-  comunidadAutonoma: "simulada-estatal",
+  comunidadAutonoma: entrada.comunidadAutonoma ?? "simulada-estatal",
   situacionFamiliar: {
     tipo: "individual",
     edad: 40,

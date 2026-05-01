@@ -24,7 +24,7 @@ describe("auditoria normativa historica", () => {
     expect(escenarioAuditoriaPorDefecto).toMatchObject({
       perfil: "soltero_sin_hijos",
       comunidadAutonoma: "simulada-estatal",
-      anioReferencia: 2026,
+      anioReferencia: 2025,
       anioComparado: 2019,
     })
   })
@@ -119,7 +119,7 @@ describe("auditoria normativa historica", () => {
       })
     ).toMatchObject({
       v: 1,
-      periodo: "2024-2026",
+      periodo: "2024-2025",
     })
   })
 
