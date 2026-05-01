@@ -1087,7 +1087,7 @@ const construirSeriesAuditoria = Effect.fn(
             ] as const
         )
       ),
-    { concurrency: 6 }
+    { concurrency: 1 }
   )
 
   return new Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>(entradas)
