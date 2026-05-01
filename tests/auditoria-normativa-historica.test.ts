@@ -24,6 +24,7 @@ describe("auditoria normativa historica", () => {
     expect(escenarioAuditoriaPorDefecto).toMatchObject({
       perfil: "soltero_sin_hijos",
       comunidadAutonoma: "simulada-estatal",
+      comunidadesAutonomas: ["simulada-estatal"],
       anioReferencia: 2025,
       anioComparado: 2019,
     })
@@ -62,6 +63,7 @@ describe("auditoria normativa historica", () => {
     expect(escenario).toEqual({
       perfil: "trabajador_medio_comunidad",
       comunidadAutonoma: "madrid",
+      comunidadesAutonomas: ["madrid"],
       anioReferencia: 2025,
       anioComparado: 2024,
       estrategiaProyeccionSalarial: "coste_laboral_real_constante",
@@ -70,12 +72,14 @@ describe("auditoria normativa historica", () => {
   })
 
   it("reserva 2026 al caso tecnico de soltero sin hijos y comunidad simulada estatal", () => {
-    expect(escenarioPermiteReferenciaTecnica2026(escenarioAuditoriaPorDefecto))
-      .toBe(true)
+    expect(
+      escenarioPermiteReferenciaTecnica2026(escenarioAuditoriaPorDefecto)
+    ).toBe(true)
     expect(
       escenarioPermiteReferenciaTecnica2026({
         ...escenarioAuditoriaPorDefecto,
         comunidadAutonoma: "madrid",
+        comunidadesAutonomas: ["madrid"],
       })
     ).toBe(false)
     expect(
@@ -106,6 +110,7 @@ describe("auditoria normativa historica", () => {
       perfil: "pareja_con_hijos",
       anioComparado: 2024,
       comunidadAutonoma: "catalunya",
+      comunidadesAutonomas: ["catalunya"],
       magnitudAuditada: "salario_neto_anual",
     })
 
@@ -121,6 +126,28 @@ describe("auditoria normativa historica", () => {
       v: 1,
       periodo: "2024-2025",
     })
+  })
+
+  it("parsea y serializa varias comunidades autonomas preservando compatibilidad singular", () => {
+    const escenario = leerEscenarioAuditoriaNormativaDesdeUrl(
+      new URLSearchParams(
+        "v=1&comunidad=madrid&comunidades=catalunya,madrid,ninguna&periodo=2019-2025"
+      )
+    )
+
+    expect(escenario).toMatchObject({
+      comunidadAutonoma: "catalunya",
+      comunidadesAutonomas: ["catalunya", "madrid"],
+    })
+
+    const parametros = serializarEscenarioAuditoriaNormativa({
+      ...escenarioAuditoriaPorDefecto,
+      comunidadAutonoma: "catalunya",
+      comunidadesAutonomas: ["catalunya", "madrid"],
+    })
+
+    expect(parametros.get("comunidad")).toBe("catalunya")
+    expect(parametros.get("comunidades")).toBe("catalunya,madrid")
   })
 
   it("expresa una bajada de IRPF como mejora para el ciudadano", () => {

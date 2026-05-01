@@ -38,11 +38,20 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart"
 import { Button } from "@/components/ui/button"
-import { Combobox } from "@/components/ui/combobox"
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxValue,
+} from "@/components/ui/combobox"
 import {
   type CambioEscenarioAuditoriaNormativa,
   comunidadesAuditoriaNormativa,
-  decodificarComunidadAutonomaAuditoria,
   decodificarEstrategiaProyeccionSalarial,
   decodificarMagnitudAuditada,
   decodificarPerfilAuditoriaNormativa,
@@ -115,6 +124,7 @@ function AuditoriaImpl() {
   const permiteReferenciaTecnica2026 = escenarioPermiteReferenciaTecnica2026({
     perfil: escenarioAuditoria.perfil,
     comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
+    comunidadesAutonomas: escenarioAuditoria.comunidadesAutonomas,
   })
   const [exportando, fijarExportando] = React.useState<
     "educativa" | "compatible" | null
@@ -368,7 +378,7 @@ function AuditoriaImpl() {
 
         <Visualizaciones
           auditoria={auditoria}
-          comunidadAutonoma={escenarioAuditoria.comunidadAutonoma}
+          comunidadesAutonomas={escenarioAuditoria.comunidadesAutonomas}
           permiteReferenciaTecnica2026={permiteReferenciaTecnica2026}
           aniosGraficoIrpf={aniosGraficoIrpf}
           fijarAniosGraficoIrpf={fijarAniosGraficoIrpf}
@@ -573,6 +583,7 @@ function ControlesAuditoriaNormativa({
   const opcionesComunidadAutonoma = comunidadesAuditoriaNormativa.map(
     describirComunidadAutonomaAuditoria
   )
+  const comunidadesActivas = new Set(escenario.comunidadesAutonomas)
 
   return (
     <section className="grid gap-4 border-b-2 border-[var(--rule)] py-6">
@@ -624,32 +635,57 @@ function ControlesAuditoriaNormativa({
           </Tabs.List>
         </Tabs.Root>
 
-        <Combobox
-          compacto
-          etiqueta="Comunidad autónoma"
-          opciones={opcionesComunidadAutonoma}
-          valor={escenario.comunidadAutonoma}
-          onChange={(valor) => {
-            decodificarComunidadAutonomaAuditoria(valor).pipe(
-              Option.match({
-                onNone: () => {},
-                onSome: (comunidadAutonoma) =>
-                  alCambiarEscenario({ comunidadAutonoma }),
-              })
-            )
-          }}
-          classNames={{
-            etiqueta:
-              "min-h-0 text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase",
-            trigger:
-              "h-10 rounded-none border-2 border-[var(--rule)] bg-[var(--paper)] px-3 font-[family-name:var(--mono)] text-sm font-bold tracking-[0.12em] uppercase shadow-[3px_3px_0_0_var(--rule)] hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)]",
-            listbox:
-              "border-2 border-[var(--rule)] shadow-[5px_5px_0_0_var(--rule)]",
-            opcion:
-              "rounded-none font-[family-name:var(--mono)] tracking-[0.08em] uppercase hover:bg-[var(--mark)] hover:text-[var(--mark-ink)]",
-            opcionActiva: "bg-[var(--rule)] text-[var(--paper)]",
-          }}
-        />
+        <div className="grid gap-2">
+          <span className="min-h-0 text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+            Comunidades autónomas
+          </span>
+          <Combobox
+            multiple
+            items={opcionesComunidadAutonoma}
+            value={opcionesComunidadAutonoma.filter((opcion) =>
+              comunidadesActivas.has(opcion.valor)
+            )}
+            itemToStringValue={(opcion) => opcion.valor}
+            itemToStringLabel={(opcion) => opcion.etiqueta}
+            isItemEqualToValue={(opcion, valor) => opcion.valor === valor.valor}
+            onValueChange={(opciones) => {
+              const comunidadesAutonomas = opciones.map(
+                (opcion) => opcion.valor
+              )
+              const comunidadAutonoma =
+                comunidadesAutonomas[0] ?? escenario.comunidadAutonoma
+
+              alCambiarEscenario({ comunidadAutonoma, comunidadesAutonomas })
+            }}
+          >
+            <ComboboxChips>
+              <ComboboxValue>
+                {opcionesComunidadAutonoma
+                  .filter((opcion) => comunidadesActivas.has(opcion.valor))
+                  .map((opcion) => (
+                    <ComboboxChip key={opcion.valor}>
+                      {opcion.etiqueta}
+                    </ComboboxChip>
+                  ))}
+              </ComboboxValue>
+              <ComboboxChipsInput placeholder="Añade varias comunidades" />
+            </ComboboxChips>
+            <p className="text-xs leading-4 text-[var(--ink-soft)]">
+              Puedes seleccionar varias; cada comunidad aparece en la leyenda
+              con una familia de color propia.
+            </p>
+            <ComboboxContent>
+              <ComboboxEmpty>No hay comunidades con ese texto.</ComboboxEmpty>
+              <ComboboxList>
+                {(opcion) => (
+                  <ComboboxItem key={opcion.valor} value={opcion}>
+                    {opcion.etiqueta}
+                  </ComboboxItem>
+                )}
+              </ComboboxList>
+            </ComboboxContent>
+          </Combobox>
+        </div>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
@@ -877,152 +913,238 @@ const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
   2026: "oklch(0.62 0.19 35)",
 }
 
-const claveAnio = (anio: AnioFiscal) => `anio${anio}`
-const claveDiferenciaNeta = (anio: AnioFiscal) => `neto${anio}`
-const claveDiferenciaNetaPositiva = (anio: AnioFiscal) =>
-  `${claveDiferenciaNeta(anio)}Positiva`
-const claveDiferenciaNetaNegativa = (anio: AnioFiscal) =>
-  `${claveDiferenciaNeta(anio)}Negativa`
+type ComunidadAuditada =
+  EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
+const claveSerieTipoEfectivoIrpf = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal
+) => `irpf-${comunidadAutonoma}-${anio}`
+const claveSerieNeto = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal
+) => `neto-${comunidadAutonoma}-${anio}`
+const claveSerieNetoPositiva = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal
+) => `${claveSerieNeto(comunidadAutonoma, anio)}-positiva`
+const claveSerieNetoNegativa = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal
+) => `${claveSerieNeto(comunidadAutonoma, anio)}-negativa`
+const etiquetaSerieAuditoria = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal
+) =>
+  `${describirComunidadAutonomaAuditoria(comunidadAutonoma).etiqueta} ${anio}`
 const aniosDesdeClaveGrafico = (clave: string): ReadonlyArray<AnioFiscal> =>
   clave
     .split(",")
     .filter((valor) => valor.length > 0)
     .map((valor) => Number(valor) as AnioFiscal)
+const comunidadesDesdeClaveGrafico = (
+  clave: string
+): ReadonlyArray<ComunidadAuditada> => {
+  const valores = clave.split(",")
 
-const configuracionTipoEfectivoIrpf = Object.fromEntries(
-  aniosTipoEfectivoIrpfConReferenciaTecnica2026.map((anio) => [
-    claveAnio(anio),
-    {
-      label: String(anio),
-      color: coloresTipoEfectivoIrpf[anio],
-    },
-  ])
-) satisfies ChartConfig
+  return comunidadesAuditoriaNormativa.filter((comunidadAutonoma) =>
+    valores.includes(comunidadAutonoma)
+  )
+}
 
-const configuracionNetoReal = Object.fromEntries(
-  aniosNetoReal.flatMap((anio) => [
-    [
-      claveDiferenciaNetaPositiva(anio),
-      {
-        label: String(anio),
-        color: coloresTipoEfectivoIrpf[anio],
-      },
-    ],
-    [
-      claveDiferenciaNetaNegativa(anio),
-      {
-        label: String(anio),
-        color: "var(--gain)",
-      },
-    ],
-  ])
-) satisfies ChartConfig
+const paletasComunidadesAuditoria = {
+  "simulada-estatal": { l: 0.2, c: 0, h: 0 },
+  andalucia: { l: 0.55, c: 0.17, h: 145 },
+  aragon: { l: 0.58, c: 0.17, h: 65 },
+  asturias: { l: 0.52, c: 0.13, h: 250 },
+  "illes-balears": { l: 0.6, c: 0.15, h: 195 },
+  canarias: { l: 0.68, c: 0.16, h: 95 },
+  cantabria: { l: 0.48, c: 0.12, h: 170 },
+  "castilla-la-mancha": { l: 0.54, c: 0.13, h: 35 },
+  "castilla-y-leon": { l: 0.52, c: 0.12, h: 85 },
+  catalunya: { l: 0.73, c: 0.18, h: 92 },
+  extremadura: { l: 0.5, c: 0.15, h: 25 },
+  galicia: { l: 0.56, c: 0.13, h: 220 },
+  madrid: { l: 0.18, c: 0, h: 0 },
+  murcia: { l: 0.56, c: 0.16, h: 50 },
+  "la-rioja": { l: 0.5, c: 0.16, h: 15 },
+  "comunitat-valenciana": { l: 0.58, c: 0.16, h: 330 },
+  ceuta: { l: 0.52, c: 0.11, h: 285 },
+  melilla: { l: 0.5, c: 0.11, h: 305 },
+} satisfies Readonly<
+  Record<
+    ComunidadAuditada,
+    { readonly l: number; readonly c: number; readonly h: number }
+  >
+>
+
+const limitar = (valor: number, minimo: number, maximo: number): number =>
+  Math.min(maximo, Math.max(minimo, valor))
+
+const colorSerieAuditoria = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal
+): string => {
+  const base = paletasComunidadesAuditoria[comunidadAutonoma]
+  const indice = aniosTipoEfectivoIrpfConReferenciaTecnica2026.indexOf(anio)
+  const desplazamiento = (indice - 7) * 0.018
+  const luminosidad = limitar(base.l + desplazamiento, 0.16, 0.82)
+
+  return `oklch(${luminosidad.toFixed(3)} ${base.c} ${base.h})`
+}
+
+const configuracionTipoEfectivoIrpf = ({
+  comunidadesAutonomas,
+  anios,
+}: {
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly anios: ReadonlyArray<AnioFiscal>
+}): ChartConfig =>
+  Object.fromEntries(
+    comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+      anios.map((anio) => [
+        claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio),
+        {
+          label: etiquetaSerieAuditoria(comunidadAutonoma, anio),
+          color: colorSerieAuditoria(comunidadAutonoma, anio),
+        },
+      ])
+    )
+  ) satisfies ChartConfig
+
+const configuracionNetoReal = ({
+  comunidadesAutonomas,
+  anios,
+}: {
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly anios: ReadonlyArray<AnioFiscal>
+}): ChartConfig =>
+  Object.fromEntries(
+    comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+      anios.flatMap((anio) => [
+        [
+          claveSerieNetoPositiva(comunidadAutonoma, anio),
+          {
+            label: etiquetaSerieAuditoria(comunidadAutonoma, anio),
+            color: colorSerieAuditoria(comunidadAutonoma, anio),
+          },
+        ],
+        [
+          claveSerieNetoNegativa(comunidadAutonoma, anio),
+          {
+            label: etiquetaSerieAuditoria(comunidadAutonoma, anio),
+            color: colorSerieAuditoria(comunidadAutonoma, anio),
+          },
+        ],
+      ])
+    )
+  ) satisfies ChartConfig
 
 type FilaTipoEfectivoIrpf = Record<string, number | string>
 type FilaNetoReal = Record<string, number | string | null>
 
 const obtenerPuntosAuditoriaParaAnio = (
   auditoria: AuditoriaRangoSalarial,
-  comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"],
+  comunidadAutonoma: ComunidadAuditada,
   anio: AnioFiscal
 ): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
-  Match.value(anio).pipe(
-    Match.when(
-      (anio) =>
-        anio === auditoria.anioReferencia || anio === auditoria.anioComparado,
-      () => Effect.succeed(auditoria.puntos)
-    ),
-    Match.orElse((anio) =>
-      auditarProgresividadFrio(
-        {
-          perfil: "legacy-progresividad-frio",
-          salarioBrutoAnualMinimoCentimos:
-            auditoria.salarioBrutoAnualMinimoCentimos,
-          salarioBrutoAnualMaximoCentimos:
-            auditoria.salarioBrutoAnualMaximoCentimos,
-          pasoCentimos: auditoria.pasoCentimos,
-          anioComparado: anio,
-          anioReferencia: auditoria.anioReferencia,
-          comunidadAutonoma,
-        },
-        { modo: "compatible-legacy" }
-      ).pipe(Effect.map((resultado) => resultado.auditoria.puntos))
-    )
-  )
+  auditarProgresividadFrio(
+    {
+      perfil: "legacy-progresividad-frio",
+      salarioBrutoAnualMinimoCentimos:
+        auditoria.salarioBrutoAnualMinimoCentimos,
+      salarioBrutoAnualMaximoCentimos:
+        auditoria.salarioBrutoAnualMaximoCentimos,
+      pasoCentimos: auditoria.pasoCentimos,
+      anioComparado: anio,
+      anioReferencia: auditoria.anioReferencia,
+      comunidadAutonoma,
+    },
+    { modo: "compatible-legacy" }
+  ).pipe(Effect.map((resultado) => resultado.auditoria.puntos))
 
 const construirSeriesAuditoria = Effect.fn(
   "auditoria.ui.construirSeriesAuditoria"
 )(function* ({
   auditoria,
-  comunidadAutonoma,
+  comunidadesAutonomas,
   aniosSeleccionados,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
-  readonly comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
 }) {
   const entradas = yield* Effect.forEach(
-    aniosSeleccionados,
-    (anio) =>
+    comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+      aniosSeleccionados.map((anio) => ({ comunidadAutonoma, anio }))
+    ),
+    ({ comunidadAutonoma, anio }) =>
       obtenerPuntosAuditoriaParaAnio(auditoria, comunidadAutonoma, anio).pipe(
-        Effect.map((puntos) => [anio, puntos] as const)
+        Effect.map(
+          (puntos) =>
+            [
+              claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio),
+              puntos,
+            ] as const
+        )
       ),
-    { concurrency: 4 }
+    { concurrency: 6 }
   )
 
-  return new Map<AnioFiscal, ReadonlyArray<PuntoAuditoriaRangoSalarial>>(
-    entradas
-  )
+  return new Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>(entradas)
 })
 
-const filasTipoEfectivoIrpf = Effect.fn(
-  "auditoria.ui.filasTipoEfectivoIrpf"
-)(function* ({
-  auditoria,
-  comunidadAutonoma,
-  aniosSeleccionados,
-}: {
-  readonly auditoria: AuditoriaRangoSalarial
-  readonly comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
-  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
-}) {
-  const series = yield* construirSeriesAuditoria({
+const filasTipoEfectivoIrpf = Effect.fn("auditoria.ui.filasTipoEfectivoIrpf")(
+  function* ({
     auditoria,
-    comunidadAutonoma,
+    comunidadesAutonomas,
     aniosSeleccionados,
-  })
+  }: {
+    readonly auditoria: AuditoriaRangoSalarial
+    readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+    readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+  }) {
+    const series = yield* construirSeriesAuditoria({
+      auditoria,
+      comunidadesAutonomas,
+      aniosSeleccionados,
+    })
 
-  return auditoria.puntos.map((puntoBase, indice) => {
-    const fila: FilaTipoEfectivoIrpf = {
-      salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
-      salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
-    }
+    return auditoria.puntos.map((puntoBase, indice) => {
+      const fila: FilaTipoEfectivoIrpf = {
+        salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
+        salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
+      }
 
-    for (const anio of aniosSeleccionados) {
-      const punto = series.get(anio)?.[indice]
-      if (punto === undefined) continue
-      fila[claveAnio(anio)] =
-        anio === auditoria.anioReferencia
-          ? punto.tipoEfectivoIrpfActual
-          : punto.tipoEfectivoIrpfComparado
-    }
+      for (const comunidadAutonoma of comunidadesAutonomas) {
+        for (const anio of aniosSeleccionados) {
+          const punto = series.get(
+            claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
+          )?.[indice]
+          if (punto === undefined) continue
+          fila[claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)] =
+            anio === auditoria.anioReferencia
+              ? punto.tipoEfectivoIrpfActual
+              : punto.tipoEfectivoIrpfComparado
+        }
+      }
 
-    return fila
-  })
-})
+      return fila
+    })
+  }
+)
 
 const filasNetoReal = Effect.fn("auditoria.ui.filasNetoReal")(function* ({
   auditoria,
-  comunidadAutonoma,
+  comunidadesAutonomas,
   aniosSeleccionados,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
-  readonly comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
 }) {
   const series = yield* construirSeriesAuditoria({
     auditoria,
-    comunidadAutonoma,
+    comunidadesAutonomas,
     aniosSeleccionados,
   })
 
@@ -1032,19 +1154,23 @@ const filasNetoReal = Effect.fn("auditoria.ui.filasNetoReal")(function* ({
       salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
     }
 
-    for (const anio of aniosSeleccionados) {
-      const punto = series.get(anio)?.[indice]
-      if (punto === undefined) continue
+    for (const comunidadAutonoma of comunidadesAutonomas) {
+      for (const anio of aniosSeleccionados) {
+        const punto = series.get(
+          claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
+        )?.[indice]
+        if (punto === undefined) continue
 
-      const diferencia = centimosAEuros(
-        punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
-      )
+        const diferencia = centimosAEuros(
+          punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
+        )
 
-      fila[claveDiferenciaNeta(anio)] = diferencia
-      fila[claveDiferenciaNetaPositiva(anio)] =
-        diferencia >= 0 ? diferencia : null
-      fila[claveDiferenciaNetaNegativa(anio)] =
-        diferencia <= 0 ? diferencia : null
+        fila[claveSerieNeto(comunidadAutonoma, anio)] = diferencia
+        fila[claveSerieNetoPositiva(comunidadAutonoma, anio)] =
+          diferencia >= 0 ? diferencia : null
+        fila[claveSerieNetoNegativa(comunidadAutonoma, anio)] =
+          diferencia <= 0 ? diferencia : null
+      }
     }
 
     return fila
@@ -1163,7 +1289,7 @@ function LeyendaNetoReal({
 
 function Visualizaciones({
   auditoria,
-  comunidadAutonoma,
+  comunidadesAutonomas,
   permiteReferenciaTecnica2026,
   aniosGraficoIrpf,
   fijarAniosGraficoIrpf,
@@ -1171,7 +1297,7 @@ function Visualizaciones({
   fijarAniosGraficoNetoReal,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
-  readonly comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
   readonly permiteReferenciaTecnica2026: boolean
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoIrpf: (anios: ReadonlyArray<AnioFiscal>) => void
@@ -1186,6 +1312,7 @@ function Visualizaciones({
   )
   const claveAniosGraficoIrpfVisibles = aniosGraficoIrpfVisibles.join(",")
   const claveAniosGraficoNetoReal = aniosGraficoNetoReal.join(",")
+  const claveComunidadesAutonomas = comunidadesAutonomas.join(",")
   const [datosTipoEfectivoIrpf, fijarDatosTipoEfectivoIrpf] = React.useState<
     ReadonlyArray<FilaTipoEfectivoIrpf>
   >([])
@@ -1196,18 +1323,19 @@ function Visualizaciones({
   React.useEffect(() => {
     const aniosIrpf = aniosDesdeClaveGrafico(claveAniosGraficoIrpfVisibles)
     const aniosNeto = aniosDesdeClaveGrafico(claveAniosGraficoNetoReal)
+    const comunidades = comunidadesDesdeClaveGrafico(claveComunidadesAutonomas)
 
     const fibra = Effect.runFork(
       Effect.all(
         {
           tipoEfectivoIrpf: filasTipoEfectivoIrpf({
             auditoria,
-            comunidadAutonoma,
+            comunidadesAutonomas: comunidades,
             aniosSeleccionados: aniosIrpf,
           }),
           netoReal: filasNetoReal({
             auditoria,
-            comunidadAutonoma,
+            comunidadesAutonomas: comunidades,
             aniosSeleccionados: aniosNeto,
           }),
         },
@@ -1227,12 +1355,27 @@ function Visualizaciones({
   }, [
     claveAniosGraficoIrpfVisibles,
     claveAniosGraficoNetoReal,
+    claveComunidadesAutonomas,
     auditoria,
-    comunidadAutonoma,
   ])
 
-  const clavesTipoEfectivoIrpf = aniosGraficoIrpfVisibles.map(claveAnio)
-  const clavesNetoReal = aniosGraficoNetoReal.map(claveDiferenciaNeta)
+  const clavesTipoEfectivoIrpf = comunidadesAutonomas.flatMap(
+    (comunidadAutonoma) =>
+      aniosGraficoIrpfVisibles.map((anio) =>
+        claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
+      )
+  )
+  const clavesNetoReal = comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+    aniosGraficoNetoReal.map((anio) => claveSerieNeto(comunidadAutonoma, anio))
+  )
+  const configTipoEfectivoIrpf = configuracionTipoEfectivoIrpf({
+    comunidadesAutonomas,
+    anios: aniosGraficoIrpfVisibles,
+  })
+  const configNetoReal = configuracionNetoReal({
+    comunidadesAutonomas,
+    anios: aniosGraficoNetoReal,
+  })
   const dominioTipoEfectivoIrpf = dominioPorcentaje(
     valoresNumericosDeFilas(datosTipoEfectivoIrpf, clavesTipoEfectivoIrpf)
   )
@@ -1284,8 +1427,7 @@ function Visualizaciones({
         >
           <div className="flex flex-wrap items-start justify-between gap-4">
             <p className="max-w-3xl text-sm leading-5 text-[var(--ink-soft)]">
-              TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA
-              INFLACIÓN
+              TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN
             </p>
             <div
               role="group"
@@ -1321,7 +1463,7 @@ function Visualizaciones({
             </div>
           </div>
           <ChartContainer
-            config={configuracionTipoEfectivoIrpf}
+            config={configTipoEfectivoIrpf}
             className="mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
           >
             <LineChart
@@ -1393,19 +1535,28 @@ function Visualizaciones({
                   paddingTop: 8,
                 }}
               />
-              {aniosGraficoIrpfVisibles.map((anio) => (
-                <Line
-                  key={anio}
-                  dataKey={claveAnio(anio)}
-                  name={String(anio)}
-                  type="monotone"
-                  stroke={`var(--color-${claveAnio(anio)})`}
-                  strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 0 }}
-                  isAnimationActive={false}
-                />
-              ))}
+              {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+                aniosGraficoIrpfVisibles.map((anio) => {
+                  const clave = claveSerieTipoEfectivoIrpf(
+                    comunidadAutonoma,
+                    anio
+                  )
+
+                  return (
+                    <Line
+                      key={clave}
+                      dataKey={clave}
+                      name={etiquetaSerieAuditoria(comunidadAutonoma, anio)}
+                      type="monotone"
+                      stroke={`var(--color-${clave})`}
+                      strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                      dot={false}
+                      activeDot={{ r: 4, strokeWidth: 0 }}
+                      isAnimationActive={false}
+                    />
+                  )
+                })
+              )}
             </LineChart>
           </ChartContainer>
           <ul className="mt-4 grid gap-2 border-t-2 border-[var(--rule)] pt-4 font-[family-name:var(--mono)] text-xs leading-5 text-[var(--ink-soft)]">
@@ -1460,7 +1611,7 @@ function Visualizaciones({
             </div>
           </div>
           <ChartContainer
-            config={configuracionNetoReal}
+            config={configNetoReal}
             className="mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
           >
             <AreaChart
@@ -1537,40 +1688,55 @@ function Visualizaciones({
                   paddingTop: 8,
                 }}
               />
-              {aniosGraficoNetoReal.flatMap((anio) => [
-                <Area
-                  key={`${anio}-positiva`}
-                  dataKey={claveDiferenciaNetaPositiva(anio)}
-                  name={String(anio)}
-                  type="monotone"
-                  stroke={coloresTipoEfectivoIrpf[anio]}
-                  strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
-                  fill={coloresTipoEfectivoIrpf[anio]}
-                  fillOpacity={0.16}
-                  legendType="plainline"
-                  baseValue={0}
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 0 }}
-                  connectNulls={false}
-                  isAnimationActive={false}
-                />,
-                <Area
-                  key={`${anio}-negativa`}
-                  dataKey={claveDiferenciaNetaNegativa(anio)}
-                  name={String(anio)}
-                  type="monotone"
-                  stroke="var(--gain)"
-                  strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
-                  fill="var(--gain)"
-                  fillOpacity={0.18}
-                  legendType="plainline"
-                  baseValue={0}
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 0 }}
-                  connectNulls={false}
-                  isAnimationActive={false}
-                />,
-              ])}
+              {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+                aniosGraficoNetoReal.flatMap((anio) => {
+                  const clavePositiva = claveSerieNetoPositiva(
+                    comunidadAutonoma,
+                    anio
+                  )
+                  const claveNegativa = claveSerieNetoNegativa(
+                    comunidadAutonoma,
+                    anio
+                  )
+                  const nombre = etiquetaSerieAuditoria(comunidadAutonoma, anio)
+                  const color = colorSerieAuditoria(comunidadAutonoma, anio)
+
+                  return [
+                    <Area
+                      key={clavePositiva}
+                      dataKey={clavePositiva}
+                      name={nombre}
+                      type="monotone"
+                      stroke={color}
+                      strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                      fill={color}
+                      fillOpacity={0.16}
+                      legendType="plainline"
+                      baseValue={0}
+                      dot={false}
+                      activeDot={{ r: 4, strokeWidth: 0 }}
+                      connectNulls={false}
+                      isAnimationActive={false}
+                    />,
+                    <Area
+                      key={claveNegativa}
+                      dataKey={claveNegativa}
+                      name={nombre}
+                      type="monotone"
+                      stroke={color}
+                      strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                      fill={color}
+                      fillOpacity={0.18}
+                      legendType="plainline"
+                      baseValue={0}
+                      dot={false}
+                      activeDot={{ r: 4, strokeWidth: 0 }}
+                      connectNulls={false}
+                      isAnimationActive={false}
+                    />,
+                  ]
+                })
+              )}
             </AreaChart>
           </ChartContainer>
         </Tabs.Panel>
