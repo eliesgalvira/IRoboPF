@@ -47,6 +47,7 @@ import type {
   CatalogoDeduccionesAutonomicasPorComunidad,
   FichaDeduccionAutonomica,
 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
+import { formatearPuntosPorcentuales } from "@/lib/formato"
 import { cn } from "@/lib/utils"
 
 const eurosACentimos = (euros: number) => Math.round(euros * 100)
@@ -189,7 +190,7 @@ const describirCuantiaDeduccion = (
     ),
     Match.orElse(
       (cuantia) =>
-        `${cuantia.porcentaje}% sobre ${cuantia.base}${
+        `${formatearPuntosPorcentuales(cuantia.porcentaje)} sobre ${cuantia.base}${
           cuantia.limiteMaximoEuros
             ? `, con límite máximo de ${cuantia.limiteMaximoEuros} euros.`
             : "."
@@ -2799,7 +2800,11 @@ function ConciliacionSimuladorLegacyPanel({
                 conciliacion.rendimientoIntegroTrabajoCentimos -
                   conciliacion.minimoExentoRetencionCentimos
               )}{" "}
-              × {conciliacion.tipoMaximoRetencionNominaPorcentaje}% ={" "}
+              ×{" "}
+              {formatearPuntosPorcentuales(
+                conciliacion.tipoMaximoRetencionNominaPorcentaje
+              )}{" "}
+              ={" "}
               {formatearEuros(conciliacion.limiteRetencionNominaCentimos)}.
             </span>
           </>
