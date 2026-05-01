@@ -448,6 +448,38 @@ const resolverParametrosComunidadAutonoma2025 = (
   }
 }
 
+const resolverParametrosComunidadAutonoma2026 = (
+  comunidadAutonoma: ComunidadAutonoma
+): ResultadoParametrosComunidadAutonoma =>
+  Match.value(comunidadAutonoma).pipe(
+    Match.when(
+      "simulada-estatal",
+      () =>
+        ({
+          _tag: "ParametrosComunidadAutonoma",
+          comunidadAutonoma,
+          anio: 2026,
+          minimoAutonomicoIgualEstatal: true,
+          escalaAutonomicaIgualEstatal: true,
+          escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
+          escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
+          minimosAutonomicos: MINIMOS_ESTATALES_2025,
+          deduccionesAutonomicasSoportadas: [],
+        }) satisfies ParametrosComunidadAutonoma
+    ),
+    Match.orElse(
+      (comunidadAutonoma) =>
+        ({
+          _tag: "ComunidadAutonomaNoSoportada",
+          comunidadAutonoma,
+          anio: 2026,
+          motivo:
+            "IRPF 2026 solo esta modelado como caso tecnico para soltero sin hijos con comunidad simulada estatal.",
+          fuenteReconocida: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
+        }) satisfies ComunidadAutonomaNoSoportada
+    )
+  )
+
 export const obtenerParametrosComunidadAutonoma = ({
   anio,
   baseLiquidableGeneral,
@@ -509,6 +541,9 @@ export const obtenerParametrosComunidadAutonoma = ({
     ),
     Match.when(2025, () =>
       resolverParametrosComunidadAutonoma2025(comunidadAutonoma)
+    ),
+    Match.when(2026, () =>
+      resolverParametrosComunidadAutonoma2026(comunidadAutonoma)
     ),
     Match.orElse(
       (anio) =>

@@ -64,6 +64,62 @@ export const escenarioAuditoriaPorDefecto = {
   ...varianteAuditoriaPorDefecto,
 } as const satisfies EscenarioAuditoriaNormativaHistorica
 
+export const escenarioPermiteReferenciaTecnica2026 = (
+  escenario: Pick<
+    EscenarioAuditoriaNormativaHistorica,
+    "perfil" | "comunidadAutonoma"
+  >
+): boolean =>
+  Match.value(escenario).pipe(
+    Match.when(
+      {
+        perfil: "soltero_sin_hijos",
+        comunidadAutonoma: "simulada-estatal",
+      },
+      () => true
+    ),
+    Match.orElse(() => false)
+  )
+
+const normalizarAnioComparado = ({
+  anioReferencia,
+  anioComparado,
+}: Pick<
+  EscenarioAuditoriaNormativaHistorica,
+  "anioReferencia" | "anioComparado"
+>): AnioFiscal =>
+  Match.value({ anioReferencia, anioComparado }).pipe(
+    Match.withReturnType<AnioFiscal>(),
+    Match.when({ anioReferencia: 2025, anioComparado: 2026 }, () => 2024),
+    Match.when({ anioComparado: 2026 }, () => 2025),
+    Match.orElse(({ anioComparado }) => anioComparado)
+  )
+
+export const normalizarEscenarioAuditoriaNormativa = (
+  escenario: EscenarioAuditoriaNormativaHistorica
+): EscenarioAuditoriaNormativaHistorica => {
+  const anioReferencia = Match.value({
+    anioReferencia: escenario.anioReferencia,
+    permiteReferenciaTecnica2026:
+      escenarioPermiteReferenciaTecnica2026(escenario),
+  }).pipe(
+    Match.when(
+      { anioReferencia: 2026, permiteReferenciaTecnica2026: false },
+      () => 2025 as const
+    ),
+    Match.orElse(({ anioReferencia }) => anioReferencia)
+  )
+
+  return {
+    ...escenario,
+    anioReferencia,
+    anioComparado: normalizarAnioComparado({
+      anioReferencia,
+      anioComparado: escenario.anioComparado,
+    }),
+  }
+}
+
 export const perfilesAuditoriaNormativa = [
   "soltero_sin_hijos",
   "pareja_con_hijos",
@@ -427,36 +483,37 @@ const leerAnioComparadoDesdePeriodo = (
 
 export const leerEscenarioAuditoriaNormativaDesdeUrl = (
   parametros: LectorParametrosAuditoriaUrl
-): EscenarioAuditoriaNormativaHistorica => ({
-  perfil: leerValorUrl(parametros, "perfil").pipe(
-    Option.flatMap(decodificarPerfilAuditoriaNormativa),
-    Option.getOrElse(() => escenarioAuditoriaPorDefecto.perfil)
-  ),
-  comunidadAutonoma: leerValorUrl(parametros, "comunidad").pipe(
-    Option.flatMap(decodificarComunidadAutonomaAuditoria),
-    Option.getOrElse(() => escenarioAuditoriaPorDefecto.comunidadAutonoma)
-  ),
-  anioReferencia: leerValorUrl(parametros, "anioReferencia").pipe(
-    Option.flatMap(decodificarAnioFiscal),
-    Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioReferencia)
-  ),
-  anioComparado: leerAnioComparadoDesdePeriodo(parametros).pipe(
-    Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioComparado)
-  ),
-  estrategiaProyeccionSalarial: leerValorUrl(
-    parametros,
-    "estrategiaSalario"
-  ).pipe(
-    Option.flatMap(decodificarEstrategiaProyeccionSalarial),
-    Option.getOrElse(
-      () => escenarioAuditoriaPorDefecto.estrategiaProyeccionSalarial
-    )
-  ),
-  magnitudAuditada: leerValorUrl(parametros, "magnitud").pipe(
-    Option.flatMap(decodificarMagnitudAuditada),
-    Option.getOrElse(() => escenarioAuditoriaPorDefecto.magnitudAuditada)
-  ),
-})
+): EscenarioAuditoriaNormativaHistorica =>
+  normalizarEscenarioAuditoriaNormativa({
+    perfil: leerValorUrl(parametros, "perfil").pipe(
+      Option.flatMap(decodificarPerfilAuditoriaNormativa),
+      Option.getOrElse(() => escenarioAuditoriaPorDefecto.perfil)
+    ),
+    comunidadAutonoma: leerValorUrl(parametros, "comunidad").pipe(
+      Option.flatMap(decodificarComunidadAutonomaAuditoria),
+      Option.getOrElse(() => escenarioAuditoriaPorDefecto.comunidadAutonoma)
+    ),
+    anioReferencia: leerValorUrl(parametros, "anioReferencia").pipe(
+      Option.flatMap(decodificarAnioFiscal),
+      Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioReferencia)
+    ),
+    anioComparado: leerAnioComparadoDesdePeriodo(parametros).pipe(
+      Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioComparado)
+    ),
+    estrategiaProyeccionSalarial: leerValorUrl(
+      parametros,
+      "estrategiaSalario"
+    ).pipe(
+      Option.flatMap(decodificarEstrategiaProyeccionSalarial),
+      Option.getOrElse(
+        () => escenarioAuditoriaPorDefecto.estrategiaProyeccionSalarial
+      )
+    ),
+    magnitudAuditada: leerValorUrl(parametros, "magnitud").pipe(
+      Option.flatMap(decodificarMagnitudAuditada),
+      Option.getOrElse(() => escenarioAuditoriaPorDefecto.magnitudAuditada)
+    ),
+  })
 
 export const construirContratoUrlAuditoriaNormativaV1 = ({
   perfil,
@@ -493,7 +550,9 @@ export const serializarEscenarioAuditoriaNormativa = (
   escenario: EscenarioAuditoriaNormativaHistorica
 ): URLSearchParams =>
   serializarContratoUrlAuditoriaNormativaV1(
-    construirContratoUrlAuditoriaNormativaV1(escenario)
+    construirContratoUrlAuditoriaNormativaV1(
+      normalizarEscenarioAuditoriaNormativa(escenario)
+    )
   )
 
 export const impactoDesdePerspectivaCiudadano = ({

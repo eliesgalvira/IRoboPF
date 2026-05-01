@@ -52,6 +52,7 @@ import {
   leerEscenarioAuditoriaNormativaDesdeUrl,
   magnitudesAuditoriaNormativa,
   perfilesAuditoriaNormativa,
+  escenarioPermiteReferenciaTecnica2026,
   serializarEscenarioAuditoriaNormativa,
   type EscenarioAuditoriaNormativaHistorica,
 } from "@/lib/dominio/auditoria/auditoria-normativa-historica"
@@ -60,6 +61,7 @@ import {
   auditarProgresividadFrio,
   type HallazgoAuditoria,
   type AuditoriaRangoSalarial,
+  type EntradaAuditoriaProgresividadFrio,
   type PuntoAuditoriaRangoSalarial,
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
 import {
@@ -86,6 +88,11 @@ function formatearDuracion(milisegundos: number): string {
 
 type DialogoExportacionCompatible = "advertencia" | "progreso" | null
 
+type EstadoAuditoria =
+  | { readonly _tag: "cargando" }
+  | { readonly _tag: "lista"; readonly auditoria: AuditoriaRangoSalarial }
+  | { readonly _tag: "error"; readonly mensaje: string }
+
 function AuditoriaImpl() {
   const router = useRouter()
   const pathname = usePathname()
@@ -106,6 +113,14 @@ function AuditoriaImpl() {
   const [aniosGraficoNetoReal, fijarAniosGraficoNetoReal] = React.useState<
     ReadonlyArray<AnioFiscal>
   >([2019])
+  const permiteReferenciaTecnica2026 = React.useMemo(
+    () =>
+      escenarioPermiteReferenciaTecnica2026({
+        perfil: escenarioAuditoria.perfil,
+        comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
+      }),
+    [escenarioAuditoria.comunidadAutonoma, escenarioAuditoria.perfil]
+  )
   const [exportando, fijarExportando] = React.useState<
     "educativa" | "compatible" | null
   >(null)
@@ -122,27 +137,15 @@ function AuditoriaImpl() {
     unknown
   > | null>(null)
 
-  const auditoria = React.useMemo(
-    () =>
-      Effect.runSync(
-        auditarProgresividadFrio(
-          {
-            perfil: "legacy-progresividad-frio",
-            salarioBrutoAnualMinimoCentimos: Math.min(
-              minimoCentimos,
-              maximoCentimos
-            ),
-            salarioBrutoAnualMaximoCentimos: Math.max(
-              minimoCentimos,
-              maximoCentimos
-            ),
-            pasoCentimos: configuracionRangoAuditoria.pasoCentimos,
-            anioComparado: escenarioAuditoria.anioComparado,
-            anioReferencia: escenarioAuditoria.anioReferencia,
-          },
-          { modo: "compatible-legacy" }
-        )
-      ).auditoria,
+  const entradaAuditoria = React.useMemo(
+    (): EntradaAuditoriaProgresividadFrio => ({
+      perfil: "legacy-progresividad-frio",
+      salarioBrutoAnualMinimoCentimos: Math.min(minimoCentimos, maximoCentimos),
+      salarioBrutoAnualMaximoCentimos: Math.max(minimoCentimos, maximoCentimos),
+      pasoCentimos: configuracionRangoAuditoria.pasoCentimos,
+      anioComparado: escenarioAuditoria.anioComparado,
+      anioReferencia: escenarioAuditoria.anioReferencia,
+    }),
     [
       escenarioAuditoria.anioComparado,
       escenarioAuditoria.anioReferencia,
@@ -150,6 +153,37 @@ function AuditoriaImpl() {
       minimoCentimos,
     ]
   )
+  const [estadoAuditoria, fijarEstadoAuditoria] =
+    React.useState<EstadoAuditoria>({ _tag: "cargando" })
+  const auditoria =
+    estadoAuditoria._tag === "lista" ? estadoAuditoria.auditoria : null
+
+  React.useEffect(() => {
+    const fibra = Effect.runFork(
+      auditarProgresividadFrio(entradaAuditoria, { modo: "compatible-legacy" })
+    )
+
+    fibra.addObserver((exit) => {
+      if (Exit.isSuccess(exit)) {
+        fijarEstadoAuditoria({
+          _tag: "lista",
+          auditoria: exit.value.auditoria,
+        })
+        return
+      }
+
+      if (Cause.hasInterruptsOnly(exit.cause)) return
+
+      fijarEstadoAuditoria({
+        _tag: "error",
+        mensaje: String(Cause.squash(exit.cause)),
+      })
+    })
+
+    return () => {
+      Effect.runFork(Fiber.interrupt(fibra))
+    }
+  }, [entradaAuditoria])
 
   const actualizarEscenarioAuditoria = React.useCallback(
     (cambio: CambioEscenarioAuditoriaNormativa) => {
@@ -176,6 +210,8 @@ function AuditoriaImpl() {
   )
 
   const exportar = async (tipo: "educativa" | "compatible") => {
+    if (auditoria === null) return
+
     if (tipo === "compatible") {
       fijarDialogoExportacionCompatible("advertencia")
       return
@@ -190,6 +226,7 @@ function AuditoriaImpl() {
   }
 
   const iniciarExportacionCompatible = () => {
+    if (auditoria === null) return
     if (fibraExportacionCompatible.current !== null) return
 
     fijarExportando("compatible")
@@ -248,6 +285,28 @@ function AuditoriaImpl() {
     },
     []
   )
+
+  if (auditoria === null) {
+    return (
+      <main className="min-h-svh">
+        <div className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+          <header className="border-b-2 border-[var(--rule)] pb-4">
+            <NavegacionSitio />
+          </header>
+          <section className="border-b-2 border-[var(--rule)] py-8">
+            <h1 className="font-[family-name:var(--display)] text-[clamp(2.4rem,9vw,5.8rem)] leading-none tracking-wider uppercase">
+              AUDITORÍA
+            </h1>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-[var(--ink-soft)] uppercase">
+              {estadoAuditoria._tag === "error"
+                ? `No se pudo calcular la auditoría: ${estadoAuditoria.mensaje}`
+                : "Calculando la liquidación IRPF anual por rango salarial..."}
+            </p>
+          </section>
+        </div>
+      </main>
+    )
+  }
 
   const hallazgoPrincipal = auditoria.hallazgos[0]
 
@@ -322,6 +381,7 @@ function AuditoriaImpl() {
 
         <Visualizaciones
           auditoria={auditoria}
+          permiteReferenciaTecnica2026={permiteReferenciaTecnica2026}
           aniosGraficoIrpf={aniosGraficoIrpf}
           fijarAniosGraficoIrpf={fijarAniosGraficoIrpf}
           aniosGraficoNetoReal={aniosGraficoNetoReal}
@@ -922,11 +982,21 @@ function HallazgosSecundarios({
   )
 }
 
-const aniosTipoEfectivoIrpf = [
+const aniosTipoEfectivoIrpfConReferenciaTecnica2026 = [
   ...ANIOS_COMPARABLES,
   2026,
 ] as const satisfies ReadonlyArray<AnioFiscal>
 const aniosNetoReal = ANIOS_COMPARABLES
+
+const obtenerAniosTipoEfectivoIrpf = ({
+  permiteReferenciaTecnica2026,
+}: {
+  readonly permiteReferenciaTecnica2026: boolean
+}): ReadonlyArray<AnioFiscal> =>
+  Match.value(permiteReferenciaTecnica2026).pipe(
+    Match.when(true, () => aniosTipoEfectivoIrpfConReferenciaTecnica2026),
+    Match.orElse(() => ANIOS_COMPARABLES)
+  )
 
 const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
   2012: "oklch(0.38 0 0)",
@@ -954,7 +1024,7 @@ const claveDiferenciaNetaNegativa = (anio: AnioFiscal) =>
   `${claveDiferenciaNeta(anio)}Negativa`
 
 const configuracionTipoEfectivoIrpf = Object.fromEntries(
-  aniosTipoEfectivoIrpf.map((anio) => [
+  aniosTipoEfectivoIrpfConReferenciaTecnica2026.map((anio) => [
     claveAnio(anio),
     {
       label: String(anio),
@@ -982,46 +1052,75 @@ const configuracionNetoReal = Object.fromEntries(
   ])
 ) satisfies ChartConfig
 
-function filasTipoEfectivoIrpf({
+type FilaTipoEfectivoIrpf = Record<string, number | string>
+type FilaNetoReal = Record<string, number | string | null>
+
+const obtenerPuntosAuditoriaParaAnio = (
+  auditoria: AuditoriaRangoSalarial,
+  anio: AnioFiscal
+): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
+  Match.value(anio).pipe(
+    Match.when(
+      (anio) =>
+        anio === auditoria.anioReferencia || anio === auditoria.anioComparado,
+      () => Effect.succeed(auditoria.puntos)
+    ),
+    Match.orElse((anio) =>
+      auditarProgresividadFrio(
+        {
+          perfil: "legacy-progresividad-frio",
+          salarioBrutoAnualMinimoCentimos:
+            auditoria.salarioBrutoAnualMinimoCentimos,
+          salarioBrutoAnualMaximoCentimos:
+            auditoria.salarioBrutoAnualMaximoCentimos,
+          pasoCentimos: auditoria.pasoCentimos,
+          anioComparado: anio,
+          anioReferencia: auditoria.anioReferencia,
+        },
+        { modo: "compatible-legacy" }
+      ).pipe(Effect.map((resultado) => resultado.auditoria.puntos))
+    )
+  )
+
+const construirSeriesAuditoria = Effect.fn(
+  "auditoria.ui.construirSeriesAuditoria"
+)(function* ({
   auditoria,
   aniosSeleccionados,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
 }) {
-  const series = new Map<
-    AnioFiscal,
-    ReadonlyArray<PuntoAuditoriaRangoSalarial>
-  >()
+  const entradas = yield* Effect.forEach(
+    aniosSeleccionados,
+    (anio) =>
+      obtenerPuntosAuditoriaParaAnio(auditoria, anio).pipe(
+        Effect.map((puntos) => [anio, puntos] as const)
+      ),
+    { concurrency: 4 }
+  )
 
-  for (const anio of aniosSeleccionados) {
-    if (anio === auditoria.anioReferencia || anio === auditoria.anioComparado) {
-      series.set(anio, auditoria.puntos)
-      continue
-    }
+  return new Map<AnioFiscal, ReadonlyArray<PuntoAuditoriaRangoSalarial>>(
+    entradas
+  )
+})
 
-    series.set(
-      anio,
-      Effect.runSync(
-        auditarProgresividadFrio(
-          {
-            perfil: "legacy-progresividad-frio",
-            salarioBrutoAnualMinimoCentimos:
-              auditoria.salarioBrutoAnualMinimoCentimos,
-            salarioBrutoAnualMaximoCentimos:
-              auditoria.salarioBrutoAnualMaximoCentimos,
-            pasoCentimos: auditoria.pasoCentimos,
-            anioComparado: anio,
-            anioReferencia: auditoria.anioReferencia,
-          },
-          { modo: "compatible-legacy" }
-        )
-      ).auditoria.puntos
-    )
-  }
+const filasTipoEfectivoIrpf = Effect.fn(
+  "auditoria.ui.filasTipoEfectivoIrpf"
+)(function* ({
+  auditoria,
+  aniosSeleccionados,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+}) {
+  const series = yield* construirSeriesAuditoria({
+    auditoria,
+    aniosSeleccionados,
+  })
 
   return auditoria.puntos.map((puntoBase, indice) => {
-    const fila: Record<string, number | string> = {
+    const fila: FilaTipoEfectivoIrpf = {
       salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
       salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
     }
@@ -1037,48 +1136,22 @@ function filasTipoEfectivoIrpf({
 
     return fila
   })
-}
+})
 
-function filasNetoReal({
+const filasNetoReal = Effect.fn("auditoria.ui.filasNetoReal")(function* ({
   auditoria,
   aniosSeleccionados,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
 }) {
-  const series = new Map<
-    AnioFiscal,
-    ReadonlyArray<PuntoAuditoriaRangoSalarial>
-  >()
-
-  for (const anio of aniosSeleccionados) {
-    if (anio === auditoria.anioComparado) {
-      series.set(anio, auditoria.puntos)
-      continue
-    }
-
-    series.set(
-      anio,
-      Effect.runSync(
-        auditarProgresividadFrio(
-          {
-            perfil: "legacy-progresividad-frio",
-            salarioBrutoAnualMinimoCentimos:
-              auditoria.salarioBrutoAnualMinimoCentimos,
-            salarioBrutoAnualMaximoCentimos:
-              auditoria.salarioBrutoAnualMaximoCentimos,
-            pasoCentimos: auditoria.pasoCentimos,
-            anioComparado: anio,
-            anioReferencia: auditoria.anioReferencia,
-          },
-          { modo: "compatible-legacy" }
-        )
-      ).auditoria.puntos
-    )
-  }
+  const series = yield* construirSeriesAuditoria({
+    auditoria,
+    aniosSeleccionados,
+  })
 
   return auditoria.puntos.map((puntoBase, indice) => {
-    const fila: Record<string, number | string | null> = {
+    const fila: FilaNetoReal = {
       salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
       salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
     }
@@ -1100,7 +1173,7 @@ function filasNetoReal({
 
     return fila
   })
-}
+})
 
 const valoresNumericosDeFilas = (
   filas: ReadonlyArray<Record<string, number | string | null>>,
@@ -1184,36 +1257,66 @@ function LeyendaNetoReal({
 
 function Visualizaciones({
   auditoria,
+  permiteReferenciaTecnica2026,
   aniosGraficoIrpf,
   fijarAniosGraficoIrpf,
   aniosGraficoNetoReal,
   fijarAniosGraficoNetoReal,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
+  readonly permiteReferenciaTecnica2026: boolean
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoIrpf: (anios: ReadonlyArray<AnioFiscal>) => void
   readonly aniosGraficoNetoReal: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoNetoReal: (anios: ReadonlyArray<AnioFiscal>) => void
 }) {
-  const datosTipoEfectivoIrpf = React.useMemo(
-    () =>
-      filasTipoEfectivoIrpf({
-        auditoria,
-        aniosSeleccionados: aniosGraficoIrpf,
-      }),
-    [aniosGraficoIrpf, auditoria]
+  const aniosTipoEfectivoIrpf = React.useMemo(
+    () => obtenerAniosTipoEfectivoIrpf({ permiteReferenciaTecnica2026 }),
+    [permiteReferenciaTecnica2026]
   )
-  const datosNetoReal = React.useMemo(
+  const aniosGraficoIrpfVisibles = React.useMemo(
     () =>
-      filasNetoReal({
-        auditoria,
-        aniosSeleccionados: aniosGraficoNetoReal,
-      }),
-    [aniosGraficoNetoReal, auditoria]
+      aniosGraficoIrpf.filter((anio) => aniosTipoEfectivoIrpf.includes(anio)),
+    [aniosGraficoIrpf, aniosTipoEfectivoIrpf]
   )
+  const [datosTipoEfectivoIrpf, fijarDatosTipoEfectivoIrpf] = React.useState<
+    ReadonlyArray<FilaTipoEfectivoIrpf>
+  >([])
+  const [datosNetoReal, fijarDatosNetoReal] = React.useState<
+    ReadonlyArray<FilaNetoReal>
+  >([])
+
+  React.useEffect(() => {
+    const fibra = Effect.runFork(
+      Effect.all(
+        {
+          tipoEfectivoIrpf: filasTipoEfectivoIrpf({
+            auditoria,
+            aniosSeleccionados: aniosGraficoIrpfVisibles,
+          }),
+          netoReal: filasNetoReal({
+            auditoria,
+            aniosSeleccionados: aniosGraficoNetoReal,
+          }),
+        },
+        { concurrency: 2 }
+      )
+    )
+
+    fibra.addObserver((exit) => {
+      if (!Exit.isSuccess(exit)) return
+      fijarDatosTipoEfectivoIrpf(exit.value.tipoEfectivoIrpf)
+      fijarDatosNetoReal(exit.value.netoReal)
+    })
+
+    return () => {
+      Effect.runFork(Fiber.interrupt(fibra))
+    }
+  }, [aniosGraficoIrpfVisibles, aniosGraficoNetoReal, auditoria])
+
   const clavesTipoEfectivoIrpf = React.useMemo(
-    () => aniosGraficoIrpf.map(claveAnio),
-    [aniosGraficoIrpf]
+    () => aniosGraficoIrpfVisibles.map(claveAnio),
+    [aniosGraficoIrpfVisibles]
   )
   const clavesNetoReal = React.useMemo(
     () => aniosGraficoNetoReal.map(claveDiferenciaNeta),
@@ -1398,7 +1501,7 @@ function Visualizaciones({
                   paddingTop: 8,
                 }}
               />
-              {aniosGraficoIrpf.map((anio) => (
+              {aniosGraficoIrpfVisibles.map((anio) => (
                 <Line
                   key={anio}
                   dataKey={claveAnio(anio)}
@@ -1421,7 +1524,8 @@ function Visualizaciones({
           <div className="flex flex-wrap items-start justify-between gap-4">
             <p className="max-w-3xl text-sm leading-5 text-[var(--ink-soft)]">
               DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI
-              ES POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE 2026.
+              ES POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE{" "}
+              {auditoria.anioReferencia}.
             </p>
             <div
               role="group"
