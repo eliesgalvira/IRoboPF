@@ -2,8 +2,15 @@ import Decimal from "decimal.js"
 import { Match, Option } from "effect"
 
 import { centimosAEuros, eurosACentimos } from "../../dinero/importe-monetario"
+import { calcularCotizacionesSocialesLegacy } from "../../laboral/cotizaciones-sociales"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
 import { obtenerEspecificacionCompatibilidadHistorica } from "../../normativa/datos/compatibilidad-historica"
+import {
+  MINIMO_PERSONAL_IRPF_LEGACY,
+  obtenerTramosIrpfLegacy,
+} from "../../normativa/datos/irpf-estatal-2012-2026"
+import { calcularCuotaPorEscala } from "../cuotas/escalas-gravamen"
+import { calcularReduccionRendimientosTrabajo } from "../reducciones/reduccion-rendimientos-trabajo"
 
 export interface ConciliacionSimuladorLegacy {
   readonly _tag: "ConciliacionSimuladorLegacy"
@@ -34,6 +41,54 @@ const min = (a: Decimal, b: Decimal): Decimal =>
     Match.when(true, () => a),
     Match.orElse(() => b)
   )
+
+const primerTipo = (anio: AnioFiscal): Decimal =>
+  Match.value(obtenerTramosIrpfLegacy(anio)[0]).pipe(
+    Match.when(Match.undefined, () => CERO),
+    Match.orElse((tramo) => tramo[1])
+  )
+
+const calcularIrpfFinalSimuladorLegacy2014 = ({
+  bruto,
+  especificacion,
+}: {
+  readonly bruto: Decimal
+  readonly especificacion: ReturnType<
+    typeof obtenerEspecificacionCompatibilidadHistorica
+  >
+}): Decimal => {
+  const cotizaciones = calcularCotizacionesSocialesLegacy({
+    salarioBrutoAnual: bruto,
+    anio: 2014,
+  })
+  const rendimientoPrevioNeto = bruto.minus(cotizaciones.cotizacionTrabajador)
+  const reduccionTrabajo = calcularReduccionRendimientosTrabajo({
+    anio: 2014,
+    rendimientoPrevioNeto,
+  })
+  const baseImponible = max(CERO, rendimientoPrevioNeto.minus(reduccionTrabajo))
+  const cuotaIntegra = calcularCuotaPorEscala({
+    base: baseImponible,
+    tramos: obtenerTramosIrpfLegacy(2014),
+  })
+  const cuotaMinimoPersonal = MINIMO_PERSONAL_IRPF_LEGACY[2014].mul(
+    primerTipo(2014)
+  )
+  const cuotaTrasDeduccionSmi = max(
+    CERO,
+    cuotaIntegra
+      .minus(cuotaMinimoPersonal)
+      .minus(especificacion.deduccionObtencionRendimientosTrabajo(bruto))
+  )
+  const limiteRetencionNomina = max(
+    CERO,
+    bruto
+      .minus(especificacion.minimoExentoRetencion)
+      .mul(especificacion.tipoMaximoRetencionNomina)
+  )
+
+  return min(cuotaTrasDeduccionSmi, limiteRetencionNomina)
+}
 
 export const calcularConciliacionSimuladorLegacy = ({
   anio,
@@ -66,10 +121,13 @@ export const calcularConciliacionSimuladorLegacy = ({
           .minus(especificacion.minimoExentoRetencion)
           .mul(especificacion.tipoMaximoRetencionNomina)
       )
-      const irpfFinalSimulador = min(
-        cuotaTrasDeduccionSmi,
-        limiteRetencionNomina
-      )
+      const irpfFinalSimulador =
+        anio === 2014
+          ? calcularIrpfFinalSimuladorLegacy2014({
+              bruto,
+              especificacion,
+            })
+          : min(cuotaTrasDeduccionSmi, limiteRetencionNomina)
       const irpfFinalSimuladorCentimos = eurosACentimos(irpfFinalSimulador)
 
       return {

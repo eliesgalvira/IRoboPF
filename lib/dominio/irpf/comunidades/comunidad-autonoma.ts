@@ -40,6 +40,10 @@ import {
   obtenerEscalaAutonomicaIrpf2015,
   TRAMOS_IRPF_ESTATAL_GENERAL_2015,
 } from "../../normativa/datos/irpf-autonomico-2015"
+import {
+  obtenerEscalaAutonomicaIrpf2014,
+  TRAMOS_IRPF_ESTATAL_GENERAL_2014,
+} from "../../normativa/datos/irpf-autonomico-2014"
 import { obtenerEscalaAutonomicaIrpf2021 } from "../../normativa/datos/irpf-autonomico-2021"
 import { obtenerEscalaAutonomicaIrpf2022 } from "../../normativa/datos/irpf-autonomico-2022"
 import { obtenerEscalaAutonomicaIrpf2023 } from "../../normativa/datos/irpf-autonomico-2023"
@@ -90,6 +94,10 @@ import {
   MINIMOS_ESTATALES_2015,
   obtenerMinimosAutonomicosIrpf2015,
 } from "../../normativa/datos/minimos-autonomicos-2015"
+import {
+  MINIMOS_ESTATALES_2014,
+  obtenerMinimosAutonomicosIrpf2014,
+} from "../../normativa/datos/minimos-autonomicos-2014"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
 export interface EntradaParametrosComunidadAutonoma {
@@ -122,6 +130,32 @@ export interface ComunidadAutonomaNoSoportada {
 export type ResultadoParametrosComunidadAutonoma =
   | ParametrosComunidadAutonoma
   | ComunidadAutonomaNoSoportada
+
+const resolverParametrosComunidadAutonoma2014 = ({
+  baseLiquidableGeneral,
+  comunidadAutonoma,
+}: Pick<
+  EntradaParametrosComunidadAutonoma,
+  "baseLiquidableGeneral" | "comunidadAutonoma"
+>): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2014(comunidadAutonoma)
+
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2014,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2014,
+    escalaAutonomicaIgualEstatal: false,
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2014,
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2014({
+      baseLiquidableGeneral,
+      comunidadAutonoma,
+    }),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas: [],
+  }
+}
 
 const resolverParametrosComunidadAutonoma2015 = ({
   baseLiquidableGeneral,
@@ -367,6 +401,12 @@ export const obtenerParametrosComunidadAutonoma = ({
   fechaFallecimiento,
 }: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>
   Match.value(anio).pipe(
+    Match.when(2014, () =>
+      resolverParametrosComunidadAutonoma2014({
+        baseLiquidableGeneral,
+        comunidadAutonoma,
+      })
+    ),
     Match.when(2015, () =>
       resolverParametrosComunidadAutonoma2015({
         baseLiquidableGeneral,
