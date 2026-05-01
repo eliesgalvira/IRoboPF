@@ -650,6 +650,150 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it("liquida 2014 con minimos pre-reforma y sin gasto fijo general de trabajo", () => {
+    const caso = {
+      anio: 2014,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      gastosDeduciblesTrabajoCentimos: 0,
+      reduccionRendimientosTrabajoCentimos: 265_200,
+      baseImponibleGeneralCentimos: 2_544_300,
+      cuotaIntegraGeneralCentimos: 670_327,
+      cuotaMinimoPersonalCentimos: 127_487,
+      cuotaLiquidaCentimos: 542_840,
+      cuotaDiferencialCentimos: 542_840,
+    })
+  })
+
+  it("liquida 2014 con la escala del ahorro pre-reforma al 21, 25 y 27 por ciento", () => {
+    const caso = {
+      anio: 2014,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        gananciasPatrimoniales: [
+          {
+            importeGananciaCentimos: 400_000_00,
+            tratamientoMayores65: { _tag: "SinExencionMayores65" },
+          },
+        ],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 40_000_000,
+      cuotaIntegraAhorroCentimos: 10_728_000,
+      cuotaLiquidaCentimos: 11_270_840,
+      cuotaDiferencialCentimos: 11_270_840,
+    })
+  })
+
+  it("integra en base general las ganancias 2014 con permanencia de un año o menos", () => {
+    const caso = {
+      anio: 2014,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        gananciasPatrimoniales: [
+          {
+            importeGananciaCentimos: 10_000_00,
+            fechaAdquisicion: "2014-01-01",
+            fechaTransmision: "2014-12-31",
+            tratamientoMayores65: { _tag: "SinExencionMayores65" },
+          },
+        ],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      gananciaPatrimonialTotalCentimos: 1_000_000,
+      baseImponibleGeneralCentimos: 3_544_300,
+      baseLiquidableAhorroCentimos: 0,
+      cuotaLiquidaCentimos: 867_198,
+      cuotaDiferencialCentimos: 867_198,
+    })
+  })
+
+  it("integra en base del ahorro las ganancias 2014 con permanencia superior a un año", () => {
+    const caso = {
+      anio: 2014,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        gananciasPatrimoniales: [
+          {
+            importeGananciaCentimos: 10_000_00,
+            fechaAdquisicion: "2014-01-01",
+            fechaTransmision: "2015-01-02",
+            tratamientoMayores65: { _tag: "SinExencionMayores65" },
+          },
+        ],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      gananciaPatrimonialTotalCentimos: 1_000_000,
+      baseImponibleGeneralCentimos: 2_544_300,
+      baseLiquidableAhorroCentimos: 1_000_000,
+      cuotaIntegraAhorroCentimos: 226_000,
+      cuotaLiquidaCentimos: 768_840,
+      cuotaDiferencialCentimos: 768_840,
+    })
+  })
+
   it("exime la transmisión de vivienda habitual por contribuyente mayor de 65 años", () => {
     const caso = {
       anio: 2025,

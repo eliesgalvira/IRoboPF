@@ -16,6 +16,7 @@ import {
   type ServicioCotizacionesSociales,
 } from "../../laboral/cotizaciones-sociales"
 import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
+import { MINIMOS_ESTATALES_2014 } from "../../normativa/datos/minimos-autonomicos-2014"
 import {
   ParametrosNormativosIrpf,
   type ServicioParametrosNormativosIrpf,
@@ -211,7 +212,9 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     centimosAEuros
   )
   const minimosEstatales =
-    dependencias.parametrosNormativos.minimosEstatales2025
+    caso.anio === 2014
+      ? MINIMOS_ESTATALES_2014
+      : dependencias.parametrosNormativos.minimosEstatales2025
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
@@ -235,17 +238,19 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     fechaFallecimiento: caso.fechaFallecimiento,
     rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
   })
+  const gananciasPatrimoniales = calcularGananciasPatrimonialesPorTransmision({
+    anio: caso.anio,
+    edadContribuyente: caso.situacionFamiliar.edad,
+    ganancias: caso.rendimientos.gananciasPatrimoniales ?? [],
+    convertirCentimos: centimosAEuros,
+  })
   const baseImponibleGeneral = calcularBaseImponibleGeneral({
+    gananciaPatrimonialGeneral: gananciasPatrimoniales.gananciaSujetaGeneral,
     reduccionRendimientosTrabajo,
     rendimientoCapitalInmobiliario,
     rendimientoTrabajo,
   })
   const baseLiquidableGeneral = baseImponibleGeneral
-  const gananciasPatrimoniales = calcularGananciasPatrimonialesPorTransmision({
-    edadContribuyente: caso.situacionFamiliar.edad,
-    ganancias: caso.rendimientos.gananciasPatrimoniales ?? [],
-    convertirCentimos: centimosAEuros,
-  })
   const baseLiquidableAhorro = calcularBaseImponibleAhorro({
     gananciasPatrimoniales,
   })

@@ -158,6 +158,12 @@ export const TRAMOS_IRPF_AHORRO_2015: TramosIrpf = [
   [importe(Infinity), importe("0.235")],
 ]
 
+export const TRAMOS_IRPF_AHORRO_2014: TramosIrpf = [
+  [importe(6000), importe("0.21")],
+  [importe(24000), importe("0.25")],
+  [importe(Infinity), importe("0.27")],
+]
+
 export const REDUCCION_MOVILIDAD_GEOGRAFICA_TRANSITORIA_2015 = {
   condicionAplicacion:
     "Aceptacion de puesto de trabajo en 2014 con derecho a reduccion por movilidad geografica y continuidad en dicho trabajo en 2015",
@@ -170,6 +176,56 @@ export const REDUCCION_MOVILIDAD_GEOGRAFICA_TRANSITORIA_2015 = {
       "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2015/Manual_Renta_2015_es_es.pdf",
   },
 } as const
+
+export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2014 = {
+  transmisionConPermanenciaUnAnioOMenos: "base-general",
+  transmisionConPermanenciaSuperiorAUnAnio: "base-ahorro",
+  noDerivadaDeTransmision: "base-general",
+  limiteCompensacionSaldoNegativoGananciasGeneralContraRendimientos:
+    importe("0.10"),
+  fuente: {
+    titulo:
+      "AEAT Manual practico Renta 2014. Integracion y compensacion de ganancias y perdidas patrimoniales",
+    referencia:
+      "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf",
+  },
+} as const
+
+export type BaseIntegracionGananciaPatrimonial2014 =
+  | "base-general"
+  | "base-ahorro"
+
+const sumarUnAnioFechaCivilIso = (fechaIso: string): string => {
+  const [year, month, day] = fechaIso.split("-").map(Number)
+  const fecha = new Date(Date.UTC(year + 1, month - 1, day))
+  const yyyy = fecha.getUTCFullYear()
+  const mm = String(fecha.getUTCMonth() + 1).padStart(2, "0")
+  const dd = String(fecha.getUTCDate()).padStart(2, "0")
+
+  return `${yyyy}-${mm}-${dd}`
+}
+
+export const clasificarGananciaPatrimonial2014 = ({
+  derivaDeTransmision,
+  fechaAdquisicion,
+  fechaTransmision,
+}: {
+  readonly derivaDeTransmision: boolean
+  readonly fechaAdquisicion?: string | undefined
+  readonly fechaTransmision?: string | undefined
+}): BaseIntegracionGananciaPatrimonial2014 => {
+  if (!derivaDeTransmision) {
+    return "base-general"
+  }
+
+  if (fechaAdquisicion === undefined || fechaTransmision === undefined) {
+    return "base-ahorro"
+  }
+
+  return fechaTransmision > sumarUnAnioFechaCivilIso(fechaAdquisicion)
+    ? "base-ahorro"
+    : "base-general"
+}
 
 export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
   Match.value(anio).pipe(
@@ -187,6 +243,7 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
   return Match.value(anio).pipe(
+    Match.when(2014, () => TRAMOS_IRPF_AHORRO_2014),
     Match.when(2015, () => TRAMOS_IRPF_AHORRO_2015),
     Match.when(2016, () => TRAMOS_IRPF_AHORRO_2016),
     Match.when(2017, () => TRAMOS_IRPF_AHORRO_2017),

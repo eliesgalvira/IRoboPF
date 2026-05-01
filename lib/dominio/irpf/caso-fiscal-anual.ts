@@ -83,6 +83,8 @@ export type TratamientoGananciaPatrimonialMayores65 =
 export interface GananciaPatrimonialTransmision {
   readonly importeGananciaCentimos: number
   readonly tratamientoMayores65: TratamientoGananciaPatrimonialMayores65
+  readonly fechaAdquisicion?: string | undefined
+  readonly fechaTransmision?: string | undefined
 }
 
 export interface RendimientosCasoFiscal {
