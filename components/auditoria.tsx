@@ -1116,6 +1116,9 @@ const ticksPorcentaje = (dominio: readonly [number, number]) => {
   )
 }
 
+const formatearTickPorcentaje = (valor: number): string =>
+  `${Math.round(valor * 100)}%`
+
 const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
   if (valores.length === 0) return [-1000, 1000] as const
 
@@ -1368,7 +1371,7 @@ function Visualizaciones({
                 domain={dominioTipoEfectivoIrpf}
                 ticks={ticksTipoEfectivoIrpf}
                 fontSize={14}
-                tickFormatter={(valor: number) => porcentaje.format(valor)}
+                tickFormatter={formatearTickPorcentaje}
               />
               <ChartTooltip
                 isAnimationActive={false}
