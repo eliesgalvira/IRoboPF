@@ -6,8 +6,34 @@ import { Check, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-const Combobox = ComboboxPrimitive.Root
+const ComboboxAnchorContext =
+  React.createContext<React.RefObject<HTMLDivElement | null> | null>(null)
+
+function Combobox<Value, Multiple extends boolean | undefined = false>(
+  props: React.ComponentProps<typeof ComboboxPrimitive.Root<Value, Multiple>>
+) {
+  const anchor = React.useRef<HTMLDivElement>(null)
+
+  return (
+    <ComboboxAnchorContext.Provider value={anchor}>
+      <ComboboxPrimitive.Root {...props} />
+    </ComboboxAnchorContext.Provider>
+  )
+}
+
 const ComboboxValue = ComboboxPrimitive.Value
+
+const asignarRefs =
+  <T,>(...refs: ReadonlyArray<React.Ref<T> | undefined>) =>
+  (valor: T) => {
+    for (const ref of refs) {
+      if (typeof ref === "function") {
+        ref(valor)
+      } else if (ref !== undefined && ref !== null) {
+        ref.current = valor
+      }
+    }
+  }
 
 function ComboboxInput({
   className,
@@ -24,20 +50,23 @@ function ComboboxInput({
   )
 }
 
-function ComboboxChips({
-  className,
-  ...props
-}: React.ComponentProps<typeof ComboboxPrimitive.Chips>) {
+const ComboboxChips = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Chips>
+>(function ComboboxChips({ className, ...props }, ref) {
+  const anchor = React.useContext(ComboboxAnchorContext)
+
   return (
     <ComboboxPrimitive.Chips
       className={cn(
         "flex min-h-10 flex-wrap items-center gap-1 border-2 border-[var(--rule)] bg-[var(--paper)] px-2 py-1 shadow-[3px_3px_0_0_var(--rule)]",
         className
       )}
+      ref={asignarRefs(ref, anchor)}
       {...props}
     />
   )
-}
+})
 
 function ComboboxChip({
   className,
@@ -83,9 +112,12 @@ function ComboboxContent({
   children,
   ...props
 }: React.ComponentProps<typeof ComboboxPrimitive.Popup>) {
+  const anchor = React.useContext(ComboboxAnchorContext)
+
   return (
     <ComboboxPrimitive.Portal>
       <ComboboxPrimitive.Positioner
+        anchor={anchor}
         sideOffset={4}
         className="z-30 w-[var(--anchor-width)]"
       >
