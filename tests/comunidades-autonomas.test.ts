@@ -19,6 +19,7 @@ import { obtenerMinimosAutonomicosIrpf2017 } from "../lib/dominio/normativa/dato
 import { obtenerMinimosAutonomicosIrpf2016 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2016"
 import { obtenerMinimosAutonomicosIrpf2015 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2015"
 import { obtenerMinimosAutonomicosIrpf2014 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2014"
+import { obtenerMinimosAutonomicosIrpf2013 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2013"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -755,6 +756,56 @@ describe("comunidad autonoma", () => {
     )
     expect(minimosMadrid2014.descendientes.tercero.toString()).toBe("4039.2")
     expect(minimosRioja2014.contribuyente.general.toString()).toBe("5151")
+  })
+
+  it("resuelve 2013 como ejercicio pre-reforma 2015 sin regla condicional de Galicia", () => {
+    const simulada2013 = obtenerParametrosComunidadAutonoma({
+      anio: 2013,
+      comunidadAutonoma: "simulada-estatal",
+    })
+    const galicia2013 = obtenerParametrosComunidadAutonoma({
+      anio: 2013,
+      baseLiquidableGeneral: new Decimal("12000"),
+      comunidadAutonoma: "galicia",
+    })
+    const madrid2013 = obtenerParametrosComunidadAutonoma({
+      anio: 2013,
+      comunidadAutonoma: "madrid",
+    })
+    const minimosMadrid2013 = obtenerMinimosAutonomicosIrpf2013("madrid")
+    const minimosCantabria2013 = obtenerMinimosAutonomicosIrpf2013("cantabria")
+
+    expect(simulada2013).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "simulada-estatal",
+      anio: 2013,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+    })
+
+    if (simulada2013._tag === "ParametrosComunidadAutonoma") {
+      expect(simulada2013.escalaEstatalGeneral[0][1].toString()).toBe("0.1275")
+      expect(simulada2013.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.12"
+      )
+      expect(
+        simulada2013.minimosAutonomicos.contribuyente.general.toString()
+      ).toBe("5151")
+    }
+
+    if (galicia2013._tag === "ParametrosComunidadAutonoma") {
+      expect(galicia2013.escalaAutonomica.tramos[0][1].toString()).toBe("0.12")
+    }
+
+    if (madrid2013._tag === "ParametrosComunidadAutonoma") {
+      expect(madrid2013.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.116"
+      )
+      expect(madrid2013.minimoAutonomicoIgualEstatal).toBe(false)
+    }
+
+    expect(minimosMadrid2013.descendientes.tercero.toString()).toBe("4039.2")
+    expect(minimosCantabria2013.descendientes.primero.toString()).toBe("1836")
   })
 
   it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {

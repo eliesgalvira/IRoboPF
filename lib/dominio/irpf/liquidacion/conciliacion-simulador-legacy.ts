@@ -48,10 +48,12 @@ const primerTipo = (anio: AnioFiscal): Decimal =>
     Match.orElse((tramo) => tramo[1])
   )
 
-const calcularIrpfFinalSimuladorLegacy2014 = ({
+const calcularIrpfFinalSimuladorLegacyHasta2014 = ({
+  anio,
   bruto,
   especificacion,
 }: {
+  readonly anio: AnioFiscal
   readonly bruto: Decimal
   readonly especificacion: ReturnType<
     typeof obtenerEspecificacionCompatibilidadHistorica
@@ -59,20 +61,20 @@ const calcularIrpfFinalSimuladorLegacy2014 = ({
 }): Decimal => {
   const cotizaciones = calcularCotizacionesSocialesLegacy({
     salarioBrutoAnual: bruto,
-    anio: 2014,
+    anio,
   })
   const rendimientoPrevioNeto = bruto.minus(cotizaciones.cotizacionTrabajador)
   const reduccionTrabajo = calcularReduccionRendimientosTrabajo({
-    anio: 2014,
+    anio,
     rendimientoPrevioNeto,
   })
   const baseImponible = max(CERO, rendimientoPrevioNeto.minus(reduccionTrabajo))
   const cuotaIntegra = calcularCuotaPorEscala({
     base: baseImponible,
-    tramos: obtenerTramosIrpfLegacy(2014),
+    tramos: obtenerTramosIrpfLegacy(anio),
   })
-  const cuotaMinimoPersonal = MINIMO_PERSONAL_IRPF_LEGACY[2014].mul(
-    primerTipo(2014)
+  const cuotaMinimoPersonal = MINIMO_PERSONAL_IRPF_LEGACY[anio].mul(
+    primerTipo(anio)
   )
   const cuotaTrasDeduccionSmi = max(
     CERO,
@@ -122,8 +124,9 @@ export const calcularConciliacionSimuladorLegacy = ({
           .mul(especificacion.tipoMaximoRetencionNomina)
       )
       const irpfFinalSimulador =
-        anio === 2014
-          ? calcularIrpfFinalSimuladorLegacy2014({
+        anio <= 2014
+          ? calcularIrpfFinalSimuladorLegacyHasta2014({
+              anio,
               bruto,
               especificacion,
             })

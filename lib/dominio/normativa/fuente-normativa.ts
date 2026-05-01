@@ -100,6 +100,14 @@ export const fuenteAeatManualRenta2014Parte1: FuenteNormativaNormalizada = {
   nota: "Fuente oficial AEAT consultada para parametros 2014 pre-reforma 2015; no sustituye a la normativa publicada.",
 }
 
+export const fuenteAeatManualRenta2013Parte1: FuenteNormativaNormalizada = {
+  _tag: "FuenteNormativaNormalizada",
+  titulo: "Manual practico de Renta 2013. Parte 1",
+  referencia:
+    "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2013_es_es.pdf",
+  nota: "PDF historico AEAT usado para parametros 2013 pre-reforma 2015; no sustituye a la normativa publicada.",
+}
+
 export const fuenteAeatDeduccionesAutonomicas2025: FuenteNormativaNormalizada =
   {
     _tag: "FuenteNormativaNormalizada",
