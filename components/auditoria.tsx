@@ -25,6 +25,7 @@ import {
   centimosAEuros,
   eurosACentimos,
   formatearCentimosEnteros,
+  formatearPuntosPorcentuales,
   dinero,
   porcentaje,
   type AnioFiscal,
@@ -485,7 +486,7 @@ function DialogoExportacionCompatible({
               <div className="grid gap-2">
                 <div className="flex justify-between font-[family-name:var(--mono)] text-sm tabular-nums">
                   <span>{progreso?.hoja ?? "LIBRO"}</span>
-                  <span>{progresoVisible.toFixed(1)}%</span>
+                  <span>{formatearPuntosPorcentuales(progresoVisible)}</span>
                 </div>
                 <div className="h-4 border-2 border-[var(--rule)] bg-[var(--paper-2)]">
                   <div
@@ -1367,7 +1368,7 @@ function Visualizaciones({
                 domain={dominioTipoEfectivoIrpf}
                 ticks={ticksTipoEfectivoIrpf}
                 fontSize={14}
-                tickFormatter={(valor: number) => `${Math.round(valor * 100)}%`}
+                tickFormatter={(valor: number) => porcentaje.format(valor)}
               />
               <ChartTooltip
                 isAnimationActive={false}
