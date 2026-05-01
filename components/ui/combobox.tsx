@@ -1,115 +1,155 @@
 "use client"
 
 import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox"
+import { Check, X } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-export interface OpcionCombobox<TValor extends string> {
-  readonly valor: TValor
-  readonly etiqueta: string
+const Combobox = ComboboxPrimitive.Root
+const ComboboxValue = ComboboxPrimitive.Value
+
+function ComboboxInput({
+  className,
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.Input>) {
+  return (
+    <ComboboxPrimitive.Input
+      className={cn(
+        "min-w-0 flex-1 bg-transparent px-2 py-1 font-[family-name:var(--mono)] text-sm outline-none placeholder:text-[var(--ink-soft)]",
+        className
+      )}
+      {...props}
+    />
+  )
 }
 
-export function Combobox<TValor extends string>({
+function ComboboxChips({
   className,
-  classNames,
-  compacto = false,
-  etiqueta,
-  opciones,
-  onChange,
-  valor,
-}: {
-  readonly className?: string
-  readonly classNames?: {
-    readonly etiqueta?: string
-    readonly trigger?: string
-    readonly listbox?: string
-    readonly opcion?: string
-    readonly opcionActiva?: string
-  }
-  readonly compacto?: boolean
-  readonly etiqueta: string
-  readonly opciones: ReadonlyArray<OpcionCombobox<TValor>>
-  readonly onChange: (valor: TValor) => void
-  readonly valor: TValor
-}) {
-  const [abierto, fijarAbierto] = React.useState(false)
-  const contenedor = React.useRef<HTMLDivElement>(null)
-  const opcionSeleccionada = opciones.find((opcion) => opcion.valor === valor)
-
-  React.useEffect(() => {
-    const cerrarAlPulsarFuera = (evento: MouseEvent) => {
-      if (!contenedor.current?.contains(evento.target as Node)) {
-        fijarAbierto(false)
-      }
-    }
-
-    document.addEventListener("mousedown", cerrarAlPulsarFuera)
-    return () => document.removeEventListener("mousedown", cerrarAlPulsarFuera)
-  }, [])
-
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.Chips>) {
   return (
-    <div className={cn("relative grid gap-2", className)} ref={contenedor}>
-      <span
-        className={cn(
-          "flex min-h-10 items-end text-sm leading-tight font-bold",
-          classNames?.etiqueta
-        )}
-      >
-        {etiqueta}
-      </span>
-      <Button
-        aria-expanded={abierto}
-        className={cn(
-          "justify-between border-[var(--rule)] bg-[var(--paper-2)] px-3 font-[var(--mono)] text-[var(--ink)] hover:bg-[var(--paper-2)]",
-          compacto ? "h-9 text-sm" : "h-11 text-base",
-          classNames?.trigger
-        )}
-        onClick={() => fijarAbierto((actual) => !actual)}
-        role="combobox"
-        type="button"
-        variant="outline"
-      >
-        <span className="truncate">
-          {opcionSeleccionada?.etiqueta ?? "Seleccionar"}
-        </span>
-        <ChevronsUpDown aria-hidden className="size-4 opacity-60" />
-      </Button>
-      {abierto ? (
-        <div
-          className={cn(
-            "absolute top-full z-20 mt-1 max-h-72 w-full overflow-auto border border-[var(--rule)] bg-[var(--paper)] shadow-[4px_4px_0_var(--rule)]",
-            classNames?.listbox
-          )}
-          role="listbox"
-        >
-          {opciones.map((opcion) => (
-            <Button
-              aria-selected={opcion.valor === valor}
-              className={cn(
-                "flex min-h-10 w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm hover:bg-[var(--paper-2)]",
-                classNames?.opcion,
-                opcion.valor === valor && "font-bold",
-                opcion.valor === valor && classNames?.opcionActiva
-              )}
-              key={opcion.valor}
-              onClick={() => {
-                onChange(opcion.valor)
-                fijarAbierto(false)
-              }}
-              role="option"
-              type="button"
-              variant="unstyled"
-            >
-              <span>{opcion.etiqueta}</span>
-              {opcion.valor === valor ? (
-                <Check aria-hidden className="size-4 shrink-0" />
-              ) : null}
-            </Button>
-          ))}
-        </div>
-      ) : null}
-    </div>
+    <ComboboxPrimitive.Chips
+      className={cn(
+        "flex min-h-10 flex-wrap items-center gap-1 border-2 border-[var(--rule)] bg-[var(--paper)] px-2 py-1 shadow-[3px_3px_0_0_var(--rule)]",
+        className
+      )}
+      {...props}
+    />
   )
+}
+
+function ComboboxChip({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.Chip>) {
+  return (
+    <ComboboxPrimitive.Chip
+      className={cn(
+        "inline-flex items-center gap-1 border-2 border-[var(--rule)] bg-[var(--paper-2)] px-2 py-0.5 font-[family-name:var(--mono)] text-xs font-bold",
+        className
+      )}
+      {...props}
+    >
+      {children}
+      <ComboboxPrimitive.ChipRemove
+        aria-label={`Quitar ${children}`}
+        className="grid size-4 place-items-center hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none"
+      >
+        <X aria-hidden className="size-3" />
+      </ComboboxPrimitive.ChipRemove>
+    </ComboboxPrimitive.Chip>
+  )
+}
+
+function ComboboxChipsInput({
+  className,
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.Input>) {
+  return (
+    <ComboboxPrimitive.Input
+      className={cn(
+        "min-w-36 flex-1 bg-transparent px-1 py-1 font-[family-name:var(--mono)] text-sm outline-none placeholder:text-[var(--ink-soft)]",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function ComboboxContent({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.Popup>) {
+  return (
+    <ComboboxPrimitive.Portal>
+      <ComboboxPrimitive.Positioner sideOffset={4} className="z-30">
+        <ComboboxPrimitive.Popup
+          className={cn(
+            "max-h-72 min-w-[var(--anchor-width)] overflow-auto border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)] outline-none",
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </ComboboxPrimitive.Popup>
+      </ComboboxPrimitive.Positioner>
+    </ComboboxPrimitive.Portal>
+  )
+}
+
+function ComboboxEmpty({
+  className,
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.Empty>) {
+  return (
+    <ComboboxPrimitive.Empty
+      className={cn("px-3 py-2 text-sm text-[var(--ink-soft)]", className)}
+      {...props}
+    />
+  )
+}
+
+function ComboboxList({
+  className,
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.List>) {
+  return <ComboboxPrimitive.List className={cn("grid", className)} {...props} />
+}
+
+function ComboboxItem({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof ComboboxPrimitive.Item>) {
+  return (
+    <ComboboxPrimitive.Item
+      className={cn(
+        "grid min-h-10 cursor-default grid-cols-[1rem_minmax(0,1fr)] items-center gap-2 px-3 py-2 text-sm outline-none",
+        "data-[highlighted]:bg-[var(--mark)] data-[highlighted]:text-[var(--mark-ink)] data-[selected]:font-bold",
+        className
+      )}
+      {...props}
+    >
+      <ComboboxPrimitive.ItemIndicator className="text-[var(--ink)] data-[highlighted]:text-[var(--mark-ink)]">
+        <Check aria-hidden className="size-4" />
+      </ComboboxPrimitive.ItemIndicator>
+      <span className="truncate">{children}</span>
+    </ComboboxPrimitive.Item>
+  )
+}
+
+export {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxValue,
 }
