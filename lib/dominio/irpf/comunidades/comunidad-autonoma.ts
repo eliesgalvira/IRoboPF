@@ -1,3 +1,4 @@
+import type Decimal from "decimal.js"
 import { Context, Effect, Layer, Match, Option } from "effect"
 
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
@@ -35,6 +36,10 @@ import {
   obtenerEscalaAutonomicaIrpf2016,
   TRAMOS_IRPF_ESTATAL_GENERAL_2016,
 } from "../../normativa/datos/irpf-autonomico-2016"
+import {
+  obtenerEscalaAutonomicaIrpf2015,
+  TRAMOS_IRPF_ESTATAL_GENERAL_2015,
+} from "../../normativa/datos/irpf-autonomico-2015"
 import { obtenerEscalaAutonomicaIrpf2021 } from "../../normativa/datos/irpf-autonomico-2021"
 import { obtenerEscalaAutonomicaIrpf2022 } from "../../normativa/datos/irpf-autonomico-2022"
 import { obtenerEscalaAutonomicaIrpf2023 } from "../../normativa/datos/irpf-autonomico-2023"
@@ -81,11 +86,16 @@ import {
   MINIMOS_ESTATALES_2016,
   obtenerMinimosAutonomicosIrpf2016,
 } from "../../normativa/datos/minimos-autonomicos-2016"
+import {
+  MINIMOS_ESTATALES_2015,
+  obtenerMinimosAutonomicosIrpf2015,
+} from "../../normativa/datos/minimos-autonomicos-2015"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
 export interface EntradaParametrosComunidadAutonoma {
   readonly anio: AnioFiscal
   readonly comunidadAutonoma: ComunidadAutonoma
+  readonly baseLiquidableGeneral?: Decimal | undefined
   readonly fechaFallecimiento?: Date | undefined
 }
 
@@ -112,6 +122,34 @@ export interface ComunidadAutonomaNoSoportada {
 export type ResultadoParametrosComunidadAutonoma =
   | ParametrosComunidadAutonoma
   | ComunidadAutonomaNoSoportada
+
+const resolverParametrosComunidadAutonoma2015 = ({
+  baseLiquidableGeneral,
+  comunidadAutonoma,
+  fechaFallecimiento,
+}: Pick<
+  EntradaParametrosComunidadAutonoma,
+  "baseLiquidableGeneral" | "comunidadAutonoma" | "fechaFallecimiento"
+>): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2015(comunidadAutonoma)
+
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2015,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2015,
+    escalaAutonomicaIgualEstatal: false,
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2015,
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2015({
+      baseLiquidableGeneral,
+      comunidadAutonoma,
+      fechaFallecimiento,
+    }),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas: [],
+  }
+}
 
 const resolverParametrosComunidadAutonoma2016 = (
   comunidadAutonoma: ComunidadAutonoma
@@ -324,10 +362,18 @@ const resolverParametrosComunidadAutonoma2025 = (
 
 export const obtenerParametrosComunidadAutonoma = ({
   anio,
+  baseLiquidableGeneral,
   comunidadAutonoma,
   fechaFallecimiento,
 }: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>
   Match.value(anio).pipe(
+    Match.when(2015, () =>
+      resolverParametrosComunidadAutonoma2015({
+        baseLiquidableGeneral,
+        comunidadAutonoma,
+        fechaFallecimiento,
+      })
+    ),
     Match.when(2016, () =>
       resolverParametrosComunidadAutonoma2016(comunidadAutonoma)
     ),

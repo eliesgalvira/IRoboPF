@@ -152,6 +152,25 @@ export const TRAMOS_IRPF_AHORRO_2017: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
 
 export const TRAMOS_IRPF_AHORRO_2016: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
 
+export const TRAMOS_IRPF_AHORRO_2015: TramosIrpf = [
+  [importe(6000), importe("0.195")],
+  [importe(50000), importe("0.215")],
+  [importe(Infinity), importe("0.235")],
+]
+
+export const REDUCCION_MOVILIDAD_GEOGRAFICA_TRANSITORIA_2015 = {
+  condicionAplicacion:
+    "Aceptacion de puesto de trabajo en 2014 con derecho a reduccion por movilidad geografica y continuidad en dicho trabajo en 2015",
+  incompatibilidad:
+    "Se aplica en lugar del gasto adicional por movilidad geografica del art. 19.2.f LIRPF vigente desde 2015",
+  fuente: {
+    titulo:
+      "AEAT Manual practico Renta 2015. Regimen transitorio de movilidad geografica",
+    referencia:
+      "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2015/Manual_Renta_2015_es_es.pdf",
+  },
+} as const
+
 export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
   Match.value(anio).pipe(
     Match.when(
@@ -168,6 +187,7 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
   return Match.value(anio).pipe(
+    Match.when(2015, () => TRAMOS_IRPF_AHORRO_2015),
     Match.when(2016, () => TRAMOS_IRPF_AHORRO_2016),
     Match.when(2017, () => TRAMOS_IRPF_AHORRO_2017),
     Match.when(2018, () => TRAMOS_IRPF_AHORRO_2018),

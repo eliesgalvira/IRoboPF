@@ -212,37 +212,6 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   )
   const minimosEstatales =
     dependencias.parametrosNormativos.minimosEstatales2025
-  const resultadoParametrosComunidad =
-    yield* dependencias.parametrosNormativos.obtenerParametrosComunidadAutonoma(
-      {
-        anio: caso.anio,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fechaFallecimiento: caso.fechaFallecimiento,
-      }
-    )
-  const parametrosComunidad = yield* Match.valueTags(
-    resultadoParametrosComunidad,
-    {
-      ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
-        Effect.fail({
-          _tag: "ResultadoNoSoportado",
-          motivo: parametrosComunidad.motivo,
-          fuenteReconocida: parametrosComunidad.fuenteReconocida,
-          rastro: rastroResultadoNoSoportado({
-            caso,
-            fuentePaso:
-              "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
-            tituloFuentePaso: "Manual Renta 2025 Parte 2",
-            tituloPaso: "Comunidad autonoma no soportada",
-            descripcionPaso:
-              "El caso fiscal reconoce una comunidad autonoma real, pero esta version del motor solo calcula el caso tecnico de contraste con tramo autonomico igualado al estatal.",
-          }),
-        } satisfies ResultadoNoSoportado),
-      ParametrosComunidadAutonoma: (parametrosComunidad) =>
-        Effect.succeed(parametrosComunidad),
-    }
-  )
-  const tramosIrpfEstatalGeneral = parametrosComunidad.escalaEstatalGeneral
   const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
     anio: caso.anio,
     rendimientoIntegro: rendimientoIntegroTrabajo,
@@ -280,6 +249,38 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   const baseLiquidableAhorro = calcularBaseImponibleAhorro({
     gananciasPatrimoniales,
   })
+  const resultadoParametrosComunidad =
+    yield* dependencias.parametrosNormativos.obtenerParametrosComunidadAutonoma(
+      {
+        anio: caso.anio,
+        baseLiquidableGeneral,
+        comunidadAutonoma: caso.comunidadAutonoma,
+        fechaFallecimiento: caso.fechaFallecimiento,
+      }
+    )
+  const parametrosComunidad = yield* Match.valueTags(
+    resultadoParametrosComunidad,
+    {
+      ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
+        Effect.fail({
+          _tag: "ResultadoNoSoportado",
+          motivo: parametrosComunidad.motivo,
+          fuenteReconocida: parametrosComunidad.fuenteReconocida,
+          rastro: rastroResultadoNoSoportado({
+            caso,
+            fuentePaso:
+              "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
+            tituloFuentePaso: "Manual Renta 2025 Parte 2",
+            tituloPaso: "Comunidad autonoma no soportada",
+            descripcionPaso:
+              "El caso fiscal reconoce una comunidad autonoma real, pero esta version del motor solo calcula el caso tecnico de contraste con tramo autonomico igualado al estatal.",
+          }),
+        } satisfies ResultadoNoSoportado),
+      ParametrosComunidadAutonoma: (parametrosComunidad) =>
+        Effect.succeed(parametrosComunidad),
+    }
+  )
+  const tramosIrpfEstatalGeneral = parametrosComunidad.escalaEstatalGeneral
   const usaEscalaAutonomicaReal =
     !parametrosComunidad.escalaAutonomicaIgualEstatal
   const cuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal
