@@ -24,6 +24,7 @@ import {
   ANIOS_COMPARABLES,
   centimosAEuros,
   eurosACentimos,
+  formatearCentimos,
   formatearCentimosEnteros,
   formatearPuntosPorcentuales,
   dinero,
@@ -68,6 +69,7 @@ import {
   exportarAuditoriaEducativaExcel,
   type ProgresoExportacionCompatible,
 } from "@/lib/export/auditoria-excel"
+import { obtenerEspecificacionCompatibilidadHistorica } from "@/lib/dominio/normativa/datos/compatibilidad-historica"
 import { cn } from "@/lib/utils"
 import { ticksSalarioEuros } from "@/lib/auditoria-graficos"
 
@@ -1119,6 +1121,33 @@ const ticksPorcentaje = (dominio: readonly [number, number]) => {
 const formatearTickPorcentaje = (valor: number): string =>
   `${Math.round(valor * 100)}%`
 
+const deduccionSmiFormula = (anio: AnioFiscal): string =>
+  Match.value(anio).pipe(
+    Match.when(
+      2025,
+      () =>
+        "340,00 € si bruto <= 16.576,00 €; max(0, 340,00 € - 20,00% x (bruto - 16.576,00 €)) si bruto <= 18.276,00 €; 0,00 € si supera el tramo"
+    ),
+    Match.when(
+      2026,
+      () =>
+        "590,89 € si bruto <= 17.094,00 €; max(0, 590,89 € - 20,00% x (bruto - 17.094,00 €)) si bruto supera el tramo"
+    ),
+    Match.orElse(() => "0,00 €")
+  )
+
+const formulaTipoEfectivoIrpf = (anio: AnioFiscal): string => {
+  const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
+  const minimoExentoRetencion = formatearCentimos(
+    eurosACentimos(Number(especificacion.minimoExentoRetencion))
+  )
+  const tipoMaximoRetencion = formatearPuntosPorcentuales(
+    especificacion.tipoMaximoRetencionNomina.mul(100).toString()
+  )
+
+  return `${anio}: tipo efectivo = IRPF final / salario bruto ajustado a inflación. IRPF final = min(max(0, cuota liquidada anual - deducción SMI), max(0, (salario bruto - ${minimoExentoRetencion}) x ${tipoMaximoRetencion})). Deducción SMI: ${deduccionSmiFormula(anio)}.`
+}
+
 const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
   if (valores.length === 0) return [-1000, 1000] as const
 
@@ -1295,8 +1324,8 @@ function Visualizaciones({
         >
           <div className="flex flex-wrap items-start justify-between gap-4">
             <p className="max-w-3xl text-sm leading-5 text-[var(--ink-soft)]">
-              TIPO EFECTIVO DEL IRPF: IRPF FINAL COMO PORCENTAJE DEL SALARIO
-              BRUTO ANUAL AJUSTADO POR IPC.
+              TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA
+              INFLACIÓN
             </p>
             <div
               role="group"
@@ -1419,6 +1448,13 @@ function Visualizaciones({
               ))}
             </LineChart>
           </ChartContainer>
+          <ul className="mt-4 grid gap-2 border-t-2 border-[var(--rule)] pt-4 font-[family-name:var(--mono)] text-xs leading-5 text-[var(--ink-soft)]">
+            {aniosGraficoIrpfVisibles.map((anio) => (
+              <li key={`formula-irpf-${anio}`}>
+                {formulaTipoEfectivoIrpf(anio)}
+              </li>
+            ))}
+          </ul>
         </Tabs.Panel>
         <Tabs.Panel
           value="neto-real"
