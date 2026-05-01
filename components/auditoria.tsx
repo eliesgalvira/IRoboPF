@@ -1506,11 +1506,12 @@ function Visualizaciones({
               />
               <ChartTooltip
                 isAnimationActive={false}
-                allowEscapeViewBox={{ x: true, y: true }}
-                wrapperStyle={{ zIndex: 10 }}
+                allowEscapeViewBox={{ x: false, y: false }}
+                wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
                 cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
                 content={
                   <ChartTooltipContent
+                    className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
                     formatter={(valor, nombre, item) => (
                       <span
                         className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
@@ -1658,11 +1659,12 @@ function Visualizaciones({
               />
               <ChartTooltip
                 isAnimationActive={false}
-                allowEscapeViewBox={{ x: true, y: true }}
-                wrapperStyle={{ zIndex: 10 }}
+                allowEscapeViewBox={{ x: false, y: false }}
+                wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
                 cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
                 content={
                   <ChartTooltipContent
+                    className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
                     formatter={(valor, nombre, item) => (
                       <span
                         className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
