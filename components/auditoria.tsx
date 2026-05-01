@@ -357,12 +357,8 @@ function AuditoriaImpl() {
         <BarraFiltros
           minimoCentimos={minimoCentimos}
           maximoCentimos={maximoCentimos}
-          anioComparado={escenarioAuditoria.anioComparado}
           fijarMinimoCentimos={fijarMinimoCentimos}
           fijarMaximoCentimos={fijarMaximoCentimos}
-          fijarAnioComparado={(anioComparado) =>
-            actualizarEscenarioAuditoria({ anioComparado })
-          }
         />
 
         <ControlesAuditoriaNormativa
@@ -730,24 +726,20 @@ function ControlesAuditoriaNormativa({
 function BarraFiltros({
   minimoCentimos,
   maximoCentimos,
-  anioComparado,
   fijarMinimoCentimos,
   fijarMaximoCentimos,
-  fijarAnioComparado,
 }: {
   readonly minimoCentimos: number
   readonly maximoCentimos: number
-  readonly anioComparado: AnioFiscal
   readonly fijarMinimoCentimos: (centimos: number) => void
   readonly fijarMaximoCentimos: (centimos: number) => void
-  readonly fijarAnioComparado: (anio: AnioFiscal) => void
 }) {
   return (
     <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
       <p className="text-sm tracking-[0.32em] text-[var(--ink-soft)] uppercase">
         FILTROS / BARRIDO
       </p>
-      <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-8">
+      <div className="mt-4 grid gap-4">
         <div className="grid gap-4">
           <div className="grid gap-2 sm:grid-cols-2 sm:gap-3">
             <CampoDinero
@@ -807,38 +799,6 @@ function BarraFiltros({
               </span>
             </div>
           </Slider.Root>
-        </div>
-        <div className="grid gap-2">
-          <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-            AÑO COMPARADO
-          </span>
-          <div
-            role="radiogroup"
-            className="grid grid-cols-7 gap-px bg-[var(--rule)]"
-          >
-            {ANIOS_COMPARABLES.map((anio) => {
-              const activo = anio === anioComparado
-              return (
-                <Button
-                  key={anio}
-                  type="button"
-                  role="radio"
-                  aria-checked={activo}
-                  onClick={() => fijarAnioComparado(anio)}
-                  variant="unstyled"
-                  className={cn(
-                    "h-12 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
-                    "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
-                    activo
-                      ? "bg-[var(--mark)] text-[var(--mark-ink)]"
-                      : "bg-[var(--paper)] text-[var(--ink-soft)] hover:bg-[var(--paper-2)] hover:text-[var(--ink)]"
-                  )}
-                >
-                  {anio}
-                </Button>
-              )
-            })}
-          </div>
         </div>
       </div>
     </section>
