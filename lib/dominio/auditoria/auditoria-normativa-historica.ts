@@ -59,7 +59,7 @@ export const varianteAuditoriaPorDefecto = {
 export const escenarioAuditoriaPorDefecto = {
   perfil: "soltero_sin_hijos",
   comunidadAutonoma: "simulada-estatal",
-  anioReferencia: 2026,
+  anioReferencia: 2025,
   anioComparado: 2019,
   ...varianteAuditoriaPorDefecto,
 } as const satisfies EscenarioAuditoriaNormativaHistorica

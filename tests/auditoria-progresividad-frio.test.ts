@@ -43,6 +43,32 @@ describe("auditarProgresividadFrio", () => {
       expect(resultado.auditoria.hallazgos.length).toBeGreaterThan(0)
     })
   )
+
+  it.effect("recalcula la liquidacion anual al cambiar de comunidad autonoma", () =>
+    Effect.gen(function* () {
+      const entrada = {
+        ...entradaAuditoriaBasica(),
+        salarioBrutoAnualMinimoCentimos: 3_000_000,
+        salarioBrutoAnualMaximoCentimos: 3_000_000,
+        anioReferencia: 2025,
+      } as const
+
+      const simulada = yield* auditarProgresividadFrio(
+        { ...entrada, comunidadAutonoma: "simulada-estatal" },
+        { modo: "compatible-legacy" }
+      )
+      const madrid = yield* auditarProgresividadFrio(
+        { ...entrada, comunidadAutonoma: "madrid" },
+        { modo: "compatible-legacy" }
+      )
+
+      expect(
+        simulada.auditoria.puntos[0]?.comparacion.referencia.irpfFinalCentimos
+      ).not.toBe(
+        madrid.auditoria.puntos[0]?.comparacion.referencia.irpfFinalCentimos
+      )
+    })
+  )
 })
 
 const entradaAuditoriaBasica = (): EntradaAuditoriaProgresividadFrio => ({
@@ -51,5 +77,5 @@ const entradaAuditoriaBasica = (): EntradaAuditoriaProgresividadFrio => ({
   salarioBrutoAnualMaximoCentimos: 1_700_000,
   pasoCentimos: 100_000,
   anioComparado: 2019,
-  anioReferencia: 2026,
+  anioReferencia: 2025,
 })

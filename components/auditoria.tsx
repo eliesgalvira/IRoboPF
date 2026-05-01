@@ -59,9 +59,7 @@ import {
 import {
   configuracionRangoAuditoria,
   auditarProgresividadFrio,
-  type HallazgoAuditoria,
   type AuditoriaRangoSalarial,
-  type EntradaAuditoriaProgresividadFrio,
   type PuntoAuditoriaRangoSalarial,
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
 import {
@@ -97,10 +95,8 @@ function AuditoriaImpl() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const escenarioAuditoria = React.useMemo(
-    () => leerEscenarioAuditoriaNormativaDesdeUrl(searchParams),
-    [searchParams]
-  )
+  const escenarioAuditoria =
+    leerEscenarioAuditoriaNormativaDesdeUrl(searchParams)
   const [minimoCentimos, fijarMinimoCentimos] = React.useState<number>(
     configuracionRangoAuditoria.minimoPorDefectoCentimos
   )
@@ -109,18 +105,14 @@ function AuditoriaImpl() {
   )
   const [aniosGraficoIrpf, fijarAniosGraficoIrpf] = React.useState<
     ReadonlyArray<AnioFiscal>
-  >([2019, 2026])
+  >([2019, 2025])
   const [aniosGraficoNetoReal, fijarAniosGraficoNetoReal] = React.useState<
     ReadonlyArray<AnioFiscal>
   >([2019])
-  const permiteReferenciaTecnica2026 = React.useMemo(
-    () =>
-      escenarioPermiteReferenciaTecnica2026({
-        perfil: escenarioAuditoria.perfil,
-        comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
-      }),
-    [escenarioAuditoria.comunidadAutonoma, escenarioAuditoria.perfil]
-  )
+  const permiteReferenciaTecnica2026 = escenarioPermiteReferenciaTecnica2026({
+    perfil: escenarioAuditoria.perfil,
+    comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
+  })
   const [exportando, fijarExportando] = React.useState<
     "educativa" | "compatible" | null
   >(null)
@@ -137,22 +129,6 @@ function AuditoriaImpl() {
     unknown
   > | null>(null)
 
-  const entradaAuditoria = React.useMemo(
-    (): EntradaAuditoriaProgresividadFrio => ({
-      perfil: "legacy-progresividad-frio",
-      salarioBrutoAnualMinimoCentimos: Math.min(minimoCentimos, maximoCentimos),
-      salarioBrutoAnualMaximoCentimos: Math.max(minimoCentimos, maximoCentimos),
-      pasoCentimos: configuracionRangoAuditoria.pasoCentimos,
-      anioComparado: escenarioAuditoria.anioComparado,
-      anioReferencia: escenarioAuditoria.anioReferencia,
-    }),
-    [
-      escenarioAuditoria.anioComparado,
-      escenarioAuditoria.anioReferencia,
-      maximoCentimos,
-      minimoCentimos,
-    ]
-  )
   const [estadoAuditoria, fijarEstadoAuditoria] =
     React.useState<EstadoAuditoria>({ _tag: "cargando" })
   const auditoria =
@@ -160,7 +136,24 @@ function AuditoriaImpl() {
 
   React.useEffect(() => {
     const fibra = Effect.runFork(
-      auditarProgresividadFrio(entradaAuditoria, { modo: "compatible-legacy" })
+      auditarProgresividadFrio(
+        {
+          perfil: "legacy-progresividad-frio",
+          comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
+          salarioBrutoAnualMinimoCentimos: Math.min(
+            minimoCentimos,
+            maximoCentimos
+          ),
+          salarioBrutoAnualMaximoCentimos: Math.max(
+            minimoCentimos,
+            maximoCentimos
+          ),
+          pasoCentimos: configuracionRangoAuditoria.pasoCentimos,
+          anioComparado: escenarioAuditoria.anioComparado,
+          anioReferencia: escenarioAuditoria.anioReferencia,
+        },
+        { modo: "compatible-legacy" }
+      )
     )
 
     fibra.addObserver((exit) => {
@@ -183,7 +176,13 @@ function AuditoriaImpl() {
     return () => {
       Effect.runFork(Fiber.interrupt(fibra))
     }
-  }, [entradaAuditoria])
+  }, [
+    escenarioAuditoria.anioComparado,
+    escenarioAuditoria.anioReferencia,
+    escenarioAuditoria.comunidadAutonoma,
+    maximoCentimos,
+    minimoCentimos,
+  ])
 
   const actualizarEscenarioAuditoria = React.useCallback(
     (cambio: CambioEscenarioAuditoriaNormativa) => {
@@ -308,8 +307,6 @@ function AuditoriaImpl() {
     )
   }
 
-  const hallazgoPrincipal = auditoria.hallazgos[0]
-
   return (
     <main className="min-h-svh">
       <div className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
@@ -326,10 +323,10 @@ function AuditoriaImpl() {
           </h1>
           <div className="grid gap-3 self-start">
             <p className="text-sm leading-6 text-[var(--ink)]">
-              Barrido determinista del rango. La tabla está al final;{" "}
-              <strong>los hallazgos van primero</strong>: el salario más
-              afectado, la mayor brecha de carga y el primer salario con IRPF en
-              2026.
+              Barrido determinista del rango con referencia en{" "}
+              <strong>{auditoria.anioReferencia}</strong>. Cada punto se calcula
+              con la liquidación IRPF anual y el IRPF final conciliado del
+              simulador; la tabla está al final.
             </p>
             <div className="flex flex-wrap gap-2 text-sm tracking-[0.22em] uppercase">
               <Button
@@ -370,17 +367,9 @@ function AuditoriaImpl() {
           alCambiarEscenario={actualizarEscenarioAuditoria}
         />
 
-        {hallazgoPrincipal ? (
-          <HallazgoPrincipal
-            hallazgo={hallazgoPrincipal}
-            anioComparado={auditoria.anioComparado}
-          />
-        ) : null}
-
-        <HallazgosSecundarios hallazgos={auditoria.hallazgos.slice(1)} />
-
         <Visualizaciones
           auditoria={auditoria}
+          comunidadAutonoma={escenarioAuditoria.comunidadAutonoma}
           permiteReferenciaTecnica2026={permiteReferenciaTecnica2026}
           aniosGraficoIrpf={aniosGraficoIrpf}
           fijarAniosGraficoIrpf={fijarAniosGraficoIrpf}
@@ -891,97 +880,6 @@ function CampoDinero({
   )
 }
 
-function HallazgoPrincipal({
-  hallazgo,
-  anioComparado,
-}: {
-  readonly hallazgo: HallazgoAuditoria
-  readonly anioComparado: AnioFiscal
-}) {
-  const tono = Match.value(hallazgo.severidad).pipe(
-    Match.when("perdida", () => "var(--danger)"),
-    Match.when("ganancia", () => "var(--gain)"),
-    Match.orElse(() => "var(--ink)")
-  )
-  return (
-    <section className="grid border-b-2 border-[var(--rule)]">
-      <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 py-6 pl-4 sm:gap-6 sm:pl-5">
-        <span
-          aria-hidden="true"
-          className="absolute top-6 left-0 h-10 w-[10px]"
-          style={{ background: tono }}
-        />
-        <span
-          className="px-2 py-1 font-[family-name:var(--mono)] text-sm font-bold tracking-[0.3em] text-[var(--paper)] uppercase sm:px-3"
-          style={{ background: tono }}
-        >
-          HALLAZGO 01
-        </span>
-        <h2 className="font-[family-name:var(--display)] text-xl leading-tight tracking-wider uppercase sm:text-3xl">
-          {hallazgo.titulo}
-        </h2>
-      </div>
-      <div className="grid gap-3 pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-end lg:gap-10">
-        <p className="font-[family-name:var(--display)] text-[clamp(2.5rem,8vw,6rem)] leading-[0.86] text-[var(--ink)] tabular-nums">
-          {formatearCentimosEnteros(hallazgo.salarioBrutoAnualCentimos)}
-        </p>
-        <p className="text-sm leading-6 text-[var(--ink-soft)]">
-          {hallazgo.descripcion} Punto identificado al comparar contra el año{" "}
-          <span className="text-[var(--ink)]">{anioComparado}</span>.
-        </p>
-      </div>
-    </section>
-  )
-}
-
-function HallazgosSecundarios({
-  hallazgos,
-}: {
-  readonly hallazgos: ReadonlyArray<HallazgoAuditoria>
-}) {
-  if (hallazgos.length === 0) return null
-  return (
-    <section className="border-b-2 border-[var(--rule)] py-6">
-      <p className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-        OTROS HALLAZGOS
-      </p>
-      <ul className="mt-3 grid gap-px bg-[var(--rule)]">
-        {hallazgos.map((hallazgo, indice) => {
-          const tono = Match.value(hallazgo.severidad).pipe(
-            Match.when("perdida", () => "var(--danger)"),
-            Match.when("ganancia", () => "var(--gain)"),
-            Match.orElse(() => "var(--ink)")
-          )
-          return (
-            <li
-              key={`${hallazgo.titulo}-${hallazgo.salarioBrutoAnualCentimos}`}
-              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 bg-[var(--paper)] px-3 py-4 sm:gap-6 sm:px-6"
-            >
-              <span
-                className="px-2 py-0.5 font-[family-name:var(--mono)] text-sm font-bold tracking-[0.3em] text-[var(--paper)] uppercase"
-                style={{ background: tono }}
-              >
-                0{indice + 2}
-              </span>
-              <div className="min-w-0">
-                <h3 className="text-sm font-bold tracking-wider text-[var(--ink)] uppercase">
-                  {hallazgo.titulo}
-                </h3>
-                <p className="mt-1 text-sm leading-5 text-[var(--ink-soft)]">
-                  {hallazgo.descripcion}
-                </p>
-              </div>
-              <span className="font-[family-name:var(--display)] text-xl tabular-nums sm:text-3xl">
-                {formatearCentimosEnteros(hallazgo.salarioBrutoAnualCentimos)}
-              </span>
-            </li>
-          )
-        })}
-      </ul>
-    </section>
-  )
-}
-
 const aniosTipoEfectivoIrpfConReferenciaTecnica2026 = [
   ...ANIOS_COMPARABLES,
   2026,
@@ -1022,6 +920,11 @@ const claveDiferenciaNetaPositiva = (anio: AnioFiscal) =>
   `${claveDiferenciaNeta(anio)}Positiva`
 const claveDiferenciaNetaNegativa = (anio: AnioFiscal) =>
   `${claveDiferenciaNeta(anio)}Negativa`
+const aniosDesdeClaveGrafico = (clave: string): ReadonlyArray<AnioFiscal> =>
+  clave
+    .split(",")
+    .filter((valor) => valor.length > 0)
+    .map((valor) => Number(valor) as AnioFiscal)
 
 const configuracionTipoEfectivoIrpf = Object.fromEntries(
   aniosTipoEfectivoIrpfConReferenciaTecnica2026.map((anio) => [
@@ -1057,6 +960,7 @@ type FilaNetoReal = Record<string, number | string | null>
 
 const obtenerPuntosAuditoriaParaAnio = (
   auditoria: AuditoriaRangoSalarial,
+  comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"],
   anio: AnioFiscal
 ): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
   Match.value(anio).pipe(
@@ -1076,6 +980,7 @@ const obtenerPuntosAuditoriaParaAnio = (
           pasoCentimos: auditoria.pasoCentimos,
           anioComparado: anio,
           anioReferencia: auditoria.anioReferencia,
+          comunidadAutonoma,
         },
         { modo: "compatible-legacy" }
       ).pipe(Effect.map((resultado) => resultado.auditoria.puntos))
@@ -1086,15 +991,17 @@ const construirSeriesAuditoria = Effect.fn(
   "auditoria.ui.construirSeriesAuditoria"
 )(function* ({
   auditoria,
+  comunidadAutonoma,
   aniosSeleccionados,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
 }) {
   const entradas = yield* Effect.forEach(
     aniosSeleccionados,
     (anio) =>
-      obtenerPuntosAuditoriaParaAnio(auditoria, anio).pipe(
+      obtenerPuntosAuditoriaParaAnio(auditoria, comunidadAutonoma, anio).pipe(
         Effect.map((puntos) => [anio, puntos] as const)
       ),
     { concurrency: 4 }
@@ -1109,13 +1016,16 @@ const filasTipoEfectivoIrpf = Effect.fn(
   "auditoria.ui.filasTipoEfectivoIrpf"
 )(function* ({
   auditoria,
+  comunidadAutonoma,
   aniosSeleccionados,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
 }) {
   const series = yield* construirSeriesAuditoria({
     auditoria,
+    comunidadAutonoma,
     aniosSeleccionados,
   })
 
@@ -1140,13 +1050,16 @@ const filasTipoEfectivoIrpf = Effect.fn(
 
 const filasNetoReal = Effect.fn("auditoria.ui.filasNetoReal")(function* ({
   auditoria,
+  comunidadAutonoma,
   aniosSeleccionados,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
 }) {
   const series = yield* construirSeriesAuditoria({
     auditoria,
+    comunidadAutonoma,
     aniosSeleccionados,
   })
 
@@ -1257,6 +1170,7 @@ function LeyendaNetoReal({
 
 function Visualizaciones({
   auditoria,
+  comunidadAutonoma,
   permiteReferenciaTecnica2026,
   aniosGraficoIrpf,
   fijarAniosGraficoIrpf,
@@ -1264,21 +1178,21 @@ function Visualizaciones({
   fijarAniosGraficoNetoReal,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonoma: EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
   readonly permiteReferenciaTecnica2026: boolean
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoIrpf: (anios: ReadonlyArray<AnioFiscal>) => void
   readonly aniosGraficoNetoReal: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoNetoReal: (anios: ReadonlyArray<AnioFiscal>) => void
 }) {
-  const aniosTipoEfectivoIrpf = React.useMemo(
-    () => obtenerAniosTipoEfectivoIrpf({ permiteReferenciaTecnica2026 }),
-    [permiteReferenciaTecnica2026]
+  const aniosTipoEfectivoIrpf = obtenerAniosTipoEfectivoIrpf({
+    permiteReferenciaTecnica2026,
+  })
+  const aniosGraficoIrpfVisibles = aniosGraficoIrpf.filter((anio) =>
+    aniosTipoEfectivoIrpf.includes(anio)
   )
-  const aniosGraficoIrpfVisibles = React.useMemo(
-    () =>
-      aniosGraficoIrpf.filter((anio) => aniosTipoEfectivoIrpf.includes(anio)),
-    [aniosGraficoIrpf, aniosTipoEfectivoIrpf]
-  )
+  const claveAniosGraficoIrpfVisibles = aniosGraficoIrpfVisibles.join(",")
+  const claveAniosGraficoNetoReal = aniosGraficoNetoReal.join(",")
   const [datosTipoEfectivoIrpf, fijarDatosTipoEfectivoIrpf] = React.useState<
     ReadonlyArray<FilaTipoEfectivoIrpf>
   >([])
@@ -1287,16 +1201,21 @@ function Visualizaciones({
   >([])
 
   React.useEffect(() => {
+    const aniosIrpf = aniosDesdeClaveGrafico(claveAniosGraficoIrpfVisibles)
+    const aniosNeto = aniosDesdeClaveGrafico(claveAniosGraficoNetoReal)
+
     const fibra = Effect.runFork(
       Effect.all(
         {
           tipoEfectivoIrpf: filasTipoEfectivoIrpf({
             auditoria,
-            aniosSeleccionados: aniosGraficoIrpfVisibles,
+            comunidadAutonoma,
+            aniosSeleccionados: aniosIrpf,
           }),
           netoReal: filasNetoReal({
             auditoria,
-            aniosSeleccionados: aniosGraficoNetoReal,
+            comunidadAutonoma,
+            aniosSeleccionados: aniosNeto,
           }),
         },
         { concurrency: 2 }
@@ -1312,49 +1231,29 @@ function Visualizaciones({
     return () => {
       Effect.runFork(Fiber.interrupt(fibra))
     }
-  }, [aniosGraficoIrpfVisibles, aniosGraficoNetoReal, auditoria])
+  }, [
+    claveAniosGraficoIrpfVisibles,
+    claveAniosGraficoNetoReal,
+    auditoria,
+    comunidadAutonoma,
+  ])
 
-  const clavesTipoEfectivoIrpf = React.useMemo(
-    () => aniosGraficoIrpfVisibles.map(claveAnio),
-    [aniosGraficoIrpfVisibles]
+  const clavesTipoEfectivoIrpf = aniosGraficoIrpfVisibles.map(claveAnio)
+  const clavesNetoReal = aniosGraficoNetoReal.map(claveDiferenciaNeta)
+  const dominioTipoEfectivoIrpf = dominioPorcentaje(
+    valoresNumericosDeFilas(datosTipoEfectivoIrpf, clavesTipoEfectivoIrpf)
   )
-  const clavesNetoReal = React.useMemo(
-    () => aniosGraficoNetoReal.map(claveDiferenciaNeta),
-    [aniosGraficoNetoReal]
-  )
-  const dominioTipoEfectivoIrpf = React.useMemo(
-    () =>
-      dominioPorcentaje(
-        valoresNumericosDeFilas(datosTipoEfectivoIrpf, clavesTipoEfectivoIrpf)
-      ),
-    [clavesTipoEfectivoIrpf, datosTipoEfectivoIrpf]
-  )
-  const ticksTipoEfectivoIrpf = React.useMemo(
-    () => ticksPorcentaje(dominioTipoEfectivoIrpf),
-    [dominioTipoEfectivoIrpf]
-  )
-  const ticksSalario = React.useMemo(
-    () =>
-      ticksSalarioEuros({
-        minimoEuros: centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos),
-        maximoEuros: centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos),
-      }),
-    [auditoria]
-  )
-  const dominioSalario = React.useMemo(
-    () =>
-      [
-        centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos),
-        centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos),
-      ] as const,
-    [auditoria]
-  )
-  const dominioDiferencia = React.useMemo(
-    () =>
-      dominioEurosSimetrico(
-        valoresNumericosDeFilas(datosNetoReal, clavesNetoReal)
-      ),
-    [clavesNetoReal, datosNetoReal]
+  const ticksTipoEfectivoIrpf = ticksPorcentaje(dominioTipoEfectivoIrpf)
+  const ticksSalario = ticksSalarioEuros({
+    minimoEuros: centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos),
+    maximoEuros: centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos),
+  })
+  const dominioSalario = [
+    centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos),
+    centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos),
+  ] as const
+  const dominioDiferencia = dominioEurosSimetrico(
+    valoresNumericosDeFilas(datosNetoReal, clavesNetoReal)
   )
   const alternarAnioIrpf = (anio: AnioFiscal) => {
     const siguiente = aniosGraficoIrpf.includes(anio)
