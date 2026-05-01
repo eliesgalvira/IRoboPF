@@ -1,3 +1,4 @@
+import Decimal from "decimal.js"
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
@@ -16,6 +17,7 @@ import { obtenerMinimosAutonomicosIrpf2019 } from "../lib/dominio/normativa/dato
 import { obtenerMinimosAutonomicosIrpf2018 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2018"
 import { obtenerMinimosAutonomicosIrpf2017 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2017"
 import { obtenerMinimosAutonomicosIrpf2016 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2016"
+import { obtenerMinimosAutonomicosIrpf2015 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2015"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -609,6 +611,77 @@ describe("comunidad autonoma", () => {
     )
     expect(
       minimosRioja2016.discapacidad.descendiente.grado33Hasta65.toString()
+    ).toBe("3000")
+  })
+
+  it("resuelve 2015 con escala estatal, art. 65 y especialidades autonomicas", () => {
+    const simulada2015 = obtenerParametrosComunidadAutonoma({
+      anio: 2015,
+      comunidadAutonoma: "simulada-estatal",
+    })
+    const ceuta2015 = obtenerParametrosComunidadAutonoma({
+      anio: 2015,
+      comunidadAutonoma: "ceuta",
+    })
+    const galiciaBaja2015 = obtenerParametrosComunidadAutonoma({
+      anio: 2015,
+      baseLiquidableGeneral: new Decimal("17707.20"),
+      comunidadAutonoma: "galicia",
+    })
+    const galiciaAlta2015 = obtenerParametrosComunidadAutonoma({
+      anio: 2015,
+      baseLiquidableGeneral: new Decimal("17707.21"),
+      comunidadAutonoma: "galicia",
+    })
+    const balearsFallecido2015 = obtenerParametrosComunidadAutonoma({
+      anio: 2015,
+      comunidadAutonoma: "illes-balears",
+      fechaFallecimiento: new Date("2015-12-30T00:00:00.000Z"),
+    })
+    const minimosBalears2015 =
+      obtenerMinimosAutonomicosIrpf2015("illes-balears")
+    const minimosRioja2015 = obtenerMinimosAutonomicosIrpf2015("la-rioja")
+
+    expect(simulada2015).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "simulada-estatal",
+      anio: 2015,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+    })
+
+    if (simulada2015._tag === "ParametrosComunidadAutonoma") {
+      expect(simulada2015.escalaEstatalGeneral[2][0].toString()).toBe("34000")
+      expect(simulada2015.escalaAutonomica.tramos[0][1].toString()).toBe("0.1")
+    }
+
+    if (ceuta2015._tag === "ParametrosComunidadAutonoma") {
+      expect(ceuta2015.escalaAutonomica.tramos[0][1].toString()).toBe("0.1")
+    }
+
+    if (galiciaBaja2015._tag === "ParametrosComunidadAutonoma") {
+      expect(galiciaBaja2015.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.115"
+      )
+    }
+
+    if (galiciaAlta2015._tag === "ParametrosComunidadAutonoma") {
+      expect(galiciaAlta2015.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.12"
+      )
+    }
+
+    if (balearsFallecido2015._tag === "ParametrosComunidadAutonoma") {
+      expect(
+        balearsFallecido2015.escalaAutonomica.tramos.at(-1)?.[1].toString()
+      ).toBe("0.215")
+    }
+
+    expect(minimosBalears2015.contribuyente.adicionalMayor65.toString()).toBe(
+      "1820"
+    )
+    expect(
+      minimosRioja2015.discapacidad.descendiente.grado33Hasta65.toString()
     ).toBe("3000")
   })
 

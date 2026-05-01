@@ -615,6 +615,41 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it("liquida 2015 con la escala del ahorro al 23,5 por ciento desde 50000 euros", () => {
+    const caso = {
+      anio: 2015,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+        gananciasPatrimoniales: [
+          {
+            importeGananciaCentimos: 400_000_00,
+            tratamientoMayores65: { _tag: "SinExencionMayores65" },
+          },
+        ],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 40_000_000,
+      cuotaIntegraAhorroCentimos: 9_288_000,
+      cuotaLiquidaCentimos: 9_792_223,
+      cuotaDiferencialCentimos: 9_792_223,
+    })
+  })
+
   it("exime la transmisión de vivienda habitual por contribuyente mayor de 65 años", () => {
     const caso = {
       anio: 2025,
@@ -995,6 +1030,36 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
+  it("liquida 2015 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+    const caso = {
+      anio: 2015,
+      comunidadAutonoma: "simulada-estatal",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 15_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseImponibleGeneralCentimos: 1_158_211,
+      baseLiquidableGeneralCentimos: 1_158_211,
+      reduccionRendimientosTrabajoCentimos: 46_539,
+      cuotaLiquidaCentimos: 117_626,
+      cuotaDiferencialCentimos: 117_626,
+    })
+  })
+
   it("liquida comunidades reales de 2020 con la escala estatal sin tramo adicional de 300000 euros", () => {
     const caso = {
       anio: 2020,
@@ -1137,6 +1202,77 @@ describe("liquidarIrpfAnual", () => {
       cuotaIntegraGeneralCentimos: 16_361_608,
       cuotaMinimoPersonalCentimos: 105_450,
       cuotaLiquidaCentimos: 16_256_158,
+    })
+  })
+
+  it("liquida comunidades reales de 2015 con la escala estatal y autonomica del ejercicio", () => {
+    const caso = {
+      anio: 2015,
+      comunidadAutonoma: "madrid",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 400_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(caso)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableGeneralCentimos: 39_525_223,
+      cuotaIntegraGeneralCentimos: 16_367_001,
+      cuotaMinimoPersonalCentimos: 105_450,
+      cuotaLiquidaCentimos: 16_261_551,
+    })
+  })
+
+  it("selecciona la escala gallega 2015 segun la base liquidable general", () => {
+    const casoBaseBaja = {
+      anio: 2015,
+      comunidadAutonoma: "galicia",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 20_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+    const casoBaseAlta = {
+      ...casoBaseBaja,
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+      },
+    } satisfies CasoFiscalAnual
+
+    expect(liquidarCasoCanonico(casoBaseBaja)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableGeneralCentimos: 1_673_000,
+      cuotaIntegraGeneralCentimos: 362_030,
+      cuotaMinimoPersonalCentimos: 116_550,
+      cuotaLiquidaCentimos: 245_480,
+    })
+    expect(liquidarCasoCanonico(casoBaseAlta)).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableGeneralCentimos: 2_609_500,
+      cuotaIntegraGeneralCentimos: 629_616,
+      cuotaMinimoPersonalCentimos: 119_325,
+      cuotaLiquidaCentimos: 510_291,
     })
   })
 
