@@ -15,6 +15,7 @@ import { obtenerMinimosAutonomicosIrpf2020 } from "../lib/dominio/normativa/dato
 import { obtenerMinimosAutonomicosIrpf2019 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2019"
 import { obtenerMinimosAutonomicosIrpf2018 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2018"
 import { obtenerMinimosAutonomicosIrpf2017 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2017"
+import { obtenerMinimosAutonomicosIrpf2016 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2016"
 
 const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "andalucia",
@@ -556,6 +557,58 @@ describe("comunidad autonoma", () => {
     )
     expect(
       minimosRioja2017.discapacidad.descendiente.grado33Hasta65.toString()
+    ).toBe("3000")
+  })
+
+  it("resuelve 2016 con escala estatal general, autonomica y minimos propios del ejercicio", () => {
+    const simulada2016 = obtenerParametrosComunidadAutonoma({
+      anio: 2016,
+      comunidadAutonoma: "simulada-estatal",
+    })
+    const madrid2016 = obtenerParametrosComunidadAutonoma({
+      anio: 2016,
+      comunidadAutonoma: "madrid",
+    })
+    const valenciana2016 = obtenerParametrosComunidadAutonoma({
+      anio: 2016,
+      comunidadAutonoma: "comunitat-valenciana",
+    })
+    const minimosBalears2016 =
+      obtenerMinimosAutonomicosIrpf2016("illes-balears")
+    const minimosRioja2016 = obtenerMinimosAutonomicosIrpf2016("la-rioja")
+
+    expect(simulada2016).toMatchObject({
+      _tag: "ParametrosComunidadAutonoma",
+      comunidadAutonoma: "simulada-estatal",
+      anio: 2016,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: true,
+    })
+
+    if (madrid2016._tag === "ParametrosComunidadAutonoma") {
+      const ultimoTramoEstatal =
+        madrid2016.escalaEstatalGeneral[
+          madrid2016.escalaEstatalGeneral.length - 1
+        ]
+
+      expect(ultimoTramoEstatal[1].toString()).toBe("0.225")
+      expect(madrid2016.escalaAutonomica.tramos[0][1].toString()).toBe("0.095")
+      expect(
+        madrid2016.minimosAutonomicos.contribuyente.general.toString()
+      ).toBe("5550")
+    }
+
+    if (valenciana2016._tag === "ParametrosComunidadAutonoma") {
+      expect(valenciana2016.escalaAutonomica.tramos[0][1].toString()).toBe(
+        "0.119"
+      )
+    }
+
+    expect(minimosBalears2016.contribuyente.adicionalMayor65.toString()).toBe(
+      "1820"
+    )
+    expect(
+      minimosRioja2016.discapacidad.descendiente.grado33Hasta65.toString()
     ).toBe("3000")
   })
 
