@@ -2632,7 +2632,7 @@ const parAniosDiferenciaDisponible = ({
 }
 
 const claseBotonPestana = cn(
-  "px-3 py-2 transition-colors",
+  "min-w-0 px-3 py-2 text-center transition-colors",
   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
   "bg-[var(--paper)] text-[var(--ink)]",
   "not-data-[active]:hover:bg-[var(--mark)]",
@@ -3289,7 +3289,7 @@ function SelectorAniosGraficoAuditoria({
     <div
       role="group"
       aria-label={ariaLabel}
-      className="grid w-full grid-cols-5 gap-px bg-[var(--rule)] lg:[grid-template-columns:repeat(15,minmax(0,1fr))]"
+      className="grid w-full min-w-0 grid-cols-[repeat(auto-fit,minmax(4.75rem,1fr))] gap-px bg-[var(--rule)] md:col-span-2"
     >
       {anios.map((anio) => (
         <BotonAnioGraficoAuditoria
@@ -3948,11 +3948,11 @@ function Visualizaciones({
     fijarAnioGraficoTipoMarginalIrpf(anio)
   }
   const claseGraficoTipoEfectivoIrpf =
-    "mt-4 aspect-[5/4] w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
+    "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
   const claseGraficoDiferenciaTipoIrpf =
-    "mt-4 aspect-[5/4] w-full sm:aspect-[16/9] sm:h-[clamp(22rem,48vw,32rem)]"
+    "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(22rem,48vw,32rem)]"
   const claseGraficoTipoMarginalIrpf =
-    "mt-4 aspect-[5/4] w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
+    "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
 
   return (
     <section className="py-6">
@@ -3972,9 +3972,9 @@ function Visualizaciones({
             })
           )
         }}
-        className="mt-5 grid gap-4"
+        className="mt-5 grid min-w-0 gap-4"
       >
-        <Tabs.List className="inline-flex w-fit divide-x-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-sm tracking-[0.22em] uppercase">
+        <Tabs.List className="grid w-full min-w-0 divide-y-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-sm tracking-[0.22em] uppercase sm:inline-flex sm:w-fit sm:divide-x-2 sm:divide-y-0">
           {vistasGraficoAuditoria.map((vista) => (
             <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
               {Match.value(vista).pipe(
@@ -3988,10 +3988,10 @@ function Visualizaciones({
         </Tabs.List>
         <Tabs.Panel
           value="tipo-irpf"
-          className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
+          className="min-w-0 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="grid w-full max-w-3xl gap-3">
+          <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <div className="grid min-w-0 gap-3 md:max-w-3xl">
               <p className="text-sm leading-5 text-[var(--ink-soft)]">
                 TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA
                 INFLACIÓN, EN EUROS DE {anioReferenciaGraficosIrpf}
@@ -4002,7 +4002,7 @@ function Visualizaciones({
                 alCambiar={alCambiarComunidadAutonoma}
               />
             </div>
-            <div className="w-full self-end sm:w-auto">
+            <div className="w-full min-w-0 self-end md:w-auto">
               <BotonCopiarImagenGrafico
                 graficoRef={graficoTipoEfectivoIrpfRef}
                 disabled={copiaGraficoDeshabilitada}
@@ -4140,15 +4140,15 @@ function Visualizaciones({
         </Tabs.Panel>
         <Tabs.Panel
           value="diferencia-irpf"
-          className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
+          className="min-w-0 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="grid w-full max-w-3xl gap-3">
+          <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <div className="grid min-w-0 gap-3 md:max-w-3xl">
               <p className="text-sm leading-5 text-[var(--ink-soft)]">
                 {etiquetaDiferenciaTipoIrpf} POR SALARIO BRUTO AJUSTADO A LA
                 INFLACIÓN, EN EUROS DE {anioReferenciaGraficosIrpf}
               </p>
-              <div className="flex flex-wrap items-start gap-3">
+              <div className="flex min-w-0 flex-wrap items-start gap-3">
                 <SelectorComunidadAutonomaAuditoria
                   opciones={opcionesComunidadAutonoma}
                   opcion={opcionComunidadAutonoma}
@@ -4160,7 +4160,7 @@ function Visualizaciones({
                 />
               </div>
             </div>
-            <div className="w-full self-end sm:w-auto">
+            <div className="w-full min-w-0 self-end md:w-auto">
               <BotonCopiarImagenGrafico
                 graficoRef={graficoDiferenciaTipoIrpfRef}
                 disabled={copiaGraficoDeshabilitada}
@@ -4288,10 +4288,10 @@ function Visualizaciones({
         </Tabs.Panel>
         <Tabs.Panel
           value="tipo-marginal"
-          className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
+          className="min-w-0 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="grid w-full max-w-3xl gap-3">
+          <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <div className="grid min-w-0 gap-3 md:max-w-3xl">
               <p className="text-sm leading-5 text-[var(--ink-soft)]">
                 TIPO MARGINAL DE IRPF SOBRE EL SALARIO BRUTO, EN EUROS DE{" "}
                 {anioReferenciaGraficosIrpf}
@@ -4302,7 +4302,7 @@ function Visualizaciones({
                 alCambiar={alCambiarComunidadAutonoma}
               />
             </div>
-            <div className="w-full self-end sm:w-auto">
+            <div className="w-full min-w-0 self-end md:w-auto">
               <BotonCopiarImagenGrafico
                 graficoRef={graficoTipoMarginalIrpfRef}
                 disabled={copiaGraficoDeshabilitada}
