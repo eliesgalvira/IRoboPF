@@ -81,6 +81,13 @@ import {
 import { obtenerEspecificacionCompatibilidadHistorica } from "@/lib/dominio/normativa/datos/compatibilidad-historica"
 import { cn } from "@/lib/utils"
 import { ticksSalarioEuros } from "@/lib/auditoria-graficos"
+import {
+  instrumentarEffectAuditoria,
+  metricaDuracionFilasGraficosAuditoria,
+  metricaDuracionSeriesAuditoria,
+  registrarMarcaAuditoria,
+  tiempoAuditoriaMs,
+} from "@/lib/observabilidad/auditoria-rendimiento"
 
 const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
 
@@ -99,9 +106,31 @@ function formatearDuracion(milisegundos: number): string {
 type DialogoExportacionCompatible = "advertencia" | "progreso" | null
 
 type EstadoAuditoria =
-  | { readonly _tag: "cargando" }
-  | { readonly _tag: "lista"; readonly auditoria: AuditoriaRangoSalarial }
-  | { readonly _tag: "error"; readonly mensaje: string }
+  | { readonly _tag: "cargando"; readonly clave: string }
+  | {
+      readonly _tag: "lista"
+      readonly clave: string
+      readonly auditoria: AuditoriaRangoSalarial
+    }
+  | { readonly _tag: "error"; readonly clave: string; readonly mensaje: string }
+
+const claveCalculoAuditoria = ({
+  escenario,
+  minimoCentimos,
+  maximoCentimos,
+}: {
+  readonly escenario: EscenarioAuditoriaNormativaHistorica
+  readonly minimoCentimos: number
+  readonly maximoCentimos: number
+}) =>
+  [
+    escenario.comunidadAutonoma,
+    escenario.anioComparado,
+    escenario.anioReferencia,
+    Math.min(minimoCentimos, maximoCentimos),
+    Math.max(minimoCentimos, maximoCentimos),
+    configuracionRangoAuditoria.pasoCentimos,
+  ].join("|")
 
 function AuditoriaImpl({
   parametrosIniciales = "",
@@ -147,12 +176,50 @@ function AuditoriaImpl({
     unknown
   > | null>(null)
 
+  const claveAuditoria = claveCalculoAuditoria({
+    escenario: escenarioAuditoria,
+    minimoCentimos,
+    maximoCentimos,
+  })
   const [estadoAuditoria, fijarEstadoAuditoria] =
-    React.useState<EstadoAuditoria>({ _tag: "cargando" })
-  const auditoria =
-    estadoAuditoria._tag === "lista" ? estadoAuditoria.auditoria : null
+    React.useState<EstadoAuditoria>({
+      _tag: "cargando",
+      clave: claveAuditoria,
+    })
+  const auditoria = React.useMemo(
+    () =>
+      Match.value(estadoAuditoria).pipe(
+        Match.when({ _tag: "lista" }, (estado) =>
+          Match.value(estado.clave === claveAuditoria).pipe(
+            Match.when(true, () => Option.some(estado.auditoria)),
+            Match.orElse(() => Option.none<AuditoriaRangoSalarial>())
+          )
+        ),
+        Match.orElse(() => Option.none<AuditoriaRangoSalarial>())
+      ),
+    [claveAuditoria, estadoAuditoria]
+  )
+  const exportacionEnCurso = Option.isSome(Option.fromNullishOr(exportando))
 
   React.useEffect(() => {
+    registrarMarcaAuditoria("react.auditoria.mount", {
+      claveAuditoria,
+      parametrosIniciales,
+    })
+  }, [claveAuditoria, parametrosIniciales])
+
+  React.useEffect(() => {
+    const inicio = tiempoAuditoriaMs()
+    registrarMarcaAuditoria("react.auditoria.calculo.inicio", {
+      claveAuditoria,
+      comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
+      anioComparado: escenarioAuditoria.anioComparado,
+      anioReferencia: escenarioAuditoria.anioReferencia,
+      minimoCentimos: Math.min(minimoCentimos, maximoCentimos),
+      maximoCentimos: Math.max(minimoCentimos, maximoCentimos),
+      pasoCentimos: configuracionRangoAuditoria.pasoCentimos,
+    })
+
     const fibra = Effect.runFork(
       auditarProgresividadFrio(
         {
@@ -176,8 +243,14 @@ function AuditoriaImpl({
 
     fibra.addObserver((exit) => {
       if (Exit.isSuccess(exit)) {
+        registrarMarcaAuditoria("react.auditoria.calculo.fin", {
+          claveAuditoria,
+          duracionMs: Math.round(tiempoAuditoriaMs() - inicio),
+          puntos: exit.value.auditoria.puntos.length,
+        })
         fijarEstadoAuditoria({
           _tag: "lista",
+          clave: claveAuditoria,
           auditoria: exit.value.auditoria,
         })
         return
@@ -185,8 +258,14 @@ function AuditoriaImpl({
 
       if (Cause.hasInterruptsOnly(exit.cause)) return
 
+      registrarMarcaAuditoria("react.auditoria.calculo.error", {
+        claveAuditoria,
+        duracionMs: Math.round(tiempoAuditoriaMs() - inicio),
+        mensaje: String(Cause.squash(exit.cause)),
+      })
       fijarEstadoAuditoria({
         _tag: "error",
+        clave: claveAuditoria,
         mensaje: String(Cause.squash(exit.cause)),
       })
     })
@@ -198,6 +277,7 @@ function AuditoriaImpl({
     escenarioAuditoria.anioComparado,
     escenarioAuditoria.anioReferencia,
     escenarioAuditoria.comunidadAutonoma,
+    claveAuditoria,
     maximoCentimos,
     minimoCentimos,
   ])
@@ -245,60 +325,72 @@ function AuditoriaImpl({
   )
 
   const exportar = async (tipo: "educativa" | "compatible") => {
-    if (auditoria === null) return
+    await Option.match(auditoria, {
+      onNone: () => Promise.resolve(),
+      onSome: async (auditoriaLista) => {
+        if (tipo === "compatible") {
+          fijarDialogoExportacionCompatible("advertencia")
+          return
+        }
 
-    if (tipo === "compatible") {
-      fijarDialogoExportacionCompatible("advertencia")
-      return
-    }
-
-    fijarExportando(tipo)
-    try {
-      await exportarAuditoriaEducativaExcel(auditoria)
-    } finally {
-      fijarExportando(null)
-    }
+        fijarExportando(tipo)
+        try {
+          await exportarAuditoriaEducativaExcel(auditoriaLista)
+        } finally {
+          fijarExportando(null)
+        }
+      },
+    })
   }
 
   const iniciarExportacionCompatible = () => {
-    if (auditoria === null) return
-    if (fibraExportacionCompatible.current !== null) return
-
-    fijarExportando("compatible")
-    fijarDialogoExportacionCompatible("progreso")
-    fijarProgresoExportacionCompatible(null)
-    fijarLogsExportacionCompatible([])
-    fijarErrorExportacionCompatible(null)
-
-    const fibra = Effect.runFork(
-      exportarAuditoriaCompatibleExcelConProgreso(auditoria, {
-        onProgreso: registrarProgresoExportacionCompatible,
-      })
-    )
-    fibraExportacionCompatible.current = fibra
-    fibra.addObserver((exit) => {
-      fibraExportacionCompatible.current = null
-      fijarExportando(null)
-
-      if (Exit.isSuccess(exit)) return
-
-      if (Cause.hasInterruptsOnly(exit.cause)) {
-        fijarErrorExportacionCompatible("Exportación cancelada")
-        fijarLogsExportacionCompatible((logsActuales) =>
-          [...logsActuales, "Exportación cancelada por el usuario"].slice(
-            -MAX_LOGS_EXPORTACION_COMPATIBLE
-          )
+    Option.match(auditoria, {
+      onNone: () => {},
+      onSome: (auditoriaLista) => {
+        const fibraActiva = Option.fromNullishOr(
+          fibraExportacionCompatible.current
         )
-        return
-      }
+        if (Option.isSome(fibraActiva)) return
 
-      fijarErrorExportacionCompatible("No se pudo generar el XLSX compatible")
-      fijarLogsExportacionCompatible((logsActuales) =>
-        [
-          ...logsActuales,
-          `Error generando la exportación: ${String(Cause.squash(exit.cause))}`,
-        ].slice(-MAX_LOGS_EXPORTACION_COMPATIBLE)
-      )
+        fijarExportando("compatible")
+        fijarDialogoExportacionCompatible("progreso")
+        fijarProgresoExportacionCompatible(null)
+        fijarLogsExportacionCompatible([])
+        fijarErrorExportacionCompatible(null)
+
+        const fibra = Effect.runFork(
+          exportarAuditoriaCompatibleExcelConProgreso(auditoriaLista, {
+            onProgreso: registrarProgresoExportacionCompatible,
+          })
+        )
+        fibraExportacionCompatible.current = fibra
+        fibra.addObserver((exit) => {
+          fibraExportacionCompatible.current = null
+          fijarExportando(null)
+
+          if (Exit.isSuccess(exit)) return
+
+          if (Cause.hasInterruptsOnly(exit.cause)) {
+            fijarErrorExportacionCompatible("Exportación cancelada")
+            fijarLogsExportacionCompatible((logsActuales) =>
+              [...logsActuales, "Exportación cancelada por el usuario"].slice(
+                -MAX_LOGS_EXPORTACION_COMPATIBLE
+              )
+            )
+            return
+          }
+
+          fijarErrorExportacionCompatible(
+            "No se pudo generar el XLSX compatible"
+          )
+          fijarLogsExportacionCompatible((logsActuales) =>
+            [
+              ...logsActuales,
+              `Error generando la exportación: ${String(Cause.squash(exit.cause))}`,
+            ].slice(-MAX_LOGS_EXPORTACION_COMPATIBLE)
+          )
+        })
+      },
     })
   }
 
@@ -339,7 +431,10 @@ function AuditoriaImpl({
             <p className="text-sm leading-6 text-[var(--ink)]">
               Barrido determinista del rango con referencia en{" "}
               <strong>
-                {auditoria?.anioReferencia ?? escenarioAuditoria.anioReferencia}
+                {Option.match(auditoria, {
+                  onNone: () => escenarioAuditoria.anioReferencia,
+                  onSome: (auditoriaLista) => auditoriaLista.anioReferencia,
+                })}
               </strong>
               . Cada punto se calcula con la liquidación IRPF anual y el IRPF
               final conciliado del simulador; la tabla está al final.
@@ -348,7 +443,7 @@ function AuditoriaImpl({
               <Button
                 type="button"
                 onClick={() => exportar("educativa")}
-                disabled={exportando !== null || auditoria === null}
+                disabled={exportacionEnCurso || Option.isNone(auditoria)}
                 variant="unstyled"
                 className="border-2 border-[var(--rule)] bg-[var(--paper)] px-3 py-2 transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none disabled:opacity-40"
               >
@@ -357,7 +452,7 @@ function AuditoriaImpl({
               <Button
                 type="button"
                 onClick={() => exportar("compatible")}
-                disabled={exportando !== null || auditoria === null}
+                disabled={exportacionEnCurso || Option.isNone(auditoria)}
                 variant="unstyled"
                 className="border-2 border-[var(--rule)] bg-[var(--rule)] px-3 py-2 text-[var(--paper)] transition-colors hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none disabled:opacity-40"
               >
@@ -945,7 +1040,7 @@ const configuracionNetoReal = ({
   ) satisfies ChartConfig
 
 type FilaTipoEfectivoIrpf = Record<string, number | string>
-type FilaNetoReal = Record<string, number | string | null>
+type FilaNetoReal = Record<string, number | string | undefined>
 type EstadoDatosGrafico =
   | { readonly _tag: "cargando"; readonly clave: string }
   | {
@@ -976,93 +1071,210 @@ const obtenerPuntosAuditoriaParaAnio = (
     { modo: "compatible-legacy" }
   ).pipe(Effect.map((resultado) => resultado.auditoria.puntos))
 
+const claveEntradaSerieAuditoria = ({
+  comunidadAutonoma,
+  anio,
+}: {
+  readonly comunidadAutonoma: ComunidadAuditada
+  readonly anio: AnioFiscal
+}) => claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
+
+const entradasSerieAuditoriaUnicas = ({
+  comunidadesAutonomas,
+  aniosSeleccionados,
+}: {
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+}) =>
+  [
+    ...new Map(
+      comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+        aniosSeleccionados.map((anio) => [
+          claveEntradaSerieAuditoria({ comunidadAutonoma, anio }),
+          { comunidadAutonoma, anio },
+        ])
+      )
+    ).values(),
+  ]
+
+const puedeReusarPuntosAuditoriaBase = ({
+  auditoria,
+  comunidadAutonomaAuditoriaBase,
+  comunidadAutonoma,
+  anio,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonomaAuditoriaBase: ComunidadAuditada
+  readonly comunidadAutonoma: ComunidadAuditada
+  readonly anio: AnioFiscal
+}) =>
+  comunidadAutonoma === comunidadAutonomaAuditoriaBase &&
+  (anio === auditoria.anioComparado || anio === auditoria.anioReferencia)
+
+const claveCacheSerieAuditoria = ({
+  auditoria,
+  comunidadAutonoma,
+  anio,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonoma: ComunidadAuditada
+  readonly anio: AnioFiscal
+}) =>
+  [
+    comunidadAutonoma,
+    anio,
+    auditoria.anioReferencia,
+    auditoria.salarioBrutoAnualMinimoCentimos,
+    auditoria.salarioBrutoAnualMaximoCentimos,
+    auditoria.pasoCentimos,
+  ].join("|")
+
 const construirSeriesAuditoria = Effect.fn(
   "auditoria.ui.construirSeriesAuditoria"
 )(function* ({
   auditoria,
+  comunidadAutonomaAuditoriaBase,
   comunidadesAutonomas,
   aniosSeleccionados,
+  cacheSeries,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonomaAuditoriaBase: ComunidadAuditada
   readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+  readonly cacheSeries: Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>
 }) {
-  const entradas = yield* Effect.forEach(
-    comunidadesAutonomas.flatMap((comunidadAutonoma) =>
-      aniosSeleccionados.map((anio) => ({ comunidadAutonoma, anio }))
-    ),
-    ({ comunidadAutonoma, anio }) =>
-      obtenerPuntosAuditoriaParaAnio(auditoria, comunidadAutonoma, anio).pipe(
-        Effect.map(
-          (puntos) =>
-            [
-              claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio),
-              puntos,
-            ] as const
-        )
-      ),
-    { concurrency: 1 }
-  )
-
-  return new Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>(entradas)
-})
-
-const filasTipoEfectivoIrpf = Effect.fn("auditoria.ui.filasTipoEfectivoIrpf")(
-  function* ({
-    auditoria,
-    comunidadesAutonomas,
-    aniosSeleccionados,
-  }: {
-    readonly auditoria: AuditoriaRangoSalarial
-    readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
-    readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
-  }) {
-    const series = yield* construirSeriesAuditoria({
-      auditoria,
-      comunidadesAutonomas,
-      aniosSeleccionados,
-    })
-
-    return auditoria.puntos.map((puntoBase, indice) => {
-      const fila: FilaTipoEfectivoIrpf = {
-        salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
-        salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
-      }
-
-      for (const comunidadAutonoma of comunidadesAutonomas) {
-        for (const anio of aniosSeleccionados) {
-          const punto = series.get(
-            claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
-          )?.[indice]
-          if (punto === undefined) continue
-          fila[claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)] =
-            anio === auditoria.anioReferencia
-              ? punto.tipoEfectivoIrpfActual
-              : punto.tipoEfectivoIrpfComparado
-        }
-      }
-
-      return fila
-    })
-  }
-)
-
-const filasNetoReal = Effect.fn("auditoria.ui.filasNetoReal")(function* ({
-  auditoria,
-  comunidadesAutonomas,
-  aniosSeleccionados,
-}: {
-  readonly auditoria: AuditoriaRangoSalarial
-  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
-  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
-}) {
-  const series = yield* construirSeriesAuditoria({
-    auditoria,
+  const entradasSolicitadas = entradasSerieAuditoriaUnicas({
     comunidadesAutonomas,
     aniosSeleccionados,
   })
+  const entradasDesdeCache: Array<
+    readonly [string, ReadonlyArray<PuntoAuditoriaRangoSalarial>]
+  > = []
+  const entradasPendientes: Array<{
+    readonly comunidadAutonoma: ComunidadAuditada
+    readonly anio: AnioFiscal
+  }> = []
 
-  return auditoria.puntos.map((puntoBase, indice) => {
+  for (const entrada of entradasSolicitadas) {
+    const { comunidadAutonoma, anio } = entrada
+    const claveSerie = claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
+    const claveCache = claveCacheSerieAuditoria({
+      auditoria,
+      comunidadAutonoma,
+      anio,
+    })
+    const cacheada = Option.fromNullishOr(cacheSeries.get(claveCache))
+
+    if (Option.isSome(cacheada)) {
+      entradasDesdeCache.push([claveSerie, cacheada.value])
+      continue
+    }
+
+    if (
+      puedeReusarPuntosAuditoriaBase({
+        auditoria,
+        comunidadAutonomaAuditoriaBase,
+        comunidadAutonoma,
+        anio,
+      })
+    ) {
+      cacheSeries.set(claveCache, auditoria.puntos)
+      entradasDesdeCache.push([claveSerie, auditoria.puntos])
+      continue
+    }
+
+    entradasPendientes.push(entrada)
+  }
+
+  const entradasCalculadas = yield* instrumentarEffectAuditoria({
+    nombre: "auditoria.ui.series.calcularPendientes",
+    metrica: metricaDuracionSeriesAuditoria,
+    detalles: {
+      seriesSolicitadas: entradasSolicitadas.length,
+      seriesReusadasDesdeCache: entradasDesdeCache.length,
+      seriesCalculadas: entradasPendientes.length,
+      anios: aniosSeleccionados.join(","),
+      comunidades: comunidadesAutonomas.join(","),
+      puntosPorSerie: auditoria.puntos.length,
+    },
+    efecto: Effect.forEach(
+      entradasPendientes,
+      ({ comunidadAutonoma, anio }) =>
+        obtenerPuntosAuditoriaParaAnio(auditoria, comunidadAutonoma, anio).pipe(
+          Effect.map((puntos) => {
+            cacheSeries.set(
+              claveCacheSerieAuditoria({ auditoria, comunidadAutonoma, anio }),
+              puntos
+            )
+            return [
+              claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio),
+              puntos,
+            ] as const
+          })
+        ),
+      { concurrency: 1 }
+    ),
+  })
+
+  return new Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>([
+    ...entradasDesdeCache,
+    ...entradasCalculadas,
+  ])
+})
+
+const construirFilasTipoEfectivoIrpfDesdeSeries = ({
+  auditoria,
+  comunidadesAutonomas,
+  aniosSeleccionados,
+  series,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+  readonly series: ReadonlyMap<
+    string,
+    ReadonlyArray<PuntoAuditoriaRangoSalarial>
+  >
+}) =>
+  auditoria.puntos.map((puntoBase, indice) => {
+    const fila: FilaTipoEfectivoIrpf = {
+      salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
+      salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
+    }
+
+    for (const comunidadAutonoma of comunidadesAutonomas) {
+      for (const anio of aniosSeleccionados) {
+        const punto = Option.fromNullishOr(
+          series.get(claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio))
+        ).pipe(Option.flatMap((puntos) => Option.fromNullishOr(puntos[indice])))
+        if (Option.isNone(punto)) continue
+        fila[claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)] =
+          Match.value(anio === auditoria.anioReferencia).pipe(
+            Match.when(true, () => punto.value.tipoEfectivoIrpfActual),
+            Match.orElse(() => punto.value.tipoEfectivoIrpfComparado)
+          )
+      }
+    }
+
+    return fila
+  })
+
+const construirFilasNetoRealDesdeSeries = ({
+  auditoria,
+  comunidadesAutonomas,
+  aniosSeleccionados,
+  series,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+  readonly series: ReadonlyMap<
+    string,
+    ReadonlyArray<PuntoAuditoriaRangoSalarial>
+  >
+}) =>
+  auditoria.puntos.map((puntoBase, indice) => {
     const fila: FilaNetoReal = {
       salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
       salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
@@ -1070,29 +1282,107 @@ const filasNetoReal = Effect.fn("auditoria.ui.filasNetoReal")(function* ({
 
     for (const comunidadAutonoma of comunidadesAutonomas) {
       for (const anio of aniosSeleccionados) {
-        const punto = series.get(
-          claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
-        )?.[indice]
-        if (punto === undefined) continue
+        const punto = Option.fromNullishOr(
+          series.get(claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio))
+        ).pipe(Option.flatMap((puntos) => Option.fromNullishOr(puntos[indice])))
+        if (Option.isNone(punto)) continue
 
-        const diferencia = centimosAEuros(
-          punto.comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
+        const diferencia = Match.value(anio === auditoria.anioReferencia).pipe(
+          Match.when(true, () => 0),
+          Match.orElse(() =>
+            centimosAEuros(
+              punto.value.comparacion
+                .diferenciaPoderAdquisitivoNetoAnualCentimos
+            )
+          )
         )
 
         fila[claveSerieNeto(comunidadAutonoma, anio)] = diferencia
         fila[claveSerieNetoPositiva(comunidadAutonoma, anio)] =
-          diferencia >= 0 ? diferencia : null
+          Match.value(diferencia >= 0).pipe(
+            Match.when(true, () => Option.some(diferencia)),
+            Match.orElse(() => Option.none<number>()),
+            Option.getOrUndefined
+          )
         fila[claveSerieNetoNegativa(comunidadAutonoma, anio)] =
-          diferencia <= 0 ? diferencia : null
+          Match.value(diferencia <= 0).pipe(
+            Match.when(true, () => Option.some(diferencia)),
+            Match.orElse(() => Option.none<number>()),
+            Option.getOrUndefined
+          )
       }
     }
 
     return fila
   })
+
+const construirFilasGraficosAuditoria = Effect.fn(
+  "auditoria.ui.construirFilasGraficosAuditoria"
+)(function* ({
+  auditoria,
+  comunidadAutonomaAuditoriaBase,
+  comunidadesAutonomas,
+  aniosIrpf,
+  aniosNeto,
+  cacheSeries,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonomaAuditoriaBase: ComunidadAuditada
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly aniosIrpf: ReadonlyArray<AnioFiscal>
+  readonly aniosNeto: ReadonlyArray<AnioFiscal>
+  readonly cacheSeries: Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>
+}) {
+  const aniosSeries = [...new Set([...aniosIrpf, ...aniosNeto])]
+  const series = yield* construirSeriesAuditoria({
+    auditoria,
+    comunidadAutonomaAuditoriaBase,
+    comunidadesAutonomas,
+    aniosSeleccionados: aniosSeries,
+    cacheSeries,
+  })
+
+  const tipoEfectivoIrpf = yield* instrumentarEffectAuditoria({
+    nombre: "auditoria.ui.filasTipoEfectivoIrpf",
+    metrica: metricaDuracionFilasGraficosAuditoria,
+    detalles: {
+      filas: auditoria.puntos.length,
+      series: comunidadesAutonomas.length * aniosIrpf.length,
+      anios: aniosIrpf.join(","),
+    },
+    efecto: Effect.sync(() =>
+      construirFilasTipoEfectivoIrpfDesdeSeries({
+        auditoria,
+        comunidadesAutonomas,
+        aniosSeleccionados: aniosIrpf,
+        series,
+      })
+    ),
+  })
+
+  const netoReal = yield* instrumentarEffectAuditoria({
+    nombre: "auditoria.ui.filasNetoReal",
+    metrica: metricaDuracionFilasGraficosAuditoria,
+    detalles: {
+      filas: auditoria.puntos.length,
+      series: comunidadesAutonomas.length * aniosNeto.length,
+      anios: aniosNeto.join(","),
+    },
+    efecto: Effect.sync(() =>
+      construirFilasNetoRealDesdeSeries({
+        auditoria,
+        comunidadesAutonomas,
+        aniosSeleccionados: aniosNeto,
+        series,
+      })
+    ),
+  })
+
+  return { tipoEfectivoIrpf, netoReal }
 })
 
 const valoresNumericosDeFilas = (
-  filas: ReadonlyArray<Record<string, number | string | null>>,
+  filas: ReadonlyArray<Record<string, number | string | undefined>>,
   claves: ReadonlyArray<string>
 ) =>
   filas.flatMap((fila) =>
@@ -1460,7 +1750,7 @@ function Visualizaciones({
   aniosGraficoNetoReal,
   fijarAniosGraficoNetoReal,
 }: {
-  readonly auditoria: AuditoriaRangoSalarial | null
+  readonly auditoria: Option.Option<AuditoriaRangoSalarial>
   readonly estadoAuditoria: EstadoAuditoria
   readonly comunidadAutonoma: ComunidadAuditada
   readonly alCambiarComunidadAutonoma: (
@@ -1488,72 +1778,99 @@ function Visualizaciones({
   )
   const claveAniosGraficoIrpfVisibles = aniosGraficoIrpfVisibles.join(",")
   const claveAniosGraficoNetoReal = aniosGraficoNetoReal.join(",")
-  const claveDatosGrafico =
-    auditoria === null
-      ? "sin-auditoria"
-      : [
-          comunidadAutonoma,
-          auditoria.anioReferencia,
-          auditoria.salarioBrutoAnualMinimoCentimos,
-          auditoria.salarioBrutoAnualMaximoCentimos,
-          auditoria.pasoCentimos,
-          claveAniosGraficoIrpfVisibles,
-          claveAniosGraficoNetoReal,
-        ].join("|")
+  const claveDatosGrafico = Option.match(auditoria, {
+    onNone: () => "sin-auditoria",
+    onSome: (auditoriaLista) =>
+      [
+        comunidadAutonoma,
+        auditoriaLista.anioReferencia,
+        auditoriaLista.salarioBrutoAnualMinimoCentimos,
+        auditoriaLista.salarioBrutoAnualMaximoCentimos,
+        auditoriaLista.pasoCentimos,
+        claveAniosGraficoIrpfVisibles,
+        claveAniosGraficoNetoReal,
+      ].join("|"),
+  })
   const [estadoDatosGrafico, fijarEstadoDatosGrafico] =
     React.useState<EstadoDatosGrafico>({
       _tag: "cargando",
       clave: "sin-auditoria",
     })
+  const cacheSeriesAuditoria = React.useRef(
+    new Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>()
+  )
+  const inicioCalculoDatosGrafico =
+    React.useRef<Option.Option<number>>(Option.none())
+  const finCalculoDatosGrafico =
+    React.useRef<Option.Option<number>>(Option.none())
 
   React.useEffect(() => {
-    if (auditoria === null) return
-
-    const aniosIrpf = aniosDesdeClaveGrafico(claveAniosGraficoIrpfVisibles)
-    const aniosNeto = aniosDesdeClaveGrafico(claveAniosGraficoNetoReal)
-    const comunidades = [comunidadAutonoma] as const
-
-    const fibra = Effect.runFork(
-      Effect.all(
-        {
-          tipoEfectivoIrpf: filasTipoEfectivoIrpf({
-            auditoria,
-            comunidadesAutonomas: comunidades,
-            aniosSeleccionados: aniosIrpf,
-          }),
-          netoReal: filasNetoReal({
-            auditoria,
-            comunidadesAutonomas: comunidades,
-            aniosSeleccionados: aniosNeto,
-          }),
-        },
-        { concurrency: 2 }
-      )
-    )
-
-    fibra.addObserver((exit) => {
-      if (Exit.isSuccess(exit)) {
-        fijarEstadoDatosGrafico({
-          _tag: "lista",
-          clave: claveDatosGrafico,
-          tipoEfectivoIrpf: exit.value.tipoEfectivoIrpf,
-          netoReal: exit.value.netoReal,
+    return Option.match(auditoria, {
+      onNone: () => {},
+      onSome: (auditoriaLista) => {
+        const aniosIrpf = aniosDesdeClaveGrafico(claveAniosGraficoIrpfVisibles)
+        const aniosNeto = aniosDesdeClaveGrafico(claveAniosGraficoNetoReal)
+        const comunidades = [comunidadAutonoma] as const
+        const inicio = tiempoAuditoriaMs()
+        inicioCalculoDatosGrafico.current = Option.some(inicio)
+        finCalculoDatosGrafico.current = Option.none()
+        registrarMarcaAuditoria("react.graficos.datos.inicio", {
+          claveDatosGrafico,
+          comunidadAutonoma,
+          aniosIrpf: aniosIrpf.join(","),
+          aniosNeto: aniosNeto.join(","),
+          puntosBase: auditoriaLista.puntos.length,
         })
-        return
-      }
 
-      if (Cause.hasInterruptsOnly(exit.cause)) return
+        const fibra = Effect.runFork(
+          construirFilasGraficosAuditoria({
+            auditoria: auditoriaLista,
+            comunidadAutonomaAuditoriaBase: comunidadAutonoma,
+            comunidadesAutonomas: comunidades,
+            aniosIrpf,
+            aniosNeto,
+            cacheSeries: cacheSeriesAuditoria.current,
+          })
+        )
 
-      fijarEstadoDatosGrafico({
-        _tag: "error",
-        clave: claveDatosGrafico,
-        mensaje: String(Cause.squash(exit.cause)),
-      })
+        fibra.addObserver((exit) => {
+          if (Exit.isSuccess(exit)) {
+            const fin = tiempoAuditoriaMs()
+            finCalculoDatosGrafico.current = Option.some(fin)
+            registrarMarcaAuditoria("react.graficos.datos.fin", {
+              claveDatosGrafico,
+              duracionMs: Math.round(fin - inicio),
+              filasTipoEfectivoIrpf: exit.value.tipoEfectivoIrpf.length,
+              filasNetoReal: exit.value.netoReal.length,
+            })
+            fijarEstadoDatosGrafico({
+              _tag: "lista",
+              clave: claveDatosGrafico,
+              tipoEfectivoIrpf: exit.value.tipoEfectivoIrpf,
+              netoReal: exit.value.netoReal,
+            })
+            return
+          }
+
+          if (Cause.hasInterruptsOnly(exit.cause)) return
+
+          registrarMarcaAuditoria("react.graficos.datos.error", {
+            claveDatosGrafico,
+            duracionMs: Math.round(tiempoAuditoriaMs() - inicio),
+            mensaje: String(Cause.squash(exit.cause)),
+          })
+          fijarEstadoDatosGrafico({
+            _tag: "error",
+            clave: claveDatosGrafico,
+            mensaje: String(Cause.squash(exit.cause)),
+          })
+        })
+
+        return () => {
+          Effect.runFork(Fiber.interrupt(fibra))
+        }
+      },
     })
-
-    return () => {
-      Effect.runFork(Fiber.interrupt(fibra))
-    }
   }, [
     claveAniosGraficoIrpfVisibles,
     claveAniosGraficoNetoReal,
@@ -1562,37 +1879,65 @@ function Visualizaciones({
     auditoria,
   ])
 
-  const estadoDatosGraficoActual =
-    auditoria === null
-      ? estadoAuditoria._tag === "error"
-        ? ({
-            _tag: "error",
-            clave: claveDatosGrafico,
-            mensaje: estadoAuditoria.mensaje,
-          } satisfies EstadoDatosGrafico)
-        : ({
-            _tag: "cargando",
-            clave: claveDatosGrafico,
-          } satisfies EstadoDatosGrafico)
-      : estadoDatosGrafico.clave === claveDatosGrafico
-        ? estadoDatosGrafico
-        : ({
-            _tag: "cargando",
-            clave: claveDatosGrafico,
-          } satisfies EstadoDatosGrafico)
-  const datosTipoEfectivoIrpf =
-    estadoDatosGraficoActual._tag === "lista"
-      ? estadoDatosGraficoActual.tipoEfectivoIrpf
-      : []
-  const datosNetoReal =
-    estadoDatosGraficoActual._tag === "lista"
-      ? estadoDatosGraficoActual.netoReal
-      : []
+  const estadoDatosGraficoActual = Option.match(auditoria, {
+    onNone: () =>
+      Match.value(estadoAuditoria).pipe(
+        Match.when(
+          { _tag: "error" },
+          (estado) =>
+            ({
+              _tag: "error",
+              clave: claveDatosGrafico,
+              mensaje: estado.mensaje,
+            }) satisfies EstadoDatosGrafico
+        ),
+        Match.orElse(
+          () =>
+            ({
+              _tag: "cargando",
+              clave: claveDatosGrafico,
+            }) satisfies EstadoDatosGrafico
+        )
+      ),
+    onSome: () =>
+      Match.value(estadoDatosGrafico.clave === claveDatosGrafico).pipe(
+        Match.when(true, () => estadoDatosGrafico),
+        Match.orElse(
+          () =>
+            ({
+              _tag: "cargando",
+              clave: claveDatosGrafico,
+            }) satisfies EstadoDatosGrafico
+        )
+      ),
+  })
+  const datosTipoEfectivoIrpf = Match.value(estadoDatosGraficoActual).pipe(
+    Match.when({ _tag: "lista" }, (estado) => estado.tipoEfectivoIrpf),
+    Match.orElse(() => [])
+  )
+  const datosNetoReal = Match.value(estadoDatosGraficoActual).pipe(
+    Match.when({ _tag: "lista" }, (estado) => estado.netoReal),
+    Match.orElse(() => [])
+  )
   const graficoCargando = estadoDatosGraficoActual._tag === "cargando"
-  const errorGrafico =
-    estadoDatosGraficoActual._tag === "error"
-      ? estadoDatosGraficoActual.mensaje
-      : null
+  const errorGrafico = Match.value(estadoDatosGraficoActual).pipe(
+    Match.when({ _tag: "error" }, (estado) => Option.some(estado.mensaje)),
+    Match.orElse(() => Option.none<string>())
+  )
+
+  React.useLayoutEffect(() => {
+    if (estadoDatosGraficoActual._tag !== "lista") return
+
+    const finDatos = finCalculoDatosGrafico.current
+    registrarMarcaAuditoria("react.graficos.commit", {
+      claveDatosGrafico: estadoDatosGraficoActual.clave,
+      msDesdeDatosListos: Option.map(finDatos, (fin) =>
+        Math.round(tiempoAuditoriaMs() - fin)
+      ),
+      filasTipoEfectivoIrpf: estadoDatosGraficoActual.tipoEfectivoIrpf.length,
+      filasNetoReal: estadoDatosGraficoActual.netoReal.length,
+    })
+  }, [estadoDatosGraficoActual])
 
   const clavesTipoEfectivoIrpf = comunidadesAutonomas.flatMap(
     (comunidadAutonoma) =>
@@ -1615,25 +1960,23 @@ function Visualizaciones({
     valoresNumericosDeFilas(datosTipoEfectivoIrpf, clavesTipoEfectivoIrpf)
   )
   const ticksTipoEfectivoIrpf = ticksPorcentaje(dominioTipoEfectivoIrpf)
+  const rangoSalarioCentimos = Option.match(auditoria, {
+    onNone: () => ({
+      minimo: configuracionRangoAuditoria.minimoPorDefectoCentimos,
+      maximo: configuracionRangoAuditoria.maximoPorDefectoCentimos,
+    }),
+    onSome: (auditoriaLista) => ({
+      minimo: auditoriaLista.salarioBrutoAnualMinimoCentimos,
+      maximo: auditoriaLista.salarioBrutoAnualMaximoCentimos,
+    }),
+  })
   const ticksSalario = ticksSalarioEuros({
-    minimoEuros: centimosAEuros(
-      auditoria?.salarioBrutoAnualMinimoCentimos ??
-        configuracionRangoAuditoria.minimoPorDefectoCentimos
-    ),
-    maximoEuros: centimosAEuros(
-      auditoria?.salarioBrutoAnualMaximoCentimos ??
-        configuracionRangoAuditoria.maximoPorDefectoCentimos
-    ),
+    minimoEuros: centimosAEuros(rangoSalarioCentimos.minimo),
+    maximoEuros: centimosAEuros(rangoSalarioCentimos.maximo),
   })
   const dominioSalario = [
-    centimosAEuros(
-      auditoria?.salarioBrutoAnualMinimoCentimos ??
-        configuracionRangoAuditoria.minimoPorDefectoCentimos
-    ),
-    centimosAEuros(
-      auditoria?.salarioBrutoAnualMaximoCentimos ??
-        configuracionRangoAuditoria.maximoPorDefectoCentimos
-    ),
+    centimosAEuros(rangoSalarioCentimos.minimo),
+    centimosAEuros(rangoSalarioCentimos.maximo),
   ] as const
   const dominioDiferencia = dominioEurosSimetrico(
     valoresNumericosDeFilas(datosNetoReal, clavesNetoReal)
@@ -1741,14 +2084,15 @@ function Visualizaciones({
               aria-label="Cargando gráfica de tipo efectivo del IRPF"
               className={claseGraficoTipoEfectivoIrpf}
             />
-          ) : errorGrafico !== null || auditoria === null ? (
+          ) : Option.isSome(errorGrafico) || Option.isNone(auditoria) ? (
             <div
               className={cn(
                 claseGraficoTipoEfectivoIrpf,
                 "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
               )}
             >
-              No se pudo calcular la gráfica: {errorGrafico ?? "sin datos"}
+              No se pudo calcular la gráfica:{" "}
+              {Option.getOrElse(errorGrafico, () => "sin datos")}
             </div>
           ) : (
             <ChartContainer
@@ -1860,7 +2204,11 @@ function Visualizaciones({
             <p className="max-w-3xl text-sm leading-5 text-[var(--ink-soft)]">
               DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI
               ES POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE{" "}
-              {auditoria?.anioReferencia ?? 2025}.
+              {Option.match(auditoria, {
+                onNone: () => 2025,
+                onSome: (auditoriaLista) => auditoriaLista.anioReferencia,
+              })}
+              .
             </p>
             <div
               role="group"
@@ -1900,14 +2248,15 @@ function Visualizaciones({
               aria-label="Cargando gráfica de neto real"
               className={claseGraficoNetoReal}
             />
-          ) : errorGrafico !== null || auditoria === null ? (
+          ) : Option.isSome(errorGrafico) || Option.isNone(auditoria) ? (
             <div
               className={cn(
                 claseGraficoNetoReal,
                 "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
               )}
             >
-              No se pudo calcular la gráfica: {errorGrafico ?? "sin datos"}
+              No se pudo calcular la gráfica:{" "}
+              {Option.getOrElse(errorGrafico, () => "sin datos")}
             </div>
           ) : (
             <ChartContainer

@@ -8,10 +8,12 @@ import type {
 import type { RastroCalculo } from "../../explicacion/rastro-calculo"
 import {
   centimosAEuros,
+  eurosACentimos,
   PoliticaMonetaria,
   type ServicioPoliticaMonetaria,
 } from "../../dinero/importe-monetario"
 import {
+  calcularDesgloseCotizacionesSocialesLegacy,
   CotizacionesSociales,
   type ServicioCotizacionesSociales,
 } from "../../laboral/cotizaciones-sociales"
@@ -20,6 +22,7 @@ import { MINIMOS_ESTATALES_2014 } from "../../normativa/datos/minimos-autonomico
 import { MINIMOS_ESTATALES_2013 } from "../../normativa/datos/minimos-autonomicos-2013"
 import { MINIMOS_ESTATALES_2012 } from "../../normativa/datos/minimos-autonomicos-2012"
 import {
+  obtenerParametrosComunidadAutonoma as obtenerParametrosComunidadAutonomaPuro,
   ParametrosNormativosIrpf,
   type ServicioParametrosNormativosIrpf,
 } from "../comunidades/comunidad-autonoma"
@@ -64,6 +67,11 @@ import {
   type RetencionTrabajoCalculada,
   type ServicioRetencionTrabajoAeat,
 } from "../retenciones/retencion-trabajo-aeat"
+import {
+  medirAuditoriaSync,
+  registrarTiempoAgregadoAuditoria,
+  tiempoAuditoriaMs,
+} from "../../../observabilidad/auditoria-rendimiento"
 
 export type { CasoFiscalAnual } from "../caso-fiscal-anual"
 
@@ -141,9 +149,18 @@ const construirLiquidarIrpfAnual = (
     )
     yield* Effect.annotateCurrentSpan("irpf.modo", contexto.modo)
 
-    const resultadoNoSoportado = yield* detectarCasoNoSoportado(
-      caso,
-      dependencias.parametrosNormativos
+    const inicioDeteccion = tiempoAuditoriaMs()
+    const resultadoNoSoportado = yield* Match.value(
+      caso.deducciones.length
+    ).pipe(
+      Match.when(0, () => Effect.succeed(Option.none<ResultadoNoSoportado>())),
+      Match.orElse(() =>
+        detectarCasoNoSoportado(caso, dependencias.parametrosNormativos)
+      )
+    )
+    registrarTiempoAgregadoAuditoria(
+      "liquidacion.detectarCasoNoSoportado",
+      tiempoAuditoriaMs() - inicioDeteccion
     )
     return yield* Option.match(resultadoNoSoportado, {
       onNone: () => liquidarTrabajoIndividualSimple(caso, dependencias),
@@ -206,68 +223,105 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   caso: CasoFiscalAnual,
   dependencias: DependenciasLiquidacionIrpfAnual
 ) {
-  const liquidarCentimos = (importe: Decimal) =>
-    dependencias.politicaMonetaria.importeLiquidadoACentimos(importe)
+  const inicioLiquidacionSimple = tiempoAuditoriaMs()
+  const liquidarCentimos = eurosACentimos
 
-  const rendimientoIntegroTrabajo = sumarRendimientosTrabajo(
-    caso.rendimientos.trabajo,
-    centimosAEuros
+  const rendimientoIntegroTrabajo = medirAuditoriaSync(
+    "liquidacion.rendimientosTrabajo.sumar",
+    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)
   )
-  const minimosEstatales =
+  const minimosEstatales = medirAuditoriaSync("liquidacion.minimos.estatal", () =>
     Match.value(caso.anio).pipe(
       Match.when(2012, () => MINIMOS_ESTATALES_2012),
       Match.when(2013, () => MINIMOS_ESTATALES_2013),
       Match.when(2014, () => MINIMOS_ESTATALES_2014),
       Match.orElse(() => dependencias.parametrosNormativos.minimosEstatales2025)
     )
-  const rendimientoTrabajo = calcularRendimientoNetoTrabajo({
-    anio: caso.anio,
-    rendimientoIntegro: rendimientoIntegroTrabajo,
-  })
-  const cotizacionesSociales =
-    yield* dependencias.cotizacionesSociales.desglosarLegacy({
+  )
+  const rendimientoTrabajo = medirAuditoriaSync(
+    "liquidacion.rendimientosTrabajo.neto",
+    () =>
+      calcularRendimientoNetoTrabajo({
+        anio: caso.anio,
+        rendimientoIntegro: rendimientoIntegroTrabajo,
+      })
+  )
+  const cotizacionesSociales = medirAuditoriaSync(
+    "liquidacion.cotizacionesSociales.desglosarLegacy",
+    () =>
+      calcularDesgloseCotizacionesSocialesLegacy({
       anio: caso.anio,
       salarioBrutoAnual: rendimientoIntegroTrabajo,
-    })
-  const rendimientoIntegroCapitalInmobiliario =
-    sumarRendimientosCapitalInmobiliario(
-      caso.rendimientos.capitalInmobiliario ?? [],
-      centimosAEuros
-    )
-  const rendimientoCapitalInmobiliario =
-    calcularRendimientoNetoCapitalInmobiliarioSimplificado({
-      rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
-    })
-  const reduccionRendimientosTrabajo = calcularReduccionRendimientosTrabajo({
-    anio: caso.anio,
-    fechaFallecimiento: caso.fechaFallecimiento,
-    rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
-  })
-  const gananciasPatrimoniales = calcularGananciasPatrimonialesPorTransmision({
-    anio: caso.anio,
-    edadContribuyente: caso.situacionFamiliar.edad,
-    ganancias: caso.rendimientos.gananciasPatrimoniales ?? [],
-    convertirCentimos: centimosAEuros,
-  })
-  const baseImponibleGeneral = calcularBaseImponibleGeneral({
-    gananciaPatrimonialGeneral: gananciasPatrimoniales.gananciaSujetaGeneral,
-    reduccionRendimientosTrabajo,
-    rendimientoCapitalInmobiliario,
-    rendimientoTrabajo,
-  })
+      })
+  )
+  const rendimientoIntegroCapitalInmobiliario = medirAuditoriaSync(
+    "liquidacion.capitalInmobiliario.sumar",
+    () =>
+      sumarRendimientosCapitalInmobiliario(
+        Option.fromNullishOr(caso.rendimientos.capitalInmobiliario).pipe(
+          Option.getOrElse(() => [])
+        ),
+        centimosAEuros
+      )
+  )
+  const rendimientoCapitalInmobiliario = medirAuditoriaSync(
+    "liquidacion.capitalInmobiliario.neto",
+    () =>
+      calcularRendimientoNetoCapitalInmobiliarioSimplificado({
+        rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
+      })
+  )
+  const reduccionRendimientosTrabajo = medirAuditoriaSync(
+    "liquidacion.reduccionRendimientosTrabajo",
+    () =>
+      calcularReduccionRendimientosTrabajo({
+        anio: caso.anio,
+        fechaFallecimiento: caso.fechaFallecimiento,
+        rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
+      })
+  )
+  const gananciasPatrimoniales = medirAuditoriaSync(
+    "liquidacion.gananciasPatrimoniales",
+    () =>
+      calcularGananciasPatrimonialesPorTransmision({
+        anio: caso.anio,
+        edadContribuyente: caso.situacionFamiliar.edad,
+        ganancias: Option.fromNullishOr(
+          caso.rendimientos.gananciasPatrimoniales
+        ).pipe(Option.getOrElse(() => [])),
+        convertirCentimos: centimosAEuros,
+      })
+  )
+  const baseImponibleGeneral = medirAuditoriaSync(
+    "liquidacion.baseImponibleGeneral",
+    () =>
+      calcularBaseImponibleGeneral({
+        gananciaPatrimonialGeneral:
+          gananciasPatrimoniales.gananciaSujetaGeneral,
+        reduccionRendimientosTrabajo,
+        rendimientoCapitalInmobiliario,
+        rendimientoTrabajo,
+      })
+  )
   const baseLiquidableGeneral = baseImponibleGeneral
-  const baseLiquidableAhorro = calcularBaseImponibleAhorro({
-    gananciasPatrimoniales,
-  })
-  const resultadoParametrosComunidad =
-    yield* dependencias.parametrosNormativos.obtenerParametrosComunidadAutonoma(
-      {
+  const baseLiquidableAhorro = medirAuditoriaSync(
+    "liquidacion.baseImponibleAhorro",
+    () =>
+      calcularBaseImponibleAhorro({
+        gananciasPatrimoniales,
+      })
+  )
+  const resultadoParametrosComunidad = medirAuditoriaSync(
+    "liquidacion.parametrosComunidad.obtener",
+    () =>
+      obtenerParametrosComunidadAutonomaPuro({
         anio: caso.anio,
         baseLiquidableGeneral,
         comunidadAutonoma: caso.comunidadAutonoma,
         fechaFallecimiento: caso.fechaFallecimiento,
-      }
-    )
+      })
+  )
+  const inicioParametrosComunidadMatch = tiempoAuditoriaMs()
   const parametrosComunidad = yield* Match.valueTags(
     resultadoParametrosComunidad,
     {
@@ -290,6 +344,11 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         Effect.succeed(parametrosComunidad),
     }
   )
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.parametrosComunidad.match",
+    tiempoAuditoriaMs() - inicioParametrosComunidadMatch
+  )
+  const inicioCuotasIntegras = tiempoAuditoriaMs()
   const tramosIrpfEstatalGeneral = parametrosComunidad.escalaEstatalGeneral
   const usaEscalaAutonomicaReal =
     !parametrosComunidad.escalaAutonomicaIgualEstatal
@@ -334,6 +393,11 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     anio: caso.anio,
     base: baseLiquidableAhorro,
   })
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.cuotasIntegrasYDesgloses",
+    tiempoAuditoriaMs() - inicioCuotasIntegras
+  )
+  const inicioMinimos = tiempoAuditoriaMs()
   const minimoContribuyente = obtenerMinimoContribuyente({
     anio: caso.anio,
     edad: caso.situacionFamiliar.edad,
@@ -371,6 +435,11 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     anio: caso.anio,
     minimos: parametrosComunidad.minimosAutonomicos,
   })
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.minimosPersonalesFamiliares",
+    tiempoAuditoriaMs() - inicioMinimos
+  )
+  const inicioCuotasMinimo = tiempoAuditoriaMs()
   const cuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
     ? calcularCuotaPorEscala({
         base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
@@ -428,6 +497,11 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         tramos: parametrosComunidad.escalaAutonomica.tramos,
       })
     : []
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.cuotasMinimoYDesgloses",
+    tiempoAuditoriaMs() - inicioCuotasMinimo
+  )
+  const inicioCuotaLiquida = tiempoAuditoriaMs()
   const cuotaGeneralDespuesMinimo = Decimal.max(
     0,
     cuotaIntegraGeneral.minus(cuotaMinimoPersonal)
@@ -455,72 +529,89 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       .plus(cuotaAhorroDespuesMinimo)
       .minus(deduccionesAutonomicasAplicadas)
   )
-  const importesLiquidacion = yield* Effect.all({
-    rendimientoIntegroTrabajoCentimos: liquidarCentimos(
-      rendimientoTrabajo.rendimientoIntegro
-    ),
-    rendimientoNetoTrabajoCentimos: liquidarCentimos(
-      rendimientoTrabajo.rendimientoNeto
-    ),
-    rendimientoNetoCapitalInmobiliarioCentimos: liquidarCentimos(
-      rendimientoCapitalInmobiliario.rendimientoNeto
-    ),
-    gastosDeduciblesTrabajoCentimos: liquidarCentimos(
-      rendimientoTrabajo.gastosDeducibles
-    ),
-    reduccionRendimientosTrabajoCentimos: liquidarCentimos(
-      reduccionRendimientosTrabajo
-    ),
-    totalGastosYDeduccionesTrabajoCentimos: liquidarCentimos(
-      rendimientoTrabajo.cotizacionTrabajador
-        .plus(rendimientoTrabajo.gastosDeducibles)
-        .plus(reduccionRendimientosTrabajo)
-    ),
-    baseImponibleGeneralCentimos: liquidarCentimos(baseImponibleGeneral),
-    baseLiquidableGeneralCentimos: liquidarCentimos(baseLiquidableGeneral),
-    gananciaPatrimonialTotalCentimos: liquidarCentimos(
-      gananciasPatrimoniales.gananciaTotal
-    ),
-    gananciaPatrimonialExentaCentimos: liquidarCentimos(
-      gananciasPatrimoniales.gananciaExenta
-    ),
-    baseLiquidableAhorroCentimos: liquidarCentimos(baseLiquidableAhorro),
-    cotizacionEmpresarialCentimos: liquidarCentimos(
-      cotizacionesSociales.cotizacionEmpresarial
-    ),
-    cotizacionTrabajadorCentimos: liquidarCentimos(
-      cotizacionesSociales.cotizacionTrabajador
-    ),
-    costeLaboralCentimos: liquidarCentimos(
-      rendimientoIntegroTrabajo.plus(cotizacionesSociales.cotizacionEmpresarial)
-    ),
-    meiEmpresarialCentimos: liquidarCentimos(
-      cotizacionesSociales.meiEmpresarial
-    ),
-    meiTrabajadorCentimos: liquidarCentimos(cotizacionesSociales.meiTrabajador),
-    solidaridadEmpresarialCentimos: liquidarCentimos(
-      cotizacionesSociales.solidaridadEmpresarial
-    ),
-    solidaridadTrabajadorCentimos: liquidarCentimos(
-      cotizacionesSociales.solidaridadTrabajador
-    ),
-    cuotaIntegraGeneralCentimos: liquidarCentimos(cuotaIntegraGeneral),
-    cuotaIntegraAhorroCentimos: liquidarCentimos(cuotaIntegraAhorro),
-    cuotaMinimoPersonalCentimos: liquidarCentimos(cuotaMinimoPersonal),
-    cuotaMinimoPersonalAhorroCentimos: liquidarCentimos(
-      cuotaMinimoPersonalAhorro
-    ),
-    deduccionesAutonomicasAplicadasCentimos: liquidarCentimos(
-      deduccionesAutonomicasAplicadas
-    ),
-    cuotaLiquidaCentimos: liquidarCentimos(cuotaLiquida),
-  })
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.deduccionesYCuotaLiquida",
+    tiempoAuditoriaMs() - inicioCuotaLiquida
+  )
+  const importesLiquidacion = medirAuditoriaSync(
+    "liquidacion.importesLiquidacion.redondeos",
+    () => ({
+      rendimientoIntegroTrabajoCentimos: liquidarCentimos(
+        rendimientoTrabajo.rendimientoIntegro
+      ),
+      rendimientoNetoTrabajoCentimos: liquidarCentimos(
+        rendimientoTrabajo.rendimientoNeto
+      ),
+      rendimientoNetoCapitalInmobiliarioCentimos: liquidarCentimos(
+        rendimientoCapitalInmobiliario.rendimientoNeto
+      ),
+      gastosDeduciblesTrabajoCentimos: liquidarCentimos(
+        rendimientoTrabajo.gastosDeducibles
+      ),
+      reduccionRendimientosTrabajoCentimos: liquidarCentimos(
+        reduccionRendimientosTrabajo
+      ),
+      totalGastosYDeduccionesTrabajoCentimos: liquidarCentimos(
+        rendimientoTrabajo.cotizacionTrabajador
+          .plus(rendimientoTrabajo.gastosDeducibles)
+          .plus(reduccionRendimientosTrabajo)
+      ),
+      baseImponibleGeneralCentimos: liquidarCentimos(baseImponibleGeneral),
+      baseLiquidableGeneralCentimos: liquidarCentimos(baseLiquidableGeneral),
+      gananciaPatrimonialTotalCentimos: liquidarCentimos(
+        gananciasPatrimoniales.gananciaTotal
+      ),
+      gananciaPatrimonialExentaCentimos: liquidarCentimos(
+        gananciasPatrimoniales.gananciaExenta
+      ),
+      baseLiquidableAhorroCentimos: liquidarCentimos(baseLiquidableAhorro),
+      cotizacionEmpresarialCentimos: liquidarCentimos(
+        cotizacionesSociales.cotizacionEmpresarial
+      ),
+      cotizacionTrabajadorCentimos: liquidarCentimos(
+        cotizacionesSociales.cotizacionTrabajador
+      ),
+      costeLaboralCentimos: liquidarCentimos(
+        rendimientoIntegroTrabajo.plus(
+          cotizacionesSociales.cotizacionEmpresarial
+        )
+      ),
+      meiEmpresarialCentimos: liquidarCentimos(
+        cotizacionesSociales.meiEmpresarial
+      ),
+      meiTrabajadorCentimos: liquidarCentimos(
+        cotizacionesSociales.meiTrabajador
+      ),
+      solidaridadEmpresarialCentimos: liquidarCentimos(
+        cotizacionesSociales.solidaridadEmpresarial
+      ),
+      solidaridadTrabajadorCentimos: liquidarCentimos(
+        cotizacionesSociales.solidaridadTrabajador
+      ),
+      cuotaIntegraGeneralCentimos: liquidarCentimos(cuotaIntegraGeneral),
+      cuotaIntegraAhorroCentimos: liquidarCentimos(cuotaIntegraAhorro),
+      cuotaMinimoPersonalCentimos: liquidarCentimos(cuotaMinimoPersonal),
+      cuotaMinimoPersonalAhorroCentimos: liquidarCentimos(
+        cuotaMinimoPersonalAhorro
+      ),
+      deduccionesAutonomicasAplicadasCentimos: liquidarCentimos(
+        deduccionesAutonomicasAplicadas
+      ),
+      cuotaLiquidaCentimos: liquidarCentimos(cuotaLiquida),
+    })
+  )
+  const inicioRetencionTrabajo = tiempoAuditoriaMs()
   const retencionTrabajoAeat = caso.retencionTrabajoAeat
     ? yield* dependencias.retencionTrabajoAeat.calcular(
         caso.retencionTrabajoAeat,
         { modo: "canonico" }
       )
     : undefined
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.retencionTrabajoAeat.opcional",
+    tiempoAuditoriaMs() - inicioRetencionTrabajo
+  )
+  const inicioCuotaDiferencial = tiempoAuditoriaMs()
   const retencionTrabajoAeatCentimos =
     retencionTrabajoAeat?.importeRetencionAnualCentimos ?? 0
   const pagosACuentaAplicadosCentimos =
@@ -530,8 +621,13 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     pagosACuentaCentimos: pagosACuentaAplicadosCentimos,
     retencionesSoportadasCentimos: caso.retencionesSoportadasCentimos,
   })
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.cuotaDiferencial",
+    tiempoAuditoriaMs() - inicioCuotaDiferencial
+  )
 
-  return {
+  const inicioSalida = tiempoAuditoriaMs()
+  const resultado = {
     _tag: "LiquidacionIrpfAnualCalculada",
     perfil: "renta-individual-general",
     anio: caso.anio,
@@ -1026,6 +1122,15 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       ],
     },
   } satisfies LiquidacionIrpfAnualCalculada
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.salidaConRastro",
+    tiempoAuditoriaMs() - inicioSalida
+  )
+  registrarTiempoAgregadoAuditoria(
+    "liquidacion.trabajoIndividualSimple.total",
+    tiempoAuditoriaMs() - inicioLiquidacionSimple
+  )
+  return resultado
 })
 
 const detectarCasoNoSoportado = Effect.fn(

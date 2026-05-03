@@ -5,13 +5,20 @@ import type { AnioFiscal } from "../normativa/anio-fiscal"
 import { centimosAEuros, eurosACentimos } from "../dinero/importe-monetario"
 import { calcularCotizacionesSocialesLegacy } from "../laboral/cotizaciones-sociales"
 import {
-  liquidarIrpfAnual,
+  LiquidacionIrpfAnual,
   type CasoFiscalAnual,
+  type LiquidacionIrpfAnualCalculada,
+  type LiquidarIrpfAnualError,
 } from "../irpf/liquidacion/liquidar-irpf-anual"
 import {
   sinDiscapacidad,
   type ComunidadAutonoma,
 } from "../irpf/caso-fiscal-anual"
+import {
+  medirAuditoriaSync,
+  registrarTiempoAgregadoAuditoria,
+  tiempoAuditoriaMs,
+} from "../../observabilidad/auditoria-rendimiento"
 
 export interface EntradaCalculoSalarioLegacy {
   readonly anio: AnioFiscal
@@ -29,13 +36,19 @@ export interface ServicioCompatibilidadSalarioLegacy {
 // 2012-2025 usan liquidacion anual IRPF migrada; 2026 es solo el caso tecnico
 // de soltero sin hijos y comunidad simulada estatal con parametros laborales y
 // deduccion SMI 2026.
-const calcularSalarioLegacyImpl = Effect.fn(
-  "compatibilidadLegacy.calcularSalarioLegacy"
-)(function* (entrada: EntradaCalculoSalarioLegacy) {
+const construirCalcularSalarioLegacy = (liquidacionIrpf: {
+  readonly liquidar: (
+    caso: CasoFiscalAnual,
+    contexto: { readonly modo: "canonico" | "compatible-legacy" }
+  ) => Effect.Effect<LiquidacionIrpfAnualCalculada, LiquidarIrpfAnualError>
+}) =>
+  Effect.fn("compatibilidadLegacy.calcularSalarioLegacy")(function* (
+    entrada: EntradaCalculoSalarioLegacy
+  ) {
   return yield* Match.value(entrada.anio).pipe(
     Match.when(
       (anio) => anio >= 2012 && anio <= 2026,
-      () => calcularSalarioLegacyConLiquidacionIrpfAnual(entrada)
+      () => calcularSalarioLegacyConLiquidacionIrpfAnual(entrada, liquidacionIrpf)
     ),
     Match.orElse(() =>
       Effect.die(
@@ -45,36 +58,64 @@ const calcularSalarioLegacyImpl = Effect.fn(
       )
     )
   )
-})
+  })
 
 const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
   "compatibilidadLegacy.calcularSalarioLegacyConLiquidacionIrpfAnual"
-)(function* (entrada: EntradaCalculoSalarioLegacy) {
-  const liquidacion = yield* liquidarIrpfAnual(casoFiscalLegacy(entrada), {
+)(function* (
+  entrada: EntradaCalculoSalarioLegacy,
+  liquidacionIrpf: {
+    readonly liquidar: (
+      caso: CasoFiscalAnual,
+      contexto: { readonly modo: "canonico" | "compatible-legacy" }
+    ) => Effect.Effect<LiquidacionIrpfAnualCalculada, LiquidarIrpfAnualError>
+  }
+) {
+  const casoFiscal = medirAuditoriaSync("salarioLegacy.casoFiscalLegacy", () =>
+    casoFiscalLegacy(entrada)
+  )
+  const inicioLiquidacion = tiempoAuditoriaMs()
+  const liquidacion = yield* liquidacionIrpf.liquidar(casoFiscal, {
     modo: "compatible-legacy",
   }).pipe(Effect.orDie)
-  const conciliacion = Option.getOrThrow(
-    liquidacion.conciliacionSimuladorLegacy
+  registrarTiempoAgregadoAuditoria(
+    "salarioLegacy.liquidarIrpfAnual",
+    tiempoAuditoriaMs() - inicioLiquidacion
   )
-  const salarioBrutoAnual = centimosAEuros(entrada.salarioBrutoAnualCentimos)
-  const cotizaciones = calcularCotizacionesSocialesLegacy({
-    salarioBrutoAnual,
-    anio: entrada.anio,
-  })
-  const salarioNetoAnualCentimos = eurosACentimos(
-    salarioBrutoAnual
-      .minus(cotizaciones.cotizacionTrabajador)
-      .minus(conciliacion.irpfFinalSimulador)
+  const conciliacion = medirAuditoriaSync(
+    "salarioLegacy.conciliacion.getOrThrow",
+    () => Option.getOrThrow(liquidacion.conciliacionSimuladorLegacy)
+  )
+  const salarioBrutoAnual = medirAuditoriaSync(
+    "salarioLegacy.salarioBruto.centimosAEuros",
+    () => centimosAEuros(entrada.salarioBrutoAnualCentimos)
+  )
+  const cotizaciones = medirAuditoriaSync(
+    "salarioLegacy.cotizacionesLegacy.extra",
+    () =>
+      calcularCotizacionesSocialesLegacy({
+        salarioBrutoAnual,
+        anio: entrada.anio,
+      })
+  )
+  const salarioNetoAnualCentimos = medirAuditoriaSync(
+    "salarioLegacy.salarioNeto.calcular",
+    () =>
+      eurosACentimos(
+        salarioBrutoAnual
+          .minus(cotizaciones.cotizacionTrabajador)
+          .minus(conciliacion.irpfFinalSimulador)
+      )
   )
 
-  return {
+  return medirAuditoriaSync("salarioLegacy.desglose.final", () => ({
     salarioBrutoAnualCentimos: entrada.salarioBrutoAnualCentimos,
     cotizacionEmpresarialCentimos: liquidacion.cotizacionEmpresarialCentimos,
     costeLaboralCentimos: liquidacion.costeLaboralCentimos,
     cotizacionTrabajadorCentimos: liquidacion.cotizacionTrabajadorCentimos,
     irpfFinalCentimos: conciliacion.irpfFinalSimuladorCentimos,
     salarioNetoAnualCentimos,
-  } satisfies DesgloseLiquidado
+  }) satisfies DesgloseLiquidado)
 })
 
 const casoFiscalLegacy = (
@@ -106,9 +147,16 @@ export class CompatibilidadSalarioLegacy extends Context.Service<
   CompatibilidadSalarioLegacy,
   ServicioCompatibilidadSalarioLegacy
 >()("@irobopf/dominio/compatibilidadLegacy/CompatibilidadSalarioLegacy") {
-  static readonly layer = Layer.succeed(CompatibilidadSalarioLegacy, {
-    calcular: calcularSalarioLegacyImpl,
-  })
+  static readonly layer = Layer.effect(
+    CompatibilidadSalarioLegacy,
+    Effect.gen(function* () {
+      const liquidacionIrpf = yield* LiquidacionIrpfAnual
+
+      return {
+        calcular: construirCalcularSalarioLegacy(liquidacionIrpf),
+      }
+    })
+  ).pipe(Layer.provideMerge(LiquidacionIrpfAnual.layer))
 }
 
 const calcularSalarioLegacyDesdeServicio = Effect.fn(
