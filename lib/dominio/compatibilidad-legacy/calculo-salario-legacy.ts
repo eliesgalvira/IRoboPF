@@ -1,6 +1,9 @@
 import { Context, Effect, Layer, Match, Option } from "effect"
 
-import type { DesgloseLiquidado } from "./progresividad-frio"
+import {
+  anotarImportesIrpfAuxiliares,
+  type DesgloseLiquidado,
+} from "./progresividad-frio"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import { centimosAEuros, eurosACentimos } from "../dinero/importe-monetario"
 import { calcularCotizacionesSocialesLegacy } from "../laboral/cotizaciones-sociales"
@@ -28,6 +31,7 @@ import {
   registrarTiempoAgregadoAuditoria,
   tiempoAuditoriaMs,
 } from "../../observabilidad/auditoria-rendimiento"
+import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "../normativa/datos/irpf-obligacion-declarar"
 
 export interface EntradaCalculoSalarioLegacy {
   readonly anio: AnioFiscal
@@ -55,19 +59,20 @@ const construirCalcularSalarioLegacy = (liquidacionIrpf: {
   Effect.fn("compatibilidadLegacy.calcularSalarioLegacy")(function* (
     entrada: EntradaCalculoSalarioLegacy
   ) {
-  return yield* Match.value(entrada.anio).pipe(
-    Match.when(
-      (anio) => anio >= 2012 && anio <= 2026,
-      () => calcularSalarioLegacyConLiquidacionIrpfAnual(entrada, liquidacionIrpf)
-    ),
-    Match.orElse(() =>
-      Effect.die(
-        new Error(
-          `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2026 para el perfil tecnico soltero sin hijos estatal; recibido ${entrada.anio}.`
+    return yield* Match.value(entrada.anio).pipe(
+      Match.when(
+        (anio) => anio >= 2012 && anio <= 2026,
+        () =>
+          calcularSalarioLegacyConLiquidacionIrpfAnual(entrada, liquidacionIrpf)
+      ),
+      Match.orElse(() =>
+        Effect.die(
+          new Error(
+            `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2026 para el perfil tecnico soltero sin hijos estatal; recibido ${entrada.anio}.`
+          )
         )
       )
     )
-  )
   })
 
 const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
@@ -85,9 +90,11 @@ const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
     casoFiscalLegacy(entrada)
   )
   const inicioLiquidacion = tiempoAuditoriaMs()
-  const liquidacion = yield* liquidacionIrpf.liquidar(casoFiscal, {
-    modo: "compatible-legacy",
-  }).pipe(Effect.orDie)
+  const liquidacion = yield* liquidacionIrpf
+    .liquidar(casoFiscal, {
+      modo: "compatible-legacy",
+    })
+    .pipe(Effect.orDie)
   registrarTiempoAgregadoAuditoria(
     "salarioLegacy.liquidarIrpfAnual",
     tiempoAuditoriaMs() - inicioLiquidacion
@@ -118,39 +125,49 @@ const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
       )
   )
 
-  return medirAuditoriaSync("salarioLegacy.desglose.final", () => ({
-    salarioBrutoAnualCentimos: entrada.salarioBrutoAnualCentimos,
-    cotizacionEmpresarialCentimos: liquidacion.cotizacionEmpresarialCentimos,
-    costeLaboralCentimos: liquidacion.costeLaboralCentimos,
-    cotizacionTrabajadorCentimos: liquidacion.cotizacionTrabajadorCentimos,
-    irpfFinalCentimos: conciliacion.irpfFinalSimuladorCentimos,
-    irpfFinalPrecisoEuros: conciliacion.irpfFinalSimulador.toString(),
-    salarioNetoAnualCentimos,
-  }) satisfies DesgloseLiquidado)
+  return medirAuditoriaSync("salarioLegacy.desglose.final", () =>
+    anotarImportesIrpfAuxiliares(
+      {
+        salarioBrutoAnualCentimos: entrada.salarioBrutoAnualCentimos,
+        cotizacionEmpresarialCentimos:
+          liquidacion.cotizacionEmpresarialCentimos,
+        costeLaboralCentimos: liquidacion.costeLaboralCentimos,
+        cotizacionTrabajadorCentimos: liquidacion.cotizacionTrabajadorCentimos,
+        irpfFinalCentimos: conciliacion.irpfFinalSimuladorCentimos,
+        irpfFinalPrecisoEuros: conciliacion.irpfFinalSimulador.toString(),
+        salarioNetoAnualCentimos,
+      } satisfies DesgloseLiquidado,
+      {
+        irpfConObligacionDeclararCentimos:
+          entrada.salarioBrutoAnualCentimos <=
+          UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS
+            ? conciliacion.irpfFinalSimuladorCentimos
+            : conciliacion.cuotaTrasDeduccionSmiCentimos,
+        irpfCuotaTrasDeduccionSmiCentimos:
+          conciliacion.cuotaTrasDeduccionSmiCentimos,
+      }
+    )
+  )
 })
 
 const descendientesFiscalesPerfil = (
   perfil: PerfilAuditoriaNormativa
 ): ReadonlyArray<FamiliarFiscal> =>
-  detallePerfilAuditoriaNormativa(perfil).descendientes.map(
-    (descendiente) => ({
-      edad: descendiente.edad,
-      discapacidad: sinDiscapacidad,
-    })
-  )
+  detallePerfilAuditoriaNormativa(perfil).descendientes.map((descendiente) => ({
+    edad: descendiente.edad,
+    discapacidad: sinDiscapacidad,
+  }))
 
 const descendientesRetencionPerfil = (
   perfil: PerfilAuditoriaNormativa
 ): ReadonlyArray<DescendienteRetencion> =>
-  detallePerfilAuditoriaNormativa(perfil).descendientes.map(
-    (descendiente) => ({
-      edad: descendiente.edad,
-      computoPorEntero: descendiente.computoPorEntero,
-      discapacidad: "sin-discapacidad",
-      movilidadReducida: false,
-      adopcionOAcogimientoMenosTresAnios: false,
-    })
-  )
+  detallePerfilAuditoriaNormativa(perfil).descendientes.map((descendiente) => ({
+    edad: descendiente.edad,
+    computoPorEntero: descendiente.computoPorEntero,
+    discapacidad: "sin-discapacidad",
+    movilidadReducida: false,
+    adopcionOAcogimientoMenosTresAnios: false,
+  }))
 
 const casoRetencionTrabajoPerfil = ({
   entrada,

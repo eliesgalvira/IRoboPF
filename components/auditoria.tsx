@@ -95,6 +95,7 @@ import {
 } from "@/lib/observabilidad/auditoria-rendimiento"
 
 const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
+const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-cuota-marginal-smi-v2"
 
 function formatearSalarioCorto(centimos: number): string {
   const miles = Math.round(centimos / 100_000)
@@ -169,6 +170,7 @@ const claveCalculoAuditoria = ({
     escenario.perfil,
     escenario.magnitudAuditada,
     escenario.estrategiaProyeccionSalarial,
+    VERSION_CALCULO_AUDITORIA_IRPF,
     escenario.anioComparado,
     escenario.anioReferencia,
     Math.min(minimoCentimos, maximoCentimos),
@@ -245,25 +247,22 @@ function AuditoriaImpl({
       _tag: "cargando",
       clave: claveAuditoria,
     })
-  const auditoria = React.useMemo(
-    () => {
-      const auditoriaDesdeEstado = Match.value(estadoAuditoria).pipe(
-        Match.when({ _tag: "lista" }, (estado) =>
-          Match.value(estado.clave === claveAuditoria).pipe(
-            Match.when(true, () => Option.some(estado.auditoria)),
-            Match.orElse(() => Option.none<AuditoriaRangoSalarial>())
-          )
-        ),
-        Match.orElse(() => Option.none<AuditoriaRangoSalarial>())
-      )
+  const auditoria = React.useMemo(() => {
+    const auditoriaDesdeEstado = Match.value(estadoAuditoria).pipe(
+      Match.when({ _tag: "lista" }, (estado) =>
+        Match.value(estado.clave === claveAuditoria).pipe(
+          Match.when(true, () => Option.some(estado.auditoria)),
+          Match.orElse(() => Option.none<AuditoriaRangoSalarial>())
+        )
+      ),
+      Match.orElse(() => Option.none<AuditoriaRangoSalarial>())
+    )
 
-      return Option.match(auditoriaDesdeEstado, {
-        onNone: () => Option.fromNullishOr(cacheAuditorias.get(claveAuditoria)),
-        onSome: Option.some,
-      })
-    },
-    [cacheAuditorias, claveAuditoria, estadoAuditoria]
-  )
+    return Option.match(auditoriaDesdeEstado, {
+      onNone: () => Option.fromNullishOr(cacheAuditorias.get(claveAuditoria)),
+      onSome: Option.some,
+    })
+  }, [cacheAuditorias, claveAuditoria, estadoAuditoria])
   const estadoAuditoriaActual = React.useMemo(
     () =>
       Match.value(estadoAuditoria.clave === claveAuditoria).pipe(
@@ -1308,6 +1307,7 @@ const claveCacheSerieAuditoria = ({
   readonly anioReferenciaSeries: AnioFiscal
 }) =>
   [
+    VERSION_CALCULO_AUDITORIA_IRPF,
     comunidadAutonoma,
     perfil,
     anio,
@@ -1462,12 +1462,12 @@ const construirFilasTipoEfectivoIrpfDesdeSeries = ({
           series.get(claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio))
         ).pipe(Option.flatMap((puntos) => Option.fromNullishOr(puntos[indice])))
         if (Option.isNone(punto)) continue
-        fila[claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)] = Match.value(
-          anio === anioReferenciaSeries
-        ).pipe(
-          Match.when(true, () => punto.value.tipoEfectivoIrpfActual),
-          Match.orElse(() => punto.value.tipoEfectivoIrpfComparado)
-        )
+        fila[claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)] =
+          tipoEfectivoIrpfConDeclaracionParaAnio({
+            anio,
+            anioReferenciaSeries,
+            punto: punto.value,
+          })
       }
     }
 
@@ -1506,6 +1506,27 @@ const tipoEfectivoIrpfParaAnio = ({
     Match.orElse(() => punto.tipoEfectivoIrpfComparado)
   )
 
+const tipoEfectivoIrpfConDeclaracionParaAnio = ({
+  anio,
+  anioReferenciaSeries,
+  punto,
+}: {
+  readonly anio: AnioFiscal
+  readonly anioReferenciaSeries: AnioFiscal
+  readonly punto: PuntoAuditoriaRangoSalarial
+}) => {
+  const desglose = desgloseLiquidadoParaAnio({
+    anio,
+    anioReferenciaSeries,
+    punto,
+  })
+
+  return proporcionSegura(
+    irpfConDeclaracionCentimos(desglose),
+    desglose.salarioBrutoAnualCentimos
+  )
+}
+
 const desgloseLiquidadoParaAnio = ({
   anio,
   anioReferenciaSeries,
@@ -1523,12 +1544,35 @@ const desgloseLiquidadoParaAnio = ({
 const proporcionSegura = (numerador: number, denominador: number) =>
   denominador === 0 ? 0 : numerador / denominador
 
+const irpfConDeclaracionCentimos = (
+  desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"]
+) => desglose.irpfConObligacionDeclararCentimos ?? desglose.irpfFinalCentimos
+
+const irpfBaseMarginalCentimos = (
+  desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"]
+) => desglose.irpfCuotaTrasDeduccionSmiCentimos ?? desglose.irpfFinalCentimos
+
+const irpfBaseMarginalPrecisoEuros = (
+  desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"]
+) => {
+  const cuotaTrasDeduccionSmiPrecisa = Option.fromNullishOr(
+    desglose.irpfCuotaTrasDeduccionSmiPrecisoEuros
+  )
+  if (Option.isSome(cuotaTrasDeduccionSmiPrecisa)) {
+    return cuotaTrasDeduccionSmiPrecisa
+  }
+
+  return desglose.irpfCuotaTrasDeduccionSmiCentimos === undefined
+    ? Option.fromNullishOr(desglose.irpfFinalPrecisoEuros)
+    : Option.none<string>()
+}
+
 const valorMagnitudCentimos = (
   desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"],
   magnitud: MagnitudAuditadaAuditoria
 ) =>
   Match.value(magnitud).pipe(
-    Match.when("irpf_final", () => desglose.irpfFinalCentimos),
+    Match.when("irpf_final", () => irpfConDeclaracionCentimos(desglose)),
     Match.when(
       "cotizacion_trabajador",
       () => desglose.cotizacionTrabajadorCentimos
@@ -1541,7 +1585,9 @@ const valorMagnitudCentimos = (
     Match.when("coste_laboral", () => desglose.costeLaboralCentimos),
     Match.when(
       "carga_fiscal_efectiva",
-      () => desglose.cotizacionTrabajadorCentimos + desglose.irpfFinalCentimos
+      () =>
+        desglose.cotizacionTrabajadorCentimos +
+        irpfConDeclaracionCentimos(desglose)
     ),
     Match.exhaustive
   )
@@ -1829,7 +1875,9 @@ const calcularTipoMarginalIrpf = ({
 
   if (incrementoSalarioCentimos <= 0) return Option.none<number>()
 
-  const incrementoSalarioEuros = Match.value(anio === anioReferenciaSeries).pipe(
+  const incrementoSalarioEuros = Match.value(
+    anio === anioReferenciaSeries
+  ).pipe(
     Match.when(true, () => new Decimal(incrementoSalarioCentimos).div(100)),
     Match.orElse(() =>
       new Decimal(
@@ -1851,10 +1899,8 @@ const calcularTipoMarginalIrpf = ({
     anioReferenciaSeries,
     punto: puntoSiguiente,
   })
-  const irpfPreciso = Option.fromNullishOr(desglose.irpfFinalPrecisoEuros)
-  const irpfSiguientePreciso = Option.fromNullishOr(
-    desgloseSiguiente.irpfFinalPrecisoEuros
-  )
+  const irpfPreciso = irpfBaseMarginalPrecisoEuros(desglose)
+  const irpfSiguientePreciso = irpfBaseMarginalPrecisoEuros(desgloseSiguiente)
 
   if (Option.isSome(irpfPreciso) && Option.isSome(irpfSiguientePreciso)) {
     return Option.some(
@@ -1866,7 +1912,8 @@ const calcularTipoMarginalIrpf = ({
   }
 
   return Option.some(
-    (desgloseSiguiente.irpfFinalCentimos - desglose.irpfFinalCentimos) /
+    (irpfBaseMarginalCentimos(desgloseSiguiente) -
+      irpfBaseMarginalCentimos(desglose)) /
       incrementoSalarioCentimos
   )
 }
@@ -2017,7 +2064,9 @@ const construirFilasGraficosAuditoria = Effect.fn(
         })
       })
     ),
-    Match.orElse(() => Effect.succeed([] as ReadonlyArray<FilaTipoEfectivoIrpf>))
+    Match.orElse(() =>
+      Effect.succeed([] as ReadonlyArray<FilaTipoEfectivoIrpf>)
+    )
   )
 
   const diferenciaTipoIrpf = yield* Match.value(vistaGrafico).pipe(
@@ -2039,7 +2088,8 @@ const construirFilasGraficosAuditoria = Effect.fn(
           metrica: metricaDuracionFilasGraficosAuditoria,
           detalles: {
             filas: auditoria.puntos.length,
-            series: comunidadesAutonomas.length * aniosDiferenciaTipoIrpf.length,
+            series:
+              comunidadesAutonomas.length * aniosDiferenciaTipoIrpf.length,
             anios: aniosDiferenciaTipoIrpf.join(","),
             anioReferencia: anioReferenciaDiferenciaTipoIrpf,
           },
@@ -2103,7 +2153,9 @@ const construirFilasGraficosAuditoria = Effect.fn(
         })
       })
     ),
-    Match.orElse(() => Effect.succeed([] as ReadonlyArray<FilaTipoMarginalIrpf>))
+    Match.orElse(() =>
+      Effect.succeed([] as ReadonlyArray<FilaTipoMarginalIrpf>)
+    )
   )
 
   return { tipoEfectivoIrpf, diferenciaTipoIrpf, tipoMarginalIrpf }
@@ -2375,13 +2427,30 @@ function FormulaTipoEfectivoIrpf({
         <FormulaLineal>
           <BloqueFormula tono="resultado">TIPO_EFECTIVO_IRPF</BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
-          <BloqueFormula tono="resultado">IRPF_FINAL</BloqueFormula>
+          <BloqueFormula tono="resultado">IRPF_COMPARABLE</BloqueFormula>
           <BloqueFormula>/</BloqueFormula>
           <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
         </FormulaLineal>
       </div>
 
       <div className="grid gap-3">
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">IRPF_COMPARABLE</BloqueFormula>
+          <BloqueFormula>
+            = si SALARIO_BRUTO_REAL {">"} 22.000 EUR
+          </BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">IRPF_COMPARABLE</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            max(0, CUOTA_LIQUIDADA - DEDUCCION_SMI)
+          </BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">IRPF_COMPARABLE</BloqueFormula>
+          <BloqueFormula>= si no, IRPF_FINAL</BloqueFormula>
+        </FormulaLineal>
         <FormulaLineal>
           <BloqueFormula tono="resultado">IRPF_FINAL</BloqueFormula>
           <BloqueFormula>= min(</BloqueFormula>
@@ -2415,6 +2484,28 @@ function FormulaTipoEfectivoIrpf({
         <ExplicacionVariable termino="CUOTA_LIQUIDADA">
           Resultado de aplicar las reglas anuales del IRPF antes del límite
           final usado por esta comparación histórica.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="IRPF_COMPARABLE">
+          Importe usado sólo en las gráficas de tipo efectivo y diferencia. Por
+          encima del umbral general de obligación de declarar, se compara con la
+          cuota anual tras deducción; la gráfica de tipo marginal usa la cuota
+          anual tras deducción SMI para no convertir una obligación formal en un
+          marginal de la escala. El umbral general de 22.000 € para rendimientos
+          del trabajo con un pagador está recogido en el{" "}
+          <a
+            href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a96"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            artículo 96 de la Ley 35/2006
+          </a>{" "}
+          y en la página de la AEAT sobre{" "}
+          <a
+            href="https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c01-campana-declaracion-renta/quienes-estan-obligados-presentar-declaracion-irpf/delimitacion-obligacion-declarar-irpf.html"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            obligación de declarar
+          </a>
+          .
         </ExplicacionVariable>
         <ExplicacionVariable termino="DEDUCCION_SMI">
           Deducción estatal por obtención de rendimientos del trabajo que sólo
@@ -2536,7 +2627,7 @@ function FormulaTipoMarginalIrpf({
         <FormulaLineal>
           <BloqueFormula tono="resultado">TIPO_MARGINAL_IRPF</BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
-          <BloqueFormula tono="resultado">DELTA_IRPF_FINAL</BloqueFormula>
+          <BloqueFormula tono="resultado">DELTA_CUOTA_IRPF</BloqueFormula>
           <BloqueFormula>/</BloqueFormula>
           <BloqueFormula tono="calculo">DELTA_SALARIO_BRUTO</BloqueFormula>
         </FormulaLineal>
@@ -2544,13 +2635,29 @@ function FormulaTipoMarginalIrpf({
 
       <div className="grid gap-3">
         <FormulaLineal>
-          <BloqueFormula tono="resultado">DELTA_IRPF_FINAL</BloqueFormula>
+          <BloqueFormula tono="resultado">DELTA_CUOTA_IRPF</BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
           <BloqueFormula tono="calculo">
-            IRPF_FINAL(salario + paso)
+            CUOTA_TRAS_DEDUCCION_SMI(salario + paso)
           </BloqueFormula>
           <BloqueFormula>-</BloqueFormula>
-          <BloqueFormula tono="calculo">IRPF_FINAL(salario)</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            CUOTA_TRAS_DEDUCCION_SMI(salario)
+          </BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="calculo">CUOTA_TRAS_DEDUCCION_SMI</BloqueFormula>
+          <BloqueFormula>= max(0,</BloqueFormula>
+          <BloqueFormula tono="calculo">CUOTA_LIQUIDADA</BloqueFormula>
+          <BloqueFormula>-</BloqueFormula>
+          <BloqueFormula tono="calculo">DEDUCCION_SMI</BloqueFormula>
+          <BloqueFormula>)</BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">NO SE USA</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            IRPF_FINAL = min(CUOTA_TRAS_DEDUCCION_SMI, LIMITE_RETENCION)
+          </BloqueFormula>
         </FormulaLineal>
         <FormulaLineal>
           <BloqueFormula tono="calculo">DELTA_SALARIO_BRUTO</BloqueFormula>
@@ -2564,14 +2671,39 @@ function FormulaTipoMarginalIrpf({
       <dl className="grid gap-4">
         <ExplicacionVariable termino="TIPO_MARGINAL_IRPF">
           Porcentaje de cada euro bruto adicional que se transforma en más IRPF
-          final en el tramo siguiente de salario. La línea roja mantiene el tipo
-          efectivo: IRPF_FINAL dividido entre SALARIO_BRUTO_REAL.
+          anual en el tramo siguiente de salario. La línea roja mantiene el tipo
+          efectivo limpio de esta vista: IRPF_FINAL dividido entre
+          SALARIO_BRUTO_REAL.
         </ExplicacionVariable>
-        <ExplicacionVariable termino="IRPF_FINAL">
-          Se recalcula la liquidación completa para dos salarios consecutivos y
-          se compara el resultado final, después de cuota liquidada, deducción
-          SMI y límite de retención de nómina. Por eso el marginal puede enseñar
-          saltos o tramos altos cuando una reducción decreciente desaparece.
+        <ExplicacionVariable termino="CUOTA_TRAS_DEDUCCION_SMI">
+          Se recalcula la cuota anual para dos salarios consecutivos después de
+          escala, mínimo personal, reducción por rendimientos del trabajo y
+          deducción SMI. No se usa el límite de retención de nómina ni el salto
+          por obligación de declarar: esas reglas afectan al importe comparable
+          en tipo efectivo y diferencias, pero convertirían un trámite o una
+          regla de retención en un falso marginal de la escala del IRPF.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="JOROBA 18K-21K">
+          La AEAT recoge la{" "}
+          <a
+            href="https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/7-cumplimentacion-irpf/7_1-rendimientos-trabajo-personal/7_1_6-reduccion-obtencion-rendimientos-trabajo.html"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            reducción por obtención de rendimientos del trabajo
+          </a>
+          : desde 2024 se reduce a medida que sube el rendimiento neto entre
+          14.852 EUR, 17.673,52 EUR y 19.747,50 EUR. Además, en 2025 la AEAT
+          incorporó una{" "}
+          <a
+            href="https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_7-cuota-liquida-cuota-resultante-autoliquidacion/8_7_3-cuota-resultante-autoliquidacion/8_7_3_2_deduccion-obtencion-rendimientos-trabajo.html"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            deducción por obtención de rendimientos del trabajo
+          </a>{" "}
+          para anular el gravamen hasta el SMI de 16.576 EUR y retirarlo hasta
+          18.276 EUR. Al perderse esas ventajas euro a euro, la base y la cuota
+          crecen más rápido que el salario y aparece el tramo alto que no se ve
+          si el marginal se calcula con el IRPF limitado por retención.
         </ExplicacionVariable>
         <ExplicacionVariable termino="PERFIL">
           {detallePerfil.descripcionCalculo} En 2026 el umbral de retención de
@@ -3002,6 +3134,7 @@ function Visualizaciones({
     onNone: () => "sin-auditoria",
     onSome: (auditoriaLista) => {
       const claveBase = [
+        VERSION_CALCULO_AUDITORIA_IRPF,
         comunidadAutonoma,
         perfil,
         auditoriaLista.anioReferencia,
@@ -3186,7 +3319,9 @@ function Visualizaciones({
         Match.when(true, () =>
           Match.value(estadoDatosGrafico).pipe(
             Match.when({ _tag: "cargando" }, () =>
-              Option.fromNullishOr(cacheDatosGrafico.get(claveDatosGrafico)).pipe(
+              Option.fromNullishOr(
+                cacheDatosGrafico.get(claveDatosGrafico)
+              ).pipe(
                 Option.getOrElse(
                   () =>
                     ({

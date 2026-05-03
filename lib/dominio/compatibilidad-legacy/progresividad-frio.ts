@@ -29,6 +29,7 @@ import {
 } from "../normativa/datos/irpf-estatal-2012-2026"
 import { IPC_ANUAL_DICIEMBRE } from "../normativa/datos/ipc-2012-2026"
 import { obtenerEspecificacionCompatibilidadHistorica } from "../normativa/datos/compatibilidad-historica"
+import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR } from "../normativa/datos/irpf-obligacion-declarar"
 
 export type { AnioFiscal } from "../normativa/anio-fiscal"
 export { aniosFiscalesLegacy } from "../normativa/anio-fiscal"
@@ -45,9 +46,41 @@ export interface DesgloseLiquidado {
   readonly costeLaboralCentimos: number
   readonly cotizacionTrabajadorCentimos: number
   readonly irpfFinalCentimos: number
+  readonly irpfConObligacionDeclararCentimos?: number | undefined
+  readonly irpfCuotaTrasDeduccionSmiCentimos?: number | undefined
+  readonly irpfCuotaTrasDeduccionSmiPrecisoEuros?: string | undefined
   readonly irpfFinalPrecisoEuros?: string | undefined
   readonly salarioNetoAnualCentimos: number
 }
+
+export const anotarImportesIrpfAuxiliares = <T extends DesgloseLiquidado>(
+  desglose: T,
+  importes: {
+    readonly irpfConObligacionDeclararCentimos?: number | undefined
+    readonly irpfCuotaTrasDeduccionSmiCentimos?: number | undefined
+    readonly irpfCuotaTrasDeduccionSmiPrecisoEuros?: string | undefined
+  }
+): T => {
+  for (const [clave, valor] of Object.entries(importes)) {
+    if (valor === undefined) continue
+
+    Object.defineProperty(desglose, clave, {
+      value: valor,
+      enumerable: false,
+      configurable: true,
+    })
+  }
+
+  return desglose
+}
+
+export const anotarIrpfConObligacionDeclarar = <T extends DesgloseLiquidado>(
+  desglose: T,
+  irpfConObligacionDeclararCentimos: number
+): T =>
+  anotarImportesIrpfAuxiliares(desglose, {
+    irpfConObligacionDeclararCentimos,
+  })
 
 export interface ComparacionAjustadaPorIpc {
   readonly anioReferencia: AnioFiscal
@@ -201,6 +234,7 @@ interface CalculoIrpf {
   readonly cuotaTrasSmi: Decimal
   readonly limiteRetencion: Decimal
   readonly irpfFinal: Decimal
+  readonly irpfConObligacionDeclarar: Decimal
 }
 
 interface DesgloseEuros {
@@ -209,6 +243,8 @@ interface DesgloseEuros {
   readonly costeLaboral: Decimal
   readonly cotizacionTrabajador: Decimal
   readonly irpfFinal: Decimal
+  readonly cuotaTrasSmi: Decimal
+  readonly irpfConObligacionDeclarar: Decimal
   readonly salarioNetoAnual: Decimal
 }
 
@@ -480,6 +516,11 @@ const calcularIrpf = (
       .mul(parametros.tipoMaximoRetencionNomina)
   )
   const irpfFinal = min(cuotaTrasSmi, limiteRetencion)
+  const irpfConObligacionDeclarar = bruto.lte(
+    UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR
+  )
+    ? irpfFinal
+    : cuotaTrasSmi
 
   return {
     rendimientoPrevioNeto,
@@ -493,6 +534,7 @@ const calcularIrpf = (
     cuotaTrasSmi,
     limiteRetencion,
     irpfFinal,
+    irpfConObligacionDeclarar,
   }
 }
 
@@ -518,24 +560,38 @@ const calcularDesgloseEuros = (
     costeLaboral: bruto.plus(cotizaciones.cotizacionEmpresarial),
     cotizacionTrabajador: cotizaciones.cotizacionTrabajador,
     irpfFinal: irpf.irpfFinal,
+    cuotaTrasSmi: irpf.cuotaTrasSmi,
+    irpfConObligacionDeclarar: irpf.irpfConObligacionDeclarar,
     salarioNetoAnual,
   }
 }
 
 const centimosLiquidados = (euros: Decimal) => eurosACentimos(euros)
 
-const liquidar = (desglose: DesgloseEuros): DesgloseLiquidado => ({
-  salarioBrutoAnualCentimos: centimosLiquidados(desglose.salarioBrutoAnual),
-  cotizacionEmpresarialCentimos: centimosLiquidados(
-    desglose.cotizacionEmpresarial
-  ),
-  costeLaboralCentimos: centimosLiquidados(desglose.costeLaboral),
-  cotizacionTrabajadorCentimos: centimosLiquidados(
-    desglose.cotizacionTrabajador
-  ),
-  irpfFinalCentimos: centimosLiquidados(desglose.irpfFinal),
-  salarioNetoAnualCentimos: centimosLiquidados(desglose.salarioNetoAnual),
-})
+const liquidar = (desglose: DesgloseEuros): DesgloseLiquidado =>
+  anotarImportesIrpfAuxiliares(
+    {
+      salarioBrutoAnualCentimos: centimosLiquidados(desglose.salarioBrutoAnual),
+      cotizacionEmpresarialCentimos: centimosLiquidados(
+        desglose.cotizacionEmpresarial
+      ),
+      costeLaboralCentimos: centimosLiquidados(desglose.costeLaboral),
+      cotizacionTrabajadorCentimos: centimosLiquidados(
+        desglose.cotizacionTrabajador
+      ),
+      irpfFinalCentimos: centimosLiquidados(desglose.irpfFinal),
+      salarioNetoAnualCentimos: centimosLiquidados(desglose.salarioNetoAnual),
+    },
+    {
+      irpfConObligacionDeclararCentimos: centimosLiquidados(
+        desglose.irpfConObligacionDeclarar
+      ),
+      irpfCuotaTrasDeduccionSmiCentimos: centimosLiquidados(
+        desglose.cuotaTrasSmi
+      ),
+      irpfCuotaTrasDeduccionSmiPrecisoEuros: desglose.cuotaTrasSmi.toString(),
+    }
+  )
 
 const ajustarDesglose = (
   desglose: DesgloseEuros,
@@ -551,6 +607,8 @@ const escalarDesglose = (
   costeLaboral: desglose.costeLaboral.mul(factor),
   cotizacionTrabajador: desglose.cotizacionTrabajador.mul(factor),
   irpfFinal: desglose.irpfFinal.mul(factor),
+  cuotaTrasSmi: desglose.cuotaTrasSmi.mul(factor),
+  irpfConObligacionDeclarar: desglose.irpfConObligacionDeclarar.mul(factor),
   salarioNetoAnual: desglose.salarioNetoAnual.mul(factor),
 })
 
@@ -834,8 +892,8 @@ const construirHallazgos = (
 
 const rangoSalarioBrutoAnualCentimos = (
   entrada: EntradaAuditoriaRangoSalarial
-): ReadonlyArray<number> =>
-  Match.value(entrada).pipe(
+): ReadonlyArray<number> => {
+  const rangoRegular = Match.value(entrada).pipe(
     Match.when({ pasoCentimos: (paso) => paso <= 0 }, () => []),
     Match.when(
       (entrada) =>
@@ -854,6 +912,47 @@ const rangoSalarioBrutoAnualCentimos = (
           entrada.salarioBrutoAnualMinimoCentimos + index * entrada.pasoCentimos
       )
     )
+  )
+  const puntosNormativos = puntosUmbralDeclaracionEnRango(entrada)
+
+  return [...new Set([...rangoRegular, ...puntosNormativos])].sort(
+    (a, b) => a - b
+  )
+}
+
+const salarioReferenciaPrimerEuroObligadoDeclararCentimos = ({
+  anioCalculado,
+  anioReferencia,
+}: {
+  readonly anioCalculado: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+}): number => {
+  const primerEuroSobreUmbral =
+    UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR.plus(1)
+
+  return eurosACentimos(
+    anioCalculado === anioReferencia
+      ? primerEuroSobreUmbral
+      : primerEuroSobreUmbral.mul(factorIpc(anioCalculado, anioReferencia))
+  )
+}
+
+const puntosUmbralDeclaracionEnRango = (
+  entrada: EntradaAuditoriaRangoSalarial
+): ReadonlyArray<number> =>
+  [
+    salarioReferenciaPrimerEuroObligadoDeclararCentimos({
+      anioCalculado: entrada.anioReferencia,
+      anioReferencia: entrada.anioReferencia,
+    }),
+    salarioReferenciaPrimerEuroObligadoDeclararCentimos({
+      anioCalculado: entrada.anioComparado,
+      anioReferencia: entrada.anioReferencia,
+    }),
+  ].filter(
+    (salario) =>
+      salario >= entrada.salarioBrutoAnualMinimoCentimos &&
+      salario <= entrada.salarioBrutoAnualMaximoCentimos
   )
 
 const construirPuntoAuditoria = Effect.fn(

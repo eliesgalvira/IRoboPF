@@ -12,6 +12,7 @@ import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
 import type { PerfilAuditoriaNormativa } from "./auditoria-normativa-historica"
 import type { ComunidadAutonoma } from "../irpf/caso-fiscal-anual"
 import {
+  anotarImportesIrpfAuxiliares,
   type AuditoriaRangoSalarial,
   type ComparacionAjustadaPorIpc,
   type DesgloseLiquidado,
@@ -30,6 +31,7 @@ import {
   eurosACentimos,
 } from "../dinero/importe-monetario"
 import { IPC_ANUAL_DICIEMBRE } from "../normativa/datos/ipc-2012-2026"
+import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "../normativa/datos/irpf-obligacion-declarar"
 import {
   instrumentarEffectAuditoria,
   medirAuditoriaSync,
@@ -71,10 +73,9 @@ export type {
   ValorCeldaCompatible,
 } from "../compatibilidad-legacy/progresividad-frio"
 
-export type PerfilAuditoriaProgresividadFrio = Extract<
-  PerfilCalculo,
-  "legacy-progresividad-frio"
-> | PerfilAuditoriaNormativa
+export type PerfilAuditoriaProgresividadFrio =
+  | Extract<PerfilCalculo, "legacy-progresividad-frio">
+  | PerfilAuditoriaNormativa
 
 export interface EntradaAuditoriaProgresividadFrio extends EntradaAuditoriaRangoSalarial {
   readonly perfil: PerfilAuditoriaProgresividadFrio
@@ -82,8 +83,7 @@ export interface EntradaAuditoriaProgresividadFrio extends EntradaAuditoriaRango
   readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
 }
 
-interface EntradaAuditoriaRangoSalarialConComunidad
-  extends EntradaAuditoriaRangoSalarial {
+interface EntradaAuditoriaRangoSalarialConComunidad extends EntradaAuditoriaRangoSalarial {
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
   readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
 }
@@ -149,30 +149,50 @@ const escalarDecimalTexto = (
 const ajustarDesglose = (
   desglose: DesgloseLiquidado,
   factor: Decimal
-): DesgloseLiquidado => ({
-  salarioBrutoAnualCentimos: escalarCentimos(
-    desglose.salarioBrutoAnualCentimos,
-    factor
-  ),
-  cotizacionEmpresarialCentimos: escalarCentimos(
-    desglose.cotizacionEmpresarialCentimos,
-    factor
-  ),
-  costeLaboralCentimos: escalarCentimos(desglose.costeLaboralCentimos, factor),
-  cotizacionTrabajadorCentimos: escalarCentimos(
-    desglose.cotizacionTrabajadorCentimos,
-    factor
-  ),
-  irpfFinalCentimos: escalarCentimos(desglose.irpfFinalCentimos, factor),
-  irpfFinalPrecisoEuros: escalarDecimalTexto(
-    desglose.irpfFinalPrecisoEuros,
-    factor
-  ),
-  salarioNetoAnualCentimos: escalarCentimos(
-    desglose.salarioNetoAnualCentimos,
-    factor
-  ),
-})
+): DesgloseLiquidado => {
+  const ajustado = {
+    salarioBrutoAnualCentimos: escalarCentimos(
+      desglose.salarioBrutoAnualCentimos,
+      factor
+    ),
+    cotizacionEmpresarialCentimos: escalarCentimos(
+      desglose.cotizacionEmpresarialCentimos,
+      factor
+    ),
+    costeLaboralCentimos: escalarCentimos(
+      desglose.costeLaboralCentimos,
+      factor
+    ),
+    cotizacionTrabajadorCentimos: escalarCentimos(
+      desglose.cotizacionTrabajadorCentimos,
+      factor
+    ),
+    irpfFinalCentimos: escalarCentimos(desglose.irpfFinalCentimos, factor),
+    irpfFinalPrecisoEuros: escalarDecimalTexto(
+      desglose.irpfFinalPrecisoEuros,
+      factor
+    ),
+    salarioNetoAnualCentimos: escalarCentimos(
+      desglose.salarioNetoAnualCentimos,
+      factor
+    ),
+  }
+
+  return anotarImportesIrpfAuxiliares(ajustado, {
+    irpfConObligacionDeclararCentimos:
+      desglose.irpfConObligacionDeclararCentimos === undefined
+        ? undefined
+        : escalarCentimos(desglose.irpfConObligacionDeclararCentimos, factor),
+    irpfCuotaTrasDeduccionSmiCentimos:
+      desglose.irpfCuotaTrasDeduccionSmiCentimos === undefined
+        ? undefined
+        : escalarCentimos(desglose.irpfCuotaTrasDeduccionSmiCentimos, factor),
+    irpfCuotaTrasDeduccionSmiPrecisoEuros: escalarDecimalTexto(
+      desglose.irpfCuotaTrasDeduccionSmiPrecisoEuros,
+      factor
+    ),
+  })
+}
 
 const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   "auditoria.compararAjustadoPorIpcConLiquidacion"
@@ -221,24 +241,28 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
     () => ajustarDesglose(comparadoNominal, factor)
   )
 
-  return medirAuditoriaSync("auditoria.comparacion.resultado", () => ({
-    anioReferencia: entrada.anioReferencia,
-    anioComparado: entrada.anioComparado,
-    factorIpc: factor.toFixed(12),
-    referencia,
-    comparado: {
-      salarioBrutoNominalAnualCentimos,
-      ajustado: comparadoAjustado,
-    },
-    diferenciaPoderAdquisitivoNetoAnualCentimos:
-      comparadoAjustado.salarioNetoAnualCentimos -
-      referencia.salarioNetoAnualCentimos,
-    diferenciaPoderAdquisitivoNetoMensualCentimos: Math.round(
-      (comparadoAjustado.salarioNetoAnualCentimos -
-        referencia.salarioNetoAnualCentimos) /
-        12
-    ),
-  }) satisfies ComparacionAjustadaPorIpc)
+  return medirAuditoriaSync(
+    "auditoria.comparacion.resultado",
+    () =>
+      ({
+        anioReferencia: entrada.anioReferencia,
+        anioComparado: entrada.anioComparado,
+        factorIpc: factor.toFixed(12),
+        referencia,
+        comparado: {
+          salarioBrutoNominalAnualCentimos,
+          ajustado: comparadoAjustado,
+        },
+        diferenciaPoderAdquisitivoNetoAnualCentimos:
+          comparadoAjustado.salarioNetoAnualCentimos -
+          referencia.salarioNetoAnualCentimos,
+        diferenciaPoderAdquisitivoNetoMensualCentimos: Math.round(
+          (comparadoAjustado.salarioNetoAnualCentimos -
+            referencia.salarioNetoAnualCentimos) /
+            12
+        ),
+      }) satisfies ComparacionAjustadaPorIpc
+  )
 })
 
 const proporcionSegura = (numerador: number, denominador: number) =>
@@ -267,8 +291,8 @@ const tipoCunaLaboral = (desglose: DesgloseLiquidado) =>
 
 const rangoSalarioBrutoAnualCentimos = (
   entrada: EntradaAuditoriaRangoSalarialConComunidad
-): ReadonlyArray<number> =>
-  Match.value(entrada).pipe(
+): ReadonlyArray<number> => {
+  const rangoRegular = Match.value(entrada).pipe(
     Match.when({ pasoCentimos: (paso) => paso <= 0 }, () => []),
     Match.when(
       (entrada) =>
@@ -288,6 +312,65 @@ const rangoSalarioBrutoAnualCentimos = (
       )
     )
   )
+  const puntosNormativos = puntosNormativosReferenciaEnRango(entrada)
+
+  return [...new Set([...rangoRegular, ...puntosNormativos])].sort(
+    (a, b) => a - b
+  )
+}
+
+const salarioReferenciaDesdeNominal = ({
+  anioCalculado,
+  anioReferencia,
+  salarioNominalCentimos,
+}: {
+  readonly anioCalculado: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+  readonly salarioNominalCentimos: number
+}) =>
+  anioCalculado === anioReferencia
+    ? salarioNominalCentimos
+    : eurosACentimos(
+        centimosAEuros(salarioNominalCentimos).mul(
+          factorIpc(anioCalculado, anioReferencia)
+        )
+      )
+
+const puntosDeduccionSmiNominalesCentimos = (
+  anio: AnioFiscal
+): ReadonlyArray<number> =>
+  Match.value(anio).pipe(
+    Match.when(2025, () => [1_657_600, 1_827_600]),
+    Match.when(2026, () => [1_709_400, 2_004_845]),
+    Match.orElse(() => [])
+  )
+
+const puntosNormativosReferenciaEnRango = (
+  entrada: EntradaAuditoriaRangoSalarialConComunidad
+): ReadonlyArray<number> => {
+  const anios = [entrada.anioReferencia, entrada.anioComparado] as const
+  const puntosNominales = (anio: AnioFiscal) => [
+    UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS +
+      100,
+    ...puntosDeduccionSmiNominalesCentimos(anio),
+  ]
+
+  return anios
+    .flatMap((anio) =>
+      puntosNominales(anio).map((salarioNominalCentimos) =>
+        salarioReferenciaDesdeNominal({
+          anioCalculado: anio,
+          anioReferencia: entrada.anioReferencia,
+          salarioNominalCentimos,
+        })
+      )
+    )
+    .filter(
+      (salario) =>
+        salario >= entrada.salarioBrutoAnualMinimoCentimos &&
+        salario <= entrada.salarioBrutoAnualMaximoCentimos
+    )
+}
 
 const partirEnLotes = <A>(
   valores: ReadonlyArray<A>,
@@ -327,16 +410,24 @@ const construirPuntoAuditoriaConLiquidacion = Effect.fn(
     tiempoAuditoriaMs() - inicioComparacion
   )
 
-  return medirAuditoriaSync("auditoria.punto.resultado", () => ({
-    salarioBrutoAnualCentimos,
-    comparacion,
-    tipoCargaActual: tipoCarga(comparacion.referencia),
-    tipoCargaComparada: tipoCarga(comparacion.comparado.ajustado),
-    tipoEfectivoIrpfActual: tipoEfectivoIrpf(comparacion.referencia),
-    tipoEfectivoIrpfComparado: tipoEfectivoIrpf(comparacion.comparado.ajustado),
-    tipoCunaLaboralActual: tipoCunaLaboral(comparacion.referencia),
-    tipoCunaLaboralComparada: tipoCunaLaboral(comparacion.comparado.ajustado),
-  }) satisfies PuntoAuditoriaRangoSalarial)
+  return medirAuditoriaSync(
+    "auditoria.punto.resultado",
+    () =>
+      ({
+        salarioBrutoAnualCentimos,
+        comparacion,
+        tipoCargaActual: tipoCarga(comparacion.referencia),
+        tipoCargaComparada: tipoCarga(comparacion.comparado.ajustado),
+        tipoEfectivoIrpfActual: tipoEfectivoIrpf(comparacion.referencia),
+        tipoEfectivoIrpfComparado: tipoEfectivoIrpf(
+          comparacion.comparado.ajustado
+        ),
+        tipoCunaLaboralActual: tipoCunaLaboral(comparacion.referencia),
+        tipoCunaLaboralComparada: tipoCunaLaboral(
+          comparacion.comparado.ajustado
+        ),
+      }) satisfies PuntoAuditoriaRangoSalarial
+  )
 })
 
 const construirPuntoAuditoriaAnioAjustadoConLiquidacion = Effect.fn(
@@ -395,16 +486,20 @@ const construirPuntoAuditoriaAnioAjustadoConLiquidacion = Effect.fn(
       }) satisfies ComparacionAjustadaPorIpc
   )
 
-  return medirAuditoriaSync("auditoria.serieAnio.punto", () => ({
-    salarioBrutoAnualCentimos: salarioBrutoAnualReferenciaCentimos,
-    comparacion,
-    tipoCargaActual: tipoCarga(desgloseAjustado),
-    tipoCargaComparada: tipoCarga(desgloseAjustado),
-    tipoEfectivoIrpfActual: tipoEfectivoIrpf(desgloseAjustado),
-    tipoEfectivoIrpfComparado: tipoEfectivoIrpf(desgloseAjustado),
-    tipoCunaLaboralActual: tipoCunaLaboral(desgloseAjustado),
-    tipoCunaLaboralComparada: tipoCunaLaboral(desgloseAjustado),
-  }) satisfies PuntoAuditoriaRangoSalarial)
+  return medirAuditoriaSync(
+    "auditoria.serieAnio.punto",
+    () =>
+      ({
+        salarioBrutoAnualCentimos: salarioBrutoAnualReferenciaCentimos,
+        comparacion,
+        tipoCargaActual: tipoCarga(desgloseAjustado),
+        tipoCargaComparada: tipoCarga(desgloseAjustado),
+        tipoEfectivoIrpfActual: tipoEfectivoIrpf(desgloseAjustado),
+        tipoEfectivoIrpfComparado: tipoEfectivoIrpf(desgloseAjustado),
+        tipoCunaLaboralActual: tipoCunaLaboral(desgloseAjustado),
+        tipoCunaLaboralComparada: tipoCunaLaboral(desgloseAjustado),
+      }) satisfies PuntoAuditoriaRangoSalarial
+  )
 })
 
 const construirPuntosAuditoriaAnioAjustadoImpl = Effect.fn(
