@@ -227,6 +227,11 @@ function AuditoriaImpl({
         claveAuditoria,
         puntos: auditoriaCacheada.value.puntos.length,
       })
+      fijarEstadoAuditoria({
+        _tag: "lista",
+        clave: claveAuditoria,
+        auditoria: auditoriaCacheada.value,
+      })
       return
     }
 
@@ -2894,6 +2899,7 @@ function Visualizaciones({
               datosCacheados.value.diferenciaTipoIrpf.length,
             filasTipoMarginalIrpf: datosCacheados.value.tipoMarginalIrpf.length,
           })
+          fijarEstadoDatosGrafico(datosCacheados.value)
           return
         }
 
