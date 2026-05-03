@@ -609,8 +609,7 @@ function Columnas({
           baseCentimos={
             usarCosteLaboral
               ? comparacionMostrada.comparado.ajustado.costeLaboralCentimos
-              : comparacionMostrada.comparado.ajustado
-                  .salarioBrutoAnualCentimos
+              : comparacionMostrada.comparado.ajustado.salarioBrutoAnualCentimos
           }
           desglose={comparacionMostrada.comparado.ajustado}
           variante="comparado"
@@ -780,7 +779,7 @@ function Pasos({
     },
   ] as const
   return (
-    <section className="border-b-2 border-[var(--rule)] py-6">
+    <section className="py-6">
       <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
         CÁLCULO GUIADO PASO A PASO
       </h2>

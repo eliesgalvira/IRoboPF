@@ -2889,7 +2889,7 @@ function Visualizaciones({
     "mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
 
   return (
-    <section className="border-b-2 border-[var(--rule)] py-6">
+    <section className="py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
           EXPLORACIÓN POR RANGO SALARIAL
@@ -3154,12 +3154,12 @@ function Visualizaciones({
                   }
                 />
                 <Area
-                  dataKey={clavesDiferenciaTipoIrpfSegmentadas[0]}
+                  dataKey={clavesDiferenciaTipoIrpfSegmentadas[1]}
                   name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
                   type="monotone"
-                  stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
+                  stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
                   strokeWidth={3}
-                  fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
+                  fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
                   fillOpacity={0.22}
                   baseValue={0}
                   dot={false}
@@ -3168,12 +3168,12 @@ function Visualizaciones({
                   isAnimationActive={false}
                 />
                 <Area
-                  dataKey={clavesDiferenciaTipoIrpfSegmentadas[1]}
+                  dataKey={clavesDiferenciaTipoIrpfSegmentadas[0]}
                   name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
                   type="monotone"
-                  stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
+                  stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
                   strokeWidth={3}
-                  fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
+                  fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
                   fillOpacity={0.22}
                   baseValue={0}
                   dot={false}
