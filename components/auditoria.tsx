@@ -1345,13 +1345,13 @@ function FormulaTipoEfectivoIrpf({
         normativos.
       </p>
 
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid items-stretch gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {anios.map((anio) => {
           const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
           return (
             <div
               key={`formula-irpf-${anio}`}
-              className="grid gap-2 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[3px_3px_0_0_var(--rule)]"
+              className="grid h-full grid-rows-[auto_auto_minmax(6rem,1fr)] gap-2 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[3px_3px_0_0_var(--rule)]"
               style={{ borderBottomColor: coloresTipoEfectivoIrpf[anio] }}
             >
               <div className="flex items-center justify-between gap-3">
@@ -1378,13 +1378,15 @@ function FormulaTipoEfectivoIrpf({
                     {parametros.tipoMaximoRetencion}
                   </dd>
                 </div>
-                <div className="grid gap-1">
-                  <dt className="text-[var(--ink-soft)]">DEDUCCION_SMI</dt>
-                  <dd className="font-[family-name:var(--mono)] text-sm leading-5">
-                    {parametros.deduccionSmi}
-                  </dd>
-                </div>
               </dl>
+              <div className="grid content-start gap-1">
+                <p className="text-sm leading-5 text-[var(--ink-soft)]">
+                  DEDUCCION_SMI
+                </p>
+                <p className="font-[family-name:var(--mono)] text-sm leading-5">
+                  {parametros.deduccionSmi}
+                </p>
+              </div>
             </div>
           )
         })}
