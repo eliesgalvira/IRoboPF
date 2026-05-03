@@ -124,6 +124,7 @@ const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
     costeLaboralCentimos: liquidacion.costeLaboralCentimos,
     cotizacionTrabajadorCentimos: liquidacion.cotizacionTrabajadorCentimos,
     irpfFinalCentimos: conciliacion.irpfFinalSimuladorCentimos,
+    irpfFinalPrecisoEuros: conciliacion.irpfFinalSimulador.toString(),
     salarioNetoAnualCentimos,
   }) satisfies DesgloseLiquidado)
 })

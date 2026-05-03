@@ -92,6 +92,16 @@ export interface ContextoAuditoriaProgresividadFrio {
   readonly modo: ModoCalculo
 }
 
+export interface EntradaPuntosAuditoriaAnioAjustado {
+  readonly salarioBrutoAnualMinimoCentimos: number
+  readonly salarioBrutoAnualMaximoCentimos: number
+  readonly pasoCentimos: number
+  readonly anio: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+  readonly comunidadAutonoma?: ComunidadAutonoma | undefined
+  readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
+}
+
 export interface ResultadoAuditoriaProgresividadFrio {
   readonly _tag: "ResultadoAuditoriaProgresividadFrio"
   readonly perfil: PerfilAuditoriaProgresividadFrio
@@ -127,6 +137,15 @@ const factorIpc = (anioBase: AnioFiscal, anioReferencia: AnioFiscal) =>
 const escalarCentimos = (centimos: number, factor: Decimal): number =>
   eurosACentimos(centimosAEuros(centimos).mul(factor))
 
+const escalarDecimalTexto = (
+  valor: string | undefined,
+  factor: Decimal
+): string | undefined =>
+  Match.value(valor).pipe(
+    Match.when(Match.undefined, () => undefined),
+    Match.orElse((valor) => new Decimal(valor).mul(factor).toString())
+  )
+
 const ajustarDesglose = (
   desglose: DesgloseLiquidado,
   factor: Decimal
@@ -145,6 +164,10 @@ const ajustarDesglose = (
     factor
   ),
   irpfFinalCentimos: escalarCentimos(desglose.irpfFinalCentimos, factor),
+  irpfFinalPrecisoEuros: escalarDecimalTexto(
+    desglose.irpfFinalPrecisoEuros,
+    factor
+  ),
   salarioNetoAnualCentimos: escalarCentimos(
     desglose.salarioNetoAnualCentimos,
     factor
@@ -314,6 +337,137 @@ const construirPuntoAuditoriaConLiquidacion = Effect.fn(
     tipoCunaLaboralActual: tipoCunaLaboral(comparacion.referencia),
     tipoCunaLaboralComparada: tipoCunaLaboral(comparacion.comparado.ajustado),
   }) satisfies PuntoAuditoriaRangoSalarial)
+})
+
+const construirPuntoAuditoriaAnioAjustadoConLiquidacion = Effect.fn(
+  "auditoria.construirPuntoAuditoriaAnioAjustadoConLiquidacion"
+)(function* (
+  entrada: EntradaPuntosAuditoriaAnioAjustado,
+  salarioBrutoAnualReferenciaCentimos: number,
+  factor: Decimal,
+  compatibilidadSalarioLegacy: ServicioCompatibilidadSalarioLegacy
+) {
+  const salarioBrutoNominalAnualCentimos = medirAuditoriaSync(
+    "auditoria.serieAnio.salarioNominal",
+    () =>
+      Match.value(entrada.anio === entrada.anioReferencia).pipe(
+        Match.when(true, () => salarioBrutoAnualReferenciaCentimos),
+        Match.orElse(() =>
+          eurosACentimos(
+            centimosAEuros(salarioBrutoAnualReferenciaCentimos).div(factor)
+          )
+        )
+      )
+  )
+  const inicioLiquidacion = tiempoAuditoriaMs()
+  const desgloseNominal = yield* compatibilidadSalarioLegacy.calcular({
+    anio: entrada.anio,
+    salarioBrutoAnualCentimos: salarioBrutoNominalAnualCentimos,
+    comunidadAutonoma: entrada.comunidadAutonoma,
+    perfilAuditoria: entrada.perfilAuditoria,
+  })
+  registrarTiempoAgregadoAuditoria(
+    "auditoria.serieAnio.salario",
+    tiempoAuditoriaMs() - inicioLiquidacion
+  )
+  const desgloseAjustado = medirAuditoriaSync(
+    "auditoria.serieAnio.ajustarDesglose",
+    () =>
+      Match.value(entrada.anio === entrada.anioReferencia).pipe(
+        Match.when(true, () => desgloseNominal),
+        Match.orElse(() => ajustarDesglose(desgloseNominal, factor))
+      )
+  )
+  const comparacion = medirAuditoriaSync(
+    "auditoria.serieAnio.comparacionIdentidad",
+    () =>
+      ({
+        anioReferencia: entrada.anioReferencia,
+        anioComparado: entrada.anio,
+        factorIpc: factor.toFixed(12),
+        referencia: desgloseAjustado,
+        comparado: {
+          salarioBrutoNominalAnualCentimos,
+          ajustado: desgloseAjustado,
+        },
+        diferenciaPoderAdquisitivoNetoAnualCentimos: 0,
+        diferenciaPoderAdquisitivoNetoMensualCentimos: 0,
+      }) satisfies ComparacionAjustadaPorIpc
+  )
+
+  return medirAuditoriaSync("auditoria.serieAnio.punto", () => ({
+    salarioBrutoAnualCentimos: salarioBrutoAnualReferenciaCentimos,
+    comparacion,
+    tipoCargaActual: tipoCarga(desgloseAjustado),
+    tipoCargaComparada: tipoCarga(desgloseAjustado),
+    tipoEfectivoIrpfActual: tipoEfectivoIrpf(desgloseAjustado),
+    tipoEfectivoIrpfComparado: tipoEfectivoIrpf(desgloseAjustado),
+    tipoCunaLaboralActual: tipoCunaLaboral(desgloseAjustado),
+    tipoCunaLaboralComparada: tipoCunaLaboral(desgloseAjustado),
+  }) satisfies PuntoAuditoriaRangoSalarial)
+})
+
+const construirPuntosAuditoriaAnioAjustadoImpl = Effect.fn(
+  "auditoria.construirPuntosAuditoriaAnioAjustado"
+)(function* (entrada: EntradaPuntosAuditoriaAnioAjustado) {
+  const salarios = rangoSalarioBrutoAnualCentimos({
+    salarioBrutoAnualMinimoCentimos: entrada.salarioBrutoAnualMinimoCentimos,
+    salarioBrutoAnualMaximoCentimos: entrada.salarioBrutoAnualMaximoCentimos,
+    pasoCentimos: entrada.pasoCentimos,
+    anioComparado: entrada.anio,
+    anioReferencia: entrada.anioReferencia,
+    comunidadAutonoma: entrada.comunidadAutonoma,
+    perfilAuditoria: entrada.perfilAuditoria,
+  })
+  const lotes = partirEnLotes(salarios, TAMANO_LOTE_AUDITORIA_RANGO)
+  const factor = medirAuditoriaSync("auditoria.serieAnio.factorIpc", () =>
+    factorIpc(entrada.anio, entrada.anioReferencia)
+  )
+  reiniciarTiemposAgregadosAuditoria()
+
+  return yield* instrumentarEffectAuditoria({
+    nombre: "auditoria.rango.liquidacionAnioAjustado",
+    metrica: metricaDuracionCalculoAuditoria,
+    detalles: {
+      anio: entrada.anio,
+      anioReferencia: entrada.anioReferencia,
+      comunidadAutonoma: Option.fromNullishOr(entrada.comunidadAutonoma).pipe(
+        Option.getOrElse(() => "simulada-estatal")
+      ),
+      perfilAuditoria: entrada.perfilAuditoria ?? "soltero_sin_hijos",
+      puntos: salarios.length,
+      liquidacionesIrpfAnuales: salarios.length,
+      lotes: lotes.length,
+      tamanoLote: TAMANO_LOTE_AUDITORIA_RANGO,
+      concurrencia: CONCURRENCIA_AUDITORIA_RANGO,
+      pasoCentimos: entrada.pasoCentimos,
+    },
+    efecto: Effect.gen(function* () {
+      const compatibilidadSalarioLegacy = yield* CompatibilidadSalarioLegacy
+      const puntosPorLote = yield* Effect.forEach(
+        lotes,
+        (lote) =>
+          Effect.forEach(lote, (salarioBrutoAnualCentimos) =>
+            construirPuntoAuditoriaAnioAjustadoConLiquidacion(
+              entrada,
+              salarioBrutoAnualCentimos,
+              factor,
+              compatibilidadSalarioLegacy
+            )
+          ),
+        { concurrency: CONCURRENCIA_AUDITORIA_RANGO }
+      )
+      const puntos = puntosPorLote.flat()
+
+      registrarResumenTiemposAuditoria("auditoria.serieAnio.rank.etapas", {
+        anio: entrada.anio,
+        anioReferencia: entrada.anioReferencia,
+        puntos: salarios.length,
+      })
+
+      return puntos
+    }),
+  })
 })
 
 const construirHallazgos = (
@@ -512,4 +666,11 @@ export const auditarProgresividadFrio = (
 ): Effect.Effect<ResultadoAuditoriaProgresividadFrio> =>
   auditarProgresividadFrioDesdeServicio(entrada, contexto).pipe(
     Effect.provide(AuditoriaProgresividadFrio.layer)
+  )
+
+export const construirPuntosAuditoriaAnioAjustado = (
+  entrada: EntradaPuntosAuditoriaAnioAjustado
+): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
+  construirPuntosAuditoriaAnioAjustadoImpl(entrada).pipe(
+    Effect.provide(CompatibilidadSalarioLegacy.layer)
   )
