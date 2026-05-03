@@ -3,6 +3,7 @@ import { describe, expect, it } from "@effect/vitest"
 import {
   construirContratoUrlAuditoriaNormativaV1,
   comunidadesAuditoriaNormativa,
+  detallePerfilAuditoriaNormativa,
   describirComunidadAutonomaAuditoria,
   describirPerfilAuditoriaNormativa,
   escenarioAuditoriaPorDefecto,
@@ -45,6 +46,19 @@ describe("auditoria normativa historica", () => {
     })
   })
 
+  it("presenta las fichas de perfil con ortografía española completa", () => {
+    const detalles = perfilesAuditoriaNormativa.map(
+      (perfil) => describirPerfilAuditoriaNormativa(perfil).detalle
+    )
+
+    expect(detalles.join("\n")).not.toMatch(
+      /\b(\u0061\u006e\u006f\u0073|\u0063\u006f\u006e\u0079\u0075\u0067\u0065|\u0061\u0075\u0074\u006f\u006e\u006f\u006d\u0069\u0061)\b/i
+    )
+    expect(describirPerfilAuditoriaNormativa("pareja_con_hijos").detalle).toBe(
+      "Matrimonio con cónyuge sin rentas > 1.500 euros y dos hijos de 8 y 5 años"
+    )
+  })
+
   it("declara las comunidades navegables para los perfiles de auditoria", () => {
     expect(comunidadesAuditoriaNormativa).toContain("simulada-estatal")
     expect(comunidadesAuditoriaNormativa).toContain("comunitat-valenciana")
@@ -71,7 +85,7 @@ describe("auditoria normativa historica", () => {
     })
   })
 
-  it("reserva 2026 al caso tecnico de soltero sin hijos y comunidad simulada estatal", () => {
+  it("reserva 2026 a perfiles con retencion tecnica y comunidad simulada estatal", () => {
     expect(
       escenarioPermiteReferenciaTecnica2026(escenarioAuditoriaPorDefecto)
     ).toBe(true)
@@ -90,7 +104,24 @@ describe("auditoria normativa historica", () => {
       })
     ).toMatchObject({
       perfil: "pareja_con_hijos",
-      anioReferencia: 2025,
+      anioReferencia: 2026,
+    })
+  })
+
+  it("documenta el caso concreto de pareja con hijos para retenciones 2026", () => {
+    expect(detallePerfilAuditoriaNormativa("pareja_con_hijos")).toMatchObject({
+      etiquetaCalculo: "Pareja con dos hijos",
+      situacionRetencion: "situacion2",
+      descendientes: [
+        { edad: 8, computoPorEntero: true },
+        { edad: 5, computoPorEntero: true },
+      ],
+      umbralRetencion2026Euros: 19_262,
+    })
+    expect(detallePerfilAuditoriaNormativa("soltero_sin_hijos")).toMatchObject({
+      situacionRetencion: "situacion3",
+      descendientes: [],
+      umbralRetencion2026Euros: 15_876,
     })
   })
 

@@ -15,6 +15,7 @@ import {
   Legend,
   Line,
   LineChart,
+  ReferenceLine,
   XAxis,
   YAxis,
 } from "recharts"
@@ -56,6 +57,7 @@ import {
   decodificarEstrategiaProyeccionSalarial,
   decodificarMagnitudAuditada,
   decodificarPerfilAuditoriaNormativa,
+  detallePerfilAuditoriaNormativa,
   describirComunidadAutonomaAuditoria,
   describirEstrategiaAuditoriaNormativa,
   describirMagnitudAuditoriaNormativa,
@@ -126,6 +128,9 @@ const claveCalculoAuditoria = ({
 }) =>
   [
     escenario.comunidadAutonoma,
+    escenario.perfil,
+    escenario.magnitudAuditada,
+    escenario.estrategiaProyeccionSalarial,
     escenario.anioComparado,
     escenario.anioReferencia,
     Math.min(minimoCentimos, maximoCentimos),
@@ -188,6 +193,9 @@ function AuditoriaImpl({
     minimoCentimos,
     maximoCentimos,
   })
+  const [cacheAuditorias, fijarCacheAuditorias] = React.useState(
+    () => new Map<string, AuditoriaRangoSalarial>()
+  )
   const [estadoAuditoria, fijarEstadoAuditoria] =
     React.useState<EstadoAuditoria>({
       _tag: "cargando",
@@ -202,13 +210,26 @@ function AuditoriaImpl({
             Match.orElse(() => Option.none<AuditoriaRangoSalarial>())
           )
         ),
-        Match.orElse(() => Option.none<AuditoriaRangoSalarial>())
+        Match.orElse(() =>
+          Option.fromNullishOr(cacheAuditorias.get(claveAuditoria))
+        )
       ),
-    [claveAuditoria, estadoAuditoria]
+    [cacheAuditorias, claveAuditoria, estadoAuditoria]
   )
   const exportacionEnCurso = Option.isSome(Option.fromNullishOr(exportando))
 
   React.useEffect(() => {
+    const auditoriaCacheada = Option.fromNullishOr(
+      cacheAuditorias.get(claveAuditoria)
+    )
+    if (Option.isSome(auditoriaCacheada)) {
+      registrarMarcaAuditoria("react.auditoria.calculo.cache", {
+        claveAuditoria,
+        puntos: auditoriaCacheada.value.puntos.length,
+      })
+      return
+    }
+
     const inicio = tiempoAuditoriaMs()
     registrarMarcaAuditoria("react.auditoria.calculo.inicio", {
       claveAuditoria,
@@ -224,6 +245,10 @@ function AuditoriaImpl({
       auditarProgresividadFrio(
         {
           perfil: "legacy-progresividad-frio",
+          perfilAuditoria:
+            escenarioAuditoria.perfil === "pareja_con_hijos"
+              ? escenarioAuditoria.perfil
+              : undefined,
           comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
           salarioBrutoAnualMinimoCentimos: Math.min(
             minimoCentimos,
@@ -253,6 +278,9 @@ function AuditoriaImpl({
           clave: claveAuditoria,
           auditoria: exit.value.auditoria,
         })
+        fijarCacheAuditorias((cacheActual) =>
+          new Map(cacheActual).set(claveAuditoria, exit.value.auditoria)
+        )
         return
       }
 
@@ -277,6 +305,8 @@ function AuditoriaImpl({
     escenarioAuditoria.anioComparado,
     escenarioAuditoria.anioReferencia,
     escenarioAuditoria.comunidadAutonoma,
+    escenarioAuditoria.perfil,
+    cacheAuditorias,
     claveAuditoria,
     maximoCentimos,
     minimoCentimos,
@@ -478,6 +508,8 @@ function AuditoriaImpl({
           auditoria={auditoria}
           estadoAuditoria={estadoAuditoria}
           comunidadAutonoma={escenarioAuditoria.comunidadAutonoma}
+          perfil={escenarioAuditoria.perfil}
+          magnitudAuditada={escenarioAuditoria.magnitudAuditada}
           alCambiarComunidadAutonoma={(comunidadAutonoma) =>
             actualizarEscenarioAuditoria({
               comunidadAutonoma,
@@ -968,6 +1000,9 @@ const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
 
 type ComunidadAuditada =
   EscenarioAuditoriaNormativaHistorica["comunidadAutonoma"]
+type PerfilAuditado = EscenarioAuditoriaNormativaHistorica["perfil"]
+type MagnitudAuditadaAuditoria =
+  EscenarioAuditoriaNormativaHistorica["magnitudAuditada"]
 const claveSerieTipoEfectivoIrpf = (
   comunidadAutonoma: ComunidadAuditada,
   anio: AnioFiscal
@@ -1103,10 +1138,15 @@ type EstadoDatosGrafico =
       readonly tipoMarginalIrpf: ReadonlyArray<FilaTipoMarginalIrpf>
     }
   | { readonly _tag: "error"; readonly clave: string; readonly mensaje: string }
+type DatosGraficoListos = Extract<
+  EstadoDatosGrafico,
+  { readonly _tag: "lista" }
+>
 
 const obtenerPuntosAuditoriaParaAnio = (
   auditoria: AuditoriaRangoSalarial,
   comunidadAutonoma: ComunidadAuditada,
+  perfil: PerfilAuditado,
   anio: AnioFiscal,
   anioReferenciaSeries: AnioFiscal
 ): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
@@ -1121,6 +1161,7 @@ const obtenerPuntosAuditoriaParaAnio = (
       anioComparado: anio,
       anioReferencia: anioReferenciaSeries,
       comunidadAutonoma,
+      perfilAuditoria: perfil === "pareja_con_hijos" ? perfil : undefined,
     },
     { modo: "compatible-legacy" }
   ).pipe(Effect.map((resultado) => resultado.auditoria.puntos))
@@ -1170,16 +1211,19 @@ const puedeReusarPuntosAuditoriaBase = ({
 const claveCacheSerieAuditoria = ({
   auditoria,
   comunidadAutonoma,
+  perfil,
   anio,
   anioReferenciaSeries,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadAutonoma: ComunidadAuditada
+  readonly perfil: PerfilAuditado
   readonly anio: AnioFiscal
   readonly anioReferenciaSeries: AnioFiscal
 }) =>
   [
     comunidadAutonoma,
+    perfil,
     anio,
     anioReferenciaSeries,
     auditoria.salarioBrutoAnualMinimoCentimos,
@@ -1193,6 +1237,7 @@ const construirSeriesAuditoria = Effect.fn(
   auditoria,
   comunidadAutonomaAuditoriaBase,
   comunidadesAutonomas,
+  perfil,
   aniosSeleccionados,
   anioReferenciaSeries,
   cacheSeries,
@@ -1200,6 +1245,7 @@ const construirSeriesAuditoria = Effect.fn(
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadAutonomaAuditoriaBase: ComunidadAuditada
   readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly perfil: PerfilAuditado
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
   readonly anioReferenciaSeries: AnioFiscal
   readonly cacheSeries: Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>
@@ -1222,6 +1268,7 @@ const construirSeriesAuditoria = Effect.fn(
     const claveCache = claveCacheSerieAuditoria({
       auditoria,
       comunidadAutonoma,
+      perfil,
       anio,
       anioReferenciaSeries,
     })
@@ -1267,6 +1314,7 @@ const construirSeriesAuditoria = Effect.fn(
         obtenerPuntosAuditoriaParaAnio(
           auditoria,
           comunidadAutonoma,
+          perfil,
           anio,
           anioReferenciaSeries
         ).pipe(
@@ -1275,6 +1323,7 @@ const construirSeriesAuditoria = Effect.fn(
               claveCacheSerieAuditoria({
                 auditoria,
                 comunidadAutonoma,
+                perfil,
                 anio,
                 anioReferenciaSeries,
               }),
@@ -1380,6 +1429,41 @@ const desgloseLiquidadoParaAnio = ({
   Match.value(anio === anioReferenciaSeries).pipe(
     Match.when(true, () => punto.comparacion.referencia),
     Match.orElse(() => punto.comparacion.comparado.ajustado)
+  )
+
+const proporcionSegura = (numerador: number, denominador: number) =>
+  denominador === 0 ? 0 : numerador / denominador
+
+const valorMagnitudCentimos = (
+  desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"],
+  magnitud: MagnitudAuditadaAuditoria
+) =>
+  Match.value(magnitud).pipe(
+    Match.when("irpf_final", () => desglose.irpfFinalCentimos),
+    Match.when(
+      "cotizacion_trabajador",
+      () => desglose.cotizacionTrabajadorCentimos
+    ),
+    Match.when(
+      "cotizacion_empresarial",
+      () => desglose.cotizacionEmpresarialCentimos
+    ),
+    Match.when("salario_neto_anual", () => desglose.salarioNetoAnualCentimos),
+    Match.when("coste_laboral", () => desglose.costeLaboralCentimos),
+    Match.when(
+      "carga_fiscal_efectiva",
+      () => desglose.cotizacionTrabajadorCentimos + desglose.irpfFinalCentimos
+    ),
+    Match.exhaustive
+  )
+
+const tipoEfectivoMagnitud = (
+  desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"],
+  magnitud: MagnitudAuditadaAuditoria
+) =>
+  proporcionSegura(
+    valorMagnitudCentimos(desglose, magnitud),
+    desglose.salarioBrutoAnualCentimos
   )
 
 const numeroEnFila = (
@@ -1574,12 +1658,14 @@ const asignarSegmentosDiferenciaTipoIrpf = (fila: FilaDiferenciaTipoIrpf) => {
 const construirFilasDiferenciaTipoIrpfDesdeSeries = ({
   auditoria,
   comunidadAutonoma,
+  magnitud,
   aniosSeleccionados,
   anioReferenciaSeries,
   series,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadAutonoma: ComunidadAuditada
+  readonly magnitud: MagnitudAuditadaAuditoria
   readonly aniosSeleccionados: readonly [AnioFiscal, AnioFiscal]
   readonly anioReferenciaSeries: AnioFiscal
   readonly series: ReadonlyMap<
@@ -1610,16 +1696,6 @@ const construirFilasDiferenciaTipoIrpfDesdeSeries = ({
       if (Option.isNone(puntoBaseComparacion)) return fila
       if (Option.isNone(puntoAnioComparado)) return fila
 
-      const tipoBase = tipoEfectivoIrpfParaAnio({
-        anio: anioBase,
-        anioReferenciaSeries,
-        punto: puntoBaseComparacion.value,
-      })
-      const tipoComparado = tipoEfectivoIrpfParaAnio({
-        anio: anioComparado,
-        anioReferenciaSeries,
-        punto: puntoAnioComparado.value,
-      })
       const desgloseBase = desgloseLiquidadoParaAnio({
         anio: anioBase,
         anioReferenciaSeries,
@@ -1631,9 +1707,17 @@ const construirFilasDiferenciaTipoIrpfDesdeSeries = ({
         punto: puntoAnioComparado.value,
       })
 
-      fila[claveDiferenciaTipoIrpfPorcentaje] = tipoComparado - tipoBase
+      const tipoMagnitudBase = tipoEfectivoMagnitud(desgloseBase, magnitud)
+      const tipoMagnitudComparado = tipoEfectivoMagnitud(
+        desgloseComparado,
+        magnitud
+      )
+
+      fila[claveDiferenciaTipoIrpfPorcentaje] =
+        tipoMagnitudComparado - tipoMagnitudBase
       fila[claveDiferenciaTipoIrpfEurosReales] = centimosAEuros(
-        desgloseComparado.irpfFinalCentimos - desgloseBase.irpfFinalCentimos
+        valorMagnitudCentimos(desgloseComparado, magnitud) -
+          valorMagnitudCentimos(desgloseBase, magnitud)
       )
 
       return fila
@@ -1760,8 +1844,10 @@ const construirFilasGraficosAuditoria = Effect.fn(
   auditoria,
   comunidadAutonomaAuditoriaBase,
   comunidadesAutonomas,
+  perfil,
   aniosIrpf,
   aniosDiferenciaTipoIrpf,
+  magnitudAuditada,
   anioTipoMarginalIrpf,
   anioReferenciaGraficosIrpf,
   cacheSeries,
@@ -1769,8 +1855,10 @@ const construirFilasGraficosAuditoria = Effect.fn(
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadAutonomaAuditoriaBase: ComunidadAuditada
   readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly perfil: PerfilAuditado
   readonly aniosIrpf: ReadonlyArray<AnioFiscal>
   readonly aniosDiferenciaTipoIrpf: readonly [AnioFiscal, AnioFiscal]
+  readonly magnitudAuditada: MagnitudAuditadaAuditoria
   readonly anioTipoMarginalIrpf: AnioFiscal
   readonly anioReferenciaGraficosIrpf: AnioFiscal
   readonly cacheSeries: Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>
@@ -1782,6 +1870,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
     auditoria,
     comunidadAutonomaAuditoriaBase,
     comunidadesAutonomas,
+    perfil,
     aniosSeleccionados: aniosIrpf,
     anioReferenciaSeries: anioReferenciaTipoEfectivoIrpf,
     cacheSeries,
@@ -1790,6 +1879,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
     auditoria,
     comunidadAutonomaAuditoriaBase,
     comunidadesAutonomas,
+    perfil,
     aniosSeleccionados: aniosDiferenciaTipoIrpf,
     anioReferenciaSeries: anioReferenciaDiferenciaTipoIrpf,
     cacheSeries,
@@ -1798,6 +1888,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
     auditoria,
     comunidadAutonomaAuditoriaBase,
     comunidadesAutonomas,
+    perfil,
     aniosSeleccionados: [anioTipoMarginalIrpf],
     anioReferenciaSeries: anioReferenciaTipoMarginalIrpf,
     cacheSeries,
@@ -1836,6 +1927,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
       construirFilasDiferenciaTipoIrpfDesdeSeries({
         auditoria,
         comunidadAutonoma: comunidadAutonomaAuditoriaBase,
+        magnitud: magnitudAuditada,
         aniosSeleccionados: aniosDiferenciaTipoIrpf,
         anioReferenciaSeries: anioReferenciaDiferenciaTipoIrpf,
         series: seriesDiferenciaTipoIrpf,
@@ -1898,7 +1990,10 @@ const dominioPorcentajeTipoMarginalIrpf = (valores: ReadonlyArray<number>) => {
   const minimo = Math.min(...valores)
   const maximo = Math.max(...valores)
   const paso = 0.1
-  const inferior = Math.min(0, Math.floor((minimo - paso) / paso) * paso)
+  const inferior = Match.value(minimo < 0).pipe(
+    Match.when(true, () => Math.floor((minimo - paso) / paso) * paso),
+    Match.orElse(() => 0)
+  )
   const superior = Math.max(0.1, Math.ceil((maximo + paso) / paso) * paso)
   return [inferior, superior] as const
 }
@@ -1917,6 +2012,28 @@ const ticksPorcentajeTipoMarginalIrpf = (
 
 const formatearTickPorcentaje = (valor: number): string =>
   `${Math.round(valor * 100)}%`
+
+const alinearDominioSecundarioPorCero = ({
+  dominioPrincipal,
+  dominioSecundario,
+}: {
+  readonly dominioPrincipal: readonly [number, number]
+  readonly dominioSecundario: readonly [number, number]
+}) => {
+  const [inferiorPrincipal, superiorPrincipal] = dominioPrincipal
+  const [, superiorSecundario] = dominioSecundario
+
+  if (inferiorPrincipal >= 0 || superiorPrincipal <= 0) {
+    return dominioSecundario
+  }
+
+  const proporcionCero =
+    Math.abs(inferiorPrincipal) / (superiorPrincipal - inferiorPrincipal)
+  const inferiorSecundario =
+    -(proporcionCero * superiorSecundario) / (1 - proporcionCero)
+
+  return [inferiorSecundario, superiorSecundario] as const
+}
 
 const deduccionSmiFormula = (anio: AnioFiscal): string =>
   Match.value(anio).pipe(
@@ -1947,6 +2064,9 @@ const parametrosFormulaTipoEfectivoIrpf = (anio: AnioFiscal) => {
     deduccionSmi: deduccionSmiFormula(anio),
   }
 }
+
+const formatoEurosEnteros = (euros: number): string =>
+  formatearCentimosEnteros(eurosACentimos(euros))
 
 const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
   if (valores.length === 0) return [-1000, 1000] as const
@@ -2087,9 +2207,13 @@ function ExplicacionVariable({
 
 function FormulaTipoEfectivoIrpf({
   anios,
+  perfil,
 }: {
   readonly anios: ReadonlyArray<AnioFiscal>
+  readonly perfil: PerfilAuditado
 }) {
+  const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
+
   return (
     <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
       <div className="grid gap-3">
@@ -2122,13 +2246,20 @@ function FormulaTipoEfectivoIrpf({
           <BloqueFormula>0</BloqueFormula>
           <BloqueFormula>,</BloqueFormula>
           <BloqueFormula tono="limite">
-            (SALARIO_BRUTO_REAL - MINIMO_EXENTO_RETENCION) x 43%
+            (SALARIO_BRUTO_REAL - UMBRAL_RETENCION_PERFIL) x 43%
           </BloqueFormula>
           <BloqueFormula>)</BloqueFormula>
         </FormulaLineal>
       </div>
 
       <dl className="grid gap-4">
+        <ExplicacionVariable termino="PERFIL">
+          {detallePerfil.descripcionCalculo} Para la referencia técnica 2026 el
+          umbral del límite 43% es{" "}
+          {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}:
+          situación {detallePerfil.situacionRetencion.replace("situacion", "")},{" "}
+          {detallePerfil.descendientes.length} descendiente(s).
+        </ExplicacionVariable>
         <ExplicacionVariable termino="CUOTA_LIQUIDADA">
           Resultado de aplicar las reglas anuales del IRPF antes del límite
           final usado por esta comparación histórica.
@@ -2142,14 +2273,15 @@ function FormulaTipoEfectivoIrpf({
           Salario bruto anual expresado en euros comparables, ajustado a la
           inflación del año de referencia.
         </ExplicacionVariable>
-        <ExplicacionVariable termino="MINIMO_EXENTO_RETENCION">
-          Umbral exento usado por el límite de retención de nómina compatible
-          con el histórico.
+        <ExplicacionVariable termino="UMBRAL_RETENCION_PERFIL">
+          Umbral que entra en el límite de nómina. En 2026 no es un único 15.876
+          €: depende de la situación familiar y del número de descendientes
+          comunicados en el perfil.
         </ExplicacionVariable>
         <ExplicacionVariable termino="LIMITE_RETENCION_NOMINA">
           Tope de nómina: en esta comparativa el IRPF final no puede superar el
           43% de la parte del salario que queda por encima de
-          MINIMO_EXENTO_RETENCION. Ese porcentaje viene del procedimiento de
+          UMBRAL_RETENCION_PERFIL. Ese porcentaje viene del procedimiento de
           retenciones de trabajo que publica la AEAT para calcular cuánto debe
           retener una nómina a cuenta del IRPF. La AEAT lo documenta en su
           página de{" "}
@@ -2198,10 +2330,14 @@ function FormulaTipoEfectivoIrpf({
               <dl className="grid gap-1 text-sm leading-5">
                 <div className="flex justify-between gap-3">
                   <dt className="text-[var(--ink-soft)]">
-                    MINIMO_EXENTO_RETENCION
+                    UMBRAL_RETENCION_PERFIL
                   </dt>
                   <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
-                    {parametros.minimoExentoRetencion}
+                    {anio === 2026
+                      ? formatoEurosEnteros(
+                          detallePerfil.umbralRetencion2026Euros
+                        )
+                      : parametros.minimoExentoRetencion}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-3">
@@ -2227,8 +2363,15 @@ function FormulaTipoEfectivoIrpf({
   )
 }
 
-function FormulaTipoMarginalIrpf({ anio }: { readonly anio: AnioFiscal }) {
+function FormulaTipoMarginalIrpf({
+  anio,
+  perfil,
+}: {
+  readonly anio: AnioFiscal
+  readonly perfil: PerfilAuditado
+}) {
   const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
+  const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
 
   return (
     <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
@@ -2275,6 +2418,11 @@ function FormulaTipoMarginalIrpf({ anio }: { readonly anio: AnioFiscal }) {
           se compara el resultado final, después de cuota liquidada, deducción
           SMI y límite de retención de nómina. Por eso el marginal puede enseñar
           saltos o tramos altos cuando una reducción decreciente desaparece.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="PERFIL">
+          {detallePerfil.descripcionCalculo} En 2026 el umbral de retención de
+          este perfil es{" "}
+          {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}.
         </ExplicacionVariable>
         <ExplicacionVariable termino="ESCALAS IRPF">
           Hacienda aplica tipos progresivos sobre la base liquidable general en
@@ -2323,10 +2471,12 @@ function FormulaTipoMarginalIrpf({ anio }: { readonly anio: AnioFiscal }) {
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-[var(--ink-soft)]">
-                MINIMO_EXENTO_RETENCION
+                UMBRAL_RETENCION_PERFIL
               </dt>
               <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
-                {parametros.minimoExentoRetencion}
+                {anio === 2026
+                  ? formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)
+                  : parametros.minimoExentoRetencion}
               </dd>
             </div>
           </dl>
@@ -2340,6 +2490,49 @@ function FormulaTipoMarginalIrpf({ anio }: { readonly anio: AnioFiscal }) {
           </div>
         </div>
       </div>
+    </section>
+  )
+}
+
+function FormulaDiferenciaMagnitud({
+  magnitud,
+}: {
+  readonly magnitud: MagnitudAuditadaAuditoria
+}) {
+  const ficha = describirMagnitudAuditoriaNormativa(magnitud)
+
+  return (
+    <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
+      <div className="grid gap-3">
+        <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+          Cálculo aplicado
+        </p>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">DIFERENCIA</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            {ficha.etiqueta}(año comparado)
+          </BloqueFormula>
+          <BloqueFormula>-</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            {ficha.etiqueta}(año base)
+          </BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">TIPO EFECTIVO</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="calculo">{ficha.etiqueta}</BloqueFormula>
+          <BloqueFormula>/</BloqueFormula>
+          <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
+        </FormulaLineal>
+      </div>
+      <dl className="grid gap-4">
+        <ExplicacionVariable termino={ficha.etiqueta}>
+          {ficha.detalle}. Al cambiar la magnitud, esta gráfica recalcula los
+          euros reales y el tipo efectivo con el campo seleccionado, manteniendo
+          el mismo rango salarial y los mismos años.
+        </ExplicacionVariable>
+      </dl>
     </section>
   )
 }
@@ -2564,6 +2757,8 @@ function Visualizaciones({
   auditoria,
   estadoAuditoria,
   comunidadAutonoma,
+  perfil,
+  magnitudAuditada,
   alCambiarComunidadAutonoma,
   permiteReferenciaTecnica2026,
   aniosGraficoIrpf,
@@ -2579,6 +2774,8 @@ function Visualizaciones({
   readonly auditoria: Option.Option<AuditoriaRangoSalarial>
   readonly estadoAuditoria: EstadoAuditoria
   readonly comunidadAutonoma: ComunidadAuditada
+  readonly perfil: PerfilAuditado
+  readonly magnitudAuditada: MagnitudAuditadaAuditoria
   readonly alCambiarComunidadAutonoma: (
     comunidadAutonoma: ComunidadAuditada
   ) => void
@@ -2598,6 +2795,8 @@ function Visualizaciones({
   >
 }) {
   const comunidadesAutonomas = [comunidadAutonoma] as const
+  const fichaMagnitudAuditada =
+    describirMagnitudAuditoriaNormativa(magnitudAuditada)
   const opcionesComunidadAutonoma = comunidadesAuditoriaNormativa.map(
     describirComunidadAutonomaAuditoria
   )
@@ -2650,6 +2849,8 @@ function Visualizaciones({
     onSome: (auditoriaLista) =>
       [
         comunidadAutonoma,
+        perfil,
+        magnitudAuditada,
         auditoriaLista.anioReferencia,
         auditoriaLista.salarioBrutoAnualMinimoCentimos,
         auditoriaLista.salarioBrutoAnualMaximoCentimos,
@@ -2665,6 +2866,9 @@ function Visualizaciones({
       _tag: "cargando",
       clave: "sin-auditoria",
     })
+  const [cacheDatosGrafico, fijarCacheDatosGrafico] = React.useState(
+    () => new Map<string, DatosGraficoListos>()
+  )
   const cacheSeriesAuditoria = React.useRef(
     new Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>()
   )
@@ -2679,6 +2883,20 @@ function Visualizaciones({
     return Option.match(auditoria, {
       onNone: () => {},
       onSome: (auditoriaLista) => {
+        const datosCacheados = Option.fromNullishOr(
+          cacheDatosGrafico.get(claveDatosGrafico)
+        )
+        if (Option.isSome(datosCacheados)) {
+          registrarMarcaAuditoria("react.graficos.datos.cache", {
+            claveDatosGrafico,
+            filasTipoEfectivoIrpf: datosCacheados.value.tipoEfectivoIrpf.length,
+            filasDiferenciaTipoIrpf:
+              datosCacheados.value.diferenciaTipoIrpf.length,
+            filasTipoMarginalIrpf: datosCacheados.value.tipoMarginalIrpf.length,
+          })
+          return
+        }
+
         const aniosIrpf = aniosDesdeClaveGrafico(claveAniosGraficoIrpfVisibles)
         const aniosDiferencia = aniosDiferenciaTipoIrpfVisibles
         const comunidades = [comunidadAutonoma] as const
@@ -2700,8 +2918,10 @@ function Visualizaciones({
             auditoria: auditoriaLista,
             comunidadAutonomaAuditoriaBase: comunidadAutonoma,
             comunidadesAutonomas: comunidades,
+            perfil,
             aniosIrpf,
             aniosDiferenciaTipoIrpf: aniosDiferencia,
+            magnitudAuditada,
             anioTipoMarginalIrpf: anioGraficoTipoMarginalIrpfVisible,
             anioReferenciaGraficosIrpf,
             cacheSeries: cacheSeriesAuditoria.current,
@@ -2720,13 +2940,17 @@ function Visualizaciones({
               filasTipoMarginalIrpf: exit.value.tipoMarginalIrpf.length,
               anioReferenciaGraficosIrpf,
             })
-            fijarEstadoDatosGrafico({
+            const estadoListo = {
               _tag: "lista",
               clave: claveDatosGrafico,
               tipoEfectivoIrpf: exit.value.tipoEfectivoIrpf,
               diferenciaTipoIrpf: exit.value.diferenciaTipoIrpf,
               tipoMarginalIrpf: exit.value.tipoMarginalIrpf,
-            })
+            } satisfies DatosGraficoListos
+            fijarCacheDatosGrafico((cacheActual) =>
+              new Map(cacheActual).set(claveDatosGrafico, estadoListo)
+            )
+            fijarEstadoDatosGrafico(estadoListo)
             return
           }
 
@@ -2753,7 +2977,10 @@ function Visualizaciones({
     claveAniosGraficoIrpfVisibles,
     claveAniosGraficoDiferenciaTipoIrpf,
     claveDatosGrafico,
+    cacheDatosGrafico,
     comunidadAutonoma,
+    perfil,
+    magnitudAuditada,
     auditoria,
     aniosDiferenciaTipoIrpfVisibles,
     anioGraficoTipoMarginalIrpfVisible,
@@ -2783,12 +3010,16 @@ function Visualizaciones({
     onSome: () =>
       Match.value(estadoDatosGrafico.clave === claveDatosGrafico).pipe(
         Match.when(true, () => estadoDatosGrafico),
-        Match.orElse(
-          () =>
-            ({
-              _tag: "cargando",
-              clave: claveDatosGrafico,
-            }) satisfies EstadoDatosGrafico
+        Match.orElse(() =>
+          Option.fromNullishOr(cacheDatosGrafico.get(claveDatosGrafico)).pipe(
+            Option.getOrElse(
+              () =>
+                ({
+                  _tag: "cargando",
+                  clave: claveDatosGrafico,
+                }) satisfies EstadoDatosGrafico
+            )
+          )
         )
       ),
   })
@@ -2920,6 +3151,11 @@ function Visualizaciones({
       claveTipoEfectivoIrpfMarginal,
     ])
   )
+  const dominioEfectivoAlineadoEnGraficoMarginal =
+    alinearDominioSecundarioPorCero({
+      dominioPrincipal: dominioMarginalIrpf,
+      dominioSecundario: dominioEfectivoEnGraficoMarginal,
+    })
   const ticksEfectivoEnGraficoMarginal = ticksPorcentaje(
     dominioEfectivoEnGraficoMarginal
   )
@@ -2946,12 +3182,12 @@ function Visualizaciones({
     Match.when(
       "porcentaje",
       () =>
-        `DIFERENCIA EN EL TIPO EFECTIVO DEL IRPF ENTRE ${anioDiferenciaBase} Y ${anioDiferenciaComparado}`
+        `DIFERENCIA EN TIPO EFECTIVO DE ${fichaMagnitudAuditada.etiqueta} ENTRE ${anioDiferenciaBase} Y ${anioDiferenciaComparado}`
     ),
     Match.when(
       "euros-reales",
       () =>
-        `DIFERENCIA DEL TIPO EFECTIVO DEL IRPF EN EUROS REALES ENTRE ${anioDiferenciaBase} Y ${anioDiferenciaComparado}`
+        `DIFERENCIA DE ${fichaMagnitudAuditada.etiqueta} EN EUROS REALES ENTRE ${anioDiferenciaBase} Y ${anioDiferenciaComparado}`
     ),
     Match.exhaustive
   )
@@ -2982,11 +3218,11 @@ function Visualizaciones({
     fijarAnioGraficoTipoMarginalIrpf(anio)
   }
   const claseGraficoTipoEfectivoIrpf =
-    "mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
+    "mt-4 aspect-[5/4] w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
   const claseGraficoDiferenciaTipoIrpf =
-    "mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
+    "mt-4 aspect-[5/4] w-full sm:aspect-[16/9] sm:h-[clamp(22rem,48vw,32rem)]"
   const claseGraficoTipoMarginalIrpf =
-    "mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
+    "mt-4 aspect-[5/4] w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
 
   return (
     <section className="py-6">
@@ -3002,7 +3238,7 @@ function Visualizaciones({
               <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
                 {Match.value(vista).pipe(
                   Match.when("tipo-irpf", () => "TIPO IRPF"),
-                  Match.when("diferencia-irpf", () => "DIF. TIPO IRPF"),
+                  Match.when("diferencia-irpf", () => "DIF. MAGNITUD"),
                   Match.when("tipo-marginal", () => "TIPO MARGINAL"),
                   Match.exhaustive
                 )}
@@ -3149,7 +3385,10 @@ function Visualizaciones({
               </LineChart>
             </ChartContainer>
           )}
-          <FormulaTipoEfectivoIrpf anios={aniosGraficoIrpfVisibles} />
+          <FormulaTipoEfectivoIrpf
+            anios={aniosGraficoIrpfVisibles}
+            perfil={perfil}
+          />
         </Tabs.Panel>
         <Tabs.Panel
           value="diferencia-irpf"
@@ -3286,6 +3525,7 @@ function Visualizaciones({
               </AreaChart>
             </ChartContainer>
           )}
+          <FormulaDiferenciaMagnitud magnitud={magnitudAuditada} />
         </Tabs.Panel>
         <Tabs.Panel
           value="tipo-marginal"
@@ -3377,7 +3617,7 @@ function Visualizaciones({
                   axisLine={{ stroke: "var(--rule)" }}
                   tickMargin={6}
                   width={44}
-                  domain={dominioEfectivoEnGraficoMarginal}
+                  domain={dominioEfectivoAlineadoEnGraficoMarginal}
                   ticks={ticksEfectivoEnGraficoMarginal}
                   fontSize={14}
                   tickFormatter={formatearTickPorcentaje}
@@ -3416,6 +3656,17 @@ function Visualizaciones({
                   activeDot={{ r: 4, strokeWidth: 0 }}
                   isAnimationActive={false}
                 />
+                {ticksMarginalIrpf.map((tick) => (
+                  <ReferenceLine
+                    key={`marginal-grid-${tick}`}
+                    yAxisId="marginal"
+                    y={tick}
+                    stroke="var(--rule)"
+                    strokeDasharray="2 4"
+                    strokeOpacity={0.75}
+                    ifOverflow="extendDomain"
+                  />
+                ))}
                 <Line
                   yAxisId="efectivo"
                   dataKey={claveTipoEfectivoIrpfMarginal}
@@ -3430,7 +3681,10 @@ function Visualizaciones({
               </ComposedChart>
             </ChartContainer>
           )}
-          <FormulaTipoMarginalIrpf anio={anioGraficoTipoMarginalIrpfVisible} />
+          <FormulaTipoMarginalIrpf
+            anio={anioGraficoTipoMarginalIrpfVisible}
+            perfil={perfil}
+          />
         </Tabs.Panel>
       </Tabs.Root>
     </section>

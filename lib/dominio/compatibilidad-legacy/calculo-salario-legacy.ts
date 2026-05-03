@@ -13,7 +13,16 @@ import {
 import {
   sinDiscapacidad,
   type ComunidadAutonoma,
+  type FamiliarFiscal,
 } from "../irpf/caso-fiscal-anual"
+import {
+  detallePerfilAuditoriaNormativa,
+  type PerfilAuditoriaNormativa,
+} from "../auditoria/auditoria-normativa-historica"
+import type {
+  CasoRetencionTrabajo,
+  DescendienteRetencion,
+} from "../irpf/retenciones/retencion-trabajo-aeat"
 import {
   medirAuditoriaSync,
   registrarTiempoAgregadoAuditoria,
@@ -24,6 +33,7 @@ export interface EntradaCalculoSalarioLegacy {
   readonly anio: AnioFiscal
   readonly salarioBrutoAnualCentimos: number
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
+  readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
 }
 
 export interface ServicioCompatibilidadSalarioLegacy {
@@ -118,30 +128,97 @@ const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
   }) satisfies DesgloseLiquidado)
 })
 
+const descendientesFiscalesPerfil = (
+  perfil: PerfilAuditoriaNormativa
+): ReadonlyArray<FamiliarFiscal> =>
+  detallePerfilAuditoriaNormativa(perfil).descendientes.map(
+    (descendiente) => ({
+      edad: descendiente.edad,
+      discapacidad: sinDiscapacidad,
+    })
+  )
+
+const descendientesRetencionPerfil = (
+  perfil: PerfilAuditoriaNormativa
+): ReadonlyArray<DescendienteRetencion> =>
+  detallePerfilAuditoriaNormativa(perfil).descendientes.map(
+    (descendiente) => ({
+      edad: descendiente.edad,
+      computoPorEntero: descendiente.computoPorEntero,
+      discapacidad: "sin-discapacidad",
+      movilidadReducida: false,
+      adopcionOAcogimientoMenosTresAnios: false,
+    })
+  )
+
+const casoRetencionTrabajoPerfil = ({
+  entrada,
+  perfil,
+}: {
+  readonly entrada: EntradaCalculoSalarioLegacy
+  readonly perfil: PerfilAuditoriaNormativa
+}): CasoRetencionTrabajo => {
+  const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
+
+  return {
+    anio: entrada.anio,
+    edad: 40,
+    retribucionAnualCentimos: entrada.salarioBrutoAnualCentimos,
+    cotizacionesCentimos: eurosACentimos(
+      calcularCotizacionesSocialesLegacy({
+        salarioBrutoAnual: centimosAEuros(entrada.salarioBrutoAnualCentimos),
+        anio: entrada.anio,
+      }).cotizacionTrabajador
+    ),
+    situacionFamiliar: detallePerfil.situacionRetencion,
+    situacionLaboral: "activo",
+    contrato: "general",
+    discapacidad: "sin-discapacidad",
+    movilidadGeografica: false,
+    descendientes: descendientesRetencionPerfil(perfil),
+    ascendientes: [],
+    irregular1Centimos: 0,
+    irregular2Centimos: 0,
+    pensionCompensatoriaConyugeCentimos: 0,
+    anualidadesAlimentosHijosCentimos: 0,
+    residenciaCeutaMelilla: false,
+    rendimientosCeutaMelilla: false,
+    pagosViviendaHabitual: false,
+  }
+}
+
 const casoFiscalLegacy = (
   entrada: EntradaCalculoSalarioLegacy
-): CasoFiscalAnual => ({
-  anio: entrada.anio,
-  comunidadAutonoma: entrada.comunidadAutonoma ?? "simulada-estatal",
-  situacionFamiliar: {
-    tipo: "individual",
-    edad: 40,
-    descendientes: [],
-    ascendientes: [],
-    discapacidad: sinDiscapacidad,
-  },
-  rendimientos: {
-    trabajo: [
-      {
-        importeIntegroCentimos: entrada.salarioBrutoAnualCentimos,
-      },
-    ],
-  },
-  reducciones: [],
-  deducciones: [],
-  retencionesSoportadasCentimos: 0,
-  pagosACuentaCentimos: 0,
-})
+): CasoFiscalAnual => {
+  const perfil = entrada.perfilAuditoria ?? "soltero_sin_hijos"
+  const retencionTrabajoAeat = entrada.perfilAuditoria
+    ? casoRetencionTrabajoPerfil({ entrada, perfil })
+    : undefined
+
+  return {
+    anio: entrada.anio,
+    comunidadAutonoma: entrada.comunidadAutonoma ?? "simulada-estatal",
+    situacionFamiliar: {
+      tipo: "individual",
+      edad: 40,
+      descendientes: descendientesFiscalesPerfil(perfil),
+      ascendientes: [],
+      discapacidad: sinDiscapacidad,
+    },
+    rendimientos: {
+      trabajo: [
+        {
+          importeIntegroCentimos: entrada.salarioBrutoAnualCentimos,
+        },
+      ],
+    },
+    reducciones: [],
+    deducciones: [],
+    retencionesSoportadasCentimos: 0,
+    pagosACuentaCentimos: 0,
+    ...(retencionTrabajoAeat ? { retencionTrabajoAeat } : {}),
+  }
+}
 
 export class CompatibilidadSalarioLegacy extends Context.Service<
   CompatibilidadSalarioLegacy,

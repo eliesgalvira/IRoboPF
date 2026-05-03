@@ -98,12 +98,14 @@ export const calcularConciliacionSimuladorLegacy = ({
   cuotaLiquida,
   cuotaLiquidaCentimos,
   cuotaDiferencialCentimos,
+  limiteRetencionNominaCentimos,
 }: {
   readonly anio: AnioFiscal
   readonly rendimientoIntegroTrabajoCentimos: number
   readonly cuotaLiquida: Decimal
   readonly cuotaLiquidaCentimos: number
   readonly cuotaDiferencialCentimos: number
+  readonly limiteRetencionNominaCentimos?: number | undefined
 }): Option.Option<ConciliacionSimuladorLegacy> => {
   const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
 
@@ -119,9 +121,15 @@ export const calcularConciliacionSimuladorLegacy = ({
       )
       const limiteRetencionNomina = max(
         CERO,
-        bruto
-          .minus(especificacion.minimoExentoRetencion)
-          .mul(especificacion.tipoMaximoRetencionNomina)
+        Option.fromNullishOr(limiteRetencionNominaCentimos).pipe(
+          Option.match({
+            onNone: () =>
+              bruto
+                .minus(especificacion.minimoExentoRetencion)
+                .mul(especificacion.tipoMaximoRetencionNomina),
+            onSome: centimosAEuros,
+          })
+        )
       )
       const irpfFinalSimulador =
         anio <= 2014
