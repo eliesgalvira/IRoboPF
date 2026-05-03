@@ -1223,6 +1223,33 @@ function BloqueFormula({
   )
 }
 
+function FormulaLineal({ children }: { readonly children: React.ReactNode }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2 leading-none">
+      {children}
+    </div>
+  )
+}
+
+function ExplicacionVariable({
+  termino,
+  children,
+}: {
+  readonly termino: string
+  readonly children: React.ReactNode
+}) {
+  return (
+    <div className="border-l-4 border-[var(--rule)] pl-3">
+      <dt className="font-[family-name:var(--mono)] text-base font-bold">
+        {termino}
+      </dt>
+      <dd className="mt-1 text-base leading-7 text-[var(--ink-soft)]">
+        {children}
+      </dd>
+    </div>
+  )
+}
+
 function FormulaTipoEfectivoIrpf({
   anios,
 }: {
@@ -1230,42 +1257,65 @@ function FormulaTipoEfectivoIrpf({
 }) {
   return (
     <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
-      <div className="grid gap-2">
+      <div className="grid gap-3">
         <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
           Cálculo aplicado
         </p>
-        <div className="flex flex-wrap items-center gap-2 leading-none">
+        <FormulaLineal>
           <BloqueFormula tono="resultado">TIPO_EFECTIVO_IRPF</BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
           <BloqueFormula tono="resultado">IRPF_FINAL</BloqueFormula>
           <BloqueFormula>/</BloqueFormula>
           <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
-        </div>
+        </FormulaLineal>
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="grid gap-3">
+        <FormulaLineal>
           <BloqueFormula tono="resultado">IRPF_FINAL</BloqueFormula>
-          <BloqueFormula>= min</BloqueFormula>
+          <BloqueFormula>= min(</BloqueFormula>
           <BloqueFormula tono="calculo">
             max(0, CUOTA_LIQUIDADA - DEDUCCION_SMI)
           </BloqueFormula>
+          <BloqueFormula>,</BloqueFormula>
           <BloqueFormula tono="limite">LIMITE_RETENCION_NOMINA</BloqueFormula>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
+          <BloqueFormula>)</BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
           <BloqueFormula tono="limite">LIMITE_RETENCION_NOMINA</BloqueFormula>
-          <BloqueFormula>= max</BloqueFormula>
+          <BloqueFormula>= max(</BloqueFormula>
           <BloqueFormula>0</BloqueFormula>
+          <BloqueFormula>,</BloqueFormula>
           <BloqueFormula tono="limite">
             (SALARIO_BRUTO_REAL - MINIMO_EXENTO_RETENCION) x 43%
           </BloqueFormula>
-        </div>
+          <BloqueFormula>)</BloqueFormula>
+        </FormulaLineal>
       </div>
 
+      <dl className="grid gap-3 border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4">
+        <ExplicacionVariable termino="CUOTA_LIQUIDADA">
+          Resultado de aplicar las reglas anuales del IRPF antes del límite
+          final usado por esta comparación histórica.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="DEDUCCION_SMI">
+          Deducción estatal por obtención de rendimientos del trabajo que sólo
+          aparece en los años en los que existe en la especificación de
+          compatibilidad.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="SALARIO_BRUTO_REAL">
+          Salario bruto anual expresado en euros comparables, ajustado a la
+          inflación del año de referencia.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="MINIMO_EXENTO_RETENCION">
+          Umbral exento usado por el límite de retención de nómina compatible
+          con el histórico.
+        </ExplicacionVariable>
+      </dl>
+
       <p className="max-w-4xl text-base leading-7 text-[var(--ink)]">
-        <strong>MINIMO_EXENTO_RETENCION</strong> es el umbral exento usado por
-        el límite de retención de nómina compatible con el histórico. La fórmula
-        es común; por año sólo se sustituyen sus parámetros normativos.
+        La fórmula es común; por año sólo se sustituyen sus parámetros
+        normativos.
       </p>
 
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -1303,7 +1353,7 @@ function FormulaTipoEfectivoIrpf({
                 </div>
                 <div className="grid gap-1">
                   <dt className="text-[var(--ink-soft)]">DEDUCCION_SMI</dt>
-                  <dd className="font-[family-name:var(--mono)] text-xs leading-5">
+                  <dd className="font-[family-name:var(--mono)] text-sm leading-5">
                     {parametros.deduccionSmi}
                   </dd>
                 </div>
