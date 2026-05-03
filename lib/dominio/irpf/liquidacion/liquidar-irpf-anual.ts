@@ -684,6 +684,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       cuotaLiquida,
       cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
       cuotaDiferencialCentimos,
+      limiteRetencionNominaCentimos: retencionTrabajoAeat?.limite43Centimos,
     }),
     rastro: {
       titulo: `Liquidacion anual del IRPF ${caso.anio}`,

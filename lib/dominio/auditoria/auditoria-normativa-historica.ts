@@ -82,7 +82,9 @@ export const escenarioPermiteReferenciaTecnica2026 = (
         ]
 
         return (
-          escenario.perfil === "soltero_sin_hijos" &&
+          perfilAuditoriaNormativaPermiteReferenciaTecnica2026(
+            escenario.perfil
+          ) &&
           comunidades.length === 1 &&
           comunidades[0] === "simulada-estatal"
         )
@@ -149,6 +151,121 @@ export const perfilesAuditoriaNormativa = [
   "distribucion_sintetica_comunidad",
 ] as const satisfies ReadonlyArray<PerfilAuditoriaNormativa>
 
+export const perfilAuditoriaNormativaPermiteReferenciaTecnica2026 = (
+  perfil: PerfilAuditoriaNormativa
+): boolean => perfil === "soltero_sin_hijos" || perfil === "pareja_con_hijos"
+
+export type SituacionRetencionPerfilAuditoria =
+  | "situacion1"
+  | "situacion2"
+  | "situacion3"
+
+export interface DescendientePerfilAuditoriaNormativa {
+  readonly edad: number
+  readonly computoPorEntero: boolean
+}
+
+export interface DetallePerfilAuditoriaNormativa {
+  readonly perfil: PerfilAuditoriaNormativa
+  readonly etiquetaCalculo: string
+  readonly descripcionCalculo: string
+  readonly situacionRetencion: SituacionRetencionPerfilAuditoria
+  readonly descendientes: ReadonlyArray<DescendientePerfilAuditoriaNormativa>
+  readonly umbralRetencion2026Euros: number
+}
+
+const umbralRetencion2026 = ({
+  situacionRetencion,
+  numeroDescendientes,
+}: {
+  readonly situacionRetencion: SituacionRetencionPerfilAuditoria
+  readonly numeroDescendientes: number
+}): number =>
+  Match.value({ numeroDescendientes, situacionRetencion }).pipe(
+    Match.when(
+      {
+        numeroDescendientes: (numero) => numero <= 1,
+        situacionRetencion: "situacion1",
+      },
+      () => 17_644
+    ),
+    Match.when({ situacionRetencion: "situacion1" }, () => 18_694),
+    Match.when(
+      { numeroDescendientes: 0, situacionRetencion: "situacion2" },
+      () => 17_197
+    ),
+    Match.when(
+      { numeroDescendientes: 1, situacionRetencion: "situacion2" },
+      () => 18_130
+    ),
+    Match.when({ situacionRetencion: "situacion2" }, () => 19_262),
+    Match.when({ numeroDescendientes: 0 }, () => 15_876),
+    Match.when({ numeroDescendientes: 1 }, () => 16_342),
+    Match.orElse(() => 16_867)
+  )
+
+export const detallePerfilAuditoriaNormativa = (
+  perfil: PerfilAuditoriaNormativa
+): DetallePerfilAuditoriaNormativa => {
+  const detalle = Match.value(perfil).pipe(
+    Match.withReturnType<
+      Omit<DetallePerfilAuditoriaNormativa, "umbralRetencion2026Euros">
+    >(),
+    Match.when("soltero_sin_hijos", (perfil) => ({
+      perfil,
+      etiquetaCalculo: "Soltero sin hijos",
+      descripcionCalculo:
+        "Contribuyente individual de 40 años, sin descendientes ni ascendientes; retención en situación 3.",
+      situacionRetencion: "situacion3",
+      descendientes: [],
+    })),
+    Match.when("pareja_con_hijos", (perfil) => ({
+      perfil,
+      etiquetaCalculo: "Pareja con dos hijos",
+      descripcionCalculo:
+        "Perceptor de 40 años, casado con cónyuge sin rentas superiores a 1.500 € anuales y dos descendientes de 8 y 5 años computados por entero; retención en situación 2.",
+      situacionRetencion: "situacion2",
+      descendientes: [
+        { edad: 8, computoPorEntero: true },
+        { edad: 5, computoPorEntero: true },
+      ],
+    })),
+    Match.when("trabajador_medio_comunidad", (perfil) => ({
+      perfil,
+      etiquetaCalculo: "Trabajador medio CCAA",
+      descripcionCalculo:
+        "Perfil técnico sin cargas familiares; la comunidad seleccionada cambia la escala autonómica aplicada.",
+      situacionRetencion: "situacion3",
+      descendientes: [],
+    })),
+    Match.when("trabajador_mediano_comunidad", (perfil) => ({
+      perfil,
+      etiquetaCalculo: "Trabajador mediano CCAA",
+      descripcionCalculo:
+        "Perfil técnico sin cargas familiares; la comunidad seleccionada cambia la escala autonómica aplicada.",
+      situacionRetencion: "situacion3",
+      descendientes: [],
+    })),
+    Match.when("distribucion_sintetica_comunidad", (perfil) => ({
+      perfil,
+      etiquetaCalculo: "Distribución sintética CCAA",
+      descripcionCalculo:
+        "Perfil técnico sin cargas familiares usado para barridos salariales sintéticos por comunidad.",
+      situacionRetencion: "situacion3",
+      descendientes: [],
+    })),
+    Match.exhaustive
+  )
+
+  return {
+    ...detalle,
+    umbralRetencion2026Euros: umbralRetencion2026({
+      situacionRetencion: detalle.situacionRetencion,
+      numeroDescendientes: detalle.descendientes.length,
+    }),
+  }
+}
+
 export const estrategiasAuditoriaNormativa = [
   "salario_bruto_real_constante",
   "coste_laboral_real_constante",
@@ -207,12 +324,13 @@ export const describirPerfilAuditoriaNormativa = (
     Match.when("soltero_sin_hijos", (valor) => ({
       valor,
       etiqueta: "SOLTERO",
-      detalle: "Individual, sin hijos, autonomia estatal compatible",
+      detalle: "Individual, sin hijos, autonomía estatal compatible",
     })),
     Match.when("pareja_con_hijos", (valor) => ({
       valor,
       etiqueta: "PAREJA HIJOS",
-      detalle: "Hogar con hijos para futuros minimos familiares",
+      detalle:
+        "Matrimonio con cónyuge sin rentas > 1.500 euros y dos hijos de 8 y 5 años",
     })),
     Match.when("trabajador_medio_comunidad", (valor) => ({
       valor,

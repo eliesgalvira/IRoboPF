@@ -85,6 +85,7 @@ export interface RetencionTrabajoCalculada {
   readonly minimoPersonalFamiliarCentimos: number
   readonly baseRetencionCentimos: number
   readonly cuotaRetencionCentimos: number
+  readonly limite43Centimos: number
   readonly tipoRetencionPorcentaje: string
   readonly importeRetencionAnualCentimos: number
   readonly rastro: RastroCalculo
@@ -707,7 +708,9 @@ const calcularRetencionTrabajo = (
   const irregular1 = importeOpcional(caso.irregular1Centimos)
   const irregular2 = importeOpcional(caso.irregular2Centimos)
   const anualidades = importeOpcional(caso.anualidadesAlimentosHijosCentimos)
-  const conyuge = importeOpcional(caso.pensionCompensatoriaConyugeCentimos)
+  const pensionCompensatoria = importeOpcional(
+    caso.pensionCompensatoriaConyugeCentimos
+  )
   const descendientes = caso.descendientes
   const otrosGastos = calcularOtrosGastos({ caso, retribucion, cotizaciones })
   const rendimientoNetoTrabajo = max(
@@ -730,7 +733,7 @@ const calcularRetencionTrabajo = (
   const reducciones = reduccionLaboral.pensionista
     .plus(reduccionLaboral.hijos)
     .plus(reduccionLaboral.desempleado)
-    .plus(conyuge)
+    .plus(pensionCompensatoria)
   const baseRetencion = max(CERO, rendimientoNetoReducido.minus(reducciones))
   const minimoPersonalFamiliar = calcularMinimoPersonalFamiliar({
     caso,
@@ -791,6 +794,7 @@ const calcularRetencionTrabajo = (
     minimoPersonalFamiliarCentimos: aCentimos(minimoPersonalFamiliar),
     baseRetencionCentimos: aCentimos(baseRetencion),
     cuotaRetencionCentimos: aCentimos(cuotaRetencion),
+    limite43Centimos: aCentimos(limite43),
     tipoRetencionPorcentaje: tipoRetencion.toFixed(2),
     importeRetencionAnualCentimos: aCentimos(importeRetencion),
     rastro: {

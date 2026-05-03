@@ -9,6 +9,7 @@ import {
 } from "effect"
 
 import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
+import type { PerfilAuditoriaNormativa } from "./auditoria-normativa-historica"
 import type { ComunidadAutonoma } from "../irpf/caso-fiscal-anual"
 import {
   type AuditoriaRangoSalarial,
@@ -73,16 +74,18 @@ export type {
 export type PerfilAuditoriaProgresividadFrio = Extract<
   PerfilCalculo,
   "legacy-progresividad-frio"
->
+> | PerfilAuditoriaNormativa
 
 export interface EntradaAuditoriaProgresividadFrio extends EntradaAuditoriaRangoSalarial {
   readonly perfil: PerfilAuditoriaProgresividadFrio
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
+  readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
 }
 
 interface EntradaAuditoriaRangoSalarialConComunidad
   extends EntradaAuditoriaRangoSalarial {
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
+  readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
 }
 
 export interface ContextoAuditoriaProgresividadFrio {
@@ -155,6 +158,7 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   readonly anioComparado: AnioFiscal
   readonly anioReferencia: AnioFiscal
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
+  readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
   readonly compatibilidadSalarioLegacy: ServicioCompatibilidadSalarioLegacy
 }) {
   const factor = medirAuditoriaSync("auditoria.comparacion.factorIpc", () =>
@@ -172,6 +176,7 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
     anio: entrada.anioReferencia,
     salarioBrutoAnualCentimos: entrada.salarioBrutoAnualReferenciaCentimos,
     comunidadAutonoma: entrada.comunidadAutonoma,
+    perfilAuditoria: entrada.perfilAuditoria,
   })
   registrarTiempoAgregadoAuditoria(
     "auditoria.comparacion.salarioReferencia",
@@ -182,6 +187,7 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
     anio: entrada.anioComparado,
     salarioBrutoAnualCentimos: salarioBrutoNominalAnualCentimos,
     comunidadAutonoma: entrada.comunidadAutonoma,
+    perfilAuditoria: entrada.perfilAuditoria,
   })
   registrarTiempoAgregadoAuditoria(
     "auditoria.comparacion.salarioComparadoNominal",
@@ -290,6 +296,7 @@ const construirPuntoAuditoriaConLiquidacion = Effect.fn(
     anioComparado: entrada.anioComparado,
     anioReferencia: entrada.anioReferencia,
     comunidadAutonoma: entrada.comunidadAutonoma,
+    perfilAuditoria: entrada.perfilAuditoria,
     compatibilidadSalarioLegacy,
   })
   registrarTiempoAgregadoAuditoria(
@@ -400,6 +407,7 @@ const auditarRangoSalarialConLiquidacionIrpf = Effect.fn(
       comunidadAutonoma: Option.fromNullishOr(entrada.comunidadAutonoma).pipe(
         Option.getOrElse(() => "simulada-estatal")
       ),
+      perfilAuditoria: entrada.perfilAuditoria ?? "soltero_sin_hijos",
       puntos: salarios.length,
       liquidacionesIrpfAnuales: salarios.length * 2,
       lotes: lotes.length,
@@ -458,6 +466,11 @@ const auditarProgresividadFrioImpl = Effect.fn(
     anioComparado: entrada.anioComparado,
     anioReferencia: entrada.anioReferencia,
     comunidadAutonoma: entrada.comunidadAutonoma,
+    perfilAuditoria:
+      entrada.perfilAuditoria ??
+      (entrada.perfil === "legacy-progresividad-frio"
+        ? undefined
+        : entrada.perfil),
   }).pipe(Effect.provide(CompatibilidadSalarioLegacy.layer))
 
   return {

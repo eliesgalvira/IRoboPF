@@ -112,6 +112,28 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
+    "aplica el perfil pareja con hijos al limite de retencion tecnico 2026",
+    () =>
+      Effect.gen(function* () {
+        const salarioBrutoAnualCentimos = 1_800_000
+        const soltero = yield* calcularSalarioLegacy({
+          anio: 2026,
+          salarioBrutoAnualCentimos,
+          comunidadAutonoma: "simulada-estatal",
+        })
+        const parejaConHijos = yield* calcularSalarioLegacy({
+          anio: 2026,
+          salarioBrutoAnualCentimos,
+          comunidadAutonoma: "simulada-estatal",
+          perfilAuditoria: "pareja_con_hijos",
+        })
+
+        expect(soltero.irpfFinalCentimos).toBeGreaterThan(0)
+        expect(parejaConHijos.irpfFinalCentimos).toBe(0)
+      })
+  )
+
+  it.effect(
     "mantiene los casos 2012-2025 de la fixture usando la conciliacion del simulador legacy",
     () =>
       Effect.gen(function* () {
