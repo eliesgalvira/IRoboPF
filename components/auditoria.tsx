@@ -1023,12 +1023,12 @@ function BarraFiltros({
               <Slider.Thumb
                 index={0}
                 aria-label="Salario mínimo"
-                className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none"
+                className="relative size-6 border-0 bg-transparent transition after:absolute after:inset-1 after:border-2 after:border-[var(--rule)] after:bg-[var(--paper)] after:transition-colors focus-visible:outline-none focus-visible:after:bg-[var(--mark)] sm:after:inset-0"
               />
               <Slider.Thumb
                 index={1}
                 aria-label="Salario máximo"
-                className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none"
+                className="relative size-6 border-0 bg-transparent transition after:absolute after:inset-1 after:border-2 after:border-[var(--rule)] after:bg-[var(--paper)] after:transition-colors focus-visible:outline-none focus-visible:after:bg-[var(--mark)] sm:after:inset-0"
               />
             </Slider.Control>
             <div className="flex min-w-0 justify-between gap-3 text-sm tracking-[0.14em] text-[var(--ink-soft)] uppercase sm:tracking-[0.3em]">
@@ -2664,7 +2664,7 @@ const claseBotonPestana = cn(
 const claseTextoCortable =
   "min-w-0 max-w-full break-words [overflow-wrap:anywhere]"
 const claseTarjetaParametroFormula =
-  "grid h-full min-w-0 grid-rows-[auto_auto_minmax(6rem,1fr)] gap-2 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-none sm:shadow-[3px_3px_0_0_var(--rule)]"
+  "grid h-full min-w-0 w-[calc(100%-3px)] justify-self-start grid-rows-[auto_auto_minmax(6rem,1fr)] gap-2 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[3px_3px_0_0_var(--rule)] sm:w-auto sm:justify-self-stretch"
 const claseFilaParametroFormula =
   "grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-3"
 const claseEtiquetaParametroFormula = cn(
