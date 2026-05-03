@@ -3147,11 +3147,17 @@ function FormulaTipoMarginalIrpf({
 function FormulaDiferenciaMagnitud({
   anioReferencia,
   magnitud,
+  modo,
 }: {
   readonly anioReferencia: AnioFiscal
   readonly magnitud: MagnitudAuditadaAuditoria
+  readonly modo: ModoDiferenciaTipoIrpf
 }) {
   const ficha = describirMagnitudAuditoriaNormativa(magnitud)
+  const etiquetaResultado =
+    modo === "porcentaje"
+      ? "DIFERENCIA_TIPO_EFECTIVO"
+      : "DIFERENCIA_EUROS_REALES"
 
   return (
     <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
@@ -3160,29 +3166,45 @@ function FormulaDiferenciaMagnitud({
           Cálculo aplicado
         </p>
         <FormulaLineal>
-          <BloqueFormula tono="resultado">DIFERENCIA</BloqueFormula>
+          <BloqueFormula tono="resultado">TIPO_EFECTIVO_MAGNITUD</BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
-          <BloqueFormula tono="calculo">
-            {ficha.etiqueta}(año comparado)
+          <BloqueFormula tono="resultado">
+            MAGNITUD_COMPARABLE_REAL
           </BloqueFormula>
-          <BloqueFormula>-</BloqueFormula>
-          <BloqueFormula tono="calculo">
-            {ficha.etiqueta}(año base)
-          </BloqueFormula>
-        </FormulaLineal>
-        <FormulaLineal>
-          <BloqueFormula tono="resultado">TIPO EFECTIVO</BloqueFormula>
-          <BloqueFormula>=</BloqueFormula>
-          <BloqueFormula tono="calculo">{ficha.etiqueta}</BloqueFormula>
           <BloqueFormula>/</BloqueFormula>
           <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
         </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">{etiquetaResultado}</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            {modo === "porcentaje"
+              ? "TIPO_EFECTIVO_MAGNITUD"
+              : "MAGNITUD_COMPARABLE_REAL"}
+            (año comparado)
+          </BloqueFormula>
+          <BloqueFormula>-</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            {modo === "porcentaje"
+              ? "TIPO_EFECTIVO_MAGNITUD"
+              : "MAGNITUD_COMPARABLE_REAL"}
+            (año base)
+          </BloqueFormula>
+        </FormulaLineal>
       </div>
       <dl className="grid gap-4">
+        <ExplicacionVariable termino="MAGNITUD_COMPARABLE_REAL">
+          Es la magnitud seleccionada ({ficha.etiqueta}) expresada en euros de{" "}
+          {anioReferencia}. Si la magnitud es IRPF, este campo es el mismo
+          IRPF_COMPARABLE_REAL definido en TIPO IRPF: se calcula primero con
+          importes nominales y normativa nominal de cada año, se aplica la regla
+          de obligación de declarar cuando corresponde y después se ajusta por
+          IPC.
+        </ExplicacionVariable>
         <ExplicacionVariable termino={ficha.etiqueta}>
-          {ficha.detalle}. Al cambiar la magnitud, esta gráfica recalcula los
-          euros reales y el tipo efectivo con el campo seleccionado, manteniendo
-          el mismo rango salarial y los mismos años.
+          {ficha.detalle}. Al cambiar la magnitud, esta gráfica no cambia la
+          estructura del cálculo: sustituye MAGNITUD_COMPARABLE_REAL por el
+          campo elegido y vuelve a calcular el tipo efectivo como en TIPO IRPF.
         </ExplicacionVariable>
         <ExplicacionVariable termino="SALARIO_BRUTO_REAL">
           El eje X y el denominador del tipo efectivo están en euros de{" "}
@@ -4241,6 +4263,7 @@ function Visualizaciones({
           <FormulaDiferenciaMagnitud
             anioReferencia={anioReferenciaGraficosIrpf}
             magnitud={magnitudAuditada}
+            modo={modoDiferenciaTipoIrpf}
           />
         </Tabs.Panel>
         <Tabs.Panel
