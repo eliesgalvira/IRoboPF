@@ -137,6 +137,48 @@ describe("auditarProgresividadFrio", () => {
   )
 
   it.effect(
+    "mantiene estable la meseta marginal usando la cuota anual precisa",
+    () =>
+      Effect.gen(function* () {
+        const puntos = yield* construirPuntosAuditoriaAnioAjustado({
+          salarioBrutoAnualMinimoCentimos: 1_690_000,
+          salarioBrutoAnualMaximoCentimos: 1_690_500,
+          pasoCentimos: 100,
+          anio: 2025,
+          anioReferencia: 2025,
+          comunidadAutonoma: "simulada-estatal",
+        })
+        const marginalesCentimos = puntos.slice(0, -1).map((punto, indice) => {
+          const siguiente = puntos[indice + 1]
+          return (
+            ((siguiente?.comparacion.referencia
+              .irpfCuotaTrasDeduccionSmiCentimos ?? 0) -
+              (punto.comparacion.referencia.irpfCuotaTrasDeduccionSmiCentimos ??
+                0)) /
+            100
+          )
+        })
+        const marginalesPrecisos = puntos.slice(0, -1).map((punto, indice) => {
+          const siguiente = puntos[indice + 1]
+          return (
+            Number(
+              siguiente?.comparacion.referencia
+                .irpfCuotaTrasDeduccionSmiPrecisoEuros
+            ) -
+            Number(
+              punto.comparacion.referencia.irpfCuotaTrasDeduccionSmiPrecisoEuros
+            )
+          )
+        })
+
+        expect(new Set(marginalesCentimos).size).toBeGreaterThan(1)
+        for (const marginalPreciso of marginalesPrecisos) {
+          expect(marginalPreciso).toBeCloseTo(0.688642, 6)
+        }
+      })
+  )
+
+  it.effect(
     "inserta puntos normativos para no esconder el umbral de declaracion en la web",
     () =>
       Effect.gen(function* () {

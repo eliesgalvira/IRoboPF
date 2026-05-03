@@ -145,6 +145,8 @@ const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
             : conciliacion.cuotaTrasDeduccionSmiCentimos,
         irpfCuotaTrasDeduccionSmiCentimos:
           conciliacion.cuotaTrasDeduccionSmiCentimos,
+        irpfCuotaTrasDeduccionSmiPrecisoEuros:
+          conciliacion.cuotaTrasDeduccionSmi.toString(),
       }
     )
   )

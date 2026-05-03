@@ -2683,6 +2683,13 @@ function FormulaTipoMarginalIrpf({
           en tipo efectivo y diferencias, pero convertirían un trámite o una
           regla de retención en un falso marginal de la escala del IRPF.
         </ExplicacionVariable>
+        <ExplicacionVariable termino="PRECISION">
+          La pendiente se calcula con la cuota anual precisa en euros decimales,
+          antes de redondearla a céntimos. Si se dividiera una diferencia
+          redondeada entre pasos de 1 EUR, un solo céntimo movería la barra un
+          punto porcentual y aparecería un serrucho artificial dentro de una
+          meseta estable.
+        </ExplicacionVariable>
         <ExplicacionVariable termino="JOROBA 18K-21K">
           La AEAT recoge la{" "}
           <a
