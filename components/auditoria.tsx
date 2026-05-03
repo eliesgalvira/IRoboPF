@@ -2554,12 +2554,26 @@ const umbralRetencionPerfil = ({
   }
 }
 
-const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
+const redondearInferiorAPaso = (valor: number, paso: number) =>
+  Number((Math.floor(valor / paso) * paso).toFixed(6))
+
+const redondearSuperiorAPaso = (valor: number, paso: number) =>
+  Number((Math.ceil(valor / paso) * paso).toFixed(6))
+
+const dominioEurosDiferencia = (valores: ReadonlyArray<number>) => {
   if (valores.length === 0) return [-1000, 1000] as const
 
-  const maximoAbsoluto = Math.max(...valores.map(Math.abs))
-  const limite = Math.max(1000, Math.ceil((maximoAbsoluto * 1.1) / 1000) * 1000)
-  return [-limite, limite] as const
+  const minimo = Math.min(...valores)
+  const maximo = Math.max(...valores)
+  const paso = 1000
+  const inferior = minimo < 0 ? redondearInferiorAPaso(minimo, paso) : 0
+  const superior = maximo > 0 ? redondearSuperiorAPaso(maximo, paso) : 0
+
+  if (inferior === 0 && superior === 0) {
+    return [0, paso] as const
+  }
+
+  return [inferior, superior] as const
 }
 
 const dominioDiferenciaPorcentaje = (valores: ReadonlyArray<number>) => {
@@ -2568,8 +2582,13 @@ const dominioDiferenciaPorcentaje = (valores: ReadonlyArray<number>) => {
   const minimo = Math.min(...valores)
   const maximo = Math.max(...valores)
   const paso = 0.01
-  const inferior = Math.min(0, Math.floor((minimo - paso) / paso) * paso)
-  const superior = Math.max(0, Math.ceil((maximo + paso) / paso) * paso)
+
+  const inferior = minimo < 0 ? redondearInferiorAPaso(minimo, paso) : 0
+  const superior = maximo > 0 ? redondearSuperiorAPaso(maximo, paso) : 0
+  if (inferior === 0 && superior === 0) {
+    return [0, paso] as const
+  }
+
   return [inferior, superior] as const
 }
 
@@ -3873,7 +3892,7 @@ function Visualizaciones({
       dominioDiferenciaPorcentaje(valoresDiferenciaTipoIrpf)
     ),
     Match.when("euros-reales", () =>
-      dominioEurosSimetrico(valoresDiferenciaTipoIrpf)
+      dominioEurosDiferencia(valoresDiferenciaTipoIrpf)
     ),
     Match.exhaustive
   )
