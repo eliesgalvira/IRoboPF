@@ -36,6 +36,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart"
+import { Tooltip } from "@/components/ui/tooltip"
 import { Button } from "@/components/ui/button"
 import {
   Combobox,
@@ -841,6 +842,8 @@ const obtenerAniosTipoEfectivoIrpf = ({
     Match.when(true, () => aniosTipoEfectivoIrpfConReferenciaTecnica2026),
     Match.orElse(() => ANIOS_COMPARABLES)
   )
+const aniosPestanasTipoEfectivoIrpf =
+  aniosTipoEfectivoIrpfConReferenciaTecnica2026
 
 const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
   2012: "oklch(0.48 0.18 265)",
@@ -1390,6 +1393,57 @@ function FormulaTipoEfectivoIrpf({
   )
 }
 
+function BotonAnioTipoEfectivoIrpf({
+  anio,
+  activo,
+  disponible,
+  alAlternar,
+}: {
+  readonly anio: AnioFiscal
+  readonly activo: boolean
+  readonly disponible: boolean
+  readonly alAlternar: (anio: AnioFiscal) => void
+}) {
+  const boton = (
+    <Button
+      key={anio}
+      type="button"
+      aria-disabled={!disponible}
+      aria-pressed={disponible ? activo : false}
+      onClick={() => {
+        if (disponible) alAlternar(anio)
+      }}
+      variant="unstyled"
+      className={cn(
+        "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
+        "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
+        disponible && activo && "text-[var(--ink)]",
+        disponible &&
+          !activo &&
+          "text-[var(--ink-soft)] opacity-55 hover:opacity-100",
+        !disponible &&
+          "cursor-not-allowed bg-[var(--paper-2)] text-[var(--ink-soft)] opacity-45"
+      )}
+      style={{
+        boxShadow:
+          disponible && activo
+            ? `inset 0 -4px 0 ${coloresTipoEfectivoIrpf[anio]}`
+            : undefined,
+      }}
+    >
+      {anio}
+    </Button>
+  )
+
+  return disponible ? (
+    boton
+  ) : (
+    <Tooltip contenido="2026 no está disponible para esta comunidad autónoma: sus datos autonómicos todavía no se han actualizado a 2026. Usa Simulada estatal para ver la referencia técnica 2026.">
+      {boton}
+    </Tooltip>
+  )
+}
+
 function Visualizaciones({
   auditoria,
   estadoAuditoria,
@@ -1662,30 +1716,17 @@ function Visualizaciones({
               aria-label="Años visibles en la gráfica de tipo efectivo del IRPF"
               className="grid w-full grid-cols-5 gap-px bg-[var(--rule)] lg:[grid-template-columns:repeat(15,minmax(0,1fr))]"
             >
-              {aniosTipoEfectivoIrpf.map((anio) => {
-                const activo = aniosGraficoIrpf.includes(anio)
+              {aniosPestanasTipoEfectivoIrpf.map((anio) => {
+                const disponible = aniosTipoEfectivoIrpf.includes(anio)
+                const activo = disponible && aniosGraficoIrpf.includes(anio)
                 return (
-                  <Button
+                  <BotonAnioTipoEfectivoIrpf
                     key={anio}
-                    type="button"
-                    aria-pressed={activo}
-                    onClick={() => alternarAnioIrpf(anio)}
-                    variant="unstyled"
-                    className={cn(
-                      "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
-                      "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
-                      activo
-                        ? "text-[var(--ink)]"
-                        : "text-[var(--ink-soft)] opacity-55 hover:opacity-100"
-                    )}
-                    style={{
-                      boxShadow: activo
-                        ? `inset 0 -4px 0 ${coloresTipoEfectivoIrpf[anio]}`
-                        : undefined,
-                    }}
-                  >
-                    {anio}
-                  </Button>
+                    anio={anio}
+                    activo={activo}
+                    disponible={disponible}
+                    alAlternar={alternarAnioIrpf}
+                  />
                 )
               })}
             </div>
