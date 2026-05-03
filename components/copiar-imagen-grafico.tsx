@@ -14,6 +14,14 @@ const DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO = {
   ancho: 1216,
   alto: 615,
 } as const
+const TITULO_GRAFICO_EXPORTADO = {
+  margenHorizontal: 24,
+  margenSuperior: 18,
+  margenInferior: 14,
+  tamanoFuente: 14,
+  altoLinea: 20,
+  pesoFuente: "400",
+} as const
 const FAMILIA_MONO_GRAFICO_FALLBACK =
   '"JetBrains Mono", "JetBrains Mono Fallback", monospace'
 
@@ -42,12 +50,19 @@ type DimensionesExportacionGrafico = {
   readonly alto: number
 }
 
+type TituloGraficoExportado = {
+  readonly lineas: ReadonlyArray<string>
+  readonly alto: number
+}
+
 export function BotonCopiarImagenGrafico({
   graficoRef,
   disabled,
+  titulo,
 }: {
   readonly graficoRef: React.RefObject<HTMLDivElement | null>
   readonly disabled: boolean
+  readonly titulo: string
 }) {
   const [estado, fijarEstado] =
     React.useState<EstadoCopiaImagenGrafico>("reposo")
@@ -80,7 +95,10 @@ export function BotonCopiarImagenGrafico({
 
     fijarEstado("copiando")
     try {
-      await copiarElementoComoImagenAlPortapapeles(grafico)
+      await copiarElementoComoImagenAlPortapapeles({
+        elemento: grafico,
+        titulo,
+      })
       fijarEstado("copiada")
     } catch (error) {
       console.error("[IRoboPF][copiar-imagen-grafico]", error)
@@ -88,7 +106,7 @@ export function BotonCopiarImagenGrafico({
     } finally {
       programarResetEstado()
     }
-  }, [copiando, graficoRef, programarResetEstado])
+  }, [copiando, graficoRef, programarResetEstado, titulo])
 
   const ariaLabel =
     estado === "copiada"
@@ -127,8 +145,14 @@ export function BotonCopiarImagenGrafico({
   )
 }
 
-async function copiarElementoComoImagenAlPortapapeles(elemento: HTMLElement) {
-  const blob = await convertirElementoEnPng(elemento)
+async function copiarElementoComoImagenAlPortapapeles({
+  elemento,
+  titulo,
+}: {
+  readonly elemento: HTMLElement
+  readonly titulo: string
+}) {
+  const blob = await convertirElementoEnPng({ elemento, titulo })
 
   if (!navigator.clipboard?.write || typeof ClipboardItem === "undefined") {
     await copiarBlobPngConExecCommand(blob)
@@ -200,10 +224,20 @@ function leerBlobComoDataUrl(blob: Blob): Promise<string> {
   })
 }
 
-async function convertirElementoEnPng(elemento: HTMLElement): Promise<Blob> {
+async function convertirElementoEnPng({
+  elemento,
+  titulo,
+}: {
+  readonly elemento: HTMLElement
+  readonly titulo: string
+}): Promise<Blob> {
   return await conGraficoRenderizadoEnEscritorio(
     elemento,
-    (graficoEscritorio) => convertirElementoRenderizadoEnPng(graficoEscritorio)
+    (graficoEscritorio) =>
+      convertirElementoRenderizadoEnPng({
+        elemento: graficoEscritorio,
+        titulo,
+      })
   )
 }
 
@@ -293,9 +327,13 @@ function esperarFrame() {
   })
 }
 
-async function convertirElementoRenderizadoEnPng(
-  elemento: HTMLElement
-): Promise<Blob> {
+async function convertirElementoRenderizadoEnPng({
+  elemento,
+  titulo,
+}: {
+  readonly elemento: HTMLElement
+  readonly titulo: string
+}): Promise<Blob> {
   const { width, height } = elemento.getBoundingClientRect()
   const ancho = Math.ceil(width)
   const alto = Math.ceil(height)
@@ -328,9 +366,27 @@ async function convertirElementoRenderizadoEnPng(
       throw new Error("No se pudo preparar el lienzo de exportacion.")
     }
 
+    const tituloGrafico = prepararTituloGraficoExportado({
+      contexto,
+      titulo,
+      ancho,
+      familiaFuente,
+    })
+    const altoTotal = alto + tituloGrafico.alto
+
+    canvas.width = Math.ceil(ancho * escala)
+    canvas.height = Math.ceil(altoTotal * escala)
     contexto.scale(escala, escala)
     contexto.fillStyle = leerColorCss(elemento, "--paper", "rgb(255 255 255)")
-    contexto.fillRect(0, 0, ancho, alto)
+    contexto.fillRect(0, 0, ancho, altoTotal)
+    dibujarTituloGraficoExportado({
+      contexto,
+      elemento,
+      tituloGrafico,
+      familiaFuente,
+    })
+    contexto.save()
+    contexto.translate(0, tituloGrafico.alto)
     contexto.drawImage(imagen, 0, 0, ancho, alto)
     dibujarTextosSvgGrafico({ contexto, textos, familiaFuente })
     dibujarLeyendaGrafico({ contexto, elemento, familiaFuente })
@@ -340,11 +396,115 @@ async function convertirElementoRenderizadoEnPng(
       ancho,
       familiaFuente,
     })
+    contexto.restore()
 
     return await convertirCanvasEnBlob(canvas)
   } finally {
     URL.revokeObjectURL(url)
   }
+}
+
+function prepararTituloGraficoExportado({
+  contexto,
+  titulo,
+  ancho,
+  familiaFuente,
+}: {
+  readonly contexto: CanvasRenderingContext2D
+  readonly titulo: string
+  readonly ancho: number
+  readonly familiaFuente: string
+}): TituloGraficoExportado {
+  const tituloNormalizado = titulo.trim()
+  if (!tituloNormalizado) {
+    return { lineas: [], alto: 0 }
+  }
+
+  contexto.save()
+  contexto.font = fuenteTituloGraficoExportado(familiaFuente)
+  const anchoMaximo = Math.max(
+    1,
+    ancho - TITULO_GRAFICO_EXPORTADO.margenHorizontal * 2
+  )
+  const lineas = partirTextoEnLineasCanvas({
+    contexto,
+    texto: tituloNormalizado,
+    anchoMaximo,
+  })
+  contexto.restore()
+
+  return {
+    lineas,
+    alto:
+      TITULO_GRAFICO_EXPORTADO.margenSuperior +
+      lineas.length * TITULO_GRAFICO_EXPORTADO.altoLinea +
+      TITULO_GRAFICO_EXPORTADO.margenInferior,
+  }
+}
+
+function dibujarTituloGraficoExportado({
+  contexto,
+  elemento,
+  tituloGrafico,
+  familiaFuente,
+}: {
+  readonly contexto: CanvasRenderingContext2D
+  readonly elemento: HTMLElement
+  readonly tituloGrafico: TituloGraficoExportado
+  readonly familiaFuente: string
+}) {
+  if (tituloGrafico.lineas.length === 0) return
+
+  contexto.save()
+  contexto.fillStyle = leerColorCss(elemento, "--ink-soft", "rgb(48 48 48)")
+  contexto.font = fuenteTituloGraficoExportado(familiaFuente)
+  contexto.textAlign = "left"
+  contexto.textBaseline = "top"
+
+  tituloGrafico.lineas.forEach((linea, indice) => {
+    contexto.fillText(
+      linea,
+      TITULO_GRAFICO_EXPORTADO.margenHorizontal,
+      TITULO_GRAFICO_EXPORTADO.margenSuperior +
+        indice * TITULO_GRAFICO_EXPORTADO.altoLinea
+    )
+  })
+  contexto.restore()
+}
+
+function fuenteTituloGraficoExportado(familiaFuente: string) {
+  return `${TITULO_GRAFICO_EXPORTADO.pesoFuente} ${TITULO_GRAFICO_EXPORTADO.tamanoFuente}px ${familiaFuente}`
+}
+
+function partirTextoEnLineasCanvas({
+  contexto,
+  texto,
+  anchoMaximo,
+}: {
+  readonly contexto: CanvasRenderingContext2D
+  readonly texto: string
+  readonly anchoMaximo: number
+}) {
+  const palabras = texto.split(/\s+/).filter(Boolean)
+  const lineas: string[] = []
+  let lineaActual = ""
+
+  for (const palabra of palabras) {
+    const candidata = lineaActual ? `${lineaActual} ${palabra}` : palabra
+    if (!lineaActual || contexto.measureText(candidata).width <= anchoMaximo) {
+      lineaActual = candidata
+      continue
+    }
+
+    lineas.push(lineaActual)
+    lineaActual = palabra
+  }
+
+  if (lineaActual) {
+    lineas.push(lineaActual)
+  }
+
+  return lineas
 }
 
 function crearUrlSvgDesdeElemento({

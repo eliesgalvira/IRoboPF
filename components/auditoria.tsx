@@ -3947,6 +3947,9 @@ function Visualizaciones({
 
     fijarAnioGraficoTipoMarginalIrpf(anio)
   }
+  const tituloGraficoTipoEfectivoIrpf = `TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
+  const tituloGraficoDiferenciaTipoIrpf = `${etiquetaDiferenciaTipoIrpf} POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
+  const tituloGraficoTipoMarginalIrpf = `TIPO MARGINAL DE IRPF SOBRE EL SALARIO BRUTO, EN EUROS DE ${anioReferenciaGraficosIrpf}`
   const claseGraficoTipoEfectivoIrpf =
     "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
   const claseGraficoDiferenciaTipoIrpf =
@@ -3993,8 +3996,7 @@ function Visualizaciones({
           <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
             <div className="grid min-w-0 gap-3 md:max-w-3xl">
               <p className="text-sm leading-5 text-[var(--ink-soft)]">
-                TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA
-                INFLACIÓN, EN EUROS DE {anioReferenciaGraficosIrpf}
+                {tituloGraficoTipoEfectivoIrpf}
               </p>
               <SelectorComunidadAutonomaAuditoria
                 opciones={opcionesComunidadAutonoma}
@@ -4006,6 +4008,7 @@ function Visualizaciones({
               <BotonCopiarImagenGrafico
                 graficoRef={graficoTipoEfectivoIrpfRef}
                 disabled={copiaGraficoDeshabilitada}
+                titulo={tituloGraficoTipoEfectivoIrpf}
               />
             </div>
             <SelectorAniosGraficoAuditoria
@@ -4145,8 +4148,7 @@ function Visualizaciones({
           <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
             <div className="grid min-w-0 gap-3 md:max-w-3xl">
               <p className="text-sm leading-5 text-[var(--ink-soft)]">
-                {etiquetaDiferenciaTipoIrpf} POR SALARIO BRUTO AJUSTADO A LA
-                INFLACIÓN, EN EUROS DE {anioReferenciaGraficosIrpf}
+                {tituloGraficoDiferenciaTipoIrpf}
               </p>
               <div className="flex min-w-0 flex-wrap items-start gap-3">
                 <SelectorComunidadAutonomaAuditoria
@@ -4164,6 +4166,7 @@ function Visualizaciones({
               <BotonCopiarImagenGrafico
                 graficoRef={graficoDiferenciaTipoIrpfRef}
                 disabled={copiaGraficoDeshabilitada}
+                titulo={tituloGraficoDiferenciaTipoIrpf}
               />
             </div>
             <SelectorAniosGraficoAuditoria
@@ -4293,8 +4296,7 @@ function Visualizaciones({
           <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
             <div className="grid min-w-0 gap-3 md:max-w-3xl">
               <p className="text-sm leading-5 text-[var(--ink-soft)]">
-                TIPO MARGINAL DE IRPF SOBRE EL SALARIO BRUTO, EN EUROS DE{" "}
-                {anioReferenciaGraficosIrpf}
+                {tituloGraficoTipoMarginalIrpf}
               </p>
               <SelectorComunidadAutonomaAuditoria
                 opciones={opcionesComunidadAutonoma}
@@ -4306,6 +4308,7 @@ function Visualizaciones({
               <BotonCopiarImagenGrafico
                 graficoRef={graficoTipoMarginalIrpfRef}
                 disabled={copiaGraficoDeshabilitada}
+                titulo={tituloGraficoTipoMarginalIrpf}
               />
             </div>
             <SelectorAniosGraficoAuditoria
