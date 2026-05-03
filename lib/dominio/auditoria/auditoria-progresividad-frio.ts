@@ -1,5 +1,12 @@
 import Decimal from "decimal.js"
-import { Array as EffectArray, Context, Effect, Layer, Match } from "effect"
+import {
+  Array as EffectArray,
+  Context,
+  Effect,
+  Layer,
+  Match,
+  Option,
+} from "effect"
 
 import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
 import type { ComunidadAutonoma } from "../irpf/caso-fiscal-anual"
@@ -11,7 +18,10 @@ import {
   type HallazgoAuditoria,
   type PuntoAuditoriaRangoSalarial,
 } from "../compatibilidad-legacy/progresividad-frio"
-import { calcularSalarioLegacy } from "../compatibilidad-legacy/calculo-salario-legacy"
+import {
+  CompatibilidadSalarioLegacy,
+  type ServicioCompatibilidadSalarioLegacy,
+} from "../compatibilidad-legacy/calculo-salario-legacy"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import {
   centimosAEuros,
@@ -19,6 +29,15 @@ import {
   eurosACentimos,
 } from "../dinero/importe-monetario"
 import { IPC_ANUAL_DICIEMBRE } from "../normativa/datos/ipc-2012-2026"
+import {
+  instrumentarEffectAuditoria,
+  medirAuditoriaSync,
+  metricaDuracionCalculoAuditoria,
+  registrarTiempoAgregadoAuditoria,
+  registrarResumenTiemposAuditoria,
+  reiniciarTiemposAgregadosAuditoria,
+  tiempoAuditoriaMs,
+} from "../../observabilidad/auditoria-rendimiento"
 
 export {
   aniosFiscalesLegacy,
@@ -136,24 +155,44 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   readonly anioComparado: AnioFiscal
   readonly anioReferencia: AnioFiscal
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
+  readonly compatibilidadSalarioLegacy: ServicioCompatibilidadSalarioLegacy
 }) {
-  const factor = factorIpc(entrada.anioComparado, entrada.anioReferencia)
-  const salarioBrutoNominalAnualCentimos = eurosACentimos(
-    centimosAEuros(entrada.salarioBrutoAnualReferenciaCentimos).div(factor)
+  const factor = medirAuditoriaSync("auditoria.comparacion.factorIpc", () =>
+    factorIpc(entrada.anioComparado, entrada.anioReferencia)
   )
-  const referencia = yield* calcularSalarioLegacy({
+  const salarioBrutoNominalAnualCentimos = medirAuditoriaSync(
+    "auditoria.comparacion.salarioNominal",
+    () =>
+      eurosACentimos(
+        centimosAEuros(entrada.salarioBrutoAnualReferenciaCentimos).div(factor)
+      )
+  )
+  const inicioReferencia = tiempoAuditoriaMs()
+  const referencia = yield* entrada.compatibilidadSalarioLegacy.calcular({
     anio: entrada.anioReferencia,
     salarioBrutoAnualCentimos: entrada.salarioBrutoAnualReferenciaCentimos,
     comunidadAutonoma: entrada.comunidadAutonoma,
   })
-  const comparadoNominal = yield* calcularSalarioLegacy({
+  registrarTiempoAgregadoAuditoria(
+    "auditoria.comparacion.salarioReferencia",
+    tiempoAuditoriaMs() - inicioReferencia
+  )
+  const inicioComparado = tiempoAuditoriaMs()
+  const comparadoNominal = yield* entrada.compatibilidadSalarioLegacy.calcular({
     anio: entrada.anioComparado,
     salarioBrutoAnualCentimos: salarioBrutoNominalAnualCentimos,
     comunidadAutonoma: entrada.comunidadAutonoma,
   })
-  const comparadoAjustado = ajustarDesglose(comparadoNominal, factor)
+  registrarTiempoAgregadoAuditoria(
+    "auditoria.comparacion.salarioComparadoNominal",
+    tiempoAuditoriaMs() - inicioComparado
+  )
+  const comparadoAjustado = medirAuditoriaSync(
+    "auditoria.comparacion.ajustarDesglose",
+    () => ajustarDesglose(comparadoNominal, factor)
+  )
 
-  return {
+  return medirAuditoriaSync("auditoria.comparacion.resultado", () => ({
     anioReferencia: entrada.anioReferencia,
     anioComparado: entrada.anioComparado,
     factorIpc: factor.toFixed(12),
@@ -170,7 +209,7 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
         referencia.salarioNetoAnualCentimos) /
         12
     ),
-  } satisfies ComparacionAjustadaPorIpc
+  }) satisfies ComparacionAjustadaPorIpc)
 })
 
 const proporcionSegura = (numerador: number, denominador: number) =>
@@ -242,16 +281,23 @@ const construirPuntoAuditoriaConLiquidacion = Effect.fn(
   "auditoria.construirPuntoAuditoriaConLiquidacion"
 )(function* (
   entrada: EntradaAuditoriaRangoSalarialConComunidad,
-  salarioBrutoAnualCentimos: number
+  salarioBrutoAnualCentimos: number,
+  compatibilidadSalarioLegacy: ServicioCompatibilidadSalarioLegacy
 ) {
+  const inicioComparacion = tiempoAuditoriaMs()
   const comparacion = yield* compararAjustadoPorIpcConLiquidacion({
     salarioBrutoAnualReferenciaCentimos: salarioBrutoAnualCentimos,
     anioComparado: entrada.anioComparado,
     anioReferencia: entrada.anioReferencia,
     comunidadAutonoma: entrada.comunidadAutonoma,
+    compatibilidadSalarioLegacy,
   })
+  registrarTiempoAgregadoAuditoria(
+    "auditoria.punto.comparacion",
+    tiempoAuditoriaMs() - inicioComparacion
+  )
 
-  return {
+  return medirAuditoriaSync("auditoria.punto.resultado", () => ({
     salarioBrutoAnualCentimos,
     comparacion,
     tipoCargaActual: tipoCarga(comparacion.referencia),
@@ -260,7 +306,7 @@ const construirPuntoAuditoriaConLiquidacion = Effect.fn(
     tipoEfectivoIrpfComparado: tipoEfectivoIrpf(comparacion.comparado.ajustado),
     tipoCunaLaboralActual: tipoCunaLaboral(comparacion.referencia),
     tipoCunaLaboralComparada: tipoCunaLaboral(comparacion.comparado.ajustado),
-  } satisfies PuntoAuditoriaRangoSalarial
+  }) satisfies PuntoAuditoriaRangoSalarial)
 })
 
 const construirHallazgos = (
@@ -341,32 +387,62 @@ const construirHallazgos = (
 const auditarRangoSalarialConLiquidacionIrpf = Effect.fn(
   "auditoria.auditarRangoSalarialConLiquidacionIrpf"
 )(function* (entrada: EntradaAuditoriaRangoSalarialConComunidad) {
-  const lotes = partirEnLotes(
-    rangoSalarioBrutoAnualCentimos(entrada),
-    TAMANO_LOTE_AUDITORIA_RANGO
-  )
-  const puntosPorLote = yield* Effect.forEach(
-    lotes,
-    (lote) =>
-      Effect.forEach(lote, (salarioBrutoAnualCentimos) =>
-        construirPuntoAuditoriaConLiquidacion(
-          entrada,
-          salarioBrutoAnualCentimos
-        )
-      ),
-    { concurrency: CONCURRENCIA_AUDITORIA_RANGO }
-  )
-  const puntos = puntosPorLote.flat()
+  const salarios = rangoSalarioBrutoAnualCentimos(entrada)
+  const lotes = partirEnLotes(salarios, TAMANO_LOTE_AUDITORIA_RANGO)
+  reiniciarTiemposAgregadosAuditoria()
 
-  return {
-    anioComparado: entrada.anioComparado,
-    anioReferencia: entrada.anioReferencia,
-    salarioBrutoAnualMinimoCentimos: entrada.salarioBrutoAnualMinimoCentimos,
-    salarioBrutoAnualMaximoCentimos: entrada.salarioBrutoAnualMaximoCentimos,
-    pasoCentimos: entrada.pasoCentimos,
-    puntos,
-    hallazgos: construirHallazgos(puntos, entrada.anioReferencia),
-  } satisfies AuditoriaRangoSalarial
+  return yield* instrumentarEffectAuditoria({
+    nombre: "auditoria.rango.liquidacion",
+    metrica: metricaDuracionCalculoAuditoria,
+    detalles: {
+      anioComparado: entrada.anioComparado,
+      anioReferencia: entrada.anioReferencia,
+      comunidadAutonoma: Option.fromNullishOr(entrada.comunidadAutonoma).pipe(
+        Option.getOrElse(() => "simulada-estatal")
+      ),
+      puntos: salarios.length,
+      liquidacionesIrpfAnuales: salarios.length * 2,
+      lotes: lotes.length,
+      tamanoLote: TAMANO_LOTE_AUDITORIA_RANGO,
+      concurrencia: CONCURRENCIA_AUDITORIA_RANGO,
+    },
+    efecto: Effect.gen(function* () {
+      const compatibilidadSalarioLegacy = yield* CompatibilidadSalarioLegacy
+      const puntosPorLote = yield* Effect.forEach(
+        lotes,
+        (lote) =>
+          Effect.forEach(lote, (salarioBrutoAnualCentimos) =>
+            construirPuntoAuditoriaConLiquidacion(
+              entrada,
+              salarioBrutoAnualCentimos,
+              compatibilidadSalarioLegacy
+            )
+          ),
+        { concurrency: CONCURRENCIA_AUDITORIA_RANGO }
+      )
+      const puntos = puntosPorLote.flat()
+
+      const auditoria = {
+        anioComparado: entrada.anioComparado,
+        anioReferencia: entrada.anioReferencia,
+        salarioBrutoAnualMinimoCentimos:
+          entrada.salarioBrutoAnualMinimoCentimos,
+        salarioBrutoAnualMaximoCentimos:
+          entrada.salarioBrutoAnualMaximoCentimos,
+        pasoCentimos: entrada.pasoCentimos,
+        puntos,
+        hallazgos: construirHallazgos(puntos, entrada.anioReferencia),
+      } satisfies AuditoriaRangoSalarial
+
+      registrarResumenTiemposAuditoria("auditoria.rango.rank.etapas", {
+        anioComparado: entrada.anioComparado,
+        anioReferencia: entrada.anioReferencia,
+        puntos: salarios.length,
+      })
+
+      return auditoria
+    }),
+  })
 })
 
 const auditarProgresividadFrioImpl = Effect.fn(
@@ -382,7 +458,7 @@ const auditarProgresividadFrioImpl = Effect.fn(
     anioComparado: entrada.anioComparado,
     anioReferencia: entrada.anioReferencia,
     comunidadAutonoma: entrada.comunidadAutonoma,
-  })
+  }).pipe(Effect.provide(CompatibilidadSalarioLegacy.layer))
 
   return {
     _tag: "ResultadoAuditoriaProgresividadFrio",
