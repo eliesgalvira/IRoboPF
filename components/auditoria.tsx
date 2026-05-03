@@ -39,7 +39,7 @@ import {
 import { Button } from "@/components/ui/button"
 import {
   Combobox,
-  ComboboxChevron,
+  ComboboxChevronTrigger,
   ComboboxContent,
   ComboboxEmpty,
   ComboboxInput,
@@ -1312,14 +1312,28 @@ function FormulaTipoEfectivoIrpf({
           con el histórico.
         </ExplicacionVariable>
         <ExplicacionVariable termino="LIMITE_RETENCION_NOMINA">
-          Tope que replica la restricción de nómina usada para hacer comparable
-          el histórico: el IRPF final no puede superar el 43% de la parte del
-          salario que queda por encima de MINIMO_EXENTO_RETENCION. El 43% viene
-          del parámetro normativo de compatibilidad “límite final de retención
-          del 43 por ciento”, ligado en el código al algoritmo AEAT de
-          retenciones 2026. Aquí no sustituye a la liquidación anual completa:
-          actúa como límite superior para que el barrido histórico respete esa
-          mecánica de retención de nómina.
+          Tope de nómina: en esta comparativa el IRPF final no puede superar el
+          43% de la parte del salario que queda por encima de
+          MINIMO_EXENTO_RETENCION. Ese porcentaje viene del procedimiento de
+          retenciones de trabajo que publica la AEAT para calcular cuánto debe
+          retener una nómina a cuenta del IRPF. La AEAT lo documenta en su
+          página de{" "}
+          <a
+            href="https://sede.agenciatributaria.gob.es/Sede/Retenciones.shtml"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            Retenciones
+          </a>{" "}
+          y en el PDF técnico del{" "}
+          <a
+            href="https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/ALGORITMO_2026.pdf"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            algoritmo de retenciones IRPF 2026
+          </a>
+          . No reemplaza a la liquidación anual completa: sólo limita el
+          resultado para que el histórico se compare con la misma lógica de
+          retención de nómina.
         </ExplicacionVariable>
       </dl>
 
@@ -1627,7 +1641,7 @@ function Visualizaciones({
                     placeholder="Buscar comunidad autónoma"
                     className="min-w-0"
                   />
-                  <ComboboxChevron />
+                  <ComboboxChevronTrigger />
                 </ComboboxInputGroup>
                 <ComboboxContent>
                   <ComboboxEmpty>
