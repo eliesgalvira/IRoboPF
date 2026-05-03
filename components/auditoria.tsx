@@ -95,7 +95,8 @@ import {
 } from "@/lib/observabilidad/auditoria-rendimiento"
 
 const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
-const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-cuota-marginal-smi-v2"
+const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-cuota-marginal-smi-v3"
+const pasoCalculoMarginalMaximoCentimos = 5_000
 
 function formatearSalarioCorto(centimos: number): string {
   const miles = Math.round(centimos / 100_000)
@@ -153,6 +154,22 @@ const describirModoPasoPreciso = (pasoCentimos: number) =>
     Match.when(pasoDiezEurosCentimos, () => "preciso-10-euros"),
     Match.orElse(() => "base-100-euros")
   )
+
+const pasoCalculoTipoMarginalCentimos = (pasoVisibleCentimos: number) =>
+  Math.min(pasoVisibleCentimos, pasoCalculoMarginalMaximoCentimos)
+
+const esSalarioVisibleTipoMarginal = ({
+  salarioBrutoAnualCentimos,
+  salarioMinimoCentimos,
+  pasoVisibleCentimos,
+}: {
+  readonly salarioBrutoAnualCentimos: number
+  readonly salarioMinimoCentimos: number
+  readonly pasoVisibleCentimos: number
+}) =>
+  pasoVisibleCentimos <= 0 ||
+  (salarioBrutoAnualCentimos - salarioMinimoCentimos) % pasoVisibleCentimos ===
+    0
 
 const claveCalculoAuditoria = ({
   escenario,
@@ -1236,12 +1253,13 @@ const obtenerPuntosAuditoriaParaAnio = (
   comunidadAutonoma: ComunidadAuditada,
   perfil: PerfilAuditado,
   anio: AnioFiscal,
-  anioReferenciaSeries: AnioFiscal
+  anioReferenciaSeries: AnioFiscal,
+  pasoCalculoCentimos: number
 ): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
   construirPuntosAuditoriaAnioAjustado({
     salarioBrutoAnualMinimoCentimos: auditoria.salarioBrutoAnualMinimoCentimos,
     salarioBrutoAnualMaximoCentimos: auditoria.salarioBrutoAnualMaximoCentimos,
-    pasoCentimos: auditoria.pasoCentimos,
+    pasoCentimos: pasoCalculoCentimos,
     anio,
     anioReferencia: anioReferenciaSeries,
     comunidadAutonoma,
@@ -1279,6 +1297,7 @@ const puedeReusarPuntosAuditoriaBase = ({
   comunidadAutonoma,
   anio,
   anioReferenciaSeries,
+  pasoCalculoCentimos,
   puedeReusarBase,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
@@ -1286,9 +1305,11 @@ const puedeReusarPuntosAuditoriaBase = ({
   readonly comunidadAutonoma: ComunidadAuditada
   readonly anio: AnioFiscal
   readonly anioReferenciaSeries: AnioFiscal
+  readonly pasoCalculoCentimos: number
   readonly puedeReusarBase: boolean
 }) =>
   puedeReusarBase &&
+  pasoCalculoCentimos === auditoria.pasoCentimos &&
   anioReferenciaSeries === auditoria.anioReferencia &&
   comunidadAutonoma === comunidadAutonomaAuditoriaBase &&
   (anio === auditoria.anioComparado || anio === auditoria.anioReferencia)
@@ -1299,12 +1320,14 @@ const claveCacheSerieAuditoria = ({
   perfil,
   anio,
   anioReferenciaSeries,
+  pasoCalculoCentimos,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadAutonoma: ComunidadAuditada
   readonly perfil: PerfilAuditado
   readonly anio: AnioFiscal
   readonly anioReferenciaSeries: AnioFiscal
+  readonly pasoCalculoCentimos: number
 }) =>
   [
     VERSION_CALCULO_AUDITORIA_IRPF,
@@ -1312,6 +1335,7 @@ const claveCacheSerieAuditoria = ({
     perfil,
     anio,
     anioReferenciaSeries,
+    pasoCalculoCentimos,
     auditoria.salarioBrutoAnualMinimoCentimos,
     auditoria.salarioBrutoAnualMaximoCentimos,
     auditoria.pasoCentimos,
@@ -1328,6 +1352,7 @@ const construirSeriesAuditoria = Effect.fn(
   anioReferenciaSeries,
   cacheSeries,
   puedeReusarBase,
+  pasoCalculoCentimos,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadAutonomaAuditoriaBase: ComunidadAuditada
@@ -1337,6 +1362,7 @@ const construirSeriesAuditoria = Effect.fn(
   readonly anioReferenciaSeries: AnioFiscal
   readonly cacheSeries: Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>
   readonly puedeReusarBase: boolean
+  readonly pasoCalculoCentimos: number
 }) {
   const entradasSolicitadas = entradasSerieAuditoriaUnicas({
     comunidadesAutonomas,
@@ -1359,6 +1385,7 @@ const construirSeriesAuditoria = Effect.fn(
       perfil,
       anio,
       anioReferenciaSeries,
+      pasoCalculoCentimos,
     })
     const cacheada = Option.fromNullishOr(cacheSeries.get(claveCache))
 
@@ -1374,6 +1401,7 @@ const construirSeriesAuditoria = Effect.fn(
         comunidadAutonoma,
         anio,
         anioReferenciaSeries,
+        pasoCalculoCentimos,
         puedeReusarBase,
       })
     ) {
@@ -1405,7 +1433,8 @@ const construirSeriesAuditoria = Effect.fn(
           comunidadAutonoma,
           perfil,
           anio,
-          anioReferenciaSeries
+          anioReferenciaSeries,
+          pasoCalculoCentimos
         ).pipe(
           Effect.map((puntos) => {
             cacheSeries.set(
@@ -1415,6 +1444,7 @@ const construirSeriesAuditoria = Effect.fn(
                 perfil,
                 anio,
                 anioReferenciaSeries,
+                pasoCalculoCentimos,
               }),
               puntos
             )
@@ -1959,11 +1989,15 @@ const construirFilasTipoMarginalIrpfDesdeSeries = ({
   comunidadAutonoma,
   anio,
   anioReferenciaSeries,
+  salarioMinimoCentimos,
+  pasoVisibleCentimos,
   series,
 }: {
   readonly comunidadAutonoma: ComunidadAuditada
   readonly anio: AnioFiscal
   readonly anioReferenciaSeries: AnioFiscal
+  readonly salarioMinimoCentimos: number
+  readonly pasoVisibleCentimos: number
   readonly series: ReadonlyMap<
     string,
     ReadonlyArray<PuntoAuditoriaRangoSalarial>
@@ -1974,7 +2008,17 @@ const construirFilasTipoMarginalIrpfDesdeSeries = ({
   )
   if (Option.isNone(puntos)) return []
 
-  return puntos.value.map((punto, indice) => {
+  return puntos.value.flatMap((punto, indice) => {
+    if (
+      !esSalarioVisibleTipoMarginal({
+        salarioBrutoAnualCentimos: punto.salarioBrutoAnualCentimos,
+        salarioMinimoCentimos,
+        pasoVisibleCentimos,
+      })
+    ) {
+      return []
+    }
+
     const salarioEuros = centimosAEuros(punto.salarioBrutoAnualCentimos)
     const fila: FilaTipoMarginalIrpf = {
       salarioEuros,
@@ -1992,10 +2036,10 @@ const construirFilasTipoMarginalIrpfDesdeSeries = ({
       indice,
     })
 
-    if (Option.isNone(tipoMarginal)) return fila
+    if (Option.isNone(tipoMarginal)) return [fila]
 
     fila[claveTipoMarginalIrpf] = tipoMarginal.value
-    return fila
+    return [fila]
   })
 }
 
@@ -2041,6 +2085,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
           anioReferenciaSeries: anioReferenciaTipoEfectivoIrpf,
           cacheSeries,
           puedeReusarBase: true,
+          pasoCalculoCentimos: auditoria.pasoCentimos,
         })
 
         return yield* instrumentarEffectAuditoria({
@@ -2081,6 +2126,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
           anioReferenciaSeries: anioReferenciaDiferenciaTipoIrpf,
           cacheSeries,
           puedeReusarBase: true,
+          pasoCalculoCentimos: auditoria.pasoCentimos,
         })
 
         return yield* instrumentarEffectAuditoria({
@@ -2114,6 +2160,9 @@ const construirFilasGraficosAuditoria = Effect.fn(
   const tipoMarginalIrpf = yield* Match.value(vistaGrafico).pipe(
     Match.when("tipo-marginal", () =>
       Effect.gen(function* () {
+        const pasoCalculoMarginalCentimos = pasoCalculoTipoMarginalCentimos(
+          auditoria.pasoCentimos
+        )
         const seriesTipoMarginalIrpf = yield* construirSeriesAuditoria({
           auditoria,
           comunidadAutonomaAuditoriaBase,
@@ -2123,6 +2172,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
           anioReferenciaSeries: anioReferenciaTipoMarginalIrpf,
           cacheSeries,
           puedeReusarBase: true,
+          pasoCalculoCentimos: pasoCalculoMarginalCentimos,
         })
 
         return yield* instrumentarEffectAuditoria({
@@ -2140,13 +2190,16 @@ const construirFilasGraficosAuditoria = Effect.fn(
             series: 1,
             anios: String(anioTipoMarginalIrpf),
             anioReferencia: anioReferenciaTipoMarginalIrpf,
-            pasoCentimos: auditoria.pasoCentimos,
+            pasoVisibleCentimos: auditoria.pasoCentimos,
+            pasoCalculoCentimos: pasoCalculoMarginalCentimos,
           },
           efecto: Effect.sync(() =>
             construirFilasTipoMarginalIrpfDesdeSeries({
               comunidadAutonoma: comunidadAutonomaAuditoriaBase,
               anio: anioTipoMarginalIrpf,
               anioReferenciaSeries: anioReferenciaTipoMarginalIrpf,
+              salarioMinimoCentimos: auditoria.salarioBrutoAnualMinimoCentimos,
+              pasoVisibleCentimos: auditoria.pasoCentimos,
               series: seriesTipoMarginalIrpf,
             })
           ),
@@ -2617,6 +2670,7 @@ function FormulaTipoMarginalIrpf({
 }) {
   const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
   const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
+  const pasoCalculoCentimos = pasoCalculoTipoMarginalCentimos(pasoCentimos)
 
   return (
     <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
@@ -2690,6 +2744,13 @@ function FormulaTipoMarginalIrpf({
           punto porcentual y aparecería un serrucho artificial dentro de una
           meseta estable.
         </ExplicacionVariable>
+        <ExplicacionVariable termino="RESOLUCION">
+          La gráfica mantiene puntos visibles cada{" "}
+          {formatearCentimosEnteros(pasoCentimos)}, pero la pendiente marginal
+          se calcula con paso interno de{" "}
+          {formatearCentimosEnteros(pasoCalculoCentimos)}. Así se reduce el
+          ruido de resolución sin cambiar la escala visual del eje salarial.
+        </ExplicacionVariable>
         <ExplicacionVariable termino="JOROBA 18K-21K">
           La AEAT recoge la{" "}
           <a
@@ -2755,9 +2816,15 @@ function FormulaTipoMarginalIrpf({
           </div>
           <dl className="grid gap-1 text-sm leading-5">
             <div className="flex justify-between gap-3">
-              <dt className="text-[var(--ink-soft)]">Paso salarial</dt>
+              <dt className="text-[var(--ink-soft)]">Paso visible</dt>
               <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
                 {formatearCentimosEnteros(pasoCentimos)}
+              </dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-[var(--ink-soft)]">Paso cálculo</dt>
+              <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+                {formatearCentimosEnteros(pasoCalculoCentimos)}
               </dd>
             </div>
             <div className="flex justify-between gap-3">
