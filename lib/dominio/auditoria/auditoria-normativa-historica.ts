@@ -109,18 +109,17 @@ const normalizarAnioComparado = ({
 export const normalizarEscenarioAuditoriaNormativa = (
   escenario: EscenarioAuditoriaNormativaHistorica
 ): EscenarioAuditoriaNormativaHistorica => {
-  const comunidadesAutonomas = comunidadesAuditoriaNormativa.filter(
-    (comunidad) => escenario.comunidadesAutonomas.includes(comunidad)
+  const comunidadNormalizada = comunidadesAuditoriaNormativa.includes(
+    escenario.comunidadAutonoma
   )
-  const comunidadesNormalizadas =
-    comunidadesAutonomas.length > 0
-      ? comunidadesAutonomas
-      : [escenario.comunidadAutonoma]
+    ? escenario.comunidadAutonoma
+    : escenarioAuditoriaPorDefecto.comunidadAutonoma
   const anioReferencia = Match.value({
     anioReferencia: escenario.anioReferencia,
     permiteReferenciaTecnica2026: escenarioPermiteReferenciaTecnica2026({
       ...escenario,
-      comunidadesAutonomas: comunidadesNormalizadas,
+      comunidadAutonoma: comunidadNormalizada,
+      comunidadesAutonomas: [comunidadNormalizada],
     }),
   }).pipe(
     Match.when(
@@ -132,8 +131,8 @@ export const normalizarEscenarioAuditoriaNormativa = (
 
   return {
     ...escenario,
-    comunidadAutonoma: comunidadesNormalizadas[0],
-    comunidadesAutonomas: comunidadesNormalizadas,
+    comunidadAutonoma: comunidadNormalizada,
+    comunidadesAutonomas: [comunidadNormalizada],
     anioReferencia,
     anioComparado: normalizarAnioComparado({
       anioReferencia,
@@ -500,27 +499,12 @@ const leerAnioComparadoDesdePeriodo = (
     Option.flatMap(decodificarAnioFiscal)
   )
 
-const decodificarComunidadesAutonomasAuditoria = (
-  valor: string
-): ReadonlyArray<ComunidadAutonoma> => {
-  const valores = valor.split(",").map((fragmento) => fragmento.trim())
-
-  return comunidadesAuditoriaNormativa.filter((comunidad) =>
-    valores.includes(comunidad)
-  )
-}
-
 export const leerEscenarioAuditoriaNormativaDesdeUrl = (
   parametros: LectorParametrosAuditoriaUrl
 ): EscenarioAuditoriaNormativaHistorica => {
   const comunidadAutonoma = leerValorUrl(parametros, "comunidad").pipe(
     Option.flatMap(decodificarComunidadAutonomaAuditoria),
     Option.getOrElse(() => escenarioAuditoriaPorDefecto.comunidadAutonoma)
-  )
-  const comunidadesAutonomas = leerValorUrl(parametros, "comunidades").pipe(
-    Option.map(decodificarComunidadesAutonomasAuditoria),
-    Option.filter((comunidades) => comunidades.length > 0),
-    Option.getOrElse(() => [comunidadAutonoma])
   )
 
   return normalizarEscenarioAuditoriaNormativa({
@@ -529,7 +513,7 @@ export const leerEscenarioAuditoriaNormativaDesdeUrl = (
       Option.getOrElse(() => escenarioAuditoriaPorDefecto.perfil)
     ),
     comunidadAutonoma,
-    comunidadesAutonomas,
+    comunidadesAutonomas: [comunidadAutonoma],
     anioReferencia: leerValorUrl(parametros, "anioReferencia").pipe(
       Option.flatMap(decodificarAnioFiscal),
       Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioReferencia)
@@ -556,7 +540,6 @@ export const leerEscenarioAuditoriaNormativaDesdeUrl = (
 export const construirContratoUrlAuditoriaNormativaV1 = ({
   perfil,
   comunidadAutonoma,
-  comunidadesAutonomas,
   anioReferencia,
   anioComparado,
   estrategiaProyeccionSalarial,
@@ -572,9 +555,7 @@ export const construirContratoUrlAuditoriaNormativaV1 = ({
     comunidad: comunidadAutonoma,
   } as const
 
-  return comunidadesAutonomas.length > 1
-    ? { ...contrato, comunidades: comunidadesAutonomas.join(",") }
-    : contrato
+  return contrato
 }
 
 export const serializarContratoUrlAuditoriaNormativaV1 = (

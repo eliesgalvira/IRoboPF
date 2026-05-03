@@ -128,7 +128,7 @@ describe("auditoria normativa historica", () => {
     })
   })
 
-  it("parsea y serializa varias comunidades autonomas preservando compatibilidad singular", () => {
+  it("normaliza cualquier contrato antiguo de varias comunidades a seleccion singular", () => {
     const escenario = leerEscenarioAuditoriaNormativaDesdeUrl(
       new URLSearchParams(
         "v=1&comunidad=madrid&comunidades=catalunya,madrid,ninguna&periodo=2019-2025"
@@ -136,8 +136,8 @@ describe("auditoria normativa historica", () => {
     )
 
     expect(escenario).toMatchObject({
-      comunidadAutonoma: "catalunya",
-      comunidadesAutonomas: ["catalunya", "madrid"],
+      comunidadAutonoma: "madrid",
+      comunidadesAutonomas: ["madrid"],
     })
 
     const parametros = serializarEscenarioAuditoriaNormativa({
@@ -147,7 +147,7 @@ describe("auditoria normativa historica", () => {
     })
 
     expect(parametros.get("comunidad")).toBe("catalunya")
-    expect(parametros.get("comunidades")).toBe("catalunya,madrid")
+    expect(parametros.get("comunidades")).toBeNull()
   })
 
   it("expresa una bajada de IRPF como mejora para el ciudadano", () => {

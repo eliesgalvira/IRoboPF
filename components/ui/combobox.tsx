@@ -50,6 +50,24 @@ function ComboboxInput({
   )
 }
 
+const ComboboxInputGroup = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.InputGroup>
+>(function ComboboxInputGroup({ className, ...props }, ref) {
+  const anchor = React.useContext(ComboboxAnchorContext)
+
+  return (
+    <ComboboxPrimitive.InputGroup
+      className={cn(
+        "flex min-h-10 items-center border-2 border-[var(--rule)] bg-[var(--paper)] px-2 py-1 shadow-[3px_3px_0_0_var(--rule)]",
+        className
+      )}
+      ref={asignarRefs(ref, anchor)}
+      {...props}
+    />
+  )
+})
+
 const ComboboxChips = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<typeof ComboboxPrimitive.Chips>
@@ -183,6 +201,7 @@ export {
   ComboboxChipsInput,
   ComboboxContent,
   ComboboxEmpty,
+  ComboboxInputGroup,
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
