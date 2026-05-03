@@ -999,6 +999,7 @@ function BarraFiltros({
             />
           </div>
           <Slider.Root
+            thumbAlignment="center"
             value={[
               centimosAEuros(minimoCentimos),
               centimosAEuros(maximoCentimos),
@@ -1016,19 +1017,19 @@ function BarraFiltros({
             }}
             className="grid min-w-0 gap-2"
           >
-            <Slider.Control className="relative flex h-8 min-w-0 touch-none items-center px-3">
+            <Slider.Control className="relative mx-3.5 flex h-8 min-w-0 touch-none items-center sm:mx-0">
               <Slider.Track className="relative h-3 min-w-0 flex-1 bg-[var(--paper)] [outline:2px_solid_var(--rule)]">
                 <Slider.Indicator className="bg-[var(--mark)]" />
               </Slider.Track>
               <Slider.Thumb
                 index={0}
                 aria-label="Salario mínimo"
-                className="relative size-6 border-0 bg-transparent transition after:absolute after:inset-1 after:border-2 after:border-[var(--rule)] after:bg-[var(--paper)] after:transition-colors focus-visible:outline-none focus-visible:after:bg-[var(--mark)] sm:after:inset-0"
+                className="size-7 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none sm:size-6"
               />
               <Slider.Thumb
                 index={1}
                 aria-label="Salario máximo"
-                className="relative size-6 border-0 bg-transparent transition after:absolute after:inset-1 after:border-2 after:border-[var(--rule)] after:bg-[var(--paper)] after:transition-colors focus-visible:outline-none focus-visible:after:bg-[var(--mark)] sm:after:inset-0"
+                className="size-7 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none sm:size-6"
               />
             </Slider.Control>
             <div className="flex min-w-0 justify-between gap-3 text-sm tracking-[0.14em] text-[var(--ink-soft)] uppercase sm:tracking-[0.3em]">
