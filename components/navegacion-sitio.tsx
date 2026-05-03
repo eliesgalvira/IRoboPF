@@ -36,6 +36,7 @@ export function NavegacionSitio() {
     readonly abierto: boolean
   }>({ ruta: null, abierto: false })
   const idMenuMovil = React.useId()
+  const botonMenuMovilRef = React.useRef<HTMLButtonElement>(null)
   const enlaces = [
     {
       href: "/",
@@ -66,6 +67,7 @@ export function NavegacionSitio() {
   }
 
   const cerrarMenuMovil = () => {
+    botonMenuMovilRef.current?.focus({ preventScroll: true })
     fijarEstadoMenuMovil({ ruta: rutaActual, abierto: false })
   }
 
@@ -108,6 +110,7 @@ export function NavegacionSitio() {
             {etiquetaRutaActual}
           </span>
           <Button
+            ref={botonMenuMovilRef}
             type="button"
             variant="unstyled"
             aria-controls={idMenuMovil}
@@ -140,7 +143,7 @@ export function NavegacionSitio() {
 
         <div
           id={idMenuMovil}
-          aria-hidden={!menuMovilAbierto}
+          inert={!menuMovilAbierto}
           className={cn(
             "absolute right-0 left-0 z-40 mt-3 grid overflow-hidden border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[6px_6px_0_var(--rule)] transition-[grid-template-rows,opacity,transform] duration-200 ease-out",
             menuMovilAbierto
