@@ -1897,7 +1897,7 @@ const dominioPorcentajeTipoMarginalIrpf = (valores: ReadonlyArray<number>) => {
 
   const minimo = Math.min(...valores)
   const maximo = Math.max(...valores)
-  const paso = 0.05
+  const paso = 0.1
   const inferior = Math.min(0, Math.floor((minimo - paso) / paso) * paso)
   const superior = Math.max(0.1, Math.ceil((maximo + paso) / paso) * paso)
   return [inferior, superior] as const
@@ -1928,7 +1928,7 @@ const deduccionSmiFormula = (anio: AnioFiscal): string =>
     Match.when(
       2026,
       () =>
-        "590,89 € si bruto <= 17.094,00 €; max(0, 590,89 € - 20,00% x (bruto - 17.094,00 €)) si bruto supera el tramo"
+        "590,89 € si bruto <= 17.094,00 €; max(0, 590,89 € - 20,00% x (bruto - 17.094,00 €)) si 17.094,00 € < bruto < 20.048,45 €; 0,00 € si supera el tramo"
     ),
     Match.orElse(() => "0,00 €")
   )
@@ -1961,11 +1961,42 @@ const dominioDiferenciaPorcentaje = (valores: ReadonlyArray<number>) => {
 
   const minimo = Math.min(...valores)
   const maximo = Math.max(...valores)
-  const paso = 0.005
+  const paso = 0.01
   const inferior = Math.min(0, Math.floor((minimo - paso) / paso) * paso)
   const superior = Math.max(0, Math.ceil((maximo + paso) / paso) * paso)
   return [inferior, superior] as const
 }
+
+const ticksDominioLineal = ({
+  dominio,
+  paso,
+}: {
+  readonly dominio: readonly [number, number]
+  readonly paso: number
+}) => {
+  const [inferior, superior] = dominio
+  const inicio = Math.ceil(inferior / paso)
+  const fin = Math.floor(superior / paso)
+
+  return Array.from({ length: Math.max(0, fin - inicio + 1) }, (_, indice) =>
+    Number(((inicio + indice) * paso).toFixed(6))
+  )
+}
+
+const ticksDiferenciaTipoIrpf = ({
+  dominio,
+  modo,
+}: {
+  readonly dominio: readonly [number, number]
+  readonly modo: ModoDiferenciaTipoIrpf
+}) =>
+  Match.value(modo).pipe(
+    Match.when("porcentaje", () => ticksDominioLineal({ dominio, paso: 0.01 })),
+    Match.when("euros-reales", () =>
+      ticksDominioLineal({ dominio, paso: 1000 })
+    ),
+    Match.exhaustive
+  )
 
 const ordenarParAnios = (
   anios: readonly [AnioFiscal, AnioFiscal]
@@ -2876,6 +2907,10 @@ function Visualizaciones({
     ),
     Match.exhaustive
   )
+  const ticksDiferenciaIrpf = ticksDiferenciaTipoIrpf({
+    dominio: dominioDiferenciaTipoIrpf,
+    modo: modoDiferenciaTipoIrpf,
+  })
   const dominioMarginalIrpf = dominioPorcentajeTipoMarginalIrpf(
     valoresNumericosDeFilas(datosTipoMarginalIrpf, [claveTipoMarginalIrpf])
   )
@@ -3101,7 +3136,7 @@ function Visualizaciones({
                         key={clave}
                         dataKey={clave}
                         name={etiquetaSerieAuditoria(comunidadAutonoma, anio)}
-                        type="monotone"
+                        type="linear"
                         stroke={`var(--color-${clave})`}
                         strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
                         dot={false}
@@ -3201,6 +3236,7 @@ function Visualizaciones({
                   tickMargin={4}
                   width={54}
                   domain={dominioDiferenciaTipoIrpf}
+                  ticks={ticksDiferenciaIrpf}
                   fontSize={14}
                   tickFormatter={formatearTickDiferenciaTipoIrpf}
                 />
@@ -3222,7 +3258,7 @@ function Visualizaciones({
                 <Area
                   dataKey={clavesDiferenciaTipoIrpfSegmentadas[1]}
                   name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
-                  type="monotone"
+                  type="linear"
                   stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
                   strokeWidth={3}
                   fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
@@ -3236,7 +3272,7 @@ function Visualizaciones({
                 <Area
                   dataKey={clavesDiferenciaTipoIrpfSegmentadas[0]}
                   name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
-                  type="monotone"
+                  type="linear"
                   stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
                   strokeWidth={3}
                   fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
@@ -3384,7 +3420,7 @@ function Visualizaciones({
                   yAxisId="efectivo"
                   dataKey={claveTipoEfectivoIrpfMarginal}
                   name={`Tipo efectivo ${anioGraficoTipoMarginalIrpfVisible}`}
-                  type="monotone"
+                  type="linear"
                   stroke={`var(--color-${claveTipoEfectivoIrpfMarginal})`}
                   strokeWidth={3}
                   dot={false}
