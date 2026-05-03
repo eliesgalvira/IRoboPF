@@ -50,16 +50,25 @@ function ComboboxInput({
   )
 }
 
-function ComboboxChevron({
+function ComboboxChevronTrigger({
   className,
   ...props
-}: React.ComponentProps<typeof ChevronDown>) {
+}: React.ComponentProps<typeof ComboboxPrimitive.Trigger>) {
   return (
-    <ChevronDown
-      aria-hidden
-      className={cn("size-4 shrink-0 text-[var(--ink)]", className)}
+    <ComboboxPrimitive.Trigger
+      type="button"
+      aria-label="Abrir selector"
+      className={cn(
+        "group grid size-7 shrink-0 place-items-center border-l-2 border-[var(--rule)] text-[var(--ink)] transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none data-[popup-open]:bg-[var(--mark)]",
+        className
+      )}
       {...props}
-    />
+    >
+      <ChevronDown
+        aria-hidden
+        className="size-4 transition-transform group-data-[popup-open]:rotate-180"
+      />
+    </ComboboxPrimitive.Trigger>
   )
 }
 
@@ -209,7 +218,7 @@ function ComboboxItem({
 
 export {
   Combobox,
-  ComboboxChevron,
+  ComboboxChevronTrigger,
   ComboboxChip,
   ComboboxChips,
   ComboboxChipsInput,
