@@ -1415,7 +1415,7 @@ function BotonAnioTipoEfectivoIrpf({
       }}
       variant="unstyled"
       className={cn(
-        "h-9 min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
+        "h-9 w-full min-w-0 bg-[var(--paper)] px-2 font-[family-name:var(--mono)] text-sm font-bold tabular-nums transition-colors",
         "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
         disponible && activo && "text-[var(--ink)]",
         disponible &&
@@ -1438,7 +1438,10 @@ function BotonAnioTipoEfectivoIrpf({
   return disponible ? (
     boton
   ) : (
-    <Tooltip contenido="2026 no está disponible para esta comunidad autónoma: sus datos autonómicos todavía no se han actualizado a 2026. Usa Simulada estatal para ver la referencia técnica 2026.">
+    <Tooltip
+      className="w-full"
+      contenido="2026 no está disponible para esta comunidad autónoma: sus datos autonómicos todavía no se han actualizado a 2026. Usa Simulada estatal para ver la referencia técnica 2026."
+    >
       {boton}
     </Tooltip>
   )

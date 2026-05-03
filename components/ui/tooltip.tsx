@@ -9,9 +9,11 @@ const hayDialogoModalActivo = () =>
 
 export function Tooltip({
   children,
+  className,
   contenido,
 }: {
   readonly children: ReactElement<React.HTMLAttributes<HTMLElement>>
+  readonly className?: string
   readonly contenido: string
 }) {
   const [abierto, fijarAbierto] = React.useState(false)
@@ -59,7 +61,7 @@ export function Tooltip({
 
   return (
     <span
-      className="relative inline-flex"
+      className={["relative inline-flex", className].filter(Boolean).join(" ")}
       onBlur={(evento) => {
         if (!evento.currentTarget.contains(evento.relatedTarget)) {
           fijarAbierto(false)
