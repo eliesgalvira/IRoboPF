@@ -78,6 +78,7 @@ import {
   type AuditoriaRangoSalarial,
   type PuntoAuditoriaRangoSalarial,
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
+import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "@/lib/dominio/normativa/datos/irpf-obligacion-declarar"
 import {
   exportarAuditoriaCompatibleExcelConProgreso,
   exportarAuditoriaEducativaExcel,
@@ -95,8 +96,11 @@ import {
 } from "@/lib/observabilidad/auditoria-rendimiento"
 
 const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
-const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-cuota-marginal-smi-v3"
+const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-efectivo-salario-v4"
+const VERSION_CALCULO_TIPO_MARGINAL_IRPF = "irpf-cuota-marginal-smi-v3"
 const pasoCalculoMarginalMaximoCentimos = 5_000
+const salarioDeclaracionConObligacionCentimos =
+  UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS + 100
 
 function formatearSalarioCorto(centimos: number): string {
   const miles = Math.round(centimos / 100_000)
@@ -170,6 +174,33 @@ const esSalarioVisibleTipoMarginal = ({
   pasoVisibleCentimos <= 0 ||
   (salarioBrutoAnualCentimos - salarioMinimoCentimos) % pasoVisibleCentimos ===
     0
+
+const esSalarioRegularAuditoria = ({
+  salarioBrutoAnualCentimos,
+  salarioMinimoCentimos,
+  pasoCentimos,
+}: {
+  readonly salarioBrutoAnualCentimos: number
+  readonly salarioMinimoCentimos: number
+  readonly pasoCentimos: number
+}) =>
+  pasoCentimos <= 0 ||
+  (salarioBrutoAnualCentimos - salarioMinimoCentimos) % pasoCentimos === 0
+
+const esSalarioVisibleTipoEfectivoIrpf = ({
+  salarioBrutoAnualCentimos,
+  salarioMinimoCentimos,
+  pasoCentimos,
+}: {
+  readonly salarioBrutoAnualCentimos: number
+  readonly salarioMinimoCentimos: number
+  readonly pasoCentimos: number
+}) =>
+  esSalarioRegularAuditoria({
+    salarioBrutoAnualCentimos,
+    salarioMinimoCentimos,
+    pasoCentimos,
+  }) || salarioBrutoAnualCentimos === salarioDeclaracionConObligacionCentimos
 
 const claveCalculoAuditoria = ({
   escenario,
@@ -1248,18 +1279,23 @@ const decodificarVistaGraficoAuditoria = (
     Match.orElse(() => Option.none<VistaGraficoAuditoria>())
   )
 
+const versionCalculoDatosGrafico = (vista: VistaGraficoAuditoria) =>
+  Match.value(vista).pipe(
+    Match.when("tipo-marginal", () => VERSION_CALCULO_TIPO_MARGINAL_IRPF),
+    Match.orElse(() => VERSION_CALCULO_AUDITORIA_IRPF)
+  )
+
 const obtenerPuntosAuditoriaParaAnio = (
   auditoria: AuditoriaRangoSalarial,
   comunidadAutonoma: ComunidadAuditada,
   perfil: PerfilAuditado,
   anio: AnioFiscal,
-  anioReferenciaSeries: AnioFiscal,
-  pasoCalculoCentimos: number
+  anioReferenciaSeries: AnioFiscal
 ): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
   construirPuntosAuditoriaAnioAjustado({
     salarioBrutoAnualMinimoCentimos: auditoria.salarioBrutoAnualMinimoCentimos,
     salarioBrutoAnualMaximoCentimos: auditoria.salarioBrutoAnualMaximoCentimos,
-    pasoCentimos: pasoCalculoCentimos,
+    pasoCentimos: auditoria.pasoCentimos,
     anio,
     anioReferencia: anioReferenciaSeries,
     comunidadAutonoma,
@@ -1297,7 +1333,6 @@ const puedeReusarPuntosAuditoriaBase = ({
   comunidadAutonoma,
   anio,
   anioReferenciaSeries,
-  pasoCalculoCentimos,
   puedeReusarBase,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
@@ -1305,11 +1340,9 @@ const puedeReusarPuntosAuditoriaBase = ({
   readonly comunidadAutonoma: ComunidadAuditada
   readonly anio: AnioFiscal
   readonly anioReferenciaSeries: AnioFiscal
-  readonly pasoCalculoCentimos: number
   readonly puedeReusarBase: boolean
 }) =>
   puedeReusarBase &&
-  pasoCalculoCentimos === auditoria.pasoCentimos &&
   anioReferenciaSeries === auditoria.anioReferencia &&
   comunidadAutonoma === comunidadAutonomaAuditoriaBase &&
   (anio === auditoria.anioComparado || anio === auditoria.anioReferencia)
@@ -1320,14 +1353,12 @@ const claveCacheSerieAuditoria = ({
   perfil,
   anio,
   anioReferenciaSeries,
-  pasoCalculoCentimos,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadAutonoma: ComunidadAuditada
   readonly perfil: PerfilAuditado
   readonly anio: AnioFiscal
   readonly anioReferenciaSeries: AnioFiscal
-  readonly pasoCalculoCentimos: number
 }) =>
   [
     VERSION_CALCULO_AUDITORIA_IRPF,
@@ -1335,7 +1366,6 @@ const claveCacheSerieAuditoria = ({
     perfil,
     anio,
     anioReferenciaSeries,
-    pasoCalculoCentimos,
     auditoria.salarioBrutoAnualMinimoCentimos,
     auditoria.salarioBrutoAnualMaximoCentimos,
     auditoria.pasoCentimos,
@@ -1352,7 +1382,6 @@ const construirSeriesAuditoria = Effect.fn(
   anioReferenciaSeries,
   cacheSeries,
   puedeReusarBase,
-  pasoCalculoCentimos,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadAutonomaAuditoriaBase: ComunidadAuditada
@@ -1362,7 +1391,6 @@ const construirSeriesAuditoria = Effect.fn(
   readonly anioReferenciaSeries: AnioFiscal
   readonly cacheSeries: Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>
   readonly puedeReusarBase: boolean
-  readonly pasoCalculoCentimos: number
 }) {
   const entradasSolicitadas = entradasSerieAuditoriaUnicas({
     comunidadesAutonomas,
@@ -1385,7 +1413,6 @@ const construirSeriesAuditoria = Effect.fn(
       perfil,
       anio,
       anioReferenciaSeries,
-      pasoCalculoCentimos,
     })
     const cacheada = Option.fromNullishOr(cacheSeries.get(claveCache))
 
@@ -1401,7 +1428,6 @@ const construirSeriesAuditoria = Effect.fn(
         comunidadAutonoma,
         anio,
         anioReferenciaSeries,
-        pasoCalculoCentimos,
         puedeReusarBase,
       })
     ) {
@@ -1433,8 +1459,7 @@ const construirSeriesAuditoria = Effect.fn(
           comunidadAutonoma,
           perfil,
           anio,
-          anioReferenciaSeries,
-          pasoCalculoCentimos
+          anioReferenciaSeries
         ).pipe(
           Effect.map((puntos) => {
             cacheSeries.set(
@@ -1444,7 +1469,6 @@ const construirSeriesAuditoria = Effect.fn(
                 perfil,
                 anio,
                 anioReferenciaSeries,
-                pasoCalculoCentimos,
               }),
               puntos
             )
@@ -1464,6 +1488,99 @@ const construirSeriesAuditoria = Effect.fn(
   ])
 })
 
+const claveCacheSerieTipoMarginalIrpf = ({
+  auditoria,
+  comunidadAutonoma,
+  perfil,
+  anio,
+  anioReferenciaSeries,
+  pasoCalculoCentimos,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonoma: ComunidadAuditada
+  readonly perfil: PerfilAuditado
+  readonly anio: AnioFiscal
+  readonly anioReferenciaSeries: AnioFiscal
+  readonly pasoCalculoCentimos: number
+}) =>
+  [
+    VERSION_CALCULO_TIPO_MARGINAL_IRPF,
+    comunidadAutonoma,
+    perfil,
+    anio,
+    anioReferenciaSeries,
+    pasoCalculoCentimos,
+    auditoria.salarioBrutoAnualMinimoCentimos,
+    auditoria.salarioBrutoAnualMaximoCentimos,
+    auditoria.pasoCentimos,
+  ].join("|")
+
+const construirSerieTipoMarginalIrpf = Effect.fn(
+  "auditoria.ui.construirSerieTipoMarginalIrpf"
+)(function* ({
+  auditoria,
+  comunidadAutonoma,
+  perfil,
+  anio,
+  anioReferenciaSeries,
+  cacheSeries,
+  pasoCalculoCentimos,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadAutonoma: ComunidadAuditada
+  readonly perfil: PerfilAuditado
+  readonly anio: AnioFiscal
+  readonly anioReferenciaSeries: AnioFiscal
+  readonly cacheSeries: Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>
+  readonly pasoCalculoCentimos: number
+}) {
+  const claveSerie = claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
+  const claveCache = claveCacheSerieTipoMarginalIrpf({
+    auditoria,
+    comunidadAutonoma,
+    perfil,
+    anio,
+    anioReferenciaSeries,
+    pasoCalculoCentimos,
+  })
+  const cacheada = Option.fromNullishOr(cacheSeries.get(claveCache))
+
+  if (Option.isSome(cacheada)) {
+    return new Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>([
+      [claveSerie, cacheada.value],
+    ])
+  }
+
+  const puntos = yield* instrumentarEffectAuditoria({
+    nombre: "auditoria.ui.series.calcularTipoMarginal",
+    metrica: metricaDuracionSeriesAuditoria,
+    detalles: {
+      anio,
+      anioReferencia: anioReferenciaSeries,
+      comunidadAutonoma,
+      pasoVisibleCentimos: auditoria.pasoCentimos,
+      pasoCalculoCentimos,
+    },
+    efecto: construirPuntosAuditoriaAnioAjustado({
+      salarioBrutoAnualMinimoCentimos:
+        auditoria.salarioBrutoAnualMinimoCentimos,
+      salarioBrutoAnualMaximoCentimos:
+        auditoria.salarioBrutoAnualMaximoCentimos,
+      pasoCentimos: pasoCalculoCentimos,
+      anio,
+      anioReferencia: anioReferenciaSeries,
+      comunidadAutonoma,
+      perfilAuditoria: perfil === "pareja_con_hijos" ? perfil : undefined,
+    }),
+  })
+
+  cacheSeries.set(claveCache, puntos)
+
+  return new Map<string, ReadonlyArray<PuntoAuditoriaRangoSalarial>>([
+    [claveSerie, puntos],
+  ])
+})
+
 const construirFilasTipoEfectivoIrpfDesdeSeries = ({
   auditoria,
   comunidadesAutonomas,
@@ -1480,7 +1597,17 @@ const construirFilasTipoEfectivoIrpfDesdeSeries = ({
     ReadonlyArray<PuntoAuditoriaRangoSalarial>
   >
 }) =>
-  auditoria.puntos.map((puntoBase, indice) => {
+  auditoria.puntos.flatMap((puntoBase) => {
+    if (
+      !esSalarioVisibleTipoEfectivoIrpf({
+        salarioBrutoAnualCentimos: puntoBase.salarioBrutoAnualCentimos,
+        salarioMinimoCentimos: auditoria.salarioBrutoAnualMinimoCentimos,
+        pasoCentimos: auditoria.pasoCentimos,
+      })
+    ) {
+      return []
+    }
+
     const fila: FilaTipoEfectivoIrpf = {
       salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
       salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
@@ -1488,9 +1615,12 @@ const construirFilasTipoEfectivoIrpfDesdeSeries = ({
 
     for (const comunidadAutonoma of comunidadesAutonomas) {
       for (const anio of aniosSeleccionados) {
-        const punto = Option.fromNullishOr(
-          series.get(claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio))
-        ).pipe(Option.flatMap((puntos) => Option.fromNullishOr(puntos[indice])))
+        const punto = puntoSeriePorSalario({
+          series,
+          comunidadAutonoma,
+          anio,
+          salarioBrutoAnualCentimos: puntoBase.salarioBrutoAnualCentimos,
+        })
         if (Option.isNone(punto)) continue
         fila[claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)] =
           tipoEfectivoIrpfConDeclaracionParaAnio({
@@ -1501,14 +1631,14 @@ const construirFilasTipoEfectivoIrpfDesdeSeries = ({
       }
     }
 
-    return fila
+    return [fila]
   })
 
-const puntoSerie = ({
+const puntoSeriePorSalario = ({
   series,
   comunidadAutonoma,
   anio,
-  indice,
+  salarioBrutoAnualCentimos,
 }: {
   readonly series: ReadonlyMap<
     string,
@@ -1516,11 +1646,20 @@ const puntoSerie = ({
   >
   readonly comunidadAutonoma: ComunidadAuditada
   readonly anio: AnioFiscal
-  readonly indice: number
+  readonly salarioBrutoAnualCentimos: number
 }) =>
   Option.fromNullishOr(
     series.get(claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio))
-  ).pipe(Option.flatMap((puntos) => Option.fromNullishOr(puntos[indice])))
+  ).pipe(
+    Option.flatMap((puntos) =>
+      Option.fromNullishOr(
+        puntos.find(
+          (punto) =>
+            punto.salarioBrutoAnualCentimos === salarioBrutoAnualCentimos
+        )
+      )
+    )
+  )
 
 const tipoEfectivoIrpfParaAnio = ({
   anio,
@@ -1839,27 +1978,37 @@ const construirFilasDiferenciaTipoIrpfDesdeSeries = ({
   >
 }) =>
   insertarCrucesCeroDiferenciaTipoIrpf(
-    auditoria.puntos.map((puntoBase, indice) => {
+    auditoria.puntos.flatMap((puntoBase) => {
+      if (
+        !esSalarioVisibleTipoEfectivoIrpf({
+          salarioBrutoAnualCentimos: puntoBase.salarioBrutoAnualCentimos,
+          salarioMinimoCentimos: auditoria.salarioBrutoAnualMinimoCentimos,
+          pasoCentimos: auditoria.pasoCentimos,
+        })
+      ) {
+        return []
+      }
+
       const fila: FilaDiferenciaTipoIrpf = {
         salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
         salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
       }
       const [anioBase, anioComparado] = aniosSeleccionados
-      const puntoBaseComparacion = puntoSerie({
+      const puntoBaseComparacion = puntoSeriePorSalario({
         series,
         comunidadAutonoma,
         anio: anioBase,
-        indice,
+        salarioBrutoAnualCentimos: puntoBase.salarioBrutoAnualCentimos,
       })
-      const puntoAnioComparado = puntoSerie({
+      const puntoAnioComparado = puntoSeriePorSalario({
         series,
         comunidadAutonoma,
         anio: anioComparado,
-        indice,
+        salarioBrutoAnualCentimos: puntoBase.salarioBrutoAnualCentimos,
       })
 
-      if (Option.isNone(puntoBaseComparacion)) return fila
-      if (Option.isNone(puntoAnioComparado)) return fila
+      if (Option.isNone(puntoBaseComparacion)) return []
+      if (Option.isNone(puntoAnioComparado)) return []
 
       const desgloseBase = desgloseLiquidadoParaAnio({
         anio: anioBase,
@@ -1885,7 +2034,7 @@ const construirFilasDiferenciaTipoIrpfDesdeSeries = ({
           valorMagnitudCentimos(desgloseBase, magnitud)
       )
 
-      return fila
+      return [fila]
     })
   ).map(asignarSegmentosDiferenciaTipoIrpf)
 
@@ -2085,7 +2234,6 @@ const construirFilasGraficosAuditoria = Effect.fn(
           anioReferenciaSeries: anioReferenciaTipoEfectivoIrpf,
           cacheSeries,
           puedeReusarBase: true,
-          pasoCalculoCentimos: auditoria.pasoCentimos,
         })
 
         return yield* instrumentarEffectAuditoria({
@@ -2126,7 +2274,6 @@ const construirFilasGraficosAuditoria = Effect.fn(
           anioReferenciaSeries: anioReferenciaDiferenciaTipoIrpf,
           cacheSeries,
           puedeReusarBase: true,
-          pasoCalculoCentimos: auditoria.pasoCentimos,
         })
 
         return yield* instrumentarEffectAuditoria({
@@ -2163,15 +2310,13 @@ const construirFilasGraficosAuditoria = Effect.fn(
         const pasoCalculoMarginalCentimos = pasoCalculoTipoMarginalCentimos(
           auditoria.pasoCentimos
         )
-        const seriesTipoMarginalIrpf = yield* construirSeriesAuditoria({
+        const seriesTipoMarginalIrpf = yield* construirSerieTipoMarginalIrpf({
           auditoria,
-          comunidadAutonomaAuditoriaBase,
-          comunidadesAutonomas,
+          comunidadAutonoma: comunidadAutonomaAuditoriaBase,
           perfil,
-          aniosSeleccionados: [anioTipoMarginalIrpf],
+          anio: anioTipoMarginalIrpf,
           anioReferenciaSeries: anioReferenciaTipoMarginalIrpf,
           cacheSeries,
-          puedeReusarBase: true,
           pasoCalculoCentimos: pasoCalculoMarginalCentimos,
         })
 
@@ -3208,7 +3353,7 @@ function Visualizaciones({
     onNone: () => "sin-auditoria",
     onSome: (auditoriaLista) => {
       const claveBase = [
-        VERSION_CALCULO_AUDITORIA_IRPF,
+        versionCalculoDatosGrafico(vistaGrafico),
         comunidadAutonoma,
         perfil,
         auditoriaLista.anioReferencia,
