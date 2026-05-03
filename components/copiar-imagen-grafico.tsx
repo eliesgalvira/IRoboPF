@@ -10,6 +10,10 @@ const MARCA_AGUA_GRAFICO = "irobopf.com"
 const MIME_PNG = "image/png"
 const MIME_SVG = "image/svg+xml;charset=utf-8"
 const ESCALA_MAXIMA_EXPORTACION_GRAFICO = 2
+const DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO = {
+  ancho: 1216,
+  alto: 615,
+} as const
 const FAMILIA_MONO_GRAFICO_FALLBACK =
   '"JetBrains Mono", "JetBrains Mono Fallback", monospace'
 
@@ -31,6 +35,11 @@ type TextoSvgExportado = {
   readonly fontWeight: string
   readonly opacity: number
   readonly textAlign: CanvasTextAlign
+}
+
+type DimensionesExportacionGrafico = {
+  readonly ancho: number
+  readonly alto: number
 }
 
 export function BotonCopiarImagenGrafico({
@@ -192,6 +201,101 @@ function leerBlobComoDataUrl(blob: Blob): Promise<string> {
 }
 
 async function convertirElementoEnPng(elemento: HTMLElement): Promise<Blob> {
+  return await conGraficoRenderizadoEnEscritorio(
+    elemento,
+    (graficoEscritorio) => convertirElementoRenderizadoEnPng(graficoEscritorio)
+  )
+}
+
+async function conGraficoRenderizadoEnEscritorio<T>(
+  elemento: HTMLElement,
+  accion: (elemento: HTMLElement) => Promise<T>
+): Promise<T> {
+  const rect = elemento.getBoundingClientRect()
+  const dimensiones = DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO
+  const yaTieneTamanoEscritorio =
+    Math.abs(rect.width - dimensiones.ancho) <= 2 &&
+    Math.abs(rect.height - dimensiones.alto) <= 2
+
+  if (yaTieneTamanoEscritorio || !elemento.parentNode) {
+    return await accion(elemento)
+  }
+
+  const marcador = crearMarcadorVisualGrafico(elemento, rect)
+  const estiloOriginal = elemento.getAttribute("style")
+  elemento.parentNode.insertBefore(marcador, elemento)
+
+  try {
+    fijarTamanoEscritorioGrafico(elemento, dimensiones)
+    await esperarRedimensionGrafico(elemento, dimensiones)
+    return await accion(elemento)
+  } finally {
+    if (estiloOriginal === null) {
+      elemento.removeAttribute("style")
+    } else {
+      elemento.setAttribute("style", estiloOriginal)
+    }
+
+    marcador.remove()
+  }
+}
+
+function crearMarcadorVisualGrafico(elemento: HTMLElement, rect: DOMRect) {
+  const marcador = elemento.cloneNode(true) as HTMLElement
+  marcador.setAttribute("aria-hidden", "true")
+  marcador.style.pointerEvents = "none"
+  marcador.style.userSelect = "none"
+  marcador.style.width = `${Math.max(rect.width, 1)}px`
+  marcador.style.height = `${Math.max(rect.height, 1)}px`
+  marcador.style.overflow = "hidden"
+  return marcador
+}
+
+function fijarTamanoEscritorioGrafico(
+  elemento: HTMLElement,
+  dimensiones: DimensionesExportacionGrafico
+) {
+  elemento.style.position = "fixed"
+  elemento.style.left = "-100000px"
+  elemento.style.top = "0"
+  elemento.style.zIndex = "-1"
+  elemento.style.width = `${dimensiones.ancho}px`
+  elemento.style.height = `${dimensiones.alto}px`
+  elemento.style.minWidth = `${dimensiones.ancho}px`
+  elemento.style.maxWidth = `${dimensiones.ancho}px`
+  elemento.style.aspectRatio = "auto"
+  elemento.style.pointerEvents = "none"
+  elemento.style.contain = "layout style paint"
+}
+
+async function esperarRedimensionGrafico(
+  elemento: HTMLElement,
+  dimensiones: DimensionesExportacionGrafico
+) {
+  for (let intento = 0; intento < 12; intento += 1) {
+    await esperarFrame()
+
+    const grafico = obtenerSvgPrincipalGrafico(elemento)
+    const rect = grafico?.getBoundingClientRect()
+    if (
+      rect &&
+      Math.abs(rect.width - dimensiones.ancho) <= 2 &&
+      Math.abs(rect.height - dimensiones.alto) <= 2
+    ) {
+      return
+    }
+  }
+}
+
+function esperarFrame() {
+  return new Promise<void>((resolve) => {
+    window.requestAnimationFrame(() => resolve())
+  })
+}
+
+async function convertirElementoRenderizadoEnPng(
+  elemento: HTMLElement
+): Promise<Blob> {
   const { width, height } = elemento.getBoundingClientRect()
   const ancho = Math.ceil(width)
   const alto = Math.ceil(height)
