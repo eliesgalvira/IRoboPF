@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import dynamic from "next/dynamic"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Dialog } from "@base-ui/react/dialog"
 import { NumberField } from "@base-ui/react/number-field"
 import { Slider } from "@base-ui/react/slider"
@@ -40,15 +39,14 @@ import {
 import { Button } from "@/components/ui/button"
 import {
   Combobox,
-  ComboboxChip,
-  ComboboxChips,
-  ComboboxChipsInput,
   ComboboxContent,
   ComboboxEmpty,
+  ComboboxInput,
+  ComboboxInputGroup,
   ComboboxItem,
   ComboboxList,
-  ComboboxValue,
 } from "@/components/ui/combobox"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   type CambioEscenarioAuditoriaNormativa,
   comunidadesAuditoriaNormativa,
@@ -103,12 +101,17 @@ type EstadoAuditoria =
   | { readonly _tag: "lista"; readonly auditoria: AuditoriaRangoSalarial }
   | { readonly _tag: "error"; readonly mensaje: string }
 
-function AuditoriaImpl() {
+function AuditoriaImpl({
+  parametrosIniciales = "",
+}: {
+  readonly parametrosIniciales?: string
+}) {
   const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const escenarioAuditoria =
-    leerEscenarioAuditoriaNormativaDesdeUrl(searchParams)
+  const [escenarioAuditoria, fijarEscenarioAuditoria] = React.useState(() =>
+    leerEscenarioAuditoriaNormativaDesdeUrl(
+      new URLSearchParams(parametrosIniciales)
+    )
+  )
   const [minimoCentimos, fijarMinimoCentimos] = React.useState<number>(
     configuracionRangoAuditoria.minimoPorDefectoCentimos
   )
@@ -203,10 +206,28 @@ function AuditoriaImpl() {
         ...escenarioAuditoria,
         ...cambio,
       })
-      router.replace(`${pathname}?${parametros.toString()}`, { scroll: false })
+      fijarEscenarioAuditoria(
+        leerEscenarioAuditoriaNormativaDesdeUrl(parametros)
+      )
+      router.replace(`/auditoria?${parametros.toString()}`, { scroll: false })
     },
-    [escenarioAuditoria, pathname, router]
+    [escenarioAuditoria, router]
   )
+
+  React.useEffect(() => {
+    const sincronizarEscenarioConUrl = () => {
+      fijarEscenarioAuditoria(
+        leerEscenarioAuditoriaNormativaDesdeUrl(
+          new URLSearchParams(window.location.search)
+        )
+      )
+    }
+
+    window.addEventListener("popstate", sincronizarEscenarioConUrl)
+    return () => {
+      window.removeEventListener("popstate", sincronizarEscenarioConUrl)
+    }
+  }, [])
 
   const registrarProgresoExportacionCompatible = React.useCallback(
     (progreso: ProgresoExportacionCompatible) => {
@@ -298,28 +319,6 @@ function AuditoriaImpl() {
     []
   )
 
-  if (auditoria === null) {
-    return (
-      <main className="min-h-svh">
-        <div className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-          <header className="border-b-2 border-[var(--rule)] pb-4">
-            <NavegacionSitio />
-          </header>
-          <section className="border-b-2 border-[var(--rule)] py-8">
-            <h1 className="font-[family-name:var(--display)] text-[clamp(2.4rem,9vw,5.8rem)] leading-none tracking-wider uppercase">
-              AUDITORÍA
-            </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-[var(--ink-soft)] uppercase">
-              {estadoAuditoria._tag === "error"
-                ? `No se pudo calcular la auditoría: ${estadoAuditoria.mensaje}`
-                : "Calculando la liquidación IRPF anual por rango salarial..."}
-            </p>
-          </section>
-        </div>
-      </main>
-    )
-  }
-
   return (
     <main className="min-h-svh">
       <div className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
@@ -337,15 +336,17 @@ function AuditoriaImpl() {
           <div className="grid gap-3 self-start">
             <p className="text-sm leading-6 text-[var(--ink)]">
               Barrido determinista del rango con referencia en{" "}
-              <strong>{auditoria.anioReferencia}</strong>. Cada punto se calcula
-              con la liquidación IRPF anual y el IRPF final conciliado del
-              simulador; la tabla está al final.
+              <strong>
+                {auditoria?.anioReferencia ?? escenarioAuditoria.anioReferencia}
+              </strong>
+              . Cada punto se calcula con la liquidación IRPF anual y el IRPF
+              final conciliado del simulador; la tabla está al final.
             </p>
             <div className="flex flex-wrap gap-2 text-sm tracking-[0.22em] uppercase">
               <Button
                 type="button"
                 onClick={() => exportar("educativa")}
-                disabled={exportando !== null}
+                disabled={exportando !== null || auditoria === null}
                 variant="unstyled"
                 className="border-2 border-[var(--rule)] bg-[var(--paper)] px-3 py-2 transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none disabled:opacity-40"
               >
@@ -354,7 +355,7 @@ function AuditoriaImpl() {
               <Button
                 type="button"
                 onClick={() => exportar("compatible")}
-                disabled={exportando !== null}
+                disabled={exportando !== null || auditoria === null}
                 variant="unstyled"
                 className="border-2 border-[var(--rule)] bg-[var(--rule)] px-3 py-2 text-[var(--paper)] transition-colors hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none disabled:opacity-40"
               >
@@ -378,7 +379,14 @@ function AuditoriaImpl() {
 
         <Visualizaciones
           auditoria={auditoria}
-          comunidadesAutonomas={escenarioAuditoria.comunidadesAutonomas}
+          estadoAuditoria={estadoAuditoria}
+          comunidadAutonoma={escenarioAuditoria.comunidadAutonoma}
+          alCambiarComunidadAutonoma={(comunidadAutonoma) =>
+            actualizarEscenarioAuditoria({
+              comunidadAutonoma,
+              comunidadesAutonomas: [comunidadAutonoma],
+            })
+          }
           permiteReferenciaTecnica2026={permiteReferenciaTecnica2026}
           aniosGraficoIrpf={aniosGraficoIrpf}
           fijarAniosGraficoIrpf={fijarAniosGraficoIrpf}
@@ -402,10 +410,7 @@ function AuditoriaImpl() {
   )
 }
 
-export const Auditoria = dynamic(async () => ({ default: AuditoriaImpl }), {
-  ssr: false,
-  loading: () => <div className="min-h-svh bg-[var(--paper)]" />,
-})
+export const Auditoria = AuditoriaImpl
 
 function DialogoExportacionCompatible({
   dialogo,
@@ -577,13 +582,6 @@ function ControlesAuditoriaNormativa({
   const magnitudActiva = describirMagnitudAuditoriaNormativa(
     escenario.magnitudAuditada
   )
-  const comunidadActiva = describirComunidadAutonomaAuditoria(
-    escenario.comunidadAutonoma
-  )
-  const opcionesComunidadAutonoma = comunidadesAuditoriaNormativa.map(
-    describirComunidadAutonomaAuditoria
-  )
-  const comunidadesActivas = new Set(escenario.comunidadesAutonomas)
 
   return (
     <section className="grid gap-4 border-b-2 border-[var(--rule)] py-6">
@@ -598,11 +596,11 @@ function ControlesAuditoriaNormativa({
         </div>
         <p className="max-w-xl text-sm leading-5 text-[var(--ink-soft)]">
           {perfilActivo.detalle} · {estrategiaActiva.detalle} ·{" "}
-          {magnitudActiva.detalle} · {comunidadActiva.detalle}
+          {magnitudActiva.detalle}
         </p>
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1.7fr)_minmax(18rem,0.8fr)]">
+      <div className="grid gap-4">
         <Tabs.Root
           value={escenario.perfil}
           onValueChange={(valor) => {
@@ -634,58 +632,6 @@ function ControlesAuditoriaNormativa({
             })}
           </Tabs.List>
         </Tabs.Root>
-
-        <div className="grid gap-2">
-          <span className="min-h-0 text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-            Comunidades autónomas
-          </span>
-          <Combobox
-            multiple
-            items={opcionesComunidadAutonoma}
-            value={opcionesComunidadAutonoma.filter((opcion) =>
-              comunidadesActivas.has(opcion.valor)
-            )}
-            itemToStringValue={(opcion) => opcion.valor}
-            itemToStringLabel={(opcion) => opcion.etiqueta}
-            isItemEqualToValue={(opcion, valor) => opcion.valor === valor.valor}
-            onValueChange={(opciones) => {
-              const comunidadesAutonomas = opciones.map(
-                (opcion) => opcion.valor
-              )
-              const comunidadAutonoma =
-                comunidadesAutonomas[0] ?? escenario.comunidadAutonoma
-
-              alCambiarEscenario({ comunidadAutonoma, comunidadesAutonomas })
-            }}
-          >
-            <ComboboxChips>
-              <ComboboxValue>
-                {opcionesComunidadAutonoma
-                  .filter((opcion) => comunidadesActivas.has(opcion.valor))
-                  .map((opcion) => (
-                    <ComboboxChip key={opcion.valor}>
-                      {opcion.etiqueta}
-                    </ComboboxChip>
-                  ))}
-              </ComboboxValue>
-              <ComboboxChipsInput placeholder="Añade varias comunidades" />
-            </ComboboxChips>
-            <p className="text-xs leading-4 text-[var(--ink-soft)]">
-              Puedes seleccionar varias; cada comunidad aparece en la leyenda
-              con una familia de color propia.
-            </p>
-            <ComboboxContent>
-              <ComboboxEmpty>No hay comunidades con ese texto.</ComboboxEmpty>
-              <ComboboxList>
-                {(opcion) => (
-                  <ComboboxItem key={opcion.valor} value={opcion}>
-                    {opcion.etiqueta}
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        </div>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
@@ -896,20 +842,20 @@ const obtenerAniosTipoEfectivoIrpf = ({
   )
 
 const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
-  2012: "oklch(0.38 0 0)",
-  2013: "oklch(0.58 0 0)",
-  2014: "oklch(0.47 0 0)",
-  2015: "oklch(0.18 0 0)",
-  2016: "oklch(0.82 0 0)",
-  2017: "oklch(0.62 0 0)",
-  2018: "oklch(0.44 0.13 260)",
+  2012: "oklch(0.45 0.16 265)",
+  2013: "oklch(0.55 0.16 220)",
+  2014: "oklch(0.52 0.15 185)",
+  2015: "oklch(0.46 0.15 155)",
+  2016: "oklch(0.58 0.16 130)",
+  2017: "oklch(0.64 0.16 110)",
+  2018: "oklch(0.52 0.14 300)",
   2019: "oklch(0.78 0.16 88)",
-  2020: "oklch(0.68 0 0)",
-  2021: "oklch(0.52 0 0)",
-  2022: "oklch(0.24 0 0)",
-  2023: "oklch(0.78 0 0)",
-  2024: "oklch(0.64 0 0)",
-  2025: "oklch(0.42 0 0)",
+  2020: "oklch(0.56 0.16 60)",
+  2021: "oklch(0.50 0.16 35)",
+  2022: "oklch(0.50 0.14 15)",
+  2023: "oklch(0.48 0.16 340)",
+  2024: "oklch(0.44 0.15 315)",
+  2025: "oklch(0.38 0.12 285)",
   2026: "oklch(0.62 0.19 35)",
 }
 
@@ -941,56 +887,11 @@ const aniosDesdeClaveGrafico = (clave: string): ReadonlyArray<AnioFiscal> =>
     .split(",")
     .filter((valor) => valor.length > 0)
     .map((valor) => Number(valor) as AnioFiscal)
-const comunidadesDesdeClaveGrafico = (
-  clave: string
-): ReadonlyArray<ComunidadAuditada> => {
-  const valores = clave.split(",")
-
-  return comunidadesAuditoriaNormativa.filter((comunidadAutonoma) =>
-    valores.includes(comunidadAutonoma)
-  )
-}
-
-const paletasComunidadesAuditoria = {
-  "simulada-estatal": { l: 0.2, c: 0, h: 0 },
-  andalucia: { l: 0.55, c: 0.17, h: 145 },
-  aragon: { l: 0.58, c: 0.17, h: 65 },
-  asturias: { l: 0.52, c: 0.13, h: 250 },
-  "illes-balears": { l: 0.6, c: 0.15, h: 195 },
-  canarias: { l: 0.68, c: 0.16, h: 95 },
-  cantabria: { l: 0.48, c: 0.12, h: 170 },
-  "castilla-la-mancha": { l: 0.54, c: 0.13, h: 35 },
-  "castilla-y-leon": { l: 0.52, c: 0.12, h: 85 },
-  catalunya: { l: 0.73, c: 0.18, h: 92 },
-  extremadura: { l: 0.5, c: 0.15, h: 25 },
-  galicia: { l: 0.56, c: 0.13, h: 220 },
-  madrid: { l: 0.18, c: 0, h: 0 },
-  murcia: { l: 0.56, c: 0.16, h: 50 },
-  "la-rioja": { l: 0.5, c: 0.16, h: 15 },
-  "comunitat-valenciana": { l: 0.58, c: 0.16, h: 330 },
-  ceuta: { l: 0.52, c: 0.11, h: 285 },
-  melilla: { l: 0.5, c: 0.11, h: 305 },
-} satisfies Readonly<
-  Record<
-    ComunidadAuditada,
-    { readonly l: number; readonly c: number; readonly h: number }
-  >
->
-
-const limitar = (valor: number, minimo: number, maximo: number): number =>
-  Math.min(maximo, Math.max(minimo, valor))
 
 const colorSerieAuditoria = (
-  comunidadAutonoma: ComunidadAuditada,
+  _comunidadAutonoma: ComunidadAuditada,
   anio: AnioFiscal
-): string => {
-  const base = paletasComunidadesAuditoria[comunidadAutonoma]
-  const indice = aniosTipoEfectivoIrpfConReferenciaTecnica2026.indexOf(anio)
-  const desplazamiento = (indice - 7) * 0.018
-  const luminosidad = limitar(base.l + desplazamiento, 0.16, 0.82)
-
-  return `oklch(${luminosidad.toFixed(3)} ${base.c} ${base.h})`
-}
+): string => coloresTipoEfectivoIrpf[anio]
 
 const configuracionTipoEfectivoIrpf = ({
   comunidadesAutonomas,
@@ -1041,6 +942,15 @@ const configuracionNetoReal = ({
 
 type FilaTipoEfectivoIrpf = Record<string, number | string>
 type FilaNetoReal = Record<string, number | string | null>
+type EstadoDatosGrafico =
+  | { readonly _tag: "cargando"; readonly clave: string }
+  | {
+      readonly _tag: "lista"
+      readonly clave: string
+      readonly tipoEfectivoIrpf: ReadonlyArray<FilaTipoEfectivoIrpf>
+      readonly netoReal: ReadonlyArray<FilaNetoReal>
+    }
+  | { readonly _tag: "error"; readonly clave: string; readonly mensaje: string }
 
 const obtenerPuntosAuditoriaParaAnio = (
   auditoria: AuditoriaRangoSalarial,
@@ -1289,21 +1199,35 @@ function LeyendaNetoReal({
 
 function Visualizaciones({
   auditoria,
-  comunidadesAutonomas,
+  estadoAuditoria,
+  comunidadAutonoma,
+  alCambiarComunidadAutonoma,
   permiteReferenciaTecnica2026,
   aniosGraficoIrpf,
   fijarAniosGraficoIrpf,
   aniosGraficoNetoReal,
   fijarAniosGraficoNetoReal,
 }: {
-  readonly auditoria: AuditoriaRangoSalarial
-  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly auditoria: AuditoriaRangoSalarial | null
+  readonly estadoAuditoria: EstadoAuditoria
+  readonly comunidadAutonoma: ComunidadAuditada
+  readonly alCambiarComunidadAutonoma: (
+    comunidadAutonoma: ComunidadAuditada
+  ) => void
   readonly permiteReferenciaTecnica2026: boolean
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoIrpf: (anios: ReadonlyArray<AnioFiscal>) => void
   readonly aniosGraficoNetoReal: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoNetoReal: (anios: ReadonlyArray<AnioFiscal>) => void
 }) {
+  const comunidadesAutonomas = [comunidadAutonoma] as const
+  const opcionesComunidadAutonoma = comunidadesAuditoriaNormativa.map(
+    describirComunidadAutonomaAuditoria
+  )
+  const opcionComunidadAutonoma =
+    opcionesComunidadAutonoma.find(
+      (opcion) => opcion.valor === comunidadAutonoma
+    ) ?? opcionesComunidadAutonoma[0]
   const aniosTipoEfectivoIrpf = obtenerAniosTipoEfectivoIrpf({
     permiteReferenciaTecnica2026,
   })
@@ -1312,18 +1236,30 @@ function Visualizaciones({
   )
   const claveAniosGraficoIrpfVisibles = aniosGraficoIrpfVisibles.join(",")
   const claveAniosGraficoNetoReal = aniosGraficoNetoReal.join(",")
-  const claveComunidadesAutonomas = comunidadesAutonomas.join(",")
-  const [datosTipoEfectivoIrpf, fijarDatosTipoEfectivoIrpf] = React.useState<
-    ReadonlyArray<FilaTipoEfectivoIrpf>
-  >([])
-  const [datosNetoReal, fijarDatosNetoReal] = React.useState<
-    ReadonlyArray<FilaNetoReal>
-  >([])
+  const claveDatosGrafico =
+    auditoria === null
+      ? "sin-auditoria"
+      : [
+          comunidadAutonoma,
+          auditoria.anioReferencia,
+          auditoria.salarioBrutoAnualMinimoCentimos,
+          auditoria.salarioBrutoAnualMaximoCentimos,
+          auditoria.pasoCentimos,
+          claveAniosGraficoIrpfVisibles,
+          claveAniosGraficoNetoReal,
+        ].join("|")
+  const [estadoDatosGrafico, fijarEstadoDatosGrafico] =
+    React.useState<EstadoDatosGrafico>({
+      _tag: "cargando",
+      clave: "sin-auditoria",
+    })
 
   React.useEffect(() => {
+    if (auditoria === null) return
+
     const aniosIrpf = aniosDesdeClaveGrafico(claveAniosGraficoIrpfVisibles)
     const aniosNeto = aniosDesdeClaveGrafico(claveAniosGraficoNetoReal)
-    const comunidades = comunidadesDesdeClaveGrafico(claveComunidadesAutonomas)
+    const comunidades = [comunidadAutonoma] as const
 
     const fibra = Effect.runFork(
       Effect.all(
@@ -1344,9 +1280,23 @@ function Visualizaciones({
     )
 
     fibra.addObserver((exit) => {
-      if (!Exit.isSuccess(exit)) return
-      fijarDatosTipoEfectivoIrpf(exit.value.tipoEfectivoIrpf)
-      fijarDatosNetoReal(exit.value.netoReal)
+      if (Exit.isSuccess(exit)) {
+        fijarEstadoDatosGrafico({
+          _tag: "lista",
+          clave: claveDatosGrafico,
+          tipoEfectivoIrpf: exit.value.tipoEfectivoIrpf,
+          netoReal: exit.value.netoReal,
+        })
+        return
+      }
+
+      if (Cause.hasInterruptsOnly(exit.cause)) return
+
+      fijarEstadoDatosGrafico({
+        _tag: "error",
+        clave: claveDatosGrafico,
+        mensaje: String(Cause.squash(exit.cause)),
+      })
     })
 
     return () => {
@@ -1355,9 +1305,42 @@ function Visualizaciones({
   }, [
     claveAniosGraficoIrpfVisibles,
     claveAniosGraficoNetoReal,
-    claveComunidadesAutonomas,
+    claveDatosGrafico,
+    comunidadAutonoma,
     auditoria,
   ])
+
+  const estadoDatosGraficoActual =
+    auditoria === null
+      ? estadoAuditoria._tag === "error"
+        ? ({
+            _tag: "error",
+            clave: claveDatosGrafico,
+            mensaje: estadoAuditoria.mensaje,
+          } satisfies EstadoDatosGrafico)
+        : ({
+            _tag: "cargando",
+            clave: claveDatosGrafico,
+          } satisfies EstadoDatosGrafico)
+      : estadoDatosGrafico.clave === claveDatosGrafico
+        ? estadoDatosGrafico
+        : ({
+            _tag: "cargando",
+            clave: claveDatosGrafico,
+          } satisfies EstadoDatosGrafico)
+  const datosTipoEfectivoIrpf =
+    estadoDatosGraficoActual._tag === "lista"
+      ? estadoDatosGraficoActual.tipoEfectivoIrpf
+      : []
+  const datosNetoReal =
+    estadoDatosGraficoActual._tag === "lista"
+      ? estadoDatosGraficoActual.netoReal
+      : []
+  const graficoCargando = estadoDatosGraficoActual._tag === "cargando"
+  const errorGrafico =
+    estadoDatosGraficoActual._tag === "error"
+      ? estadoDatosGraficoActual.mensaje
+      : null
 
   const clavesTipoEfectivoIrpf = comunidadesAutonomas.flatMap(
     (comunidadAutonoma) =>
@@ -1381,12 +1364,24 @@ function Visualizaciones({
   )
   const ticksTipoEfectivoIrpf = ticksPorcentaje(dominioTipoEfectivoIrpf)
   const ticksSalario = ticksSalarioEuros({
-    minimoEuros: centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos),
-    maximoEuros: centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos),
+    minimoEuros: centimosAEuros(
+      auditoria?.salarioBrutoAnualMinimoCentimos ??
+        configuracionRangoAuditoria.minimoPorDefectoCentimos
+    ),
+    maximoEuros: centimosAEuros(
+      auditoria?.salarioBrutoAnualMaximoCentimos ??
+        configuracionRangoAuditoria.maximoPorDefectoCentimos
+    ),
   })
   const dominioSalario = [
-    centimosAEuros(auditoria.salarioBrutoAnualMinimoCentimos),
-    centimosAEuros(auditoria.salarioBrutoAnualMaximoCentimos),
+    centimosAEuros(
+      auditoria?.salarioBrutoAnualMinimoCentimos ??
+        configuracionRangoAuditoria.minimoPorDefectoCentimos
+    ),
+    centimosAEuros(
+      auditoria?.salarioBrutoAnualMaximoCentimos ??
+        configuracionRangoAuditoria.maximoPorDefectoCentimos
+    ),
   ] as const
   const dominioDiferencia = dominioEurosSimetrico(
     valoresNumericosDeFilas(datosNetoReal, clavesNetoReal)
@@ -1405,6 +1400,10 @@ function Visualizaciones({
       : [...aniosGraficoNetoReal, anio].sort((a, b) => a - b)
     fijarAniosGraficoNetoReal(siguiente.length > 0 ? siguiente : [anio])
   }
+  const claseGraficoTipoEfectivoIrpf =
+    "mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
+  const claseGraficoNetoReal =
+    "mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
 
   return (
     <section className="border-b-2 border-[var(--rule)] py-6">
@@ -1426,9 +1425,43 @@ function Visualizaciones({
           className="border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
           <div className="flex flex-wrap items-start justify-between gap-4">
-            <p className="max-w-3xl text-sm leading-5 text-[var(--ink-soft)]">
-              TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN
-            </p>
+            <div className="grid w-full max-w-3xl gap-3">
+              <p className="text-sm leading-5 text-[var(--ink-soft)]">
+                TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN
+              </p>
+              <Combobox
+                items={opcionesComunidadAutonoma}
+                value={opcionComunidadAutonoma}
+                itemToStringValue={(opcion) => opcion.valor}
+                itemToStringLabel={(opcion) => opcion.etiqueta}
+                isItemEqualToValue={(opcion, valor) =>
+                  opcion.valor === valor.valor
+                }
+                onValueChange={(opcion) => {
+                  if (opcion === null) return
+                  alCambiarComunidadAutonoma(opcion.valor)
+                }}
+              >
+                <ComboboxInputGroup className="max-w-xl">
+                  <ComboboxInput
+                    aria-label="Buscar comunidad autónoma"
+                    placeholder="Buscar comunidad autónoma"
+                  />
+                </ComboboxInputGroup>
+                <ComboboxContent>
+                  <ComboboxEmpty>
+                    No hay comunidades con ese texto.
+                  </ComboboxEmpty>
+                  <ComboboxList>
+                    {(opcion) => (
+                      <ComboboxItem key={opcion.valor} value={opcion}>
+                        {opcion.etiqueta}
+                      </ComboboxItem>
+                    )}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
+            </div>
             <div
               role="group"
               aria-label="Años visibles en la gráfica de tipo efectivo del IRPF"
@@ -1462,104 +1495,120 @@ function Visualizaciones({
               })}
             </div>
           </div>
-          <ChartContainer
-            config={configTipoEfectivoIrpf}
-            className="mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(24rem,52vw,34rem)]"
-          >
-            <LineChart
-              accessibilityLayer
-              data={datosTipoEfectivoIrpf}
-              margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
-            >
-              <CartesianGrid
-                vertical={false}
-                stroke="var(--rule)"
-                strokeDasharray="2 4"
-              />
-              <XAxis
-                type="number"
-                dataKey="salarioEuros"
-                domain={dominioSalario}
-                ticks={ticksSalario}
-                tickFormatter={(valor: number) =>
-                  formatearSalarioCorto(eurosACentimos(valor))
-                }
-                tickLine={false}
-                axisLine={{ stroke: "var(--rule)" }}
-                tickMargin={10}
-                interval={0}
-                minTickGap={8}
-                angle={-90}
-                textAnchor="end"
-                height={66}
-                fontSize={14}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tickMargin={6}
-                width={44}
-                domain={dominioTipoEfectivoIrpf}
-                ticks={ticksTipoEfectivoIrpf}
-                fontSize={14}
-                tickFormatter={formatearTickPorcentaje}
-              />
-              <ChartTooltip
-                isAnimationActive={false}
-                allowEscapeViewBox={{ x: false, y: false }}
-                wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
-                cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
-                content={
-                  <ChartTooltipContent
-                    className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
-                    formatter={(valor, nombre, item) => (
-                      <span
-                        className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                        style={{ color: item.color }}
-                      >
-                        {porcentaje.format(Number(valor))} ({nombre})
-                      </span>
-                    )}
-                    labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                    labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
-                  />
-                }
-              />
-              <Legend
-                verticalAlign="bottom"
-                align="right"
-                iconType="plainline"
-                wrapperStyle={{
-                  fontFamily: "var(--mono)",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  paddingTop: 8,
-                }}
-              />
-              {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
-                aniosGraficoIrpfVisibles.map((anio) => {
-                  const clave = claveSerieTipoEfectivoIrpf(
-                    comunidadAutonoma,
-                    anio
-                  )
-
-                  return (
-                    <Line
-                      key={clave}
-                      dataKey={clave}
-                      name={etiquetaSerieAuditoria(comunidadAutonoma, anio)}
-                      type="monotone"
-                      stroke={`var(--color-${clave})`}
-                      strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
-                      dot={false}
-                      activeDot={{ r: 4, strokeWidth: 0 }}
-                      isAnimationActive={false}
-                    />
-                  )
-                })
+          {graficoCargando ? (
+            <Skeleton
+              aria-label="Cargando gráfica de tipo efectivo del IRPF"
+              className={claseGraficoTipoEfectivoIrpf}
+            />
+          ) : errorGrafico !== null || auditoria === null ? (
+            <div
+              className={cn(
+                claseGraficoTipoEfectivoIrpf,
+                "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
               )}
-            </LineChart>
-          </ChartContainer>
+            >
+              No se pudo calcular la gráfica: {errorGrafico ?? "sin datos"}
+            </div>
+          ) : (
+            <ChartContainer
+              config={configTipoEfectivoIrpf}
+              className={claseGraficoTipoEfectivoIrpf}
+            >
+              <LineChart
+                accessibilityLayer
+                data={datosTipoEfectivoIrpf}
+                margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+              >
+                <CartesianGrid
+                  vertical={false}
+                  stroke="var(--rule)"
+                  strokeDasharray="2 4"
+                />
+                <XAxis
+                  type="number"
+                  dataKey="salarioEuros"
+                  domain={dominioSalario}
+                  ticks={ticksSalario}
+                  tickFormatter={(valor: number) =>
+                    formatearSalarioCorto(eurosACentimos(valor))
+                  }
+                  tickLine={false}
+                  axisLine={{ stroke: "var(--rule)" }}
+                  tickMargin={10}
+                  interval={0}
+                  minTickGap={8}
+                  angle={-90}
+                  textAnchor="end"
+                  height={66}
+                  fontSize={14}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={6}
+                  width={44}
+                  domain={dominioTipoEfectivoIrpf}
+                  ticks={ticksTipoEfectivoIrpf}
+                  fontSize={14}
+                  tickFormatter={formatearTickPorcentaje}
+                />
+                <ChartTooltip
+                  isAnimationActive={false}
+                  allowEscapeViewBox={{ x: false, y: false }}
+                  wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
+                  cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                  content={
+                    <ChartTooltipContent
+                      className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                      formatter={(valor, nombre, item) => (
+                        <span
+                          className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                          style={{ color: item.color }}
+                        >
+                          {porcentaje.format(Number(valor))} ({nombre})
+                        </span>
+                      )}
+                      labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                      labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+                    />
+                  }
+                />
+                <Legend
+                  verticalAlign="bottom"
+                  align="right"
+                  iconType="plainline"
+                  wrapperStyle={{
+                    fontFamily: "var(--mono)",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    paddingTop: 8,
+                  }}
+                />
+                {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+                  aniosGraficoIrpfVisibles.map((anio) => {
+                    const clave = claveSerieTipoEfectivoIrpf(
+                      comunidadAutonoma,
+                      anio
+                    )
+
+                    return (
+                      <Line
+                        key={clave}
+                        dataKey={clave}
+                        name={etiquetaSerieAuditoria(comunidadAutonoma, anio)}
+                        type="monotone"
+                        stroke={`var(--color-${clave})`}
+                        strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                        dot={false}
+                        activeDot={{ r: 4, strokeWidth: 0 }}
+                        isAnimationActive={false}
+                      />
+                    )
+                  })
+                )}
+              </LineChart>
+            </ChartContainer>
+          )}
           <ul className="mt-4 grid gap-2 border-t-2 border-[var(--rule)] pt-4 font-[family-name:var(--mono)] text-xs leading-5 text-[var(--ink-soft)]">
             {aniosGraficoIrpfVisibles.map((anio) => (
               <li key={`formula-irpf-${anio}`}>
@@ -1576,7 +1625,7 @@ function Visualizaciones({
             <p className="max-w-3xl text-sm leading-5 text-[var(--ink-soft)]">
               DIFERENCIA ANUAL DE PODER ADQUISITIVO NETO POR SALARIO BRUTO. SI
               ES POSITIVA, EL AÑO COMPARADO DEJABA MÁS NETO REAL QUE{" "}
-              {auditoria.anioReferencia}.
+              {auditoria?.anioReferencia ?? 2025}.
             </p>
             <div
               role="group"
@@ -1611,136 +1660,155 @@ function Visualizaciones({
               })}
             </div>
           </div>
-          <ChartContainer
-            config={configNetoReal}
-            className="mt-4 aspect-[4/3] w-full sm:aspect-[16/9] sm:h-[clamp(18rem,42vw,24rem)]"
-          >
-            <AreaChart
-              accessibilityLayer
-              data={datosNetoReal}
-              baseValue={0}
-              margin={{ left: 4, right: 18, top: 4, bottom: 28 }}
-            >
-              <CartesianGrid
-                vertical={false}
-                stroke="var(--rule)"
-                strokeDasharray="2 4"
-              />
-              <XAxis
-                type="number"
-                dataKey="salarioEuros"
-                domain={dominioSalario}
-                ticks={ticksSalario}
-                tickFormatter={(valor: number) =>
-                  formatearSalarioCorto(eurosACentimos(valor))
-                }
-                tickLine={false}
-                axisLine={{ stroke: "var(--rule)" }}
-                tickMargin={10}
-                interval={0}
-                minTickGap={8}
-                angle={-90}
-                textAnchor="end"
-                height={66}
-                fontSize={14}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={{ stroke: "var(--rule)" }}
-                tickMargin={4}
-                width={44}
-                domain={dominioDiferencia}
-                fontSize={14}
-                tickFormatter={(valor: number) =>
-                  Math.abs(valor) >= 1000
-                    ? `${Math.round(valor / 1000)}k`
-                    : String(valor)
-                }
-              />
-              <ChartTooltip
-                isAnimationActive={false}
-                allowEscapeViewBox={{ x: false, y: false }}
-                wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
-                cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
-                content={
-                  <ChartTooltipContent
-                    className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
-                    formatter={(valor, nombre, item) => (
-                      <span
-                        className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                        style={{ color: item.color }}
-                      >
-                        {dinero.format(Number(valor))} ({nombre})
-                      </span>
-                    )}
-                    labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                    labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
-                  />
-                }
-              />
-              <Legend
-                verticalAlign="bottom"
-                align="right"
-                iconType="plainline"
-                content={<LeyendaNetoReal />}
-                wrapperStyle={{
-                  fontFamily: "var(--mono)",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  paddingTop: 8,
-                }}
-              />
-              {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
-                aniosGraficoNetoReal.flatMap((anio) => {
-                  const clavePositiva = claveSerieNetoPositiva(
-                    comunidadAutonoma,
-                    anio
-                  )
-                  const claveNegativa = claveSerieNetoNegativa(
-                    comunidadAutonoma,
-                    anio
-                  )
-                  const nombre = etiquetaSerieAuditoria(comunidadAutonoma, anio)
-                  const color = colorSerieAuditoria(comunidadAutonoma, anio)
-
-                  return [
-                    <Area
-                      key={clavePositiva}
-                      dataKey={clavePositiva}
-                      name={nombre}
-                      type="monotone"
-                      stroke={color}
-                      strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
-                      fill={color}
-                      fillOpacity={0.16}
-                      legendType="plainline"
-                      baseValue={0}
-                      dot={false}
-                      activeDot={{ r: 4, strokeWidth: 0 }}
-                      connectNulls={false}
-                      isAnimationActive={false}
-                    />,
-                    <Area
-                      key={claveNegativa}
-                      dataKey={claveNegativa}
-                      name={nombre}
-                      type="monotone"
-                      stroke={color}
-                      strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
-                      fill={color}
-                      fillOpacity={0.18}
-                      legendType="plainline"
-                      baseValue={0}
-                      dot={false}
-                      activeDot={{ r: 4, strokeWidth: 0 }}
-                      connectNulls={false}
-                      isAnimationActive={false}
-                    />,
-                  ]
-                })
+          {graficoCargando ? (
+            <Skeleton
+              aria-label="Cargando gráfica de neto real"
+              className={claseGraficoNetoReal}
+            />
+          ) : errorGrafico !== null || auditoria === null ? (
+            <div
+              className={cn(
+                claseGraficoNetoReal,
+                "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
               )}
-            </AreaChart>
-          </ChartContainer>
+            >
+              No se pudo calcular la gráfica: {errorGrafico ?? "sin datos"}
+            </div>
+          ) : (
+            <ChartContainer
+              config={configNetoReal}
+              className={claseGraficoNetoReal}
+            >
+              <AreaChart
+                accessibilityLayer
+                data={datosNetoReal}
+                baseValue={0}
+                margin={{ left: 4, right: 18, top: 4, bottom: 28 }}
+              >
+                <CartesianGrid
+                  vertical={false}
+                  stroke="var(--rule)"
+                  strokeDasharray="2 4"
+                />
+                <XAxis
+                  type="number"
+                  dataKey="salarioEuros"
+                  domain={dominioSalario}
+                  ticks={ticksSalario}
+                  tickFormatter={(valor: number) =>
+                    formatearSalarioCorto(eurosACentimos(valor))
+                  }
+                  tickLine={false}
+                  axisLine={{ stroke: "var(--rule)" }}
+                  tickMargin={10}
+                  interval={0}
+                  minTickGap={8}
+                  angle={-90}
+                  textAnchor="end"
+                  height={66}
+                  fontSize={14}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={{ stroke: "var(--rule)" }}
+                  tickMargin={4}
+                  width={44}
+                  domain={dominioDiferencia}
+                  fontSize={14}
+                  tickFormatter={(valor: number) =>
+                    Math.abs(valor) >= 1000
+                      ? `${Math.round(valor / 1000)}k`
+                      : String(valor)
+                  }
+                />
+                <ChartTooltip
+                  isAnimationActive={false}
+                  allowEscapeViewBox={{ x: false, y: false }}
+                  wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
+                  cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                  content={
+                    <ChartTooltipContent
+                      className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                      formatter={(valor, nombre, item) => (
+                        <span
+                          className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                          style={{ color: item.color }}
+                        >
+                          {dinero.format(Number(valor))} ({nombre})
+                        </span>
+                      )}
+                      labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                      labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+                    />
+                  }
+                />
+                <Legend
+                  verticalAlign="bottom"
+                  align="right"
+                  iconType="plainline"
+                  content={<LeyendaNetoReal />}
+                  wrapperStyle={{
+                    fontFamily: "var(--mono)",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    paddingTop: 8,
+                  }}
+                />
+                {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+                  aniosGraficoNetoReal.flatMap((anio) => {
+                    const clavePositiva = claveSerieNetoPositiva(
+                      comunidadAutonoma,
+                      anio
+                    )
+                    const claveNegativa = claveSerieNetoNegativa(
+                      comunidadAutonoma,
+                      anio
+                    )
+                    const nombre = etiquetaSerieAuditoria(
+                      comunidadAutonoma,
+                      anio
+                    )
+                    const color = colorSerieAuditoria(comunidadAutonoma, anio)
+
+                    return [
+                      <Area
+                        key={clavePositiva}
+                        dataKey={clavePositiva}
+                        name={nombre}
+                        type="monotone"
+                        stroke={color}
+                        strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                        fill={color}
+                        fillOpacity={0.16}
+                        legendType="plainline"
+                        baseValue={0}
+                        dot={false}
+                        activeDot={{ r: 4, strokeWidth: 0 }}
+                        connectNulls={false}
+                        isAnimationActive={false}
+                      />,
+                      <Area
+                        key={claveNegativa}
+                        dataKey={claveNegativa}
+                        name={nombre}
+                        type="monotone"
+                        stroke={color}
+                        strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                        fill={color}
+                        fillOpacity={0.18}
+                        legendType="plainline"
+                        baseValue={0}
+                        dot={false}
+                        activeDot={{ r: 4, strokeWidth: 0 }}
+                        connectNulls={false}
+                        isAnimationActive={false}
+                      />,
+                    ]
+                  })
+                )}
+              </AreaChart>
+            </ChartContainer>
+          )}
         </Tabs.Panel>
       </Tabs.Root>
     </section>
