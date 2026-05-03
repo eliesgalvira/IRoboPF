@@ -3000,10 +3000,16 @@ function FormulaTipoMarginalIrpf({
 
       <dl className="grid gap-4">
         <ExplicacionVariable termino="TIPO_MARGINAL_IRPF">
-          Porcentaje de cada euro bruto adicional que se transforma en más IRPF
-          anual en el tramo siguiente de salario. La línea roja mantiene el tipo
-          efectivo limpio de esta vista: IRPF_FINAL dividido entre
-          SALARIO_BRUTO_REAL.
+          <div className="grid gap-2">
+            <p>
+              Porcentaje de cada euro bruto adicional que se transforma en más
+              IRPF anual del salario siguiente.
+            </p>
+            <p>
+              Por ejemplo: si al pasar de 20.000 EUR a 20.050 EUR la cuota sube
+              25 EUR, el tipo marginal mostrado es 25 / 50 = 50%.
+            </p>
+          </div>
         </ExplicacionVariable>
         <ExplicacionVariable termino="CUOTA_TRAS_DEDUCCION_SMI">
           Se recalcula la cuota anual para dos salarios consecutivos después de
