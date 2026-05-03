@@ -17,6 +17,7 @@ export interface ConciliacionSimuladorLegacy {
   readonly anio: AnioFiscal
   readonly cuotaLiquidadaAnualCentimos: number
   readonly deduccionSmiCentimos: number
+  readonly cuotaTrasDeduccionSmi: Decimal
   readonly cuotaTrasDeduccionSmiCentimos: number
   readonly rendimientoIntegroTrabajoCentimos: number
   readonly minimoExentoRetencionCentimos: number
@@ -146,6 +147,7 @@ export const calcularConciliacionSimuladorLegacy = ({
         anio,
         cuotaLiquidadaAnualCentimos: cuotaLiquidaCentimos,
         deduccionSmiCentimos: eurosACentimos(deduccionSmi),
+        cuotaTrasDeduccionSmi,
         cuotaTrasDeduccionSmiCentimos: eurosACentimos(cuotaTrasDeduccionSmi),
         rendimientoIntegroTrabajoCentimos,
         minimoExentoRetencionCentimos: eurosACentimos(
