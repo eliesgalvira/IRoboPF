@@ -12,7 +12,6 @@ import {
   AreaChart,
   CartesianGrid,
   ComposedChart,
-  LabelList,
   Legend,
   Line,
   LineChart,
@@ -987,7 +986,6 @@ const colorDiferenciaTipoIrpfFavorable = "oklch(0.43 0.14 152)"
 const colorDiferenciaTipoIrpfDesfavorable = "oklch(0.48 0.20 28)"
 const claveTipoMarginalIrpf = "tipoMarginalIrpf"
 const claveTipoEfectivoIrpfMarginal = "tipoEfectivoIrpfMarginal"
-const claveEtiquetaTipoMarginalIrpf = "etiquetaTipoMarginalIrpf"
 const colorTipoMarginalIrpf = "oklch(0.52 0.14 245)"
 const colorTipoEfectivoIrpfMarginal = "oklch(0.48 0.20 28)"
 const etiquetaSerieAuditoria = (
@@ -1702,12 +1700,6 @@ const construirFilasTipoMarginalIrpfDesdeSeries = ({
   )
   if (Option.isNone(puntos)) return []
 
-  let etiquetaAnterior = Option.none<string>()
-  let ultimoSalarioEtiquetaEuros = Number.NEGATIVE_INFINITY
-  const distanciaMinimaEtiquetasEuros = centimosAEuros(
-    configuracionRangoAuditoria.pasoCentimos
-  )
-
   return puntos.value.map((punto, indice) => {
     const salarioEuros = centimosAEuros(punto.salarioBrutoAnualCentimos)
     const fila: FilaTipoMarginalIrpf = {
@@ -1729,21 +1721,6 @@ const construirFilasTipoMarginalIrpfDesdeSeries = ({
     if (Option.isNone(tipoMarginal)) return fila
 
     fila[claveTipoMarginalIrpf] = tipoMarginal.value
-
-    const etiqueta = formatearTickPorcentaje(tipoMarginal.value)
-    const etiquetaCambia = Option.match(etiquetaAnterior, {
-      onNone: () => true,
-      onSome: (anterior) => anterior !== etiqueta,
-    })
-    const hayEspacio =
-      salarioEuros - ultimoSalarioEtiquetaEuros >= distanciaMinimaEtiquetasEuros
-
-    if (etiquetaCambia && hayEspacio) {
-      fila[claveEtiquetaTipoMarginalIrpf] = etiqueta
-      etiquetaAnterior = Option.some(etiqueta)
-      ultimoSalarioEtiquetaEuros = salarioEuros
-    }
-
     return fila
   })
 }
@@ -2466,6 +2443,43 @@ function SelectorModoDiferenciaTipoIrpf({
   )
 }
 
+function TooltipDiferenciaTipoIrpf({
+  claveDesfavorable,
+  formatearValor,
+  ...props
+}: React.ComponentProps<typeof ChartTooltipContent> & {
+  readonly claveDesfavorable: string
+  readonly formatearValor: (valor: number) => string
+}) {
+  const payloadFiltrado = Option.fromNullishOr(props.payload).pipe(
+    Option.map((items) =>
+      items.filter((item) => {
+        if (String(item.dataKey) !== claveDesfavorable) return true
+        if (Number(item.value) !== 0) return true
+        return false
+      })
+    )
+  )
+  const propsTooltip = Option.match(payloadFiltrado, {
+    onNone: () => props,
+    onSome: (payload) => ({ ...props, payload }),
+  })
+
+  return (
+    <ChartTooltipContent
+      {...propsTooltip}
+      formatter={(valor, nombre, item) => (
+        <span
+          className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+          style={{ color: item.color }}
+        >
+          {formatearValor(Number(valor))} ({nombre})
+        </span>
+      )}
+    />
+  )
+}
+
 function Visualizaciones({
   auditoria,
   estadoAuditoria,
@@ -3130,17 +3144,10 @@ function Visualizaciones({
                   wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
                   cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
                   content={
-                    <ChartTooltipContent
+                    <TooltipDiferenciaTipoIrpf
+                      claveDesfavorable={clavesDiferenciaTipoIrpfSegmentadas[1]}
+                      formatearValor={formatearValorDiferenciaTipoIrpf}
                       className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
-                      formatter={(valor, nombre, item) => (
-                        <span
-                          className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                          style={{ color: item.color }}
-                        >
-                          {formatearValorDiferenciaTipoIrpf(Number(valor))} (
-                          {nombre})
-                        </span>
-                      )}
                       labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
                       labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
                     />
@@ -3305,16 +3312,7 @@ function Visualizaciones({
                   dot={false}
                   activeDot={{ r: 4, strokeWidth: 0 }}
                   isAnimationActive={false}
-                >
-                  <LabelList
-                    dataKey={claveEtiquetaTipoMarginalIrpf}
-                    position="top"
-                    fill={`var(--color-${claveTipoMarginalIrpf})`}
-                    fontFamily="var(--mono)"
-                    fontSize={16}
-                    fontWeight={700}
-                  />
-                </Area>
+                />
                 <Line
                   yAxisId="efectivo"
                   dataKey={claveTipoEfectivoIrpfMarginal}
