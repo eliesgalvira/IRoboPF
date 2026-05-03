@@ -10,7 +10,7 @@ const MARCA_AGUA_GRAFICO = "irobopf.com"
 const MIME_PNG = "image/png"
 const MIME_SVG = "image/svg+xml;charset=utf-8"
 const ESCALA_MAXIMA_EXPORTACION_GRAFICO = 2
-const DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO = {
+export const DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO = {
   ancho: 1216,
   alto: 615,
 } as const
@@ -21,6 +21,10 @@ const TITULO_GRAFICO_EXPORTADO = {
   tamanoFuente: 14,
   altoLinea: 20,
   pesoFuente: "400",
+} as const
+const LEYENDA_GRAFICO_EXPORTADO = {
+  anchoLinea: 18,
+  separacionTexto: 10,
 } as const
 const FAMILIA_MONO_GRAFICO_FALLBACK =
   '"JetBrains Mono", "JetBrains Mono Fallback", monospace'
@@ -45,11 +49,6 @@ type TextoSvgExportado = {
   readonly textAlign: CanvasTextAlign
 }
 
-type DimensionesExportacionGrafico = {
-  readonly ancho: number
-  readonly alto: number
-}
-
 type TituloGraficoExportado = {
   readonly lineas: ReadonlyArray<string>
   readonly alto: number
@@ -57,10 +56,12 @@ type TituloGraficoExportado = {
 
 export function BotonCopiarImagenGrafico({
   graficoRef,
+  graficoExportacionRef,
   disabled,
   titulo,
 }: {
   readonly graficoRef: React.RefObject<HTMLDivElement | null>
+  readonly graficoExportacionRef?: React.RefObject<HTMLDivElement | null>
   readonly disabled: boolean
   readonly titulo: string
 }) {
@@ -90,7 +91,7 @@ export function BotonCopiarImagenGrafico({
   }, [])
 
   const copiarImagen = React.useCallback(async () => {
-    const grafico = graficoRef.current
+    const grafico = graficoExportacionRef?.current ?? graficoRef.current
     if (!grafico || copiando) return
 
     fijarEstado("copiando")
@@ -106,7 +107,13 @@ export function BotonCopiarImagenGrafico({
     } finally {
       programarResetEstado()
     }
-  }, [copiando, graficoRef, programarResetEstado, titulo])
+  }, [
+    copiando,
+    graficoExportacionRef,
+    graficoRef,
+    programarResetEstado,
+    titulo,
+  ])
 
   const ariaLabel =
     estado === "copiada"
@@ -231,94 +238,11 @@ async function convertirElementoEnPng({
   readonly elemento: HTMLElement
   readonly titulo: string
 }): Promise<Blob> {
-  return await conGraficoRenderizadoEnEscritorio(
+  await esperarFrame()
+  return await convertirElementoRenderizadoEnPng({
     elemento,
-    (graficoEscritorio) =>
-      convertirElementoRenderizadoEnPng({
-        elemento: graficoEscritorio,
-        titulo,
-      })
-  )
-}
-
-async function conGraficoRenderizadoEnEscritorio<T>(
-  elemento: HTMLElement,
-  accion: (elemento: HTMLElement) => Promise<T>
-): Promise<T> {
-  const rect = elemento.getBoundingClientRect()
-  const dimensiones = DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO
-  const yaTieneTamanoEscritorio =
-    Math.abs(rect.width - dimensiones.ancho) <= 2 &&
-    Math.abs(rect.height - dimensiones.alto) <= 2
-
-  if (yaTieneTamanoEscritorio || !elemento.parentNode) {
-    return await accion(elemento)
-  }
-
-  const marcador = crearMarcadorVisualGrafico(elemento, rect)
-  const estiloOriginal = elemento.getAttribute("style")
-  elemento.parentNode.insertBefore(marcador, elemento)
-
-  try {
-    fijarTamanoEscritorioGrafico(elemento, dimensiones)
-    await esperarRedimensionGrafico(elemento, dimensiones)
-    return await accion(elemento)
-  } finally {
-    if (estiloOriginal === null) {
-      elemento.removeAttribute("style")
-    } else {
-      elemento.setAttribute("style", estiloOriginal)
-    }
-
-    marcador.remove()
-  }
-}
-
-function crearMarcadorVisualGrafico(elemento: HTMLElement, rect: DOMRect) {
-  const marcador = elemento.cloneNode(true) as HTMLElement
-  marcador.setAttribute("aria-hidden", "true")
-  marcador.style.pointerEvents = "none"
-  marcador.style.userSelect = "none"
-  marcador.style.width = `${Math.max(rect.width, 1)}px`
-  marcador.style.height = `${Math.max(rect.height, 1)}px`
-  marcador.style.overflow = "hidden"
-  return marcador
-}
-
-function fijarTamanoEscritorioGrafico(
-  elemento: HTMLElement,
-  dimensiones: DimensionesExportacionGrafico
-) {
-  elemento.style.position = "fixed"
-  elemento.style.left = "-100000px"
-  elemento.style.top = "0"
-  elemento.style.zIndex = "-1"
-  elemento.style.width = `${dimensiones.ancho}px`
-  elemento.style.height = `${dimensiones.alto}px`
-  elemento.style.minWidth = `${dimensiones.ancho}px`
-  elemento.style.maxWidth = `${dimensiones.ancho}px`
-  elemento.style.aspectRatio = "auto"
-  elemento.style.pointerEvents = "none"
-  elemento.style.contain = "layout style paint"
-}
-
-async function esperarRedimensionGrafico(
-  elemento: HTMLElement,
-  dimensiones: DimensionesExportacionGrafico
-) {
-  for (let intento = 0; intento < 12; intento += 1) {
-    await esperarFrame()
-
-    const grafico = obtenerSvgPrincipalGrafico(elemento)
-    const rect = grafico?.getBoundingClientRect()
-    if (
-      rect &&
-      Math.abs(rect.width - dimensiones.ancho) <= 2 &&
-      Math.abs(rect.height - dimensiones.alto) <= 2
-    ) {
-      return
-    }
-  }
+    titulo,
+  })
 }
 
 function esperarFrame() {
@@ -389,7 +313,7 @@ async function convertirElementoRenderizadoEnPng({
     contexto.translate(0, tituloGrafico.alto)
     contexto.drawImage(imagen, 0, 0, ancho, alto)
     dibujarTextosSvgGrafico({ contexto, textos, familiaFuente })
-    dibujarLeyendaGrafico({ contexto, elemento, familiaFuente })
+    dibujarLeyendaGrafico({ contexto, elemento, ancho, familiaFuente })
     dibujarMarcaAguaGrafico({
       contexto,
       elemento,
@@ -641,10 +565,12 @@ function dibujarTextosSvgGrafico({
 function dibujarLeyendaGrafico({
   contexto,
   elemento,
+  ancho,
   familiaFuente,
 }: {
   readonly contexto: CanvasRenderingContext2D
   readonly elemento: HTMLElement
+  readonly ancho: number
   readonly familiaFuente: string
 }) {
   const leyenda = elemento.querySelector<HTMLElement>(
@@ -655,15 +581,12 @@ function dibujarLeyendaGrafico({
   const rectContenedor = elemento.getBoundingClientRect()
   const items = Array.from(
     leyenda.querySelectorAll<HTMLElement>(".recharts-legend-item")
-  )
-
-  for (const item of items) {
+  ).flatMap((item) => {
     const texto = item.textContent?.trim()
-    if (!texto) continue
+    if (!texto) return []
 
     const rectItem = item.getBoundingClientRect()
     const textoItem = item.querySelector<HTMLElement>("span")
-    const rectTexto = textoItem?.getBoundingClientRect()
     const elementoTrazo = item.querySelector<SVGElement>(
       "path, line, rect, circle"
     )
@@ -677,27 +600,63 @@ function dibujarLeyendaGrafico({
         colorSvgDesdeEstilo(estilosTrazo.fill) ||
         estilosTexto.color
     )
-    const y = rectItem.top - rectContenedor.top + rectItem.height / 2
-    const xIcono = rectItem.left - rectContenedor.left
-    const xTexto = rectTexto
-      ? rectTexto.left - rectContenedor.left
-      : xIcono + 18
 
-    contexto.save()
-    contexto.strokeStyle = colorTrazo
+    return [
+      {
+        texto,
+        colorTexto,
+        colorTrazo,
+        fontSize: parseFloat(estilosTexto.fontSize) || 14,
+        y: rectItem.top - rectContenedor.top + rectItem.height / 2,
+      },
+    ]
+  })
+
+  if (items.length === 0) return
+
+  const fontSize = Math.max(...items.map((item) => item.fontSize))
+  const fuente = `700 ${fontSize}px ${familiaFuente}`
+  contexto.save()
+  contexto.font = fuente
+  const anchoItems = items.map((item) => {
+    const anchoTexto = contexto.measureText(item.texto).width
+    return (
+      LEYENDA_GRAFICO_EXPORTADO.anchoLinea +
+      LEYENDA_GRAFICO_EXPORTADO.separacionTexto +
+      anchoTexto
+    )
+  })
+  const separacionItems = 32
+  const anchoTotal =
+    anchoItems.reduce((total, anchoItem) => total + anchoItem, 0) +
+    separacionItems * Math.max(0, items.length - 1)
+  const margenDerecho = 24
+  let x = Math.max(0, ancho - margenDerecho - anchoTotal)
+  const y =
+    items.reduce((total, item) => total + item.y, 0) / Math.max(1, items.length)
+
+  for (const [indice, item] of items.entries()) {
+    contexto.strokeStyle = item.colorTrazo
     contexto.lineWidth = 3
     contexto.lineCap = "square"
     contexto.beginPath()
-    contexto.moveTo(xIcono, y)
-    contexto.lineTo(xIcono + 18, y)
+    contexto.moveTo(x, y)
+    contexto.lineTo(x + LEYENDA_GRAFICO_EXPORTADO.anchoLinea, y)
     contexto.stroke()
-    contexto.fillStyle = colorTexto
-    contexto.font = `700 ${parseFloat(estilosTexto.fontSize) || 14}px ${familiaFuente}`
+    contexto.fillStyle = item.colorTexto
+    contexto.font = fuente
     contexto.textAlign = "left"
     contexto.textBaseline = "middle"
-    contexto.fillText(texto, xTexto, y)
-    contexto.restore()
+    contexto.fillText(
+      item.texto,
+      x +
+        LEYENDA_GRAFICO_EXPORTADO.anchoLinea +
+        LEYENDA_GRAFICO_EXPORTADO.separacionTexto,
+      y
+    )
+    x += anchoItems[indice] + separacionItems
   }
+  contexto.restore()
 }
 
 function alinearTextoCanvas(textAnchor: string): CanvasTextAlign {

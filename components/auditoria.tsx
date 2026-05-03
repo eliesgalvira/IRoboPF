@@ -38,7 +38,10 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart"
-import { BotonCopiarImagenGrafico } from "@/components/copiar-imagen-grafico"
+import {
+  BotonCopiarImagenGrafico,
+  DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO,
+} from "@/components/copiar-imagen-grafico"
 import { Tooltip } from "@/components/ui/tooltip"
 import { Button } from "@/components/ui/button"
 import {
@@ -3580,6 +3583,12 @@ function Visualizaciones({
   const graficoTipoEfectivoIrpfRef = React.useRef<HTMLDivElement | null>(null)
   const graficoDiferenciaTipoIrpfRef = React.useRef<HTMLDivElement | null>(null)
   const graficoTipoMarginalIrpfRef = React.useRef<HTMLDivElement | null>(null)
+  const graficoTipoEfectivoIrpfExportacionRef =
+    React.useRef<HTMLDivElement | null>(null)
+  const graficoDiferenciaTipoIrpfExportacionRef =
+    React.useRef<HTMLDivElement | null>(null)
+  const graficoTipoMarginalIrpfExportacionRef =
+    React.useRef<HTMLDivElement | null>(null)
 
   React.useEffect(() => {
     return Option.match(auditoria, {
@@ -3956,6 +3965,11 @@ function Visualizaciones({
     "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(22rem,48vw,32rem)]"
   const claseGraficoTipoMarginalIrpf =
     "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
+  const estiloGraficoExportacion = {
+    width: DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO.ancho,
+    height: DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO.alto,
+  } satisfies React.CSSProperties
+  const claseGraficoExportacion = "aspect-auto min-w-0"
 
   return (
     <section className="py-6">
@@ -4007,6 +4021,7 @@ function Visualizaciones({
             <div className="w-full min-w-0 self-end md:w-auto">
               <BotonCopiarImagenGrafico
                 graficoRef={graficoTipoEfectivoIrpfRef}
+                graficoExportacionRef={graficoTipoEfectivoIrpfExportacionRef}
                 disabled={copiaGraficoDeshabilitada}
                 titulo={tituloGraficoTipoEfectivoIrpf}
               />
@@ -4165,6 +4180,7 @@ function Visualizaciones({
             <div className="w-full min-w-0 self-end md:w-auto">
               <BotonCopiarImagenGrafico
                 graficoRef={graficoDiferenciaTipoIrpfRef}
+                graficoExportacionRef={graficoDiferenciaTipoIrpfExportacionRef}
                 disabled={copiaGraficoDeshabilitada}
                 titulo={tituloGraficoDiferenciaTipoIrpf}
               />
@@ -4307,6 +4323,7 @@ function Visualizaciones({
             <div className="w-full min-w-0 self-end md:w-auto">
               <BotonCopiarImagenGrafico
                 graficoRef={graficoTipoMarginalIrpfRef}
+                graficoExportacionRef={graficoTipoMarginalIrpfExportacionRef}
                 disabled={copiaGraficoDeshabilitada}
                 titulo={tituloGraficoTipoMarginalIrpf}
               />
@@ -4458,6 +4475,320 @@ function Visualizaciones({
           />
         </Tabs.Panel>
       </Tabs.Root>
+      {!copiaGraficoDeshabilitada ? (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed top-0 left-[-100000px] opacity-0"
+        >
+          <ChartContainer
+            ref={graficoTipoEfectivoIrpfExportacionRef}
+            config={configTipoEfectivoIrpf}
+            className={claseGraficoExportacion}
+            style={estiloGraficoExportacion}
+          >
+            <LineChart
+              accessibilityLayer
+              data={datosTipoEfectivoIrpf}
+              margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+            >
+              <CartesianGrid
+                vertical={false}
+                stroke="var(--rule)"
+                strokeDasharray="2 4"
+              />
+              <XAxis
+                type="number"
+                dataKey="salarioEuros"
+                domain={dominioSalario}
+                ticks={ticksSalario}
+                tickFormatter={(valor: number) =>
+                  formatearSalarioCorto(eurosACentimos(valor))
+                }
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={10}
+                interval={0}
+                minTickGap={8}
+                angle={-90}
+                textAnchor="end"
+                height={66}
+                fontSize={14}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={6}
+                width={44}
+                domain={dominioTipoEfectivoIrpf}
+                ticks={ticksTipoEfectivoIrpf}
+                fontSize={14}
+                tickFormatter={formatearTickPorcentaje}
+              />
+              <ChartTooltip
+                isAnimationActive={false}
+                allowEscapeViewBox={{ x: false, y: false }}
+                wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
+                cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                content={
+                  <ChartTooltipContent
+                    className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                    formatter={(valor, nombre, item) => (
+                      <span
+                        className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                        style={{ color: item.color }}
+                      >
+                        {porcentaje.format(Number(valor))} ({nombre})
+                      </span>
+                    )}
+                    labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                    labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+                  />
+                }
+              />
+              <Legend
+                verticalAlign="bottom"
+                align="right"
+                iconType="plainline"
+                wrapperStyle={{
+                  fontFamily: "var(--mono)",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  paddingTop: 8,
+                }}
+              />
+              {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+                aniosGraficoIrpfVisibles.map((anio) => {
+                  const clave = claveSerieTipoEfectivoIrpf(
+                    comunidadAutonoma,
+                    anio
+                  )
+
+                  return (
+                    <Line
+                      key={clave}
+                      dataKey={clave}
+                      name={etiquetaSerieAuditoria(comunidadAutonoma, anio)}
+                      type="linear"
+                      stroke={`var(--color-${clave})`}
+                      strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                      dot={false}
+                      activeDot={{ r: 4, strokeWidth: 0 }}
+                      isAnimationActive={false}
+                    />
+                  )
+                })
+              )}
+            </LineChart>
+          </ChartContainer>
+
+          <ChartContainer
+            ref={graficoDiferenciaTipoIrpfExportacionRef}
+            config={configDiferenciaTipoIrpf}
+            className={claseGraficoExportacion}
+            style={estiloGraficoExportacion}
+          >
+            <AreaChart
+              accessibilityLayer
+              data={datosDiferenciaTipoIrpf}
+              baseValue={0}
+              margin={{ left: 4, right: 18, top: 4, bottom: 28 }}
+            >
+              <CartesianGrid
+                vertical={false}
+                stroke="var(--rule)"
+                strokeDasharray="2 4"
+              />
+              <XAxis
+                type="number"
+                dataKey="salarioEuros"
+                domain={dominioSalario}
+                ticks={ticksSalario}
+                tickFormatter={(valor: number) =>
+                  formatearSalarioCorto(eurosACentimos(valor))
+                }
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={10}
+                interval={0}
+                minTickGap={8}
+                angle={-90}
+                textAnchor="end"
+                height={66}
+                fontSize={14}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={4}
+                width={54}
+                domain={dominioDiferenciaTipoIrpf}
+                ticks={ticksDiferenciaIrpf}
+                fontSize={14}
+                tickFormatter={formatearTickDiferenciaTipoIrpf}
+              />
+              <ChartTooltip
+                isAnimationActive={false}
+                allowEscapeViewBox={{ x: false, y: false }}
+                wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
+                cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                content={
+                  <TooltipDiferenciaTipoIrpf
+                    claveDesfavorable={clavesDiferenciaTipoIrpfSegmentadas[1]}
+                    formatearValor={formatearValorDiferenciaTipoIrpf}
+                    className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                    labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                    labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+                  />
+                }
+              />
+              <Area
+                dataKey={clavesDiferenciaTipoIrpfSegmentadas[1]}
+                name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
+                type="linear"
+                stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
+                strokeWidth={3}
+                fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
+                fillOpacity={0.22}
+                baseValue={0}
+                dot={false}
+                activeDot={{ r: 4, strokeWidth: 0 }}
+                connectNulls={false}
+                isAnimationActive={false}
+              />
+              <Area
+                dataKey={clavesDiferenciaTipoIrpfSegmentadas[0]}
+                name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
+                type="linear"
+                stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
+                strokeWidth={3}
+                fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
+                fillOpacity={0.22}
+                baseValue={0}
+                dot={false}
+                activeDot={{ r: 4, strokeWidth: 0 }}
+                connectNulls={false}
+                isAnimationActive={false}
+              />
+            </AreaChart>
+          </ChartContainer>
+
+          <ChartContainer
+            ref={graficoTipoMarginalIrpfExportacionRef}
+            config={configTipoMarginalIrpf}
+            className={claseGraficoExportacion}
+            style={estiloGraficoExportacion}
+          >
+            <ComposedChart
+              accessibilityLayer
+              data={datosTipoMarginalIrpf}
+              margin={{ left: 6, right: 18, top: 24, bottom: 28 }}
+            >
+              <CartesianGrid
+                vertical={false}
+                stroke="var(--rule)"
+                strokeDasharray="2 4"
+              />
+              <XAxis
+                type="number"
+                dataKey="salarioEuros"
+                domain={dominioSalario}
+                ticks={ticksSalario}
+                tickFormatter={(valor: number) =>
+                  formatearSalarioCorto(eurosACentimos(valor))
+                }
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={10}
+                interval={0}
+                minTickGap={8}
+                angle={-90}
+                textAnchor="end"
+                height={66}
+                fontSize={14}
+              />
+              <YAxis
+                yAxisId="marginal"
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={6}
+                width={44}
+                domain={dominioMarginalIrpf}
+                ticks={ticksMarginalIrpf}
+                fontSize={14}
+                tickFormatter={formatearTickPorcentaje}
+              />
+              <YAxis
+                yAxisId="efectivo"
+                orientation="right"
+                tickLine={false}
+                axisLine={{ stroke: "var(--rule)" }}
+                tickMargin={6}
+                width={44}
+                domain={dominioEfectivoAlineadoEnGraficoMarginal}
+                ticks={ticksEfectivoEnGraficoMarginal}
+                fontSize={14}
+                tickFormatter={formatearTickPorcentaje}
+              />
+              <ChartTooltip
+                isAnimationActive={false}
+                allowEscapeViewBox={{ x: false, y: false }}
+                wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
+                cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                content={
+                  <ChartTooltipContent
+                    className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                    formatter={(valor, nombre, item) => (
+                      <span
+                        className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                        style={{ color: item.color }}
+                      >
+                        {porcentaje.format(Number(valor))} ({nombre})
+                      </span>
+                    )}
+                    labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                    labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+                  />
+                }
+              />
+              <Area
+                yAxisId="marginal"
+                dataKey={claveTipoMarginalIrpf}
+                name={`Tipo marginal ${anioGraficoTipoMarginalIrpfVisible}`}
+                type="stepAfter"
+                stroke={`var(--color-${claveTipoMarginalIrpf})`}
+                strokeWidth={1}
+                fill={`var(--color-${claveTipoMarginalIrpf})`}
+                fillOpacity={0.38}
+                dot={false}
+                activeDot={{ r: 4, strokeWidth: 0 }}
+                isAnimationActive={false}
+              />
+              {ticksMarginalIrpf.map((tick) => (
+                <ReferenceLine
+                  key={`marginal-grid-exportacion-${tick}`}
+                  yAxisId="marginal"
+                  y={tick}
+                  stroke="var(--rule)"
+                  strokeDasharray="2 4"
+                  strokeOpacity={0.75}
+                  ifOverflow="extendDomain"
+                />
+              ))}
+              <Line
+                yAxisId="efectivo"
+                dataKey={claveTipoEfectivoIrpfMarginal}
+                name={`Tipo efectivo ${anioGraficoTipoMarginalIrpfVisible}`}
+                type="linear"
+                stroke={`var(--color-${claveTipoEfectivoIrpfMarginal})`}
+                strokeWidth={3}
+                dot={false}
+                activeDot={{ r: 4, strokeWidth: 0 }}
+                isAnimationActive={false}
+              />
+            </ComposedChart>
+          </ChartContainer>
+        </div>
+      ) : null}
     </section>
   )
 }
