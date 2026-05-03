@@ -39,6 +39,7 @@ import {
 import { Button } from "@/components/ui/button"
 import {
   Combobox,
+  ComboboxChevron,
   ComboboxContent,
   ComboboxEmpty,
   ComboboxInput,
@@ -1132,16 +1133,19 @@ const deduccionSmiFormula = (anio: AnioFiscal): string =>
     Match.orElse(() => "0,00 €")
   )
 
-const formulaTipoEfectivoIrpf = (anio: AnioFiscal): string => {
+const parametrosFormulaTipoEfectivoIrpf = (anio: AnioFiscal) => {
   const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
-  const minimoExentoRetencion = formatearCentimos(
-    eurosACentimos(Number(especificacion.minimoExentoRetencion))
-  )
-  const tipoMaximoRetencion = formatearPuntosPorcentuales(
-    especificacion.tipoMaximoRetencionNomina.mul(100).toString()
-  )
 
-  return `${anio}: tipo efectivo = IRPF final / salario bruto ajustado a inflación. IRPF final = min(max(0, cuota liquidada anual - deducción SMI), max(0, (salario bruto - ${minimoExentoRetencion}) x ${tipoMaximoRetencion})). Deducción SMI: ${deduccionSmiFormula(anio)}.`
+  return {
+    anio,
+    minimoExentoRetencion: formatearCentimos(
+      eurosACentimos(Number(especificacion.minimoExentoRetencion))
+    ),
+    tipoMaximoRetencion: formatearPuntosPorcentuales(
+      especificacion.tipoMaximoRetencionNomina.mul(100).toString()
+    ),
+    deduccionSmi: deduccionSmiFormula(anio),
+  }
 }
 
 const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
@@ -1194,6 +1198,121 @@ function LeyendaNetoReal({
         </span>
       ))}
     </div>
+  )
+}
+
+function BloqueFormula({
+  children,
+  tono = "neutro",
+}: {
+  readonly children: React.ReactNode
+  readonly tono?: "neutro" | "calculo" | "limite" | "resultado"
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex min-h-9 items-center border-2 border-[var(--rule)] px-2 py-1 font-[family-name:var(--mono)] text-sm font-bold tabular-nums sm:text-base",
+        tono === "neutro" && "bg-[var(--paper)] text-[var(--ink)]",
+        tono === "calculo" && "bg-[var(--mark)] text-[var(--mark-ink)]",
+        tono === "limite" && "bg-[var(--paper-2)] text-[var(--ink)]",
+        tono === "resultado" && "bg-[var(--rule)] text-[var(--paper)]"
+      )}
+    >
+      {children}
+    </span>
+  )
+}
+
+function FormulaTipoEfectivoIrpf({
+  anios,
+}: {
+  readonly anios: ReadonlyArray<AnioFiscal>
+}) {
+  return (
+    <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
+      <div className="grid gap-2">
+        <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+          Cálculo aplicado
+        </p>
+        <div className="flex flex-wrap items-center gap-2 leading-none">
+          <BloqueFormula tono="resultado">TIPO_EFECTIVO_IRPF</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="resultado">IRPF_FINAL</BloqueFormula>
+          <BloqueFormula>/</BloqueFormula>
+          <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
+        </div>
+      </div>
+
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+        <div className="flex flex-wrap items-center gap-2">
+          <BloqueFormula tono="resultado">IRPF_FINAL</BloqueFormula>
+          <BloqueFormula>= min</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            max(0, CUOTA_LIQUIDADA - DEDUCCION_SMI)
+          </BloqueFormula>
+          <BloqueFormula tono="limite">LIMITE_RETENCION_NOMINA</BloqueFormula>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <BloqueFormula tono="limite">LIMITE_RETENCION_NOMINA</BloqueFormula>
+          <BloqueFormula>= max</BloqueFormula>
+          <BloqueFormula>0</BloqueFormula>
+          <BloqueFormula tono="limite">
+            (SALARIO_BRUTO_REAL - MINIMO_EXENTO_RETENCION) x 43%
+          </BloqueFormula>
+        </div>
+      </div>
+
+      <p className="max-w-4xl text-base leading-7 text-[var(--ink)]">
+        <strong>MINIMO_EXENTO_RETENCION</strong> es el umbral exento usado por
+        el límite de retención de nómina compatible con el histórico. La fórmula
+        es común; por año sólo se sustituyen sus parámetros normativos.
+      </p>
+
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {anios.map((anio) => {
+          const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
+          return (
+            <div
+              key={`formula-irpf-${anio}`}
+              className="grid gap-2 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[3px_3px_0_0_var(--rule)]"
+              style={{ borderBottomColor: coloresTipoEfectivoIrpf[anio] }}
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-[family-name:var(--mono)] text-xl font-bold tabular-nums">
+                  {anio}
+                </span>
+                <span
+                  className="h-0 w-10 border-t-[5px]"
+                  style={{ borderColor: coloresTipoEfectivoIrpf[anio] }}
+                />
+              </div>
+              <dl className="grid gap-1 text-sm leading-5">
+                <div className="flex justify-between gap-3">
+                  <dt className="text-[var(--ink-soft)]">
+                    MINIMO_EXENTO_RETENCION
+                  </dt>
+                  <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+                    {parametros.minimoExentoRetencion}
+                  </dd>
+                </div>
+                <div className="flex justify-between gap-3">
+                  <dt className="text-[var(--ink-soft)]">Tipo límite</dt>
+                  <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+                    {parametros.tipoMaximoRetencion}
+                  </dd>
+                </div>
+                <div className="grid gap-1">
+                  <dt className="text-[var(--ink-soft)]">DEDUCCION_SMI</dt>
+                  <dd className="font-[family-name:var(--mono)] text-xs leading-5">
+                    {parametros.deduccionSmi}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          )
+        })}
+      </div>
+    </section>
   )
 }
 
@@ -1442,11 +1561,13 @@ function Visualizaciones({
                   alCambiarComunidadAutonoma(opcion.valor)
                 }}
               >
-                <ComboboxInputGroup className="max-w-xl">
+                <ComboboxInputGroup className="w-full max-w-[22rem]">
                   <ComboboxInput
                     aria-label="Buscar comunidad autónoma"
                     placeholder="Buscar comunidad autónoma"
+                    className="min-w-0"
                   />
+                  <ComboboxChevron />
                 </ComboboxInputGroup>
                 <ComboboxContent>
                   <ComboboxEmpty>
@@ -1609,13 +1730,7 @@ function Visualizaciones({
               </LineChart>
             </ChartContainer>
           )}
-          <ul className="mt-4 grid gap-2 border-t-2 border-[var(--rule)] pt-4 font-[family-name:var(--mono)] text-xs leading-5 text-[var(--ink-soft)]">
-            {aniosGraficoIrpfVisibles.map((anio) => (
-              <li key={`formula-irpf-${anio}`}>
-                {formulaTipoEfectivoIrpf(anio)}
-              </li>
-            ))}
-          </ul>
+          <FormulaTipoEfectivoIrpf anios={aniosGraficoIrpfVisibles} />
         </Tabs.Panel>
         <Tabs.Panel
           value="neto-real"

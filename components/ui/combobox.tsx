@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox"
-import { Check, X } from "lucide-react"
+import { Check, ChevronDown, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -45,6 +45,19 @@ function ComboboxInput({
         "min-w-0 flex-1 bg-transparent px-2 py-1 font-[family-name:var(--mono)] text-sm outline-none placeholder:text-[var(--ink-soft)]",
         className
       )}
+      {...props}
+    />
+  )
+}
+
+function ComboboxChevron({
+  className,
+  ...props
+}: React.ComponentProps<typeof ChevronDown>) {
+  return (
+    <ChevronDown
+      aria-hidden
+      className={cn("size-4 shrink-0 text-[var(--ink)]", className)}
       {...props}
     />
   )
@@ -196,6 +209,7 @@ function ComboboxItem({
 
 export {
   Combobox,
+  ComboboxChevron,
   ComboboxChip,
   ComboboxChips,
   ComboboxChipsInput,
