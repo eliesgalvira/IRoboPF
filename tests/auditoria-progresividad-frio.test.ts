@@ -4,6 +4,7 @@ import { describe, expect, it } from "@effect/vitest"
 import {
   AuditoriaProgresividadFrio,
   auditarProgresividadFrio,
+  construirPuntosAuditoriaAnioAjustado,
   type EntradaAuditoriaProgresividadFrio,
 } from "../lib/dominio/auditoria/auditoria-progresividad-frio"
 
@@ -68,6 +69,43 @@ describe("auditarProgresividadFrio", () => {
         madrid.auditoria.puntos[0]?.comparacion.referencia.irpfFinalCentimos
       )
     })
+  )
+
+  it.effect(
+    "calcula una serie anual ajustada equivalente a la rama comparada completa",
+    () =>
+      Effect.gen(function* () {
+        const entrada = entradaAuditoriaBasica()
+        const resultado = yield* auditarProgresividadFrio(entrada, {
+          modo: "compatible-legacy",
+        })
+        const puntosAnio = yield* construirPuntosAuditoriaAnioAjustado({
+          salarioBrutoAnualMinimoCentimos:
+            entrada.salarioBrutoAnualMinimoCentimos,
+          salarioBrutoAnualMaximoCentimos:
+            entrada.salarioBrutoAnualMaximoCentimos,
+          pasoCentimos: entrada.pasoCentimos,
+          anio: entrada.anioComparado,
+          anioReferencia: entrada.anioReferencia,
+        })
+
+        expect(
+          puntosAnio.map((punto) => punto.tipoEfectivoIrpfComparado)
+        ).toEqual(
+          resultado.auditoria.puntos.map(
+            (punto) => punto.tipoEfectivoIrpfComparado
+          )
+        )
+        expect(
+          puntosAnio.map(
+            (punto) => punto.comparacion.comparado.ajustado.irpfFinalCentimos
+          )
+        ).toEqual(
+          resultado.auditoria.puntos.map(
+            (punto) => punto.comparacion.comparado.ajustado.irpfFinalCentimos
+          )
+        )
+      })
   )
 })
 

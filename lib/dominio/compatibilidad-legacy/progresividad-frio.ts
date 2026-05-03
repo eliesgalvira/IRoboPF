@@ -45,6 +45,7 @@ export interface DesgloseLiquidado {
   readonly costeLaboralCentimos: number
   readonly cotizacionTrabajadorCentimos: number
   readonly irpfFinalCentimos: number
+  readonly irpfFinalPrecisoEuros?: string | undefined
   readonly salarioNetoAnualCentimos: number
 }
 
