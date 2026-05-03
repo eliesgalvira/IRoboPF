@@ -843,21 +843,21 @@ const obtenerAniosTipoEfectivoIrpf = ({
   )
 
 const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
-  2012: "oklch(0.45 0.16 265)",
-  2013: "oklch(0.55 0.16 220)",
-  2014: "oklch(0.52 0.15 185)",
-  2015: "oklch(0.46 0.15 155)",
-  2016: "oklch(0.58 0.16 130)",
-  2017: "oklch(0.64 0.16 110)",
-  2018: "oklch(0.52 0.14 300)",
+  2012: "oklch(0.48 0.18 265)",
+  2013: "oklch(0.58 0.16 225)",
+  2014: "oklch(0.58 0.15 185)",
+  2015: "oklch(0.52 0.16 150)",
+  2016: "oklch(0.66 0.17 125)",
+  2017: "oklch(0.70 0.15 105)",
+  2018: "oklch(0.52 0.16 305)",
   2019: "oklch(0.78 0.16 88)",
-  2020: "oklch(0.56 0.16 60)",
-  2021: "oklch(0.50 0.16 35)",
-  2022: "oklch(0.50 0.14 15)",
-  2023: "oklch(0.48 0.16 340)",
-  2024: "oklch(0.44 0.15 315)",
-  2025: "oklch(0.38 0.12 285)",
-  2026: "oklch(0.62 0.19 35)",
+  2020: "oklch(0.64 0.19 55)",
+  2021: "oklch(0.58 0.20 25)",
+  2022: "oklch(0.52 0.18 5)",
+  2023: "oklch(0.54 0.18 335)",
+  2024: "oklch(0.48 0.18 285)",
+  2025: "oklch(0.62 0.19 35)",
+  2026: "oklch(0.38 0.12 285)",
 }
 
 type ComunidadAuditada =
@@ -1239,11 +1239,11 @@ function ExplicacionVariable({
   readonly children: React.ReactNode
 }) {
   return (
-    <div className="border-l-4 border-[var(--rule)] pl-3">
+    <div className="pl-0">
       <dt className="font-[family-name:var(--mono)] text-base font-bold">
         {termino}
       </dt>
-      <dd className="mt-1 text-base leading-7 text-[var(--ink-soft)]">
+      <dd className="mt-1 max-w-5xl text-base leading-7 text-[var(--ink-soft)]">
         {children}
       </dd>
     </div>
@@ -1293,7 +1293,7 @@ function FormulaTipoEfectivoIrpf({
         </FormulaLineal>
       </div>
 
-      <dl className="grid gap-3 border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4">
+      <dl className="grid gap-4">
         <ExplicacionVariable termino="CUOTA_LIQUIDADA">
           Resultado de aplicar las reglas anuales del IRPF antes del límite
           final usado por esta comparación histórica.
@@ -1310,6 +1310,16 @@ function FormulaTipoEfectivoIrpf({
         <ExplicacionVariable termino="MINIMO_EXENTO_RETENCION">
           Umbral exento usado por el límite de retención de nómina compatible
           con el histórico.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="LIMITE_RETENCION_NOMINA">
+          Tope que replica la restricción de nómina usada para hacer comparable
+          el histórico: el IRPF final no puede superar el 43% de la parte del
+          salario que queda por encima de MINIMO_EXENTO_RETENCION. El 43% viene
+          del parámetro normativo de compatibilidad “límite final de retención
+          del 43 por ciento”, ligado en el código al algoritmo AEAT de
+          retenciones 2026. Aquí no sustituye a la liquidación anual completa:
+          actúa como límite superior para que el barrido histórico respete esa
+          mecánica de retención de nómina.
         </ExplicacionVariable>
       </dl>
 
