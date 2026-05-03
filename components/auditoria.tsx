@@ -980,13 +980,13 @@ function BarraFiltros({
   readonly fijarMaximoCentimos: (centimos: number) => void
 }) {
   return (
-    <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
-      <p className="text-sm tracking-[0.32em] text-[var(--ink-soft)] uppercase">
+    <section className="grid min-w-0 gap-0 border-b-2 border-[var(--rule)] py-6">
+      <p className="text-sm tracking-[0.22em] text-[var(--ink-soft)] uppercase sm:tracking-[0.32em]">
         FILTROS / BARRIDO
       </p>
-      <div className="mt-4 grid gap-4">
-        <div className="grid gap-4">
-          <div className="grid gap-2 sm:grid-cols-2 sm:gap-3">
+      <div className="mt-4 grid min-w-0 gap-4">
+        <div className="grid min-w-0 gap-4">
+          <div className="grid min-w-0 gap-2 sm:grid-cols-2 sm:gap-3">
             <CampoDinero
               etiqueta="MÍNIMO"
               valorCentimos={minimoCentimos}
@@ -1014,10 +1014,10 @@ function BarraFiltros({
               fijarMinimoCentimos(eurosACentimos(minimo))
               fijarMaximoCentimos(eurosACentimos(maximo))
             }}
-            className="grid gap-2"
+            className="grid min-w-0 gap-2"
           >
-            <Slider.Control className="relative flex h-8 touch-none items-center">
-              <Slider.Track className="relative h-3 w-full bg-[var(--paper)] [outline:2px_solid_var(--rule)]">
+            <Slider.Control className="relative flex h-8 min-w-0 touch-none items-center px-3">
+              <Slider.Track className="relative h-3 min-w-0 flex-1 bg-[var(--paper)] [outline:2px_solid_var(--rule)]">
                 <Slider.Indicator className="bg-[var(--mark)]" />
               </Slider.Track>
               <Slider.Thumb
@@ -1031,7 +1031,7 @@ function BarraFiltros({
                 className="size-6 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none"
               />
             </Slider.Control>
-            <div className="flex justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+            <div className="flex min-w-0 justify-between gap-3 text-sm tracking-[0.14em] text-[var(--ink-soft)] uppercase sm:tracking-[0.3em]">
               <span>
                 {formatearCentimosEnteros(
                   configuracionRangoAuditoria.minimoCentimos
@@ -1070,16 +1070,16 @@ function CampoDinero({
       onValueChange={(valor) =>
         valor !== null && alCambiar(eurosACentimos(valor))
       }
-      className="grid gap-1"
+      className="grid min-w-0 gap-1"
     >
-      <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+      <span className="text-sm tracking-[0.22em] text-[var(--ink-soft)] uppercase sm:tracking-[0.3em]">
         {etiqueta}
       </span>
-      <NumberField.Group className="grid h-12 grid-cols-[2.25rem_minmax(0,1fr)_2.25rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
+      <NumberField.Group className="grid h-12 min-w-0 grid-cols-[2.25rem_minmax(0,1fr)_2.25rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
         <NumberField.Decrement className="border-r-2 border-[var(--rule)] transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none">
           −
         </NumberField.Decrement>
-        <NumberField.Input className="min-w-0 bg-transparent px-2 text-center font-[family-name:var(--mono)] text-base font-bold tabular-nums outline-none focus-visible:bg-[var(--mark)]/20" />
+        <NumberField.Input className="min-w-0 bg-transparent px-2 text-center font-[family-name:var(--mono)] text-sm font-bold tabular-nums outline-none focus-visible:bg-[var(--mark)]/20 sm:text-base" />
         <NumberField.Increment className="border-l-2 border-[var(--rule)] transition-colors hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none">
           +
         </NumberField.Increment>
@@ -2661,6 +2661,23 @@ const claseBotonPestana = cn(
   "data-[active]:bg-[var(--rule)] data-[active]:text-[var(--paper)]"
 )
 
+const claseTextoCortable =
+  "min-w-0 max-w-full break-words [overflow-wrap:anywhere]"
+const claseTarjetaParametroFormula =
+  "grid h-full min-w-0 grid-rows-[auto_auto_minmax(6rem,1fr)] gap-2 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-none sm:shadow-[3px_3px_0_0_var(--rule)]"
+const claseFilaParametroFormula =
+  "grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-3"
+const claseEtiquetaParametroFormula = cn(
+  "text-[var(--ink-soft)]",
+  claseTextoCortable
+)
+const claseValorParametroFormula =
+  "min-w-0 text-right font-[family-name:var(--mono)] font-bold tabular-nums"
+const claseTextoParametroFormula = cn(
+  "font-[family-name:var(--mono)] text-sm leading-5",
+  claseTextoCortable
+)
+
 function BloqueFormula({
   children,
   tono = "neutro",
@@ -2671,7 +2688,7 @@ function BloqueFormula({
   return (
     <span
       className={cn(
-        "inline-flex min-h-9 items-center border-2 border-[var(--rule)] px-2 py-1 font-[family-name:var(--mono)] text-sm font-bold tabular-nums sm:text-base",
+        "inline-flex min-h-9 max-w-full min-w-0 items-center border-2 border-[var(--rule)] px-2 py-1 text-left font-[family-name:var(--mono)] text-sm leading-5 font-bold [overflow-wrap:anywhere] break-words whitespace-normal tabular-nums sm:text-base",
         tono === "neutro" && "bg-[var(--paper)] text-[var(--ink)]",
         tono === "calculo" && "bg-[var(--mark)] text-[var(--mark-ink)]",
         tono === "limite" && "bg-[var(--paper-2)] text-[var(--ink)]",
@@ -2685,7 +2702,7 @@ function BloqueFormula({
 
 function FormulaLineal({ children }: { readonly children: React.ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center gap-2 leading-none">
+    <div className="flex max-w-full min-w-0 flex-wrap items-center gap-2 leading-none">
       {children}
     </div>
   )
@@ -2699,11 +2716,21 @@ function ExplicacionVariable({
   readonly children: React.ReactNode
 }) {
   return (
-    <div className="pl-0">
-      <dt className="font-[family-name:var(--mono)] text-base font-bold">
+    <div className="min-w-0 pl-0">
+      <dt
+        className={cn(
+          "font-[family-name:var(--mono)] text-base font-bold",
+          claseTextoCortable
+        )}
+      >
         {termino}
       </dt>
-      <dd className="mt-1 max-w-5xl text-base leading-7 text-[var(--ink-soft)]">
+      <dd
+        className={cn(
+          "mt-1 max-w-5xl text-base leading-7 text-[var(--ink-soft)]",
+          claseTextoCortable
+        )}
+      >
         {children}
       </dd>
     </div>
@@ -2722,8 +2749,8 @@ function FormulaTipoEfectivoIrpf({
   const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
 
   return (
-    <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
-      <div className="grid gap-3">
+    <section className="mt-5 grid min-w-0 gap-4 border-t-2 border-[var(--rule)] pt-5">
+      <div className="grid min-w-0 gap-3">
         <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
           Cálculo aplicado
         </p>
@@ -2736,7 +2763,7 @@ function FormulaTipoEfectivoIrpf({
         </FormulaLineal>
       </div>
 
-      <div className="grid gap-3">
+      <div className="grid min-w-0 gap-3">
         <FormulaLineal>
           <BloqueFormula tono="resultado">
             IRPF_COMPARABLE_NOMINAL
@@ -2793,7 +2820,7 @@ function FormulaTipoEfectivoIrpf({
         </FormulaLineal>
       </div>
 
-      <dl className="grid gap-4">
+      <dl className="grid min-w-0 gap-4">
         <ExplicacionVariable termino="PERFIL">
           {detallePerfil.descripcionCalculo} En la normativa nominal de 2026 el
           umbral del límite 43% para este perfil es{" "}
@@ -2879,12 +2906,17 @@ function FormulaTipoEfectivoIrpf({
         </ExplicacionVariable>
       </dl>
 
-      <p className="max-w-4xl text-base leading-7 text-[var(--ink)]">
+      <p
+        className={cn(
+          "max-w-4xl text-base leading-7 text-[var(--ink)]",
+          claseTextoCortable
+        )}
+      >
         La fórmula es común; por año sólo se sustituyen sus parámetros
         normativos.
       </p>
 
-      <div className="grid items-stretch gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid min-w-0 items-stretch gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {anios.map((anio) => {
           const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
           const umbralRetencion = umbralRetencionPerfil({
@@ -2895,10 +2927,10 @@ function FormulaTipoEfectivoIrpf({
           return (
             <div
               key={`formula-irpf-${anio}`}
-              className="grid h-full grid-rows-[auto_auto_minmax(6rem,1fr)] gap-2 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[3px_3px_0_0_var(--rule)]"
+              className={claseTarjetaParametroFormula}
               style={{ borderBottomColor: coloresTipoEfectivoIrpf[anio] }}
             >
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 items-center justify-between gap-3">
                 <span className="font-[family-name:var(--mono)] text-xl font-bold tabular-nums">
                   {anio}
                 </span>
@@ -2907,39 +2939,44 @@ function FormulaTipoEfectivoIrpf({
                   style={{ borderColor: coloresTipoEfectivoIrpf[anio] }}
                 />
               </div>
-              <dl className="grid gap-1 text-sm leading-5">
-                <div className="flex justify-between gap-3">
-                  <dt className="text-[var(--ink-soft)]">
+              <dl className="grid min-w-0 gap-1 text-sm leading-5">
+                <div className={claseFilaParametroFormula}>
+                  <dt className={claseEtiquetaParametroFormula}>
                     <span className="block">
                       UMBRAL_RETENCION_PERFIL_NOMINAL
                     </span>
                     <span className="block">euros nominales {anio}</span>
                   </dt>
-                  <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+                  <dd className={claseValorParametroFormula}>
                     {formatearCentimosEnteros(umbralRetencion.nominalCentimos)}
                   </dd>
                 </div>
-                <div className="flex justify-between gap-3">
-                  <dt className="text-[var(--ink-soft)]">
+                <div className={claseFilaParametroFormula}>
+                  <dt className={claseEtiquetaParametroFormula}>
                     <span className="block">UMBRAL_RETENCION_PERFIL_REAL</span>
                     <span className="block">IPC, euros {anioReferencia}</span>
                   </dt>
-                  <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+                  <dd className={claseValorParametroFormula}>
                     {formatearCentimosEnteros(umbralRetencion.realCentimos)}
                   </dd>
                 </div>
-                <div className="flex justify-between gap-3">
-                  <dt className="text-[var(--ink-soft)]">Tipo límite</dt>
-                  <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+                <div className={claseFilaParametroFormula}>
+                  <dt className={claseEtiquetaParametroFormula}>Tipo límite</dt>
+                  <dd className={claseValorParametroFormula}>
                     {parametros.tipoMaximoRetencion}
                   </dd>
                 </div>
               </dl>
-              <div className="grid content-start gap-1">
-                <p className="text-sm leading-5 text-[var(--ink-soft)]">
+              <div className="grid min-w-0 content-start gap-1">
+                <p
+                  className={cn(
+                    "text-sm leading-5 text-[var(--ink-soft)]",
+                    claseTextoCortable
+                  )}
+                >
                   DEDUCCION_SMI_NOMINAL
                 </p>
-                <p className="font-[family-name:var(--mono)] text-sm leading-5">
+                <p className={claseTextoParametroFormula}>
                   {parametros.deduccionSmi}
                 </p>
               </div>
@@ -2972,8 +3009,8 @@ function FormulaTipoMarginalIrpf({
   })
 
   return (
-    <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
-      <div className="grid gap-3">
+    <section className="mt-5 grid min-w-0 gap-4 border-t-2 border-[var(--rule)] pt-5">
+      <div className="grid min-w-0 gap-3">
         <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
           Cálculo aplicado
         </p>
@@ -2986,7 +3023,7 @@ function FormulaTipoMarginalIrpf({
         </FormulaLineal>
       </div>
 
-      <div className="grid gap-3">
+      <div className="grid min-w-0 gap-3">
         <FormulaLineal>
           <BloqueFormula tono="resultado">DELTA_CUOTA_IRPF</BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
@@ -3021,7 +3058,7 @@ function FormulaTipoMarginalIrpf({
         </FormulaLineal>
       </div>
 
-      <dl className="grid gap-4">
+      <dl className="grid min-w-0 gap-4">
         <ExplicacionVariable termino="TIPO_MARGINAL_IRPF">
           <div className="grid gap-2">
             <p>
@@ -3107,12 +3144,12 @@ function FormulaTipoMarginalIrpf({
         </ExplicacionVariable>
       </dl>
 
-      <div className="grid items-stretch gap-2 sm:grid-cols-2">
+      <div className="grid min-w-0 items-stretch gap-2 sm:grid-cols-2">
         <div
-          className="grid h-full grid-rows-[auto_auto_minmax(6rem,1fr)] gap-2 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[3px_3px_0_0_var(--rule)]"
+          className={claseTarjetaParametroFormula}
           style={{ borderBottomColor: colorTipoMarginalIrpf }}
         >
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center justify-between gap-3">
             <span className="font-[family-name:var(--mono)] text-xl font-bold tabular-nums">
               {anio}
             </span>
@@ -3121,43 +3158,48 @@ function FormulaTipoMarginalIrpf({
               style={{ borderColor: colorTipoMarginalIrpf }}
             />
           </div>
-          <dl className="grid gap-1 text-sm leading-5">
-            <div className="flex justify-between gap-3">
-              <dt className="text-[var(--ink-soft)]">Paso visible</dt>
-              <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+          <dl className="grid min-w-0 gap-1 text-sm leading-5">
+            <div className={claseFilaParametroFormula}>
+              <dt className={claseEtiquetaParametroFormula}>Paso visible</dt>
+              <dd className={claseValorParametroFormula}>
                 {formatearCentimosEnteros(pasoCentimos)}
               </dd>
             </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-[var(--ink-soft)]">Paso cálculo</dt>
-              <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+            <div className={claseFilaParametroFormula}>
+              <dt className={claseEtiquetaParametroFormula}>Paso cálculo</dt>
+              <dd className={claseValorParametroFormula}>
                 {formatearCentimosEnteros(pasoCalculoCentimos)}
               </dd>
             </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-[var(--ink-soft)]">
+            <div className={claseFilaParametroFormula}>
+              <dt className={claseEtiquetaParametroFormula}>
                 <span className="block">UMBRAL_RETENCION_PERFIL_NOMINAL</span>
                 <span className="block">euros nominales {anio}</span>
               </dt>
-              <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+              <dd className={claseValorParametroFormula}>
                 {formatearCentimosEnteros(umbralRetencion.nominalCentimos)}
               </dd>
             </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-[var(--ink-soft)]">
+            <div className={claseFilaParametroFormula}>
+              <dt className={claseEtiquetaParametroFormula}>
                 <span className="block">UMBRAL_RETENCION_PERFIL_REAL</span>
                 <span className="block">IPC, euros {anioReferencia}</span>
               </dt>
-              <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+              <dd className={claseValorParametroFormula}>
                 {formatearCentimosEnteros(umbralRetencion.realCentimos)}
               </dd>
             </div>
           </dl>
-          <div className="grid content-start gap-1">
-            <p className="text-sm leading-5 text-[var(--ink-soft)]">
+          <div className="grid min-w-0 content-start gap-1">
+            <p
+              className={cn(
+                "text-sm leading-5 text-[var(--ink-soft)]",
+                claseTextoCortable
+              )}
+            >
               DEDUCCION_SMI_NOMINAL
             </p>
-            <p className="font-[family-name:var(--mono)] text-sm leading-5">
+            <p className={claseTextoParametroFormula}>
               {parametros.deduccionSmi}
             </p>
           </div>
@@ -3183,8 +3225,8 @@ function FormulaDiferenciaMagnitud({
       : "DIFERENCIA_EUROS_REALES"
 
   return (
-    <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
-      <div className="grid gap-3">
+    <section className="mt-5 grid min-w-0 gap-4 border-t-2 border-[var(--rule)] pt-5">
+      <div className="grid min-w-0 gap-3">
         <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
           Cálculo aplicado
         </p>
@@ -3215,7 +3257,7 @@ function FormulaDiferenciaMagnitud({
           </BloqueFormula>
         </FormulaLineal>
       </div>
-      <dl className="grid gap-4">
+      <dl className="grid min-w-0 gap-4">
         <ExplicacionVariable termino="MAGNITUD_COMPARABLE_REAL">
           Es la magnitud seleccionada ({ficha.etiqueta}) expresada en euros de{" "}
           {anioReferencia}. Si la magnitud es IRPF, este campo es el mismo
