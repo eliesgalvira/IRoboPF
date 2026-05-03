@@ -26,7 +26,6 @@ import {
   ANIOS_COMPARABLES,
   centimosAEuros,
   eurosACentimos,
-  formatearCentimos,
   formatearCentimosEnteros,
   formatearPuntosPorcentuales,
   dinero,
@@ -78,6 +77,7 @@ import {
   type AuditoriaRangoSalarial,
   type PuntoAuditoriaRangoSalarial,
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
+import { IPC_ANUAL_DICIEMBRE } from "@/lib/dominio/normativa/datos/ipc-2012-2026"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "@/lib/dominio/normativa/datos/irpf-obligacion-declarar"
 import {
   exportarAuditoriaCompatibleExcelConProgreso,
@@ -1115,8 +1115,8 @@ const coloresTipoEfectivoIrpf: Readonly<Record<AnioFiscal, string>> = {
   2022: "oklch(0.52 0.18 5)",
   2023: "oklch(0.54 0.18 335)",
   2024: "oklch(0.48 0.18 285)",
-  2025: "oklch(0.62 0.19 35)",
-  2026: "oklch(0.38 0.12 285)",
+  2025: "oklch(0.38 0.12 285)",
+  2026: "oklch(0.62 0.19 35)",
 }
 
 type ComunidadAuditada =
@@ -2456,10 +2456,6 @@ const parametrosFormulaTipoEfectivoIrpf = (anio: AnioFiscal) => {
   const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
 
   return {
-    anio,
-    minimoExentoRetencion: formatearCentimos(
-      eurosACentimos(Number(especificacion.minimoExentoRetencion))
-    ),
     tipoMaximoRetencion: formatearPuntosPorcentuales(
       especificacion.tipoMaximoRetencionNomina.mul(100).toString()
     ),
@@ -2469,6 +2465,90 @@ const parametrosFormulaTipoEfectivoIrpf = (anio: AnioFiscal) => {
 
 const formatoEurosEnteros = (euros: number): string =>
   formatearCentimosEnteros(eurosACentimos(euros))
+
+const ipcAnualConocido = (anio: number): Decimal =>
+  IPC_ANUAL_DICIEMBRE[anio] ?? new Decimal(0)
+
+const factorIpcEntreAnios = (
+  anioBase: AnioFiscal,
+  anioReferencia: AnioFiscal
+) => {
+  if (anioBase === anioReferencia) return new Decimal(1)
+
+  const inicio = Math.min(anioBase, anioReferencia) + 1
+  const fin = Math.max(anioBase, anioReferencia)
+  const factor = Array.from(
+    { length: fin - inicio + 1 },
+    (_, indice) => inicio + indice
+  ).reduce(
+    (acumulado, anio) =>
+      acumulado.mul(new Decimal(1).plus(ipcAnualConocido(anio))),
+    new Decimal(1)
+  )
+
+  return anioBase < anioReferencia ? factor : new Decimal(1).div(factor)
+}
+
+const ajustarCentimosAAnioReferencia = ({
+  centimosNominales,
+  anioNominal,
+  anioReferencia,
+}: {
+  readonly centimosNominales: number
+  readonly anioNominal: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+}) =>
+  new Decimal(centimosNominales)
+    .mul(factorIpcEntreAnios(anioNominal, anioReferencia))
+    .toDecimalPlaces(0, Decimal.ROUND_HALF_UP)
+    .toNumber()
+
+const umbralRetencionPerfilNominalCentimos = ({
+  anio,
+  perfil,
+}: {
+  readonly anio: AnioFiscal
+  readonly perfil: PerfilAuditado
+}) =>
+  Match.value(anio).pipe(
+    Match.when(2026, () =>
+      eurosACentimos(
+        detallePerfilAuditoriaNormativa(perfil).umbralRetencion2026Euros
+      )
+    ),
+    Match.orElse(() =>
+      eurosACentimos(
+        Number(
+          obtenerEspecificacionCompatibilidadHistorica(anio)
+            .minimoExentoRetencion
+        )
+      )
+    )
+  )
+
+const umbralRetencionPerfil = ({
+  anio,
+  anioReferencia,
+  perfil,
+}: {
+  readonly anio: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+  readonly perfil: PerfilAuditado
+}) => {
+  const nominalCentimos = umbralRetencionPerfilNominalCentimos({
+    anio,
+    perfil,
+  })
+
+  return {
+    nominalCentimos,
+    realCentimos: ajustarCentimosAAnioReferencia({
+      centimosNominales: nominalCentimos,
+      anioNominal: anio,
+      anioReferencia,
+    }),
+  }
+}
 
 const dominioEurosSimetrico = (valores: ReadonlyArray<number>) => {
   if (valores.length === 0) return [-1000, 1000] as const
@@ -2609,9 +2689,11 @@ function ExplicacionVariable({
 
 function FormulaTipoEfectivoIrpf({
   anios,
+  anioReferencia,
   perfil,
 }: {
   readonly anios: ReadonlyArray<AnioFiscal>
+  readonly anioReferencia: AnioFiscal
   readonly perfil: PerfilAuditado
 }) {
   const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
@@ -2625,7 +2707,7 @@ function FormulaTipoEfectivoIrpf({
         <FormulaLineal>
           <BloqueFormula tono="resultado">TIPO_EFECTIVO_IRPF</BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
-          <BloqueFormula tono="resultado">IRPF_COMPARABLE</BloqueFormula>
+          <BloqueFormula tono="resultado">IRPF_COMPARABLE_REAL</BloqueFormula>
           <BloqueFormula>/</BloqueFormula>
           <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
         </FormulaLineal>
@@ -2633,20 +2715,26 @@ function FormulaTipoEfectivoIrpf({
 
       <div className="grid gap-3">
         <FormulaLineal>
-          <BloqueFormula tono="resultado">IRPF_COMPARABLE</BloqueFormula>
+          <BloqueFormula tono="resultado">
+            IRPF_COMPARABLE_NOMINAL
+          </BloqueFormula>
           <BloqueFormula>
-            = si SALARIO_BRUTO_REAL {">"} 22.000 EUR
+            = si SALARIO_BRUTO_NOMINAL {">"} 22.000 EUR
           </BloqueFormula>
         </FormulaLineal>
         <FormulaLineal>
-          <BloqueFormula tono="resultado">IRPF_COMPARABLE</BloqueFormula>
+          <BloqueFormula tono="resultado">
+            IRPF_COMPARABLE_NOMINAL
+          </BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
           <BloqueFormula tono="calculo">
             max(0, CUOTA_LIQUIDADA - DEDUCCION_SMI)
           </BloqueFormula>
         </FormulaLineal>
         <FormulaLineal>
-          <BloqueFormula tono="resultado">IRPF_COMPARABLE</BloqueFormula>
+          <BloqueFormula tono="resultado">
+            IRPF_COMPARABLE_NOMINAL
+          </BloqueFormula>
           <BloqueFormula>= si no, IRPF_FINAL</BloqueFormula>
         </FormulaLineal>
         <FormulaLineal>
@@ -2656,40 +2744,56 @@ function FormulaTipoEfectivoIrpf({
             max(0, CUOTA_LIQUIDADA - DEDUCCION_SMI)
           </BloqueFormula>
           <BloqueFormula>,</BloqueFormula>
-          <BloqueFormula tono="limite">LIMITE_RETENCION_NOMINA</BloqueFormula>
+          <BloqueFormula tono="limite">
+            LIMITE_RETENCION_NOMINA_NOMINAL
+          </BloqueFormula>
           <BloqueFormula>)</BloqueFormula>
         </FormulaLineal>
         <FormulaLineal>
-          <BloqueFormula tono="limite">LIMITE_RETENCION_NOMINA</BloqueFormula>
+          <BloqueFormula tono="limite">
+            LIMITE_RETENCION_NOMINA_NOMINAL
+          </BloqueFormula>
           <BloqueFormula>= max(</BloqueFormula>
           <BloqueFormula>0</BloqueFormula>
           <BloqueFormula>,</BloqueFormula>
           <BloqueFormula tono="limite">
-            (SALARIO_BRUTO_REAL - UMBRAL_RETENCION_PERFIL) x 43%
+            (SALARIO_BRUTO_NOMINAL - UMBRAL_RETENCION_PERFIL_NOMINAL) x 43%
           </BloqueFormula>
           <BloqueFormula>)</BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">IRPF_COMPARABLE_REAL</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="calculo">
+            IRPF_COMPARABLE_NOMINAL ajustado por IPC a euros de {anioReferencia}
+          </BloqueFormula>
         </FormulaLineal>
       </div>
 
       <dl className="grid gap-4">
         <ExplicacionVariable termino="PERFIL">
-          {detallePerfil.descripcionCalculo} Para la referencia técnica 2026 el
-          umbral del límite 43% es{" "}
+          {detallePerfil.descripcionCalculo} En la normativa nominal de 2026 el
+          umbral del límite 43% para este perfil es{" "}
           {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}:
           situación {detallePerfil.situacionRetencion.replace("situacion", "")},{" "}
-          {detallePerfil.descendientes.length} descendiente(s).
+          {detallePerfil.descendientes.length} descendiente(s). En las tarjetas
+          se muestra también su equivalente real en euros de {anioReferencia},
+          que es la unidad del eje X del gráfico.
         </ExplicacionVariable>
         <ExplicacionVariable termino="CUOTA_LIQUIDADA">
           Resultado de aplicar las reglas anuales del IRPF antes del límite
           final usado por esta comparación histórica.
         </ExplicacionVariable>
-        <ExplicacionVariable termino="IRPF_COMPARABLE">
-          Importe usado sólo en las gráficas de tipo efectivo y diferencia. Por
-          encima del umbral general de obligación de declarar, se compara con la
-          cuota anual tras deducción; la gráfica de tipo marginal usa la cuota
-          anual tras deducción SMI para no convertir una obligación formal en un
-          marginal de la escala. El umbral general de 22.000 € para rendimientos
-          del trabajo con un pagador está recogido en el{" "}
+        <ExplicacionVariable termino="IRPF_COMPARABLE_NOMINAL / REAL">
+          Importe usado sólo en las gráficas de tipo efectivo y diferencia.
+          Primero se calcula con importes nominales y normativa nominal de cada
+          año; después se ajusta por IPC a euros de {anioReferencia} para
+          dividirlo entre SALARIO_BRUTO_REAL. Por encima del umbral general de
+          obligación de declarar, se compara con la cuota anual tras deducción;
+          la gráfica de tipo marginal usa la cuota anual tras deducción SMI para
+          no convertir una obligación formal en un marginal de la escala. El
+          umbral general de 22.000 € para rendimientos del trabajo con un
+          pagador está recogido en el{" "}
           <a
             href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a96"
             className="font-bold underline decoration-[var(--rule)] underline-offset-4"
@@ -2706,26 +2810,33 @@ function FormulaTipoEfectivoIrpf({
           .
         </ExplicacionVariable>
         <ExplicacionVariable termino="DEDUCCION_SMI">
-          Deducción estatal por obtención de rendimientos del trabajo que sólo
-          aparece en los años en los que existe en la especificación de
-          compatibilidad.
+          Deducción estatal por obtención de rendimientos del trabajo. Los
+          umbrales escritos en la fórmula son nominales del año indicado; cuando
+          se representan en el gráfico se proyectan sobre salario bruto real en
+          euros de {anioReferencia}.
         </ExplicacionVariable>
         <ExplicacionVariable termino="SALARIO_BRUTO_REAL">
-          Salario bruto anual expresado en euros comparables, ajustado a la
-          inflación del año de referencia.
+          Salario bruto anual expresado en euros comparables de {anioReferencia}
+          , ajustado a la inflación del año de referencia.
         </ExplicacionVariable>
-        <ExplicacionVariable termino="UMBRAL_RETENCION_PERFIL">
-          Umbral que entra en el límite de nómina. En 2026 no es un único 15.876
-          €: depende de la situación familiar y del número de descendientes
-          comunicados en el perfil.
+        <ExplicacionVariable termino="UMBRAL_RETENCION_PERFIL_NOMINAL">
+          Umbral legal que entra en el límite de nómina, expresado en euros
+          nominales de cada año. En 2026 no es un único 15.876 €: depende de la
+          situación familiar y del número de descendientes comunicados en el
+          perfil.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="UMBRAL_RETENCION_PERFIL_REAL">
+          Mismo umbral nominal reexpresado por IPC en euros de {anioReferencia}.
+          Es el valor comparable con el eje salarial del gráfico.
         </ExplicacionVariable>
         <ExplicacionVariable termino="LIMITE_RETENCION_NOMINA">
           Tope de nómina: en esta comparativa el IRPF final no puede superar el
           43% de la parte del salario que queda por encima de
-          UMBRAL_RETENCION_PERFIL. Ese porcentaje viene del procedimiento de
-          retenciones de trabajo que publica la AEAT para calcular cuánto debe
-          retener una nómina a cuenta del IRPF. La AEAT lo documenta en su
-          página de{" "}
+          UMBRAL_RETENCION_PERFIL_NOMINAL, porque la regla se aplica antes de
+          ajustar el resultado por inflación. Ese porcentaje viene del
+          procedimiento de retenciones de trabajo que publica la AEAT para
+          calcular cuánto debe retener una nómina a cuenta del IRPF. La AEAT lo
+          documenta en su página de{" "}
           <a
             href="https://sede.agenciatributaria.gob.es/Sede/Retenciones.shtml"
             className="font-bold underline decoration-[var(--rule)] underline-offset-4"
@@ -2753,6 +2864,11 @@ function FormulaTipoEfectivoIrpf({
       <div className="grid items-stretch gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {anios.map((anio) => {
           const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
+          const umbralRetencion = umbralRetencionPerfil({
+            anio,
+            anioReferencia,
+            perfil,
+          })
           return (
             <div
               key={`formula-irpf-${anio}`}
@@ -2771,14 +2887,22 @@ function FormulaTipoEfectivoIrpf({
               <dl className="grid gap-1 text-sm leading-5">
                 <div className="flex justify-between gap-3">
                   <dt className="text-[var(--ink-soft)]">
-                    UMBRAL_RETENCION_PERFIL
+                    <span className="block">
+                      UMBRAL_RETENCION_PERFIL_NOMINAL
+                    </span>
+                    <span className="block">euros nominales {anio}</span>
                   </dt>
                   <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
-                    {anio === 2026
-                      ? formatoEurosEnteros(
-                          detallePerfil.umbralRetencion2026Euros
-                        )
-                      : parametros.minimoExentoRetencion}
+                    {formatearCentimosEnteros(umbralRetencion.nominalCentimos)}
+                  </dd>
+                </div>
+                <div className="flex justify-between gap-3">
+                  <dt className="text-[var(--ink-soft)]">
+                    <span className="block">UMBRAL_RETENCION_PERFIL_REAL</span>
+                    <span className="block">IPC, euros {anioReferencia}</span>
+                  </dt>
+                  <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+                    {formatearCentimosEnteros(umbralRetencion.realCentimos)}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-3">
@@ -2790,7 +2914,7 @@ function FormulaTipoEfectivoIrpf({
               </dl>
               <div className="grid content-start gap-1">
                 <p className="text-sm leading-5 text-[var(--ink-soft)]">
-                  DEDUCCION_SMI
+                  DEDUCCION_SMI_NOMINAL
                 </p>
                 <p className="font-[family-name:var(--mono)] text-sm leading-5">
                   {parametros.deduccionSmi}
@@ -2806,16 +2930,23 @@ function FormulaTipoEfectivoIrpf({
 
 function FormulaTipoMarginalIrpf({
   anio,
+  anioReferencia,
   perfil,
   pasoCentimos,
 }: {
   readonly anio: AnioFiscal
+  readonly anioReferencia: AnioFiscal
   readonly perfil: PerfilAuditado
   readonly pasoCentimos: number
 }) {
   const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
   const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
   const pasoCalculoCentimos = pasoCalculoTipoMarginalCentimos(pasoCentimos)
+  const umbralRetencion = umbralRetencionPerfil({
+    anio,
+    anioReferencia,
+    perfil,
+  })
 
   return (
     <section className="mt-5 grid gap-4 border-t-2 border-[var(--rule)] pt-5">
@@ -2919,9 +3050,11 @@ function FormulaTipoMarginalIrpf({
           si el marginal se calcula con el IRPF limitado por retención.
         </ExplicacionVariable>
         <ExplicacionVariable termino="PERFIL">
-          {detallePerfil.descripcionCalculo} En 2026 el umbral de retención de
-          este perfil es{" "}
-          {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}.
+          {detallePerfil.descripcionCalculo} En la normativa nominal de 2026 el
+          umbral de retención de este perfil es{" "}
+          {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}. La
+          tarjeta separa el valor nominal del año calculado y su equivalente
+          real en euros de {anioReferencia}.
         </ExplicacionVariable>
         <ExplicacionVariable termino="ESCALAS IRPF">
           Hacienda aplica tipos progresivos sobre la base liquidable general en
@@ -2974,18 +3107,26 @@ function FormulaTipoMarginalIrpf({
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-[var(--ink-soft)]">
-                UMBRAL_RETENCION_PERFIL
+                <span className="block">UMBRAL_RETENCION_PERFIL_NOMINAL</span>
+                <span className="block">euros nominales {anio}</span>
               </dt>
               <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
-                {anio === 2026
-                  ? formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)
-                  : parametros.minimoExentoRetencion}
+                {formatearCentimosEnteros(umbralRetencion.nominalCentimos)}
+              </dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-[var(--ink-soft)]">
+                <span className="block">UMBRAL_RETENCION_PERFIL_REAL</span>
+                <span className="block">IPC, euros {anioReferencia}</span>
+              </dt>
+              <dd className="font-[family-name:var(--mono)] font-bold tabular-nums">
+                {formatearCentimosEnteros(umbralRetencion.realCentimos)}
               </dd>
             </div>
           </dl>
           <div className="grid content-start gap-1">
             <p className="text-sm leading-5 text-[var(--ink-soft)]">
-              DEDUCCION_SMI
+              DEDUCCION_SMI_NOMINAL
             </p>
             <p className="font-[family-name:var(--mono)] text-sm leading-5">
               {parametros.deduccionSmi}
@@ -2998,8 +3139,10 @@ function FormulaTipoMarginalIrpf({
 }
 
 function FormulaDiferenciaMagnitud({
+  anioReferencia,
   magnitud,
 }: {
+  readonly anioReferencia: AnioFiscal
   readonly magnitud: MagnitudAuditadaAuditoria
 }) {
   const ficha = describirMagnitudAuditoriaNormativa(magnitud)
@@ -3034,6 +3177,12 @@ function FormulaDiferenciaMagnitud({
           {ficha.detalle}. Al cambiar la magnitud, esta gráfica recalcula los
           euros reales y el tipo efectivo con el campo seleccionado, manteniendo
           el mismo rango salarial y los mismos años.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="SALARIO_BRUTO_REAL">
+          El eje X y el denominador del tipo efectivo están en euros de{" "}
+          {anioReferencia}. Las reglas fiscales de cada año se calculan primero
+          con importes nominales de ese año y sólo después se reexpresan por IPC
+          para poder compararlas en la misma unidad.
         </ExplicacionVariable>
       </dl>
     </section>
@@ -3944,6 +4093,7 @@ function Visualizaciones({
           )}
           <FormulaTipoEfectivoIrpf
             anios={aniosGraficoIrpfVisibles}
+            anioReferencia={anioReferenciaGraficosIrpf}
             perfil={perfil}
           />
         </Tabs.Panel>
@@ -4082,7 +4232,10 @@ function Visualizaciones({
               </AreaChart>
             </ChartContainer>
           )}
-          <FormulaDiferenciaMagnitud magnitud={magnitudAuditada} />
+          <FormulaDiferenciaMagnitud
+            anioReferencia={anioReferenciaGraficosIrpf}
+            magnitud={magnitudAuditada}
+          />
         </Tabs.Panel>
         <Tabs.Panel
           value="tipo-marginal"
@@ -4240,6 +4393,7 @@ function Visualizaciones({
           )}
           <FormulaTipoMarginalIrpf
             anio={anioGraficoTipoMarginalIrpfVisible}
+            anioReferencia={anioReferenciaGraficosIrpf}
             perfil={perfil}
             pasoCentimos={pasoAuditoriaVisibleCentimos}
           />

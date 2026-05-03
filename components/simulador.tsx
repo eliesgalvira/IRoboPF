@@ -218,7 +218,7 @@ function SimuladorImpl() {
             >
               <label className="flex items-baseline justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
                 <span>
-                  SALARIO BRUTO ANUAL ·{" "}
+                  SALARIO BRUTO ANUAL · EUROS{" "}
                   {vistaCoste === "pasado" ? anioComparado : 2026}
                 </span>
                 <span>EUR</span>
@@ -232,6 +232,10 @@ function SimuladorImpl() {
                   +
                 </NumberField.Increment>
               </NumberField.Group>
+              <p className="text-sm leading-5 text-[var(--ink-soft)]">
+                Valor nominal del año indicado. En las columnas se separa de su
+                equivalente real ajustado por IPC.
+              </p>
             </NumberField.Root>
 
             <Slider.Root
@@ -555,7 +559,7 @@ function Columnas({
   const comparacionMostrada =
     modo === "pasado" ? comparacionPasada : comparacion
   const usarCosteLaboral = modo === "coste-laboral"
-  const etiquetaBase = usarCosteLaboral ? "COSTE LABORAL" : "BRUTO"
+  const etiquetaBase = usarCosteLaboral ? "COSTE LABORAL REAL" : "BRUTO REAL"
   const opcionesVista = [
     { modo: "bruto", etiqueta: "Salario bruto" },
     { modo: "coste-laboral", etiqueta: "Coste laboral" },
@@ -604,14 +608,18 @@ function Columnas({
         <Columna
           rotuloSuperior={`leyes ${comparacionMostrada.anioComparado}`}
           titulo={String(comparacionMostrada.anioComparado)}
-          subtitulo={`euros de ${comparacionMostrada.anioReferencia}`}
+          subtitulo={`euros reales de ${comparacionMostrada.anioReferencia}`}
           etiquetaBase={etiquetaBase}
           baseCentimos={
             usarCosteLaboral
               ? comparacionMostrada.comparado.ajustado.costeLaboralCentimos
               : comparacionMostrada.comparado.ajustado.salarioBrutoAnualCentimos
           }
+          brutoNominalCentimos={
+            comparacionMostrada.comparado.salarioBrutoNominalAnualCentimos
+          }
           desglose={comparacionMostrada.comparado.ajustado}
+          anioNominal={comparacionMostrada.anioComparado}
           variante="comparado"
         />
         <Columna
@@ -619,9 +627,7 @@ function Columnas({
             modo === "pasado" ? "año de referencia" : "legislación actual"
           }
           titulo={String(comparacionMostrada.anioReferencia)}
-          subtitulo={
-            modo === "pasado" ? "salario introducido" : "año de referencia"
-          }
+          subtitulo={`euros nominales de ${comparacionMostrada.anioReferencia}`}
           etiquetaBase={etiquetaBase}
           baseCentimos={
             usarCosteLaboral
@@ -642,7 +648,9 @@ function Columna({
   subtitulo,
   etiquetaBase,
   baseCentimos,
+  brutoNominalCentimos,
   desglose,
+  anioNominal,
   variante,
 }: {
   readonly rotuloSuperior: string
@@ -650,7 +658,9 @@ function Columna({
   readonly subtitulo: string
   readonly etiquetaBase: string
   readonly baseCentimos: number
+  readonly brutoNominalCentimos?: number
   readonly desglose: DesgloseLiquidado
+  readonly anioNominal?: AnioFiscal
   readonly variante: "actual" | "comparado"
 }) {
   const carga =
@@ -659,8 +669,9 @@ function Columna({
   const cuna =
     (desglose.costeLaboralCentimos - desglose.salarioNetoAnualCentimos) /
     desglose.costeLaboralCentimos
-  const etiquetaCarga =
-    etiquetaBase === "BRUTO" ? "CARGA SOBRE BRUTO" : "CARGA SOBRE COSTE"
+  const etiquetaCarga = etiquetaBase.startsWith("BRUTO")
+    ? "CARGA SOBRE BRUTO"
+    : "CARGA SOBRE COSTE"
   return (
     <article
       className={cn(
@@ -682,6 +693,12 @@ function Columna({
       </p>
       <ul className="grid gap-0 text-sm">
         <Fila etiqueta={etiquetaBase} valor={formatearCentimos(baseCentimos)} />
+        {brutoNominalCentimos !== undefined && anioNominal !== undefined ? (
+          <Fila
+            etiqueta={`BRUTO NOMINAL ${anioNominal}`}
+            valor={formatearCentimos(brutoNominalCentimos)}
+          />
+        ) : null}
         <Fila
           etiqueta="SS TRABAJADOR"
           valor={`−${formatearCentimos(desglose.cotizacionTrabajadorCentimos)}`}

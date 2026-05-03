@@ -224,7 +224,7 @@ const describirEstadoDeduccion = (
 
 const AYUDAS_RESUMEN = {
   "Rendimientos del trabajo":
-    "Ingresos brutos anuales por salario o trabajo antes de restar cotizaciones y gastos deducibles.",
+    "Ingresos brutos anuales nominales de 2025 por salario o trabajo antes de restar cotizaciones y gastos deducibles.",
   "Base liquidable":
     "Resultado que queda para aplicar los tramos: rendimientos netos menos reducciones de base.",
   "Rendimiento neto del trabajo":
@@ -249,7 +249,7 @@ const AYUDAS_RESUMEN = {
   "Cuota líquida":
     "Impuesto resultante antes de restar retenciones y pagos a cuenta.",
   "Retenciones/pagos a cuenta":
-    "Importes ya pagados durante el año que se restan de la cuota liquida.",
+    "Importes nominales ya pagados durante el año que se restan de la cuota liquida.",
   "Deducciones autonómicas":
     "Importe total de deducciones autonómicas aplicables, si ya lo conoces.",
   "Cuota diferencial":
@@ -257,7 +257,7 @@ const AYUDAS_RESUMEN = {
 } satisfies Record<string, string>
 const AYUDAS_FORMULARIO = {
   "Rendimientos del trabajo":
-    "Ingresos brutos anuales por salario o trabajo antes de restar cotizaciones.",
+    "Ingresos brutos anuales nominales de 2025 por salario o trabajo antes de restar cotizaciones.",
   "Capital inmobiliario":
     "Ingresos anuales por inmuebles alquilados u otros rendimientos inmobiliarios.",
   "Ganancia patrimonial":
@@ -279,7 +279,7 @@ const AYUDAS_FORMULARIO = {
   Ascendientes:
     "Padres, madres o abuelos que pueden computar solo si cumplen requisitos fiscales.",
   "Retenciones soportadas":
-    "IRPF ya retenido durante el año, por ejemplo en la nomina.",
+    "IRPF nominal ya retenido durante 2025, por ejemplo en la nomina.",
   "Pagos a cuenta":
     "Otros pagos anticipados del impuesto ya realizados, incluidas retenciones de trabajo si decides estimarlas aqui.",
   "Deducciones autonómicas":
@@ -782,6 +782,18 @@ export function LiquidacionIrpf() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
         <NavegacionSitio />
 
+        <section className="border border-[var(--rule)] bg-[var(--paper)] p-4">
+          <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+            Unidad de cálculo
+          </p>
+          <p className="mt-2 max-w-4xl text-sm leading-6 text-[var(--ink-soft)]">
+            Todos los importes de esta pantalla están en euros nominales del año
+            fiscal 2025: rendimientos, mínimos, reducciones, deducciones,
+            retenciones y cuotas. No se ajustan por IPC; los euros reales
+            ajustados a inflación sólo se usan en las comparativas históricas.
+          </p>
+        </section>
+
         <section className="grid items-start gap-6 lg:grid-cols-[minmax(320px,470px)_1fr]">
           <FormularioCaso
             ascendientes={ascendientes}
@@ -965,7 +977,7 @@ function FormularioCaso({
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
-            2025 · individual
+            2025 nominal · individual
           </p>
           <h1 className="mt-2 text-4xl leading-none font-[var(--display)]">
             Liquidación IRPF
@@ -979,7 +991,7 @@ function FormularioCaso({
           <NumberField
             ayuda={AYUDAS_FORMULARIO["Rendimientos del trabajo"]}
             compacto
-            etiqueta="Rendimientos del trabajo"
+            etiqueta="Rendimientos trabajo nominales"
             formato={FORMATO_ENTERO}
             onChange={fijarRendimientosTrabajoEuros}
             paso={500}
@@ -1046,7 +1058,7 @@ function FormularioCaso({
           <NumberField
             ayuda={AYUDAS_FORMULARIO["Retenciones soportadas"]}
             compacto
-            etiqueta="Retenciones soportadas"
+            etiqueta="Retenciones soportadas nominales"
             formato={FORMATO_ENTERO}
             onChange={fijarRetencionesSoportadasEuros}
             paso={250}
@@ -2043,7 +2055,8 @@ function DialogoPagosACuentaRetenciones({
               </Dialog.Close>
             </div>
             <Dialog.Description className="text-sm leading-6 text-[var(--ink-soft)]">
-              Introduce un importe manual o estima la retención de trabajo.
+              Introduce un importe manual o estima la retención de trabajo. Los
+              importes son euros nominales de 2025.
             </Dialog.Description>
 
             <div className="grid items-end gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(13rem,15rem)]">
@@ -2071,7 +2084,7 @@ function DialogoPagosACuentaRetenciones({
                   </h3>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <NumberField
-                      etiqueta="Retribuciones anuales"
+                      etiqueta="Retribuciones anuales nominales"
                       formato={FORMATO_ENTERO}
                       onChange={(valor) =>
                         actualizarEntradaRetencionAeat(
@@ -2083,7 +2096,7 @@ function DialogoPagosACuentaRetenciones({
                       valor={entradasRetencionAeat.retribucionAnualEuros}
                     />
                     <NumberField
-                      etiqueta="Cotizaciones deducibles"
+                      etiqueta="Cotizaciones deducibles nominales"
                       formato={FORMATO_ENTERO}
                       onChange={(valor) =>
                         actualizarEntradaRetencionAeat(
@@ -2760,7 +2773,8 @@ function ConciliacionSimuladorLegacyPanel({
         La cuota diferencial es una magnitud de declaración anual. El simulador
         simplificado muestra una estimación de IRPF de nómina: parte de la cuota
         anual y después aplica la deducción vinculada al SMI y el límite legal
-        de retención de nómina.
+        de retención de nómina. Todos estos importes son nominales de{" "}
+        {conciliacion.anio}.
       </div>
       <LineaResumen
         ayuda="Cuota anual antes de restar retenciones y pagos a cuenta; es la base comparable con el cálculo de nómina."
@@ -2781,11 +2795,12 @@ function ConciliacionSimuladorLegacyPanel({
         valor={formatearEuros(conciliacion.cuotaTrasDeduccionSmiCentimos)}
       />
       <LineaResumen
-        ayuda="Límite máximo de retención en nómina aplicado por el simulador simplificado."
+        ayuda="Límite máximo nominal de retención en nómina aplicado por el simulador simplificado."
         detalle={
           <>
             <span>
-              Rendimientos del trabajo - mínimo exento de retención:{" "}
+              Rendimientos del trabajo nominales - mínimo exento de retención
+              nominal:{" "}
               {formatearEuros(conciliacion.rendimientoIntegroTrabajoCentimos)} -{" "}
               {formatearEuros(conciliacion.minimoExentoRetencionCentimos)} ={" "}
               {formatearEuros(
@@ -2795,7 +2810,8 @@ function ConciliacionSimuladorLegacyPanel({
               .
             </span>
             <span className="block">
-              Límite máximo legal de retención en nómina, art. 85.3 RIRPF:{" "}
+              Límite máximo legal nominal de retención en nómina, art. 85.3
+              RIRPF:{" "}
               {formatearEuros(
                 conciliacion.rendimientoIntegroTrabajoCentimos -
                   conciliacion.minimoExentoRetencionCentimos
@@ -2804,12 +2820,11 @@ function ConciliacionSimuladorLegacyPanel({
               {formatearPuntosPorcentuales(
                 conciliacion.tipoMaximoRetencionNominaPorcentaje
               )}{" "}
-              ={" "}
-              {formatearEuros(conciliacion.limiteRetencionNominaCentimos)}.
+              = {formatearEuros(conciliacion.limiteRetencionNominaCentimos)}.
             </span>
           </>
         }
-        etiqueta="Límite retención nómina"
+        etiqueta="Límite retención nómina nominal"
         valor={formatearEuros(conciliacion.limiteRetencionNominaCentimos)}
       />
       <LineaResumen
