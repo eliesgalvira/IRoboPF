@@ -818,7 +818,12 @@ function dibujarMarcaAguaGrafico({
 
   const anchoTexto = contexto.measureText(MARCA_AGUA_GRAFICO).width
   const anchoCaja = Math.ceil(anchoTexto + rellenoHorizontal * 2)
-  const x = ancho - margen
+  const x = obtenerXMarcaAguaGrafico({
+    elemento,
+    ancho,
+    margen,
+    anchoCaja,
+  })
   const y = obtenerYMarcaAguaGrafico({
     elemento,
     margen,
@@ -839,6 +844,95 @@ function dibujarMarcaAguaGrafico({
     y - rellenoVertical
   )
   contexto.restore()
+}
+
+function obtenerXMarcaAguaGrafico({
+  elemento,
+  ancho,
+  margen,
+  anchoCaja,
+}: {
+  readonly elemento: HTMLElement
+  readonly ancho: number
+  readonly margen: number
+  readonly anchoCaja: number
+}) {
+  const rectContenedor = elemento.getBoundingClientRect()
+  const limitesEjeDerecho = [
+    ...Array.from(
+      elemento.querySelectorAll<SVGGraphicsElement>(
+        ".recharts-yAxis .recharts-cartesian-axis-line"
+      )
+    ).flatMap((linea) => {
+      const rect = linea.getBoundingClientRect()
+      const izquierda = rect.left - rectContenedor.left
+      if (
+        rect.height <= rect.width ||
+        rect.height === 0 ||
+        izquierda <= ancho * 0.72
+      ) {
+        return []
+      }
+
+      return [izquierda]
+    }),
+    ...Array.from(
+      elemento.querySelectorAll<SVGTextElement>(".recharts-yAxis text")
+    ).flatMap((texto) => {
+      const izquierda = obtenerIzquierdaTextoSvg({
+        texto,
+        rectContenedor,
+      })
+      if (izquierda === null || izquierda <= ancho * 0.72) {
+        return []
+      }
+
+      return [izquierda]
+    }),
+  ]
+
+  const xPorDefecto = ancho - margen
+  if (limitesEjeDerecho.length === 0) return xPorDefecto
+
+  const limiteIzquierdoEjeDerecho = Math.min(...limitesEjeDerecho)
+  return Math.max(
+    margen + anchoCaja,
+    Math.min(xPorDefecto, limiteIzquierdoEjeDerecho - margen)
+  )
+}
+
+function obtenerIzquierdaTextoSvg({
+  texto,
+  rectContenedor,
+}: {
+  readonly texto: SVGTextElement
+  readonly rectContenedor: DOMRect
+}) {
+  const matriz = texto.getScreenCTM()
+  if (!matriz) return null
+
+  const estilos = window.getComputedStyle(texto)
+  const xTexto =
+    matriz.e - rectContenedor.left + (texto.x.baseVal[0]?.value ?? 0)
+  const anchoTexto = obtenerAnchoTextoSvg(texto)
+
+  if (estilos.textAnchor === "end") return xTexto - anchoTexto
+  if (estilos.textAnchor === "middle") return xTexto - anchoTexto / 2
+  return xTexto
+}
+
+function obtenerAnchoTextoSvg(texto: SVGTextElement) {
+  try {
+    const ancho = texto.getComputedTextLength()
+    if (Number.isFinite(ancho) && ancho > 0) return ancho
+  } catch {}
+
+  try {
+    const caja = texto.getBBox()
+    if (Number.isFinite(caja.width) && caja.width > 0) return caja.width
+  } catch {}
+
+  return 0
 }
 
 function obtenerFamiliaFuenteGrafico(elemento: HTMLElement) {
