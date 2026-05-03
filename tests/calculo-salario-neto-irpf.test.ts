@@ -41,6 +41,7 @@ describe("calcularSalarioNetoEIrpf", () => {
           costeLaboralCentimos: 3_962_100,
           cotizacionTrabajadorCentimos: 194_400,
           irpfFinalCentimos: 492_780,
+          irpfFinalPrecisoEuros: "4927.8",
           salarioNetoAnualCentimos: 2_312_820,
         },
       })

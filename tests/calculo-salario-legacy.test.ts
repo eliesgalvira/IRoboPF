@@ -13,13 +13,23 @@ import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
 const EJECUTAR_VALIDACION_LIQUIDACION_LEGACY_COMPLETA =
   process.env.IROBOPF_VALIDACION_LIQUIDACION_LEGACY_COMPLETA === "1"
 const ANIOS_CON_LIQUIDACION_LEGACY = [
-  2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023,
-  2024, 2025,
+  2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
+  2025,
 ] as const satisfies ReadonlyArray<AnioFiscal>
 
 describe("calcularSalarioLegacy", () => {
   const centimosDesdeCeldaEuros = (valor: unknown): number =>
     Math.round(Number(valor) * 100)
+  const sinPrecisionDecimal = <
+    T extends { irpfFinalPrecisoEuros?: string | undefined },
+  >(
+    desglose: T
+  ) => {
+    const resto = { ...desglose }
+    delete resto.irpfFinalPrecisoEuros
+
+    return resto
+  }
 
   const esperarFilaCompatible = ({
     anio,
@@ -39,7 +49,7 @@ describe("calcularSalarioLegacy", () => {
         salarioBrutoAnualCentimos: salarioBrutoEuros * 100,
       })
 
-      expect(resultado).toEqual({
+      expect(sinPrecisionDecimal(resultado)).toEqual({
         salarioBrutoAnualCentimos: salarioBrutoEuros * 100,
         cotizacionEmpresarialCentimos: centimosDesdeCeldaEuros(
           fila[indice["Cot. Soc. Empresa"]]
@@ -79,7 +89,7 @@ describe("calcularSalarioLegacy", () => {
           salarioBrutoAnualCentimos: 3_000_000,
         })
 
-        expect(resultado).toEqual({
+        expect(sinPrecisionDecimal(resultado)).toEqual({
           salarioBrutoAnualCentimos: 3_000_000,
           cotizacionEmpresarialCentimos: 962_100,
           costeLaboralCentimos: 3_962_100,
@@ -134,8 +144,46 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
-    "mantiene los casos 2012-2025 de la fixture usando la conciliacion del simulador legacy",
+    "expone la cuota anual para el marginal sin contaminarla con el limite de retencion",
     () =>
+      Effect.gen(function* () {
+        const resultado18000 = yield* calcularSalarioLegacy({
+          anio: 2025,
+          salarioBrutoAnualCentimos: 1_800_000,
+          comunidadAutonoma: "simulada-estatal",
+        })
+        const resultado19000 = yield* calcularSalarioLegacy({
+          anio: 2025,
+          salarioBrutoAnualCentimos: 1_900_000,
+          comunidadAutonoma: "simulada-estatal",
+        })
+        const resultado20000 = yield* calcularSalarioLegacy({
+          anio: 2025,
+          salarioBrutoAnualCentimos: 2_000_000,
+          comunidadAutonoma: "simulada-estatal",
+        })
+
+        const marginal18000A19000 =
+          ((resultado19000.irpfCuotaTrasDeduccionSmiCentimos ?? 0) -
+            (resultado18000.irpfCuotaTrasDeduccionSmiCentimos ?? 0)) /
+          100_000
+        const marginal19000A20000 =
+          ((resultado20000.irpfCuotaTrasDeduccionSmiCentimos ?? 0) -
+            (resultado19000.irpfCuotaTrasDeduccionSmiCentimos ?? 0)) /
+          100_000
+
+        expect(resultado19000.irpfFinalCentimos).toBeLessThan(
+          resultado19000.irpfCuotaTrasDeduccionSmiCentimos ?? 0
+        )
+        expect(marginal18000A19000).toBeGreaterThan(0.58)
+        expect(marginal18000A19000).toBeLessThan(0.59)
+        expect(marginal19000A20000).toBeGreaterThan(0.47)
+        expect(marginal19000A20000).toBeLessThan(0.49)
+      })
+  )
+
+  it("mantiene los casos 2012-2025 de la fixture usando la conciliacion del simulador legacy", async () => {
+    await Effect.runPromise(
       Effect.gen(function* () {
         const casosConLiquidacionNueva = fixture.casos.filter((caso) =>
           ANIOS_CON_LIQUIDACION_LEGACY.some((anio) => anio === caso.anio)
@@ -147,14 +195,14 @@ describe("calcularSalarioLegacy", () => {
             salarioBrutoAnualCentimos: caso.salarioBrutoAnualCentimos,
           })
 
-          expect(resultado).toEqual(caso.desglose)
+          expect(sinPrecisionDecimal(resultado)).toEqual(caso.desglose)
         }
       })
-  )
+    )
+  })
 
-  it.effect(
-    "mantiene la compatibilidad 2012-2025 contra puntos representativos del detalle anual canonico",
-    () =>
+  it("mantiene la compatibilidad 2012-2025 contra puntos representativos del detalle anual canonico", async () => {
+    await Effect.runPromise(
       Effect.gen(function* () {
         const compatibilidad = yield* CompatibilidadSalarioLegacy
         for (const anio of ANIOS_CON_LIQUIDACION_LEGACY) {
@@ -176,9 +224,9 @@ describe("calcularSalarioLegacy", () => {
             })
           }
         }
-      }).pipe(Effect.provide(CompatibilidadSalarioLegacy.layer)),
-    120_000
-  )
+      }).pipe(Effect.provide(CompatibilidadSalarioLegacy.layer))
+    )
+  }, 120_000)
 
   const pruebaCompleta = EJECUTAR_VALIDACION_LIQUIDACION_LEGACY_COMPLETA
     ? it.effect
