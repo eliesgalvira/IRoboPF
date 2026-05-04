@@ -72,7 +72,9 @@ import {
   perfilesAuditoriaNormativa,
   escenarioPermiteReferenciaTecnica2026,
   serializarEscenarioAuditoriaNormativa,
+  type DescendientePerfilAuditoriaNormativa,
   type EscenarioAuditoriaNormativaHistorica,
+  type SituacionRetencionPerfilAuditoria,
 } from "@/lib/dominio/auditoria/auditoria-normativa-historica"
 import {
   configuracionRangoAuditoria,
@@ -105,6 +107,30 @@ const VERSION_CALCULO_TIPO_MARGINAL_IRPF = "irpf-cuota-marginal-smi-v3"
 const pasoCalculoMarginalMaximoCentimos = 5_000
 const salarioDeclaracionConObligacionCentimos =
   UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS + 100
+const descripcionSituacionRetencion: Record<
+  SituacionRetencionPerfilAuditoria,
+  string
+> = {
+  situacion1:
+    "familia monoparental: contribuyente soltero, viudo, divorciado o separado legalmente con hijos que conviven exclusivamente con él",
+  situacion2:
+    "contribuyente casado y no separado legalmente cuyo cónyuge no supera 1.500 euros anuales de rentas no exentas",
+  situacion3:
+    "situación distinta de las dos anteriores o no comunicada: por ejemplo, soltero sin hijos o casado con cónyuge que supera 1.500 euros anuales",
+}
+
+const etiquetaSituacionRetencion = (
+  situacion: SituacionRetencionPerfilAuditoria
+): string => `Situación ${situacion.replace("situacion", "")}`
+
+const descripcionDescendientesPerfil = (
+  descendientes: ReadonlyArray<DescendientePerfilAuditoriaNormativa>
+): string =>
+  descendientes.length === 0
+    ? "Sin descendientes computados"
+    : `Con ${descendientes.length} descendiente${
+        descendientes.length === 1 ? "" : "s"
+      } computado${descendientes.length === 1 ? "" : "s"}`
 
 function formatearSalarioCorto(centimos: number): string {
   const miles = Math.round(centimos / 100_000)
@@ -2823,13 +2849,20 @@ function FormulaTipoEfectivoIrpf({
 
       <dl className="grid min-w-0 gap-4">
         <ExplicacionVariable termino="PERFIL">
-          {detallePerfil.descripcionCalculo} En la normativa nominal de 2026 el
-          umbral del límite 43% para este perfil es{" "}
-          {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}:
-          situación {detallePerfil.situacionRetencion.replace("situacion", "")},{" "}
-          {detallePerfil.descendientes.length} descendiente(s). En las tarjetas
-          se muestra también su equivalente real en euros de {anioReferencia},
-          que es la unidad del eje X del gráfico.
+          PERFIL fija las circunstancias personales usadas para escoger el
+          umbral del límite del 43% en nómina. Este caso parte de{" "}
+          {detallePerfil.descripcionCalculo} En el{" "}
+          <a
+            href="https://sede.agenciatributaria.gob.es/static_files/Sede/Procedimiento_ayuda/G603/mod145_es_es.pdf"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            modelo 145
+          </a>
+          , {etiquetaSituacionRetencion(detallePerfil.situacionRetencion)} es{" "}
+          {descripcionSituacionRetencion[detallePerfil.situacionRetencion]}.{" "}
+          {descripcionDescendientesPerfil(detallePerfil.descendientes)}, el
+          umbral nominal de 2026 es{" "}
+          {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}.
         </ExplicacionVariable>
         <ExplicacionVariable termino="CUOTA_LIQUIDADA">
           Resultado de aplicar las reglas anuales del IRPF antes del límite
@@ -3117,11 +3150,20 @@ function FormulaTipoMarginalIrpf({
           si el marginal se calcula con el IRPF limitado por retención.
         </ExplicacionVariable>
         <ExplicacionVariable termino="PERFIL">
-          {detallePerfil.descripcionCalculo} En la normativa nominal de 2026 el
-          umbral de retención de este perfil es{" "}
-          {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}. La
-          tarjeta separa el valor nominal del año calculado y su equivalente
-          real en euros de {anioReferencia}.
+          PERFIL fija las circunstancias personales usadas para escoger el
+          umbral de retención. Este caso parte de{" "}
+          {detallePerfil.descripcionCalculo} En el{" "}
+          <a
+            href="https://sede.agenciatributaria.gob.es/static_files/Sede/Procedimiento_ayuda/G603/mod145_es_es.pdf"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            modelo 145
+          </a>
+          , {etiquetaSituacionRetencion(detallePerfil.situacionRetencion)} es{" "}
+          {descripcionSituacionRetencion[detallePerfil.situacionRetencion]}.{" "}
+          {descripcionDescendientesPerfil(detallePerfil.descendientes)}, el
+          umbral nominal de 2026 es{" "}
+          {formatoEurosEnteros(detallePerfil.umbralRetencion2026Euros)}.
         </ExplicacionVariable>
         <ExplicacionVariable termino="ESCALAS IRPF">
           Hacienda aplica tipos progresivos sobre la base liquidable general en

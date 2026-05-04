@@ -215,7 +215,7 @@ export const detallePerfilAuditoriaNormativa = (
       perfil,
       etiquetaCalculo: "Soltero sin hijos",
       descripcionCalculo:
-        "Contribuyente individual de 40 años, sin descendientes ni ascendientes; retención en situación 3.",
+        "Contribuyente individual de 40 años, sin descendientes ni ascendientes.",
       situacionRetencion: "situacion3",
       descendientes: [],
     })),
@@ -223,7 +223,7 @@ export const detallePerfilAuditoriaNormativa = (
       perfil,
       etiquetaCalculo: "Pareja con dos hijos",
       descripcionCalculo:
-        "Perceptor de 40 años, casado con cónyuge sin rentas superiores a 1.500 € anuales y dos descendientes de 8 y 5 años computados por entero; retención en situación 2.",
+        "Perceptor de 40 años, casado con cónyuge sin rentas superiores a 1.500 € anuales y dos descendientes de 8 y 5 años computados por entero.",
       situacionRetencion: "situacion2",
       descendientes: [
         { edad: 8, computoPorEntero: true },
