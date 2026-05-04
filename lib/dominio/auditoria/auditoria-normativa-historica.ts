@@ -2,6 +2,8 @@ import { Match, Option } from "effect"
 
 import type { ComunidadAutonoma } from "../irpf/caso-fiscal-anual"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
+import { MINIMO_EXENTO_RETENCION_LEGACY } from "../normativa/datos/irpf-estatal-2012-2026"
+import { umbralRetencionTrabajoRequeridoEuros } from "../normativa/datos/irpf-retenciones-trabajo-2012-2026"
 
 export type MagnitudAuditada =
   | "irpf_final"
@@ -155,6 +157,17 @@ export const perfilAuditoriaNormativaPermiteReferenciaTecnica2026 = (
   perfil: PerfilAuditoriaNormativa
 ): boolean => perfil === "soltero_sin_hijos" || perfil === "pareja_con_hijos"
 
+export const perfilAuditoriaNormativaParaRetencionPersonalizada = (
+  perfil: PerfilAuditoriaNormativa
+): PerfilAuditoriaNormativa | undefined => {
+  const detalle = detallePerfilAuditoriaNormativa(perfil)
+
+  return detalle.situacionRetencion !== "situacion3" ||
+    detalle.descendientes.length > 0
+    ? perfil
+    : undefined
+}
+
 export type SituacionRetencionPerfilAuditoria =
   | "situacion1"
   | "situacion2"
@@ -173,36 +186,6 @@ export interface DetallePerfilAuditoriaNormativa {
   readonly descendientes: ReadonlyArray<DescendientePerfilAuditoriaNormativa>
   readonly umbralRetencion2026Euros: number
 }
-
-const umbralRetencion2026 = ({
-  situacionRetencion,
-  numeroDescendientes,
-}: {
-  readonly situacionRetencion: SituacionRetencionPerfilAuditoria
-  readonly numeroDescendientes: number
-}): number =>
-  Match.value({ numeroDescendientes, situacionRetencion }).pipe(
-    Match.when(
-      {
-        numeroDescendientes: (numero) => numero <= 1,
-        situacionRetencion: "situacion1",
-      },
-      () => 17_644
-    ),
-    Match.when({ situacionRetencion: "situacion1" }, () => 18_694),
-    Match.when(
-      { numeroDescendientes: 0, situacionRetencion: "situacion2" },
-      () => 17_197
-    ),
-    Match.when(
-      { numeroDescendientes: 1, situacionRetencion: "situacion2" },
-      () => 18_130
-    ),
-    Match.when({ situacionRetencion: "situacion2" }, () => 19_262),
-    Match.when({ numeroDescendientes: 0 }, () => 15_876),
-    Match.when({ numeroDescendientes: 1 }, () => 16_342),
-    Match.orElse(() => 16_867)
-  )
 
 export const detallePerfilAuditoriaNormativa = (
   perfil: PerfilAuditoriaNormativa
@@ -259,11 +242,45 @@ export const detallePerfilAuditoriaNormativa = (
 
   return {
     ...detalle,
-    umbralRetencion2026Euros: umbralRetencion2026({
-      situacionRetencion: detalle.situacionRetencion,
+    umbralRetencion2026Euros: umbralRetencionTrabajoRequeridoEuros({
+      anio: 2026,
       numeroDescendientes: detalle.descendientes.length,
+      situacionFamiliar: detalle.situacionRetencion,
+      situacionLaboral: "activo",
     }),
   }
+}
+
+export const umbralRetencionPerfilAuditoriaEuros = ({
+  anio,
+  perfil,
+}: {
+  readonly anio: AnioFiscal
+  readonly perfil: PerfilAuditoriaNormativa
+}): number => {
+  const perfilRetencionPersonalizada =
+    perfilAuditoriaNormativaParaRetencionPersonalizada(perfil)
+
+  if (perfilRetencionPersonalizada !== undefined) {
+    const detallePerfil = detallePerfilAuditoriaNormativa(
+      perfilRetencionPersonalizada
+    )
+
+    return umbralRetencionTrabajoRequeridoEuros({
+      anio,
+      numeroDescendientes: detallePerfil.descendientes.length,
+      situacionFamiliar: detallePerfil.situacionRetencion,
+      situacionLaboral: "activo",
+    })
+  }
+
+  return Match.value(anio).pipe(
+    Match.when(
+      2026,
+      () => detallePerfilAuditoriaNormativa(perfil).umbralRetencion2026Euros
+    ),
+    Match.orElse(() => MINIMO_EXENTO_RETENCION_LEGACY[anio].toNumber())
+  )
 }
 
 export const estrategiasAuditoriaNormativa = [

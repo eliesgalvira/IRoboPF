@@ -11,8 +11,10 @@ import {
   impactoDesdePerspectivaCiudadano,
   leerEscenarioAuditoriaNormativaDesdeUrl,
   normalizarEscenarioAuditoriaNormativa,
+  perfilAuditoriaNormativaParaRetencionPersonalizada,
   perfilesAuditoriaNormativa,
   serializarEscenarioAuditoriaNormativa,
+  umbralRetencionPerfilAuditoriaEuros,
   varianteAuditoriaPorDefecto,
 } from "../lib/dominio/auditoria/auditoria-normativa-historica"
 
@@ -123,6 +125,46 @@ describe("auditoria normativa historica", () => {
       descendientes: [],
       umbralRetencion2026Euros: 15_876,
     })
+  })
+
+  it("usa el umbral anual del perfil en las tarjetas de formulas", () => {
+    expect(
+      perfilAuditoriaNormativaParaRetencionPersonalizada("pareja_con_hijos")
+    ).toBe("pareja_con_hijos")
+    expect(
+      perfilAuditoriaNormativaParaRetencionPersonalizada("soltero_sin_hijos")
+    ).toBeUndefined()
+
+    expect(
+      umbralRetencionPerfilAuditoriaEuros({
+        anio: 2019,
+        perfil: "soltero_sin_hijos",
+      })
+    ).toBe(14_000)
+    expect(
+      umbralRetencionPerfilAuditoriaEuros({
+        anio: 2019,
+        perfil: "pareja_con_hijos",
+      })
+    ).toBe(17_634)
+    expect(
+      umbralRetencionPerfilAuditoriaEuros({
+        anio: 2023,
+        perfil: "pareja_con_hijos",
+      })
+    ).toBe(19_241)
+    expect(
+      umbralRetencionPerfilAuditoriaEuros({
+        anio: 2025,
+        perfil: "pareja_con_hijos",
+      })
+    ).toBe(19_262)
+    expect(
+      umbralRetencionPerfilAuditoriaEuros({
+        anio: 2026,
+        perfil: "pareja_con_hijos",
+      })
+    ).toBe(19_262)
   })
 
   it("degrada parametros URL invalidos al escenario por defecto", () => {
