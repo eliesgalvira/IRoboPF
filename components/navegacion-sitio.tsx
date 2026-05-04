@@ -32,9 +32,9 @@ function IconoMenuMovil({ abierto }: { readonly abierto: boolean }) {
       aria-hidden="true"
       data-open={abierto ? "true" : "false"}
     >
-      <span className="absolute top-1/2 left-1/2 h-0.5 w-5 origin-center -translate-x-1/2 -translate-y-[6px] bg-current transition-[translate,rotate,width,opacity] duration-[250ms] ease-out group-data-[open=true]:w-[1.35rem] group-data-[open=true]:-translate-y-1/2 group-data-[open=true]:rotate-45" />
+      <span className="absolute top-[calc(50%-6px)] left-1/2 h-0.5 w-5 origin-center -translate-x-1/2 -translate-y-1/2 bg-current transition-[top,translate,rotate,width,opacity] duration-[250ms] ease-out group-data-[open=true]:top-1/2 group-data-[open=true]:w-[1.35rem] group-data-[open=true]:rotate-45" />
       <span className="absolute top-1/2 left-1/2 h-0.5 w-5 origin-center -translate-x-1/2 -translate-y-1/2 bg-current transition-[translate,rotate,width,opacity] duration-200 ease-out group-data-[open=true]:w-0 group-data-[open=true]:opacity-0" />
-      <span className="absolute top-1/2 left-1/2 h-0.5 w-5 origin-center -translate-x-1/2 translate-y-[6px] bg-current transition-[translate,rotate,width,opacity] duration-[250ms] ease-out group-data-[open=true]:w-[1.35rem] group-data-[open=true]:-translate-y-1/2 group-data-[open=true]:-rotate-45" />
+      <span className="absolute top-[calc(50%+6px)] left-1/2 h-0.5 w-5 origin-center -translate-x-1/2 -translate-y-1/2 bg-current transition-[top,translate,rotate,width,opacity] duration-[250ms] ease-out group-data-[open=true]:top-1/2 group-data-[open=true]:w-[1.35rem] group-data-[open=true]:-rotate-45" />
     </span>
   )
 }
