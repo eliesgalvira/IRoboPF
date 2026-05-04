@@ -27,25 +27,14 @@ function IconoGitHub() {
 
 function IconoMenuMovil({ abierto }: { readonly abierto: boolean }) {
   return (
-    <span className="flex w-6 shrink-0 flex-col gap-1.5" aria-hidden="true">
-      <span
-        className={cn(
-          "block h-0.5 w-6 bg-current transition-all duration-300",
-          abierto ? "translate-y-2 rotate-45" : ""
-        )}
-      />
-      <span
-        className={cn(
-          "block h-0.5 w-6 bg-current transition-all duration-300",
-          abierto ? "opacity-0" : ""
-        )}
-      />
-      <span
-        className={cn(
-          "block h-0.5 w-6 bg-current transition-all duration-300",
-          abierto ? "-translate-y-2 -rotate-45" : ""
-        )}
-      />
+    <span
+      className="group relative block size-5 shrink-0"
+      aria-hidden="true"
+      data-open={abierto ? "true" : "false"}
+    >
+      <span className="absolute top-1/2 left-1/2 h-0.5 w-5 origin-center -translate-x-1/2 -translate-y-[6px] bg-current transition-[translate,rotate,width,opacity] duration-[250ms] ease-out group-data-[open=true]:w-[1.35rem] group-data-[open=true]:-translate-y-1/2 group-data-[open=true]:rotate-45" />
+      <span className="absolute top-1/2 left-1/2 h-0.5 w-5 origin-center -translate-x-1/2 -translate-y-1/2 bg-current transition-[translate,rotate,width,opacity] duration-200 ease-out group-data-[open=true]:w-0 group-data-[open=true]:opacity-0" />
+      <span className="absolute top-1/2 left-1/2 h-0.5 w-5 origin-center -translate-x-1/2 translate-y-[6px] bg-current transition-[translate,rotate,width,opacity] duration-[250ms] ease-out group-data-[open=true]:w-[1.35rem] group-data-[open=true]:-translate-y-1/2 group-data-[open=true]:-rotate-45" />
     </span>
   )
 }
@@ -140,7 +129,7 @@ export function NavegacionSitio() {
             aria-expanded={menuMovilAbierto}
             aria-label={menuMovilAbierto ? "Cerrar menú" : "Abrir menú"}
             onClick={alternarMenuMovil}
-            className="inline-flex h-11 items-center gap-3 border-2 border-[var(--rule)] bg-[var(--paper)] px-3 text-[var(--ink)] shadow-[4px_4px_0_var(--rule)] transition-[background-color,color,box-shadow,transform] hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none active:translate-x-1 active:translate-y-1 active:shadow-none"
+            className="inline-flex h-11 items-center gap-3 border-2 border-[var(--rule)] bg-[var(--paper)] px-3 text-[var(--ink)] shadow-[4px_4px_0_var(--rule)] transition-[background-color,color,box-shadow,translate] hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none active:translate-x-1 active:translate-y-1 active:shadow-none"
           >
             <IconoMenuMovil abierto={menuMovilAbierto} />
             Menú
@@ -151,7 +140,7 @@ export function NavegacionSitio() {
           id={idMenuMovil}
           inert={!menuMovilAbierto}
           className={cn(
-            "absolute right-0 left-0 z-40 mt-3 grid overflow-hidden border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[6px_6px_0_var(--rule)] transition-[grid-template-rows,opacity,transform] duration-200 ease-out",
+            "absolute right-0 left-0 z-40 mt-3 grid overflow-hidden border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[6px_6px_0_var(--rule)] transition-[grid-template-rows,opacity,translate] duration-200 ease-out",
             menuMovilAbierto
               ? "translate-y-0 grid-rows-[1fr] opacity-100"
               : "pointer-events-none -translate-y-2 grid-rows-[0fr] opacity-0"
