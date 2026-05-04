@@ -3,7 +3,6 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -24,6 +23,31 @@ function IconoGitHub() {
         fill="currentColor"
       />
     </svg>
+  )
+}
+
+function IconoMenuMovil({ abierto }: { readonly abierto: boolean }) {
+  return (
+    <span className="flex w-6 shrink-0 flex-col gap-1.5" aria-hidden="true">
+      <span
+        className={cn(
+          "block h-0.5 w-6 bg-current transition-all duration-300",
+          abierto ? "translate-y-2 rotate-45" : ""
+        )}
+      />
+      <span
+        className={cn(
+          "block h-0.5 w-6 bg-current transition-all duration-300",
+          abierto ? "opacity-0" : ""
+        )}
+      />
+      <span
+        className={cn(
+          "block h-0.5 w-6 bg-current transition-all duration-300",
+          abierto ? "-translate-y-2 -rotate-45" : ""
+        )}
+      />
+    </span>
   )
 }
 
@@ -119,24 +143,7 @@ export function NavegacionSitio() {
             onClick={alternarMenuMovil}
             className="inline-flex h-11 items-center gap-3 border-2 border-[var(--rule)] bg-[var(--paper)] px-3 text-[var(--ink)] shadow-[4px_4px_0_var(--rule)] transition-[background-color,color,box-shadow,transform] hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none active:translate-x-1 active:translate-y-1 active:shadow-none"
           >
-            <span className="relative size-5" aria-hidden="true">
-              <Menu
-                className={cn(
-                  "absolute inset-0 size-5 transition-[opacity,transform] duration-200",
-                  menuMovilAbierto
-                    ? "rotate-90 opacity-0"
-                    : "rotate-0 opacity-100"
-                )}
-              />
-              <X
-                className={cn(
-                  "absolute inset-0 size-5 transition-[opacity,transform] duration-200",
-                  menuMovilAbierto
-                    ? "rotate-0 opacity-100"
-                    : "-rotate-90 opacity-0"
-                )}
-              />
-            </span>
+            <IconoMenuMovil abierto={menuMovilAbierto} />
             Menú
           </Button>
         </div>
