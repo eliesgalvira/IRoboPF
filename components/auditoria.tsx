@@ -70,11 +70,13 @@ import {
   leerEscenarioAuditoriaNormativaDesdeUrl,
   magnitudesAuditoriaNormativa,
   perfilesAuditoriaNormativa,
+  perfilAuditoriaNormativaParaRetencionPersonalizada,
   escenarioPermiteReferenciaTecnica2026,
   serializarEscenarioAuditoriaNormativa,
   type DescendientePerfilAuditoriaNormativa,
   type EscenarioAuditoriaNormativaHistorica,
   type SituacionRetencionPerfilAuditoria,
+  umbralRetencionPerfilAuditoriaEuros,
 } from "@/lib/dominio/auditoria/auditoria-normativa-historica"
 import {
   configuracionRangoAuditoria,
@@ -394,10 +396,9 @@ function AuditoriaImpl({
       auditarProgresividadFrio(
         {
           perfil: "legacy-progresividad-frio",
-          perfilAuditoria:
-            escenarioAuditoria.perfil === "pareja_con_hijos"
-              ? escenarioAuditoria.perfil
-              : undefined,
+          perfilAuditoria: perfilAuditoriaNormativaParaRetencionPersonalizada(
+            escenarioAuditoria.perfil
+          ),
           comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
           salarioBrutoAnualMinimoCentimos: Math.min(
             minimoCentimos,
@@ -1330,7 +1331,7 @@ const obtenerPuntosAuditoriaParaAnio = (
     anio,
     anioReferencia: anioReferenciaSeries,
     comunidadAutonoma,
-    perfilAuditoria: perfil === "pareja_con_hijos" ? perfil : undefined,
+    perfilAuditoria: perfilAuditoriaNormativaParaRetencionPersonalizada(perfil),
   })
 
 const claveEntradaSerieAuditoria = ({
@@ -1601,7 +1602,8 @@ const construirSerieTipoMarginalIrpf = Effect.fn(
       anio,
       anioReferencia: anioReferenciaSeries,
       comunidadAutonoma,
-      perfilAuditoria: perfil === "pareja_con_hijos" ? perfil : undefined,
+      perfilAuditoria:
+        perfilAuditoriaNormativaParaRetencionPersonalizada(perfil),
     }),
   })
 
@@ -2540,22 +2542,7 @@ const umbralRetencionPerfilNominalCentimos = ({
 }: {
   readonly anio: AnioFiscal
   readonly perfil: PerfilAuditado
-}) =>
-  Match.value(anio).pipe(
-    Match.when(2026, () =>
-      eurosACentimos(
-        detallePerfilAuditoriaNormativa(perfil).umbralRetencion2026Euros
-      )
-    ),
-    Match.orElse(() =>
-      eurosACentimos(
-        Number(
-          obtenerEspecificacionCompatibilidadHistorica(anio)
-            .minimoExentoRetencion
-        )
-      )
-    )
-  )
+}) => eurosACentimos(umbralRetencionPerfilAuditoriaEuros({ anio, perfil }))
 
 const umbralRetencionPerfil = ({
   anio,

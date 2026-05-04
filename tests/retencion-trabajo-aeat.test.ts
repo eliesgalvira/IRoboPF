@@ -136,6 +136,37 @@ describe("calcularRetencionTrabajoAeat", () => {
     })
   )
 
+  it.effect("usa el umbral 2019 de situacion 2 con dos descendientes", () =>
+    Effect.gen(function* () {
+      const resultado = yield* calcularRetencionTrabajoAeat(
+        {
+          ...casoRetencionCalculable(),
+          anio: 2019,
+          situacionFamiliar: "situacion2",
+          descendientes: [
+            {
+              edad: 8,
+              computoPorEntero: true,
+              discapacidad: "sin-discapacidad",
+              movilidadReducida: false,
+              adopcionOAcogimientoMenosTresAnios: false,
+            },
+            {
+              edad: 5,
+              computoPorEntero: true,
+              discapacidad: "sin-discapacidad",
+              movilidadReducida: false,
+              adopcionOAcogimientoMenosTresAnios: false,
+            },
+          ],
+        },
+        { modo: "canonico" }
+      )
+
+      expect(resultado.limite43Centimos).toBe(531_738)
+    })
+  )
+
   it.effect("expone el procedimiento de retencion como servicio Effect", () =>
     Effect.gen(function* () {
       const caso = casoRetencionCalculable()

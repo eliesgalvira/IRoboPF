@@ -10,6 +10,10 @@ import {
   redondearImporteLiquidado,
   truncarImporteMonetario,
 } from "../../dinero/importe-monetario"
+import {
+  maximoUmbralRetencionTrabajoEuros,
+  umbralRetencionTrabajoRequeridoEuros,
+} from "../../normativa/datos/irpf-retenciones-trabajo-2012-2026"
 
 export interface CasoRetencionTrabajo {
   readonly anio: AnioFiscal
@@ -162,7 +166,8 @@ const esCasoCalculable = (
   typeof caso.situacionLaboral === "string" &&
   typeof caso.contrato === "string" &&
   Array.isArray(caso.descendientes) &&
-  Array.isArray(caso.ascendientes)
+  Array.isArray(caso.ascendientes) &&
+  !(caso.situacionFamiliar === "situacion1" && caso.descendientes.length === 0)
 
 const importeOpcional = (centimos: number | undefined): Decimal =>
   centimosAEuros(centimos ?? 0)
@@ -446,36 +451,6 @@ const calcularMinimoPersonalFamiliar = ({
     .plus(calcularMinimoDiscapacidad({ caso, descendientes, ascendientes }))
 }
 
-const umbralRetencion = ({
-  situacionFamiliar,
-  numeroDescendientes,
-}: {
-  readonly situacionFamiliar: Exclude<SituacionFamiliarRetencion, "general">
-  readonly numeroDescendientes: number
-}) =>
-  Match.value({ numeroDescendientes, situacionFamiliar }).pipe(
-    Match.when(
-      {
-        numeroDescendientes: (numero) => numero <= 1,
-        situacionFamiliar: "situacion1",
-      },
-      () => new Decimal(17_644)
-    ),
-    Match.when({ situacionFamiliar: "situacion1" }, () => new Decimal(18_694)),
-    Match.when(
-      { numeroDescendientes: 0, situacionFamiliar: "situacion2" },
-      () => new Decimal(17_197)
-    ),
-    Match.when(
-      { numeroDescendientes: 1, situacionFamiliar: "situacion2" },
-      () => new Decimal(18_130)
-    ),
-    Match.when({ situacionFamiliar: "situacion2" }, () => new Decimal(19_262)),
-    Match.when({ numeroDescendientes: 0 }, () => new Decimal(15_876)),
-    Match.when({ numeroDescendientes: 1 }, () => new Decimal(16_342)),
-    Match.orElse(() => new Decimal(16_867))
-  )
-
 const calcularCuotaEscala = (base: Decimal) => {
   const tramos = [
     { desde: 0, cuota: 0, resto: 12_450, tipo: 0.19 },
@@ -740,19 +715,29 @@ const calcularRetencionTrabajo = (
     descendientes,
     ascendientes: caso.ascendientes,
   })
-  const umbral = umbralRetencion({
-    situacionFamiliar: caso.situacionFamiliar,
-    numeroDescendientes: descendientes.length,
-  })
+  const umbral = new Decimal(
+    umbralRetencionTrabajoRequeridoEuros({
+      anio: caso.anio,
+      situacionFamiliar: caso.situacionFamiliar,
+      situacionLaboral: caso.situacionLaboral,
+      numeroDescendientes: descendientes.length,
+    })
+  )
+  const umbralMaximo = new Decimal(
+    maximoUmbralRetencionTrabajoEuros({
+      anio: caso.anio,
+      situacionLaboral: caso.situacionLaboral,
+    })
+  )
   const umbralConReducciones = umbral
     .plus(reduccionLaboral.pensionista)
     .plus(reduccionLaboral.desempleado)
+  const umbralMaximoConReducciones = umbralMaximo
+    .plus(reduccionLaboral.pensionista)
+    .plus(reduccionLaboral.desempleado)
   const exento =
-    retribucion.lte(
-      new Decimal(19_262)
-        .plus(reduccionLaboral.pensionista)
-        .plus(reduccionLaboral.desempleado)
-    ) && retribucion.lte(umbralConReducciones)
+    retribucion.lte(umbralMaximoConReducciones) &&
+    retribucion.lte(umbralConReducciones)
   const cuotaInicial = cuotaRetencionInicial({
     anualidades,
     baseRetencion,
