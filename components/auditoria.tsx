@@ -64,12 +64,14 @@ import {
   describirMagnitudAuditoriaNormativa,
   describirPerfilAuditoriaNormativa,
   leerEscenarioAuditoriaNormativaDesdeUrl,
+  leerRangoSalarialAuditoriaDesdeUrl,
   perfilesAuditoriaNormativa,
   perfilAuditoriaNormativaParaRetencionPersonalizada,
   escenarioPermiteReferenciaTecnica2026,
   serializarEscenarioAuditoriaNormativa,
   type DescendientePerfilAuditoriaNormativa,
   type EscenarioAuditoriaNormativaHistorica,
+  type RangoSalarialAuditoria,
   type SituacionRetencionPerfilAuditoria,
   umbralRetencionPerfilAuditoriaEuros,
 } from "@/lib/dominio/auditoria/auditoria-normativa-historica"
@@ -265,10 +267,16 @@ function AuditoriaImpl({
     )
   )
   const [minimoCentimos, fijarMinimoCentimos] = React.useState<number>(
-    configuracionRangoAuditoria.minimoPorDefectoCentimos
+    () =>
+      leerRangoSalarialAuditoriaDesdeUrl(
+        new URLSearchParams(parametrosIniciales)
+      ).minimoCentimos
   )
   const [maximoCentimos, fijarMaximoCentimos] = React.useState<number>(
-    configuracionRangoAuditoria.maximoPorDefectoCentimos
+    () =>
+      leerRangoSalarialAuditoriaDesdeUrl(
+        new URLSearchParams(parametrosIniciales)
+      ).maximoCentimos
   )
   const [aniosGraficoIrpf, fijarAniosGraficoIrpf] = React.useState<
     ReadonlyArray<AnioFiscal>
@@ -461,13 +469,33 @@ function AuditoriaImpl({
 
   const actualizarEscenarioAuditoria = React.useCallback(
     (cambio: CambioEscenarioAuditoriaNormativa) => {
-      const parametros = serializarEscenarioAuditoriaNormativa({
-        ...escenarioAuditoria,
-        ...cambio,
-      })
+      const parametros = serializarEscenarioAuditoriaNormativa(
+        {
+          ...escenarioAuditoria,
+          ...cambio,
+        },
+        { minimoCentimos, maximoCentimos }
+      )
+      const rangoSalarial = leerRangoSalarialAuditoriaDesdeUrl(parametros)
       fijarEscenarioAuditoria(
         leerEscenarioAuditoriaNormativaDesdeUrl(parametros)
       )
+      fijarMinimoCentimos(rangoSalarial.minimoCentimos)
+      fijarMaximoCentimos(rangoSalarial.maximoCentimos)
+      router.replace(`/auditoria?${parametros.toString()}`, { scroll: false })
+    },
+    [escenarioAuditoria, maximoCentimos, minimoCentimos, router]
+  )
+
+  const actualizarRangoSalarialAuditoria = React.useCallback(
+    (rangoSalarialCandidato: RangoSalarialAuditoria) => {
+      const parametros = serializarEscenarioAuditoriaNormativa(
+        escenarioAuditoria,
+        rangoSalarialCandidato
+      )
+      const rangoSalarial = leerRangoSalarialAuditoriaDesdeUrl(parametros)
+      fijarMinimoCentimos(rangoSalarial.minimoCentimos)
+      fijarMaximoCentimos(rangoSalarial.maximoCentimos)
       router.replace(`/auditoria?${parametros.toString()}`, { scroll: false })
     },
     [escenarioAuditoria, router]
@@ -475,11 +503,13 @@ function AuditoriaImpl({
 
   React.useEffect(() => {
     const sincronizarEscenarioConUrl = () => {
+      const parametros = new URLSearchParams(window.location.search)
+      const rangoSalarial = leerRangoSalarialAuditoriaDesdeUrl(parametros)
       fijarEscenarioAuditoria(
-        leerEscenarioAuditoriaNormativaDesdeUrl(
-          new URLSearchParams(window.location.search)
-        )
+        leerEscenarioAuditoriaNormativaDesdeUrl(parametros)
       )
+      fijarMinimoCentimos(rangoSalarial.minimoCentimos)
+      fijarMaximoCentimos(rangoSalarial.maximoCentimos)
     }
 
     window.addEventListener("popstate", sincronizarEscenarioConUrl)
@@ -642,8 +672,7 @@ function AuditoriaImpl({
         <BarraFiltros
           minimoCentimos={minimoCentimos}
           maximoCentimos={maximoCentimos}
-          fijarMinimoCentimos={fijarMinimoCentimos}
-          fijarMaximoCentimos={fijarMaximoCentimos}
+          alCambiarRangoSalarial={actualizarRangoSalarialAuditoria}
         />
 
         <ControlesAuditoriaNormativa
@@ -918,13 +947,11 @@ function ControlesAuditoriaNormativa({
 function BarraFiltros({
   minimoCentimos,
   maximoCentimos,
-  fijarMinimoCentimos,
-  fijarMaximoCentimos,
+  alCambiarRangoSalarial,
 }: {
   readonly minimoCentimos: number
   readonly maximoCentimos: number
-  readonly fijarMinimoCentimos: (centimos: number) => void
-  readonly fijarMaximoCentimos: (centimos: number) => void
+  readonly alCambiarRangoSalarial: (rango: RangoSalarialAuditoria) => void
 }) {
   return (
     <section className="grid min-w-0 gap-0 border-b-2 border-[var(--rule)] py-6">
@@ -937,12 +964,16 @@ function BarraFiltros({
             <CampoDinero
               etiqueta="MÍNIMO"
               valorCentimos={minimoCentimos}
-              alCambiar={fijarMinimoCentimos}
+              alCambiar={(minimoCentimos) =>
+                alCambiarRangoSalarial({ minimoCentimos, maximoCentimos })
+              }
             />
             <CampoDinero
               etiqueta="MÁXIMO"
               valorCentimos={maximoCentimos}
-              alCambiar={fijarMaximoCentimos}
+              alCambiar={(maximoCentimos) =>
+                alCambiarRangoSalarial({ minimoCentimos, maximoCentimos })
+              }
             />
           </div>
           <Slider.Root
@@ -959,8 +990,10 @@ function BarraFiltros({
                 minimo = centimosAEuros(minimoCentimos),
                 maximo = centimosAEuros(maximoCentimos),
               ] = valores
-              fijarMinimoCentimos(eurosACentimos(minimo))
-              fijarMaximoCentimos(eurosACentimos(maximo))
+              alCambiarRangoSalarial({
+                minimoCentimos: eurosACentimos(minimo),
+                maximoCentimos: eurosACentimos(maximo),
+              })
             }}
             className="grid min-w-0 gap-2"
           >
@@ -3209,8 +3242,8 @@ function FormulaDiferenciaMagnitud({
       </div>
       <dl className="grid min-w-0 gap-4">
         <ExplicacionVariable termino="MAGNITUD_COMPARABLE_REAL">
-          Es el IRPF final expresado en euros de {anioReferencia}. Este campo
-          es el mismo IRPF_COMPARABLE_REAL definido en TIPO EFECTIVO: se calcula
+          Es el IRPF final expresado en euros de {anioReferencia}. Este campo es
+          el mismo IRPF_COMPARABLE_REAL definido en TIPO EFECTIVO: se calcula
           primero con importes nominales y normativa nominal de cada año, se
           aplica la regla de obligación de declarar cuando corresponde y después
           se ajusta por IPC.

@@ -11,10 +11,13 @@ import {
   escenarioPermiteReferenciaTecnica2026,
   impactoDesdePerspectivaCiudadano,
   leerEscenarioAuditoriaNormativaDesdeUrl,
+  leerRangoSalarialAuditoriaDesdeUrl,
   normalizarEscenarioAuditoriaNormativa,
+  rangoSalarialAuditoriaPorDefecto,
   perfilAuditoriaNormativaParaRetencionPersonalizada,
   perfilesAuditoriaNormativa,
   serializarEscenarioAuditoriaNormativa,
+  serializarRangoSalarialAuditoriaUrl,
   umbralRetencionPerfilAuditoriaEuros,
   varianteAuditoriaPorDefecto,
 } from "../lib/dominio/auditoria/auditoria-normativa-historica"
@@ -39,11 +42,11 @@ describe("auditoria normativa historica", () => {
       "soltero_sin_hijos",
       "pareja_con_hijos",
     ])
-    expect(
-      describirPerfilAuditoriaNormativa("pareja_con_hijos")
-    ).toMatchObject({
-      etiqueta: "PAREJA HIJOS",
-    })
+    expect(describirPerfilAuditoriaNormativa("pareja_con_hijos")).toMatchObject(
+      {
+        etiqueta: "PAREJA HIJOS",
+      }
+    )
   })
 
   it("presenta las fichas de perfil con ortografía española completa", () => {
@@ -101,6 +104,36 @@ describe("auditoria normativa historica", () => {
       estrategiaProyeccionSalarial: "salario_bruto_real_constante",
       magnitudAuditada: "irpf_final",
     })
+  })
+
+  it("parsea el rango salarial del contrato URL v2 como dato de dominio", () => {
+    expect(
+      leerRangoSalarialAuditoriaDesdeUrl(
+        new URLSearchParams("v=2&rango=20000-45000")
+      )
+    ).toEqual({
+      minimoCentimos: 2_000_000,
+      maximoCentimos: 4_500_000,
+    })
+    expect(
+      leerRangoSalarialAuditoriaDesdeUrl(new URLSearchParams("v=2"))
+    ).toEqual(rangoSalarialAuditoriaPorDefecto)
+
+    for (const rangoInvalido of [
+      "",
+      "abc",
+      "20000",
+      "0-20000",
+      "20000-110000",
+      "45000-20000",
+      "20000.5-45000",
+    ]) {
+      expect(
+        leerRangoSalarialAuditoriaDesdeUrl(
+          new URLSearchParams(`v=2&rango=${rangoInvalido}`)
+        )
+      ).toEqual(rangoSalarialAuditoriaPorDefecto)
+    }
   })
 
   it("reserva 2026 a perfiles con retencion tecnica y comunidad simulada estatal", () => {
@@ -194,17 +227,20 @@ describe("auditoria normativa historica", () => {
   })
 
   it("serializa el escenario al contrato URL versionado", () => {
-    const parametros = serializarEscenarioAuditoriaNormativa({
-      ...escenarioAuditoriaPorDefecto,
-      perfil: "pareja_con_hijos",
-      anioComparado: 2024,
-      comunidadAutonoma: "catalunya",
-      comunidadesAutonomas: ["catalunya"],
-      magnitudAuditada: "salario_neto_anual",
-    })
+    const parametros = serializarEscenarioAuditoriaNormativa(
+      {
+        ...escenarioAuditoriaPorDefecto,
+        perfil: "pareja_con_hijos",
+        anioComparado: 2024,
+        comunidadAutonoma: "catalunya",
+        comunidadesAutonomas: ["catalunya"],
+        magnitudAuditada: "salario_neto_anual",
+      },
+      { minimoCentimos: 2_000_000, maximoCentimos: 4_500_000 }
+    )
 
     expect(parametros.toString()).toBe(
-      "v=2&perfil=pareja_con_hijos&periodo=2024-2025&comunidad=catalunya"
+      "v=2&perfil=pareja_con_hijos&periodo=2024-2025&comunidad=catalunya&rango=20000-45000"
     )
     expect(
       construirContratoUrlAuditoriaNormativaV1({
@@ -225,7 +261,20 @@ describe("auditoria normativa historica", () => {
       perfil: "soltero_sin_hijos",
       periodo: "2024-2025",
       comunidad: "simulada-estatal",
+      rango: "15000-100000",
     })
+    expect(
+      serializarRangoSalarialAuditoriaUrl({
+        minimoCentimos: 6_000_000,
+        maximoCentimos: 2_000_000,
+      })
+    ).toBe("20000-60000")
+    expect(
+      serializarRangoSalarialAuditoriaUrl({
+        minimoCentimos: 0,
+        maximoCentimos: 20_000_000,
+      })
+    ).toBe("15000-100000")
   })
 
   it("normaliza cualquier contrato antiguo de varias comunidades a seleccion singular", () => {
