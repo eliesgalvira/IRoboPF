@@ -47,6 +47,7 @@ export type GraficoAuditoriaNormativa =
   | "tipo-marginal"
 
 export type ModoDiferenciaGraficoAuditoria = "porcentaje" | "euros-reales"
+export type ModoCunaFiscalGraficoAuditoria = "porcentaje" | "euros-reales"
 
 export type SeleccionGraficoAuditoriaNormativa =
   | {
@@ -61,6 +62,7 @@ export type SeleccionGraficoAuditoriaNormativa =
   | {
       readonly grafica: "cuna-fiscal"
       readonly anio: AnioFiscal
+      readonly modo: ModoCunaFiscalGraficoAuditoria
     }
   | {
       readonly grafica: "tipo-marginal"
@@ -134,6 +136,9 @@ export const anioGraficoTipoMarginalIrpfPorDefecto =
 
 export const modoDiferenciaGraficoAuditoriaPorDefecto =
   "porcentaje" as const satisfies ModoDiferenciaGraficoAuditoria
+
+export const modoCunaFiscalGraficoAuditoriaPorDefecto =
+  "porcentaje" as const satisfies ModoCunaFiscalGraficoAuditoria
 
 export const seleccionGraficoAuditoriaPorDefecto = {
   grafica: "tipo-irpf",
@@ -647,6 +652,16 @@ export const decodificarModoDiferenciaGraficoAuditoria = (
     Match.orElse(() => Option.none())
   )
 
+export const decodificarModoCunaFiscalGraficoAuditoria = (
+  valor: string
+): Option.Option<ModoCunaFiscalGraficoAuditoria> =>
+  Match.value(valor).pipe(
+    Match.withReturnType<Option.Option<ModoCunaFiscalGraficoAuditoria>>(),
+    Match.when("porcentaje", (modo) => Option.some(modo)),
+    Match.when("euros-reales", (modo) => Option.some(modo)),
+    Match.orElse(() => Option.none())
+  )
+
 const decodificarAnioFiscal = (valor: string): Option.Option<AnioFiscal> =>
   Match.value(Number(valor)).pipe(
     Match.withReturnType<Option.Option<AnioFiscal>>(),
@@ -829,6 +844,10 @@ export const leerSeleccionGraficoAuditoriaDesdeUrl = (
     Match.when("cuna-fiscal", (grafica) => ({
       grafica,
       anio: leerAnioGraficoCunaFiscalDesdeUrl(parametros),
+      modo: leerValorUrl(parametros, "modo").pipe(
+        Option.flatMap(decodificarModoCunaFiscalGraficoAuditoria),
+        Option.getOrElse(() => modoCunaFiscalGraficoAuditoriaPorDefecto)
+      ),
     })),
     Match.when("tipo-marginal", (grafica) => ({
       grafica,
@@ -863,9 +882,10 @@ const construirContratoSeleccionGraficoAuditoriaV2 = (
       anios: codificarAniosGraficoAuditoriaUrl(anios),
       modo,
     })),
-    Match.when({ grafica: "cuna-fiscal" }, ({ grafica, anio }) => ({
+    Match.when({ grafica: "cuna-fiscal" }, ({ grafica, anio, modo }) => ({
       grafica,
       anio,
+      modo,
     })),
     Match.when({ grafica: "tipo-marginal" }, ({ grafica, anio }) => ({
       grafica,
