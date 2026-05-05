@@ -10,6 +10,7 @@ const MARCA_AGUA_GRAFICO = "irobopf.com"
 const MIME_PNG = "image/png"
 const MIME_SVG = "image/svg+xml;charset=utf-8"
 const ESCALA_MAXIMA_EXPORTACION_GRAFICO = 2
+const DESPLAZAMIENTO_MARCA_AGUA_IZQUIERDA = 16
 export const DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO = {
   ancho: 1216,
   alto: 615,
@@ -818,12 +819,15 @@ function dibujarMarcaAguaGrafico({
 
   const anchoTexto = contexto.measureText(MARCA_AGUA_GRAFICO).width
   const anchoCaja = Math.ceil(anchoTexto + rellenoHorizontal * 2)
-  const x = obtenerXMarcaAguaGrafico({
-    elemento,
-    ancho,
-    margen,
-    anchoCaja,
-  })
+  const x = Math.max(
+    margen + anchoCaja,
+    obtenerXMarcaAguaGrafico({
+      elemento,
+      ancho,
+      margen,
+      anchoCaja,
+    }) - DESPLAZAMIENTO_MARCA_AGUA_IZQUIERDA
+  )
   const y = obtenerYMarcaAguaGrafico({
     elemento,
     margen,
