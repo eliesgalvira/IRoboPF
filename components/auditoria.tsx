@@ -66,11 +66,9 @@ import {
   aniosGraficoTipoEfectivoIrpfPorDefecto,
   type CambioEscenarioAuditoriaNormativa,
   comunidadesAuditoriaNormativa,
-  decodificarGraficoAuditoriaNormativa,
   decodificarPerfilAuditoriaNormativa,
   detallePerfilAuditoriaNormativa,
   describirComunidadAutonomaAuditoria,
-  describirMagnitudAuditoriaNormativa,
   describirPerfilAuditoriaNormativa,
   leerEscenarioAuditoriaNormativaDesdeUrl,
   leerRangoSalarialAuditoriaDesdeUrl,
@@ -801,6 +799,7 @@ function AuditoriaImpl({
         anioGraficoTipoMarginalIrpf,
       })
       fijarModoDiferenciaTipoIrpf(modo)
+      fijarVistaGrafico("diferencia-irpf")
       reemplazarUrlAuditoria({ seleccionGrafico })
     },
     [
@@ -1670,12 +1669,60 @@ type DatosGraficoListos = Extract<
   { readonly _tag: "lista" }
 >
 type VistaGraficoAuditoria = GraficoAuditoriaNormativa
-const vistasGraficoAuditoria = [
-  "tipo-irpf",
-  "diferencia-irpf",
+type VistaTipoEfectivoIrpfAuditoria = Extract<
+  VistaGraficoAuditoria,
+  "tipo-irpf" | "diferencia-irpf"
+>
+type PanelGraficoAuditoria = "tipo-efectivo" | "cuna-fiscal" | "tipo-marginal"
+const panelesGraficoAuditoria = [
+  "tipo-efectivo",
   "cuna-fiscal",
   "tipo-marginal",
-] as const satisfies ReadonlyArray<VistaGraficoAuditoria>
+] as const satisfies ReadonlyArray<PanelGraficoAuditoria>
+const vistasTipoEfectivoIrpfAuditoria = [
+  "tipo-irpf",
+  "diferencia-irpf",
+] as const satisfies ReadonlyArray<VistaTipoEfectivoIrpfAuditoria>
+
+const panelGraficoDesdeVista = (
+  vista: VistaGraficoAuditoria
+): PanelGraficoAuditoria =>
+  Match.value(vista).pipe(
+    Match.when("tipo-irpf", () => "tipo-efectivo" as const),
+    Match.when("diferencia-irpf", () => "tipo-efectivo" as const),
+    Match.when("cuna-fiscal", () => "cuna-fiscal" as const),
+    Match.when("tipo-marginal", () => "tipo-marginal" as const),
+    Match.exhaustive
+  )
+
+const vistaGraficoDesdePanel = (
+  panel: PanelGraficoAuditoria
+): VistaGraficoAuditoria =>
+  Match.value(panel).pipe(
+    Match.when("tipo-efectivo", () => "tipo-irpf" as const),
+    Match.when("cuna-fiscal", () => "cuna-fiscal" as const),
+    Match.when("tipo-marginal", () => "tipo-marginal" as const),
+    Match.exhaustive
+  )
+
+const decodificarPanelGraficoAuditoria = (
+  valor: string
+): Option.Option<PanelGraficoAuditoria> =>
+  Match.value(valor).pipe(
+    Match.when("tipo-efectivo", (panel) => Option.some(panel)),
+    Match.when("cuna-fiscal", (panel) => Option.some(panel)),
+    Match.when("tipo-marginal", (panel) => Option.some(panel)),
+    Match.orElse(() => Option.none<PanelGraficoAuditoria>())
+  )
+
+const decodificarVistaTipoEfectivoIrpfAuditoria = (
+  valor: string
+): Option.Option<VistaTipoEfectivoIrpfAuditoria> =>
+  Match.value(valor).pipe(
+    Match.when("tipo-irpf", (vista) => Option.some(vista)),
+    Match.when("diferencia-irpf", (vista) => Option.some(vista)),
+    Match.orElse(() => Option.none<VistaTipoEfectivoIrpfAuditoria>())
+  )
 
 const versionCalculoDatosGrafico = (vista: VistaGraficoAuditoria) =>
   Match.value(vista).pipe(
@@ -4149,20 +4196,17 @@ function FormulaTipoMarginalIrpf({
   )
 }
 
-function FormulaDiferenciaMagnitud({
+function FormulaDiferenciaTipoEfectivoIrpf({
   anioReferencia,
-  magnitud,
   modo,
 }: {
   readonly anioReferencia: AnioFiscal
-  readonly magnitud: MagnitudAuditadaAuditoria
   readonly modo: ModoDiferenciaTipoIrpf
 }) {
-  const ficha = describirMagnitudAuditoriaNormativa(magnitud)
   const etiquetaResultado =
     modo === "porcentaje"
-      ? "DIFERENCIA_TIPO_EFECTIVO"
-      : "DIFERENCIA_EUROS_REALES"
+      ? "DIFERENCIA_TIPO_EFECTIVO_IRPF"
+      : "DIFERENCIA_IRPF_REAL"
 
   return (
     <section className="mt-5 grid min-w-0 gap-4 border-t-2 border-[var(--rule)] pt-5">
@@ -4171,11 +4215,9 @@ function FormulaDiferenciaMagnitud({
           Cálculo aplicado
         </p>
         <FormulaLineal>
-          <BloqueFormula tono="resultado">TIPO_EFECTIVO_MAGNITUD</BloqueFormula>
+          <BloqueFormula tono="resultado">TIPO_EFECTIVO_IRPF</BloqueFormula>
           <BloqueFormula>=</BloqueFormula>
-          <BloqueFormula tono="resultado">
-            MAGNITUD_COMPARABLE_REAL
-          </BloqueFormula>
+          <BloqueFormula tono="resultado">IRPF_COMPARABLE_REAL</BloqueFormula>
           <BloqueFormula>/</BloqueFormula>
           <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
         </FormulaLineal>
@@ -4184,30 +4226,30 @@ function FormulaDiferenciaMagnitud({
           <BloqueFormula>=</BloqueFormula>
           <BloqueFormula tono="calculo">
             {modo === "porcentaje"
-              ? "TIPO_EFECTIVO_MAGNITUD"
-              : "MAGNITUD_COMPARABLE_REAL"}
+              ? "TIPO_EFECTIVO_IRPF"
+              : "IRPF_COMPARABLE_REAL"}
             (año comparado)
           </BloqueFormula>
           <BloqueFormula>-</BloqueFormula>
           <BloqueFormula tono="calculo">
             {modo === "porcentaje"
-              ? "TIPO_EFECTIVO_MAGNITUD"
-              : "MAGNITUD_COMPARABLE_REAL"}
+              ? "TIPO_EFECTIVO_IRPF"
+              : "IRPF_COMPARABLE_REAL"}
             (año base)
           </BloqueFormula>
         </FormulaLineal>
       </div>
       <dl className="grid min-w-0 gap-4">
-        <ExplicacionVariable termino="MAGNITUD_COMPARABLE_REAL">
-          Es el IRPF final expresado en euros de {anioReferencia}. Este campo es
-          el mismo IRPF_COMPARABLE_REAL definido en TIPO EFECTIVO: se calcula
-          primero con importes nominales y normativa nominal de cada año, se
-          aplica la regla de obligación de declarar cuando corresponde y después
-          se ajusta por IPC.
+        <ExplicacionVariable termino="IRPF_COMPARABLE_REAL">
+          Es el IRPF comparable definido en TIPO EFECTIVO, expresado en euros de{" "}
+          {anioReferencia}. Se calcula primero con importes nominales y
+          normativa nominal de cada año, se aplica la regla de obligación de
+          declarar cuando corresponde y después se ajusta por IPC.
         </ExplicacionVariable>
-        <ExplicacionVariable termino={ficha.etiqueta}>
-          {ficha.detalle}. Esta gráfica compara el tipo efectivo de IRPF con la
-          misma estructura de cálculo que TIPO EFECTIVO.
+        <ExplicacionVariable termino="TIPO_EFECTIVO_IRPF">
+          Es IRPF_COMPARABLE_REAL dividido entre SALARIO_BRUTO_REAL. La
+          diferencia en porcentaje compara ese tipo efectivo entre los dos años
+          seleccionados.
         </ExplicacionVariable>
         <ExplicacionVariable termino="SALARIO_BRUTO_REAL">
           El eje X y el denominador del tipo efectivo están en euros de{" "}
@@ -4729,8 +4771,6 @@ function Visualizaciones({
   >
 }) {
   const comunidadesAutonomas = [comunidadAutonoma] as const
-  const fichaMagnitudAuditada =
-    describirMagnitudAuditoriaNormativa(magnitudAuditada)
   const opcionesComunidadAutonoma = comunidadesAuditoriaNormativa.map(
     describirComunidadAutonomaAuditoria
   )
@@ -5224,12 +5264,12 @@ function Visualizaciones({
     Match.when(
       "porcentaje",
       () =>
-        `DIFERENCIA EN TIPO EFECTIVO DE ${fichaMagnitudAuditada.etiqueta} ENTRE ${anioDiferenciaBase} Y ${anioDiferenciaComparado}`
+        `DIFERENCIA EN TIPO EFECTIVO DE IRPF ENTRE ${anioDiferenciaBase} Y ${anioDiferenciaComparado}`
     ),
     Match.when(
       "euros-reales",
       () =>
-        `DIFERENCIA DE ${fichaMagnitudAuditada.etiqueta} EN EUROS REALES ENTRE ${anioDiferenciaBase} Y ${anioDiferenciaComparado}`
+        `DIFERENCIA DE IRPF EN EUROS REALES ENTRE ${anioDiferenciaBase} Y ${anioDiferenciaComparado}`
     ),
     Match.exhaustive
   )
@@ -5280,6 +5320,39 @@ function Visualizaciones({
     Match.exhaustive
   )
   const tituloGraficoTipoMarginalIrpf = `TIPO MARGINAL DE IRPF SOBRE EL SALARIO BRUTO, EN EUROS DE ${anioReferenciaGraficosIrpf}`
+  const panelGraficoActivo = panelGraficoDesdeVista(vistaGrafico)
+  const vistaTipoEfectivoIrpfActiva = Match.value(vistaGrafico).pipe(
+    Match.when("diferencia-irpf", () => "diferencia-irpf" as const),
+    Match.orElse(() => "tipo-irpf" as const)
+  ) satisfies VistaTipoEfectivoIrpfAuditoria
+  const tituloGraficoTipoEfectivoActivo = Match.value(
+    vistaTipoEfectivoIrpfActiva
+  ).pipe(
+    Match.when("tipo-irpf", () => tituloGraficoTipoEfectivoIrpf),
+    Match.when("diferencia-irpf", () => tituloGraficoDiferenciaTipoIrpf),
+    Match.exhaustive
+  )
+  const modoTipoEfectivoIrpfActivo = Match.value(vistaGrafico).pipe(
+    Match.when("diferencia-irpf", () => modoDiferenciaTipoIrpf),
+    Match.orElse(() => modoDiferenciaGraficoAuditoriaPorDefecto)
+  )
+  const graficoTipoEfectivoActivoRef = Match.value(
+    vistaTipoEfectivoIrpfActiva
+  ).pipe(
+    Match.when("tipo-irpf", () => graficoTipoEfectivoIrpfRef),
+    Match.when("diferencia-irpf", () => graficoDiferenciaTipoIrpfRef),
+    Match.exhaustive
+  )
+  const graficoTipoEfectivoActivoExportacionRef = Match.value(
+    vistaTipoEfectivoIrpfActiva
+  ).pipe(
+    Match.when("tipo-irpf", () => graficoTipoEfectivoIrpfExportacionRef),
+    Match.when(
+      "diferencia-irpf",
+      () => graficoDiferenciaTipoIrpfExportacionRef
+    ),
+    Match.exhaustive
+  )
   const claseGraficoTipoEfectivoIrpf =
     "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
   const claseGraficoDiferenciaTipoIrpf =
@@ -5302,24 +5375,24 @@ function Visualizaciones({
         </h2>
       </div>
       <Tabs.Root
-        value={vistaGrafico}
+        value={panelGraficoActivo}
         onValueChange={(valor) => {
           Option.fromNullishOr(valor).pipe(
-            Option.flatMap(decodificarGraficoAuditoriaNormativa),
+            Option.flatMap(decodificarPanelGraficoAuditoria),
             Option.match({
               onNone: () => {},
-              onSome: alCambiarVistaGrafico,
+              onSome: (panel) =>
+                alCambiarVistaGrafico(vistaGraficoDesdePanel(panel)),
             })
           )
         }}
         className="mt-5 grid min-w-0 gap-4"
       >
         <Tabs.List className="grid w-full min-w-0 divide-y-2 divide-[var(--rule)] justify-self-start border-2 border-[var(--rule)] text-sm tracking-[0.22em] uppercase sm:inline-flex sm:w-fit sm:divide-x-2 sm:divide-y-0">
-          {vistasGraficoAuditoria.map((vista) => (
-            <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
-              {Match.value(vista).pipe(
-                Match.when("tipo-irpf", () => "TIPO EFECTIVO"),
-                Match.when("diferencia-irpf", () => "DIF. EFECTIVO"),
+          {panelesGraficoAuditoria.map((panel) => (
+            <Tabs.Tab key={panel} value={panel} className={claseBotonPestana}>
+              {Match.value(panel).pipe(
+                Match.when("tipo-efectivo", () => "TIPO EFECTIVO"),
                 Match.when("cuna-fiscal", () => "CUÑA FISCAL"),
                 Match.when("tipo-marginal", () => "TIPO MARGINAL"),
                 Match.exhaustive
@@ -5328,311 +5401,341 @@ function Visualizaciones({
           ))}
         </Tabs.List>
         <Tabs.Panel
-          value="tipo-irpf"
+          value="tipo-efectivo"
           className="min-w-0 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
         >
-          <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-            <div className="grid min-w-0 gap-3 md:max-w-3xl">
-              <p className="text-sm leading-5 text-[var(--ink-soft)]">
-                {tituloGraficoTipoEfectivoIrpf}
-              </p>
-              <div className="flex min-w-0 flex-wrap items-start gap-3">
-                <SelectorComunidadAutonomaAuditoria
-                  opciones={opcionesComunidadAutonoma}
-                  opcion={opcionComunidadAutonoma}
-                  alCambiar={alCambiarComunidadAutonoma}
+          <Tabs.Root
+            value={vistaTipoEfectivoIrpfActiva}
+            onValueChange={(valor) => {
+              Option.fromNullishOr(valor).pipe(
+                Option.flatMap(decodificarVistaTipoEfectivoIrpfAuditoria),
+                Option.match({
+                  onNone: () => {},
+                  onSome: alCambiarVistaGrafico,
+                })
+              )
+            }}
+            className="grid min-w-0 gap-4"
+          >
+            <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+              <div className="grid min-w-0 gap-3 md:max-w-3xl">
+                <p className="text-sm leading-5 text-[var(--ink-soft)]">
+                  {tituloGraficoTipoEfectivoActivo}
+                </p>
+                <div className="flex min-w-0 flex-wrap items-start gap-3">
+                  <SelectorComunidadAutonomaAuditoria
+                    opciones={opcionesComunidadAutonoma}
+                    opcion={opcionComunidadAutonoma}
+                    alCambiar={alCambiarComunidadAutonoma}
+                  />
+                  <Tabs.List
+                    aria-label="Tipo de gráfica de tipo efectivo"
+                    className="inline-flex h-10 divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] bg-[var(--paper)] text-sm tracking-[0.18em] uppercase shadow-[3px_3px_0_0_var(--rule)]"
+                  >
+                    {vistasTipoEfectivoIrpfAuditoria.map((vista) => (
+                      <Tabs.Tab
+                        key={vista}
+                        value={vista}
+                        className={claseBotonPestana}
+                      >
+                        {Match.value(vista).pipe(
+                          Match.when("tipo-irpf", () => "TIPO"),
+                          Match.when("diferencia-irpf", () => "DIFERENCIA"),
+                          Match.exhaustive
+                        )}
+                      </Tabs.Tab>
+                    ))}
+                  </Tabs.List>
+                  <SelectorModoGrafico
+                    ariaLabel="Cambiar unidad del análisis de tipo efectivo"
+                    modo={modoTipoEfectivoIrpfActivo}
+                    opciones={opcionesModoPorcentajeEuros}
+                    alCambiar={fijarModoDiferenciaTipoIrpf}
+                  />
+                </div>
+              </div>
+              <div className="w-full min-w-0 self-end md:w-auto">
+                <BotonCopiarImagenGrafico
+                  graficoRef={graficoTipoEfectivoActivoRef}
+                  graficoExportacionRef={
+                    graficoTipoEfectivoActivoExportacionRef
+                  }
+                  disabled={copiaGraficoDeshabilitada}
+                  titulo={tituloGraficoTipoEfectivoActivo}
                 />
               </div>
-            </div>
-            <div className="w-full min-w-0 self-end md:w-auto">
-              <BotonCopiarImagenGrafico
-                graficoRef={graficoTipoEfectivoIrpfRef}
-                graficoExportacionRef={graficoTipoEfectivoIrpfExportacionRef}
-                disabled={copiaGraficoDeshabilitada}
-                titulo={tituloGraficoTipoEfectivoIrpf}
-              />
-            </div>
-            <SelectorAniosGraficoAuditoria
-              anios={aniosPestanasTipoEfectivoIrpf}
-              aniosDisponibles={aniosTipoEfectivoIrpf}
-              aniosActivos={aniosGraficoIrpfVisibles}
-              ariaLabel="Años visibles en la gráfica de tipo efectivo del IRPF"
-              alAlternar={alternarAnioIrpf}
-            />
-          </div>
-          {graficoCargando ? (
-            <Skeleton
-              aria-label="Cargando gráfica de tipo efectivo del IRPF"
-              className={claseGraficoTipoEfectivoIrpf}
-            />
-          ) : Option.isSome(errorGrafico) || Option.isNone(auditoria) ? (
-            <div
-              className={cn(
-                claseGraficoTipoEfectivoIrpf,
-                "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
+              {vistaTipoEfectivoIrpfActiva === "tipo-irpf" ? (
+                <SelectorAniosGraficoAuditoria
+                  anios={aniosPestanasTipoEfectivoIrpf}
+                  aniosDisponibles={aniosTipoEfectivoIrpf}
+                  aniosActivos={aniosGraficoIrpfVisibles}
+                  ariaLabel="Años visibles en la gráfica de tipo efectivo del IRPF"
+                  alAlternar={alternarAnioIrpf}
+                />
+              ) : (
+                <SelectorAniosGraficoAuditoria
+                  anios={aniosPestanasTipoEfectivoIrpf}
+                  aniosDisponibles={aniosTipoEfectivoIrpf}
+                  aniosActivos={aniosDiferenciaTipoIrpfVisibles}
+                  ariaLabel="Años comparados en la gráfica de diferencia de tipo de IRPF"
+                  alAlternar={alternarAnioDiferenciaTipoIrpf}
+                />
               )}
-            >
-              No se pudo calcular la gráfica:{" "}
-              {Option.getOrElse(errorGrafico, () => "sin datos")}
             </div>
-          ) : (
-            <ChartContainer
-              ref={graficoTipoEfectivoIrpfRef}
-              config={configTipoEfectivoIrpf}
-              className={claseGraficoTipoEfectivoIrpf}
-            >
-              <LineChart
-                accessibilityLayer
-                data={datosTipoEfectivoIrpf}
-                margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
-              >
-                <CartesianGrid
-                  vertical={false}
-                  stroke="var(--rule)"
-                  strokeDasharray="2 4"
+            <Tabs.Panel value="tipo-irpf" className="min-w-0">
+              {graficoCargando ? (
+                <Skeleton
+                  aria-label="Cargando gráfica de tipo efectivo del IRPF"
+                  className={claseGraficoTipoEfectivoIrpf}
                 />
-                <XAxis
-                  type="number"
-                  dataKey="salarioEuros"
-                  domain={dominioSalario}
-                  ticks={ticksSalario}
-                  tickFormatter={(valor: number) =>
-                    formatearSalarioCorto(eurosACentimos(valor))
-                  }
-                  tickLine={false}
-                  axisLine={{ stroke: "var(--rule)" }}
-                  tickMargin={10}
-                  interval={0}
-                  minTickGap={8}
-                  angle={-90}
-                  textAnchor="end"
-                  height={66}
-                  fontSize={14}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={6}
-                  width={44}
-                  domain={dominioTipoEfectivoIrpf}
-                  ticks={ticksTipoEfectivoIrpf}
-                  fontSize={14}
-                  tickFormatter={formatearTickPorcentaje}
-                />
-                <ChartTooltip
-                  isAnimationActive={false}
-                  allowEscapeViewBox={{ x: false, y: false }}
-                  wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
-                  cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
-                  content={
-                    <ChartTooltipContent
-                      className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
-                      formatter={(valor, nombre, item) => (
-                        <span
-                          className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                          style={{ color: item.color }}
-                        >
-                          {porcentaje.format(Number(valor))} ({nombre})
-                        </span>
-                      )}
-                      labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                      labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+              ) : Option.isSome(errorGrafico) || Option.isNone(auditoria) ? (
+                <div
+                  className={cn(
+                    claseGraficoTipoEfectivoIrpf,
+                    "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
+                  )}
+                >
+                  No se pudo calcular la gráfica:{" "}
+                  {Option.getOrElse(errorGrafico, () => "sin datos")}
+                </div>
+              ) : (
+                <ChartContainer
+                  ref={graficoTipoEfectivoIrpfRef}
+                  config={configTipoEfectivoIrpf}
+                  className={claseGraficoTipoEfectivoIrpf}
+                >
+                  <LineChart
+                    accessibilityLayer
+                    data={datosTipoEfectivoIrpf}
+                    margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+                  >
+                    <CartesianGrid
+                      vertical={false}
+                      stroke="var(--rule)"
+                      strokeDasharray="2 4"
                     />
-                  }
-                />
-                <Legend
-                  verticalAlign="bottom"
-                  align="right"
-                  iconType="plainline"
-                  wrapperStyle={{
-                    fontFamily: "var(--mono)",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    paddingTop: 8,
-                  }}
-                />
-                {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
-                  aniosGraficoIrpfVisibles.map((anio) => {
-                    const clave = claveSerieTipoEfectivoIrpf(
-                      comunidadAutonoma,
-                      anio
-                    )
+                    <XAxis
+                      type="number"
+                      dataKey="salarioEuros"
+                      domain={dominioSalario}
+                      ticks={ticksSalario}
+                      tickFormatter={(valor: number) =>
+                        formatearSalarioCorto(eurosACentimos(valor))
+                      }
+                      tickLine={false}
+                      axisLine={{ stroke: "var(--rule)" }}
+                      tickMargin={10}
+                      interval={0}
+                      minTickGap={8}
+                      angle={-90}
+                      textAnchor="end"
+                      height={66}
+                      fontSize={14}
+                    />
+                    <YAxis
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={6}
+                      width={44}
+                      domain={dominioTipoEfectivoIrpf}
+                      ticks={ticksTipoEfectivoIrpf}
+                      fontSize={14}
+                      tickFormatter={formatearTickPorcentaje}
+                    />
+                    <ChartTooltip
+                      isAnimationActive={false}
+                      allowEscapeViewBox={{ x: false, y: false }}
+                      wrapperStyle={{
+                        zIndex: 10,
+                        maxWidth: "min(24rem, 90vw)",
+                      }}
+                      cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                      content={
+                        <ChartTooltipContent
+                          className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                          formatter={(valor, nombre, item) => (
+                            <span
+                              className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                              style={{ color: item.color }}
+                            >
+                              {porcentaje.format(Number(valor))} ({nombre})
+                            </span>
+                          )}
+                          labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                          labelFormatter={(_, p) =>
+                            p[0]?.payload?.salario ?? ""
+                          }
+                        />
+                      }
+                    />
+                    <Legend
+                      verticalAlign="bottom"
+                      align="right"
+                      iconType="plainline"
+                      wrapperStyle={{
+                        fontFamily: "var(--mono)",
+                        fontSize: 14,
+                        fontWeight: 700,
+                        paddingTop: 8,
+                      }}
+                    />
+                    {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+                      aniosGraficoIrpfVisibles.map((anio) => {
+                        const clave = claveSerieTipoEfectivoIrpf(
+                          comunidadAutonoma,
+                          anio
+                        )
 
-                    return (
-                      <Line
-                        key={clave}
-                        dataKey={clave}
-                        name={etiquetaSerieAuditoria(comunidadAutonoma, anio)}
-                        type="linear"
-                        stroke={`var(--color-${clave})`}
-                        strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
-                        dot={false}
-                        activeDot={{ r: 4, strokeWidth: 0 }}
-                        isAnimationActive={false}
-                      />
-                    )
-                  })
-                )}
-              </LineChart>
-            </ChartContainer>
-          )}
-          <FormulaTipoEfectivoIrpf
-            anios={aniosGraficoIrpfVisibles}
-            anioReferencia={anioReferenciaGraficosIrpf}
-            comunidadAutonoma={comunidadAutonoma}
-            perfil={perfil}
-          />
-        </Tabs.Panel>
-        <Tabs.Panel
-          value="diferencia-irpf"
-          className="min-w-0 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
-        >
-          <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-            <div className="grid min-w-0 gap-3 md:max-w-3xl">
-              <p className="text-sm leading-5 text-[var(--ink-soft)]">
-                {tituloGraficoDiferenciaTipoIrpf}
-              </p>
-              <div className="flex min-w-0 flex-wrap items-start gap-3">
-                <SelectorComunidadAutonomaAuditoria
-                  opciones={opcionesComunidadAutonoma}
-                  opcion={opcionComunidadAutonoma}
-                  alCambiar={alCambiarComunidadAutonoma}
-                />
-                <SelectorModoGrafico
-                  ariaLabel="Cambiar unidad de diferencia de tipo efectivo"
-                  modo={modoDiferenciaTipoIrpf}
-                  opciones={opcionesModoPorcentajeEuros}
-                  alCambiar={fijarModoDiferenciaTipoIrpf}
-                />
-              </div>
-            </div>
-            <div className="w-full min-w-0 self-end md:w-auto">
-              <BotonCopiarImagenGrafico
-                graficoRef={graficoDiferenciaTipoIrpfRef}
-                graficoExportacionRef={graficoDiferenciaTipoIrpfExportacionRef}
-                disabled={copiaGraficoDeshabilitada}
-                titulo={tituloGraficoDiferenciaTipoIrpf}
-              />
-            </div>
-            <SelectorAniosGraficoAuditoria
-              anios={aniosPestanasTipoEfectivoIrpf}
-              aniosDisponibles={aniosTipoEfectivoIrpf}
-              aniosActivos={aniosDiferenciaTipoIrpfVisibles}
-              ariaLabel="Años comparados en la gráfica de diferencia de tipo de IRPF"
-              alAlternar={alternarAnioDiferenciaTipoIrpf}
-            />
-          </div>
-          {graficoCargando ? (
-            <Skeleton
-              aria-label="Cargando gráfica de diferencia de tipo de IRPF"
-              className={claseGraficoDiferenciaTipoIrpf}
-            />
-          ) : Option.isSome(errorGrafico) || Option.isNone(auditoria) ? (
-            <div
-              className={cn(
-                claseGraficoDiferenciaTipoIrpf,
-                "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
+                        return (
+                          <Line
+                            key={clave}
+                            dataKey={clave}
+                            name={etiquetaSerieAuditoria(
+                              comunidadAutonoma,
+                              anio
+                            )}
+                            type="linear"
+                            stroke={`var(--color-${clave})`}
+                            strokeWidth={
+                              anio === 2026 ? 4 : anio === 2019 ? 3 : 2
+                            }
+                            dot={false}
+                            activeDot={{ r: 4, strokeWidth: 0 }}
+                            isAnimationActive={false}
+                          />
+                        )
+                      })
+                    )}
+                  </LineChart>
+                </ChartContainer>
               )}
-            >
-              No se pudo calcular la gráfica:{" "}
-              {Option.getOrElse(errorGrafico, () => "sin datos")}
-            </div>
-          ) : (
-            <ChartContainer
-              ref={graficoDiferenciaTipoIrpfRef}
-              config={configDiferenciaTipoIrpf}
-              className={claseGraficoDiferenciaTipoIrpf}
-            >
-              <AreaChart
-                accessibilityLayer
-                data={datosDiferenciaTipoIrpf}
-                baseValue={0}
-                margin={{ left: 4, right: 18, top: 4, bottom: 28 }}
-              >
-                <CartesianGrid
-                  vertical={false}
-                  stroke="var(--rule)"
-                  strokeDasharray="2 4"
+              <FormulaTipoEfectivoIrpf
+                anios={aniosGraficoIrpfVisibles}
+                anioReferencia={anioReferenciaGraficosIrpf}
+                comunidadAutonoma={comunidadAutonoma}
+                perfil={perfil}
+              />
+            </Tabs.Panel>
+            <Tabs.Panel value="diferencia-irpf" className="min-w-0">
+              {graficoCargando ? (
+                <Skeleton
+                  aria-label="Cargando gráfica de diferencia de tipo de IRPF"
+                  className={claseGraficoDiferenciaTipoIrpf}
                 />
-                <XAxis
-                  type="number"
-                  dataKey="salarioEuros"
-                  domain={dominioSalario}
-                  ticks={ticksSalario}
-                  tickFormatter={(valor: number) =>
-                    formatearSalarioCorto(eurosACentimos(valor))
-                  }
-                  tickLine={false}
-                  axisLine={{ stroke: "var(--rule)" }}
-                  tickMargin={10}
-                  interval={0}
-                  minTickGap={8}
-                  angle={-90}
-                  textAnchor="end"
-                  height={66}
-                  fontSize={14}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={{ stroke: "var(--rule)" }}
-                  tickMargin={4}
-                  width={54}
-                  domain={dominioDiferenciaTipoIrpf}
-                  ticks={ticksDiferenciaIrpf}
-                  fontSize={14}
-                  tickFormatter={formatearTickDiferenciaTipoIrpf}
-                />
-                <ChartTooltip
-                  isAnimationActive={false}
-                  allowEscapeViewBox={{ x: false, y: false }}
-                  wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
-                  cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
-                  content={
-                    <TooltipDiferenciaTipoIrpf
-                      claveDesfavorable={clavesDiferenciaTipoIrpfSegmentadas[1]}
-                      formatearValor={formatearValorDiferenciaTipoIrpf}
-                      className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
-                      labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                      labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+              ) : Option.isSome(errorGrafico) || Option.isNone(auditoria) ? (
+                <div
+                  className={cn(
+                    claseGraficoDiferenciaTipoIrpf,
+                    "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
+                  )}
+                >
+                  No se pudo calcular la gráfica:{" "}
+                  {Option.getOrElse(errorGrafico, () => "sin datos")}
+                </div>
+              ) : (
+                <ChartContainer
+                  ref={graficoDiferenciaTipoIrpfRef}
+                  config={configDiferenciaTipoIrpf}
+                  className={claseGraficoDiferenciaTipoIrpf}
+                >
+                  <AreaChart
+                    accessibilityLayer
+                    data={datosDiferenciaTipoIrpf}
+                    baseValue={0}
+                    margin={{ left: 4, right: 18, top: 4, bottom: 28 }}
+                  >
+                    <CartesianGrid
+                      vertical={false}
+                      stroke="var(--rule)"
+                      strokeDasharray="2 4"
                     />
-                  }
-                />
-                <Area
-                  dataKey={clavesDiferenciaTipoIrpfSegmentadas[1]}
-                  name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
-                  type="linear"
-                  stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
-                  strokeWidth={3}
-                  fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
-                  fillOpacity={0.22}
-                  baseValue={0}
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 0 }}
-                  connectNulls={false}
-                  isAnimationActive={false}
-                />
-                <Area
-                  dataKey={clavesDiferenciaTipoIrpfSegmentadas[0]}
-                  name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
-                  type="linear"
-                  stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
-                  strokeWidth={3}
-                  fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
-                  fillOpacity={0.22}
-                  baseValue={0}
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 0 }}
-                  connectNulls={false}
-                  isAnimationActive={false}
-                />
-              </AreaChart>
-            </ChartContainer>
-          )}
-          <FormulaDiferenciaMagnitud
-            anioReferencia={anioReferenciaGraficosIrpf}
-            magnitud={magnitudAuditada}
-            modo={modoDiferenciaTipoIrpf}
-          />
+                    <XAxis
+                      type="number"
+                      dataKey="salarioEuros"
+                      domain={dominioSalario}
+                      ticks={ticksSalario}
+                      tickFormatter={(valor: number) =>
+                        formatearSalarioCorto(eurosACentimos(valor))
+                      }
+                      tickLine={false}
+                      axisLine={{ stroke: "var(--rule)" }}
+                      tickMargin={10}
+                      interval={0}
+                      minTickGap={8}
+                      angle={-90}
+                      textAnchor="end"
+                      height={66}
+                      fontSize={14}
+                    />
+                    <YAxis
+                      tickLine={false}
+                      axisLine={{ stroke: "var(--rule)" }}
+                      tickMargin={4}
+                      width={54}
+                      domain={dominioDiferenciaTipoIrpf}
+                      ticks={ticksDiferenciaIrpf}
+                      fontSize={14}
+                      tickFormatter={formatearTickDiferenciaTipoIrpf}
+                    />
+                    <ChartTooltip
+                      isAnimationActive={false}
+                      allowEscapeViewBox={{ x: false, y: false }}
+                      wrapperStyle={{
+                        zIndex: 10,
+                        maxWidth: "min(24rem, 90vw)",
+                      }}
+                      cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                      content={
+                        <TooltipDiferenciaTipoIrpf
+                          claveDesfavorable={
+                            clavesDiferenciaTipoIrpfSegmentadas[1]
+                          }
+                          formatearValor={formatearValorDiferenciaTipoIrpf}
+                          className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                          labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                          labelFormatter={(_, p) =>
+                            p[0]?.payload?.salario ?? ""
+                          }
+                        />
+                      }
+                    />
+                    <Area
+                      dataKey={clavesDiferenciaTipoIrpfSegmentadas[1]}
+                      name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
+                      type="linear"
+                      stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
+                      strokeWidth={3}
+                      fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[1]})`}
+                      fillOpacity={0.22}
+                      baseValue={0}
+                      dot={false}
+                      activeDot={{ r: 4, strokeWidth: 0 }}
+                      connectNulls={false}
+                      isAnimationActive={false}
+                    />
+                    <Area
+                      dataKey={clavesDiferenciaTipoIrpfSegmentadas[0]}
+                      name={`${anioDiferenciaComparado} - ${anioDiferenciaBase}`}
+                      type="linear"
+                      stroke={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
+                      strokeWidth={3}
+                      fill={`var(--color-${clavesDiferenciaTipoIrpfSegmentadas[0]})`}
+                      fillOpacity={0.22}
+                      baseValue={0}
+                      dot={false}
+                      activeDot={{ r: 4, strokeWidth: 0 }}
+                      connectNulls={false}
+                      isAnimationActive={false}
+                    />
+                  </AreaChart>
+                </ChartContainer>
+              )}
+              <FormulaDiferenciaTipoEfectivoIrpf
+                anioReferencia={anioReferenciaGraficosIrpf}
+                modo={modoDiferenciaTipoIrpf}
+              />
+            </Tabs.Panel>
+          </Tabs.Root>
         </Tabs.Panel>
         <Tabs.Panel
           value="cuna-fiscal"
