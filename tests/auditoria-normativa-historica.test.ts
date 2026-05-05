@@ -173,14 +173,18 @@ describe("auditoria normativa historica", () => {
     ).toEqual({
       grafica: "cuna-fiscal",
       anio: 2025,
+      modo: "porcentaje",
     })
     expect(
       leerSeleccionGraficoAuditoriaDesdeUrl(
-        new URLSearchParams("v=2&grafica=cuna-fiscal&anios=2019-2025")
+        new URLSearchParams(
+          "v=2&grafica=cuna-fiscal&anios=2019-2025&modo=euros-reales"
+        )
       )
     ).toEqual({
       grafica: "cuna-fiscal",
       anio: 2025,
+      modo: "euros-reales",
     })
     expect(
       leerSeleccionGraficoAuditoriaDesdeUrl(
@@ -351,10 +355,11 @@ describe("auditoria normativa historica", () => {
         {
           grafica: "cuna-fiscal",
           anio: 2025,
+          modo: "euros-reales",
         }
       ).toString()
     ).toBe(
-      "v=2&perfil=soltero_sin_hijos&periodo=2019-2025&comunidad=simulada-estatal&rango=15000-100000&grafica=cuna-fiscal&anio=2025"
+      "v=2&perfil=soltero_sin_hijos&periodo=2019-2025&comunidad=simulada-estatal&rango=15000-100000&grafica=cuna-fiscal&anio=2025&modo=euros-reales"
     )
   })
 
