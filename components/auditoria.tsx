@@ -3039,12 +3039,14 @@ function FormulaTipoEfectivoIrpf({
           Importe usado sólo en las gráficas de tipo efectivo y diferencia.
           Primero se calcula con importes nominales y normativa nominal de cada
           año; después se ajusta por IPC a euros de {anioReferencia} para
-          dividirlo entre SALARIO_BRUTO_REAL. Por encima del umbral general de
-          obligación de declarar, se compara con la cuota anual tras deducción;
-          la gráfica de tipo marginal usa la cuota anual tras deducción SMI para
-          no convertir una obligación formal en un marginal de la escala. El
-          umbral general de 22.000 € para rendimientos del trabajo con un
-          pagador está recogido en el{" "}
+          dividirlo entre SALARIO_BRUTO_REAL. Hasta 22.000 € de rendimientos
+          íntegros del trabajo con un pagador, si no hay obligación general de
+          declarar, se usa el IRPF final de nómina: la menor cifra entre la
+          cuota anual y el límite de retención. Al superar 22.000 €, se usa la
+          cuota anual tras deducción.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="SALTO EN 22.000 EUR">
+          El umbral de 22.000 € no nace en 2024; ya está en el{" "}
           <a
             href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a96"
             className="font-bold underline decoration-[var(--rule)] underline-offset-4"
@@ -3058,7 +3060,27 @@ function FormulaTipoEfectivoIrpf({
           >
             obligación de declarar
           </a>
-          .
+          . El salto sólo se ve cuando, justo antes de ese umbral, la nómina ha
+          retenido menos que la cuota anual. En este perfil ocurre desde 2024,
+          cuando el{" "}
+          <a
+            href="https://www.boe.es/buscar/doc.php?id=BOE-A-2024-2249"
+            className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+          >
+            Real Decreto 142/2024
+          </a>{" "}
+          elevó el mínimo sin retención hasta 15.876 € en la situación general.
+          En 2023 y años anteriores, para este perfil, el límite de retención ya
+          cubría la cuota anual cerca de 22.000 €, así que cruzar el umbral no
+          cambia la línea de forma visible. La gráfica de tipo marginal usa la
+          cuota anual tras deducción SMI para no convertir una obligación formal
+          de declarar en un marginal de la escala.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="RENDIMIENTOS_DEL_TRABAJO">
+          Son los ingresos derivados del trabajo personal o de una relación
+          laboral o estatutaria: por ejemplo sueldos, salarios, prestaciones por
+          desempleo o pensiones. En esta auditoría equivalen al salario bruto
+          anual del perfil.
         </ExplicacionVariable>
         <ExplicacionVariable termino="DEDUCCION_SMI">
           Deducción estatal por obtención de rendimientos del trabajo. Los
