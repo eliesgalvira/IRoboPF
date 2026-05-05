@@ -125,7 +125,7 @@ Esquema versionado de parametros de URL que serializa una auditoria normativa hi
 _Avoid_: Estado local no compartible, nombres internos de componentes, URL sin version
 
 **Perfil fiscal predefinido**:
-Perfil fiscal construible mantenido por el producto para auditoria y comparacion publica, como persona soltera sin hijos, pareja con hijos, trabajador medio por comunidad o distribucion sintetica por salario y comunidad.
+Perfil fiscal construible mantenido por el producto para auditoria y comparacion publica, como persona soltera sin hijos o pareja con hijos.
 _Avoid_: Caso fiscal fijo, input libre de liquidacion, segmento estadistico sin definicion fiscal
 
 **Desglose de salario neto e IRPF**:
