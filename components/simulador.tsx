@@ -755,74 +755,344 @@ function Fila({
   )
 }
 
+function PiezaFormula({
+  children,
+  tono = "neutro",
+}: {
+  readonly children: React.ReactNode
+  readonly tono?: "neutro" | "calculo" | "limite" | "resultado"
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex min-h-8 max-w-full min-w-0 items-center border-2 border-[var(--rule)] px-2 py-1 text-left font-[family-name:var(--mono)] text-xs leading-5 font-bold [overflow-wrap:anywhere] break-words whitespace-normal tabular-nums sm:text-sm",
+        tono === "neutro" && "bg-[var(--paper)] text-[var(--ink)]",
+        tono === "calculo" && "bg-[var(--mark)] text-[var(--mark-ink)]",
+        tono === "limite" && "bg-[var(--paper-2)] text-[var(--ink)]",
+        tono === "resultado" && "bg-[var(--rule)] text-[var(--paper)]"
+      )}
+    >
+      {children}
+    </span>
+  )
+}
+
+function FormulaSimulador({ children }: { readonly children: React.ReactNode }) {
+  return (
+    <div className="flex max-w-full min-w-0 flex-wrap items-center gap-2 leading-none">
+      {children}
+    </div>
+  )
+}
+
+function TarjetaFormula({
+  numero,
+  titulo,
+  children,
+}: {
+  readonly numero: string
+  readonly titulo: string
+  readonly children: React.ReactNode
+}) {
+  return (
+    <article className="grid min-w-0 gap-3 border-2 border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[3px_3px_0_0_var(--rule)]">
+      <div className="flex min-w-0 items-start gap-3">
+        <span className="font-[family-name:var(--display)] text-4xl leading-none text-[var(--ink-soft)]">
+          {numero}
+        </span>
+        <h3 className="pt-1 text-sm leading-5 font-bold tracking-[0.22em] text-[var(--ink)] uppercase">
+          {titulo}
+        </h3>
+      </div>
+      <div className="grid min-w-0 gap-2">{children}</div>
+    </article>
+  )
+}
+
+function EnlaceNormativo({
+  href,
+  children,
+}: {
+  readonly href: string
+  readonly children: React.ReactNode
+}) {
+  return (
+    <a
+      href={href}
+      className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+    >
+      {children}
+    </a>
+  )
+}
+
+function LineaRastroSimulador({
+  etiqueta,
+  formula,
+  pasado,
+  actual,
+  destacado = false,
+}: {
+  readonly etiqueta: string
+  readonly formula: string
+  readonly pasado: string
+  readonly actual: string
+  readonly destacado?: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        "grid gap-2 border border-[var(--rule)] bg-[var(--paper-2)] p-3 md:grid-cols-[minmax(9rem,0.75fr)_minmax(12rem,1.2fr)_minmax(7rem,0.65fr)_minmax(7rem,0.65fr)]",
+        destacado && "bg-[color-mix(in_oklab,var(--mark),var(--paper)_68%)]"
+      )}
+    >
+      <dt className="text-xs font-bold tracking-[0.18em] uppercase">
+        {etiqueta}
+      </dt>
+      <dd className="font-[family-name:var(--mono)] text-xs break-words text-[var(--ink-soft)]">
+        {formula}
+      </dd>
+      <dd className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums md:text-right">
+        {pasado}
+      </dd>
+      <dd className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums md:text-right">
+        {actual}
+      </dd>
+    </div>
+  )
+}
+
+function BloqueCompetencia({
+  titulo,
+  ambito,
+  children,
+}: {
+  readonly titulo: string
+  readonly ambito: string
+  readonly children: React.ReactNode
+}) {
+  return (
+    <article className="grid gap-2 border border-[var(--rule)] bg-[var(--paper-2)] p-3">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="text-sm font-bold tracking-[0.18em] uppercase">
+          {titulo}
+        </h3>
+        <span className="font-[family-name:var(--mono)] text-xs font-bold text-[var(--ink-soft)]">
+          {ambito}
+        </span>
+      </div>
+      <p className="text-sm leading-6 text-[var(--ink-soft)]">{children}</p>
+    </article>
+  )
+}
+
 function Pasos({
   comparacion,
 }: {
   readonly comparacion: ComparacionAjustadaPorIpc
 }) {
   const factor = Number(comparacion.factorIpc)
-  const pasos = [
-    {
-      numero: "01",
-      titulo: "PRIMERO IGUALAMOS EUROS",
-      cuerpo: `No comparamos euros nominales. Aplicamos el factor IPC acumulado ${factor.toFixed(4)}: ${formatearCentimos(comparacion.comparado.salarioBrutoNominalAnualCentimos)} de ${comparacion.anioComparado} compraban aproximadamente lo mismo que ${formatearCentimos(comparacion.referencia.salarioBrutoAnualCentimos)} en ${comparacion.anioReferencia}.`,
-    },
-    {
-      numero: "02",
-      titulo: "RESTAMOS LA COTIZACIÓN DEL TRABAJADOR",
-      cuerpo: `Del salario bruto sale primero la cotización del trabajador. Con las reglas de ${comparacion.anioComparado}, reexpresada en euros de ${comparacion.anioReferencia}, son ${formatearCentimos(comparacion.comparado.ajustado.cotizacionTrabajadorCentimos)}. Con las reglas de ${comparacion.anioReferencia} son ${formatearCentimos(comparacion.referencia.cotizacionTrabajadorCentimos)}.`,
-    },
-    {
-      numero: "03",
-      titulo: "CONSTRUIMOS LA BASE DEL IRPF",
-      cuerpo:
-        "Después entran los gastos fijos y la reducción por rendimientos del trabajo. Ese tramo del cálculo convierte el rendimiento del salario en base imponible: la cantidad sobre la que empiezan a aplicarse los tramos del IRPF.",
-    },
-    {
-      numero: "04",
-      titulo: "APLICAMOS TRAMOS, MÍNIMOS Y DEDUCCIONES",
-      cuerpo:
-        "El IRPF no se aplica a todo el salario con un único porcentaje. Cada tramo grava solo la parte que cae dentro de su intervalo; luego se descuentan el mínimo personal y, cuando corresponde, la deducción ligada al SMI.",
-    },
-    {
-      numero: "05",
-      titulo: "LLEGAMOS AL IRPF FINAL",
-      cuerpo: `El cálculo todavía respeta el límite de retención. Tras ese límite, el IRPF final comparable queda en ${formatearCentimos(comparacion.comparado.ajustado.irpfFinalCentimos)} con reglas de ${comparacion.anioComparado}, frente a ${formatearCentimos(comparacion.referencia.irpfFinalCentimos)} con reglas de ${comparacion.anioReferencia}.`,
-    },
-    {
-      numero: "06",
-      titulo: "COMPARAMOS EL PODER ADQUISITIVO NETO",
-      cuerpo: `Al salario bruto le quitamos cotización del trabajador e IRPF final. La diferencia de poder adquisitivo neto es ${formatearCentimos(comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos)} al año, equivalente a ${formatearCentimos(comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos)} al mes en 12 pagas.`,
-    },
-  ] as const
+  const comparado = comparacion.comparado.ajustado
+  const actual = comparacion.referencia
+  const rendimientoPrevioComparado =
+    comparado.salarioBrutoAnualCentimos -
+    comparado.cotizacionTrabajadorCentimos
+  const rendimientoPrevioActual =
+    actual.salarioBrutoAnualCentimos - actual.cotizacionTrabajadorCentimos
+
   return (
-    <section className="py-6">
+    <section className="grid gap-6 py-6">
       <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
-        CÁLCULO GUIADO PASO A PASO
+        CÁLCULO GUIADO
       </h2>
-      <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--ink-soft)]">
+      <p className="max-w-4xl text-sm leading-6 text-[var(--ink-soft)]">
         La comparación no pregunta cuánto se cobraba nominalmente en el pasado,
-        sino qué pasaría con un salario equivalente por IPC. Por eso cada paso
-        separa inflación, cotizaciones, cálculo del IRPF y salario neto.
+        sino qué pasaría con un salario equivalente por IPC. La parte importante
+        del IRPF sucede antes de los tramos: ahí se decide la base imponible, y
+        muchos de esos parámetros son estatales.
       </p>
-      <ol className="mt-5 grid gap-px bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-3">
-        {pasos.map((paso) => (
-          <li
-            key={paso.numero}
-            className="grid gap-2 bg-[var(--paper)] p-4 sm:p-5"
+
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <TarjetaFormula numero="01" titulo="De salario nominal a euros reales">
+          <FormulaSimulador>
+            <PiezaFormula tono="resultado">
+              SALARIO_BRUTO_REAL
+            </PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="calculo">
+              SALARIO_NOMINAL_{comparacion.anioComparado}
+            </PiezaFormula>
+            <PiezaFormula>×</PiezaFormula>
+            <PiezaFormula tono="calculo">
+              IPC_ACUM {factor.toFixed(4)}
+            </PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="resultado">
+              {formatearCentimos(comparado.salarioBrutoAnualCentimos)}
+            </PiezaFormula>
+          </FormulaSimulador>
+          <p className="text-sm leading-6 text-[var(--ink-soft)]">
+            Se compara poder de compra, no euros escritos en una nómina antigua.
+          </p>
+        </TarjetaFormula>
+
+        <TarjetaFormula numero="02" titulo="Del salario a la base imponible">
+          <FormulaSimulador>
+            <PiezaFormula tono="resultado">BASE_IMPONIBLE</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="calculo">RENDIMIENTO_TRABAJO</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">SS_TRABAJADOR</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">GASTO_2.000</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">REDUCCION_ART_20</PiezaFormula>
+          </FormulaSimulador>
+          <p className="text-sm leading-6 text-[var(--ink-soft)]">
+            Rendimientos del trabajo son sueldos, salarios, pensiones o paro. El
+            gasto fijo de 2.000 € del{" "}
+            <EnlaceNormativo href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a19">
+              art. 19.2.f LIRPF
+            </EnlaceNormativo>{" "}
+            y la reducción del{" "}
+            <EnlaceNormativo href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a20">
+              art. 20 LIRPF
+            </EnlaceNormativo>{" "}
+            se aplican antes de que la CCAA toque su escala.
+          </p>
+        </TarjetaFormula>
+
+        <TarjetaFormula numero="03" titulo="De base a cuota">
+          <FormulaSimulador>
+            <PiezaFormula tono="resultado">CUOTA_IRPF</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="calculo">TRAMOS(BASE)</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">MINIMO_PERSONAL</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">DEDUCCIONES</PiezaFormula>
+          </FormulaSimulador>
+          <p className="text-sm leading-6 text-[var(--ink-soft)]">
+            Una CCAA puede modificar su escala autonómica y parte del mínimo,
+            pero el mínimo personal y familiar parte de una referencia estatal.
+            La{" "}
+            <EnlaceNormativo href="https://www.boe.es/buscar/act.php?id=BOE-A-2009-20375#a46">
+              Ley 22/2009
+            </EnlaceNormativo>{" "}
+            limita a un 10% la variación autonómica de esos mínimos.
+          </p>
+        </TarjetaFormula>
+
+        <TarjetaFormula numero="04" titulo="De cuota a neto">
+          <FormulaSimulador>
+            <PiezaFormula tono="resultado">NETO</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="calculo">SALARIO_BRUTO</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">SS_TRABAJADOR</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">IRPF_FINAL</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="resultado">
+              {formatearCentimos(comparado.salarioNetoAnualCentimos)}
+            </PiezaFormula>
+          </FormulaSimulador>
+          <p className="text-sm leading-6 text-[var(--ink-soft)]">
+            El resultado neto compara leyes de {comparacion.anioComparado} en
+            euros de {comparacion.anioReferencia} contra la liquidación actual.
+          </p>
+        </TarjetaFormula>
+      </div>
+
+      <section className="border border-[var(--rule)] bg-[var(--paper)]">
+        <header className="border-b border-[var(--rule)] p-4">
+          <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+            Rastro con tus números
+          </p>
+          <h3 className="mt-1 text-2xl font-bold">Salario, IRPF y neto</h3>
+        </header>
+        <dl className="grid gap-2 p-4">
+          <div className="hidden px-3 text-xs font-bold tracking-[0.18em] text-[var(--ink-soft)] uppercase md:grid md:grid-cols-[minmax(9rem,0.75fr)_minmax(12rem,1.2fr)_minmax(7rem,0.65fr)_minmax(7rem,0.65fr)]">
+            <span>Concepto</span>
+            <span>Fórmula</span>
+            <span className="text-right">{comparacion.anioComparado}</span>
+            <span className="text-right">{comparacion.anioReferencia}</span>
+          </div>
+          <LineaRastroSimulador
+            etiqueta="Bruto comparable"
+            formula={`${formatearCentimos(
+              comparacion.comparado.salarioBrutoNominalAnualCentimos
+            )} x IPC ${factor.toFixed(4)}`}
+            pasado={formatearCentimos(comparado.salarioBrutoAnualCentimos)}
+            actual={formatearCentimos(actual.salarioBrutoAnualCentimos)}
+          />
+          <LineaRastroSimulador
+            etiqueta="Rendimiento previo"
+            formula="Bruto - cotizacion trabajador"
+            pasado={formatearCentimos(rendimientoPrevioComparado)}
+            actual={formatearCentimos(rendimientoPrevioActual)}
+          />
+          <LineaRastroSimulador
+            etiqueta="IRPF final"
+            formula="Cuota anual ajustada por limites aplicables"
+            pasado={formatearCentimos(comparado.irpfFinalCentimos)}
+            actual={formatearCentimos(actual.irpfFinalCentimos)}
+          />
+          <LineaRastroSimulador
+            etiqueta="Neto anual"
+            formula="Bruto - cotizacion trabajador - IRPF final"
+            pasado={formatearCentimos(comparado.salarioNetoAnualCentimos)}
+            actual={formatearCentimos(actual.salarioNetoAnualCentimos)}
+            destacado
+          />
+          <LineaRastroSimulador
+            etiqueta="Diferencia"
+            formula="Neto pasado comparable - neto actual"
+            pasado={formatearCentimos(
+              comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
+            )}
+            actual={`${formatearCentimos(
+              comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos
+            )} / mes`}
+            destacado
+          />
+        </dl>
+      </section>
+
+      <section className="border-t-2 border-[var(--rule)] pt-5">
+        <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+          Qué explica esto sobre deflactar
+        </p>
+        <div className="mt-3 grid gap-3 lg:grid-cols-2">
+          <BloqueCompetencia
+            titulo="La inflación entra antes de los tramos"
+            ambito="Estado"
           >
-            <span className="font-[family-name:var(--display)] text-[clamp(2.5rem,6vw,3rem)] leading-none text-[var(--ink-soft)]">
-              {paso.numero}
-            </span>
-            <h3 className="text-sm tracking-[0.22em] text-[var(--ink)] uppercase">
-              {paso.titulo}
-            </h3>
-            <p className="text-sm leading-5 text-[var(--ink-soft)]">
-              {paso.cuerpo}
-            </p>
-          </li>
-        ))}
-      </ol>
+            Si el salario nominal sube sólo para compensar IPC, el poder de
+            compra puede ser el mismo pero el rendimiento nominal es mayor. Eso
+            puede reducir la reducción por rendimientos del trabajo y elevar la
+            base imponible antes de llegar a la escala autonómica.
+          </BloqueCompetencia>
+          <BloqueCompetencia titulo="El gasto de 2.000 € pierde valor" ambito="Estado">
+            El gasto deducible fijo no se actualiza con los precios dentro de la
+            CCAA. Si permanece congelado, cada año protege menos renta real y la
+            base imponible sube artificialmente frente al poder adquisitivo.
+          </BloqueCompetencia>
+          <BloqueCompetencia titulo="El mínimo familiar tiene corsé" ambito="Estado + CCAA">
+            Las CCAA pueden mover mínimos para el gravamen autonómico, pero con
+            el límite del 10%. Si la referencia estatal queda congelada y la
+            inflación acumulada supera ese margen, la corrección autonómica es
+            parcial.
+          </BloqueCompetencia>
+          <BloqueCompetencia titulo="Deflactar sólo la CCAA es parcial" ambito="CCAA">
+            Tocar la escala autonómica puede aliviar parte de la cuota, pero no
+            repara los parámetros estatales que forman la base. Además, en el
+            sistema de financiación, una bajada unilateral puede reducir caja
+            real aunque la capacidad normativa usada por el sistema no baje al
+            mismo ritmo.
+          </BloqueCompetencia>
+        </div>
+      </section>
     </section>
   )
 }
