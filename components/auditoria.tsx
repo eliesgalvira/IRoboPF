@@ -58,17 +58,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 import {
   type CambioEscenarioAuditoriaNormativa,
   comunidadesAuditoriaNormativa,
-  decodificarEstrategiaProyeccionSalarial,
-  decodificarMagnitudAuditada,
   decodificarPerfilAuditoriaNormativa,
   detallePerfilAuditoriaNormativa,
   describirComunidadAutonomaAuditoria,
-  describirEstrategiaAuditoriaNormativa,
   describirMagnitudAuditoriaNormativa,
   describirPerfilAuditoriaNormativa,
-  estrategiasAuditoriaNormativa,
   leerEscenarioAuditoriaNormativaDesdeUrl,
-  magnitudesAuditoriaNormativa,
   perfilesAuditoriaNormativa,
   perfilAuditoriaNormativaParaRetencionPersonalizada,
   escenarioPermiteReferenciaTecnica2026,
@@ -866,12 +861,6 @@ function ControlesAuditoriaNormativa({
   ) => void
 }) {
   const perfilActivo = describirPerfilAuditoriaNormativa(escenario.perfil)
-  const estrategiaActiva = describirEstrategiaAuditoriaNormativa(
-    escenario.estrategiaProyeccionSalarial
-  )
-  const magnitudActiva = describirMagnitudAuditoriaNormativa(
-    escenario.magnitudAuditada
-  )
 
   return (
     <section className="grid gap-4 border-b-2 border-[var(--rule)] py-6">
@@ -881,12 +870,11 @@ function ControlesAuditoriaNormativa({
             AUDITORÍA NORMATIVA / ESCENARIO
           </p>
           <h2 className="mt-2 font-[family-name:var(--display)] text-[clamp(1.5rem,4vw,2.25rem)] leading-none tracking-wider uppercase">
-            PERFIL Y MAGNITUD
+            PERFIL
           </h2>
         </div>
         <p className="max-w-xl text-sm leading-5 text-[var(--ink-soft)]">
-          {perfilActivo.detalle} · {estrategiaActiva.detalle} ·{" "}
-          {magnitudActiva.detalle}
+          {perfilActivo.detalle}
         </p>
       </div>
 
@@ -910,74 +898,6 @@ function ControlesAuditoriaNormativa({
           >
             {perfilesAuditoriaNormativa.map((perfil) => {
               const ficha = describirPerfilAuditoriaNormativa(perfil)
-              return (
-                <Tabs.Tab
-                  key={ficha.valor}
-                  value={ficha.valor}
-                  className={claseBotonPestana}
-                >
-                  {ficha.etiqueta}
-                </Tabs.Tab>
-              )
-            })}
-          </Tabs.List>
-        </Tabs.Root>
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-2">
-        <Tabs.Root
-          value={escenario.estrategiaProyeccionSalarial}
-          onValueChange={(valor) => {
-            Option.fromNullishOr(valor).pipe(
-              Option.flatMap(decodificarEstrategiaProyeccionSalarial),
-              Option.match({
-                onNone: () => {},
-                onSome: (estrategiaProyeccionSalarial) =>
-                  alCambiarEscenario({ estrategiaProyeccionSalarial }),
-              })
-            )
-          }}
-          className="grid gap-3"
-        >
-          <Tabs.List
-            aria-label="Estrategia de proyección salarial"
-            className="grid divide-y-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.18em] uppercase sm:grid-cols-3 sm:divide-x-2 sm:divide-y-0"
-          >
-            {estrategiasAuditoriaNormativa.map((estrategia) => {
-              const ficha = describirEstrategiaAuditoriaNormativa(estrategia)
-              return (
-                <Tabs.Tab
-                  key={ficha.valor}
-                  value={ficha.valor}
-                  className={claseBotonPestana}
-                >
-                  {ficha.etiqueta}
-                </Tabs.Tab>
-              )
-            })}
-          </Tabs.List>
-        </Tabs.Root>
-
-        <Tabs.Root
-          value={escenario.magnitudAuditada}
-          onValueChange={(valor) => {
-            Option.fromNullishOr(valor).pipe(
-              Option.flatMap(decodificarMagnitudAuditada),
-              Option.match({
-                onNone: () => {},
-                onSome: (magnitudAuditada) =>
-                  alCambiarEscenario({ magnitudAuditada }),
-              })
-            )
-          }}
-          className="grid gap-3"
-        >
-          <Tabs.List
-            aria-label="Magnitud auditada"
-            className="grid divide-y-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.18em] uppercase sm:grid-cols-5 sm:divide-x-2 sm:divide-y-0"
-          >
-            {magnitudesAuditoriaNormativa.map((magnitud) => {
-              const ficha = describirMagnitudAuditoriaNormativa(magnitud)
               return (
                 <Tabs.Tab
                   key={ficha.valor}
@@ -3289,17 +3209,15 @@ function FormulaDiferenciaMagnitud({
       </div>
       <dl className="grid min-w-0 gap-4">
         <ExplicacionVariable termino="MAGNITUD_COMPARABLE_REAL">
-          Es la magnitud seleccionada ({ficha.etiqueta}) expresada en euros de{" "}
-          {anioReferencia}. Si la magnitud es IRPF, este campo es el mismo
-          IRPF_COMPARABLE_REAL definido en TIPO IRPF: se calcula primero con
-          importes nominales y normativa nominal de cada año, se aplica la regla
-          de obligación de declarar cuando corresponde y después se ajusta por
-          IPC.
+          Es el IRPF final expresado en euros de {anioReferencia}. Este campo
+          es el mismo IRPF_COMPARABLE_REAL definido en TIPO EFECTIVO: se calcula
+          primero con importes nominales y normativa nominal de cada año, se
+          aplica la regla de obligación de declarar cuando corresponde y después
+          se ajusta por IPC.
         </ExplicacionVariable>
         <ExplicacionVariable termino={ficha.etiqueta}>
-          {ficha.detalle}. Al cambiar la magnitud, esta gráfica no cambia la
-          estructura del cálculo: sustituye MAGNITUD_COMPARABLE_REAL por el
-          campo elegido y vuelve a calcular el tipo efectivo como en TIPO IRPF.
+          {ficha.detalle}. Esta gráfica compara el tipo efectivo de IRPF con la
+          misma estructura de cálculo que TIPO EFECTIVO.
         </ExplicacionVariable>
         <ExplicacionVariable termino="SALARIO_BRUTO_REAL">
           El eje X y el denominador del tipo efectivo están en euros de{" "}
@@ -4086,8 +4004,8 @@ function Visualizaciones({
           {vistasGraficoAuditoria.map((vista) => (
             <Tabs.Tab key={vista} value={vista} className={claseBotonPestana}>
               {Match.value(vista).pipe(
-                Match.when("tipo-irpf", () => "TIPO IRPF"),
-                Match.when("diferencia-irpf", () => "DIF. MAGNITUD"),
+                Match.when("tipo-irpf", () => "TIPO EFECTIVO"),
+                Match.when("diferencia-irpf", () => "DIF. EFECTIVO"),
                 Match.when("tipo-marginal", () => "TIPO MARGINAL"),
                 Match.exhaustive
               )}
