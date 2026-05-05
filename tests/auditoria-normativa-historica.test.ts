@@ -2,6 +2,7 @@ import { describe, expect, it } from "@effect/vitest"
 
 import {
   construirContratoUrlAuditoriaNormativaV1,
+  construirContratoUrlAuditoriaNormativaV2,
   comunidadesAuditoriaNormativa,
   detallePerfilAuditoriaNormativa,
   describirComunidadAutonomaAuditoria,
@@ -79,8 +80,26 @@ describe("auditoria normativa historica", () => {
       comunidadesAutonomas: ["madrid"],
       anioReferencia: 2025,
       anioComparado: 2024,
-      estrategiaProyeccionSalarial: "coste_laboral_real_constante",
-      magnitudAuditada: "coste_laboral",
+      estrategiaProyeccionSalarial: "salario_bruto_real_constante",
+      magnitudAuditada: "irpf_final",
+    })
+  })
+
+  it("parsea el contrato URL v2 sin parametros ocultos de magnitud", () => {
+    const escenario = leerEscenarioAuditoriaNormativaDesdeUrl(
+      new URLSearchParams(
+        "v=2&perfil=pareja_con_hijos&periodo=2024-2025&comunidad=catalunya"
+      )
+    )
+
+    expect(escenario).toEqual({
+      perfil: "pareja_con_hijos",
+      comunidadAutonoma: "catalunya",
+      comunidadesAutonomas: ["catalunya"],
+      anioReferencia: 2025,
+      anioComparado: 2024,
+      estrategiaProyeccionSalarial: "salario_bruto_real_constante",
+      magnitudAuditada: "irpf_final",
     })
   })
 
@@ -185,7 +204,7 @@ describe("auditoria normativa historica", () => {
     })
 
     expect(parametros.toString()).toBe(
-      "v=1&perfil=pareja_con_hijos&anioReferencia=2025&periodo=2024-2025&estrategiaSalario=salario_bruto_real_constante&magnitud=salario_neto_anual&comunidad=catalunya"
+      "v=2&perfil=pareja_con_hijos&periodo=2024-2025&comunidad=catalunya"
     )
     expect(
       construirContratoUrlAuditoriaNormativaV1({
@@ -195,6 +214,17 @@ describe("auditoria normativa historica", () => {
     ).toMatchObject({
       v: 1,
       periodo: "2024-2025",
+    })
+    expect(
+      construirContratoUrlAuditoriaNormativaV2({
+        ...escenarioAuditoriaPorDefecto,
+        anioComparado: 2024,
+      })
+    ).toEqual({
+      v: 2,
+      perfil: "soltero_sin_hijos",
+      periodo: "2024-2025",
+      comunidad: "simulada-estatal",
     })
   })
 

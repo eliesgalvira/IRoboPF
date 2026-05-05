@@ -52,6 +52,13 @@ export interface ContratoUrlAuditoriaNormativaHistoricaV1 {
   readonly vista?: string
 }
 
+export interface ContratoUrlAuditoriaNormativaHistoricaV2 {
+  readonly v: 2
+  readonly perfil: PerfilAuditoriaNormativa
+  readonly periodo: string
+  readonly comunidad: ComunidadAutonoma
+}
+
 export const varianteAuditoriaPorDefecto = {
   magnitudAuditada: "irpf_final",
   estrategiaProyeccionSalarial: "salario_bruto_real_constante",
@@ -132,6 +139,7 @@ export const normalizarEscenarioAuditoriaNormativa = (
 
   return {
     ...escenario,
+    ...varianteAuditoriaPorDefecto,
     comunidadAutonoma: comunidadNormalizada,
     comunidadesAutonomas: [comunidadNormalizada],
     anioReferencia,
@@ -584,6 +592,39 @@ const leerAnioComparadoDesdePeriodo = (
     Option.flatMap(decodificarAnioFiscal)
   )
 
+interface PeriodoAuditoriaUrl {
+  readonly anioComparado: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+}
+
+const decodificarPeriodoAuditoriaUrl = (
+  periodo: string
+): Option.Option<PeriodoAuditoriaUrl> => {
+  const [comparado, referencia] = periodo.split("-")
+  const anioComparado = Option.fromNullishOr(comparado).pipe(
+    Option.flatMap(decodificarAnioFiscal)
+  )
+  const anioReferencia = Option.fromNullishOr(referencia).pipe(
+    Option.flatMap(decodificarAnioFiscal)
+  )
+
+  if (Option.isNone(anioComparado) || Option.isNone(anioReferencia)) {
+    return Option.none()
+  }
+
+  return Option.some({
+    anioComparado: anioComparado.value,
+    anioReferencia: anioReferencia.value,
+  })
+}
+
+const leerPeriodoAuditoriaDesdeUrl = (
+  parametros: LectorParametrosAuditoriaUrl
+): Option.Option<PeriodoAuditoriaUrl> =>
+  leerValorUrl(parametros, "periodo").pipe(
+    Option.flatMap(decodificarPeriodoAuditoriaUrl)
+  )
+
 export const leerEscenarioAuditoriaNormativaDesdeUrl = (
   parametros: LectorParametrosAuditoriaUrl
 ): EscenarioAuditoriaNormativaHistorica => {
@@ -591,6 +632,7 @@ export const leerEscenarioAuditoriaNormativaDesdeUrl = (
     Option.flatMap(decodificarComunidadAutonomaAuditoria),
     Option.getOrElse(() => escenarioAuditoriaPorDefecto.comunidadAutonoma)
   )
+  const periodo = leerPeriodoAuditoriaDesdeUrl(parametros)
 
   return normalizarEscenarioAuditoriaNormativa({
     perfil: leerValorUrl(parametros, "perfil").pipe(
@@ -599,26 +641,22 @@ export const leerEscenarioAuditoriaNormativaDesdeUrl = (
     ),
     comunidadAutonoma,
     comunidadesAutonomas: [comunidadAutonoma],
-    anioReferencia: leerValorUrl(parametros, "anioReferencia").pipe(
-      Option.flatMap(decodificarAnioFiscal),
-      Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioReferencia)
-    ),
-    anioComparado: leerAnioComparadoDesdePeriodo(parametros).pipe(
-      Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioComparado)
-    ),
-    estrategiaProyeccionSalarial: leerValorUrl(
-      parametros,
-      "estrategiaSalario"
-    ).pipe(
-      Option.flatMap(decodificarEstrategiaProyeccionSalarial),
-      Option.getOrElse(
-        () => escenarioAuditoriaPorDefecto.estrategiaProyeccionSalarial
-      )
-    ),
-    magnitudAuditada: leerValorUrl(parametros, "magnitud").pipe(
-      Option.flatMap(decodificarMagnitudAuditada),
-      Option.getOrElse(() => escenarioAuditoriaPorDefecto.magnitudAuditada)
-    ),
+    anioReferencia: Option.match(periodo, {
+      onNone: () =>
+        leerValorUrl(parametros, "anioReferencia").pipe(
+          Option.flatMap(decodificarAnioFiscal),
+          Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioReferencia)
+        ),
+      onSome: (periodo) => periodo.anioReferencia,
+    }),
+    anioComparado: Option.match(periodo, {
+      onNone: () =>
+        leerAnioComparadoDesdePeriodo(parametros).pipe(
+          Option.getOrElse(() => escenarioAuditoriaPorDefecto.anioComparado)
+        ),
+      onSome: (periodo) => periodo.anioComparado,
+    }),
+    ...varianteAuditoriaPorDefecto,
   })
 }
 
@@ -660,11 +698,38 @@ export const serializarContratoUrlAuditoriaNormativaV1 = (
   return parametros
 }
 
+export const construirContratoUrlAuditoriaNormativaV2 = ({
+  perfil,
+  comunidadAutonoma,
+  anioReferencia,
+  anioComparado,
+}: EscenarioAuditoriaNormativaHistorica): ContratoUrlAuditoriaNormativaHistoricaV2 => {
+  const contrato = {
+    v: 2,
+    perfil,
+    periodo: `${anioComparado}-${anioReferencia}`,
+    comunidad: comunidadAutonoma,
+  } as const
+
+  return contrato
+}
+
+export const serializarContratoUrlAuditoriaNormativaV2 = (
+  contrato: ContratoUrlAuditoriaNormativaHistoricaV2
+): URLSearchParams => {
+  const parametros = new URLSearchParams()
+  parametros.set("v", String(contrato.v))
+  parametros.set("perfil", contrato.perfil)
+  parametros.set("periodo", contrato.periodo)
+  parametros.set("comunidad", contrato.comunidad)
+  return parametros
+}
+
 export const serializarEscenarioAuditoriaNormativa = (
   escenario: EscenarioAuditoriaNormativaHistorica
 ): URLSearchParams =>
-  serializarContratoUrlAuditoriaNormativaV1(
-    construirContratoUrlAuditoriaNormativaV1(
+  serializarContratoUrlAuditoriaNormativaV2(
+    construirContratoUrlAuditoriaNormativaV2(
       normalizarEscenarioAuditoriaNormativa(escenario)
     )
   )
