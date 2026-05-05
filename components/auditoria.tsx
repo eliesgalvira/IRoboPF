@@ -91,6 +91,7 @@ import {
   type AuditoriaRangoSalarial,
   type PuntoAuditoriaRangoSalarial,
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
+import { calcularSalarioLegacy } from "@/lib/dominio/compatibilidad-legacy/calculo-salario-legacy"
 import { IPC_ANUAL_DICIEMBRE } from "@/lib/dominio/normativa/datos/ipc-2012-2026"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "@/lib/dominio/normativa/datos/irpf-obligacion-declarar"
 import {
@@ -2676,6 +2677,125 @@ const parametrosFormulaTipoEfectivoIrpf = (anio: AnioFiscal) => {
   }
 }
 
+interface CalculoSaltoDeclaracion {
+  readonly anio: AnioFiscal
+  readonly salarioGraficoUmbralCentimos: number
+  readonly cuotaAnualUmbralCentimos: number
+  readonly limiteRetencionUmbralCentimos: number
+  readonly irpfAntesUmbralCentimos: number
+  readonly irpfDespuesUmbralCentimos: number
+  readonly saltoCentimos: number
+  readonly tipoMaximoRetencionPorcentaje: string
+  readonly umbralRetencionActualCentimos: number
+  readonly umbralRetencionCriticoCentimos: number
+  readonly haySalto: boolean
+}
+
+type EstadoCalculosSaltoDeclaracion =
+  | { readonly _tag: "cargando"; readonly clave: string }
+  | {
+      readonly _tag: "lista"
+      readonly clave: string
+      readonly calculos: ReadonlyArray<CalculoSaltoDeclaracion>
+    }
+  | { readonly _tag: "error"; readonly clave: string; readonly mensaje: string }
+
+const construirCalculoSaltoDeclaracion = Effect.fn(
+  "auditoria.ui.construirCalculoSaltoDeclaracion"
+)(function* ({
+  anio,
+  anioReferencia,
+  comunidadAutonoma,
+  perfil,
+}: {
+  readonly anio: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+  readonly comunidadAutonoma: ComunidadAuditada
+  readonly perfil: PerfilAuditado
+}) {
+  const salarioSinObligacionCentimos =
+    UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS
+  const salarioConObligacionCentimos =
+    UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS +
+    100
+  const perfilAuditoria =
+    perfilAuditoriaNormativaParaRetencionPersonalizada(perfil)
+  const sinObligacion = yield* calcularSalarioLegacy({
+    anio,
+    salarioBrutoAnualCentimos: salarioSinObligacionCentimos,
+    comunidadAutonoma,
+    perfilAuditoria,
+  })
+  const conObligacion = yield* calcularSalarioLegacy({
+    anio,
+    salarioBrutoAnualCentimos: salarioConObligacionCentimos,
+    comunidadAutonoma,
+    perfilAuditoria,
+  })
+  const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
+  const tipoMaximoRetencion =
+    especificacion.tipoMaximoRetencionNomina.toNumber()
+  const umbralRetencionActualCentimos = eurosACentimos(
+    umbralRetencionPerfilAuditoriaEuros({ anio, perfil })
+  )
+  const salarioSinObligacionEuros = centimosAEuros(
+    salarioSinObligacionCentimos
+  )
+  const cuotaAnualUmbralCentimos =
+    sinObligacion.irpfCuotaTrasDeduccionSmiCentimos ??
+    sinObligacion.irpfFinalCentimos
+  const limiteRetencionUmbralCentimos = eurosACentimos(
+    Math.max(
+      0,
+      (salarioSinObligacionEuros -
+        centimosAEuros(umbralRetencionActualCentimos)) *
+        tipoMaximoRetencion
+    )
+  )
+  const umbralRetencionCriticoCentimos = eurosACentimos(
+    salarioSinObligacionEuros -
+      centimosAEuros(cuotaAnualUmbralCentimos) / tipoMaximoRetencion
+  )
+  const irpfAntesUmbralCentimos =
+    sinObligacion.irpfConObligacionDeclararCentimos ??
+    sinObligacion.irpfFinalCentimos
+  const irpfDespuesUmbralCentimos =
+    conObligacion.irpfConObligacionDeclararCentimos ??
+    conObligacion.irpfFinalCentimos
+  const ajustarAGrafico = (centimosNominales: number) =>
+    ajustarCentimosAAnioReferencia({
+      centimosNominales,
+      anioNominal: anio,
+      anioReferencia,
+    })
+
+  return {
+    anio,
+    salarioGraficoUmbralCentimos: ajustarAGrafico(
+      salarioSinObligacionCentimos
+    ),
+    cuotaAnualUmbralCentimos: ajustarAGrafico(cuotaAnualUmbralCentimos),
+    limiteRetencionUmbralCentimos: ajustarAGrafico(
+      limiteRetencionUmbralCentimos
+    ),
+    irpfAntesUmbralCentimos: ajustarAGrafico(irpfAntesUmbralCentimos),
+    irpfDespuesUmbralCentimos: ajustarAGrafico(irpfDespuesUmbralCentimos),
+    saltoCentimos: ajustarAGrafico(
+      irpfDespuesUmbralCentimos - irpfAntesUmbralCentimos
+    ),
+    tipoMaximoRetencionPorcentaje: formatearPuntosPorcentuales(
+      especificacion.tipoMaximoRetencionNomina.mul(100).toString()
+    ),
+    umbralRetencionActualCentimos: ajustarAGrafico(
+      umbralRetencionActualCentimos
+    ),
+    umbralRetencionCriticoCentimos: ajustarAGrafico(
+      umbralRetencionCriticoCentimos
+    ),
+    haySalto: umbralRetencionActualCentimos > umbralRetencionCriticoCentimos,
+  } satisfies CalculoSaltoDeclaracion
+})
+
 const formatoEurosEnteros = (euros: number): string =>
   formatearCentimosEnteros(eurosACentimos(euros))
 
@@ -2875,14 +2995,17 @@ const claseTextoParametroFormula = cn(
 function BloqueFormula({
   children,
   tono = "neutro",
+  compacto = false,
 }: {
   readonly children: React.ReactNode
   readonly tono?: "neutro" | "calculo" | "limite" | "resultado"
+  readonly compacto?: boolean
 }) {
   return (
     <span
       className={cn(
-        "inline-flex min-h-9 max-w-full min-w-0 items-center border-2 border-[var(--rule)] px-2 py-1 text-left font-[family-name:var(--mono)] text-sm leading-5 font-bold [overflow-wrap:anywhere] break-words whitespace-normal tabular-nums sm:text-base",
+        "inline-flex min-h-9 max-w-full min-w-0 items-center border-2 border-[var(--rule)] px-2 py-1 text-left font-[family-name:var(--mono)] leading-5 font-bold [overflow-wrap:anywhere] break-words whitespace-normal tabular-nums",
+        compacto ? "text-xs sm:text-sm" : "text-sm sm:text-base",
         tono === "neutro" && "bg-[var(--paper)] text-[var(--ink)]",
         tono === "calculo" && "bg-[var(--mark)] text-[var(--mark-ink)]",
         tono === "limite" && "bg-[var(--paper-2)] text-[var(--ink)]",
@@ -2891,6 +3014,20 @@ function BloqueFormula({
     >
       {children}
     </span>
+  )
+}
+
+function BloqueFormulaSm({
+  children,
+  tono = "neutro",
+}: {
+  readonly children: React.ReactNode
+  readonly tono?: "neutro" | "calculo" | "limite" | "resultado"
+}) {
+  return (
+    <BloqueFormula tono={tono} compacto>
+      {children}
+    </BloqueFormula>
   )
 }
 
@@ -2931,16 +3068,235 @@ function ExplicacionVariable({
   )
 }
 
+function CalculosSaltoDeclaracion({
+  estado,
+  anioReferencia,
+}: {
+  readonly estado: EstadoCalculosSaltoDeclaracion
+  readonly anioReferencia: AnioFiscal
+}) {
+  return Match.value(estado).pipe(
+    Match.when({ _tag: "cargando" }, () => (
+      <p className="text-sm leading-6 text-[var(--ink-soft)]">
+        Calculando el umbral crítico de retención...
+      </p>
+    )),
+    Match.when({ _tag: "error" }, (estado) => (
+      <p className="text-sm leading-6 text-[var(--danger)]">
+        No se pudo calcular el umbral crítico: {estado.mensaje}
+      </p>
+    )),
+    Match.when({ _tag: "lista" }, (estado) => (
+      <div className="grid min-w-0 gap-3">
+        <p
+          className={cn(
+            "max-w-4xl text-base leading-7 text-[var(--ink)]",
+            claseTextoCortable
+          )}
+        >
+          El punto crítico sale de igualar la cuota anual con el límite de
+          retención en el salario donde aparece el umbral en el eje del gráfico.
+          Las cifras ya están reexpresadas en euros de {anioReferencia}. Si el
+          umbral real de retención queda por encima de ese punto crítico, la
+          nómina retiene menos que la cuota anual y al declarar aparece el salto.
+        </p>
+
+        <div className="grid min-w-0 gap-3 lg:grid-cols-2">
+          {estado.calculos.map((calculo) => (
+            <div
+              key={`salto-declaracion-${calculo.anio}`}
+              className="grid min-w-0 gap-3 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[3px_3px_0_0_var(--rule)]"
+              style={{ borderBottomColor: coloresTipoEfectivoIrpf[calculo.anio] }}
+            >
+              <div className="flex min-w-0 items-center justify-between gap-3">
+                <span className="font-[family-name:var(--mono)] text-lg font-bold tabular-nums">
+                  {calculo.anio}
+                </span>
+                <span
+                  className="h-0 w-10 border-t-[5px]"
+                  style={{ borderColor: coloresTipoEfectivoIrpf[calculo.anio] }}
+                />
+              </div>
+
+              <div className="grid min-w-0 gap-2">
+                <FormulaLineal>
+                  <BloqueFormulaSm tono="resultado">IRPF_22K</BloqueFormulaSm>
+                  <BloqueFormulaSm>= min(</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="calculo">
+                    {formatearCentimosEnteros(
+                      calculo.cuotaAnualUmbralCentimos
+                    )}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>,</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="limite">
+                    {formatearCentimosEnteros(
+                      calculo.limiteRetencionUmbralCentimos
+                    )}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>)</BloqueFormulaSm>
+                  <BloqueFormulaSm>=</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="resultado">
+                    {formatearCentimosEnteros(
+                      calculo.irpfAntesUmbralCentimos
+                    )}
+                  </BloqueFormulaSm>
+                </FormulaLineal>
+                <FormulaLineal>
+                  <BloqueFormulaSm tono="resultado">
+                    IRPF_22K+1
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>=</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="calculo">CUOTA_ANUAL</BloqueFormulaSm>
+                  <BloqueFormulaSm>=</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="resultado">
+                    {formatearCentimosEnteros(
+                      calculo.irpfDespuesUmbralCentimos
+                    )}
+                  </BloqueFormulaSm>
+                </FormulaLineal>
+                <FormulaLineal>
+                  <BloqueFormulaSm tono="resultado">SALTO</BloqueFormulaSm>
+                  <BloqueFormulaSm>=</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="calculo">
+                    {formatearCentimosEnteros(
+                      calculo.irpfDespuesUmbralCentimos
+                    )}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>-</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="limite">
+                    {formatearCentimosEnteros(
+                      calculo.irpfAntesUmbralCentimos
+                    )}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>=</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="resultado">
+                    {formatearCentimosEnteros(calculo.saltoCentimos)}
+                  </BloqueFormulaSm>
+                </FormulaLineal>
+              </div>
+
+              <div className="grid min-w-0 gap-2 border-t-2 border-[var(--rule)] pt-3">
+                <FormulaLineal>
+                  <BloqueFormulaSm tono="resultado">
+                    UMBRAL_CRITICO
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>=</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="calculo">
+                    {formatearCentimosEnteros(
+                      calculo.salarioGraficoUmbralCentimos
+                    )}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>-</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="calculo">
+                    {formatearCentimosEnteros(
+                      calculo.cuotaAnualUmbralCentimos
+                    )}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>/</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="limite">
+                    {calculo.tipoMaximoRetencionPorcentaje}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm>=</BloqueFormulaSm>
+                  <BloqueFormulaSm tono="resultado">
+                    {formatearCentimosEnteros(
+                      calculo.umbralRetencionCriticoCentimos
+                    )}
+                  </BloqueFormulaSm>
+                </FormulaLineal>
+                <FormulaLineal>
+                  <BloqueFormulaSm tono="limite">UMBRAL_ACTUAL</BloqueFormulaSm>
+                  <BloqueFormulaSm>
+                    {calculo.haySalto ? ">" : "<="}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm tono="resultado">
+                    UMBRAL_CRITICO
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm tono="limite">
+                    {formatearCentimosEnteros(
+                      calculo.umbralRetencionActualCentimos
+                    )}
+                  </BloqueFormulaSm>
+                  <BloqueFormulaSm tono="resultado">
+                    {calculo.haySalto ? "HAY SALTO" : "NO HAY SALTO"}
+                  </BloqueFormulaSm>
+                </FormulaLineal>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )),
+    Match.exhaustive
+  )
+}
+
 function FormulaTipoEfectivoIrpf({
   anios,
   anioReferencia,
+  comunidadAutonoma,
   perfil,
 }: {
   readonly anios: ReadonlyArray<AnioFiscal>
   readonly anioReferencia: AnioFiscal
+  readonly comunidadAutonoma: ComunidadAuditada
   readonly perfil: PerfilAuditado
 }) {
   const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
+  const claveAnios = anios.join(",")
+  const claveCalculosSalto = [
+    claveAnios,
+    comunidadAutonoma,
+    perfil,
+    anioReferencia,
+  ].join("|")
+  const [estadoCalculosSalto, fijarEstadoCalculosSalto] =
+    React.useState<EstadoCalculosSaltoDeclaracion>({
+      _tag: "cargando",
+      clave: "inicial",
+    })
+  const estadoCalculosSaltoVisible =
+    estadoCalculosSalto.clave === claveCalculosSalto
+      ? estadoCalculosSalto
+      : ({ _tag: "cargando", clave: claveCalculosSalto } as const)
+
+  React.useEffect(() => {
+    const fibra = Effect.runFork(
+      Effect.forEach(
+        anios,
+        (anio) =>
+          construirCalculoSaltoDeclaracion({
+            anio,
+            anioReferencia,
+            comunidadAutonoma,
+            perfil,
+          }),
+        { concurrency: 1 }
+      )
+    )
+
+    fibra.addObserver((exit) => {
+      if (Exit.isSuccess(exit)) {
+        fijarEstadoCalculosSalto({
+          _tag: "lista",
+          clave: claveCalculosSalto,
+          calculos: exit.value,
+        })
+        return
+      }
+
+      if (Cause.hasInterruptsOnly(exit.cause)) return
+
+      fijarEstadoCalculosSalto({
+        _tag: "error",
+        clave: claveCalculosSalto,
+        mensaje: String(Cause.squash(exit.cause)),
+      })
+    })
+
+    return () => {
+      Effect.runFork(Fiber.interrupt(fibra))
+    }
+  }, [claveCalculosSalto, anioReferencia, comunidadAutonoma, perfil, anios])
 
   return (
     <section className="mt-5 grid min-w-0 gap-4 border-t-2 border-[var(--rule)] pt-5">
@@ -3061,21 +3417,24 @@ function FormulaTipoEfectivoIrpf({
             obligación de declarar
           </a>
           . El salto sólo se ve cuando, justo antes de ese umbral, la nómina ha
-          retenido menos que la cuota anual. En este perfil ocurre desde 2024,
-          cuando el{" "}
+          retenido menos que la cuota anual. La cifra de 15.876 € no actúa por
+          magia: hay que compararla con el umbral crítico calculado abajo. El{" "}
           <a
             href="https://www.boe.es/buscar/doc.php?id=BOE-A-2024-2249"
             className="font-bold underline decoration-[var(--rule)] underline-offset-4"
           >
             Real Decreto 142/2024
           </a>{" "}
-          elevó el mínimo sin retención hasta 15.876 € en la situación general.
-          En 2023 y años anteriores, para este perfil, el límite de retención ya
-          cubría la cuota anual cerca de 22.000 €, así que cruzar el umbral no
-          cambia la línea de forma visible. La gráfica de tipo marginal usa la
+          elevó el mínimo sin retención hasta 15.876 € en la situación general;
+          las tarjetas muestran si ese umbral queda por encima o por debajo del
+          punto en el que empieza el salto. La gráfica de tipo marginal usa la
           cuota anual tras deducción SMI para no convertir una obligación formal
           de declarar en un marginal de la escala.
         </ExplicacionVariable>
+        <CalculosSaltoDeclaracion
+          estado={estadoCalculosSaltoVisible}
+          anioReferencia={anioReferencia}
+        />
         <ExplicacionVariable termino="RENDIMIENTOS_DEL_TRABAJO">
           Son los ingresos derivados del trabajo personal o de una relación
           laboral o estatutaria: por ejemplo sueldos, salarios, prestaciones por
@@ -4446,6 +4805,7 @@ function Visualizaciones({
           <FormulaTipoEfectivoIrpf
             anios={aniosGraficoIrpfVisibles}
             anioReferencia={anioReferenciaGraficosIrpf}
+            comunidadAutonoma={comunidadAutonoma}
             perfil={perfil}
           />
         </Tabs.Panel>
