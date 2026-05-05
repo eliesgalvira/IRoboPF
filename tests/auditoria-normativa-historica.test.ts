@@ -37,14 +37,11 @@ describe("auditoria normativa historica", () => {
     expect(perfilesAuditoriaNormativa).toEqual([
       "soltero_sin_hijos",
       "pareja_con_hijos",
-      "trabajador_medio_comunidad",
-      "trabajador_mediano_comunidad",
-      "distribucion_sintetica_comunidad",
     ])
     expect(
-      describirPerfilAuditoriaNormativa("trabajador_mediano_comunidad")
+      describirPerfilAuditoriaNormativa("pareja_con_hijos")
     ).toMatchObject({
-      etiqueta: "MEDIANO CCAA",
+      etiqueta: "PAREJA HIJOS",
     })
   })
 
@@ -72,12 +69,12 @@ describe("auditoria normativa historica", () => {
   it("parsea el contrato URL v1 sin nulls en el modelo resultante", () => {
     const escenario = leerEscenarioAuditoriaNormativaDesdeUrl(
       new URLSearchParams(
-        "v=1&perfil=trabajador_medio_comunidad&periodo=2024-2026&anioReferencia=2026&estrategiaSalario=coste_laboral_real_constante&magnitud=coste_laboral&comunidad=madrid"
+        "v=1&perfil=perfil_retirado&periodo=2024-2026&anioReferencia=2026&estrategiaSalario=coste_laboral_real_constante&magnitud=coste_laboral&comunidad=madrid"
       )
     )
 
     expect(escenario).toEqual({
-      perfil: "trabajador_medio_comunidad",
+      perfil: "soltero_sin_hijos",
       comunidadAutonoma: "madrid",
       comunidadesAutonomas: ["madrid"],
       anioReferencia: 2025,

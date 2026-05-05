@@ -21,9 +21,6 @@ export type EstrategiaProyeccionSalarial =
 export type PerfilAuditoriaNormativa =
   | "soltero_sin_hijos"
   | "pareja_con_hijos"
-  | "trabajador_medio_comunidad"
-  | "trabajador_mediano_comunidad"
-  | "distribucion_sintetica_comunidad"
 
 export interface VarianteAuditoriaNormativaHistorica {
   readonly magnitudAuditada: MagnitudAuditada
@@ -148,9 +145,6 @@ export const normalizarEscenarioAuditoriaNormativa = (
 export const perfilesAuditoriaNormativa = [
   "soltero_sin_hijos",
   "pareja_con_hijos",
-  "trabajador_medio_comunidad",
-  "trabajador_mediano_comunidad",
-  "distribucion_sintetica_comunidad",
 ] as const satisfies ReadonlyArray<PerfilAuditoriaNormativa>
 
 export const perfilAuditoriaNormativaPermiteReferenciaTecnica2026 = (
@@ -212,30 +206,6 @@ export const detallePerfilAuditoriaNormativa = (
         { edad: 8, computoPorEntero: true },
         { edad: 5, computoPorEntero: true },
       ],
-    })),
-    Match.when("trabajador_medio_comunidad", (perfil) => ({
-      perfil,
-      etiquetaCalculo: "Trabajador medio CCAA",
-      descripcionCalculo:
-        "Perfil técnico sin cargas familiares; la comunidad seleccionada cambia la escala autonómica aplicada.",
-      situacionRetencion: "situacion3",
-      descendientes: [],
-    })),
-    Match.when("trabajador_mediano_comunidad", (perfil) => ({
-      perfil,
-      etiquetaCalculo: "Trabajador mediano CCAA",
-      descripcionCalculo:
-        "Perfil técnico sin cargas familiares; la comunidad seleccionada cambia la escala autonómica aplicada.",
-      situacionRetencion: "situacion3",
-      descendientes: [],
-    })),
-    Match.when("distribucion_sintetica_comunidad", (perfil) => ({
-      perfil,
-      etiquetaCalculo: "Distribución sintética CCAA",
-      descripcionCalculo:
-        "Perfil técnico sin cargas familiares usado para barridos salariales sintéticos por comunidad.",
-      situacionRetencion: "situacion3",
-      descendientes: [],
     })),
     Match.exhaustive
   )
@@ -348,21 +318,6 @@ export const describirPerfilAuditoriaNormativa = (
       etiqueta: "PAREJA HIJOS",
       detalle:
         "Matrimonio con cónyuge sin rentas > 1.500 euros y dos hijos de 8 y 5 años",
-    })),
-    Match.when("trabajador_medio_comunidad", (valor) => ({
-      valor,
-      etiqueta: "MEDIO CCAA",
-      detalle: "Salario medio por comunidad autonoma",
-    })),
-    Match.when("trabajador_mediano_comunidad", (valor) => ({
-      valor,
-      etiqueta: "MEDIANO CCAA",
-      detalle: "Salario mediano por comunidad autonoma",
-    })),
-    Match.when("distribucion_sintetica_comunidad", (valor) => ({
-      valor,
-      etiqueta: "DISTRIBUCION",
-      detalle: "Rango salarial sintetico por comunidad",
     })),
     Match.exhaustive
   )
@@ -535,11 +490,6 @@ export const decodificarPerfilAuditoriaNormativa = (
     Match.withReturnType<Option.Option<PerfilAuditoriaNormativa>>(),
     Match.when("soltero_sin_hijos", (perfil) => Option.some(perfil)),
     Match.when("pareja_con_hijos", (perfil) => Option.some(perfil)),
-    Match.when("trabajador_medio_comunidad", (perfil) => Option.some(perfil)),
-    Match.when("trabajador_mediano_comunidad", (perfil) => Option.some(perfil)),
-    Match.when("distribucion_sintetica_comunidad", (perfil) =>
-      Option.some(perfil)
-    ),
     Match.orElse(() => Option.none())
   )
 

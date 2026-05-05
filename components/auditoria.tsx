@@ -906,7 +906,7 @@ function ControlesAuditoriaNormativa({
         >
           <Tabs.List
             aria-label="Perfil de auditoría"
-            className="grid divide-y-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.18em] uppercase md:grid-cols-5 md:divide-x-2 md:divide-y-0"
+            className="grid divide-y-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.18em] uppercase md:grid-cols-2 md:divide-x-2 md:divide-y-0"
           >
             {perfilesAuditoriaNormativa.map((perfil) => {
               const ficha = describirPerfilAuditoriaNormativa(perfil)
