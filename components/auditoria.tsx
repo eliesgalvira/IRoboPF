@@ -42,6 +42,10 @@ import {
   BotonCopiarImagenGrafico,
   DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO,
 } from "@/components/copiar-imagen-grafico"
+import {
+  SelectorModoGrafico,
+  type OpcionesSelectorModoGrafico,
+} from "@/components/selector-modo-grafico"
 import { Tooltip } from "@/components/ui/tooltip"
 import { Button } from "@/components/ui/button"
 import {
@@ -1644,13 +1648,12 @@ type FilaCunaFiscal = Record<string, number | string | undefined>
 type FilaTipoMarginalIrpf = Record<string, number | string | undefined>
 type ModoDiferenciaTipoIrpf = ModoDiferenciaGraficoAuditoria
 type ModoCunaFiscal = ModoCunaFiscalGraficoAuditoria
-const modosDiferenciaTipoIrpf = [
-  { valor: "porcentaje", etiqueta: "PORCENTAJE" },
-  { valor: "euros-reales", etiqueta: "EUROS REALES" },
-] as const satisfies ReadonlyArray<{
-  readonly valor: ModoDiferenciaTipoIrpf
-  readonly etiqueta: string
-}>
+const opcionesModoPorcentajeEuros = [
+  { valor: "porcentaje", etiqueta: "%" },
+  { valor: "euros-reales", etiqueta: "€" },
+] as const satisfies OpcionesSelectorModoGrafico<
+  ModoDiferenciaTipoIrpf | ModoCunaFiscal
+>
 type EstadoDatosGrafico =
   | { readonly _tag: "cargando"; readonly clave: string }
   | {
@@ -4482,50 +4485,6 @@ function SelectorComunidadAutonomaAuditoria({
   )
 }
 
-function SelectorModoDiferenciaTipoIrpf({
-  modo,
-  alCambiar,
-}: {
-  readonly modo: ModoDiferenciaTipoIrpf
-  readonly alCambiar: (modo: ModoDiferenciaTipoIrpf) => void
-}) {
-  return (
-    <Tabs.Root
-      value={modo}
-      onValueChange={(valor) => {
-        Option.fromNullishOr(valor).pipe(
-          Option.flatMap((valor) =>
-            Match.value(valor).pipe(
-              Match.when("porcentaje", (modo) => Option.some(modo)),
-              Match.when("euros-reales", (modo) => Option.some(modo)),
-              Match.orElse(() => Option.none<ModoDiferenciaTipoIrpf>())
-            )
-          ),
-          Option.match({
-            onNone: () => {},
-            onSome: alCambiar,
-          })
-        )
-      }}
-    >
-      <Tabs.List
-        aria-label="Magnitud de diferencia de tipo de IRPF"
-        className="inline-flex divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.18em] uppercase"
-      >
-        {modosDiferenciaTipoIrpf.map((modoDiferencia) => (
-          <Tabs.Tab
-            key={modoDiferencia.valor}
-            value={modoDiferencia.valor}
-            className={claseBotonPestana}
-          >
-            {modoDiferencia.etiqueta}
-          </Tabs.Tab>
-        ))}
-      </Tabs.List>
-    </Tabs.Root>
-  )
-}
-
 function TooltipDiferenciaTipoIrpf({
   claveDesfavorable,
   formatearValor,
@@ -4560,59 +4519,6 @@ function TooltipDiferenciaTipoIrpf({
         </span>
       )}
     />
-  )
-}
-
-function SelectorModoCunaFiscal({
-  modo,
-  alCambiar,
-}: {
-  readonly modo: ModoCunaFiscal
-  readonly alCambiar: (modo: ModoCunaFiscal) => void
-}) {
-  const eurosActivo = modo === "euros-reales"
-  const modoSiguiente: ModoCunaFiscal = eurosActivo
-    ? "porcentaje"
-    : "euros-reales"
-
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={eurosActivo}
-      aria-label="Cambiar unidad de cuña fiscal"
-      onClick={() => alCambiar(modoSiguiente)}
-      className={cn(
-        "relative grid h-10 w-28 min-w-28 grid-cols-2 items-center border-2 border-[var(--rule)] bg-[var(--paper)] px-1 font-[family-name:var(--mono)] text-sm font-bold tabular-nums shadow-[3px_3px_0_0_var(--rule)] transition-[box-shadow,translate]",
-        "hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_var(--rule)]",
-        "focus-visible:-translate-x-0.5 focus-visible:-translate-y-0.5 focus-visible:shadow-[5px_5px_0_0_var(--rule)] focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none",
-        "active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0_0_var(--rule)]"
-      )}
-    >
-      <span
-        aria-hidden
-        className={cn(
-          "absolute top-1 bottom-1 left-1 w-[calc(50%-0.25rem)] bg-[var(--rule)] transition-transform duration-200 ease-out",
-          eurosActivo && "translate-x-full"
-        )}
-      />
-      <span
-        className={cn(
-          "relative z-10 text-center transition-[color,opacity] duration-200",
-          eurosActivo ? "text-[var(--ink)] opacity-40" : "text-[var(--paper)]"
-        )}
-      >
-        %
-      </span>
-      <span
-        className={cn(
-          "relative z-10 text-center transition-[color,opacity] duration-200",
-          eurosActivo ? "text-[var(--paper)]" : "text-[var(--ink)] opacity-40"
-        )}
-      >
-        €
-      </span>
-    </button>
   )
 }
 
@@ -5592,8 +5498,10 @@ function Visualizaciones({
                   opcion={opcionComunidadAutonoma}
                   alCambiar={alCambiarComunidadAutonoma}
                 />
-                <SelectorModoDiferenciaTipoIrpf
+                <SelectorModoGrafico
+                  ariaLabel="Cambiar unidad de diferencia de tipo efectivo"
                   modo={modoDiferenciaTipoIrpf}
+                  opciones={opcionesModoPorcentajeEuros}
                   alCambiar={fijarModoDiferenciaTipoIrpf}
                 />
               </div>
@@ -5741,8 +5649,10 @@ function Visualizaciones({
                   opcion={opcionComunidadAutonoma}
                   alCambiar={alCambiarComunidadAutonoma}
                 />
-                <SelectorModoCunaFiscal
+                <SelectorModoGrafico
+                  ariaLabel="Cambiar unidad de cuña fiscal"
                   modo={modoCunaFiscal}
+                  opciones={opcionesModoPorcentajeEuros}
                   alCambiar={fijarModoCunaFiscal}
                 />
               </div>
