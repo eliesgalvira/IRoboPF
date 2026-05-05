@@ -56,8 +56,12 @@ import {
 } from "@/components/ui/combobox"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
+  anioGraficoTipoMarginalIrpfPorDefecto,
+  aniosGraficoDiferenciaTipoIrpfPorDefecto,
+  aniosGraficoTipoEfectivoIrpfPorDefecto,
   type CambioEscenarioAuditoriaNormativa,
   comunidadesAuditoriaNormativa,
+  decodificarGraficoAuditoriaNormativa,
   decodificarPerfilAuditoriaNormativa,
   detallePerfilAuditoriaNormativa,
   describirComunidadAutonomaAuditoria,
@@ -65,13 +69,18 @@ import {
   describirPerfilAuditoriaNormativa,
   leerEscenarioAuditoriaNormativaDesdeUrl,
   leerRangoSalarialAuditoriaDesdeUrl,
+  leerSeleccionGraficoAuditoriaDesdeUrl,
+  modoDiferenciaGraficoAuditoriaPorDefecto,
   perfilesAuditoriaNormativa,
   perfilAuditoriaNormativaParaRetencionPersonalizada,
   escenarioPermiteReferenciaTecnica2026,
   serializarEscenarioAuditoriaNormativa,
   type DescendientePerfilAuditoriaNormativa,
   type EscenarioAuditoriaNormativaHistorica,
+  type GraficoAuditoriaNormativa,
+  type ModoDiferenciaGraficoAuditoria,
   type RangoSalarialAuditoria,
+  type SeleccionGraficoAuditoriaNormativa,
   type SituacionRetencionPerfilAuditoria,
   umbralRetencionPerfilAuditoriaEuros,
 } from "@/lib/dominio/auditoria/auditoria-normativa-historica"
@@ -255,41 +264,97 @@ const claveCalculoAuditoria = ({
     pasoCentimos,
   ].join("|")
 
+const construirSeleccionGraficoAuditoria = ({
+  vistaGrafico,
+  aniosGraficoIrpf,
+  aniosGraficoDiferenciaTipoIrpf,
+  modoDiferenciaTipoIrpf,
+  anioGraficoTipoMarginalIrpf,
+}: {
+  readonly vistaGrafico: VistaGraficoAuditoria
+  readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
+  readonly aniosGraficoDiferenciaTipoIrpf: readonly [AnioFiscal, AnioFiscal]
+  readonly modoDiferenciaTipoIrpf: ModoDiferenciaTipoIrpf
+  readonly anioGraficoTipoMarginalIrpf: AnioFiscal
+}): SeleccionGraficoAuditoriaNormativa =>
+  Match.value(vistaGrafico).pipe(
+    Match.withReturnType<SeleccionGraficoAuditoriaNormativa>(),
+    Match.when("tipo-irpf", (grafica) => ({
+      grafica,
+      anios: aniosGraficoIrpf,
+    })),
+    Match.when("diferencia-irpf", (grafica) => ({
+      grafica,
+      anios: aniosGraficoDiferenciaTipoIrpf,
+      modo: modoDiferenciaTipoIrpf,
+    })),
+    Match.when("tipo-marginal", (grafica) => ({
+      grafica,
+      anio: anioGraficoTipoMarginalIrpf,
+    })),
+    Match.exhaustive
+  )
+
 function AuditoriaImpl({
   parametrosIniciales = "",
 }: {
   readonly parametrosIniciales?: string
 }) {
   const router = useRouter()
-  const [escenarioAuditoria, fijarEscenarioAuditoria] = React.useState(() =>
-    leerEscenarioAuditoriaNormativaDesdeUrl(
-      new URLSearchParams(parametrosIniciales)
-    )
+  const estadoInicialAuditoria = React.useMemo(() => {
+    const parametros = new URLSearchParams(parametrosIniciales)
+
+    return {
+      escenario: leerEscenarioAuditoriaNormativaDesdeUrl(parametros),
+      rangoSalarial: leerRangoSalarialAuditoriaDesdeUrl(parametros),
+      seleccionGrafico: leerSeleccionGraficoAuditoriaDesdeUrl(parametros),
+    }
+  }, [parametrosIniciales])
+  const [escenarioAuditoria, fijarEscenarioAuditoria] = React.useState(
+    () => estadoInicialAuditoria.escenario
   )
   const [minimoCentimos, fijarMinimoCentimos] = React.useState<number>(
-    () =>
-      leerRangoSalarialAuditoriaDesdeUrl(
-        new URLSearchParams(parametrosIniciales)
-      ).minimoCentimos
+    () => estadoInicialAuditoria.rangoSalarial.minimoCentimos
   )
   const [maximoCentimos, fijarMaximoCentimos] = React.useState<number>(
-    () =>
-      leerRangoSalarialAuditoriaDesdeUrl(
-        new URLSearchParams(parametrosIniciales)
-      ).maximoCentimos
+    () => estadoInicialAuditoria.rangoSalarial.maximoCentimos
   )
+  const [vistaGrafico, fijarVistaGrafico] =
+    React.useState<VistaGraficoAuditoria>(
+      () => estadoInicialAuditoria.seleccionGrafico.grafica
+    )
   const [aniosGraficoIrpf, fijarAniosGraficoIrpf] = React.useState<
     ReadonlyArray<AnioFiscal>
-  >([2019, 2025])
+  >(() =>
+    estadoInicialAuditoria.seleccionGrafico.grafica === "tipo-irpf"
+      ? estadoInicialAuditoria.seleccionGrafico.anios
+      : aniosGraficoTipoEfectivoIrpfPorDefecto
+  )
   const [aniosGraficoDiferenciaTipoIrpf, fijarAniosGraficoDiferenciaTipoIrpf] =
-    React.useState<readonly [AnioFiscal, AnioFiscal]>([2019, 2025])
+    React.useState<readonly [AnioFiscal, AnioFiscal]>(() =>
+      estadoInicialAuditoria.seleccionGrafico.grafica === "diferencia-irpf"
+        ? estadoInicialAuditoria.seleccionGrafico.anios
+        : aniosGraficoDiferenciaTipoIrpfPorDefecto
+    )
   const [modoDiferenciaTipoIrpf, fijarModoDiferenciaTipoIrpf] =
-    React.useState<ModoDiferenciaTipoIrpf>("porcentaje")
+    React.useState<ModoDiferenciaTipoIrpf>(() =>
+      estadoInicialAuditoria.seleccionGrafico.grafica === "diferencia-irpf"
+        ? estadoInicialAuditoria.seleccionGrafico.modo
+        : modoDiferenciaGraficoAuditoriaPorDefecto
+    )
   const [anioGraficoTipoMarginalIrpf, fijarAnioGraficoTipoMarginalIrpf] =
-    React.useState<AnioFiscal>(2025)
+    React.useState<AnioFiscal>(() =>
+      estadoInicialAuditoria.seleccionGrafico.grafica === "tipo-marginal"
+        ? estadoInicialAuditoria.seleccionGrafico.anio
+        : anioGraficoTipoMarginalIrpfPorDefecto
+    )
   const ordenSeleccionDiferenciaTipoIrpfRef = React.useRef<
     ReadonlyArray<AnioFiscal>
-  >([2019, 2025])
+  >(
+    estadoInicialAuditoria.seleccionGrafico.grafica === "diferencia-irpf"
+      ? estadoInicialAuditoria.seleccionGrafico.anios
+      : aniosGraficoDiferenciaTipoIrpfPorDefecto
+  )
   const permiteReferenciaTecnica2026 = escenarioPermiteReferenciaTecnica2026({
     perfil: escenarioAuditoria.perfil,
     comunidadAutonoma: escenarioAuditoria.comunidadAutonoma,
@@ -467,56 +532,223 @@ function AuditoriaImpl({
     pasoAuditoriaCentimos,
   ])
 
+  const seleccionGraficoAuditoriaActual = React.useMemo(
+    () =>
+      construirSeleccionGraficoAuditoria({
+        vistaGrafico,
+        aniosGraficoIrpf,
+        aniosGraficoDiferenciaTipoIrpf,
+        modoDiferenciaTipoIrpf,
+        anioGraficoTipoMarginalIrpf,
+      }),
+    [
+      anioGraficoTipoMarginalIrpf,
+      aniosGraficoDiferenciaTipoIrpf,
+      aniosGraficoIrpf,
+      modoDiferenciaTipoIrpf,
+      vistaGrafico,
+    ]
+  )
+
+  const reemplazarUrlAuditoria = React.useCallback(
+    ({
+      escenario = escenarioAuditoria,
+      rangoSalarial = { minimoCentimos, maximoCentimos },
+      seleccionGrafico = seleccionGraficoAuditoriaActual,
+    }: {
+      readonly escenario?: EscenarioAuditoriaNormativaHistorica
+      readonly rangoSalarial?: RangoSalarialAuditoria
+      readonly seleccionGrafico?: SeleccionGraficoAuditoriaNormativa
+    } = {}): URLSearchParams => {
+      const parametros = serializarEscenarioAuditoriaNormativa(
+        escenario,
+        rangoSalarial,
+        seleccionGrafico
+      )
+      router.replace(`/auditoria?${parametros.toString()}`, { scroll: false })
+
+      return parametros
+    },
+    [
+      escenarioAuditoria,
+      maximoCentimos,
+      minimoCentimos,
+      router,
+      seleccionGraficoAuditoriaActual,
+    ]
+  )
+
   const actualizarEscenarioAuditoria = React.useCallback(
     (cambio: CambioEscenarioAuditoriaNormativa) => {
-      const parametros = serializarEscenarioAuditoriaNormativa(
-        {
+      const parametros = reemplazarUrlAuditoria({
+        escenario: {
           ...escenarioAuditoria,
           ...cambio,
         },
-        { minimoCentimos, maximoCentimos }
-      )
+      })
       const rangoSalarial = leerRangoSalarialAuditoriaDesdeUrl(parametros)
       fijarEscenarioAuditoria(
         leerEscenarioAuditoriaNormativaDesdeUrl(parametros)
       )
       fijarMinimoCentimos(rangoSalarial.minimoCentimos)
       fijarMaximoCentimos(rangoSalarial.maximoCentimos)
-      router.replace(`/auditoria?${parametros.toString()}`, { scroll: false })
     },
-    [escenarioAuditoria, maximoCentimos, minimoCentimos, router]
+    [escenarioAuditoria, reemplazarUrlAuditoria]
   )
 
   const actualizarRangoSalarialAuditoria = React.useCallback(
     (rangoSalarialCandidato: RangoSalarialAuditoria) => {
-      const parametros = serializarEscenarioAuditoriaNormativa(
-        escenarioAuditoria,
-        rangoSalarialCandidato
-      )
+      const parametros = reemplazarUrlAuditoria({
+        rangoSalarial: rangoSalarialCandidato,
+      })
       const rangoSalarial = leerRangoSalarialAuditoriaDesdeUrl(parametros)
       fijarMinimoCentimos(rangoSalarial.minimoCentimos)
       fijarMaximoCentimos(rangoSalarial.maximoCentimos)
-      router.replace(`/auditoria?${parametros.toString()}`, { scroll: false })
     },
-    [escenarioAuditoria, router]
+    [reemplazarUrlAuditoria]
+  )
+
+  const aplicarSeleccionGraficoAuditoria = React.useCallback(
+    (seleccionGrafico: SeleccionGraficoAuditoriaNormativa) => {
+      fijarVistaGrafico(seleccionGrafico.grafica)
+
+      Match.value(seleccionGrafico).pipe(
+        Match.when({ grafica: "tipo-irpf" }, ({ anios }) => {
+          fijarAniosGraficoIrpf(anios)
+        }),
+        Match.when({ grafica: "diferencia-irpf" }, ({ anios, modo }) => {
+          fijarAniosGraficoDiferenciaTipoIrpf(anios)
+          fijarModoDiferenciaTipoIrpf(modo)
+          ordenSeleccionDiferenciaTipoIrpfRef.current = anios
+        }),
+        Match.when({ grafica: "tipo-marginal" }, ({ anio }) => {
+          fijarAnioGraficoTipoMarginalIrpf(anio)
+        }),
+        Match.exhaustive
+      )
+    },
+    []
+  )
+
+  const actualizarVistaGrafico = React.useCallback(
+    (vistaGrafico: VistaGraficoAuditoria) => {
+      const seleccionGrafico = construirSeleccionGraficoAuditoria({
+        vistaGrafico,
+        aniosGraficoIrpf,
+        aniosGraficoDiferenciaTipoIrpf,
+        modoDiferenciaTipoIrpf,
+        anioGraficoTipoMarginalIrpf,
+      })
+      fijarVistaGrafico(vistaGrafico)
+      reemplazarUrlAuditoria({ seleccionGrafico })
+    },
+    [
+      anioGraficoTipoMarginalIrpf,
+      aniosGraficoDiferenciaTipoIrpf,
+      aniosGraficoIrpf,
+      modoDiferenciaTipoIrpf,
+      reemplazarUrlAuditoria,
+    ]
+  )
+
+  const actualizarAniosGraficoIrpf = React.useCallback(
+    (anios: ReadonlyArray<AnioFiscal>) => {
+      const seleccionGrafico = construirSeleccionGraficoAuditoria({
+        vistaGrafico: "tipo-irpf",
+        aniosGraficoIrpf: anios,
+        aniosGraficoDiferenciaTipoIrpf,
+        modoDiferenciaTipoIrpf,
+        anioGraficoTipoMarginalIrpf,
+      })
+      fijarAniosGraficoIrpf(anios)
+      reemplazarUrlAuditoria({ seleccionGrafico })
+    },
+    [
+      anioGraficoTipoMarginalIrpf,
+      aniosGraficoDiferenciaTipoIrpf,
+      modoDiferenciaTipoIrpf,
+      reemplazarUrlAuditoria,
+    ]
+  )
+
+  const actualizarAniosGraficoDiferenciaTipoIrpf = React.useCallback(
+    (anios: readonly [AnioFiscal, AnioFiscal]) => {
+      const seleccionGrafico = construirSeleccionGraficoAuditoria({
+        vistaGrafico: "diferencia-irpf",
+        aniosGraficoIrpf,
+        aniosGraficoDiferenciaTipoIrpf: anios,
+        modoDiferenciaTipoIrpf,
+        anioGraficoTipoMarginalIrpf,
+      })
+      fijarAniosGraficoDiferenciaTipoIrpf(anios)
+      reemplazarUrlAuditoria({ seleccionGrafico })
+    },
+    [
+      anioGraficoTipoMarginalIrpf,
+      aniosGraficoIrpf,
+      modoDiferenciaTipoIrpf,
+      reemplazarUrlAuditoria,
+    ]
+  )
+
+  const actualizarModoDiferenciaTipoIrpf = React.useCallback(
+    (modo: ModoDiferenciaTipoIrpf) => {
+      const seleccionGrafico = construirSeleccionGraficoAuditoria({
+        vistaGrafico: "diferencia-irpf",
+        aniosGraficoIrpf,
+        aniosGraficoDiferenciaTipoIrpf,
+        modoDiferenciaTipoIrpf: modo,
+        anioGraficoTipoMarginalIrpf,
+      })
+      fijarModoDiferenciaTipoIrpf(modo)
+      reemplazarUrlAuditoria({ seleccionGrafico })
+    },
+    [
+      anioGraficoTipoMarginalIrpf,
+      aniosGraficoDiferenciaTipoIrpf,
+      aniosGraficoIrpf,
+      reemplazarUrlAuditoria,
+    ]
+  )
+
+  const actualizarAnioGraficoTipoMarginalIrpf = React.useCallback(
+    (anio: AnioFiscal) => {
+      const seleccionGrafico = construirSeleccionGraficoAuditoria({
+        vistaGrafico: "tipo-marginal",
+        aniosGraficoIrpf,
+        aniosGraficoDiferenciaTipoIrpf,
+        modoDiferenciaTipoIrpf,
+        anioGraficoTipoMarginalIrpf: anio,
+      })
+      fijarAnioGraficoTipoMarginalIrpf(anio)
+      reemplazarUrlAuditoria({ seleccionGrafico })
+    },
+    [
+      aniosGraficoDiferenciaTipoIrpf,
+      aniosGraficoIrpf,
+      modoDiferenciaTipoIrpf,
+      reemplazarUrlAuditoria,
+    ]
   )
 
   React.useEffect(() => {
     const sincronizarEscenarioConUrl = () => {
       const parametros = new URLSearchParams(window.location.search)
       const rangoSalarial = leerRangoSalarialAuditoriaDesdeUrl(parametros)
+      const seleccionGrafico = leerSeleccionGraficoAuditoriaDesdeUrl(parametros)
       fijarEscenarioAuditoria(
         leerEscenarioAuditoriaNormativaDesdeUrl(parametros)
       )
       fijarMinimoCentimos(rangoSalarial.minimoCentimos)
       fijarMaximoCentimos(rangoSalarial.maximoCentimos)
+      aplicarSeleccionGraficoAuditoria(seleccionGrafico)
     }
 
     window.addEventListener("popstate", sincronizarEscenarioConUrl)
     return () => {
       window.removeEventListener("popstate", sincronizarEscenarioConUrl)
     }
-  }, [])
+  }, [aplicarSeleccionGraficoAuditoria])
 
   const registrarProgresoExportacionCompatible = React.useCallback(
     (progreso: ProgresoExportacionCompatible) => {
@@ -693,16 +925,20 @@ function AuditoriaImpl({
             })
           }
           permiteReferenciaTecnica2026={permiteReferenciaTecnica2026}
+          vistaGrafico={vistaGrafico}
+          alCambiarVistaGrafico={actualizarVistaGrafico}
           aniosGraficoIrpf={aniosGraficoIrpf}
-          fijarAniosGraficoIrpf={fijarAniosGraficoIrpf}
+          fijarAniosGraficoIrpf={actualizarAniosGraficoIrpf}
           aniosGraficoDiferenciaTipoIrpf={aniosGraficoDiferenciaTipoIrpf}
           fijarAniosGraficoDiferenciaTipoIrpf={
-            fijarAniosGraficoDiferenciaTipoIrpf
+            actualizarAniosGraficoDiferenciaTipoIrpf
           }
           modoDiferenciaTipoIrpf={modoDiferenciaTipoIrpf}
-          fijarModoDiferenciaTipoIrpf={fijarModoDiferenciaTipoIrpf}
+          fijarModoDiferenciaTipoIrpf={actualizarModoDiferenciaTipoIrpf}
           anioGraficoTipoMarginalIrpf={anioGraficoTipoMarginalIrpf}
-          fijarAnioGraficoTipoMarginalIrpf={fijarAnioGraficoTipoMarginalIrpf}
+          fijarAnioGraficoTipoMarginalIrpf={
+            actualizarAnioGraficoTipoMarginalIrpf
+          }
           ordenSeleccionDiferenciaTipoIrpfRef={
             ordenSeleccionDiferenciaTipoIrpfRef
           }
@@ -1226,7 +1462,7 @@ const configuracionTipoMarginalIrpf = ({
 type FilaTipoEfectivoIrpf = Record<string, number | string>
 type FilaDiferenciaTipoIrpf = Record<string, number | string | undefined>
 type FilaTipoMarginalIrpf = Record<string, number | string | undefined>
-type ModoDiferenciaTipoIrpf = "porcentaje" | "euros-reales"
+type ModoDiferenciaTipoIrpf = ModoDiferenciaGraficoAuditoria
 const modosDiferenciaTipoIrpf = [
   { valor: "porcentaje", etiqueta: "PORCENTAJE" },
   { valor: "euros-reales", etiqueta: "EUROS REALES" },
@@ -1248,21 +1484,12 @@ type DatosGraficoListos = Extract<
   EstadoDatosGrafico,
   { readonly _tag: "lista" }
 >
-type VistaGraficoAuditoria = "tipo-irpf" | "diferencia-irpf" | "tipo-marginal"
+type VistaGraficoAuditoria = GraficoAuditoriaNormativa
 const vistasGraficoAuditoria = [
   "tipo-irpf",
   "diferencia-irpf",
   "tipo-marginal",
 ] as const satisfies ReadonlyArray<VistaGraficoAuditoria>
-const decodificarVistaGraficoAuditoria = (
-  valor: string
-): Option.Option<VistaGraficoAuditoria> =>
-  Match.value(valor).pipe(
-    Match.when("tipo-irpf", (vista) => Option.some(vista)),
-    Match.when("diferencia-irpf", (vista) => Option.some(vista)),
-    Match.when("tipo-marginal", (vista) => Option.some(vista)),
-    Match.orElse(() => Option.none<VistaGraficoAuditoria>())
-  )
 
 const versionCalculoDatosGrafico = (vista: VistaGraficoAuditoria) =>
   Match.value(vista).pipe(
@@ -3487,6 +3714,8 @@ function Visualizaciones({
   magnitudAuditada,
   alCambiarComunidadAutonoma,
   permiteReferenciaTecnica2026,
+  vistaGrafico,
+  alCambiarVistaGrafico,
   aniosGraficoIrpf,
   fijarAniosGraficoIrpf,
   aniosGraficoDiferenciaTipoIrpf,
@@ -3506,6 +3735,8 @@ function Visualizaciones({
     comunidadAutonoma: ComunidadAuditada
   ) => void
   readonly permiteReferenciaTecnica2026: boolean
+  readonly vistaGrafico: VistaGraficoAuditoria
+  readonly alCambiarVistaGrafico: (vista: VistaGraficoAuditoria) => void
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoIrpf: (anios: ReadonlyArray<AnioFiscal>) => void
   readonly aniosGraficoDiferenciaTipoIrpf: readonly [AnioFiscal, AnioFiscal]
@@ -3521,8 +3752,6 @@ function Visualizaciones({
   >
 }) {
   const comunidadesAutonomas = [comunidadAutonoma] as const
-  const [vistaGrafico, fijarVistaGrafico] =
-    React.useState<VistaGraficoAuditoria>("tipo-irpf")
   const fichaMagnitudAuditada =
     describirMagnitudAuditoriaNormativa(magnitudAuditada)
   const opcionesComunidadAutonoma = comunidadesAuditoriaNormativa.map(
@@ -4024,10 +4253,10 @@ function Visualizaciones({
         value={vistaGrafico}
         onValueChange={(valor) => {
           Option.fromNullishOr(valor).pipe(
-            Option.flatMap(decodificarVistaGraficoAuditoria),
+            Option.flatMap(decodificarGraficoAuditoriaNormativa),
             Option.match({
               onNone: () => {},
-              onSome: fijarVistaGrafico,
+              onSome: alCambiarVistaGrafico,
             })
           )
         }}
