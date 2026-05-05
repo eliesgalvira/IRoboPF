@@ -75,6 +75,7 @@ import {
   leerSeleccionGraficoAuditoriaDesdeUrl,
   modoCunaFiscalGraficoAuditoriaPorDefecto,
   modoDiferenciaGraficoAuditoriaPorDefecto,
+  modoTipoEfectivoGraficoAuditoriaPorDefecto,
   perfilesAuditoriaNormativa,
   perfilAuditoriaNormativaParaRetencionPersonalizada,
   escenarioPermiteReferenciaTecnica2026,
@@ -84,6 +85,7 @@ import {
   type GraficoAuditoriaNormativa,
   type ModoCunaFiscalGraficoAuditoria,
   type ModoDiferenciaGraficoAuditoria,
+  type ModoTipoEfectivoGraficoAuditoria,
   type RangoSalarialAuditoria,
   type SeleccionGraficoAuditoriaNormativa,
   type SituacionRetencionPerfilAuditoria,
@@ -274,6 +276,7 @@ const claveCalculoAuditoria = ({
 const construirSeleccionGraficoAuditoria = ({
   vistaGrafico,
   aniosGraficoIrpf,
+  modoTipoEfectivoIrpf,
   aniosGraficoDiferenciaTipoIrpf,
   anioGraficoCunaFiscal,
   modoCunaFiscal,
@@ -282,6 +285,7 @@ const construirSeleccionGraficoAuditoria = ({
 }: {
   readonly vistaGrafico: VistaGraficoAuditoria
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
+  readonly modoTipoEfectivoIrpf: ModoTipoEfectivoIrpf
   readonly aniosGraficoDiferenciaTipoIrpf: readonly [AnioFiscal, AnioFiscal]
   readonly anioGraficoCunaFiscal: AnioFiscal
   readonly modoCunaFiscal: ModoCunaFiscal
@@ -293,6 +297,7 @@ const construirSeleccionGraficoAuditoria = ({
     Match.when("tipo-irpf", (grafica) => ({
       grafica,
       anios: aniosGraficoIrpf,
+      modo: modoTipoEfectivoIrpf,
     })),
     Match.when("diferencia-irpf", (grafica) => ({
       grafica,
@@ -346,6 +351,12 @@ function AuditoriaImpl({
       ? estadoInicialAuditoria.seleccionGrafico.anios
       : aniosGraficoTipoEfectivoIrpfPorDefecto
   )
+  const [modoTipoEfectivoIrpf, fijarModoTipoEfectivoIrpf] =
+    React.useState<ModoTipoEfectivoIrpf>(() =>
+      estadoInicialAuditoria.seleccionGrafico.grafica === "tipo-irpf"
+        ? estadoInicialAuditoria.seleccionGrafico.modo
+        : modoTipoEfectivoGraficoAuditoriaPorDefecto
+    )
   const [aniosGraficoDiferenciaTipoIrpf, fijarAniosGraficoDiferenciaTipoIrpf] =
     React.useState<readonly [AnioFiscal, AnioFiscal]>(() =>
       estadoInicialAuditoria.seleccionGrafico.grafica === "diferencia-irpf"
@@ -565,6 +576,7 @@ function AuditoriaImpl({
       construirSeleccionGraficoAuditoria({
         vistaGrafico,
         aniosGraficoIrpf,
+        modoTipoEfectivoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
         anioGraficoCunaFiscal,
         modoCunaFiscal,
@@ -578,6 +590,7 @@ function AuditoriaImpl({
       aniosGraficoIrpf,
       modoCunaFiscal,
       modoDiferenciaTipoIrpf,
+      modoTipoEfectivoIrpf,
       vistaGrafico,
     ]
   )
@@ -645,8 +658,9 @@ function AuditoriaImpl({
       fijarVistaGrafico(seleccionGrafico.grafica)
 
       Match.value(seleccionGrafico).pipe(
-        Match.when({ grafica: "tipo-irpf" }, ({ anios }) => {
+        Match.when({ grafica: "tipo-irpf" }, ({ anios, modo }) => {
           fijarAniosGraficoIrpf(anios)
+          fijarModoTipoEfectivoIrpf(modo)
         }),
         Match.when({ grafica: "diferencia-irpf" }, ({ anios, modo }) => {
           fijarAniosGraficoDiferenciaTipoIrpf(anios)
@@ -671,6 +685,7 @@ function AuditoriaImpl({
       const seleccionGrafico = construirSeleccionGraficoAuditoria({
         vistaGrafico,
         aniosGraficoIrpf,
+        modoTipoEfectivoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
         anioGraficoCunaFiscal,
         modoCunaFiscal,
@@ -687,6 +702,7 @@ function AuditoriaImpl({
       aniosGraficoIrpf,
       modoCunaFiscal,
       modoDiferenciaTipoIrpf,
+      modoTipoEfectivoIrpf,
       reemplazarUrlAuditoria,
     ]
   )
@@ -696,6 +712,7 @@ function AuditoriaImpl({
       const seleccionGrafico = construirSeleccionGraficoAuditoria({
         vistaGrafico: "tipo-irpf",
         aniosGraficoIrpf: anios,
+        modoTipoEfectivoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
         anioGraficoCunaFiscal,
         modoCunaFiscal,
@@ -709,6 +726,7 @@ function AuditoriaImpl({
       anioGraficoCunaFiscal,
       anioGraficoTipoMarginalIrpf,
       aniosGraficoDiferenciaTipoIrpf,
+      modoTipoEfectivoIrpf,
       modoCunaFiscal,
       modoDiferenciaTipoIrpf,
       reemplazarUrlAuditoria,
@@ -720,6 +738,7 @@ function AuditoriaImpl({
       const seleccionGrafico = construirSeleccionGraficoAuditoria({
         vistaGrafico: "diferencia-irpf",
         aniosGraficoIrpf,
+        modoTipoEfectivoIrpf,
         aniosGraficoDiferenciaTipoIrpf: anios,
         anioGraficoCunaFiscal,
         modoCunaFiscal,
@@ -733,6 +752,7 @@ function AuditoriaImpl({
       anioGraficoCunaFiscal,
       anioGraficoTipoMarginalIrpf,
       aniosGraficoIrpf,
+      modoTipoEfectivoIrpf,
       modoCunaFiscal,
       modoDiferenciaTipoIrpf,
       reemplazarUrlAuditoria,
@@ -744,6 +764,7 @@ function AuditoriaImpl({
       const seleccionGrafico = construirSeleccionGraficoAuditoria({
         vistaGrafico: "cuna-fiscal",
         aniosGraficoIrpf,
+        modoTipoEfectivoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
         anioGraficoCunaFiscal: anio,
         modoCunaFiscal,
@@ -757,6 +778,7 @@ function AuditoriaImpl({
       anioGraficoTipoMarginalIrpf,
       aniosGraficoDiferenciaTipoIrpf,
       aniosGraficoIrpf,
+      modoTipoEfectivoIrpf,
       modoCunaFiscal,
       modoDiferenciaTipoIrpf,
       reemplazarUrlAuditoria,
@@ -768,6 +790,7 @@ function AuditoriaImpl({
       const seleccionGrafico = construirSeleccionGraficoAuditoria({
         vistaGrafico: "cuna-fiscal",
         aniosGraficoIrpf,
+        modoTipoEfectivoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
         anioGraficoCunaFiscal,
         modoCunaFiscal: modo,
@@ -783,6 +806,33 @@ function AuditoriaImpl({
       aniosGraficoDiferenciaTipoIrpf,
       aniosGraficoIrpf,
       modoDiferenciaTipoIrpf,
+      modoTipoEfectivoIrpf,
+      reemplazarUrlAuditoria,
+    ]
+  )
+
+  const actualizarModoTipoEfectivoIrpf = React.useCallback(
+    (modo: ModoTipoEfectivoIrpf) => {
+      const seleccionGrafico = construirSeleccionGraficoAuditoria({
+        vistaGrafico: "tipo-irpf",
+        aniosGraficoIrpf,
+        modoTipoEfectivoIrpf: modo,
+        aniosGraficoDiferenciaTipoIrpf,
+        anioGraficoCunaFiscal,
+        modoCunaFiscal,
+        modoDiferenciaTipoIrpf,
+        anioGraficoTipoMarginalIrpf,
+      })
+      fijarModoTipoEfectivoIrpf(modo)
+      reemplazarUrlAuditoria({ seleccionGrafico })
+    },
+    [
+      anioGraficoCunaFiscal,
+      anioGraficoTipoMarginalIrpf,
+      aniosGraficoDiferenciaTipoIrpf,
+      aniosGraficoIrpf,
+      modoCunaFiscal,
+      modoDiferenciaTipoIrpf,
       reemplazarUrlAuditoria,
     ]
   )
@@ -792,6 +842,7 @@ function AuditoriaImpl({
       const seleccionGrafico = construirSeleccionGraficoAuditoria({
         vistaGrafico: "diferencia-irpf",
         aniosGraficoIrpf,
+        modoTipoEfectivoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
         anioGraficoCunaFiscal,
         modoCunaFiscal,
@@ -808,6 +859,7 @@ function AuditoriaImpl({
       aniosGraficoDiferenciaTipoIrpf,
       aniosGraficoIrpf,
       modoCunaFiscal,
+      modoTipoEfectivoIrpf,
       reemplazarUrlAuditoria,
     ]
   )
@@ -817,6 +869,7 @@ function AuditoriaImpl({
       const seleccionGrafico = construirSeleccionGraficoAuditoria({
         vistaGrafico: "tipo-marginal",
         aniosGraficoIrpf,
+        modoTipoEfectivoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
         anioGraficoCunaFiscal,
         modoCunaFiscal,
@@ -832,6 +885,7 @@ function AuditoriaImpl({
       aniosGraficoIrpf,
       modoCunaFiscal,
       modoDiferenciaTipoIrpf,
+      modoTipoEfectivoIrpf,
       reemplazarUrlAuditoria,
     ]
   )
@@ -1034,6 +1088,8 @@ function AuditoriaImpl({
           alCambiarVistaGrafico={actualizarVistaGrafico}
           aniosGraficoIrpf={aniosGraficoIrpf}
           fijarAniosGraficoIrpf={actualizarAniosGraficoIrpf}
+          modoTipoEfectivoIrpf={modoTipoEfectivoIrpf}
+          fijarModoTipoEfectivoIrpf={actualizarModoTipoEfectivoIrpf}
           aniosGraficoDiferenciaTipoIrpf={aniosGraficoDiferenciaTipoIrpf}
           fijarAniosGraficoDiferenciaTipoIrpf={
             actualizarAniosGraficoDiferenciaTipoIrpf
@@ -1645,13 +1701,14 @@ type FilaTipoEfectivoIrpf = Record<string, number | string>
 type FilaDiferenciaTipoIrpf = Record<string, number | string | undefined>
 type FilaCunaFiscal = Record<string, number | string | undefined>
 type FilaTipoMarginalIrpf = Record<string, number | string | undefined>
+type ModoTipoEfectivoIrpf = ModoTipoEfectivoGraficoAuditoria
 type ModoDiferenciaTipoIrpf = ModoDiferenciaGraficoAuditoria
 type ModoCunaFiscal = ModoCunaFiscalGraficoAuditoria
 const opcionesModoPorcentajeEuros = [
   { valor: "porcentaje", etiqueta: "%" },
   { valor: "euros-reales", etiqueta: "€" },
 ] as const satisfies OpcionesSelectorModoGrafico<
-  ModoDiferenciaTipoIrpf | ModoCunaFiscal
+  ModoTipoEfectivoIrpf | ModoDiferenciaTipoIrpf | ModoCunaFiscal
 >
 type EstadoDatosGrafico =
   | { readonly _tag: "cargando"; readonly clave: string }
@@ -2033,12 +2090,14 @@ const construirFilasTipoEfectivoIrpfDesdeSeries = ({
   comunidadesAutonomas,
   aniosSeleccionados,
   anioReferenciaSeries,
+  modo,
   series,
 }: {
   readonly auditoria: AuditoriaRangoSalarial
   readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
   readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
   readonly anioReferenciaSeries: AnioFiscal
+  readonly modo: ModoTipoEfectivoIrpf
   readonly series: ReadonlyMap<
     string,
     ReadonlyArray<PuntoAuditoriaRangoSalarial>
@@ -2069,12 +2128,25 @@ const construirFilasTipoEfectivoIrpfDesdeSeries = ({
           salarioBrutoAnualCentimos: puntoBase.salarioBrutoAnualCentimos,
         })
         if (Option.isNone(punto)) continue
-        fila[claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)] =
-          tipoEfectivoIrpfConDeclaracionParaAnio({
-            anio,
-            anioReferenciaSeries,
-            punto: punto.value,
-          })
+        const desglose = desgloseLiquidadoParaAnio({
+          anio,
+          anioReferenciaSeries,
+          punto: punto.value,
+        })
+        fila[claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)] = Match.value(
+          modo
+        ).pipe(
+          Match.when("porcentaje", () =>
+            proporcionSegura(
+              irpfConDeclaracionCentimos(desglose),
+              desglose.salarioBrutoAnualCentimos
+            )
+          ),
+          Match.when("euros-reales", () =>
+            centimosAEuros(irpfConDeclaracionCentimos(desglose))
+          ),
+          Match.exhaustive
+        )
       }
     }
 
@@ -2121,27 +2193,6 @@ const tipoEfectivoIrpfParaAnio = ({
     Match.when(true, () => punto.tipoEfectivoIrpfActual),
     Match.orElse(() => punto.tipoEfectivoIrpfComparado)
   )
-
-const tipoEfectivoIrpfConDeclaracionParaAnio = ({
-  anio,
-  anioReferenciaSeries,
-  punto,
-}: {
-  readonly anio: AnioFiscal
-  readonly anioReferenciaSeries: AnioFiscal
-  readonly punto: PuntoAuditoriaRangoSalarial
-}) => {
-  const desglose = desgloseLiquidadoParaAnio({
-    anio,
-    anioReferenciaSeries,
-    punto,
-  })
-
-  return proporcionSegura(
-    irpfConDeclaracionCentimos(desglose),
-    desglose.salarioBrutoAnualCentimos
-  )
-}
 
 const desgloseLiquidadoParaAnio = ({
   anio,
@@ -2751,6 +2802,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
   comunidadesAutonomas,
   perfil,
   aniosIrpf,
+  modoTipoEfectivoIrpf,
   aniosDiferenciaTipoIrpf,
   anioCunaFiscal,
   modoCunaFiscal,
@@ -2765,6 +2817,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
   readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
   readonly perfil: PerfilAuditado
   readonly aniosIrpf: ReadonlyArray<AnioFiscal>
+  readonly modoTipoEfectivoIrpf: ModoTipoEfectivoIrpf
   readonly aniosDiferenciaTipoIrpf: readonly [AnioFiscal, AnioFiscal]
   readonly anioCunaFiscal: AnioFiscal
   readonly modoCunaFiscal: ModoCunaFiscal
@@ -2799,6 +2852,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
             filas: auditoria.puntos.length,
             series: comunidadesAutonomas.length * aniosIrpf.length,
             anios: aniosIrpf.join(","),
+            modo: modoTipoEfectivoIrpf,
             anioReferencia: anioReferenciaTipoEfectivoIrpf,
           },
           efecto: Effect.sync(() =>
@@ -2807,6 +2861,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
               comunidadesAutonomas,
               aniosSeleccionados: aniosIrpf,
               anioReferenciaSeries: anioReferenciaTipoEfectivoIrpf,
+              modo: modoTipoEfectivoIrpf,
               series: seriesTipoEfectivoIrpf,
             })
           ),
@@ -3630,11 +3685,13 @@ function FormulaTipoEfectivoIrpf({
   anios,
   anioReferencia,
   comunidadAutonoma,
+  modo,
   perfil,
 }: {
   readonly anios: ReadonlyArray<AnioFiscal>
   readonly anioReferencia: AnioFiscal
   readonly comunidadAutonoma: ComunidadAuditada
+  readonly modo: ModoTipoEfectivoIrpf
   readonly perfil: PerfilAuditado
 }) {
   const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
@@ -3700,13 +3757,21 @@ function FormulaTipoEfectivoIrpf({
         <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
           Cálculo aplicado
         </p>
-        <FormulaLineal>
-          <BloqueFormula tono="resultado">TIPO_EFECTIVO_IRPF</BloqueFormula>
-          <BloqueFormula>=</BloqueFormula>
-          <BloqueFormula tono="resultado">IRPF_COMPARABLE_REAL</BloqueFormula>
-          <BloqueFormula>/</BloqueFormula>
-          <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
-        </FormulaLineal>
+        {modo === "porcentaje" ? (
+          <FormulaLineal>
+            <BloqueFormula tono="resultado">TIPO_EFECTIVO_IRPF</BloqueFormula>
+            <BloqueFormula>=</BloqueFormula>
+            <BloqueFormula tono="resultado">IRPF_COMPARABLE_REAL</BloqueFormula>
+            <BloqueFormula>/</BloqueFormula>
+            <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
+          </FormulaLineal>
+        ) : (
+          <FormulaLineal>
+            <BloqueFormula tono="resultado">IRPF_GRAFICO</BloqueFormula>
+            <BloqueFormula>=</BloqueFormula>
+            <BloqueFormula tono="resultado">IRPF_COMPARABLE_REAL</BloqueFormula>
+          </FormulaLineal>
+        )}
       </div>
 
       <div className="grid min-w-0 gap-3">
@@ -3788,10 +3853,11 @@ function FormulaTipoEfectivoIrpf({
           final usado por esta comparación histórica.
         </ExplicacionVariable>
         <ExplicacionVariable termino="IRPF_COMPARABLE_NOMINAL / REAL">
-          Importe usado sólo en las gráficas de tipo efectivo y diferencia.
-          Primero se calcula con importes nominales y normativa nominal de cada
-          año; después se ajusta por IPC a euros de {anioReferencia} para
-          dividirlo entre SALARIO_BRUTO_REAL. Hasta 22.000 € de rendimientos
+          Importe usado en las gráficas de IRPF y diferencia. Primero se calcula
+          con importes nominales y normativa nominal de cada año; después se
+          ajusta por IPC a euros de {anioReferencia} para que el selector pueda
+          mostrarlo directamente en euros reales o dividirlo entre
+          SALARIO_BRUTO_REAL como tipo efectivo. Hasta 22.000 € de rendimientos
           íntegros del trabajo con un pagador, si no hay obligación general de
           declarar, se usa el IRPF final de nómina: la menor cifra entre la
           cuota anual y el límite de retención. Al superar 22.000 €, se usa la
@@ -4729,6 +4795,8 @@ function Visualizaciones({
   alCambiarVistaGrafico,
   aniosGraficoIrpf,
   fijarAniosGraficoIrpf,
+  modoTipoEfectivoIrpf,
+  fijarModoTipoEfectivoIrpf,
   aniosGraficoDiferenciaTipoIrpf,
   fijarAniosGraficoDiferenciaTipoIrpf,
   anioGraficoCunaFiscal,
@@ -4754,6 +4822,8 @@ function Visualizaciones({
   readonly alCambiarVistaGrafico: (vista: VistaGraficoAuditoria) => void
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
   readonly fijarAniosGraficoIrpf: (anios: ReadonlyArray<AnioFiscal>) => void
+  readonly modoTipoEfectivoIrpf: ModoTipoEfectivoIrpf
+  readonly fijarModoTipoEfectivoIrpf: (modo: ModoTipoEfectivoIrpf) => void
   readonly aniosGraficoDiferenciaTipoIrpf: readonly [AnioFiscal, AnioFiscal]
   readonly fijarAniosGraficoDiferenciaTipoIrpf: (
     anios: readonly [AnioFiscal, AnioFiscal]
@@ -4844,7 +4914,11 @@ function Visualizaciones({
 
       return Match.value(vistaGrafico).pipe(
         Match.when("tipo-irpf", () =>
-          [...claveBase, claveAniosGraficoIrpfVisibles].join("|")
+          [
+            ...claveBase,
+            claveAniosGraficoIrpfVisibles,
+            modoTipoEfectivoIrpf,
+          ].join("|")
         ),
         Match.when("diferencia-irpf", () =>
           [
@@ -4923,6 +4997,7 @@ function Visualizaciones({
           claveDatosGrafico,
           comunidadAutonoma,
           aniosIrpf: aniosIrpf.join(","),
+          modoTipoEfectivoIrpf,
           aniosDiferenciaTipoIrpf: aniosDiferencia.join(","),
           anioCunaFiscal: anioGraficoCunaFiscalVisible,
           modoCunaFiscal,
@@ -4941,6 +5016,7 @@ function Visualizaciones({
             comunidadesAutonomas: comunidades,
             perfil,
             aniosIrpf,
+            modoTipoEfectivoIrpf,
             aniosDiferenciaTipoIrpf: aniosDiferencia,
             anioCunaFiscal: anioGraficoCunaFiscalVisible,
             modoCunaFiscal,
@@ -5013,6 +5089,7 @@ function Visualizaciones({
     anioGraficoTipoMarginalIrpfVisible,
     anioReferenciaGraficosIrpf,
     modoCunaFiscal,
+    modoTipoEfectivoIrpf,
     vistaGrafico,
   ])
 
@@ -5166,10 +5243,24 @@ function Visualizaciones({
     comunidadAutonoma,
     anio: anioGraficoTipoMarginalIrpfVisible,
   })
-  const dominioTipoEfectivoIrpf = dominioPorcentaje(
-    valoresNumericosDeFilas(datosTipoEfectivoIrpf, clavesTipoEfectivoIrpf)
+  const valoresTipoEfectivoIrpf = valoresNumericosDeFilas(
+    datosTipoEfectivoIrpf,
+    clavesTipoEfectivoIrpf
   )
-  const ticksTipoEfectivoIrpf = ticksPorcentaje(dominioTipoEfectivoIrpf)
+  const dominioTipoEfectivoIrpf = Match.value(modoTipoEfectivoIrpf).pipe(
+    Match.when("porcentaje", () => dominioPorcentaje(valoresTipoEfectivoIrpf)),
+    Match.when("euros-reales", () =>
+      dominioEurosCunaFiscal(valoresTipoEfectivoIrpf)
+    ),
+    Match.exhaustive
+  )
+  const ticksTipoEfectivoIrpf = Match.value(modoTipoEfectivoIrpf).pipe(
+    Match.when("porcentaje", () => ticksPorcentaje(dominioTipoEfectivoIrpf)),
+    Match.when("euros-reales", () =>
+      ticksDominioLineal({ dominio: dominioTipoEfectivoIrpf, paso: 5000 })
+    ),
+    Match.exhaustive
+  )
   const rangoSalarioCentimos = Option.match(auditoria, {
     onNone: () => ({
       minimo: configuracionRangoAuditoria.minimoPorDefectoCentimos,
@@ -5247,6 +5338,20 @@ function Visualizaciones({
       Match.when("euros-reales", () => dinero.format(valor)),
       Match.exhaustive
     )
+  const formatearValorTipoEfectivoIrpf = (valor: number) =>
+    Match.value(modoTipoEfectivoIrpf).pipe(
+      Match.when("porcentaje", () => porcentaje.format(valor)),
+      Match.when("euros-reales", () => dinero.format(valor)),
+      Match.exhaustive
+    )
+  const formatearTickTipoEfectivoIrpf = (valor: number) =>
+    Match.value(modoTipoEfectivoIrpf).pipe(
+      Match.when("porcentaje", () => formatearTickPorcentaje(valor)),
+      Match.when("euros-reales", () =>
+        formatearSalarioCorto(eurosACentimos(valor))
+      ),
+      Match.exhaustive
+    )
   const formatearTickDiferenciaTipoIrpf = (valor: number) =>
     Match.value(modoDiferenciaTipoIrpf).pipe(
       Match.when("porcentaje", () => formatearTickPorcentaje(valor)),
@@ -5304,7 +5409,19 @@ function Visualizaciones({
 
     fijarAnioGraficoTipoMarginalIrpf(anio)
   }
-  const tituloGraficoTipoEfectivoIrpf = `TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
+  const tituloGraficoTipoEfectivoIrpf = Match.value(modoTipoEfectivoIrpf).pipe(
+    Match.when(
+      "porcentaje",
+      () =>
+        `TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
+    ),
+    Match.when(
+      "euros-reales",
+      () =>
+        `IRPF POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
+    ),
+    Match.exhaustive
+  )
   const tituloGraficoDiferenciaTipoIrpf = `${etiquetaDiferenciaTipoIrpf} POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
   const tituloGraficoCunaFiscal = Match.value(modoCunaFiscal).pipe(
     Match.when(
@@ -5333,9 +5450,21 @@ function Visualizaciones({
     Match.exhaustive
   )
   const modoTipoEfectivoIrpfActivo = Match.value(vistaGrafico).pipe(
+    Match.withReturnType<ModoTipoEfectivoIrpf | ModoDiferenciaTipoIrpf>(),
+    Match.when("tipo-irpf", () => modoTipoEfectivoIrpf),
     Match.when("diferencia-irpf", () => modoDiferenciaTipoIrpf),
-    Match.orElse(() => modoDiferenciaGraficoAuditoriaPorDefecto)
+    Match.orElse(() => modoTipoEfectivoGraficoAuditoriaPorDefecto)
   )
+  const cambiarModoTipoEfectivoIrpfActivo = (
+    modo: ModoTipoEfectivoIrpf | ModoDiferenciaTipoIrpf
+  ) => {
+    if (vistaTipoEfectivoIrpfActiva === "tipo-irpf") {
+      fijarModoTipoEfectivoIrpf(modo)
+      return
+    }
+
+    fijarModoDiferenciaTipoIrpf(modo)
+  }
   const graficoTipoEfectivoActivoRef = Match.value(
     vistaTipoEfectivoIrpfActiva
   ).pipe(
@@ -5450,7 +5579,7 @@ function Visualizaciones({
                     ariaLabel="Cambiar unidad del análisis de tipo efectivo"
                     modo={modoTipoEfectivoIrpfActivo}
                     opciones={opcionesModoPorcentajeEuros}
-                    alCambiar={fijarModoDiferenciaTipoIrpf}
+                    alCambiar={cambiarModoTipoEfectivoIrpfActivo}
                   />
                 </div>
               </div>
@@ -5540,7 +5669,7 @@ function Visualizaciones({
                       domain={dominioTipoEfectivoIrpf}
                       ticks={ticksTipoEfectivoIrpf}
                       fontSize={14}
-                      tickFormatter={formatearTickPorcentaje}
+                      tickFormatter={formatearTickTipoEfectivoIrpf}
                     />
                     <ChartTooltip
                       isAnimationActive={false}
@@ -5558,7 +5687,8 @@ function Visualizaciones({
                               className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
                               style={{ color: item.color }}
                             >
-                              {porcentaje.format(Number(valor))} ({nombre})
+                              {formatearValorTipoEfectivoIrpf(Number(valor))} (
+                              {nombre})
                             </span>
                           )}
                           labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
@@ -5613,6 +5743,7 @@ function Visualizaciones({
                 anios={aniosGraficoIrpfVisibles}
                 anioReferencia={anioReferenciaGraficosIrpf}
                 comunidadAutonoma={comunidadAutonoma}
+                modo={modoTipoEfectivoIrpf}
                 perfil={perfil}
               />
             </Tabs.Panel>
@@ -6032,7 +6163,7 @@ function Visualizaciones({
                 domain={dominioTipoEfectivoIrpf}
                 ticks={ticksTipoEfectivoIrpf}
                 fontSize={14}
-                tickFormatter={formatearTickPorcentaje}
+                tickFormatter={formatearTickTipoEfectivoIrpf}
               />
               <ChartTooltip
                 isAnimationActive={false}
@@ -6047,7 +6178,8 @@ function Visualizaciones({
                         className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
                         style={{ color: item.color }}
                       >
-                        {porcentaje.format(Number(valor))} ({nombre})
+                        {formatearValorTipoEfectivoIrpf(Number(valor))} (
+                        {nombre})
                       </span>
                     )}
                     labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
