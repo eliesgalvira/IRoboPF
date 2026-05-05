@@ -46,25 +46,23 @@ export type GraficoAuditoriaNormativa =
   | "cuna-fiscal"
   | "tipo-marginal"
 
-export type ModoTipoEfectivoGraficoAuditoria = "porcentaje" | "euros-reales"
-export type ModoDiferenciaGraficoAuditoria = "porcentaje" | "euros-reales"
-export type ModoCunaFiscalGraficoAuditoria = "porcentaje" | "euros-reales"
+export type ModoUnidadGraficoAuditoria = "porcentaje" | "euros-reales"
 
 export type SeleccionGraficoAuditoriaNormativa =
   | {
       readonly grafica: "tipo-irpf"
       readonly anios: ReadonlyArray<AnioFiscal>
-      readonly modo: ModoTipoEfectivoGraficoAuditoria
+      readonly modo: ModoUnidadGraficoAuditoria
     }
   | {
       readonly grafica: "diferencia-irpf"
       readonly anios: readonly [AnioFiscal, AnioFiscal]
-      readonly modo: ModoDiferenciaGraficoAuditoria
+      readonly modo: ModoUnidadGraficoAuditoria
     }
   | {
       readonly grafica: "cuna-fiscal"
       readonly anio: AnioFiscal
-      readonly modo: ModoCunaFiscalGraficoAuditoria
+      readonly modo: ModoUnidadGraficoAuditoria
     }
   | {
       readonly grafica: "tipo-marginal"
@@ -95,10 +93,7 @@ export interface ContratoUrlAuditoriaNormativaHistoricaV2 {
   readonly grafica: GraficoAuditoriaNormativa
   readonly anios?: string
   readonly anio?: AnioFiscal
-  readonly modo?:
-    | ModoTipoEfectivoGraficoAuditoria
-    | ModoDiferenciaGraficoAuditoria
-    | ModoCunaFiscalGraficoAuditoria
+  readonly modo?: ModoUnidadGraficoAuditoria
 }
 
 export const varianteAuditoriaPorDefecto = {
@@ -140,13 +135,13 @@ export const anioGraficoTipoMarginalIrpfPorDefecto =
   2025 as const satisfies AnioFiscal
 
 export const modoDiferenciaGraficoAuditoriaPorDefecto =
-  "porcentaje" as const satisfies ModoDiferenciaGraficoAuditoria
+  "porcentaje" as const satisfies ModoUnidadGraficoAuditoria
 
 export const modoTipoEfectivoGraficoAuditoriaPorDefecto =
-  "porcentaje" as const satisfies ModoTipoEfectivoGraficoAuditoria
+  "porcentaje" as const satisfies ModoUnidadGraficoAuditoria
 
 export const modoCunaFiscalGraficoAuditoriaPorDefecto =
-  "porcentaje" as const satisfies ModoCunaFiscalGraficoAuditoria
+  "porcentaje" as const satisfies ModoUnidadGraficoAuditoria
 
 export const seleccionGraficoAuditoriaPorDefecto = {
   grafica: "tipo-irpf",
@@ -651,31 +646,11 @@ export const decodificarGraficoAuditoriaNormativa = (
     Match.orElse(() => Option.none())
   )
 
-export const decodificarModoDiferenciaGraficoAuditoria = (
+export const decodificarModoUnidadGraficoAuditoria = (
   valor: string
-): Option.Option<ModoDiferenciaGraficoAuditoria> =>
+): Option.Option<ModoUnidadGraficoAuditoria> =>
   Match.value(valor).pipe(
-    Match.withReturnType<Option.Option<ModoDiferenciaGraficoAuditoria>>(),
-    Match.when("porcentaje", (modo) => Option.some(modo)),
-    Match.when("euros-reales", (modo) => Option.some(modo)),
-    Match.orElse(() => Option.none())
-  )
-
-export const decodificarModoTipoEfectivoGraficoAuditoria = (
-  valor: string
-): Option.Option<ModoTipoEfectivoGraficoAuditoria> =>
-  Match.value(valor).pipe(
-    Match.withReturnType<Option.Option<ModoTipoEfectivoGraficoAuditoria>>(),
-    Match.when("porcentaje", (modo) => Option.some(modo)),
-    Match.when("euros-reales", (modo) => Option.some(modo)),
-    Match.orElse(() => Option.none())
-  )
-
-export const decodificarModoCunaFiscalGraficoAuditoria = (
-  valor: string
-): Option.Option<ModoCunaFiscalGraficoAuditoria> =>
-  Match.value(valor).pipe(
-    Match.withReturnType<Option.Option<ModoCunaFiscalGraficoAuditoria>>(),
+    Match.withReturnType<Option.Option<ModoUnidadGraficoAuditoria>>(),
     Match.when("porcentaje", (modo) => Option.some(modo)),
     Match.when("euros-reales", (modo) => Option.some(modo)),
     Match.orElse(() => Option.none())
@@ -849,7 +824,7 @@ export const leerSeleccionGraficoAuditoriaDesdeUrl = (
         Option.getOrElse(() => aniosGraficoTipoEfectivoIrpfPorDefecto)
       ),
       modo: leerValorUrl(parametros, "modo").pipe(
-        Option.flatMap(decodificarModoTipoEfectivoGraficoAuditoria),
+        Option.flatMap(decodificarModoUnidadGraficoAuditoria),
         Option.getOrElse(() => modoTipoEfectivoGraficoAuditoriaPorDefecto)
       ),
     })),
@@ -860,7 +835,7 @@ export const leerSeleccionGraficoAuditoriaDesdeUrl = (
         Option.getOrElse(() => aniosGraficoDiferenciaTipoIrpfPorDefecto)
       ),
       modo: leerValorUrl(parametros, "modo").pipe(
-        Option.flatMap(decodificarModoDiferenciaGraficoAuditoria),
+        Option.flatMap(decodificarModoUnidadGraficoAuditoria),
         Option.getOrElse(() => modoDiferenciaGraficoAuditoriaPorDefecto)
       ),
     })),
@@ -868,7 +843,7 @@ export const leerSeleccionGraficoAuditoriaDesdeUrl = (
       grafica,
       anio: leerAnioGraficoCunaFiscalDesdeUrl(parametros),
       modo: leerValorUrl(parametros, "modo").pipe(
-        Option.flatMap(decodificarModoCunaFiscalGraficoAuditoria),
+        Option.flatMap(decodificarModoUnidadGraficoAuditoria),
         Option.getOrElse(() => modoCunaFiscalGraficoAuditoriaPorDefecto)
       ),
     })),

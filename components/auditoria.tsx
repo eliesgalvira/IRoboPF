@@ -83,9 +83,7 @@ import {
   type DescendientePerfilAuditoriaNormativa,
   type EscenarioAuditoriaNormativaHistorica,
   type GraficoAuditoriaNormativa,
-  type ModoCunaFiscalGraficoAuditoria,
-  type ModoDiferenciaGraficoAuditoria,
-  type ModoTipoEfectivoGraficoAuditoria,
+  type ModoUnidadGraficoAuditoria,
   type RangoSalarialAuditoria,
   type SeleccionGraficoAuditoriaNormativa,
   type SituacionRetencionPerfilAuditoria,
@@ -1701,15 +1699,13 @@ type FilaTipoEfectivoIrpf = Record<string, number | string>
 type FilaDiferenciaTipoIrpf = Record<string, number | string | undefined>
 type FilaCunaFiscal = Record<string, number | string | undefined>
 type FilaTipoMarginalIrpf = Record<string, number | string | undefined>
-type ModoTipoEfectivoIrpf = ModoTipoEfectivoGraficoAuditoria
-type ModoDiferenciaTipoIrpf = ModoDiferenciaGraficoAuditoria
-type ModoCunaFiscal = ModoCunaFiscalGraficoAuditoria
+type ModoTipoEfectivoIrpf = ModoUnidadGraficoAuditoria
+type ModoDiferenciaTipoIrpf = ModoUnidadGraficoAuditoria
+type ModoCunaFiscal = ModoUnidadGraficoAuditoria
 const opcionesModoPorcentajeEuros = [
   { valor: "porcentaje", etiqueta: "%" },
   { valor: "euros-reales", etiqueta: "€" },
-] as const satisfies OpcionesSelectorModoGrafico<
-  ModoTipoEfectivoIrpf | ModoDiferenciaTipoIrpf | ModoCunaFiscal
->
+] as const satisfies OpcionesSelectorModoGrafico<ModoUnidadGraficoAuditoria>
 type EstadoDatosGrafico =
   | { readonly _tag: "cargando"; readonly clave: string }
   | {
@@ -5450,13 +5446,13 @@ function Visualizaciones({
     Match.exhaustive
   )
   const modoTipoEfectivoIrpfActivo = Match.value(vistaGrafico).pipe(
-    Match.withReturnType<ModoTipoEfectivoIrpf | ModoDiferenciaTipoIrpf>(),
+    Match.withReturnType<ModoUnidadGraficoAuditoria>(),
     Match.when("tipo-irpf", () => modoTipoEfectivoIrpf),
     Match.when("diferencia-irpf", () => modoDiferenciaTipoIrpf),
     Match.orElse(() => modoTipoEfectivoGraficoAuditoriaPorDefecto)
   )
   const cambiarModoTipoEfectivoIrpfActivo = (
-    modo: ModoTipoEfectivoIrpf | ModoDiferenciaTipoIrpf
+    modo: ModoUnidadGraficoAuditoria
   ) => {
     if (vistaTipoEfectivoIrpfActiva === "tipo-irpf") {
       fijarModoTipoEfectivoIrpf(modo)
