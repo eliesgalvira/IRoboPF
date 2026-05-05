@@ -40,6 +40,28 @@ export interface RangoSalarialAuditoria {
   readonly maximoCentimos: number
 }
 
+export type GraficoAuditoriaNormativa =
+  | "tipo-irpf"
+  | "diferencia-irpf"
+  | "tipo-marginal"
+
+export type ModoDiferenciaGraficoAuditoria = "porcentaje" | "euros-reales"
+
+export type SeleccionGraficoAuditoriaNormativa =
+  | {
+      readonly grafica: "tipo-irpf"
+      readonly anios: ReadonlyArray<AnioFiscal>
+    }
+  | {
+      readonly grafica: "diferencia-irpf"
+      readonly anios: readonly [AnioFiscal, AnioFiscal]
+      readonly modo: ModoDiferenciaGraficoAuditoria
+    }
+  | {
+      readonly grafica: "tipo-marginal"
+      readonly anio: AnioFiscal
+    }
+
 export interface ContratoUrlAuditoriaNormativaHistoricaV1 {
   readonly v: 1
   readonly perfil: PerfilAuditoriaNormativa
@@ -61,6 +83,10 @@ export interface ContratoUrlAuditoriaNormativaHistoricaV2 {
   readonly periodo: string
   readonly comunidad: ComunidadAutonoma
   readonly rango: string
+  readonly grafica: GraficoAuditoriaNormativa
+  readonly anios?: string
+  readonly anio?: AnioFiscal
+  readonly modo?: ModoDiferenciaGraficoAuditoria
 }
 
 export const varianteAuditoriaPorDefecto = {
@@ -86,6 +112,25 @@ export const rangoSalarialAuditoriaPorDefecto = {
   minimoCentimos: 1_500_000,
   maximoCentimos: 10_000_000,
 } as const satisfies RangoSalarialAuditoria
+
+export const aniosGraficoTipoEfectivoIrpfPorDefecto = [
+  2019, 2025,
+] as const satisfies ReadonlyArray<AnioFiscal>
+
+export const aniosGraficoDiferenciaTipoIrpfPorDefecto = [
+  2019, 2025,
+] as const satisfies readonly [AnioFiscal, AnioFiscal]
+
+export const anioGraficoTipoMarginalIrpfPorDefecto =
+  2025 as const satisfies AnioFiscal
+
+export const modoDiferenciaGraficoAuditoriaPorDefecto =
+  "porcentaje" as const satisfies ModoDiferenciaGraficoAuditoria
+
+export const seleccionGraficoAuditoriaPorDefecto = {
+  grafica: "tipo-irpf",
+  anios: aniosGraficoTipoEfectivoIrpfPorDefecto,
+} as const satisfies SeleccionGraficoAuditoriaNormativa
 
 export const escenarioPermiteReferenciaTecnica2026 = (
   escenario: Pick<
@@ -572,6 +617,27 @@ export const decodificarComunidadAutonomaAuditoria = (
     Match.orElse(() => Option.none())
   )
 
+export const decodificarGraficoAuditoriaNormativa = (
+  valor: string
+): Option.Option<GraficoAuditoriaNormativa> =>
+  Match.value(valor).pipe(
+    Match.withReturnType<Option.Option<GraficoAuditoriaNormativa>>(),
+    Match.when("tipo-irpf", (grafica) => Option.some(grafica)),
+    Match.when("diferencia-irpf", (grafica) => Option.some(grafica)),
+    Match.when("tipo-marginal", (grafica) => Option.some(grafica)),
+    Match.orElse(() => Option.none())
+  )
+
+export const decodificarModoDiferenciaGraficoAuditoria = (
+  valor: string
+): Option.Option<ModoDiferenciaGraficoAuditoria> =>
+  Match.value(valor).pipe(
+    Match.withReturnType<Option.Option<ModoDiferenciaGraficoAuditoria>>(),
+    Match.when("porcentaje", (modo) => Option.some(modo)),
+    Match.when("euros-reales", (modo) => Option.some(modo)),
+    Match.orElse(() => Option.none())
+  )
+
 const decodificarAnioFiscal = (valor: string): Option.Option<AnioFiscal> =>
   Match.value(Number(valor)).pipe(
     Match.withReturnType<Option.Option<AnioFiscal>>(),
@@ -668,6 +734,112 @@ export const serializarRangoSalarialAuditoriaUrl = (
   rango: RangoSalarialAuditoria
 ): string =>
   codificarRangoSalarialAuditoriaUrl(normalizarRangoSalarialAuditoria(rango))
+
+const codificarAniosGraficoAuditoriaUrl = (
+  anios: ReadonlyArray<AnioFiscal>
+): string => [...anios].sort((a, b) => a - b).join("-")
+
+const decodificarAniosGraficoAuditoriaUrl = (
+  valor: string
+): Option.Option<ReadonlyArray<AnioFiscal>> => {
+  const anios: Array<AnioFiscal> = []
+
+  for (const valorAnio of valor.split("-").filter((anio) => anio.length > 0)) {
+    const anio = decodificarAnioFiscal(valorAnio)
+    if (Option.isNone(anio)) return Option.none()
+
+    anios.push(anio.value)
+  }
+
+  const aniosUnicos = [...new Set(anios)].sort((a, b) => a - b)
+  if (aniosUnicos.length === 0) {
+    return Option.none()
+  }
+
+  return Option.some(aniosUnicos)
+}
+
+const decodificarParAniosGraficoAuditoriaUrl = (
+  valor: string
+): Option.Option<readonly [AnioFiscal, AnioFiscal]> =>
+  decodificarAniosGraficoAuditoriaUrl(valor).pipe(
+    Option.flatMap((anios) =>
+      anios.length === 2
+        ? Option.some([anios[0], anios[1]] as const)
+        : Option.none()
+    )
+  )
+
+export const leerSeleccionGraficoAuditoriaDesdeUrl = (
+  parametros: LectorParametrosAuditoriaUrl
+): SeleccionGraficoAuditoriaNormativa => {
+  const grafica = leerValorUrl(parametros, "grafica").pipe(
+    Option.flatMap(decodificarGraficoAuditoriaNormativa)
+  )
+
+  if (Option.isNone(grafica)) {
+    return seleccionGraficoAuditoriaPorDefecto
+  }
+
+  return Match.value(grafica.value).pipe(
+    Match.withReturnType<SeleccionGraficoAuditoriaNormativa>(),
+    Match.when("tipo-irpf", (grafica) => ({
+      grafica,
+      anios: leerValorUrl(parametros, "anios").pipe(
+        Option.flatMap(decodificarAniosGraficoAuditoriaUrl),
+        Option.getOrElse(() => aniosGraficoTipoEfectivoIrpfPorDefecto)
+      ),
+    })),
+    Match.when("diferencia-irpf", (grafica) => ({
+      grafica,
+      anios: leerValorUrl(parametros, "anios").pipe(
+        Option.flatMap(decodificarParAniosGraficoAuditoriaUrl),
+        Option.getOrElse(() => aniosGraficoDiferenciaTipoIrpfPorDefecto)
+      ),
+      modo: leerValorUrl(parametros, "modo").pipe(
+        Option.flatMap(decodificarModoDiferenciaGraficoAuditoria),
+        Option.getOrElse(() => modoDiferenciaGraficoAuditoriaPorDefecto)
+      ),
+    })),
+    Match.when("tipo-marginal", (grafica) => ({
+      grafica,
+      anio: leerValorUrl(parametros, "anio").pipe(
+        Option.flatMap(decodificarAnioFiscal),
+        Option.getOrElse(() => anioGraficoTipoMarginalIrpfPorDefecto)
+      ),
+    })),
+    Match.exhaustive
+  )
+}
+
+const construirContratoSeleccionGraficoAuditoriaV2 = (
+  seleccionGrafico: SeleccionGraficoAuditoriaNormativa
+): Pick<
+  ContratoUrlAuditoriaNormativaHistoricaV2,
+  "grafica" | "anios" | "anio" | "modo"
+> =>
+  Match.value(seleccionGrafico).pipe(
+    Match.withReturnType<
+      Pick<
+        ContratoUrlAuditoriaNormativaHistoricaV2,
+        "grafica" | "anios" | "anio" | "modo"
+      >
+    >(),
+    Match.when({ grafica: "tipo-irpf" }, ({ grafica, anios }) => ({
+      grafica,
+      anios: codificarAniosGraficoAuditoriaUrl(anios),
+    })),
+    Match.when({ grafica: "diferencia-irpf" }, ({ grafica, anios, modo }) => ({
+      grafica,
+      anios: codificarAniosGraficoAuditoriaUrl(anios),
+      modo,
+    })),
+    Match.when({ grafica: "tipo-marginal" }, ({ grafica, anio }) => ({
+      grafica,
+      anio,
+    })),
+    Match.exhaustive
+  )
 
 const leerAnioComparadoDesdePeriodo = (
   parametros: LectorParametrosAuditoriaUrl
@@ -790,7 +962,8 @@ export const construirContratoUrlAuditoriaNormativaV2 = (
     anioReferencia,
     anioComparado,
   }: EscenarioAuditoriaNormativaHistorica,
-  rangoSalarial: RangoSalarialAuditoria = rangoSalarialAuditoriaPorDefecto
+  rangoSalarial: RangoSalarialAuditoria = rangoSalarialAuditoriaPorDefecto,
+  seleccionGrafico: SeleccionGraficoAuditoriaNormativa = seleccionGraficoAuditoriaPorDefecto
 ): ContratoUrlAuditoriaNormativaHistoricaV2 => {
   const contrato = {
     v: 2,
@@ -798,6 +971,7 @@ export const construirContratoUrlAuditoriaNormativaV2 = (
     periodo: `${anioComparado}-${anioReferencia}`,
     comunidad: comunidadAutonoma,
     rango: serializarRangoSalarialAuditoriaUrl(rangoSalarial),
+    ...construirContratoSeleccionGraficoAuditoriaV2(seleccionGrafico),
   } as const
 
   return contrato
@@ -812,17 +986,29 @@ export const serializarContratoUrlAuditoriaNormativaV2 = (
   parametros.set("periodo", contrato.periodo)
   parametros.set("comunidad", contrato.comunidad)
   parametros.set("rango", contrato.rango)
+  parametros.set("grafica", contrato.grafica)
+  if (contrato.anios !== undefined) {
+    parametros.set("anios", contrato.anios)
+  }
+  if (contrato.anio !== undefined) {
+    parametros.set("anio", String(contrato.anio))
+  }
+  if (contrato.modo !== undefined) {
+    parametros.set("modo", contrato.modo)
+  }
   return parametros
 }
 
 export const serializarEscenarioAuditoriaNormativa = (
   escenario: EscenarioAuditoriaNormativaHistorica,
-  rangoSalarial: RangoSalarialAuditoria = rangoSalarialAuditoriaPorDefecto
+  rangoSalarial: RangoSalarialAuditoria = rangoSalarialAuditoriaPorDefecto,
+  seleccionGrafico: SeleccionGraficoAuditoriaNormativa = seleccionGraficoAuditoriaPorDefecto
 ): URLSearchParams =>
   serializarContratoUrlAuditoriaNormativaV2(
     construirContratoUrlAuditoriaNormativaV2(
       normalizarEscenarioAuditoriaNormativa(escenario),
-      rangoSalarial
+      rangoSalarial,
+      seleccionGrafico
     )
   )
 

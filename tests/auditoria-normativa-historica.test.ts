@@ -12,10 +12,12 @@ import {
   impactoDesdePerspectivaCiudadano,
   leerEscenarioAuditoriaNormativaDesdeUrl,
   leerRangoSalarialAuditoriaDesdeUrl,
+  leerSeleccionGraficoAuditoriaDesdeUrl,
   normalizarEscenarioAuditoriaNormativa,
   rangoSalarialAuditoriaPorDefecto,
   perfilAuditoriaNormativaParaRetencionPersonalizada,
   perfilesAuditoriaNormativa,
+  seleccionGraficoAuditoriaPorDefecto,
   serializarEscenarioAuditoriaNormativa,
   serializarRangoSalarialAuditoriaUrl,
   umbralRetencionPerfilAuditoriaEuros,
@@ -136,6 +138,50 @@ describe("auditoria normativa historica", () => {
     }
   })
 
+  it("parsea la seleccion de grafica del contrato URL v2", () => {
+    expect(
+      leerSeleccionGraficoAuditoriaDesdeUrl(
+        new URLSearchParams("v=2&grafica=tipo-irpf&anios=2018-2024-2025")
+      )
+    ).toEqual({
+      grafica: "tipo-irpf",
+      anios: [2018, 2024, 2025],
+    })
+    expect(
+      leerSeleccionGraficoAuditoriaDesdeUrl(
+        new URLSearchParams(
+          "v=2&grafica=diferencia-irpf&anios=2024-2025&modo=euros-reales"
+        )
+      )
+    ).toEqual({
+      grafica: "diferencia-irpf",
+      anios: [2024, 2025],
+      modo: "euros-reales",
+    })
+    expect(
+      leerSeleccionGraficoAuditoriaDesdeUrl(
+        new URLSearchParams("v=2&grafica=tipo-marginal&anio=2023")
+      )
+    ).toEqual({
+      grafica: "tipo-marginal",
+      anio: 2023,
+    })
+    expect(
+      leerSeleccionGraficoAuditoriaDesdeUrl(
+        new URLSearchParams("v=2&grafica=inventada&anios=2024-2025")
+      )
+    ).toEqual(seleccionGraficoAuditoriaPorDefecto)
+    expect(
+      leerSeleccionGraficoAuditoriaDesdeUrl(
+        new URLSearchParams("v=2&grafica=diferencia-irpf&anios=2025&modo=mal")
+      )
+    ).toEqual({
+      grafica: "diferencia-irpf",
+      anios: [2019, 2025],
+      modo: "porcentaje",
+    })
+  })
+
   it("reserva 2026 a perfiles con retencion tecnica y comunidad simulada estatal", () => {
     expect(
       escenarioPermiteReferenciaTecnica2026(escenarioAuditoriaPorDefecto)
@@ -236,11 +282,16 @@ describe("auditoria normativa historica", () => {
         comunidadesAutonomas: ["catalunya"],
         magnitudAuditada: "salario_neto_anual",
       },
-      { minimoCentimos: 2_000_000, maximoCentimos: 4_500_000 }
+      { minimoCentimos: 2_000_000, maximoCentimos: 4_500_000 },
+      {
+        grafica: "diferencia-irpf",
+        anios: [2024, 2025],
+        modo: "euros-reales",
+      }
     )
 
     expect(parametros.toString()).toBe(
-      "v=2&perfil=pareja_con_hijos&periodo=2024-2025&comunidad=catalunya&rango=20000-45000"
+      "v=2&perfil=pareja_con_hijos&periodo=2024-2025&comunidad=catalunya&rango=20000-45000&grafica=diferencia-irpf&anios=2024-2025&modo=euros-reales"
     )
     expect(
       construirContratoUrlAuditoriaNormativaV1({
@@ -262,6 +313,8 @@ describe("auditoria normativa historica", () => {
       periodo: "2024-2025",
       comunidad: "simulada-estatal",
       rango: "15000-100000",
+      grafica: "tipo-irpf",
+      anios: "2019-2025",
     })
     expect(
       serializarRangoSalarialAuditoriaUrl({
