@@ -1,4 +1,4 @@
-import { Match, Option } from "effect"
+import { Match, Option, Schema } from "effect"
 
 import type { ComunidadAutonoma } from "../irpf/caso-fiscal-anual"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
@@ -18,9 +18,7 @@ export type EstrategiaProyeccionSalarial =
   | "coste_laboral_real_constante"
   | "trayectoria_salarial_propia"
 
-export type PerfilAuditoriaNormativa =
-  | "soltero_sin_hijos"
-  | "pareja_con_hijos"
+export type PerfilAuditoriaNormativa = "soltero_sin_hijos" | "pareja_con_hijos"
 
 export interface VarianteAuditoriaNormativaHistorica {
   readonly magnitudAuditada: MagnitudAuditada
@@ -35,6 +33,11 @@ export interface EscenarioAuditoriaNormativaHistorica {
   readonly anioComparado: AnioFiscal
   readonly magnitudAuditada: MagnitudAuditada
   readonly estrategiaProyeccionSalarial: EstrategiaProyeccionSalarial
+}
+
+export interface RangoSalarialAuditoria {
+  readonly minimoCentimos: number
+  readonly maximoCentimos: number
 }
 
 export interface ContratoUrlAuditoriaNormativaHistoricaV1 {
@@ -57,6 +60,7 @@ export interface ContratoUrlAuditoriaNormativaHistoricaV2 {
   readonly perfil: PerfilAuditoriaNormativa
   readonly periodo: string
   readonly comunidad: ComunidadAutonoma
+  readonly rango: string
 }
 
 export const varianteAuditoriaPorDefecto = {
@@ -72,6 +76,16 @@ export const escenarioAuditoriaPorDefecto = {
   anioComparado: 2019,
   ...varianteAuditoriaPorDefecto,
 } as const satisfies EscenarioAuditoriaNormativaHistorica
+
+export const limitesRangoSalarialAuditoria = {
+  minimoCentimos: 1_000_000,
+  maximoCentimos: 10_000_000,
+} as const satisfies RangoSalarialAuditoria
+
+export const rangoSalarialAuditoriaPorDefecto = {
+  minimoCentimos: 1_500_000,
+  maximoCentimos: 10_000_000,
+} as const satisfies RangoSalarialAuditoria
 
 export const escenarioPermiteReferenciaTecnica2026 = (
   escenario: Pick<
@@ -584,6 +598,77 @@ const leerValorUrl = (
   clave: string
 ): Option.Option<string> => Option.fromNullishOr(parametros.get(clave))
 
+const centimosAEurosUrl = (centimos: number): number =>
+  Math.round(centimos / 100)
+
+const eurosUrlACentimos = (euros: number): number => euros * 100
+
+const salarioRangoAuditoriaEurosSchema = Schema.NumberFromString.check(
+  Schema.isInt()
+).check(
+  Schema.isBetween({
+    minimum: centimosAEurosUrl(limitesRangoSalarialAuditoria.minimoCentimos),
+    maximum: centimosAEurosUrl(limitesRangoSalarialAuditoria.maximoCentimos),
+  })
+)
+
+const rangoSalarialAuditoriaUrlSchema = Schema.Tuple([
+  salarioRangoAuditoriaEurosSchema,
+  salarioRangoAuditoriaEurosSchema,
+]).check(
+  Schema.makeFilter(
+    ([minimoEuros, maximoEuros]) =>
+      minimoEuros <= maximoEuros || "El rango salarial debe estar ordenado",
+    { title: "Rango salarial ordenado" }
+  )
+)
+
+const decodificarRangoSalarialAuditoriaUrl = (
+  rango: string
+): Option.Option<RangoSalarialAuditoria> =>
+  Schema.decodeUnknownOption(rangoSalarialAuditoriaUrlSchema)(
+    rango.split("-")
+  ).pipe(
+    Option.map(([minimoEuros, maximoEuros]) => ({
+      minimoCentimos: eurosUrlACentimos(minimoEuros),
+      maximoCentimos: eurosUrlACentimos(maximoEuros),
+    }))
+  )
+
+export const leerRangoSalarialAuditoriaDesdeUrl = (
+  parametros: LectorParametrosAuditoriaUrl
+): RangoSalarialAuditoria =>
+  leerValorUrl(parametros, "rango").pipe(
+    Option.flatMap(decodificarRangoSalarialAuditoriaUrl),
+    Option.getOrElse(() => rangoSalarialAuditoriaPorDefecto)
+  )
+
+const ordenarRangoSalarialAuditoria = ({
+  minimoCentimos,
+  maximoCentimos,
+}: RangoSalarialAuditoria): RangoSalarialAuditoria => ({
+  minimoCentimos: Math.min(minimoCentimos, maximoCentimos),
+  maximoCentimos: Math.max(minimoCentimos, maximoCentimos),
+})
+
+const codificarRangoSalarialAuditoriaUrl = ({
+  minimoCentimos,
+  maximoCentimos,
+}: RangoSalarialAuditoria): string =>
+  `${centimosAEurosUrl(minimoCentimos)}-${centimosAEurosUrl(maximoCentimos)}`
+
+export const normalizarRangoSalarialAuditoria = (
+  rango: RangoSalarialAuditoria
+): RangoSalarialAuditoria =>
+  decodificarRangoSalarialAuditoriaUrl(
+    codificarRangoSalarialAuditoriaUrl(ordenarRangoSalarialAuditoria(rango))
+  ).pipe(Option.getOrElse(() => rangoSalarialAuditoriaPorDefecto))
+
+export const serializarRangoSalarialAuditoriaUrl = (
+  rango: RangoSalarialAuditoria
+): string =>
+  codificarRangoSalarialAuditoriaUrl(normalizarRangoSalarialAuditoria(rango))
+
 const leerAnioComparadoDesdePeriodo = (
   parametros: LectorParametrosAuditoriaUrl
 ): Option.Option<AnioFiscal> =>
@@ -698,17 +783,21 @@ export const serializarContratoUrlAuditoriaNormativaV1 = (
   return parametros
 }
 
-export const construirContratoUrlAuditoriaNormativaV2 = ({
-  perfil,
-  comunidadAutonoma,
-  anioReferencia,
-  anioComparado,
-}: EscenarioAuditoriaNormativaHistorica): ContratoUrlAuditoriaNormativaHistoricaV2 => {
+export const construirContratoUrlAuditoriaNormativaV2 = (
+  {
+    perfil,
+    comunidadAutonoma,
+    anioReferencia,
+    anioComparado,
+  }: EscenarioAuditoriaNormativaHistorica,
+  rangoSalarial: RangoSalarialAuditoria = rangoSalarialAuditoriaPorDefecto
+): ContratoUrlAuditoriaNormativaHistoricaV2 => {
   const contrato = {
     v: 2,
     perfil,
     periodo: `${anioComparado}-${anioReferencia}`,
     comunidad: comunidadAutonoma,
+    rango: serializarRangoSalarialAuditoriaUrl(rangoSalarial),
   } as const
 
   return contrato
@@ -722,15 +811,18 @@ export const serializarContratoUrlAuditoriaNormativaV2 = (
   parametros.set("perfil", contrato.perfil)
   parametros.set("periodo", contrato.periodo)
   parametros.set("comunidad", contrato.comunidad)
+  parametros.set("rango", contrato.rango)
   return parametros
 }
 
 export const serializarEscenarioAuditoriaNormativa = (
-  escenario: EscenarioAuditoriaNormativaHistorica
+  escenario: EscenarioAuditoriaNormativaHistorica,
+  rangoSalarial: RangoSalarialAuditoria = rangoSalarialAuditoriaPorDefecto
 ): URLSearchParams =>
   serializarContratoUrlAuditoriaNormativaV2(
     construirContratoUrlAuditoriaNormativaV2(
-      normalizarEscenarioAuditoriaNormativa(escenario)
+      normalizarEscenarioAuditoriaNormativa(escenario),
+      rangoSalarial
     )
   )
 
