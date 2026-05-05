@@ -43,6 +43,7 @@ export interface RangoSalarialAuditoria {
 export type GraficoAuditoriaNormativa =
   | "tipo-irpf"
   | "diferencia-irpf"
+  | "cuna-fiscal"
   | "tipo-marginal"
 
 export type ModoDiferenciaGraficoAuditoria = "porcentaje" | "euros-reales"
@@ -56,6 +57,10 @@ export type SeleccionGraficoAuditoriaNormativa =
       readonly grafica: "diferencia-irpf"
       readonly anios: readonly [AnioFiscal, AnioFiscal]
       readonly modo: ModoDiferenciaGraficoAuditoria
+    }
+  | {
+      readonly grafica: "cuna-fiscal"
+      readonly anio: AnioFiscal
     }
   | {
       readonly grafica: "tipo-marginal"
@@ -120,6 +125,9 @@ export const aniosGraficoTipoEfectivoIrpfPorDefecto = [
 export const aniosGraficoDiferenciaTipoIrpfPorDefecto = [
   2019, 2025,
 ] as const satisfies readonly [AnioFiscal, AnioFiscal]
+
+export const anioGraficoCunaFiscalPorDefecto =
+  2025 as const satisfies AnioFiscal
 
 export const anioGraficoTipoMarginalIrpfPorDefecto =
   2025 as const satisfies AnioFiscal
@@ -624,6 +632,7 @@ export const decodificarGraficoAuditoriaNormativa = (
     Match.withReturnType<Option.Option<GraficoAuditoriaNormativa>>(),
     Match.when("tipo-irpf", (grafica) => Option.some(grafica)),
     Match.when("diferencia-irpf", (grafica) => Option.some(grafica)),
+    Match.when("cuna-fiscal", (grafica) => Option.some(grafica)),
     Match.when("tipo-marginal", (grafica) => Option.some(grafica)),
     Match.orElse(() => Option.none())
   )
@@ -770,6 +779,22 @@ const decodificarParAniosGraficoAuditoriaUrl = (
     )
   )
 
+const leerAnioGraficoCunaFiscalDesdeUrl = (
+  parametros: LectorParametrosAuditoriaUrl
+): AnioFiscal => {
+  const anioDirecto = leerValorUrl(parametros, "anio").pipe(
+    Option.flatMap(decodificarAnioFiscal)
+  )
+
+  if (Option.isSome(anioDirecto)) return anioDirecto.value
+
+  return leerValorUrl(parametros, "anios").pipe(
+    Option.flatMap(decodificarAniosGraficoAuditoriaUrl),
+    Option.flatMap((anios) => Option.fromNullishOr(anios.at(-1))),
+    Option.getOrElse(() => anioGraficoCunaFiscalPorDefecto)
+  )
+}
+
 export const leerSeleccionGraficoAuditoriaDesdeUrl = (
   parametros: LectorParametrosAuditoriaUrl
 ): SeleccionGraficoAuditoriaNormativa => {
@@ -800,6 +825,10 @@ export const leerSeleccionGraficoAuditoriaDesdeUrl = (
         Option.flatMap(decodificarModoDiferenciaGraficoAuditoria),
         Option.getOrElse(() => modoDiferenciaGraficoAuditoriaPorDefecto)
       ),
+    })),
+    Match.when("cuna-fiscal", (grafica) => ({
+      grafica,
+      anio: leerAnioGraficoCunaFiscalDesdeUrl(parametros),
     })),
     Match.when("tipo-marginal", (grafica) => ({
       grafica,
@@ -833,6 +862,10 @@ const construirContratoSeleccionGraficoAuditoriaV2 = (
       grafica,
       anios: codificarAniosGraficoAuditoriaUrl(anios),
       modo,
+    })),
+    Match.when({ grafica: "cuna-fiscal" }, ({ grafica, anio }) => ({
+      grafica,
+      anio,
     })),
     Match.when({ grafica: "tipo-marginal" }, ({ grafica, anio }) => ({
       grafica,

@@ -168,6 +168,22 @@ describe("auditoria normativa historica", () => {
     })
     expect(
       leerSeleccionGraficoAuditoriaDesdeUrl(
+        new URLSearchParams("v=2&grafica=cuna-fiscal&anio=2025")
+      )
+    ).toEqual({
+      grafica: "cuna-fiscal",
+      anio: 2025,
+    })
+    expect(
+      leerSeleccionGraficoAuditoriaDesdeUrl(
+        new URLSearchParams("v=2&grafica=cuna-fiscal&anios=2019-2025")
+      )
+    ).toEqual({
+      grafica: "cuna-fiscal",
+      anio: 2025,
+    })
+    expect(
+      leerSeleccionGraficoAuditoriaDesdeUrl(
         new URLSearchParams("v=2&grafica=inventada&anios=2024-2025")
       )
     ).toEqual(seleccionGraficoAuditoriaPorDefecto)
@@ -328,6 +344,18 @@ describe("auditoria normativa historica", () => {
         maximoCentimos: 20_000_000,
       })
     ).toBe("15000-100000")
+    expect(
+      serializarEscenarioAuditoriaNormativa(
+        escenarioAuditoriaPorDefecto,
+        { minimoCentimos: 1_500_000, maximoCentimos: 10_000_000 },
+        {
+          grafica: "cuna-fiscal",
+          anio: 2025,
+        }
+      ).toString()
+    ).toBe(
+      "v=2&perfil=soltero_sin_hijos&periodo=2019-2025&comunidad=simulada-estatal&rango=15000-100000&grafica=cuna-fiscal&anio=2025"
+    )
   })
 
   it("normaliza cualquier contrato antiguo de varias comunidades a seleccion singular", () => {

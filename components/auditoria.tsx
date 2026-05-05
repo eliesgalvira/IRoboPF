@@ -56,6 +56,7 @@ import {
 } from "@/components/ui/combobox"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
+  anioGraficoCunaFiscalPorDefecto,
   anioGraficoTipoMarginalIrpfPorDefecto,
   aniosGraficoDiferenciaTipoIrpfPorDefecto,
   aniosGraficoTipoEfectivoIrpfPorDefecto,
@@ -112,6 +113,7 @@ import {
 
 const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
 const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-efectivo-salario-v4"
+const VERSION_CALCULO_CUNA_FISCAL = "cuna-fiscal-salario-v1"
 const VERSION_CALCULO_TIPO_MARGINAL_IRPF = "irpf-cuota-marginal-smi-v3"
 const pasoCalculoMarginalMaximoCentimos = 5_000
 const salarioDeclaracionConObligacionCentimos =
@@ -269,12 +271,14 @@ const construirSeleccionGraficoAuditoria = ({
   vistaGrafico,
   aniosGraficoIrpf,
   aniosGraficoDiferenciaTipoIrpf,
+  anioGraficoCunaFiscal,
   modoDiferenciaTipoIrpf,
   anioGraficoTipoMarginalIrpf,
 }: {
   readonly vistaGrafico: VistaGraficoAuditoria
   readonly aniosGraficoIrpf: ReadonlyArray<AnioFiscal>
   readonly aniosGraficoDiferenciaTipoIrpf: readonly [AnioFiscal, AnioFiscal]
+  readonly anioGraficoCunaFiscal: AnioFiscal
   readonly modoDiferenciaTipoIrpf: ModoDiferenciaTipoIrpf
   readonly anioGraficoTipoMarginalIrpf: AnioFiscal
 }): SeleccionGraficoAuditoriaNormativa =>
@@ -288,6 +292,10 @@ const construirSeleccionGraficoAuditoria = ({
       grafica,
       anios: aniosGraficoDiferenciaTipoIrpf,
       modo: modoDiferenciaTipoIrpf,
+    })),
+    Match.when("cuna-fiscal", (grafica) => ({
+      grafica,
+      anio: anioGraficoCunaFiscal,
     })),
     Match.when("tipo-marginal", (grafica) => ({
       grafica,
@@ -337,6 +345,12 @@ function AuditoriaImpl({
         ? estadoInicialAuditoria.seleccionGrafico.anios
         : aniosGraficoDiferenciaTipoIrpfPorDefecto
     )
+  const [anioGraficoCunaFiscal, fijarAnioGraficoCunaFiscal] =
+    React.useState<AnioFiscal>(() =>
+    estadoInicialAuditoria.seleccionGrafico.grafica === "cuna-fiscal"
+      ? estadoInicialAuditoria.seleccionGrafico.anio
+      : anioGraficoCunaFiscalPorDefecto
+  )
   const [modoDiferenciaTipoIrpf, fijarModoDiferenciaTipoIrpf] =
     React.useState<ModoDiferenciaTipoIrpf>(() =>
       estadoInicialAuditoria.seleccionGrafico.grafica === "diferencia-irpf"
@@ -539,10 +553,12 @@ function AuditoriaImpl({
         vistaGrafico,
         aniosGraficoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
+        anioGraficoCunaFiscal,
         modoDiferenciaTipoIrpf,
         anioGraficoTipoMarginalIrpf,
       }),
     [
+      anioGraficoCunaFiscal,
       anioGraficoTipoMarginalIrpf,
       aniosGraficoDiferenciaTipoIrpf,
       aniosGraficoIrpf,
@@ -622,6 +638,9 @@ function AuditoriaImpl({
           fijarModoDiferenciaTipoIrpf(modo)
           ordenSeleccionDiferenciaTipoIrpfRef.current = anios
         }),
+        Match.when({ grafica: "cuna-fiscal" }, ({ anio }) => {
+          fijarAnioGraficoCunaFiscal(anio)
+        }),
         Match.when({ grafica: "tipo-marginal" }, ({ anio }) => {
           fijarAnioGraficoTipoMarginalIrpf(anio)
         }),
@@ -637,6 +656,7 @@ function AuditoriaImpl({
         vistaGrafico,
         aniosGraficoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
+        anioGraficoCunaFiscal,
         modoDiferenciaTipoIrpf,
         anioGraficoTipoMarginalIrpf,
       })
@@ -644,6 +664,7 @@ function AuditoriaImpl({
       reemplazarUrlAuditoria({ seleccionGrafico })
     },
     [
+      anioGraficoCunaFiscal,
       anioGraficoTipoMarginalIrpf,
       aniosGraficoDiferenciaTipoIrpf,
       aniosGraficoIrpf,
@@ -658,6 +679,7 @@ function AuditoriaImpl({
         vistaGrafico: "tipo-irpf",
         aniosGraficoIrpf: anios,
         aniosGraficoDiferenciaTipoIrpf,
+        anioGraficoCunaFiscal,
         modoDiferenciaTipoIrpf,
         anioGraficoTipoMarginalIrpf,
       })
@@ -665,6 +687,7 @@ function AuditoriaImpl({
       reemplazarUrlAuditoria({ seleccionGrafico })
     },
     [
+      anioGraficoCunaFiscal,
       anioGraficoTipoMarginalIrpf,
       aniosGraficoDiferenciaTipoIrpf,
       modoDiferenciaTipoIrpf,
@@ -678,6 +701,7 @@ function AuditoriaImpl({
         vistaGrafico: "diferencia-irpf",
         aniosGraficoIrpf,
         aniosGraficoDiferenciaTipoIrpf: anios,
+        anioGraficoCunaFiscal,
         modoDiferenciaTipoIrpf,
         anioGraficoTipoMarginalIrpf,
       })
@@ -685,7 +709,30 @@ function AuditoriaImpl({
       reemplazarUrlAuditoria({ seleccionGrafico })
     },
     [
+      anioGraficoCunaFiscal,
       anioGraficoTipoMarginalIrpf,
+      aniosGraficoIrpf,
+      modoDiferenciaTipoIrpf,
+      reemplazarUrlAuditoria,
+    ]
+  )
+
+  const actualizarAnioGraficoCunaFiscal = React.useCallback(
+    (anio: AnioFiscal) => {
+      const seleccionGrafico = construirSeleccionGraficoAuditoria({
+        vistaGrafico: "cuna-fiscal",
+        aniosGraficoIrpf,
+        aniosGraficoDiferenciaTipoIrpf,
+        anioGraficoCunaFiscal: anio,
+        modoDiferenciaTipoIrpf,
+        anioGraficoTipoMarginalIrpf,
+      })
+      fijarAnioGraficoCunaFiscal(anio)
+      reemplazarUrlAuditoria({ seleccionGrafico })
+    },
+    [
+      anioGraficoTipoMarginalIrpf,
+      aniosGraficoDiferenciaTipoIrpf,
       aniosGraficoIrpf,
       modoDiferenciaTipoIrpf,
       reemplazarUrlAuditoria,
@@ -698,6 +745,7 @@ function AuditoriaImpl({
         vistaGrafico: "diferencia-irpf",
         aniosGraficoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
+        anioGraficoCunaFiscal,
         modoDiferenciaTipoIrpf: modo,
         anioGraficoTipoMarginalIrpf,
       })
@@ -705,6 +753,7 @@ function AuditoriaImpl({
       reemplazarUrlAuditoria({ seleccionGrafico })
     },
     [
+      anioGraficoCunaFiscal,
       anioGraficoTipoMarginalIrpf,
       aniosGraficoDiferenciaTipoIrpf,
       aniosGraficoIrpf,
@@ -718,6 +767,7 @@ function AuditoriaImpl({
         vistaGrafico: "tipo-marginal",
         aniosGraficoIrpf,
         aniosGraficoDiferenciaTipoIrpf,
+        anioGraficoCunaFiscal,
         modoDiferenciaTipoIrpf,
         anioGraficoTipoMarginalIrpf: anio,
       })
@@ -725,6 +775,7 @@ function AuditoriaImpl({
       reemplazarUrlAuditoria({ seleccionGrafico })
     },
     [
+      anioGraficoCunaFiscal,
       aniosGraficoDiferenciaTipoIrpf,
       aniosGraficoIrpf,
       modoDiferenciaTipoIrpf,
@@ -934,6 +985,8 @@ function AuditoriaImpl({
           fijarAniosGraficoDiferenciaTipoIrpf={
             actualizarAniosGraficoDiferenciaTipoIrpf
           }
+          anioGraficoCunaFiscal={anioGraficoCunaFiscal}
+          fijarAnioGraficoCunaFiscal={actualizarAnioGraficoCunaFiscal}
           modoDiferenciaTipoIrpf={modoDiferenciaTipoIrpf}
           fijarModoDiferenciaTipoIrpf={actualizarModoDiferenciaTipoIrpf}
           anioGraficoTipoMarginalIrpf={anioGraficoTipoMarginalIrpf}
@@ -1362,6 +1415,35 @@ const claveDiferenciaTipoIrpfEurosRealesDesfavorable =
   "diferenciaTipoIrpfEurosRealesDesfavorable"
 const colorDiferenciaTipoIrpfFavorable = "oklch(0.43 0.14 152)"
 const colorDiferenciaTipoIrpfDesfavorable = "oklch(0.48 0.20 28)"
+type ComponenteCunaFiscal =
+  | "irpf"
+  | "cotizaciones-trabajador"
+  | "cotizaciones-empresa"
+  | "total"
+const componentesApiladosCunaFiscal = [
+  "irpf",
+  "cotizaciones-trabajador",
+  "cotizaciones-empresa",
+] as const satisfies ReadonlyArray<ComponenteCunaFiscal>
+const claveSerieCunaFiscal = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal,
+  componente: ComponenteCunaFiscal
+) => `cuna-fiscal-${comunidadAutonoma}-${anio}-${componente}`
+const claveStackCunaFiscal = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal
+) => `cuna-fiscal-${comunidadAutonoma}-${anio}`
+const colorComponenteCunaFiscal = (
+  componente: ComponenteCunaFiscal
+): string =>
+  Match.value(componente).pipe(
+    Match.when("irpf", () => "oklch(0.62 0.12 245)"),
+    Match.when("cotizaciones-trabajador", () => "oklch(0.78 0.15 82)"),
+    Match.when("cotizaciones-empresa", () => "oklch(0.68 0.17 72)"),
+    Match.when("total", () => "var(--rule)"),
+    Match.exhaustive
+  )
 const claveTipoMarginalIrpf = "tipoMarginalIrpf"
 const claveTipoEfectivoIrpfMarginal = "tipoEfectivoIrpfMarginal"
 const colorTipoMarginalIrpf = "oklch(0.52 0.14 245)"
@@ -1371,6 +1453,25 @@ const etiquetaSerieAuditoria = (
   anio: AnioFiscal
 ) =>
   `${describirComunidadAutonomaAuditoria(comunidadAutonoma).etiqueta} ${anio}`
+const etiquetaComponenteCunaFiscal = (
+  componente: ComponenteCunaFiscal
+): string =>
+  Match.value(componente).pipe(
+    Match.when("irpf", () => "IRPF"),
+    Match.when("cotizaciones-trabajador", () => "Cotizaciones trabajador"),
+    Match.when("cotizaciones-empresa", () => "Cotizaciones empresa"),
+    Match.when("total", () => "Cuña fiscal"),
+    Match.exhaustive
+  )
+const etiquetaSerieCunaFiscal = (
+  comunidadAutonoma: ComunidadAuditada,
+  anio: AnioFiscal,
+  componente: ComponenteCunaFiscal
+) =>
+  `${etiquetaComponenteCunaFiscal(componente)} ${etiquetaSerieAuditoria(
+    comunidadAutonoma,
+    anio
+  )}`
 const aniosDesdeClaveGrafico = (clave: string): ReadonlyArray<AnioFiscal> =>
   clave
     .split(",")
@@ -1439,6 +1540,33 @@ const configuracionDiferenciaTipoIrpf = ({
   } satisfies ChartConfig
 }
 
+const configuracionCunaFiscal = ({
+  comunidadesAutonomas,
+  anios,
+}: {
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly anios: ReadonlyArray<AnioFiscal>
+}): ChartConfig =>
+  Object.fromEntries(
+    comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+      anios.flatMap((anio) =>
+        ([...componentesApiladosCunaFiscal, "total"] as const).map(
+          (componente) => [
+            claveSerieCunaFiscal(comunidadAutonoma, anio, componente),
+            {
+              label: etiquetaSerieCunaFiscal(
+                comunidadAutonoma,
+                anio,
+                componente
+              ),
+              color: colorComponenteCunaFiscal(componente),
+            },
+          ]
+        )
+      )
+    )
+  ) satisfies ChartConfig
+
 const configuracionTipoMarginalIrpf = ({
   comunidadAutonoma,
   anio,
@@ -1462,6 +1590,7 @@ const configuracionTipoMarginalIrpf = ({
 
 type FilaTipoEfectivoIrpf = Record<string, number | string>
 type FilaDiferenciaTipoIrpf = Record<string, number | string | undefined>
+type FilaCunaFiscal = Record<string, number | string | undefined>
 type FilaTipoMarginalIrpf = Record<string, number | string | undefined>
 type ModoDiferenciaTipoIrpf = ModoDiferenciaGraficoAuditoria
 const modosDiferenciaTipoIrpf = [
@@ -1478,6 +1607,7 @@ type EstadoDatosGrafico =
       readonly clave: string
       readonly tipoEfectivoIrpf: ReadonlyArray<FilaTipoEfectivoIrpf>
       readonly diferenciaTipoIrpf: ReadonlyArray<FilaDiferenciaTipoIrpf>
+      readonly cunaFiscal: ReadonlyArray<FilaCunaFiscal>
       readonly tipoMarginalIrpf: ReadonlyArray<FilaTipoMarginalIrpf>
     }
   | { readonly _tag: "error"; readonly clave: string; readonly mensaje: string }
@@ -1489,11 +1619,13 @@ type VistaGraficoAuditoria = GraficoAuditoriaNormativa
 const vistasGraficoAuditoria = [
   "tipo-irpf",
   "diferencia-irpf",
+  "cuna-fiscal",
   "tipo-marginal",
 ] as const satisfies ReadonlyArray<VistaGraficoAuditoria>
 
 const versionCalculoDatosGrafico = (vista: VistaGraficoAuditoria) =>
   Match.value(vista).pipe(
+    Match.when("cuna-fiscal", () => VERSION_CALCULO_CUNA_FISCAL),
     Match.when("tipo-marginal", () => VERSION_CALCULO_TIPO_MARGINAL_IRPF),
     Match.orElse(() => VERSION_CALCULO_AUDITORIA_IRPF)
   )
@@ -2252,6 +2384,105 @@ const construirFilasDiferenciaTipoIrpfDesdeSeries = ({
     })
   ).map(asignarSegmentosDiferenciaTipoIrpf)
 
+const valorComponenteCunaFiscal = ({
+  desglose,
+  componente,
+}: {
+  readonly desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"]
+  readonly componente: ComponenteCunaFiscal
+}) => {
+  const irpfComparableCentimos = irpfConDeclaracionCentimos(desglose)
+
+  return Match.value(componente).pipe(
+    Match.withReturnType<number>(),
+    Match.when("irpf", () =>
+      proporcionSegura(irpfComparableCentimos, desglose.costeLaboralCentimos)
+    ),
+    Match.when("cotizaciones-trabajador", () =>
+      proporcionSegura(
+        desglose.cotizacionTrabajadorCentimos,
+        desglose.costeLaboralCentimos
+      )
+    ),
+    Match.when("cotizaciones-empresa", () =>
+      proporcionSegura(
+        desglose.cotizacionEmpresarialCentimos,
+        desglose.costeLaboralCentimos
+      )
+    ),
+    Match.when("total", () =>
+      proporcionSegura(
+        irpfComparableCentimos +
+          desglose.cotizacionTrabajadorCentimos +
+          desglose.cotizacionEmpresarialCentimos,
+        desglose.costeLaboralCentimos
+      )
+    ),
+    Match.exhaustive
+  )
+}
+
+const construirFilasCunaFiscalDesdeSeries = ({
+  auditoria,
+  comunidadesAutonomas,
+  aniosSeleccionados,
+  anioReferenciaSeries,
+  series,
+}: {
+  readonly auditoria: AuditoriaRangoSalarial
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly aniosSeleccionados: ReadonlyArray<AnioFiscal>
+  readonly anioReferenciaSeries: AnioFiscal
+  readonly series: ReadonlyMap<
+    string,
+    ReadonlyArray<PuntoAuditoriaRangoSalarial>
+  >
+}) =>
+  auditoria.puntos.flatMap((puntoBase) => {
+    if (
+      !esSalarioVisibleTipoEfectivoIrpf({
+        salarioBrutoAnualCentimos: puntoBase.salarioBrutoAnualCentimos,
+        salarioMinimoCentimos: auditoria.salarioBrutoAnualMinimoCentimos,
+        pasoCentimos: auditoria.pasoCentimos,
+      })
+    ) {
+      return []
+    }
+
+    const fila: FilaCunaFiscal = {
+      salarioEuros: centimosAEuros(puntoBase.salarioBrutoAnualCentimos),
+      salario: formatearCentimosEnteros(puntoBase.salarioBrutoAnualCentimos),
+    }
+
+    for (const comunidadAutonoma of comunidadesAutonomas) {
+      for (const anio of aniosSeleccionados) {
+        const punto = puntoSeriePorSalario({
+          series,
+          comunidadAutonoma,
+          anio,
+          salarioBrutoAnualCentimos: puntoBase.salarioBrutoAnualCentimos,
+        })
+        if (Option.isNone(punto)) continue
+
+        const desglose = desgloseLiquidadoParaAnio({
+          anio,
+          anioReferenciaSeries,
+          punto: punto.value,
+        })
+
+        for (const componente of [
+          ...componentesApiladosCunaFiscal,
+          "total",
+        ] as const) {
+          fila[claveSerieCunaFiscal(comunidadAutonoma, anio, componente)] =
+            valorComponenteCunaFiscal({ desglose, componente })
+        }
+      }
+    }
+
+    return [fila]
+  })
+
 const calcularTipoMarginalIrpf = ({
   anio,
   anioReferenciaSeries,
@@ -2415,6 +2646,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
   perfil,
   aniosIrpf,
   aniosDiferenciaTipoIrpf,
+  anioCunaFiscal,
   magnitudAuditada,
   anioTipoMarginalIrpf,
   anioReferenciaGraficosIrpf,
@@ -2427,6 +2659,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
   readonly perfil: PerfilAuditado
   readonly aniosIrpf: ReadonlyArray<AnioFiscal>
   readonly aniosDiferenciaTipoIrpf: readonly [AnioFiscal, AnioFiscal]
+  readonly anioCunaFiscal: AnioFiscal
   readonly magnitudAuditada: MagnitudAuditadaAuditoria
   readonly anioTipoMarginalIrpf: AnioFiscal
   readonly anioReferenciaGraficosIrpf: AnioFiscal
@@ -2435,6 +2668,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
 }) {
   const anioReferenciaTipoEfectivoIrpf = anioReferenciaGraficosIrpf
   const anioReferenciaDiferenciaTipoIrpf = anioReferenciaGraficosIrpf
+  const anioReferenciaCunaFiscal = anioReferenciaGraficosIrpf
   const anioReferenciaTipoMarginalIrpf = anioReferenciaGraficosIrpf
   const tipoEfectivoIrpf = yield* Match.value(vistaGrafico).pipe(
     Match.when("tipo-irpf", () =>
@@ -2518,6 +2752,45 @@ const construirFilasGraficosAuditoria = Effect.fn(
     )
   )
 
+  const cunaFiscal = yield* Match.value(vistaGrafico).pipe(
+    Match.when("cuna-fiscal", () =>
+      Effect.gen(function* () {
+        const aniosCunaFiscal = [anioCunaFiscal] as const
+        const seriesCunaFiscal = yield* construirSeriesAuditoria({
+          auditoria,
+          comunidadAutonomaAuditoriaBase,
+          comunidadesAutonomas,
+          perfil,
+          aniosSeleccionados: aniosCunaFiscal,
+          anioReferenciaSeries: anioReferenciaCunaFiscal,
+          cacheSeries,
+          puedeReusarBase: true,
+        })
+
+        return yield* instrumentarEffectAuditoria({
+          nombre: "auditoria.ui.filasCunaFiscal",
+          metrica: metricaDuracionFilasGraficosAuditoria,
+          detalles: {
+            filas: auditoria.puntos.length,
+            series: comunidadesAutonomas.length,
+            anio: anioCunaFiscal,
+            anioReferencia: anioReferenciaCunaFiscal,
+          },
+          efecto: Effect.sync(() =>
+            construirFilasCunaFiscalDesdeSeries({
+              auditoria,
+              comunidadesAutonomas,
+              aniosSeleccionados: aniosCunaFiscal,
+              anioReferenciaSeries: anioReferenciaCunaFiscal,
+              series: seriesCunaFiscal,
+            })
+          ),
+        })
+      })
+    ),
+    Match.orElse(() => Effect.succeed([] as ReadonlyArray<FilaCunaFiscal>))
+  )
+
   const tipoMarginalIrpf = yield* Match.value(vistaGrafico).pipe(
     Match.when("tipo-marginal", () =>
       Effect.gen(function* () {
@@ -2570,7 +2843,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
     )
   )
 
-  return { tipoEfectivoIrpf, diferenciaTipoIrpf, tipoMarginalIrpf }
+  return { tipoEfectivoIrpf, diferenciaTipoIrpf, cunaFiscal, tipoMarginalIrpf }
 })
 
 const valoresNumericosDeFilas = (
@@ -3871,6 +4144,111 @@ function FormulaDiferenciaMagnitud({
   )
 }
 
+function FormulaCunaFiscal({
+  anio,
+  anioReferencia,
+}: {
+  readonly anio: AnioFiscal
+  readonly anioReferencia: AnioFiscal
+}) {
+  return (
+    <section className="mt-5 grid min-w-0 gap-4 border-t-2 border-[var(--rule)] pt-5">
+      <div className="grid min-w-0 gap-3">
+        <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+          Cálculo aplicado
+        </p>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">CUÑA_FISCAL</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="resultado">
+            IRPF_COMPARABLE_REAL + SS_TRABAJADOR_REAL + SS_EMPRESA_REAL
+          </BloqueFormula>
+          <BloqueFormula>/</BloqueFormula>
+          <BloqueFormula tono="calculo">COSTE_LABORAL_REAL</BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="calculo">COSTE_LABORAL_REAL</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="calculo">SALARIO_BRUTO_REAL</BloqueFormula>
+          <BloqueFormula>+</BloqueFormula>
+          <BloqueFormula tono="calculo">SS_EMPRESA_REAL</BloqueFormula>
+        </FormulaLineal>
+        <FormulaLineal>
+          <BloqueFormula tono="resultado">CUÑA_FISCAL</BloqueFormula>
+          <BloqueFormula>=</BloqueFormula>
+          <BloqueFormula tono="calculo">1 - </BloqueFormula>
+          <BloqueFormula tono="resultado">SALARIO_NETO_REAL</BloqueFormula>
+          <BloqueFormula>/</BloqueFormula>
+          <BloqueFormula tono="calculo">COSTE_LABORAL_REAL</BloqueFormula>
+        </FormulaLineal>
+      </div>
+
+      <dl className="grid min-w-0 gap-4">
+        <ExplicacionVariable termino="CUÑA_FISCAL">
+          Es la parte del coste laboral total que no llega al salario neto:
+          IRPF, cotizaciones sociales del trabajador y cotizaciones sociales de
+          la empresa. Por eso el denominador no es el salario bruto, sino el
+          coste laboral.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="IRPF_COMPARABLE_REAL">
+          Usa el mismo IRPF comparable de TIPO EFECTIVO: normativa nominal de
+          cada año, regla de obligación de declarar de 22.000 € cuando
+          corresponde, y después ajuste por IPC a euros de {anioReferencia}.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="SS_TRABAJADOR_REAL">
+          Cotizaciones sociales a cargo del trabajador. Se descuentan del
+          salario bruto antes de llegar al neto.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="SS_EMPRESA_REAL">
+          Cotizaciones sociales a cargo de la empresa. No salen del salario
+          bruto del trabajador, pero sí forman parte del coste laboral necesario
+          para contratar ese salario.
+        </ExplicacionVariable>
+        <ExplicacionVariable termino="LECTURA">
+          Las áreas se suman en puntos porcentuales de COSTE_LABORAL_REAL para
+          un único año. No se normaliza la altura al 100%: la línea superior es
+          la cuña fiscal total.
+        </ExplicacionVariable>
+      </dl>
+
+      <div className="grid min-w-0 items-stretch gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          className={claseTarjetaParametroFormula}
+          style={{ borderBottomColor: coloresTipoEfectivoIrpf[anio] }}
+        >
+          <div className="flex min-w-0 items-center justify-between gap-3">
+            <span className="font-[family-name:var(--mono)] text-xl font-bold tabular-nums">
+              {anio}
+            </span>
+            <span
+              className="h-0 w-10 border-t-[5px]"
+              style={{ borderColor: coloresTipoEfectivoIrpf[anio] }}
+            />
+          </div>
+          <dl className="grid min-w-0 gap-1 text-sm leading-5">
+            <div className={claseFilaParametroFormula}>
+              <dt className={claseEtiquetaParametroFormula}>IRPF</dt>
+              <dd className={claseValorParametroFormula}>/ coste</dd>
+            </div>
+            <div className={claseFilaParametroFormula}>
+              <dt className={claseEtiquetaParametroFormula}>SS trabajador</dt>
+              <dd className={claseValorParametroFormula}>/ coste</dd>
+            </div>
+            <div className={claseFilaParametroFormula}>
+              <dt className={claseEtiquetaParametroFormula}>SS empresa</dt>
+              <dd className={claseValorParametroFormula}>/ coste</dd>
+            </div>
+          </dl>
+          <p className={claseTextoParametroFormula}>
+            Total = suma de componentes del año {anio}, expresados en euros de{" "}
+            {anioReferencia}.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function BotonAnioGraficoAuditoria({
   anio,
   activo,
@@ -4087,6 +4465,154 @@ function TooltipDiferenciaTipoIrpf({
   )
 }
 
+function ContenidoGraficoCunaFiscal({
+  datos,
+  comunidadesAutonomas,
+  anios,
+  dominioSalario,
+  ticksSalario,
+  dominioCunaFiscal,
+  ticksCunaFiscal,
+}: {
+  readonly datos: ReadonlyArray<FilaCunaFiscal>
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly anios: ReadonlyArray<AnioFiscal>
+  readonly dominioSalario: readonly [number, number]
+  readonly ticksSalario: ReadonlyArray<number>
+  readonly dominioCunaFiscal: readonly [number, number]
+  readonly ticksCunaFiscal: ReadonlyArray<number>
+}) {
+  return (
+    <AreaChart
+      accessibilityLayer
+      data={datos}
+      margin={{ left: 6, right: 18, top: 18, bottom: 28 }}
+    >
+      <CartesianGrid
+        vertical={false}
+        stroke="var(--rule)"
+        strokeDasharray="2 4"
+      />
+      <XAxis
+        type="number"
+        dataKey="salarioEuros"
+        domain={dominioSalario}
+        ticks={ticksSalario}
+        tickFormatter={(valor: number) =>
+          formatearSalarioCorto(eurosACentimos(valor))
+        }
+        tickLine={false}
+        axisLine={{ stroke: "var(--rule)" }}
+        tickMargin={10}
+        interval={0}
+        minTickGap={8}
+        angle={-90}
+        textAnchor="end"
+        height={66}
+        fontSize={14}
+      />
+      <YAxis
+        tickLine={false}
+        axisLine={false}
+        tickMargin={6}
+        width={44}
+        domain={dominioCunaFiscal}
+        ticks={ticksCunaFiscal}
+        fontSize={14}
+        tickFormatter={formatearTickPorcentaje}
+      />
+      <ChartTooltip
+        isAnimationActive={false}
+        allowEscapeViewBox={{ x: false, y: false }}
+        wrapperStyle={{ zIndex: 10, maxWidth: "min(25rem, 92vw)" }}
+        cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+        content={
+          <ChartTooltipContent
+            className="max-w-[min(25rem,92vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+            formatter={(valor, nombre, item) => (
+              <span
+                className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                style={{ color: item.color }}
+              >
+                {porcentaje.format(Number(valor))} ({nombre})
+              </span>
+            )}
+            labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+            labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
+          />
+        }
+      />
+      <Legend
+        verticalAlign="bottom"
+        align="right"
+        wrapperStyle={{
+          fontFamily: "var(--mono)",
+          fontSize: 12,
+          fontWeight: 700,
+          paddingTop: 8,
+        }}
+      />
+      {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+        anios.flatMap((anio) =>
+          componentesApiladosCunaFiscal.map((componente) => {
+            const clave = claveSerieCunaFiscal(
+              comunidadAutonoma,
+              anio,
+              componente
+            )
+
+            return (
+              <Area
+                key={clave}
+                dataKey={clave}
+                name={etiquetaSerieCunaFiscal(
+                  comunidadAutonoma,
+                  anio,
+                  componente
+                )}
+                type="linear"
+                stackId={claveStackCunaFiscal(comunidadAutonoma, anio)}
+                stroke={`var(--color-${clave})`}
+                strokeWidth={1}
+                fill={`var(--color-${clave})`}
+                fillOpacity={0.72}
+                legendType="rect"
+                dot={false}
+                activeDot={{ r: 4, strokeWidth: 0 }}
+                isAnimationActive={false}
+              />
+            )
+          })
+        )
+      )}
+      {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+        anios.map((anio) => {
+          const clave = claveSerieCunaFiscal(comunidadAutonoma, anio, "total")
+
+          return (
+            <Line
+              key={clave}
+              dataKey={clave}
+              name={etiquetaSerieCunaFiscal(
+                comunidadAutonoma,
+                anio,
+                "total"
+              )}
+              type="linear"
+              stroke={`var(--color-${clave})`}
+              strokeWidth={anio === 2026 ? 4 : 3}
+              dot={false}
+              activeDot={{ r: 4, strokeWidth: 0 }}
+              legendType="plainline"
+              isAnimationActive={false}
+            />
+          )
+        })
+      )}
+    </AreaChart>
+  )
+}
+
 function Visualizaciones({
   auditoria,
   estadoAuditoria,
@@ -4101,6 +4627,8 @@ function Visualizaciones({
   fijarAniosGraficoIrpf,
   aniosGraficoDiferenciaTipoIrpf,
   fijarAniosGraficoDiferenciaTipoIrpf,
+  anioGraficoCunaFiscal,
+  fijarAnioGraficoCunaFiscal,
   modoDiferenciaTipoIrpf,
   fijarModoDiferenciaTipoIrpf,
   anioGraficoTipoMarginalIrpf,
@@ -4124,6 +4652,8 @@ function Visualizaciones({
   readonly fijarAniosGraficoDiferenciaTipoIrpf: (
     anios: readonly [AnioFiscal, AnioFiscal]
   ) => void
+  readonly anioGraficoCunaFiscal: AnioFiscal
+  readonly fijarAnioGraficoCunaFiscal: (anio: AnioFiscal) => void
   readonly modoDiferenciaTipoIrpf: ModoDiferenciaTipoIrpf
   readonly fijarModoDiferenciaTipoIrpf: (modo: ModoDiferenciaTipoIrpf) => void
   readonly anioGraficoTipoMarginalIrpf: AnioFiscal
@@ -4168,6 +4698,14 @@ function Visualizaciones({
       ),
     [anioGraficoTipoMarginalIrpf, aniosTipoEfectivoIrpf]
   )
+  const anioGraficoCunaFiscalVisible = React.useMemo(
+    () =>
+      Match.value(aniosTipoEfectivoIrpf.includes(anioGraficoCunaFiscal)).pipe(
+        Match.when(true, () => anioGraficoCunaFiscal),
+        Match.orElse(() => anioGraficoCunaFiscalPorDefecto)
+      ),
+    [anioGraficoCunaFiscal, aniosTipoEfectivoIrpf]
+  )
   const anioReferenciaGraficosIrpf = Match.value(
     permiteReferenciaTecnica2026
   ).pipe(
@@ -4180,6 +4718,7 @@ function Visualizaciones({
     )
   )
   const claveAniosGraficoIrpfVisibles = aniosGraficoIrpfVisibles.join(",")
+  const claveAnioGraficoCunaFiscal = String(anioGraficoCunaFiscalVisible)
   const claveAniosGraficoDiferenciaTipoIrpf =
     aniosDiferenciaTipoIrpfVisibles.join(",")
   const claveDatosGrafico = Option.match(auditoria, {
@@ -4208,6 +4747,9 @@ function Visualizaciones({
             claveAniosGraficoDiferenciaTipoIrpf,
           ].join("|")
         ),
+        Match.when("cuna-fiscal", () =>
+          [...claveBase, claveAnioGraficoCunaFiscal].join("|")
+        ),
         Match.when("tipo-marginal", () =>
           [...claveBase, anioGraficoTipoMarginalIrpfVisible].join("|")
         ),
@@ -4234,10 +4776,13 @@ function Visualizaciones({
   )
   const graficoTipoEfectivoIrpfRef = React.useRef<HTMLDivElement | null>(null)
   const graficoDiferenciaTipoIrpfRef = React.useRef<HTMLDivElement | null>(null)
+  const graficoCunaFiscalRef = React.useRef<HTMLDivElement | null>(null)
   const graficoTipoMarginalIrpfRef = React.useRef<HTMLDivElement | null>(null)
   const graficoTipoEfectivoIrpfExportacionRef =
     React.useRef<HTMLDivElement | null>(null)
   const graficoDiferenciaTipoIrpfExportacionRef =
+    React.useRef<HTMLDivElement | null>(null)
+  const graficoCunaFiscalExportacionRef =
     React.useRef<HTMLDivElement | null>(null)
   const graficoTipoMarginalIrpfExportacionRef =
     React.useRef<HTMLDivElement | null>(null)
@@ -4255,6 +4800,7 @@ function Visualizaciones({
             filasTipoEfectivoIrpf: datosCacheados.value.tipoEfectivoIrpf.length,
             filasDiferenciaTipoIrpf:
               datosCacheados.value.diferenciaTipoIrpf.length,
+            filasCunaFiscal: datosCacheados.value.cunaFiscal.length,
             filasTipoMarginalIrpf: datosCacheados.value.tipoMarginalIrpf.length,
           })
           return
@@ -4271,6 +4817,7 @@ function Visualizaciones({
           comunidadAutonoma,
           aniosIrpf: aniosIrpf.join(","),
           aniosDiferenciaTipoIrpf: aniosDiferencia.join(","),
+          anioCunaFiscal: anioGraficoCunaFiscalVisible,
           anioTipoMarginalIrpf: anioGraficoTipoMarginalIrpfVisible,
           anioReferenciaGraficosIrpf,
           puntosBase: auditoriaLista.puntos.length,
@@ -4287,6 +4834,7 @@ function Visualizaciones({
             perfil,
             aniosIrpf,
             aniosDiferenciaTipoIrpf: aniosDiferencia,
+            anioCunaFiscal: anioGraficoCunaFiscalVisible,
             magnitudAuditada,
             anioTipoMarginalIrpf: anioGraficoTipoMarginalIrpfVisible,
             anioReferenciaGraficosIrpf,
@@ -4304,6 +4852,7 @@ function Visualizaciones({
               duracionMs: Math.round(fin - inicio),
               filasTipoEfectivoIrpf: exit.value.tipoEfectivoIrpf.length,
               filasDiferenciaTipoIrpf: exit.value.diferenciaTipoIrpf.length,
+              filasCunaFiscal: exit.value.cunaFiscal.length,
               filasTipoMarginalIrpf: exit.value.tipoMarginalIrpf.length,
               anioReferenciaGraficosIrpf,
             })
@@ -4312,6 +4861,7 @@ function Visualizaciones({
               clave: claveDatosGrafico,
               tipoEfectivoIrpf: exit.value.tipoEfectivoIrpf,
               diferenciaTipoIrpf: exit.value.diferenciaTipoIrpf,
+              cunaFiscal: exit.value.cunaFiscal,
               tipoMarginalIrpf: exit.value.tipoMarginalIrpf,
             } satisfies DatosGraficoListos
             fijarCacheDatosGrafico((cacheActual) =>
@@ -4342,6 +4892,7 @@ function Visualizaciones({
     })
   }, [
     claveAniosGraficoIrpfVisibles,
+    anioGraficoCunaFiscalVisible,
     claveAniosGraficoDiferenciaTipoIrpf,
     claveDatosGrafico,
     cacheDatosGrafico,
@@ -4416,6 +4967,10 @@ function Visualizaciones({
     Match.when({ _tag: "lista" }, (estado) => estado.diferenciaTipoIrpf),
     Match.orElse(() => [])
   )
+  const datosCunaFiscal = Match.value(estadoDatosGraficoActual).pipe(
+    Match.when({ _tag: "lista" }, (estado) => estado.cunaFiscal),
+    Match.orElse(() => [])
+  )
   const datosTipoMarginalIrpf = Match.value(estadoDatosGraficoActual).pipe(
     Match.when({ _tag: "lista" }, (estado) => estado.tipoMarginalIrpf),
     Match.orElse(() => [])
@@ -4440,6 +4995,7 @@ function Visualizaciones({
       filasTipoEfectivoIrpf: estadoDatosGraficoActual.tipoEfectivoIrpf.length,
       filasDiferenciaTipoIrpf:
         estadoDatosGraficoActual.diferenciaTipoIrpf.length,
+      filasCunaFiscal: estadoDatosGraficoActual.cunaFiscal.length,
       filasTipoMarginalIrpf: estadoDatosGraficoActual.tipoMarginalIrpf.length,
     })
   }, [estadoDatosGraficoActual])
@@ -4448,6 +5004,12 @@ function Visualizaciones({
     (comunidadAutonoma) =>
       aniosGraficoIrpfVisibles.map((anio) =>
         claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio)
+      )
+  )
+  const clavesCunaFiscalTotal = comunidadesAutonomas.flatMap(
+    (comunidadAutonoma) =>
+      [anioGraficoCunaFiscalVisible].map((anio) =>
+        claveSerieCunaFiscal(comunidadAutonoma, anio, "total")
       )
   )
   const claveDiferenciaTipoIrpfActiva = Match.value(
@@ -4485,6 +5047,10 @@ function Visualizaciones({
   const configDiferenciaTipoIrpf = configuracionDiferenciaTipoIrpf({
     comunidadAutonoma,
     anios: aniosDiferenciaTipoIrpfVisibles,
+  })
+  const configCunaFiscal = configuracionCunaFiscal({
+    comunidadesAutonomas,
+    anios: [anioGraficoCunaFiscalVisible],
   })
   const configTipoMarginalIrpf = configuracionTipoMarginalIrpf({
     comunidadAutonoma,
@@ -4533,6 +5099,10 @@ function Visualizaciones({
     dominio: dominioDiferenciaTipoIrpf,
     modo: modoDiferenciaTipoIrpf,
   })
+  const dominioCunaFiscal = dominioPorcentaje(
+    valoresNumericosDeFilas(datosCunaFiscal, clavesCunaFiscalTotal)
+  )
+  const ticksCunaFiscal = ticksPorcentaje(dominioCunaFiscal)
   const dominioMarginalIrpf = dominioPorcentajeTipoMarginalIrpf(
     valoresNumericosDeFilas(datosTipoMarginalIrpf, [claveTipoMarginalIrpf])
   )
@@ -4603,6 +5173,11 @@ function Visualizaciones({
     ordenSeleccionDiferenciaTipoIrpfRef.current = siguiente
     fijarAniosGraficoDiferenciaTipoIrpf(siguiente)
   }
+  const alternarAnioCunaFiscal = (anio: AnioFiscal) => {
+    if (anio === anioGraficoCunaFiscalVisible) return
+
+    fijarAnioGraficoCunaFiscal(anio)
+  }
   const alternarAnioTipoMarginalIrpf = (anio: AnioFiscal) => {
     if (anio === anioGraficoTipoMarginalIrpfVisible) return
 
@@ -4610,11 +5185,14 @@ function Visualizaciones({
   }
   const tituloGraficoTipoEfectivoIrpf = `TIPO EFECTIVO DEL IRPF POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
   const tituloGraficoDiferenciaTipoIrpf = `${etiquetaDiferenciaTipoIrpf} POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
+  const tituloGraficoCunaFiscal = `CUÑA FISCAL POR SALARIO BRUTO AJUSTADO A LA INFLACIÓN, EN EUROS DE ${anioReferenciaGraficosIrpf}`
   const tituloGraficoTipoMarginalIrpf = `TIPO MARGINAL DE IRPF SOBRE EL SALARIO BRUTO, EN EUROS DE ${anioReferenciaGraficosIrpf}`
   const claseGraficoTipoEfectivoIrpf =
     "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
   const claseGraficoDiferenciaTipoIrpf =
     "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(22rem,48vw,32rem)]"
+  const claseGraficoCunaFiscal =
+    "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
   const claseGraficoTipoMarginalIrpf =
     "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
   const estiloGraficoExportacion = {
@@ -4649,6 +5227,7 @@ function Visualizaciones({
               {Match.value(vista).pipe(
                 Match.when("tipo-irpf", () => "TIPO EFECTIVO"),
                 Match.when("diferencia-irpf", () => "DIF. EFECTIVO"),
+                Match.when("cuna-fiscal", () => "CUÑA FISCAL"),
                 Match.when("tipo-marginal", () => "TIPO MARGINAL"),
                 Match.exhaustive
               )}
@@ -4956,6 +5535,74 @@ function Visualizaciones({
             anioReferencia={anioReferenciaGraficosIrpf}
             magnitud={magnitudAuditada}
             modo={modoDiferenciaTipoIrpf}
+          />
+        </Tabs.Panel>
+        <Tabs.Panel
+          value="cuna-fiscal"
+          className="min-w-0 border-2 border-[var(--rule)] bg-[var(--paper)] p-3 sm:p-5"
+        >
+          <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <div className="grid min-w-0 gap-3 md:max-w-3xl">
+              <p className="text-sm leading-5 text-[var(--ink-soft)]">
+                {tituloGraficoCunaFiscal}
+              </p>
+              <SelectorComunidadAutonomaAuditoria
+                opciones={opcionesComunidadAutonoma}
+                opcion={opcionComunidadAutonoma}
+                alCambiar={alCambiarComunidadAutonoma}
+              />
+            </div>
+            <div className="w-full min-w-0 self-end md:w-auto">
+              <BotonCopiarImagenGrafico
+                graficoRef={graficoCunaFiscalRef}
+                graficoExportacionRef={graficoCunaFiscalExportacionRef}
+                disabled={copiaGraficoDeshabilitada}
+                titulo={tituloGraficoCunaFiscal}
+              />
+            </div>
+            <SelectorAniosGraficoAuditoria
+              anios={aniosPestanasTipoEfectivoIrpf}
+              aniosDisponibles={aniosTipoEfectivoIrpf}
+              aniosActivos={[anioGraficoCunaFiscalVisible]}
+              ariaLabel="Años visibles en la gráfica de cuña fiscal"
+              alAlternar={alternarAnioCunaFiscal}
+            />
+          </div>
+          {graficoCargando ? (
+            <Skeleton
+              aria-label="Cargando gráfica de cuña fiscal"
+              className={claseGraficoCunaFiscal}
+            />
+          ) : Option.isSome(errorGrafico) || Option.isNone(auditoria) ? (
+            <div
+              className={cn(
+                claseGraficoCunaFiscal,
+                "grid place-items-center border-2 border-[var(--rule)] bg-[var(--paper-2)] p-4 text-center text-sm leading-6 text-[var(--ink-soft)]"
+              )}
+            >
+              No se pudo calcular la gráfica:{" "}
+              {Option.getOrElse(errorGrafico, () => "sin datos")}
+            </div>
+          ) : (
+            <ChartContainer
+              ref={graficoCunaFiscalRef}
+              config={configCunaFiscal}
+              className={claseGraficoCunaFiscal}
+            >
+              <ContenidoGraficoCunaFiscal
+                datos={datosCunaFiscal}
+                comunidadesAutonomas={comunidadesAutonomas}
+                anios={[anioGraficoCunaFiscalVisible]}
+                dominioSalario={dominioSalario}
+                ticksSalario={ticksSalario}
+                dominioCunaFiscal={dominioCunaFiscal}
+                ticksCunaFiscal={ticksCunaFiscal}
+              />
+            </ChartContainer>
+          )}
+          <FormulaCunaFiscal
+            anio={anioGraficoCunaFiscalVisible}
+            anioReferencia={anioReferenciaGraficosIrpf}
           />
         </Tabs.Panel>
         <Tabs.Panel
@@ -5323,6 +5970,23 @@ function Visualizaciones({
                 isAnimationActive={false}
               />
             </AreaChart>
+          </ChartContainer>
+
+          <ChartContainer
+            ref={graficoCunaFiscalExportacionRef}
+            config={configCunaFiscal}
+            className={claseGraficoExportacion}
+            style={estiloGraficoExportacion}
+          >
+            <ContenidoGraficoCunaFiscal
+              datos={datosCunaFiscal}
+              comunidadesAutonomas={comunidadesAutonomas}
+              anios={[anioGraficoCunaFiscalVisible]}
+              dominioSalario={dominioSalario}
+              ticksSalario={ticksSalario}
+              dominioCunaFiscal={dominioCunaFiscal}
+              ticksCunaFiscal={ticksCunaFiscal}
+            />
           </ChartContainer>
 
           <ChartContainer
