@@ -386,9 +386,10 @@ function PerdidaAcumuladaPanel({
           {formatearCentimos(Math.abs(perdidaAcumulada.totalCentimos))}
         </p>
         <p className="text-sm leading-6 text-[var(--ink-soft)]">
-          Suma de la diferencia anual de poder adquisitivo neto de cada año
-          comparado, reexpresada en euros de {perdidaAcumulada.anioReferencia}.
-          Promedio anual:{" "}
+          Cada casilla muestra NETO_REAL_AÑO - NETO_
+          {perdidaAcumulada.anioReferencia}: positivo en rojo significa que ese
+          año dejaba más neto; negativo en verde significa que{" "}
+          {perdidaAcumulada.anioReferencia} deja más neto. Promedio anual:{" "}
           <strong className="text-[var(--ink)]">
             {formatearCentimos(Math.abs(promedioCentimos))}
           </strong>
@@ -407,15 +408,20 @@ function PerdidaAcumuladaPanel({
               <span className="font-[family-name:var(--display)] text-2xl leading-none tracking-wider text-[var(--ink)]">
                 {punto.anioComparado}
               </span>
-              <span
-                className={cn(
-                  "font-[family-name:var(--mono)] text-sm font-bold tabular-nums",
-                  puntoPerdida ? "text-[var(--danger)]" : "text-[var(--gain)]"
-                )}
-              >
-                {formatearCentimos(
-                  Math.abs(punto.diferenciaPoderAdquisitivoNetoAnualCentimos)
-                )}
+              <span className="grid justify-items-end gap-1">
+                <span
+                  className={cn(
+                    "font-[family-name:var(--mono)] text-sm font-bold tabular-nums",
+                    puntoPerdida ? "text-[var(--danger)]" : "text-[var(--gain)]"
+                  )}
+                >
+                  {formatearCentimosConSigno(
+                    punto.diferenciaPoderAdquisitivoNetoAnualCentimos
+                  )}
+                </span>
+                <span className="text-[0.65rem] leading-none tracking-[0.18em] text-[var(--ink-soft)] uppercase">
+                  {puntoPerdida ? "2026 pierde" : "2026 mejora"}
+                </span>
               </span>
             </li>
           )
@@ -424,6 +430,9 @@ function PerdidaAcumuladaPanel({
     </section>
   )
 }
+
+const formatearCentimosConSigno = (centimos: number): string =>
+  centimos > 0 ? `+${formatearCentimos(centimos)}` : formatearCentimos(centimos)
 
 function RejillaAnios({
   valor,
