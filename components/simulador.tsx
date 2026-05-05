@@ -719,7 +719,7 @@ function Columna({
           peligro
         />
         <Fila etiqueta={etiquetaCarga} valor={porcentaje.format(carga)} />
-        <Fila etiqueta="CUÑA LABORAL" valor={porcentaje.format(cuna)} />
+        <Fila etiqueta="CUÑA FISCAL" valor={porcentaje.format(cuna)} />
       </ul>
       <footer className="mt-2 flex flex-wrap items-baseline justify-between gap-3 border-t-2 border-[var(--rule)] pt-3">
         <span className="shrink-0 text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
