@@ -26,6 +26,10 @@ const TITULO_GRAFICO_EXPORTADO = {
 const LEYENDA_GRAFICO_EXPORTADO = {
   anchoLinea: 18,
   separacionTexto: 10,
+  separacionItems: 32,
+  margenHorizontal: 24,
+  margenInferior: 24,
+  factorAltoFila: 1.6,
 } as const
 const FAMILIA_MONO_GRAFICO_FALLBACK =
   '"JetBrains Mono", "JetBrains Mono Fallback", monospace'
@@ -53,6 +57,26 @@ type TextoSvgExportado = {
 type TituloGraficoExportado = {
   readonly lineas: ReadonlyArray<string>
   readonly alto: number
+}
+
+type ItemLeyendaGraficoExportado = {
+  readonly texto: string
+  readonly colorTexto: string
+  readonly colorTrazo: string
+  readonly fontSize: number
+  readonly ancho: number
+}
+
+type FilaLeyendaGraficoExportado = {
+  readonly items: ReadonlyArray<ItemLeyendaGraficoExportado>
+  readonly ancho: number
+  readonly y: number
+}
+
+type LeyendaGraficoExportado = {
+  readonly filas: ReadonlyArray<FilaLeyendaGraficoExportado>
+  readonly fuente: string
+  readonly altoAdicional: number
 }
 
 export function BotonCopiarImagenGrafico({
@@ -297,7 +321,14 @@ async function convertirElementoRenderizadoEnPng({
       ancho,
       familiaFuente,
     })
-    const altoTotal = alto + tituloGrafico.alto
+    const leyendaGrafico = prepararLeyendaGraficoExportado({
+      contexto,
+      elemento,
+      ancho,
+      alto,
+      familiaFuente,
+    })
+    const altoTotal = alto + tituloGrafico.alto + leyendaGrafico.altoAdicional
 
     canvas.width = Math.ceil(ancho * escala)
     canvas.height = Math.ceil(altoTotal * escala)
@@ -314,7 +345,7 @@ async function convertirElementoRenderizadoEnPng({
     contexto.translate(0, tituloGrafico.alto)
     contexto.drawImage(imagen, 0, 0, ancho, alto)
     dibujarTextosSvgGrafico({ contexto, textos, familiaFuente })
-    dibujarLeyendaGrafico({ contexto, elemento, ancho, familiaFuente })
+    dibujarLeyendaGrafico({ contexto, ancho, leyendaGrafico })
     dibujarMarcaAguaGrafico({
       contexto,
       elemento,
@@ -563,24 +594,28 @@ function dibujarTextosSvgGrafico({
   }
 }
 
-function dibujarLeyendaGrafico({
+function prepararLeyendaGraficoExportado({
   contexto,
   elemento,
   ancho,
+  alto,
   familiaFuente,
 }: {
   readonly contexto: CanvasRenderingContext2D
   readonly elemento: HTMLElement
   readonly ancho: number
+  readonly alto: number
   readonly familiaFuente: string
-}) {
+}): LeyendaGraficoExportado {
   const leyenda = elemento.querySelector<HTMLElement>(
     ".recharts-legend-wrapper"
   )
-  if (!leyenda) return
+  if (!leyenda) {
+    return { filas: [], fuente: "", altoAdicional: 0 }
+  }
 
   const rectContenedor = elemento.getBoundingClientRect()
-  const items = Array.from(
+  const itemsSinMedir = Array.from(
     leyenda.querySelectorAll<HTMLElement>(".recharts-legend-item")
   ).flatMap((item) => {
     const texto = item.textContent?.trim()
@@ -613,49 +648,138 @@ function dibujarLeyendaGrafico({
     ]
   })
 
-  if (items.length === 0) return
+  if (itemsSinMedir.length === 0) {
+    return { filas: [], fuente: "", altoAdicional: 0 }
+  }
 
-  const fontSize = Math.max(...items.map((item) => item.fontSize))
+  const fontSize = Math.max(...itemsSinMedir.map((item) => item.fontSize))
   const fuente = `700 ${fontSize}px ${familiaFuente}`
-  contexto.save()
   contexto.font = fuente
-  const anchoItems = items.map((item) => {
+  const items = itemsSinMedir.map((item) => {
     const anchoTexto = contexto.measureText(item.texto).width
-    return (
-      LEYENDA_GRAFICO_EXPORTADO.anchoLinea +
-      LEYENDA_GRAFICO_EXPORTADO.separacionTexto +
-      anchoTexto
-    )
-  })
-  const separacionItems = 32
-  const anchoTotal =
-    anchoItems.reduce((total, anchoItem) => total + anchoItem, 0) +
-    separacionItems * Math.max(0, items.length - 1)
-  const margenDerecho = 24
-  let x = Math.max(0, ancho - margenDerecho - anchoTotal)
-  const y =
-    items.reduce((total, item) => total + item.y, 0) / Math.max(1, items.length)
-
-  for (const [indice, item] of items.entries()) {
-    contexto.strokeStyle = item.colorTrazo
-    contexto.lineWidth = 3
-    contexto.lineCap = "square"
-    contexto.beginPath()
-    contexto.moveTo(x, y)
-    contexto.lineTo(x + LEYENDA_GRAFICO_EXPORTADO.anchoLinea, y)
-    contexto.stroke()
-    contexto.fillStyle = item.colorTexto
-    contexto.font = fuente
-    contexto.textAlign = "left"
-    contexto.textBaseline = "middle"
-    contexto.fillText(
-      item.texto,
-      x +
+    return {
+      ...item,
+      ancho:
         LEYENDA_GRAFICO_EXPORTADO.anchoLinea +
-        LEYENDA_GRAFICO_EXPORTADO.separacionTexto,
-      y
-    )
-    x += anchoItems[indice] + separacionItems
+        LEYENDA_GRAFICO_EXPORTADO.separacionTexto +
+        anchoTexto,
+    } satisfies ItemLeyendaGraficoExportado
+  })
+
+  const filas = distribuirItemsLeyendaEnFilas({
+    items,
+    anchoMaximo: Math.max(
+      1,
+      ancho - LEYENDA_GRAFICO_EXPORTADO.margenHorizontal * 2
+    ),
+    yInicial: Math.min(...itemsSinMedir.map((item) => item.y)),
+    altoFila: Math.ceil(fontSize * LEYENDA_GRAFICO_EXPORTADO.factorAltoFila),
+  })
+  const ultimaFila = filas.at(-1)
+  const bajoLeyenda = ultimaFila
+    ? ultimaFila.y +
+      Math.ceil(fontSize * LEYENDA_GRAFICO_EXPORTADO.factorAltoFila) / 2 +
+      LEYENDA_GRAFICO_EXPORTADO.margenInferior
+    : 0
+
+  return {
+    filas,
+    fuente,
+    altoAdicional: Math.max(0, Math.ceil(bajoLeyenda - alto)),
+  }
+}
+
+function distribuirItemsLeyendaEnFilas({
+  items,
+  anchoMaximo,
+  yInicial,
+  altoFila,
+}: {
+  readonly items: ReadonlyArray<ItemLeyendaGraficoExportado>
+  readonly anchoMaximo: number
+  readonly yInicial: number
+  readonly altoFila: number
+}): ReadonlyArray<FilaLeyendaGraficoExportado> {
+  const filas: FilaLeyendaGraficoExportado[] = []
+  let itemsFila: ItemLeyendaGraficoExportado[] = []
+  let anchoFila = 0
+
+  for (const item of items) {
+    const anchoCandidato =
+      itemsFila.length === 0
+        ? item.ancho
+        : anchoFila + LEYENDA_GRAFICO_EXPORTADO.separacionItems + item.ancho
+
+    if (itemsFila.length > 0 && anchoCandidato > anchoMaximo) {
+      filas.push({
+        items: itemsFila,
+        ancho: anchoFila,
+        y: yInicial + filas.length * altoFila,
+      })
+      itemsFila = [item]
+      anchoFila = item.ancho
+      continue
+    }
+
+    itemsFila.push(item)
+    anchoFila = anchoCandidato
+  }
+
+  if (itemsFila.length > 0) {
+    filas.push({
+      items: itemsFila,
+      ancho: anchoFila,
+      y: yInicial + filas.length * altoFila,
+    })
+  }
+
+  return filas
+}
+
+function dibujarLeyendaGrafico({
+  contexto,
+  ancho,
+  leyendaGrafico,
+}: {
+  readonly contexto: CanvasRenderingContext2D
+  readonly ancho: number
+  readonly leyendaGrafico: LeyendaGraficoExportado
+}) {
+  if (leyendaGrafico.filas.length === 0) return
+
+  contexto.save()
+  contexto.font = leyendaGrafico.fuente
+
+  for (const fila of leyendaGrafico.filas) {
+    let x =
+      LEYENDA_GRAFICO_EXPORTADO.margenHorizontal +
+      Math.max(
+        0,
+        (ancho - LEYENDA_GRAFICO_EXPORTADO.margenHorizontal * 2 - fila.ancho) /
+          2
+      )
+
+    for (const item of fila.items) {
+      contexto.strokeStyle = item.colorTrazo
+      contexto.lineWidth = 3
+      contexto.lineCap = "square"
+      contexto.beginPath()
+      contexto.moveTo(x, fila.y)
+      contexto.lineTo(x + LEYENDA_GRAFICO_EXPORTADO.anchoLinea, fila.y)
+      contexto.stroke()
+      contexto.fillStyle = item.colorTexto
+      contexto.font = leyendaGrafico.fuente
+      contexto.textAlign = "left"
+      contexto.textBaseline = "middle"
+      contexto.fillText(
+        item.texto,
+        x +
+          LEYENDA_GRAFICO_EXPORTADO.anchoLinea +
+          LEYENDA_GRAFICO_EXPORTADO.separacionTexto,
+        fila.y
+      )
+      x += item.ancho + LEYENDA_GRAFICO_EXPORTADO.separacionItems
+    }
   }
   contexto.restore()
 }
