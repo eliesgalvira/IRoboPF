@@ -76,6 +76,20 @@ export default function DisposicionRaiz({
         }
       >
         {hijos}
+        <footer className="border-t-2 border-[var(--rule)] px-4 py-5 text-center text-sm leading-6 text-[var(--ink-soft)] sm:px-6 lg:px-8">
+          <p className="mx-auto max-w-[1320px]">
+            Crédito: buena parte del trabajo de divulgación y de las gráficas de
+            IRoboPF se apoya en el trabajo de{" "}
+            <a
+              href="https://x.com/Jongonzlz"
+              rel="noreferrer"
+              target="_blank"
+              className="font-bold text-[var(--ink)] underline decoration-[var(--rule)] underline-offset-4 transition-colors hover:text-[var(--danger)]"
+            >
+              @jongonzlz
+            </a>
+          </p>
+        </footer>
         <Analytics />
       </body>
     </html>

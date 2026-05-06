@@ -774,7 +774,7 @@ function PiezaFormula({
   return (
     <span
       className={cn(
-        "inline-flex min-h-8 max-w-full min-w-0 items-center border-2 border-[var(--rule)] px-2 py-1 text-left font-[family-name:var(--mono)] text-xs leading-5 font-bold [overflow-wrap:anywhere] break-words whitespace-normal tabular-nums sm:text-sm",
+        "inline-flex min-h-8 max-w-full min-w-0 items-center border-2 border-[var(--rule)] px-2 py-1 text-left font-[family-name:var(--mono)] text-sm leading-5 font-bold [overflow-wrap:anywhere] break-words whitespace-normal tabular-nums",
         tono === "neutro" && "bg-[var(--paper)] text-[var(--ink)]",
         tono === "calculo" && "bg-[var(--mark)] text-[var(--mark-ink)]",
         tono === "limite" && "bg-[var(--paper-2)] text-[var(--ink)]",
@@ -786,7 +786,11 @@ function PiezaFormula({
   )
 }
 
-function FormulaSimulador({ children }: { readonly children: React.ReactNode }) {
+function FormulaSimulador({
+  children,
+}: {
+  readonly children: React.ReactNode
+}) {
   return (
     <div className="flex max-w-full min-w-0 flex-wrap items-center gap-2 leading-none">
       {children}
@@ -855,10 +859,10 @@ function LineaRastroSimulador({
         destacado && "bg-[color-mix(in_oklab,var(--mark),var(--paper)_68%)]"
       )}
     >
-      <dt className="text-xs font-bold tracking-[0.18em] uppercase">
+      <dt className="text-sm font-bold tracking-[0.18em] uppercase">
         {etiqueta}
       </dt>
-      <dd className="font-[family-name:var(--mono)] text-xs break-words text-[var(--ink-soft)]">
+      <dd className="font-[family-name:var(--mono)] text-sm break-words text-[var(--ink-soft)]">
         {formula}
       </dd>
       <dd className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums md:text-right">
@@ -886,7 +890,7 @@ function BloqueCompetencia({
         <h3 className="text-sm font-bold tracking-[0.18em] uppercase">
           {titulo}
         </h3>
-        <span className="font-[family-name:var(--mono)] text-xs font-bold text-[var(--ink-soft)]">
+        <span className="font-[family-name:var(--mono)] text-sm font-bold text-[var(--ink-soft)]">
           {ambito}
         </span>
       </div>
@@ -904,8 +908,7 @@ function Pasos({
   const comparado = comparacion.comparado.ajustado
   const actual = comparacion.referencia
   const rendimientoPrevioComparado =
-    comparado.salarioBrutoAnualCentimos -
-    comparado.cotizacionTrabajadorCentimos
+    comparado.salarioBrutoAnualCentimos - comparado.cotizacionTrabajadorCentimos
   const rendimientoPrevioActual =
     actual.salarioBrutoAnualCentimos - actual.cotizacionTrabajadorCentimos
 
@@ -924,9 +927,7 @@ function Pasos({
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <TarjetaFormula numero="01" titulo="De salario nominal a euros reales">
           <FormulaSimulador>
-            <PiezaFormula tono="resultado">
-              SALARIO_BRUTO_REAL
-            </PiezaFormula>
+            <PiezaFormula tono="resultado">SALARIO_BRUTO_REAL</PiezaFormula>
             <PiezaFormula>=</PiezaFormula>
             <PiezaFormula tono="calculo">
               SALARIO_NOMINAL_{comparacion.anioComparado}
@@ -1015,13 +1016,13 @@ function Pasos({
 
       <section className="border border-[var(--rule)] bg-[var(--paper)]">
         <header className="border-b border-[var(--rule)] p-4">
-          <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+          <p className="text-sm tracking-[0.24em] text-[var(--ink-soft)] uppercase">
             Rastro con tus números
           </p>
           <h3 className="mt-1 text-2xl font-bold">Salario, IRPF y neto</h3>
         </header>
         <dl className="grid gap-2 p-4">
-          <div className="hidden px-3 text-xs font-bold tracking-[0.18em] text-[var(--ink-soft)] uppercase md:grid md:grid-cols-[minmax(9rem,0.75fr)_minmax(12rem,1.2fr)_minmax(7rem,0.65fr)_minmax(7rem,0.65fr)]">
+          <div className="hidden px-3 text-sm font-bold tracking-[0.18em] text-[var(--ink-soft)] uppercase md:grid md:grid-cols-[minmax(9rem,0.75fr)_minmax(12rem,1.2fr)_minmax(7rem,0.65fr)_minmax(7rem,0.65fr)]">
             <span>Concepto</span>
             <span>Fórmula</span>
             <span className="text-right">{comparacion.anioComparado}</span>
@@ -1082,18 +1083,27 @@ function Pasos({
             puede reducir la reducción por rendimientos del trabajo y elevar la
             base imponible antes de llegar a la escala autonómica.
           </BloqueCompetencia>
-          <BloqueCompetencia titulo="El gasto de 2.000 € pierde valor" ambito="Estado">
+          <BloqueCompetencia
+            titulo="El gasto de 2.000 € pierde valor"
+            ambito="Estado"
+          >
             El gasto deducible fijo no se actualiza con los precios dentro de la
             CCAA. Si permanece congelado, cada año protege menos renta real y la
             base imponible sube artificialmente frente al poder adquisitivo.
           </BloqueCompetencia>
-          <BloqueCompetencia titulo="El mínimo familiar tiene corsé" ambito="Estado + CCAA">
+          <BloqueCompetencia
+            titulo="El mínimo familiar tiene corsé"
+            ambito="Estado + CCAA"
+          >
             Las CCAA pueden mover mínimos para el gravamen autonómico, pero con
             el límite del 10%. Si la referencia estatal queda congelada y la
             inflación acumulada supera ese margen, la corrección autonómica es
             parcial.
           </BloqueCompetencia>
-          <BloqueCompetencia titulo="Deflactar sólo la CCAA es parcial" ambito="CCAA">
+          <BloqueCompetencia
+            titulo="Deflactar sólo la CCAA es parcial"
+            ambito="CCAA"
+          >
             Tocar la escala autonómica puede aliviar parte de la cuota, pero no
             repara los parámetros estatales que forman la base. Además, en el
             sistema de financiación, una bajada unilateral puede reducir caja
