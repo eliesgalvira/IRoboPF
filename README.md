@@ -16,7 +16,8 @@ IPC.
   - `/`: simulador de consulta individual.
   - `/auditoria`: exploración por rango salarial, gráficos, hallazgos y descarga
     de XLSX.
-- Motor de cálculo en TypeScript en `lib/domain/progresividad.ts`, usando
+- Perfil legacy de progresividad en frío en TypeScript en
+  `lib/dominio/compatibilidad-legacy/progresividad-frio.ts`, usando
   `decimal.js` para dinero y `effect` para modelar cálculos deterministas.
 - Período de auditoría heredado: 2012-2026, con 2026 como año de referencia en
   la interfaz actual.
@@ -119,7 +120,8 @@ Fuera de alcance por ahora:
 
 - `app/`: rutas Next.js.
 - `components/`: interfaz del simulador, auditoría y navegación.
-- `lib/domain/progresividad.ts`: motor de cálculo y auditoría por rango.
+- `lib/dominio/compatibilidad-legacy/progresividad-frio.ts`: compatibilidad
+  legacy del cálculo histórico y auditoría por rango.
 - `lib/export/auditoria-excel.ts`: exportaciones XLSX en navegador.
 - `tests/progresividad.test.ts`: casos de referencia del motor.
 - `Calculo_Salario_IRPF.py`: script Python legacy.

@@ -9,7 +9,7 @@ import type {
   PuntoAuditoriaRangoSalarial,
   RangoSalarialEuros,
   TablaCompatible,
-} from "../domain/progresividad"
+} from "../dominio/auditoria/auditoria-progresividad-frio"
 import {
   aniosFiscalesLegacy,
   configuracionExportacionCompatibleLegacy,
@@ -17,7 +17,7 @@ import {
   construirTablaControlGeneralCompatible,
   construirTablaControlTramosIrpfCompatible,
   construirTablaDetalleAnualCompatible,
-} from "../domain/progresividad"
+} from "../dominio/auditoria/auditoria-progresividad-frio"
 
 const centimosAEuros = (centimos: number) => centimos / 100
 
@@ -568,8 +568,8 @@ const escribirUint32 = (vista: DataView, offset: number, valor: number) => {
   vista.setUint32(offset, valor >>> 0, true)
 }
 
-const bufferZip = (tamano: number, escribir: (vista: DataView) => void) => {
-  const buffer = new ArrayBuffer(tamano)
+const bufferZip = (tamanio: number, escribir: (vista: DataView) => void) => {
+  const buffer = new ArrayBuffer(tamanio)
   escribir(new DataView(buffer))
   return new Uint8Array(buffer)
 }
@@ -590,8 +590,8 @@ const fechaZip = () => {
 interface EntradaZip {
   readonly nombre: string
   readonly crc: number
-  readonly tamanoComprimido: number
-  readonly tamanoSinComprimir: number
+  readonly tamanioComprimido: number
+  readonly tamanioSinComprimir: number
   readonly offset: number
 }
 
@@ -600,8 +600,8 @@ interface EntradaZipAbierta {
   readonly offset: number
   readonly deflate: Deflate
   crc: number
-  tamanoComprimido: number
-  tamanoSinComprimir: number
+  tamanioComprimido: number
+  tamanioSinComprimir: number
 }
 
 class ZipComprimido {
@@ -643,10 +643,10 @@ class ZipComprimido {
       nombre,
       offset: offsetEntrada,
       crc: 0xffffffff,
-      tamanoComprimido: 0,
-      tamanoSinComprimir: 0,
+      tamanioComprimido: 0,
+      tamanioSinComprimir: 0,
       deflate: new Deflate({ level: 6, mem: 8 }, (datos) => {
-        entrada.tamanoComprimido += datos.byteLength
+        entrada.tamanioComprimido += datos.byteLength
         this.anadirBytes(datos)
       }),
     }
@@ -657,7 +657,7 @@ class ZipComprimido {
     if (fragmento.length === 0) return
     const datos = codificadorTexto.encode(fragmento)
     entrada.crc = actualizarCrc32(entrada.crc, datos)
-    entrada.tamanoSinComprimir += datos.byteLength
+    entrada.tamanioSinComprimir += datos.byteLength
     entrada.deflate.push(datos)
   }
 
@@ -668,15 +668,15 @@ class ZipComprimido {
       bufferZip(16, (vista) => {
         escribirUint32(vista, 0, 0x08074b50)
         escribirUint32(vista, 4, crcFinal)
-        escribirUint32(vista, 8, entrada.tamanoComprimido)
-        escribirUint32(vista, 12, entrada.tamanoSinComprimir)
+        escribirUint32(vista, 8, entrada.tamanioComprimido)
+        escribirUint32(vista, 12, entrada.tamanioSinComprimir)
       })
     )
     this.entradas.push({
       nombre: entrada.nombre,
       crc: crcFinal,
-      tamanoComprimido: entrada.tamanoComprimido,
-      tamanoSinComprimir: entrada.tamanoSinComprimir,
+      tamanioComprimido: entrada.tamanioComprimido,
+      tamanioSinComprimir: entrada.tamanioSinComprimir,
       offset: entrada.offset,
     })
   }
@@ -697,8 +697,8 @@ class ZipComprimido {
           escribirUint16(vista, 12, hora)
           escribirUint16(vista, 14, dia)
           escribirUint32(vista, 16, entrada.crc)
-          escribirUint32(vista, 20, entrada.tamanoComprimido)
-          escribirUint32(vista, 24, entrada.tamanoSinComprimir)
+          escribirUint32(vista, 20, entrada.tamanioComprimido)
+          escribirUint32(vista, 24, entrada.tamanioSinComprimir)
           escribirUint16(vista, 28, nombreCodificado.byteLength)
           escribirUint16(vista, 30, 0)
           escribirUint16(vista, 32, 0)
@@ -711,7 +711,7 @@ class ZipComprimido {
       )
     }
 
-    const tamanoDirectorio = this.offset - inicioDirectorio
+    const tamanioDirectorio = this.offset - inicioDirectorio
     this.anadirBytes(
       bufferZip(22, (vista) => {
         escribirUint32(vista, 0, 0x06054b50)
@@ -719,7 +719,7 @@ class ZipComprimido {
         escribirUint16(vista, 6, 0)
         escribirUint16(vista, 8, this.entradas.length)
         escribirUint16(vista, 10, this.entradas.length)
-        escribirUint32(vista, 12, tamanoDirectorio)
+        escribirUint32(vista, 12, tamanioDirectorio)
         escribirUint32(vista, 16, inicioDirectorio)
         escribirUint16(vista, 20, 0)
       })

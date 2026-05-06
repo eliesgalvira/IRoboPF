@@ -1,0 +1,672 @@
+import { Match } from "effect"
+
+import type {
+  CategoriaDeduccionAutonomica,
+  CuantiaDeduccionAutonomica,
+  DeduccionAutonomicaCatalogada,
+  EstadoImplementada,
+  FichaDeduccionAutonomica,
+} from "./tipos"
+
+export const comunidadDesdeCodigo = (codigo: string): string =>
+  Match.value(codigo).pipe(
+    Match.when(
+      (codigo) => codigo.startsWith("andalucia_"),
+      () => "andalucia"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("aragon_"),
+      () => "aragon"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("asturias_"),
+      () => "asturias"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("balears_"),
+      () => "illes-balears"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("canarias_"),
+      () => "canarias"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("cantabria_"),
+      () => "cantabria"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("clm_"),
+      () => "castilla-la-mancha"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("cyl_"),
+      () => "castilla-y-leon"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("cataluna_"),
+      () => "catalunya"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("extremadura_"),
+      () => "extremadura"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("galicia_"),
+      () => "galicia"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("madrid_"),
+      () => "madrid"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("murcia_"),
+      () => "murcia"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("rioja_"),
+      () => "la-rioja"
+    ),
+    Match.when(
+      (codigo) => codigo.startsWith("valenciana_"),
+      () => "comunitat-valenciana"
+    ),
+    Match.orElse(() => "simulada-estatal")
+  )
+
+const fichaCatalogada = (
+  codigo: string,
+  nombre: string,
+  categoria: CategoriaDeduccionAutonomica
+): FichaDeduccionAutonomica => ({
+  codigo,
+  comunidad: comunidadDesdeCodigo(codigo),
+  nombre,
+  normativa: "Pendiente de normalización desde el Manual Renta 2025 Parte 2",
+  categoria,
+  cuantia: {
+    tipo: "mixta",
+    descripcion:
+      "Ficha catalogada en el manual; cuantía pendiente de normalización ejecutable revisada.",
+  },
+  requisitos: [],
+  limites: [],
+  prorrateo: [],
+  compatibilidades: [],
+  incompatibilidades: [],
+  entradaNecesaria: [],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [],
+  },
+  estado: "catalogada",
+})
+
+export const categoriaCatalogadaDesdeCodigo = (
+  codigo: string
+): CategoriaDeduccionAutonomica =>
+  Match.value(codigo).pipe(
+    Match.withReturnType<CategoriaDeduccionAutonomica>(),
+    Match.when(
+      (codigo) =>
+        codigo.includes("vivienda") ||
+        codigo.includes("arrendamiento") ||
+        codigo.includes("arrendador") ||
+        codigo.includes("hipotecarios"),
+      () => "vivienda_habitual"
+    ),
+    Match.when(
+      (codigo) =>
+        codigo.includes("donacion") ||
+        codigo.includes("donaciones") ||
+        codigo.includes("donativo") ||
+        codigo.includes("donativos") ||
+        codigo.includes("mecenazgo"),
+      () => "donativos_donaciones"
+    ),
+    Match.when(
+      (codigo) =>
+        codigo.includes("familia") ||
+        codigo.includes("hijo") ||
+        codigo.includes("hijos") ||
+        codigo.includes("nacimiento") ||
+        codigo.includes("adopcion") ||
+        codigo.includes("acogimiento") ||
+        codigo.includes("descend") ||
+        codigo.includes("ascend") ||
+        codigo.includes("discapacidad") ||
+        codigo.includes("conciliacion") ||
+        codigo.includes("guarderia") ||
+        codigo.includes("custodia") ||
+        codigo.includes("mayores") ||
+        codigo.includes("viudos"),
+      () => "circunstancias_personales_familiares"
+    ),
+    Match.orElse(() => "otros_conceptos")
+  )
+
+export const nombreCatalogadoDesdeCodigo = (codigo: string): string => {
+  const prefijos = [
+    "andalucia",
+    "aragon",
+    "asturias",
+    "balears",
+    "canarias",
+    "cantabria",
+    "clm",
+    "cyl",
+    "cataluna",
+    "extremadura",
+    "galicia",
+    "madrid",
+    "murcia",
+    "rioja",
+    "valenciana",
+  ]
+  const sinPrefijo =
+    prefijos.find((prefijo) => codigo.startsWith(`${prefijo}_`)) ?? ""
+  const cuerpo = Match.value(sinPrefijo).pipe(
+    Match.when("", () => codigo),
+    Match.orElse((sinPrefijo) => codigo.slice(sinPrefijo.length + 1))
+  )
+  const terminos: Record<string, string> = {
+    0: "0",
+    3: "3",
+    6: "6",
+    14: "14",
+    25: "25",
+    30: "30",
+    33: "33",
+    35: "35",
+    36: "36",
+    40: "40",
+    65: "65",
+    75: "75",
+    10000: "10.000",
+    abonos: "abonos",
+    acceso: "acceso",
+    accidente: "accidente",
+    acciones: "acciones",
+    actividades: "actividades",
+    acu: "ACU",
+    adecuacion: "adecuación",
+    adopcion: "adopción",
+    agrarias: "agrarias",
+    agua: "agua",
+    ahorro: "ahorro",
+    ayudas: "ayudas",
+    alto: "alto",
+    alternativo: "alternativo",
+    ambiente: "ambiente",
+    ampliacion: "ampliación",
+    animo: "ánimo",
+    angel: "ángel",
+    animales: "animales",
+    aportaciones: "aportaciones",
+    apoyo: "apoyo",
+    arrendador: "arrendador",
+    arrendadores: "arrendadores",
+    arrendamiento: "arrendamiento",
+    asistencia: "asistencia",
+    asistido: "asistido",
+    autoempleo: "autoempleo",
+    autoocupacion: "autoocupación",
+    autonomia: "autonomía",
+    autonomos: "autónomos",
+    bursatil: "bursátil",
+    caliente: "caliente",
+    catalana: "catalana",
+    celiaca: "celíaca",
+    centros: "centros",
+    certificacion: "certificación",
+    cientificos: "científicos",
+    cientifico: "científico",
+    civil: "civil",
+    clases: "clases",
+    clubes: "clubes",
+    cobertura: "cobertura",
+    colectivos: "colectivos",
+    compania: "compañía",
+    conciliacion: "conciliación",
+    condicion: "condición",
+    conservacion: "conservación",
+    construccion: "construcción",
+    contribuyentes: "contribuyentes",
+    controles: "controles",
+    cooperacion: "cooperación",
+    costes: "costes",
+    covid: "COVID",
+    cuidado: "cuidado",
+    culturales: "culturales",
+    cultural: "cultural",
+    danos: "daños",
+    dana: "DANA",
+    dacion: "dación",
+    declarantes: "declarantes",
+    defensa: "defensa",
+    dependientes: "dependientes",
+    deportistas: "deportistas",
+    deportivo: "deportivo",
+    deportivos: "deportivos",
+    deporte: "deporte",
+    despoblamiento: "despoblamiento",
+    despoblacion: "despoblación",
+    determinados: "determinados",
+    dificil: "difícil",
+    discapacidad: "discapacidad",
+    dispositivos: "dispositivos",
+    domicilio: "domicilio",
+    donaciones: "donaciones",
+    donativos: "donativos",
+    ecologica: "ecológica",
+    economia: "economía",
+    educacion: "educación",
+    educativos: "educativos",
+    eficiencia: "eficiencia",
+    ejercicio: "ejercicio",
+    ela: "ELA",
+    electricos: "eléctricos",
+    empleados: "empleados",
+    emancipacion: "emancipación",
+    emancipados: "emancipados",
+    empresas: "empresas",
+    empresarial: "empresarial",
+    emprendimiento: "emprendimiento",
+    energia: "energía",
+    energetica: "energética",
+    enfermedades: "enfermedades",
+    enfermedad: "enfermedad",
+    enfermos: "enfermos",
+    ensenanza: "enseñanza",
+    entidades: "entidades",
+    erte: "ERTE",
+    escolar: "escolar",
+    escolarizado: "escolarizado",
+    escuelas: "escuelas",
+    especial: "especial",
+    estudios: "estudios",
+    extranjero: "extranjero",
+    extraescolares: "extraescolares",
+    familiares: "familiares",
+    familiar: "familiar",
+    familias: "familias",
+    fenotipos: "fenotipos",
+    fertilidad: "fertilidad",
+    fisico: "físico",
+    finalidad: "finalidad",
+    financiacion: "financiación",
+    forestal: "forestal",
+    formacion: "formación",
+    fomento: "fomento",
+    fundaciones: "fundaciones",
+    gas: "gas",
+    gestion: "gestión",
+    grado: "grado",
+    guarda: "guarda",
+    guarderia: "guardería",
+    guarderias: "guarderías",
+    habitual: "habitual",
+    historico: "histórico",
+    hijos: "hijos",
+    hijo: "hijo",
+    hogar: "hogar",
+    idiomas: "idiomas",
+    ilegalmente: "ilegalmente",
+    impago: "impago",
+    incremento: "incremento",
+    infantilies: "infantiles",
+    infantiles: "infantiles",
+    inmueble: "inmueble",
+    innovacion: "innovación",
+    instalacion: "instalación",
+    instalaciones: "instalaciones",
+    interes: "interés",
+    intereses: "intereses",
+    internet: "internet",
+    investigacion: "investigación",
+    inversion: "inversión",
+    inversiones: "inversiones",
+    inversor: "inversor",
+    isla: "isla",
+    jovenes: "jóvenes",
+    juridica: "jurídica",
+    laboral: "laboral",
+    laborales: "laborales",
+    lanzamiento: "lanzamiento",
+    lengua: "lengua",
+    lentes: "lentes",
+    libros: "libros",
+    limpieza: "limpieza",
+    lucro: "lucro",
+    lucha: "lucha",
+    luz: "luz",
+    mab: "MAB",
+    mancha: "Mancha",
+    materiales: "materiales",
+    material: "material",
+    master: "máster",
+    mayores: "mayores",
+    medio: "medio",
+    menores: "menores",
+    menos: "menos",
+    mercado: "mercado",
+    mejora: "mejora",
+    musicales: "musicales",
+    musical: "musical",
+    multiples: "múltiples",
+    municipio: "municipio",
+    municipios: "municipios",
+    nacional: "nacional",
+    nacimiento: "nacimiento",
+    natural: "natural",
+    nivel: "nivel",
+    nuevos: "nuevos",
+    nueva: "nueva",
+    nuevas: "nuevas",
+    nucleos: "núcleos",
+    ocupada: "ocupada",
+    organizaciones: "organizaciones",
+    otros: "otros",
+    pago: "pago",
+    paliar: "paliar",
+    patrimonio: "patrimonio",
+    peifoga: "PEIFOGA",
+    pequenos: "pequeños",
+    perros: "perros",
+    permanencia: "permanencia",
+    permanente: "permanente",
+    personas: "personas",
+    plazas: "plazas",
+    poblacion: "población",
+    poblaciones: "poblaciones",
+    pobreza: "pobreza",
+    practicas: "prácticas",
+    precio: "precio",
+    primas: "primas",
+    primer: "primer",
+    primera: "primera",
+    profesionales: "profesionales",
+    progenitor: "progenitor",
+    protegida: "protegida",
+    proteccion: "protección",
+    proyectos: "proyectos",
+    publico: "público",
+    reciente: "reciente",
+    recarga: "recarga",
+    recuperacion: "recuperación",
+    reducidos: "reducidos",
+    referencia: "referencia",
+    refuerzo: "refuerzo",
+    regimen: "régimen",
+    rehabilitacion: "rehabilitación",
+    renovables: "renovables",
+    renta: "renta",
+    residencia: "residencia",
+    residentes: "residentes",
+    riesgo: "riesgo",
+    rural: "rural",
+    rurales: "rurales",
+    salud: "salud",
+    saludables: "saludables",
+    sanitario: "sanitario",
+    sanitaria: "sanitaria",
+    sector: "sector",
+    segundo: "segundo",
+    seguridad: "seguridad",
+    seguro: "seguro",
+    seguros: "seguros",
+    social: "social",
+    sociedades: "sociedades",
+    soluciones: "soluciones",
+    sostenibilidad: "sostenibilidad",
+    sostenible: "sostenible",
+    subida: "subida",
+    subvencionada: "subvencionada",
+    subvenciones: "subvenciones",
+    sucesivos: "sucesivos",
+    suspension: "suspensión",
+    talidomida: "talidomida",
+    tecnologico: "tecnológico",
+    tecnologias: "tecnologías",
+    tercer: "tercer",
+    terrorismo: "terrorismo",
+    texto: "texto",
+    titulares: "titulares",
+    trabajos: "trabajos",
+    traslado: "traslado",
+    transportes: "transportes",
+    transporte: "transporte",
+    tratamientos: "tratamientos",
+    veterinarios: "veterinarios",
+    victimas: "víctimas",
+    vitales: "vitales",
+    viudos: "viudos",
+    vivienda: "vivienda",
+    viviendas: "viviendas",
+    vacias: "vacías",
+    vacio: "vacío",
+    2014: "2014",
+    2015: "2015",
+    2020: "2020",
+    2025: "2025",
+    3000: "3.000",
+    5: "5",
+    acogimiento: "acogimiento",
+    actividad: "actividad",
+    adopciones: "adopciones",
+    adquisicion: "adquisición",
+    aldeas: "aldeas",
+    alquiler: "alquiler",
+    arrendamientos: "arrendamientos",
+    ascendientes: "ascendientes",
+    autoconsumo: "autoconsumo",
+    autonomico: "autonómico",
+    ayuda: "ayuda",
+    bicicletas: "bicicletas",
+    bienes: "bienes",
+    biosanitaria: "biosanitaria",
+    cambio: "cambio",
+    cantabria: "Cantabria",
+    cantidades: "cantidades",
+    cesiones: "cesiones",
+    climatizacion: "climatización",
+    concejos: "concejos",
+    coopera: "coopera",
+    creacion: "creación",
+    crisis: "crisis",
+    cristales: "cristales",
+    cualificados: "cualificados",
+    cuotas: "cuotas",
+    custodia: "custodia",
+    desarrollo: "desarrollo",
+    descendiente: "descendiente",
+    descendientes: "descendientes",
+    desplazamiento: "desplazamiento",
+    distinto: "distinto",
+    docencia: "docencia",
+    doctorado: "doctorado",
+    domestica: "doméstica",
+    dos: "dos",
+    ecologicas: "ecológicas",
+    emergencia: "emergencia",
+    energeticos: "energéticos",
+    fallecimiento: "fallecimiento",
+    familia: "familia",
+    fecha: "fecha",
+    fijacion: "fijación",
+    fines: "fines",
+    fiscal: "fiscal",
+    fondo: "fondo",
+    fondos: "fondos",
+    fuera: "fuera",
+    gastos: "gastos",
+    hasta: "hasta",
+    hipotecarios: "hipotecarios",
+    historicos: "históricos",
+    hogares: "hogares",
+    idi: "I+D+i",
+    incendios: "incendios",
+    ingresos: "ingresos",
+    internacional: "internacional",
+    mas: "más",
+    mayor: "mayor",
+    mecenazgo: "mecenazgo",
+    menor: "menor",
+    mercantiles: "mercantiles",
+    misma: "misma",
+    modelo: "modelo",
+    monoparental: "monoparental",
+    monoparentales: "monoparentales",
+    motivos: "motivos",
+    movilidad: "movilidad",
+    mujeres: "mujeres",
+    no: "no",
+    numerosa: "numerosa",
+    numerosas: "numerosas",
+    o: "o",
+    obras: "obras",
+    occitana: "occitana",
+    orden: "Orden",
+    otra: "otra",
+    participaciones: "participaciones",
+    partos: "partos",
+    pedaleo: "pedaleo",
+    periodo: "período",
+    propios: "propios",
+    publicas: "públicas",
+    puesta: "puesta",
+    raras: "raras",
+    recursos: "recursos",
+    remunerado: "remunerado",
+    restauracion: "restauración",
+    segunda: "segunda",
+    sin: "sin",
+    superior: "superior",
+    superiores: "superiores",
+    terceras: "terceras",
+    trabajadoras: "trabajadoras",
+    trabajo: "trabajo",
+    tramo: "tramo",
+    transitorio: "transitorio",
+    valenciana: "valenciana",
+    vehiculos: "vehículos",
+    zona: "zona",
+    zonas: "zonas",
+  }
+
+  const nombre = cuerpo
+    .split("_")
+    .map((termino) => terminos[termino] ?? termino)
+    .join(" ")
+
+  return `Por ${nombre}`
+}
+
+const fichaCatalogadaDesdeCodigo = (codigo: string): FichaDeduccionAutonomica =>
+  fichaCatalogada(
+    codigo,
+    nombreCatalogadoDesdeCodigo(codigo),
+    categoriaCatalogadaDesdeCodigo(codigo)
+  )
+
+export const DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA = {
+  andalucia: [],
+  aragon: [],
+  asturias: [],
+  "illes-balears": [],
+  canarias: [],
+  cantabria: [],
+  "castilla-la-mancha": [],
+  "castilla-y-leon": [],
+  catalunya: [],
+  extremadura: [],
+  galicia: [],
+  madrid: [],
+  murcia: [],
+  "la-rioja": [],
+  "comunitat-valenciana": [],
+} as const
+
+const deduccionesCatalogadasFaltantes = (
+  comunidad: keyof typeof DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA
+): ReadonlyArray<FichaDeduccionAutonomica> =>
+  DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA[comunidad].map(
+    fichaCatalogadaDesdeCodigo
+  )
+
+export const fichaImplementadaBasica = (
+  estado: { readonly estado: EstadoImplementada },
+  codigo: string,
+  nombre: string,
+  categoria: CategoriaDeduccionAutonomica
+): FichaDeduccionAutonomica => ({
+  codigo,
+  comunidad: comunidadDesdeCodigo(codigo),
+  nombre,
+  normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
+  categoria,
+  cuantia: {
+    tipo: "mixta",
+    descripcion: "Cuantía definida por la ficha normativa implementada.",
+  },
+  requisitos: [],
+  limites: [],
+  prorrateo: [],
+  compatibilidades: [],
+  incompatibilidades: [],
+  entradaNecesaria: [],
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas: [],
+  },
+  estado: estado.estado,
+})
+
+export const fichaImplementada = (
+  estado: { readonly estado: EstadoImplementada },
+  codigo: string,
+  nombre: string,
+  categoria: CategoriaDeduccionAutonomica,
+  cuantia: CuantiaDeduccionAutonomica,
+  limites: ReadonlyArray<string>,
+  paginas: ReadonlyArray<number>,
+  entradaNecesaria: ReadonlyArray<string> = [
+    "importeBase",
+    "cumpleRequisitosYLimites",
+  ],
+  requisitos: ReadonlyArray<string> = [
+    "Cumplir los requisitos indicados en la ficha normativa normalizada",
+  ]
+): FichaDeduccionAutonomica => ({
+  ...fichaImplementadaBasica(estado, codigo, nombre, categoria),
+  cuantia,
+  requisitos,
+  limites,
+  entradaNecesaria,
+  fuenteManual: {
+    documento: "ManualRenta2025Parte2",
+    paginas,
+  },
+})
+
+export const fichaImplementadaFormula = (
+  codigo: string,
+  paginas: ReadonlyArray<number>
+): FichaDeduccionAutonomica =>
+  fichaImplementada(
+    { estado: "implementada" },
+    codigo,
+    nombreCatalogadoDesdeCodigo(codigo),
+    categoriaCatalogadaDesdeCodigo(codigo),
+    {
+      tipo: "mixta",
+      descripcion:
+        "Cuantia calculada por la ficha normativa normalizada y por el modulo de deducciones autonomicas aplicadas.",
+    },
+    [
+      "Cumplir requisitos, limites de renta, prorrateos e incompatibilidades descritos en la ficha normativa normalizada.",
+      "El importe se calcula con las entradas especificas de la deduccion o se consigna como importe manual cuando la ficha requiere validacion externa.",
+    ],
+    paginas,
+    [`${codigo}:cumple`, `${codigo}:importe`],
+    ["Cumplir los requisitos indicados en la ficha normativa normalizada"]
+  )

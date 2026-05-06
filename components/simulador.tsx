@@ -9,6 +9,7 @@ import { useLocalStorage } from "@uidotdev/usehooks"
 import { Effect } from "effect"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
+import { Button } from "@/components/ui/button"
 import {
   ANIOS_COMPARABLES,
   centimosAEuros,
@@ -22,13 +23,16 @@ import {
 import {
   calcularPerdidaAcumulada,
   compararAjustadoPorIpc,
+  compararPasadoAjustadoPorIpc,
   configuracionControlSalario,
   type ComparacionAjustadaPorIpc,
   type DesgloseLiquidado,
   type PerdidaAcumulada,
-} from "@/lib/domain/progresividad"
+} from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
 import { useContadorAnimado } from "@/lib/animacion"
 import { cn } from "@/lib/utils"
+
+type VistaComparacion = "bruto" | "coste-laboral" | "pasado"
 
 function SimuladorImpl() {
   const [salarioCentimos, fijarSalarioCentimos] = React.useState<number>(
@@ -45,9 +49,8 @@ function SimuladorImpl() {
     false
   )
   const ignorarCambioPrecisoPorSlider = React.useRef(false)
-  const [vistaCoste, fijarVistaCoste] = React.useState<
-    "bruto" | "coste-laboral"
-  >("bruto")
+  const [vistaCoste, fijarVistaCoste] =
+    React.useState<VistaComparacion>("bruto")
 
   const comparacion = React.useMemo(
     () =>
@@ -56,6 +59,18 @@ function SimuladorImpl() {
           salarioBrutoAnualReferenciaCentimos: salarioCentimos,
           anioComparado,
           anioReferencia: 2026,
+        })
+      ),
+    [salarioCentimos, anioComparado]
+  )
+
+  const comparacionPasada = React.useMemo(
+    () =>
+      Effect.runSync(
+        compararPasadoAjustadoPorIpc({
+          salarioBrutoAnualReferenciaCentimos: salarioCentimos,
+          anioComparado: 2026,
+          anioReferencia: anioComparado,
         })
       ),
     [salarioCentimos, anioComparado]
@@ -202,7 +217,10 @@ function SimuladorImpl() {
               className="grid gap-2"
             >
               <label className="flex items-baseline justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-                <span>SALARIO BRUTO ANUAL · 2026</span>
+                <span>
+                  SALARIO BRUTO ANUAL · EUROS{" "}
+                  {vistaCoste === "pasado" ? anioComparado : 2026}
+                </span>
                 <span>EUR</span>
               </label>
               <NumberField.Group className="grid h-16 grid-cols-[3rem_minmax(0,1fr)_3rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
@@ -214,6 +232,10 @@ function SimuladorImpl() {
                   +
                 </NumberField.Increment>
               </NumberField.Group>
+              <p className="text-sm leading-5 text-[var(--ink-soft)]">
+                Valor nominal del año indicado. En las columnas se separa de su
+                equivalente real ajustado por IPC.
+              </p>
             </NumberField.Root>
 
             <Slider.Root
@@ -257,7 +279,7 @@ function SimuladorImpl() {
 
           <div className="grid gap-2 py-6 lg:pl-8">
             <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-              AÑO COMPARADO
+              {vistaCoste === "pasado" ? "AÑO DE REFERENCIA" : "AÑO COMPARADO"}
             </span>
             <RejillaAnios
               valor={anioComparado}
@@ -276,6 +298,7 @@ function SimuladorImpl() {
 
         <Columnas
           comparacion={comparacion}
+          comparacionPasada={comparacionPasada}
           modo={vistaCoste}
           fijarModo={fijarVistaCoste}
         />
@@ -308,13 +331,14 @@ function SimuladorImpl() {
                 >
                   Cancelar
                 </Dialog.Close>
-                <button
+                <Button
                   type="button"
                   onClick={confirmarSobrescrituraSlider}
+                  variant="unstyled"
                   className="border-2 border-[var(--rule)] bg-[var(--rule)] px-4 py-2 text-[var(--paper)] transition hover:bg-[var(--mark)] hover:text-[var(--mark-ink)] focus-visible:bg-[var(--mark)] focus-visible:text-[var(--mark-ink)] focus-visible:outline-none"
                 >
                   Usar control rápido
-                </button>
+                </Button>
               </div>
             </Dialog.Popup>
           </Dialog.Viewport>
@@ -362,9 +386,10 @@ function PerdidaAcumuladaPanel({
           {formatearCentimos(Math.abs(perdidaAcumulada.totalCentimos))}
         </p>
         <p className="text-sm leading-6 text-[var(--ink-soft)]">
-          Suma de la diferencia anual de poder adquisitivo neto de cada año
-          comparado, reexpresada en euros de {perdidaAcumulada.anioReferencia}.
-          Promedio anual:{" "}
+          Cada casilla muestra NETO_REAL_AÑO - NETO_
+          {perdidaAcumulada.anioReferencia}: positivo en rojo significa que ese
+          año dejaba más neto; negativo en verde significa que{" "}
+          {perdidaAcumulada.anioReferencia} deja más neto. Promedio anual:{" "}
           <strong className="text-[var(--ink)]">
             {formatearCentimos(Math.abs(promedioCentimos))}
           </strong>
@@ -383,15 +408,20 @@ function PerdidaAcumuladaPanel({
               <span className="font-[family-name:var(--display)] text-2xl leading-none tracking-wider text-[var(--ink)]">
                 {punto.anioComparado}
               </span>
-              <span
-                className={cn(
-                  "font-[family-name:var(--mono)] text-sm font-bold tabular-nums",
-                  puntoPerdida ? "text-[var(--danger)]" : "text-[var(--gain)]"
-                )}
-              >
-                {formatearCentimos(
-                  Math.abs(punto.diferenciaPoderAdquisitivoNetoAnualCentimos)
-                )}
+              <span className="grid justify-items-end gap-1">
+                <span
+                  className={cn(
+                    "font-[family-name:var(--mono)] text-sm font-bold tabular-nums",
+                    puntoPerdida ? "text-[var(--danger)]" : "text-[var(--gain)]"
+                  )}
+                >
+                  {formatearCentimosConSigno(
+                    punto.diferenciaPoderAdquisitivoNetoAnualCentimos
+                  )}
+                </span>
+                <span className="text-[0.65rem] leading-none tracking-[0.18em] text-[var(--ink-soft)] uppercase">
+                  {puntoPerdida ? "2026 pierde" : "2026 mejora"}
+                </span>
               </span>
             </li>
           )
@@ -400,6 +430,9 @@ function PerdidaAcumuladaPanel({
     </section>
   )
 }
+
+const formatearCentimosConSigno = (centimos: number): string =>
+  centimos > 0 ? `+${formatearCentimos(centimos)}` : formatearCentimos(centimos)
 
 function RejillaAnios({
   valor,
@@ -413,12 +446,13 @@ function RejillaAnios({
       {ANIOS_COMPARABLES.map((anio) => {
         const activo = anio === valor
         return (
-          <button
+          <Button
             key={anio}
             type="button"
             role="radio"
             aria-checked={activo}
             onClick={() => alCambiar(anio)}
+            variant="unstyled"
             className={cn(
               "h-12 transition-colors",
               "font-[family-name:var(--mono)] text-sm font-bold tracking-wider tabular-nums",
@@ -429,7 +463,7 @@ function RejillaAnios({
             )}
           >
             {anio}
-          </button>
+          </Button>
         )
       })}
     </div>
@@ -522,13 +556,28 @@ function SelloPrincipal({
 
 function Columnas({
   comparacion,
+  comparacionPasada,
   modo,
   fijarModo,
 }: {
   readonly comparacion: ComparacionAjustadaPorIpc
-  readonly modo: "bruto" | "coste-laboral"
-  readonly fijarModo: (modo: "bruto" | "coste-laboral") => void
+  readonly comparacionPasada: ComparacionAjustadaPorIpc
+  readonly modo: VistaComparacion
+  readonly fijarModo: (modo: VistaComparacion) => void
 }) {
+  const comparacionMostrada =
+    modo === "pasado" ? comparacionPasada : comparacion
+  const usarCosteLaboral = modo === "coste-laboral"
+  const etiquetaBase = usarCosteLaboral ? "COSTE LABORAL REAL" : "BRUTO REAL"
+  const opcionesVista = [
+    { modo: "bruto", etiqueta: "Salario bruto" },
+    { modo: "coste-laboral", etiqueta: "Coste laboral" },
+    { modo: "pasado", etiqueta: "Pasado" },
+  ] as const satisfies ReadonlyArray<{
+    readonly modo: VistaComparacion
+    readonly etiqueta: string
+  }>
+
   return (
     <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
@@ -540,15 +589,16 @@ function Columnas({
           aria-label="Base de la comparación"
           className="inline-flex divide-x-2 divide-[var(--rule)] border-2 border-[var(--rule)] text-sm tracking-[0.22em] uppercase"
         >
-          {(["bruto", "coste-laboral"] as const).map((modoColumna) => {
-            const activo = modo === modoColumna
+          {opcionesVista.map((opcion) => {
+            const activo = modo === opcion.modo
             return (
-              <button
-                key={modoColumna}
+              <Button
+                key={opcion.modo}
                 type="button"
                 role="tab"
                 aria-selected={activo}
-                onClick={() => fijarModo(modoColumna)}
+                onClick={() => fijarModo(opcion.modo)}
+                variant="unstyled"
                 className={cn(
                   "px-3 py-2 transition-colors",
                   "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
@@ -557,37 +607,43 @@ function Columnas({
                     : "bg-[var(--paper)] hover:bg-[var(--mark)]"
                 )}
               >
-                {modoColumna === "bruto" ? "Salario bruto" : "Coste laboral"}
-              </button>
+                {opcion.etiqueta}
+              </Button>
             )
           })}
         </div>
       </div>
       <div className="mt-4 grid gap-px bg-[var(--rule)] lg:grid-cols-2">
         <Columna
-          rotuloSuperior={`leyes ${comparacion.anioComparado}`}
-          titulo={String(comparacion.anioComparado)}
-          subtitulo={`euros de ${comparacion.anioReferencia}`}
-          etiquetaBase={modo === "bruto" ? "BRUTO" : "COSTE LABORAL"}
+          rotuloSuperior={`leyes ${comparacionMostrada.anioComparado}`}
+          titulo={String(comparacionMostrada.anioComparado)}
+          subtitulo={`euros reales de ${comparacionMostrada.anioReferencia}`}
+          etiquetaBase={etiquetaBase}
           baseCentimos={
-            modo === "bruto"
-              ? comparacion.comparado.ajustado.salarioBrutoAnualCentimos
-              : comparacion.comparado.ajustado.costeLaboralCentimos
+            usarCosteLaboral
+              ? comparacionMostrada.comparado.ajustado.costeLaboralCentimos
+              : comparacionMostrada.comparado.ajustado.salarioBrutoAnualCentimos
           }
-          desglose={comparacion.comparado.ajustado}
+          brutoNominalCentimos={
+            comparacionMostrada.comparado.salarioBrutoNominalAnualCentimos
+          }
+          desglose={comparacionMostrada.comparado.ajustado}
+          anioNominal={comparacionMostrada.anioComparado}
           variante="comparado"
         />
         <Columna
-          rotuloSuperior="legislación actual"
-          titulo={String(comparacion.anioReferencia)}
-          subtitulo="año de referencia"
-          etiquetaBase={modo === "bruto" ? "BRUTO" : "COSTE LABORAL"}
-          baseCentimos={
-            modo === "bruto"
-              ? comparacion.referencia.salarioBrutoAnualCentimos
-              : comparacion.referencia.costeLaboralCentimos
+          rotuloSuperior={
+            modo === "pasado" ? "año de referencia" : "legislación actual"
           }
-          desglose={comparacion.referencia}
+          titulo={String(comparacionMostrada.anioReferencia)}
+          subtitulo={`euros nominales de ${comparacionMostrada.anioReferencia}`}
+          etiquetaBase={etiquetaBase}
+          baseCentimos={
+            usarCosteLaboral
+              ? comparacionMostrada.referencia.costeLaboralCentimos
+              : comparacionMostrada.referencia.salarioBrutoAnualCentimos
+          }
+          desglose={comparacionMostrada.referencia}
           variante="actual"
         />
       </div>
@@ -601,7 +657,9 @@ function Columna({
   subtitulo,
   etiquetaBase,
   baseCentimos,
+  brutoNominalCentimos,
   desglose,
+  anioNominal,
   variante,
 }: {
   readonly rotuloSuperior: string
@@ -609,7 +667,9 @@ function Columna({
   readonly subtitulo: string
   readonly etiquetaBase: string
   readonly baseCentimos: number
+  readonly brutoNominalCentimos?: number
   readonly desglose: DesgloseLiquidado
+  readonly anioNominal?: AnioFiscal
   readonly variante: "actual" | "comparado"
 }) {
   const carga =
@@ -618,8 +678,9 @@ function Columna({
   const cuna =
     (desglose.costeLaboralCentimos - desglose.salarioNetoAnualCentimos) /
     desglose.costeLaboralCentimos
-  const etiquetaCarga =
-    etiquetaBase === "BRUTO" ? "CARGA SOBRE BRUTO" : "CARGA SOBRE COSTE"
+  const etiquetaCarga = etiquetaBase.startsWith("BRUTO")
+    ? "CARGA SOBRE BRUTO"
+    : "CARGA SOBRE COSTE"
   return (
     <article
       className={cn(
@@ -641,6 +702,12 @@ function Columna({
       </p>
       <ul className="grid gap-0 text-sm">
         <Fila etiqueta={etiquetaBase} valor={formatearCentimos(baseCentimos)} />
+        {brutoNominalCentimos !== undefined && anioNominal !== undefined ? (
+          <Fila
+            etiqueta={`BRUTO NOMINAL ${anioNominal}`}
+            valor={formatearCentimos(brutoNominalCentimos)}
+          />
+        ) : null}
         <Fila
           etiqueta="SS TRABAJADOR"
           valor={`−${formatearCentimos(desglose.cotizacionTrabajadorCentimos)}`}
@@ -652,7 +719,7 @@ function Columna({
           peligro
         />
         <Fila etiqueta={etiquetaCarga} valor={porcentaje.format(carga)} />
-        <Fila etiqueta="CUÑA LABORAL" valor={porcentaje.format(cuna)} />
+        <Fila etiqueta="CUÑA FISCAL" valor={porcentaje.format(cuna)} />
       </ul>
       <footer className="mt-2 flex flex-wrap items-baseline justify-between gap-3 border-t-2 border-[var(--rule)] pt-3">
         <span className="shrink-0 text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
@@ -697,74 +764,354 @@ function Fila({
   )
 }
 
+function PiezaFormula({
+  children,
+  tono = "neutro",
+}: {
+  readonly children: React.ReactNode
+  readonly tono?: "neutro" | "calculo" | "limite" | "resultado"
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex min-h-8 max-w-full min-w-0 items-center border-2 border-[var(--rule)] px-2 py-1 text-left font-[family-name:var(--mono)] text-sm leading-5 font-bold [overflow-wrap:anywhere] break-words whitespace-normal tabular-nums",
+        tono === "neutro" && "bg-[var(--paper)] text-[var(--ink)]",
+        tono === "calculo" && "bg-[var(--mark)] text-[var(--mark-ink)]",
+        tono === "limite" && "bg-[var(--paper-2)] text-[var(--ink)]",
+        tono === "resultado" && "bg-[var(--rule)] text-[var(--paper)]"
+      )}
+    >
+      {children}
+    </span>
+  )
+}
+
+function FormulaSimulador({
+  children,
+}: {
+  readonly children: React.ReactNode
+}) {
+  return (
+    <div className="flex max-w-full min-w-0 flex-wrap items-center gap-2 leading-none">
+      {children}
+    </div>
+  )
+}
+
+function TarjetaFormula({
+  numero,
+  titulo,
+  children,
+}: {
+  readonly numero: string
+  readonly titulo: string
+  readonly children: React.ReactNode
+}) {
+  return (
+    <article className="grid min-w-0 gap-3 border-2 border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[3px_3px_0_0_var(--rule)]">
+      <div className="flex min-w-0 items-start gap-3">
+        <span className="font-[family-name:var(--display)] text-4xl leading-none text-[var(--ink-soft)]">
+          {numero}
+        </span>
+        <h3 className="pt-1 text-sm leading-5 font-bold tracking-[0.22em] text-[var(--ink)] uppercase">
+          {titulo}
+        </h3>
+      </div>
+      <div className="grid min-w-0 gap-2">{children}</div>
+    </article>
+  )
+}
+
+function EnlaceNormativo({
+  href,
+  children,
+}: {
+  readonly href: string
+  readonly children: React.ReactNode
+}) {
+  return (
+    <a
+      href={href}
+      className="font-bold underline decoration-[var(--rule)] underline-offset-4"
+    >
+      {children}
+    </a>
+  )
+}
+
+function LineaRastroSimulador({
+  etiqueta,
+  formula,
+  pasado,
+  actual,
+  destacado = false,
+}: {
+  readonly etiqueta: string
+  readonly formula: string
+  readonly pasado: string
+  readonly actual: string
+  readonly destacado?: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        "grid gap-2 border border-[var(--rule)] bg-[var(--paper-2)] p-3 md:grid-cols-[minmax(9rem,0.75fr)_minmax(12rem,1.2fr)_minmax(7rem,0.65fr)_minmax(7rem,0.65fr)]",
+        destacado && "bg-[color-mix(in_oklab,var(--mark),var(--paper)_68%)]"
+      )}
+    >
+      <dt className="text-sm font-bold tracking-[0.18em] uppercase">
+        {etiqueta}
+      </dt>
+      <dd className="font-[family-name:var(--mono)] text-sm break-words text-[var(--ink-soft)]">
+        {formula}
+      </dd>
+      <dd className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums md:text-right">
+        {pasado}
+      </dd>
+      <dd className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums md:text-right">
+        {actual}
+      </dd>
+    </div>
+  )
+}
+
+function BloqueCompetencia({
+  titulo,
+  ambito,
+  children,
+}: {
+  readonly titulo: string
+  readonly ambito: string
+  readonly children: React.ReactNode
+}) {
+  return (
+    <article className="grid gap-2 border border-[var(--rule)] bg-[var(--paper-2)] p-3">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="text-sm font-bold tracking-[0.18em] uppercase">
+          {titulo}
+        </h3>
+        <span className="font-[family-name:var(--mono)] text-sm font-bold text-[var(--ink-soft)]">
+          {ambito}
+        </span>
+      </div>
+      <p className="text-sm leading-6 text-[var(--ink-soft)]">{children}</p>
+    </article>
+  )
+}
+
 function Pasos({
   comparacion,
 }: {
   readonly comparacion: ComparacionAjustadaPorIpc
 }) {
   const factor = Number(comparacion.factorIpc)
-  const pasos = [
-    {
-      numero: "01",
-      titulo: "PRIMERO IGUALAMOS EUROS",
-      cuerpo: `No comparamos euros nominales. Aplicamos el factor IPC acumulado ${factor.toFixed(4)}: ${formatearCentimos(comparacion.comparado.salarioBrutoNominalAnualCentimos)} de ${comparacion.anioComparado} compraban aproximadamente lo mismo que ${formatearCentimos(comparacion.referencia.salarioBrutoAnualCentimos)} en ${comparacion.anioReferencia}.`,
-    },
-    {
-      numero: "02",
-      titulo: "RESTAMOS LA COTIZACIÓN DEL TRABAJADOR",
-      cuerpo: `Del salario bruto sale primero la cotización del trabajador. Con las reglas de ${comparacion.anioComparado}, reexpresada en euros de ${comparacion.anioReferencia}, son ${formatearCentimos(comparacion.comparado.ajustado.cotizacionTrabajadorCentimos)}. Con las reglas de ${comparacion.anioReferencia} son ${formatearCentimos(comparacion.referencia.cotizacionTrabajadorCentimos)}.`,
-    },
-    {
-      numero: "03",
-      titulo: "CONSTRUIMOS LA BASE DEL IRPF",
-      cuerpo:
-        "Después entran los gastos fijos y la reducción por rendimientos del trabajo. Ese tramo del cálculo convierte el rendimiento del salario en base imponible: la cantidad sobre la que empiezan a aplicarse los tramos del IRPF.",
-    },
-    {
-      numero: "04",
-      titulo: "APLICAMOS TRAMOS, MÍNIMOS Y DEDUCCIONES",
-      cuerpo:
-        "El IRPF no se aplica a todo el salario con un único porcentaje. Cada tramo grava solo la parte que cae dentro de su intervalo; luego se descuentan el mínimo personal y, cuando corresponde, la deducción ligada al SMI.",
-    },
-    {
-      numero: "05",
-      titulo: "LLEGAMOS AL IRPF FINAL",
-      cuerpo: `El cálculo todavía respeta el límite de retención. Tras ese límite, el IRPF final comparable queda en ${formatearCentimos(comparacion.comparado.ajustado.irpfFinalCentimos)} con reglas de ${comparacion.anioComparado}, frente a ${formatearCentimos(comparacion.referencia.irpfFinalCentimos)} con reglas de ${comparacion.anioReferencia}.`,
-    },
-    {
-      numero: "06",
-      titulo: "COMPARAMOS EL PODER ADQUISITIVO NETO",
-      cuerpo: `Al salario bruto le quitamos cotización del trabajador e IRPF final. La diferencia de poder adquisitivo neto es ${formatearCentimos(comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos)} al año, equivalente a ${formatearCentimos(comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos)} al mes en 12 pagas.`,
-    },
-  ] as const
+  const comparado = comparacion.comparado.ajustado
+  const actual = comparacion.referencia
+  const rendimientoPrevioComparado =
+    comparado.salarioBrutoAnualCentimos - comparado.cotizacionTrabajadorCentimos
+  const rendimientoPrevioActual =
+    actual.salarioBrutoAnualCentimos - actual.cotizacionTrabajadorCentimos
+
   return (
-    <section className="border-b-2 border-[var(--rule)] py-6">
+    <section className="grid gap-6 py-6">
       <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
-        CÁLCULO GUIADO PASO A PASO
+        CÁLCULO GUIADO
       </h2>
-      <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--ink-soft)]">
+      <p className="max-w-4xl text-sm leading-6 text-[var(--ink-soft)]">
         La comparación no pregunta cuánto se cobraba nominalmente en el pasado,
-        sino qué pasaría con un salario equivalente por IPC. Por eso cada paso
-        separa inflación, cotizaciones, cálculo del IRPF y salario neto.
+        sino qué pasaría con un salario equivalente por IPC. La parte importante
+        del IRPF sucede antes de los tramos: ahí se decide la base imponible, y
+        muchos de esos parámetros son estatales.
       </p>
-      <ol className="mt-5 grid gap-px bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-3">
-        {pasos.map((paso) => (
-          <li
-            key={paso.numero}
-            className="grid gap-2 bg-[var(--paper)] p-4 sm:p-5"
+
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <TarjetaFormula numero="01" titulo="De salario nominal a euros reales">
+          <FormulaSimulador>
+            <PiezaFormula tono="resultado">SALARIO_BRUTO_REAL</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="calculo">
+              SALARIO_NOMINAL_{comparacion.anioComparado}
+            </PiezaFormula>
+            <PiezaFormula>×</PiezaFormula>
+            <PiezaFormula tono="calculo">
+              IPC_ACUM {factor.toFixed(4)}
+            </PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="resultado">
+              {formatearCentimos(comparado.salarioBrutoAnualCentimos)}
+            </PiezaFormula>
+          </FormulaSimulador>
+          <p className="text-sm leading-6 text-[var(--ink-soft)]">
+            Se compara poder de compra, no euros escritos en una nómina antigua.
+          </p>
+        </TarjetaFormula>
+
+        <TarjetaFormula numero="02" titulo="Del salario a la base imponible">
+          <FormulaSimulador>
+            <PiezaFormula tono="resultado">BASE_IMPONIBLE</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="calculo">RENDIMIENTO_TRABAJO</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">SS_TRABAJADOR</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">GASTO_2.000</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">REDUCCION_ART_20</PiezaFormula>
+          </FormulaSimulador>
+          <p className="text-sm leading-6 text-[var(--ink-soft)]">
+            Rendimientos del trabajo son sueldos, salarios, pensiones o paro. El
+            gasto fijo de 2.000 € del{" "}
+            <EnlaceNormativo href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a19">
+              art. 19.2.f LIRPF
+            </EnlaceNormativo>{" "}
+            y la reducción del{" "}
+            <EnlaceNormativo href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a20">
+              art. 20 LIRPF
+            </EnlaceNormativo>{" "}
+            se aplican antes de que la CCAA toque su escala.
+          </p>
+        </TarjetaFormula>
+
+        <TarjetaFormula numero="03" titulo="De base a cuota">
+          <FormulaSimulador>
+            <PiezaFormula tono="resultado">CUOTA_IRPF</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="calculo">TRAMOS(BASE)</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">MINIMO_PERSONAL</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">DEDUCCIONES</PiezaFormula>
+          </FormulaSimulador>
+          <p className="text-sm leading-6 text-[var(--ink-soft)]">
+            Una CCAA puede modificar su escala autonómica y parte del mínimo,
+            pero el mínimo personal y familiar parte de una referencia estatal.
+            La{" "}
+            <EnlaceNormativo href="https://www.boe.es/buscar/act.php?id=BOE-A-2009-20375#a46">
+              Ley 22/2009
+            </EnlaceNormativo>{" "}
+            limita a un 10% la variación autonómica de esos mínimos.
+          </p>
+        </TarjetaFormula>
+
+        <TarjetaFormula numero="04" titulo="De cuota a neto">
+          <FormulaSimulador>
+            <PiezaFormula tono="resultado">NETO</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="calculo">SALARIO_BRUTO</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">SS_TRABAJADOR</PiezaFormula>
+            <PiezaFormula>-</PiezaFormula>
+            <PiezaFormula tono="limite">IRPF_FINAL</PiezaFormula>
+            <PiezaFormula>=</PiezaFormula>
+            <PiezaFormula tono="resultado">
+              {formatearCentimos(comparado.salarioNetoAnualCentimos)}
+            </PiezaFormula>
+          </FormulaSimulador>
+          <p className="text-sm leading-6 text-[var(--ink-soft)]">
+            El resultado neto compara leyes de {comparacion.anioComparado} en
+            euros de {comparacion.anioReferencia} contra la liquidación actual.
+          </p>
+        </TarjetaFormula>
+      </div>
+
+      <section className="border border-[var(--rule)] bg-[var(--paper)]">
+        <header className="border-b border-[var(--rule)] p-4">
+          <p className="text-sm tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+            Rastro con tus números
+          </p>
+          <h3 className="mt-1 text-2xl font-bold">Salario, IRPF y neto</h3>
+        </header>
+        <dl className="grid gap-2 p-4">
+          <div className="hidden px-3 text-sm font-bold tracking-[0.18em] text-[var(--ink-soft)] uppercase md:grid md:grid-cols-[minmax(9rem,0.75fr)_minmax(12rem,1.2fr)_minmax(7rem,0.65fr)_minmax(7rem,0.65fr)]">
+            <span>Concepto</span>
+            <span>Fórmula</span>
+            <span className="text-right">{comparacion.anioComparado}</span>
+            <span className="text-right">{comparacion.anioReferencia}</span>
+          </div>
+          <LineaRastroSimulador
+            etiqueta="Bruto comparable"
+            formula={`${formatearCentimos(
+              comparacion.comparado.salarioBrutoNominalAnualCentimos
+            )} x IPC ${factor.toFixed(4)}`}
+            pasado={formatearCentimos(comparado.salarioBrutoAnualCentimos)}
+            actual={formatearCentimos(actual.salarioBrutoAnualCentimos)}
+          />
+          <LineaRastroSimulador
+            etiqueta="Rendimiento previo"
+            formula="Bruto - cotizacion trabajador"
+            pasado={formatearCentimos(rendimientoPrevioComparado)}
+            actual={formatearCentimos(rendimientoPrevioActual)}
+          />
+          <LineaRastroSimulador
+            etiqueta="IRPF final"
+            formula="Cuota anual ajustada por limites aplicables"
+            pasado={formatearCentimos(comparado.irpfFinalCentimos)}
+            actual={formatearCentimos(actual.irpfFinalCentimos)}
+          />
+          <LineaRastroSimulador
+            etiqueta="Neto anual"
+            formula="Bruto - cotizacion trabajador - IRPF final"
+            pasado={formatearCentimos(comparado.salarioNetoAnualCentimos)}
+            actual={formatearCentimos(actual.salarioNetoAnualCentimos)}
+            destacado
+          />
+          <LineaRastroSimulador
+            etiqueta="Diferencia"
+            formula="Neto pasado comparable - neto actual"
+            pasado={formatearCentimos(
+              comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos
+            )}
+            actual={`${formatearCentimos(
+              comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos
+            )} / mes`}
+            destacado
+          />
+        </dl>
+      </section>
+
+      <section className="border-t-2 border-[var(--rule)] pt-5">
+        <p className="text-sm font-bold tracking-[0.24em] text-[var(--ink-soft)] uppercase">
+          Qué explica esto sobre deflactar
+        </p>
+        <div className="mt-3 grid gap-3 lg:grid-cols-2">
+          <BloqueCompetencia
+            titulo="La inflación entra antes de los tramos"
+            ambito="Estado"
           >
-            <span className="font-[family-name:var(--display)] text-[clamp(2.5rem,6vw,3rem)] leading-none text-[var(--ink-soft)]">
-              {paso.numero}
-            </span>
-            <h3 className="text-sm tracking-[0.22em] text-[var(--ink)] uppercase">
-              {paso.titulo}
-            </h3>
-            <p className="text-sm leading-5 text-[var(--ink-soft)]">
-              {paso.cuerpo}
-            </p>
-          </li>
-        ))}
-      </ol>
+            Si el salario nominal sube sólo para compensar IPC, el poder de
+            compra puede ser el mismo pero el rendimiento nominal es mayor. Eso
+            puede reducir la reducción por rendimientos del trabajo y elevar la
+            base imponible antes de llegar a la escala autonómica.
+          </BloqueCompetencia>
+          <BloqueCompetencia
+            titulo="El gasto de 2.000 € pierde valor"
+            ambito="Estado"
+          >
+            El gasto deducible fijo no se actualiza con los precios dentro de la
+            CCAA. Si permanece congelado, cada año protege menos renta real y la
+            base imponible sube artificialmente frente al poder adquisitivo.
+          </BloqueCompetencia>
+          <BloqueCompetencia
+            titulo="El mínimo familiar tiene corsé"
+            ambito="Estado + CCAA"
+          >
+            Las CCAA pueden mover mínimos para el gravamen autonómico, pero con
+            el límite del 10%. Si la referencia estatal queda congelada y la
+            inflación acumulada supera ese margen, la corrección autonómica es
+            parcial.
+          </BloqueCompetencia>
+          <BloqueCompetencia
+            titulo="Deflactar sólo la CCAA es parcial"
+            ambito="CCAA"
+          >
+            Tocar la escala autonómica puede aliviar parte de la cuota, pero no
+            repara los parámetros estatales que forman la base. Además, en el
+            sistema de financiación, una bajada unilateral puede reducir caja
+            real aunque la capacidad normativa usada por el sistema no baje al
+            mismo ritmo.
+          </BloqueCompetencia>
+        </div>
+      </section>
     </section>
   )
 }

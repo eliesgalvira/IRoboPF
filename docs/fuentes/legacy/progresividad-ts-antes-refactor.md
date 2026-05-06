@@ -1,3 +1,14 @@
+# Progresividad TypeScript antes de refactor
+
+Procedencia:
+- Titulo original: lib/domain/progresividad.ts
+- Archivo original: lib/domain/progresividad.ts
+- Fecha del documento: snapshot local previo al refactor arquitectonico
+- Paginas incluidas: no aplica
+- SHA-256 del archivo: 4d5bf07778b995c37f61a6b15d1b7646947a5d005254dd091c8323d0676c46b9
+- Nota: este texto es una transcripcion operativa del motor TypeScript legacy; no es una fuente normativa nueva.
+
+```ts
 import Decimal from "decimal.js"
 import { Effect } from "effect"
 
@@ -1521,3 +1532,4 @@ export const construirTablaDetalleAnualCompatible = (
     filas: filas(),
   }
 }
+```
