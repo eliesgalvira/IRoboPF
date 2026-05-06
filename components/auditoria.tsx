@@ -3459,7 +3459,7 @@ function BloqueFormula({
     <span
       className={cn(
         "inline-flex min-h-9 max-w-full min-w-0 items-center border-2 border-[var(--rule)] px-2 py-1 text-left font-[family-name:var(--mono)] leading-5 font-bold [overflow-wrap:anywhere] break-words whitespace-normal tabular-nums",
-        compacto ? "text-xs sm:text-sm" : "text-sm sm:text-base",
+        compacto ? "text-sm" : "text-sm sm:text-base",
         tono === "neutro" && "bg-[var(--paper)] text-[var(--ink)]",
         tono === "calculo" && "bg-[var(--mark)] text-[var(--mark-ink)]",
         tono === "limite" && "bg-[var(--paper-2)] text-[var(--ink)]",
@@ -4717,7 +4717,7 @@ function ContenidoGraficoCunaFiscal({
         align="right"
         wrapperStyle={{
           fontFamily: "var(--mono)",
-          fontSize: 12,
+          fontSize: 14,
           fontWeight: 700,
           paddingTop: 8,
         }}
