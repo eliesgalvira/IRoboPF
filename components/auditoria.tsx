@@ -13,7 +13,6 @@ import {
   AreaChart,
   CartesianGrid,
   ComposedChart,
-  Legend,
   Line,
   LineChart,
   ReferenceLine,
@@ -1534,6 +1533,12 @@ const componentesApiladosCunaFiscal = [
   "cotizaciones-trabajador",
   "cotizaciones-empresa",
 ] as const satisfies ReadonlyArray<ComponenteCunaFiscal>
+const componentesLeyendaCunaFiscal = [
+  "cotizaciones-empresa",
+  "cotizaciones-trabajador",
+  "total",
+  "irpf",
+] as const satisfies ReadonlyArray<ComponenteCunaFiscal>
 const claveSerieCunaFiscal = (
   comunidadAutonoma: ComunidadAuditada,
   anio: AnioFiscal,
@@ -1695,6 +1700,40 @@ const configuracionTipoMarginalIrpf = ({
   } satisfies ChartConfig
 }
 
+const itemsLeyendaTipoEfectivoIrpf = ({
+  comunidadesAutonomas,
+  anios,
+}: {
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly anios: ReadonlyArray<AnioFiscal>
+}): ReadonlyArray<ItemLeyendaGraficoAuditoria> =>
+  comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+    anios.map((anio) => ({
+      clave: claveSerieTipoEfectivoIrpf(comunidadAutonoma, anio),
+      etiqueta: etiquetaSerieAuditoria(comunidadAutonoma, anio),
+      color: colorSerieAuditoria(comunidadAutonoma, anio),
+      tipo: "linea",
+    }))
+  )
+
+const itemsLeyendaCunaFiscal = ({
+  comunidadesAutonomas,
+  anios,
+}: {
+  readonly comunidadesAutonomas: ReadonlyArray<ComunidadAuditada>
+  readonly anios: ReadonlyArray<AnioFiscal>
+}): ReadonlyArray<ItemLeyendaGraficoAuditoria> =>
+  comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+    anios.flatMap((anio) =>
+      componentesLeyendaCunaFiscal.map((componente) => ({
+        clave: claveSerieCunaFiscal(comunidadAutonoma, anio, componente),
+        etiqueta: etiquetaSerieCunaFiscal(comunidadAutonoma, anio, componente),
+        color: colorComponenteCunaFiscal(componente),
+        tipo: componente === "total" ? "linea" : "rectangulo",
+      }))
+    )
+  )
+
 type FilaTipoEfectivoIrpf = Record<string, number | string>
 type FilaDiferenciaTipoIrpf = Record<string, number | string | undefined>
 type FilaCunaFiscal = Record<string, number | string | undefined>
@@ -1702,6 +1741,13 @@ type FilaTipoMarginalIrpf = Record<string, number | string | undefined>
 type ModoTipoEfectivoIrpf = ModoUnidadGraficoAuditoria
 type ModoDiferenciaTipoIrpf = ModoUnidadGraficoAuditoria
 type ModoCunaFiscal = ModoUnidadGraficoAuditoria
+type TipoMarcadorLeyendaGrafico = "linea" | "rectangulo"
+type ItemLeyendaGraficoAuditoria = {
+  readonly clave: string
+  readonly etiqueta: string
+  readonly color: string
+  readonly tipo: TipoMarcadorLeyendaGrafico
+}
 const opcionesModoPorcentajeEuros = [
   { valor: "porcentaje", etiqueta: "%" },
   { valor: "euros-reales", etiqueta: "€" },
@@ -4616,13 +4662,58 @@ function TooltipDiferenciaTipoIrpf({
       {...propsTooltip}
       formatter={(valor, nombre, item) => (
         <span
-          className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+          className="font-[family-name:var(--mono)] text-xs font-bold tabular-nums sm:text-sm"
           style={{ color: item.color }}
         >
           {formatearValor(Number(valor))} ({nombre})
         </span>
       )}
     />
+  )
+}
+
+function LeyendaGraficoAuditoria({
+  items,
+  className,
+}: {
+  readonly items: ReadonlyArray<ItemLeyendaGraficoAuditoria>
+  readonly className?: string
+}) {
+  if (items.length === 0) return null
+
+  return (
+    <div
+      className={cn(
+        "recharts-legend-wrapper flex min-w-0 justify-center pt-1",
+        className
+      )}
+    >
+      <ul className="recharts-default-legend flex min-w-0 flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-[11px] leading-4 sm:gap-x-4 sm:text-sm sm:leading-5">
+        {items.map((item) => (
+          <li
+            key={item.clave}
+            className="recharts-legend-item inline-flex min-w-0 items-center gap-1.5 font-[family-name:var(--mono)] font-bold tabular-nums"
+            style={{ color: item.color }}
+          >
+            <span
+              aria-hidden="true"
+              className={cn(
+                "shrink-0",
+                item.tipo === "linea"
+                  ? "h-0 w-4 border-t-2"
+                  : "size-2.5 sm:size-3"
+              )}
+              style={
+                item.tipo === "linea"
+                  ? { borderColor: item.color }
+                  : { backgroundColor: item.color }
+              }
+            />
+            <span className="min-w-0">{item.etiqueta}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
@@ -4698,7 +4789,7 @@ function ContenidoGraficoCunaFiscal({
             className="max-w-[min(25rem,92vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
             formatter={(valor, nombre, item) => (
               <span
-                className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                className="font-[family-name:var(--mono)] text-xs font-bold tabular-nums sm:text-sm"
                 style={{ color: item.color }}
               >
                 {modo === "porcentaje"
@@ -4707,20 +4798,10 @@ function ContenidoGraficoCunaFiscal({
                 ({nombre})
               </span>
             )}
-            labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+            labelClassName="font-[family-name:var(--mono)] text-xs font-bold tabular-nums sm:text-sm"
             labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
           />
         }
-      />
-      <Legend
-        verticalAlign="bottom"
-        align="right"
-        wrapperStyle={{
-          fontFamily: "var(--mono)",
-          fontSize: 14,
-          fontWeight: 700,
-          paddingTop: 8,
-        }}
       />
       {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
         anios.flatMap((anio) =>
@@ -5478,19 +5559,47 @@ function Visualizaciones({
     ),
     Match.exhaustive
   )
-  const claseGraficoTipoEfectivoIrpf =
-    "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
-  const claseGraficoDiferenciaTipoIrpf =
-    "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(22rem,48vw,32rem)]"
-  const claseGraficoCunaFiscal =
-    "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
-  const claseGraficoTipoMarginalIrpf =
-    "mt-4 aspect-[5/4] min-w-0 w-full sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]"
-  const estiloGraficoExportacion = {
+  const claseMarcoGrafico = "mt-4 grid min-w-0 w-full gap-2 sm:gap-3"
+  const claseTextoGraficoCompacto =
+    "text-[11px] sm:text-sm [&_.recharts-cartesian-axis-tick_text]:text-[11px] sm:[&_.recharts-cartesian-axis-tick_text]:text-sm"
+  const claseLienzoGraficoTipoEfectivoIrpf = cn(
+    "aspect-[5/4] w-full min-w-0 sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]",
+    claseTextoGraficoCompacto
+  )
+  const claseLienzoGraficoDiferenciaTipoIrpf = cn(
+    "aspect-[5/4] w-full min-w-0 sm:aspect-[16/9] sm:h-[clamp(22rem,48vw,32rem)]",
+    claseTextoGraficoCompacto
+  )
+  const claseLienzoGraficoCunaFiscal = cn(
+    "aspect-[5/4] w-full min-w-0 sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]",
+    claseTextoGraficoCompacto
+  )
+  const claseLienzoGraficoTipoMarginalIrpf = cn(
+    "aspect-[5/4] w-full min-w-0 sm:aspect-[16/9] sm:h-[clamp(28rem,56vw,40rem)]",
+    claseTextoGraficoCompacto
+  )
+  const claseGraficoTipoEfectivoIrpf = cn(
+    "mt-4",
+    claseLienzoGraficoTipoEfectivoIrpf
+  )
+  const claseGraficoDiferenciaTipoIrpf = cn(
+    "mt-4",
+    claseLienzoGraficoDiferenciaTipoIrpf
+  )
+  const claseGraficoCunaFiscal = cn("mt-4", claseLienzoGraficoCunaFiscal)
+  const claseGraficoTipoMarginalIrpf = cn(
+    "mt-4",
+    claseLienzoGraficoTipoMarginalIrpf
+  )
+  const estiloLienzoGraficoExportacion = {
     width: DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO.ancho,
     height: DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO.alto,
   } satisfies React.CSSProperties
-  const claseGraficoExportacion = "aspect-auto min-w-0"
+  const estiloMarcoGraficoExportacion = {
+    width: DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO.ancho,
+  } satisfies React.CSSProperties
+  const claseMarcoGraficoExportacion = "grid min-w-0 gap-3"
+  const claseGraficoExportacion = "aspect-auto min-w-0 text-sm"
 
   return (
     <section className="py-6">
@@ -5544,7 +5653,7 @@ function Visualizaciones({
           >
             <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
               <div className="grid min-w-0 gap-3 md:max-w-3xl">
-                <p className="text-sm leading-5 text-[var(--ink-soft)]">
+                <p className="text-xs leading-5 text-[var(--ink-soft)] sm:text-sm">
                   {tituloGraficoTipoEfectivoActivo}
                 </p>
                 <div className="flex min-w-0 flex-wrap items-start gap-3">
@@ -5624,116 +5733,118 @@ function Visualizaciones({
                   {Option.getOrElse(errorGrafico, () => "sin datos")}
                 </div>
               ) : (
-                <ChartContainer
+                <div
                   ref={graficoTipoEfectivoIrpfRef}
-                  config={configTipoEfectivoIrpf}
-                  className={claseGraficoTipoEfectivoIrpf}
+                  className={claseMarcoGrafico}
                 >
-                  <LineChart
-                    accessibilityLayer
-                    data={datosTipoEfectivoIrpf}
-                    margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+                  <ChartContainer
+                    config={configTipoEfectivoIrpf}
+                    className={claseLienzoGraficoTipoEfectivoIrpf}
                   >
-                    <CartesianGrid
-                      vertical={false}
-                      stroke="var(--rule)"
-                      strokeDasharray="2 4"
-                    />
-                    <XAxis
-                      type="number"
-                      dataKey="salarioEuros"
-                      domain={dominioSalario}
-                      ticks={ticksSalario}
-                      tickFormatter={(valor: number) =>
-                        formatearSalarioCorto(eurosACentimos(valor))
-                      }
-                      tickLine={false}
-                      axisLine={{ stroke: "var(--rule)" }}
-                      tickMargin={10}
-                      interval={0}
-                      minTickGap={8}
-                      angle={-90}
-                      textAnchor="end"
-                      height={66}
-                      fontSize={14}
-                    />
-                    <YAxis
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={6}
-                      width={44}
-                      domain={dominioTipoEfectivoIrpf}
-                      ticks={ticksTipoEfectivoIrpf}
-                      fontSize={14}
-                      tickFormatter={formatearTickTipoEfectivoIrpf}
-                    />
-                    <ChartTooltip
-                      isAnimationActive={false}
-                      allowEscapeViewBox={{ x: false, y: false }}
-                      wrapperStyle={{
-                        zIndex: 10,
-                        maxWidth: "min(24rem, 90vw)",
-                      }}
-                      cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
-                      content={
-                        <ChartTooltipContent
-                          className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
-                          formatter={(valor, nombre, item) => (
-                            <span
-                              className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                              style={{ color: item.color }}
-                            >
-                              {formatearValorTipoEfectivoIrpf(Number(valor))} (
-                              {nombre})
-                            </span>
-                          )}
-                          labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                          labelFormatter={(_, p) =>
-                            p[0]?.payload?.salario ?? ""
-                          }
-                        />
-                      }
-                    />
-                    <Legend
-                      verticalAlign="bottom"
-                      align="right"
-                      iconType="plainline"
-                      wrapperStyle={{
-                        fontFamily: "var(--mono)",
-                        fontSize: 14,
-                        fontWeight: 700,
-                        paddingTop: 8,
-                      }}
-                    />
-                    {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
-                      aniosGraficoIrpfVisibles.map((anio) => {
-                        const clave = claveSerieTipoEfectivoIrpf(
-                          comunidadAutonoma,
-                          anio
-                        )
-
-                        return (
-                          <Line
-                            key={clave}
-                            dataKey={clave}
-                            name={etiquetaSerieAuditoria(
-                              comunidadAutonoma,
-                              anio
+                    <LineChart
+                      accessibilityLayer
+                      data={datosTipoEfectivoIrpf}
+                      margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+                    >
+                      <CartesianGrid
+                        vertical={false}
+                        stroke="var(--rule)"
+                        strokeDasharray="2 4"
+                      />
+                      <XAxis
+                        type="number"
+                        dataKey="salarioEuros"
+                        domain={dominioSalario}
+                        ticks={ticksSalario}
+                        tickFormatter={(valor: number) =>
+                          formatearSalarioCorto(eurosACentimos(valor))
+                        }
+                        tickLine={false}
+                        axisLine={{ stroke: "var(--rule)" }}
+                        tickMargin={10}
+                        interval={0}
+                        minTickGap={8}
+                        angle={-90}
+                        textAnchor="end"
+                        height={66}
+                        fontSize={14}
+                      />
+                      <YAxis
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={6}
+                        width={44}
+                        domain={dominioTipoEfectivoIrpf}
+                        ticks={ticksTipoEfectivoIrpf}
+                        fontSize={14}
+                        tickFormatter={formatearTickTipoEfectivoIrpf}
+                      />
+                      <ChartTooltip
+                        isAnimationActive={false}
+                        allowEscapeViewBox={{ x: false, y: false }}
+                        wrapperStyle={{
+                          zIndex: 10,
+                          maxWidth: "min(24rem, 90vw)",
+                        }}
+                        cursor={{
+                          stroke: "var(--rule)",
+                          strokeDasharray: "3 3",
+                        }}
+                        content={
+                          <ChartTooltipContent
+                            className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] text-xs shadow-[5px_5px_0_0_var(--rule)] sm:text-sm"
+                            formatter={(valor, nombre, item) => (
+                              <span
+                                className="font-[family-name:var(--mono)] text-xs font-bold tabular-nums sm:text-sm"
+                                style={{ color: item.color }}
+                              >
+                                {formatearValorTipoEfectivoIrpf(Number(valor))}{" "}
+                                ({nombre})
+                              </span>
                             )}
-                            type="linear"
-                            stroke={`var(--color-${clave})`}
-                            strokeWidth={
-                              anio === 2026 ? 4 : anio === 2019 ? 3 : 2
+                            labelClassName="font-[family-name:var(--mono)] text-xs font-bold tabular-nums sm:text-sm"
+                            labelFormatter={(_, p) =>
+                              p[0]?.payload?.salario ?? ""
                             }
-                            dot={false}
-                            activeDot={{ r: 4, strokeWidth: 0 }}
-                            isAnimationActive={false}
                           />
-                        )
-                      })
-                    )}
-                  </LineChart>
-                </ChartContainer>
+                        }
+                      />
+                      {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+                        aniosGraficoIrpfVisibles.map((anio) => {
+                          const clave = claveSerieTipoEfectivoIrpf(
+                            comunidadAutonoma,
+                            anio
+                          )
+
+                          return (
+                            <Line
+                              key={clave}
+                              dataKey={clave}
+                              name={etiquetaSerieAuditoria(
+                                comunidadAutonoma,
+                                anio
+                              )}
+                              type="linear"
+                              stroke={`var(--color-${clave})`}
+                              strokeWidth={
+                                anio === 2026 ? 4 : anio === 2019 ? 3 : 2
+                              }
+                              dot={false}
+                              activeDot={{ r: 4, strokeWidth: 0 }}
+                              isAnimationActive={false}
+                            />
+                          )
+                        })
+                      )}
+                    </LineChart>
+                  </ChartContainer>
+                  <LeyendaGraficoAuditoria
+                    items={itemsLeyendaTipoEfectivoIrpf({
+                      comunidadesAutonomas,
+                      anios: aniosGraficoIrpfVisibles,
+                    })}
+                  />
+                </div>
               )}
               <FormulaTipoEfectivoIrpf
                 anios={aniosGraficoIrpfVisibles}
@@ -5818,8 +5929,8 @@ function Visualizaciones({
                             clavesDiferenciaTipoIrpfSegmentadas[1]
                           }
                           formatearValor={formatearValorDiferenciaTipoIrpf}
-                          className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
-                          labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                          className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] text-xs shadow-[5px_5px_0_0_var(--rule)] sm:text-sm"
+                          labelClassName="font-[family-name:var(--mono)] text-xs font-bold tabular-nums sm:text-sm"
                           labelFormatter={(_, p) =>
                             p[0]?.payload?.salario ?? ""
                           }
@@ -5870,7 +5981,7 @@ function Visualizaciones({
         >
           <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
             <div className="grid min-w-0 gap-3 md:max-w-3xl">
-              <p className="text-sm leading-5 text-[var(--ink-soft)]">
+              <p className="text-xs leading-5 text-[var(--ink-soft)] sm:text-sm">
                 {tituloGraficoCunaFiscal}
               </p>
               <div className="flex min-w-0 flex-wrap items-start gap-3">
@@ -5919,22 +6030,29 @@ function Visualizaciones({
               {Option.getOrElse(errorGrafico, () => "sin datos")}
             </div>
           ) : (
-            <ChartContainer
-              ref={graficoCunaFiscalRef}
-              config={configCunaFiscal}
-              className={claseGraficoCunaFiscal}
-            >
-              <ContenidoGraficoCunaFiscal
-                datos={datosCunaFiscal}
-                comunidadesAutonomas={comunidadesAutonomas}
-                anios={[anioGraficoCunaFiscalVisible]}
-                modo={modoCunaFiscal}
-                dominioSalario={dominioSalario}
-                ticksSalario={ticksSalario}
-                dominioCunaFiscal={dominioCunaFiscal}
-                ticksCunaFiscal={ticksCunaFiscal}
+            <div ref={graficoCunaFiscalRef} className={claseMarcoGrafico}>
+              <ChartContainer
+                config={configCunaFiscal}
+                className={claseLienzoGraficoCunaFiscal}
+              >
+                <ContenidoGraficoCunaFiscal
+                  datos={datosCunaFiscal}
+                  comunidadesAutonomas={comunidadesAutonomas}
+                  anios={[anioGraficoCunaFiscalVisible]}
+                  modo={modoCunaFiscal}
+                  dominioSalario={dominioSalario}
+                  ticksSalario={ticksSalario}
+                  dominioCunaFiscal={dominioCunaFiscal}
+                  ticksCunaFiscal={ticksCunaFiscal}
+                />
+              </ChartContainer>
+              <LeyendaGraficoAuditoria
+                items={itemsLeyendaCunaFiscal({
+                  comunidadesAutonomas,
+                  anios: [anioGraficoCunaFiscalVisible],
+                })}
               />
-            </ChartContainer>
+            </div>
           )}
           <FormulaCunaFiscal
             anio={anioGraficoCunaFiscalVisible}
@@ -5948,7 +6066,7 @@ function Visualizaciones({
         >
           <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
             <div className="grid min-w-0 gap-3 md:max-w-3xl">
-              <p className="text-sm leading-5 text-[var(--ink-soft)]">
+              <p className="text-xs leading-5 text-[var(--ink-soft)] sm:text-sm">
                 {tituloGraficoTipoMarginalIrpf}
               </p>
               <SelectorComunidadAutonomaAuditoria
@@ -6052,16 +6170,16 @@ function Visualizaciones({
                   cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
                   content={
                     <ChartTooltipContent
-                      className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                      className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] text-xs shadow-[5px_5px_0_0_var(--rule)] sm:text-sm"
                       formatter={(valor, nombre, item) => (
                         <span
-                          className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                          className="font-[family-name:var(--mono)] text-xs font-bold tabular-nums sm:text-sm"
                           style={{ color: item.color }}
                         >
                           {porcentaje.format(Number(valor))} ({nombre})
                         </span>
                       )}
-                      labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                      labelClassName="font-[family-name:var(--mono)] text-xs font-bold tabular-nums sm:text-sm"
                       labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
                     />
                   }
@@ -6117,113 +6235,113 @@ function Visualizaciones({
           aria-hidden="true"
           className="pointer-events-none fixed top-0 left-[-100000px] opacity-0"
         >
-          <ChartContainer
+          <div
             ref={graficoTipoEfectivoIrpfExportacionRef}
-            config={configTipoEfectivoIrpf}
-            className={claseGraficoExportacion}
-            style={estiloGraficoExportacion}
+            className={claseMarcoGraficoExportacion}
+            style={estiloMarcoGraficoExportacion}
           >
-            <LineChart
-              accessibilityLayer
-              data={datosTipoEfectivoIrpf}
-              margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+            <ChartContainer
+              config={configTipoEfectivoIrpf}
+              className={claseGraficoExportacion}
+              style={estiloLienzoGraficoExportacion}
             >
-              <CartesianGrid
-                vertical={false}
-                stroke="var(--rule)"
-                strokeDasharray="2 4"
-              />
-              <XAxis
-                type="number"
-                dataKey="salarioEuros"
-                domain={dominioSalario}
-                ticks={ticksSalario}
-                tickFormatter={(valor: number) =>
-                  formatearSalarioCorto(eurosACentimos(valor))
-                }
-                tickLine={false}
-                axisLine={{ stroke: "var(--rule)" }}
-                tickMargin={10}
-                interval={0}
-                minTickGap={8}
-                angle={-90}
-                textAnchor="end"
-                height={66}
-                fontSize={14}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tickMargin={6}
-                width={44}
-                domain={dominioTipoEfectivoIrpf}
-                ticks={ticksTipoEfectivoIrpf}
-                fontSize={14}
-                tickFormatter={formatearTickTipoEfectivoIrpf}
-              />
-              <ChartTooltip
-                isAnimationActive={false}
-                allowEscapeViewBox={{ x: false, y: false }}
-                wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
-                cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
-                content={
-                  <ChartTooltipContent
-                    className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
-                    formatter={(valor, nombre, item) => (
-                      <span
-                        className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                        style={{ color: item.color }}
-                      >
-                        {formatearValorTipoEfectivoIrpf(Number(valor))} (
-                        {nombre})
-                      </span>
-                    )}
-                    labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
-                    labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
-                  />
-                }
-              />
-              <Legend
-                verticalAlign="bottom"
-                align="right"
-                iconType="plainline"
-                wrapperStyle={{
-                  fontFamily: "var(--mono)",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  paddingTop: 8,
-                }}
-              />
-              {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
-                aniosGraficoIrpfVisibles.map((anio) => {
-                  const clave = claveSerieTipoEfectivoIrpf(
-                    comunidadAutonoma,
-                    anio
-                  )
-
-                  return (
-                    <Line
-                      key={clave}
-                      dataKey={clave}
-                      name={etiquetaSerieAuditoria(comunidadAutonoma, anio)}
-                      type="linear"
-                      stroke={`var(--color-${clave})`}
-                      strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
-                      dot={false}
-                      activeDot={{ r: 4, strokeWidth: 0 }}
-                      isAnimationActive={false}
+              <LineChart
+                accessibilityLayer
+                data={datosTipoEfectivoIrpf}
+                margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+              >
+                <CartesianGrid
+                  vertical={false}
+                  stroke="var(--rule)"
+                  strokeDasharray="2 4"
+                />
+                <XAxis
+                  type="number"
+                  dataKey="salarioEuros"
+                  domain={dominioSalario}
+                  ticks={ticksSalario}
+                  tickFormatter={(valor: number) =>
+                    formatearSalarioCorto(eurosACentimos(valor))
+                  }
+                  tickLine={false}
+                  axisLine={{ stroke: "var(--rule)" }}
+                  tickMargin={10}
+                  interval={0}
+                  minTickGap={8}
+                  angle={-90}
+                  textAnchor="end"
+                  height={66}
+                  fontSize={14}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={6}
+                  width={44}
+                  domain={dominioTipoEfectivoIrpf}
+                  ticks={ticksTipoEfectivoIrpf}
+                  fontSize={14}
+                  tickFormatter={formatearTickTipoEfectivoIrpf}
+                />
+                <ChartTooltip
+                  isAnimationActive={false}
+                  allowEscapeViewBox={{ x: false, y: false }}
+                  wrapperStyle={{ zIndex: 10, maxWidth: "min(24rem, 90vw)" }}
+                  cursor={{ stroke: "var(--rule)", strokeDasharray: "3 3" }}
+                  content={
+                    <ChartTooltipContent
+                      className="max-w-[min(24rem,90vw)] border-2 border-[var(--rule)] bg-[var(--paper)] shadow-[5px_5px_0_0_var(--rule)]"
+                      formatter={(valor, nombre, item) => (
+                        <span
+                          className="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                          style={{ color: item.color }}
+                        >
+                          {formatearValorTipoEfectivoIrpf(Number(valor))} (
+                          {nombre})
+                        </span>
+                      )}
+                      labelClassName="font-[family-name:var(--mono)] text-sm font-bold tabular-nums"
+                      labelFormatter={(_, p) => p[0]?.payload?.salario ?? ""}
                     />
-                  )
-                })
-              )}
-            </LineChart>
-          </ChartContainer>
+                  }
+                />
+                {comunidadesAutonomas.flatMap((comunidadAutonoma) =>
+                  aniosGraficoIrpfVisibles.map((anio) => {
+                    const clave = claveSerieTipoEfectivoIrpf(
+                      comunidadAutonoma,
+                      anio
+                    )
+
+                    return (
+                      <Line
+                        key={clave}
+                        dataKey={clave}
+                        name={etiquetaSerieAuditoria(comunidadAutonoma, anio)}
+                        type="linear"
+                        stroke={`var(--color-${clave})`}
+                        strokeWidth={anio === 2026 ? 4 : anio === 2019 ? 3 : 2}
+                        dot={false}
+                        activeDot={{ r: 4, strokeWidth: 0 }}
+                        isAnimationActive={false}
+                      />
+                    )
+                  })
+                )}
+              </LineChart>
+            </ChartContainer>
+            <LeyendaGraficoAuditoria
+              items={itemsLeyendaTipoEfectivoIrpf({
+                comunidadesAutonomas,
+                anios: aniosGraficoIrpfVisibles,
+              })}
+            />
+          </div>
 
           <ChartContainer
             ref={graficoDiferenciaTipoIrpfExportacionRef}
             config={configDiferenciaTipoIrpf}
             className={claseGraficoExportacion}
-            style={estiloGraficoExportacion}
+            style={estiloLienzoGraficoExportacion}
           >
             <AreaChart
               accessibilityLayer
@@ -6310,29 +6428,40 @@ function Visualizaciones({
             </AreaChart>
           </ChartContainer>
 
-          <ChartContainer
+          <div
             ref={graficoCunaFiscalExportacionRef}
-            config={configCunaFiscal}
-            className={claseGraficoExportacion}
-            style={estiloGraficoExportacion}
+            className={claseMarcoGraficoExportacion}
+            style={estiloMarcoGraficoExportacion}
           >
-            <ContenidoGraficoCunaFiscal
-              datos={datosCunaFiscal}
-              comunidadesAutonomas={comunidadesAutonomas}
-              anios={[anioGraficoCunaFiscalVisible]}
-              modo={modoCunaFiscal}
-              dominioSalario={dominioSalario}
-              ticksSalario={ticksSalario}
-              dominioCunaFiscal={dominioCunaFiscal}
-              ticksCunaFiscal={ticksCunaFiscal}
+            <ChartContainer
+              config={configCunaFiscal}
+              className={claseGraficoExportacion}
+              style={estiloLienzoGraficoExportacion}
+            >
+              <ContenidoGraficoCunaFiscal
+                datos={datosCunaFiscal}
+                comunidadesAutonomas={comunidadesAutonomas}
+                anios={[anioGraficoCunaFiscalVisible]}
+                modo={modoCunaFiscal}
+                dominioSalario={dominioSalario}
+                ticksSalario={ticksSalario}
+                dominioCunaFiscal={dominioCunaFiscal}
+                ticksCunaFiscal={ticksCunaFiscal}
+              />
+            </ChartContainer>
+            <LeyendaGraficoAuditoria
+              items={itemsLeyendaCunaFiscal({
+                comunidadesAutonomas,
+                anios: [anioGraficoCunaFiscalVisible],
+              })}
             />
-          </ChartContainer>
+          </div>
 
           <ChartContainer
             ref={graficoTipoMarginalIrpfExportacionRef}
             config={configTipoMarginalIrpf}
             className={claseGraficoExportacion}
-            style={estiloGraficoExportacion}
+            style={estiloLienzoGraficoExportacion}
           >
             <ComposedChart
               accessibilityLayer
