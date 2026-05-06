@@ -8,7 +8,7 @@ import {
   configuracionControlSalario,
   configuracionRangoAuditoria,
   construirTablaDetalleAnualCompatible,
-} from "../lib/domain/progresividad"
+} from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
 describe("compararAjustadoPorIpc", () => {
   it("define los controles de salario acordados", () => {
@@ -41,6 +41,43 @@ describe("compararAjustadoPorIpc", () => {
         expect(comparacion.comparado.salarioBrutoNominalAnualCentimos).toBe(
           1_430_607
         )
+      })
+  )
+
+  it.effect(
+    "mantiene IRPF final limpio y expone el importe con obligacion de declarar para graficas efectivas",
+    () =>
+      Effect.gen(function* () {
+        const comparacion = yield* compararAjustadoPorIpc({
+          salarioBrutoAnualReferenciaCentimos: 2_200_100,
+          anioComparado: 2019,
+          anioReferencia: 2026,
+        })
+
+        expect(comparacion.referencia.irpfFinalCentimos).toBeLessThan(
+          comparacion.referencia.irpfConObligacionDeclararCentimos ?? 0
+        )
+        expect(comparacion.referencia.irpfConObligacionDeclararCentimos).toBe(
+          278_002
+        )
+      })
+  )
+
+  it.effect(
+    "incluye el primer euro obligado a declarar aunque el paso sea de 1.000 euros",
+    () =>
+      Effect.gen(function* () {
+        const auditoria = yield* auditarRangoSalarial({
+          salarioBrutoAnualMinimoCentimos: 2_100_000,
+          salarioBrutoAnualMaximoCentimos: 2_300_000,
+          pasoCentimos: 100_000,
+          anioComparado: 2019,
+          anioReferencia: 2026,
+        })
+
+        expect(
+          auditoria.puntos.map((punto) => punto.salarioBrutoAnualCentimos)
+        ).toContain(2_200_100)
       })
   )
 

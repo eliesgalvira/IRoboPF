@@ -1,3 +1,5 @@
+import Decimal from "decimal.js"
+
 export const dinero = new Intl.NumberFormat("es-ES", {
   style: "currency",
   currency: "EUR",
@@ -11,11 +13,33 @@ export const dineroEntero = new Intl.NumberFormat("es-ES", {
   maximumFractionDigits: 0,
 })
 
-export const porcentaje = new Intl.NumberFormat("es-ES", {
-  style: "percent",
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-})
+const redondearPorcentajeHalfUp = (valor: Decimal.Value): Decimal => {
+  const redondeado = new Decimal(valor).toDecimalPlaces(
+    2,
+    Decimal.ROUND_HALF_UP
+  )
+
+  return redondeado.isZero() ? new Decimal(0) : redondeado
+}
+
+const formatearDecimalEspanol = (valor: Decimal): string =>
+  valor.toFixed(2).replace(".", ",")
+
+export const formatearPorcentaje = (proporcion: Decimal.Value): string =>
+  `${formatearDecimalEspanol(
+    redondearPorcentajeHalfUp(new Decimal(proporcion).mul(100))
+  )}%`
+
+export const formatearPuntosPorcentuales = (
+  puntosPorcentuales: Decimal.Value
+): string =>
+  `${formatearDecimalEspanol(
+    redondearPorcentajeHalfUp(puntosPorcentuales)
+  )}%`
+
+export const porcentaje = {
+  format: formatearPorcentaje,
+} as const
 
 export const centimosAEuros = (centimos: number) => centimos / 100
 export const eurosACentimos = (euros: number) => Math.round(euros * 100)
