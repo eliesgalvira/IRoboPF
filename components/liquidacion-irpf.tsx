@@ -2747,7 +2747,7 @@ function Resultado({
           enlazadas en cada paso.
         </p>
         <a
-          className="mt-3 inline-block border-b border-current text-sm font-bold"
+          className="mt-3 inline-block border-b border-current text-sm font-bold transition-colors hover:text-[var(--danger)] focus-visible:text-[var(--danger)] focus-visible:outline-none"
           href="https://github.com/eliesgalvira/IRoboPF/issues"
           rel="noreferrer"
           target="_blank"
