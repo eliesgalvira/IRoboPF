@@ -1,196 +1,249 @@
 # IRoboPF
 
-Auditoría de progresividad en frío para España entre 2012 y 2026. El proyecto
-convierte una calculadora histórica de salario neto, IRPF, cotizaciones e IPC
-en una aplicación web educativa que permite comparar poder adquisitivo neto y
-explorar rangos salariales sin enviar datos a un servidor.
+IRoboPF es una herramienta educativa para entender la progresividad en frío, el
+cálculo del IRPF y el impacto de las normas fiscales y laborales aprobadas en
+España a lo largo del tiempo.
 
-La interfaz actual no pretende ser una nómina real ni una asesoría fiscal. Es
-un caso fiscal simplificado para entender cómo cambian el salario neto, el IRPF
-final y las cotizaciones cuando se comparan salarios equivalentes ajustados por
-IPC.
+El proyecto persigue una idea sencilla: hacer legible lo que normalmente queda
+enterrado en tramos, mínimos, deducciones, cotizaciones, retenciones, IPC y
+redondeos. No basta con dar un resultado. IRoboPF intenta mostrar de dónde sale,
+qué norma lo mueve y cuánto cambia cuando se compara con otros años.
 
-## Estado actual
+No es una asesoría fiscal ni una nómina. Es una aplicación divulgativa y de
+auditoría para razonar sobre casos fiscales soportados, comparar escenarios y
+detectar efectos que una calculadora opaca no explica.
 
-- Aplicación Next.js con dos rutas principales:
-  - `/`: simulador de consulta individual.
-  - `/auditoria`: exploración por rango salarial, gráficos, hallazgos y descarga
-    de XLSX.
-- Perfil legacy de progresividad en frío en TypeScript en
-  `lib/dominio/compatibilidad-legacy/progresividad-frio.ts`, usando
-  `decimal.js` para dinero y `effect` para modelar cálculos deterministas.
-- Período de auditoría heredado: 2012-2026, con 2026 como año de referencia en
-  la interfaz actual.
-- Ejecución local en navegador: los cálculos y las exportaciones se hacen en el
-  dispositivo del usuario.
-- Script Python legacy conservado en `Calculo_Salario_IRPF.py` como referencia
-  histórica y oráculo de migración.
-- Compatibilidad legacy completa implementada en el exportador Effect: hojas de
-  control, comparativa de inflación y hojas `DAT_YYYY`.
+## Origen
 
-## Origen del cálculo
-
-El código de cálculo original se basa en el repositorio
+IRoboPF nace a partir de la
 [Calculadora de Salarios y Progresividad en Frío](https://github.com/jongonzlz/Calculadora-de-Salarios-y-Progresividad-en-Fr-o).
-Ese proyecto generó el modelo Python inicial y el Excel histórico que IRoboPF
-está migrando a una experiencia web.
+Ese repositorio aportó el modelo Python inicial y el Excel histórico que sirven
+como referencia de migración.
 
-En este repositorio se distinguen dos objetivos:
+Este proyecto conserva esa referencia como oracle legacy, pero separa dos
+objetivos:
 
-- **Modo compatible legacy**: reproducir salidas tabulares observables del Excel
-  original cuando haga falta validar la migración.
-- **Modo canónico**: expresar el dominio con dinero decimal, redondeos explícitos
-  y rastros educativos más adecuados para producto.
+- reproducir salidas observables del Excel original cuando haga falta validar
+  compatibilidad;
+- construir un motor fiscal explicable, trazable y extensible, con dinero
+  decimal y redondeos explícitos.
 
-Las decisiones de arquitectura están documentadas en `CONTEXT.md` y en
-`docs/adr/`.
+## Qué contiene
 
-## Qué permite hacer
+La aplicación tiene tres rutas principales:
 
-### Simulador individual
+- `/`: consulta individual de salario neto, IRPF, cotizaciones, carga efectiva,
+  cuña fiscal y poder adquisitivo neto ajustado por IPC.
+- `/auditoria`: exploración por rangos salariales, comunidades, años y modos de
+  gráfico para estudiar progresividad en frío e impacto normativo histórico.
+- `/liquidacion-irpf`: interfaz experta para liquidar un caso anual de IRPF con
+  más variables fiscales.
 
-La ruta `/` calcula un salario bruto anual de referencia en 2026 y lo compara
-contra un año entre 2012 y 2025. La comparación usa un salario nominal
-equivalente en el año comparado y reexpresa el resultado en euros de 2026 con
-IPC acumulado.
+El motor cubre, según el caso soportado:
 
-Muestra:
+- rendimientos del trabajo;
+- rendimientos de capital inmobiliario;
+- ganancias y pérdidas patrimoniales;
+- base imponible general y base del ahorro;
+- mínimos personales, familiares y por discapacidad;
+- escalas estatales y autonómicas;
+- reducciones por rendimientos del trabajo;
+- deducciones autonómicas de 2025, excepto regímenes forales;
+- cotizaciones sociales del trabajador y de la empresa;
+- retenciones del trabajo;
+- obligación de declarar;
+- IPC 2012-2026 para comparaciones reales.
 
-- salario neto anual;
-- cotización del trabajador;
-- cotización empresarial y coste laboral;
-- IRPF final;
-- carga sobre salario bruto;
-- cuña fiscal laboral;
-- diferencia de poder adquisitivo neto anual y mensual.
+Los datos normativos están versionados como código y acompañados, cuando existe
+trazabilidad suficiente, por fuentes normalizadas en `docs/fuentes/`.
 
-El control preciso acepta importes con céntimos. El slider rápido está acotado
-al rango pedagógico de 10.000 a 100.000 euros en saltos de 1.000 euros.
+## Cómo hostearlo
 
-### Auditoría por rango salarial
-
-La ruta `/auditoria` ejecuta un barrido salarial local, por defecto entre
-15.000 y 100.000 euros, con puntos cada 100 euros y etiquetas de gráfica
-equidistantes adaptadas al rango elegido. El usuario puede cambiar mínimo,
-máximo y año comparado.
-
-La pantalla prioriza hallazgos antes que la tabla completa:
-
-- salario más afectado en poder adquisitivo neto;
-- mayor cambio de carga sobre salario bruto;
-- primer salario del rango con IRPF final en 2026;
-- gráficos de delta anual y neto real comparado;
-- tabla de datos del barrido.
-
-Desde esta ruta se pueden descargar dos archivos Excel:
-
-- `IRoboPF_Auditoria_Educativa_YYYY_2026.xlsx`, con manual, hallazgos y tabla de
-  exploración.
-- `Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx`, con las hojas legacy
-  `CONTROL_GENERAL`, `CONTROL_TRAMOS_IRPF`, `COMPARATIVA_INFLACION` y
-  `DAT_2012` ... `DAT_2026`.
-
-La exportación compatible replica el alcance funcional del libro legacy. La suite
-rápida valida la comparativa contra el fixture versionado y comprueba estructura,
-controles y detalle anual con rangos acotados; una validación exhaustiva de todas
-las filas `DAT_YYYY` debe ejecutarse como prueba pesada.
-
-## Hipótesis y alcance
-
-El modelo actual calcula un **caso fiscal simplificado**:
-
-- persona individual sin descendientes;
-- tramo autonómico igualado al estatal;
-- salario bruto anual como entrada;
-- distribución mensual solo como lectura equivalente;
-- años fiscales 2012-2026;
-- IPC acumulado de diciembre a diciembre;
-- cotizaciones, MEI, cuota de solidaridad, reducción por rendimientos del
-  trabajo, mínimo personal, mínimo exento de retención, deducciones SMI y límite
-  del 43% según los parámetros incluidos en el motor.
-
-Fuera de alcance por ahora:
-
-- comunidades autónomas reales;
-- situaciones familiares distintas;
-- otras rentas, deducciones personales o circunstancias laborales;
-- equivalencia binaria completa con el Excel legacy.
-
-## Estructura del repo
-
-- `app/`: rutas Next.js.
-- `components/`: interfaz del simulador, auditoría y navegación.
-- `lib/dominio/compatibilidad-legacy/progresividad-frio.ts`: compatibilidad
-  legacy del cálculo histórico y auditoría por rango.
-- `lib/export/auditoria-excel.ts`: exportaciones XLSX en navegador.
-- `tests/progresividad.test.ts`: casos de referencia del motor.
-- `Calculo_Salario_IRPF.py`: script Python legacy.
-- `CONTEXT.md`: lenguaje ubicuo y relaciones del dominio.
-- `docs/adr/`: decisiones de arquitectura.
-
-## Desarrollo
+IRoboPF es una aplicación Next.js. Los cálculos se ejecutan en el navegador o en
+el proceso de la aplicación, sin enviar salarios ni casos fiscales a un backend
+externo.
 
 Requisitos:
 
 - Bun.
 - Node compatible con Next.js 16.
-- `uv` para ejecutar el script Python legacy.
 
-Instalación:
-
-```bash
-bun install
-```
-
-Servidor local:
+Instala dependencias:
 
 ```bash
-bun dev
+bun install --frozen-lockfile
 ```
 
-Después abre `http://localhost:3000`.
+Ejecuta en desarrollo:
 
-Comprobaciones habituales:
+```bash
+bun run dev
+```
+
+Abre `http://localhost:3000`.
+
+Para publicar tu propia instancia en un servidor:
+
+```bash
+bun install --frozen-lockfile
+bun run build
+PORT=3000 bun run start
+```
+
+Pon ese proceso detrás de tu proxy inverso habitual, por ejemplo Caddy, Nginx o
+Traefik. No hacen falta variables de entorno para el cálculo fiscal. Si
+despliegas en Vercel, el flujo normal de Next.js funciona sin configuración
+especial: instalar dependencias, construir y servir.
+
+Comprobaciones recomendadas antes de desplegar:
 
 ```bash
 bun run test
 bun run typecheck
 bun run lint
+bun run build
 ```
 
-La suite normal incluye una validación de equivalencia tabular completa contra
-un fixture canónico del contrato legacy. Ese fixture no guarda el XLSX completo:
-guarda hashes exactos por hoja generados desde las tablas Effect.
+Validaciones legacy pesadas:
 
-Regenerar el fixture canónico:
+```bash
+bun run test:legacy-completo
+bun run test:liquidacion-legacy-completo
+```
+
+Regenerar el fixture canónico tabular:
 
 ```bash
 bun run fixture:canonico-tabular
 ```
 
-Validación pesada contra el fixture Excel legacy completo:
-
-```bash
-bun run test:legacy-completo
-```
-
-Esta validación pesada sigue leyendo el `.xlsx` original sin tratar y queda como
-opción para investigar discrepancias del generador Python legacy.
-
-## Ejecutar el legacy Python
-
-El script Python original sigue disponible para regenerar el Excel completo
-legacy:
+Ejecutar el script Python original para regenerar el Excel legacy:
 
 ```bash
 uv run --with-requirements requirements.txt python Calculo_Salario_IRPF.py
 ```
 
-Genera `Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx` con hojas de
-control, comparativa de inflación y hojas `DAT_YYYY`.
+## Arquitectura
+
+La arquitectura está documentada en `CONTEXT.md` y en `docs/adr/`. Esta sección
+resume las decisiones que más condicionan el código.
+
+### Dominio antes que pantalla
+
+La UI vive en `app/` y `components/`. El cálculo vive en `lib/dominio/`.
+
+Esa separación evita que una pantalla decida reglas fiscales. Las rutas pueden
+presentar consultas individuales, auditorías o liquidaciones expertas, pero el
+lenguaje del dominio sigue siendo el mismo: caso fiscal anual, liquidación,
+retención, cotización, mínimo, deducción, escala, impacto normativo y rastro de
+cálculo.
+
+### Legacy y canónico no son lo mismo
+
+El proyecto original es imprescindible para validar la migración, pero no debe
+dictar la arquitectura futura.
+
+Por eso existen dos modos:
+
+- **compatible legacy**: reproduce contratos observables del Excel histórico,
+  incluidos nombres de hojas, columnas, orden y redondeos heredados cuando se
+  audita compatibilidad;
+- **canónico**: usa dinero decimal, redondeo half-up en fronteras explícitas y
+  valores intermedios con significado fiscal.
+
+Esta decisión viene de `docs/adr/0001-separar-modo-compatible-legacy-y-modo-canonico.md`.
+Permite comprobar que no se rompe la referencia histórica sin convertir floats o
+redondeos implícitos en verdad permanente.
+
+### Motor legacy, retenciones y liquidación anual
+
+El cálculo inicial mezclaba salario neto, IRPF simplificado, cotizaciones,
+comparaciones por IPC, auditoría y exportación. Esa mezcla era útil para empezar,
+pero impedía crecer sin confundir conceptos.
+
+Ahora hay fronteras separadas:
+
+- `lib/dominio/compatibilidad-legacy/`: perfil histórico de progresividad en frío
+  y contratos observables del modelo original.
+- `lib/dominio/irpf/liquidacion/`: liquidación anual del IRPF.
+- `lib/dominio/irpf/retenciones/`: procedimiento de retención del trabajo.
+- `lib/dominio/laboral/`: cotizaciones sociales.
+- `lib/dominio/auditoria/`: auditoría de progresividad en frío e impacto
+  normativo histórico.
+- `lib/export/`: exportaciones educativas y compatibles.
+
+La razón está en `docs/adr/0003-separar-motor-legacy-retenciones-y-liquidacion-anual.md`:
+una retención no es una declaración anual, y una auditoría histórica no debe
+depender de atajos del Excel legacy.
+
+### Effect para capacidades
+
+El dominio usa Effect v4 para modelar capacidades con frontera clara:
+liquidación anual, retenciones, auditoría, parámetros normativos, política
+monetaria, cotizaciones, rendimientos, bases, mínimos, escalas, deducciones y
+explicación.
+
+No cada función pura es un servicio. La aritmética simple sigue siendo simple.
+Effect se reserva para dependencias explícitas, composición, errores recuperables
+tipados y ausencia legítima sin `null` ni `undefined`.
+
+La decisión está en `docs/adr/0004-refactorizar-dominio-con-servicios-effect.md`.
+El objetivo es que un caso no soportado sea visible, testeable y recuperable, no
+un cero silencioso ni una excepción accidental.
+
+### Dinero exacto y redondeos visibles
+
+Los importes monetarios se representan con decimal exacto. El redondeo ocurre en
+fronteras declaradas: salida pública, exportación o comparación.
+
+Esto importa porque el proyecto explica céntimos, no solo tendencias. Un float
+puede ocultar o inventar diferencias de un céntimo; para una herramienta de
+auditoría, ese ruido acaba pareciendo una regla fiscal.
+
+### Ejecución local
+
+La aplicación prioriza ejecución local: los cálculos y exportaciones se hacen sin
+mandar el salario del usuario a un servidor de cálculo. La decisión está en
+`docs/adr/0002-ejecucion-local-de-calculo-y-exportacion.md`.
+
+La consecuencia es que las exportaciones grandes y los barridos salariales deben
+cuidar el rendimiento del navegador. Cuando hace falta, el código usa ejecución
+incremental, progreso visible y fixtures para validar contratos pesados sin
+obligar a correrlos siempre.
+
+### Normativa trazable
+
+La normativa no se trata como texto decorativo. Primero se normaliza en fuentes
+legibles; después se convierte en parámetros y reglas ejecutables.
+
+Esto permite preguntar por qué existe un número, de qué fuente sale y qué parte
+del resultado cambia cuando se modifica una medida normativa. También evita que
+la UI sea la única documentación de una regla fiscal.
+
+## Tests
+
+La suite combina pruebas unitarias, caracterización legacy, equivalencia tabular,
+fronteras de arquitectura y casos de dominio fiscal.
+
+Comando habitual:
+
+```bash
+bun run test
+```
+
+Pruebas pesadas:
+
+```bash
+bun run test:legacy-completo
+bun run test:liquidacion-legacy-completo
+```
+
+Las pruebas pesadas existen porque parte del valor del proyecto es demostrar que
+el motor nuevo puede compararse contra el oracle histórico sin depender de una
+captura visual ni de una hoja de cálculo abierta a mano.
 
 ## Aviso
 
-IRoboPF es una herramienta divulgativa y de auditoría educativa. Los resultados
-son orientativos y dependen de las hipótesis declaradas. No sustituyen a una
-revisión profesional fiscal, laboral o contable.
+IRoboPF es una herramienta educativa. Sus resultados dependen de los datos
+normativos versionados, las hipótesis declaradas y los casos soportados por el
+motor. No sustituye a una revisión profesional fiscal, laboral o contable.
