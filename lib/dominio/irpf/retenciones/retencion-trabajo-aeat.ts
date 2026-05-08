@@ -130,16 +130,16 @@ const resultadoNoSoportadoRetencion = (
   caso: CasoRetencionTrabajo
 ): ResultadoNoSoportadoRetencion => ({
   _tag: "ResultadoNoSoportado",
-  motivo: "Caso de retencion de trabajo no soportado con las entradas actuales",
+  motivo: "Caso de retención de trabajo no soportado con las entradas actuales",
   fuenteReconocida: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
   rastro: {
-    titulo: `Procedimiento de retencion de trabajo ${caso.anio}`,
+    titulo: `Procedimiento de retención de trabajo ${caso.anio}`,
     pasos: [
       {
         _tag: "PasoExplicacion",
-        titulo: "Caso de retencion reconocido",
+        titulo: "Caso de retención reconocido",
         descripcion:
-          "El motor ha recibido rendimientos del trabajo para calcular una retencion a cuenta, no una liquidacion anual del IRPF.",
+          "El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.",
         fuentes: [
           {
             titulo: "Algoritmo de retenciones 2026",
@@ -784,11 +784,11 @@ const calcularRetencionTrabajo = (
     tipoRetencionPorcentaje: tipoRetencion.toFixed(2),
     importeRetencionAnualCentimos: aCentimos(importeRetencion),
     rastro: {
-      titulo: `Procedimiento de retencion de trabajo ${caso.anio}`,
+      titulo: `Procedimiento de retención de trabajo ${caso.anio}`,
       pasos: [
         {
           _tag: "PasoExplicacion",
-          titulo: "Base de retencion",
+          titulo: "Base de retención",
           descripcion:
             "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
           lineasCalculo: [
@@ -798,7 +798,7 @@ const calcularRetencionTrabajo = (
               resultado: euros(rendimientoNetoTrabajo),
             },
             {
-              etiqueta: "Reduccion por rendimientos del trabajo",
+              etiqueta: "Reducción por rendimientos del trabajo",
               formula: "Art. 20 LIRPF segun tramos del procedimiento",
               resultado: euros(reduccionRendimientosTrabajo),
             },
@@ -812,23 +812,23 @@ const calcularRetencionTrabajo = (
         },
         {
           _tag: "PasoExplicacion",
-          titulo: "Cuota y tipo de retencion",
+          titulo: "Cuota y tipo de retención",
           descripcion:
-            "La cuota se obtiene aplicando la escala de retencion a la base y al minimo personal y familiar; el tipo se trunca a dos decimales.",
+            "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
           lineasCalculo: [
             {
-              etiqueta: "Minimo personal y familiar",
+              etiqueta: "Mínimo personal y familiar",
               formula:
                 "Contribuyente, descendientes, ascendientes y discapacidad",
               resultado: euros(minimoPersonalFamiliar),
             },
             {
-              etiqueta: "Cuota de retencion",
+              etiqueta: "Cuota de retención",
               formula: formulaCuotaRetencion({ exento, limite43 }),
               resultado: euros(cuotaRetencion),
             },
             {
-              etiqueta: "Tipo de retencion",
+              etiqueta: "Tipo de retención",
               formula: `${euros(diferenciaPositiva)} / ${euros(retribucion)} x 100`,
               resultado: porcentaje(tipoRetencion),
             },

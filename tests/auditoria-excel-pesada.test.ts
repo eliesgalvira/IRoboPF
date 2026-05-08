@@ -219,7 +219,7 @@ const compararHoja = async (nombreHoja: string, rutaHoja: string) => {
     const siguienteEsperada = filasEsperadas.next()
     if (siguienteEsperada.done === true) {
       throw new Error(
-        `La hoja ${nombreHoja} tiene mas filas legacy que filas Effect esperadas`
+        `La hoja ${nombreHoja} tiene más filas legacy que filas Effect esperadas`
       )
     }
 

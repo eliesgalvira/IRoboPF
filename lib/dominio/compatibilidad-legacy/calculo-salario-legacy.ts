@@ -47,7 +47,7 @@ export interface ServicioCompatibilidadSalarioLegacy {
 }
 
 // Este adaptador conserva el contrato observable salarial del perfil legacy.
-// 2012-2025 usan liquidacion anual IRPF migrada; 2026 es solo el caso tecnico
+// 2012-2025 usan liquidación anual IRPF migrada; 2026 es solo el caso técnico
 // de soltero sin hijos y comunidad simulada estatal con parametros laborales y
 // deduccion SMI 2026.
 const construirCalcularSalarioLegacy = (liquidacionIrpf: {
@@ -68,7 +68,7 @@ const construirCalcularSalarioLegacy = (liquidacionIrpf: {
       Match.orElse(() =>
         Effect.die(
           new Error(
-            `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2026 para el perfil tecnico soltero sin hijos estatal; recibido ${entrada.anio}.`
+            `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2026 para el perfil técnico soltero sin hijos estatal; recibido ${entrada.anio}.`
           )
         )
       )

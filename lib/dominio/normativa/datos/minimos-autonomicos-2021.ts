@@ -47,7 +47,7 @@ export const MINIMOS_MADRID_2021 = {
 } satisfies MinimosPersonalesFamiliaresIrpf
 
 export const MINIMOS_AUTONOMICOS_IRPF_2021 = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2021",
+  nombre: "Mínimos autonómicos IRPF 2021",
   valor: {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     andalucia: MINIMOS_ESTATALES_2021,

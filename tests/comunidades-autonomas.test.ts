@@ -47,9 +47,9 @@ const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
 const fechaUtc = (fechaIso: string) =>
   DateTime.toDateUtc(DateTime.makeUnsafe(fechaIso))
 
-describe("comunidad autonoma", () => {
+describe("comunidad autónoma", () => {
   it.effect(
-    "expone los parametros normativos del IRPF como servicio Effect",
+    "expone los parámetros normativos del IRPF como servicio Effect",
     () =>
       Effect.gen(function* () {
         const parametros = yield* ParametrosNormativosIrpf
@@ -69,7 +69,7 @@ describe("comunidad autonoma", () => {
       }).pipe(Effect.provide(ParametrosNormativosIrpf.layer))
   )
 
-  it("resuelve la comunidad simulada estatal como tramo autonomico igualado al estatal", () => {
+  it("resuelve la comunidad simulada estatal como tramo autonómico igualado al estatal", () => {
     expect(
       obtenerParametrosComunidadAutonoma({
         anio: 2025,
@@ -85,7 +85,7 @@ describe("comunidad autonoma", () => {
     })
   })
 
-  it("resuelve una comunidad real con escala autonomica propia de 2025", () => {
+  it("resuelve una comunidad real con escala autonómica propia de 2025", () => {
     expect(
       obtenerParametrosComunidadAutonoma({
         anio: 2025,
@@ -100,7 +100,7 @@ describe("comunidad autonoma", () => {
     })
   })
 
-  it("resuelve todas las comunidades y ciudades con escala autonomica 2025", () => {
+  it("resuelve todas las comunidades y ciudades con escala autonómica 2025", () => {
     for (const comunidadAutonoma of comunidadesConEscala2025) {
       expect(
         obtenerParametrosComunidadAutonoma({
@@ -147,7 +147,7 @@ describe("comunidad autonoma", () => {
     }
   })
 
-  it("codifica Illes Balears con minimo general y adicionales por edad separados", () => {
+  it("codifica Illes Balears con mínimo general y adicionales por edad separados", () => {
     const minimos2024 = obtenerMinimosAutonomicosIrpf2024("illes-balears")
     const minimos2025 = obtenerMinimosAutonomicosIrpf2025("illes-balears")
 
@@ -158,7 +158,7 @@ describe("comunidad autonoma", () => {
     }
   })
 
-  it("resuelve 2023 con escalas y minimos autonómicos propios del ejercicio", () => {
+  it("resuelve 2023 con escalas y mínimos autonómicos propios del ejercicio", () => {
     const canarias2023 = obtenerParametrosComunidadAutonoma({
       anio: 2023,
       comunidadAutonoma: "canarias",
@@ -236,7 +236,7 @@ describe("comunidad autonoma", () => {
     ).toBe("1150")
   })
 
-  it("resuelve 2022 con escalas y minimos autonomicos propios del ejercicio", () => {
+  it("resuelve 2022 con escalas y mínimos autonómicos propios del ejercicio", () => {
     const aragon2022 = obtenerParametrosComunidadAutonoma({
       anio: 2022,
       comunidadAutonoma: "aragon",
@@ -312,7 +312,7 @@ describe("comunidad autonoma", () => {
     expect(minimosFallecido.contribuyente.general.toString()).toBe("5550")
   })
 
-  it("resuelve 2021 con escalas y minimos autonomicos propios del ejercicio", () => {
+  it("resuelve 2021 con escalas y mínimos autonómicos propios del ejercicio", () => {
     const andalucia2021 = obtenerParametrosComunidadAutonoma({
       anio: 2021,
       comunidadAutonoma: "andalucia",
@@ -361,7 +361,7 @@ describe("comunidad autonoma", () => {
     )
   })
 
-  it("resuelve 2020 con escala estatal general y autonomica propias del ejercicio", () => {
+  it("resuelve 2020 con escala estatal general y autonómica propias del ejercicio", () => {
     const simulada2020 = obtenerParametrosComunidadAutonoma({
       anio: 2020,
       comunidadAutonoma: "simulada-estatal",
@@ -413,7 +413,7 @@ describe("comunidad autonoma", () => {
     expect(minimosCatalunya2020.contribuyente.general.toString()).toBe("5550")
   })
 
-  it("resuelve 2019 con escala estatal general y autonomica propias del ejercicio", () => {
+  it("resuelve 2019 con escala estatal general y autonómica propias del ejercicio", () => {
     const simulada2019 = obtenerParametrosComunidadAutonoma({
       anio: 2019,
       comunidadAutonoma: "simulada-estatal",
@@ -466,7 +466,7 @@ describe("comunidad autonoma", () => {
     )
   })
 
-  it("resuelve 2018 con escala estatal general, autonomica y minimos propios del ejercicio", () => {
+  it("resuelve 2018 con escala estatal general, autonómica y mínimos propios del ejercicio", () => {
     const simulada2018 = obtenerParametrosComunidadAutonoma({
       anio: 2018,
       comunidadAutonoma: "simulada-estatal",
@@ -518,7 +518,7 @@ describe("comunidad autonoma", () => {
     )
   })
 
-  it("resuelve 2017 con escala estatal general, autonomica y minimos propios del ejercicio", () => {
+  it("resuelve 2017 con escala estatal general, autonómica y mínimos propios del ejercicio", () => {
     const simulada2017 = obtenerParametrosComunidadAutonoma({
       anio: 2017,
       comunidadAutonoma: "simulada-estatal",
@@ -570,7 +570,7 @@ describe("comunidad autonoma", () => {
     ).toBe("3000")
   })
 
-  it("resuelve 2016 con escala estatal general, autonomica y minimos propios del ejercicio", () => {
+  it("resuelve 2016 con escala estatal general, autonómica y mínimos propios del ejercicio", () => {
     const simulada2016 = obtenerParametrosComunidadAutonoma({
       anio: 2016,
       comunidadAutonoma: "simulada-estatal",
@@ -622,7 +622,7 @@ describe("comunidad autonoma", () => {
     ).toBe("3000")
   })
 
-  it("resuelve 2015 con escala estatal, art. 65 y especialidades autonomicas", () => {
+  it("resuelve 2015 con escala estatal, art. 65 y especialidades autonómicas", () => {
     const simulada2015 = obtenerParametrosComunidadAutonoma({
       anio: 2015,
       comunidadAutonoma: "simulada-estatal",
@@ -693,7 +693,7 @@ describe("comunidad autonoma", () => {
     ).toBe("3000")
   })
 
-  it("resuelve 2014 como ejercicio pre-reforma 2015 con minimos estatales propios", () => {
+  it("resuelve 2014 como ejercicio pre-reforma 2015 con mínimos estatales propios", () => {
     const simulada2014 = obtenerParametrosComunidadAutonoma({
       anio: 2014,
       comunidadAutonoma: "simulada-estatal",
@@ -879,7 +879,7 @@ describe("comunidad autonoma", () => {
     expect(minimosCantabria2012.descendientes.primero.toString()).toBe("1836")
   })
 
-  it("reserva 2026 al caso tecnico con comunidad simulada estatal", () => {
+  it("reserva 2026 al caso técnico con comunidad simulada estatal", () => {
     const simulada2026 = obtenerParametrosComunidadAutonoma({
       anio: 2026,
       comunidadAutonoma: "simulada-estatal",
@@ -902,11 +902,11 @@ describe("comunidad autonoma", () => {
       ParametrosComunidadAutonoma: () =>
         expect.fail("Madrid 2026 no debe estar soportado en auditoria"),
       ComunidadAutonomaNoSoportada: (resultado) =>
-        expect(resultado.motivo).toContain("caso tecnico"),
+        expect(resultado.motivo).toContain("caso técnico"),
     })
   })
 
-  it("mantiene el minimo autonomico especial de La Rioja solo para discapacidad de descendientes", () => {
+  it("mantiene el mínimo autonómico especial de La Rioja solo para discapacidad de descendientes", () => {
     const minimosRioja = obtenerMinimosAutonomicosIrpf2025("la-rioja")
 
     expect(

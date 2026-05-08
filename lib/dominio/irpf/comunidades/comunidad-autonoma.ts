@@ -474,7 +474,7 @@ const resolverParametrosComunidadAutonoma2026 = (
           comunidadAutonoma,
           anio: 2026,
           motivo:
-            "IRPF 2026 solo esta modelado como caso tecnico para soltero sin hijos con comunidad simulada estatal.",
+            "IRPF 2026 solo esta modelado como caso técnico para soltero sin hijos con comunidad simulada estatal.",
           fuenteReconocida: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
         }) satisfies ComunidadAutonomaNoSoportada
     )

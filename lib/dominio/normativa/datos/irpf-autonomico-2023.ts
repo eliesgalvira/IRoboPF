@@ -22,7 +22,7 @@ export const TRAMOS_IRPF_ESTATAL_GENERAL_2023 = TRAMOS_IRPF_ESTATAL_GENERAL_2025
 
 const fuenteAeatEscalasAutonomicas2023 = {
   titulo:
-    "AEAT Manual practico de Renta 2023. Gravamen autonomico de la base liquidable general",
+    "AEAT Manual práctico de Renta 2023. Gravamen autonómico de la base liquidable general",
   referencia:
     "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html",
 } as const
@@ -62,7 +62,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2023_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2023. Escala autonomica del Principado de Asturias",
+        "AEAT Manual práctico de Renta 2023. Escala autonómica del Principado de Asturias",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-principado-asturias.html",
     },
@@ -83,7 +83,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2023_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2023. Escala autonomica de Illes Balears",
+        "AEAT Manual práctico de Renta 2023. Escala autonómica de Illes Balears",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-illes-balears.html",
     },
@@ -102,7 +102,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2023_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2023. Escala autonomica de Canarias",
+        "AEAT Manual práctico de Renta 2023. Escala autonómica de Canarias",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-canarias.html",
     },
@@ -121,7 +121,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2023_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2023. Escala autonomica de Cantabria",
+        "AEAT Manual práctico de Renta 2023. Escala autonómica de Cantabria",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-cantabria.html",
     },
@@ -142,7 +142,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2023_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2023. Escala autonomica de Cataluna",
+        "AEAT Manual práctico de Renta 2023. Escala autonómica de Cataluña",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-cataluna.html",
     },
@@ -161,7 +161,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2023_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2023. Escala autonomica de La Rioja",
+        "AEAT Manual práctico de Renta 2023. Escala autonómica de La Rioja",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-rioja.html",
     },
@@ -186,7 +186,7 @@ export const ESCALA_EXTREMADURA_2023_FALLECIDO_ANTES_15_SEPTIEMBRE = {
   ],
   fuente: {
     titulo:
-      "AEAT Manual practico de Renta 2023. Escala autonomica de Extremadura",
+      "AEAT Manual práctico de Renta 2023. Escala autonómica de Extremadura",
     referencia:
       "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-extremadura.html",
   },

@@ -345,7 +345,7 @@ const anadirHojaManual = (
     {
       concepto: "Lectura del signo",
       explicacion:
-        "Una perdida positiva significa que el año comparado dejaba mas salario neto real que la legislacion actual.",
+        "Una perdida positiva significa que el año comparado dejaba más salario neto real que la legislacion actual.",
     },
   ])
   aplicarEstiloCabecera(hoja)

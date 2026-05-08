@@ -34,7 +34,7 @@ export const CLM_NACIMIENTO_ADOPCION_2025 = {
     "Base imponible general + base imponible del ahorro: máximo 36.000 euros en tributación conjunta",
   ],
   prorrateo: [
-    "Aplicar normas del mínimo por descendientes",
+    "Aplicar normás del mínimo por descendientes",
     "Si dos o más contribuyentes tienen derecho y alguno no cumple límites, reducir según prorrateo del mínimo por descendientes",
   ],
   incompatibilidades: [],
@@ -80,7 +80,7 @@ export const CLM_FAMILIA_NUMEROSA_2025 = {
     "Base imponible general + base imponible del ahorro: máximo 36.000 euros en tributación conjunta",
   ],
   prorrateo: [
-    "Aplicar normas del mínimo por descendientes y discapacidad",
+    "Aplicar normás del mínimo por descendientes y discapacidad",
     "Si dos o más contribuyentes tienen derecho y alguno no cumple límites, reducir según prorrateo del mínimo por descendientes",
   ],
   incompatibilidades: [
@@ -166,7 +166,7 @@ export const CLM_DISCAPACIDAD_ASCENDIENTES_DESCENDIENTES_2025 = {
     "Base imponible general + base imponible del ahorro: máximo 36.000 euros en tributación conjunta",
   ],
   prorrateo: [
-    "Aplicar normas del mínimo por ascendientes, descendientes y discapacidad",
+    "Aplicar normás del mínimo por ascendientes, descendientes y discapacidad",
     "Si dos o más contribuyentes tienen derecho y alguno no cumple límites, reducir según prorrateo del mínimo correspondiente",
   ],
   incompatibilidades: [

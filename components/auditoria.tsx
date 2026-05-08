@@ -1401,12 +1401,12 @@ function BarraFiltros({
               </Slider.Track>
               <Slider.Thumb
                 index={0}
-                aria-label="Salario mínimo"
+                aria-label="Salario minimo"
                 className="size-7 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none sm:size-6"
               />
               <Slider.Thumb
                 index={1}
-                aria-label="Salario máximo"
+                aria-label="Salario maximo"
                 className="size-7 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none sm:size-6"
               />
             </Slider.Control>
@@ -3929,7 +3929,7 @@ function FormulaTipoEfectivoIrpf({
           >
             Real Decreto 142/2024
           </a>{" "}
-          elevó el mínimo sin retención hasta 15.876 € en la situación general;
+          elevó el minimo sin retención hasta 15.876 € en la situación general;
           las tarjetas muestran si ese umbral queda por encima o por debajo del
           punto en el que empieza el salto. La gráfica de tipo marginal usa la
           cuota anual tras deducción SMI para no convertir una obligación formal

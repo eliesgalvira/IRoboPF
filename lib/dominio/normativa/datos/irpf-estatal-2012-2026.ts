@@ -170,12 +170,12 @@ export const TRAMOS_IRPF_AHORRO_2012: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
 
 export const REDUCCION_MOVILIDAD_GEOGRAFICA_TRANSITORIA_2015 = {
   condicionAplicacion:
-    "Aceptacion de puesto de trabajo en 2014 con derecho a reduccion por movilidad geografica y continuidad en dicho trabajo en 2015",
+    "Aceptacion de puesto de trabajo en 2014 con derecho a reducción por movilidad geográfica y continuidad en dicho trabajo en 2015",
   incompatibilidad:
-    "Se aplica en lugar del gasto adicional por movilidad geografica del art. 19.2.f LIRPF vigente desde 2015",
+    "Se aplica en lugar del gasto adicional por movilidad geográfica del art. 19.2.f LIRPF vigente desde 2015",
   fuente: {
     titulo:
-      "AEAT Manual practico Renta 2015. Regimen transitorio de movilidad geografica",
+      "AEAT Manual práctico Renta 2015. Régimen transitorio de movilidad geográfica",
     referencia:
       "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2015/Manual_Renta_2015_es_es.pdf",
   },
@@ -189,7 +189,7 @@ export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2014 = {
     importe("0.10"),
   fuente: {
     titulo:
-      "AEAT Manual practico Renta 2014. Integracion y compensacion de ganancias y perdidas patrimoniales",
+      "AEAT Manual práctico Renta 2014. Integración y compensación de ganancias y pérdidas patrimoniales",
     referencia:
       "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf",
   },
@@ -203,7 +203,7 @@ export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2013 = {
     importe("0.10"),
   fuente: {
     titulo:
-      "AEAT Manual practico Renta 2013. Integracion y compensacion de ganancias y perdidas patrimoniales",
+      "AEAT Manual práctico Renta 2013. Integración y compensación de ganancias y pérdidas patrimoniales",
     referencia:
       "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2013_es_es.pdf",
   },
@@ -217,7 +217,7 @@ export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2012 = {
   permiteCompensacionCruzadaEnBaseAhorroEntreCapitalYGanancias: false,
   fuente: {
     titulo:
-      "AEAT Manual practico Renta 2012. Integracion y compensacion de ganancias y perdidas patrimoniales",
+      "AEAT Manual práctico Renta 2012. Integración y compensación de ganancias y pérdidas patrimoniales",
     referencia:
       "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2012_es_es.pdf",
   },

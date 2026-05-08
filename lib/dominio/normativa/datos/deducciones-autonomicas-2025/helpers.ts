@@ -100,7 +100,7 @@ export const categoriaCatalogadaDesdeCodigo = (
         codigo.includes("hijo") ||
         codigo.includes("hijos") ||
         codigo.includes("nacimiento") ||
-        codigo.includes("adopcion") ||
+        codigo.includes("adopción") ||
         codigo.includes("acogimiento") ||
         codigo.includes("descend") ||
         codigo.includes("ascend") ||
@@ -617,11 +617,11 @@ export const fichaImplementadaFormula = (
     {
       tipo: "mixta",
       descripcion:
-        "Cuantia calculada por la ficha normativa normalizada y por el modulo de deducciones autonomicas aplicadas.",
+        "Cuantía calculada por la ficha normativa normalizada y por el módulo de deducciones autonómicas aplicadas.",
     },
     [
-      "Cumplir requisitos, limites de renta, prorrateos e incompatibilidades descritos en la ficha normativa normalizada.",
-      "El importe se calcula con las entradas especificas de la deduccion o se consigna como importe manual cuando la ficha requiere validacion externa.",
+      "Cumplir requisitos, límites de renta, prorrateos e incompatibilidades descritos en la ficha normativa normalizada.",
+      "El importe se calcula con las entradas especificas de la deducción o se consigna como importe manual cuando la ficha requiere validacion externa.",
     ],
     paginas,
     [`${codigo}:cumple`, `${codigo}:importe`],

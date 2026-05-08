@@ -342,9 +342,9 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             fuentePaso:
               "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
             tituloFuentePaso: "Manual Renta 2025 Parte 2",
-            tituloPaso: "Comunidad autonoma no soportada",
+            tituloPaso: "Comunidad autónoma no soportada",
             descripcionPaso:
-              "El caso fiscal reconoce una comunidad autonoma real, pero esta version del motor solo calcula el caso tecnico de contraste con tramo autonomico igualado al estatal.",
+              "El caso fiscal reconoce una comunidad autónoma real, pero esta version del motor solo calcula el caso técnico de contraste con tramo autonómico igualado al estatal.",
           }),
         } satisfies ResultadoNoSoportado),
       ParametrosComunidadAutonoma: (parametrosComunidad) =>
@@ -695,20 +695,20 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       limiteRetencionNominaCentimos: retencionTrabajoAeat?.limite43Centimos,
     }),
     rastro: {
-      titulo: `Liquidacion anual del IRPF ${caso.anio}`,
+      titulo: `Liquidación anual del IRPF ${caso.anio}`,
       pasos: [
         {
           _tag: "PasoExplicacion",
           titulo: "Rendimientos del trabajo",
-          descripcion: `Rendimiento integro ${rendimientoIntegroTrabajo.toFixed(2)} euros menos cotizacion del trabajador y gastos deducibles.`,
+          descripcion: `Rendimiento íntegro ${rendimientoIntegroTrabajo.toFixed(2)} euros menos cotización del trabajador y gastos deducibles.`,
           lineasCalculo: [
             {
-              etiqueta: "Rendimiento integro del trabajo",
+              etiqueta: "Rendimiento íntegro del trabajo",
               formula: "Suma de importes declarados como trabajo",
               resultado: euros(rendimientoTrabajo.rendimientoIntegro),
             },
             {
-              etiqueta: "Cotizacion deducible del trabajador",
+              etiqueta: "Cotización deducible del trabajador",
               formula: "Cotizaciones sociales calculadas para el salario anual",
               resultado: euros(rendimientoTrabajo.cotizacionTrabajador),
             },
@@ -728,9 +728,9 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               resultado: euros(rendimientoTrabajo.rendimientoNeto),
             },
             {
-              etiqueta: "Reduccion por rendimientos del trabajo",
+              etiqueta: "Reducción por rendimientos del trabajo",
               formula:
-                "Reduccion estatal por obtencion de rendimientos del trabajo",
+                "Reducción estatal por obtención de rendimientos del trabajo",
               resultado: euros(reduccionRendimientosTrabajo),
             },
           ],
@@ -745,22 +745,22 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
           _tag: "PasoExplicacion",
           titulo: "Cotizaciones a la Seguridad Social",
           descripcion:
-            "Desglose de cotizaciones sociales usado por el caso tecnico actual: aportacion empresarial, aportacion del trabajador, MEI y cuota adicional de solidaridad cuando existe exceso sobre la base maxima.",
+            "Desglose de cotizaciones sociales usado por el caso técnico actual: aportación empresarial, aportación del trabajador, MEI y cuota adicional de solidaridad cuando existe exceso sobre la base máxima.",
           lineasCalculo: [
             {
-              etiqueta: "Base ordinaria de cotizacion",
+              etiqueta: "Base ordinaria de cotización",
               formula:
-                "min(rendimiento integro del trabajo, base maxima anual)",
+                "min(rendimiento íntegro del trabajo, base máxima anual)",
               resultado: euros(cotizacionesSociales.baseOrdinaria),
             },
             {
-              etiqueta: "Exceso sobre base maxima",
+              etiqueta: "Exceso sobre base máxima",
               formula:
-                "max(0, rendimiento integro del trabajo - base maxima anual)",
+                "max(0, rendimiento íntegro del trabajo - base máxima anual)",
               resultado: euros(cotizacionesSociales.excesoBase),
             },
             {
-              etiqueta: "Cotizacion empresarial ordinaria",
+              etiqueta: "Cotización empresarial ordinaria",
               formula:
                 "Base ordinaria x tipos empresariales sin MEI ni solidaridad",
               resultado: euros(
@@ -768,7 +768,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               ),
             },
             {
-              etiqueta: "Cotizacion del trabajador ordinaria",
+              etiqueta: "Cotización del trabajador ordinaria",
               formula:
                 "Base ordinaria x tipos del trabajador sin MEI ni solidaridad",
               resultado: euros(
@@ -796,13 +796,13 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               resultado: euros(cotizacionesSociales.solidaridadTrabajador),
             },
             {
-              etiqueta: "Cotizacion empresarial total",
+              etiqueta: "Cotización empresarial total",
               formula:
                 "Ordinaria empresarial + MEI empresarial + solidaridad empresarial",
               resultado: euros(cotizacionesSociales.cotizacionEmpresarial),
             },
             {
-              etiqueta: "Cotizacion total del trabajador",
+              etiqueta: "Cotización total del trabajador",
               formula:
                 "Ordinaria trabajador + MEI trabajador + solidaridad trabajador",
               resultado: euros(cotizacionesSociales.cotizacionTrabajador),
@@ -810,7 +810,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             {
               etiqueta: "Coste laboral",
               formula:
-                "Rendimiento integro del trabajo + cotizacion empresarial",
+                "Rendimiento íntegro del trabajo + cotización empresarial",
               resultado: euros(
                 rendimientoIntegroTrabajo.plus(
                   cotizacionesSociales.cotizacionEmpresarial
@@ -820,7 +820,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
           ],
           fuentes: [
             {
-              titulo: "Parametros Seguridad Social 2012-2026",
+              titulo: "Parámetros Seguridad Social 2012-2026",
               referencia:
                 "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
             },
@@ -833,10 +833,10 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         {
           _tag: "PasoExplicacion",
           titulo: "Rendimientos de capital inmobiliario",
-          descripcion: `Rendimiento integro ${rendimientoCapitalInmobiliario.rendimientoIntegro.toFixed(2)} euros integrado como rendimiento neto simplificado en la base general.`,
+          descripcion: `Rendimiento íntegro ${rendimientoCapitalInmobiliario.rendimientoIntegro.toFixed(2)} euros integrado como rendimiento neto simplificado en la base general.`,
           lineasCalculo: [
             {
-              etiqueta: "Rendimiento integro de capital inmobiliario",
+              etiqueta: "Rendimiento íntegro de capital inmobiliario",
               formula: "Suma de importes declarados en el formulario",
               resultado: euros(
                 rendimientoCapitalInmobiliario.rendimientoIntegro
@@ -845,7 +845,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             {
               etiqueta: "Rendimiento neto simplificado",
               formula:
-                "Sin gastos, amortizaciones ni reducciones especificas todavia implementadas",
+                "Sin gastos, amortizaciones ni reducciones específicas todavía implementadas",
               resultado: euros(rendimientoCapitalInmobiliario.rendimientoNeto),
             },
           ],
@@ -858,8 +858,8 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         },
         {
           _tag: "PasoExplicacion",
-          titulo: "Base general y minimo personal",
-          descripcion: `Base liquidable general ${baseLiquidableGeneral.toFixed(2)} euros, minimo estatal ${minimoPersonalYFamiliar.toFixed(2)} euros y minimo autonomico ${minimoPersonalYFamiliarAutonomico.toFixed(2)} euros.`,
+          titulo: "Base general y mínimo personal",
+          descripcion: `Base liquidable general ${baseLiquidableGeneral.toFixed(2)} euros, mínimo estatal ${minimoPersonalYFamiliar.toFixed(2)} euros y mínimo autonómico ${minimoPersonalYFamiliarAutonomico.toFixed(2)} euros.`,
           lineasCalculo: [
             {
               etiqueta: "Base imponible general",
@@ -873,34 +873,34 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               resultado: euros(baseLiquidableGeneral),
             },
             {
-              etiqueta: "Minimo del contribuyente",
+              etiqueta: "Mínimo del contribuyente",
               formula: `Edad del contribuyente: ${caso.situacionFamiliar.edad}`,
               resultado: euros(minimoContribuyente),
             },
             {
-              etiqueta: "Minimo por ascendientes",
+              etiqueta: "Mínimo por ascendientes",
               formula: `${caso.situacionFamiliar.ascendientes.length} ascendiente(s) computados`,
               resultado: euros(minimoAscendientes),
             },
             {
-              etiqueta: "Minimo por descendientes",
+              etiqueta: "Mínimo por descendientes",
               formula: `${caso.situacionFamiliar.descendientes.length} descendiente(s) computados`,
               resultado: euros(minimoDescendientes),
             },
             {
-              etiqueta: "Minimo personal y familiar",
+              etiqueta: "Mínimo personal y familiar",
               formula: `${euros(minimoContribuyente)} + ${euros(minimoDescendientes)} + ${euros(minimoAscendientes)} + ${euros(minimoDiscapacidadContribuyente)} + ${euros(minimoDiscapacidadFamiliares)}`,
               resultado: euros(minimoPersonalYFamiliar),
             },
             {
-              etiqueta: "Minimo personal y familiar autonomico",
+              etiqueta: "Mínimo personal y familiar autonómico",
               formula: parametrosComunidad.minimoAutonomicoIgualEstatal
-                ? "Coincide con el minimo estatal"
+                ? "Coincide con el mínimo estatal"
                 : `Minimos autonomicos IRPF ${caso.anio} de ${parametrosComunidad.escalaAutonomica.nombre}`,
               resultado: euros(minimoPersonalYFamiliarAutonomico),
             },
             {
-              etiqueta: "Minimo por discapacidad",
+              etiqueta: "Mínimo por discapacidad",
               formula:
                 "Contribuyente, descendientes y ascendientes con discapacidad computados",
               resultado: euros(
@@ -953,18 +953,18 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         },
         {
           _tag: "PasoExplicacion",
-          titulo: "Comunidad autonoma",
+          titulo: "Comunidad autónoma",
           descripcion: Match.value(
             parametrosComunidad.escalaAutonomicaIgualEstatal
           ).pipe(
             Match.when(
               true,
               () =>
-                "Caso tecnico de contraste: los minimos y la escala autonomica se igualan a los parametros estatales. No representa la normativa propia de una comunidad autonoma real."
+                "Caso técnico de contraste: los mínimos y la escala autonómica se igualan a los parámetros estatales. No representa la normativa propia de una comunidad autónoma real."
             ),
             Match.orElse(
               () =>
-                `La comunidad autonoma ${parametrosComunidad.escalaAutonomica.nombre} aplica su escala autonomica general de 2025. La cuota general se calcula como cuota estatal mas cuota autonomica, y las deducciones autonomicas se restan despues de minorar por el minimo personal y familiar.`
+                `La comunidad autónoma ${parametrosComunidad.escalaAutonomica.nombre} aplica su escala autonómica general de 2025. La cuota general se calcula como cuota estatal más cuota autonómica, y las deducciones autonómicas se restan después de minorar por el mínimo personal y familiar.`
             )
           ),
           fuentes: [
@@ -977,10 +977,10 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         },
         {
           _tag: "PasoExplicacion",
-          titulo: "Cuota integra general",
+          titulo: "Cuota íntegra general",
           descripcion: usaEscalaAutonomicaReal
-            ? "Aplicacion separada de la escala estatal y la escala autonomica de la comunidad a la base liquidable general."
-            : "Aplicacion de la escala general a la base liquidable general.",
+            ? "Aplicación separada de la escala estatal y la escala autonómica de la comunidad a la base liquidable general."
+            : "Aplicación de la escala general a la base liquidable general.",
           lineasCalculo: [
             ...desgloseCuotaIntegraGeneralEstatal.map((tramo) => ({
               etiqueta: usaEscalaAutonomicaReal
@@ -995,16 +995,16 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               resultado: euros(tramo.cuota),
             })),
             {
-              etiqueta: "Cuota integra general",
+              etiqueta: "Cuota íntegra general",
               formula: usaEscalaAutonomicaReal
-                ? "Suma de cuota estatal general y cuota autonomica general"
+                ? "Suma de cuota estatal general y cuota autonómica general"
                 : "Suma de cuotas por tramo",
               resultado: euros(cuotaIntegraGeneral),
             },
           ],
           fuentes: [
             {
-              titulo: "Parametros IRPF estatal 2012-2026",
+              titulo: "Parámetros IRPF estatal 2012-2026",
               referencia:
                 "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
             },
@@ -1012,32 +1012,32 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         },
         {
           _tag: "PasoExplicacion",
-          titulo: "Cuota correspondiente al minimo personal",
+          titulo: "Cuota correspondiente al mínimo personal",
           descripcion: usaEscalaAutonomicaReal
-            ? "Aplicacion de la escala estatal y autonomica al minimo personal y familiar para minorar la cuota integra general."
-            : "Aplicacion de la misma escala general al minimo personal y familiar.",
+            ? "Aplicación de la escala estatal y autonómica al mínimo personal y familiar para minorar la cuota íntegra general."
+            : "Aplicación de la misma escala general al mínimo personal y familiar.",
           lineasCalculo: [
             ...desgloseCuotaMinimoPersonalEstatal.map((tramo) => ({
               etiqueta: usaEscalaAutonomicaReal
-                ? `Tramo minimo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
-                : `Tramo minimo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+                ? `Tramo mínimo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
+                : `Tramo mínimo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
               formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
               resultado: euros(tramo.cuota),
             })),
             ...desgloseCuotaMinimoPersonalAutonomica.map((tramo) => ({
-              etiqueta: `Tramo minimo autonomico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+              etiqueta: `Tramo mínimo autonómico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
               formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
               resultado: euros(tramo.cuota),
             })),
             {
-              etiqueta: "Cuota del minimo personal y familiar",
-              formula: "Suma de cuotas por tramo del minimo",
+              etiqueta: "Cuota del mínimo personal y familiar",
+              formula: "Suma de cuotas por tramo del mínimo",
               resultado: euros(cuotaMinimoPersonal),
             },
           ],
           fuentes: [
             {
-              titulo: "Parametros IRPF estatal 2012-2026",
+              titulo: "Parámetros IRPF estatal 2012-2026",
               referencia:
                 "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
             },
@@ -1045,9 +1045,9 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         },
         {
           _tag: "PasoExplicacion",
-          titulo: "Cuota integra del ahorro",
+          titulo: "Cuota íntegra del ahorro",
           descripcion:
-            "Aplicacion de la escala del ahorro a la base liquidable del ahorro.",
+            "Aplicación de la escala del ahorro a la base liquidable del ahorro.",
           lineasCalculo: [
             ...desgloseCuotaIntegraAhorro.map((tramo) => ({
               etiqueta: `Tramo ahorro ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
@@ -1055,14 +1055,14 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               resultado: euros(tramo.cuota),
             })),
             {
-              etiqueta: "Cuota integra del ahorro",
+              etiqueta: "Cuota íntegra del ahorro",
               formula: "Suma de cuotas por tramo",
               resultado: euros(cuotaIntegraAhorro),
             },
             {
-              etiqueta: "Cuota del remanente del minimo personal",
+              etiqueta: "Cuota del remanente del mínimo personal",
               formula:
-                "Parte del minimo personal y familiar no absorbida por la base general",
+                "Parte del mínimo personal y familiar no absorbida por la base general",
               resultado: euros(cuotaMinimoPersonalAhorro),
             },
           ],
@@ -1082,17 +1082,17 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         {
           _tag: "PasoExplicacion",
           titulo: "Cuota diferencial",
-          descripcion: `Cuota liquida ${cuotaLiquida.toFixed(2)} euros menos retenciones y pagos a cuenta declarados o calculados.`,
+          descripcion: `Cuota líquida ${cuotaLiquida.toFixed(2)} euros menos retenciones y pagos a cuenta declarados o calculados.`,
           lineasCalculo: [
             {
-              etiqueta: "Cuota liquida",
+              etiqueta: "Cuota líquida",
               formula: `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(deduccionesAutonomicasAplicadas)})`,
               resultado: euros(cuotaLiquida),
             },
             {
-              etiqueta: "Deducciones autonomicas aplicadas",
+              etiqueta: "Deducciones autonómicas aplicadas",
               formula: usaEscalaAutonomicaReal
-                ? `${deduccionesAutonomicasDescripcion(caso)}; limite por cuota autonomica general disponible ${euros(cuotaAutonomicaGeneralDespuesMinimo)}`
+                ? `${deduccionesAutonomicasDescripcion(caso)}; límite por cuota autonómica general disponible ${euros(cuotaAutonomicaGeneralDespuesMinimo)}`
                 : deduccionesAutonomicasDescripcion(caso),
               resultado: euros(deduccionesAutonomicasAplicadas),
             },
@@ -1107,7 +1107,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               etiqueta: "Pagos a cuenta",
               formula:
                 retencionTrabajoAeat !== undefined
-                  ? "Importe declarado mas retencion de trabajo estimada"
+                  ? "Importe declarado más retención de trabajo estimada"
                   : "Importe declarado en el caso fiscal",
               resultado: euros(centimosAEuros(pagosACuentaAplicadosCentimos)),
             },
@@ -1162,9 +1162,9 @@ const detectarCasoNoSoportado = Effect.fn(
           _tag: "ResultadoNoSoportado",
           motivo: Option.match(catalogada, {
             onNone: () =>
-              `Deduccion autonomica no catalogada: ${deduccionPendiente.codigo}`,
+              `Deducción autonómica no catalogada: ${deduccionPendiente.codigo}`,
             onSome: (deduccionCatalogada) =>
-              `Deduccion autonomica reconocida no implementada: ${deduccionCatalogada.nombre}`,
+              `Deducción autonómica reconocida no implementada: ${deduccionCatalogada.nombre}`,
           }),
           fuenteReconocida:
             "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
@@ -1174,8 +1174,8 @@ const detectarCasoNoSoportado = Effect.fn(
               "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
             tituloFuentePaso: "Manual Renta 2025 Parte 2",
             tituloPaso: Option.match(catalogada, {
-              onNone: () => "Deduccion autonomica no catalogada",
-              onSome: () => "Deduccion autonomica reconocida no implementada",
+              onNone: () => "Deducción autonómica no catalogada",
+              onSome: () => "Deducción autonómica reconocida no implementada",
             }),
             descripcionPaso: Option.match(catalogada, {
               onNone: () =>
@@ -1240,28 +1240,28 @@ const pasoRetencionTrabajoAeat = (
   retencion: RetencionTrabajoCalculada
 ): RastroCalculo["pasos"][number] => ({
   _tag: "PasoExplicacion",
-  titulo: "Retencion estimada de trabajo",
+  titulo: "Retención estimada de trabajo",
   descripcion:
-    "Retencion anual estimada con el procedimiento no regularizado para rendimientos del trabajo.",
+    "Retención anual estimada con el procedimiento no regularizado para rendimientos del trabajo.",
   lineasCalculo: [
     {
-      etiqueta: "Base de retencion",
+      etiqueta: "Base de retención",
       formula: "Rendimiento neto reducido menos reducciones comunicadas",
       resultado: euros(centimosAEuros(retencion.baseRetencionCentimos)),
     },
     {
-      etiqueta: "Cuota de retencion",
-      formula: "Escala de retencion sobre base menos escala sobre minimo",
+      etiqueta: "Cuota de retención",
+      formula: "Escala de retención sobre base menos escala sobre mínimo",
       resultado: euros(centimosAEuros(retencion.cuotaRetencionCentimos)),
     },
     {
-      etiqueta: "Tipo de retencion",
+      etiqueta: "Tipo de retención",
       formula: "Tipo truncado a dos decimales",
       resultado: `${retencion.tipoRetencionPorcentaje}%`,
     },
     {
-      etiqueta: "Retencion anual",
-      formula: "Retribuciones x tipo de retencion",
+      etiqueta: "Retención anual",
+      formula: "Retribuciones x tipo de retención",
       resultado: euros(centimosAEuros(retencion.importeRetencionAnualCentimos)),
     },
   ],
@@ -1282,7 +1282,7 @@ const deduccionesAutonomicasDescripcion = (caso: CasoFiscalAnual): string =>
       (deduccionAutonomicaAgregadaCentimos) =>
         deduccionAutonomicaAgregadaCentimos === undefined ||
         deduccionAutonomicaAgregadaCentimos === 0,
-      () => "Sin deducciones autonomicas declaradas en el caso"
+      () => "Sin deducciones autonómicas declaradas en el caso"
     ),
     Match.orElse(() => "importe_agregado_no_desglosado")
   )
@@ -1300,7 +1300,7 @@ const rastroResultadoNoSoportado = ({
   readonly fuentePaso?: string
   readonly tituloFuentePaso?: string
 }): RastroCalculo => ({
-  titulo: `Liquidacion anual del IRPF ${caso.anio}`,
+  titulo: `Liquidación anual del IRPF ${caso.anio}`,
   pasos: [
     {
       _tag: "PasoExplicacion",

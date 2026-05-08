@@ -72,7 +72,7 @@ export const MINIMOS_MADRID_2022 = {
 } satisfies MinimosPersonalesFamiliaresIrpf
 
 export const MINIMOS_AUTONOMICOS_IRPF_2022 = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2022",
+  nombre: "Mínimos autonómicos IRPF 2022",
   valor: {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     asturias: MINIMOS_ESTATALES_2022,

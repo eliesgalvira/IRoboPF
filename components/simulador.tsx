@@ -1083,13 +1083,13 @@ function Pasos({
             <PiezaFormula tono="limite">DEDUCCIONES</PiezaFormula>
           </FormulaSimulador>
           <p className="text-sm leading-6 text-[var(--ink-soft)]">
-            Una CCAA puede modificar su escala autonómica y parte del mínimo,
+            Una CCAA puede modificar su escala autonómica y parte del minimo,
             pero el mínimo personal y familiar parte de una referencia estatal.
             La{" "}
             <EnlaceNormativo href="https://www.boe.es/buscar/act.php?id=BOE-A-2009-20375#a46">
               Ley 22/2009
             </EnlaceNormativo>{" "}
-            limita a un 10% la variación autonómica de esos mínimos.
+            limita a un 10% la variación autonómica de esos minimos.
           </p>
         </TarjetaFormula>
 
@@ -1138,19 +1138,19 @@ function Pasos({
           />
           <LineaRastroSimulador
             etiqueta="Rendimiento previo"
-            formula="Bruto - cotizacion trabajador"
+            formula="Bruto - cotización trabajador"
             pasado={formatearCentimos(rendimientoPrevioComparado)}
             actual={formatearCentimos(rendimientoPrevioActual)}
           />
           <LineaRastroSimulador
             etiqueta="IRPF final"
-            formula="Cuota anual ajustada por limites aplicables"
+            formula="Cuota anual ajustada por límites aplicables"
             pasado={formatearCentimos(comparado.irpfFinalCentimos)}
             actual={formatearCentimos(actual.irpfFinalCentimos)}
           />
           <LineaRastroSimulador
             etiqueta="Neto anual"
-            formula="Bruto - cotizacion trabajador - IRPF final"
+            formula="Bruto - cotización trabajador - IRPF final"
             pasado={formatearCentimos(comparado.salarioNetoAnualCentimos)}
             actual={formatearCentimos(actual.salarioNetoAnualCentimos)}
             destacado
@@ -1195,7 +1195,7 @@ function Pasos({
             titulo="El mínimo familiar tiene corsé"
             ambito="Estado + CCAA"
           >
-            Las CCAA pueden mover mínimos para el gravamen autonómico, pero con
+            Las CCAA pueden mover minimos para el gravamen autonómico, pero con
             el límite del 10%. Si la referencia estatal queda congelada y la
             inflación acumulada supera ese margen, la corrección autonómica es
             parcial.

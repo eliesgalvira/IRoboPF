@@ -11,7 +11,7 @@ const archivosProducto = [
 ] as const
 
 describe("fronteras de arquitectura", () => {
-  it("evita imports de UI y exportacion hacia el modulo legacy interno de progresividad", () => {
+  it("evita imports de UI y exportación hacia el módulo legacy interno de progresividad", () => {
     for (const archivo of archivosProducto) {
       const contenido = readFileSync(archivo, "utf8")
 

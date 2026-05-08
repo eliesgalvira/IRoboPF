@@ -48,7 +48,7 @@ describe("auditarProgresividadFrio", () => {
   )
 
   it.effect(
-    "recalcula la liquidacion anual al cambiar de comunidad autonoma",
+    "recalcula la liquidación anual al cambiar de comunidad autónoma",
     () =>
       Effect.gen(function* () {
         const entrada = {

@@ -30,7 +30,7 @@ export const MINIMOS_ILLES_BALEARS_2023_FALLECIDO_ANTES_26_NOVIEMBRE = {
 } satisfies MinimosPersonalesFamiliaresIrpf
 
 export const MINIMOS_AUTONOMICOS_IRPF_2023 = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2023",
+  nombre: "Mínimos autonómicos IRPF 2023",
   valor: {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     asturias: MINIMOS_ESTATALES_2023,

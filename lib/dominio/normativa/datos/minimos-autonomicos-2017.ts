@@ -78,7 +78,7 @@ const MINIMOS_ESTATALES_POR_COMUNIDAD_2017 = {
 } satisfies Readonly<Record<ComunidadAutonoma, MinimosPersonalesFamiliaresIrpf>>
 
 export const MINIMOS_AUTONOMICOS_IRPF_2017 = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2017",
+  nombre: "Mínimos autonómicos IRPF 2017",
   valor: {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2017,
     "illes-balears": MINIMOS_ILLES_BALEARS_2017,

@@ -30,7 +30,7 @@ export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
   },
   [
     "General: 10%, máximo 500 euros",
-    "Jóvenes hasta 35, familias numerosas, monoparentales, víctimas de violencia de género o despoblamiento: 30%, máximo 1.500 euros",
+    "Jóvenes hasta 35, familias numerosas, monoparentales, víctimás de violencia de género o despoblamiento: 30%, máximo 1.500 euros",
     "Base imponible general + ahorro: máximo 35.000 euros individual y 45.000 conjunta",
   ],
   [93, 94]
@@ -537,7 +537,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Fórmula: min(100% de gastos deducibles, 500 euros anuales).",
       "Límite global independiente del número de inmuebles arrendados.",
       "En tributación conjunta, el límite de 500 euros se aplica por cada miembro que realice la inversión con sus propios ingresos.",
-      "Gastos: reparación y conservación, formalización de contratos, primas de seguros por daños e impagos, certificados de eficiencia energética vinculados.",
+      "Gastos: reparación y conservación, formalización de contratos, primás de seguros por daños e impagos, certificados de eficiencia energética vinculados.",
       "El contribuyente debe obtener rendimientos de capital inmobiliario por arrendamiento de viviendas destinadas a vivienda habitual del arrendatario.",
       "Arrendamientos retribuidos a precios con sostenibilidad social: renta no superior al valor superior del rango del sistema estatal de referencia o normativa autonómica aplicable.",
     ],
