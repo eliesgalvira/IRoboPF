@@ -1,5 +1,5 @@
 import ExcelJS from "exceljs"
-import { Clock, Effect } from "effect"
+import { Clock, DateTime, Effect } from "effect"
 import { Deflate } from "fflate"
 
 import type {
@@ -61,25 +61,20 @@ interface PlanHojaCompatible {
 const crearLibro = () => {
   const libro = new ExcelJS.Workbook()
   libro.creator = "IRoboPF"
-  libro.created = new Date()
   return libro
 }
 
-const descargarLibro = async (
-  libro: ExcelJS.Workbook,
-  nombreArchivo: string
-) => {
-  const contenido = await libro.xlsx.writeBuffer()
-  const archivo = new Blob([contenido], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  })
-  const url = URL.createObjectURL(archivo)
-  const enlace = document.createElement("a")
-  enlace.href = url
-  enlace.download = nombreArchivo
-  enlace.click()
-  URL.revokeObjectURL(url)
-}
+const descargarLibro = Effect.fn("export.auditoriaExcel.descargarLibro")(
+  function* (libro: ExcelJS.Workbook, nombreArchivo: string) {
+    const contenido = yield* Effect.promise(() => libro.xlsx.writeBuffer())
+    yield* descargarBlob(
+      new Blob([contenido], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      }),
+      nombreArchivo
+    )
+  }
+)
 
 const textoCabecera = (cabecera: unknown) => {
   if (cabecera === undefined) {
@@ -350,7 +345,7 @@ const anadirHojaManual = (
     {
       concepto: "Lectura del signo",
       explicacion:
-        "Una perdida positiva significa que el año comparado dejaba mas salario neto real que la legislacion actual.",
+        "Una perdida positiva significa que el año comparado dejaba más salario neto real que la legislacion actual.",
     },
   ])
   aplicarEstiloCabecera(hoja)
@@ -431,14 +426,14 @@ export const construirLibroAuditoriaEducativa = (
   return libro
 }
 
-export const exportarAuditoriaEducativaExcel = async (
-  auditoria: AuditoriaRangoSalarial
-) => {
-  await descargarLibro(
+export const exportarAuditoriaEducativaExcel = Effect.fn(
+  "export.auditoriaExcel.exportarAuditoriaEducativaExcel"
+)(function* (auditoria: AuditoriaRangoSalarial) {
+  yield* descargarLibro(
     construirLibroAuditoriaEducativa(auditoria),
     `IRoboPF_Auditoria_Educativa_${auditoria.anioComparado}_${auditoria.anioReferencia}.xlsx`
   )
-}
+})
 
 export const construirLibroAuditoriaCompatible = (
   _auditoria: AuditoriaRangoSalarial,
@@ -526,14 +521,14 @@ export const construirLibroAuditoriaCompatibleConProgreso = Effect.fn(
   return libro
 })
 
-export const exportarAuditoriaCompatibleExcel = async (
-  auditoria: AuditoriaRangoSalarial
-) => {
-  await descargarLibro(
+export const exportarAuditoriaCompatibleExcel = Effect.fn(
+  "export.auditoriaExcel.exportarAuditoriaCompatibleExcel"
+)(function* (auditoria: AuditoriaRangoSalarial) {
+  yield* descargarLibro(
     construirLibroAuditoriaCompatible(auditoria),
     "Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx"
   )
-}
+})
 
 const tipoMimeXlsx =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -545,7 +540,7 @@ const tablaCrc32 = (() => {
   for (let indice = 0; indice < 256; indice += 1) {
     let valor = indice
     for (let bit = 0; bit < 8; bit += 1) {
-      valor = valor & 1 ? 0xedb88320 ^ (valor >>> 1) : valor >>> 1
+      valor = (valor & 1) === 1 ? 0xedb88320 ^ (valor >>> 1) : valor >>> 1
     }
     tabla[indice] = valor >>> 0
   }
@@ -574,8 +569,8 @@ const bufferZip = (tamanio: number, escribir: (vista: DataView) => void) => {
   return new Uint8Array(buffer)
 }
 
-const fechaZip = () => {
-  const fecha = new Date()
+const fechaZip = (fechaUtc: DateTime.Utc) => {
+  const fecha = DateTime.toDateUtc(fechaUtc)
   const hora =
     (fecha.getHours() << 11) |
     (fecha.getMinutes() << 5) |
@@ -586,6 +581,8 @@ const fechaZip = () => {
     fecha.getDate()
   return { hora, dia }
 }
+
+type FechaZip = ReturnType<typeof fechaZip>
 
 interface EntradaZip {
   readonly nombre: string
@@ -609,6 +606,8 @@ class ZipComprimido {
   readonly entradas: Array<EntradaZip> = []
   private offset = 0
 
+  constructor(private readonly fecha: FechaZip) {}
+
   anadir(nombre: string, contenido: Iterable<string>) {
     const entrada = this.iniciar(nombre)
     for (const fragmento of contenido) {
@@ -619,7 +618,7 @@ class ZipComprimido {
 
   iniciar(nombre: string): EntradaZipAbierta {
     const nombreCodificado = codificadorTexto.encode(nombre)
-    const { hora, dia } = fechaZip()
+    const { hora, dia } = this.fecha
     const offsetEntrada = this.offset
 
     this.anadirBytes(
@@ -683,7 +682,7 @@ class ZipComprimido {
 
   blob() {
     const inicioDirectorio = this.offset
-    const { hora, dia } = fechaZip()
+    const { hora, dia } = this.fecha
 
     for (const entrada of this.entradas) {
       const nombreCodificado = codificadorTexto.encode(entrada.nombre)
@@ -787,8 +786,11 @@ const descargarBlob = (archivo: Blob, nombreArchivo: string) =>
     const enlace = document.createElement("a")
     enlace.href = url
     enlace.download = nombreArchivo
-    enlace.click()
-    setTimeout(() => URL.revokeObjectURL(url), 0)
+    try {
+      enlace.click()
+    } finally {
+      URL.revokeObjectURL(url)
+    }
   })
 
 export const construirBlobXlsxCompatibleConProgreso = Effect.fn(
@@ -804,7 +806,8 @@ export const construirBlobXlsxCompatibleConProgreso = Effect.fn(
   )
   const hojasTotales = planes.length
   const filasPorBloque = opciones.filasPorBloque ?? 1_000
-  const zip = new ZipComprimido()
+  const instanteCreacion = yield* DateTime.now
+  const zip = new ZipComprimido(fechaZip(instanteCreacion))
   let filasProcesadas = 0
 
   zip.anadir("_rels/.rels", [
@@ -814,7 +817,7 @@ export const construirBlobXlsxCompatibleConProgreso = Effect.fn(
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes"><Application>IRoboPF</Application></Properties>',
   ])
   zip.anadir("docProps/core.xml", [
-    `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:creator>IRoboPF</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">${new Date().toISOString()}</dcterms:created></cp:coreProperties>`,
+    `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:creator>IRoboPF</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">${DateTime.formatIso(instanteCreacion)}</dcterms:created></cp:coreProperties>`,
   ])
   zip.anadir("[Content_Types].xml", [tiposContenidoXml(planes)])
   zip.anadir("xl/workbook.xml", [libroXml(planes)])

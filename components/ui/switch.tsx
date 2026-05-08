@@ -19,7 +19,7 @@ export function Switch({
     <label className="flex min-h-11 items-start justify-between gap-5 py-0.5">
       <span className="grid min-w-0 gap-1">
         <span className="text-sm leading-tight font-bold">{etiqueta}</span>
-        {descripcion ? (
+        {descripcion !== undefined && descripcion !== "" ? (
           <span className="text-sm leading-6 text-[var(--ink-soft)]">
             {descripcion}
           </span>

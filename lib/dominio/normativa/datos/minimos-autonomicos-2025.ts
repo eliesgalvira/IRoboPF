@@ -264,13 +264,13 @@ const COMUNIDADES_MINIMOS_AUTONOMICOS_2025_SOPORTADAS = [
 ] as const satisfies readonly ComunidadAutonoma[]
 
 export const MINIMOS_AUTONOMICOS_2025_SOPORTADOS = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2025 soportados",
+  nombre: "Mínimos autonómicos IRPF 2025 soportados",
   valor: COMUNIDADES_MINIMOS_AUTONOMICOS_2025_SOPORTADAS,
   fuente: fuenteAeatManualRenta2025Parte1,
 })
 
 export const MINIMOS_AUTONOMICOS_IRPF_2025 = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2025",
+  nombre: "Mínimos autonómicos IRPF 2025",
   valor: {
     "simulada-estatal": MINIMOS_ESTATALES_2025,
     andalucia: MINIMOS_ANDALUCIA_2025,

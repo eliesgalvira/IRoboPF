@@ -43,7 +43,7 @@ const AEAT_MANUAL_RENTA_2015_PDF =
 
 const fuenteAeatEscalasAutonomicas2015 = {
   titulo:
-    "AEAT Manual practico Renta 2015. Gravamen autonomico de la base liquidable general",
+    "AEAT Manual práctico Renta 2015. Gravamen autonómico de la base liquidable general",
   referencia: AEAT_MANUAL_RENTA_2015_PDF,
 } as const
 
@@ -133,7 +133,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025 = {
   }),
   andalucia: escala2015({
     comunidadAutonoma: "andalucia",
-    nombre: "Andalucia",
+    nombre: "Andalucía",
     tramos: [
       [importe(17707.2), tipo("12")],
       [importe(33007.2), tipo("14")],
@@ -145,7 +145,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025 = {
   }),
   aragon: escala2015({
     comunidadAutonoma: "aragon",
-    nombre: "Aragon",
+    nombre: "Aragón",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12.5")],
@@ -208,7 +208,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025 = {
   }),
   "castilla-y-leon": escala2015({
     comunidadAutonoma: "castilla-y-leon",
-    nombre: "Castilla y Leon",
+    nombre: "Castilla y León",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(17707.2), tipo("12")],
@@ -258,7 +258,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025 = {
   }),
   murcia: escala2015({
     comunidadAutonoma: "murcia",
-    nombre: "Region de Murcia",
+    nombre: "Región de Murcia",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12.5")],

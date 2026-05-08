@@ -23,7 +23,7 @@ export const TRAMOS_IRPF_ESTATAL_GENERAL_2019: TramosIrpf = [
 
 const fuenteAeatEscalasAutonomicas2019 = {
   titulo:
-    "AEAT Manual practico de Renta 2019. Gravamen autonomico de la base liquidable general",
+    "AEAT Manual práctico de Renta 2019. Gravamen autonómico de la base liquidable general",
   referencia:
     "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico.html",
 } as const
@@ -54,14 +54,14 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2019,
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Gravamen estatal de la base liquidable general",
+        "AEAT Manual práctico de Renta 2019. Gravamen estatal de la base liquidable general",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-estatal.html",
     },
   }),
   andalucia: escala2019({
     comunidadAutonoma: "andalucia",
-    nombre: "Andalucia",
+    nombre: "Andalucía",
     tramos: [
       [importe(12450), tipo("9.75")],
       [importe(20200), tipo("12")],
@@ -74,14 +74,14 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de Andalucia",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de Andalucía",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-andalucia.html",
     },
   }),
   aragon: escala2019({
     comunidadAutonoma: "aragon",
-    nombre: "Aragon",
+    nombre: "Aragón",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12.5")],
@@ -95,7 +95,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("25")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2019. Escala autonomica de Aragon",
+      titulo: "AEAT Manual práctico de Renta 2019. Escala autonómica de Aragón",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-aragon.html",
     },
@@ -115,7 +115,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica del Principado de Asturias",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica del Principado de Asturias",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-principado-asturias.html",
     },
@@ -136,7 +136,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de Illes Balears",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de Illes Balears",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-illes-balears.html",
     },
@@ -154,7 +154,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de Canarias",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de Canarias",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-canarias.html",
     },
@@ -173,14 +173,14 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de Cantabria",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de Cantabria",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-cantabria.html",
     },
   }),
   "castilla-y-leon": escala2019({
     comunidadAutonoma: "castilla-y-leon",
-    nombre: "Castilla y Leon",
+    nombre: "Castilla y León",
     tramos: [
       [importe(12450), tipo("9.5")],
       [importe(20200), tipo("12")],
@@ -190,7 +190,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de Castilla y Leon",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de Castilla y León",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-castilla-leon.html",
     },
@@ -208,7 +208,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de Cataluna",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de Cataluña",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-cataluna.html",
     },
@@ -229,7 +229,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de Extremadura",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de Extremadura",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-extremadura.html",
     },
@@ -248,7 +248,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de Galicia",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de Galicia",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-galicia.html",
     },
@@ -264,14 +264,14 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("21")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2019. Escala autonomica de Madrid",
+      titulo: "AEAT Manual práctico de Renta 2019. Escala autonómica de Madrid",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-madrid.html",
     },
   }),
   murcia: escala2019({
     comunidadAutonoma: "murcia",
-    nombre: "Region de Murcia",
+    nombre: "Región de Murcia",
     tramos: [
       [importe(12450), tipo("9.9")],
       [importe(20200), tipo("12.24")],
@@ -281,7 +281,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de la Region de Murcia",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de la Región de Murcia",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-region-murcia.html",
     },
@@ -300,7 +300,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de La Rioja",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de La Rioja",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-rioja.html",
     },
@@ -320,7 +320,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2019. Escala autonomica de la Comunitat Valenciana",
+        "AEAT Manual práctico de Renta 2019. Escala autonómica de la Comunitat Valenciana",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunitat-valenciana.html",
     },

@@ -14,8 +14,7 @@ const tipo = (porcentaje: string): Decimal => importe(porcentaje).div(100)
 
 export type EscalaAutonomicaIrpf2022 = EscalaAutonomicaIrpf2025
 
-export interface EscalaAutonomicaCondicionalIrpf2022
-  extends EscalaAutonomicaIrpf2022 {
+export interface EscalaAutonomicaCondicionalIrpf2022 extends EscalaAutonomicaIrpf2022 {
   readonly condicionAplicacion: string
 }
 
@@ -23,7 +22,7 @@ export const TRAMOS_IRPF_ESTATAL_GENERAL_2022 = TRAMOS_IRPF_ESTATAL_GENERAL_2025
 
 const fuenteAeatEscalasAutonomicas2022 = {
   titulo:
-    "AEAT Manual practico de Renta 2022. Gravamen autonomico de la base liquidable general",
+    "AEAT Manual práctico de Renta 2022. Gravamen autonómico de la base liquidable general",
   referencia:
     "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html",
 } as const
@@ -50,7 +49,7 @@ const reutilizarEscala2025ConFuente2022 = (
 export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
   aragon: escala2022({
     comunidadAutonoma: "aragon",
-    nombre: "Aragon",
+    nombre: "Aragón",
     tramos: [
       [importe(12450), tipo("9.5")],
       [importe(20200), tipo("12")],
@@ -63,7 +62,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("25.5")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2022. Escala autonomica de Aragon",
+      titulo: "AEAT Manual práctico de Renta 2022. Escala autonómica de Aragón",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-aragon.html",
     },
@@ -83,7 +82,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2022. Escala autonomica del Principado de Asturias",
+        "AEAT Manual práctico de Renta 2022. Escala autonómica del Principado de Asturias",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-principado-asturias.html",
     },
@@ -104,7 +103,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2022. Escala autonomica de Illes Balears",
+        "AEAT Manual práctico de Renta 2022. Escala autonómica de Illes Balears",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-illes-balears.html",
     },
@@ -122,7 +121,8 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("26")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2022. Escala autonomica de Canarias",
+      titulo:
+        "AEAT Manual práctico de Renta 2022. Escala autonómica de Canarias",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-canarias.html",
     },
@@ -140,7 +140,8 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("25.5")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2022. Escala autonomica de Cantabria",
+      titulo:
+        "AEAT Manual práctico de Renta 2022. Escala autonómica de Cantabria",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-cantabria.html",
     },
@@ -160,7 +161,8 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("25.5")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2022. Escala autonomica de Cataluna",
+      titulo:
+        "AEAT Manual práctico de Renta 2022. Escala autonómica de Cataluña",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-cataluna.html",
     },
@@ -180,7 +182,8 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("25")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2022. Escala autonomica de Extremadura",
+      titulo:
+        "AEAT Manual práctico de Renta 2022. Escala autonómica de Extremadura",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-extremadura.html",
     },
@@ -196,14 +199,14 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("20.5")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2022. Escala autonomica de Madrid",
+      titulo: "AEAT Manual práctico de Renta 2022. Escala autonómica de Madrid",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-madrid.html",
     },
   }),
   murcia: escala2022({
     comunidadAutonoma: "murcia",
-    nombre: "Region de Murcia",
+    nombre: "Región de Murcia",
     tramos: [
       [importe(12960.45), tipo("9.6")],
       [importe(21028.2), tipo("11.46")],
@@ -213,7 +216,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2022. Escala autonomica de la Region de Murcia",
+        "AEAT Manual práctico de Renta 2022. Escala autonómica de la Región de Murcia",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-region-murcia.html",
     },
@@ -231,7 +234,8 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("27")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2022. Escala autonomica de La Rioja",
+      titulo:
+        "AEAT Manual práctico de Renta 2022. Escala autonómica de La Rioja",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-rioja.html",
     },
@@ -254,7 +258,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2022. Escala autonomica de la Comunitat Valenciana",
+        "AEAT Manual práctico de Renta 2022. Escala autonómica de la Comunitat Valenciana",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunitat-valenciana.html",
     },
@@ -280,7 +284,7 @@ export const ESCALA_COMUNITAT_VALENCIANA_2022_FALLECIDO_ANTES_28_OCTUBRE = {
   ],
   fuente: {
     titulo:
-      "AEAT Manual practico de Renta 2022. Comunitat Valenciana. Escala para fallecidos antes del 28/10/2022",
+      "AEAT Manual práctico de Renta 2022. Comunitat Valenciana. Escala para fallecidos antes del 28/10/2022",
     referencia:
       "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunitat-valenciana.html",
   },
@@ -316,9 +320,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2022: Readonly<
   murcia: ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025.murcia,
   "la-rioja": ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025["la-rioja"],
   "comunitat-valenciana":
-    ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025[
-      "comunitat-valenciana"
-    ],
+    ESCALAS_AUTONOMICAS_IRPF_2022_DISTINTAS_DE_2025["comunitat-valenciana"],
   ceuta: reutilizarEscala2025ConFuente2022(ESCALAS_AUTONOMICAS_IRPF_2025.ceuta),
   melilla: reutilizarEscala2025ConFuente2022(
     ESCALAS_AUTONOMICAS_IRPF_2025.melilla

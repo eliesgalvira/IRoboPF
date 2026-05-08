@@ -10,7 +10,7 @@ import {
 export const MINIMOS_ESTATALES_2024 = MINIMOS_ESTATALES_2025
 
 export const MINIMOS_AUTONOMICOS_IRPF_2024 = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2024",
+  nombre: "Mínimos autonómicos IRPF 2024",
   valor: {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     asturias: MINIMOS_ESTATALES_2024,

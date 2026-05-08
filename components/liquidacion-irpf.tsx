@@ -191,8 +191,9 @@ const describirCuantiaDeduccion = (
     Match.orElse(
       (cuantia) =>
         `${formatearPuntosPorcentuales(cuantia.porcentaje)} sobre ${cuantia.base}${
-          cuantia.limiteMaximoEuros
-            ? `, con límite máximo de ${cuantia.limiteMaximoEuros} euros.`
+          cuantia.limiteMaximoEuros !== undefined &&
+          cuantia.limiteMaximoEuros !== ""
+            ? `, con límite maximo de ${cuantia.limiteMaximoEuros} euros.`
             : "."
         }`
     )
@@ -228,7 +229,7 @@ const AYUDAS_RESUMEN = {
   "Base liquidable":
     "Resultado que queda para aplicar los tramos: rendimientos netos menos reducciones de base.",
   "Rendimiento neto del trabajo":
-    "Salario bruto menos cotizacion del trabajador y gastos deducibles aplicados.",
+    "Salario bruto menos cotización del trabajador y gastos deducibles aplicados.",
   "Capital inmobiliario neto":
     "Rendimiento de inmuebles, por ejemplo alquileres, que se suma a la base general.",
   "Ganancia patrimonial exenta":
@@ -236,20 +237,20 @@ const AYUDAS_RESUMEN = {
   "Base ahorro":
     "Importe de ganancias y rentas del ahorro que queda sujeto a la escala del ahorro.",
   "Gastos y reducciones del trabajo":
-    "Total que se resta al rendimiento del trabajo: cotizacion del trabajador, gastos deducibles y reduccion por rendimientos del trabajo.",
+    "Total que se resta al rendimiento del trabajo: cotización del trabajador, gastos deducibles y reducción por rendimientos del trabajo.",
   "Cotización empresa":
     "Aportacion a la Seguridad Social que paga la empresa por el trabajador.",
   "Cotización trabajador":
     "Aportacion a la Seguridad Social descontada al trabajador. Incluye MEI y, si procede, solidaridad.",
-  "Coste laboral": "Salario bruto mas la cotizacion de empresa.",
+  "Coste laboral": "Salario bruto más la cotización de empresa.",
   "MEI empresa":
-    "Mecanismo de Equidad Intergeneracional que paga la empresa. Esta parte esta incluida en la cotizacion de empresa.",
+    "Mecanismo de Equidad Intergeneracional que paga la empresa. Esta parte esta incluida en la cotización de empresa.",
   "MEI trabajador":
-    "Mecanismo de Equidad Intergeneracional descontado al trabajador. Esta parte esta incluida en la cotizacion del trabajador.",
+    "Mecanismo de Equidad Intergeneracional descontado al trabajador. Esta parte esta incluida en la cotización del trabajador.",
   "Cuota líquida":
     "Impuesto resultante antes de restar retenciones y pagos a cuenta.",
   "Retenciones/pagos a cuenta":
-    "Importes nominales ya pagados durante el año que se restan de la cuota liquida.",
+    "Importes nominales ya pagados durante el año que se restan de la cuota líquida.",
   "Deducciones autonómicas":
     "Importe total de deducciones autonómicas aplicables, si ya lo conoces.",
   "Cuota diferencial":
@@ -739,7 +740,7 @@ export function LiquidacionIrpf() {
         pagosACuentaCentimos: usarRetencionAeat
           ? 0
           : eurosACentimos(pagosACuentaEuros),
-        ...(retencionTrabajoAeat ? { retencionTrabajoAeat } : {}),
+        ...(retencionTrabajoAeat !== undefined ? { retencionTrabajoAeat } : {}),
       }) satisfies CasoFiscalAnual,
     [
       ascendientes,
@@ -788,7 +789,7 @@ export function LiquidacionIrpf() {
           </p>
           <p className="mt-2 max-w-4xl text-sm leading-6 text-[var(--ink-soft)]">
             Todos los importes de esta pantalla están en euros nominales del año
-            fiscal 2025: rendimientos, mínimos, reducciones, deducciones,
+            fiscal 2025: rendimientos, minimos, reducciones, deducciones,
             retenciones y cuotas. No se ajustan por IPC; los euros reales
             ajustados a inflación sólo se usan en las comparativas históricas.
           </p>
@@ -1373,7 +1374,7 @@ function ControlesDeduccionAutonomica({
       <NumberField
         compacto
         etiqueta={etiqueta}
-        formato={opciones?.euros ? FORMATO_EUROS : FORMATO_ENTERO}
+        formato={opciones?.euros === true ? FORMATO_EUROS : FORMATO_ENTERO}
         onChange={(valor) => actualizar(clave, valor)}
         valor={numeroDeduccion(entradas, clave)}
         {...propiedadesPaso}
@@ -1413,7 +1414,7 @@ function ControlesDeduccionAutonomica({
               entradas,
               "andaluciaMunicipioDespoblacion"
             )}
-            etiqueta="Reside en municipio con problemas de despoblación"
+            etiqueta="Reside en municipio con problemás de despoblación"
             onCheckedChange={(checked) =>
               actualizar("andaluciaMunicipioDespoblacion", checked)
             }
@@ -1458,7 +1459,7 @@ function ControlesDeduccionAutonomica({
         <div className="grid gap-2 sm:col-span-2">
           {campoCheckbox(
             "andaluciaAdopcionInternacionalCumpleLimites",
-            "Cumple limites de base"
+            "Cumple límites de base"
           )}
           {campoCheckbox(
             "andaluciaAdopcionInternacionalProrrateada",
@@ -1484,7 +1485,7 @@ function ControlesDeduccionAutonomica({
         <div className="flex items-end pb-1">
           {campoCheckbox(
             "andaluciaFamiliaNumerosaCumpleLimites",
-            "Cumple limites de base"
+            "Cumple límites de base"
           )}
         </div>
       </div>
@@ -1500,7 +1501,7 @@ function ControlesDeduccionAutonomica({
         )}
         {campoCheckbox(
           "andaluciaContribuyenteDiscapacidadCumpleLimites",
-          "Cumple limites de base"
+          "Cumple límites de base"
         )}
       </div>
     )
@@ -1515,7 +1516,7 @@ function ControlesDeduccionAutonomica({
         )}
         {campoCheckbox(
           "andaluciaConyugeParejaDiscapacidadCumpleRequisitos",
-          "Cumple limites, inscripción y no declaración individual"
+          "Cumple límites, inscripción y no declaración individual"
         )}
       </div>
     )
@@ -1535,7 +1536,7 @@ function ControlesDeduccionAutonomica({
         <div className="grid gap-2 sm:col-span-2">
           {campoCheckbox(
             "andaluciaAsistenciaDiscapacidadCumpleLimites",
-            "Cumple limites de base"
+            "Cumple límites de base"
           )}
           {campoCheckbox(
             "andaluciaAsistenciaTercerasPersonas",
@@ -1615,7 +1616,7 @@ function ControlesDeduccionAutonomica({
           )}
           {campoCheckbox(
             "aragonDependientesCumpleLimites",
-            "Cumple limites y convivencia"
+            "Cumple límites y convivencia"
           )}
         </div>
       </div>
@@ -1653,7 +1654,7 @@ function ControlesDeduccionAutonomica({
         <div className="flex items-end pb-1">
           {campoCheckbox(
             "canariasNacimientoCumpleLimites",
-            "Cumple limites de base"
+            "Cumple límites de base"
           )}
         </div>
       </div>
@@ -1670,7 +1671,7 @@ function ControlesDeduccionAutonomica({
         {campoCheckbox("canariasContribuyenteMayor65", "Mayor de 65 años")}
         {campoCheckbox(
           "canariasDiscapacidadMayoresCumpleLimites",
-          "Cumple limites de base"
+          "Cumple límites de base"
         )}
       </div>
     )
@@ -1718,7 +1719,7 @@ function ControlesDeduccionAutonomica({
         <div className="flex items-end pb-1">
           {campoCheckbox(
             "clmNacimientoCumpleLimites",
-            "Cumple limites de base"
+            "Cumple límites de base"
           )}
         </div>
       </div>
@@ -1742,7 +1743,7 @@ function ControlesDeduccionAutonomica({
           )}
           {campoCheckbox(
             "clmFamiliaNumerosaCumpleLimites",
-            "Cumple limites de base"
+            "Cumple límites de base"
           )}
         </div>
       </div>
@@ -1758,7 +1759,7 @@ function ControlesDeduccionAutonomica({
         )}
         {campoCheckbox(
           "clmDiscapacidadContribuyenteCumpleLimites",
-          "Cumple limites de base"
+          "Cumple límites de base"
         )}
       </div>
     )
@@ -1774,7 +1775,7 @@ function ControlesDeduccionAutonomica({
         <div className="flex items-end pb-1">
           {campoCheckbox(
             "clmAscDescDiscapacidadCumpleLimites",
-            "Cumple limites de base"
+            "Cumple límites de base"
           )}
         </div>
       </div>
@@ -2696,9 +2697,9 @@ function Resultado({
                 <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">
                   {paso.descripcion}
                 </p>
-                {paso.lineasCalculo?.length ? (
+                {(paso.lineasCalculo?.length ?? 0) > 0 ? (
                   <dl className="mt-4 grid gap-2">
-                    {paso.lineasCalculo.map((linea) => (
+                    {paso.lineasCalculo?.map((linea) => (
                       <div
                         className="grid gap-2 border border-[var(--rule)] bg-[var(--paper-2)] p-3 md:grid-cols-[minmax(10rem,0.9fr)_minmax(14rem,1.4fr)_minmax(8rem,0.7fr)]"
                         key={`${paso.titulo}-${linea.etiqueta}`}
@@ -2778,7 +2779,7 @@ function ConciliacionSimuladorLegacyPanel({
       </div>
       <LineaResumen
         ayuda="Cuota anual antes de restar retenciones y pagos a cuenta; es la base comparable con el cálculo de nómina."
-        etiqueta="Cuota liquidada anual"
+        etiqueta="Cuota líquidada anual"
         signo="+"
         valor={formatearEuros(conciliacion.cuotaLiquidadaAnualCentimos)}
       />
@@ -2799,7 +2800,7 @@ function ConciliacionSimuladorLegacyPanel({
         detalle={
           <>
             <span>
-              Rendimientos del trabajo nominales - mínimo exento de retención
+              Rendimientos del trabajo nominales - minimo exento de retención
               nominal:{" "}
               {formatearEuros(conciliacion.rendimientoIntegroTrabajoCentimos)} -{" "}
               {formatearEuros(conciliacion.minimoExentoRetencionCentimos)} ={" "}
@@ -2810,7 +2811,7 @@ function ConciliacionSimuladorLegacyPanel({
               .
             </span>
             <span className="block">
-              Límite máximo legal nominal de retención en nómina, art. 85.3
+              Límite maximo legal nominal de retención en nómina, art. 85.3
               RIRPF:{" "}
               {formatearEuros(
                 conciliacion.rendimientoIntegroTrabajoCentimos -
@@ -2891,6 +2892,9 @@ function LineaResumen({
   readonly signo?: "+" | "-" | "="
   readonly valor: string
 }) {
+  const tieneDetalle =
+    detalle !== undefined && detalle !== null && detalle !== false
+
   return (
     <div className="grid gap-2 rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-4">
       <dt className="grid min-w-0 grid-cols-[1.25rem_minmax(0,1fr)] gap-2">
@@ -2899,7 +2903,7 @@ function LineaResumen({
         </span>
         <span className="min-w-0">
           <EtiquetaConAyuda ayuda={ayuda} etiqueta={etiqueta} />
-          {detalle ? (
+          {tieneDetalle ? (
             <span className="mt-1 block text-xs leading-5 text-[var(--ink-soft)]">
               {detalle}
             </span>

@@ -8,8 +8,8 @@ import {
   obtenerEspecificacionCompatibilidadHistorica,
 } from "../lib/dominio/normativa/datos/compatibilidad-historica"
 
-describe("normativa de compatibilidad historica", () => {
-  it("centraliza el limite final del 43 por ciento para cualquier anio soportado", () => {
+describe("normativa de compatibilidad histórica", () => {
+  it("centraliza el límite final del 43 por ciento para cualquier año soportado", () => {
     const especificacion = obtenerEspecificacionCompatibilidadHistorica(2024)
 
     expect(especificacion.tipoMaximoRetencionNomina.toString()).toBe("0.43")
@@ -18,7 +18,7 @@ describe("normativa de compatibilidad historica", () => {
     ])
   })
 
-  it("no aplica deduccion por obtencion de rendimientos del trabajo antes de 2025", () => {
+  it("no aplica deducción por obtención de rendimientos del trabajo antes de 2025", () => {
     const especificacion = obtenerEspecificacionCompatibilidadHistorica(2024)
 
     expect(
@@ -28,7 +28,7 @@ describe("normativa de compatibilidad historica", () => {
     ).toBe("0")
   })
 
-  it("expone la deduccion por obtencion de rendimientos del trabajo de 2025 como medida trazable", () => {
+  it("expone la deducción por obtención de rendimientos del trabajo de 2025 como medida trazable", () => {
     const especificacion = obtenerEspecificacionCompatibilidadHistorica(2025)
 
     expect(

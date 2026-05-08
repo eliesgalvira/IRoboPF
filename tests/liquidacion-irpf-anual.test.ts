@@ -1,4 +1,6 @@
-import { Effect } from "effect"
+// Tests are Effect entry points, so they provide the service layer directly.
+// @effect-diagnostics effect/strictEffectProvide:off
+import { DateTime, Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -15,8 +17,11 @@ import {
 const liquidarCasoCanonico = (caso: CasoFiscalAnual) =>
   Effect.runSync(liquidarIrpfAnual(caso, { modo: "canonico" }))
 
+const fechaUtc = (fechaIso: string) =>
+  DateTime.toDateUtc(DateTime.makeUnsafe(fechaIso))
+
 describe("liquidarIrpfAnual", () => {
-  it.effect("expone la liquidacion anual como servicio Effect", () =>
+  it.effect("expone la liquidación anual como servicio Effect", () =>
     Effect.gen(function* () {
       const caso = {
         anio: 2025,
@@ -132,7 +137,7 @@ describe("liquidarIrpfAnual", () => {
   })
 
   it.effect(
-    "resta la retencion estimada y la incorpora al rastro general",
+    "resta la retención estimada y la incorpora al rastro general",
     () =>
       Effect.gen(function* () {
         const caso = {
@@ -184,13 +189,13 @@ describe("liquidarIrpfAnual", () => {
         })
         expect(
           resultado.rastro.pasos.some(
-            (paso) => paso.titulo === "Retencion estimada de trabajo"
+            (paso) => paso.titulo === "Retención estimada de trabajo"
           )
         ).toBe(true)
       })
   )
 
-  it("aplica incremento de minimo del contribuyente por edad", () => {
+  it("aplica incremento de mínimo del contribuyente por edad", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -218,7 +223,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica incremento adicional de minimo del contribuyente por edad superior a 75", () => {
+  it("aplica incremento adicional de mínimo del contribuyente por edad superior a 75", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -650,7 +655,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2014 con minimos pre-reforma y sin gasto fijo general de trabajo", () => {
+  it("liquida 2014 con mínimos pre-reforma y sin gasto fijo general de trabajo", () => {
     const caso = {
       anio: 2014,
       comunidadAutonoma: "simulada-estatal",
@@ -794,7 +799,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2013 con minimos pre-reforma y escala del ahorro 21, 25 y 27 por ciento", () => {
+  it("liquida 2013 con mínimos pre-reforma y escala del ahorro 21, 25 y 27 por ciento", () => {
     const caso = {
       anio: 2013,
       comunidadAutonoma: "simulada-estatal",
@@ -872,7 +877,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2012 con minimos pre-reforma y escala del ahorro 21, 25 y 27 por ciento", () => {
+  it("liquida 2012 con mínimos pre-reforma y escala del ahorro 21, 25 y 27 por ciento", () => {
     const caso = {
       anio: 2012,
       comunidadAutonoma: "simulada-estatal",
@@ -1075,7 +1080,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica reduccion por obtencion de rendimientos del trabajo", () => {
+  it("aplica reducción por obtención de rendimientos del trabajo", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1105,7 +1110,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2023 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+  it("liquida 2023 con la reducción estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2023,
       comunidadAutonoma: "simulada-estatal",
@@ -1135,7 +1140,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2022 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+  it("liquida 2022 con la reducción estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2022,
       comunidadAutonoma: "simulada-estatal",
@@ -1165,7 +1170,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2021 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+  it("liquida 2021 con la reducción estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2021,
       comunidadAutonoma: "simulada-estatal",
@@ -1195,7 +1200,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2020 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+  it("liquida 2020 con la reducción estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2020,
       comunidadAutonoma: "simulada-estatal",
@@ -1225,7 +1230,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2019 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+  it("liquida 2019 con la reducción estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2019,
       comunidadAutonoma: "simulada-estatal",
@@ -1255,7 +1260,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2018 con la reduccion transitoria estatal del trabajo del art. 20", () => {
+  it("liquida 2018 con la reducción transitoria estatal del trabajo del art. 20", () => {
     const caso = {
       anio: 2018,
       comunidadAutonoma: "simulada-estatal",
@@ -1285,10 +1290,10 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2018 con la reduccion anterior si el contribuyente fallecio antes del 5 de julio", () => {
+  it("liquida 2018 con la reducción anterior si el contribuyente fallecio antes del 5 de julio", () => {
     const caso = {
       anio: 2018,
-      fechaFallecimiento: new Date("2018-07-04T00:00:00.000Z"),
+      fechaFallecimiento: fechaUtc("2018-07-04T00:00:00.000Z"),
       comunidadAutonoma: "simulada-estatal",
       situacionFamiliar: {
         tipo: "individual",
@@ -1316,7 +1321,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2017 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+  it("liquida 2017 con la reducción estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2017,
       comunidadAutonoma: "simulada-estatal",
@@ -1346,7 +1351,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2016 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+  it("liquida 2016 con la reducción estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2016,
       comunidadAutonoma: "simulada-estatal",
@@ -1376,7 +1381,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida 2015 con la reduccion estatal del trabajo del art. 20 vigente ese año", () => {
+  it("liquida 2015 con la reducción estatal del trabajo del art. 20 vigente ese año", () => {
     const caso = {
       anio: 2015,
       comunidadAutonoma: "simulada-estatal",
@@ -1551,7 +1556,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("liquida comunidades reales de 2015 con la escala estatal y autonomica del ejercicio", () => {
+  it("liquida comunidades reales de 2015 con la escala estatal y autonómica del ejercicio", () => {
     const caso = {
       anio: 2015,
       comunidadAutonoma: "madrid",
@@ -1622,7 +1627,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica minimo por descendientes", () => {
+  it("aplica mínimo por descendientes", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1650,7 +1655,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica minimo por discapacidad de descendientes", () => {
+  it("aplica mínimo por discapacidad de descendientes", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1678,7 +1683,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica minimo por discapacidad severa y asistencia de descendientes", () => {
+  it("aplica mínimo por discapacidad severa y asistencia de descendientes", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1714,7 +1719,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("resta deduccion autonomica agregada no desglosada de la cuota liquida", () => {
+  it("resta deducción autonómica agregada no desglosada de la cuota líquida", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1744,7 +1749,7 @@ describe("liquidarIrpfAnual", () => {
   })
 
   it.effect(
-    "falla con ResultadoNoSoportado para deducciones autonomicas catalogadas no implementadas",
+    "falla con ResultadoNoSoportado para deducciones autonómicas catalogadas no implementadas",
     () =>
       Effect.gen(function* () {
         const caso = {
@@ -1777,14 +1782,14 @@ describe("liquidarIrpfAnual", () => {
         expect(error).toMatchObject({
           _tag: "ResultadoNoSoportado",
           motivo:
-            "Deduccion autonomica reconocida no implementada: Por gastos educativos",
+            "Deducción autonómica reconocida no implementada: Por gastos educativos",
           fuenteReconocida:
             "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
         })
       })
   )
 
-  it("liquida una comunidad real con su escala autonomica de 2025", () => {
+  it("liquida una comunidad real con su escala autonómica de 2025", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "madrid",
@@ -1804,30 +1809,29 @@ describe("liquidarIrpfAnual", () => {
       pagosACuentaCentimos: 0,
     } satisfies CasoFiscalAnual
 
-    expect(liquidarCasoCanonico(caso)).toMatchObject({
+    const resultado = liquidarCasoCanonico(caso)
+
+    expect(resultado).toMatchObject({
       _tag: "LiquidacionIrpfAnualCalculada",
       cuotaIntegraGeneralCentimos: 563_325,
       cuotaMinimoPersonalCentimos: 103_357,
       cuotaLiquidaCentimos: 459_969,
       cuotaDiferencialCentimos: 459_969,
-      rastro: {
-        pasos: expect.arrayContaining([
-          expect.objectContaining({
-            titulo: "Comunidad autonoma",
-            descripcion: expect.stringContaining(
-              "escala autonomica general de 2025"
-            ),
-          }),
-          expect.objectContaining({
-            titulo: "Base general y minimo personal",
-            descripcion: expect.stringContaining("minimo autonomico"),
-          }),
-        ]),
-      },
     })
+    const pasoComunidad = resultado.rastro.pasos.find(
+      (paso) => paso.titulo === "Comunidad autónoma"
+    )
+    expect(pasoComunidad?.descripcion).toContain(
+      "escala autonómica general de 2025"
+    )
+
+    const pasoMinimo = resultado.rastro.pasos.find(
+      (paso) => paso.titulo === "Base general y mínimo personal"
+    )
+    expect(pasoMinimo?.descripcion).toContain("mínimo autonómico")
   })
 
-  it("limita las deducciones autonomicas a la cuota autonomica disponible", () => {
+  it("limita las deducciones autonómicas a la cuota autonómica disponible", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "madrid",
@@ -1856,7 +1860,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica minimo por ascendientes por edad", () => {
+  it("aplica mínimo por ascendientes por edad", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1884,7 +1888,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica minimo por ascendientes con discapacidad aunque no superen 65 años", () => {
+  it("aplica mínimo por ascendientes con discapacidad aunque no superen 65 años", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",

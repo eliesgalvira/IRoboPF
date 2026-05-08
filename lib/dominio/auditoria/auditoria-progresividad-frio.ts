@@ -708,7 +708,7 @@ const auditarProgresividadFrioImpl = Effect.fn(
   entrada: EntradaAuditoriaProgresividadFrio,
   contexto: ContextoAuditoriaProgresividadFrio
 ) {
-  const auditoria = yield* auditarRangoSalarialConLiquidacionIrpf({
+  const auditoriaEffect = auditarRangoSalarialConLiquidacionIrpf({
     salarioBrutoAnualMinimoCentimos: entrada.salarioBrutoAnualMinimoCentimos,
     salarioBrutoAnualMaximoCentimos: entrada.salarioBrutoAnualMaximoCentimos,
     pasoCentimos: entrada.pasoCentimos,
@@ -720,7 +720,11 @@ const auditarProgresividadFrioImpl = Effect.fn(
       (entrada.perfil === "legacy-progresividad-frio"
         ? undefined
         : entrada.perfil),
-  }).pipe(Effect.provide(CompatibilidadSalarioLegacy.layer))
+  })
+  // @effect-diagnostics-next-line effect/strictEffectProvide:off
+  const auditoria = yield* auditoriaEffect.pipe(
+    Effect.provide(CompatibilidadSalarioLegacy.layer)
+  )
 
   return {
     _tag: "ResultadoAuditoriaProgresividadFrio",
@@ -738,7 +742,9 @@ export class AuditoriaProgresividadFrio extends Context.Service<
       contexto: ContextoAuditoriaProgresividadFrio
     ) => Effect.Effect<ResultadoAuditoriaProgresividadFrio>
   }
->()("@irobopf/dominio/auditoria/AuditoriaProgresividadFrio") {
+>()(
+  "irobopf/lib/dominio/auditoria/auditoria-progresividad-frio/AuditoriaProgresividadFrio"
+) {
   static readonly layer = Layer.succeed(AuditoriaProgresividadFrio, {
     auditar: auditarProgresividadFrioImpl,
   })
@@ -759,6 +765,7 @@ export const auditarProgresividadFrio = (
   entrada: EntradaAuditoriaProgresividadFrio,
   contexto: ContextoAuditoriaProgresividadFrio
 ): Effect.Effect<ResultadoAuditoriaProgresividadFrio> =>
+  // @effect-diagnostics-next-line effect/strictEffectProvide:off
   auditarProgresividadFrioDesdeServicio(entrada, contexto).pipe(
     Effect.provide(AuditoriaProgresividadFrio.layer)
   )
@@ -766,6 +773,7 @@ export const auditarProgresividadFrio = (
 export const construirPuntosAuditoriaAnioAjustado = (
   entrada: EntradaPuntosAuditoriaAnioAjustado
 ): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
+  // @effect-diagnostics-next-line effect/strictEffectProvide:off
   construirPuntosAuditoriaAnioAjustadoImpl(entrada).pipe(
     Effect.provide(CompatibilidadSalarioLegacy.layer)
   )

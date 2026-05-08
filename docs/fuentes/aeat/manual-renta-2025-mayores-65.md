@@ -1,6 +1,7 @@
 # Manual especifico de Renta 2025 para personas mayores de 65 anos
 
 Procedencia:
+
 - Titulo original: Manual especifico de Renta 2025 para personas mayores de 65 anos
 - Archivo original: Manual_especifico_de_Renta_2025_para_personas_mayores_de_65_a_os.pdf
 - Fecha del documento: 2026-04-09 (metadatos PDF)
@@ -8,7 +9,7 @@ Procedencia:
 - SHA-256 del PDF: b6a77ca43fed3c3945320108542bce77009174cc3bc61c81852f42fb87b7b3cb
 - Nota: este texto es una transcripcion operativa para trabajo y trazabilidad; no es una fuente normativa nueva.
 
-```text
+````text
                                           Manual específico de Renta 2025 para personas mayores de 65 años
 
 
@@ -3369,3 +3370,4 @@ Procedencia:
 
 09/04/2026 - Manual específico de Renta 2025 para personas mayores de 65 años                    Página 65
 ```
+````

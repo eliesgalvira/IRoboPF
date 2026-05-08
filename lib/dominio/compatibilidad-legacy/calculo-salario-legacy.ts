@@ -47,7 +47,7 @@ export interface ServicioCompatibilidadSalarioLegacy {
 }
 
 // Este adaptador conserva el contrato observable salarial del perfil legacy.
-// 2012-2025 usan liquidacion anual IRPF migrada; 2026 es solo el caso tecnico
+// 2012-2025 usan liquidación anual IRPF migrada; 2026 es solo el caso técnico
 // de soltero sin hijos y comunidad simulada estatal con parametros laborales y
 // deduccion SMI 2026.
 const construirCalcularSalarioLegacy = (liquidacionIrpf: {
@@ -68,7 +68,7 @@ const construirCalcularSalarioLegacy = (liquidacionIrpf: {
       Match.orElse(() =>
         Effect.die(
           new Error(
-            `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2026 para el perfil tecnico soltero sin hijos estatal; recibido ${entrada.anio}.`
+            `Compatibilidad salarial legacy migrada solo soporta IRPF anual 2012-2026 para el perfil técnico soltero sin hijos estatal; recibido ${entrada.anio}.`
           )
         )
       )
@@ -211,9 +211,10 @@ const casoFiscalLegacy = (
   entrada: EntradaCalculoSalarioLegacy
 ): CasoFiscalAnual => {
   const perfil = entrada.perfilAuditoria ?? "soltero_sin_hijos"
-  const retencionTrabajoAeat = entrada.perfilAuditoria
-    ? casoRetencionTrabajoPerfil({ entrada, perfil })
-    : undefined
+  const retencionTrabajoAeat =
+    entrada.perfilAuditoria !== undefined
+      ? casoRetencionTrabajoPerfil({ entrada, perfil })
+      : undefined
 
   return {
     anio: entrada.anio,
@@ -236,14 +237,16 @@ const casoFiscalLegacy = (
     deducciones: [],
     retencionesSoportadasCentimos: 0,
     pagosACuentaCentimos: 0,
-    ...(retencionTrabajoAeat ? { retencionTrabajoAeat } : {}),
+    ...(retencionTrabajoAeat !== undefined ? { retencionTrabajoAeat } : {}),
   }
 }
 
 export class CompatibilidadSalarioLegacy extends Context.Service<
   CompatibilidadSalarioLegacy,
   ServicioCompatibilidadSalarioLegacy
->()("@irobopf/dominio/compatibilidadLegacy/CompatibilidadSalarioLegacy") {
+>()(
+  "irobopf/lib/dominio/compatibilidad-legacy/calculo-salario-legacy/CompatibilidadSalarioLegacy"
+) {
   static readonly layer = Layer.effect(
     CompatibilidadSalarioLegacy,
     Effect.gen(function* () {
@@ -267,6 +270,7 @@ const calcularSalarioLegacyDesdeServicio = Effect.fn(
 export const calcularSalarioLegacy = (
   entrada: EntradaCalculoSalarioLegacy
 ): Effect.Effect<DesgloseLiquidado> =>
+  // @effect-diagnostics-next-line effect/strictEffectProvide:off
   calcularSalarioLegacyDesdeServicio(entrada).pipe(
     Effect.provide(CompatibilidadSalarioLegacy.layer)
   )

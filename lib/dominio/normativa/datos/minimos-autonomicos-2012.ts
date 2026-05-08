@@ -84,7 +84,7 @@ const MINIMOS_ESTATALES_POR_COMUNIDAD_2012 = {
 } satisfies Readonly<Record<ComunidadAutonoma, MinimosPersonalesFamiliaresIrpf>>
 
 export const MINIMOS_AUTONOMICOS_IRPF_2012 = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2012 pre-reforma 2015",
+  nombre: "Mínimos autonómicos IRPF 2012 pre-reforma 2015",
   valor: {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2012,
     madrid: MINIMOS_MADRID_2012,

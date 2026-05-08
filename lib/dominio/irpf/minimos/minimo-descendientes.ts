@@ -11,14 +11,13 @@ import type { FamiliarFiscal } from "../caso-fiscal-anual"
 const minimoPorOrden = (
   indice: number,
   minimos: MinimosPersonalesFamiliaresIrpf
-): Decimal => {
-  return Match.value(indice).pipe(
+): Decimal =>
+  Match.value(indice).pipe(
     Match.when(0, () => minimos.descendientes.primero),
     Match.when(1, () => minimos.descendientes.segundo),
     Match.when(2, () => minimos.descendientes.tercero),
     Match.orElse(() => minimos.descendientes.cuartoYSiguientes)
   )
-}
 
 export const obtenerMinimoDescendientes = (
   descendientes: ReadonlyArray<FamiliarFiscal>,

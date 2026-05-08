@@ -7,7 +7,7 @@ import {
   DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA,
 } from "../lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 
-describe("deducciones autonomicas 2025", () => {
+describe("deducciones autonómicas 2025", () => {
   it("organiza las fichas normativas por comunidad autónoma", () => {
     expect(
       DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD.madrid.map(

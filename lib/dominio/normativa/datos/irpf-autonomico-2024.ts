@@ -17,7 +17,7 @@ export const TRAMOS_IRPF_ESTATAL_GENERAL_2024 = TRAMOS_IRPF_ESTATAL_GENERAL_2025
 
 const fuenteAeatEscalasAutonomicas2024 = {
   titulo:
-    "AEAT Manual practico de Renta 2024. Gravamen autonomico de la base liquidable general",
+    "AEAT Manual práctico de Renta 2024. Gravamen autonómico de la base liquidable general",
   referencia:
     "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2024/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html",
 } as const
@@ -57,7 +57,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2024_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2024. Escala autonomica del Principado de Asturias",
+        "AEAT Manual práctico de Renta 2024. Escala autonómica del Principado de Asturias",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2024/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-principado-asturias.html",
     },
@@ -76,7 +76,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2024_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2024. Escala autonomica de Canarias",
+        "AEAT Manual práctico de Renta 2024. Escala autonómica de Canarias",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2024/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-canarias.html",
     },
@@ -97,7 +97,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2024_DISTINTAS_DE_2025 = {
     ],
     fuente: {
       titulo:
-        "AEAT Manual practico de Renta 2024. Escala autonomica de Cataluna",
+        "AEAT Manual práctico de Renta 2024. Escala autonómica de Cataluña",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2024/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-cataluna.html",
     },

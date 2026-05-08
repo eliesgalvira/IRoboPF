@@ -1,3 +1,5 @@
+// Tests are Effect entry points, so they provide the service layer directly.
+// @effect-diagnostics effect/strictEffectProvide:off
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
@@ -9,7 +11,7 @@ import {
 
 describe("calcularRetencionTrabajoAeat", () => {
   it.effect(
-    "calcula el tipo e importe anual de retencion para un asalariado sin regularizacion",
+    "calcula el tipo e importe anual de retención para un asalariado sin regularización",
     () =>
       Effect.gen(function* () {
         const resultado = yield* calcularRetencionTrabajoAeat(
@@ -48,7 +50,7 @@ describe("calcularRetencionTrabajoAeat", () => {
   )
 
   it.effect(
-    "aplica movilidad reducida del perceptor con discapacidad en gastos y minimo",
+    "aplica movilidad reducida del perceptor con discapacidad en gastos y mínimo",
     () =>
       Effect.gen(function* () {
         const resultado = yield* calcularRetencionTrabajoAeat(
@@ -72,7 +74,7 @@ describe("calcularRetencionTrabajoAeat", () => {
       })
   )
 
-  it.effect("devuelve retencion cero cuando aplica el limite exento", () =>
+  it.effect("devuelve retención cero cuando aplica el límite exento", () =>
     Effect.gen(function* () {
       const resultado = yield* calcularRetencionTrabajoAeat(
         {
@@ -167,7 +169,7 @@ describe("calcularRetencionTrabajoAeat", () => {
     })
   )
 
-  it.effect("expone el procedimiento de retencion como servicio Effect", () =>
+  it.effect("expone el procedimiento de retención como servicio Effect", () =>
     Effect.gen(function* () {
       const caso = casoRetencionCalculable()
       const retencion = yield* RetencionTrabajoAeat
@@ -176,13 +178,13 @@ describe("calcularRetencionTrabajoAeat", () => {
 
       expect(resultado._tag).toBe("RetencionTrabajoCalculada")
       expect(resultado.rastro.titulo).toBe(
-        "Procedimiento de retencion de trabajo 2026"
+        "Procedimiento de retención de trabajo 2026"
       )
     }).pipe(Effect.provide(RetencionTrabajoAeat.layer))
   )
 
   it.effect(
-    "rechaza casos incompletos sin confundirlos con una liquidacion anual",
+    "rechaza casos incompletos sin confundirlos con una liquidación anual",
     () =>
       Effect.gen(function* () {
         const caso = casoRetencionBasico()
@@ -194,16 +196,16 @@ describe("calcularRetencionTrabajoAeat", () => {
         expect(error).toEqual({
           _tag: "ResultadoNoSoportado",
           motivo:
-            "Caso de retencion de trabajo no soportado con las entradas actuales",
+            "Caso de retención de trabajo no soportado con las entradas actuales",
           fuenteReconocida: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
           rastro: {
-            titulo: "Procedimiento de retencion de trabajo 2026",
+            titulo: "Procedimiento de retención de trabajo 2026",
             pasos: [
               {
                 _tag: "PasoExplicacion",
-                titulo: "Caso de retencion reconocido",
+                titulo: "Caso de retención reconocido",
                 descripcion:
-                  "El motor ha recibido rendimientos del trabajo para calcular una retencion a cuenta, no una liquidacion anual del IRPF.",
+                  "El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.",
                 fuentes: [
                   {
                     titulo: "Algoritmo de retenciones 2026",

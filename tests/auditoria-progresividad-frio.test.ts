@@ -1,3 +1,5 @@
+// Tests are Effect entry points, so they provide the service layer directly.
+// @effect-diagnostics effect/strictEffectProvide:off
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
@@ -46,7 +48,7 @@ describe("auditarProgresividadFrio", () => {
   )
 
   it.effect(
-    "recalcula la liquidacion anual al cambiar de comunidad autonoma",
+    "recalcula la liquidación anual al cambiar de comunidad autónoma",
     () =>
       Effect.gen(function* () {
         const entrada = {

@@ -47,7 +47,7 @@ export function NumberField({
     >
       <div className="flex min-h-10 items-end gap-1.5">
         <label className="text-sm leading-tight font-bold">{etiqueta}</label>
-        {ayuda ? (
+        {ayuda !== undefined && ayuda !== "" ? (
           <Tooltip contenido={ayuda}>
             <Button
               aria-label={`Ayuda sobre ${etiqueta}`}

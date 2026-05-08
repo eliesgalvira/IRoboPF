@@ -1,6 +1,7 @@
 # Calculo salario IRPF Python legacy
 
 Procedencia:
+
 - Titulo original: Calculo_Salario_IRPF.py
 - Archivo original: Calculo_Salario_IRPF.py
 - Fecha del documento: desconocida en metadatos de archivo Git

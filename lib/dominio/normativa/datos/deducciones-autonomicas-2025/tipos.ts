@@ -5,7 +5,7 @@ export type CategoriaDeduccionAutonomica =
   | "otros_conceptos"
 
 /**
- * Estados del ciclo de vida de una deduccion autonomica en el motor.
+ * Estados del ciclo de vida de una deducción autonómica en el motor.
  *
  * - catalogada: existe en el manual y el motor puede reconocerla, pero todavia
  *   no hay una ficha revisada con datos suficientes para calcularla.
@@ -22,7 +22,10 @@ export type EstadoDeduccionAutonomica =
   | "implementada"
   | "no_soportada"
 
-export type EstadoImplementada = Extract<EstadoDeduccionAutonomica, "implementada">
+export type EstadoImplementada = Extract<
+  EstadoDeduccionAutonomica,
+  "implementada"
+>
 
 export type CuantiaDeduccionAutonomica =
   | {
