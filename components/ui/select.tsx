@@ -78,7 +78,7 @@ export function Select<TValor extends string>({
           side="bottom"
           sideOffset={4}
         >
-          <SelectPrimitive.Popup className="max-h-[min(var(--available-height),18rem)] origin-[var(--transform-origin)] overflow-auto border border-[var(--rule)] bg-[var(--paper)] shadow-[4px_4px_0_var(--rule)] outline-none transition-[opacity,scale] duration-100 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0">
+          <SelectPrimitive.Popup className="max-h-[min(var(--available-height),18rem)] origin-[var(--transform-origin)] overflow-auto border border-[var(--rule)] bg-[var(--paper)] shadow-[4px_4px_0_var(--rule)] transition-[opacity,scale] duration-100 outline-none data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0">
             <SelectPrimitive.List>
               {opciones.map((opcion) => (
                 <SelectPrimitive.Item

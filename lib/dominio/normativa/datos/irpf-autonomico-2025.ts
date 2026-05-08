@@ -272,5 +272,4 @@ export const ESCALAS_AUTONOMICAS_IRPF_2025: Readonly<
 
 export const obtenerEscalaAutonomicaIrpf2025 = (
   comunidadAutonoma: ComunidadAutonoma
-): EscalaAutonomicaIrpf2025 =>
-  ESCALAS_AUTONOMICAS_IRPF_2025[comunidadAutonoma]
+): EscalaAutonomicaIrpf2025 => ESCALAS_AUTONOMICAS_IRPF_2025[comunidadAutonoma]

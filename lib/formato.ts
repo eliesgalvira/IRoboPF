@@ -33,9 +33,7 @@ export const formatearPorcentaje = (proporcion: Decimal.Value): string =>
 export const formatearPuntosPorcentuales = (
   puntosPorcentuales: Decimal.Value
 ): string =>
-  `${formatearDecimalEspanol(
-    redondearPorcentajeHalfUp(puntosPorcentuales)
-  )}%`
+  `${formatearDecimalEspanol(redondearPorcentajeHalfUp(puntosPorcentuales))}%`
 
 export const porcentaje = {
   format: formatearPorcentaje,

@@ -22,7 +22,10 @@ export type EstadoDeduccionAutonomica =
   | "implementada"
   | "no_soportada"
 
-export type EstadoImplementada = Extract<EstadoDeduccionAutonomica, "implementada">
+export type EstadoImplementada = Extract<
+  EstadoDeduccionAutonomica,
+  "implementada"
+>
 
 export type CuantiaDeduccionAutonomica =
   | {

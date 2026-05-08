@@ -31,7 +31,8 @@ export const MINIMOS_ILLES_BALEARS_2022 = {
     mayor65OConDiscapacidad: importe("1150"),
     adicionalMayor75: importe("1400"),
   },
-  discapacidad: MINIMOS_AUTONOMICOS_IRPF_2025.valor["illes-balears"].discapacidad,
+  discapacidad:
+    MINIMOS_AUTONOMICOS_IRPF_2025.valor["illes-balears"].discapacidad,
 } satisfies MinimosPersonalesFamiliaresIrpf
 
 export const MINIMOS_MADRID_2022 = {

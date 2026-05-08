@@ -1,6 +1,8 @@
 import { crearImporteMonetario } from "../../dinero/importe-monetario"
 
-export const IPC_ANUAL_DICIEMBRE: Readonly<Record<number, ReturnType<typeof crearImporteMonetario>>> = {
+export const IPC_ANUAL_DICIEMBRE: Readonly<
+  Record<number, ReturnType<typeof crearImporteMonetario>>
+> = {
   2013: crearImporteMonetario("0.003"),
   2014: crearImporteMonetario("-0.010"),
   2015: crearImporteMonetario("0.000"),

@@ -1,6 +1,7 @@
 # Manual practico de Renta 2025. Parte 2. Deducciones autonomicas
 
 Procedencia:
+
 - Titulo original: Manual practico de Renta 2025. Parte 2. Deducciones autonomicas
 - Archivo original: ManualRenta2025Parte2_es_es.pdf
 - Fecha del documento: 2026-04-23 (metadatos PDF)
@@ -8,7 +9,7 @@ Procedencia:
 - SHA-256 del PDF: 88a12fbe5ce9de01fc6a04941db498cd30ef959c85bf6106bfdc3611c13f3481
 - Nota: este texto es una transcripcion operativa para trabajo y trazabilidad; no es una fuente normativa nueva.
 
-```text
+````text
                                             Manual práctico de Renta 2025. Parte 2. Deducciones autonómicas
 
 
@@ -35536,3 +35537,4 @@ Procedencia:
 
 23/04/2026 - Manual práctico de Renta 2025. Parte 2. Deducciones autonómicas                    Página 633
 ```
+````

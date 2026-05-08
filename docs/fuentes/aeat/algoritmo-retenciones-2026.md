@@ -1,6 +1,7 @@
 # Algoritmo de retenciones 2026
 
 Procedencia:
+
 - Titulo original: Microsoft Word - ALGORITMO_2026 - sin ILP (26.12.2025)
 - Archivo original: ALGORITMO_2026.pdf
 - Fecha del documento: 2025-12-26 (metadatos PDF)
@@ -8,7 +9,7 @@ Procedencia:
 - SHA-256 del PDF: affd1cf389f67d1cde380fe38abbdb52e75d6241ad32994ff226270c03c13049
 - Nota: este texto es una transcripcion operativa para trabajo y trazabilidad; no es una fuente normativa nueva.
 
-```text
+````text
                               Agencia Tributaria
                 www.agenciatributaria.es
 
@@ -2349,3 +2350,4 @@ INCREIMPORTE         INCREMENTO DEL IMPORTE DE RETENCIÓN
 
                                                                               47
 ```
+````
