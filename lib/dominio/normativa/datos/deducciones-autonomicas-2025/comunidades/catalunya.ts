@@ -3,7 +3,6 @@ import {
   categoriaCatalogadaDesdeCodigo,
   fichaImplementada,
   fichaImplementadaBasica,
-  fichaImplementadaFormula,
   nombreCatalogadoDesdeCodigo,
 } from "../helpers"
 
@@ -11,7 +10,7 @@ export const CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025 = {
   ...fichaImplementadaBasica(
     { estado: "implementada" },
     "cataluna_alquiler_victimas_violencia_machista",
-    "Por alquiler de la vivienda habitual de víctimas de violencia machista",
+    "Por alquiler de la vivienda habitual de víctimás de violencia machista",
     "vivienda_habitual"
   ),
   cuantia: {
@@ -26,11 +25,11 @@ export const CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025 = {
     "La contribuyente debe figurar como titular del contrato de alquiler",
   ],
   limites: [
-    "20% de las cantidades satisfechas por alquiler de vivienda habitual, con maximo de 1.000 euros anuales",
-    "25% de las cantidades satisfechas, con maximo de 1.200 euros anuales, si la contribuyente tiene discapacidad igual o superior al 65% o hijo menor a cargo",
-    "Base imponible general + base imponible del ahorro - minimo personal y familiar: maximo 30.000 euros anuales",
-    "Una misma vivienda no puede dar lugar a una deduccion superior a 1.000 euros, o 1.200 euros en el tramo incrementado",
-    "Aplicable como maximo durante tres ejercicios consecutivos",
+    "20% de las cantidades satisfechas por alquiler de vivienda habitual, con máximo de 1.000 euros anuales",
+    "25% de las cantidades satisfechas, con máximo de 1.200 euros anuales, si la contribuyente tiene discapacidad igual o superior al 65% o hijo menor a cargo",
+    "Base imponible general + base imponible del ahorro - mínimo personal y familiar: máximo 30.000 euros anuales",
+    "Una misma vivienda no puede dar lugar a una deducción superior a 1.000 euros, o 1.200 euros en el tramo incrementado",
+    "Aplicable como máximo durante tres ejercicios consecutivos",
   ],
   prorrateo: [
     "Normalizar reglas de prorrateo si varias personas tienen derecho",
@@ -59,7 +58,7 @@ export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
   cuantia: {
     tipo: "porcentaje",
     porcentaje: "20",
-    base: "aportaciones de capital",
+    base: "aportaciónes de capital",
     limiteMaximoEuros: "3000",
   },
   requisitos: [
@@ -69,12 +68,12 @@ export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
     "La cooperativa debe estar inscrita como cooperativa agraria o cooperativa de vivienda",
     "No aplica a cooperativas de vivienda para uso turistico o de corta duracion",
     "Debe disponerse de certificacion de la cooperativa que acredite el cumplimiento de los requisitos",
-    "Las aportaciones deben mantenerse durante un minimo de 5 anios",
+    "Las aportaciónes deben mantenerse durante un mínimo de 5 años",
   ],
   limites: [
-    "20% de las aportaciones de capital obligatorias o voluntarias efectivamente desembolsadas",
-    "Limite maximo de 3.000 euros anuales por contribuyente",
-    "Si no hay cuota integra autonomica suficiente, el importe no deducido puede compensarse en ejercicios futuros",
+    "20% de las aportaciónes de capital obligatorias o voluntarias efectivamente desembolsadas",
+    "Límite máximo de 3.000 euros anuales por contribuyente",
+    "Si no hay cuota íntegra autonómica suficiente, el importe no deducido puede compensarse en ejercicios futuros",
   ],
   prorrateo: [],
   entradaNecesaria: [

@@ -1,3 +1,5 @@
+// Script entry point: Node file-system APIs are the execution boundary.
+// @effect-diagnostics effect/nodeBuiltinImport:off
 import { writeFile } from "node:fs/promises"
 
 import { Effect, Formatter } from "effect"

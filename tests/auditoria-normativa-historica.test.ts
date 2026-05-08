@@ -24,7 +24,7 @@ import {
   varianteAuditoriaPorDefecto,
 } from "../lib/dominio/auditoria/auditoria-normativa-historica"
 
-describe("auditoria normativa historica", () => {
+describe("auditoría normativa histórica", () => {
   it("usa IRPF final y salario bruto real constante como variante por defecto", () => {
     expect(varianteAuditoriaPorDefecto).toEqual({
       magnitudAuditada: "irpf_final",
@@ -90,7 +90,7 @@ describe("auditoria normativa historica", () => {
     })
   })
 
-  it("parsea el contrato URL v2 sin parametros ocultos de magnitud", () => {
+  it("parsea el contrato URL v2 sin parámetros ocultos de magnitud", () => {
     const escenario = leerEscenarioAuditoriaNormativaDesdeUrl(
       new URLSearchParams(
         "v=2&perfil=pareja_con_hijos&periodo=2024-2025&comunidad=catalunya"
@@ -214,7 +214,7 @@ describe("auditoria normativa historica", () => {
     })
   })
 
-  it("reserva 2026 a perfiles con retencion tecnica y comunidad simulada estatal", () => {
+  it("reserva 2026 a perfiles con retención técnica y comunidad simulada estatal", () => {
     expect(
       escenarioPermiteReferenciaTecnica2026(escenarioAuditoriaPorDefecto)
     ).toBe(true)
@@ -294,7 +294,7 @@ describe("auditoria normativa historica", () => {
     ).toBe(19_262)
   })
 
-  it("degrada parametros URL invalidos al escenario por defecto", () => {
+  it("degrada parámetros URL invalidos al escenario por defecto", () => {
     const escenario = leerEscenarioAuditoriaNormativaDesdeUrl(
       new URLSearchParams(
         "v=1&perfil=inventado&periodo=abcd-2026&anioReferencia=2030&estrategiaSalario=inventada&magnitud=inventada&comunidad=ninguna"

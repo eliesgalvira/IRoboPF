@@ -24,7 +24,7 @@ export function Tooltip({
   const contenedor = React.useRef<HTMLSpanElement>(null)
 
   React.useLayoutEffect(() => {
-    if (!abierto || !contenedor.current) {
+    if (!abierto || contenedor.current === null) {
       return
     }
 
@@ -41,7 +41,10 @@ export function Tooltip({
     }
 
     const cerrarAlPulsarFuera = (evento: PointerEvent) => {
-      if (!contenedor.current?.contains(evento.target as Node)) {
+      if (
+        contenedor.current === null ||
+        !contenedor.current.contains(evento.target as Node)
+      ) {
         fijarAbierto(false)
       }
     }
@@ -61,7 +64,9 @@ export function Tooltip({
 
   return (
     <span
-      className={["relative inline-flex", className].filter(Boolean).join(" ")}
+      className={["relative inline-flex", className]
+        .filter((clase) => clase !== undefined && clase !== "")
+        .join(" ")}
       onBlur={(evento) => {
         if (!evento.currentTarget.contains(evento.relatedTarget)) {
           fijarAbierto(false)
@@ -95,7 +100,7 @@ export function Tooltip({
           }
         },
       })}
-      {abierto && posicion
+      {abierto && posicion !== null
         ? createPortal(
             <span
               className="fixed z-[1000] w-[min(16rem,calc(100vw-2rem))] -translate-y-full border-2 border-[var(--rule)] bg-[oklch(0.965_0.014_92)] px-3 py-2 text-xs leading-5 text-[var(--ink)] opacity-100 shadow-[5px_5px_0_var(--rule)]"

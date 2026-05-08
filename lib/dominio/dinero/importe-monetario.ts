@@ -42,7 +42,7 @@ export interface ServicioPoliticaMonetaria {
 export class PoliticaMonetaria extends Context.Service<
   PoliticaMonetaria,
   ServicioPoliticaMonetaria
->()("@irobopf/dominio/dinero/PoliticaMonetaria") {
+>()("irobopf/lib/dominio/dinero/importe-monetario/PoliticaMonetaria") {
   static readonly layer = Layer.succeed(PoliticaMonetaria, {
     centimosAEuros: Effect.fn("PoliticaMonetaria.centimosAEuros")(function* (
       centimos: number

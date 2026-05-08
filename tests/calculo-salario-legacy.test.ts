@@ -1,3 +1,8 @@
+// Tests are Effect entry points; env-gated and async Vitest harness code is
+// intentional here.
+// @effect-diagnostics effect/asyncFunction:off
+// @effect-diagnostics effect/processEnv:off
+// @effect-diagnostics effect/strictEffectProvide:off
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
@@ -101,7 +106,7 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
-    "distingue el umbral visible de IRPF final entre 2025 y la referencia tecnica 2026",
+    "distingue el umbral visible de IRPF final entre 2025 y la referencia técnica 2026",
     () =>
       Effect.gen(function* () {
         const salarioBrutoAnualCentimos = 1_700_000
@@ -122,7 +127,7 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
-    "aplica el perfil pareja con hijos al limite de retencion tecnico 2026",
+    "aplica el perfil pareja con hijos al límite de retención técnico 2026",
     () =>
       Effect.gen(function* () {
         const salarioBrutoAnualCentimos = 1_800_000
@@ -144,7 +149,7 @@ describe("calcularSalarioLegacy", () => {
   )
 
   it.effect(
-    "expone la cuota anual para el marginal sin contaminarla con el limite de retencion",
+    "expone la cuota anual para el marginal sin contaminarla con el límite de retención",
     () =>
       Effect.gen(function* () {
         const resultado18000 = yield* calcularSalarioLegacy({
@@ -201,7 +206,7 @@ describe("calcularSalarioLegacy", () => {
     )
   })
 
-  it("mantiene la compatibilidad 2012-2025 contra puntos representativos del detalle anual canonico", async () => {
+  it("mantiene la compatibilidad 2012-2025 contra puntos representativos del detalle anual canónico", async () => {
     await Effect.runPromise(
       Effect.gen(function* () {
         const compatibilidad = yield* CompatibilidadSalarioLegacy
@@ -233,7 +238,7 @@ describe("calcularSalarioLegacy", () => {
     : it.effect.skip
 
   pruebaCompleta(
-    "mantiene la compatibilidad 2012-2025 euro a euro contra el detalle anual canonico",
+    "mantiene la compatibilidad 2012-2025 euro a euro contra el detalle anual canónico",
     () =>
       Effect.gen(function* () {
         const compatibilidad = yield* CompatibilidadSalarioLegacy

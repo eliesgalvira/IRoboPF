@@ -1,3 +1,9 @@
+// Heavy characterization harness: Node process/fs/path/env and Vitest async
+// boundaries are intentional here.
+// @effect-diagnostics effect/asyncFunction:off
+// @effect-diagnostics effect/newPromise:off
+// @effect-diagnostics effect/nodeBuiltinImport:off
+// @effect-diagnostics effect/processEnv:off
 import { spawn } from "node:child_process"
 import { existsSync } from "node:fs"
 import { resolve } from "node:path"
@@ -213,7 +219,7 @@ const compararHoja = async (nombreHoja: string, rutaHoja: string) => {
     const siguienteEsperada = filasEsperadas.next()
     if (siguienteEsperada.done === true) {
       throw new Error(
-        `La hoja ${nombreHoja} tiene mas filas legacy que filas Effect esperadas`
+        `La hoja ${nombreHoja} tiene más filas legacy que filas Effect esperadas`
       )
     }
 

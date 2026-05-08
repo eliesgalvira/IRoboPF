@@ -1,11 +1,5 @@
 import type { FichaDeduccionAutonomica } from "../tipos"
-import {
-  categoriaCatalogadaDesdeCodigo,
-  fichaImplementada,
-  fichaImplementadaBasica,
-  fichaImplementadaFormula,
-  nombreCatalogadoDesdeCodigo,
-} from "../helpers"
+import { fichaImplementada, fichaImplementadaFormula } from "../helpers"
 
 export const MURCIA_GASTOS_GUARDERIA_2025 = fichaImplementada(
   { estado: "implementada" },

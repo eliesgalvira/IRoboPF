@@ -1,6 +1,7 @@
 # Manual practico de Renta 2025. Parte 1
 
 Procedencia:
+
 - Titulo original: Manual practico de Renta 2025. Parte 1.
 - Archivo original: ManualRenta2025Parte1_es_es.pdf
 - Fecha del documento: 2026-03-27 (metadatos PDF)
@@ -8,7 +9,7 @@ Procedencia:
 - SHA-256 del PDF: 60e6b2d71c97d93a9e0943e6ff8c886f4dd6d3741a797cb8001dcbcadfb33528
 - Nota: este texto es una transcripcion operativa para trabajo y trazabilidad; no es una fuente normativa nueva.
 
-```text
+````text
                                                            Manual práctico de Renta 2025. Parte 1.
 
 
@@ -73343,3 +73344,4 @@ Procedencia:
 
 27/03/2026 - Manual práctico de Renta 2025. Parte 1.                                       Página 1270
 ```
+````

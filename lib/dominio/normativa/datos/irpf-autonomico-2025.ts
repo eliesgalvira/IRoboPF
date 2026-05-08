@@ -27,7 +27,7 @@ export const TRAMOS_IRPF_ESTATAL_GENERAL_2025: TramosIrpf = [
 ]
 
 const fuenteAeatEscalasAutonomicas2025 = {
-  titulo: "AEAT Modelo 100 IRPF 2025: cuota integra autonomica",
+  titulo: "AEAT Modelo 100 IRPF 2025: cuota íntegra autonómica",
   referencia:
     "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html",
 } as const
@@ -53,7 +53,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2025: Readonly<
   }),
   andalucia: escala({
     comunidadAutonoma: "andalucia",
-    nombre: "Andalucia",
+    nombre: "Andalucía",
     tramos: [
       [importe(13000), tipo("9.5")],
       [importe(21100), tipo("12")],
@@ -64,7 +64,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2025: Readonly<
   }),
   aragon: escala({
     comunidadAutonoma: "aragon",
-    nombre: "Aragon",
+    nombre: "Aragón",
     tramos: [
       [importe(13072.5), tipo("9.5")],
       [importe(21210), tipo("12")],
@@ -144,7 +144,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2025: Readonly<
   }),
   "castilla-y-leon": escala({
     comunidadAutonoma: "castilla-y-leon",
-    nombre: "Castilla y Leon",
+    nombre: "Castilla y León",
     tramos: [
       [importe(12450), tipo("9")],
       [importe(20200), tipo("12")],
@@ -206,7 +206,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2025: Readonly<
   }),
   murcia: escala({
     comunidadAutonoma: "murcia",
-    nombre: "Region de Murcia",
+    nombre: "Región de Murcia",
     tramos: [
       [importe(12450), tipo("9.5")],
       [importe(20200), tipo("11.2")],
@@ -272,5 +272,4 @@ export const ESCALAS_AUTONOMICAS_IRPF_2025: Readonly<
 
 export const obtenerEscalaAutonomicaIrpf2025 = (
   comunidadAutonoma: ComunidadAutonoma
-): EscalaAutonomicaIrpf2025 =>
-  ESCALAS_AUTONOMICAS_IRPF_2025[comunidadAutonoma]
+): EscalaAutonomicaIrpf2025 => ESCALAS_AUTONOMICAS_IRPF_2025[comunidadAutonoma]

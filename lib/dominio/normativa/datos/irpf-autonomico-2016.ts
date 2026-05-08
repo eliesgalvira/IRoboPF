@@ -26,7 +26,7 @@ const AEAT_MANUAL_RENTA_2016_PDF =
 
 const fuenteAeatEscalasAutonomicas2016 = {
   titulo:
-    "AEAT Manual practico Renta 2016. Gravamen autonomico de la base liquidable general",
+    "AEAT Manual práctico Renta 2016. Gravamen autonómico de la base liquidable general",
   referencia: AEAT_MANUAL_RENTA_2016_PDF,
 } as const
 
@@ -56,13 +56,13 @@ export const ESCALAS_AUTONOMICAS_IRPF_2016_DISTINTAS_DE_2025 = {
     tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2016,
     fuente: {
       titulo:
-        "AEAT Manual practico Renta 2016. Gravamen estatal de la base liquidable general",
+        "AEAT Manual práctico Renta 2016. Gravamen estatal de la base liquidable general",
       referencia: AEAT_MANUAL_RENTA_2016_PDF,
     },
   }),
   andalucia: escala2016({
     comunidadAutonoma: "andalucia",
-    nombre: "Andalucia",
+    nombre: "Andalucía",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12")],
@@ -76,7 +76,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2016_DISTINTAS_DE_2025 = {
   }),
   aragon: escala2016({
     comunidadAutonoma: "aragon",
-    nombre: "Aragon",
+    nombre: "Aragón",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12.5")],
@@ -146,7 +146,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2016_DISTINTAS_DE_2025 = {
   }),
   "castilla-y-leon": escala2016({
     comunidadAutonoma: "castilla-y-leon",
-    nombre: "Castilla y Leon",
+    nombre: "Castilla y León",
     tramos: [
       [importe(12450), tipo("9.5")],
       [importe(20200), tipo("12")],
@@ -208,7 +208,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2016_DISTINTAS_DE_2025 = {
   }),
   murcia: escala2016({
     comunidadAutonoma: "murcia",
-    nombre: "Region de Murcia",
+    nombre: "Región de Murcia",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12.5")],

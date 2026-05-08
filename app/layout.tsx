@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Anton, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { Config, ConfigProvider, Effect } from "effect"
 
 import "./globals.css"
 import { cn } from "@/lib/utils"
@@ -17,8 +18,10 @@ const fuenteMono = JetBrains_Mono({
   variable: "--mono",
 })
 
-const urlSitio = new URL(
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://i-robo-pf.vercel.app"
+const urlSitio = Effect.runSync(
+  Config.url("NEXT_PUBLIC_SITE_URL")
+    .pipe(Config.withDefault(new URL("https://i-robo-pf.vercel.app")))
+    .parse(ConfigProvider.fromEnv())
 )
 
 export const metadata: Metadata = {

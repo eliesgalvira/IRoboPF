@@ -1,3 +1,5 @@
+// Tests are Effect entry points, so they provide the service layer directly.
+// @effect-diagnostics effect/strictEffectProvide:off
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
@@ -26,7 +28,7 @@ describe("calcularCotizacionesSocialesLegacy", () => {
     }).pipe(Effect.provide(CotizacionesSociales.layer))
   )
 
-  it("calcula cotizaciones bajo la base maxima sin solidaridad", () => {
+  it("calcula cotizaciones bajo la base máxima sin solidaridad", () => {
     const cotizaciones = calcularCotizacionesSocialesLegacy({
       salarioBrutoAnual: crearImporteMonetario(30_000),
       anio: 2026,
@@ -36,7 +38,7 @@ describe("calcularCotizacionesSocialesLegacy", () => {
     expect(cotizaciones.cotizacionTrabajador.toString()).toBe("1950")
   })
 
-  it("aplica base maxima, MEI y solidaridad legacy para salarios altos", () => {
+  it("aplica base máxima, MEI y solidaridad legacy para salarios altos", () => {
     const cotizaciones = calcularCotizacionesSocialesLegacy({
       salarioBrutoAnual: crearImporteMonetario(100_000),
       anio: 2026,

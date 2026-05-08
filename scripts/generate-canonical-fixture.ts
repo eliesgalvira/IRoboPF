@@ -1,3 +1,7 @@
+// Script entry point: Node file-system/path APIs and async top-level orchestration
+// are the execution boundary.
+// @effect-diagnostics effect/asyncFunction:off
+// @effect-diagnostics effect/nodeBuiltinImport:off
 import { mkdir, writeFile } from "node:fs/promises"
 import { resolve } from "node:path"
 

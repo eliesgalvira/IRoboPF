@@ -1,6 +1,7 @@
 # Progresividad TypeScript antes de refactor
 
 Procedencia:
+
 - Titulo original: lib/domain/progresividad.ts
 - Archivo original: lib/domain/progresividad.ts
 - Fecha del documento: snapshot local previo al refactor arquitectonico

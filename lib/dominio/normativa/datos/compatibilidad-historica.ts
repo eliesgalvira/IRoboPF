@@ -37,7 +37,7 @@ const sinDeduccionObtencionRendimientosTrabajo = () => IMPORTE_CERO
 export const medidaDeduccionObtencionRendimientosTrabajo2025 = {
   id: "irpf-2025-deduccion-obtencion-rendimientos-trabajo-smi",
   tipo: "deduccion_estatal",
-  nombre: "Deduccion por obtencion de rendimientos del trabajo 2025",
+  nombre: "Deducción por obtención de rendimientos del trabajo 2025",
   anioIntroduccion: 2025,
   fuentes: [fuenteAeatManualRenta2025Parte1],
 } as const satisfies MedidaNormativaComputable
@@ -45,7 +45,7 @@ export const medidaDeduccionObtencionRendimientosTrabajo2025 = {
 export const medidaDeduccionObtencionRendimientosTrabajo2026 = {
   id: "irpf-2026-deduccion-obtencion-rendimientos-trabajo-smi",
   tipo: "deduccion_estatal",
-  nombre: "Deduccion por obtencion de rendimientos del trabajo 2026",
+  nombre: "Deducción por obtención de rendimientos del trabajo 2026",
   anioIntroduccion: 2026,
   fuentes: [fuenteAeatRetenciones2026],
 } as const satisfies MedidaNormativaComputable
@@ -53,7 +53,7 @@ export const medidaDeduccionObtencionRendimientosTrabajo2026 = {
 export const medidaLimiteRetencionCompatibilidadHistorica43PorCiento = {
   id: "irpf-compatibilidad-historica-limite-retencion-43-por-ciento",
   tipo: "limite_retencion",
-  nombre: "Limite final de retencion del 43 por ciento",
+  nombre: "Límite final de retención del 43 por ciento",
   anioIntroduccion: 2012,
   fuentes: [LIMITE_RETENCION_LEGACY_43_POR_CIENTO.fuente],
 } as const satisfies MedidaNormativaComputable

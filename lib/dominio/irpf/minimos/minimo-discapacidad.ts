@@ -16,8 +16,8 @@ import type {
 const obtenerMinimoPorDiscapacidad = (
   discapacidad: DiscapacidadFiscal,
   minimos: MinimoDiscapacidadIrpf
-): Decimal => {
-  return Match.valueTags(discapacidad, {
+): Decimal =>
+  Match.valueTags(discapacidad, {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMovilidadReducida
@@ -26,7 +26,6 @@ const obtenerMinimoPorDiscapacidad = (
     Discapacidad65OMas: () =>
       minimos.grado65OMas.plus(minimos.gastosAsistencia),
   })
-}
 
 export const obtenerMinimoDiscapacidadContribuyente = (
   situacionFamiliar: SituacionFamiliarIndividual,

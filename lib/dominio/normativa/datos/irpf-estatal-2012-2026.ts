@@ -1,5 +1,5 @@
 import type Decimal from "decimal.js"
-import { Match } from "effect"
+import { DateTime, Match } from "effect"
 
 import { crearImporteMonetario } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../anio-fiscal"
@@ -170,12 +170,12 @@ export const TRAMOS_IRPF_AHORRO_2012: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
 
 export const REDUCCION_MOVILIDAD_GEOGRAFICA_TRANSITORIA_2015 = {
   condicionAplicacion:
-    "Aceptacion de puesto de trabajo en 2014 con derecho a reduccion por movilidad geografica y continuidad en dicho trabajo en 2015",
+    "Aceptacion de puesto de trabajo en 2014 con derecho a reducción por movilidad geográfica y continuidad en dicho trabajo en 2015",
   incompatibilidad:
-    "Se aplica en lugar del gasto adicional por movilidad geografica del art. 19.2.f LIRPF vigente desde 2015",
+    "Se aplica en lugar del gasto adicional por movilidad geográfica del art. 19.2.f LIRPF vigente desde 2015",
   fuente: {
     titulo:
-      "AEAT Manual practico Renta 2015. Regimen transitorio de movilidad geografica",
+      "AEAT Manual práctico Renta 2015. Régimen transitorio de movilidad geográfica",
     referencia:
       "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2015/Manual_Renta_2015_es_es.pdf",
   },
@@ -189,7 +189,7 @@ export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2014 = {
     importe("0.10"),
   fuente: {
     titulo:
-      "AEAT Manual practico Renta 2014. Integracion y compensacion de ganancias y perdidas patrimoniales",
+      "AEAT Manual práctico Renta 2014. Integración y compensación de ganancias y pérdidas patrimoniales",
     referencia:
       "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf",
   },
@@ -203,7 +203,7 @@ export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2013 = {
     importe("0.10"),
   fuente: {
     titulo:
-      "AEAT Manual practico Renta 2013. Integracion y compensacion de ganancias y perdidas patrimoniales",
+      "AEAT Manual práctico Renta 2013. Integración y compensación de ganancias y pérdidas patrimoniales",
     referencia:
       "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2013_es_es.pdf",
   },
@@ -217,7 +217,7 @@ export const REGLA_INTEGRACION_GANANCIAS_PATRIMONIALES_2012 = {
   permiteCompensacionCruzadaEnBaseAhorroEntreCapitalYGanancias: false,
   fuente: {
     titulo:
-      "AEAT Manual practico Renta 2012. Integracion y compensacion de ganancias y perdidas patrimoniales",
+      "AEAT Manual práctico Renta 2012. Integración y compensación de ganancias y pérdidas patrimoniales",
     referencia:
       "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2012_es_es.pdf",
   },
@@ -243,11 +243,12 @@ export type BaseIntegracionGananciaPatrimonialHasta2014 =
   | "base-ahorro"
 
 const sumarUnAnioFechaCivilIso = (fechaIso: string): string => {
-  const [year, month, day] = fechaIso.split("-").map(Number)
-  const fecha = new Date(Date.UTC(year + 1, month - 1, day))
-  const yyyy = fecha.getUTCFullYear()
-  const mm = String(fecha.getUTCMonth() + 1).padStart(2, "0")
-  const dd = String(fecha.getUTCDate()).padStart(2, "0")
+  const [year = 0, month = 1, day = 1] = fechaIso.split("-").map(Number)
+  const fecha = DateTime.makeUnsafe({ year: year + 1, month, day })
+  const partes = DateTime.toPartsUtc(fecha)
+  const yyyy = String(partes.year).padStart(4, "0")
+  const mm = String(partes.month).padStart(2, "0")
+  const dd = String(partes.day).padStart(2, "0")
 
   return `${yyyy}-${mm}-${dd}`
 }
@@ -288,8 +289,8 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
     Match.orElse(() => TRAMOS_IRPF_DESDE_2021)
   )
 
-export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
-  return Match.value(anio).pipe(
+export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf =>
+  Match.value(anio).pipe(
     Match.when(2012, () => TRAMOS_IRPF_AHORRO_2012),
     Match.when(2013, () => TRAMOS_IRPF_AHORRO_2013),
     Match.when(2014, () => TRAMOS_IRPF_AHORRO_2014),
@@ -305,7 +306,6 @@ export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
     Match.when(2024, () => TRAMOS_IRPF_AHORRO_2024),
     Match.orElse(() => TRAMOS_IRPF_AHORRO_2025)
   )
-}
 
 export const METADATOS_ARTICULO_20_LEGACY: Readonly<
   Record<AnioFiscal, MetadatosArticulo20>

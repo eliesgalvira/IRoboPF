@@ -1,11 +1,5 @@
 import type { FichaDeduccionAutonomica } from "../tipos"
-import {
-  categoriaCatalogadaDesdeCodigo,
-  fichaImplementada,
-  fichaImplementadaBasica,
-  fichaImplementadaFormula,
-  nombreCatalogadoDesdeCodigo,
-} from "../helpers"
+import { fichaImplementada, fichaImplementadaBasica } from "../helpers"
 
 export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
   codigo: "andalucia_nacimiento_adopcion_acogimiento_menores",
@@ -21,14 +15,14 @@ export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
   requisitos: [
     "Nacimiento, adopción o acogimiento en el período impositivo",
     "En acogimiento, convivencia con el contribuyente según los requisitos del manual",
-    "Para aplicar 400 euros, residencia en municipio andaluz con problemas de despoblación",
+    "Para aplicar 400 euros, residencia en municipio andaluz con problemás de despoblación",
     "Si son dos los contribuyentes con derecho, el importe se distribuye por partes iguales",
-    "En acogimiento, no puede haber recibido ayudas de la Administracion de Andalucia vinculadas con el acogimiento",
+    "En acogimiento, no puede haber recibido ayudas de la Administración de Andalucía vinculadas con el acogimiento",
   ],
   limites: [
     "200 euros por hijo nacido/adoptado o menor acogido",
     "400 euros por hijo nacido/adoptado o menor acogido si reside en municipio andaluz con problemas de despoblacion",
-    "Incremento de 200 euros por cada hijo o menor en partos, adopciones o acogimientos multiples",
+    "Incremento de 200 euros por cada hijo o menor en partos, adopciones o acogimientos múltiples",
   ],
   prorrateo: ["Normalizar reglas cuando dos contribuyentes tengan derecho"],
   compatibilidades: [],
@@ -69,9 +63,9 @@ export const ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025 = {
   ],
   limites: [
     "100 euros por padre o madre de familia monoparental",
-    "Incremento de 100 euros por cada ascendiente mayor de 75 anios que conviva y genere derecho al minimo por ascendientes",
-    "Base imponible general + base imponible del ahorro: maximo 80.000 euros en tributacion individual",
-    "Base imponible general + base imponible del ahorro: maximo 100.000 euros en tributacion conjunta",
+    "Incremento de 100 euros por cada ascendiente mayor de 75 años que conviva y genere derecho al mínimo por ascendientes",
+    "Base imponible general + base imponible del ahorro: máximo 80.000 euros en tributación individual",
+    "Base imponible general + base imponible del ahorro: máximo 100.000 euros en tributación conjunta",
   ],
   prorrateo: [
     "Normalizar reglas de aplicación cuando existan varios contribuyentes con derecho",
@@ -104,7 +98,7 @@ export const ANDALUCIA_ADOPCION_INTERNACIONAL_2025 = {
   },
   requisitos: [
     "Adopción internacional inscrita en el Registro Civil durante el período impositivo",
-    "La adopción debe tener carácter internacional según las normas y convenios aplicables",
+    "La adopción debe tener carácter internacional según las normás y convenios aplicables",
     "Base imponible general + base imponible del ahorro dentro de límites",
   ],
   limites: [

@@ -465,8 +465,8 @@ const sumarCuotaTramo =
     } satisfies EstadoCuota
   }
 
-const calcularCuotaIrpf = (baseImponible: Decimal, tramos: TramosIrpf) => {
-  return Match.value(baseImponible).pipe(
+const calcularCuotaIrpf = (baseImponible: Decimal, tramos: TramosIrpf) =>
+  Match.value(baseImponible).pipe(
     Match.when(
       (baseImponible) => baseImponible.lte(0),
       () => CERO
@@ -479,14 +479,12 @@ const calcularCuotaIrpf = (baseImponible: Decimal, tramos: TramosIrpf) => {
         }).cuota
     )
   )
-}
 
-const primerTipoIrpf = (tramos: TramosIrpf) => {
-  return Match.value(tramos[0]).pipe(
+const primerTipoIrpf = (tramos: TramosIrpf) =>
+  Match.value(tramos[0]).pipe(
     Match.when(Match.undefined, () => CERO),
     Match.orElse((primerTramo) => primerTramo[1])
   )
-}
 
 // La cadena del IRPF queda desplegada paso a paso porque cada importe es un
 // concepto fiscal auditable, no solo un detalle aritmetico intermedio.

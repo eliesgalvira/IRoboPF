@@ -59,7 +59,9 @@ export class PerfilProgresividadFrioLegacy extends Context.Service<
       contexto: ContextoCalculo
     ) => Effect.Effect<ResultadoCalculoSalarioNetoIrpf>
   }
->()("@irobopf/dominio/compatibilidadLegacy/PerfilProgresividadFrioLegacy") {
+>()(
+  "irobopf/lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy/PerfilProgresividadFrioLegacy"
+) {
   static readonly layer = Layer.effect(
     PerfilProgresividadFrioLegacy,
     Effect.gen(function* () {
@@ -89,6 +91,7 @@ export const calcularSalarioNetoEIrpf = (
   entrada: EntradaCalculoSalarioNetoIrpf,
   contexto: ContextoCalculo
 ): Effect.Effect<ResultadoCalculoSalarioNetoIrpf> =>
+  // @effect-diagnostics-next-line effect/strictEffectProvide:off
   calcularSalarioNetoEIrpfDesdeServicio(entrada, contexto).pipe(
     Effect.provide(PerfilProgresividadFrioLegacy.layer)
   )

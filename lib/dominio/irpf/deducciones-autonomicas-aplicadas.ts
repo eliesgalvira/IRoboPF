@@ -759,8 +759,8 @@ const IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS = Object.fromEntries(
 export const calcularDeduccionEspecificaAutonomica = (
   codigo: string,
   entradas: EntradasDeduccionesAutonomicas
-): Option.Option<number> => {
-  return Option.match(
+): Option.Option<number> =>
+  Option.match(
     Option.fromNullishOr(
       deduccionesEspecificasAutonomicasPorCodigo.get(codigo)
     ),
@@ -788,7 +788,6 @@ export const calcularDeduccionEspecificaAutonomica = (
         ),
     }
   )
-}
 
 export const CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO = new Set(
   Object.keys(CONTROLES_DEDUCCIONES_ESPECIFICAS)
@@ -1144,8 +1143,8 @@ export const calcularDeduccionesAutonomicasAplicadas = (
 
 export const obtenerControlDeduccionAutonomica = (
   deduccion: FichaDeduccionAutonomica
-): Option.Option<ControlDeduccionAutonomica> => {
-  return Match.value(deduccion.estado).pipe(
+): Option.Option<ControlDeduccionAutonomica> =>
+  Match.value(deduccion.estado).pipe(
     Match.not("implementada", () => Option.none<ControlDeduccionAutonomica>()),
     Match.orElse(() => {
       const entradasEspecificas =
@@ -1178,4 +1177,3 @@ export const obtenerControlDeduccionAutonomica = (
       })
     })
   )
-}

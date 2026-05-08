@@ -449,12 +449,12 @@ export const describirMagnitudAuditoriaNormativa = (
     Match.when("cotizacion_trabajador", (valor) => ({
       valor,
       etiqueta: "SS TRAB.",
-      detalle: "Cotizacion soportada por el trabajador",
+      detalle: "Cotización soportada por el trabajador",
     })),
     Match.when("cotizacion_empresarial", (valor) => ({
       valor,
       etiqueta: "SS EMP.",
-      detalle: "Cotizacion empresarial",
+      detalle: "Cotización empresarial",
     })),
     Match.when("coste_laboral", (valor) => ({
       valor,

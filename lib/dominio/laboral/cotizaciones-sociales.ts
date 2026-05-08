@@ -102,16 +102,12 @@ const maximo = (a: Decimal, b: Decimal) =>
     Match.orElse(() => b)
   )
 
-const tipoCotizacionPorLado = (
-  tipos: TiposCotizacion,
-  lado: LadoCotizacion
-) => {
-  return Match.value(lado).pipe(
+const tipoCotizacionPorLado = (tipos: TiposCotizacion, lado: LadoCotizacion) =>
+  Match.value(lado).pipe(
     Match.when("empresarial", () => tipos.empresarial),
     Match.when("trabajador", () => tipos.trabajador),
     Match.exhaustive
   )
-}
 
 export const sumarTipoCotizacionLegacy = (
   parametros: ParametrosCotizacionLegacy,
@@ -318,7 +314,7 @@ export interface ServicioCotizacionesSociales {
 export class CotizacionesSociales extends Context.Service<
   CotizacionesSociales,
   ServicioCotizacionesSociales
->()("@irobopf/dominio/laboral/CotizacionesSociales") {
+>()("irobopf/lib/dominio/laboral/cotizaciones-sociales/CotizacionesSociales") {
   static readonly layer = Layer.succeed(CotizacionesSociales, {
     calcularLegacy: Effect.fn("CotizacionesSociales.calcularLegacy")(function* (
       entrada: EntradaCotizacionesSocialesLegacy

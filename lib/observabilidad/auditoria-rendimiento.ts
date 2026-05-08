@@ -1,4 +1,8 @@
-import { Duration, Effect, Exit, Match, Metric, Option } from "effect"
+// This adapter intentionally reads Next.js environment flags and writes opt-in
+// diagnostics to the browser console.
+// @effect-diagnostics effect/processEnv:off
+// @effect-diagnostics effect/globalConsole:off
+import { DateTime, Duration, Effect, Exit, Match, Metric, Option } from "effect"
 
 export const diagnosticoRendimientoAuditoriaActivo =
   process.env.IROBOPF_AUDITORIA_PERF === "1" ||
@@ -28,7 +32,7 @@ export const metricaDuracionFilasGraficosAuditoria = Metric.timer(
 
 const ahora = () =>
   Match.value(typeof performance).pipe(
-    Match.when("undefined", () => Date.now()),
+    Match.when("undefined", () => DateTime.nowUnsafe().epochMilliseconds),
     Match.orElse(() => performance.now())
   )
 

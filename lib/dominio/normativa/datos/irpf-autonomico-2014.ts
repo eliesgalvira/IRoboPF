@@ -14,7 +14,7 @@ const AEAT_MANUAL_RENTA_2014_PDF =
 
 const fuenteAeatEscalasAutonomicas2014 = {
   titulo:
-    "AEAT Manual practico Renta 2014. Gravamen autonomico de la base liquidable general",
+    "AEAT Manual práctico Renta 2014. Gravamen autonómico de la base liquidable general",
   referencia: AEAT_MANUAL_RENTA_2014_PDF,
 } as const
 
@@ -69,10 +69,10 @@ export const NORMATIVA_PRE_REFORMA_2015_IRPF_2014 = {
     "IRPF 2014 aplica la normativa previa a la reforma de 2015 y el gravamen complementario estatal 2012-2014.",
   medidasPosterioresNoExistentes: [
     "No existe el gasto fijo general de 2000 euros del art. 19.2.f LIRPF.",
-    "No existen los minimos personales y familiares estatales incrementados desde 2015.",
+    "No existen los mínimos personales y familiares estatales incrementados desde 2015.",
     "No existe la escala estatal general 2015 ni los tramos estatales posteriores desde 300000 euros.",
     "No existe la escala del ahorro 2015 ni las ampliaciones posteriores de 2021, 2023 y 2025.",
-    "Las ganancias patrimoniales por transmision con permanencia de un anio o menos se integran en base general.",
+    "Las ganancias patrimoniales por transmision con permanencia de un año o menos se integran en base general.",
   ],
   fuente: fuenteAeatEscalasAutonomicas2014,
 } as const
@@ -116,7 +116,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2014 = {
   }),
   andalucia: escala2014({
     comunidadAutonoma: "andalucia",
-    nombre: "Andalucia",
+    nombre: "Andalucía",
     tramos: [
       [importe("17707.2"), tipo("12")],
       [importe("33007.2"), tipo("14")],
@@ -128,7 +128,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2014 = {
   }),
   aragon: escala2014({
     comunidadAutonoma: "aragon",
-    nombre: "Aragon",
+    nombre: "Aragón",
     tramos: TRAMOS_IRPF_AUTONOMICO_GENERAL_ART65_2014,
   }),
   asturias: escala2014({
@@ -185,7 +185,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2014 = {
   }),
   "castilla-y-leon": escala2014({
     comunidadAutonoma: "castilla-y-leon",
-    nombre: "Castilla y Leon",
+    nombre: "Castilla y León",
     tramos: TRAMOS_IRPF_AUTONOMICO_GENERAL_ART65_2014,
   }),
   catalunya: escala2014({
@@ -229,7 +229,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2014 = {
   }),
   murcia: escala2014({
     comunidadAutonoma: "murcia",
-    nombre: "Region de Murcia",
+    nombre: "Región de Murcia",
     tramos: [
       [importe("17707.2"), tipo("12")],
       [importe("33007.2"), tipo("14")],

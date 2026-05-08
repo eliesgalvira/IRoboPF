@@ -26,7 +26,7 @@ const AEAT_MANUAL_RENTA_2018_PDF =
 
 const fuenteAeatEscalasAutonomicas2018 = {
   titulo:
-    "AEAT Manual practico Renta 2018. Gravamen autonomico de la base liquidable general",
+    "AEAT Manual práctico Renta 2018. Gravamen autonómico de la base liquidable general",
   referencia: AEAT_MANUAL_RENTA_2018_PDF,
 } as const
 
@@ -56,13 +56,13 @@ export const ESCALAS_AUTONOMICAS_IRPF_2018_DISTINTAS_DE_2025 = {
     tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2018,
     fuente: {
       titulo:
-        "AEAT Manual practico Renta 2018. Gravamen estatal de la base liquidable general",
+        "AEAT Manual práctico Renta 2018. Gravamen estatal de la base liquidable general",
       referencia: AEAT_MANUAL_RENTA_2018_PDF,
     },
   }),
   andalucia: escala2018({
     comunidadAutonoma: "andalucia",
-    nombre: "Andalucia",
+    nombre: "Andalucía",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12")],
@@ -76,7 +76,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2018_DISTINTAS_DE_2025 = {
   }),
   aragon: escala2018({
     comunidadAutonoma: "aragon",
-    nombre: "Aragon",
+    nombre: "Aragón",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12.5")],
@@ -146,7 +146,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2018_DISTINTAS_DE_2025 = {
   }),
   "castilla-y-leon": escala2018({
     comunidadAutonoma: "castilla-y-leon",
-    nombre: "Castilla y Leon",
+    nombre: "Castilla y León",
     tramos: [
       [importe(12450), tipo("9.5")],
       [importe(20200), tipo("12")],
@@ -208,7 +208,7 @@ export const ESCALAS_AUTONOMICAS_IRPF_2018_DISTINTAS_DE_2025 = {
   }),
   murcia: escala2018({
     comunidadAutonoma: "murcia",
-    nombre: "Region de Murcia",
+    nombre: "Región de Murcia",
     tramos: [
       [importe(12450), tipo("10")],
       [importe(20200), tipo("12.5")],

@@ -113,7 +113,7 @@ const MINIMOS_ESTATALES_POR_COMUNIDAD_2014 = {
 } satisfies Readonly<Record<ComunidadAutonoma, MinimosPersonalesFamiliaresIrpf>>
 
 export const MINIMOS_AUTONOMICOS_IRPF_2014 = parametroNormativo({
-  nombre: "Minimos autonomicos IRPF 2014 pre-reforma 2015",
+  nombre: "Mínimos autonómicos IRPF 2014 pre-reforma 2015",
   valor: {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2014,
     cantabria: MINIMOS_CANTABRIA_2014,

@@ -919,21 +919,21 @@ function AuditoriaImpl({
     []
   )
 
-  const exportar = async (tipo: "educativa" | "compatible") => {
-    await Option.match(auditoria, {
-      onNone: () => Promise.resolve(),
-      onSome: async (auditoriaLista) => {
+  const exportar = (tipo: "educativa" | "compatible") => {
+    Option.match(auditoria, {
+      onNone: () => {},
+      onSome: (auditoriaLista) => {
         if (tipo === "compatible") {
           fijarDialogoExportacionCompatible("advertencia")
           return
         }
 
         fijarExportando(tipo)
-        try {
-          await exportarAuditoriaEducativaExcel(auditoriaLista)
-        } finally {
-          fijarExportando(null)
-        }
+        Effect.runFork(
+          exportarAuditoriaEducativaExcel(auditoriaLista).pipe(
+            Effect.ensuring(Effect.sync(() => fijarExportando(null)))
+          )
+        )
       },
     })
   }
@@ -1401,12 +1401,12 @@ function BarraFiltros({
               </Slider.Track>
               <Slider.Thumb
                 index={0}
-                aria-label="Salario mínimo"
+                aria-label="Salario minimo"
                 className="size-7 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none sm:size-6"
               />
               <Slider.Thumb
                 index={1}
-                aria-label="Salario máximo"
+                aria-label="Salario maximo"
                 className="size-7 border-2 border-[var(--rule)] bg-[var(--paper)] transition focus-visible:bg-[var(--mark)] focus-visible:outline-none sm:size-6"
               />
             </Slider.Control>
@@ -3929,7 +3929,7 @@ function FormulaTipoEfectivoIrpf({
           >
             Real Decreto 142/2024
           </a>{" "}
-          elevó el mínimo sin retención hasta 15.876 € en la situación general;
+          elevó el minimo sin retención hasta 15.876 € en la situación general;
           las tarjetas muestran si ese umbral queda por encima o por debajo del
           punto en el que empieza el salto. La gráfica de tipo marginal usa la
           cuota anual tras deducción SMI para no convertir una obligación formal
@@ -5045,130 +5045,136 @@ function Visualizaciones({
   const graficoTipoMarginalIrpfExportacionRef =
     React.useRef<HTMLDivElement | null>(null)
 
-  React.useEffect(() => {
-    return Option.match(auditoria, {
-      onNone: () => {},
-      onSome: (auditoriaLista) => {
-        const datosCacheados = Option.fromNullishOr(
-          cacheDatosGrafico.get(claveDatosGrafico)
-        )
-        if (Option.isSome(datosCacheados)) {
-          registrarMarcaAuditoria("react.graficos.datos.cache", {
-            claveDatosGrafico,
-            filasTipoEfectivoIrpf: datosCacheados.value.tipoEfectivoIrpf.length,
-            filasDiferenciaTipoIrpf:
-              datosCacheados.value.diferenciaTipoIrpf.length,
-            filasCunaFiscal: datosCacheados.value.cunaFiscal.length,
-            filasTipoMarginalIrpf: datosCacheados.value.tipoMarginalIrpf.length,
-          })
-          return
-        }
-
-        const aniosIrpf = aniosDesdeClaveGrafico(claveAniosGraficoIrpfVisibles)
-        const aniosDiferencia = aniosDiferenciaTipoIrpfVisibles
-        const comunidades = [comunidadAutonoma] as const
-        const inicio = tiempoAuditoriaMs()
-        inicioCalculoDatosGrafico.current = Option.some(inicio)
-        finCalculoDatosGrafico.current = Option.none()
-        registrarMarcaAuditoria("react.graficos.datos.inicio", {
-          claveDatosGrafico,
-          comunidadAutonoma,
-          aniosIrpf: aniosIrpf.join(","),
-          modoTipoEfectivoIrpf,
-          aniosDiferenciaTipoIrpf: aniosDiferencia.join(","),
-          anioCunaFiscal: anioGraficoCunaFiscalVisible,
-          modoCunaFiscal,
-          anioTipoMarginalIrpf: anioGraficoTipoMarginalIrpfVisible,
-          anioReferenciaGraficosIrpf,
-          puntosBase: auditoriaLista.puntos.length,
-          vistaGrafico,
-          pasoCentimos: auditoriaLista.pasoCentimos,
-          modoPaso: describirModoPasoPreciso(auditoriaLista.pasoCentimos),
-        })
-
-        const fibra = Effect.runFork(
-          construirFilasGraficosAuditoria({
-            auditoria: auditoriaLista,
-            comunidadAutonomaAuditoriaBase: comunidadAutonoma,
-            comunidadesAutonomas: comunidades,
-            perfil,
-            aniosIrpf,
-            modoTipoEfectivoIrpf,
-            aniosDiferenciaTipoIrpf: aniosDiferencia,
-            anioCunaFiscal: anioGraficoCunaFiscalVisible,
-            modoCunaFiscal,
-            magnitudAuditada,
-            anioTipoMarginalIrpf: anioGraficoTipoMarginalIrpfVisible,
-            anioReferenciaGraficosIrpf,
-            cacheSeries: cacheSeriesAuditoria.current,
-            vistaGrafico,
-          })
-        )
-
-        fibra.addObserver((exit) => {
-          if (Exit.isSuccess(exit)) {
-            const fin = tiempoAuditoriaMs()
-            finCalculoDatosGrafico.current = Option.some(fin)
-            registrarMarcaAuditoria("react.graficos.datos.fin", {
+  React.useEffect(
+    () =>
+      Option.match(auditoria, {
+        onNone: () => {},
+        onSome: (auditoriaLista) => {
+          const datosCacheados = Option.fromNullishOr(
+            cacheDatosGrafico.get(claveDatosGrafico)
+          )
+          if (Option.isSome(datosCacheados)) {
+            registrarMarcaAuditoria("react.graficos.datos.cache", {
               claveDatosGrafico,
-              duracionMs: Math.round(fin - inicio),
-              filasTipoEfectivoIrpf: exit.value.tipoEfectivoIrpf.length,
-              filasDiferenciaTipoIrpf: exit.value.diferenciaTipoIrpf.length,
-              filasCunaFiscal: exit.value.cunaFiscal.length,
-              filasTipoMarginalIrpf: exit.value.tipoMarginalIrpf.length,
-              anioReferenciaGraficosIrpf,
+              filasTipoEfectivoIrpf:
+                datosCacheados.value.tipoEfectivoIrpf.length,
+              filasDiferenciaTipoIrpf:
+                datosCacheados.value.diferenciaTipoIrpf.length,
+              filasCunaFiscal: datosCacheados.value.cunaFiscal.length,
+              filasTipoMarginalIrpf:
+                datosCacheados.value.tipoMarginalIrpf.length,
             })
-            const estadoListo = {
-              _tag: "lista",
-              clave: claveDatosGrafico,
-              tipoEfectivoIrpf: exit.value.tipoEfectivoIrpf,
-              diferenciaTipoIrpf: exit.value.diferenciaTipoIrpf,
-              cunaFiscal: exit.value.cunaFiscal,
-              tipoMarginalIrpf: exit.value.tipoMarginalIrpf,
-            } satisfies DatosGraficoListos
-            fijarCacheDatosGrafico((cacheActual) =>
-              new Map(cacheActual).set(claveDatosGrafico, estadoListo)
-            )
-            fijarEstadoDatosGrafico(estadoListo)
             return
           }
 
-          if (Cause.hasInterruptsOnly(exit.cause)) return
-
-          registrarMarcaAuditoria("react.graficos.datos.error", {
+          const aniosIrpf = aniosDesdeClaveGrafico(
+            claveAniosGraficoIrpfVisibles
+          )
+          const aniosDiferencia = aniosDiferenciaTipoIrpfVisibles
+          const comunidades = [comunidadAutonoma] as const
+          const inicio = tiempoAuditoriaMs()
+          inicioCalculoDatosGrafico.current = Option.some(inicio)
+          finCalculoDatosGrafico.current = Option.none()
+          registrarMarcaAuditoria("react.graficos.datos.inicio", {
             claveDatosGrafico,
-            duracionMs: Math.round(tiempoAuditoriaMs() - inicio),
-            mensaje: String(Cause.squash(exit.cause)),
+            comunidadAutonoma,
+            aniosIrpf: aniosIrpf.join(","),
+            modoTipoEfectivoIrpf,
+            aniosDiferenciaTipoIrpf: aniosDiferencia.join(","),
+            anioCunaFiscal: anioGraficoCunaFiscalVisible,
+            modoCunaFiscal,
+            anioTipoMarginalIrpf: anioGraficoTipoMarginalIrpfVisible,
+            anioReferenciaGraficosIrpf,
+            puntosBase: auditoriaLista.puntos.length,
+            vistaGrafico,
+            pasoCentimos: auditoriaLista.pasoCentimos,
+            modoPaso: describirModoPasoPreciso(auditoriaLista.pasoCentimos),
           })
-          fijarEstadoDatosGrafico({
-            _tag: "error",
-            clave: claveDatosGrafico,
-            mensaje: String(Cause.squash(exit.cause)),
-          })
-        })
 
-        return () => {
-          Effect.runFork(Fiber.interrupt(fibra))
-        }
-      },
-    })
-  }, [
-    claveAniosGraficoIrpfVisibles,
-    anioGraficoCunaFiscalVisible,
-    claveAniosGraficoDiferenciaTipoIrpf,
-    claveDatosGrafico,
-    cacheDatosGrafico,
-    comunidadAutonoma,
-    perfil,
-    magnitudAuditada,
-    auditoria,
-    aniosDiferenciaTipoIrpfVisibles,
-    anioGraficoTipoMarginalIrpfVisible,
-    anioReferenciaGraficosIrpf,
-    modoCunaFiscal,
-    modoTipoEfectivoIrpf,
-    vistaGrafico,
-  ])
+          const fibra = Effect.runFork(
+            construirFilasGraficosAuditoria({
+              auditoria: auditoriaLista,
+              comunidadAutonomaAuditoriaBase: comunidadAutonoma,
+              comunidadesAutonomas: comunidades,
+              perfil,
+              aniosIrpf,
+              modoTipoEfectivoIrpf,
+              aniosDiferenciaTipoIrpf: aniosDiferencia,
+              anioCunaFiscal: anioGraficoCunaFiscalVisible,
+              modoCunaFiscal,
+              magnitudAuditada,
+              anioTipoMarginalIrpf: anioGraficoTipoMarginalIrpfVisible,
+              anioReferenciaGraficosIrpf,
+              cacheSeries: cacheSeriesAuditoria.current,
+              vistaGrafico,
+            })
+          )
+
+          fibra.addObserver((exit) => {
+            if (Exit.isSuccess(exit)) {
+              const fin = tiempoAuditoriaMs()
+              finCalculoDatosGrafico.current = Option.some(fin)
+              registrarMarcaAuditoria("react.graficos.datos.fin", {
+                claveDatosGrafico,
+                duracionMs: Math.round(fin - inicio),
+                filasTipoEfectivoIrpf: exit.value.tipoEfectivoIrpf.length,
+                filasDiferenciaTipoIrpf: exit.value.diferenciaTipoIrpf.length,
+                filasCunaFiscal: exit.value.cunaFiscal.length,
+                filasTipoMarginalIrpf: exit.value.tipoMarginalIrpf.length,
+                anioReferenciaGraficosIrpf,
+              })
+              const estadoListo = {
+                _tag: "lista",
+                clave: claveDatosGrafico,
+                tipoEfectivoIrpf: exit.value.tipoEfectivoIrpf,
+                diferenciaTipoIrpf: exit.value.diferenciaTipoIrpf,
+                cunaFiscal: exit.value.cunaFiscal,
+                tipoMarginalIrpf: exit.value.tipoMarginalIrpf,
+              } satisfies DatosGraficoListos
+              fijarCacheDatosGrafico((cacheActual) =>
+                new Map(cacheActual).set(claveDatosGrafico, estadoListo)
+              )
+              fijarEstadoDatosGrafico(estadoListo)
+              return
+            }
+
+            if (Cause.hasInterruptsOnly(exit.cause)) return
+
+            registrarMarcaAuditoria("react.graficos.datos.error", {
+              claveDatosGrafico,
+              duracionMs: Math.round(tiempoAuditoriaMs() - inicio),
+              mensaje: String(Cause.squash(exit.cause)),
+            })
+            fijarEstadoDatosGrafico({
+              _tag: "error",
+              clave: claveDatosGrafico,
+              mensaje: String(Cause.squash(exit.cause)),
+            })
+          })
+
+          return () => {
+            Effect.runFork(Fiber.interrupt(fibra))
+          }
+        },
+      }),
+    [
+      claveAniosGraficoIrpfVisibles,
+      anioGraficoCunaFiscalVisible,
+      claveAniosGraficoDiferenciaTipoIrpf,
+      claveDatosGrafico,
+      cacheDatosGrafico,
+      comunidadAutonoma,
+      perfil,
+      magnitudAuditada,
+      auditoria,
+      aniosDiferenciaTipoIrpfVisibles,
+      anioGraficoTipoMarginalIrpfVisible,
+      anioReferenciaGraficosIrpf,
+      modoCunaFiscal,
+      modoTipoEfectivoIrpf,
+      vistaGrafico,
+    ]
+  )
 
   const estadoDatosGraficoActual = Option.match(auditoria, {
     onNone: () =>

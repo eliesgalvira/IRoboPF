@@ -1,3 +1,5 @@
+// Architecture test harness reads local source files directly.
+// @effect-diagnostics effect/nodeBuiltinImport:off
 import { readFileSync } from "node:fs"
 
 import { describe, expect, it } from "@effect/vitest"
@@ -9,7 +11,7 @@ const archivosProducto = [
 ] as const
 
 describe("fronteras de arquitectura", () => {
-  it("evita imports de UI y exportacion hacia el modulo legacy interno de progresividad", () => {
+  it("evita imports de UI y exportación hacia el módulo legacy interno de progresividad", () => {
     for (const archivo of archivosProducto) {
       const contenido = readFileSync(archivo, "utf8")
 

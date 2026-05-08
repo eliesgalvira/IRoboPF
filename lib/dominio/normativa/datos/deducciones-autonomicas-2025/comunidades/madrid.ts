@@ -1,10 +1,8 @@
 import type { FichaDeduccionAutonomica } from "../tipos"
 import {
-  categoriaCatalogadaDesdeCodigo,
   fichaImplementada,
   fichaImplementadaBasica,
   fichaImplementadaFormula,
-  nombreCatalogadoDesdeCodigo,
 } from "../helpers"
 
 export const MADRID_NACIMIENTO_ADOPCION_2025 = {
@@ -27,12 +25,12 @@ export const MADRID_NACIMIENTO_ADOPCION_2025 = {
   limites: [
     "721,70 euros por cada hijo nacido o adoptado desde el 1 de enero de 2023",
     "600 euros por cada hijo nacido o adoptado antes del 1 de enero de 2023",
-    "En partos o adopciones multiples, incremento de 721,70 euros por cada hijo en el primer periodo impositivo",
+    "En partos o adopciones múltiples, incremento de 721,70 euros por cada hijo en el primer periodo impositivo",
     "Si conviven ambos padres y tributan individualmente, prorrateo por partes iguales",
-    "Base imponible general + base imponible del ahorro del contribuyente: maximo 30.930 euros en tributacion individual",
-    "Base imponible general + base imponible del ahorro del contribuyente: maximo 37.322,20 euros en tributacion conjunta",
-    "Base imponible general + base imponible del ahorro de la unidad familiar: maximo 61.860 euros",
-    "Los limites de bases deben cumplirse en el anio de nacimiento/adopcion y en cada uno de los dos ejercicios siguientes",
+    "Base imponible general + base imponible del ahorro del contribuyente: máximo 30.930 euros en tributación individual",
+    "Base imponible general + base imponible del ahorro del contribuyente: máximo 37.322,20 euros en tributación conjunta",
+    "Base imponible general + base imponible del ahorro de la unidad familiar: máximo 61.860 euros",
+    "Los límites de bases deben cumplirse en el año de nacimiento/adopción y en cada uno de los dos ejercicios siguientes",
   ],
   prorrateo: ["Prorrateo cuando convivan ambos padres y ambos tengan derecho"],
   entradaNecesaria: [

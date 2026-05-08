@@ -3,7 +3,6 @@ import { Match } from "effect"
 import type {
   CategoriaDeduccionAutonomica,
   CuantiaDeduccionAutonomica,
-  DeduccionAutonomicaCatalogada,
   EstadoImplementada,
   FichaDeduccionAutonomica,
 } from "./tipos"
@@ -73,34 +72,6 @@ export const comunidadDesdeCodigo = (codigo: string): string =>
     Match.orElse(() => "simulada-estatal")
   )
 
-const fichaCatalogada = (
-  codigo: string,
-  nombre: string,
-  categoria: CategoriaDeduccionAutonomica
-): FichaDeduccionAutonomica => ({
-  codigo,
-  comunidad: comunidadDesdeCodigo(codigo),
-  nombre,
-  normativa: "Pendiente de normalización desde el Manual Renta 2025 Parte 2",
-  categoria,
-  cuantia: {
-    tipo: "mixta",
-    descripcion:
-      "Ficha catalogada en el manual; cuantía pendiente de normalización ejecutable revisada.",
-  },
-  requisitos: [],
-  limites: [],
-  prorrateo: [],
-  compatibilidades: [],
-  incompatibilidades: [],
-  entradaNecesaria: [],
-  fuenteManual: {
-    documento: "ManualRenta2025Parte2",
-    paginas: [],
-  },
-  estado: "catalogada",
-})
-
 export const categoriaCatalogadaDesdeCodigo = (
   codigo: string
 ): CategoriaDeduccionAutonomica =>
@@ -129,7 +100,7 @@ export const categoriaCatalogadaDesdeCodigo = (
         codigo.includes("hijo") ||
         codigo.includes("hijos") ||
         codigo.includes("nacimiento") ||
-        codigo.includes("adopcion") ||
+        codigo.includes("adopción") ||
         codigo.includes("acogimiento") ||
         codigo.includes("descend") ||
         codigo.includes("ascend") ||
@@ -561,13 +532,6 @@ export const nombreCatalogadoDesdeCodigo = (codigo: string): string => {
   return `Por ${nombre}`
 }
 
-const fichaCatalogadaDesdeCodigo = (codigo: string): FichaDeduccionAutonomica =>
-  fichaCatalogada(
-    codigo,
-    nombreCatalogadoDesdeCodigo(codigo),
-    categoriaCatalogadaDesdeCodigo(codigo)
-  )
-
 export const DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA = {
   andalucia: [],
   aragon: [],
@@ -585,13 +549,6 @@ export const DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA = {
   "la-rioja": [],
   "comunitat-valenciana": [],
 } as const
-
-const deduccionesCatalogadasFaltantes = (
-  comunidad: keyof typeof DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA
-): ReadonlyArray<FichaDeduccionAutonomica> =>
-  DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA[comunidad].map(
-    fichaCatalogadaDesdeCodigo
-  )
 
 export const fichaImplementadaBasica = (
   estado: { readonly estado: EstadoImplementada },
@@ -660,11 +617,11 @@ export const fichaImplementadaFormula = (
     {
       tipo: "mixta",
       descripcion:
-        "Cuantia calculada por la ficha normativa normalizada y por el modulo de deducciones autonomicas aplicadas.",
+        "Cuantía calculada por la ficha normativa normalizada y por el módulo de deducciones autonómicas aplicadas.",
     },
     [
-      "Cumplir requisitos, limites de renta, prorrateos e incompatibilidades descritos en la ficha normativa normalizada.",
-      "El importe se calcula con las entradas especificas de la deduccion o se consigna como importe manual cuando la ficha requiere validacion externa.",
+      "Cumplir requisitos, límites de renta, prorrateos e incompatibilidades descritos en la ficha normativa normalizada.",
+      "El importe se calcula con las entradas especificas de la deducción o se consigna como importe manual cuando la ficha requiere validacion externa.",
     ],
     paginas,
     [`${codigo}:cumple`, `${codigo}:importe`],

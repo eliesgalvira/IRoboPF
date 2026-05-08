@@ -131,7 +131,7 @@ describe("compararAjustadoPorIpc", () => {
   )
 
   it.effect(
-    "coincide con la ruta transitoria de reduccion del trabajo de 2018",
+    "coincide con la ruta transitoria de reducción del trabajo de 2018",
     () =>
       Effect.gen(function* () {
         const comparacion = yield* compararAjustadoPorIpc({
@@ -157,7 +157,7 @@ describe("compararAjustadoPorIpc", () => {
   )
 
   it.effect(
-    "coincide con la ruta legacy de cotizacion de solidaridad de 2025 para salarios altos",
+    "coincide con la ruta legacy de cotización de solidaridad de 2025 para salarios altos",
     () =>
       Effect.gen(function* () {
         const comparacion = yield* compararAjustadoPorIpc({
@@ -190,7 +190,7 @@ describe("compararAjustadoPorIpc", () => {
   )
 
   it.effect(
-    "mantiene salarios bajos en rango porque el IRPF historico aun puede aplicar",
+    "mantiene salarios bajos en rango porque el IRPF histórico aun puede aplicar",
     () =>
       Effect.gen(function* () {
         const comparacion = yield* compararAjustadoPorIpc({
@@ -208,7 +208,7 @@ describe("compararAjustadoPorIpc", () => {
   )
 
   it.effect(
-    "coincide con la ruta legacy de deduccion SMI alrededor del umbral de 2025",
+    "coincide con la ruta legacy de deducción SMI alrededor del umbral de 2025",
     () =>
       Effect.gen(function* () {
         const comparacion = yield* compararAjustadoPorIpc({

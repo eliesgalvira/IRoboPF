@@ -1,5 +1,9 @@
 "use client"
 
+// @effect-diagnostics effect/asyncFunction:off
+// @effect-diagnostics effect/globalConsole:off
+// @effect-diagnostics effect/newPromise:off
+// @effect-diagnostics effect/strictBooleanExpressions:off
 import * as React from "react"
 import { Copy } from "lucide-react"
 

@@ -39,12 +39,11 @@ export const calcularDesgloseCuotaPorEscalaGeneral = ({
 }: {
   readonly anio: AnioFiscal
   readonly base: Decimal
-}): ReadonlyArray<TramoCuotaGeneralCalculado> => {
-  return calcularDesgloseCuotaPorEscala({
+}): ReadonlyArray<TramoCuotaGeneralCalculado> =>
+  calcularDesgloseCuotaPorEscala({
     base,
     tramos: obtenerTramosIrpfLegacy(anio),
   })
-}
 
 export const calcularCuotaPorEscala = ({
   base,

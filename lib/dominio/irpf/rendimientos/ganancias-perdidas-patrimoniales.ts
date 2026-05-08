@@ -123,8 +123,8 @@ const calcularGananciaExentaInmuebleUrbanoAdquirido2012 = ({
   readonly ganancia: GananciaPatrimonialTransmision
   readonly gananciaTotal: Decimal
   readonly gananciaExentaPrevia: Decimal
-}): Decimal => {
-  return Match.value(anio).pipe(
+}): Decimal =>
+  Match.value(anio).pipe(
     Match.withReturnType<Decimal>(),
     Match.when(2012, () =>
       Match.value(ganancia.exencionInmuebleUrbanoAdquirido2012).pipe(
@@ -163,7 +163,6 @@ const calcularGananciaExentaInmuebleUrbanoAdquirido2012 = ({
     ),
     Match.orElse(() => IMPORTE_CERO)
   )
-}
 
 const clasificarBaseGanancia = ({
   anio,
@@ -195,8 +194,8 @@ const calcularGananciaExentaMayores65 = ({
   readonly gananciaTotal: Decimal
   readonly tratamiento: TratamientoGananciaPatrimonialMayores65
   readonly convertirCentimos: typeof centimosAEuros
-}): Decimal => {
-  return Match.value(edadContribuyente).pipe(
+}): Decimal =>
+  Match.value(edadContribuyente).pipe(
     Match.when(
       (edadContribuyente) => edadContribuyente < 65,
       () => IMPORTE_CERO
@@ -223,7 +222,6 @@ const calcularGananciaExentaMayores65 = ({
       })
     )
   )
-}
 
 const calcularExencionPorReinversionEnRentaVitalicia = ({
   gananciaTotal,
@@ -235,8 +233,8 @@ const calcularExencionPorReinversionEnRentaVitalicia = ({
   readonly importeTransmision: Decimal
   readonly importeReinvertido: Decimal
   readonly reinversionesPrevias: Decimal
-}): Decimal => {
-  return Match.value(importeTransmision).pipe(
+}): Decimal =>
+  Match.value(importeTransmision).pipe(
     Match.when(
       (importeTransmision) => importeTransmision.lte(0),
       () => IMPORTE_CERO
@@ -260,4 +258,3 @@ const calcularExencionPorReinversionEnRentaVitalicia = ({
       return gananciaTotal.mul(proporcionExenta)
     })
   )
-}
