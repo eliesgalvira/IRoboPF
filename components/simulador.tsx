@@ -165,10 +165,8 @@ function SimuladorImpl() {
           </h1>
           <div className="grid gap-3">
             <p className="text-sm leading-6 text-[var(--ink)]">
-              Elige un salario bruto anual y un año pasado. La página calcula el{" "}
-              <strong>SALARIO NETO</strong>, el <strong>IRPF</strong> y las{" "}
-              <strong>COTIZACIONES</strong>, corrige la inflación y compara ese
-              resultado con las reglas de 2026.
+              Calcula el neto anual y compara años en euros equivalentes. El IPC
+              solo pone importes de fechas distintas en la misma escala.
             </p>
             <ul className="grid gap-1 text-sm tracking-wider text-[var(--ink-soft)] uppercase">
               <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
@@ -216,12 +214,9 @@ function SimuladorImpl() {
               }}
               className="grid gap-2"
             >
-              <label className="flex items-baseline justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-                <span>
-                  SALARIO BRUTO ANUAL · EUROS{" "}
-                  {vistaCoste === "pasado" ? anioComparado : 2026}
-                </span>
-                <span>EUR</span>
+              <label className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+                SALARIO BRUTO ANUAL EN EUROS DE{" "}
+                {vistaCoste === "pasado" ? anioComparado : 2026}
               </label>
               <NumberField.Group className="grid h-16 grid-cols-[3rem_minmax(0,1fr)_3rem] border-2 border-[var(--rule)] bg-[var(--paper)]">
                 <NumberField.Decrement className="border-r-2 border-[var(--rule)] text-2xl transition hover:bg-[var(--mark)] focus-visible:bg-[var(--mark)] focus-visible:outline-none">
@@ -232,10 +227,6 @@ function SimuladorImpl() {
                   +
                 </NumberField.Increment>
               </NumberField.Group>
-              <p className="text-sm leading-5 text-[var(--ink-soft)]">
-                Valor nominal del año indicado. En las columnas se separa de su
-                equivalente real ajustado por IPC.
-              </p>
             </NumberField.Root>
 
             <Slider.Root
@@ -253,9 +244,9 @@ function SimuladorImpl() {
               onPointerDownCapture={prepararInteraccionSlider}
               className="grid gap-2"
             >
-              <div className="flex items-baseline justify-between text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-                <Slider.Label>CONTROL RÁPIDO · PASO 1.000 €</Slider.Label>
-              </div>
+              <Slider.Label className="sr-only">
+                Control rápido · paso 1.000 €
+              </Slider.Label>
               <Slider.Control className="relative flex h-8 touch-none items-center">
                 <Slider.Track className="relative h-3 w-full bg-[var(--paper)] [outline:2px_solid_var(--rule)]">
                   <Slider.Indicator className="bg-[var(--mark)]" />
@@ -288,12 +279,13 @@ function SimuladorImpl() {
           </div>
         </section>
 
+        <BandaIpc comparacion={comparacion} inflacion={inflacion} />
+
         <SelloPrincipal
           perdida={perdida}
           diferencia={diferenciaAnimada}
           comparacion={comparacion}
           netoAnimado={netoAnimado}
-          inflacion={inflacion}
         />
 
         <Columnas
@@ -397,33 +389,59 @@ function PerdidaAcumuladaPanel({
         </p>
       </div>
       <ol className="grid gap-px bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-3">
-        {perdidaAcumulada.puntos.map((punto) => {
+        {perdidaAcumulada.puntos.map((punto, indice) => {
           const puntoPerdida =
             punto.diferenciaPoderAdquisitivoNetoAnualCentimos > 0
+          const esUltimo = indice === perdidaAcumulada.puntos.length - 1
+          const rellenoAntesUltimoLg =
+            perdidaAcumulada.puntos.length % 3 === 1 && esUltimo
+          const rellenoFinalSm =
+            perdidaAcumulada.puntos.length % 2 === 1 && esUltimo
+          const rellenoFinalLg =
+            perdidaAcumulada.puntos.length % 3 !== 0 && esUltimo
           return (
-            <li
-              key={punto.anioComparado}
-              className="flex items-baseline justify-between gap-3 bg-[var(--paper)] p-3"
-            >
-              <span className="font-[family-name:var(--display)] text-2xl leading-none tracking-wider text-[var(--ink)]">
-                {punto.anioComparado}
-              </span>
-              <span className="grid justify-items-end gap-1">
-                <span
-                  className={cn(
-                    "font-[family-name:var(--mono)] text-sm font-bold tabular-nums",
-                    puntoPerdida ? "text-[var(--danger)]" : "text-[var(--gain)]"
-                  )}
-                >
-                  {formatearCentimosConSigno(
-                    punto.diferenciaPoderAdquisitivoNetoAnualCentimos
-                  )}
+            <React.Fragment key={punto.anioComparado}>
+              {rellenoAntesUltimoLg ? (
+                <li
+                  aria-hidden="true"
+                  className="hidden min-h-[5rem] bg-[var(--paper)] lg:block"
+                />
+              ) : null}
+              <li className="flex items-baseline justify-between gap-3 bg-[var(--paper)] p-3">
+                <span className="font-[family-name:var(--display)] text-2xl leading-none tracking-wider text-[var(--ink)]">
+                  {punto.anioComparado}
                 </span>
-                <span className="text-[0.65rem] leading-none tracking-[0.18em] text-[var(--ink-soft)] uppercase">
-                  {puntoPerdida ? "2026 pierde" : "2026 mejora"}
+                <span className="grid justify-items-end gap-1">
+                  <span
+                    className={cn(
+                      "font-[family-name:var(--mono)] text-sm font-bold tabular-nums",
+                      puntoPerdida
+                        ? "text-[var(--danger)]"
+                        : "text-[var(--gain)]"
+                    )}
+                  >
+                    {formatearCentimosConSigno(
+                      punto.diferenciaPoderAdquisitivoNetoAnualCentimos
+                    )}
+                  </span>
+                  <span className="text-[0.65rem] leading-none tracking-[0.18em] text-[var(--ink-soft)] uppercase">
+                    {puntoPerdida ? "2026 pierde" : "2026 mejora"}
+                  </span>
                 </span>
-              </span>
-            </li>
+              </li>
+              {rellenoFinalSm ? (
+                <li
+                  aria-hidden="true"
+                  className="hidden min-h-[5rem] bg-[var(--paper)] sm:block lg:hidden"
+                />
+              ) : null}
+              {rellenoFinalLg ? (
+                <li
+                  aria-hidden="true"
+                  className="hidden min-h-[5rem] bg-[var(--paper)] lg:block"
+                />
+              ) : null}
+            </React.Fragment>
           )
         })}
       </ol>
@@ -442,19 +460,23 @@ function RejillaAnios({
   readonly alCambiar: (anio: AnioFiscal) => void
 }) {
   return (
-    <div role="radiogroup" className="grid grid-cols-7 gap-px bg-[var(--rule)]">
-      {ANIOS_COMPARABLES.map((anio) => {
+    <div
+      role="radiogroup"
+      className="grid auto-rows-[3.5rem] grid-cols-7 gap-0"
+    >
+      {ANIOS_COMPARABLES.map((anio, indice) => {
         const activo = anio === valor
         return (
-          <Button
+          <button
             key={anio}
             type="button"
             role="radio"
             aria-checked={activo}
             onClick={() => alCambiar(anio)}
-            variant="unstyled"
             className={cn(
-              "h-12 transition-colors",
+              "m-0 flex h-full w-full appearance-none items-center justify-center border-0 border-[var(--rule)] p-0 transition-colors",
+              indice % 7 !== 6 && "border-r",
+              indice < 7 && "border-b",
               "font-[family-name:var(--mono)] text-sm font-bold tracking-wider tabular-nums",
               "focus-visible:ring-2 focus-visible:ring-[var(--rule)] focus-visible:outline-none focus-visible:ring-inset",
               activo
@@ -463,10 +485,64 @@ function RejillaAnios({
             )}
           >
             {anio}
-          </Button>
+          </button>
         )
       })}
     </div>
+  )
+}
+
+function BandaIpc({
+  comparacion,
+  inflacion,
+}: {
+  readonly comparacion: ComparacionAjustadaPorIpc
+  readonly inflacion: number
+}) {
+  return (
+    <section className="grid gap-5 border-b-2 border-[var(--rule)] py-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+      <div className="grid gap-3">
+        <p className="flex flex-wrap items-center gap-2 text-sm font-bold tracking-[0.28em] text-[var(--ink-soft)] uppercase">
+          <span>Euros</span>
+          <span className="bg-[var(--info)] px-2 py-0.5 text-[var(--paper)]">
+            equivalentes
+          </span>
+        </p>
+        <dl className="flex flex-wrap items-end gap-x-4 gap-y-3">
+          <div className="grid gap-0.5">
+            <dt className="text-sm tracking-[0.22em] text-[var(--ink-soft)] uppercase">
+              Bruto nominal {comparacion.anioComparado}
+            </dt>
+            <dd className="font-[family-name:var(--display)] text-[clamp(2.25rem,7vw,4rem)] leading-none text-[var(--ink)] tabular-nums">
+              {formatearCentimos(
+                comparacion.comparado.salarioBrutoNominalAnualCentimos
+              )}
+            </dd>
+          </div>
+          <span className="pb-1 font-[family-name:var(--display)] text-[clamp(2rem,5vw,3.25rem)] leading-none text-[var(--ink-soft)]">
+            =
+          </span>
+          <div className="grid gap-0.5">
+            <dt className="text-sm tracking-[0.22em] text-[var(--ink-soft)] uppercase">
+              Euros {comparacion.anioReferencia}
+            </dt>
+            <dd className="font-[family-name:var(--display)] text-[clamp(2.25rem,7vw,4rem)] leading-none text-[var(--ink)] tabular-nums">
+              {formatearCentimos(
+                comparacion.comparado.ajustado.salarioBrutoAnualCentimos
+              )}
+            </dd>
+          </div>
+        </dl>
+      </div>
+      <div className="grid gap-0.5 lg:justify-items-end">
+        <p className="text-sm tracking-[0.22em] text-[var(--ink-soft)] uppercase">
+          IPC acumulado
+        </p>
+        <p className="font-[family-name:var(--display)] text-[clamp(2.5rem,7vw,4.5rem)] leading-none text-[var(--ink)] tabular-nums">
+          {porcentaje.format(inflacion)}
+        </p>
+      </div>
+    </section>
   )
 }
 
@@ -475,14 +551,22 @@ function SelloPrincipal({
   diferencia,
   comparacion,
   netoAnimado,
-  inflacion,
 }: {
   readonly perdida: boolean
   readonly diferencia: number
   readonly comparacion: ComparacionAjustadaPorIpc
   readonly netoAnimado: number
-  readonly inflacion: number
 }) {
+  const netoMensualCentimos = Math.round(
+    comparacion.referencia.salarioNetoAnualCentimos / 12
+  )
+  const cunaFiscal =
+    comparacion.referencia.costeLaboralCentimos === 0
+      ? 0
+      : (comparacion.referencia.costeLaboralCentimos -
+          comparacion.referencia.salarioNetoAnualCentimos) /
+        comparacion.referencia.costeLaboralCentimos
+
   return (
     <section className="grid border-b-2 border-[var(--rule)] lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
       <div className="grid gap-3 border-[var(--rule)] py-6 lg:border-r-2 lg:pr-8">
@@ -520,35 +604,53 @@ function SelloPrincipal({
           al mes.
         </p>
       </div>
-      <div className="grid content-start gap-3 py-6 lg:pl-8">
-        <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
-          Hoy · 2026
-        </span>
-        <p className="font-[family-name:var(--display)] text-[clamp(2.5rem,7vw,4rem)] leading-none text-[var(--ink)] tabular-nums">
-          {formatearCentimos(netoAnimado)}
-        </p>
-        <ul className="grid gap-1 text-sm tracking-wider text-[var(--ink-soft)] uppercase">
-          <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
-            <span>IPC acumulado</span>
-            <span className="text-[var(--ink)] tabular-nums">
-              {porcentaje.format(inflacion)}
-            </span>
-          </li>
-          <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
-            <span>IRPF final 2026</span>
-            <span className="text-[var(--ink)] tabular-nums">
-              {formatearCentimos(comparacion.referencia.irpfFinalCentimos)}
-            </span>
-          </li>
-          <li className="flex justify-between border-t border-dashed border-[var(--rule)] py-1">
-            <span>SS trabajador</span>
-            <span className="text-[var(--ink)] tabular-nums">
-              {formatearCentimos(
-                comparacion.referencia.cotizacionTrabajadorCentimos
+      <div className="grid content-between gap-5 py-6 lg:pl-8">
+        <div className="grid gap-3">
+          <span className="text-sm tracking-[0.3em] text-[var(--ink-soft)] uppercase">
+            De bruto a neto · 2026
+          </span>
+          <p className="font-[family-name:var(--display)] text-[clamp(3rem,8vw,5rem)] leading-none text-[var(--ink)] tabular-nums">
+            {formatearCentimos(netoAnimado)}
+          </p>
+        </div>
+        <dl className="grid gap-x-5 gap-y-3 text-sm tracking-wider uppercase sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <div className="grid gap-0.5">
+            <dt className="text-[var(--ink-soft)]">Neto mensual</dt>
+            <dd className="font-[family-name:var(--display)] text-[clamp(1.75rem,4vw,2.5rem)] leading-none text-[var(--ink)] tabular-nums">
+              {formatearCentimos(netoMensualCentimos)}
+            </dd>
+          </div>
+          <div className="grid gap-0.5">
+            <dt className="text-[var(--ink-soft)]">Cuña fiscal</dt>
+            <dd className="font-[family-name:var(--display)] text-[clamp(1.75rem,4vw,2.5rem)] leading-none text-[var(--ink)] tabular-nums">
+              {porcentaje.format(cunaFiscal)}
+            </dd>
+          </div>
+        </dl>
+        <dl className="flex flex-wrap gap-x-5 gap-y-2 text-sm tracking-wider uppercase">
+          <div className="grid gap-0.5">
+            <dt className="text-[var(--ink-soft)]">Bruto</dt>
+            <dd className="font-[family-name:var(--mono)] font-bold text-[var(--ink)] tabular-nums">
+              {formatearCentimosEnteros(
+                comparacion.referencia.salarioBrutoAnualCentimos
               )}
-            </span>
-          </li>
-        </ul>
+            </dd>
+          </div>
+          <div className="grid gap-0.5">
+            <dt className="text-[var(--danger)]">SS trabajador</dt>
+            <dd className="font-[family-name:var(--mono)] font-bold text-[var(--danger)] tabular-nums">
+              {`-${formatearCentimos(
+                comparacion.referencia.cotizacionTrabajadorCentimos
+              )}`}
+            </dd>
+          </div>
+          <div className="grid gap-0.5">
+            <dt className="text-[var(--danger)]">IRPF final</dt>
+            <dd className="font-[family-name:var(--mono)] font-bold text-[var(--danger)] tabular-nums">
+              {`-${formatearCentimos(comparacion.referencia.irpfFinalCentimos)}`}
+            </dd>
+          </div>
+        </dl>
       </div>
     </section>
   )
@@ -582,7 +684,7 @@ function Columnas({
     <section className="grid gap-0 border-b-2 border-[var(--rule)] py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-[family-name:var(--display)] text-[clamp(1.75rem,5vw,2.5rem)] leading-none tracking-wider uppercase">
-          MISMO SALARIO, DOS REGLAS
+          Mismo poder de compra, dos reglas
         </h2>
         <div
           role="tablist"
@@ -624,11 +726,7 @@ function Columnas({
               ? comparacionMostrada.comparado.ajustado.costeLaboralCentimos
               : comparacionMostrada.comparado.ajustado.salarioBrutoAnualCentimos
           }
-          brutoNominalCentimos={
-            comparacionMostrada.comparado.salarioBrutoNominalAnualCentimos
-          }
           desglose={comparacionMostrada.comparado.ajustado}
-          anioNominal={comparacionMostrada.anioComparado}
           variante="comparado"
         />
         <Columna
@@ -657,9 +755,7 @@ function Columna({
   subtitulo,
   etiquetaBase,
   baseCentimos,
-  brutoNominalCentimos,
   desglose,
-  anioNominal,
   variante,
 }: {
   readonly rotuloSuperior: string
@@ -667,9 +763,7 @@ function Columna({
   readonly subtitulo: string
   readonly etiquetaBase: string
   readonly baseCentimos: number
-  readonly brutoNominalCentimos?: number
   readonly desglose: DesgloseLiquidado
-  readonly anioNominal?: AnioFiscal
   readonly variante: "actual" | "comparado"
 }) {
   const carga =
@@ -702,12 +796,6 @@ function Columna({
       </p>
       <ul className="grid gap-0 text-sm">
         <Fila etiqueta={etiquetaBase} valor={formatearCentimos(baseCentimos)} />
-        {brutoNominalCentimos !== undefined && anioNominal !== undefined ? (
-          <Fila
-            etiqueta={`BRUTO NOMINAL ${anioNominal}`}
-            valor={formatearCentimos(brutoNominalCentimos)}
-          />
-        ) : null}
         <Fila
           etiqueta="SS TRABAJADOR"
           valor={`−${formatearCentimos(desglose.cotizacionTrabajadorCentimos)}`}
@@ -942,7 +1030,8 @@ function Pasos({
             </PiezaFormula>
           </FormulaSimulador>
           <p className="text-sm leading-6 text-[var(--ink-soft)]">
-            Se compara poder de compra, no euros escritos en una nómina antigua.
+            La comparación convierte una nómina antigua a euros equivalentes y
+            deja fuera las subidas pactadas con el IPC del año anterior.
           </p>
         </TarjetaFormula>
 
