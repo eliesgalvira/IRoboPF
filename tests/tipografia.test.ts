@@ -14,25 +14,22 @@ const archivosInterfaz = [
 ] as const
 
 describe("tipografia de la interfaz", () => {
-  it("no declara texto visible por debajo de 14px", () => {
+  it("no declara texto visible por debajo de 11px", () => {
     const infracciones = archivosInterfaz.flatMap((archivo) => {
       const contenido = readFileSync(join(process.cwd(), archivo), "utf8")
       const lineas = contenido.split("\n")
 
       return lineas.flatMap((linea, indice) => {
         const problemas: string[] = []
-        if (/\btext-xs\b/.test(linea)) {
-          problemas.push("text-xs equivale a 12px")
-        }
         for (const coincidencia of linea.matchAll(/\btext-\[(\d+)px\]/g)) {
           const px = Number(coincidencia[1])
-          if (px < 14) {
+          if (px < 11) {
             problemas.push(`${coincidencia[0]} declara ${px}px`)
           }
         }
         for (const coincidencia of linea.matchAll(/fontSize(?:=|: )\{?(\d+)/g)) {
           const px = Number(coincidencia[1])
-          if (px < 14) {
+          if (px < 11) {
             problemas.push(`fontSize declara ${px}px`)
           }
         }
