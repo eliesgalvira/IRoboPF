@@ -1,10 +1,8 @@
 import type { FichaDeduccionAutonomica } from "../tipos"
 import {
-  categoriaCatalogadaDesdeCodigo,
   fichaImplementada,
   fichaImplementadaBasica,
   fichaImplementadaFormula,
-  nombreCatalogadoDesdeCodigo,
 } from "../helpers"
 
 export const MADRID_NACIMIENTO_ADOPCION_2025 = {

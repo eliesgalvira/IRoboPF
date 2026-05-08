@@ -2,8 +2,6 @@ import type { FichaDeduccionAutonomica } from "../tipos"
 import {
   categoriaCatalogadaDesdeCodigo,
   fichaImplementada,
-  fichaImplementadaBasica,
-  fichaImplementadaFormula,
   nombreCatalogadoDesdeCodigo,
 } from "../helpers"
 

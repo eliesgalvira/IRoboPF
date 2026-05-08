@@ -3,7 +3,6 @@ import { Match } from "effect"
 import type {
   CategoriaDeduccionAutonomica,
   CuantiaDeduccionAutonomica,
-  DeduccionAutonomicaCatalogada,
   EstadoImplementada,
   FichaDeduccionAutonomica,
 } from "./tipos"
@@ -72,34 +71,6 @@ export const comunidadDesdeCodigo = (codigo: string): string =>
     ),
     Match.orElse(() => "simulada-estatal")
   )
-
-const fichaCatalogada = (
-  codigo: string,
-  nombre: string,
-  categoria: CategoriaDeduccionAutonomica
-): FichaDeduccionAutonomica => ({
-  codigo,
-  comunidad: comunidadDesdeCodigo(codigo),
-  nombre,
-  normativa: "Pendiente de normalización desde el Manual Renta 2025 Parte 2",
-  categoria,
-  cuantia: {
-    tipo: "mixta",
-    descripcion:
-      "Ficha catalogada en el manual; cuantía pendiente de normalización ejecutable revisada.",
-  },
-  requisitos: [],
-  limites: [],
-  prorrateo: [],
-  compatibilidades: [],
-  incompatibilidades: [],
-  entradaNecesaria: [],
-  fuenteManual: {
-    documento: "ManualRenta2025Parte2",
-    paginas: [],
-  },
-  estado: "catalogada",
-})
 
 export const categoriaCatalogadaDesdeCodigo = (
   codigo: string
@@ -561,13 +532,6 @@ export const nombreCatalogadoDesdeCodigo = (codigo: string): string => {
   return `Por ${nombre}`
 }
 
-const fichaCatalogadaDesdeCodigo = (codigo: string): FichaDeduccionAutonomica =>
-  fichaCatalogada(
-    codigo,
-    nombreCatalogadoDesdeCodigo(codigo),
-    categoriaCatalogadaDesdeCodigo(codigo)
-  )
-
 export const DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA = {
   andalucia: [],
   aragon: [],
@@ -585,13 +549,6 @@ export const DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA = {
   "la-rioja": [],
   "comunitat-valenciana": [],
 } as const
-
-const deduccionesCatalogadasFaltantes = (
-  comunidad: keyof typeof DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA
-): ReadonlyArray<FichaDeduccionAutonomica> =>
-  DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA[comunidad].map(
-    fichaCatalogadaDesdeCodigo
-  )
 
 export const fichaImplementadaBasica = (
   estado: { readonly estado: EstadoImplementada },

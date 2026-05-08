@@ -1,11 +1,5 @@
 import type { FichaDeduccionAutonomica } from "../tipos"
-import {
-  categoriaCatalogadaDesdeCodigo,
-  fichaImplementada,
-  fichaImplementadaBasica,
-  fichaImplementadaFormula,
-  nombreCatalogadoDesdeCodigo,
-} from "../helpers"
+import { fichaImplementada } from "../helpers"
 
 export const ASTURIAS_ACOGIMIENTO_MAYORES_65_2025 = fichaImplementada(
   { estado: "implementada" },

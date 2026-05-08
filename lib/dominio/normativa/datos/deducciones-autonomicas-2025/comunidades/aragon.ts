@@ -1,11 +1,5 @@
 import type { FichaDeduccionAutonomica } from "../tipos"
-import {
-  categoriaCatalogadaDesdeCodigo,
-  fichaImplementada,
-  fichaImplementadaBasica,
-  fichaImplementadaFormula,
-  nombreCatalogadoDesdeCodigo,
-} from "../helpers"
+import { fichaImplementada, fichaImplementadaBasica } from "../helpers"
 
 export const ARAGON_NACIMIENTO_ADOPCION_TERCER_HIJO_SUCESIVOS_2025 = {
   ...fichaImplementadaBasica(

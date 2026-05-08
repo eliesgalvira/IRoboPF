@@ -1,11 +1,5 @@
 import type { FichaDeduccionAutonomica } from "../tipos"
-import {
-  categoriaCatalogadaDesdeCodigo,
-  fichaImplementada,
-  fichaImplementadaBasica,
-  fichaImplementadaFormula,
-  nombreCatalogadoDesdeCodigo,
-} from "../helpers"
+import { fichaImplementada, fichaImplementadaBasica } from "../helpers"
 
 export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
   codigo: "andalucia_nacimiento_adopcion_acogimiento_menores",

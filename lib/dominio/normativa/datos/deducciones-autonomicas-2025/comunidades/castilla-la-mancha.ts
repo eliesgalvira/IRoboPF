@@ -3,7 +3,6 @@ import {
   categoriaCatalogadaDesdeCodigo,
   fichaImplementada,
   fichaImplementadaBasica,
-  fichaImplementadaFormula,
   nombreCatalogadoDesdeCodigo,
 } from "../helpers"
 
