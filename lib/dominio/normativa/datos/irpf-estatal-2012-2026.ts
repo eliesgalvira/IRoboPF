@@ -1,5 +1,5 @@
 import type Decimal from "decimal.js"
-import { Match } from "effect"
+import { DateTime, Match } from "effect"
 
 import { crearImporteMonetario } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../anio-fiscal"
@@ -243,11 +243,12 @@ export type BaseIntegracionGananciaPatrimonialHasta2014 =
   | "base-ahorro"
 
 const sumarUnAnioFechaCivilIso = (fechaIso: string): string => {
-  const [year, month, day] = fechaIso.split("-").map(Number)
-  const fecha = new Date(Date.UTC(year + 1, month - 1, day))
-  const yyyy = fecha.getUTCFullYear()
-  const mm = String(fecha.getUTCMonth() + 1).padStart(2, "0")
-  const dd = String(fecha.getUTCDate()).padStart(2, "0")
+  const [year = 0, month = 1, day = 1] = fechaIso.split("-").map(Number)
+  const fecha = DateTime.makeUnsafe({ year: year + 1, month, day })
+  const partes = DateTime.toPartsUtc(fecha)
+  const yyyy = String(partes.year).padStart(4, "0")
+  const mm = String(partes.month).padStart(2, "0")
+  const dd = String(partes.day).padStart(2, "0")
 
   return `${yyyy}-${mm}-${dd}`
 }
@@ -288,8 +289,8 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
     Match.orElse(() => TRAMOS_IRPF_DESDE_2021)
   )
 
-export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
-  return Match.value(anio).pipe(
+export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf =>
+  Match.value(anio).pipe(
     Match.when(2012, () => TRAMOS_IRPF_AHORRO_2012),
     Match.when(2013, () => TRAMOS_IRPF_AHORRO_2013),
     Match.when(2014, () => TRAMOS_IRPF_AHORRO_2014),
@@ -305,7 +306,6 @@ export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf => {
     Match.when(2024, () => TRAMOS_IRPF_AHORRO_2024),
     Match.orElse(() => TRAMOS_IRPF_AHORRO_2025)
   )
-}
 
 export const METADATOS_ARTICULO_20_LEGACY: Readonly<
   Record<AnioFiscal, MetadatosArticulo20>

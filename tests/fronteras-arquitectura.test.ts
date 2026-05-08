@@ -1,3 +1,5 @@
+// Architecture test harness reads local source files directly.
+// @effect-diagnostics effect/nodeBuiltinImport:off
 import { readFileSync } from "node:fs"
 
 import { describe, expect, it } from "@effect/vitest"

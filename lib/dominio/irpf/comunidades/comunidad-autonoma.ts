@@ -597,7 +597,9 @@ export interface ServicioParametrosNormativosIrpf {
 export class ParametrosNormativosIrpf extends Context.Service<
   ParametrosNormativosIrpf,
   ServicioParametrosNormativosIrpf
->()("@irobopf/dominio/normativa/ParametrosNormativosIrpf") {
+>()(
+  "irobopf/lib/dominio/irpf/comunidades/comunidad-autonoma/ParametrosNormativosIrpf"
+) {
   static readonly layer = Layer.succeed(ParametrosNormativosIrpf, {
     minimosEstatales2025: MINIMOS_ESTATALES_2025,
     tramosIrpfEstatalGeneral2025: TRAMOS_IRPF_ESTATAL_GENERAL_2025,

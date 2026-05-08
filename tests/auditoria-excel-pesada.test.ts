@@ -1,3 +1,9 @@
+// Heavy characterization harness: Node process/fs/path/env and Vitest async
+// boundaries are intentional here.
+// @effect-diagnostics effect/asyncFunction:off
+// @effect-diagnostics effect/newPromise:off
+// @effect-diagnostics effect/nodeBuiltinImport:off
+// @effect-diagnostics effect/processEnv:off
 import { spawn } from "node:child_process"
 import { existsSync } from "node:fs"
 import { resolve } from "node:path"

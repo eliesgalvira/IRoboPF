@@ -191,7 +191,8 @@ const describirCuantiaDeduccion = (
     Match.orElse(
       (cuantia) =>
         `${formatearPuntosPorcentuales(cuantia.porcentaje)} sobre ${cuantia.base}${
-          cuantia.limiteMaximoEuros
+          cuantia.limiteMaximoEuros !== undefined &&
+          cuantia.limiteMaximoEuros !== ""
             ? `, con límite máximo de ${cuantia.limiteMaximoEuros} euros.`
             : "."
         }`
@@ -739,7 +740,7 @@ export function LiquidacionIrpf() {
         pagosACuentaCentimos: usarRetencionAeat
           ? 0
           : eurosACentimos(pagosACuentaEuros),
-        ...(retencionTrabajoAeat ? { retencionTrabajoAeat } : {}),
+        ...(retencionTrabajoAeat !== undefined ? { retencionTrabajoAeat } : {}),
       }) satisfies CasoFiscalAnual,
     [
       ascendientes,
@@ -1373,7 +1374,7 @@ function ControlesDeduccionAutonomica({
       <NumberField
         compacto
         etiqueta={etiqueta}
-        formato={opciones?.euros ? FORMATO_EUROS : FORMATO_ENTERO}
+        formato={opciones?.euros === true ? FORMATO_EUROS : FORMATO_ENTERO}
         onChange={(valor) => actualizar(clave, valor)}
         valor={numeroDeduccion(entradas, clave)}
         {...propiedadesPaso}
@@ -2696,9 +2697,9 @@ function Resultado({
                 <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">
                   {paso.descripcion}
                 </p>
-                {paso.lineasCalculo?.length ? (
+                {(paso.lineasCalculo?.length ?? 0) > 0 ? (
                   <dl className="mt-4 grid gap-2">
-                    {paso.lineasCalculo.map((linea) => (
+                    {paso.lineasCalculo?.map((linea) => (
                       <div
                         className="grid gap-2 border border-[var(--rule)] bg-[var(--paper-2)] p-3 md:grid-cols-[minmax(10rem,0.9fr)_minmax(14rem,1.4fr)_minmax(8rem,0.7fr)]"
                         key={`${paso.titulo}-${linea.etiqueta}`}
@@ -2891,6 +2892,9 @@ function LineaResumen({
   readonly signo?: "+" | "-" | "="
   readonly valor: string
 }) {
+  const tieneDetalle =
+    detalle !== undefined && detalle !== null && detalle !== false
+
   return (
     <div className="grid gap-2 rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-4">
       <dt className="grid min-w-0 grid-cols-[1.25rem_minmax(0,1fr)] gap-2">
@@ -2899,7 +2903,7 @@ function LineaResumen({
         </span>
         <span className="min-w-0">
           <EtiquetaConAyuda ayuda={ayuda} etiqueta={etiqueta} />
-          {detalle ? (
+          {tieneDetalle ? (
             <span className="mt-1 block text-xs leading-5 text-[var(--ink-soft)]">
               {detalle}
             </span>

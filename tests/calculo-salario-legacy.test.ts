@@ -1,3 +1,8 @@
+// Tests are Effect entry points; env-gated and async Vitest harness code is
+// intentional here.
+// @effect-diagnostics effect/asyncFunction:off
+// @effect-diagnostics effect/processEnv:off
+// @effect-diagnostics effect/strictEffectProvide:off
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 

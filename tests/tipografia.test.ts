@@ -1,3 +1,5 @@
+// Typography test harness reads local source files directly.
+// @effect-diagnostics effect/nodeBuiltinImport:off
 import { describe, expect, it } from "vitest"
 import { readFileSync } from "node:fs"
 import { join } from "node:path"
@@ -27,7 +29,9 @@ describe("tipografia de la interfaz", () => {
             problemas.push(`${coincidencia[0]} declara ${px}px`)
           }
         }
-        for (const coincidencia of linea.matchAll(/fontSize(?:=|: )\{?(\d+)/g)) {
+        for (const coincidencia of linea.matchAll(
+          /fontSize(?:=|: )\{?(\d+)/g
+        )) {
           const px = Number(coincidencia[1])
           if (px < 11) {
             problemas.push(`fontSize declara ${px}px`)

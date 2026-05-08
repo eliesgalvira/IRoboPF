@@ -211,9 +211,10 @@ const casoFiscalLegacy = (
   entrada: EntradaCalculoSalarioLegacy
 ): CasoFiscalAnual => {
   const perfil = entrada.perfilAuditoria ?? "soltero_sin_hijos"
-  const retencionTrabajoAeat = entrada.perfilAuditoria
-    ? casoRetencionTrabajoPerfil({ entrada, perfil })
-    : undefined
+  const retencionTrabajoAeat =
+    entrada.perfilAuditoria !== undefined
+      ? casoRetencionTrabajoPerfil({ entrada, perfil })
+      : undefined
 
   return {
     anio: entrada.anio,
@@ -236,14 +237,16 @@ const casoFiscalLegacy = (
     deducciones: [],
     retencionesSoportadasCentimos: 0,
     pagosACuentaCentimos: 0,
-    ...(retencionTrabajoAeat ? { retencionTrabajoAeat } : {}),
+    ...(retencionTrabajoAeat !== undefined ? { retencionTrabajoAeat } : {}),
   }
 }
 
 export class CompatibilidadSalarioLegacy extends Context.Service<
   CompatibilidadSalarioLegacy,
   ServicioCompatibilidadSalarioLegacy
->()("@irobopf/dominio/compatibilidadLegacy/CompatibilidadSalarioLegacy") {
+>()(
+  "irobopf/lib/dominio/compatibilidad-legacy/calculo-salario-legacy/CompatibilidadSalarioLegacy"
+) {
   static readonly layer = Layer.effect(
     CompatibilidadSalarioLegacy,
     Effect.gen(function* () {
@@ -267,6 +270,7 @@ const calcularSalarioLegacyDesdeServicio = Effect.fn(
 export const calcularSalarioLegacy = (
   entrada: EntradaCalculoSalarioLegacy
 ): Effect.Effect<DesgloseLiquidado> =>
+  // @effect-diagnostics-next-line effect/strictEffectProvide:off
   calcularSalarioLegacyDesdeServicio(entrada).pipe(
     Effect.provide(CompatibilidadSalarioLegacy.layer)
   )

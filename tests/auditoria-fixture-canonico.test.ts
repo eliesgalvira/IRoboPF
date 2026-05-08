@@ -1,3 +1,9 @@
+// Characterization harness: Node child-process/env and Vitest async boundaries
+// are intentional here.
+// @effect-diagnostics effect/asyncFunction:off
+// @effect-diagnostics effect/newPromise:off
+// @effect-diagnostics effect/nodeBuiltinImport:off
+// @effect-diagnostics effect/processEnv:off
 import { spawn } from "node:child_process"
 
 import fixtureCanonico from "./fixtures/canonical-tabular-hashes.json"

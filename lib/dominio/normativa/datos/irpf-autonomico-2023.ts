@@ -1,5 +1,5 @@
 import Decimal from "decimal.js"
-import { Match, Option } from "effect"
+import { DateTime, Match, Option } from "effect"
 
 import { crearImporteMonetario } from "../../dinero/importe-monetario"
 import type { ComunidadAutonoma } from "../../irpf/caso-fiscal-anual"
@@ -14,8 +14,7 @@ const tipo = (porcentaje: string): Decimal => importe(porcentaje).div(100)
 
 export type EscalaAutonomicaIrpf2023 = EscalaAutonomicaIrpf2025
 
-export interface EscalaAutonomicaCondicionalIrpf2023
-  extends EscalaAutonomicaIrpf2023 {
+export interface EscalaAutonomicaCondicionalIrpf2023 extends EscalaAutonomicaIrpf2023 {
   readonly condicionAplicacion: string
 }
 
@@ -161,7 +160,8 @@ export const ESCALAS_AUTONOMICAS_IRPF_2023_DISTINTAS_DE_2025 = {
       [importe(Infinity), tipo("27")],
     ],
     fuente: {
-      titulo: "AEAT Manual practico de Renta 2023. Escala autonomica de La Rioja",
+      titulo:
+        "AEAT Manual practico de Renta 2023. Escala autonomica de La Rioja",
       referencia:
         "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-rioja.html",
     },
@@ -185,7 +185,8 @@ export const ESCALA_EXTREMADURA_2023_FALLECIDO_ANTES_15_SEPTIEMBRE = {
     [importe(Infinity), tipo("25")],
   ],
   fuente: {
-    titulo: "AEAT Manual practico de Renta 2023. Escala autonomica de Extremadura",
+    titulo:
+      "AEAT Manual practico de Renta 2023. Escala autonomica de Extremadura",
     referencia:
       "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-autonoma-extremadura.html",
   },
@@ -237,19 +238,21 @@ export const ESCALAS_AUTONOMICAS_IRPF_2023: Readonly<
   ),
 }
 
-const fechaLimiteExtremadura = new Date("2023-09-15T00:00:00.000Z")
+const fechaLimiteExtremaduraMs = DateTime.makeUnsafe(
+  "2023-09-15T00:00:00.000Z"
+).epochMilliseconds
 
 const fallecidoAntesDe = ({
   fechaFallecimiento,
-  fechaLimite,
+  fechaLimiteMs,
 }: {
   readonly fechaFallecimiento: Date | undefined
-  readonly fechaLimite: Date
+  readonly fechaLimiteMs: number
 }): boolean =>
   Option.fromNullishOr(fechaFallecimiento).pipe(
     Option.match({
       onNone: () => false,
-      onSome: (fecha) => fecha.getTime() < fechaLimite.getTime(),
+      onSome: (fecha) => fecha.getTime() < fechaLimiteMs,
     })
   )
 
@@ -264,7 +267,7 @@ export const obtenerEscalaAutonomicaIrpf2023 = ({
     comunidadAutonoma,
     fallecidoAntesExtremadura: fallecidoAntesDe({
       fechaFallecimiento,
-      fechaLimite: fechaLimiteExtremadura,
+      fechaLimiteMs: fechaLimiteExtremaduraMs,
     }),
   }).pipe(
     Match.when(

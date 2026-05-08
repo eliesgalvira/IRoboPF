@@ -1,4 +1,4 @@
-import { Match, Option } from "effect"
+import { DateTime, Match, Option } from "effect"
 
 import { crearImporteMonetario } from "../../dinero/importe-monetario"
 import type { ComunidadAutonoma } from "../../irpf/caso-fiscal-anual"
@@ -41,19 +41,21 @@ export const MINIMOS_AUTONOMICOS_IRPF_2023 = parametroNormativo({
   fuente: fuenteAeatManualRenta2023Parte1,
 })
 
-const fechaLimiteIllesBalears = new Date("2023-11-26T00:00:00.000Z")
+const fechaLimiteIllesBalearsMs = DateTime.makeUnsafe(
+  "2023-11-26T00:00:00.000Z"
+).epochMilliseconds
 
 const fallecidoAntesDe = ({
   fechaFallecimiento,
-  fechaLimite,
+  fechaLimiteMs,
 }: {
   readonly fechaFallecimiento: Date | undefined
-  readonly fechaLimite: Date
+  readonly fechaLimiteMs: number
 }): boolean =>
   Option.fromNullishOr(fechaFallecimiento).pipe(
     Option.match({
       onNone: () => false,
-      onSome: (fecha) => fecha.getTime() < fechaLimite.getTime(),
+      onSome: (fecha) => fecha.getTime() < fechaLimiteMs,
     })
   )
 
@@ -68,7 +70,7 @@ export const obtenerMinimosAutonomicosIrpf2023 = ({
     comunidadAutonoma,
     fallecidoAntesIllesBalears: fallecidoAntesDe({
       fechaFallecimiento,
-      fechaLimite: fechaLimiteIllesBalears,
+      fechaLimiteMs: fechaLimiteIllesBalearsMs,
     }),
   }).pipe(
     Match.when(

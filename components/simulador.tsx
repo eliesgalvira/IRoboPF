@@ -340,10 +340,13 @@ function SimuladorImpl() {
   )
 }
 
-export const Simulador = dynamic(async () => ({ default: SimuladorImpl }), {
-  ssr: false,
-  loading: () => <div className="min-h-svh bg-[var(--paper)]" />,
-})
+export const Simulador = dynamic(
+  () => Promise.resolve({ default: SimuladorImpl }),
+  {
+    ssr: false,
+    loading: () => <div className="min-h-svh bg-[var(--paper)]" />,
+  }
+)
 
 function PerdidaAcumuladaPanel({
   perdidaAcumulada,
@@ -843,7 +846,7 @@ function Fila({
       <span
         className={cn(
           "text-sm tracking-wider uppercase",
-          peligro ? "text-[var(--danger)]" : "text-[var(--ink-soft)]"
+          peligro === true ? "text-[var(--danger)]" : "text-[var(--ink-soft)]"
         )}
       >
         {etiqueta}
@@ -851,7 +854,7 @@ function Fila({
       <span
         className={cn(
           "font-[family-name:var(--mono)] text-sm font-bold tabular-nums",
-          peligro ? "text-[var(--danger)]" : "text-[var(--ink)]"
+          peligro === true ? "text-[var(--danger)]" : "text-[var(--ink)]"
         )}
       >
         {valor}

@@ -1,4 +1,6 @@
-import { Effect } from "effect"
+// Tests are Effect entry points, so they provide the service layer directly.
+// @effect-diagnostics effect/strictEffectProvide:off
+import { DateTime, Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -14,6 +16,9 @@ import {
 
 const liquidarCasoCanonico = (caso: CasoFiscalAnual) =>
   Effect.runSync(liquidarIrpfAnual(caso, { modo: "canonico" }))
+
+const fechaUtc = (fechaIso: string) =>
+  DateTime.toDateUtc(DateTime.makeUnsafe(fechaIso))
 
 describe("liquidarIrpfAnual", () => {
   it.effect("expone la liquidacion anual como servicio Effect", () =>
@@ -1288,7 +1293,7 @@ describe("liquidarIrpfAnual", () => {
   it("liquida 2018 con la reduccion anterior si el contribuyente fallecio antes del 5 de julio", () => {
     const caso = {
       anio: 2018,
-      fechaFallecimiento: new Date("2018-07-04T00:00:00.000Z"),
+      fechaFallecimiento: fechaUtc("2018-07-04T00:00:00.000Z"),
       comunidadAutonoma: "simulada-estatal",
       situacionFamiliar: {
         tipo: "individual",

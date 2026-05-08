@@ -289,16 +289,15 @@ const calcularMinimoDescendientes = (
     CERO
   )
   const minimoMenoresTres = descendientesOrdenados.reduce(
-    (total, descendiente) => {
-      return Match.value(esDescendienteMenorTres(descendiente)).pipe(
+    (total, descendiente) =>
+      Match.value(esDescendienteMenorTres(descendiente)).pipe(
         Match.when(false, () => total),
         Match.orElse(() =>
           total.plus(
             new Decimal(2800).mul(multiplicadorDescendiente(descendiente))
           )
         )
-      )
-    },
+      ),
     CERO
   )
 
@@ -323,17 +322,19 @@ const calcularMinimoAscendientes = (
       )
     )
   }, CERO)
-  const minimo75 = ascendientes.reduce((total, ascendiente) => {
-    return Match.value(ascendiente.edad).pipe(
-      Match.when(
-        (edad) => edad < 75,
-        () => total
+  const minimo75 = ascendientes.reduce(
+    (total, ascendiente) =>
+      Match.value(ascendiente.edad).pipe(
+        Match.when(
+          (edad) => edad < 75,
+          () => total
+        ),
+        Match.orElse(() =>
+          total.plus(new Decimal(1400).div(ascendiente.convivencia))
+        )
       ),
-      Match.orElse(() =>
-        total.plus(new Decimal(1400).div(ascendiente.convivencia))
-      )
-    )
-  }, CERO)
+    CERO
+  )
 
   return redondear1(minimo65).plus(redondear1(minimo75))
 }
@@ -863,7 +864,9 @@ const calcularRetencionTrabajoAeatImpl = Effect.fn(
 export class RetencionTrabajoAeat extends Context.Service<
   RetencionTrabajoAeat,
   ServicioRetencionTrabajoAeat
->()("@irobopf/dominio/irpf/RetencionTrabajoAeat") {
+>()(
+  "irobopf/lib/dominio/irpf/retenciones/retencion-trabajo-aeat/RetencionTrabajoAeat"
+) {
   static readonly layer = Layer.succeed(RetencionTrabajoAeat, {
     calcular: calcularRetencionTrabajoAeatImpl,
   })
@@ -881,6 +884,7 @@ export const calcularRetencionTrabajoAeat = (
   caso: CasoRetencionTrabajo,
   contexto: ContextoRetencionTrabajo
 ): Effect.Effect<RetencionTrabajoCalculada, CalcularRetencionTrabajoError> =>
+  // @effect-diagnostics-next-line effect/strictEffectProvide:off
   calcularRetencionTrabajoAeatDesdeServicio(caso, contexto).pipe(
     Effect.provide(RetencionTrabajoAeat.layer)
   )

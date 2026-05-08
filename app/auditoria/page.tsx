@@ -1,14 +1,17 @@
+import { use } from "react"
+
 import { Auditoria } from "@/components/auditoria"
 
 type SearchParams = Record<string, string | ReadonlyArray<string> | undefined>
 
-export default async function PaginaAuditoria({
+export default function PaginaAuditoria({
   searchParams,
 }: {
   readonly searchParams?: Promise<SearchParams>
 }) {
   const parametros = new URLSearchParams()
-  const parametrosResueltos = await searchParams
+  const parametrosResueltos =
+    searchParams === undefined ? {} : use(searchParams)
 
   for (const [clave, valor] of Object.entries(parametrosResueltos ?? {})) {
     if (typeof valor === "string") {

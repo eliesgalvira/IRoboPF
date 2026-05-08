@@ -1,5 +1,7 @@
 import Decimal from "decimal.js"
-import { Effect, Match } from "effect"
+// Tests are Effect entry points, so they provide the service layer directly.
+// @effect-diagnostics effect/strictEffectProvide:off
+import { DateTime, Effect, Match } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -41,6 +43,9 @@ const comunidadesConEscala2025: ReadonlyArray<ComunidadAutonoma> = [
   "ceuta",
   "melilla",
 ]
+
+const fechaUtc = (fechaIso: string) =>
+  DateTime.toDateUtc(DateTime.makeUnsafe(fechaIso))
 
 describe("comunidad autonoma", () => {
   it.effect(
@@ -202,14 +207,14 @@ describe("comunidad autonoma", () => {
     const extremaduraFallecido = obtenerParametrosComunidadAutonoma({
       anio: 2023,
       comunidadAutonoma: "extremadura",
-      fechaFallecimiento: new Date("2023-09-14T00:00:00.000Z"),
+      fechaFallecimiento: fechaUtc("2023-09-14T00:00:00.000Z"),
     })
     const balearsGeneral = obtenerMinimosAutonomicosIrpf2023({
       comunidadAutonoma: "illes-balears",
     })
     const balearsFallecido = obtenerMinimosAutonomicosIrpf2023({
       comunidadAutonoma: "illes-balears",
-      fechaFallecimiento: new Date("2023-11-25T00:00:00.000Z"),
+      fechaFallecimiento: fechaUtc("2023-11-25T00:00:00.000Z"),
     })
 
     if (
@@ -281,14 +286,14 @@ describe("comunidad autonoma", () => {
     const comunitatFallecido = obtenerParametrosComunidadAutonoma({
       anio: 2022,
       comunidadAutonoma: "comunitat-valenciana",
-      fechaFallecimiento: new Date("2022-10-27T12:00:00.000Z"),
+      fechaFallecimiento: fechaUtc("2022-10-27T12:00:00.000Z"),
     })
     const minimosGenerales = obtenerMinimosAutonomicosIrpf2022({
       comunidadAutonoma: "comunitat-valenciana",
     })
     const minimosFallecido = obtenerMinimosAutonomicosIrpf2022({
       comunidadAutonoma: "comunitat-valenciana",
-      fechaFallecimiento: new Date("2022-10-27T12:00:00.000Z"),
+      fechaFallecimiento: fechaUtc("2022-10-27T12:00:00.000Z"),
     })
 
     if (
@@ -639,7 +644,7 @@ describe("comunidad autonoma", () => {
     const balearsFallecido2015 = obtenerParametrosComunidadAutonoma({
       anio: 2015,
       comunidadAutonoma: "illes-balears",
-      fechaFallecimiento: new Date("2015-12-30T00:00:00.000Z"),
+      fechaFallecimiento: fechaUtc("2015-12-30T00:00:00.000Z"),
     })
     const minimosBalears2015 =
       obtenerMinimosAutonomicosIrpf2015("illes-balears")
@@ -708,9 +713,8 @@ describe("comunidad autonoma", () => {
       comunidadAutonoma: "galicia",
     })
     const minimosCantabria2014 = obtenerMinimosAutonomicosIrpf2014("cantabria")
-    const minimosCastillaLaMancha2014 = obtenerMinimosAutonomicosIrpf2014(
-      "castilla-la-mancha"
-    )
+    const minimosCastillaLaMancha2014 =
+      obtenerMinimosAutonomicosIrpf2014("castilla-la-mancha")
     const minimosMadrid2014 = obtenerMinimosAutonomicosIrpf2014("madrid")
     const minimosRioja2014 = obtenerMinimosAutonomicosIrpf2014("la-rioja")
 
@@ -724,9 +728,7 @@ describe("comunidad autonoma", () => {
 
     if (simulada2014._tag === "ParametrosComunidadAutonoma") {
       expect(simulada2014.escalaEstatalGeneral[0][1].toString()).toBe("0.1275")
-      expect(simulada2014.escalaAutonomica.tramos[0][1].toString()).toBe(
-        "0.12"
-      )
+      expect(simulada2014.escalaAutonomica.tramos[0][1].toString()).toBe("0.12")
       expect(
         simulada2014.minimosAutonomicos.contribuyente.general.toString()
       ).toBe("5151")
@@ -786,9 +788,7 @@ describe("comunidad autonoma", () => {
 
     if (simulada2013._tag === "ParametrosComunidadAutonoma") {
       expect(simulada2013.escalaEstatalGeneral[0][1].toString()).toBe("0.1275")
-      expect(simulada2013.escalaAutonomica.tramos[0][1].toString()).toBe(
-        "0.12"
-      )
+      expect(simulada2013.escalaAutonomica.tramos[0][1].toString()).toBe("0.12")
       expect(
         simulada2013.minimosAutonomicos.contribuyente.general.toString()
       ).toBe("5151")
@@ -799,9 +799,7 @@ describe("comunidad autonoma", () => {
     }
 
     if (madrid2013._tag === "ParametrosComunidadAutonoma") {
-      expect(madrid2013.escalaAutonomica.tramos[0][1].toString()).toBe(
-        "0.116"
-      )
+      expect(madrid2013.escalaAutonomica.tramos[0][1].toString()).toBe("0.116")
       expect(madrid2013.minimoAutonomicoIgualEstatal).toBe(false)
     }
 
@@ -841,11 +839,10 @@ describe("comunidad autonoma", () => {
     Match.valueTags(simulada2012, {
       ParametrosComunidadAutonoma: (parametros) => {
         expect(parametros.escalaEstatalGeneral[0][1].toString()).toBe("0.1275")
-        expect(parametros.escalaAutonomica.tramos[0][1].toString()).toBe(
-          "0.12"
-        )
-        expect(parametros.minimosAutonomicos.contribuyente.general.toString())
-          .toBe("5151")
+        expect(parametros.escalaAutonomica.tramos[0][1].toString()).toBe("0.12")
+        expect(
+          parametros.minimosAutonomicos.contribuyente.general.toString()
+        ).toBe("5151")
       },
       ComunidadAutonomaNoSoportada: (resultado) =>
         expect.fail(resultado.motivo),
@@ -853,9 +850,7 @@ describe("comunidad autonoma", () => {
 
     Match.valueTags(asturias2012, {
       ParametrosComunidadAutonoma: (parametros) => {
-        expect(parametros.escalaAutonomica.tramos[4][1].toString()).toBe(
-          "0.24"
-        )
+        expect(parametros.escalaAutonomica.tramos[4][1].toString()).toBe("0.24")
       },
       ComunidadAutonomaNoSoportada: (resultado) =>
         expect.fail(resultado.motivo),
@@ -863,9 +858,7 @@ describe("comunidad autonoma", () => {
 
     Match.valueTags(galicia2012, {
       ParametrosComunidadAutonoma: (parametros) => {
-        expect(parametros.escalaAutonomica.tramos[0][1].toString()).toBe(
-          "0.12"
-        )
+        expect(parametros.escalaAutonomica.tramos[0][1].toString()).toBe("0.12")
       },
       ComunidadAutonomaNoSoportada: (resultado) =>
         expect.fail(resultado.motivo),

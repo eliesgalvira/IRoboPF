@@ -1,3 +1,5 @@
+// Tests are Effect entry points, so they provide the service layer directly.
+// @effect-diagnostics effect/strictEffectProvide:off
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 

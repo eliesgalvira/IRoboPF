@@ -176,7 +176,9 @@ export class LiquidacionIrpfAnual extends Context.Service<
       contexto: ContextoLiquidacionIrpf
     ) => Effect.Effect<LiquidacionIrpfAnualCalculada, LiquidarIrpfAnualError>
   }
->()("@irobopf/dominio/irpf/LiquidacionIrpfAnual") {
+>()(
+  "irobopf/lib/dominio/irpf/liquidacion/liquidar-irpf-anual/LiquidacionIrpfAnual"
+) {
   static readonly layer = Layer.effect(
     LiquidacionIrpfAnual,
     Effect.gen(function* () {
@@ -213,6 +215,7 @@ export const liquidarIrpfAnual = (
   caso: CasoFiscalAnual,
   contexto: ContextoLiquidacionIrpf
 ): Effect.Effect<LiquidacionIrpfAnualCalculada, LiquidarIrpfAnualError> =>
+  // @effect-diagnostics-next-line effect/strictEffectProvide:off
   liquidarIrpfAnualDesdeServicio(caso, contexto).pipe(
     Effect.provide(LiquidacionIrpfAnual.layer)
   )
@@ -230,13 +233,17 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     "liquidacion.rendimientosTrabajo.sumar",
     () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)
   )
-  const minimosEstatales = medirAuditoriaSync("liquidacion.minimos.estatal", () =>
-    Match.value(caso.anio).pipe(
-      Match.when(2012, () => MINIMOS_ESTATALES_2012),
-      Match.when(2013, () => MINIMOS_ESTATALES_2013),
-      Match.when(2014, () => MINIMOS_ESTATALES_2014),
-      Match.orElse(() => dependencias.parametrosNormativos.minimosEstatales2025)
-    )
+  const minimosEstatales = medirAuditoriaSync(
+    "liquidacion.minimos.estatal",
+    () =>
+      Match.value(caso.anio).pipe(
+        Match.when(2012, () => MINIMOS_ESTATALES_2012),
+        Match.when(2013, () => MINIMOS_ESTATALES_2013),
+        Match.when(2014, () => MINIMOS_ESTATALES_2014),
+        Match.orElse(
+          () => dependencias.parametrosNormativos.minimosEstatales2025
+        )
+      )
   )
   const rendimientoTrabajo = medirAuditoriaSync(
     "liquidacion.rendimientosTrabajo.neto",
@@ -250,8 +257,8 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     "liquidacion.cotizacionesSociales.desglosarLegacy",
     () =>
       calcularDesgloseCotizacionesSocialesLegacy({
-      anio: caso.anio,
-      salarioBrutoAnual: rendimientoIntegroTrabajo,
+        anio: caso.anio,
+        salarioBrutoAnual: rendimientoIntegroTrabajo,
       })
   )
   const rendimientoIntegroCapitalInmobiliario = medirAuditoriaSync(
@@ -601,12 +608,13 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     })
   )
   const inicioRetencionTrabajo = tiempoAuditoriaMs()
-  const retencionTrabajoAeat = caso.retencionTrabajoAeat
-    ? yield* dependencias.retencionTrabajoAeat.calcular(
-        caso.retencionTrabajoAeat,
-        { modo: "canonico" }
-      )
-    : undefined
+  const retencionTrabajoAeat =
+    caso.retencionTrabajoAeat !== undefined
+      ? yield* dependencias.retencionTrabajoAeat.calcular(
+          caso.retencionTrabajoAeat,
+          { modo: "canonico" }
+        )
+      : undefined
   registrarTiempoAgregadoAuditoria(
     "liquidacion.retencionTrabajoAeat.opcional",
     tiempoAuditoriaMs() - inicioRetencionTrabajo
@@ -1065,7 +1073,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             },
           ],
         },
-        ...(retencionTrabajoAeat
+        ...(retencionTrabajoAeat !== undefined
           ? [
               pasoRetencionTrabajoAeat(retencionTrabajoAeat),
               ...retencionTrabajoAeat.rastro.pasos,
@@ -1097,9 +1105,10 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             },
             {
               etiqueta: "Pagos a cuenta",
-              formula: retencionTrabajoAeat
-                ? "Importe declarado mas retencion de trabajo estimada"
-                : "Importe declarado en el caso fiscal",
+              formula:
+                retencionTrabajoAeat !== undefined
+                  ? "Importe declarado mas retencion de trabajo estimada"
+                  : "Importe declarado en el caso fiscal",
               resultado: euros(centimosAEuros(pagosACuentaAplicadosCentimos)),
             },
             {
@@ -1271,7 +1280,8 @@ const deduccionesAutonomicasDescripcion = (caso: CasoFiscalAnual): string =>
   Match.value(caso.deduccionAutonomicaAgregadaCentimos).pipe(
     Match.when(
       (deduccionAutonomicaAgregadaCentimos) =>
-        !deduccionAutonomicaAgregadaCentimos,
+        deduccionAutonomicaAgregadaCentimos === undefined ||
+        deduccionAutonomicaAgregadaCentimos === 0,
       () => "Sin deducciones autonomicas declaradas en el caso"
     ),
     Match.orElse(() => "importe_agregado_no_desglosado")
