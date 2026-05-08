@@ -70,6 +70,7 @@ export default function DisposicionRaiz({
             ["--rule" as string]: "oklch(0.10 0 0)",
             ["--mark" as string]: "oklch(0.93 0.18 95)",
             ["--mark-ink" as string]: "oklch(0.10 0 0)",
+            ["--info" as string]: "oklch(0.50 0.18 250)",
             ["--danger" as string]: "oklch(0.58 0.22 27)",
             ["--gain" as string]: "oklch(0.55 0.16 155)",
           } as React.CSSProperties
