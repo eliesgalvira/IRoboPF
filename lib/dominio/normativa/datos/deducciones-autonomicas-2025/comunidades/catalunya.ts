@@ -10,7 +10,7 @@ export const CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025 = {
   ...fichaImplementadaBasica(
     { estado: "implementada" },
     "cataluna_alquiler_victimas_violencia_machista",
-    "Por alquiler de la vivienda habitual de víctimás de violencia machista",
+    "Por alquiler de la vivienda habitual de víctimas de violencia machista",
     "vivienda_habitual"
   ),
   cuantia: {
@@ -58,7 +58,7 @@ export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
   cuantia: {
     tipo: "porcentaje",
     porcentaje: "20",
-    base: "aportaciónes de capital",
+    base: "aportaciones de capital",
     limiteMaximoEuros: "3000",
   },
   requisitos: [
@@ -68,10 +68,10 @@ export const CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025 = {
     "La cooperativa debe estar inscrita como cooperativa agraria o cooperativa de vivienda",
     "No aplica a cooperativas de vivienda para uso turistico o de corta duracion",
     "Debe disponerse de certificacion de la cooperativa que acredite el cumplimiento de los requisitos",
-    "Las aportaciónes deben mantenerse durante un mínimo de 5 años",
+    "Las aportaciones deben mantenerse durante un mínimo de 5 años",
   ],
   limites: [
-    "20% de las aportaciónes de capital obligatorias o voluntarias efectivamente desembolsadas",
+    "20% de las aportaciones de capital obligatorias o voluntarias efectivamente desembolsadas",
     "Límite máximo de 3.000 euros anuales por contribuyente",
     "Si no hay cuota íntegra autonómica suficiente, el importe no deducido puede compensarse en ejercicios futuros",
   ],
