@@ -15,7 +15,7 @@ export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
   requisitos: [
     "Nacimiento, adopción o acogimiento en el período impositivo",
     "En acogimiento, convivencia con el contribuyente según los requisitos del manual",
-    "Para aplicar 400 euros, residencia en municipio andaluz con problemás de despoblación",
+    "Para aplicar 400 euros, residencia en municipio andaluz con problemas de despoblación",
     "Si son dos los contribuyentes con derecho, el importe se distribuye por partes iguales",
     "En acogimiento, no puede haber recibido ayudas de la Administración de Andalucía vinculadas con el acogimiento",
   ],
@@ -98,7 +98,7 @@ export const ANDALUCIA_ADOPCION_INTERNACIONAL_2025 = {
   },
   requisitos: [
     "Adopción internacional inscrita en el Registro Civil durante el período impositivo",
-    "La adopción debe tener carácter internacional según las normás y convenios aplicables",
+    "La adopción debe tener carácter internacional según las normas y convenios aplicables",
     "Base imponible general + base imponible del ahorro dentro de límites",
   ],
   limites: [

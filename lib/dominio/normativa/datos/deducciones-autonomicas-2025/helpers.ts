@@ -100,6 +100,7 @@ export const categoriaCatalogadaDesdeCodigo = (
         codigo.includes("hijo") ||
         codigo.includes("hijos") ||
         codigo.includes("nacimiento") ||
+        codigo.includes("adopcion") ||
         codigo.includes("adopción") ||
         codigo.includes("acogimiento") ||
         codigo.includes("descend") ||

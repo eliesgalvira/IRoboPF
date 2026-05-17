@@ -242,7 +242,7 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
   fichaImplementada(
     { estado: "implementada" },
     "aragon_vivienda_victimas_terrorismo",
-    "Por adquisición de vivienda habitual por víctimás del terrorismo",
+    "Por adquisición de vivienda habitual por víctimas del terrorismo",
     "vivienda_habitual",
     {
       tipo: "porcentaje",
@@ -279,7 +279,7 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "La participación del contribuyente no puede superar el 10% del capital social.",
       "Las acciones deben mantenerse al menos dos años.",
       "La sociedad debe tener domicilio social y fiscal en Aragón y no dedicarse principalmente a la gestión de patrimonio mobiliario o inmobiliario.",
-      "Incompatible, para las mismás inversiones, con entidades nuevas o de reciente creación y con entidades de economía social.",
+      "Incompatible, para las mismas inversiones, con entidades nuevas o de reciente creación y con entidades de economía social.",
     ],
     [68, 69],
     [
@@ -305,7 +305,7 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Si hay reinversión con exención del art. 38.2 LIRPF, solo computa la parte que exceda del importe obtenido en la transmisión anterior.",
       "La entidad debe tener domicilio social y fiscal en Aragón.",
       "El contribuyente puede formar parte del consejo, pero no ejercer funciones ejecutivas ni de dirección ni mantener relación laboral con la entidad.",
-      "Incompatible, para las mismás inversiones, con MAB y economía social.",
+      "Incompatible, para las mismas inversiones, con MAB y economía social.",
     ],
     [69, 70, 71],
     [
@@ -452,16 +452,16 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "porcentaje",
       porcentaje: "20",
-      base: "aportaciónes realizadas para ser socio en entidades de economía social",
+      base: "aportaciones realizadas para ser socio en entidades de economía social",
       limiteMaximoEuros: "4000",
     },
     [
-      "Fórmula: min(20% de aportaciónes, 4.000 euros).",
+      "Fórmula: min(20% de aportaciones, 4.000 euros).",
       "Límite 4.000 euros tanto en tributación individual como conjunta.",
       "Participación del contribuyente y familiares hasta tercer grado no superior al 40% del capital o derechos de voto.",
       "Entidad de economía social con domicilio social y fiscal en Aragón y al menos una persona empleada a jornada completa en Régimen General.",
-      "Requisitos de entidad durante cinco años; aportaciónes mantenidas cinco años; operación en escritura pública.",
-      "Incompatible, para las mismás inversiones, con MAB y entidades nuevas o de reciente creación.",
+      "Requisitos de entidad durante cinco años; aportaciones mantenidas cinco años; operación en escritura pública.",
+      "Incompatible, para las mismas inversiones, con MAB y entidades nuevas o de reciente creación.",
     ],
     [82, 83, 84],
     [

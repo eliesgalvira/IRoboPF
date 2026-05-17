@@ -6,6 +6,7 @@ import {
   DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS,
   DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA,
 } from "../lib/dominio/normativa/datos/deducciones-autonomicas-2025"
+import { categoriaCatalogadaDesdeCodigo } from "../lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers"
 
 describe("deducciones autonómicas 2025", () => {
   it("organiza las fichas normativas por comunidad autónoma", () => {
@@ -46,6 +47,21 @@ describe("deducciones autonómicas 2025", () => {
 
   it("expone las 351 deducciones catalogadas de 2025 como implementadas", () => {
     expect(DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor).toHaveLength(351)
+  })
+
+  it("clasifica códigos ASCII de adopción como circunstancias familiares", () => {
+    expect(categoriaCatalogadaDesdeCodigo("balears_adopcion")).toBe(
+      "circunstancias_personales_familiares"
+    )
+    expect(categoriaCatalogadaDesdeCodigo("cyl_gastos_adopcion")).toBe(
+      "circunstancias_personales_familiares"
+    )
+    expect(
+      categoriaCatalogadaDesdeCodigo("cyl_partos_adopciones_multiples")
+    ).toBe("circunstancias_personales_familiares")
+    expect(
+      categoriaCatalogadaDesdeCodigo("madrid_adopcion_internacional")
+    ).toBe("circunstancias_personales_familiares")
   })
 
   it("publica como implementadas todas y solo las fichas catalogadas con estado implementada", () => {
