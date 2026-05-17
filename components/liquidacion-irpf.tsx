@@ -1414,7 +1414,7 @@ function ControlesDeduccionAutonomica({
               entradas,
               "andaluciaMunicipioDespoblacion"
             )}
-            etiqueta="Reside en municipio con problemás de despoblación"
+            etiqueta="Reside en municipio con problemas de despoblación"
             onCheckedChange={(checked) =>
               actualizar("andaluciaMunicipioDespoblacion", checked)
             }
@@ -2779,7 +2779,7 @@ function ConciliacionSimuladorLegacyPanel({
       </div>
       <LineaResumen
         ayuda="Cuota anual antes de restar retenciones y pagos a cuenta; es la base comparable con el cálculo de nómina."
-        etiqueta="Cuota líquidada anual"
+        etiqueta="Cuota liquidada anual"
         signo="+"
         valor={formatearEuros(conciliacion.cuotaLiquidadaAnualCentimos)}
       />
