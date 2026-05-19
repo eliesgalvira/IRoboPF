@@ -270,15 +270,15 @@ const AYUDAS_FORMULARIO = {
   "Reinversiones previas":
     "Importes ya usados antes para el límite conjunto de 240.000 euros en rentas vitalicias.",
   Descendientes:
-    "Número de hijos, nietos, acogidos o tutelados que quieres contar. Si una misma persona tiene discapacidad o ayuda, sigue contando como 1 en Total.",
+    "Número de descendientes que cumplen los requisitos. No sumes categorías: si una persona tiene discapacidad y ayuda, cuenta 1 en Total.",
   "Requisitos descendientes":
-    "Para contar un descendiente: menor de 25 años, o con discapacidad desde el 33%; convivencia o dependencia económica; rentas no exentas de hasta 8.000 €; sin declaración individual con rentas superiores a 1.800 €.",
+    "Requisitos: menor de 25 años, o discapacidad desde el 33%; convivencia o dependencia económica; rentas no exentas hasta 8.000 €/año. Un salario normal no es renta exenta. Si presenta su propia Renta, máximo 1.800 € declarados.",
   "Descendientes con discapacidad":
     "De ese total, cuántos tienen discapacidad reconocida entre el 33% y el 64%.",
   "Descendientes discapacidad 65%":
     "De ese total, cuántos tienen discapacidad reconocida igual o superior al 65%.",
   "Descendientes con asistencia":
-    "De los descendientes con discapacidad del 33% al 64%, cuántos tienen ayuda de tercera persona o movilidad reducida reconocida.",
+    "Solo para discapacidad del 33% al 64%: cuántos tienen ayuda de tercera persona o movilidad reducida reconocida. En ≥65%, este suplemento ya se aplica automáticamente.",
   Ascendientes:
     "Padres, madres o abuelos que computan para el mínimo familiar: mayores de 65 años, o con discapacidad igual o superior al 33%.",
   "Retenciones soportadas":
