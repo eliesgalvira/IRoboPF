@@ -270,15 +270,15 @@ const AYUDAS_FORMULARIO = {
   "Reinversiones previas":
     "Importes ya usados antes para el límite conjunto de 240.000 euros en rentas vitalicias.",
   Descendientes:
-    "Hijos, nietos, acogidos o tutelados que dan derecho al mínimo por descendientes: menores de 25 años, o con discapacidad igual o superior al 33%, que conviven o dependen económicamente de ti, con rentas anuales no exentas no superiores a 8.000 € y sin declaración individual con rentas superiores a 1.800 €.",
+    "Total de descendientes que computan para el mínimo familiar. Incluye quienes tengan discapacidad o ayuda: cada persona se cuenta una sola vez.",
   "Descendientes con discapacidad":
-    "Descendientes con discapacidad reconocida entre el 33% y el 64%. No incluyas aquí los de 65% o más; tienen su propio campo.",
+    "De ese total, cuántos tienen discapacidad reconocida entre el 33% y el 64%.",
   "Descendientes discapacidad 65%":
-    "Descendientes con discapacidad reconocida igual o superior al 65%.",
+    "De ese total, cuántos tienen discapacidad reconocida igual o superior al 65%.",
   "Descendientes con asistencia":
-    "De los descendientes con discapacidad del 33% al 64%, cuántos tienen reconocida necesidad de ayuda de tercera persona o movilidad reducida.",
+    "De los descendientes con discapacidad del 33% al 64%, cuántos tienen ayuda de tercera persona o movilidad reducida reconocida.",
   Ascendientes:
-    "Padres, madres o abuelos mayores de 65 años, o con discapacidad igual o superior al 33% a cualquier edad, que conviven contigo al menos la mitad del año, con rentas anuales no exentas no superiores a 8.000 € y sin declaración individual con rentas superiores a 1.800 €.",
+    "Padres, madres o abuelos que computan para el mínimo familiar: mayores de 65 años, o con discapacidad igual o superior al 33%.",
   "Retenciones soportadas":
     "IRPF nominal ya retenido durante 2025, por ejemplo en la nomina.",
   "Pagos a cuenta":
