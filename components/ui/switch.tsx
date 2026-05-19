@@ -16,7 +16,14 @@ export function Switch({
   readonly onCheckedChange: (checked: boolean) => void
 }) {
   return (
-    <label className="flex min-h-11 items-start justify-between gap-5 py-0.5">
+    <label
+      className={cn(
+        "flex min-h-11 justify-between gap-5 py-0.5",
+        descripcion === undefined || descripcion === ""
+          ? "items-center"
+          : "items-start"
+      )}
+    >
       <span className="grid min-w-0 gap-1">
         <span className="text-sm leading-tight font-bold">{etiqueta}</span>
         {descripcion !== undefined && descripcion !== "" ? (
@@ -28,7 +35,8 @@ export function Switch({
       <SwitchPrimitive.Root
         checked={checked}
         className={cn(
-          "mt-0.5 h-7 w-12 shrink-0 rounded-full border border-[var(--rule)] bg-[var(--paper-2)] p-0.5 transition-colors focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none",
+          "h-7 w-12 shrink-0 rounded-full border border-[var(--rule)] bg-[var(--paper-2)] p-0.5 transition-colors focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none",
+          descripcion !== undefined && descripcion !== "" && "mt-0.5",
           checked && "bg-[var(--ink)]"
         )}
         onCheckedChange={onCheckedChange}
