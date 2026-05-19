@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Dialog } from "@base-ui/react/dialog"
 import { Effect, Match, Option, Result } from "effect"
-import { AlertTriangle, FileText } from "lucide-react"
+import { AlertTriangle, CircleHelp, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
 import { Button } from "@/components/ui/button"
@@ -270,7 +270,9 @@ const AYUDAS_FORMULARIO = {
   "Reinversiones previas":
     "Importes ya usados antes para el límite conjunto de 240.000 euros en rentas vitalicias.",
   Descendientes:
-    "Total de descendientes que computan para el mínimo familiar. Incluye quienes tengan discapacidad o ayuda: cada persona se cuenta una sola vez.",
+    "Número de hijos, nietos, acogidos o tutelados que quieres contar. Si una misma persona tiene discapacidad o ayuda, sigue contando como 1 en Total.",
+  "Requisitos descendientes":
+    "Para contar un descendiente: menor de 25 años, o con discapacidad desde el 33%; convivencia o dependencia económica; rentas no exentas de hasta 8.000 €; sin declaración individual con rentas superiores a 1.800 €.",
   "Descendientes con discapacidad":
     "De ese total, cuántos tienen discapacidad reconocida entre el 33% y el 64%.",
   "Descendientes discapacidad 65%":
@@ -1234,8 +1236,20 @@ function FormularioCaso({
           valor={ascendientes}
         />
         <fieldset className="min-w-0 border border-[var(--rule)] px-2 pt-1 pb-2 sm:col-span-2">
-          <legend className="px-1 text-sm leading-tight font-bold">
-            Descendientes
+          <legend className="px-1">
+            <span className="inline-flex items-center gap-1.5 text-sm leading-tight font-bold">
+              Descendientes
+              <Tooltip contenido={AYUDAS_FORMULARIO["Requisitos descendientes"]}>
+                <Button
+                  aria-label="Requisitos para contar descendientes"
+                  className="text-[var(--ink-soft)] hover:text-[var(--ink)]"
+                  type="button"
+                  variant="unstyled"
+                >
+                  <CircleHelp aria-hidden className="size-3.5" />
+                </Button>
+              </Tooltip>
+            </span>
           </legend>
           <div className="grid gap-2 sm:grid-cols-[repeat(4,minmax(0,1fr))]">
             <NumberField
