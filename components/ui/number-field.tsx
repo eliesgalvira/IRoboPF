@@ -34,7 +34,11 @@ export function NumberField({
 }) {
   return (
     <NumberFieldPrimitive.Root
-      className={cn("grid gap-2", className)}
+      className={cn(
+        "grid min-w-0",
+        compacto ? "gap-1.5" : "gap-2",
+        className
+      )}
       format={formato}
       locale="es-ES"
       max={max}
@@ -45,8 +49,15 @@ export function NumberField({
       step={paso}
       value={valor}
     >
-      <div className="flex min-h-10 items-end gap-1.5">
-        <label className="text-sm leading-tight font-bold">{etiqueta}</label>
+      <div
+        className={cn(
+          "flex items-end gap-1.5",
+          compacto ? "min-h-8" : "min-h-10"
+        )}
+      >
+        <label className="min-w-0 text-sm leading-tight font-bold">
+          {etiqueta}
+        </label>
         {ayuda !== undefined && ayuda !== "" ? (
           <Tooltip contenido={ayuda}>
             <Button
@@ -65,7 +76,7 @@ export function NumberField({
           "grid border border-[var(--rule)] bg-[var(--paper-2)] focus-within:ring-2 focus-within:ring-[var(--mark)]",
           disabled && "opacity-55",
           compacto
-            ? "h-9 grid-cols-[1.9rem_1fr_1.9rem]"
+            ? "h-8 grid-cols-[1.75rem_1fr_1.75rem]"
             : "h-11 grid-cols-[2.25rem_1fr_2.25rem]"
         )}
       >

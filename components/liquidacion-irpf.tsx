@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Dialog } from "@base-ui/react/dialog"
 import { Effect, Match, Option, Result } from "effect"
-import { AlertTriangle, FileText } from "lucide-react"
+import { AlertTriangle, CircleHelp, FileText } from "lucide-react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
 import { Button } from "@/components/ui/button"
@@ -270,15 +270,17 @@ const AYUDAS_FORMULARIO = {
   "Reinversiones previas":
     "Importes ya usados antes para el límite conjunto de 240.000 euros en rentas vitalicias.",
   Descendientes:
-    "Hijos, nietos u otros familiares hacia abajo que pueden computar si cumplen requisitos fiscales.",
+    "Número de descendientes que cumplen los requisitos. No sumes categorías: si una persona tiene discapacidad y ayuda, cuenta 1 en Total.",
+  "Requisitos descendientes":
+    "Requisitos: menor de 25 años, o discapacidad desde el 33%; convivencia o dependencia económica; rentas no exentas hasta 8.000 €/año. Un salario normal no es renta exenta. Si presenta su propia Renta, máximo 1.800 € declarados.",
   "Descendientes con discapacidad":
-    "Descendientes que cumplen los requisitos fiscales y tienen discapacidad reconocida.",
+    "De ese total, cuántos tienen discapacidad reconocida entre el 33% y el 64%.",
   "Descendientes discapacidad 65%":
-    "Descendientes con discapacidad reconocida igual o superior al 65%.",
+    "De ese total, cuántos tienen discapacidad reconocida igual o superior al 65%.",
   "Descendientes con asistencia":
-    "Descendientes con discapacidad de 33% a 64% que necesitan ayuda de terceras personas o tienen movilidad reducida.",
+    "Solo para discapacidad del 33% al 64%: cuántos tienen ayuda de tercera persona o movilidad reducida reconocida. En ≥65%, este suplemento ya se aplica automáticamente.",
   Ascendientes:
-    "Padres, madres o abuelos que pueden computar solo si cumplen requisitos fiscales.",
+    "Padres, madres o abuelos que computan para el mínimo familiar: mayores de 65 años, o con discapacidad igual o superior al 33%.",
   "Retenciones soportadas":
     "IRPF nominal ya retenido durante 2025, por ejemplo en la nomina.",
   "Pagos a cuenta":
@@ -972,23 +974,27 @@ function FormularioCaso({
   const usaComunidadAutonomicaReal = comunidadAutonoma !== "simulada-estatal"
   const deduccionesCatalogadas = catalogoDeducciones?.deducciones ?? []
   const catalogoDeduccionesVacio = deduccionesCatalogadas.length === 0
+  const descendientesDiscapacidad33a64 = Math.max(
+    0,
+    descendientesConDiscapacidad - descendientesDiscapacidad65
+  )
 
   return (
-    <section className="border border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[6px_6px_0_var(--rule)] lg:sticky lg:top-5">
-      <div className="mb-5 flex items-start justify-between gap-4">
+    <section className="border border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[6px_6px_0_var(--rule)] lg:sticky lg:top-4 lg:max-h-[calc(100svh-2rem)] lg:overflow-y-auto 2xl:p-4">
+      <div className="mb-3 flex items-start justify-between gap-4">
         <div>
           <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
             2025 nominal · individual
           </p>
-          <h1 className="mt-2 text-4xl leading-none font-[var(--display)]">
+          <h1 className="mt-2 text-3xl leading-none font-[var(--display)]">
             Liquidación IRPF
           </h1>
         </div>
         <FileText aria-hidden className="mt-1 size-6 shrink-0" />
       </div>
 
-      <div className="grid gap-4">
-        <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3">
+        <div className="grid gap-2 sm:grid-cols-2">
           <NumberField
             ayuda={AYUDAS_FORMULARIO["Rendimientos del trabajo"]}
             compacto
@@ -1025,7 +1031,7 @@ function FormularioCaso({
           />
         </div>
         {tratamientoGananciaPatrimonial === "renta-vitalicia-mayores-65" ? (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-2 sm:grid-cols-2">
             <NumberField
               ayuda={AYUDAS_FORMULARIO["Importe de transmisión"]}
               compacto
@@ -1055,7 +1061,7 @@ function FormularioCaso({
             />
           </div>
         ) : null}
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-2 sm:grid-cols-2">
           <NumberField
             ayuda={AYUDAS_FORMULARIO["Retenciones soportadas"]}
             compacto
@@ -1065,8 +1071,8 @@ function FormularioCaso({
             paso={250}
             valor={retencionesSoportadasEuros}
           />
-          <div className="grid gap-2">
-            <div className="flex min-h-10 items-end gap-1.5">
+          <div className="grid gap-1.5">
+            <div className="flex min-h-8 items-end gap-1.5">
               <span className="text-sm leading-tight font-bold">
                 Pagos a cuenta
               </span>
@@ -1082,7 +1088,7 @@ function FormularioCaso({
               </Tooltip>
             </div>
             <Button
-              className="grid h-11 w-full grid-cols-[2rem_minmax(0,1fr)_2rem] items-center border border-[var(--rule)] bg-[var(--paper-2)] px-2 text-base font-[var(--mono)] font-bold text-[var(--ink)] tabular-nums hover:bg-[var(--paper)] focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none"
+              className="grid h-8 w-full grid-cols-[1.75rem_minmax(0,1fr)_1.75rem] items-center border border-[var(--rule)] bg-[var(--paper-2)] px-2 text-sm font-[var(--mono)] font-bold text-[var(--ink)] tabular-nums hover:bg-[var(--paper)] focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none"
               onClick={() => fijarDialogoPagosACuentaAbierto(true)}
               type="button"
               variant="unstyled"
@@ -1210,7 +1216,7 @@ function FormularioCaso({
         </Dialog.Portal>
       </Dialog.Root>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
         <NumberField
           compacto
           etiqueta="Edad"
@@ -1221,67 +1227,6 @@ function FormularioCaso({
           valor={edad}
         />
         <NumberField
-          ayuda={AYUDAS_FORMULARIO["Descendientes"]}
-          compacto
-          etiqueta="Descendientes"
-          formato={FORMATO_ENTERO}
-          max={8}
-          onChange={(valor) => {
-            fijarDescendientes(valor)
-            fijarDescendientesConDiscapacidad(
-              Math.min(descendientesConDiscapacidad, valor)
-            )
-            fijarDescendientesDiscapacidad65(
-              Math.min(descendientesDiscapacidad65, valor)
-            )
-            fijarDescendientesConAsistencia(
-              Math.min(descendientesConAsistencia, valor)
-            )
-          }}
-          valor={descendientes}
-        />
-        <NumberField
-          ayuda={AYUDAS_FORMULARIO["Descendientes con discapacidad"]}
-          compacto
-          etiqueta="Desc. discapacidad 33%-64%"
-          formato={FORMATO_ENTERO}
-          max={descendientes}
-          onChange={(valor) => {
-            const siguiente = Math.max(valor, descendientesDiscapacidad65)
-            fijarDescendientesConDiscapacidad(siguiente)
-            fijarDescendientesConAsistencia(
-              Math.min(descendientesConAsistencia, siguiente)
-            )
-          }}
-          valor={descendientesConDiscapacidad}
-        />
-        <NumberField
-          ayuda={AYUDAS_FORMULARIO["Descendientes discapacidad 65%"]}
-          compacto
-          etiqueta="Desc. discapacidad ≥65%"
-          formato={FORMATO_ENTERO}
-          max={descendientes}
-          onChange={(valor) => {
-            fijarDescendientesDiscapacidad65(valor)
-            fijarDescendientesConDiscapacidad(
-              Math.max(descendientesConDiscapacidad, valor)
-            )
-          }}
-          valor={descendientesDiscapacidad65}
-        />
-        <NumberField
-          ayuda={AYUDAS_FORMULARIO["Descendientes con asistencia"]}
-          compacto
-          etiqueta="Desc. asistencia/movilidad"
-          formato={FORMATO_ENTERO}
-          max={Math.max(
-            0,
-            descendientesConDiscapacidad - descendientesDiscapacidad65
-          )}
-          onChange={fijarDescendientesConAsistencia}
-          valor={descendientesConAsistencia}
-        />
-        <NumberField
           ayuda={AYUDAS_FORMULARIO["Ascendientes"]}
           compacto
           etiqueta="Ascendientes"
@@ -1290,9 +1235,110 @@ function FormularioCaso({
           onChange={fijarAscendientes}
           valor={ascendientes}
         />
+        <fieldset className="min-w-0 border border-[var(--rule)] px-2 pt-1 pb-2 sm:col-span-2">
+          <legend className="px-1">
+            <span className="inline-flex items-center gap-1.5 text-sm leading-tight font-bold">
+              Descendientes
+              <Tooltip
+                contenido={AYUDAS_FORMULARIO["Requisitos descendientes"]}
+              >
+                <Button
+                  aria-label="Requisitos para contar descendientes"
+                  className="text-[var(--ink-soft)] hover:text-[var(--ink)]"
+                  type="button"
+                  variant="unstyled"
+                >
+                  <CircleHelp aria-hidden className="size-3.5" />
+                </Button>
+              </Tooltip>
+            </span>
+          </legend>
+          <div className="grid gap-2 sm:grid-cols-[repeat(4,minmax(0,1fr))]">
+            <NumberField
+              ayuda={AYUDAS_FORMULARIO["Descendientes"]}
+              compacto
+              etiqueta="Total"
+              formato={FORMATO_ENTERO}
+              max={8}
+              onChange={(valor) => {
+                const siguientesDiscapacidad65 = Math.min(
+                  descendientesDiscapacidad65,
+                  valor
+                )
+                const siguientesDiscapacidad33a64 = Math.min(
+                  descendientesDiscapacidad33a64,
+                  valor - siguientesDiscapacidad65
+                )
+
+                fijarDescendientes(valor)
+                fijarDescendientesConDiscapacidad(
+                  siguientesDiscapacidad65 + siguientesDiscapacidad33a64
+                )
+                fijarDescendientesDiscapacidad65(siguientesDiscapacidad65)
+                fijarDescendientesConAsistencia(
+                  Math.min(
+                    descendientesConAsistencia,
+                    siguientesDiscapacidad33a64
+                  )
+                )
+              }}
+              valor={descendientes}
+            />
+            <NumberField
+              ayuda={AYUDAS_FORMULARIO["Descendientes con discapacidad"]}
+              compacto
+              etiqueta="33%-64%"
+              formato={FORMATO_ENTERO}
+              max={Math.max(0, descendientes - descendientesDiscapacidad65)}
+              onChange={(valor) => {
+                fijarDescendientesConDiscapacidad(
+                  descendientesDiscapacidad65 + valor
+                )
+                fijarDescendientesConAsistencia(
+                  Math.min(descendientesConAsistencia, valor)
+                )
+              }}
+              valor={descendientesDiscapacidad33a64}
+            />
+            <NumberField
+              ayuda={AYUDAS_FORMULARIO["Descendientes discapacidad 65%"]}
+              compacto
+              etiqueta="≥65%"
+              formato={FORMATO_ENTERO}
+              max={descendientes}
+              onChange={(valor) => {
+                const siguientesDiscapacidad33a64 = Math.min(
+                  descendientesDiscapacidad33a64,
+                  descendientes - valor
+                )
+
+                fijarDescendientesDiscapacidad65(valor)
+                fijarDescendientesConDiscapacidad(
+                  valor + siguientesDiscapacidad33a64
+                )
+                fijarDescendientesConAsistencia(
+                  Math.min(
+                    descendientesConAsistencia,
+                    siguientesDiscapacidad33a64
+                  )
+                )
+              }}
+              valor={descendientesDiscapacidad65}
+            />
+            <NumberField
+              ayuda={AYUDAS_FORMULARIO["Descendientes con asistencia"]}
+              compacto
+              etiqueta="Ayuda"
+              formato={FORMATO_ENTERO}
+              max={descendientesDiscapacidad33a64}
+              onChange={fijarDescendientesConAsistencia}
+              valor={descendientesConAsistencia}
+            />
+          </div>
+        </fieldset>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-3">
         <Select
           compacto
           etiqueta="Comunidad autónoma"
@@ -1306,12 +1352,12 @@ function FormularioCaso({
           className={cn(
             "grid transition-[grid-template-rows,opacity,margin-top] duration-200 ease-out motion-reduce:transition-none",
             usaComunidadAutonomicaReal
-              ? "mt-3 grid-rows-[1fr] opacity-100"
+              ? "mt-2 grid-rows-[1fr] opacity-100"
               : "mt-0 grid-rows-[0fr] opacity-0"
           )}
         >
           <div className="min-h-0 overflow-hidden">
-            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)]">
+            <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)]">
               <NumberField
                 ayuda={AYUDAS_FORMULARIO["Deducciones autonómicas"]}
                 compacto
@@ -1325,14 +1371,14 @@ function FormularioCaso({
                 paso={100}
                 valor={deduccionesAutonomicasEuros}
               />
-              <div className="grid gap-2">
-                <div className="flex min-h-10 items-end">
+              <div className="grid gap-1.5">
+                <div className="flex min-h-8 items-end">
                   <p className="text-sm leading-tight font-bold">
                     Deducciones autonómicas
                   </p>
                 </div>
                 <Button
-                  className="h-9 w-full border border-[var(--rule)] bg-[var(--paper-2)] px-3 text-left text-sm font-bold hover:bg-[var(--paper)]"
+                  className="h-8 w-full border border-[var(--rule)] bg-[var(--paper-2)] px-3 text-left text-sm font-bold hover:bg-[var(--paper)]"
                   onClick={() => fijarCatalogoDeduccionesAbierto(true)}
                   type="button"
                   variant="unstyled"
@@ -2077,395 +2123,418 @@ function DialogoPagosACuentaRetenciones({
               />
             </div>
 
-            {usarRetencionAeat ? (
-              <div className="grid gap-5">
-                <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
-                  <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
-                    1. Trabajo
-                  </h3>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <NumberField
-                      etiqueta="Retribuciones anuales nominales"
-                      formato={FORMATO_ENTERO}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "retribucionAnualEuros",
-                          valor
-                        )
-                      }
-                      paso={500}
-                      valor={entradasRetencionAeat.retribucionAnualEuros}
-                    />
-                    <NumberField
-                      etiqueta="Cotizaciones deducibles nominales"
-                      formato={FORMATO_ENTERO}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "cotizacionesEuros",
-                          valor
-                        )
-                      }
-                      paso={100}
-                      valor={entradasRetencionAeat.cotizacionesEuros}
-                    />
-                    <Select
-                      etiqueta="Situación laboral"
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "situacionLaboral",
-                          valor
-                        )
-                      }
-                      opciones={OPCIONES_SITUACION_LABORAL_RETENCION}
-                      valor={entradasRetencionAeat.situacionLaboral}
-                    />
-                    <Select
-                      etiqueta="Contrato"
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat("contrato", valor)
-                      }
-                      opciones={OPCIONES_CONTRATO_RETENCION}
-                      valor={entradasRetencionAeat.contrato}
-                    />
-                  </div>
-                </section>
-
-                <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
-                  <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
-                    2. Persona y familia
-                  </h3>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <Select
-                      etiqueta="Situación familiar"
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "situacionFamiliar",
-                          valor
-                        )
-                      }
-                      opciones={OPCIONES_SITUACION_FAMILIAR_RETENCION}
-                      valor={entradasRetencionAeat.situacionFamiliar}
-                    />
-                    <Select
-                      etiqueta="Discapacidad perceptor"
-                      onChange={(valor) => {
-                        actualizarEntradaRetencionAeat("discapacidad", valor)
-                        if (valor !== "de33a65") {
+            <div
+              aria-hidden={!usarRetencionAeat}
+              inert={!usarRetencionAeat}
+              className={cn(
+                "grid transition-[grid-template-rows,opacity,margin-top] duration-200 ease-out motion-reduce:transition-none",
+                usarRetencionAeat
+                  ? "grid-rows-[1fr] opacity-100"
+                  : "-mt-4 grid-rows-[0fr] opacity-0"
+              )}
+            >
+              <div className="min-h-0 overflow-hidden">
+                <div className="grid gap-5">
+                  <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
+                    <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
+                      1. Trabajo
+                    </h3>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <NumberField
+                        etiqueta="Retribuciones anuales nominales"
+                        formato={FORMATO_ENTERO}
+                        onChange={(valor) =>
                           actualizarEntradaRetencionAeat(
-                            "movilidadReducidaPerceptor",
-                            false
+                            "retribucionAnualEuros",
+                            valor
                           )
                         }
-                      }}
-                      opciones={OPCIONES_DISCAPACIDAD_RETENCION}
-                      valor={entradasRetencionAeat.discapacidad}
-                    />
-                    <div className="flex items-end pb-1">
-                      <Checkbox
-                        checked={
-                          entradasRetencionAeat.movilidadReducidaPerceptor
+                        paso={500}
+                        valor={entradasRetencionAeat.retribucionAnualEuros}
+                      />
+                      <NumberField
+                        etiqueta="Cotizaciones deducibles nominales"
+                        formato={FORMATO_ENTERO}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "cotizacionesEuros",
+                            valor
+                          )
                         }
-                        etiqueta="Ayuda o movilidad perceptor"
+                        paso={100}
+                        valor={entradasRetencionAeat.cotizacionesEuros}
+                      />
+                      <Select
+                        etiqueta="Situación laboral"
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "situacionLaboral",
+                            valor
+                          )
+                        }
+                        opciones={OPCIONES_SITUACION_LABORAL_RETENCION}
+                        valor={entradasRetencionAeat.situacionLaboral}
+                      />
+                      <Select
+                        etiqueta="Contrato"
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat("contrato", valor)
+                        }
+                        opciones={OPCIONES_CONTRATO_RETENCION}
+                        valor={entradasRetencionAeat.contrato}
+                      />
+                    </div>
+                  </section>
+
+                  <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
+                    <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
+                      2. Persona y familia
+                    </h3>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <Select
+                        etiqueta="Situación familiar"
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "situacionFamiliar",
+                            valor
+                          )
+                        }
+                        opciones={OPCIONES_SITUACION_FAMILIAR_RETENCION}
+                        valor={entradasRetencionAeat.situacionFamiliar}
+                      />
+                      <Select
+                        etiqueta="Discapacidad perceptor"
+                        onChange={(valor) => {
+                          actualizarEntradaRetencionAeat("discapacidad", valor)
+                          if (valor !== "de33a65") {
+                            actualizarEntradaRetencionAeat(
+                              "movilidadReducidaPerceptor",
+                              false
+                            )
+                          }
+                        }}
+                        opciones={OPCIONES_DISCAPACIDAD_RETENCION}
+                        valor={entradasRetencionAeat.discapacidad}
+                      />
+                      <div className="flex items-end pb-1">
+                        <Checkbox
+                          checked={
+                            entradasRetencionAeat.movilidadReducidaPerceptor
+                          }
+                          etiqueta="Ayuda o movilidad perceptor"
+                          onCheckedChange={(checked) =>
+                            actualizarEntradaRetencionAeat(
+                              "movilidadReducidaPerceptor",
+                              checked
+                            )
+                          }
+                        />
+                      </div>
+                      <NumberField
+                        etiqueta="Descendientes"
+                        formato={FORMATO_ENTERO}
+                        max={16}
+                        onChange={fijarDescendientesRetencion}
+                        valor={entradasRetencionAeat.descendientes}
+                      />
+                      <NumberField
+                        etiqueta="Menores de 3 años"
+                        formato={FORMATO_ENTERO}
+                        max={entradasRetencionAeat.descendientes}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "descendientesMenoresTres",
+                            valor
+                          )
+                        }
+                        valor={entradasRetencionAeat.descendientesMenoresTres}
+                      />
+                      <NumberField
+                        etiqueta="Desc. por entero"
+                        formato={FORMATO_ENTERO}
+                        max={entradasRetencionAeat.descendientes}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "descendientesComputoEntero",
+                            valor
+                          )
+                        }
+                        valor={entradasRetencionAeat.descendientesComputoEntero}
+                      />
+                      <NumberField
+                        etiqueta="Desc. disc. 33-64%"
+                        formato={FORMATO_ENTERO}
+                        max={maxDescendientesDiscapacidad33a64}
+                        onChange={(valor) => {
+                          actualizarEntradaRetencionAeat(
+                            "descendientesDiscapacidad33a64",
+                            valor
+                          )
+                          actualizarEntradaRetencionAeat(
+                            "descendientesMovilidadReducida",
+                            Math.min(
+                              entradasRetencionAeat.descendientesMovilidadReducida,
+                              valor
+                            )
+                          )
+                        }}
+                        valor={
+                          entradasRetencionAeat.descendientesDiscapacidad33a64
+                        }
+                      />
+                      <NumberField
+                        etiqueta="Desc. disc. 65%+"
+                        formato={FORMATO_ENTERO}
+                        max={entradasRetencionAeat.descendientes}
+                        onChange={(valor) => {
+                          const discapacidad33a64 = Math.min(
+                            entradasRetencionAeat.descendientesDiscapacidad33a64,
+                            Math.max(
+                              0,
+                              entradasRetencionAeat.descendientes - valor
+                            )
+                          )
+                          actualizarEntradaRetencionAeat(
+                            "descendientesDiscapacidad65",
+                            valor
+                          )
+                          actualizarEntradaRetencionAeat(
+                            "descendientesDiscapacidad33a64",
+                            discapacidad33a64
+                          )
+                          actualizarEntradaRetencionAeat(
+                            "descendientesMovilidadReducida",
+                            Math.min(
+                              entradasRetencionAeat.descendientesMovilidadReducida,
+                              discapacidad33a64
+                            )
+                          )
+                        }}
+                        valor={
+                          entradasRetencionAeat.descendientesDiscapacidad65
+                        }
+                      />
+                      <NumberField
+                        etiqueta="Desc. movilidad reducida"
+                        formato={FORMATO_ENTERO}
+                        max={
+                          entradasRetencionAeat.descendientesDiscapacidad33a64
+                        }
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "descendientesMovilidadReducida",
+                            valor
+                          )
+                        }
+                        valor={
+                          entradasRetencionAeat.descendientesMovilidadReducida
+                        }
+                      />
+                      <NumberField
+                        etiqueta="Ascendientes"
+                        formato={FORMATO_ENTERO}
+                        max={6}
+                        onChange={fijarAscendientesRetencion}
+                        valor={entradasRetencionAeat.ascendientes}
+                      />
+                      <NumberField
+                        etiqueta="Asc. mayores 75"
+                        formato={FORMATO_ENTERO}
+                        max={entradasRetencionAeat.ascendientes}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "ascendientesMayores75",
+                            valor
+                          )
+                        }
+                        valor={entradasRetencionAeat.ascendientesMayores75}
+                      />
+                      <NumberField
+                        etiqueta="Asc. por entero"
+                        formato={FORMATO_ENTERO}
+                        max={entradasRetencionAeat.ascendientes}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "ascendientesComputoEntero",
+                            valor
+                          )
+                        }
+                        valor={entradasRetencionAeat.ascendientesComputoEntero}
+                      />
+                      <NumberField
+                        etiqueta="Asc. disc. 33-64%"
+                        formato={FORMATO_ENTERO}
+                        max={maxAscendientesDiscapacidad33a64}
+                        onChange={(valor) => {
+                          actualizarEntradaRetencionAeat(
+                            "ascendientesDiscapacidad33a64",
+                            valor
+                          )
+                          actualizarEntradaRetencionAeat(
+                            "ascendientesMovilidadReducida",
+                            Math.min(
+                              entradasRetencionAeat.ascendientesMovilidadReducida,
+                              valor
+                            )
+                          )
+                        }}
+                        valor={
+                          entradasRetencionAeat.ascendientesDiscapacidad33a64
+                        }
+                      />
+                      <NumberField
+                        etiqueta="Asc. disc. 65%+"
+                        formato={FORMATO_ENTERO}
+                        max={entradasRetencionAeat.ascendientes}
+                        onChange={(valor) => {
+                          const discapacidad33a64 = Math.min(
+                            entradasRetencionAeat.ascendientesDiscapacidad33a64,
+                            Math.max(
+                              0,
+                              entradasRetencionAeat.ascendientes - valor
+                            )
+                          )
+                          actualizarEntradaRetencionAeat(
+                            "ascendientesDiscapacidad65",
+                            valor
+                          )
+                          actualizarEntradaRetencionAeat(
+                            "ascendientesDiscapacidad33a64",
+                            discapacidad33a64
+                          )
+                          actualizarEntradaRetencionAeat(
+                            "ascendientesMovilidadReducida",
+                            Math.min(
+                              entradasRetencionAeat.ascendientesMovilidadReducida,
+                              discapacidad33a64
+                            )
+                          )
+                        }}
+                        valor={entradasRetencionAeat.ascendientesDiscapacidad65}
+                      />
+                      <NumberField
+                        etiqueta="Asc. movilidad reducida"
+                        formato={FORMATO_ENTERO}
+                        max={
+                          entradasRetencionAeat.ascendientesDiscapacidad33a64
+                        }
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "ascendientesMovilidadReducida",
+                            valor
+                          )
+                        }
+                        valor={
+                          entradasRetencionAeat.ascendientesMovilidadReducida
+                        }
+                      />
+                    </div>
+                  </section>
+
+                  <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
+                    <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
+                      3. Ajustes comunicados
+                    </h3>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <NumberField
+                        etiqueta="Reducción irregular art. 18.2"
+                        formato={FORMATO_ENTERO}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "irregular1Euros",
+                            valor
+                          )
+                        }
+                        paso={500}
+                        valor={entradasRetencionAeat.irregular1Euros}
+                      />
+                      <NumberField
+                        etiqueta="Otras reducciones irregulares"
+                        formato={FORMATO_ENTERO}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "irregular2Euros",
+                            valor
+                          )
+                        }
+                        paso={500}
+                        valor={entradasRetencionAeat.irregular2Euros}
+                      />
+                      <NumberField
+                        etiqueta="Pensión compensatoria"
+                        formato={FORMATO_ENTERO}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "pensionCompensatoriaConyugeEuros",
+                            valor
+                          )
+                        }
+                        paso={500}
+                        valor={
+                          entradasRetencionAeat.pensionCompensatoriaConyugeEuros
+                        }
+                      />
+                      <NumberField
+                        etiqueta="Anualidades alimentos"
+                        formato={FORMATO_ENTERO}
+                        onChange={(valor) =>
+                          actualizarEntradaRetencionAeat(
+                            "anualidadesAlimentosHijosEuros",
+                            valor
+                          )
+                        }
+                        paso={500}
+                        valor={
+                          entradasRetencionAeat.anualidadesAlimentosHijosEuros
+                        }
+                      />
+                    </div>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      <Checkbox
+                        checked={entradasRetencionAeat.movilidadGeografica}
+                        etiqueta="Movilidad geográfica"
                         onCheckedChange={(checked) =>
                           actualizarEntradaRetencionAeat(
-                            "movilidadReducidaPerceptor",
+                            "movilidadGeografica",
+                            checked
+                          )
+                        }
+                      />
+                      <Checkbox
+                        checked={entradasRetencionAeat.pagosViviendaHabitual}
+                        etiqueta="Pagos vivienda habitual"
+                        onCheckedChange={(checked) =>
+                          actualizarEntradaRetencionAeat(
+                            "pagosViviendaHabitual",
+                            checked
+                          )
+                        }
+                      />
+                      <Checkbox
+                        checked={entradasRetencionAeat.residenciaCeutaMelilla}
+                        etiqueta="Residencia Ceuta/Melilla"
+                        onCheckedChange={(checked) =>
+                          actualizarEntradaRetencionAeat(
+                            "residenciaCeutaMelilla",
+                            checked
+                          )
+                        }
+                      />
+                      <Checkbox
+                        checked={entradasRetencionAeat.rendimientosCeutaMelilla}
+                        etiqueta="Rendimientos Ceuta/Melilla"
+                        onCheckedChange={(checked) =>
+                          actualizarEntradaRetencionAeat(
+                            "rendimientosCeutaMelilla",
                             checked
                           )
                         }
                       />
                     </div>
-                    <NumberField
-                      etiqueta="Descendientes"
-                      formato={FORMATO_ENTERO}
-                      max={16}
-                      onChange={fijarDescendientesRetencion}
-                      valor={entradasRetencionAeat.descendientes}
-                    />
-                    <NumberField
-                      etiqueta="Menores de 3 años"
-                      formato={FORMATO_ENTERO}
-                      max={entradasRetencionAeat.descendientes}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "descendientesMenoresTres",
-                          valor
-                        )
-                      }
-                      valor={entradasRetencionAeat.descendientesMenoresTres}
-                    />
-                    <NumberField
-                      etiqueta="Desc. por entero"
-                      formato={FORMATO_ENTERO}
-                      max={entradasRetencionAeat.descendientes}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "descendientesComputoEntero",
-                          valor
-                        )
-                      }
-                      valor={entradasRetencionAeat.descendientesComputoEntero}
-                    />
-                    <NumberField
-                      etiqueta="Desc. disc. 33-64%"
-                      formato={FORMATO_ENTERO}
-                      max={maxDescendientesDiscapacidad33a64}
-                      onChange={(valor) => {
-                        actualizarEntradaRetencionAeat(
-                          "descendientesDiscapacidad33a64",
-                          valor
-                        )
-                        actualizarEntradaRetencionAeat(
-                          "descendientesMovilidadReducida",
-                          Math.min(
-                            entradasRetencionAeat.descendientesMovilidadReducida,
-                            valor
-                          )
-                        )
-                      }}
-                      valor={
-                        entradasRetencionAeat.descendientesDiscapacidad33a64
-                      }
-                    />
-                    <NumberField
-                      etiqueta="Desc. disc. 65%+"
-                      formato={FORMATO_ENTERO}
-                      max={entradasRetencionAeat.descendientes}
-                      onChange={(valor) => {
-                        const discapacidad33a64 = Math.min(
-                          entradasRetencionAeat.descendientesDiscapacidad33a64,
-                          Math.max(
-                            0,
-                            entradasRetencionAeat.descendientes - valor
-                          )
-                        )
-                        actualizarEntradaRetencionAeat(
-                          "descendientesDiscapacidad65",
-                          valor
-                        )
-                        actualizarEntradaRetencionAeat(
-                          "descendientesDiscapacidad33a64",
-                          discapacidad33a64
-                        )
-                        actualizarEntradaRetencionAeat(
-                          "descendientesMovilidadReducida",
-                          Math.min(
-                            entradasRetencionAeat.descendientesMovilidadReducida,
-                            discapacidad33a64
-                          )
-                        )
-                      }}
-                      valor={entradasRetencionAeat.descendientesDiscapacidad65}
-                    />
-                    <NumberField
-                      etiqueta="Desc. movilidad reducida"
-                      formato={FORMATO_ENTERO}
-                      max={entradasRetencionAeat.descendientesDiscapacidad33a64}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "descendientesMovilidadReducida",
-                          valor
-                        )
-                      }
-                      valor={
-                        entradasRetencionAeat.descendientesMovilidadReducida
-                      }
-                    />
-                    <NumberField
-                      etiqueta="Ascendientes"
-                      formato={FORMATO_ENTERO}
-                      max={6}
-                      onChange={fijarAscendientesRetencion}
-                      valor={entradasRetencionAeat.ascendientes}
-                    />
-                    <NumberField
-                      etiqueta="Asc. mayores 75"
-                      formato={FORMATO_ENTERO}
-                      max={entradasRetencionAeat.ascendientes}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "ascendientesMayores75",
-                          valor
-                        )
-                      }
-                      valor={entradasRetencionAeat.ascendientesMayores75}
-                    />
-                    <NumberField
-                      etiqueta="Asc. por entero"
-                      formato={FORMATO_ENTERO}
-                      max={entradasRetencionAeat.ascendientes}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "ascendientesComputoEntero",
-                          valor
-                        )
-                      }
-                      valor={entradasRetencionAeat.ascendientesComputoEntero}
-                    />
-                    <NumberField
-                      etiqueta="Asc. disc. 33-64%"
-                      formato={FORMATO_ENTERO}
-                      max={maxAscendientesDiscapacidad33a64}
-                      onChange={(valor) => {
-                        actualizarEntradaRetencionAeat(
-                          "ascendientesDiscapacidad33a64",
-                          valor
-                        )
-                        actualizarEntradaRetencionAeat(
-                          "ascendientesMovilidadReducida",
-                          Math.min(
-                            entradasRetencionAeat.ascendientesMovilidadReducida,
-                            valor
-                          )
-                        )
-                      }}
-                      valor={
-                        entradasRetencionAeat.ascendientesDiscapacidad33a64
-                      }
-                    />
-                    <NumberField
-                      etiqueta="Asc. disc. 65%+"
-                      formato={FORMATO_ENTERO}
-                      max={entradasRetencionAeat.ascendientes}
-                      onChange={(valor) => {
-                        const discapacidad33a64 = Math.min(
-                          entradasRetencionAeat.ascendientesDiscapacidad33a64,
-                          Math.max(
-                            0,
-                            entradasRetencionAeat.ascendientes - valor
-                          )
-                        )
-                        actualizarEntradaRetencionAeat(
-                          "ascendientesDiscapacidad65",
-                          valor
-                        )
-                        actualizarEntradaRetencionAeat(
-                          "ascendientesDiscapacidad33a64",
-                          discapacidad33a64
-                        )
-                        actualizarEntradaRetencionAeat(
-                          "ascendientesMovilidadReducida",
-                          Math.min(
-                            entradasRetencionAeat.ascendientesMovilidadReducida,
-                            discapacidad33a64
-                          )
-                        )
-                      }}
-                      valor={entradasRetencionAeat.ascendientesDiscapacidad65}
-                    />
-                    <NumberField
-                      etiqueta="Asc. movilidad reducida"
-                      formato={FORMATO_ENTERO}
-                      max={entradasRetencionAeat.ascendientesDiscapacidad33a64}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "ascendientesMovilidadReducida",
-                          valor
-                        )
-                      }
-                      valor={
-                        entradasRetencionAeat.ascendientesMovilidadReducida
-                      }
-                    />
-                  </div>
-                </section>
-
-                <section className="grid gap-3 border-t border-[var(--rule)] pt-4">
-                  <h3 className="text-sm font-bold tracking-[0.14em] uppercase">
-                    3. Ajustes comunicados
-                  </h3>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <NumberField
-                      etiqueta="Reducción irregular art. 18.2"
-                      formato={FORMATO_ENTERO}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat("irregular1Euros", valor)
-                      }
-                      paso={500}
-                      valor={entradasRetencionAeat.irregular1Euros}
-                    />
-                    <NumberField
-                      etiqueta="Otras reducciones irregulares"
-                      formato={FORMATO_ENTERO}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat("irregular2Euros", valor)
-                      }
-                      paso={500}
-                      valor={entradasRetencionAeat.irregular2Euros}
-                    />
-                    <NumberField
-                      etiqueta="Pensión compensatoria"
-                      formato={FORMATO_ENTERO}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "pensionCompensatoriaConyugeEuros",
-                          valor
-                        )
-                      }
-                      paso={500}
-                      valor={
-                        entradasRetencionAeat.pensionCompensatoriaConyugeEuros
-                      }
-                    />
-                    <NumberField
-                      etiqueta="Anualidades alimentos"
-                      formato={FORMATO_ENTERO}
-                      onChange={(valor) =>
-                        actualizarEntradaRetencionAeat(
-                          "anualidadesAlimentosHijosEuros",
-                          valor
-                        )
-                      }
-                      paso={500}
-                      valor={
-                        entradasRetencionAeat.anualidadesAlimentosHijosEuros
-                      }
-                    />
-                  </div>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    <Checkbox
-                      checked={entradasRetencionAeat.movilidadGeografica}
-                      etiqueta="Movilidad geográfica"
-                      onCheckedChange={(checked) =>
-                        actualizarEntradaRetencionAeat(
-                          "movilidadGeografica",
-                          checked
-                        )
-                      }
-                    />
-                    <Checkbox
-                      checked={entradasRetencionAeat.pagosViviendaHabitual}
-                      etiqueta="Pagos vivienda habitual"
-                      onCheckedChange={(checked) =>
-                        actualizarEntradaRetencionAeat(
-                          "pagosViviendaHabitual",
-                          checked
-                        )
-                      }
-                    />
-                    <Checkbox
-                      checked={entradasRetencionAeat.residenciaCeutaMelilla}
-                      etiqueta="Residencia Ceuta/Melilla"
-                      onCheckedChange={(checked) =>
-                        actualizarEntradaRetencionAeat(
-                          "residenciaCeutaMelilla",
-                          checked
-                        )
-                      }
-                    />
-                    <Checkbox
-                      checked={entradasRetencionAeat.rendimientosCeutaMelilla}
-                      etiqueta="Rendimientos Ceuta/Melilla"
-                      onCheckedChange={(checked) =>
-                        actualizarEntradaRetencionAeat(
-                          "rendimientosCeutaMelilla",
-                          checked
-                        )
-                      }
-                    />
-                  </div>
-                </section>
+                  </section>
+                </div>
               </div>
-            ) : null}
+            </div>
           </Dialog.Popup>
         </Dialog.Viewport>
       </Dialog.Portal>
