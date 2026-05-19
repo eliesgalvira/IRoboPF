@@ -34,7 +34,11 @@ export function NumberField({
 }) {
   return (
     <NumberFieldPrimitive.Root
-      className={cn("grid", compacto ? "gap-1.5" : "gap-2", className)}
+      className={cn(
+        "grid min-w-0",
+        compacto ? "gap-1.5" : "gap-2",
+        className
+      )}
       format={formato}
       locale="es-ES"
       max={max}
@@ -51,7 +55,9 @@ export function NumberField({
           compacto ? "min-h-8" : "min-h-10"
         )}
       >
-        <label className="text-sm leading-tight font-bold">{etiqueta}</label>
+        <label className="min-w-0 text-sm leading-tight font-bold">
+          {etiqueta}
+        </label>
         {ayuda !== undefined && ayuda !== "" ? (
           <Tooltip contenido={ayuda}>
             <Button
