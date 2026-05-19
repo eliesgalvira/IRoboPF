@@ -1221,67 +1221,6 @@ function FormularioCaso({
           valor={edad}
         />
         <NumberField
-          ayuda={AYUDAS_FORMULARIO["Descendientes"]}
-          compacto
-          etiqueta="Descendientes"
-          formato={FORMATO_ENTERO}
-          max={8}
-          onChange={(valor) => {
-            fijarDescendientes(valor)
-            fijarDescendientesConDiscapacidad(
-              Math.min(descendientesConDiscapacidad, valor)
-            )
-            fijarDescendientesDiscapacidad65(
-              Math.min(descendientesDiscapacidad65, valor)
-            )
-            fijarDescendientesConAsistencia(
-              Math.min(descendientesConAsistencia, valor)
-            )
-          }}
-          valor={descendientes}
-        />
-        <NumberField
-          ayuda={AYUDAS_FORMULARIO["Descendientes con discapacidad"]}
-          compacto
-          etiqueta="Desc. discapacidad 33%-64%"
-          formato={FORMATO_ENTERO}
-          max={descendientes}
-          onChange={(valor) => {
-            const siguiente = Math.max(valor, descendientesDiscapacidad65)
-            fijarDescendientesConDiscapacidad(siguiente)
-            fijarDescendientesConAsistencia(
-              Math.min(descendientesConAsistencia, siguiente)
-            )
-          }}
-          valor={descendientesConDiscapacidad}
-        />
-        <NumberField
-          ayuda={AYUDAS_FORMULARIO["Descendientes discapacidad 65%"]}
-          compacto
-          etiqueta="Desc. discapacidad ≥65%"
-          formato={FORMATO_ENTERO}
-          max={descendientes}
-          onChange={(valor) => {
-            fijarDescendientesDiscapacidad65(valor)
-            fijarDescendientesConDiscapacidad(
-              Math.max(descendientesConDiscapacidad, valor)
-            )
-          }}
-          valor={descendientesDiscapacidad65}
-        />
-        <NumberField
-          ayuda={AYUDAS_FORMULARIO["Descendientes con asistencia"]}
-          compacto
-          etiqueta="Desc. asistencia/movilidad"
-          formato={FORMATO_ENTERO}
-          max={Math.max(
-            0,
-            descendientesConDiscapacidad - descendientesDiscapacidad65
-          )}
-          onChange={fijarDescendientesConAsistencia}
-          valor={descendientesConAsistencia}
-        />
-        <NumberField
           ayuda={AYUDAS_FORMULARIO["Ascendientes"]}
           compacto
           etiqueta="Ascendientes"
@@ -1290,6 +1229,74 @@ function FormularioCaso({
           onChange={fijarAscendientes}
           valor={ascendientes}
         />
+        <fieldset className="grid gap-2 sm:col-span-2">
+          <legend className="text-sm leading-tight font-bold">
+            Descendientes
+          </legend>
+          <div className="grid gap-2 sm:grid-cols-4">
+            <NumberField
+              ayuda={AYUDAS_FORMULARIO["Descendientes"]}
+              compacto
+              etiqueta="Total"
+              formato={FORMATO_ENTERO}
+              max={8}
+              onChange={(valor) => {
+                fijarDescendientes(valor)
+                fijarDescendientesConDiscapacidad(
+                  Math.min(descendientesConDiscapacidad, valor)
+                )
+                fijarDescendientesDiscapacidad65(
+                  Math.min(descendientesDiscapacidad65, valor)
+                )
+                fijarDescendientesConAsistencia(
+                  Math.min(descendientesConAsistencia, valor)
+                )
+              }}
+              valor={descendientes}
+            />
+            <NumberField
+              ayuda={AYUDAS_FORMULARIO["Descendientes con discapacidad"]}
+              compacto
+              etiqueta="33%-64%"
+              formato={FORMATO_ENTERO}
+              max={descendientes}
+              onChange={(valor) => {
+                const siguiente = Math.max(valor, descendientesDiscapacidad65)
+                fijarDescendientesConDiscapacidad(siguiente)
+                fijarDescendientesConAsistencia(
+                  Math.min(descendientesConAsistencia, siguiente)
+                )
+              }}
+              valor={descendientesConDiscapacidad}
+            />
+            <NumberField
+              ayuda={AYUDAS_FORMULARIO["Descendientes discapacidad 65%"]}
+              compacto
+              etiqueta="≥65%"
+              formato={FORMATO_ENTERO}
+              max={descendientes}
+              onChange={(valor) => {
+                fijarDescendientesDiscapacidad65(valor)
+                fijarDescendientesConDiscapacidad(
+                  Math.max(descendientesConDiscapacidad, valor)
+                )
+              }}
+              valor={descendientesDiscapacidad65}
+            />
+            <NumberField
+              ayuda={AYUDAS_FORMULARIO["Descendientes con asistencia"]}
+              compacto
+              etiqueta="Asist./mov."
+              formato={FORMATO_ENTERO}
+              max={Math.max(
+                0,
+                descendientesConDiscapacidad - descendientesDiscapacidad65
+              )}
+              onChange={fijarDescendientesConAsistencia}
+              valor={descendientesConAsistencia}
+            />
+          </div>
+        </fieldset>
       </div>
 
       <div className="mt-3">
