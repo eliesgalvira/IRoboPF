@@ -974,21 +974,21 @@ function FormularioCaso({
   const catalogoDeduccionesVacio = deduccionesCatalogadas.length === 0
 
   return (
-    <section className="border border-[var(--rule)] bg-[var(--paper)] p-4 shadow-[6px_6px_0_var(--rule)] lg:sticky lg:top-5">
-      <div className="mb-5 flex items-start justify-between gap-4">
+    <section className="border border-[var(--rule)] bg-[var(--paper)] p-3 shadow-[6px_6px_0_var(--rule)] lg:sticky lg:top-4 lg:max-h-[calc(100svh-2rem)] lg:overflow-y-auto 2xl:p-4">
+      <div className="mb-3 flex items-start justify-between gap-4">
         <div>
           <p className="text-xs tracking-[0.24em] text-[var(--ink-soft)] uppercase">
             2025 nominal · individual
           </p>
-          <h1 className="mt-2 text-4xl leading-none font-[var(--display)]">
+          <h1 className="mt-2 text-3xl leading-none font-[var(--display)]">
             Liquidación IRPF
           </h1>
         </div>
         <FileText aria-hidden className="mt-1 size-6 shrink-0" />
       </div>
 
-      <div className="grid gap-4">
-        <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3">
+        <div className="grid gap-2 sm:grid-cols-2">
           <NumberField
             ayuda={AYUDAS_FORMULARIO["Rendimientos del trabajo"]}
             compacto
@@ -1025,7 +1025,7 @@ function FormularioCaso({
           />
         </div>
         {tratamientoGananciaPatrimonial === "renta-vitalicia-mayores-65" ? (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-2 sm:grid-cols-2">
             <NumberField
               ayuda={AYUDAS_FORMULARIO["Importe de transmisión"]}
               compacto
@@ -1055,7 +1055,7 @@ function FormularioCaso({
             />
           </div>
         ) : null}
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-2 sm:grid-cols-2">
           <NumberField
             ayuda={AYUDAS_FORMULARIO["Retenciones soportadas"]}
             compacto
@@ -1065,8 +1065,8 @@ function FormularioCaso({
             paso={250}
             valor={retencionesSoportadasEuros}
           />
-          <div className="grid gap-2">
-            <div className="flex min-h-10 items-end gap-1.5">
+          <div className="grid gap-1.5">
+            <div className="flex min-h-8 items-end gap-1.5">
               <span className="text-sm leading-tight font-bold">
                 Pagos a cuenta
               </span>
@@ -1082,7 +1082,7 @@ function FormularioCaso({
               </Tooltip>
             </div>
             <Button
-              className="grid h-11 w-full grid-cols-[2rem_minmax(0,1fr)_2rem] items-center border border-[var(--rule)] bg-[var(--paper-2)] px-2 text-base font-[var(--mono)] font-bold text-[var(--ink)] tabular-nums hover:bg-[var(--paper)] focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none"
+              className="grid h-8 w-full grid-cols-[1.75rem_minmax(0,1fr)_1.75rem] items-center border border-[var(--rule)] bg-[var(--paper-2)] px-2 text-sm font-[var(--mono)] font-bold text-[var(--ink)] tabular-nums hover:bg-[var(--paper)] focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none"
               onClick={() => fijarDialogoPagosACuentaAbierto(true)}
               type="button"
               variant="unstyled"
@@ -1210,7 +1210,7 @@ function FormularioCaso({
         </Dialog.Portal>
       </Dialog.Root>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
         <NumberField
           compacto
           etiqueta="Edad"
@@ -1292,7 +1292,7 @@ function FormularioCaso({
         />
       </div>
 
-      <div className="mt-4">
+      <div className="mt-3">
         <Select
           compacto
           etiqueta="Comunidad autónoma"
@@ -1306,12 +1306,12 @@ function FormularioCaso({
           className={cn(
             "grid transition-[grid-template-rows,opacity,margin-top] duration-200 ease-out motion-reduce:transition-none",
             usaComunidadAutonomicaReal
-              ? "mt-3 grid-rows-[1fr] opacity-100"
+              ? "mt-2 grid-rows-[1fr] opacity-100"
               : "mt-0 grid-rows-[0fr] opacity-0"
           )}
         >
           <div className="min-h-0 overflow-hidden">
-            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)]">
+            <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)]">
               <NumberField
                 ayuda={AYUDAS_FORMULARIO["Deducciones autonómicas"]}
                 compacto
@@ -1325,14 +1325,14 @@ function FormularioCaso({
                 paso={100}
                 valor={deduccionesAutonomicasEuros}
               />
-              <div className="grid gap-2">
-                <div className="flex min-h-10 items-end">
+              <div className="grid gap-1.5">
+                <div className="flex min-h-8 items-end">
                   <p className="text-sm leading-tight font-bold">
                     Deducciones autonómicas
                   </p>
                 </div>
                 <Button
-                  className="h-9 w-full border border-[var(--rule)] bg-[var(--paper-2)] px-3 text-left text-sm font-bold hover:bg-[var(--paper)]"
+                  className="h-8 w-full border border-[var(--rule)] bg-[var(--paper-2)] px-3 text-left text-sm font-bold hover:bg-[var(--paper)]"
                   onClick={() => fijarCatalogoDeduccionesAbierto(true)}
                   type="button"
                   variant="unstyled"

@@ -46,14 +46,19 @@ export function Select<TValor extends string>({
       }}
       value={valor}
     >
-      <div className={cn("grid gap-2", className)}>
-        <SelectPrimitive.Label className="flex min-h-10 items-end text-sm leading-tight font-bold">
+      <div className={cn("grid", compacto ? "gap-1.5" : "gap-2", className)}>
+        <SelectPrimitive.Label
+          className={cn(
+            "flex items-end text-sm leading-tight font-bold",
+            compacto ? "min-h-8" : "min-h-10"
+          )}
+        >
           {etiqueta}
         </SelectPrimitive.Label>
         <SelectPrimitive.Trigger
           className={cn(
             "flex w-full items-center justify-between border border-[var(--rule)] bg-[var(--paper-2)] px-3 font-[var(--mono)] text-[var(--ink)] hover:bg-[var(--paper-2)] focus-visible:ring-2 focus-visible:ring-[var(--mark)] focus-visible:outline-none",
-            compacto ? "h-9 text-sm" : "h-11 text-base"
+            compacto ? "h-8 text-sm" : "h-11 text-base"
           )}
         >
           <SelectPrimitive.Value placeholder="Seleccionar" />
