@@ -5741,7 +5741,10 @@ function Visualizaciones({
               ) : (
                 <div
                   ref={graficoTipoEfectivoIrpfRef}
-                  className={claseMarcoGrafico}
+                  className={cn(
+                    claseMarcoGrafico,
+                    "auditoria-grafico-marco--leyenda-superpuesta"
+                  )}
                 >
                   <ChartContainer
                     config={configTipoEfectivoIrpf}
@@ -5750,7 +5753,7 @@ function Visualizaciones({
                     <LineChart
                       accessibilityLayer
                       data={datosTipoEfectivoIrpf}
-                      margin={{ left: 6, right: 18, top: 12, bottom: 28 }}
+                      margin={{ left: 6, right: 18, top: 12, bottom: 44 }}
                     >
                       <CartesianGrid
                         vertical={false}

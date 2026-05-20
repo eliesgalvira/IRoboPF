@@ -18,3 +18,31 @@
   --muted: oklch(0.935 0.02 92);
   --muted-foreground: oklch(0.3 0 0);
 }
+
+.auditoria-grafico-marco--leyenda-superpuesta {
+  position: relative;
+  gap: 0;
+}
+
+.auditoria-grafico-marco--leyenda-superpuesta [data-slot="chart"] {
+  background: var(--paper);
+}
+
+.auditoria-grafico-marco--leyenda-superpuesta .recharts-legend-wrapper {
+  position: absolute;
+  inset-inline: clamp(0.5rem, 2vw, 1rem);
+  inset-block-end: clamp(0.5rem, 1.5vw, 0.875rem);
+  z-index: 2;
+  padding: 0;
+  pointer-events: none;
+}
+
+.auditoria-grafico-marco--leyenda-superpuesta .recharts-default-legend {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  margin-inline: auto;
+  border: 2px solid color-mix(in oklch, var(--rule) 50%, transparent);
+  background: color-mix(in oklch, var(--paper) 92%, transparent);
+  box-shadow: 2px 2px 0 0 var(--rule);
+  padding: 0.35rem 0.55rem;
+}
