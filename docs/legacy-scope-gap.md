@@ -22,7 +22,7 @@ validación de equivalencia tabular completa contra un fixture canónico del
 contrato legacy. El fixture versiona hashes exactos por hoja generados desde las
 tablas Effect para evitar leer el `.xlsx` completo en cada ejecución normal.
 
-## Definiciones relevantes en CONTEXT.md
+## Definiciones relevantes en GLOSSARY.md
 
 - **Exportacion compatible**: replica el Excel original, incluyendo nombres de
   hojas, columnas, orden y redondeos.

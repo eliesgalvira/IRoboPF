@@ -125,7 +125,7 @@ uv run --with-requirements requirements.txt python Calculo_Salario_IRPF.py
 
 ## Arquitectura
 
-La arquitectura está documentada en `CONTEXT.md` y en `docs/adr/`. Esta sección
+La arquitectura está documentada en `GLOSSARY.md` y en `docs/adr/`. Esta sección
 resume las decisiones que más condicionan el código.
 
 ### Dominio antes que pantalla
