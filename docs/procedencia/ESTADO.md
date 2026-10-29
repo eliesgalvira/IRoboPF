@@ -25,7 +25,7 @@ Se trabaja con Jujutsu en `procedencia-documental`, nacida de `main` local (`955
 - Configuración del orquestador comprobada: gpt-6-astra, xhigh, priority. Hijos: gpt-6-astra, high, priority, mediante T3.
 - Herramientas faltantes se habilitan con Nix; ninguna instalación global.
 - Anti-slop instalado: 16 reglas a error, prueba de carga superada. Bootstrap listo para iniciar auditorías documentales y repartir deuda de lint; el lint global sigue rojo (96 errores en 25 archivos). Véase [LINT.md](LINT.md).
-- Auditorías y contrarrevisiones: aún no iniciadas. Cero hallazgos aceptados, cero cifras declaradas verificadas.
+- Primera ronda preparada según COORDINACION.md: inventario, corpus, deuda de lint, arquitectura, necesidades expertas y trece lotes documentales. Los identificadores de delegación se guardarán en delegaciones.json. Cero hallazgos aceptados, cero cifras declaradas verificadas.
 
 ## Criterios de aceptación
 
@@ -53,3 +53,5 @@ Todavía no se ha eliminado ninguna copia temporal. La eliminación de `/home/el
 ## Bootstrap anti-slop completado
 
 Runtime v0.1.2 verificado, incorporado con licencia y hashes, 16 reglas a error y oxlint 1.78.0 junto a ESLint. CI nueva con límite de 15 minutos y ejecución secuencial, sin build ni suite legacy pesada. Typecheck, humo del plugin y 5 pruebas seleccionadas pasan; ESLint pasa. Lint global falla con 96 errores preexistentes en 25 archivos, registrados en [LINT.md](LINT.md) y `lint/`. No se modificó el motor ni se validó cifra fiscal alguna. Auditoría documental desbloqueada; corrección de deuda pendiente de reparto por archivo. Integración y respaldo corresponden al orquestador. No se borró contexto ni Reactivity.
+
+El orquestador revisó la configuración y volvió a ejecutar `test:lint`: correcto. Bootstrap y coordinación respaldados en `origin/procedencia-documental` (885e16c7). Se probó la adquisición del PDF consolidado BOE-A-2006-20764: HTTP 200, 1.175.521 bytes, SHA-256 `67c8af922fe823337e0130d589cf5d51b364720936fd0319009a4783a728b544`. Firma y vigencia histórica todavía sin validar. El original permanece fuera de Git en la caché de corpus.
