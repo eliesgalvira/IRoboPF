@@ -1,0 +1,128 @@
+[
+  {
+    "id": "cat-2020-90000",
+    "year": 2020,
+    "territory": "catalunya",
+    "base": "90000",
+    "minimum": "5550",
+    "publishedGrossQuota": "15908.31",
+    "integralGrossQuota": "15908.316",
+    "grossRounded": "15908.32",
+    "publishedMinusMinimum": "15242.31",
+    "integralMinusMinimum": "15242.32",
+    "execution": "Python Decimal propio: comparación aritmética, no motor",
+    "orchestratorTest": "calcularCuotaPorEscala con tabla anual: contrastar cuota tabulada; luego prueba de liquidación tras resolver política de redondeo"
+  },
+  {
+    "id": "cat-2021-120000",
+    "year": 2021,
+    "territory": "catalunya",
+    "base": "120000",
+    "minimum": "5550",
+    "publishedGrossQuota": "22958.31",
+    "integralGrossQuota": "22958.316",
+    "grossRounded": "22958.32",
+    "publishedMinusMinimum": "22292.31",
+    "integralMinusMinimum": "22292.32",
+    "execution": "Python Decimal propio: comparación aritmética, no motor",
+    "orchestratorTest": "calcularCuotaPorEscala con tabla anual: contrastar cuota tabulada; luego prueba de liquidación tras resolver política de redondeo"
+  },
+  {
+    "id": "cat-2022-21000",
+    "year": 2022,
+    "territory": "catalunya",
+    "base": "21000",
+    "minimum": "5550",
+    "publishedGrossQuota": "2399.10",
+    "integralGrossQuota": "2399.106",
+    "grossRounded": "2399.11",
+    "publishedMinusMinimum": "1816.35",
+    "integralMinusMinimum": "1816.36",
+    "execution": "Python Decimal propio: comparación aritmética, no motor",
+    "orchestratorTest": "calcularCuotaPorEscala con tabla anual: contrastar cuota tabulada; luego prueba de liquidación tras resolver política de redondeo"
+  },
+  {
+    "id": "cat-2023-33007.2",
+    "year": 2023,
+    "territory": "catalunya",
+    "base": "33007.2",
+    "minimum": "5550",
+    "publishedGrossQuota": "4200.18",
+    "integralGrossQuota": "4200.186",
+    "grossRounded": "4200.19",
+    "publishedMinusMinimum": "3617.43",
+    "integralMinusMinimum": "3617.44",
+    "execution": "Python Decimal propio: comparación aritmética, no motor",
+    "orchestratorTest": "calcularCuotaPorEscala con tabla anual: contrastar cuota tabulada; luego prueba de liquidación tras resolver política de redondeo"
+  },
+  {
+    "id": "cat-2024-90000",
+    "year": 2024,
+    "territory": "catalunya",
+    "base": "90000",
+    "minimum": "5550",
+    "publishedGrossQuota": "15902.83",
+    "integralGrossQuota": "15902.838",
+    "grossRounded": "15902.84",
+    "publishedMinusMinimum": "15320.08",
+    "integralMinusMinimum": "15320.09",
+    "execution": "Python Decimal propio: comparación aritmética, no motor",
+    "orchestratorTest": "calcularCuotaPorEscala con tabla anual: contrastar cuota tabulada; luego prueba de liquidación tras resolver política de redondeo"
+  },
+  {
+    "id": "ext-2026",
+    "base": "20200",
+    "publishedGrossQuota": "1720.50",
+    "previousGrossQuota": "1771.00",
+    "difference": "50.50",
+    "execution": "Aritmética propia ejecutada",
+    "assertion": "50.50"
+  },
+  {
+    "id": "gal-2014-selection",
+    "bases": [
+      "17707.20",
+      "17707.21"
+    ],
+    "rates": [
+      "11.5",
+      "12"
+    ],
+    "minimum": "5151",
+    "execution": "Contrato para test, no motor ejecutado",
+    "expected": "seleccionar por BLG una vez; conservar escala al calcular mínimo; no interpolar el salto"
+  },
+  {
+    "id": "cat-2020-protected",
+    "baseGeneral": "12000",
+    "baseSavings": "0",
+    "minimumHistorical": "6105",
+    "minimumCurrentCode": "5550",
+    "execution": "Contrato histórico propuesto; no motor ejecutado",
+    "expected": "distinguir reconstrucción de obligación 2020 protegida y nueva liquidación; no aplicar 6105 sin contrato temporal"
+  },
+  {
+    "id": "ext-2023-death",
+    "dates": [
+      "2023-09-14",
+      "2023-09-15"
+    ],
+    "expectedFirstRates": [
+      "9.5",
+      "8"
+    ],
+    "execution": "Contrato para test; no motor ejecutado"
+  },
+  {
+    "id": "territories-2026",
+    "territories": [
+      "castilla-la-mancha",
+      "castilla-y-leon",
+      "catalunya",
+      "extremadura",
+      "galicia"
+    ],
+    "expectedCurrentTag": "ComunidadAutonomaNoSoportada",
+    "execution": "Lectura estática; no motor ejecutado"
+  }
+]

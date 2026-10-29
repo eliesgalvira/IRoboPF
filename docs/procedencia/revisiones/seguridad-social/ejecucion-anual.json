@@ -1,0 +1,1237 @@
+[
+  {
+    "anio": 2018,
+    "salario": 5000000,
+    "resultado": {
+      "_tag": "LiquidacionIrpfAnualCalculada",
+      "perfil": "renta-individual-general",
+      "anio": 2018,
+      "rendimientoIntegroTrabajoCentimos": 5000000,
+      "rendimientoNetoTrabajoCentimos": 4514159,
+      "rendimientoNetoCapitalInmobiliarioCentimos": 0,
+      "gastosDeduciblesTrabajoCentimos": 200000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "totalGastosYDeduccionesTrabajoCentimos": 485841,
+      "baseImponibleGeneralCentimos": 4514159,
+      "baseLiquidableGeneralCentimos": 4514159,
+      "gananciaPatrimonialTotalCentimos": 0,
+      "gananciaPatrimonialExentaCentimos": 0,
+      "baseLiquidableAhorroCentimos": 0,
+      "cotizacionEmpresarialCentimos": 1413452,
+      "cotizacionTrabajadorCentimos": 285841,
+      "costeLaboralCentimos": 6413452,
+      "meiEmpresarialCentimos": 0,
+      "meiTrabajadorCentimos": 0,
+      "solidaridadEmpresarialCentimos": 0,
+      "solidaridadTrabajadorCentimos": 0,
+      "cuotaIntegraGeneralCentimos": 1240389,
+      "cuotaIntegraAhorroCentimos": 0,
+      "cuotaMinimoPersonalCentimos": 105450,
+      "cuotaMinimoPersonalAhorroCentimos": 0,
+      "deduccionesAutonomicasCentimos": 0,
+      "cuotaLiquidaCentimos": 1134939,
+      "retencionesYPagosACuentaCentimos": 0,
+      "cuotaDiferencialCentimos": 1134939,
+      "conciliacionSimuladorLegacy": {
+        "_id": "Option",
+        "_tag": "Some",
+        "value": {
+          "_tag": "ConciliacionSimuladorLegacy",
+          "anio": 2018,
+          "cuotaLiquidadaAnualCentimos": 1134939,
+          "deduccionSmiCentimos": 0,
+          "cuotaTrasDeduccionSmi": "11349.386672",
+          "cuotaTrasDeduccionSmiCentimos": 1134939,
+          "rendimientoIntegroTrabajoCentimos": 5000000,
+          "minimoExentoRetencionCentimos": 1264300,
+          "tipoMaximoRetencionNominaPorcentaje": "43",
+          "limiteRetencionNominaCentimos": 1606351,
+          "irpfFinalSimulador": "11349.386672",
+          "irpfFinalSimuladorCentimos": 1134939,
+          "diferenciaCuotaDiferencialEIrpfFinalCentimos": 0
+        }
+      },
+      "rastro": {
+        "titulo": "Liquidación anual del IRPF 2018",
+        "pasos": [
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Rendimientos del trabajo",
+            "descripcion": "Rendimiento íntegro 50000.00 euros menos cotización del trabajador y gastos deducibles.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Rendimiento íntegro del trabajo",
+                "formula": "Suma de importes declarados como trabajo",
+                "resultado": "50000.00 euros"
+              },
+              {
+                "etiqueta": "Cotización deducible del trabajador",
+                "formula": "Cotizaciones sociales calculadas para el salario anual",
+                "resultado": "2858.41 euros"
+              },
+              {
+                "etiqueta": "Rendimiento previo neto",
+                "formula": "50000.00 euros - 2858.41 euros",
+                "resultado": "47141.59 euros"
+              },
+              {
+                "etiqueta": "Gastos deducibles aplicados",
+                "formula": "Gasto fijo del rendimiento del trabajo",
+                "resultado": "2000.00 euros"
+              },
+              {
+                "etiqueta": "Rendimiento neto del trabajo",
+                "formula": "max(0, 47141.59 euros - 2000.00 euros)",
+                "resultado": "45141.59 euros"
+              },
+              {
+                "etiqueta": "Reducción por rendimientos del trabajo",
+                "formula": "Reducción estatal por obtención de rendimientos del trabajo",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cotizaciones a la Seguridad Social",
+            "descripcion": "Desglose de cotizaciones sociales usado por el caso técnico actual: aportación empresarial, aportación del trabajador, MEI y cuota adicional de solidaridad cuando existe exceso sobre la base máxima.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Base ordinaria de cotización",
+                "formula": "min(rendimiento íntegro del trabajo, base máxima anual)",
+                "resultado": "45014.40 euros"
+              },
+              {
+                "etiqueta": "Exceso sobre base máxima",
+                "formula": "max(0, rendimiento íntegro del trabajo - base máxima anual)",
+                "resultado": "4985.60 euros"
+              },
+              {
+                "etiqueta": "Cotización empresarial ordinaria",
+                "formula": "Base ordinaria x tipos empresariales sin MEI ni solidaridad",
+                "resultado": "14134.52 euros"
+              },
+              {
+                "etiqueta": "Cotización del trabajador ordinaria",
+                "formula": "Base ordinaria x tipos del trabajador sin MEI ni solidaridad",
+                "resultado": "2858.41 euros"
+              },
+              {
+                "etiqueta": "MEI empresarial",
+                "formula": "Base ordinaria x tipo empresarial del MEI",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "MEI del trabajador",
+                "formula": "Base ordinaria x tipo del trabajador del MEI",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Solidaridad empresarial",
+                "formula": "5/6 de la cuota adicional de solidaridad",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Solidaridad del trabajador",
+                "formula": "1/6 de la cuota adicional de solidaridad",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Cotización empresarial total",
+                "formula": "Ordinaria empresarial + MEI empresarial + solidaridad empresarial",
+                "resultado": "14134.52 euros"
+              },
+              {
+                "etiqueta": "Cotización total del trabajador",
+                "formula": "Ordinaria trabajador + MEI trabajador + solidaridad trabajador",
+                "resultado": "2858.41 euros"
+              },
+              {
+                "etiqueta": "Coste laboral",
+                "formula": "Rendimiento íntegro del trabajo + cotización empresarial",
+                "resultado": "64134.52 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros Seguridad Social 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts"
+              },
+              {
+                "titulo": "Glosario fiscal del motor",
+                "referencia": "docs/glosario-fiscal-motor.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Rendimientos de capital inmobiliario",
+            "descripcion": "Rendimiento íntegro 0.00 euros integrado como rendimiento neto simplificado en la base general.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Rendimiento íntegro de capital inmobiliario",
+                "formula": "Suma de importes declarados en el formulario",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Rendimiento neto simplificado",
+                "formula": "Sin gastos, amortizaciones ni reducciones específicas todavía implementadas",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Base general y mínimo personal",
+            "descripcion": "Base liquidable general 45141.59 euros, mínimo estatal 5550.00 euros y mínimo autonómico 5550.00 euros.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Base imponible general",
+                "formula": "max(0, 45141.59 euros - 0.00 euros) + 0.00 euros",
+                "resultado": "45141.59 euros"
+              },
+              {
+                "etiqueta": "Base liquidable general",
+                "formula": "Base imponible general sin reducciones de base aplicadas",
+                "resultado": "45141.59 euros"
+              },
+              {
+                "etiqueta": "Mínimo del contribuyente",
+                "formula": "Edad del contribuyente: 40",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por ascendientes",
+                "formula": "0 ascendiente(s) computados",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por descendientes",
+                "formula": "0 descendiente(s) computados",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo personal y familiar",
+                "formula": "5550.00 euros + 0.00 euros + 0.00 euros + 0.00 euros + 0.00 euros",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo personal y familiar autonómico",
+                "formula": "Coincide con el mínimo estatal",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por discapacidad",
+                "formula": "Contribuyente, descendientes y ascendientes con discapacidad computados",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Ganancias patrimoniales y base del ahorro",
+            "descripcion": "Las ganancias patrimoniales por transmisión se integran en la base del ahorro salvo la parte exenta reconocida para mayores de 65 años.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Ganancias patrimoniales declaradas",
+                "formula": "Suma de ganancias por transmisión",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Ganancia patrimonial exenta",
+                "formula": "Exenciones por vivienda habitual o reinversión en renta vitalicia para mayores de 65 años",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Base liquidable del ahorro",
+                "formula": "max(0, 0.00 euros - 0.00 euros)",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual específico mayores de 65 años",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-mayores-65.md"
+              },
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Comunidad autónoma",
+            "descripcion": "Caso técnico de contraste: los mínimos y la escala autonómica se igualan a los parámetros estatales. No representa la normativa propia de una comunidad autónoma real.",
+            "fuentes": [
+              {
+                "titulo": "AEAT Manual práctico Renta 2018. Gravamen estatal de la base liquidable general",
+                "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2018/ManualRentaPatrimonio2018_V8_es_es.pdf"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota íntegra general",
+            "descripcion": "Aplicación de la escala general a la base liquidable general.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Tramo 0.00 euros - 12450.00 euros",
+                "formula": "12450.00 euros x 19.00%",
+                "resultado": "2365.50 euros"
+              },
+              {
+                "etiqueta": "Tramo 12450.00 euros - 20200.00 euros",
+                "formula": "7750.00 euros x 24.00%",
+                "resultado": "1860.00 euros"
+              },
+              {
+                "etiqueta": "Tramo 20200.00 euros - 35200.00 euros",
+                "formula": "15000.00 euros x 30.00%",
+                "resultado": "4500.00 euros"
+              },
+              {
+                "etiqueta": "Tramo 35200.00 euros - 60000.00 euros",
+                "formula": "9941.59 euros x 37.00%",
+                "resultado": "3678.39 euros"
+              },
+              {
+                "etiqueta": "Cuota íntegra general",
+                "formula": "Suma de cuotas por tramo",
+                "resultado": "12403.89 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros IRPF estatal 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota correspondiente al mínimo personal",
+            "descripcion": "Aplicación de la misma escala general al mínimo personal y familiar.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Tramo mínimo 0.00 euros - 12450.00 euros",
+                "formula": "5550.00 euros x 19.00%",
+                "resultado": "1054.50 euros"
+              },
+              {
+                "etiqueta": "Cuota del mínimo personal y familiar",
+                "formula": "Suma de cuotas por tramo del mínimo",
+                "resultado": "1054.50 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros IRPF estatal 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota íntegra del ahorro",
+            "descripcion": "Aplicación de la escala del ahorro a la base liquidable del ahorro.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Cuota íntegra del ahorro",
+                "formula": "Suma de cuotas por tramo",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Cuota del remanente del mínimo personal",
+                "formula": "Parte del mínimo personal y familiar no absorbida por la base general",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota diferencial",
+            "descripcion": "Cuota líquida 11349.39 euros menos retenciones y pagos a cuenta declarados o calculados.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Cuota líquida",
+                "formula": "max(0, 11349.39 euros + 0.00 euros - 0.00 euros)",
+                "resultado": "11349.39 euros"
+              },
+              {
+                "etiqueta": "Deducciones autonómicas aplicadas",
+                "formula": "Sin deducciones autonómicas declaradas en el caso",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Retenciones soportadas",
+                "formula": "Importe declarado en el caso fiscal",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Pagos a cuenta",
+                "formula": "Importe declarado en el caso fiscal",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Cuota diferencial",
+                "formula": "11349.39 euros - 0.00 euros - 0.00 euros",
+                "resultado": "11349.39 euros"
+              }
+            ],
+            "fuentes": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "anio": 2025,
+    "salario": 6480540,
+    "resultado": {
+      "_tag": "LiquidacionIrpfAnualCalculada",
+      "perfil": "renta-individual-general",
+      "anio": 2025,
+      "rendimientoIntegroTrabajoCentimos": 6480540,
+      "rendimientoNetoTrabajoCentimos": 5897874,
+      "rendimientoNetoCapitalInmobiliarioCentimos": 0,
+      "gastosDeduciblesTrabajoCentimos": 200000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "totalGastosYDeduccionesTrabajoCentimos": 582666,
+      "baseImponibleGeneralCentimos": 5897874,
+      "baseLiquidableGeneralCentimos": 5897874,
+      "gananciaPatrimonialTotalCentimos": 0,
+      "gananciaPatrimonialExentaCentimos": 0,
+      "baseLiquidableAhorroCentimos": 0,
+      "cotizacionEmpresarialCentimos": 1893889,
+      "cotizacionTrabajadorCentimos": 382666,
+      "costeLaboralCentimos": 8374429,
+      "meiEmpresarialCentimos": 39472,
+      "meiTrabajadorCentimos": 7659,
+      "solidaridadEmpresarialCentimos": 4517,
+      "solidaridadTrabajadorCentimos": 903,
+      "cuotaIntegraGeneralCentimos": 1752363,
+      "cuotaIntegraAhorroCentimos": 0,
+      "cuotaMinimoPersonalCentimos": 105450,
+      "cuotaMinimoPersonalAhorroCentimos": 0,
+      "deduccionesAutonomicasCentimos": 0,
+      "cuotaLiquidaCentimos": 1646913,
+      "retencionesYPagosACuentaCentimos": 0,
+      "cuotaDiferencialCentimos": 1646913,
+      "conciliacionSimuladorLegacy": {
+        "_id": "Option",
+        "_tag": "Some",
+        "value": {
+          "_tag": "ConciliacionSimuladorLegacy",
+          "anio": 2025,
+          "cuotaLiquidadaAnualCentimos": 1646913,
+          "deduccionSmiCentimos": 0,
+          "cuotaTrasDeduccionSmi": "16469.1335484",
+          "cuotaTrasDeduccionSmiCentimos": 1646913,
+          "rendimientoIntegroTrabajoCentimos": 6480540,
+          "minimoExentoRetencionCentimos": 1587600,
+          "tipoMaximoRetencionNominaPorcentaje": "43",
+          "limiteRetencionNominaCentimos": 2103964,
+          "irpfFinalSimulador": "16469.1335484",
+          "irpfFinalSimuladorCentimos": 1646913,
+          "diferenciaCuotaDiferencialEIrpfFinalCentimos": 0
+        }
+      },
+      "rastro": {
+        "titulo": "Liquidación anual del IRPF 2025",
+        "pasos": [
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Rendimientos del trabajo",
+            "descripcion": "Rendimiento íntegro 64805.40 euros menos cotización del trabajador y gastos deducibles.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Rendimiento íntegro del trabajo",
+                "formula": "Suma de importes declarados como trabajo",
+                "resultado": "64805.40 euros"
+              },
+              {
+                "etiqueta": "Cotización deducible del trabajador",
+                "formula": "Cotizaciones sociales calculadas para el salario anual",
+                "resultado": "3826.66 euros"
+              },
+              {
+                "etiqueta": "Rendimiento previo neto",
+                "formula": "64805.40 euros - 3826.66 euros",
+                "resultado": "60978.74 euros"
+              },
+              {
+                "etiqueta": "Gastos deducibles aplicados",
+                "formula": "Gasto fijo del rendimiento del trabajo",
+                "resultado": "2000.00 euros"
+              },
+              {
+                "etiqueta": "Rendimiento neto del trabajo",
+                "formula": "max(0, 60978.74 euros - 2000.00 euros)",
+                "resultado": "58978.74 euros"
+              },
+              {
+                "etiqueta": "Reducción por rendimientos del trabajo",
+                "formula": "Reducción estatal por obtención de rendimientos del trabajo",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cotizaciones a la Seguridad Social",
+            "descripcion": "Desglose de cotizaciones sociales usado por el caso técnico actual: aportación empresarial, aportación del trabajador, MEI y cuota adicional de solidaridad cuando existe exceso sobre la base máxima.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Base ordinaria de cotización",
+                "formula": "min(rendimiento íntegro del trabajo, base máxima anual)",
+                "resultado": "58914.00 euros"
+              },
+              {
+                "etiqueta": "Exceso sobre base máxima",
+                "formula": "max(0, rendimiento íntegro del trabajo - base máxima anual)",
+                "resultado": "5891.40 euros"
+              },
+              {
+                "etiqueta": "Cotización empresarial ordinaria",
+                "formula": "Base ordinaria x tipos empresariales sin MEI ni solidaridad",
+                "resultado": "18499.00 euros"
+              },
+              {
+                "etiqueta": "Cotización del trabajador ordinaria",
+                "formula": "Base ordinaria x tipos del trabajador sin MEI ni solidaridad",
+                "resultado": "3741.04 euros"
+              },
+              {
+                "etiqueta": "MEI empresarial",
+                "formula": "Base ordinaria x tipo empresarial del MEI",
+                "resultado": "394.72 euros"
+              },
+              {
+                "etiqueta": "MEI del trabajador",
+                "formula": "Base ordinaria x tipo del trabajador del MEI",
+                "resultado": "76.59 euros"
+              },
+              {
+                "etiqueta": "Solidaridad empresarial",
+                "formula": "5/6 de la cuota adicional de solidaridad",
+                "resultado": "45.17 euros"
+              },
+              {
+                "etiqueta": "Solidaridad del trabajador",
+                "formula": "1/6 de la cuota adicional de solidaridad",
+                "resultado": "9.03 euros"
+              },
+              {
+                "etiqueta": "Cotización empresarial total",
+                "formula": "Ordinaria empresarial + MEI empresarial + solidaridad empresarial",
+                "resultado": "18938.89 euros"
+              },
+              {
+                "etiqueta": "Cotización total del trabajador",
+                "formula": "Ordinaria trabajador + MEI trabajador + solidaridad trabajador",
+                "resultado": "3826.66 euros"
+              },
+              {
+                "etiqueta": "Coste laboral",
+                "formula": "Rendimiento íntegro del trabajo + cotización empresarial",
+                "resultado": "83744.29 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros Seguridad Social 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts"
+              },
+              {
+                "titulo": "Glosario fiscal del motor",
+                "referencia": "docs/glosario-fiscal-motor.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Rendimientos de capital inmobiliario",
+            "descripcion": "Rendimiento íntegro 0.00 euros integrado como rendimiento neto simplificado en la base general.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Rendimiento íntegro de capital inmobiliario",
+                "formula": "Suma de importes declarados en el formulario",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Rendimiento neto simplificado",
+                "formula": "Sin gastos, amortizaciones ni reducciones específicas todavía implementadas",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Base general y mínimo personal",
+            "descripcion": "Base liquidable general 58978.74 euros, mínimo estatal 5550.00 euros y mínimo autonómico 5550.00 euros.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Base imponible general",
+                "formula": "max(0, 58978.74 euros - 0.00 euros) + 0.00 euros",
+                "resultado": "58978.74 euros"
+              },
+              {
+                "etiqueta": "Base liquidable general",
+                "formula": "Base imponible general sin reducciones de base aplicadas",
+                "resultado": "58978.74 euros"
+              },
+              {
+                "etiqueta": "Mínimo del contribuyente",
+                "formula": "Edad del contribuyente: 40",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por ascendientes",
+                "formula": "0 ascendiente(s) computados",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por descendientes",
+                "formula": "0 descendiente(s) computados",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo personal y familiar",
+                "formula": "5550.00 euros + 0.00 euros + 0.00 euros + 0.00 euros + 0.00 euros",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo personal y familiar autonómico",
+                "formula": "Coincide con el mínimo estatal",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por discapacidad",
+                "formula": "Contribuyente, descendientes y ascendientes con discapacidad computados",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Ganancias patrimoniales y base del ahorro",
+            "descripcion": "Las ganancias patrimoniales por transmisión se integran en la base del ahorro salvo la parte exenta reconocida para mayores de 65 años.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Ganancias patrimoniales declaradas",
+                "formula": "Suma de ganancias por transmisión",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Ganancia patrimonial exenta",
+                "formula": "Exenciones por vivienda habitual o reinversión en renta vitalicia para mayores de 65 años",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Base liquidable del ahorro",
+                "formula": "max(0, 0.00 euros - 0.00 euros)",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual específico mayores de 65 años",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-mayores-65.md"
+              },
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Comunidad autónoma",
+            "descripcion": "Caso técnico de contraste: los mínimos y la escala autonómica se igualan a los parámetros estatales. No representa la normativa propia de una comunidad autónoma real.",
+            "fuentes": [
+              {
+                "titulo": "AEAT Modelo 100 IRPF 2025: cuota íntegra autonómica",
+                "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota íntegra general",
+            "descripcion": "Aplicación de la escala general a la base liquidable general.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Tramo 0.00 euros - 12450.00 euros",
+                "formula": "12450.00 euros x 19.00%",
+                "resultado": "2365.50 euros"
+              },
+              {
+                "etiqueta": "Tramo 12450.00 euros - 20200.00 euros",
+                "formula": "7750.00 euros x 24.00%",
+                "resultado": "1860.00 euros"
+              },
+              {
+                "etiqueta": "Tramo 20200.00 euros - 35200.00 euros",
+                "formula": "15000.00 euros x 30.00%",
+                "resultado": "4500.00 euros"
+              },
+              {
+                "etiqueta": "Tramo 35200.00 euros - 60000.00 euros",
+                "formula": "23778.74 euros x 37.00%",
+                "resultado": "8798.13 euros"
+              },
+              {
+                "etiqueta": "Cuota íntegra general",
+                "formula": "Suma de cuotas por tramo",
+                "resultado": "17523.63 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros IRPF estatal 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota correspondiente al mínimo personal",
+            "descripcion": "Aplicación de la misma escala general al mínimo personal y familiar.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Tramo mínimo 0.00 euros - 12450.00 euros",
+                "formula": "5550.00 euros x 19.00%",
+                "resultado": "1054.50 euros"
+              },
+              {
+                "etiqueta": "Cuota del mínimo personal y familiar",
+                "formula": "Suma de cuotas por tramo del mínimo",
+                "resultado": "1054.50 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros IRPF estatal 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota íntegra del ahorro",
+            "descripcion": "Aplicación de la escala del ahorro a la base liquidable del ahorro.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Cuota íntegra del ahorro",
+                "formula": "Suma de cuotas por tramo",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Cuota del remanente del mínimo personal",
+                "formula": "Parte del mínimo personal y familiar no absorbida por la base general",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota diferencial",
+            "descripcion": "Cuota líquida 16469.13 euros menos retenciones y pagos a cuenta declarados o calculados.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Cuota líquida",
+                "formula": "max(0, 16469.13 euros + 0.00 euros - 0.00 euros)",
+                "resultado": "16469.13 euros"
+              },
+              {
+                "etiqueta": "Deducciones autonómicas aplicadas",
+                "formula": "Sin deducciones autonómicas declaradas en el caso",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Retenciones soportadas",
+                "formula": "Importe declarado en el caso fiscal",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Pagos a cuenta",
+                "formula": "Importe declarado en el caso fiscal",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Cuota diferencial",
+                "formula": "16469.13 euros - 0.00 euros - 0.00 euros",
+                "resultado": "16469.13 euros"
+              }
+            ],
+            "fuentes": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "anio": 2026,
+    "salario": 6733584,
+    "resultado": {
+      "_tag": "LiquidacionIrpfAnualCalculada",
+      "perfil": "renta-individual-general",
+      "anio": 2026,
+      "rendimientoIntegroTrabajoCentimos": 6733584,
+      "rendimientoNetoTrabajoCentimos": 6134517,
+      "rendimientoNetoCapitalInmobiliarioCentimos": 0,
+      "gastosDeduciblesTrabajoCentimos": 200000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "totalGastosYDeduccionesTrabajoCentimos": 599067,
+      "baseImponibleGeneralCentimos": 6134517,
+      "baseLiquidableGeneralCentimos": 6134517,
+      "gananciaPatrimonialTotalCentimos": 0,
+      "gananciaPatrimonialExentaCentimos": 0,
+      "baseLiquidableAhorroCentimos": 0,
+      "cotizacionEmpresarialCentimos": 1973909,
+      "cotizacionTrabajadorCentimos": 399067,
+      "costeLaboralCentimos": 8707493,
+      "meiEmpresarialCentimos": 45911,
+      "meiTrabajadorCentimos": 9182,
+      "solidaridadEmpresarialCentimos": 5866,
+      "solidaridadTrabajadorCentimos": 1173,
+      "cuotaIntegraGeneralCentimos": 1850683,
+      "cuotaIntegraAhorroCentimos": 0,
+      "cuotaMinimoPersonalCentimos": 105450,
+      "cuotaMinimoPersonalAhorroCentimos": 0,
+      "deduccionesAutonomicasCentimos": 0,
+      "cuotaLiquidaCentimos": 1745233,
+      "retencionesYPagosACuentaCentimos": 0,
+      "cuotaDiferencialCentimos": 1745233,
+      "conciliacionSimuladorLegacy": {
+        "_id": "Option",
+        "_tag": "Some",
+        "value": {
+          "_tag": "ConciliacionSimuladorLegacy",
+          "anio": 2026,
+          "cuotaLiquidadaAnualCentimos": 1745233,
+          "deduccionSmiCentimos": 0,
+          "cuotaTrasDeduccionSmi": "17452.327058",
+          "cuotaTrasDeduccionSmiCentimos": 1745233,
+          "rendimientoIntegroTrabajoCentimos": 6733584,
+          "minimoExentoRetencionCentimos": 1587600,
+          "tipoMaximoRetencionNominaPorcentaje": "43",
+          "limiteRetencionNominaCentimos": 2212773,
+          "irpfFinalSimulador": "17452.327058",
+          "irpfFinalSimuladorCentimos": 1745233,
+          "diferenciaCuotaDiferencialEIrpfFinalCentimos": 0
+        }
+      },
+      "rastro": {
+        "titulo": "Liquidación anual del IRPF 2026",
+        "pasos": [
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Rendimientos del trabajo",
+            "descripcion": "Rendimiento íntegro 67335.84 euros menos cotización del trabajador y gastos deducibles.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Rendimiento íntegro del trabajo",
+                "formula": "Suma de importes declarados como trabajo",
+                "resultado": "67335.84 euros"
+              },
+              {
+                "etiqueta": "Cotización deducible del trabajador",
+                "formula": "Cotizaciones sociales calculadas para el salario anual",
+                "resultado": "3990.67 euros"
+              },
+              {
+                "etiqueta": "Rendimiento previo neto",
+                "formula": "67335.84 euros - 3990.67 euros",
+                "resultado": "63345.17 euros"
+              },
+              {
+                "etiqueta": "Gastos deducibles aplicados",
+                "formula": "Gasto fijo del rendimiento del trabajo",
+                "resultado": "2000.00 euros"
+              },
+              {
+                "etiqueta": "Rendimiento neto del trabajo",
+                "formula": "max(0, 63345.17 euros - 2000.00 euros)",
+                "resultado": "61345.17 euros"
+              },
+              {
+                "etiqueta": "Reducción por rendimientos del trabajo",
+                "formula": "Reducción estatal por obtención de rendimientos del trabajo",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cotizaciones a la Seguridad Social",
+            "descripcion": "Desglose de cotizaciones sociales usado por el caso técnico actual: aportación empresarial, aportación del trabajador, MEI y cuota adicional de solidaridad cuando existe exceso sobre la base máxima.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Base ordinaria de cotización",
+                "formula": "min(rendimiento íntegro del trabajo, base máxima anual)",
+                "resultado": "61214.40 euros"
+              },
+              {
+                "etiqueta": "Exceso sobre base máxima",
+                "formula": "max(0, rendimiento íntegro del trabajo - base máxima anual)",
+                "resultado": "6121.44 euros"
+              },
+              {
+                "etiqueta": "Cotización empresarial ordinaria",
+                "formula": "Base ordinaria x tipos empresariales sin MEI ni solidaridad",
+                "resultado": "19221.32 euros"
+              },
+              {
+                "etiqueta": "Cotización del trabajador ordinaria",
+                "formula": "Base ordinaria x tipos del trabajador sin MEI ni solidaridad",
+                "resultado": "3887.11 euros"
+              },
+              {
+                "etiqueta": "MEI empresarial",
+                "formula": "Base ordinaria x tipo empresarial del MEI",
+                "resultado": "459.11 euros"
+              },
+              {
+                "etiqueta": "MEI del trabajador",
+                "formula": "Base ordinaria x tipo del trabajador del MEI",
+                "resultado": "91.82 euros"
+              },
+              {
+                "etiqueta": "Solidaridad empresarial",
+                "formula": "5/6 de la cuota adicional de solidaridad",
+                "resultado": "58.66 euros"
+              },
+              {
+                "etiqueta": "Solidaridad del trabajador",
+                "formula": "1/6 de la cuota adicional de solidaridad",
+                "resultado": "11.73 euros"
+              },
+              {
+                "etiqueta": "Cotización empresarial total",
+                "formula": "Ordinaria empresarial + MEI empresarial + solidaridad empresarial",
+                "resultado": "19739.09 euros"
+              },
+              {
+                "etiqueta": "Cotización total del trabajador",
+                "formula": "Ordinaria trabajador + MEI trabajador + solidaridad trabajador",
+                "resultado": "3990.67 euros"
+              },
+              {
+                "etiqueta": "Coste laboral",
+                "formula": "Rendimiento íntegro del trabajo + cotización empresarial",
+                "resultado": "87074.93 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros Seguridad Social 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts"
+              },
+              {
+                "titulo": "Glosario fiscal del motor",
+                "referencia": "docs/glosario-fiscal-motor.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Rendimientos de capital inmobiliario",
+            "descripcion": "Rendimiento íntegro 0.00 euros integrado como rendimiento neto simplificado en la base general.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Rendimiento íntegro de capital inmobiliario",
+                "formula": "Suma de importes declarados en el formulario",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Rendimiento neto simplificado",
+                "formula": "Sin gastos, amortizaciones ni reducciones específicas todavía implementadas",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Base general y mínimo personal",
+            "descripcion": "Base liquidable general 61345.17 euros, mínimo estatal 5550.00 euros y mínimo autonómico 5550.00 euros.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Base imponible general",
+                "formula": "max(0, 61345.17 euros - 0.00 euros) + 0.00 euros",
+                "resultado": "61345.17 euros"
+              },
+              {
+                "etiqueta": "Base liquidable general",
+                "formula": "Base imponible general sin reducciones de base aplicadas",
+                "resultado": "61345.17 euros"
+              },
+              {
+                "etiqueta": "Mínimo del contribuyente",
+                "formula": "Edad del contribuyente: 40",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por ascendientes",
+                "formula": "0 ascendiente(s) computados",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por descendientes",
+                "formula": "0 descendiente(s) computados",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo personal y familiar",
+                "formula": "5550.00 euros + 0.00 euros + 0.00 euros + 0.00 euros + 0.00 euros",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo personal y familiar autonómico",
+                "formula": "Coincide con el mínimo estatal",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Mínimo por discapacidad",
+                "formula": "Contribuyente, descendientes y ascendientes con discapacidad computados",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Ganancias patrimoniales y base del ahorro",
+            "descripcion": "Las ganancias patrimoniales por transmisión se integran en la base del ahorro salvo la parte exenta reconocida para mayores de 65 años.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Ganancias patrimoniales declaradas",
+                "formula": "Suma de ganancias por transmisión",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Ganancia patrimonial exenta",
+                "formula": "Exenciones por vivienda habitual o reinversión en renta vitalicia para mayores de 65 años",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Base liquidable del ahorro",
+                "formula": "max(0, 0.00 euros - 0.00 euros)",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual específico mayores de 65 años",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-mayores-65.md"
+              },
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Comunidad autónoma",
+            "descripcion": "Caso técnico de contraste: los mínimos y la escala autonómica se igualan a los parámetros estatales. No representa la normativa propia de una comunidad autónoma real.",
+            "fuentes": [
+              {
+                "titulo": "AEAT Modelo 100 IRPF 2025: cuota íntegra autonómica",
+                "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota íntegra general",
+            "descripcion": "Aplicación de la escala general a la base liquidable general.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Tramo 0.00 euros - 12450.00 euros",
+                "formula": "12450.00 euros x 19.00%",
+                "resultado": "2365.50 euros"
+              },
+              {
+                "etiqueta": "Tramo 12450.00 euros - 20200.00 euros",
+                "formula": "7750.00 euros x 24.00%",
+                "resultado": "1860.00 euros"
+              },
+              {
+                "etiqueta": "Tramo 20200.00 euros - 35200.00 euros",
+                "formula": "15000.00 euros x 30.00%",
+                "resultado": "4500.00 euros"
+              },
+              {
+                "etiqueta": "Tramo 35200.00 euros - 60000.00 euros",
+                "formula": "24800.00 euros x 37.00%",
+                "resultado": "9176.00 euros"
+              },
+              {
+                "etiqueta": "Tramo 60000.00 euros - 300000.00 euros",
+                "formula": "1345.17 euros x 45.00%",
+                "resultado": "605.33 euros"
+              },
+              {
+                "etiqueta": "Cuota íntegra general",
+                "formula": "Suma de cuotas por tramo",
+                "resultado": "18506.83 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros IRPF estatal 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota correspondiente al mínimo personal",
+            "descripcion": "Aplicación de la misma escala general al mínimo personal y familiar.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Tramo mínimo 0.00 euros - 12450.00 euros",
+                "formula": "5550.00 euros x 19.00%",
+                "resultado": "1054.50 euros"
+              },
+              {
+                "etiqueta": "Cuota del mínimo personal y familiar",
+                "formula": "Suma de cuotas por tramo del mínimo",
+                "resultado": "1054.50 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Parámetros IRPF estatal 2012-2026",
+                "referencia": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota íntegra del ahorro",
+            "descripcion": "Aplicación de la escala del ahorro a la base liquidable del ahorro.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Cuota íntegra del ahorro",
+                "formula": "Suma de cuotas por tramo",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Cuota del remanente del mínimo personal",
+                "formula": "Parte del mínimo personal y familiar no absorbida por la base general",
+                "resultado": "0.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "Manual Renta 2025 Parte 1",
+                "referencia": "docs/fuentes/aeat/manual-renta-2025-parte-1.md"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota diferencial",
+            "descripcion": "Cuota líquida 17452.33 euros menos retenciones y pagos a cuenta declarados o calculados.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Cuota líquida",
+                "formula": "max(0, 17452.33 euros + 0.00 euros - 0.00 euros)",
+                "resultado": "17452.33 euros"
+              },
+              {
+                "etiqueta": "Deducciones autonómicas aplicadas",
+                "formula": "Sin deducciones autonómicas declaradas en el caso",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Retenciones soportadas",
+                "formula": "Importe declarado en el caso fiscal",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Pagos a cuenta",
+                "formula": "Importe declarado en el caso fiscal",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Cuota diferencial",
+                "formula": "17452.33 euros - 0.00 euros - 0.00 euros",
+                "resultado": "17452.33 euros"
+              }
+            ],
+            "fuentes": []
+          }
+        ]
+      }
+    }
+  }
+]

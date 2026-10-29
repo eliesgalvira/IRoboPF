@@ -1,0 +1,15 @@
+API ACCEPTED {"filesTs":98,"filesPython":1,"syntactic":19967,"effective":16100,"selected":11727,"pendingUnits":25171,"catalog":351,"audited":0}
+FRESH CLI 1 62 | export function compareFiles(expected, actual) {
+63 |   if (expected.size !== actual.size)
+64 |     throw new Error("Conjunto de archivos incompleto o sobrante")
+65 |   for (const [name, content] of expected) {
+66 |     if (actual.get(name) !== content)
+67 |       throw new Error(`Diferencia respecto a fuentes actuales: ${name}`)
+                     ^
+error: Diferencia respecto a fuentes actuales: inventario-indice-0000.json
+      at compareFiles (/home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root/scripts/procedencia/inventario-artefacto.mjs:67:17)
+      at buildArtifact (/home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root/scripts/procedencia/inventario-artefacto.mjs:92:7)
+
+Bun v1.3.13 (Linux x64)
+
+{"exit":1,"stdout":"","stderr":"62 | export function compareFiles(expected, actual) {\n63 |   if (expected.size !== actual.size)\n64 |     throw new Error(\"Conjunto de archivos incompleto o sobrante\")\n65 |   for (const [name, content] of expected) {\n66 |     if (actual.get(name) !== content)\n67 |       throw new Error(`Diferencia respecto a fuentes actuales: ${name}`)\n                     ^\nerror: Diferencia respecto a fuentes actuales: inventario-pagina-0000.json\n      at compareFiles (/home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root/scripts/procedencia/inventario-artefacto.mjs:67:17)\n      at buildArtifact (/home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root/scripts/procedencia/inventario-artefacto.mjs:92:7)\n\nBun v1.3.13 (Linux x64)\nTraceback (most recent call last):\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root/scripts/procedencia/inventario-validar.py\", line 38, in <module>\n    verify(Path(__file__).resolve().parents[2])\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root/scripts/procedencia/inventario-validar.py\", line 33, in verify\n    subprocess.run(['bun', 'scripts/procedencia/inventario-artefacto.mjs', 'check'], cwd=root, check=True)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/subprocess.py\", line 577, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['bun', 'scripts/procedencia/inventario-artefacto.mjs', 'check']' returned non-zero exit status 1.\n"}

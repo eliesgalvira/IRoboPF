@@ -1,0 +1,81 @@
+{
+  "executed": [
+    {
+      "id": "cuota-fija-asturias2015",
+      "base": "17707.21",
+      "engine": "1875.8654",
+      "publishedFormula": "1875.8614",
+      "engine2dp": "1875.87",
+      "publishedFormula2dp": "1875.86",
+      "testResult": "FAIL",
+      "exitCode": 1,
+      "command": "nix shell nixpkgs#bun -c bun test --max-concurrency 1 ./.cache/procedencia/revision-cadena-autonomica-a/cuota-fija.test.ts",
+      "source": "BOE-A-2015-1764-p24",
+      "scope": "Cuota bruta, no deuda final"
+    },
+    {
+      "id": "asturias2025-fechas",
+      "dates": [
+        "2025-12-02",
+        "2025-12-03",
+        "2025-12-31"
+      ],
+      "base": "10000",
+      "engineMinimumAll": "6105",
+      "engineGrossAll": "900",
+      "testResult": "PROBE executed; no legal expected asserted",
+      "conditionalExpectedBefore": {
+        "minimum": "5550",
+        "gross": "1000",
+        "status": "hypothesis pending temporal legal review"
+      }
+    },
+    {
+      "id": "2026-six-territories",
+      "territories": [
+        "andalucia",
+        "aragon",
+        "asturias",
+        "illes-balears",
+        "canarias",
+        "cantabria"
+      ],
+      "engineAll": "ComunidadAutonomaNoSoportada",
+      "testResult": "PROBE executed"
+    }
+  ],
+  "notExecuted": [
+    {
+      "id": "balears2015-boundary",
+      "dates": [
+        "2015-12-30",
+        "2015-12-31"
+      ],
+      "reason": "Preparar prueba de selector y resolver alcance temporal antes de imponer esperado fiscal."
+    },
+    {
+      "id": "balears2023-minimum-boundary",
+      "dates": [
+        "2023-11-25",
+        "2023-11-26"
+      ],
+      "reason": "Separar segundo descendiente y ascendientes; no aceptar mínimo completo por coincidencia del total."
+    },
+    {
+      "id": "canarias2022-cuota",
+      "base": "55276",
+      "publishedFixed": "7894.39",
+      "reason": "Comparar cuota fija sustituyenteDL1/2023; no usar7894 sin céntimos."
+    }
+  ],
+  "scripts": [
+    {
+      "path": ".cache/procedencia/revision-cadena-autonomica-a/casos.ts",
+      "sha256": "49eb02feaf448bee89e90bab34ba7ca925f355729e6d50e9adf87a9b69bbb01f"
+    },
+    {
+      "path": ".cache/procedencia/revision-cadena-autonomica-a/cuota-fija.test.ts",
+      "sha256": "5d587b0f1b1a7a3e2829488f98579bceae60360aee411fc59c4e925f44fe9f8b"
+    }
+  ]
+}

@@ -1,0 +1,537 @@
+[
+  {
+    "id": "cadena-b-ext-2026",
+    "previousStatus": "missing",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "Carencia real en el resolutor. BOE p66/78 y DOE p95/112 coinciden: 7,75/9,75 y cuota 1.720,50 a 20.200; publicación DOE 04/08/2026 y BOE 17/08/2026; DF7 efectos 01/01/2026.",
+    "acceptanceScope": "Ausencia de soporte territorial y contenido de la reforma publicada al corte; no liquidación 2026 errónea ejecutada ni cierre del ejercicio.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-17839",
+        "sha256": "3ad92f111e0566eb8f03f6e9957fd79b33977a78f828da9e4ac334efd5a2435a",
+        "publicationDate": "17/08/2026"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2026/08/17/pdfs/BOE-A-2026-17839.pdf",
+        "sha256": "733944bcf880f937cf5f28acaf7836970bbc126582fba449a3a50b16407b09e9",
+        "publicationDate": "17/08/2026"
+      },
+      {
+        "canonicalUrl": "https://doe.juntaex.es/pdfs/doe/2026/1490o/26010002.pdf",
+        "sha256": "30b20f540891f054d811fca6cdd3cb78c1d896c5b825e8dbab29a50c5ffb4d83",
+        "publicationDate": "2026-08-04"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "symbol": "resolverParametrosComunidadAutonoma2026",
+        "currentLines": [
+          451,
+          546
+        ]
+      }
+    ],
+    "objections": [
+      "No heredar 2025 ni la excepción de fallecidos de 2023. La continuidad aritmética no autoriza sustituir cuota publicada por integral."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  },
+  {
+    "id": "cadena-b-ext-consolidado-2018",
+    "previousStatus": "ambiguous",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "Conflicto documental confirmado: consolidado TR2013 10,50; Ley1/2018 DA2.Uno p46 y TR2018 art1 p8 9,50; DF4 efectos enero salvo excepciones ajenas. Corrección DOE2018 afecta tasas veterinarias.",
+    "acceptanceScope": "Existencia de la contradicción y preferencia de originales para el primer tipo 2018; el código actual ya usa 9,5.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2018-1918",
+        "sha256": "7de40c9fa3dac7249f1880cd21e7e0993da1ca37e21ed0fe3c570c96e5d573f2",
+        "publicationDate": "13/02/2018"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2018/02/13/pdfs/BOE-A-2018-1918.pdf",
+        "sha256": "45e4617fcf6b3469ab0a49733ae1e944778d59a0b1a3f7e58fb4a55e35dd59db",
+        "publicationDate": "13/02/2018"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2018-8159",
+        "sha256": "37e5959876055ae51c005020f507c683f54efef5bb662fae977ed345a3bd731a",
+        "publicationDate": "19/06/2018"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2018/06/19/pdfs/BOE-A-2018-8159.pdf",
+        "sha256": "62687b239bcf9bc6c4979a73a221a86b861333fd64886d77cbfb65065f5a1c59",
+        "publicationDate": "19/06/2018"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-7871&p=20180124&tn=1",
+        "sha256": "68b9d07be387d99704511ba6bd8ceb45e88da789a4f4995507915e69cf8264ef",
+        "publicationDate": "18/07/2013"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2018.ts",
+        "symbol": "ESCALAS_AUTONOMICAS_IRPF_2018",
+        "currentLines": [
+          52,
+          249,
+          253,
+          254,
+          255,
+          256,
+          258,
+          259,
+          260,
+          265,
+          266,
+          267,
+          268,
+          269,
+          270,
+          271,
+          273,
+          282
+        ]
+      }
+    ],
+    "objections": [
+      "12.450 × 10,50% = 1.307,25, incompatible con la siguiente cuota 1.182,75. Esta contraprueba sola no decidiría la norma; los dos originales sí sustentan la preferencia."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  },
+  {
+    "id": "cadena-b-cat-cuotas-2020",
+    "previousStatus": "mismatch",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "Art87 Ley5/2020 p62: cuota 15.908,31 a 90.000. Código integra tipos y produce algebraicamente 15.908,316; contraprueba Decimal propia. Correcciones 5901/6424/15177 no cambian tarifa.",
+    "acceptanceScope": "Diferencia entre cuota publicada y representación por integración para 2020–2021. No se acepta deuda final ni método universal de truncamiento.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2020-5569",
+        "sha256": "9d45f1563ca06d3177d0473310a85cb081a8d419224270edff0cbb33d5105290",
+        "publicationDate": "02/06/2020"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2020/06/02/pdfs/BOE-A-2020-5569.pdf",
+        "sha256": "adb7645ce524963d3768e6dfff8547c1fa3076d18e9b64c76f3af93978b214ef",
+        "publicationDate": "02/06/2020"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+        "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020",
+        "currentLines": [
+          50,
+          332,
+          336,
+          337,
+          338,
+          339,
+          341,
+          342,
+          343,
+          348,
+          349,
+          350,
+          351,
+          352,
+          353,
+          354,
+          356,
+          365
+        ]
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2021.ts",
+        "symbol": "ESCALAS_AUTONOMICAS_IRPF_2021",
+        "currentLines": [
+          44,
+          317,
+          323,
+          324,
+          325,
+          327,
+          328,
+          329,
+          334,
+          335,
+          336,
+          337,
+          338,
+          339,
+          340,
+          342,
+          351
+        ]
+      }
+    ],
+    "objections": [
+      "La resta de mínimo no cancela necesariamente el céntimo: caso 90.000 y mínimo 5.550. El art87 de función pública de la corrección no es el art87 IRPF."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  },
+  {
+    "id": "cadena-b-cat-cuotas-2022",
+    "previousStatus": "mismatch",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "Art41 Ley2/2021 pp46–47, refundición DL1/2024 art611-1 p6: 2.399,10 a 21.000 frente integral 2.399,106. Correcciones 4851/6905 ajenas.",
+    "acceptanceScope": "Diferencias de cuota tabulada en 2022–2024 y persistencia en refundición; no aceptación de liquidación completa.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2022-953",
+        "sha256": "e514b5e39083553c7e09265f0f0c93dbfe60272072475060018ef883391aca3b",
+        "publicationDate": "21/01/2022"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2022/01/21/pdfs/BOE-A-2022-953.pdf",
+        "sha256": "60e424f977fd690377672d08d817ed3bb5e8e187d741efe25b82cec796118d14",
+        "publicationDate": "21/01/2022"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2024-6951",
+        "sha256": "6fc6ca0cfb207e5e0c2f2315adb3f35ac0fafea0209f6b09d69735bfb32443e0",
+        "publicationDate": "09/04/2024"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2024/04/09/pdfs/BOE-A-2024-6951.pdf",
+        "sha256": "0b1f62e13ef96a78c4d156f171eb5402a027d1276d01da22d874de8787c6b422",
+        "publicationDate": "09/04/2024"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/ccaa/dogc/2024/9122/f00001-00059.pdf",
+        "sha256": "a9fdd78daf3f2055da93c89cf2833d81598768cfb75e64f91b5f0e194165eed6",
+        "publicationDate": "2024-03-14"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2022.ts",
+        "symbol": "ESCALAS_AUTONOMICAS_IRPF_2022",
+        "currentLines": [
+          49,
+          293,
+          302,
+          303,
+          305,
+          306,
+          307,
+          314,
+          315,
+          319,
+          320,
+          321,
+          323,
+          372
+        ]
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2023.ts",
+        "symbol": "ESCALAS_AUTONOMICAS_IRPF_2023",
+        "currentLines": [
+          49,
+          195,
+          207,
+          209,
+          210,
+          211,
+          218,
+          231,
+          277
+        ]
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2024.ts",
+        "symbol": "ESCALAS_AUTONOMICAS_IRPF_2024",
+        "currentLines": [
+          44,
+          107,
+          119,
+          123,
+          133,
+          160
+        ]
+      }
+    ],
+    "objections": [
+      "No corregir tipos para forzar cuotas. No extrapolar a 2025, cuya tabla cambia por DL5/2025."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  },
+  {
+    "id": "cadena-b-cat-minimo-2020",
+    "previousStatus": "ambiguous",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "needs-evidence",
+    "severity": "P2",
+    "reason": "Original art88.b p62 fija 6.105 para suma BLG+BLA≤12.450; STC186/2021 FJ3D y fallo p13 preservan obligaciones devengadas. Código alias estatal no representa esa distinción.",
+    "acceptanceScope": "Se aceptan texto original, nulidad y protección histórica; queda pendiente el contrato de qué situación jurídica reconstruye el producto, necesario para cambiar el cálculo.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2020-5569",
+        "sha256": "9d45f1563ca06d3177d0473310a85cb081a8d419224270edff0cbb33d5105290",
+        "publicationDate": "02/06/2020"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2020/06/02/pdfs/BOE-A-2020-5569.pdf",
+        "sha256": "adb7645ce524963d3768e6dfff8547c1fa3076d18e9b64c76f3af93978b214ef",
+        "publicationDate": "02/06/2020"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2021-19515",
+        "sha256": "54927602651dcd0fac4a22f32d9a8efceb22934bb74f9238469f6862f85796b8",
+        "publicationDate": "25/11/2021"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2021/11/25/pdfs/BOE-A-2021-19515.pdf",
+        "sha256": "8a97d5ac77d9d4f2b3afec3656329c2c2cfdee45adc09a3d20008b576cc7bdba",
+        "publicationDate": "25/11/2021"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2020.ts",
+        "symbol": "MINIMOS_CATALUNYA_2020_CANONICO",
+        "currentLines": [
+          68,
+          96
+        ]
+      }
+    ],
+    "objections": [
+      "Ni nulidad borra 2020 ni protección autoriza 6.105 universal para liquidaciones nuevas. 6.150 en antecedente es inconsistente con el precepto y no sustituye 6.105."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  },
+  {
+    "id": "cadena-b-sin-modelo-2026-castilla-la-mancha",
+    "previousStatus": "missing",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "El resolutor 2026 solo admite simulada-estatal y rechaza esta comunidad; no ofrece escala/minimos territoriales. Se han contrastado originales y reformas indicados en matriz.",
+    "acceptanceScope": "Carencia de soporte 2026. La persistencia normativa examinada llega al 29/10/2026; no aceptación automática de mínimos, deducciones ni liquidación completa.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2015-1628",
+        "sha256": "b7de105298fbb1aad3802c2d23084ff0dd0729b55bd4e082c5b9663d4150cd24",
+        "publicationDate": "18/02/2015"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2015/02/18/pdfs/BOE-A-2015-1628.pdf",
+        "sha256": "37c9ceaab143e855155bb551bd31a3632cb63f00c514636884342d57d404d250",
+        "publicationDate": "18/02/2015"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "symbol": "resolverParametrosComunidadAutonoma2026",
+        "currentLines": [
+          451,
+          546
+        ]
+      }
+    ],
+    "objections": [
+      "La falta de modelo no significa falta de norma; tampoco autoriza copiar toda la parametrización de 2025."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  },
+  {
+    "id": "cadena-b-sin-modelo-2026-castilla-y-leon",
+    "previousStatus": "missing",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "El resolutor 2026 solo admite simulada-estatal y rechaza esta comunidad; no ofrece escala/minimos territoriales. Se han contrastado originales y reformas indicados en matriz.",
+    "acceptanceScope": "Carencia de soporte 2026. La persistencia normativa examinada llega al 29/10/2026; no aceptación automática de mínimos, deducciones ni liquidación completa.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2022-21578",
+        "sha256": "4529a02043f7f870a1805daf41271908f2a2df39ff44f09d1e91f4f9f1d29833",
+        "publicationDate": "20/12/2022"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2022/12/20/pdfs/BOE-A-2022-21578.pdf",
+        "sha256": "1cea38ba75a8519824d298e71841ba4d3a40c3d4f911ba85326662ca92b5cdf8",
+        "publicationDate": "20/12/2022"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "symbol": "resolverParametrosComunidadAutonoma2026",
+        "currentLines": [
+          451,
+          546
+        ]
+      }
+    ],
+    "objections": [
+      "La falta de modelo no significa falta de norma; tampoco autoriza copiar toda la parametrización de 2025."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  },
+  {
+    "id": "cadena-b-sin-modelo-2026-catalunya",
+    "previousStatus": "missing",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "El resolutor 2026 solo admite simulada-estatal y rechaza esta comunidad; no ofrece escala/minimos territoriales. Se han contrastado originales y reformas indicados en matriz.",
+    "acceptanceScope": "Carencia de soporte 2026. La persistencia normativa examinada llega al 29/10/2026; no aceptación automática de mínimos, deducciones ni liquidación completa.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2025-10270",
+        "sha256": "579d67ca91fa7e17f2132af9fe151dec166aae9f8e2ac93aeb9c926c67d18c8a",
+        "publicationDate": "24/05/2025"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2025/05/24/pdfs/BOE-A-2025-10270.pdf",
+        "sha256": "fe1d0970921ff93d6204d00f219939d9de2df46183cd91fe26b9b130d0db61b6",
+        "publicationDate": "24/05/2025"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "symbol": "resolverParametrosComunidadAutonoma2026",
+        "currentLines": [
+          451,
+          546
+        ]
+      }
+    ],
+    "objections": [
+      "La falta de modelo no significa falta de norma; tampoco autoriza copiar toda la parametrización de 2025."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  },
+  {
+    "id": "cadena-b-sin-modelo-2026-galicia",
+    "previousStatus": "missing",
+    "previousReview": {
+      "status": "pendiente",
+      "independentReviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "El resolutor 2026 solo admite simulada-estatal y rechaza esta comunidad; no ofrece escala/minimos territoriales. Se han contrastado originales y reformas indicados en matriz.",
+    "acceptanceScope": "Carencia de soporte 2026. La persistencia normativa examinada llega al 29/10/2026; no aceptación automática de mínimos, deducciones ni liquidación completa.",
+    "evidenceUsed": [
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2023-6382",
+        "sha256": "eb059a6a4cbc6db9c5cf497213c42d9a391e429d04dd1ed411108a57d248920f",
+        "publicationDate": "11/03/2023"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2023/03/11/pdfs/BOE-A-2023-6382.pdf",
+        "sha256": "9d49010c79ba461520e79d47a2c7cbddfcb9842190b91a5f93930bd7ea2311fb",
+        "publicationDate": "11/03/2023"
+      }
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "symbol": "resolverParametrosComunidadAutonoma2026",
+        "currentLines": [
+          451,
+          546
+        ]
+      }
+    ],
+    "objections": [
+      "La falta de modelo no significa falta de norma; tampoco autoriza copiar toda la parametrización de 2025."
+    ],
+    "reclassification": "Se conserva clasificación candidata; decisión independiente limitada por acceptanceScope.",
+    "reproduction": "casos.json; pruebas aritméticas propias ejecutadas y contratos no ejecutados diferenciados. Lectura estática del código actual.",
+    "notAccepted": [
+      "liquidación fiscal completa",
+      "autenticación criptográfica del emisor",
+      "cierre del ejercicio 2026"
+    ]
+  }
+]

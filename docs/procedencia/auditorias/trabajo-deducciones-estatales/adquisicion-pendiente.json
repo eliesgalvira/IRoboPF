@@ -1,0 +1,64 @@
+{
+  "note": "Los intentos fallidos no son evidencia; algunos404 fueron resueltos con otra URL y constan en documentos.json. Nunca se deshabilitó TLS para el dominio antiguo.",
+  "failedAttempts": [
+    {
+      "label": "aeat2012",
+      "url": "https://sede.agenciatributaria.gob.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2012_es_es.pdf",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "label": "aeat2013",
+      "url": "https://sede.agenciatributaria.gob.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2013_es_es.pdf",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "label": "aeat2019",
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2019/ManualRentaPatrimonio2019_es_es.pdf",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "label": "aeat2024",
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2024/ManualRenta2024_es_es.pdf",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "label": "aeat2013-legacyhost",
+      "url": "https://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2013_es_es.pdf",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: CA signature digest algorithm too weak (_ssl.c:1032)>"
+    },
+    {
+      "label": "aeat2012-legacyhost",
+      "url": "https://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2012_es_es.pdf",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: CA signature digest algorithm too weak (_ssl.c:1032)>"
+    }
+  ],
+  "rejectedAsEvidence": [
+    {
+      "canonicalUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764&p=20120101&tn=1",
+      "finalUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764&p=20120101&tn=1",
+      "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bad114cef8353d976e87afeab49d22aab82673c79b9a6f3f5a3519ebff9a27ff",
+      "sha256": "bad114cef8353d976e87afeab49d22aab82673c79b9a6f3f5a3519ebff9a27ff",
+      "sha512": "373438c2a8ea80a723eb623c1b6e467ab35aa60f72665c146b08f1bcb848ea53dd807ec9a70c99d18c905de9b9fe54dae17ae47ba0d9f7bf9a4c998c7941a761",
+      "size": 2028862,
+      "retrievedAt": "2026-10-29T10:07:46.740809+00:00",
+      "httpStatus": 200,
+      "reason": "Selector p=20120101 no correspondía a versión listada; servidor devolvió contenido actual. No acredita2012."
+    },
+    {
+      "canonicalUrl": "https://www.boe.es/eli/es/res/2025/01/22/(2)/dof/spa/pdf",
+      "finalUrl": "https://www.boe.es/eli/es/res/2025/01/22/(2)/dof/spa/pdf",
+      "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/03382857a2b9ca07fbaf02ada8da94160c942cb311df4cced9cce7da1e7bc4ff",
+      "sha256": "03382857a2b9ca07fbaf02ada8da94160c942cb311df4cced9cce7da1e7bc4ff",
+      "sha512": "f5132767ced8e8eded376ce915d0d12638b83b26c374d62d95b84d1b52ca15d87272ced23656cb99a9d98f2cc8d8fb18fd26004ea17ace8bc31c48547dcc8050",
+      "size": 189932,
+      "retrievedAt": "2026-10-29T10:20:00.569512+00:00",
+      "httpStatus": 200,
+      "reason": "ELI /(2) correspondía a derogaciónRDL10/2024, no9/2024. Sustituido por BOE-A-2025-1136."
+    }
+  ],
+  "stillPending": [
+    "ManualAEAT2012",
+    "ManualAEAT2013",
+    "ManualAEAT2026 final"
+  ]
+}

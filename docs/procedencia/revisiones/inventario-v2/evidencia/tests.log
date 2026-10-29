@@ -1,0 +1,73 @@
+$ vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root
+
+ ❯ tests/procedencia-inventario.test.mjs (14 tests | 1 failed) 2016ms
+     × rechaza un valor adulterado aunque todos sus hashes hayan sido recalculados 343ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/procedencia-inventario.test.mjs > inventario sintáctico y efectivo > rechaza un valor adulterado aunque todos sus hashes hayan sido recalculados
+AssertionError: 303 |         limitation:
+304 |           "No se interpreta la ausencia como rechazo controlado en runtime; fuera del contrato tipado del selector.",
+305 |       }
+306 |     }
+307 |   )
+308 |   const binding = selectorSource.bindings.find(
+                        ^
+TypeError: undefined is not an object (evaluating 'selectorSource.bindings')
+      at generate (/home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root/scripts/procedencia/inventario.mjs:308:19)
+      at async buildArtifact (/home/elies/.t3/worktrees/IRoboPF/t3-5372446a/.cache/procedencia/revision-inventario-v2/root/scripts/procedencia/inventario-artefacto.mjs:89:27)
+
+Bun v1.3.13 (Linux x64)
+: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ generate scripts/procedencia/inventario.mjs:308:19
+    306|     }
+    307|   )
+    308|   const binding = selectorSource.bindings.find(
+       |                   ^
+    309|     (b) => b.symbol === "obtenerParametrosComunidadAutonoma"
+    310|   )
+ ❯ buildArtifact scripts/procedencia/inventario-artefacto.mjs:89:27
+ ❯ tests/procedencia-inventario.test.mjs:25:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed (14)
+   Start at  12:01:20
+   Duration  2.66s (transform 141ms, setup 0ms, import 535ms, tests 2.02s, environment 0ms)
+
+error: script "test:inventario" exited with code 1
+Command exited with non-zero status 1
+	Command being timed: "bun run test:inventario"
+	User time (seconds): 3.04
+	System time (seconds): 0.75
+	Percent of CPU this job got: 126%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 699328
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 327197
+	Voluntary context switches: 3377
+	Involuntary context switches: 645
+	Swaps: 0
+	File system inputs: 40
+	File system outputs: 528
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
