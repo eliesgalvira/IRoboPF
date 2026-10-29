@@ -153,6 +153,26 @@ function coberturaEvidencias(snapshot, entradas, raiz) {
 }
 
 export function verificarContenido(snapshot, raiz) {
+  // Memo de lectura limitada a esta ejecución: nunca sobrevive a un verificador.
+  const externos = new Map()
+  const leer = (h) => {
+    if (snapshot.version !== 3 || !snapshot.externos.some((e) => e.hash === h))
+      return objeto(raiz, h)
+    if (!externos.has(h)) externos.set(h, objeto(raiz, h, snapshot))
+    return externos.get(h)
+  }
+  if (
+    snapshot.version === 3 &&
+    (new Set(snapshot.externos.map((e) => e.hash)).size !==
+      snapshot.externos.length ||
+      snapshot.externos.some(
+        (e) =>
+          !snapshot.publicos.some(
+            (p) => p.hash === e.hash && p.bytes === e.bytes && p.mime === e.mime
+          )
+      ))
+  )
+    throw new Error("Descriptor externo ajeno o duplicado")
   const entradas = []
   const prefijos = new Set()
   for (const paquete of snapshot.paquetes) {
@@ -179,8 +199,7 @@ export function verificarContenido(snapshot, raiz) {
     snapshot.generador,
     ...snapshot.auxiliares,
   ]) {
-    if (hash(readFileSync(resolve(raiz, "objetos", h))) !== h)
-      throw new Error("Auxiliar corrupto")
+    if (hash(leer(h)) !== h) throw new Error("Auxiliar corrupto")
   }
   if (entradas.length !== snapshot.cantidad)
     throw new Error("Conteo incorrecto")
@@ -215,7 +234,7 @@ export function verificarContenido(snapshot, raiz) {
   }
   if (cotejadas !== porId.size)
     throw new Error("Cobertura de ocurrencias incompleta")
-  if (snapshot.version === 2) {
+  if (snapshot.version !== 1) {
     const recibos = coberturaEvidencias(snapshot, entradas, raiz)
     if (!snapshot.auxiliares.includes(snapshot.catalogo))
       throw new Error("Catálogo no preservado")
@@ -263,7 +282,7 @@ export function verificarContenido(snapshot, raiz) {
       throw new Error("Índice de búsqueda distinto de entidades")
     const cierre = new Set(snapshot.dependencias.map((d) => d.hash))
     for (const d of snapshot.dependencias)
-      if (objeto(raiz, d.hash).length !== d.bytes)
+      if (leer(d.hash).length !== d.bytes)
         throw new Error("Tamaño de dependencia incorrecto")
     for (const h of snapshot.auxiliares)
       if (!cierre.has(h)) throw new Error("Dependencia sin tamaño")
@@ -330,11 +349,14 @@ export function verificarContenido(snapshot, raiz) {
         p.mime === "application/pdf"
           ? Buffer.from("%PDF-")
           : Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
-      if (!objeto(raiz, p.hash).subarray(0, firma.length).equals(firma))
+      if (!leer(p.hash).subarray(0, firma.length).equals(firma))
         throw new Error("MIME público incorrecto")
       if (
         !cierre.has(p.hash) ||
-        objeto(raiz, p.hash).length !== p.bytes ||
+        (snapshot.version === 3 &&
+          snapshot.externos.some((e) => e.hash === p.hash) &&
+          p.mime !== "application/pdf") ||
+        leer(p.hash).length !== p.bytes ||
         !entradas.some(
           ({ entidad: e }) =>
             (e.tipo === "Document" &&

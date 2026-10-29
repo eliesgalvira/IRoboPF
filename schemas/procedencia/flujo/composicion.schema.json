@@ -1,0 +1,295 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "urn:irobopf:flujo:composicion:1",
+  "title": "Composición técnica candidata; no acredita reglas fiscales",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "review",
+    "completeRuleAcceptance",
+    "wiringAllowed",
+    "inputs",
+    "ports",
+    "edges",
+    "sites",
+    "stages",
+    "historical",
+    "adapted",
+    "stageContracts",
+    "boundaries",
+    "historicalNodes"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "review": {
+      "const": "pending-independent"
+    },
+    "completeRuleAcceptance": {
+      "const": false
+    },
+    "wiringAllowed": {
+      "const": false
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/port"
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/edge"
+      }
+    },
+    "sites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "siteId",
+          "historical",
+          "source",
+          "formula",
+          "output",
+          "closed",
+          "closure",
+          "legalReservations"
+        ]
+      }
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "index",
+          "rule",
+          "instance",
+          "argument",
+          "output",
+          "closure"
+        ]
+      }
+    },
+    "historical": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "adapted": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "stageContracts": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "boundaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "call",
+          "callee",
+          "instance",
+          "bindings",
+          "outputs",
+          "conditions",
+          "review"
+        ]
+      }
+    },
+    "historicalNodes": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "object",
+      "required": [
+        "file",
+        "sha256",
+        "start",
+        "end",
+        "text",
+        "offsetEncoding"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "pattern": "^lib/"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "offsetEncoding": {
+          "const": "utf16"
+        },
+        "syntax": {
+          "type": "string"
+        }
+      }
+    },
+    "port": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source",
+        "symbol",
+        "property",
+        "instance",
+        "unit",
+        "role",
+        "terminal",
+        "unresolved"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/ref"
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "property": {
+          "type": "string",
+          "minLength": 1
+        },
+        "instance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "enum": [
+            "EUR",
+            "centimos",
+            "percent",
+            "selector",
+            "operation"
+          ]
+        },
+        "role": {
+          "enum": [
+            "value",
+            "selection",
+            "admission"
+          ]
+        },
+        "terminal": {
+          "enum": [
+            null,
+            "primitive",
+            "public-input",
+            "literal"
+          ]
+        },
+        "unresolved": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contract": {
+          "type": "string"
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "from",
+        "to",
+        "role",
+        "condition",
+        "evidence",
+        "binding",
+        "conversion",
+        "review"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "value",
+            "selection",
+            "admission"
+          ]
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "binding": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "conversion": {
+          "enum": [
+            null,
+            "centimos-a-EUR",
+            "EUR-a-centimos",
+            "decimal-presentation",
+            "numeric-operation"
+          ]
+        },
+        "review": {
+          "const": "pending-independent"
+        }
+      }
+    }
+  }
+}

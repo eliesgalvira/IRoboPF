@@ -1,0 +1,17 @@
+import subprocess,os,stat,hashlib,json
+from pathlib import Path
+base='5e69c68077ffd18be20457160595adb3f0ff52e4'
+entries=subprocess.check_output(['git','ls-tree','-rz','--full-tree',base]).split(b'\0')
+changes=[];count=0
+for entry in entries:
+ if not entry: continue
+ header,name=entry.split(b'\t',1);mode,kind,oid=header.split();p=os.fsdecode(name);count+=1
+ original=subprocess.check_output(['git','cat-file','blob',oid.decode()]);prior=hashlib.sha256(original).hexdigest()
+ try:
+  s=os.lstat(p);data=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else Path(p).read_bytes()
+  actualmode=b'120000' if stat.S_ISLNK(s.st_mode) else (b'100755' if s.st_mode&0o111 else b'100644')
+  if data!=original or mode!=actualmode:changes.append({'path':p,'baseSha256':prior,'sha256':hashlib.sha256(data).hexdigest(),'mode':actualmode.decode()})
+ except FileNotFoundError:changes.append({'path':p,'deleted':True,'baseSha256':prior})
+print(json.dumps({'head':subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),'base':base,'entries':count,'changes':changes},indent=2))
+assert count==15914
+assert not changes

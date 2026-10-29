@@ -1,0 +1,60 @@
+{
+  "review": "independiente; conclusiones nuevas pendientes de contraste del padre",
+  "pin": "2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88",
+  "preserveCandidateCut": "R26; recuperación demostrada en alcance",
+  "fiscalAcceptance": false,
+  "trustMutation": false,
+  "cases": [
+    {
+      "id": "V5R28-CL01",
+      "status": "rojo-nuevo",
+      "severity": "limitacion-de-clasificacion",
+      "evidence": "clasificacion.json",
+      "claim": "selectionSha256 rotulado original-oficial por URL contigua",
+      "impact": "no aprobar taxonomía como censo semántico de originales; no demuestra pérdida ni bloqueo de conservación"
+    },
+    {
+      "id": "V5R28-PR01",
+      "status": "dos-rojos-heredados-de-alcance",
+      "evidence": "casos.json",
+      "claim": "localizador dentro de prosa y FILE:// no eliminados",
+      "impact": "sin certificación universal; solo sintéticos, no prueba de secretos reales"
+    },
+    {
+      "id": "V5R28-RC01",
+      "status": "corroborado-tecnico",
+      "evidence": [
+        "recuperacion.json",
+        "ine.json",
+        "recuperacion-independiente.json"
+      ],
+      "claim": "cuatro originales, selectores, pasajes, tres PNG, índice y HTML recuperados",
+      "limit": "sin aceptación fiscal o autenticidad"
+    },
+    {
+      "id": "V5R28-DT01",
+      "status": "corroborado-acotado",
+      "evidence": "censo-receta.json",
+      "claim": "r2 idéntica desde entrada fija y cinco herramientas",
+      "limit": "no determinismo de primera colección ni exhaustividad"
+    },
+    {
+      "id": "V5R28-CT01",
+      "status": "29-expectativas-satisfechas-de-31",
+      "evidence": "casos.json",
+      "claim": "schema/load/verify y publicación durable atacados con fixtures propios",
+      "limit": "dos residuales rojos conservados; sin escritor hostil o apagado"
+    },
+    {
+      "id": "V5R28-IN01",
+      "status": "incidencia-instrumento-corregida",
+      "evidence": [
+        "censo_receta.log",
+        "censo-inicial.py.txt",
+        "censo-receta-final.log"
+      ],
+      "claim": "primer lector confundía resolución y observación",
+      "limit": "primer recorrido sin tiempo/RSS exactos; no fallo del paquete ni esperado alterado"
+    }
+  ]
+}

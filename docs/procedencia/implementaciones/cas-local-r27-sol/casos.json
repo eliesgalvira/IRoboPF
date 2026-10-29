@@ -1,0 +1,28 @@
+{
+  "estado": "ejecutados-en-ensayo-candidato",
+  "controles": [
+    "bytes originales y ambos hashes",
+    "264 pares y 102 sujetos",
+    "36 enlaces del BOE grande",
+    "GET de todas las fichas con todos sus estados exactos",
+    "GET de veinte objetos por hash, tamaño y MIME",
+    "objeto existente fuera del allowlist: 404",
+    "configuración ausente o relativa: 503",
+    "ausencia, truncamiento y mutación persistente: 503",
+    "symlink de objeto o ancestro: 503",
+    "descriptor con ruta, host, clase o MIME indebidos: rechazo",
+    "tamaño externo fuera de contrato: rechazo",
+    "escritura imposible: ENOENT directo y ENOTDIR en publicador",
+    "registro previo idéntico tras fallo de escritura",
+    "objetos compartidos deduplicados; ámbitos preservados",
+    "fixture sintético identificado sin autoridad fiscal",
+    "restauración de copia ordinaria sin hardlink",
+    "38 snapshots históricos y esperado contractual de ausencia conservados"
+  ],
+  "fuentes": [
+    "tests/cas-local-r27.mjs",
+    "docs/procedencia/implementaciones/cas-local-r27-sol/recorrido.mjs",
+    "docs/procedencia/implementaciones/cas-local-r27-sol/historicos.mjs"
+  ],
+  "limite": "No prueba resistencia general a cualquier carrera, custodia independiente, carga de producción ni validez fiscal; contraste independiente pendiente."
+}

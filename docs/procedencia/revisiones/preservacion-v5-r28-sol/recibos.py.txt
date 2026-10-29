@@ -1,0 +1,30 @@
+from pathlib import Path
+import hashlib,json,gzip,subprocess,os
+root=Path.cwd();cache=root/'.cache/revision-v5-r28';out=root/'docs/procedencia/revisiones/preservacion-v5-r28-sol'
+for name in ['inicio','final']:
+ raw=(cache/(name+'.json')).read_bytes(); value=json.loads(raw); assert value['entries']==15914 and not value['differences']
+ (out/('fisico-'+name+'.json.gz')).write_bytes(gzip.compress(raw,mtime=0))
+for name in ['restauracion-recibo.json','recuperacion.json','ine.json','recuperacion-independiente.json','casos.json','censo-receta.json','clasificacion.json','restaurar.log','calidad-inicial.log','calidad-final.log','calidad-cierre.log','validaciones.log','recuperacion.log','casos.log','censo_receta.log','censo-receta-final.log','clasificacion.log']:
+ (out/name).write_bytes((cache/name).read_bytes())
+for source,target in [('fisico.py','inicio-instrumento.py.txt'),('restaurar.py','restauracion-instrumento.py.txt'),('validar.sh','validar.sh.txt'),('calidad.sh','calidad.sh.txt')]:
+ (out/target).write_bytes((cache/source).read_bytes())
+base=subprocess.check_output(['git','ls-tree','-rz','--name-only','HEAD']).split(b'\0');tracked={os.fsdecode(x) for x in base if x};extras=[]
+for directory,dirs,files in os.walk(root):
+ if Path(directory)==root: dirs[:]=[d for d in dirs if d not in ('.git','.cache')]
+ for file in files:
+  path=(Path(directory)/file).relative_to(root).as_posix()
+  if path not in tracked and path!='.git':extras.append(path)
+assert all(p.startswith('docs/procedencia/revisiones/preservacion-v5-r28-sol/') for p in extras)
+changes=subprocess.check_output(['git','diff','HEAD','--']);staged=subprocess.check_output(['git','diff','--cached','HEAD','--']);assert not changes and not staged
+(out/'alcance.json').write_text(json.dumps({'head':subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),'trackedChanges':0,'deletions':0,'newPaths':sorted(extras),'scratch':'.cache/revision-v5-r28','diffHeadEmpty':True,'diffIndexEmpty':True},indent=2)+'\n')
+findings={'review':'independiente; conclusiones nuevas pendientes de contraste del padre','pin':'2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88','preserveCandidateCut':'R26; recuperación demostrada en alcance','fiscalAcceptance':False,'trustMutation':False,'cases':[
+ {'id':'V5R28-CL01','status':'rojo-nuevo','severity':'limitacion-de-clasificacion','evidence':'clasificacion.json','claim':'selectionSha256 rotulado original-oficial por URL contigua','impact':'no aprobar taxonomía como censo semántico de originales; no demuestra pérdida ni bloqueo de conservación'},
+ {'id':'V5R28-PR01','status':'dos-rojos-heredados-de-alcance','evidence':'casos.json','claim':'localizador dentro de prosa y FILE:// no eliminados','impact':'sin certificación universal; solo sintéticos, no prueba de secretos reales'},
+ {'id':'V5R28-RC01','status':'corroborado-tecnico','evidence':['recuperacion.json','ine.json','recuperacion-independiente.json'],'claim':'cuatro originales, selectores, pasajes, tres PNG, índice y HTML recuperados','limit':'sin aceptación fiscal o autenticidad'},
+ {'id':'V5R28-DT01','status':'corroborado-acotado','evidence':'censo-receta.json','claim':'r2 idéntica desde entrada fija y cinco herramientas','limit':'no determinismo de primera colección ni exhaustividad'},
+ {'id':'V5R28-CT01','status':'29-expectativas-satisfechas-de-31','evidence':'casos.json','claim':'schema/load/verify y publicación durable atacados con fixtures propios','limit':'dos residuales rojos conservados; sin escritor hostil o apagado'},
+ {'id':'V5R28-IN01','status':'incidencia-instrumento-corregida','evidence':['censo_receta.log','censo-inicial.py.txt','censo-receta-final.log'],'claim':'primer lector confundía resolución y observación','limit':'primer recorrido sin tiempo/RSS exactos; no fallo del paquete ni esperado alterado'}]}
+(out/'hallazgos.json').write_text(json.dumps(findings,indent=2,ensure_ascii=False)+'\n')
+decisions=[{'id':'D-R28-01','decision':'Conservar solo pin r2 candidato R26','objection':'confundir versiones o corte actual','response':'ancla externa exacta y estado candidato','cost':'mantener entrada r1 y versiones'}, {'id':'D-R28-02','decision':'Restauración nueva sin fallback','objection':'éxito por cachés ajenas','response':'software del paquete y guarda de aperturas','cost':'copia y lecturas adicionales'}, {'id':'D-R28-03','decision':'Contraste mecánico separado de colección','objection':'mismo recolector puede repetir error','response':'reconstrucción propia byte a byte','cost':'no aprobar colección inicial determinista'}, {'id':'D-R28-04','decision':'Clasificación sigue candidata','objection':'URL o número de hashes confiere oficialidad','response':'CL01 y muestras discriminantes','cost':'rectificación y contraste pendientes'}, {'id':'D-R28-05','decision':'Conservar rojos de privacidad','objection':'exigir anonimización universal cambia contrato','response':'sintéticos, dos residuales y código1','cost':'sin certificación ni transferencia'}, {'id':'D-R28-06','decision':'Sin fixes ni promoción','objection':'preservación técnica parece aceptación jurídica','response':'ejes y puertas separados','cost':'contraste del padre y trabajo global pendientes'}]
+(out/'decisiones.json').write_text(json.dumps(decisions,indent=2,ensure_ascii=False)+'\n')
+print(json.dumps({'physicalEntries':15914,'baseDifferences':0,'outsideScopeExtras':0,'newPathsAtCheck':len(extras)}))

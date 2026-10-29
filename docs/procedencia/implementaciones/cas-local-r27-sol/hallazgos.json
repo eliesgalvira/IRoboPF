@@ -1,0 +1,52 @@
+{
+  "estado": "candidato-sin-revision-independiente",
+  "aceptacionFiscalCompleta": false,
+  "hallazgos": [
+    {
+      "id": "CAS27-H1",
+      "defecto": "El publicador anterior rechaza el BOE exacto de 42.900.459 bytes, compartido por 36 payloads",
+      "rojo": "rojo-real-recibido.json",
+      "respuestaCandidata": "Snapshot v3 y CAS externo cerrado; límite genérico intacto",
+      "contrastePadre": "pendiente"
+    },
+    {
+      "id": "CAS27-H2",
+      "defecto": "El consumidor anterior no resuelve v3",
+      "rojo": "rojo.log",
+      "respuestaCandidata": "Lectura explícita de descriptor por hash, tamaño, MIME y clase",
+      "contrastePadre": "pendiente"
+    }
+  ],
+  "incidencias": [
+    {
+      "id": "CAS27-I1",
+      "tipo": "secuenciacion",
+      "detalle": "Edición preliminar guardada y restituida a base antes de terminar el cotejo previo; el cotejo concluyó con cero diferencias"
+    },
+    {
+      "id": "CAS27-I2",
+      "tipo": "implementacion",
+      "detalle": "Primer tipado rechazó condiciones no booleanas y lint una expansión condicional; diagnósticos conservados en validacion.log"
+    },
+    {
+      "id": "CAS27-I3",
+      "tipo": "entorno",
+      "detalle": "Primer recorrido real carecía de python3; se añade mediante Nix en el reintento, sin atribuir pase al intento fallido"
+    },
+    {
+      "id": "CAS27-I4",
+      "tipo": "cola",
+      "detalle": "finalizar.sh cancelado en cola sin ejecutar; sustituido por reintento completo"
+    },
+    {
+      "id": "CAS27-I5",
+      "tipo": "instrumento",
+      "detalle": "La primera aserción amplia de throws para escritura ausente podía admitir ReferenceError por import omitido; no acredita ese negativo. Se exige import explícito, escritura positiva y error ENOENT en el ensayo final."
+    },
+    {
+      "id": "CAS27-I6",
+      "tipo": "regresion-producto",
+      "detalle": "19/20 pruebas históricas de contenido pasaron; la ausencia prometida devolvía ENOENT en vez del mensaje contractual prometido. Se conserva el rojo y se restaura el diagnóstico en IO, sin modificar esperados; requiere candidato nuevo por cambio de fuente."
+    }
+  ]
+}
