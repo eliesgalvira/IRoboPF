@@ -1,0 +1,30 @@
+[
+  {
+    "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+    "symbol": "sumarRendimientosTrabajo",
+    "actualArguments": [
+      "caso.rendimientos.trabajo",
+      "centimosAEuros"
+    ],
+    "outputProperty": "return Decimal EUR → rendimientoIntegroTrabajo",
+    "consumerProperties": [
+      "salarioBrutoAnual",
+      "costeLaboralCentimos"
+    ],
+    "owner": "lote rentas",
+    "pending": "Composición por este contrato y hash fuente de fronteras.json. No consume gastos ni neto de ese lote.",
+    "sourceSha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54"
+  },
+  {
+    "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+    "symbol": "construirLiquidarIrpfAnual",
+    "actualArguments": [
+      "caso",
+      "contexto"
+    ],
+    "outputProperty": "admisión general del perfil anual antes de liquidarTrabajoIndividualSimple",
+    "owner": "lote A, contrato anual",
+    "pending": "Control de dominio global; no reproduce mínimos ni escalas de liquidación. La validación propia del subcaso retención se expande en este lote.",
+    "sourceSha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f"
+  }
+]

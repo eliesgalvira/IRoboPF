@@ -1,0 +1,15 @@
+{
+  "status": "revision-candidata-sin-aceptacion",
+  "head": "59bb4c8e8dc239823008c02213ea78b59b51d249",
+  "pin": "938f230888d2f71a999d5083c3b484e37687ebad03c4b1ca887535710c6071f2",
+  "reviewRequired": true,
+  "fixesApplied": false,
+  "fiscalAcceptance": false,
+  "findings": [
+    {"id":"PV24-01","class":"limite-de-seleccion","actualCutAffected":true,"evidence":["censo.json","seleccion-ampliada.json","faltantes-clasificados.json"],"result":"447 referencias del subalcance resueltas; cuatro fuentes oficiales adicionales no reconstruibles desde paquete; no son todas PDF"},
+    {"id":"PV24-02","class":"limite-de-saneamiento-declarado","actualLeakDemonstrated":false,"evidence":["casos-maquina.json"],"result":"Saneamiento mecánico por claves no elimina secretos sintéticos dentro de valores URL/path"},
+    {"id":"PV24-03","class":"defecto-de-validacion-candidato","priority":"media","evidence":["rojos.log","casos-maquina.json","muestras.json"],"result":"Validaciones R23 de unicidad y fin absoluto del hash no se heredan; diez adquisiciones repetidas en corte real; pin y comprobación de bytes no eludidos"},
+    {"id":"PV24-04","class":"defecto-de-validacion-candidato","priority":"media","evidence":["rojos.log","restauracion.json"],"result":"verify acepta extras; recepción padre y revisión propia añaden conjunto exacto; corte físico real sin extras"},
+    {"id":"PV24-05","class":"defecto-de-coherencia-candidato","priority":"baja","evidence":["rojos.log","identidades-base.json.gz","casos-maquina.json"],"result":"load acepta fuente distinta con sanitized false y prefijos auxiliares conflictivos; no ocurre en corte materializado"}
+  ]
+}

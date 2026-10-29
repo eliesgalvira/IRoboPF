@@ -1,0 +1,477 @@
+[
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "source": {
+      "symbol": "calcularRendimientoNetoTrabajo",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+        "offsetEncoding": "utf16",
+        "start": 636,
+        "end": 1428
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "anio": "caso.anio",
+      "rendimientoIntegro": "rendimientoIntegroTrabajo",
+      "cotizacionTrabajador": "cotizacionesSociales.cotizacionTrabajador"
+    },
+    "outputs": [
+      "rendimientoNeto",
+      "rendimientoPrevioNeto"
+    ],
+    "call": {
+      "symbol": "rendimientoTrabajo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 13031,
+        "end": 13330
+      },
+      "expression": "rendimientoTrabajo = medirAuditoriaSync(\n    \"liquidacion.rendimientosTrabajo.neto\",\n    () =>\n      calcularRendimientoNetoTrabajo({\n        anio: caso.anio,\n        rendimientoIntegro: rendimientoIntegroTrabajo,\n        cotizacionTrabajador: cotizacionesSociales.cotizacionTrabajador,\n      })\n  )",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.base.general-imponible"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "source": {
+      "symbol": "sumarRendimientosTrabajo",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+        "offsetEncoding": "utf16",
+        "start": 1443,
+        "end": 1727
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "rendimientos": "caso.rendimientos.trabajo",
+      "convertirCentimos": "centimosAEuros"
+    },
+    "outputs": [
+      "return Decimal"
+    ],
+    "call": {
+      "symbol": "rendimientoIntegroTrabajo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 12090,
+        "end": 12264
+      },
+      "expression": "rendimientoIntegroTrabajo = medirAuditoriaSync(\n    \"liquidacion.rendimientosTrabajo.sumar\",\n    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)\n  )",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.base.general-imponible"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "source": {
+      "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+        "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+        "offsetEncoding": "utf16",
+        "start": 1208,
+        "end": 1442
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "rendimientoIntegro": "rendimientoIntegroCapitalInmobiliario"
+    },
+    "outputs": [
+      "rendimientoNeto"
+    ],
+    "call": {
+      "symbol": "rendimientoCapitalInmobiliario",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 13663,
+        "end": 13912
+      },
+      "expression": "rendimientoCapitalInmobiliario = medirAuditoriaSync(\n    \"liquidacion.capitalInmobiliario.neto\",\n    () =>\n      calcularRendimientoNetoCapitalInmobiliarioSimplificado({\n        rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,\n      })\n  )",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.base.general-imponible"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "source": {
+      "symbol": "sumarRendimientosCapitalInmobiliario",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+        "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+        "offsetEncoding": "utf16",
+        "start": 306,
+        "end": 662
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "rendimientos": "caso.rendimientos.capitalInmobiliario ?? []",
+      "convertirCentimos": "centimosAEuros"
+    },
+    "outputs": [
+      "return Decimal"
+    ],
+    "call": {
+      "symbol": "rendimientoIntegroCapitalInmobiliario",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 13339,
+        "end": 13654
+      },
+      "expression": "rendimientoIntegroCapitalInmobiliario = medirAuditoriaSync(\n    \"liquidacion.capitalInmobiliario.sumar\",\n    () =>\n      sumarRendimientosCapitalInmobiliario(\n        Option.fromNullishOr(caso.rendimientos.capitalInmobiliario).pipe(\n          Option.getOrElse(() => [])\n        ),\n        centimosAEuros\n      )\n  )",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.base.general-imponible"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "source": {
+      "symbol": "calcularGananciasPatrimonialesPorTransmision",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+        "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+        "offsetEncoding": "utf16",
+        "start": 1081,
+        "end": 2362
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "anio": "caso.anio",
+      "edadContribuyente": "caso.situacionFamiliar.edad",
+      "ganancias": "caso.rendimientos.gananciasPatrimoniales ?? []",
+      "convertirCentimos": "centimosAEuros"
+    },
+    "outputs": [
+      "gananciaSujetaGeneral",
+      "gananciaSujetaAhorro"
+    ],
+    "call": {
+      "symbol": "gananciasPatrimoniales",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 13921,
+        "end": 14343
+      },
+      "expression": "gananciasPatrimoniales = medirAuditoriaSync(\n    \"liquidacion.gananciasPatrimoniales\",\n    () =>\n      calcularGananciasPatrimonialesPorTransmision({\n        anio: caso.anio,\n        edadContribuyente: caso.situacionFamiliar.edad,\n        ganancias: Option.fromNullishOr(\n          caso.rendimientos.gananciasPatrimoniales\n        ).pipe(Option.getOrElse(() => [])),\n        convertirCentimos: centimosAEuros,\n      })\n  )",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.base.general-imponible",
+      "anual.base.ahorro"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "source": {
+      "symbol": "calcularReduccionTrabajoConOtrasRentas",
+      "source": {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+        "offsetEncoding": "utf16",
+        "start": 806,
+        "end": 1969
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "anio": "caso.anio",
+      "fechaFallecimiento": "caso.fechaFallecimiento",
+      "rendimientoPrevioNeto": "rendimientoTrabajo.rendimientoPrevioNeto",
+      "otrasRentasNoExentas": "netoInmobiliario+gananciaGeneral+gananciaAhorro"
+    },
+    "outputs": [
+      "return Decimal"
+    ],
+    "call": {
+      "symbol": "reduccionRendimientosTrabajo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 15002,
+        "end": 15351
+      },
+      "expression": "reduccionRendimientosTrabajo = medirAuditoriaSync(\n    \"liquidacion.reduccionRendimientosTrabajo\",\n    () =>\n      calcularReduccionTrabajoConOtrasRentas({\n        anio: caso.anio,\n        fechaFallecimiento: caso.fechaFallecimiento,\n        rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,\n        otrasRentasNoExentas,\n      })\n  )",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.base.general-imponible"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "source": {
+      "symbol": "calcularDesgloseCotizacionesPerfilUniforme",
+      "source": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "offsetEncoding": "utf16",
+        "start": 1797,
+        "end": 4183
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "anio": "caso.anio",
+      "salarioBrutoAnual": "rendimientoIntegroTrabajo",
+      "branch": "contexto.modo===canonico"
+    },
+    "outputs": [
+      "cotizacionTrabajador"
+    ],
+    "call": {
+      "symbol": "cotizacionesSociales",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 12683,
+        "end": 13022
+      },
+      "expression": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.base.general-imponible"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "source": {
+      "symbol": "calcularDesgloseCotizacionesSocialesLegacy",
+      "source": {
+        "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+        "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+        "offsetEncoding": "utf16",
+        "start": 7772,
+        "end": 9547
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "anio": "caso.anio",
+      "salarioBrutoAnual": "rendimientoIntegroTrabajo",
+      "branch": "contexto.modo!==canonico"
+    },
+    "outputs": [
+      "cotizacionTrabajador"
+    ],
+    "call": {
+      "symbol": "cotizacionesSociales",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 12683,
+        "end": 13022
+      },
+      "expression": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.base.general-imponible"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts#RetencionTrabajoAeat",
+    "source": {
+      "symbol": "RetencionTrabajoAeat",
+      "source": {
+        "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+        "offsetEncoding": "utf16",
+        "start": 32076,
+        "end": 32402
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "entrada": "caso.retencionTrabajoAeat",
+      "contexto": "contexto",
+      "branch": "entrada!==undefined; anio coherente"
+    },
+    "outputs": [
+      "calcular.return.importeRetencionAnualCentimos"
+    ],
+    "call": {
+      "symbol": "retencionTrabajoAeat",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16",
+        "start": 28188,
+        "end": 28397
+      },
+      "expression": "retencionTrabajoAeat =\n    caso.retencionTrabajoAeat !== undefined\n      ? yield* dependencias.retencionTrabajoAeat.calcular(\n          caso.retencionTrabajoAeat,\n          contexto\n        )\n      : undefined",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.cuota.diferencial"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "source": {
+      "symbol": "adaptarTrabajoAnual",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+        "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+        "offsetEncoding": "utf16",
+        "start": 192,
+        "end": 891
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "entrada": "caso.trabajo"
+    },
+    "outputs": [
+      "estado",
+      "motivo si no-soportado",
+      "rendimientoAntesArt20",
+      "argumentoArt20",
+      "gastos.integro"
+    ],
+    "call": {
+      "symbol": "trabajo",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16",
+        "start": 2889,
+        "end": 2932
+      },
+      "expression": "trabajo = adaptarTrabajoAnual(caso.trabajo)",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.explicito.big",
+      "anual.explicito.blg",
+      "anual.explicito.cuota.posterior"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "source": {
+      "symbol": "adaptarActividadGeneral",
+      "source": {
+        "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+        "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+        "offsetEncoding": "utf16",
+        "start": 591,
+        "end": 942
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "entrada": "caso.actividad",
+      "branch": "solo-actividad-eds; activos.length=0 y discapacidad.grado=0"
+    },
+    "outputs": [
+      "estado",
+      "motivos si no-soportado",
+      "aporte.importeEurosExactos"
+    ],
+    "call": {
+      "symbol": "actividad",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16",
+        "start": 6149,
+        "end": 6200
+      },
+      "expression": "actividad = adaptarActividadGeneral(caso.actividad)",
+      "rangeKind": "declaration-not-literal"
+    },
+    "consumers": [
+      "anual.explicito.big",
+      "anual.explicito.blg"
+    ],
+    "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+    "review": "pending"
+  },
+  {
+    "id": "reduccion-explicita-art20",
+    "source": {
+      "symbol": "calcularReduccionTrabajoConOtrasRentas",
+      "source": {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+        "offsetEncoding": "utf16",
+        "start": 806,
+        "end": 1969
+      },
+      "rangeKind": "declaration-not-literal"
+    },
+    "arguments": {
+      "anio": 2025,
+      "rendimientoPrevioNeto": "trabajo.argumentoArt20",
+      "otrasRentasNoExentas": "0"
+    },
+    "outputs": [
+      "return Decimal"
+    ],
+    "call": {
+      "symbol": "liquidarIrpfAnualExplicito",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16",
+        "start": 3086,
+        "end": 3109
+      },
+      "expression": "reduccionArt20 = D.min(",
+      "rangeKind": "expression-fragment"
+    },
+    "consumers": [
+      "anual.explicito.big",
+      "anual.explicito.blg"
+    ],
+    "review": "pending"
+  }
+]

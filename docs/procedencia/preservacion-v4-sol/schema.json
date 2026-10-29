@@ -39,11 +39,11 @@
         "properties": {
           "sha256": {
             "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
+            "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
           },
           "sha512": {
             "type": "string",
-            "pattern": "^[0-9a-f]{128}$"
+            "pattern": "^[0-9a-f]{128}(?![\\s\\S])"
           },
           "size": {
             "type": "integer",
@@ -77,11 +77,11 @@
               "properties": {
                 "sha256": {
                   "type": "string",
-                  "pattern": "^[0-9a-f]{64}$"
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
                 },
                 "sha512": {
                   "type": "string",
-                  "pattern": "^[0-9a-f]{128}$"
+                  "pattern": "^[0-9a-f]{128}(?![\\s\\S])"
                 },
                 "size": {
                   "type": "integer",
@@ -104,7 +104,7 @@
                 },
                 "dependency": {
                   "type": "string",
-                  "pattern": "^[0-9a-f]{64}$"
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
                 }
               },
               "additionalProperties": false
@@ -114,7 +114,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*$"
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|(?![\\s\\S])))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*(?![\\s\\S])"
             }
           }
         },
@@ -139,11 +139,11 @@
         "properties": {
           "sha256": {
             "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
+            "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
           },
           "sha512": {
             "type": "string",
-            "pattern": "^[0-9a-f]{128}$"
+            "pattern": "^[0-9a-f]{128}(?![\\s\\S])"
           },
           "size": {
             "type": "integer",
@@ -151,15 +151,15 @@
           },
           "path": {
             "type": "string",
-            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*$"
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|(?![\\s\\S])))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*(?![\\s\\S])"
           },
           "sourceSha256": {
             "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
+            "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
           },
           "sourceSha512": {
             "type": "string",
-            "pattern": "^[0-9a-f]{128}$"
+            "pattern": "^[0-9a-f]{128}(?![\\s\\S])"
           },
           "sourceSize": {
             "type": "integer",
@@ -186,13 +186,13 @@
         "properties": {
           "sha256": {
             "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
+            "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
           },
           "sources": {
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*$"
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|(?![\\s\\S])))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*(?![\\s\\S])"
             }
           }
         },
@@ -212,7 +212,7 @@
             "properties": {
               "path": {
                 "type": "string",
-                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*$"
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|(?![\\s\\S])))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*(?![\\s\\S])"
               },
               "reason": {
                 "type": "string"
@@ -230,14 +230,14 @@
             "properties": {
               "path": {
                 "type": "string",
-                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*$"
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|(?![\\s\\S])))(?!.*[\\\\:\\x00-\\x1f\\x7f])[^/]+(?:/[^/]+)*(?![\\s\\S])"
               },
               "reason": {
                 "type": "string"
               },
               "sha256": {
                 "type": "string",
-                "pattern": "^[0-9a-f]{64}$"
+                "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
               }
             },
             "additionalProperties": false

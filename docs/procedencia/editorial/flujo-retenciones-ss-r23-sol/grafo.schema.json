@@ -1,0 +1,248 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "version",
+    "head",
+    "inventory",
+    "artifact",
+    "sites",
+    "nodes",
+    "edges",
+    "externalContracts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "head": {
+      "const": "07c07e6376a72f229be735a904ecf36517a1b571"
+    },
+    "inventory": {
+      "const": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7"
+    },
+    "artifact": {
+      "const": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+    },
+    "sites": {
+      "type": "array",
+      "minItems": 17,
+      "maxItems": 17,
+      "items": {
+        "type": "object",
+        "required": [
+          "siteId",
+          "subject",
+          "historicalSnapshot",
+          "currentSource",
+          "root",
+          "validation",
+          "review",
+          "composition",
+          "legalAcceptance"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "siteId": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "object",
+            "required": [
+              "id",
+              "revision"
+            ]
+          },
+          "historicalSnapshot": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "currentSource": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/definitions/source"
+            }
+          },
+          "root": {
+            "type": "string"
+          },
+          "validation": {
+            "type": "string"
+          },
+          "review": {
+            "const": "pendiente"
+          },
+          "composition": {
+            "const": "pendiente"
+          },
+          "legalAcceptance": {
+            "const": false
+          }
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "file",
+          "symbol",
+          "output",
+          "formula",
+          "inputs",
+          "conditions",
+          "source"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          },
+          "formula": {
+            "type": "string",
+            "minLength": 1
+          },
+          "inputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "conditions": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/definitions/source"
+          },
+          "formalParameters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "argumentBindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "arguments",
+                "condition"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "property",
+          "relation",
+          "reason",
+          "conditions",
+          "source"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "property": {
+            "type": "string"
+          },
+          "relation": {
+            "enum": [
+              "valor",
+              "control-seleccion",
+              "validacion-dominio",
+              "cohabitacion-excluida"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/definitions/source"
+          }
+        }
+      }
+    },
+    "externalContracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "file",
+          "symbol",
+          "arguments",
+          "output",
+          "owner",
+          "status"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "source": {
+      "type": "object",
+      "required": [
+        "file",
+        "sha256",
+        "start",
+        "end",
+        "offsetEncoding",
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "offsetEncoding": {
+          "const": "utf16"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

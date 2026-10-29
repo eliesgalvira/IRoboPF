@@ -14,6 +14,7 @@ import subprocess
 import sys
 import tempfile
 from typing import Any
+from urllib.parse import parse_qsl, urlsplit
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
@@ -31,6 +32,12 @@ HASH = re.compile(r'(?<![0-9a-f])[0-9a-f]{64}(?![0-9a-f])')
 PRIVATE = {'headers', 'redirects', 'cookie', 'cookies', 'authorization', 'set-cookie', 'token', 'password', 'secret', 'localPath'}
 EXCLUDED = ('necesidades-expertas', 'correcciones-x', 'revision-corpus', 'revision-inventario', '/fixtures/', 'inventario-pruebas', '/contenido/', '/contenidos/', '/preservacion-v4-sol/', '/scratch/', '/validacion/', '/tmp/', '/checkout-validacion/', '/node_modules/', '/.venv/', '/synthetic/', '/mocks/')
 EXACT_URLS = frozenset(p.strict_json((HERE / 'urls-exactas.json').read_bytes()))
+# Compatibilidad exclusiva del paquete ya conservado; no permite excepciones
+# para sobres nuevos que solo declaren la misma edición o base.
+HISTORICAL_PIN = '938f230888d2f71a999d5083c3b484e37687ebad03c4b1ca887535710c6071f2'
+PRIVATE_QUERY_KEYS = {'token', 'access_token', 'authorization', 'auth', 'password',
+                      'passwd', 'secret', 'api_key', 'apikey', 'session', 'sessionid',
+                      'sid', 'x-amz-signature', 'x-goog-signature'}
 
 
 def url(value):
@@ -46,14 +53,26 @@ def save(path, value):
         path.write_bytes(data)
 
 
-def clean(value):
+def clean(value, *, policy=2):
     if isinstance(value, dict):
-        return {k: clean(v) for k, v in value.items() if k.lower() not in {x.lower() for x in PRIVATE}}
+        return {k: clean(v, policy=policy) for k, v in value.items() if k.lower() not in {x.lower() for x in PRIVATE}}
     if isinstance(value, list):
-        return [clean(v) for v in value]
+        return [clean(v, policy=policy) for v in value]
     if isinstance(value, str):
         if value.startswith('/home/'):
             return '[localizador-local-omitido]'
+        if policy == 2:
+            if value.startswith(('/tmp/', '/var/tmp/', '/run/user/', '/Users/', 'file://')):
+                return '[localizador-local-omitido]'
+            if value.lower().startswith(('https://', 'http://')):
+                try:
+                    parsed = urlsplit(value)
+                    sensitive = parsed.username is not None or parsed.password is not None
+                    sensitive = sensitive or any(k.casefold() in PRIVATE_QUERY_KEYS for k, _ in parse_qsl(parsed.query))
+                except ValueError:
+                    return '[URL-malformada-omitida]'
+                if sensitive:
+                    return '[URL-con-parametros-privados-omitida]'
     return value
 
 
@@ -229,7 +248,7 @@ def collect():
         if sha in objects:
             continue
         fp = p.fingerprint(path)
-        valid = [e for e in events.get(sha, []) if all(e[k] == fp[k] for k in fp)]
+        valid = list({p.encoded(e): e for e in events.get(sha, []) if all(e[k] == fp[k] for k in fp)}.values())
         if not valid and sha not in crops:
             exclusions.append({'path': path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else 'CAS-entregado/' + sha, 'reason': 'sin-adquisicion-admisible-ni-referencia-facsimil', 'sha256': sha})
             continue
@@ -266,7 +285,20 @@ def load(pin, external):
     for group, key in ((m['objects'], 'sha256'), (m['dependencies'], 'path')):
         if len({o[key] for o in group}) != len(group):
             raise ValueError('Identidad repetida')
+    paths = {d['path'] for d in m['dependencies']}
+    for d in m['dependencies']:
+        if any(parent.as_posix() in paths for parent in Path(d['path']).parents):
+            raise ValueError('Rutas auxiliares incompatibles')
+        if not d['sanitized'] and any(d[a] != d[b] for a, b in (
+                ('sha256', 'sourceSha256'), ('sha512', 'sourceSha512'), ('size', 'sourceSize'))):
+            raise ValueError('Identidad auxiliar no transformada incoherente')
+    v3.require_unique([item['sha256'] for item in m['unresolvedReferences']], 'referencias no resueltas')
+    for item in m['unresolvedReferences']:
+        v3.require_unique(item['sources'], 'fuentes de referencias no resueltas')
     for obj in m['objects']:
+        v3.require_unique(obj['references'], 'referencias')
+        if pin != HISTORICAL_PIN:
+            v3.require_unique(obj['acquisitions'], 'adquisiciones')
         if not obj['inherited'] and obj['kind'] != 'facsimil' and not obj['acquisitions']:
             raise ValueError('Falta adquisición')
         for e in obj['acquisitions']:
@@ -286,16 +318,28 @@ def verify(destination, pin, external):
     m = load(pin, external)
     if p.safe_source(destination, 'manifest.json').read_bytes() != external.read_bytes():
         raise ValueError('Marcador sustituido')
+    if {path.name for path in destination.iterdir()} != {'manifest.json', 'sha256', 'dependencies'}:
+        raise ValueError('Conjunto de archivos distinto del manifiesto')
     for folder, rows in (('sha256', m['objects']), ('dependencies', m['dependencies'])):
+        directory = destination / folder
+        p.no_symlink_ancestors(directory)
+        if not directory.is_dir() or {path.name for path in directory.iterdir()} != {row['sha256'] for row in rows}:
+            raise ValueError('Conjunto CAS distinto del manifiesto')
         for row in rows:
             path = p.safe_source(destination, folder + '/' + row['sha256'])
             p.check(path, row)
             if folder == 'dependencies' and not row['historical'] and row['path'].endswith(('.json', '.json.gz')):
                 data = gzip.decompress(path.read_bytes()) if row['path'].endswith('.gz') else path.read_bytes()
                 value = p.strict_json(data)
-                if clean(value) != value:
+                if clean(value, policy=1 if pin == HISTORICAL_PIN else 2) != value:
                     raise ValueError('Metadatos nuevos sin sanear')
-    return {'manifest': pin, 'objects': len(m['objects']), 'dependencies': len(m['dependencies']), 'bytes': sum(o['size'] for o in m['objects'])}
+    observations = sum(len(o['acquisitions']) for o in m['objects'])
+    distinct = sum(len({p.encoded(a) for a in o['acquisitions']}) for o in m['objects'])
+    return {'manifest': pin, 'objects': len(m['objects']), 'dependencies': len(m['dependencies']),
+            'bytes': sum(o['size'] for o in m['objects']), 'acquisitionObservations': observations,
+            'distinctAcquisitionRecords': distinct,
+            'metadataPolicy': 'v4-historica-fijada' if pin == HISTORICAL_PIN else 'v4-valores-r26',
+            'privacyCertification': False}
 
 
 def confirm(destination, pin, external):
