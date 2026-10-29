@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-v1-EAV2-madrid-2022-f1-baseInferior",
+  "authorTaskId": "Codex /root checkout T3 t3-d3757c76",
+  "inventory": {
+    "manifestSha256": "4f00b24bfa37baa3521d54af1448d99a2ef6d1eee3e08bcf8b4d16ec97af7314",
+    "artifactSha256": "b5450d431eefa13765ec0009a6be579e15848524799f2a467a46b5746caf087f"
+  },
+  "itemId": "inv-5c6fce24686d36c39bdbfddc262fd45d",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "MADRID_2022",
+    "tablePath": [
+      "0",
+      "baseInferior"
+    ]
+  },
+  "scope": {
+    "year": 2022,
+    "territory": "madrid",
+    "unit": "EUR",
+    "claim": "Candidato: baseInferior publicado, fila 1; coincidencia con identidad canónica exacta.",
+    "conditions": [
+      "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+      "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+      "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+      "Período iniciado en 2022, incluido su cierre por fallecimiento; sin extensión a 2025."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/autonomicas-v2/citas/madrid-2022-f1-baseInferior.json",
+    "sha256": "c413955553662801c7942e8301b5ccff5822f92848804291c2a488ea4d41d105"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/autonomicas/documentos/7a302c1d77124747d65ad2b7181b899f023baceb96d88638d37c44a05e7ad49b.json",
+    "sha256": "21eab2b72add648f4dd1c254c1361e38a3f2366e6bdbe7c2acb5e345942d1608"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-madrid-2022-f1-baseInferior"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/implementaciones/ambitos-juridicos/ambitos/EAV2-madrid-2022-f1-baseInferior.json",
+    "sha256": "61157f55e0f91c5416b31367faa15660bc0550f6efa53ce98dfe0cfe009d99c2"
+  }
+}

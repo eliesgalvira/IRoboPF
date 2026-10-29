@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r17-EAV2-comunitat-valenciana-2016-f5-baseInferior",
+  "authorTaskId": "Codex /root checkout T3 t3-ec1d8368 integracion-r17",
+  "inventory": {
+    "manifestSha256": "21516a24e30d5106d229b1fead87aa0889700df3950fabfe0f4bb69b23631266",
+    "artifactSha256": "5095690502f91a0157ea0323410531f120849cf8e776c3d813fa490fb322df48"
+  },
+  "itemId": "inv-9eb3654189f0d97f1b635380b142f172",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "VALENCIA_2014_2016",
+    "tablePath": [
+      "4",
+      "baseInferior"
+    ]
+  },
+  "scope": {
+    "year": 2016,
+    "territory": "comunitat-valenciana",
+    "unit": "EUR",
+    "claim": "Candidato: baseInferior publicado, fila 5; coincidencia con identidad canónica exacta.",
+    "conditions": [
+      "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+      "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+      "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+      "Ámbito aceptado: cierre ordinario anual sin fallecimiento. Los supuestos de fallecimiento quedan fuera de esta decisión limitada."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/autonomicas-v2/citas/comunitat-valenciana-2014-f5-baseInferior.json",
+    "sha256": "a1094e1582cfe25a0f30a538f5bfceb11ff004b28b2cc244f1008d1fd89ceca9"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/autonomicas/documentos/0ed3161792ae3a79877c8d9a533447a3f04db4cd31078be29f0b2c2fefd4c70d.json",
+    "sha256": "cad40d29a6bd9d02f18bd19c3afe8eba3c94d2393f4f7aad19a16970c9b8d9fe"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-comunitat-valenciana-2016-f5-baseInferior"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/implementaciones/integracion-sol-r17/candidatos/ambitos/EAV2-comunitat-valenciana-2016-f5-baseInferior.json",
+    "sha256": "59afacfc5b0b8bc2b0df268cee69f956a78cfa4213ddb7803681c3e194cf2bfa"
+  }
+}

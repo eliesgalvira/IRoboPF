@@ -1,0 +1,149 @@
+diff --git a/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
+index 81f4005..839f220 100644
+--- a/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
++++ b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
+@@ -1,5 +1,6 @@
+ import {
+   calcularDerechosMinimos,
++  hayAlimentosPropiosSinMinimo,
+   validarDerechosMinimos,
+   validarRentasAnualesDerechos,
+ } from "../minimos/derechos"
+@@ -194,20 +195,11 @@ const construirLiquidarIrpfAnual = (
+         Effect.mapError(errorDerechosMinimos)
+       )
+       const familiar = caso.situacionFamiliar
+-      if (
+-        derechos.descendientes.some((d) =>
+-          d.titulares.some(
+-            (t) =>
+-              t.titularId === derechos.contribuyenteId &&
+-              t.alimentosJudiciales &&
+-              t.custodia === "sin-custodia"
+-          )
+-        )
+-      )
++      if (hayAlimentosPropiosSinMinimo(derechos))
+         return yield* Effect.fail(
+           errorDerechosMinimos({
+             motivo:
+-              "El contribuyente necesita resolver la especialidad de alimentos judiciales, fuera del alcance anual actual",
++              "El tratamiento de alimentos propios sin derecho al mínimo está pendiente y queda fuera del alcance anual actual",
+           })
+         )
+       if (
+diff --git a/lib/dominio/irpf/minimos/derechos.ts b/lib/dominio/irpf/minimos/derechos.ts
+index fa3ea7a..a3b28a9 100644
+--- a/lib/dominio/irpf/minimos/derechos.ts
++++ b/lib/dominio/irpf/minimos/derechos.ts
+@@ -49,6 +49,16 @@ const titularesConDerecho = (d: DescendienteDerechos) => {
+     : cercanos
+ }
+ 
++/** Reserva del contrato anual; no decide la especialidad ni calcula alimentos. */
++export const hayAlimentosPropiosSinMinimo = (caso: DerechosMinimos2025) =>
++  caso.descendientes.some(
++    (d) =>
++      d.titulares.some(
++        (t) => t.titularId === caso.contribuyenteId && t.alimentosJudiciales
++      ) &&
++      !titularesConDerecho(d).some((t) => t.titularId === caso.contribuyenteId)
++  )
++
+ /** Valida estructura y coherencia antes de cualquier operación monetaria. */
+ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
+   function* (entrada: DerechosMinimos2025) {
+diff --git a/tests/minimos-derechos-integracion.test.ts b/tests/minimos-derechos-integracion.test.ts
+index eb023ac..469c861 100644
+--- a/tests/minimos-derechos-integracion.test.ts
++++ b/tests/minimos-derechos-integracion.test.ts
+@@ -86,6 +86,89 @@ const anual = (
+     pagosACuentaCentimos: 0,
+   })
+ 
++for (const custodia of ["exclusiva", "compartida"] as const) {
++  for (const causa of ["renta", "declaracion"] as const) {
++    it(`MDV2-P01: rechaza alimentos propios con custodia ${custodia} sin mínimo por ${causa}`, () => {
++      const d: DescendienteDerechos = {
++        ...hijo([{ ...titular(), custodia, alimentosJudiciales: true }]),
++        rentasNoExentasCentimos: causa === "renta" ? 800001 : 180001,
++        declaracion:
++          causa === "declaracion"
++            ? { modalidad: "individual", rentasCentimos: 180001 }
++            : { modalidad: "no-presenta" },
++      }
++      const r = Effect.runSync(Effect.result(anual(hechos(d))))
++      expect(Result.isFailure(r)).toBe(true)
++      if (Result.isFailure(r)) {
++        expect(r.failure._tag).toBe("ResultadoNoSoportado")
++        expect(r.failure.motivo).toContain("alimentos")
++      }
++    })
++  }
++
++  for (const renta of [180000, 800000]) {
++    it(`MDV2-P01: mantiene al custodio ${custodia} elegible en la frontera ${renta}`, () => {
++      const d: DescendienteDerechos = {
++        ...hijo([{ ...titular(), custodia, alimentosJudiciales: true }]),
++        rentasNoExentasCentimos: renta,
++        declaracion:
++          renta === 180000
++            ? { modalidad: "individual", rentasCentimos: 180000 }
++            : { modalidad: "no-presenta" },
++      }
++      expect(
++        Result.isSuccess(Effect.runSync(Effect.result(anual(hechos(d)))))
++      ).toBe(true)
++    })
++  }
++}
++
++it("MDV2-P01: el mínimo de otro hijo no oculta alimentos propios sin derecho", () => {
++  const sinDerecho = {
++    ...hijo([
++      {
++        ...titular(),
++        custodia: "exclusiva" as const,
++        alimentosJudiciales: true,
++      },
++    ]),
++    rentasNoExentasCentimos: 800001,
++  }
++  const h = {
++    ...hechos(sinDerecho),
++    descendientes: [sinDerecho, { ...hijo(), sujetoId: "s-4" }],
++  }
++  const r = Effect.runSync(Effect.result(anual(h)))
++  expect(Result.isFailure(r)).toBe(true)
++  if (Result.isFailure(r)) expect(r.failure.motivo).toContain("alimentos")
++})
++
++it("MDV2-P01: no bloquea renta alta del hijo cuando no hay alimentos propios", () => {
++  const d = { ...hijo(), rentasNoExentasCentimos: 800001 }
++  expect(
++    Result.isSuccess(Effect.runSync(Effect.result(anual(hechos(d)))))
++  ).toBe(true)
++})
++
++it("MDV2-P01: alimentos de otro titular no bloquean al contribuyente sin mínimo", () => {
++  const d = {
++    ...hijo([
++      { ...titular(), custodia: "exclusiva" as const },
++      {
++        ...titular("s-2", 3000000),
++        custodia: "sin-custodia" as const,
++        relacion: "dependencia-economica" as const,
++        alimentosJudiciales: true,
++        aplicaEspecialidadAlimentos: true,
++      },
++    ]),
++    rentasNoExentasCentimos: 800001,
++  }
++  expect(
++    Result.isSuccess(Effect.runSync(Effect.result(anual(hechos(d)))))
++  ).toBe(true)
++})
++
+ it("MDV1-02: no deduce edad al adoptar de la fecha de inscripción o de un acogimiento previo", () => {
+   const t: TitularDescendiente = {
+     ...titular(),

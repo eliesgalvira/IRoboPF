@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r19-ESTV2-2013-complementaria-3-cuota",
+  "authorTaskId": "Codex /root orquestador integracion-r19",
+  "inventory": {
+    "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+    "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+  },
+  "itemId": "inv-90ede5b5dd6d812c6264aa61cb9d1b8c",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "ESTATAL_COMPLEMENTARIA_2012_2014",
+    "tablePath": [
+      "3",
+      "cuota"
+    ]
+  },
+  "scope": {
+    "year": 2013,
+    "territory": "estatal-comun",
+    "unit": "EUR",
+    "claim": "Cuantía publicada ESTATAL_COMPLEMENTARIA_2012_2014, fila 3, columna cuota: 1050.8 EUR.",
+    "conditions": [
+      "Aceptación limitada a cuantía nominal de esta celda y ejercicio, componente estatal de base general.",
+      "No acepta base del ahorro, retenciones, componente autonómico, régimen foral ni declaración completa.",
+      "La cuota tabulada es publicada: no sustituirla por integral de tipos.",
+      "Elegibilidad, minoración por mínimos, anualidades, selección del caso y redondeo final quedan fuera."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/estatales-v2/citas/escala-complementaria-3-cuota.json",
+    "sha256": "7d7e4ff31332f6defaa722be70ca686ab6a129361c16750e9ae24b0d5e12a2b6"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/estatales/documentos/2011-20638.json",
+    "sha256": "08d639c8e03a3cc5ef4e5097deef84a4321e65cf1d268455db8ae26c5a5f7f53"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-estatales-v2/decisiones-canonicas.json",
+      "sha256": "ca93109793d89d3bf4211bd01ff4fe19f1cfe444e5d42873741e00f23eaf885c"
+    },
+    "decisionId": "ESTV2-2013-complementaria-3-cuota"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/correcciones/integracion-r19/candidatos/ambitos/ESTV2-2013-complementaria-3-cuota.json",
+    "sha256": "26a5b067bb06b33963459cc9299864b81c9c4b1c4e7767d776ea37b9af41400b"
+  }
+}

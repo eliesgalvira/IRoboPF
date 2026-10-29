@@ -1,4 +1,8 @@
 import {
+  verificarAceptacionLimitada,
+  estadoAutenticidad,
+} from "./ambito-publicado.mjs"
+import {
   readFileSync,
   writeFileSync,
   mkdirSync,
@@ -114,8 +118,15 @@ export async function publicar(
     const manifiesto = JSON.parse(
       objetos.get(payload.document.sha256).toString()
     )
-    if (e.revisionBinding !== "pending")
-      throw new Error("Esta publicación no promueve revisiones")
+    if (e.revisionBinding === "accepted-limited")
+      verificarAceptacionLimitada(
+        e.payload.sha256,
+        e.sujeto.id,
+        generado.informe.entrada.dependencias,
+        (h) => objetos.get(h)
+      )
+    else if (e.revisionBinding !== "pending")
+      throw new Error("Estado de revisión no soportado")
     return {
       sujeto: e.sujeto,
       recibo: generado.revision,
@@ -123,13 +134,9 @@ export async function publicar(
       manifiesto: payload.document.sha256,
       integridad: e.integridad,
       exactitudNumerica: e.exactitudNumerica,
-      autenticidad: {
-        estado: manifiesto.authenticity.status,
-        fecha: manifiesto.authenticity.checkedAt,
-        limites: manifiesto.authenticity.scope,
-      },
+      autenticidad: estadoAutenticidad(manifiesto),
       interpretacion: "candidata",
-      revisionBinding: "pending",
+      revisionBinding: e.revisionBinding,
       aceptacionFiscalCompleta: false,
     }
   })

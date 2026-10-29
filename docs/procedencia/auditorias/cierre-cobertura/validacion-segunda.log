@@ -1,0 +1,70 @@
+E741 Ambiguous variable name: `O`
+ --> docs/procedencia/auditorias/cierre-cobertura/complementar.py:4:1
+  |
+2 | import gzip
+3 | from pathlib import Path
+4 | O=Path('docs/procedencia/auditorias/cierre-cobertura')
+  | ^
+5 | def save(n,d): (O/n).write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+6 | common=['andalucia','aragon','asturias','illes-balears','canarias','cantabria','castilla-la-mancha','castilla-y-leon','catalunya','extr…
+  |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/auditorias/cierre-cobertura/complementar.py:35:17
+   |
+33 | records=json.loads(gzip.decompress((O/'registros.json.gz').read_bytes()))
+34 | byid={}
+35 | for r in records: byid.setdefault(r['id'],[]).append(dict(path=r['source'],pointer=r['pointer']))
+   |                 ^
+36 | ledger=[]
+37 | for p in sorted(Path('docs/procedencia/auditorias').glob('*/hallazgos.json')):
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/cierre-cobertura/complementar.py:38:32
+   |
+36 | ledger=[]
+37 | for p in sorted(Path('docs/procedencia/auditorias').glob('*/hallazgos.json')):
+38 |  data=json.loads(p.read_text()); data=data if isinstance(data,list) else data.get('findings',data.get('hallazgos',[]))
+   |                                ^
+39 |  if not isinstance(data,list): continue
+40 |  for i,r in enumerate(data):
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/auditorias/cierre-cobertura/complementar.py:39:30
+   |
+37 | for p in sorted(Path('docs/procedencia/auditorias').glob('*/hallazgos.json')):
+38 |  data=json.loads(p.read_text()); data=data if isinstance(data,list) else data.get('findings',data.get('hallazgos',[]))
+39 |  if not isinstance(data,list): continue
+   |                              ^
+40 |  for i,r in enumerate(data):
+41 |   if not isinstance(r,dict) or 'id' not in r: continue
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/auditorias/cierre-cobertura/complementar.py:41:45
+   |
+39 |  if not isinstance(data,list): continue
+40 |  for i,r in enumerate(data):
+41 |   if not isinstance(r,dict) or 'id' not in r: continue
+   |                                             ^
+42 |   ledger.append(dict(id=r['id'],origen=dict(path=str(p),pointer='/'+str(i)),dominio=r.get('domain'),anios=r.get('years'),territorios=r…
+43 | # Avoid duplicating acquisition headers or personal identity into new public output.
+   |
+
+Found 7 errors (2 fixed, 5 remaining).
+2 files reformatted
+E741 Ambiguous variable name: `O`
+ --> docs/procedencia/auditorias/cierre-cobertura/complementar.py:5:1
+  |
+3 | from pathlib import Path
+4 |
+5 | O = Path("docs/procedencia/auditorias/cierre-cobertura")
+  | ^
+  |
+
+Found 1 error.
+docs/procedencia/auditorias/cierre-cobertura/complementar.py:244: error: Need type annotation for "byid" (hint: "byid: dict[<type>, <type>] = ...")  [var-annotated]
+Found 1 error in 1 file (checked 2 source files)
+lib/dominio/irpf/deducciones/ambito.ts(14,38): error TS2339: Property 'codigo' does not exist on type 'never'.

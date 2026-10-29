@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "sujetoAnterior",
+      "estado",
+      "ocurrencia",
+      "secciones",
+      "contrarrevision",
+      "aceptacionFiscalCompleta"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "sujetoAnterior": {
+        "type": "object",
+        "required": [
+          "id",
+          "revision"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "estado": {
+        "const": "candidata"
+      },
+      "ocurrencia": {
+        "type": "object",
+        "required": [
+          "id",
+          "source",
+          "symbol",
+          "path",
+          "years",
+          "territories"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "required": [
+              "file",
+              "sha256",
+              "start",
+              "end",
+              "line",
+              "column",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "line": {
+                "type": "integer"
+              },
+              "column": {
+                "type": "integer"
+              },
+              "offsetEncoding": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "years": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "territories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "secciones": {
+        "type": "object",
+        "required": [
+          "formula",
+          "derivacion",
+          "norma",
+          "evidencia",
+          "bordes"
+        ],
+        "properties": {
+          "formula": {
+            "type": "string"
+          },
+          "derivacion": {
+            "type": "string"
+          },
+          "norma": {
+            "type": "string"
+          },
+          "evidencia": {
+            "type": "string"
+          },
+          "bordes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "contrarrevision": {
+        "const": "pendiente"
+      },
+      "aceptacionFiscalCompleta": {
+        "const": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "minItems": 1,
+  "maxItems": 1
+}

@@ -116,6 +116,9 @@ it("CI-01 admite Document → Citation → Facsimile, con cierre completo", () =
     verificarGrafo([doc, cita, fac], new Set([original, receta]))
   ).toThrow("auxiliar")
   expect(() =>
+    verificarGrafo([doc, cita, fac], new Set([original, imagen]))
+  ).toThrow("auxiliar")
+  expect(() =>
     verificarGrafo(
       [doc, cita, empaquetar({ ...fac.entidad, aristas: [] })],
       new Set([original, imagen, receta])

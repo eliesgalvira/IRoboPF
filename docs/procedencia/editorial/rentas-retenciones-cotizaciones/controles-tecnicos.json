@@ -1,0 +1,2732 @@
+[
+  {
+    "ocurrencia": {
+      "id": "inv-052ac8b7a07f282dd9c3fb7ade0d8261",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 11964,
+        "end": 11966,
+        "line": 394,
+        "column": 59,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",10],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "33",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "grado) ||\n    discapacidad.grado < 0 ||\n    discapacidad.grado > 100 ||\n    (discapacidad.ayudaOMovilidad && discapacidad.grado < 33)\n  )\n    rechazar(\"AE25-10\", \"discapacidad\", \"Grado/ayuda incoherentes\")\n  if (motivos.length > 0) return { estado: \"no-soportado\", motivos }\n  for (",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-0646a63adcd24ac775348d1a83056687",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 767,
+        "end": 769,
+        "line": 19,
+        "column": 45,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",2]]",
+      "capa": "syntactic"
+    },
+    "valor": "30",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "t(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-087a8464d2fb33e503d7c2c55bdb67ab",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5115,
+        "end": 5118,
+        "line": 170,
+        "column": 64,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",9]]",
+      "capa": "syntactic"
+    },
+    "valor": "274",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "nst [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n          \"Días no ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-09a852f46453913b45fcf5ee74c168ce",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 5183,
+        "end": 5184,
+        "line": 141,
+        "column": 15,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",0],[\"ExpressionStatement\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:times\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "(100)\n    )\n      return rechazo(\"Tipos medios fuera de rango\")\n    legal = D.max(\n      0,\n      new D(400).minus(\n        D.max(0, new D(c.baseImponible).minus(8000)).times(\"0.1\")\n      )\n    )\n    limite = new D(c.rendimientoComputableTrabajoActividad)\n      .times(\n        new",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-0a04c88f653c43d2009c18d94751cd20",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 712,
+        "end": 715,
+        "line": 18,
+        "column": 57,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "bisiesto",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:bisiesto\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:bisiesto\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "400",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n   ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-0ac3ecb45dc33468e3e1cfe8f1bd812d",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 9534,
+        "end": 9535,
+        "line": 309,
+        "column": 66,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",9],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "4",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " base.lt(0) ||\n      saldo.lt(0) ||\n      new D(a.acumulada).gt(\n        base.times(coef).times(2025 - Number(a.fechaUso.slice(0, 4)))\n      ) ||\n      coef.lt(a.grupo === \"hardware\" ? \"0.1\" : \"0.05\") ||\n      coef.gt(a.grupo === \"hardware\" ? \"0.26\" : \"0.10\")\n    )\n      rechazar(",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-0f7950462bd601f3ae413741cf3d349c",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 791,
+        "end": 793,
+        "line": 19,
+        "column": 69,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",8]]",
+      "capa": "syntactic"
+    },
+    "valor": "31",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "st bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aisla",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-1573f3a07f39c9343208ec92974765b5",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 771,
+        "end": 773,
+        "line": 19,
+        "column": 49,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",3]]",
+      "capa": "syntactic"
+    },
+    "valor": "31",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-176b8772dea787988efa69c0644b6bac",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 857,
+        "end": 858,
+        "line": 23,
+        "column": 10,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaValida",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "nst dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: la admisión y la incompatibilidad se comprueban en calcularAc",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-1843a115bea04c85fdee9dee78c537f8",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15757,
+        "end": 15758,
+        "line": 528,
+        "column": 25,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "primerPositivo",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:primerPositivo\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:primerPositivo\",0],[\"ConditionalExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ".filter((h) => new D(h.netoAntesReducciones).gt(0))\n    .map((h) => h.ejercicio)\n  const primerPositivo =\n    anteriores.length > 0 ? Math.min(...anteriores) : RN.gt(0) ? 2025 : null\n  const excluidoEmpleador = caso.clientes.some(\n    (c) =>\n      c.empleadorEnAnioAnteriorAlInicio",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-1c1219f46bbde345eca90967c5f32bd9",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 1224,
+        "end": 1225,
+        "line": 39,
+        "column": 35,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "cuotaSolidaridad",
+      "ruta": "[[\"FirstStatement:cuotaSolidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:cuotaSolidaridad\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:plus\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"ElementAccessExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " = Decimal.max(0, exceso.minus(baseMaxima.mul(\"0.5\")))\n  return primerExceso\n    .mul(tipos[0])\n    .plus(segundoExceso.mul(tipos[1]))\n    .plus(excesoRestante.mul(tipos[2]))\n}\n\nexport interface CotizacionesPerfilUniforme extends DesgloseCotizacionesSociales {\n  readonly alcance: ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-1d52c371da8c3970ab24b10f77cf79ca",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 11899,
+        "end": 11902,
+        "line": 393,
+        "column": 26,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",10],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "100",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ad = caso.discapacidad\n  if (\n    !Number.isInteger(discapacidad.grado) ||\n    discapacidad.grado < 0 ||\n    discapacidad.grado > 100 ||\n    (discapacidad.ayudaOMovilidad && discapacidad.grado < 33)\n  )\n    rechazar(\"AE25-10\", \"discapacidad\", \"Grado/ayuda incoherentes\")\n  if (motivo",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-1d9c888a7b8ab94545535b43818768a1",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 615,
+        "end": 616,
+        "line": 17,
+        "column": 21,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "[y = 0, m = 0, d = 0]",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:[y = 0, m = 0, d = 0]\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:[y = 0, m = 0, d = 0]\",0],[\"ArrayBindingPattern\",0],[\"BindingElement:m\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "y string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))\nfunction fechaValida(fecha: string): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31,",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-1df2eac53e8332f88fe46ef5a3aae75a",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 1546,
+        "end": 1550,
+        "line": 43,
+        "column": 20,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularGastosTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"IfStatement\",4],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2015",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "iente\")\n    return rechazo(\"Discapacidad activa desconocida\")\n  if (\n    c.discapacidadActiva !== \"ninguna\" &&\n    (c.ejercicio < 2015 ||\n      c.rendimientos.length !== 1 ||\n      c.rendimientos.some(\n        (r) => r.clase !== \"empleo-laboral\" && r.clase !== \"empleo-estatutario\"\n  ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-1e4482efdd67a734f6df23321d837aa9",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2895,
+        "end": 2899,
+        "line": 81,
+        "column": 45,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",1],[\"ArrowFunction\",0],[\"ElementAccessExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2026",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "daridad = Match.value(anio).pipe(\n    Match.when(2025, () => tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuot",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-1f9b9c5bab65d638325f39984c86d82a",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 3176,
+        "end": 3177,
+        "line": 109,
+        "column": 48,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "inicio",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:inicio\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:inicio\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "lusion2025)\n    rechazar(\"AE25-01\", \"regimen2025\", \"Renuncia o exclusión vigente\")\n  const inicio = Number(caso.fechaInicio.slice(0, 4))\n  if (\n    !fechaValida(caso.fechaInicio) ||\n    !fechaValida(caso.fechaFin) ||\n    caso.fechaInicio > caso.fechaFin ||\n    caso.fechaInicio > \"",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-210ba51c624f4600a0f36e9e0631bbe5",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 4026,
+        "end": 4030,
+        "line": 136,
+        "column": 22,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",1],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "(const h of caso.historial) {\n    if (\n      !Number.isInteger(h.ejercicio) ||\n      h.ejercicio < inicio ||\n      h.ejercicio >= 2025 ||\n      anios.has(h.ejercicio)\n    )\n      rechazar(\n        \"AE25-01\",\n        h.documento,\n        \"Ejercicio histórico duplicado o inválido\"\n    ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-22ad9946c232f4d31beb013f675dff3e",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15675,
+        "end": 15676,
+        "line": 525,
+        "column": 53,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "anteriores",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:anteriores\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:anteriores\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:map\",0],[\"CallExpression\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "si NO elegible 32.2.2\",\n    reduccion\n  )\n  const anteriores = caso.historial\n    .filter((h) => new D(h.netoAntesReducciones).gt(0))\n    .map((h) => h.ejercicio)\n  const primerPositivo =\n    anteriores.length > 0 ? Math.min(...anteriores) : RN.gt(0) ? 2025 : null\n  const excluido",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-23eacae2251fd4573f4aecfa662885ca",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 2275,
+        "end": 2276,
+        "line": 58,
+        "column": 21,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "bruto",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"FirstStatement:bruto,ordinarios,colegio,defensa\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:bruto\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "(c.rendimientos.map((r) => r.id)).size !== c.rendimientos.length)\n    return rechazo(\"Rendimiento duplicado\")\n  let bruto = new D(0),\n    ordinarios = new D(0),\n    colegio = new D(0),\n    defensa = new D(0)\n  for (const r of c.rendimientos) {\n    if (r.clase === \"desconocido\" || ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-25bb52d12cf619eab8d38920c56dfd86",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 6537,
+        "end": 6538,
+        "line": 174,
+        "column": 48,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",1],[\"ExpressionStatement\",1],[\"BinaryExpression\",0],[\"ConditionalExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ax(0, new D(c.brutoServicios).minus(16576)).times(\"0.2\")\n            )\n          )\n    limite = new D(c.baseLiquidableGeneral).eq(0)\n      ? new D(0)\n      : new D(c.cuotaIntegraGeneral)\n          .times(c.netoReducidoServicios)\n          .div(c.baseLiquidableGeneral)\n    fuente =",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-28335d138f8a70fb4e33a67833fbd3f3",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 1264,
+        "end": 1265,
+        "line": 40,
+        "column": 36,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "cuotaSolidaridad",
+      "ruta": "[[\"FirstStatement:cuotaSolidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:cuotaSolidaridad\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"ElementAccessExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "a.mul(\"0.5\")))\n  return primerExceso\n    .mul(tipos[0])\n    .plus(segundoExceso.mul(tipos[1]))\n    .plus(excesoRestante.mul(tipos[2]))\n}\n\nexport interface CotizacionesPerfilUniforme extends DesgloseCotizacionesSociales {\n  readonly alcance: \"analitico-doce-mensualidades-uniformes\"",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-293bc32f9fe7c596a5d640c216f4a176",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8083,
+        "end": 8084,
+        "line": 266,
+        "column": 42,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",8],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "/.test(r.periodo) ||\n      r.fecha < \"2025-01-01\" ||\n      r.fecha < caso.fechaInicio ||\n      r.periodo < caso.fechaInicio.slice(0, 7) ||\n      r.periodo > caso.fechaFin.slice(0, 7) ||\n      r.fecha > \"2025-12-31\" ||\n      periodosReta.has(r.periodo)\n    )\n      rechazar(\n       ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-299154cebbbdc8f84a554bd0e346ca42",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 1586,
+        "end": 1587,
+        "line": 44,
+        "column": 33,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularGastosTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"IfStatement\",4],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " activa desconocida\")\n  if (\n    c.discapacidadActiva !== \"ninguna\" &&\n    (c.ejercicio < 2015 ||\n      c.rendimientos.length !== 1 ||\n      c.rendimientos.some(\n        (r) => r.clase !== \"empleo-laboral\" && r.clase !== \"empleo-estatutario\"\n      ) ||\n      c.discapacidadActiva.a",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-30afcf7954d989755e4508f9d54cd555",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 3699,
+        "end": 3700,
+        "line": 98,
+        "column": 43,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "generales",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"FirstStatement:generales\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:generales\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "\n  const previo = bruto.minus(gastos)\n  const teoricos = c.ejercicio >= 2015 ? 2000 : 0\n  const generales = D.min(teoricos, D.max(0, previo))\n  const incremento =\n    c.discapacidadActiva === \"ninguna\"\n      ? 0\n      : c.discapacidadActiva.grado === \"65-o-mas\" ||\n          c.disc",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-331859acb0e394b6b8b589ee0923527c",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 4969,
+        "end": 4973,
+        "line": 168,
+        "column": 20,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2024",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "      \"Inicio 2025 incompatible con actividad 2024\"\n      )\n  } else {\n    const dias = caso.diasActividad2024\n    if (inicio === 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-35b8e427da6d2fd567e8a40ee26271ae",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2710,
+        "end": 2711,
+        "line": 78,
+        "column": 34,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "excesoBase",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:excesoBase\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:excesoBase\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "03.70\").mul(12)\n            ).mul(5)\n          )\n          .div(12)\n      : legacy.baseOrdinaria\n  const excesoBase = Decimal.max(0, salarioBrutoAnual.minus(baseOrdinaria))\n  const solidaridad = Match.value(anio).pipe(\n    Match.when(2025, () => tiposSolidaridad[2025]),\n    Match.",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-381965f3a1425c422418c9ef503df570",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5400,
+        "end": 5401,
+        "line": 180,
+        "column": 14,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",1],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "inciden con inicio y actividad continua hasta fin de 2024\"\n        )\n    }\n    if (\n      !Number.isInteger(dias) ||\n      dias < 1 ||\n      dias > 366 ||\n      (inicio < 2024 && dias !== 366)\n    )\n      rechazar(\"AE25-01\", \"dias2024\", \"Días de actividad 2024 incoherentes\")\n    i",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-397221f249921058db2cadba6989870f",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 6325,
+        "end": 6326,
+        "line": 167,
+        "column": 17,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",1],[\"ExpressionStatement\",0],[\"BinaryExpression\",0],[\"ConditionalExpression\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ensaciones no cerrada\")\n    legal =\n      new D(c.otrasRentasNoExentas).gt(6500) || new D(c.brutoServicios).eq(0)\n        ? new D(0)\n        : D.max(\n            0,\n            new D(340).minus(\n              D.max(0, new D(c.brutoServicios).minus(16576)).times(\"0.2\")\n            ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-3c04cbcb2f4c2617c154150b9ecee2ba",
+      "fuente": {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+        "start": 3840,
+        "end": 3843,
+        "line": 124,
+        "column": 49,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaCivilIsoUtc",
+      "ruta": "[[\"FirstStatement:fechaCivilIsoUtc\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:fechaCivilIsoUtc\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:join\",0],[\"ArrayLiteralExpression\",0],[\"CallExpression\",1],[\"StringLiteral\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "const fechaCivilIsoUtc = (fecha: Date): string =>\n  [\n    fecha.getUTCFullYear(),\n    String(fecha.getUTCMonth() + 1).padStart(2, \"0\"),\n    String(fecha.getUTCDate()).padStart(2, \"0\"),\n  ].join(\"-\")\n\nconst fallecidoAntesDeFechaCivil = ({\n  fechaCorte,\n  fechaFallecimiento,\n}: {\n  re",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-3e322423c0a953ce53dd4fe4930f2b70",
+      "fuente": {
+        "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+        "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+        "start": 7429,
+        "end": 7430,
+        "line": 245,
+        "column": 9,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "margenReinversion",
+      "ruta": "[[\"FirstStatement:calcularExencionPorReinversionEnRentaVitalicia\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularExencionPorReinversionEnRentaVitalicia\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"CallExpression\",1],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:margenReinversion\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:margenReinversion\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ",\n      () => IMPORTE_CERO\n    ),\n    Match.orElse((importeTransmision) => {\n      const margenReinversion = Decimal.max(\n        0,\n        LIMITE_REINVERSION_RENTA_VITALICIA_MAYORES_65.minus(\n          reinversionesPrevias\n        )\n      )\n      const reinversionComputable = De",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-403cb0b6a8a1f0713ddf7e77b4958967",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12063,
+        "end": 12064,
+        "line": 397,
+        "column": 24,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",11],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ilidad && discapacidad.grado < 33)\n  )\n    rechazar(\"AE25-10\", \"discapacidad\", \"Grado/ayuda incoherentes\")\n  if (motivos.length > 0) return { estado: \"no-soportado\", motivos }\n  for (const i of caso.ingresos)\n    etapa(\n      \"AE25-02\",\n      `ingreso:${i.id}`,\n      \"base devenga",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-42967f084475ffe01e1096ef922fcdda",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 2354,
+        "end": 2358,
+        "line": 84,
+        "column": 24,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",1],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "25.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }\n  if (\n    caso.ejercicio !== 2025 ||\n    caso.territorio !== \"comun\" ||\n    !caso.individual ||\n    !caso.serviciosOrdinarios\n  )\n    rechazar(\n      \"AE25-01\",\n      \"ambito\",\n      ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-45a08e54caf28353274fe9db8f1ab8f5",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 886,
+        "end": 887,
+        "line": 25,
+        "column": 10,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaValida",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: la admisión y la incompatibilidad se comprueban en calcularActividad2025. */\nexport functi",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-45a0a6ff92b35c85b4b21909225f752d",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 703,
+        "end": 704,
+        "line": 18,
+        "column": 48,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "bisiesto",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:bisiesto\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:bisiesto\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "a: string): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-462f0d24c793e838b22621d03e0cb4f9",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 608,
+        "end": 609,
+        "line": 17,
+        "column": 14,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "[y = 0, m = 0, d = 0]",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:[y = 0, m = 0, d = 0]\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:[y = 0, m = 0, d = 0]\",0],[\"ArrayBindingPattern\",0],[\"BindingElement:y\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "readonly string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))\nfunction fechaValida(fecha: string): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-46cb53e2fa0b0c4d84db6fac1a639bb0",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2975,
+        "end": 2978,
+        "line": 83,
+        "column": 55,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",2],[\"ArrowFunction\",0],[\"AsExpression\",0],[\"ParenthesizedExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:trabajador\",0],[\"valor:trabajador\",0],[\"StringLiteral\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "25]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.empres",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-46ecd9bee83fe40b6cbb73d5c94fbdba",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 9413,
+        "end": 9414,
+        "line": 306,
+        "column": 15,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",9],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "    a.usoHasta !== \"2025-12-31\" ||\n      caso.fechaInicio > \"2025-01-01\" ||\n      caso.fechaFin !== \"2025-12-31\" ||\n      base.lt(0) ||\n      saldo.lt(0) ||\n      new D(a.acumulada).gt(\n        base.times(coef).times(2025 - Number(a.fechaUso.slice(0, 4)))\n      ) ||\n      coef.lt(",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-4df71fb1568c9ae5efc86de0b16ffc6b",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15793,
+        "end": 15794,
+        "line": 528,
+        "column": 61,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "primerPositivo",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:primerPositivo\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:primerPositivo\",0],[\"ConditionalExpression\",0],[\"ConditionalExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "cciones).gt(0))\n    .map((h) => h.ejercicio)\n  const primerPositivo =\n    anteriores.length > 0 ? Math.min(...anteriores) : RN.gt(0) ? 2025 : null\n  const excluidoEmpleador = caso.clientes.some(\n    (c) =>\n      c.empleadorEnAnioAnteriorAlInicio &&\n      suma(\n        caso.ingreso",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-4ea4ac05ea54e0e6562904b75acaf32f",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 6306,
+        "end": 6307,
+        "line": 166,
+        "column": 76,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",1],[\"ExpressionStatement\",0],[\"BinaryExpression\",0],[\"ConditionalExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "n con pérdidas/compensaciones no cerrada\")\n    legal =\n      new D(c.otrasRentasNoExentas).gt(6500) || new D(c.brutoServicios).eq(0)\n        ? new D(0)\n        : D.max(\n            0,\n            new D(340).minus(\n              D.max(0, new D(c.brutoServicios).minus(16576)).times(",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-4f30d37dc569807402e93ddb937cea99",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 238,
+        "end": 240,
+        "line": 6,
+        "column": 38,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "D",
+      "ruta": "[[\"FirstStatement:D\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:D\",0],[\"CallExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:precision\",0],[\"valor:precision\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "60",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "abajo } from \"./contrato\"\nimport type { NoSoportado, ResultadoDeduccion } from \"./contrato\"\n\nconst D = Decimal.clone({ precision: 60 })\nconst rechazo = (motivo: string): NoSoportado => ({\n  estado: \"no-soportado\",\n  motivo,\n})\nexport type ResultadoGastos =\n  | NoSoportado\n  | {\n   ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-4f6f02fcd634aca4f50ca7628240b89a",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 9500,
+        "end": 9504,
+        "line": 309,
+        "column": 32,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",9],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "fechaFin !== \"2025-12-31\" ||\n      base.lt(0) ||\n      saldo.lt(0) ||\n      new D(a.acumulada).gt(\n        base.times(coef).times(2025 - Number(a.fechaUso.slice(0, 4)))\n      ) ||\n      coef.lt(a.grupo === \"hardware\" ? \"0.1\" : \"0.05\") ||\n      coef.gt(a.grupo === \"hardware\" ? \"0.26\" ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-4fdffc4b08499fbda0f963de55e45490",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14497,
+        "end": 14498,
+        "line": 488,
+        "column": 25,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "reduccion",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:reduccion\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:reduccion\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "n(2000, D.max(P, 0).times(\"0.05\"))\n  )\n  const RN = etapa(\"AE25-06\", \"RN\", \"P-G (con signo)\", P.minus(G))\n  let reduccion = new D(0)\n  if (caso.opcion === \"cliente-unico\") {\n    const adicional = RN.lte(\"14047.5\")\n      ? new D(6498)\n      : D.max(0, new D(6498).minus(RN.minus(\"14",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-51d0b9aedc8a0238e8b2c393b636e5bf",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 763,
+        "end": 765,
+        "line": 19,
+        "column": 41,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "31",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ??",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-521f0dfd0b492c4fa56bef2eb5438313",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 5054,
+        "end": 5057,
+        "line": 135,
+        "column": 49,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"CallExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "100",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "a === \"art80bis\") {\n    if (\n      new D(c.tipoMedioEstatalPorcentaje).gt(100) ||\n      new D(c.tipoMedioAutonomicoPorcentaje).gt(100)\n    )\n      return rechazo(\"Tipos medios fuera de rango\")\n    legal = D.max(\n      0,\n      new D(400).minus(\n        D.max(0, new D(c.baseImponible",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-52a2d1713a949050da4c0d06161ff725",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 779,
+        "end": 781,
+        "line": 19,
+        "column": 57,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",5]]",
+      "capa": "syntactic"
+    },
+    "valor": "31",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "umber)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** F",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-533de03377455ce0cb67815135e58ad5",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 9274,
+        "end": 9275,
+        "line": 302,
+        "column": 60,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",9],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "   a.fechaUso > \"2025-01-01\" ||\n      a.fechaUso < caso.fechaInicio ||\n      (a.fechaUso >= \"2025-01-01\" && new D(a.acumulada).gt(0)) ||\n      a.usoHasta !== \"2025-12-31\" ||\n      caso.fechaInicio > \"2025-01-01\" ||\n      caso.fechaFin !== \"2025-12-31\" ||\n      base.lt(0) ||\n      ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-573583a9809722acf187a8698c55cbd7",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 685,
+        "end": 686,
+        "line": 18,
+        "column": 30,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "bisiesto",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:bisiesto\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:bisiesto\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "n fechaValida(fecha: string): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-5d2ab3371a10bda2e4893ce43e20bca3",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 695,
+        "end": 698,
+        "line": 18,
+        "column": 40,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "bisiesto",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:bisiesto\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:bisiesto\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "100",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ida(fecha: string): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-5f26f7a5f89d4f7f37de372cff104021",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 1130,
+        "end": 1134,
+        "line": 33,
+        "column": 51,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularGastosTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2026",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "\"Entrada inválida, incompleta o con campos ajenos\")\n  const c = decoded.success\n  if (c.territorio !== \"comun\" || c.ejercicio === 2026)\n    return rechazo(\"Ámbito territorial o vigencia 2026 no cerrados\")\n  if (c.movilidad !== \"ninguna\")\n    return rechazo(\n      \"Movilidad ordinaria",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-629260e95120b5a210be0f54a8f94b8e",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5584,
+        "end": 5587,
+        "line": 185,
+        "column": 39,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",2],[\"CallExpression\",0],[\"PropertyAccessExpression:gt\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "366",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "!== 366)\n    )\n      rechazar(\"AE25-01\", \"dias2024\", \"Días de actividad 2024 incoherentes\")\n    if (new D(caso.volumen2024).times(366).gt(new D(600000).times(dias)))\n      rechazar(\n        \"AE25-01\",\n        \"volumen\",\n        \"Cifra anterior anualizada superior a 600.000 euros\"\n  ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-68e83b8bc1a2f5eadd0dce4b8ecca51a",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 544,
+        "end": 545,
+        "line": 15,
+        "column": 45,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "suma",
+      "ruta": "[[\"FirstStatement:suma\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:suma\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "nst D = Decimal.clone({ precision: 80 })\nconst suma = (valores: readonly string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))\nfunction fechaValida(fecha: string): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-6a72f737d1f114f89d6796b80293b035",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8086,
+        "end": 8087,
+        "line": 266,
+        "column": 45,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",8],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"CallExpression\",0],[\"FirstLiteralToken\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "7",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "est(r.periodo) ||\n      r.fecha < \"2025-01-01\" ||\n      r.fecha < caso.fechaInicio ||\n      r.periodo < caso.fechaInicio.slice(0, 7) ||\n      r.periodo > caso.fechaFin.slice(0, 7) ||\n      r.fecha > \"2025-12-31\" ||\n      periodosReta.has(r.periodo)\n    )\n      rechazar(\n        \"A",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-6c0b26ecb40c677c317b83ed25b60040",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 13683,
+        "end": 13684,
+        "line": 460,
+        "column": 73,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "unico",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:unico\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:unico\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "s.filter((i) => i.sujetoRetencion).map((i) => i.base)\n  )\n  const unico = new Set(caso.ingresos.map((i) => i.clienteId)).size === 1\n  const elegible =\n    unico &&\n    ingresos.gt(0) &&\n    gastos.lte(ingresos.times(\"0.3\")) &&\n    sujetos.gte(ingresos.times(\"0.7\")) &&\n    caso.obl",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-7720cc1fbcab2843ea2a5aae839e3093",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 3718,
+        "end": 3722,
+        "line": 125,
+        "column": 33,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",6],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ",\n      \"Actividades previas (incluida atribución) o historia desconocida fuera de alcance\"\n    )\n  if (caso.historial.length !== 2025 - inicio)\n    rechazar(\n      \"AE25-01\",\n      \"historial\",\n      \"Se exige un registro por ejercicio desde inicio hasta 2024\"\n    )\n  const anios = ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-785a7d015447ebb8d82ac8c35ebb447f",
+      "fuente": {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+        "start": 3889,
+        "end": 3892,
+        "line": 125,
+        "column": 44,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaCivilIsoUtc",
+      "ruta": "[[\"FirstStatement:fechaCivilIsoUtc\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:fechaCivilIsoUtc\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:join\",0],[\"ArrayLiteralExpression\",0],[\"CallExpression\",2],[\"StringLiteral\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "\n  [\n    fecha.getUTCFullYear(),\n    String(fecha.getUTCMonth() + 1).padStart(2, \"0\"),\n    String(fecha.getUTCDate()).padStart(2, \"0\"),\n  ].join(\"-\")\n\nconst fallecidoAntesDeFechaCivil = ({\n  fechaCorte,\n  fechaFallecimiento,\n}: {\n  readonly fechaCorte: string\n  readonly fechaFalleci",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-7a252f29bf36e1764f1271964f528044",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 775,
+        "end": 777,
+        "line": 19,
+        "column": 53,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",4]]",
+      "capa": "syntactic"
+    },
+    "valor": "30",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ap(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-7c65505c99a0ba25b59aee50c67c96bb",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5090,
+        "end": 5093,
+        "line": 170,
+        "column": 39,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",4]]",
+      "capa": "syntactic"
+    },
+    "valor": "121",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "icio === 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-7f1fa8235ac3ac98e536611b785f0f04",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5441,
+        "end": 5445,
+        "line": 182,
+        "column": 17,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",1],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2024",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "asta fin de 2024\"\n        )\n    }\n    if (\n      !Number.isInteger(dias) ||\n      dias < 1 ||\n      dias > 366 ||\n      (inicio < 2024 && dias !== 366)\n    )\n      rechazar(\"AE25-01\", \"dias2024\", \"Días de actividad 2024 incoherentes\")\n    if (new D(caso.volumen2024).times(366).gt(new",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-7f4c99f75dbbeb4adcb67e673775d06a",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 5142,
+        "end": 5143,
+        "line": 139,
+        "column": 7,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",0],[\"ExpressionStatement\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "new D(c.tipoMedioAutonomicoPorcentaje).gt(100)\n    )\n      return rechazo(\"Tipos medios fuera de rango\")\n    legal = D.max(\n      0,\n      new D(400).minus(\n        D.max(0, new D(c.baseImponible).minus(8000)).times(\"0.1\")\n      )\n    )\n    limite = new D(c.rendimientoComputableTr",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-7f94f703bc98cf3b9384787b4d3b3cf4",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 11869,
+        "end": 11870,
+        "line": 392,
+        "column": 26,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",10],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "eriodo)\n  }\n  const discapacidad = caso.discapacidad\n  if (\n    !Number.isInteger(discapacidad.grado) ||\n    discapacidad.grado < 0 ||\n    discapacidad.grado > 100 ||\n    (discapacidad.ayudaOMovilidad && discapacidad.grado < 33)\n  )\n    rechazar(\"AE25-10\", \"discapacidad\", \"Grado/a",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-811a2955825d5e6e04ca4219d49ffd8e",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15798,
+        "end": 15802,
+        "line": 528,
+        "column": 66,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "primerPositivo",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:primerPositivo\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:primerPositivo\",0],[\"ConditionalExpression\",0],[\"ConditionalExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "es).gt(0))\n    .map((h) => h.ejercicio)\n  const primerPositivo =\n    anteriores.length > 0 ? Math.min(...anteriores) : RN.gt(0) ? 2025 : null\n  const excluidoEmpleador = caso.clientes.some(\n    (c) =>\n      c.empleadorEnAnioAnteriorAlInicio &&\n      suma(\n        caso.ingresos.filter",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-83d148b2c7dea036e29eb6624e85094e",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 1186,
+        "end": 1187,
+        "line": 38,
+        "column": 16,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "cuotaSolidaridad",
+      "ruta": "[[\"FirstStatement:cuotaSolidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:cuotaSolidaridad\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:plus\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:plus\",0],[\"CallExpression\",0],[\"ElementAccessExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ".mul(\"0.4\")\n  )\n  const excesoRestante = Decimal.max(0, exceso.minus(baseMaxima.mul(\"0.5\")))\n  return primerExceso\n    .mul(tipos[0])\n    .plus(segundoExceso.mul(tipos[1]))\n    .plus(excesoRestante.mul(tipos[2]))\n}\n\nexport interface CotizacionesPerfilUniforme extends DesgloseCotiz",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-895de882f4f11cb109384bd15aa263cd",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+        "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+        "start": 5828,
+        "end": 5829,
+        "line": 196,
+        "column": 42,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularTotalSolidaridad",
+      "ruta": "[[\"FirstStatement:calcularTotalSolidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularTotalSolidaridad\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:ConSolidaridad\",0],[\"valor:ConSolidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ad: (politica) =>\n      Match.value(baseCotizacion.excesoBase).pipe(\n        Match.when(\n          (excesoBase) => excesoBase.lte(0),\n          () => IMPORTE_CERO\n        ),\n        Match.orElse(() => {\n          const limitePrimerTramo = parametros.baseMaxima.mul(\"0.10\")\n        ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-8aa2b5fd3df998ab2aa9524b932910c9",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 787,
+        "end": 789,
+        "line": 19,
+        "column": 65,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",7]]",
+      "capa": "syntactic"
+    },
+    "valor": "30",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula a",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-8d31b2b254c654edfd1c32ec47c08783",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5120,
+        "end": 5123,
+        "line": 170,
+        "column": 69,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",10]]",
+      "capa": "syntactic"
+    },
+    "valor": "305",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ", mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n          \"Días no coinc",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-8d329aeba8904832f600fa03a7ae4e6a",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 2350,
+        "end": 2351,
+        "line": 61,
+        "column": 21,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "defensa",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"FirstStatement:bruto,ordinarios,colegio,defensa\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:defensa\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "n rechazo(\"Rendimiento duplicado\")\n  let bruto = new D(0),\n    ordinarios = new D(0),\n    colegio = new D(0),\n    defensa = new D(0)\n  for (const r of c.rendimientos) {\n    if (r.clase === \"desconocido\" || r.cotizaciones.clase !== \"efectivas\")\n      return rechazo(\"Clase de trabaj",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-8d6a1fd6c42d70d6203623c674811bb7",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 5444,
+        "end": 5447,
+        "line": 150,
+        "column": 12,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",0],[\"ExpressionStatement\",1],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "100",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " .times(\n        new D(c.tipoMedioEstatalPorcentaje).plus(\n          c.tipoMedioAutonomicoPorcentaje\n        )\n      )\n      .div(100)\n    fuente = \"LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2\"\n  } else {\n    if (c.ejercicio !== 2025)\n      return rechazo(\n        \"DA",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-91a316f90abf742a0c08024b279787bd",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5095,
+        "end": 5098,
+        "line": 170,
+        "column": 44,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",5]]",
+      "capa": "syntactic"
+    },
+    "valor": "152",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "=== 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-940a32c906f0477effea6c23c1b85887",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5086,
+        "end": 5088,
+        "line": 170,
+        "column": 35,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",3]]",
+      "capa": "syntactic"
+    },
+    "valor": "91",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " (inicio === 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-96e3d90cfaadd7cb53aa53ac222288b1",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2843,
+        "end": 2847,
+        "line": 80,
+        "column": 45,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"ArrowFunction\",0],[\"ElementAccessExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "salarioBrutoAnual.minus(baseOrdinaria))\n  const solidaridad = Match.value(anio).pipe(\n    Match.when(2025, () => tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as c",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-98b1047218896df89ae1ace935f07f2f",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2946,
+        "end": 2949,
+        "line": 83,
+        "column": 26,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",2],[\"ArrowFunction\",0],[\"AsExpression\",0],[\"ParenthesizedExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:empresa\",0],[\"valor:empresa\",0],[\"StringLiteral\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "25, () => tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseM",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-997245d087f0ed8e578644554f17b19a",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8133,
+        "end": 8134,
+        "line": 267,
+        "column": 42,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",8],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"CallExpression\",0],[\"FirstLiteralToken\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "7",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "||\n      r.fecha < caso.fechaInicio ||\n      r.periodo < caso.fechaInicio.slice(0, 7) ||\n      r.periodo > caso.fechaFin.slice(0, 7) ||\n      r.fecha > \"2025-12-31\" ||\n      periodosReta.has(r.periodo)\n    )\n      rechazar(\n        \"AE25-03\",\n        r.id,\n        \"Solo cuota ordi",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-9b3ea3637a370c4d355614c54d0e7a4c",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 3179,
+        "end": 3180,
+        "line": 109,
+        "column": 51,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "inicio",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:inicio\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:inicio\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "4",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ion2025)\n    rechazar(\"AE25-01\", \"regimen2025\", \"Renuncia o exclusión vigente\")\n  const inicio = Number(caso.fechaInicio.slice(0, 4))\n  if (\n    !fechaValida(caso.fechaInicio) ||\n    !fechaValida(caso.fechaFin) ||\n    caso.fechaInicio > caso.fechaFin ||\n    caso.fechaInicio > \"202",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-a0e77ff6daeb386a010373ec38ae2883",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5100,
+        "end": 5103,
+        "line": 170,
+        "column": 49,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",6]]",
+      "capa": "syntactic"
+    },
+    "valor": "182",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n    ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-a14c87c294d4dde05552e682d090cc19",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 823,
+        "end": 827,
+        "line": 21,
+        "column": 10,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaValida",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1900",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "% 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: la admisión y la incompatibili",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-a176ece9ae6d2ed4017841f5b9097f7d",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 871,
+        "end": 873,
+        "line": 24,
+        "column": 10,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaValida",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "12",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ", bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: la admisión y la incompatibilidad se comprueban en calcularActividad2025. */",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-a1c6bb080cf50316204d2a8bc83ac801",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5078,
+        "end": 5080,
+        "line": 170,
+        "column": 27,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "31",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "4\n    if (inicio === 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n   ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-a37a8ac1977ca5a6793e5271ce7f3fa2",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2951,
+        "end": 2954,
+        "line": 83,
+        "column": 31,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",2],[\"ArrowFunction\",0],[\"AsExpression\",0],[\"ParenthesizedExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:empresa\",0],[\"valor:empresa\",0],[\"StringLiteral\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ") => tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-a8fa00551da117d9c47759c818f710fd",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 9531,
+        "end": 9532,
+        "line": 309,
+        "column": 63,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",9],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "    base.lt(0) ||\n      saldo.lt(0) ||\n      new D(a.acumulada).gt(\n        base.times(coef).times(2025 - Number(a.fechaUso.slice(0, 4)))\n      ) ||\n      coef.lt(a.grupo === \"hardware\" ? \"0.1\" : \"0.05\") ||\n      coef.gt(a.grupo === \"hardware\" ? \"0.26\" : \"0.10\")\n    )\n      rechaz",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-a95d565abdaa9a72c5a7d5c3d91f6bd2",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 916,
+        "end": 917,
+        "line": 26,
+        "column": 26,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaValida",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: la admisión y la incompatibilidad se comprueban en calcularActividad2025. */\nexport function reduccionRentasBajas2025(RN",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-aa28be174bc53e975aed28c489503a8c",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 783,
+        "end": 785,
+        "line": 19,
+        "column": 61,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",6]]",
+      "capa": "syntactic"
+    },
+    "valor": "31",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "r)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmu",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-aa98ea67a4e4265da74cedcdcd60121c",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8458,
+        "end": 8459,
+        "line": 278,
+        "column": 28,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "amortizacion",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"FirstStatement:amortizacion\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:amortizacion\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "na por período; regularización/devolución/deuda excluidas\"\n      )\n    periodosReta.add(r.periodo)\n  }\n  let amortizacion = new D(0)\n  for (const a of caso.activos) {\n    const base = new D(a.coste).plus(a.puestaMarcha).minus(a.residual)\n    const saldo = base.minus(a.acumulada)\n ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-aac8343029a23acc5d15700fe0e05f87",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 754,
+        "end": 756,
+        "line": 19,
+        "column": 32,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"ConditionalExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "29",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-afcf6ac0013f330949410924a7267e88",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 795,
+        "end": 797,
+        "line": 19,
+        "column": 73,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",9]]",
+      "capa": "syntactic"
+    },
+    "valor": "30",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "isiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-b00067fe3c5265d5615dcefd81a9cc6a",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 6554,
+        "end": 6555,
+        "line": 175,
+        "column": 15,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",1],[\"ExpressionStatement\",1],[\"BinaryExpression\",0],[\"ConditionalExpression\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "toServicios).minus(16576)).times(\"0.2\")\n            )\n          )\n    limite = new D(c.baseLiquidableGeneral).eq(0)\n      ? new D(0)\n      : new D(c.cuotaIntegraGeneral)\n          .times(c.netoReducidoServicios)\n          .div(c.baseLiquidableGeneral)\n    fuente = \"Ley5/2025 DF3 p",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-b071cb66b0b92fffddbcad30953d3450",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2985,
+        "end": 2988,
+        "line": 83,
+        "column": 65,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",2],[\"ArrowFunction\",0],[\"AsExpression\",0],[\"ParenthesizedExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:trabajador\",0],[\"valor:trabajador\",0],[\"StringLiteral\",2]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.empresa\n  )\n  co",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-b2b7a53bd1e33d2de4a27a18851fa352",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 910,
+        "end": 911,
+        "line": 26,
+        "column": 20,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaValida",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"ElementAccessExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "1, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: la admisión y la incompatibilidad se comprueban en calcularActividad2025. */\nexport function reduccionRentasBajas2",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-b775d769d4545510112e46f094d044a6",
+      "fuente": {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+        "start": 3886,
+        "end": 3887,
+        "line": 125,
+        "column": 41,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaCivilIsoUtc",
+      "ruta": "[[\"FirstStatement:fechaCivilIsoUtc\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:fechaCivilIsoUtc\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:join\",0],[\"ArrayLiteralExpression\",0],[\"CallExpression\",2],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " =>\n  [\n    fecha.getUTCFullYear(),\n    String(fecha.getUTCMonth() + 1).padStart(2, \"0\"),\n    String(fecha.getUTCDate()).padStart(2, \"0\"),\n  ].join(\"-\")\n\nconst fallecidoAntesDeFechaCivil = ({\n  fechaCorte,\n  fechaFallecimiento,\n}: {\n  readonly fechaCorte: string\n  readonly fechaFa",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-b8afd99f8dfcee2f6fd8c3d952ffd86e",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 759,
+        "end": 761,
+        "line": 19,
+        "column": 37,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"ConditionalExpression\",0],[\"FirstLiteralToken\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "28",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "cha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-bafcbeff895eac752e022276738a3288",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5110,
+        "end": 5113,
+        "line": 170,
+        "column": 59,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",8]]",
+      "capa": "syntactic"
+    },
+    "valor": "244",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "   const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n          \"Día",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-bb10629f5cc025724d0c3b0b0e35507e",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 449,
+        "end": 451,
+        "line": 13,
+        "column": 38,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "D",
+      "ruta": "[[\"FirstStatement:D\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:D\",0],[\"CallExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:precision\",0],[\"valor:precision\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "80",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "000 documentos.\n// 80 cifras conservan exactamente las operaciones finitas de esta vertical.\nconst D = Decimal.clone({ precision: 80 })\nconst suma = (valores: readonly string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))\nfunction fechaValida(fecha: string): boolean {\n  cons",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-bb641f5fb4deadd23ba0d502e1a1ddc2",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 2302,
+        "end": 2303,
+        "line": 59,
+        "column": 24,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "ordinarios",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"FirstStatement:bruto,ordinarios,colegio,defensa\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:ordinarios\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "r.id)).size !== c.rendimientos.length)\n    return rechazo(\"Rendimiento duplicado\")\n  let bruto = new D(0),\n    ordinarios = new D(0),\n    colegio = new D(0),\n    defensa = new D(0)\n  for (const r of c.rendimientos) {\n    if (r.clase === \"desconocido\" || r.cotizaciones.clase !== \"e",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-bc1896a559b5ce0a1c6295d07b64a381",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5177,
+        "end": 5178,
+        "line": 171,
+        "column": 48,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ber)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n          \"Días no coinciden con inicio y actividad continua hasta fin de 2024\"",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-bf3075b7485c949504e1c67f9f58d918",
+      "fuente": {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+        "start": 3837,
+        "end": 3838,
+        "line": 124,
+        "column": 46,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaCivilIsoUtc",
+      "ruta": "[[\"FirstStatement:fechaCivilIsoUtc\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:fechaCivilIsoUtc\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:join\",0],[\"ArrayLiteralExpression\",0],[\"CallExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "\"\n\nconst fechaCivilIsoUtc = (fecha: Date): string =>\n  [\n    fecha.getUTCFullYear(),\n    String(fecha.getUTCMonth() + 1).padStart(2, \"0\"),\n    String(fecha.getUTCDate()).padStart(2, \"0\"),\n  ].join(\"-\")\n\nconst fallecidoAntesDeFechaCivil = ({\n  fechaCorte,\n  fechaFallecimiento,\n}: {",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-c3339f7939f8032254e13e6f8b2d0fe4",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 739,
+        "end": 741,
+        "line": 19,
+        "column": 17,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "31",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ", m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-c62163d5c9588751f2e2ca1244292190",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5125,
+        "end": 5128,
+        "line": 170,
+        "column": 74,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",11]]",
+      "capa": "syntactic"
+    },
+    "valor": "335",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n          \"Días no coinciden ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-c64da0b2660017fcbb066e075b237922",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2980,
+        "end": 2983,
+        "line": 83,
+        "column": 60,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",2],[\"ArrowFunction\",0],[\"AsExpression\",0],[\"ParenthesizedExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:trabajador\",0],[\"valor:trabajador\",0],[\"StringLiteral\",1]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.empresa\n  )",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-c79c2c5b908a6708dde1d3165d91c4c3",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 679,
+        "end": 680,
+        "line": 18,
+        "column": 24,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "bisiesto",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:bisiesto\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:bisiesto\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "4",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "unction fechaValida(fecha: string): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-c916411b32c7e3084ec4aa72b3c57d55",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5007,
+        "end": 5008,
+        "line": 169,
+        "column": 31,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "[, mes = 0, dia = 0]",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:[, mes = 0, dia = 0]\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:[, mes = 0, dia = 0]\",0],[\"ArrayBindingPattern\",0],[\"BindingElement:dia\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "tividad 2024\"\n      )\n  } else {\n    const dias = caso.diasActividad2024\n    if (inicio === 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((p",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-cb6eaa940e5fd6084772199c894a95f2",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5969,
+        "end": 5974,
+        "line": 201,
+        "column": 27,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",8],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "10000",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "tos,\n    ...caso.reta,\n    ...caso.activos,\n    ...caso.retenciones,\n    ...caso.pagosFraccionados,\n  ]\n  if (documentos.length > 10000)\n    rechazar(\"AE25-01\", \"documentos\", \"Máximo técnico 10.000 registros\")\n  for (const d of documentos) {\n    if (ids.has(d.id))\n      rechazar(\n    ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-cbdce4a42e36692de75a39cc1376b614",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 799,
+        "end": 801,
+        "line": 19,
+        "column": 77,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "dias",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:dias\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:dias\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",10]]",
+      "capa": "syntactic"
+    },
+    "valor": "31",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "sto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: la a",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-ce2206bd21f246e3cd0ad3a6cb9fbb54",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 840,
+        "end": 844,
+        "line": 22,
+        "column": 10,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaValida",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2026",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "% 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= 12 &&\n    d >= 1 &&\n    d <= (dias[m - 1] ?? 0)\n  )\n}\n\n/** Fórmula aislada: la admisión y la incompatibilidad se comprueban",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-ce989ba83a10a46e30ed155f4a879a93",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 720,
+        "end": 721,
+        "line": 18,
+        "column": 65,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "bisiesto",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:bisiesto\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:bisiesto\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "an {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return (\n    y >= 1900 &&\n    y <= 2026 &&\n    m >= 1 &&\n    m <= ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-cea873787927bc3dcf44fa4f0412e80b",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 6357,
+        "end": 6358,
+        "line": 169,
+        "column": 13,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",1],[\"ExpressionStatement\",0],[\"BinaryExpression\",0],[\"ConditionalExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "l =\n      new D(c.otrasRentasNoExentas).gt(6500) || new D(c.brutoServicios).eq(0)\n        ? new D(0)\n        : D.max(\n            0,\n            new D(340).minus(\n              D.max(0, new D(c.brutoServicios).minus(16576)).times(\"0.2\")\n            )\n          )\n    limite = new D",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-d11c06ac7756dfabb8fc963c69cf66ef",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 4743,
+        "end": 4744,
+        "line": 160,
+        "column": 36,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " La anualización se compara por productos, sin redondear el cociente.\n  if (inicio === 2025) {\n    if (caso.diasActividad2024 !== 0 || !new D(caso.volumen2024).isZero())\n      rechazar(\n        \"AE25-01\",\n        \"volumen\",\n        \"Inicio 2025 incompatible con actividad 2024\"\n   ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-d1662c9b8192659fe186c7d16548505b",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5149,
+        "end": 5152,
+        "line": 171,
+        "column": 20,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "367",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "chaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n          \"Días no coinciden con inicio y actividad c",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-d298d03e08793dea7b549e0d1c9e8e17",
+      "fuente": {
+        "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+        "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+        "start": 4708,
+        "end": 4709,
+        "line": 153,
+        "column": 25,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularGananciaExentaInmuebleUrbanoAdquirido2012",
+      "ruta": "[[\"FirstStatement:calcularGananciaExentaInmuebleUrbanoAdquirido2012\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularGananciaExentaInmuebleUrbanoAdquirido2012\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"CallExpression\",2],[\"ArrowFunction\",0],[\"Block\",0],[\"ReturnStatement\",0],[\"CallExpression\",0],[\"CallExpression\",1],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:mul\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "oso: true,\n            vinculada: false,\n            cumpleRangoFecha: true,\n          },\n          () =>\n            Decimal.max(0, gananciaTotal.minus(gananciaExentaPrevia)).mul(\n              parametro.porcentajeExento\n            )\n        ),\n        Match.orElse(() => IMPORTE",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-d4c8748041517db48c708a494fd9f872",
+      "fuente": {
+        "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+        "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+        "start": 3195,
+        "end": 3196,
+        "line": 104,
+        "column": 5,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "gananciaExenta",
+      "ruta": "[[\"FirstStatement:calcularGananciaPatrimonialPorTransmision\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularGananciaPatrimonialPorTransmision\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:gananciaExenta\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:gananciaExenta\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ancia,\n      gananciaTotal,\n      gananciaExentaPrevia: gananciaExentaMayores65,\n    })\n  const gananciaExenta = Decimal.max(\n    0,\n    Decimal.min(\n      gananciaTotal,\n      gananciaExentaMayores65.plus(gananciaExentaInmueble2012)\n    )\n  )\n\n  return {\n    gananciaTotal,\n    ga",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-d95d881736b57783f58649d6efccac28",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 3975,
+        "end": 3976,
+        "line": 106,
+        "column": 48,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "discapacidad",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"FirstStatement:discapacidad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:discapacidad\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": ".discapacidadActiva.ayudaOMovilidadReducida === \"si\"\n        ? 7750\n        : 3500\n  const discapacidad = D.min(incremento, D.max(0, previo.minus(generales)))\n  return {\n    estado: \"calculado\",\n    discapacidadAplicada: discapacidad.toString(),\n    integro: bruto.toString(),\n    ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-d9d78cc8cdd930bed8ae87dcf2a32512",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8130,
+        "end": 8131,
+        "line": 267,
+        "column": 39,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",8],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "1\" ||\n      r.fecha < caso.fechaInicio ||\n      r.periodo < caso.fechaInicio.slice(0, 7) ||\n      r.periodo > caso.fechaFin.slice(0, 7) ||\n      r.fecha > \"2025-12-31\" ||\n      periodosReta.has(r.periodo)\n    )\n      rechazar(\n        \"AE25-03\",\n        r.id,\n        \"Solo cuota o",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-da612609c49c6415daadbb0c6c0bb007",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 9434,
+        "end": 9435,
+        "line": 307,
+        "column": 16,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"ForOfStatement\",9],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "025-12-31\" ||\n      caso.fechaInicio > \"2025-01-01\" ||\n      caso.fechaFin !== \"2025-12-31\" ||\n      base.lt(0) ||\n      saldo.lt(0) ||\n      new D(a.acumulada).gt(\n        base.times(coef).times(2025 - Number(a.fechaUso.slice(0, 4)))\n      ) ||\n      coef.lt(a.grupo === \"hardware",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-da9b907f5b23a4923c807c0ade74f498",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2866,
+        "end": 2870,
+        "line": 81,
+        "column": 16,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2026",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "(baseOrdinaria))\n  const solidaridad = Match.value(anio).pipe(\n    Match.when(2025, () => tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-db92563d464df2fcae24a89aac1d0c24",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2956,
+        "end": 2959,
+        "line": 83,
+        "column": 36,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",2],[\"ArrowFunction\",0],[\"AsExpression\",0],[\"ParenthesizedExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:empresa\",0],[\"valor:empresa\",0],[\"StringLiteral\",2]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n   ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-dbbaaac21db36f22a79b2c94749a17a2",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5082,
+        "end": 5084,
+        "line": 170,
+        "column": 31,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",2]]",
+      "capa": "syntactic"
+    },
+    "valor": "60",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "  if (inicio === 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n       ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-ddcbe38cdd26c95fe41188803ff1eea1",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 4700,
+        "end": 4704,
+        "line": 159,
+        "column": 18,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "tomáticamente por devengo\"\n      )\n  }\n  // La anualización se compara por productos, sin redondear el cociente.\n  if (inicio === 2025) {\n    if (caso.diasActividad2024 !== 0 || !new D(caso.volumen2024).isZero())\n      rechazar(\n        \"AE25-01\",\n        \"volumen\",\n        \"Inicio 2",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-de2c7fe26a4aa7e4ab94bf8763178e9b",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 622,
+        "end": 623,
+        "line": 17,
+        "column": 28,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "[y = 0, m = 0, d = 0]",
+      "ruta": "[[\"FunctionDeclaration:fechaValida\",0],[\"Block\",0],[\"FirstStatement:[y = 0, m = 0, d = 0]\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:[y = 0, m = 0, d = 0]\",0],[\"ArrayBindingPattern\",0],[\"BindingElement:d\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "g[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))\nfunction fechaValida(fecha: string): boolean {\n  const [y = 0, m = 0, d = 0] = fecha.split(\"-\").map(Number)\n  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-e13ef152165ed3b8e72b276e8a356af1",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 4998,
+        "end": 5001,
+        "line": 134,
+        "column": 46,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "100",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "l: Decimal, limite: Decimal, fuente: string\n  if (c.regla === \"art80bis\") {\n    if (\n      new D(c.tipoMedioEstatalPorcentaje).gt(100) ||\n      new D(c.tipoMedioAutonomicoPorcentaje).gt(100)\n    )\n      return rechazo(\"Tipos medios fuera de rango\")\n    legal = D.max(\n      0,\n      ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-e25e79804d89f8b18caade6bd4cc1fa5",
+      "fuente": {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+        "start": 3825,
+        "end": 3826,
+        "line": 124,
+        "column": 34,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "fechaCivilIsoUtc",
+      "ruta": "[[\"FirstStatement:fechaCivilIsoUtc\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:fechaCivilIsoUtc\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:join\",0],[\"ArrayLiteralExpression\",0],[\"CallExpression\",1],[\"PropertyAccessExpression:padStart\",0],[\"CallExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " \"2018-07-05\"\n\nconst fechaCivilIsoUtc = (fecha: Date): string =>\n  [\n    fecha.getUTCFullYear(),\n    String(fecha.getUTCMonth() + 1).padStart(2, \"0\"),\n    String(fecha.getUTCDate()).padStart(2, \"0\"),\n  ].join(\"-\")\n\nconst fallecidoAntesDeFechaCivil = ({\n  fechaCorte,\n  fechaFalleci",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-e2682e4424fe3d58937ca5889f1922a4",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5075,
+        "end": 5076,
+        "line": 170,
+        "column": 24,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "2024\n    if (inicio === 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-e2dba00b7be992d98f86c25d40c01c71",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 5558,
+        "end": 5562,
+        "line": 153,
+        "column": 25,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",1],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "   )\n      .div(100)\n    fuente = \"LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2\"\n  } else {\n    if (c.ejercicio !== 2025)\n      return rechazo(\n        \"DA61 2026: vigencia y alcance pendientes de cierre en esta implementación\"\n      )\n    if (c.calificacion !== \"labora",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-e60c6cdcf1e0643291427e4e2d071631",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15258,
+        "end": 15259,
+        "line": 514,
+        "column": 33,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",13],[\"Block\",0],[\"ExpressionStatement\",2],[\"BinaryExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "s, con ejercicio efectivo y acreditación\",\n      incremento,\n      [discapacidad.documento]\n    )\n    reduccion = D.min(D.max(RN, 0), adicional.plus(incremento).plus(2000))\n  } else if (!elegible && caso.aplicarRentasBajas) {\n    reduccion = reduccionRentasBajas2025(RN)\n  }\n  etap",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-e6628f3d6dbe2a67125ad8406aecf45e",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 6410,
+        "end": 6411,
+        "line": 171,
+        "column": 21,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularDeduccionTrabajo",
+      "ruta": "[[\"FunctionDeclaration:calcularDeduccionTrabajo\",0],[\"Block\",0],[\"IfStatement\",1],[\"Block\",1],[\"ExpressionStatement\",0],[\"BinaryExpression\",0],[\"ConditionalExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"PropertyAccessExpression:times\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ew D(c.brutoServicios).eq(0)\n        ? new D(0)\n        : D.max(\n            0,\n            new D(340).minus(\n              D.max(0, new D(c.brutoServicios).minus(16576)).times(\"0.2\")\n            )\n          )\n    limite = new D(c.baseLiquidableGeneral).eq(0)\n      ? new D(0)\n    ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-e97f5e754e0c5d7abc994518cb4b59f0",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5458,
+        "end": 5461,
+        "line": 182,
+        "column": 34,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",1],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "366",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "\n        )\n    }\n    if (\n      !Number.isInteger(dias) ||\n      dias < 1 ||\n      dias > 366 ||\n      (inicio < 2024 && dias !== 366)\n    )\n      rechazar(\"AE25-01\", \"dias2024\", \"Días de actividad 2024 incoherentes\")\n    if (new D(caso.volumen2024).times(366).gt(new D(600000).times",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-f40e76d283d3d11ce5be9059cf1545cd",
+      "fuente": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "start": 2326,
+        "end": 2327,
+        "line": 60,
+        "column": 21,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "colegio",
+      "ruta": "[[\"FunctionDeclaration:calcularGastosTrabajo\",0],[\"Block\",0],[\"FirstStatement:bruto,ordinarios,colegio,defensa\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:colegio\",0],[\"NewExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ientos.length)\n    return rechazo(\"Rendimiento duplicado\")\n  let bruto = new D(0),\n    ordinarios = new D(0),\n    colegio = new D(0),\n    defensa = new D(0)\n  for (const r of c.rendimientos) {\n    if (r.clase === \"desconocido\" || r.cotizaciones.clase !== \"efectivas\")\n      return ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-f6fa518773cf4ff4b418a3761f74d8c3",
+      "fuente": {
+        "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+        "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+        "start": 7297,
+        "end": 7298,
+        "line": 240,
+        "column": 54,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularExencionPorReinversionEnRentaVitalicia",
+      "ruta": "[[\"FirstStatement:calcularExencionPorReinversionEnRentaVitalicia\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularExencionPorReinversionEnRentaVitalicia\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"ArrowFunction\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "cimal\n}): Decimal =>\n  Match.value(importeTransmision).pipe(\n    Match.when(\n      (importeTransmision) => importeTransmision.lte(0),\n      () => IMPORTE_CERO\n    ),\n    Match.orElse((importeTransmision) => {\n      const margenReinversion = Decimal.max(\n        0,\n        LIMITE_R",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-f7b4dae3b1be99853e00a209d45d117e",
+      "fuente": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "start": 2814,
+        "end": 2818,
+        "line": 80,
+        "column": 16,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "solidaridad",
+      "ruta": "[[\"FirstStatement:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:calcularDesgloseCotizacionesPerfilUniforme\",0],[\"ArrowFunction\",0],[\"Block\",0],[\"FirstStatement:solidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:solidaridad\",0],[\"CallExpression\",0],[\"CallExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "2025",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " excesoBase = Decimal.max(0, salarioBrutoAnual.minus(baseOrdinaria))\n  const solidaridad = Match.value(anio).pipe(\n    Match.when(2025, () => tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabaj",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-fc9167d2d21f77048e539d281dfbb914",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5171,
+        "end": 5172,
+        "line": 171,
+        "column": 42,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"IfStatement\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"ParenthesizedExpression\",0],[\"BinaryExpression\",0],[\"ElementAccessExpression\",0],[\"BinaryExpression\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "1",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "ap(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n          \"Días no coinciden con inicio y actividad continua hasta fin de",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-ff04c19f485eac599ac357a446d9b0fc",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 4998,
+        "end": 4999,
+        "line": 169,
+        "column": 22,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "[, mes = 0, dia = 0]",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:[, mes = 0, dia = 0]\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:[, mes = 0, dia = 0]\",0],[\"ArrayBindingPattern\",0],[\"BindingElement:mes\",0],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "0",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "le con actividad 2024\"\n      )\n  } else {\n    const dias = caso.diasActividad2024\n    if (inicio === 2024) {\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-ff069381f5e62390b9399fa9f7f49fe1",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5105,
+        "end": 5108,
+        "line": 170,
+        "column": 54,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "previos",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",0],[\"Block\",0],[\"FirstStatement:previos\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:previos\",0],[\"ArrayLiteralExpression\",0],[\"FirstLiteralToken\",7]]",
+      "capa": "syntactic"
+    },
+    "valor": "213",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": "{\n      const [, mes = 0, dia = 0] = caso.fechaInicio.split(\"-\").map(Number)\n      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]\n      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))\n        rechazar(\n          \"AE25-01\",\n          \"dias2024\",\n         ",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  },
+  {
+    "ocurrencia": {
+      "id": "inv-ffc89e91b5f2d4a1f56797bf54a530e9",
+      "fuente": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 5418,
+        "end": 5421,
+        "line": 181,
+        "column": 14,
+        "offsetEncoding": "utf16"
+      },
+      "simbolo": "calcularActividad2025",
+      "ruta": "[[\"FunctionDeclaration:calcularActividad2025\",0],[\"Block\",0],[\"IfStatement\",7],[\"Block\",1],[\"IfStatement\",1],[\"BinaryExpression\",0],[\"BinaryExpression\",0],[\"BinaryExpression\",1],[\"FirstLiteralToken\",0]]",
+      "capa": "syntactic"
+    },
+    "valor": "366",
+    "papel": "Control o operación auxiliar identificado en el código; no magnitud fiscal autónoma",
+    "contextoCodigo": " y actividad continua hasta fin de 2024\"\n        )\n    }\n    if (\n      !Number.isInteger(dias) ||\n      dias < 1 ||\n      dias > 366 ||\n      (inicio < 2024 && dias !== 366)\n    )\n      rechazar(\"AE25-01\", \"dias2024\", \"Días de actividad 2024 incoherentes\")\n    if (new D(caso.volume",
+    "limite": "Índice de controles de calendario,cardinalidad,precisión o elementos neutros; no ficha fiscal ni regla aceptada."
+  }
+]
