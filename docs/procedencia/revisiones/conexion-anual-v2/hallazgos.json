@@ -1,0 +1,24 @@
+[
+  {
+    "id": "CAV1-01",
+    "dictamen": "corrección numérica comprobada con alcance ordinario Madrid 2025"
+  },
+  {
+    "id": "CAV1-02",
+    "dictamen": "contexto y enlaces corregidos; cierre de software bloqueado por CAV2-01"
+  },
+  {
+    "id": "CAV1-03",
+    "dictamen": "cota agregada corregida"
+  },
+  {
+    "id": "CAV2-01",
+    "prioridad": "P2",
+    "dictamen": "requiere cambios",
+    "path": "scripts/procedencia/explicacion-version.mjs",
+    "linea": 12,
+    "motivo": "Ruta de objetos exigida ausente del árbol base",
+    "reproduccion": "tests/rastro-anual-procedencia.test.ts: dos fallos ENOENT, cinco correctos",
+    "aceptacionFiscal": false
+  }
+]

@@ -1,0 +1,59 @@
+diff --git a/lib/dominio/compatibilidad-legacy/progresividad-frio.ts b/lib/dominio/compatibilidad-legacy/progresividad-frio.ts
+index ac891a9..9a78ba3 100644
+--- a/lib/dominio/compatibilidad-legacy/progresividad-frio.ts
++++ b/lib/dominio/compatibilidad-legacy/progresividad-frio.ts
+@@ -1,3 +1,4 @@
++import { filaComparativaTabular } from "./comparativa-tabular"
+ import { filaDetalleTabular } from "./detalle-tabular"
+ import { mensualizarCentimosPresentacionLegacy } from "./aritmetica-tabular"
+ import Decimal from "decimal.js"
+@@ -1021,18 +1022,6 @@ const salariosDelRango = (rango: RangoSalarialEuros): Iterable<number> =>
+     { length: numeroSalariosDelRango(rango) }
+   )
+ 
+-const formatearNumeroPorcentajeLegacy = (valor: number): string => {
+-  const porcentajeRedondeado = Number(valor.toFixed(2))
+-
+-  return Match.value(Number.isInteger(porcentajeRedondeado)).pipe(
+-    Match.when(true, () => porcentajeRedondeado.toFixed(1)),
+-    Match.orElse(() => String(porcentajeRedondeado))
+-  )
+-}
+-
+-const textoPorcentajeLegacy = (valor: number) =>
+-  `${formatearNumeroPorcentajeLegacy(valor)}%`
+-
+ const cabeceraTramoIrpf = (indice: number, tramo: TramoIrpf) => {
+   const [, tipo] = tramo
+   return `T${indice + 1} (${porcentajeCompatibleLegacy(tipo, 1).toFixed(1)}%)`
+@@ -1135,29 +1124,7 @@ export const construirTablaComparativaInflacionCompatible = (
+   function* filas(): Iterable<ReadonlyArray<ValorCeldaCompatible>> {
+     for (const anio of aniosFiscalesLegacy) {
+       for (const salario of salariosDelRango(rango)) {
+-        const salarioReferencia = Number(salario)
+-        const comparacion = construirComparacionAjustadaPorIpc({
+-          salarioBrutoAnualReferenciaCentimos: salarioReferencia * 100,
+-          anioComparado: anio,
+-          anioReferencia: 2026,
+-        })
+-        const factor = Number(comparacion.factorIpc)
+-
+-        yield [
+-          anio,
+-          salarioReferencia,
+-          Number(factor.toFixed(4)),
+-          textoPorcentajeLegacy((factor - 1) * 100),
+-          comparacion.comparado.salarioBrutoNominalAnualCentimos / 100,
+-          comparacion.comparado.ajustado.costeLaboralCentimos / 100,
+-          comparacion.comparado.ajustado.cotizacionEmpresarialCentimos / 100,
+-          comparacion.comparado.ajustado.cotizacionTrabajadorCentimos / 100,
+-          comparacion.comparado.ajustado.irpfFinalCentimos / 100,
+-          comparacion.comparado.ajustado.salarioNetoAnualCentimos / 100,
+-          comparacion.referencia.salarioNetoAnualCentimos / 100,
+-          comparacion.diferenciaPoderAdquisitivoNetoMensualCentimos / 100,
+-          comparacion.diferenciaPoderAdquisitivoNetoAnualCentimos / 100,
+-        ]
++        yield filaComparativaTabular(anio, Number(salario))
+       }
+     }
+   }
