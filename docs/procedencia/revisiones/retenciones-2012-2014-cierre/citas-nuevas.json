@@ -1,0 +1,206 @@
+[
+  {
+    "id": "2012-enero:p22",
+    "documentSha256": "c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2",
+    "page": 22,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n21 \nD.REDUCCIÓN POR DISCAPACIDAD DE TRABAJADORES ACTIVOS. \n \nSi SITUPER = ACTIVO: \n \nSi [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)] : DISTRA = 7.242,00 \n \nElse: Si DISCAPER = DE33A65 : DISTRA = 3.264,00  \n \nElse: DISTRA = 0,00 \n \nFinsi \n \nElse: DISTRA = 0,00 \n \nFinsi \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT -  RED20 – PROLONLAB – MOVILGEO - DISTRA \n \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA : PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2 : HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN  POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO : DESEM = 1.200,00 \n \nElse: DESEM = 0,00 \n \nFinsi. \n",
+    "image": "2012-enero-p22.png",
+    "imageSha256": "af0c451823e2776ab22515a3baee69ac6339d84adfa1572b2c057da59e11eb72",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2012-enero:p28",
+    "documentSha256": "c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2",
+    "page": 28,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n27 \nBASE PARA CALCULAR EL TIPO DE RETENCION. \n \n \n** Suma de reducciones: \n \nREDU =  PENSION +  HIJOS +  DESEM +  CONYUGE \n \n \n** Cálculo de la base: \n \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \n \nSITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1\n--- \n13.662,00 15.617,00\nSITUACIÓN 2 13.335,00 14.774,00 16.952,00\nSITUACIÓN 3 11.162,00 11.888,00 12.519,00\n \n \n \nSi RETRIB <= (16.952,00 +  PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: \n \nSi [NUMDES = 1 y RETRIB <= (13.662,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [ NUMDES > 1 y RETRIB <= (15.617,00 + PENSION + DESEM) ] : EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB <= (13.335,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB <= (14..774,0 0 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (16..952,0 0 + PENSION + DESEM) ] : EXENTOS = S \n \nFinsi. \n \n \n \n \n \n \n",
+    "image": "2012-enero-p28.png",
+    "imageSha256": "392e123f263fa8c27ae4c9deeba4282e26a5afa86a5cb058b0aef090a5804633",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2012-enero:p29",
+    "documentSha256": "c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2",
+    "page": 29,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n28 \nElse: Si SITUFAM = SITUACION3: \n \nSi [NUMDES = 0 y RETRIB <= (11.162,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB <= (11.888,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (12.519,00 + PENSION + DESEM) ]: EXENTOS = S \n \nFinsi. \n \n \nFinsi. \n \nFinsi. \n \n \nSi  EXENTOS = S :  \nCUOTA = 0,00  \n \nTIPO = 0,00 \n \n \n \n \nIr a   \n \n \n \n  \n \nFinsi. \n \n \n \nB.  RENDIMIENTOS SUJETOS A RETENCIÓN \n \nB1.CUOTA1 \n \n** Calculo de la cuota 1. Función ESCALA (BASE ...): Consiste en la aplicación de la \nTABLA 2. \n \nEjemplo: \nPara una base de 24.000,00: \n \nHasta 17.707,20  :  4.249,73 \n \nResto: 24.000,00 – 17.707,20 = 6.292,80 :  6.292,80* 0,28 = 1761,98 \n \nCUOTA 1.= 4.249,73 + 1.761,98= 6.011,71 \n \n \nTABLA 2 - ESCALA DE RETENCIÓN \n \n \n \nBASE hasta \nCuota \nResto BASE \nhasta \nPorcentaje \n0,00\n0,00\n17.707,20\n24,00\n17.707,20\n4.249,73\n15.300,00\n28,00\n33.007,20\n8.533,73\n20.400,00\n37,00\n53.407,20\n16.081,73\n66.593,00\n43,00\n120.000,20\n44.716,72\n55.000,00\n44.00\n175.000,20\n68.916,72\nEn adelante\n45,00\n \n \n \n \n \n \n \n1 \n",
+    "image": "2012-enero-p29.png",
+    "imageSha256": "e4cc4a91b01097f3b268806256f0ef499cdb0f9c0271a75432e8322f407183f3",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2012-febrero:p22",
+    "documentSha256": "a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae",
+    "page": 22,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n21 \nD.REDUCCIÓN POR DISCAPACIDAD DE TRABAJADORES ACTIVOS. \n \nSi SITUPER = ACTIVO: \n \nSi [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)] : DISTRA = 7.242,00 \n \nElse: Si DISCAPER = DE33A65 : DISTRA = 3.264,00  \n \nElse: DISTRA = 0,00 \n \nFinsi \n \nElse: DISTRA = 0,00 \n \nFinsi \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT -  RED20 – PROLONLAB – MOVILGEO - DISTRA \n \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA : PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2 : HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN  POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO : DESEM = 1.200,00 \n \nElse: DESEM = 0,00 \n \nFinsi. \n",
+    "image": "2012-febrero-p22.png",
+    "imageSha256": "af0c451823e2776ab22515a3baee69ac6339d84adfa1572b2c057da59e11eb72",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2012-febrero:p28",
+    "documentSha256": "a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae",
+    "page": 28,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n27 \nBASE PARA CALCULAR EL TIPO DE RETENCION. \n \n \n** Suma de reducciones: \n \nREDU =  PENSION +  HIJOS +  DESEM +  CONYUGE \n \n \n** Cálculo de la base: \n \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \n \nSITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1\n--- \n13.662,00 15.617,00\nSITUACIÓN 2 13.335,00 14.774,00 16.952,00\nSITUACIÓN 3 11.162,00 11.888,00 12.519,00\n \n \n \nSi RETRIB <= (16.952,00 +  PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: \n \nSi [NUMDES = 1 y RETRIB <= (13.662,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (15.617,00 + PENSION + DESEM) ] : EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB <= (13.335,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB <= (14.774,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (16.952,00 + PENSION + DESEM) ] : EXENTOS = S \n \nFinsi. \n \n \n \n \n \n \n",
+    "image": "2012-febrero-p28.png",
+    "imageSha256": "aafdcbbdaa47799f97a1d722099d5ebae9b4133c19b7185c3663171d7448a8db",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2012-febrero:p29",
+    "documentSha256": "a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae",
+    "page": 29,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n28 \nElse: Si SITUFAM = SITUACION3: \n \nSi [NUMDES = 0 y RETRIB <= (11.162,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB <= (11.888,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (12.519,00 + PENSION + DESEM) ]: EXENTOS = S \n \nFinsi. \n \n \nFinsi. \n \nFinsi. \n \n \nSi  EXENTOS = S :  \nCUOTA = 0,00  \n \nTIPO = 0,00 \n \n \n \n \nIr a   \n \n \n \n  \n \nFinsi. \n \n \n \nB.  RENDIMIENTOS SUJETOS A RETENCIÓN \n \nB1.CUOTA1 \n \n** Calculo de la cuota 1. Función ESCALA (BASE ...): Consiste en la aplicación de la \nTABLA 2. \n \nEjemplo: \nPara una base de 24.000,00: \n \nHasta 17.707,20: 4.382,53 \n \nResto: 24.000,00 – 17.707,20 = 6.292,80: 6.292,80* 0,30 = 1.887,84 \n \nCUOTA 1=  4.382,53+1.887,84 = 6.270,37 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN INCREMENTADA \n \n \nBASE hasta \nCuota \nResto BASE \nhasta \nPorcentaje \n0,00 \n0,00 \n17.707,20 \n24,75 \n17.707,20 \n4.382,53 \n15.300,00 \n30,00 \n33.007,20 \n8.972,53 \n20.400,00 \n40,00 \n53.407,20 \n17.132,53 \n66.593,00 \n47,00 \n120.000,20 \n48.431,24 \n55.000,00 \n49,00 \n175.000,20 \n75.381,24 \n125.000,00 \n51,00 \n300.000,20 \n139.131,24 \nEn adelante \n52,00 \n \n \nNOTA: Las cantidades que figuran en la columna cuota y en la columna de porcentaje son el resultado de agregar la  \nescala de retención del artículo 85.1.1.º del RIRPF y la escala de incrementos de la cuota de retención establecida en \nel apartado 2 de la disposición adicional trigésima quinta de la LIRPF, según la redacción dada por el Real Decreto-\nley 20/2011, de 30  de diciembre. \n1 \n",
+    "image": "2012-febrero-p29.png",
+    "imageSha256": "214de818d14c3f95c4e45131c35f7b8cbf528dc7e724ecb78232a0955818f0e2",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2013-anual:p22",
+    "documentSha256": "ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c",
+    "page": 22,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n21 \nD.REDUCCIÓ\u0010 POR DISCAPACIDAD DE TRABAJADORES ACTIVOS. \n \nSi SITUPER = ACTIVO: \n \nSi [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)] : DISTRA = 7.242,00 \n \nElse: Si DISCAPER = DE33A65 : DISTRA = 3.264,00  \n \nElse: DISTRA = 0,00 \n \nFinsi \n \nElse: DISTRA = 0,00 \n \nFinsi \n \n \nRE\u0010DIMIE\u0010TO \u0010ETO REDUCIDO \n \n \nRNTREDU = RNT -  RED20 – PROLONLAB – MOVILGEO - DISTRA \n \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \nREDUCCIÓ\u0010 PE\u0010SIO\u0010ISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA : PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \n \nREDUCCIÓ\u0010 MAS DE DOS DESCE\u0010DIE\u0010TES \n \nSi NUMDES > 2 : HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓ\u0010  POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO : DESEM = 1.200,00 \n \nElse: DESEM = 0,00 \n \nFinsi. \n",
+    "image": "2013-anual-p22.png",
+    "imageSha256": "bb779fd2620037f8ab3c47bdba2437a0bc1d5e57790baf4ef364c1e31a58a856",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2013-anual:p28",
+    "documentSha256": "ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c",
+    "page": 28,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n27 \nBASE PARA CALCULAR EL TIPO DE RETE\u0010CIO\u0010. \n \n \n** Suma de reducciones: \n \nREDU =  PENSION +  HIJOS +  DESEM +  CONYUGE \n \n \n** Cálculo de la base: \n \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETE\u0010CIÓ\u0010 \n \n \nA. RE\u0010DIMIE\u0010TOS EXE\u0010TOS DE RETE\u0010CIÓ\u0010  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \n \nSITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1\n--- \n13.662,00 15.617,00\nSITUACIÓN 2 13.335,00 14.774,00 16.952,00\nSITUACIÓN 3 11.162,00 11.888,00 12.519,00\n \n \n \nSi RETRIB <= (16.952,00 +  PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: \n \nSi [NUMDES = 1 y RETRIB <= (13.662,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (15.617,00 + PENSION + DESEM) ] : EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB <= (13.335,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB <= (14.774,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (16.952,00 + PENSION + DESEM) ] : EXENTOS = S \n \nFinsi. \n \n \n \n \n \n \n",
+    "image": "2013-anual-p28.png",
+    "imageSha256": "68ba22433d8b72deba4d72bcacd764d15691bf590224b7feae68147c72eb8a4c",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2013-anual:p29",
+    "documentSha256": "ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c",
+    "page": 29,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n28 \nElse: Si SITUFAM = SITUACION3: \n \nSi [NUMDES = 0 y RETRIB <= (11.162,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB <= (11.888,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (12.519,00 + PENSION + DESEM) ]: EXENTOS = S \n \nFinsi. \n \n \nFinsi. \n \nFinsi. \n \n \nSi  EXENTOS = S :  \nCUOTA = 0,00  \n \nTIPO = 0,00 \n \n \n \n \nIr a   \n \n \n \n  \n \nFinsi. \n \n \n \nB.  RE\u0010DIMIE\u0010TOS SUJETOS A RETE\u0010CIÓ\u0010 \n \nB1.CUOTA1 \n \n** Calculo de la cuota 1. Función ESCALA (BASE ...): Consiste en la aplicación de la \nTABLA 2. \n \nEjemplo: \nPara una base de 24.000,00: \n \nHasta 17.707,20: 4.382,53 \n \nResto: 24.000,00 – 17.707,20 = 6.292,80: 6.292,80* 0,30 = 1.887,84 \n \nCUOTA 1=  4.382,53+1.887,84 = 6.270,37 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN INCREMENTADA \n \n \nBASE hasta \nCuota \nResto BASE \nhasta \nPorcentaje \n0,00 \n0,00 \n17.707,20 \n24,75 \n17.707,20 \n4.382,53 \n15.300,00 \n30,00 \n33.007,20 \n8.972,53 \n20.400,00 \n40,00 \n53.407,20 \n17.132,53 \n66.593,00 \n47,00 \n120.000,20 \n48.431,24 \n55.000,00 \n49,00 \n175.000,20 \n75.381,24 \n125.000,00 \n51,00 \n300.000,20 \n139.131,24 \nEn adelante \n52,00 \n \n \nNOTA: Las cantidades que figuran en la columna cuota y en la columna de porcentaje son el resultado de agregar la  \nescala de retención del artículo 85.1.1.º del RIRPF y la escala de incrementos de la cuota de retención establecida en \nel apartado 2 de la disposición adicional trigésima quinta de la LIRPF, según la redacción dada por el Real Decreto-\nley 20/2011, de 30  de diciembre. \n1 \n",
+    "image": "2013-anual-p29.png",
+    "imageSha256": "2f7561902eafb1f6a383559c91a9111cfcd7c38b2044cf657a4d0ba3e234a5fb",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2014-anual:p22",
+    "documentSha256": "32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71",
+    "page": 22,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n21 \nD.REDUCCIÓ\u0010 POR DISCAPACIDAD DE TRABAJADORES ACTIVOS. \n \nSi SITUPER = ACTIVO: \n \nSi [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)] : DISTRA = 7.242,00 \n \nElse: Si DISCAPER = DE33A65 : DISTRA = 3.264,00  \n \nElse: DISTRA = 0,00 \n \nFinsi \n \nElse: DISTRA = 0,00 \n \nFinsi \n \n \nRE\u0010DIMIE\u0010TO \u0010ETO REDUCIDO \n \n \nRNTREDU = RNT -  RED20 – PROLONLAB – MOVILGEO - DISTRA \n \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \nREDUCCIÓ\u0010 PE\u0010SIO\u0010ISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA : PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \n \nREDUCCIÓ\u0010 MAS DE DOS DESCE\u0010DIE\u0010TES \n \nSi NUMDES > 2 : HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓ\u0010  POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO : DESEM = 1.200,00 \n \nElse: DESEM = 0,00 \n \nFinsi. \n",
+    "image": "2014-anual-p22.png",
+    "imageSha256": "bb779fd2620037f8ab3c47bdba2437a0bc1d5e57790baf4ef364c1e31a58a856",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2014-anual:p28",
+    "documentSha256": "32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71",
+    "page": 28,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n27 \nBASE PARA CALCULAR EL TIPO DE RETE\u0010CIO\u0010. \n \n \n** Suma de reducciones: \n \nREDU =  PENSION +  HIJOS +  DESEM +  CONYUGE \n \n \n** Cálculo de la base: \n \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETE\u0010CIÓ\u0010 \n \n \nA. RE\u0010DIMIE\u0010TOS EXE\u0010TOS DE RETE\u0010CIÓ\u0010  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \n \nSITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1\n--- \n13.662,00 15.617,00\nSITUACIÓN 2 13.335,00 14.774,00 16.952,00\nSITUACIÓN 3 11.162,00 11.888,00 12.519,00\n \n \n \nSi RETRIB <= (16.952,00 +  PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: \n \nSi [NUMDES = 1 y RETRIB <= (13.662,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (15.617,00 + PENSION + DESEM) ] : EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB <= (13.335,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB <= (14.774,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (16.952,00 + PENSION + DESEM) ] : EXENTOS = S \n \nFinsi. \n \n \n \n \n \n \n",
+    "image": "2014-anual-p28.png",
+    "imageSha256": "68ba22433d8b72deba4d72bcacd764d15691bf590224b7feae68147c72eb8a4c",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  },
+  {
+    "id": "2014-anual:p29",
+    "documentSha256": "32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71",
+    "page": 29,
+    "bbox": [
+      0.0,
+      0.0,
+      595.0,
+      842.0
+    ],
+    "text": "Departamento de Informática Tributaria \n \n28 \nElse: Si SITUFAM = SITUACION3: \n \nSi [NUMDES = 0 y RETRIB <= (11.162,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB <= (11.888,00 + PENSION + DESEM)] : EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB <= (12.519,00 + PENSION + DESEM) ]: EXENTOS = S \n \nFinsi. \n \n \nFinsi. \n \nFinsi. \n \n \nSi  EXENTOS = S :  \nCUOTA = 0,00  \n \nTIPO = 0,00 \n \n \n \n \nIr a   \n \n \n \n  \n \nFinsi. \n \n \n \nB.  RE\u0010DIMIE\u0010TOS SUJETOS A RETE\u0010CIÓ\u0010 \n \nB1.CUOTA1 \n \n** Calculo de la cuota 1. Función ESCALA (BASE ...): Consiste en la aplicación de la \nTABLA 2. \n \nEjemplo: \nPara una base de 24.000,00: \n \nHasta 17.707,20: 4.382,53 \n \nResto: 24.000,00 – 17.707,20 = 6.292,80: 6.292,80* 0,30 = 1.887,84 \n \nCUOTA 1=  4.382,53+1.887,84 = 6.270,37 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN INCREMENTADA \n \n \nBASE hasta \nCuota \nResto BASE \nhasta \nPorcentaje \n0,00 \n0,00 \n17.707,20 \n24,75 \n17.707,20 \n4.382,53 \n15.300,00 \n30,00 \n33.007,20 \n8.972,53 \n20.400,00 \n40,00 \n53.407,20 \n17.132,53 \n66.593,00 \n47,00 \n120.000,20 \n48.431,24 \n55.000,00 \n49,00 \n175.000,20 \n75.381,24 \n125.000,00 \n51,00 \n300.000,20 \n139.131,24 \nEn adelante \n52,00 \n \nNOTA: Las cantidades que figuran en la columna cuota y en la columna de porcentaje son el resultado de agregar la  \nescala de retención del artículo 85.1.1.º del RIRPF y la escala de incrementos de la cuota de retención establecida en el \napartado 2 de la disposición adicional trigésima quinta de la LIRPF, según la redacción dada por el Real Decreto-ley \n20/2011, de 30  de diciembre, prorrogada para 2014, por la Ley 22/2013 de 23 de diciembre  de Presupuestos Generales \ndel Estado para el año 2014. \n1 \n",
+    "image": "2014-anual-p29.png",
+    "imageSha256": "15f1ea7003e0eb6ee9ea181c053f8fec5cf1d6e4a68ca8d63d1f4a92aca622e8",
+    "renderer": "PyMuPDF 1.26.7",
+    "dpi": 100,
+    "coordinateSystem": "puntos PDF, origen superior izquierdo; página física 1-based"
+  }
+]
