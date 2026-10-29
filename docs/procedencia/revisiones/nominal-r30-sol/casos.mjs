@@ -1,0 +1,57 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { createHash } from 'node:crypto';
+import assert from 'node:assert/strict';
+const scratch=resolve('.cache/revision-nominal-r30/ensayo');
+const {verificarNominalPublicado:verify,seleccionarContextoNominal:select}=await import(pathToFileURL(resolve(scratch,'scripts/procedencia/ambito-publicado.mjs')));
+const prefix='docs/procedencia/implementaciones/contrato-nominal-r29-sol/';
+const closure=JSON.parse(readFileSync('schemas/procedencia/nominal-dependencies.schema.json')).const;
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const base=new Map();
+for(const path of [prefix+'payload.json',prefix+'ambito.json','docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json',...closure.documents.map(d=>d.path)])base.set(path,readFileSync(path));
+const originalPayload=JSON.parse(base.get(prefix+'payload.json'));
+const originalScope=JSON.parse(base.get(prefix+'ambito.json'));
+const originals=new Map(closure.blobs.map(b=>[b.sha256,readFileSync(resolve('.cache/revision-nominal-r30/cas/sha256',b.sha256))]));
+originals.set(originalPayload.source.sha256,readFileSync(originalPayload.source.file));
+const rows=[];
+function envelope(mutator=()=>{},rawMutator=x=>x,attestation=null){
+ const p=structuredClone(originalPayload),a=structuredClone(originalScope);mutator(p,a);
+ const files=new Map(base);const aBytes=Buffer.from(JSON.stringify(a));files.set(prefix+'ambito.json',aBytes);p.executableScope.sha256=hash(aBytes);
+ const pBytes=Buffer.from(rawMutator(JSON.stringify(p)));files.set(prefix+'payload.json',pBytes);
+ const payload={path:prefix+'payload.json',sha256:hash(pBytes)};
+ files.set('docs/procedencia/enlaces/registro.json',Buffer.from(JSON.stringify({schemaVersion:1,entries:[{payload,attestation}]})));
+ const objects=new Map(originals),deps=[];
+ for(const [path,raw] of files){const sha256=hash(raw);deps.push({path,sha256});objects.set(sha256,raw);}
+ return {payload,p,files,objects,deps,run:(read=h=>objects.get(h))=>verify(payload.sha256,p.itemId,deps,read)};
+}
+function check(id,expected,call){let result,error;try{result=call();}catch(e){error=String(e);}
+ const ok=expected==='reject'?!!error:!error;rows.push({id,expected,ok,error,result});}
+check('exact','pending',()=>envelope().run());
+const mutations=[
+ ['id-vecino',p=>p.itemId='inv-c24095c17f76bb198b34cf8b8d5a45ee'],
+ ['prefijo',(p,a)=>{a.source.tablePath=['madrid','tramos'];p.source=a.source;}],
+ ...['2','4'].map(v=>['fila-'+v,(p,a)=>{a.source.tablePath[2]=v;p.source=a.source;}]),
+ ['columna-1',(p,a)=>{a.source.tablePath[3]='1';p.source=a.source;}],
+ ['2022',(p,a)=>{a.year=2022;p.scope.year=2022;}],
+ ['decimal-manual',(p,a)=>a.value='53407.29'],['decimal-equivalente',(p,a)=>a.value='53407.20'],
+ ['unidad',(p,a)=>{a.unit='percent';p.scope.unit='percent';}],['componente',(p,a)=>a.component='estatal'],
+ ['base',(p,a)=>a.taxBase='ahorro'],['contexto-omitido',(p,a)=>a.externalConditions=[]],
+ ['condiciones',(p,a)=>{a.editorialConditions=[];p.scope.conditions=[];}],['exclusiones',(p,a)=>a.exclusions=[]],
+ ['contexto-civil',(p,a)=>a.period='ordinary-no-death'],['completa',(p,a)=>a.completeRuleAcceptance=true],
+ ['extra-payload',p=>p.status='accepted'],['extra-ambito',(p,a)=>a.status='accepted'],
+ ['extra-ref',p=>p.citation.extra=true],['omision',p=>delete p.document],
+ ['suplantar-padre',p=>p.authorTaskId='mcp:81fd9b2d-806e-4a35-8b7d-3f1d9d00e5db'],
+ ['suplantar-revisor',p=>p.authorTaskId=JSON.parse(base.get(p.legalReview.decisions.path))[0].independentReviewerTaskId],
+ ['pin-recalculado',p=>p.legalReview.decisions.sha256='a'.repeat(64)],
+];
+for(const [id,mutate] of mutations)check(id,'reject',()=>envelope(mutate).run());
+for(const raw of [s=>s.replace('"schemaVersion":3','"schemaVersion":3,"schemaVersion":3'),s=>s.replace('"schemaVersion":3','"schemaVersion":3,"schema\\u0056ersion":3')])check('duplicado-JSON','reject',()=>envelope(()=>{},raw).run());
+check('escapado-valido','pending',()=>envelope(p=>p.id='texto " : {} \\ \n').run());
+check('herencia-atestacion','reject',()=>envelope(()=>{},x=>x,{path:'historica',sha256:'b'.repeat(64)}).run());
+for(const year of [2019,2020,2021,2022])for(const death of [null,`${year}-06-20`])check(`civil-${year}-${death}`,'reject',()=>select(originalScope,{year,death}));
+const f=envelope();
+for(const target of new Set([...f.deps.map(d=>d.sha256),...originals.keys()]))check('lectura-final-'+target,'reject',()=>{let n=0;return f.run(h=>h===target&&++n>1?Buffer.from('cambio persistente'):f.objects.get(h));});
+const result={payloadSha256:hash(base.get(prefix+'payload.json')),cases:rows,failed:rows.filter(r=>!r.ok)};
+writeFileSync('docs/procedencia/revisiones/nominal-r30-sol/casos-node.json',JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({cases:rows.length,failed:result.failed}));assert.equal(result.failed.length,0);

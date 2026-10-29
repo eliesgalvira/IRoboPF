@@ -1,0 +1,11 @@
+from pathlib import Path
+import sys, importlib.util
+root=Path.cwd()
+sys.path.insert(0,str(root/'docs/procedencia/preservacion-v5-sol'))
+import consumidor
+consumidor.CACHE=root/'.cache/revision-origen-r31'
+p=root/'docs/procedencia/preservacion-v5-sol/pruebas.py'
+spec=importlib.util.spec_from_file_location('regresiones',p)
+module=importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+module.main()

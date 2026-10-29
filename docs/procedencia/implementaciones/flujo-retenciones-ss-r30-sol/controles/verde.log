@@ -1,0 +1,53 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-df42362b
+
+ ❯ tests/flujo-procedencia.test.ts (22 tests | 4 failed) 6574ms
+     × schema y determinismo conservan el candidato pendiente 1636ms
+     × recorre los 65 sitios con identidad separada y 19 etapas 1522ms
+     × rechaza eliminación, control convertido en valor, conversión y cambio de lado/año por reconstrucción 1509ms
+     × resuelve el parámetro de presentación desde su llamada anual única 1516ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-procedencia.test.ts > puertos y puertas de composición > schema y determinismo conservan el candidato pendiente
+Error: Conversión centimos/EUR incompatible
+ ❯ validate scripts/procedencia/flujo-contrato.mjs:13:89
+
+ ❯ compose scripts/procedencia/flujo-componer.mjs:208:11
+ ❯ tests/flujo-procedencia.test.ts:136:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/flujo-procedencia.test.ts > puertos y puertas de composición > recorre los 65 sitios con identidad separada y 19 etapas
+Error: Conversión centimos/EUR incompatible
+ ❯ validate scripts/procedencia/flujo-contrato.mjs:13:89
+
+ ❯ compose scripts/procedencia/flujo-componer.mjs:208:11
+ ❯ tests/flujo-procedencia.test.ts:149:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/flujo-procedencia.test.ts > puertos y puertas de composición > rechaza eliminación, control convertido en valor, conversión y cambio de lado/año por reconstrucción
+Error: Conversión centimos/EUR incompatible
+ ❯ validate scripts/procedencia/flujo-contrato.mjs:13:89
+
+ ❯ compose scripts/procedencia/flujo-componer.mjs:208:11
+ ❯ tests/flujo-procedencia.test.ts:162:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/flujo-procedencia.test.ts > R30: transporte de propiedades de retención > resuelve el parámetro de presentación desde su llamada anual única
+Error: Conversión centimos/EUR incompatible
+ ❯ validate scripts/procedencia/flujo-contrato.mjs:13:89
+
+ ❯ compose scripts/procedencia/flujo-componer.mjs:208:11
+ ❯ tests/flujo-procedencia.test.ts:380:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 18 passed (22)
+   Start at  23:46:09
+   Duration  7.14s (transform 71ms, setup 0ms, import 433ms, tests 6.57s, environment 0ms)
+

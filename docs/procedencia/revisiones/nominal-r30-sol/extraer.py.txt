@@ -1,0 +1,78 @@
+"""Contraste fijo del padre sobre evidencia ya recibida; no acepta bindings."""
+
+import hashlib
+import json
+from pathlib import Path
+
+import pymupdf
+
+ROOT = Path.cwd()
+OUT = ROOT / "docs/procedencia/revisiones/nominal-r30-sol"
+REVIEW = ROOT / "docs/procedencia/revisiones/madrid-v2-r27-sol"
+PACKAGE = Path("/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete")
+
+
+def sha(raw: bytes) -> str:
+    return hashlib.sha256(raw).hexdigest()
+
+
+def main() -> None:
+    evidence = json.loads((REVIEW / "evidencia-reproducida.json").read_bytes())
+    citation = json.loads(
+        (ROOT / "docs/procedencia/corpus/madrid-2020-limite.citation.json").read_bytes()
+    )
+    documents = []
+    checks = []
+    for meta in evidence["documents"]:
+        original = PACKAGE / "sha256" / meta["sha256"]
+        raw = original.read_bytes()
+        assert sha(raw) == meta["sha256"] and len(raw) == meta["size"]
+        assert hashlib.sha512(raw).hexdigest() == meta["sha512"]
+        documents.append({"sha256": sha(raw), "size": len(raw), "path": str(original)})
+        with pymupdf.open(stream=raw) as pdf:
+            for recipe in evidence["recipes"]:
+                if recipe["documentSha256"] != meta["sha256"]:
+                    continue
+                page = pdf[recipe["page"] - 1]
+                box = pymupdf.Rect(recipe["bbox"])
+                quote = page.get_text("text", clip=box, flags=0, sort=False)
+                assert quote == recipe["quote"]
+                png = page.get_pixmap(
+                    dpi=110, clip=box, colorspace=pymupdf.csRGB,
+                    alpha=False, annots=False,
+                ).tobytes("png")
+                assert sha(png) == recipe["sha256"]
+                assert png == (REVIEW / recipe["render"]).read_bytes()
+                (OUT / recipe["render"]).write_bytes(png)
+                checks.append({"render": recipe["render"], "sha256": sha(png),
+                               "quoteSha256": sha(quote.encode()), "page": recipe["page"]})
+            if meta["sha256"] == citation["documentSha256"]:
+                page = pdf[citation["page"] - 1]
+                box = pymupdf.Rect(citation["bbox"])
+                quote = page.get_text("text", clip=box, flags=0, sort=False)
+                assert quote == citation["quote"]
+                png = page.get_pixmap(
+                    dpi=144, clip=box, colorspace=pymupdf.csRGB,
+                    alpha=False, annots=False,
+                ).tobytes("png")
+                assert sha(png) == citation["facsimile"]["sha256"]
+                assert png == (REVIEW / "tabla.png").read_bytes()
+                (OUT / "tabla.png").write_bytes(png)
+                for key in ("number", "unit"):
+                    part = citation["engineBinding"][key]
+                    assert quote[part["start"]:part["end"]] == part["literal"]
+                checks.append({"render": "tabla.png", "sha256": sha(png),
+                               "quoteSha256": sha(quote.encode()), "page": citation["page"]})
+    assert len(documents) == 3 and len(checks) == 10
+    result = {"documents": documents, "reextractionsAndRenders": checks,
+              "pymupdf": pymupdf.VersionBind, "mupdf": pymupdf.VersionFitz,
+              "newAcquisitions": 0, "newCopies": 0, "newAttestations": 0,
+              "completeRuleAcceptance": False}
+    (OUT / "contraste-evidencias.json").write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n"
+    )
+    print(json.dumps({"documents": len(documents), "checks": len(checks)}))
+
+
+if __name__ == "__main__":
+    main()

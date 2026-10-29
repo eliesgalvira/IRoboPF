@@ -1,0 +1,36 @@
+{
+  "reviewStatus": "blocked-for-candidate-attestation",
+  "payloadSha256": "ed018d24b02b10d4633c541d8dd17645fc5e27fcd5935c3d76d24f40b6f234d6",
+  "attestation": null,
+  "activeTrustChanges": false,
+  "completeRuleAcceptance": false,
+  "findings": [
+    {
+      "id": "NR30-01",
+      "severity": "P2",
+      "blockingScope": "conformidad del consumidor Node con el payload cerrado; atestación candidata del conjunto solicitado",
+      "status": "reproduced",
+      "file": "scripts/procedencia/nominal-contrato.mjs",
+      "line": 113,
+      "title": "Campos extra anidados admitidos por Node",
+      "variants": ["payload.executableScope.unexpected", "payload.legalReview.unexpected y ambito.decision.unexpected coherentes"],
+      "expected": "rechazo conforme a additionalProperties:false del schema binding-payload",
+      "actual": "pending, trust-indeterminate y completeRuleAcceptance=false",
+      "evidence": ["casos-schema.json", "schema-adversos.log", "schema-adversos.mjs", "schema-python.json", "coordinador-schema.json"],
+      "expertObjection": "La tolerancia de campos extra no demuestra un cambio fiscal o una promoción de confianza",
+      "response": "Se limita a discrepancia estructural de la entrada Node; no se atribuye bypass al coordinador o publicador activo",
+      "cost": "Sin atestación candidata; resolución y contraste por el padre antes de nueva transición",
+      "productFixApplied": false,
+      "historicalExpectationsChanged": false
+    }
+  ],
+  "reservations": [
+    "Aplicabilidad, residencia y elegibilidad no establecidas",
+    "Autenticidad histórica indeterminada",
+    "Ley 53.407,20 frente a manual 53.407,29, sin declaración oficial de errata acreditada",
+    "No búsqueda exhaustiva de reformas intermedias ni revalidación de corrección de firma de 2019",
+    "El lote264 del autor no equivale a aceptación",
+    "El contrato nominal solo admite pending y rechaza toda selección civil",
+    "El encargo global permanece abierto y las conclusiones nuevas requieren contraste del padre"
+  ]
+}

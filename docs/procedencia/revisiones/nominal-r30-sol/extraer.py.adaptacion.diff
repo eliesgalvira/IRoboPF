@@ -1,0 +1,32 @@
+--- docs/procedencia/correcciones/madrid-nominal-r29/contrastar.py
++++ .cache/revision-nominal-r30/extraer.py
+@@ -6,10 +6,10 @@
+ 
+ import pymupdf
+ 
+-ROOT = Path(__file__).resolve().parents[4]
+-OUT = Path(__file__).resolve().parent
++ROOT = Path.cwd()
++OUT = ROOT / "docs/procedencia/revisiones/nominal-r30-sol"
+ REVIEW = ROOT / "docs/procedencia/revisiones/madrid-v2-r27-sol"
+-PACKAGE = ROOT / ".cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete"
++PACKAGE = Path("/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete")
+ 
+ 
+ def sha(raw: bytes) -> str:
+@@ -43,6 +43,7 @@
+                 ).tobytes("png")
+                 assert sha(png) == recipe["sha256"]
+                 assert png == (REVIEW / recipe["render"]).read_bytes()
++                (OUT / recipe["render"]).write_bytes(png)
+                 checks.append({"render": recipe["render"], "sha256": sha(png),
+                                "quoteSha256": sha(quote.encode()), "page": recipe["page"]})
+             if meta["sha256"] == citation["documentSha256"]:
+@@ -56,6 +57,7 @@
+                 ).tobytes("png")
+                 assert sha(png) == citation["facsimile"]["sha256"]
+                 assert png == (REVIEW / "tabla.png").read_bytes()
++                (OUT / "tabla.png").write_bytes(png)
+                 for key in ("number", "unit"):
+                     part = citation["engineBinding"][key]
+                     assert quote[part["start"]:part["end"]] == part["literal"]

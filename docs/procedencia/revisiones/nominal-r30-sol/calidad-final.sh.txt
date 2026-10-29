@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -u
+root=/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc
+out="$root/docs/procedencia/revisiones/nominal-r30-sol"
+export PYTHONDONTWRITEBYTECODE=1 UV_PROJECT_ENVIRONMENT="$root/.cache/revision-nominal-r30/uv"
+flock /tmp/irobopf-validacion-pesada.lock bash "$root/tools/procedencia/run.sh" "$root/.cache/revision-nominal-r30/calidad-preparar.py"
+cd "$root/.cache/revision-nominal-r30/lint"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c ./node_modules/.bin/oxlint --threads=1 --disable-nested-config docs/procedencia/revisiones/nominal-r30-sol > "$out/oxlint-final.log" 2>&1
+printf 'oxlint %s\n' "$?" >> "$out/calidad-codigos.log"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c ./node_modules/.bin/eslint docs/procedencia/revisiones/nominal-r30-sol > "$out/eslint-final.log" 2>&1
+printf 'eslint %s\n' "$?" >> "$out/calidad-codigos.log"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c ./node_modules/.bin/tsc --noEmit --allowJs --checkJs --skipLibCheck --target es2023 --module nodenext scripts/procedencia/nominal-contrato.mjs > "$out/tipos-final.log" 2>&1
+printf 'tipos-consumidor %s\n' "$?" >> "$out/calidad-codigos.log"

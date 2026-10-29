@@ -1,0 +1,84 @@
+// Solo fuentes ya entregadas por el padre; no recorre entregas activas.
+import {
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  copyFileSync,
+  symlinkSync,
+} from "node:fs"
+import { resolve, dirname } from "node:path"
+import { createHash } from "node:crypto"
+const root = process.cwd()
+const target = resolve(".cache/revision-cas-r30/ensayo")
+const source =
+  process.env.IRPF_CAS_FUENTE ??
+  "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r27/multiplicidad/despues-url"
+const receipt = JSON.parse(
+  readFileSync(
+    "docs/procedencia/correcciones/multiplicidad-r27/despues-url/preparacion.json"
+  )
+)
+const copy = (from, to) => {
+  mkdirSync(dirname(to), { recursive: true })
+  copyFileSync(from, to)
+}
+for (const p of receipt.files) copy(resolve(source, p), resolve(target, p))
+for (const p of [
+  "docs/procedencia/enlaces/registro.json",
+  "docs/procedencia/enlaces/revisores.json",
+])
+  copy(resolve(source, p), resolve(target, p))
+const cas = []
+for (const entry of receipt.cas) {
+  const p = "docs/procedencia/corpus/fixtures/sha256/" + entry.sha256
+  copy(entry.sha256 === "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4" ? JSON.parse(readFileSync("docs/procedencia/correcciones/recepcion-r27-r28-r30/original-grande.json")).path : resolve(source,p), resolve(target,p))
+  const bytes = readFileSync(resolve(target, p))
+  const hash = (a) => createHash(a).update(bytes).digest("hex")
+  if (
+    hash("sha256") !== entry.sha256 ||
+    hash("sha512") !== entry.sha512 ||
+    bytes.length !== entry.size
+  )
+    throw Error("Original no idéntico")
+  cas.push({
+    sha256: entry.sha256,
+    sha512: entry.sha512,
+    bytes: entry.size,
+    clase: bytes.subarray(0, 5).equals(Buffer.from("%PDF-"))
+      ? "original-pdf"
+      : "facsimil-png",
+    mime: bytes.subarray(0, 5).equals(Buffer.from("%PDF-"))
+      ? "application/pdf"
+      : "image/png",
+    ruta: p,
+  })
+}
+// El software actual define una versión candidata nueva; jamás reemplaza snapshots históricos.
+for (const p of [
+  ...receipt.files.filter((p) =>
+    /^(scripts\/procedencia|lib\/procedencia|schemas\/procedencia|app\/procedencia)\//.test(
+      p
+    )
+  ),
+])
+  copy(resolve(root, p), resolve(target, p))
+symlinkSync("/home/elies/Repos/IRoboPF/node_modules", resolve(target, "node_modules"))
+mkdirSync(resolve(".cache/revision-cas-r30/externo"), { recursive: true })
+writeFileSync(
+  resolve(".cache/revision-cas-r30/originales.json"),
+  JSON.stringify(cas, null, 2) + "\n"
+)
+console.log(
+  JSON.stringify({
+    target,
+    pairs: JSON.parse(
+      readFileSync(resolve(target, "docs/procedencia/enlaces/registro.json"))
+    ).entries.length,
+    originales: cas.length,
+  })
+)
+
+// Actualizar todas las dependencias versionadas entregadas del consumidor actual.
+for(const p of ["lib/procedencia/almacen.ts","lib/procedencia/ficha.tsx","lib/procedencia/http.ts","lib/procedencia/io.mjs","lib/procedencia/modelo.ts","lib/procedencia/rastro-anual.ts","lib/procedencia/rastro-generado.json","lib/procedencia/rastro.ts","lib/procedencia/revision.ts","lib/procedencia/verificador.ts","schemas/procedencia/binding-attestation.schema.json","schemas/procedencia/binding-payload.schema.json","schemas/procedencia/binding-registry.schema.json","schemas/procedencia/binding-reviewers.schema.json","schemas/procedencia/citation.schema.json","schemas/procedencia/contenido/entidad.schema.json","schemas/procedencia/contenido/snapshot.schema.json","schemas/procedencia/document.schema.json","schemas/procedencia/executable-cell-scope.schema.json","schemas/procedencia/flujo/composicion.schema.json","schemas/procedencia/legal-decision-scope.schema.json","schemas/procedencia/nominal-cell-scope.schema.json","schemas/procedencia/nominal-dependencies.schema.json","schemas/procedencia/nominal-projection.schema.json","scripts/procedencia/ambito-publicado.mjs","scripts/procedencia/contenido-generar.mjs","scripts/procedencia/contenido-publicar.mjs","scripts/procedencia/contenido-verificar.mjs","scripts/procedencia/contenido-vitest.mjs","scripts/procedencia/evidencia-contenido.mjs","scripts/procedencia/explicacion-version.mjs","scripts/procedencia/flujo-adaptadores.mjs","scripts/procedencia/flujo-ast.mjs","scripts/procedencia/flujo-componer.mjs","scripts/procedencia/flujo-constantes.mjs","scripts/procedencia/flujo-contrato.mjs","scripts/procedencia/flujo-cotejo.mjs","scripts/procedencia/flujo-fronteras.mjs","scripts/procedencia/inventario-artefacto.mjs","scripts/procedencia/inventario-ast.mjs","scripts/procedencia/inventario-bindings.mjs","scripts/procedencia/inventario-python.py","scripts/procedencia/inventario-validar.py","scripts/procedencia/inventario-vitest.mjs","scripts/procedencia/inventario.mjs","scripts/procedencia/nominal-contrato.mjs","scripts/procedencia/rastro-extraer.mjs","scripts/procedencia/rastro-verificar.mjs","scripts/procedencia/verificar-enlaces.mjs"]) copy(resolve(root,p),resolve(target,p));
+// Dependencias Python nominales incorporadas en R30: lectura/copia, sin modificación.
+for(const p of ['tools/procedencia/nominal.py','tools/procedencia/enlaces.py'])copy(resolve(root,p),resolve(target,p));

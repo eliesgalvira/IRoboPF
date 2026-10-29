@@ -1,0 +1,11 @@
+--- tests/nominal-software-explicacion.test.mjs
++++ /home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tests/nominal-software-explicacion.test.mjs
+@@ -21,7 +21,7 @@
+ 
+ for (const changed of nominal) {
+   test(`el snapshot detecta cambios persistentes en ${changed}`, () => {
+-    const cache = resolve(root, ".cache/nominal-software-pruebas")
++    const cache = resolve(root, ".cache/revision-nominal-r30/software")
+     mkdirSync(cache, { recursive: true })
+     const target = mkdtempSync(resolve(cache, "caso-"))
+     const generator = "scripts/procedencia/contenido-generar.mjs"

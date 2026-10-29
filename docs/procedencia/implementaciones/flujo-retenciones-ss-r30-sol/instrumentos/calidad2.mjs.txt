@@ -1,0 +1,8 @@
+import fs from 'node:fs';import cp from 'node:child_process';import path from 'node:path';import crypto from 'node:crypto';
+const root=process.cwd(),dest=root+'/.cache/flujo-retenciones-ss-r30/calidad2';fs.mkdirSync(dest,{recursive:true});
+const tracked=cp.execFileSync('git',['ls-tree','-rz','--name-only','376fb100512ca6a2f975c3c9500a20ee375dd431'],{maxBuffer:8*1024*1024}).toString().split('\0').filter(Boolean);
+const files=[...new Set([...tracked,'scripts/procedencia/flujo-retenciones-ss.mjs','schemas/procedencia/flujo/retenciones-ss.schema.json'])].filter(p=>p==='.gitignore'||/\.(ts|tsx|mjs|js|cjs|json)$/.test(p));
+const rows=[];for(const p of files){const to=dest+'/'+p;fs.mkdirSync(path.dirname(to),{recursive:true});if(p.endsWith('.json')&&!['package.json','tsconfig.json','.oxlintrc.json'].includes(p)&&!p.endsWith('/tsconfig.json')){fs.symlinkSync(root+'/'+p,to);continue}const bytes=fs.readFileSync(p);fs.writeFileSync(to,bytes);rows.push({path:p,sha256:crypto.createHash('sha256').update(bytes).digest('hex')})}
+fs.symlinkSync('/home/elies/Repos/IRoboPF/node_modules',dest+'/node_modules');
+const p=dest+'/package.json',j=JSON.parse(fs.readFileSync(p));j.scripts['lint:oxlint']='oxlint --threads=1 --disable-nested-config';fs.writeFileSync(p,JSON.stringify(j,null,2)+'\n');
+fs.writeFileSync(root+'/.cache/flujo-retenciones-ss-r30/proyeccion-calidad.json',JSON.stringify({files:rows,onlyAdaptation:'lint:oxlint añade --threads=1',jsonData:'enlaces a las fuentes del checkout actual',dependencies:'node_modules del padre, solo lectura'},null,2));console.log(rows.length+' fuentes físicas idénticas en scratch');

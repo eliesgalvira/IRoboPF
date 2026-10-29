@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+export PATH=/home/elies/Repos/IRoboPF/node_modules/.bin:$PATH
+export NODE_PATH=/home/elies/Repos/IRoboPF/node_modules
+vitest run --config .cache/flujo-retenciones-ss-r30/vitest.config.mjs --reporter=default --reporter=json --outputFile=.cache/flujo-retenciones-ss-r30/casos-resultados.json

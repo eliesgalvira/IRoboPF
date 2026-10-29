@@ -1,0 +1,11 @@
+from pathlib import Path
+import difflib
+r=Path.cwd(); s=r/'.cache/revision-nominal-r30'; out=r/'docs/procedencia/revisiones/nominal-r30-sol'
+for src,name in [('docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py','preparar.py'),('docs/procedencia/implementaciones/contrato-nominal-r29-sol/recorrido.mjs','recorrido.mjs'),('docs/procedencia/correcciones/madrid-nominal-r29/contrastar.py','extraer.py')]:
+ a=(r/src).read_text(); b=a.replace('.cache/nominal-r29/','.cache/revision-nominal-r30/')
+ if name=='preparar.py':b=b.replace('(OUT / "originales.json").write_text','(R / "docs/procedencia/revisiones/nominal-r30-sol/originales.json").write_text')
+ if name=='extraer.py':
+  b=b.replace('ROOT = Path(__file__).resolve().parents[4]','ROOT = Path.cwd()').replace('OUT = Path(__file__).resolve().parent','OUT = ROOT / "docs/procedencia/revisiones/nominal-r30-sol"').replace('PACKAGE = ROOT / ".cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete"','PACKAGE = Path("/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete")')
+  b=b.replace('assert png == (REVIEW / recipe["render"]).read_bytes()','assert png == (REVIEW / recipe["render"]).read_bytes()\n                (OUT / recipe["render"]).write_bytes(png)')
+  b=b.replace('assert png == (REVIEW / "tabla.png").read_bytes()','assert png == (REVIEW / "tabla.png").read_bytes()\n                (OUT / "tabla.png").write_bytes(png)')
+ (s/name).write_text(b); (out/(name+'.adaptacion.diff')).write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True),fromfile=src,tofile='.cache/revision-nominal-r30/'+name)))

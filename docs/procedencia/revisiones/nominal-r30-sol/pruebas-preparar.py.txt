@@ -1,0 +1,15 @@
+from pathlib import Path
+import re,shutil,difflib
+r=Path.cwd();s=r/'.cache/revision-nominal-r30/ensayo';o=r/'docs/procedencia/revisiones/nominal-r30-sol'
+a=(o/'casos.mjs').read_text();b=a.replace("resolve(root,'scripts/procedencia/ambito-publicado.mjs')","resolve(scratch,'scripts/procedencia/ambito-publicado.mjs')");(o/'casos.mjs').write_text(b)
+# Conservar el instrumento fallido y el cambio de import en el diff.
+(o/'casos-import.adaptacion.diff').write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True))))
+for name in ['test_nominal_contrato.py','test_ambitos_juridicos.py','procedencia-enlaces_test.py','nominal-contrato.test.mjs','nominal-software-explicacion.test.mjs','ambito-publicado.test.mjs']:
+ a=(r/'tests'/name).read_text();b=a.replace('.cache/nominal-r29','.cache/revision-nominal-r30').replace('.cache/nominal-software-pruebas','.cache/revision-nominal-r30/software')
+ # Originales ya están en CAS propio; esta vista solo cambia su referencia física.
+ b=b.replace('new URL(".cache/revision-nominal-r30/cas/sha256/" + blob.sha256, root)','new URL("../cas/sha256/" + blob.sha256, root)')
+ (s/'tests').mkdir(exist_ok=True);(s/'tests'/name).write_text(b)
+ (s/'.cache/revision-nominal-r30').mkdir(parents=True,exist_ok=True)
+ (o/(name+'.adaptacion.diff')).write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True),fromfile='tests/'+name,tofile=str(s/'tests'/name))))
+for name in re.findall(r'^  "([^"]+)",?$',(r/'scripts/procedencia/explicacion-version.mjs').read_text(),re.M)+['scripts/procedencia/contenido-generar.mjs']:
+ dst=s/name;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(r/name,dst)

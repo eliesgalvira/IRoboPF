@@ -1,0 +1,11 @@
+--- /home/elies/.t3/worktrees/IRoboPF/t3-0d985a45/docs/procedencia/implementaciones/cas-local-r27-sol/recorrido.mjs	2026-10-29 23:42:51.890356839 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-0d985a45/.cache/revision-cas-r30/recorrido.mjs	2026-10-29 23:44:08.228412444 +0100
+@@ -2,7 +2,7 @@
+ import { readFileSync, writeFileSync } from "node:fs"
+ import { resolve } from "node:path"
+ import { createHash } from "node:crypto"
+-const out = resolve(".cache/cas-local-r27-sol")
++const out = resolve(".cache/revision-cas-r30")
+ const root = resolve(out, "ensayo")
+ process.env.IROBOPF_CAS_LOCAL = resolve(out, "externo")
+ process.chdir(root)

@@ -1,0 +1,6 @@
+set -u
+export NODE_PATH=/home/elies/Repos/IRoboPF/node_modules
+/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --threads=1 --disable-nested-config --no-ignore lib/procedencia/io.mjs lib/procedencia/almacen.ts lib/procedencia/http.ts lib/procedencia/modelo.ts scripts/procedencia/contenido-publicar.mjs scripts/procedencia/contenido-verificar.mjs scripts/procedencia/evidencia-contenido.mjs 'app/procedencia/[snapshot]/[id]/[revision]/route.ts' .cache/revision-cas-r30/adversos-io.mjs .cache/revision-cas-r30/adversos-http.mjs > .cache/revision-cas-r30/lint.log 2>&1
+printf 'lint %s\n' "$?"
+/home/elies/Repos/IRoboPF/node_modules/.bin/tsc --noEmit --incremental false -p .cache/revision-cas-r30/ensayo/tsconfig.json > .cache/revision-cas-r30/types.log 2>&1
+printf 'types %s\n' "$?"

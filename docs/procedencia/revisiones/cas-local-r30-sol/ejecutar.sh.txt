@@ -1,0 +1,7 @@
+set -euo pipefail
+export PYTHONDONTWRITEBYTECODE=1
+export UV_PROJECT_ENVIRONMENT=/home/elies/.t3/worktrees/IRoboPF/t3-0d985a45/.cache/revision-cas-r30/venv
+export NODE_PATH=/home/elies/Repos/IRoboPF/node_modules
+bun .cache/revision-cas-r30/preparar.mjs
+bun .cache/revision-cas-r30/recorrido.mjs
+bun .cache/revision-cas-r30/historicos.mjs

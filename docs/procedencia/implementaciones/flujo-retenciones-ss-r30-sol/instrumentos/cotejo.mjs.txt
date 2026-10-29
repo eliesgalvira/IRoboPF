@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import cp from 'node:child_process';
+import crypto from 'node:crypto';
+const base='376fb100512ca6a2f975c3c9500a20ee375dd431';
+const git=(...args)=>cp.execFileSync('git',args,{maxBuffer:64*1024*1024});
+if(git('rev-parse','HEAD').toString().trim()!==base)throw Error('HEAD incorrecto');
+const rows=git('ls-tree','-rz',base).toString().split('\0').filter(Boolean);
+if(rows.length!==16486)throw Error('censo incorrecto');
+const changes=[];
+for(const row of rows){const [meta,path]=row.split('\t');const [mode,,oid]=meta.split(' ');const bytes=git('cat-file','blob',oid);const hash=b=>crypto.createHash('sha256').update(b).digest('hex');let stat;try{stat=fs.lstatSync(path);}catch{changes.push({path,deleted:true,baseSha256:hash(bytes)});continue;}const actual=stat.isSymbolicLink()?Buffer.from(fs.readlinkSync(path)):stat.isFile()?fs.readFileSync(path):Buffer.alloc(0);const actualMode=stat.isSymbolicLink()?'120000':stat.mode&0o111?'100755':'100644';if(!actual.equals(bytes)||mode!==actualMode)changes.push({path,baseSha256:hash(bytes),sha256:hash(actual),mode,actualMode});}
+const result={base,entries:rows.length,method:'lstat/readlink/bytes/ejecutable, un git cat-file por blob',changes,diff:git('diff','--no-ext-diff',base,'--stat').toString()};
+fs.writeFileSync(process.argv[2],JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

@@ -18,7 +18,7 @@ export class Composer {
     const p=this.port(node,prop,instance,unit,role);if(this.cache.has(p.id))return this.cache.get(p.id);this.cache.set(p.id,p);this.ports.push(p)
     const connect=(n,pr=prop,r=role,cond='true',u=unit,en=env,inst=instance,binding=null,conversion=null)=>{const from=this.trace(n,pr,en,inst,u,r,depth+1);this.link(from,p,node,r,cond,binding,conversion);return from}
     if(depth>80||this.ports.length>18000){p.unresolved='Límite explícito de recorrido';return p}
-    if(ts.isParenthesizedExpression(node)||ts.isAsExpression(node)||ts.isNonNullExpression(node))connect(node.expression)
+    if(ts.isParenthesizedExpression(node)||ts.isAsExpression(node)||ts.isSatisfiesExpression(node)||ts.isNonNullExpression(node))connect(node.expression)
     else if(ts.isNumericLiteral(node)||ts.isStringLiteral(node)||[ts.SyntaxKind.TrueKeyword,ts.SyntaxKind.FalseKeyword,ts.SyntaxKind.NullKeyword].includes(node.kind)){p.terminal='literal'}
     else if(ts.isIdentifier(node)){
       if(node.text==='undefined'){p.terminal='literal';return p}
@@ -39,11 +39,11 @@ export class Composer {
         let owner=fn
         while(owner&&!ts.isVariableDeclaration(owner)&&!ts.isFunctionDeclaration(owner))owner=owner.parent
         const label=(owner&&(ts.isVariableDeclaration(owner)||ts.isFunctionDeclaration(owner)))?owner.name?.getText():null
-        if(label==='liquidarTrabajoIndividualSimple'){
+        if(['liquidarTrabajoIndividualSimple','pasoRetencionTrabajoAeat'].includes(label)){
           const calls=[];const symbol=owner&&(ts.isVariableDeclaration(owner)||ts.isFunctionDeclaration(owner))?owner.name:null
           const walk=n=>{if(ts.isCallExpression(n)&&n.expression.getText()===symbol?.getText())calls.push(n);ts.forEachChild(n,walk)};walk(node.getSourceFile())
           const index=fn.parameters.indexOf(declaration)
-          if(calls.length===1&&calls[0].arguments[index]){connect(calls[0].arguments[index],prop,role,'binding único desde servicio anual',unit,env,instance+':caller:'+calls[0].getStart());return p}
+          if(calls.length===1&&calls[0].arguments[index]){connect(calls[0].arguments[index],prop,role,'binding único desde servicio anual',unit,env,instance+':caller:'+calls[0].getStart(),{call:this.sources.ref(calls[0]),argument:this.sources.ref(calls[0].arguments[index]),index});return p}
         }
         if(label==='construirLiquidarIrpfAnual'&&ts.isFunctionExpression(fn)&&fn.asteriskToken&&['caso','contexto'].includes(node.text)){p.terminal='public-input';p.property=prop||node.text;return p}
         if((['liquidarIrpfAnual','liquidarIrpfAnualDesdeServicio'].includes(label)&&['caso','contexto'].includes(node.text))||(label==='calcularActividad2025'&&ts.isFunctionDeclaration(fn)&&node.text==='caso')||(label==='liquidarIrpfAnualExplicito'&&ts.isFunctionExpression(fn)&&fn.asteriskToken&&node.text==='entrada')){p.terminal='public-input';p.property=prop||declaration.name.getText()}
@@ -61,7 +61,17 @@ export class Composer {
     else if(ts.isElementAccessExpression(node)&&(ts.isNumericLiteral(node.argumentExpression)||ts.isStringLiteral(node.argumentExpression)))connect(node.expression,[node.argumentExpression.text,prop].filter(Boolean).join('.'))
     else if(ts.isArrayLiteralExpression(node)){const [head,...tail]=prop.split('.');const index=Number(head);if(prop&&Number.isInteger(index)&&index>=0&&node.elements[index])connect(node.elements[index],tail.join('.'));else p.unresolved='Array completo requiere contrato por elemento'}
     else if(ts.isYieldExpression(node)){p.unresolved='Admisión Effect/servicio pendiente';if(node.expression)connect(node.expression)}
-    else if(ts.isElementAccessExpression(node)){p.unresolved='Índice dinámico/array: requiere contrato por elemento';connect(node.expression);if(node.argumentExpression)connect(node.argumentExpression,'','selection','selección de elemento','selector')}
+    else if(ts.isElementAccessExpression(node)){
+      // Subconjunto cerrado: tabla anual literal de máximos. No convierte el objeto
+      // ni la selección dinámica en terminal; conserva una arista por celda.
+      const d=ts.isIdentifier(node.expression)?this.sources.declaration(node.expression):null
+      let init=d&&ts.isVariableDeclaration(d)?d.initializer:null
+      while(init&&(ts.isAsExpression(init)||ts.isSatisfiesExpression(init)))init=init.expression
+      if(d?.getSourceFile().fileName==='lib/dominio/normativa/datos/seguridad-social-2012-2026.ts'&&node.expression.getText()==='BASE_MAXIMA_COTIZACION_LEGACY'&&init&&ts.isObjectLiteralExpression(init)){
+        connect(node.argumentExpression,'','selection','ejercicio: solo claves de tabla; clave ausente no admitida','selector')
+        for(const field of init.properties){if(!ts.isPropertyAssignment(field)){p.unresolved='Celda no literal';continue}connect(field.initializer,prop,role,node.argumentExpression.getText()+' === '+field.name.getText())}
+      }else {p.unresolved='Índice dinámico/array: requiere contrato por elemento';connect(node.expression);if(node.argumentExpression)connect(node.argumentExpression,'','selection','selección de elemento','selector')}
+    }
     else if(ts.isObjectLiteralExpression(node)){
       if(node.properties.some(ts.isSpreadAssignment))p.unresolved='Spread requiere contrato de precedencia por propiedad'
       if(!prop){p.unresolved='Objeto completo: se exige propiedad de salida';return p}
@@ -86,7 +96,7 @@ export class Composer {
   }
   call(node,p,prop,env,instance,unit,role,depth,connect){
     const name=node.expression.getText(),parts=name.split('.'),method=parts.at(-1)
-    const decimalMethods=['plus','minus','mul','times','div','dividedBy','abs','negated','toFixed','toString','toNumber','toDecimalPlaces','trunc','floor','ceil','min','max','eq','gt','gte','lt','lte','isZero']
+    const decimalMethods=['plus','minus','mul','times','div','dividedBy','abs','negated','toFixed','toString','toNumber','toDecimalPlaces','trunc','floor','ceil','min','max','eq','gt','gte','lt','lte','lessThan','greaterThan','isZero']
     if(ts.isPropertyAccessExpression(node.expression)&&decimalMethods.includes(method)){
       // A method is primitive only when its receiver is established as Decimal below.
       const receiver=node.expression.expression,isStatic=['D','Decimal'].includes(receiver.getText())
@@ -147,6 +157,28 @@ export class Composer {
   }
   invoke(node,callee,p,prop,env,instance,unit,role,connect){
     const name=callee.getText(),declaration=ts.isIdentifier(callee)?this.sources.declaration(callee):null
+    if(declaration?.getSourceFile().fileName==='lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'&&name==='sumarRendimientosTrabajo'){
+      const converter=this.sources.declaration(node.arguments[1])
+      if(converter?.getSourceFile().fileName!=='lib/dominio/dinero/importe-monetario.ts'||converter.name.getText()!=='centimosAEuros'){p.unresolved='Conversor de acumulación distinto del contrato céntimos/EUR';return}
+      connect(node.arguments[0],'*.importeIntegroCentimos',role,'Σ i=0..length-1: acumulador inicial 0 EUR; añadir convertir(elemento[i].importeIntegroCentimos), una vez por elemento; vacío=0 EUR',unit==='EUR'?'centimos':unit,env,instance,{call:this.sources.ref(node),argument:this.sources.ref(node.arguments[0]),index:0},unit==='EUR'?'centimos-a-EUR':null)
+      this.edges.at(-1).evidence.push(this.sources.ref(declaration),this.sources.ref(converter));return
+    }
+    if(declaration?.getSourceFile().fileName==='lib/dominio/laboral/cotizaciones-sociales.ts'&&name==='sumarTipoCotizacionLegacy'){
+      const selected=constant(this.sources,node.arguments[1],env)
+      connect(node.arguments[1],'','selection','selección de lado; empresarial o trabajador','selector')
+      for(const side of ['empresarial','trabajador']){
+        if(selected.known&&selected.value!==side)continue
+        for(const field of ['comunes','desempleo','fogasa','fp','atep']){
+          connect(node.arguments[0],'tiposSeguridadSocial.'+field+'.'+side,role,'suma con semilla 0; lado === '+side,unit,env,instance,{call:this.sources.ref(node),argument:this.sources.ref(node.arguments[0]),index:0})
+          this.edges.at(-1).evidence.push(this.sources.ref(declaration))
+        }
+      }
+      return
+    }
+    if(declaration&&ts.isParameter(declaration)){
+      const ref=this.sources.ref(declaration),bound=env.get(ref.file+':'+ref.start)
+      if(bound){this.invoke(node,bound.node,p,prop,bound.env,instance+':callback:'+ref.start,unit,role,connect);return}
+    }
     /** @type {import('/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js').Node | undefined} */ let fn=declaration
     if(declaration&&ts.isVariableDeclaration(declaration))fn=declaration.initializer
     if(!fn||!(ts.isArrowFunction(fn)||ts.isFunctionExpression(fn)||ts.isFunctionDeclaration(fn))||!fn.body){p.unresolved='Contrato de llamada pendiente: '+name;for(const a of node.arguments)connect(a,'',role,'argumento conservado sin afirmar cierre');return}

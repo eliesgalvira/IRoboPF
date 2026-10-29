@@ -1,0 +1,6 @@
+import fs from 'node:fs';import path from 'node:path';
+const root=process.cwd(),dest=root+'/.cache/flujo-retenciones-ss-r30/calidad';fs.mkdirSync(dest,{recursive:true});
+for(const name of fs.readdirSync(root)){if(['.git','.cache','node_modules'].includes(name))continue;const target=dest+'/'+name;if(fs.existsSync(target))continue;if(['package.json','tsconfig.json','eslint.config.mjs','.oxlintrc.json'].includes(name))fs.copyFileSync(root+'/'+name,target);else fs.symlinkSync(root+'/'+name,target)}
+if(!fs.existsSync(dest+'/node_modules'))fs.symlinkSync('/home/elies/Repos/IRoboPF/node_modules',dest+'/node_modules');
+const config=JSON.parse(fs.readFileSync(dest+'/.oxlintrc.json'));if(Object.keys(config.rules).length!==16||Object.values(config.rules).some(x=>x!=='error'))throw Error('anti-slop');
+fs.writeFileSync(root+'/.cache/flujo-retenciones-ss-r30/reglas.json',JSON.stringify(config.rules,null,2));

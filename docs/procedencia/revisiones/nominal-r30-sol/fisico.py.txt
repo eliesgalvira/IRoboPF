@@ -1,0 +1,18 @@
+import gzip,hashlib,json,os,stat,subprocess,sys
+from pathlib import Path
+B='376fb100512ca6a2f975c3c9500a20ee375dd431'
+assert subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()==B
+rows=[]
+for e in subprocess.check_output(['git','ls-tree','-rz',B]).split(b'\0'):
+ if not e: continue
+ m,p=e.split(b'\t'); mode,kind,oid=m.decode().split(); p=os.fsdecode(p)
+ raw=subprocess.check_output(['git','cat-file','blob',oid]); r={'path':p,'baseSha256':hashlib.sha256(raw).hexdigest(),'mode':mode}
+ try:
+  s=os.lstat(p); link=os.readlink(p) if stat.S_ISLNK(s.st_mode) else None
+  data=os.fsencode(link) if link is not None else Path(p).read_bytes()
+  r.update(sha256=hashlib.sha256(data).hexdigest(),size=len(data),link=link,physicalMode=oct(s.st_mode),equal=data==raw and (link is not None)==(mode=='120000') and (mode=='120000' or bool(s.st_mode&0o111)==(mode=='100755')))
+ except FileNotFoundError:r.update(equal=False,missing=True)
+ rows.append(r)
+diff=subprocess.check_output(['git','diff',B,'--']).decode(); result={'head':B,'entries':len(rows),'mismatches':[r for r in rows if not r['equal']],'diff':diff,'files':rows}
+with gzip.open('docs/procedencia/revisiones/nominal-r30-sol/'+sys.argv[1]+'.json.gz','wt') as f:json.dump(result,f)
+print(json.dumps({k:result[k] for k in ['head','entries','mismatches','diff']})); assert len(rows)==16486 and not result['mismatches'] and not diff

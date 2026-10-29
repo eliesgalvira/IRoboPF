@@ -1,0 +1,15 @@
+file:///home/elies/.t3/worktrees/IRoboPF/t3-df42362b/scripts/procedencia/flujo-contrato.mjs:13
+    if(e.conversion==='centimos-a-EUR'&&(from.unit!=='centimos'||to.unit!=='EUR'))throw Error('Conversión centimos/EUR incompatible');if(e.conversion==='EUR-a-centimos'&&(from.unit!=='EUR'||to.unit!=='centimos'))throw Error('Conversión EUR/centimos incompatible');
+                                                                                        ^
+
+Error: Conversión centimos/EUR incompatible
+    at validate (file:///home/elies/.t3/worktrees/IRoboPF/t3-df42362b/scripts/procedencia/flujo-contrato.mjs:13:89)
+    at compose (file:///home/elies/.t3/worktrees/IRoboPF/t3-df42362b/scripts/procedencia/flujo-componer.mjs:208:3)
+    at composeR30 (file:///home/elies/.t3/worktrees/IRoboPF/t3-df42362b/scripts/procedencia/flujo-retenciones-ss.mjs:37:14)
+    at generateR30 (file:///home/elies/.t3/worktrees/IRoboPF/t3-df42362b/scripts/procedencia/flujo-retenciones-ss.mjs:49:44)
+    at file:///home/elies/.t3/worktrees/IRoboPF/t3-df42362b/scripts/procedencia/flujo-retenciones-ss.mjs:50:84
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0

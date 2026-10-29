@@ -1,0 +1,43 @@
+--- /home/elies/.t3/worktrees/IRoboPF/t3-0d985a45/docs/procedencia/implementaciones/cas-local-r27-sol/preparar.mjs	2026-10-29 23:42:51.888356729 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-0d985a45/.cache/revision-cas-r30/preparar.mjs	2026-10-29 23:46:16.516132898 +0100
+@@ -9,7 +9,7 @@
+ import { resolve, dirname } from "node:path"
+ import { createHash } from "node:crypto"
+ const root = process.cwd()
+-const target = resolve(".cache/cas-local-r27-sol/ensayo")
++const target = resolve(".cache/revision-cas-r30/ensayo")
+ const source =
+   process.env.IRPF_CAS_FUENTE ??
+   "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r27/multiplicidad/despues-url"
+@@ -31,7 +31,7 @@
+ const cas = []
+ for (const entry of receipt.cas) {
+   const p = "docs/procedencia/corpus/fixtures/sha256/" + entry.sha256
+-  copy(resolve(source, p), resolve(target, p))
++  copy(entry.sha256 === "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4" ? JSON.parse(readFileSync("docs/procedencia/correcciones/recepcion-r27-r28-r30/original-grande.json")).path : resolve(source,p), resolve(target,p))
+   const bytes = readFileSync(resolve(target, p))
+   const hash = (a) => createHash(a).update(bytes).digest("hex")
+   if (
+@@ -62,10 +62,10 @@
+   ),
+ ])
+   copy(resolve(root, p), resolve(target, p))
+-symlinkSync(resolve(root, "node_modules"), resolve(target, "node_modules"))
+-mkdirSync(resolve(".cache/cas-local-r27-sol/externo"), { recursive: true })
++symlinkSync("/home/elies/Repos/IRoboPF/node_modules", resolve(target, "node_modules"))
++mkdirSync(resolve(".cache/revision-cas-r30/externo"), { recursive: true })
+ writeFileSync(
+-  resolve(".cache/cas-local-r27-sol/originales.json"),
++  resolve(".cache/revision-cas-r30/originales.json"),
+   JSON.stringify(cas, null, 2) + "\n"
+ )
+ console.log(
+@@ -77,3 +77,8 @@
+     originales: cas.length,
+   })
+ )
++
++// Actualizar todas las dependencias versionadas entregadas del consumidor actual.
++for(const p of ["lib/procedencia/almacen.ts","lib/procedencia/ficha.tsx","lib/procedencia/http.ts","lib/procedencia/io.mjs","lib/procedencia/modelo.ts","lib/procedencia/rastro-anual.ts","lib/procedencia/rastro-generado.json","lib/procedencia/rastro.ts","lib/procedencia/revision.ts","lib/procedencia/verificador.ts","schemas/procedencia/binding-attestation.schema.json","schemas/procedencia/binding-payload.schema.json","schemas/procedencia/binding-registry.schema.json","schemas/procedencia/binding-reviewers.schema.json","schemas/procedencia/citation.schema.json","schemas/procedencia/contenido/entidad.schema.json","schemas/procedencia/contenido/snapshot.schema.json","schemas/procedencia/document.schema.json","schemas/procedencia/executable-cell-scope.schema.json","schemas/procedencia/flujo/composicion.schema.json","schemas/procedencia/legal-decision-scope.schema.json","schemas/procedencia/nominal-cell-scope.schema.json","schemas/procedencia/nominal-dependencies.schema.json","schemas/procedencia/nominal-projection.schema.json","scripts/procedencia/ambito-publicado.mjs","scripts/procedencia/contenido-generar.mjs","scripts/procedencia/contenido-publicar.mjs","scripts/procedencia/contenido-verificar.mjs","scripts/procedencia/contenido-vitest.mjs","scripts/procedencia/evidencia-contenido.mjs","scripts/procedencia/explicacion-version.mjs","scripts/procedencia/flujo-adaptadores.mjs","scripts/procedencia/flujo-ast.mjs","scripts/procedencia/flujo-componer.mjs","scripts/procedencia/flujo-constantes.mjs","scripts/procedencia/flujo-contrato.mjs","scripts/procedencia/flujo-cotejo.mjs","scripts/procedencia/flujo-fronteras.mjs","scripts/procedencia/inventario-artefacto.mjs","scripts/procedencia/inventario-ast.mjs","scripts/procedencia/inventario-bindings.mjs","scripts/procedencia/inventario-python.py","scripts/procedencia/inventario-validar.py","scripts/procedencia/inventario-vitest.mjs","scripts/procedencia/inventario.mjs","scripts/procedencia/nominal-contrato.mjs","scripts/procedencia/rastro-extraer.mjs","scripts/procedencia/rastro-verificar.mjs","scripts/procedencia/verificar-enlaces.mjs"]) copy(resolve(root,p),resolve(target,p));
++// Dependencias Python nominales incorporadas en R30: lectura/copia, sin modificación.
++for(const p of ['tools/procedencia/nominal.py','tools/procedencia/enlaces.py'])copy(resolve(root,p),resolve(target,p));

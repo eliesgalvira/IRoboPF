@@ -1,0 +1,11 @@
+from pathlib import Path
+import shutil,json
+r=Path.cwd();s=r/'.cache/revision-nominal-r30/lint';o=r/'docs/procedencia/revisiones/nominal-r30-sol'
+paths=['.oxlintrc.json','eslint.config.mjs','scripts/procedencia/nominal-contrato.mjs','scripts/procedencia/ambito-publicado.mjs']
+paths += [str(p.relative_to(r)) for p in o.glob('*.mjs')]
+paths += [str(p.relative_to(r)) for p in (r/'tools/oxlint').rglob('*') if p.is_file()]
+for name in paths:
+ dst=s/name;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(r/name,dst)
+if not (s/'node_modules').exists():(s/'node_modules').symlink_to('/home/elies/Repos/IRoboPF/node_modules')
+rules=json.loads((s/'.oxlintrc.json').read_bytes())['rules'];assert len(rules)==16 and set(rules.values())=={'error'}
+(o/'reglas-lint.json').write_text(json.dumps(rules,indent=2)+'\n')

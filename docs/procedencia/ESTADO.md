@@ -2,7 +2,21 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 31 del 30 de octubre
+## Situación más reciente, ronda 32 del 30 de octubre
+
+Recibidas cuatro entregas Sol por manifiesto: nominal R30, CAS R30, composición parcial de retenciones/SS R30 y origen R31. Son 255 archivos y 21.162.302 bytes. Tres cotejos físicos de 16.486 entradas y uno de 16.548, cero borrados, dos modificaciones de base autorizadas. El padre contrasta los informes, fuentes, casos y límites. La recepción admite de forma expresa un único gzip técnico de 11.243.790 bytes; no cambia los límites del CAS ni autoriza originales grandes en Git. Informes y recibos en correcciones/recepcion-r30-r32.
+
+CAS completo queda corroborado técnicamente en el alcance revisado: 264 pares/102 sujetos, veinte objetos, 36 enlaces al BOE grande y 42 históricos. El padre no se atribuye las ejecuciones del revisor ni acepta fiscalidad por ellas. Linux serial, memoria por Buffer, fsync y custodia conservan reservas. Se prepara la incorporación local revisable de los registros exactos; confianza activa intacta. Origen/documento/facsímil R31 queda corroborado acotadamente, sin fix adicional ni revisión recursiva. Prosa/FILE://, privacidad, autenticidad y clasificación histórica permanecen abiertos.
+
+NR30-01 reproducido y corregido por el padre: Node admitía dos campos anidados extra que Python y el coordinador rechazaban. Quince pruebas Node pasan tras los dos fallos específicos; se conservan los dos mutantes del revisor y sus esperados. El schema completo y coordinador real rechazan ambos. Un fallo de carga de Ajv2020 queda documentado como entorno; la paridad se comprueba con el validador Python del proyecto. Sin cambio de decisión, identidad Madrid2020, contexto civil ni confianza. Nueva revisión independiente pendiente.
+
+La composición R30 sigue parcial pese a pasar 24 pruebas: transporte y contratos ampliados, sin cierre de los diecisiete sitios. Se conserva la incidencia del cotejo inicial contaminado del autor; el cotejo final y el del padre enumeran exactamente sus cambios. La continuación se divide en once valores/selectores SS, seis de retenciones/pagos y admisión anual común, con interfaz y condiciones de composición explícitas. No se publican fragmentos incompletos ni desaparecen los otros 48 sitios del plan.
+
+Tipos y lint globales correctos. Regeneración documental terminada: 44 snapshots conservados; activo V2 01b1978e79700018ce8f7a55cf0b98bcf2957590e159908de6ca27e87b66587a, explicación f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c. Se conserva la interrupción por Python ausente del shell Nix y el borrador exacto desde el que se reanudó; no se borró ningún histórico. Inventario y cifras fiscales intactos; registro activo conserva un enlace pendiente y cero revisores. Controles finales: quince pruebas nominales, seis mutaciones del software, quince pruebas de rastro/publicación y veinticuatro de composición; pasan tipos, lint y las dieciséis reglas anti-slop siguen a error. Recibos y versiones en correcciones/nominal-r32.
+
+V4/v5 siguen congelados, v5 con corte R26. Crossa conserva v1 desfasado: copia local fuera de Victus del mismo dueño y casa, sin custodia remota o independiente. Sin main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global continúa abierto. Se preparan cinco encargos nuevos explícitos gpt-6.1-sol, high y priority; aún no se atribuye su ejecución al redactar este bloque.
+
+## Situación anterior, ronda 31 del 30 de octubre
 
 Recibida por manifiesto la revisión Sol de clasificación R30: 42 archivos con sobres, 1.883.116 bytes. El padre coteja las 16.486 entradas físicas de su base, sin cambios ni borrados. CL01 puntual queda corroborado; no se repite su revisión. Los dos hallazgos nuevos se contrastan con productores, referencias editoriales reales y las 22 sondas originales, conservando sus esperados y tres rojos.
 

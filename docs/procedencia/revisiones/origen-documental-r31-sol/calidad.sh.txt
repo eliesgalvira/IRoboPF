@@ -1,0 +1,11 @@
+set -u
+export PYTHONDONTWRITEBYTECODE=1
+export UV_PROJECT_ENVIRONMENT="$PWD/.cache/revision-origen-r31/uv"
+export RUFF_CACHE_DIR="$PWD/.cache/revision-origen-r31/ruff"
+out=docs/procedencia/revisiones/origen-documental-r31-sol
+ruff format "$out/revision.py" "$out/fisico.py"
+ruff check "$out/revision.py" "$out/fisico.py" docs/procedencia/preservacion-v5-sol/recolector.py tests/test_censo_origen.py tests/test_censo_clasificacion.py
+mypy --follow-imports=skip --ignore-missing-imports --check-untyped-defs --cache-dir "$PWD/.cache/revision-origen-r31/mypy" "$out/revision.py" "$out/fisico.py" docs/procedencia/preservacion-v5-sol/recolector.py tests/test_censo_origen.py tests/test_censo_clasificacion.py
+bun /home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --threads 1 --disable-nested-config --config /home/elies/Repos/IRoboPF/.oxlintrc.json lib/formato.ts
+ruff --version
+mypy --version

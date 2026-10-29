@@ -1,0 +1,45 @@
+{
+  "base": "376fb100512ca6a2f975c3c9500a20ee375dd431",
+  "tests": {
+    "passed": 24,
+    "failed": 0,
+    "log": "controles/pruebas-3.log",
+    "cases": "controles/casos-resultados.json"
+  },
+  "typecheck": {
+    "exit": 0,
+    "log": "controles/typecheck-global-4.log",
+    "projection": "controles/proyeccion-calidad.json"
+  },
+  "lint": {
+    "exit": 0,
+    "errors": 0,
+    "warnings": 6,
+    "log": "controles/lint-global-4.log",
+    "threads": 1,
+    "disableNestedConfig": true,
+    "antiSlopRules": 16,
+    "allAtError": true
+  },
+  "generation": {
+    "sites": 17,
+    "contracts": 193,
+    "fullyClosedSites": 0
+  },
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false,
+  "independentReview": "pending",
+  "initialPhysicalReceiptClean": false,
+  "physical": {
+    "entries": 16486,
+    "modifiedTracked": [
+      "scripts/procedencia/flujo-componer.mjs",
+      "tests/flujo-procedencia.test.ts"
+    ],
+    "deletions": 0,
+    "otherBaseEntriesUnchanged": 16484,
+    "bytesComparedDirectly": true,
+    "receipt": "fisico-final-bytes.json.gz",
+    "extras": 5678
+  }
+}

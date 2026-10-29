@@ -1,0 +1,5 @@
+from pathlib import Path
+import difflib,shutil
+R=Path.cwd();S=R/'.cache/revision-nominal-r30';O=R/'docs/procedencia/revisiones/nominal-r30-sol';p=S/'empaquetar.py';a=p.read_text();b=a.replace("S=R/'.cache/revision-nominal-r30/transporte'","S=R/'.cache/revision-nominal-r30/transporte-2'").replace("else:patch.extend(difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile=rel))","else:\n  for line in difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile=rel):\n   patch.append(line if line.endswith('\\n') else line+'\\n\\\\ No newline at end of file\\n')")
+p.write_text(b);(O/'empaquetar-correccion.diff').write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True))))
+for name in ['empaquetar.py','transporte-diagnostico.py','corregir-transporte.py']:shutil.copyfile(S/name,O/(name+'.txt'))

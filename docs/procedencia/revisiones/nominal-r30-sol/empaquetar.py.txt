@@ -1,0 +1,27 @@
+import difflib,gzip,hashlib,json,subprocess
+from pathlib import Path
+R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r30-sol';S=R/'.cache/revision-nominal-r30/transporte-2'
+S.mkdir(parents=True,exist_ok=False)
+excluded={'manifiesto.json','binarios.json','entrega.patch.gz','transporte.json'}
+rows=[];bins=[];patch=[]
+for p in sorted(O.rglob('*')):
+ if not p.is_file() or p.name in excluded:continue
+ raw=p.read_bytes();rel=str(p.relative_to(R));rows.append({'path':rel,'sha256':hashlib.sha256(raw).hexdigest(),'size':len(raw),'baseSha256':None})
+ dst=S/rel;dst.parent.mkdir(parents=True,exist_ok=True)
+ try:
+  text=raw.decode('utf-8');assert '\0' not in text
+ except (UnicodeDecodeError,AssertionError):
+  bins.append({'path':rel,'sha256':hashlib.sha256(raw).hexdigest(),'size':len(raw),'transportPath':rel});dst.write_bytes(raw);continue
+ if not raw:dst.write_bytes(raw)
+ else:
+  for line in difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile=rel):
+   patch.append(line if line.endswith('\n') else line+'\n\\ No newline at end of file\n')
+payload=''.join(patch).encode();(O/'entrega.patch.gz').write_bytes(gzip.compress(payload,mtime=0))
+run=subprocess.run(['patch','-p0','--batch'],input=payload,cwd=S,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+assert run.returncode==0,run.stdout.decode()
+for row in rows:
+ raw=(S/row['path']).read_bytes();assert len(raw)==row['size'] and hashlib.sha256(raw).hexdigest()==row['sha256']
+(O/'manifiesto.json').write_text(json.dumps({'head':'376fb100512ca6a2f975c3c9500a20ee375dd431','files':rows,'excludedEnvelopes':sorted(excluded)},indent=2)+'\n')
+(O/'binarios.json').write_text(json.dumps(bins,indent=2)+'\n')
+(O/'transporte.json').write_text(json.dumps({'verified':True,'files':len(rows),'bytes':sum(r['size'] for r in rows),'patchSha256':hashlib.sha256((O/'entrega.patch.gz').read_bytes()).hexdigest(),'binaryFiles':len(bins),'scratch':str(S),'envelopes':sorted(excluded),'zeroDeletions':True},indent=2)+'\n')
+print(json.dumps({'verified':True,'files':len(rows),'binaryFiles':len(bins)}))

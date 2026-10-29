@@ -1,0 +1,15 @@
+--- /home/elies/.t3/worktrees/IRoboPF/t3-0d985a45/docs/procedencia/implementaciones/cas-local-r27-sol/historicos.mjs	2026-10-29 23:42:51.887356674 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-0d985a45/.cache/revision-cas-r30/historicos.mjs	2026-10-29 23:44:08.229412496 +0100
+@@ -11,9 +11,9 @@
+ import {
+   verificar,
+   verificarContenido,
+-} from "../../../../scripts/procedencia/contenido-verificar.mjs"
+-import { leerSnapshot } from "../../../../lib/procedencia/almacen.ts"
+-const out = resolve(".cache/cas-local-r27-sol")
++} from "../../scripts/procedencia/contenido-verificar.mjs"
++import { leerSnapshot } from "../../lib/procedencia/almacen.ts"
++const out = resolve(".cache/revision-cas-r30")
+ const actual = resolve("docs/procedencia/implementaciones/contenidos/datos")
+ const ids = JSON.parse(readFileSync(resolve(actual, "snapshots.json")))
+ for (const id of ids) verificar(id, actual)

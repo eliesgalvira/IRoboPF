@@ -1,0 +1,33 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-df42362b
+
+ ❯ tests/flujo-procedencia.test.ts (18 tests | 1 failed) 24231ms
+     × resuelve el parámetro de presentación desde su llamada anual única 1914ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-procedencia.test.ts > R30: transporte de propiedades de retención > resuelve el parámetro de presentación desde su llamada anual única
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/flujo-procedencia.test.ts:384:95
+    382|       const site = g.sites.find(s => s.siteId === "anual.retencion." +…
+    383|       expect(site).toBeDefined()
+    384|       expect(site?.closure.unresolved.some(u => u.reason.includes("sin…
+       |                                                                                               ^
+    385|       expect(site?.producerMap.some(p => p.symbol.includes("dependenci…
+    386|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 17 passed (18)
+   Start at  23:44:28
+   Duration  24.77s (transform 67ms, setup 0ms, import 428ms, tests 24.23s, environment 0ms)
+

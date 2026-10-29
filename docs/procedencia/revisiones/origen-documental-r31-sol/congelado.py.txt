@@ -1,0 +1,87 @@
+"""Recuperación acotada del pin, receta y software; nunca exporta ni restaura."""
+
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+
+ROOT = Path.cwd()
+OUT = ROOT / "docs/procedencia/revisiones/origen-documental-r31-sol"
+CACHE = ROOT / ".cache/revision-origen-r31"
+DELIVERED = Path(
+    "/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4"
+)
+PIN = "2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88"
+
+
+def fp(raw):
+    return {
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "sha512": hashlib.sha512(raw).hexdigest(),
+        "size": len(raw),
+    }
+
+
+raw = (DELIVERED / "manifest-externo.json").read_bytes()
+assert fp(raw)["sha256"] == PIN
+manifest = json.loads(raw)
+deps = {d["path"]: d for d in manifest["dependencies"]}
+rows = []
+for name, expected in manifest["software"].items():
+    row = deps[name]
+    data = (DELIVERED / "paquete/dependencies" / row["sha256"]).read_bytes()
+    assert fp(data) == {k: expected[k] for k in ("sha256", "sha512", "size")}
+    rows.append({"path": name, **fp(data)})
+recipe = deps["contrato-v5-r2.json"]
+recipe_raw = (DELIVERED / "paquete/dependencies" / recipe["sha256"]).read_bytes()
+assert fp(recipe_raw) == {k: recipe[k] for k in ("sha256", "sha512", "size")}
+entry_raw = (DELIVERED / "manifest-entrada-r1.json").read_bytes()
+assert fp(entry_raw)["sha256"] == json.loads(recipe_raw)["inputManifestSha256"]
+# Solo funciones del recolector exacto; no se invoca collect ni main.
+source = deps["docs/procedencia/preservacion-v5-sol/recolector.py"]
+historical = (DELIVERED / "paquete/dependencies" / source["sha256"]).read_bytes()
+(CACHE / "recolector-congelado.py").write_bytes(historical)
+sys.path.insert(0, str(ROOT / "docs/procedencia/preservacion-v5-sol"))
+spec = importlib.util.spec_from_file_location(
+    "congelado", CACHE / "recolector-congelado.py"
+)
+assert spec and spec.loader
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+name = "docs/procedencia/editorial/flujo-rentas-r21-sol/entradas-editoriales.json"
+row = json.loads((ROOT / name).read_bytes())["citations"][0]
+classification = module.classify(name, "/citations/0", row, "selectionSha256")
+assert classification[0] == "original-oficial"
+assert module.POLICY["version"] == "v5-r26-1"
+# No confundir source de JSON editorial con fuente de programa.
+example = next(
+    d
+    for d in manifest["dependencies"]
+    if d["sanitized"] and d["path"].endswith(".json") and "editorial/" in d["path"]
+)
+result = {
+    "pin": PIN,
+    "manifest": fp(raw),
+    "recipe": json.loads(recipe_raw),
+    "recipeFingerprint": fp(recipe_raw),
+    "entry": fp(entry_raw),
+    "software": rows,
+    "historicalPolicy": module.POLICY,
+    "historicalSelectionClass": classification,
+    "currentNotAppliedToFrozen": True,
+    "documentarySourceExample": example,
+    "originalSourceBytesNotRecoveredByHash": True,
+    "fullRestoreRun": False,
+    "reexport": False,
+    "privacyCertification": False,
+    "distributionAuthorized": False,
+}
+(OUT / "congelado.json").write_text(
+    json.dumps(result, ensure_ascii=False, indent=2) + "\n"
+)
+print(
+    "Pin/entrada/receta y",
+    len(rows),
+    "fuentes históricas recuperadas; sin restauración completa",
+)

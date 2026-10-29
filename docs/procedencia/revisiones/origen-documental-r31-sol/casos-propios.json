@@ -1,0 +1,2554 @@
+[
+  {
+    "id": "source-documento-destino-ts",
+    "row": {
+      "source": "fuentes/entrada.pdf",
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido-documental",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido-documental",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido-documental",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "fuentes/entrada.pdf",
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "source-software-destino-pdf",
+    "row": {
+      "source": "lib/entrada.ts",
+      "path": "salida.pdf"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "lib/entrada.ts",
+          "path": "salida.pdf"
+        }
+      }
+    ]
+  },
+  {
+    "id": "source-invalido-None",
+    "row": {
+      "source": null,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": null,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "source-invalido-0",
+    "row": {
+      "source": 0,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": 0,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "source-invalido-[]",
+    "row": {
+      "source": [],
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": [],
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "source-invalido-{}",
+    "row": {
+      "source": {},
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": {},
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "source-invalido-''",
+    "row": {
+      "source": "",
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "",
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "source-invalido-True",
+    "row": {
+      "source": true,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": true,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourcePath-documento-destino-ts",
+    "row": {
+      "sourcePath": "fuentes/entrada.pdf",
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido-documental",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido-documental",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido-documental",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourcePath": "fuentes/entrada.pdf",
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourcePath-software-destino-pdf",
+    "row": {
+      "sourcePath": "lib/entrada.ts",
+      "path": "salida.pdf"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourcePath": "lib/entrada.ts",
+          "path": "salida.pdf"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourcePath-invalido-None",
+    "row": {
+      "sourcePath": null,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourcePath": null,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourcePath-invalido-0",
+    "row": {
+      "sourcePath": 0,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourcePath": 0,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourcePath-invalido-[]",
+    "row": {
+      "sourcePath": [],
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourcePath": [],
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourcePath-invalido-{}",
+    "row": {
+      "sourcePath": {},
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourcePath": {},
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourcePath-invalido-''",
+    "row": {
+      "sourcePath": "",
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourcePath": "",
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourcePath-invalido-True",
+    "row": {
+      "sourcePath": true,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourcePath": true,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourceFile-documento-destino-ts",
+    "row": {
+      "sourceFile": "fuentes/entrada.pdf",
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido-documental",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido-documental",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido-documental",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourceFile": "fuentes/entrada.pdf",
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourceFile-software-destino-pdf",
+    "row": {
+      "sourceFile": "lib/entrada.ts",
+      "path": "salida.pdf"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourceFile": "lib/entrada.ts",
+          "path": "salida.pdf"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourceFile-invalido-None",
+    "row": {
+      "sourceFile": null,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourceFile": null,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourceFile-invalido-0",
+    "row": {
+      "sourceFile": 0,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourceFile": 0,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourceFile-invalido-[]",
+    "row": {
+      "sourceFile": [],
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourceFile": [],
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourceFile-invalido-{}",
+    "row": {
+      "sourceFile": {},
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourceFile": {},
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourceFile-invalido-''",
+    "row": {
+      "sourceFile": "",
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourceFile": "",
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sourceFile-invalido-True",
+    "row": {
+      "sourceFile": true,
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "sourceFile": true,
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ausencia",
+    "row": {},
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {}
+      }
+    ]
+  },
+  {
+    "id": "fallback-destino",
+    "row": {
+      "path": "lib/salida.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "path": "lib/salida.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "alias-iguales",
+    "row": {
+      "source": "lib/a.ts",
+      "sourcePath": "lib/a.ts",
+      "sourceFile": "lib/a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "lib/a.ts",
+          "sourcePath": "lib/a.ts",
+          "sourceFile": "lib/a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "alias-conflicto",
+    "row": {
+      "source": "lib/a.ts",
+      "sourcePath": "lib/b.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "lib/a.ts",
+          "sourcePath": "lib/b.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'/tmp/a.ts'",
+    "row": {
+      "source": "/tmp/a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "[localizador-local-omitido]"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'../a.ts'",
+    "row": {
+      "source": "../a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "../a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'x/../a.ts'",
+    "row": {
+      "source": "x/../a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "x/../a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'C:\\\\a.ts'",
+    "row": {
+      "source": "C:\\a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "C:\\a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'https://host/a.ts'",
+    "row": {
+      "source": "https://host/a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "https://host/a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'file://a.ts'",
+    "row": {
+      "source": "file://a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "[localizador-local-omitido]"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'x\\\\a.ts'",
+    "row": {
+      "source": "x\\a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "x\\a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'a.ts?download=1'",
+    "row": {
+      "source": "a.ts?download=1"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "a.ts?download=1"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'a.ts#x'",
+    "row": {
+      "source": "a.ts#x"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "a.ts#x"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ruta-'a.ts\\n'",
+    "row": {
+      "source": "a.ts\n"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "a.ts\n"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-ts",
+    "row": {
+      "source": "src/entrada.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-tsx",
+    "row": {
+      "source": "src/entrada.tsx"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.tsx"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-js",
+    "row": {
+      "source": "src/entrada.js"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.js"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-mjs",
+    "row": {
+      "source": "src/entrada.mjs"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.mjs"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-cjs",
+    "row": {
+      "source": "src/entrada.cjs"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.cjs"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-py",
+    "row": {
+      "source": "src/entrada.py"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.py"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-rs",
+    "row": {
+      "source": "src/entrada.rs"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.rs"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-sh",
+    "row": {
+      "source": "src/entrada.sh"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.sh"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-TS",
+    "row": {
+      "source": "src/entrada.TS"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/entrada.TS"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-no-admitida-json",
+    "row": {
+      "source": "entrada.json"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.json"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-no-admitida-txt",
+    "row": {
+      "source": "entrada.txt"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.txt"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-no-admitida-html",
+    "row": {
+      "source": "entrada.html"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.html"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-no-admitida-png",
+    "row": {
+      "source": "entrada.png"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.png"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-no-admitida-zip",
+    "row": {
+      "source": "entrada.zip"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.zip"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-no-admitida-wasm",
+    "row": {
+      "source": "entrada.wasm"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.wasm"
+        }
+      }
+    ]
+  },
+  {
+    "id": "extension-no-admitida-jsx",
+    "row": {
+      "source": "entrada.jsx"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.jsx"
+        }
+      }
+    ]
+  },
+  {
+    "id": "mime-'text/plain; charset=utf-8'",
+    "row": {
+      "source": "src/a.ts",
+      "sourceMimeType": "text/plain; charset=utf-8"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/a.ts",
+          "sourceMimeType": "text/plain; charset=utf-8"
+        }
+      }
+    ]
+  },
+  {
+    "id": "mime-'APPLICATION/PDF'",
+    "row": {
+      "source": "src/a.ts",
+      "sourceMimeType": "APPLICATION/PDF"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/a.ts",
+          "sourceMimeType": "APPLICATION/PDF"
+        }
+      }
+    ]
+  },
+  {
+    "id": "mime-'application/javascript'",
+    "row": {
+      "source": "src/a.ts",
+      "sourceMimeType": "application/javascript"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/a.ts",
+          "sourceMimeType": "application/javascript"
+        }
+      }
+    ]
+  },
+  {
+    "id": "mime-None",
+    "row": {
+      "source": "src/a.ts",
+      "sourceMimeType": null
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/a.ts",
+          "sourceMimeType": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "mime-origen-prevalece",
+    "row": {
+      "source": "src/a.ts",
+      "sourceMimeType": "text/plain",
+      "mimeType": "application/pdf"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/a.ts",
+          "sourceMimeType": "text/plain",
+          "mimeType": "application/pdf"
+        }
+      }
+    ]
+  },
+  {
+    "id": "pdf-origen-resultado-codigo",
+    "row": {
+      "source": "entrada.pdf",
+      "sourceMimeType": "application/pdf",
+      "mimeType": "text/plain",
+      "path": "resultado.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido-documental",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido-documental",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido-documental",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.pdf",
+          "sourceMimeType": "application/pdf",
+          "mimeType": "text/plain",
+          "path": "resultado.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "mime-resultado-sin-origen",
+    "row": {
+      "source": "src/a.ts",
+      "mimeType": "application/pdf"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "src/a.ts",
+          "mimeType": "application/pdf"
+        }
+      }
+    ]
+  },
+  {
+    "id": "pdf-tipo-incompatible",
+    "row": {
+      "source": "entrada.pdf",
+      "mimeType": "text/plain"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.pdf",
+          "mimeType": "text/plain"
+        }
+      }
+    ]
+  },
+  {
+    "id": "pdf-url-no-autentica",
+    "row": {
+      "source": "entrada.pdf",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido-documental",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido-documental",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido-documental",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "entrada.pdf",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "hash-origen-normalizado",
+    "row": {},
+    "key": "SOURCE_HASH",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/SOURCE_HASH",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {}
+      }
+    ]
+  },
+  {
+    "id": "resource-no-source",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "resourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "campo hash sin semántica documental suficiente"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/resourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "campo hash sin semántica documental suficiente",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "source-no-exacto",
+    "row": {
+      "source": "src/a.ts"
+    },
+    "key": "sourceContentSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "campo hash sin semántica documental suficiente"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceContentSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "campo hash sin semántica documental suficiente",
+        "context": {
+          "source": "src/a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "documental-recorte-documentSha256",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "documentSha256",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "original-oficial",
+    "before": [
+      "facsimil-receta",
+      "campo/ancestro de facsímil o receta"
+    ],
+    "after": [
+      "original-oficial",
+      "campo documental y URL admitida; no autenticidad jurídica"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/documentSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "original-oficial",
+        "reason": "campo documental y URL admitida; no autenticidad jurídica",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "documental-sin-url-documentSha256",
+    "row": {},
+    "key": "documentSha256",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "desconocido-documental",
+    "before": [
+      "facsimil-receta",
+      "campo/ancestro de facsímil o receta"
+    ],
+    "after": [
+      "desconocido-documental",
+      "referencia documental; requiere resolver su contrato"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/documentSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido-documental",
+        "reason": "referencia documental; requiere resolver su contrato",
+        "context": {}
+      }
+    ]
+  },
+  {
+    "id": "documental-recorte-originalHash",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "originalHash",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "original-oficial",
+    "before": [
+      "facsimil-receta",
+      "campo/ancestro de facsímil o receta"
+    ],
+    "after": [
+      "original-oficial",
+      "campo documental y URL admitida; no autenticidad jurídica"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/originalHash",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "original-oficial",
+        "reason": "campo documental y URL admitida; no autenticidad jurídica",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "documental-sin-url-originalHash",
+    "row": {},
+    "key": "originalHash",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "desconocido-documental",
+    "before": [
+      "facsimil-receta",
+      "campo/ancestro de facsímil o receta"
+    ],
+    "after": [
+      "desconocido-documental",
+      "referencia documental; requiere resolver su contrato"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/originalHash",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido-documental",
+        "reason": "referencia documental; requiere resolver su contrato",
+        "context": {}
+      }
+    ]
+  },
+  {
+    "id": "sourceDocument-recorte",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "sourceDocumentSha256",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "desconocido-documental",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido-documental",
+      "referencia documental; requiere resolver su contrato"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/sourceDocumentSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido-documental",
+        "reason": "referencia documental; requiere resolver su contrato",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "generico-recorte-url",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "sha256",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "facsimil-receta",
+    "before": [
+      "facsimil-receta",
+      "campo/ancestro de facsímil o receta"
+    ],
+    "after": [
+      "facsimil-receta",
+      "campo/ancestro de facsímil o receta"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/sha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "facsimil-receta",
+        "reason": "campo/ancestro de facsímil o receta",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "generico-url-contrato-adquisicion",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "sha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "original-oficial",
+    "before": [
+      "original-oficial",
+      "campo documental/adquisición y URL admitida; no autenticidad jurídica"
+    ],
+    "after": [
+      "original-oficial",
+      "campo de adquisición y URL admitida; no autenticidad jurídica"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "original-oficial",
+        "reason": "campo de adquisición y URL admitida; no autenticidad jurídica",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "regresion-selectionSha256",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "selectionSha256",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "seleccion-cita",
+    "before": [
+      "seleccion-cita",
+      "huella de selección/cita; no bytes del original"
+    ],
+    "after": [
+      "seleccion-cita",
+      "huella de selección/cita; no bytes del original"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/selectionSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "seleccion-cita",
+        "reason": "huella de selección/cita; no bytes del original",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "regresion-quoteHash",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "quoteHash",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "texto-extraido",
+    "before": [
+      "texto-extraido",
+      "huella textual derivada; no bytes del original"
+    ],
+    "after": [
+      "texto-extraido",
+      "huella textual derivada; no bytes del original"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/quoteHash",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "texto-extraido",
+        "reason": "huella textual derivada; no bytes del original",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "regresion-softwareHash",
+    "row": {
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+    },
+    "key": "softwareHash",
+    "pointer": "/facsimiles/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/facsimiles/0/softwareHash",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "identidad técnica declarada por campo",
+        "context": {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+        }
+      }
+    ]
+  },
+  {
+    "id": "fixture-prevalece",
+    "row": {
+      "source": "src/a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "fixtures/entrada.json",
+    "expected": "fixture-sintetico",
+    "before": [
+      "fixture-sintetico",
+      "ruta de fixture/caso; no norma"
+    ],
+    "after": [
+      "fixture-sintetico",
+      "ruta de fixture/caso; no norma"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "fixtures/entrada.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fixture-sintetico",
+        "reason": "ruta de fixture/caso; no norma",
+        "context": {
+          "source": "src/a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "contexto-limpio",
+    "row": {
+      "source": "/home/sintetico/a.ts",
+      "sourcePath": "/tmp/sintetico/a.ts",
+      "sourceFile": "file:///tmp/a.ts",
+      "sourceMimeType": "text/plain",
+      "path": "lib/destino.ts",
+      "url": "https://example.invalid/?token=sintetico"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "[localizador-local-omitido]",
+          "sourcePath": "[localizador-local-omitido]",
+          "sourceFile": "[localizador-local-omitido]",
+          "sourceMimeType": "text/plain",
+          "path": "lib/destino.ts",
+          "url": "[URL-con-parametros-privados-omitida]"
+        }
+      }
+    ]
+  },
+  {
+    "id": "residual-prosa",
+    "row": {
+      "source": "nota /home/sintetico/a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "fuente-software",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "fuente-software",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "fuente-software",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "nota /home/sintetico/a.ts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "residual-FILE",
+    "row": {
+      "source": "FILE:///tmp/a.ts"
+    },
+    "key": "sourceSha256",
+    "pointer": "/citations/0",
+    "name": "datos.json",
+    "expected": "desconocido",
+    "before": [
+      "fuente-software",
+      "identidad técnica declarada por campo"
+    ],
+    "after": [
+      "desconocido",
+      "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
+    ],
+    "pass": true,
+    "observations": [
+      {
+        "path": "datos.json",
+        "pointer": "/citations/0/sourceSha256",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "desconocido",
+        "reason": "origen según ruta/tipo declarados; sin contexto suficiente, desconocido",
+        "context": {
+          "source": "FILE:///tmp/a.ts"
+        }
+      }
+    ]
+  }
+]

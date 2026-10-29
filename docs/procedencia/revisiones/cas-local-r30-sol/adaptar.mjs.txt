@@ -1,0 +1,13 @@
+import fs from 'node:fs'; import {resolve} from 'node:path'; import {createHash} from 'node:crypto';import {gunzipSync} from 'node:zlib';import cp from 'node:child_process';
+const root=process.cwd(), dir='docs/procedencia/implementaciones/cas-local-r27-sol/',out='.cache/revision-cas-r30';const sha=b=>createHash('sha256').update(b).digest('hex');
+const changes=[];
+for(const name of ['preparar.mjs','recorrido.mjs','historicos.mjs']){let s=fs.readFileSync(dir+name,'utf8'),old=s;s=s.replaceAll('.cache/cas-local-r27-sol',out).replaceAll('resolve(root, "node_modules")','"/home/elies/Repos/IRoboPF/node_modules"').replaceAll('"../../../../scripts/','"../../scripts/').replaceAll('"../../../../lib/','"../../lib/');
+if(name==='preparar.mjs'){
+s=s.replace('copy(resolve(source, p), resolve(target, p))\n  const bytes',`copy(entry.sha256 === "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4" ? JSON.parse(readFileSync("docs/procedencia/correcciones/recepcion-r27-r28-r30/original-grande.json")).path : resolve(source,p), resolve(target,p))\n  const bytes`);
+s += `\n// Actualizar todas las dependencias versionadas entregadas del consumidor actual.\nfor(const p of ${JSON.stringify(cp.execFileSync('git',['ls-tree','-r','--name-only','HEAD','lib/procedencia','scripts/procedencia','schemas/procedencia']).toString().trim().split('\n').filter(p=>/^(lib|scripts|schemas)\/procedencia\//.test(p)&&!p.includes('/datos/')) )}) copy(resolve(root,p),resolve(target,p));\n`;
+}
+fs.writeFileSync(out+'/'+name,s); changes.push({path:name,baseSha256:sha(Buffer.from(old)),sha256:sha(Buffer.from(s))});cp.spawnSync('diff',['-u',resolve(dir+name),resolve(out,name)],{stdio:['ignore',fs.openSync(out+'/'+name+'.diff','w'),'inherit']});}
+const m=JSON.parse(fs.readFileSync(dir+'manifiesto.json'));const nine=m.files.filter(f=>f.baseSha256);const review=nine.map(f=>({path:f.path,implementationSha256:f.sha256,currentSha256:sha(fs.readFileSync(f.path)),baseSha256:f.baseSha256}));fs.writeFileSync(out+'/nueve.json',JSON.stringify(review,null,2));
+fs.writeFileSync(out+'/adaptaciones.json',JSON.stringify(changes,null,2));
+const gz=fs.readFileSync(dir+'cierre-candidato.json.gz'), desc=JSON.parse(fs.readFileSync(dir+'cierre-candidato.json'));if(sha(gz)!==desc.sha256Comprimido||sha(gunzipSync(gz))!==desc.sha256Original)throw Error('Pin cierre');
+fs.writeFileSync(out+'/cierre-historico.json',gunzipSync(gz));

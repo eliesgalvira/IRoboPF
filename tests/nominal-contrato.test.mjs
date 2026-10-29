@@ -247,3 +247,32 @@ test('cadenas JSON escapadas conservan sus claves estructurales', () => {
  reg.sha256=digest(registry); f.objects.set(reg.sha256,registry)
  assert.equal(verificarNominalPublicado(payload.sha256,p.itemId,f.dependencies,(h)=>f.objects.get(h)).bindingReview,'pending')
 })
+
+test("NR30-01: el consumidor respeta los objetos cerrados del schema", async (t) => {
+  for (const field of ["inventory", "source", "scope", "citation", "document", "executableScope", "legalReview", "legalReview.decisions"]) {
+    await t.test(field, () => {
+      const f = fixture();
+      const p = structuredClone(f.p);
+      const a = JSON.parse(f.objects.get(p.executableScope.sha256));
+      const target = field.split(".").reduce((value, key) => value[key], p);
+      target.unexpected = "campo fuera del schema";
+      // El atacante recalcula coherentemente ambos sobres. No basta cotejarlos
+      // entre sí: la forma permitida procede del contrato independiente.
+      a.decision = p.legalReview;
+      const replace = (path, value) => {
+        const raw = Buffer.from(JSON.stringify(value));
+        const ref = { path, sha256: digest(raw) };
+        f.dependencies.find((r) => r.path === path).sha256 = ref.sha256;
+        f.objects.set(ref.sha256, raw);
+        return ref;
+      };
+      Object.assign(p.executableScope, replace(p.executableScope.path, a));
+      const payload = replace(f.payload.path, p);
+      replace("docs/procedencia/enlaces/registro.json", {
+        schemaVersion: 1,
+        entries: [{ payload, attestation: null }],
+      });
+      assert.throws(() => verificarNominalPublicado(payload.sha256, p.itemId, f.dependencies, (h) => f.objects.get(h)));
+    });
+  }
+});

@@ -1,0 +1,79 @@
+[
+  {
+    "name": "revisor-despues",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/nominal-r32/schema-adversos.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 0.315,
+    "log": "docs/procedencia/correcciones/nominal-r32/revisor-despues.log"
+  },
+  {
+    "name": "preparar",
+    "command": [
+      "python",
+      "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/nominal-r32/preparar.py"
+    ],
+    "exitCode": 0,
+    "seconds": 0.165,
+    "log": "docs/procedencia/correcciones/nominal-r32/preparar.log"
+  },
+  {
+    "name": "schema-python",
+    "command": [
+      "bash",
+      "tools/procedencia/run.sh",
+      "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/nominal-r32/contraste-schema.py"
+    ],
+    "exitCode": 0,
+    "seconds": 0.515,
+    "log": "docs/procedencia/correcciones/nominal-r32/schema-python.log"
+  },
+  {
+    "name": "coordinador-schema",
+    "command": [
+      "bun",
+      "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/nominal-r32/coordinador-schema.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 27.692,
+    "log": "docs/procedencia/correcciones/nominal-r32/coordinador-schema.log"
+  },
+  {
+    "name": "flujo",
+    "command": [
+      "bun",
+      "x",
+      "vitest",
+      "run",
+      "tests/flujo-procedencia.test.ts",
+      "--maxWorkers=1"
+    ],
+    "exitCode": 0,
+    "seconds": 29.941,
+    "log": "docs/procedencia/correcciones/recepcion-r30-r32/flujo.log"
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0,
+    "seconds": 5.427,
+    "log": "docs/procedencia/correcciones/recepcion-r30-r32/typecheck.log"
+  },
+  {
+    "name": "lint",
+    "command": [
+      "bun",
+      "run",
+      "lint"
+    ],
+    "exitCode": 0,
+    "seconds": 9.288,
+    "log": "docs/procedencia/correcciones/recepcion-r30-r32/lint.log"
+  }
+]

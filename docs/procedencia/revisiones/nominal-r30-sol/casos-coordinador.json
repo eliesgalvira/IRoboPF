@@ -1,0 +1,64 @@
+[
+  {
+    "id": "exact",
+    "reject": false,
+    "result": {
+      "inventory": "rebuilt-from-current-code",
+      "documentaryFilesVerified": 20,
+      "evidence": [
+        {
+          "id": "madrid-2020-nominal-r29-sol",
+          "itemId": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+          "value": "53407.2",
+          "documentSha256": "8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660",
+          "scope": {
+            "year": 2020,
+            "territory": "madrid",
+            "unit": "EUR",
+            "claim": "Límite superior nominal del cuarto tramo autonómico sobre base liquidable general; quinta fila legal primera columna.",
+            "conditions": [
+              "Componente autonómico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.",
+              "Proposición nominal de una sola celda: límite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona período, devengo ni fallecimiento.",
+              "La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaración oficial de errata de AEAT.",
+              "No se acredita búsqueda exhaustiva de reformas y correcciones intermedias, ni nueva validación de la corrección de firma de 2019. Autenticidad histórica y aplicabilidad permanecen indeterminadas.",
+              "No acepta cuotas, tipos, integración, tratamiento liquidatorio de fronteras, redondeos, mínimos, deducciones, deuda, retenciones, liquidación completa ni otros ejercicios.",
+              "La aceptación nominal no acepta el binding nuevo ni su consumidor. Ambos requieren revisión independiente de sus bytes exactos; no heredan atestaciones históricas."
+            ],
+            "completeRule": false
+          },
+          "integrity": "verified",
+          "numericBinding": "verified",
+          "legalDecision": "MADRID-2020-NOMINAL-53407-20-R29",
+          "bindingReview": "pending",
+          "authenticity": "trust-indeterminate",
+          "completeRuleAcceptance": false
+        }
+      ]
+    },
+    "ok": true
+  },
+  {
+    "id": "duplicado-escapado",
+    "reject": true,
+    "error": "Error: Traceback (most recent call last):\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 385, in <module>\n    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()), cas_roots=args.cas_root)\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 319, in verify_evidence\n    payload = reader.read_ref(entry['payload'])\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 73, in read_ref\n    return read_json(raw)\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 37, in read_json\n    return json.loads(data, object_pairs_hook=pairs, parse_constant=constant)\n           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/json/__init__.py\", line 365, in loads\n    return cls(**kw).decode(s)\n           ~~~~~~~~~~~~~~~~^^^\n  File \"/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/json/decoder.py\", line 361, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 30, in pairs\n    raise ValueError('Clave JSON duplicada: ' + key)\nValueError: Clave JSON duplicada: schemaVersion\n",
+    "ok": true
+  },
+  {
+    "id": "id-vecino",
+    "reject": true,
+    "error": "Error: Traceback (most recent call last):\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 385, in <module>\n    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()), cas_roots=args.cas_root)\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 328, in verify_evidence\n    raise ValueError('Binding requiere valor efectivo inventariado')\nValueError: Binding requiere valor efectivo inventariado\n",
+    "ok": true
+  },
+  {
+    "id": "ruta-vecina",
+    "reject": true,
+    "error": "Error: Traceback (most recent call last):\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 385, in <module>\n    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()), cas_roots=args.cas_root)\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 332, in verify_evidence\n    raise ValueError('Binding de otra ocurrencia del motor')\nValueError: Binding de otra ocurrencia del motor\n",
+    "ok": true
+  },
+  {
+    "id": "atestacion-heredada",
+    "reject": true,
+    "error": "Error: Traceback (most recent call last):\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 385, in <module>\n    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()), cas_roots=args.cas_root)\n  File \"/home/elies/.t3/worktrees/IRoboPF/t3-7dcb06bc/.cache/revision-nominal-r30/ensayo/tools/procedencia/enlaces.py\", line 362, in verify_evidence\n    raise ValueError('Binding nominal requiere revisión pendiente; no hereda atestación')\nValueError: Binding nominal requiere revisión pendiente; no hereda atestación\n",
+    "ok": true
+  }
+]

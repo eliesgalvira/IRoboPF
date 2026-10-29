@@ -1,0 +1,27 @@
+from pathlib import Path
+import hashlib,json,gzip,shutil
+R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r30-sol';S=R/'.cache/revision-nominal-r30'
+def load(name):return json.loads((O/name).read_bytes())
+node=load('casos-node.json');software=load('casos-software.json');coordinator=load('casos-coordinador.json');schema=load('casos-schema.json');full=load('coordinador-schema.json')
+assert not node['failed'] and all(r['ok'] for r in software['rows']+coordinator+full)
+assert len(schema)==2 and all(not r['ok'] for r in schema)
+assert all(r['rejected'] for r in load('schema-python.json'))
+assert 'Ran 7 tests' in (O/'regresiones-python.log').read_text() and '\nOK' in (O/'regresiones-python.log').read_text()
+assert 'Ran 6 tests' in (O/'ambitos-python.log').read_text() and '\nOK' in (O/'ambitos-python.log').read_text()
+assert '6 pass' in (O/'software.log').read_text() and '0 fail' in (O/'software.log').read_text()
+assert 'pass 11' in (O/'regresiones-node.log').read_text()
+for name in ['inicial','final']:
+ with gzip.open(O/(name+'.json.gz'),'rt')as f:physical=json.load(f)
+ assert physical['entries']==16486 and not physical['mismatches'] and not physical['diff']
+quality=(O/'calidad-codigos.log').read_text();assert all(x in quality for x in ['oxlint 0','eslint 0','tipos-consumidor 0'])
+result={'head':'376fb100512ca6a2f975c3c9500a20ee375dd431','payloadSha256':node['payloadSha256'],'verdict':'blocked-for-candidate-attestation','finding':'NR30-01','attestation':None,'completeRuleAcceptance':False,'activeTrustChanges':False,'checks':{'ownNodeCases':len(node['cases']),'ownCoordinatorCases':len(coordinator),'schemaNodeExpectedRejectionsButAccepted':len(schema),'schemaCoordinatorRejected':len(full),'softwarePersistentMutationsRejected':len(software['rows']),'historicalNodeRegressionTests':11,'pythonNominalRegressionTests':7,'pythonHistoricalScopeTests':6,'parentSoftwareTestsReproduced':6,'originalsReextracted':3,'selectionsReproduced':10,'physicalBaseEntriesEachPass':16486,'physicalMismatches':0,'deleted':0},'countsOverlap':True,'quality':quality.splitlines(),'limitations':['pending-only','no-civil-context','trust-indeterminate','no-full-rule-acceptance','new-conclusions-require-parent-contrast']}
+(O/'validacion.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+for p in sorted(S.iterdir()):
+ if p.is_file() and p.suffix in ['.py','.sh','.mjs']:
+  shutil.copyfile(p,O/(p.name+'.txt'))
+for name in ['executableScope','legalReview']:shutil.copyfile(S/(name+'-mutante.json'),O/(name+'-mutante.json.txt'))
+for p in list(O.iterdir()):
+ if p.is_file() and p.stat().st_size>1000000 and p.suffix not in ['.gz','.png']:
+  (O/(p.name+'.gz')).write_bytes(gzip.compress(p.read_bytes(),mtime=0));p.unlink()
+with (O/'INFORME.md').open('a')as f:f.write('\n## Resultados finales\n\nSe conservan 61 casos propios Node conformes y cinco recorridos propios del coordinador; los dos sobres extra son rechazados por el coordinador real y el schema Python, pero admitidos por Node: NR30-01 permanece rojo. Pasan once regresiones Node, siete Python nominales, seis Python de ámbitos históricos (incluido el lote técnico de 264) y las seis pruebas nuevas de software del padre. El instrumento propio rechaza las 28 mutaciones de la lista completa de software y generador frente a su snapshot previo; el recibo histórico permanece verificable desde sus bytes. Recuentos solapados, sin aceptación fiscal. Oxlint un hilo con 16 reglas a error, ESLint y checkJs del consumidor correctos; queda el aviso ambiental de pages, sin desactivar reglas. Los instrumentos Python se conservan como recetas de reproducción en texto, no se presentan como Python tipado estrictamente.\n\nEl cotejo inicial y el final recorren cada uno las 16.486 entradas: cero modificaciones de base, cero borrados y diff vacío. Todas las adiciones están en este ámbito; sus hashes y baseSha256 null figuran en el manifiesto. No se emite atestación candidata por el defecto demostrado; tampoco se solicita ni realiza promoción. La decisión siguiente corresponde al padre tras contrastar NR30-01.\n')
+print(json.dumps(result['checks']))
