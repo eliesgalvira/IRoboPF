@@ -32,7 +32,7 @@
     },
     "base": {
       "type": "string",
-      "pattern": "^[a-f0-9]{40}$"
+      "pattern": "^[a-f0-9]{40}(?![\\s\\S])"
     },
     "baseline": {
       "$ref": "#/$defs/fingerprint"
@@ -58,11 +58,11 @@
         "properties": {
           "sha256": {
             "type": "string",
-            "pattern": "^[a-f0-9]{64}$"
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
           },
           "sha512": {
             "type": "string",
-            "pattern": "^[a-f0-9]{128}$"
+            "pattern": "^[a-f0-9]{128}(?![\\s\\S])"
           },
           "size": {
             "type": "integer",
@@ -80,7 +80,7 @@
             "minItems": 1,
             "items": {
               "type": "string",
-              "pattern": "^(?:checkout:|parent:)(?!/)(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[A-Za-z0-9_.\\[\\]/-]+$"
+              "pattern": "^(?:checkout:|parent:)(?!/)(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[A-Za-z0-9_.\\[\\]/-]+(?![\\s\\S])"
             }
           },
           "acquisitions": {
@@ -103,11 +103,11 @@
               "properties": {
                 "sha256": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{64}$"
+                  "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
                 },
                 "sha512": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{128}$"
+                  "pattern": "^[a-f0-9]{128}(?![\\s\\S])"
                 },
                 "size": {
                   "type": "integer",
@@ -132,7 +132,7 @@
                 },
                 "sourceSha256": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{64}$"
+                  "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
                 }
               }
             }
@@ -165,11 +165,11 @@
           },
           "sha256": {
             "type": "string",
-            "pattern": "^[a-f0-9]{64}$"
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
           },
           "sha512": {
             "type": "string",
-            "pattern": "^[a-f0-9]{128}$"
+            "pattern": "^[a-f0-9]{128}(?![\\s\\S])"
           },
           "size": {
             "type": "integer",
@@ -191,7 +191,7 @@
         "properties": {
           "sha256": {
             "type": "string",
-            "pattern": "^[a-f0-9]{64}$"
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
           },
           "sources": {
             "type": "array",
@@ -225,7 +225,7 @@
           },
           "sha256": {
             "type": "string",
-            "pattern": "^[a-f0-9]{64}$"
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
           }
         }
       }
@@ -234,7 +234,7 @@
   "$defs": {
     "path": {
       "type": "string",
-      "pattern": "^(?!/)(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[A-Za-z0-9_.\\[\\]/-]+$"
+      "pattern": "^(?!/)(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[A-Za-z0-9_.\\[\\]/-]+(?![\\s\\S])"
     },
     "fingerprint": {
       "type": "object",
@@ -247,11 +247,11 @@
       "properties": {
         "sha256": {
           "type": "string",
-          "pattern": "^[a-f0-9]{64}$"
+          "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
         },
         "sha512": {
           "type": "string",
-          "pattern": "^[a-f0-9]{128}$"
+          "pattern": "^[a-f0-9]{128}(?![\\s\\S])"
         },
         "size": {
           "type": "integer",

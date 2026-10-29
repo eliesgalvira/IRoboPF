@@ -76,3 +76,19 @@ test("la lista conservada se interpreta como datos y nunca ejecuta expresiones",
   ])
     assert.throws(() => run(fixture(lista)), /histórica/)
 })
+
+test("el binding histórico no admite otras declaraciones, aliases o escrituras", () => {
+  const literal = JSON.stringify([helperPath, motorPath])
+  for (const lista of [
+    `export const FUENTES_EXPLICACION = ${literal}; export { FUENTES_EXPLICACION }`,
+    `export var FUENTES_EXPLICACION = ${literal}; var FUENTES_EXPLICACION = ['otra']`,
+    `export const FUENTES_EXPLICACION = ${literal}; var { x: FUENTES_EXPLICACION } = {}`,
+    `export const FUENTES_EXPLICACION = ${literal}; if (true) { var FUENTES_EXPLICACION }`,
+    `export const FUENTES_EXPLICACION = ${literal}; FUENTES_EXPLICACION.push('otra')`,
+    `export const FUENTES_EXPLICACION = ${literal}; FUENTES_EXPLICACION[0] = 'otra'`,
+    `export const FUENTES_EXPLICACION = ${literal}; const alias = FUENTES_EXPLICACION`,
+    `export const FUENTES_EXPLICACION = ${literal}; export * from './otra.mjs'`,
+    `export const FUENTES_EXPLICACION = ${JSON.stringify([helperPath, 'lib/x.ts\n'])}`,
+  ])
+    assert.throws(() => run(fixture(lista)), /histórica/)
+})

@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "base": "960773f909d4ecff290edfa3d7a7b2699a8445d3",
+  "historicalConcept": {
+    "id": "irpf.madrid.limite-escala",
+    "sujetoAnterior": {
+      "id": "irpf.madrid.limite-escala",
+      "revision": "bf985b4457633a73d1dff2595b4125790f3f55cfee49f878b407a3494f1c27ca"
+    },
+    "estado": "candidata",
+    "ocurrencia": {
+      "id": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+      "source": {
+        "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+        "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+        "start": 1637,
+        "end": 13058,
+        "line": 50,
+        "column": 14,
+        "offsetEncoding": "utf16"
+      },
+      "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+      "path": "[\"madrid\",\"tramos\",\"3\",\"0\"]",
+      "years": [
+        2020
+      ],
+      "territories": [
+        "madrid"
+      ]
+    },
+    "secciones": {
+      "formula": "El límite es53407,20 EUR de base; no cuota. La cuota fija publicada en el arranque es7395,81 EUR y el tipo21%.",
+      "derivacion": "La fuente BOCM original y la hoja efectiva actual coinciden en el límite. Para base53407,29, la fórmula publicada da7395,81+(53407,29−53407,20)×0,21=7395,8289→7395,83. El motor2020 conserva su representación de integración; el ejemplo explica la diferencia y la regresión limitada, no acepta automáticamente todas sus cuotas fijas.",
+      "norma": "Ley6/2018 artículo único.Dos, BOCM20181228-1 p4; vigencia y correcciones históricas en revisión autonómica2017–2021. El manualAEAT2020 publica53407,29, contradicción conservada; no hay declaración de errataAEAT acreditada.",
+      "evidencia": "citas/madrid2020-limite.json: original8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660, p4, caja[98,628,497,748], PNG y receta144dpi.",
+      "bordes": "El enlace exacto existe en esta base: sustituye localmente la frase obsoleta aún no enlaza. Aceptación limitada al límite, ejercicio y caso revisado. BindingMadrid pendiente, autenticidad indeterminada, aceptación completa false; la ficha original y sus bytes permanecen intactos."
+    },
+    "contrarrevision": "pendiente",
+    "aceptacionFiscalCompleta": false
+  },
+  "analysis": {
+    "valueRole": "Límite EUR renta, no cuota; alimenta anchura/selección en representación integrada2020, no cuotas fijas2025.",
+    "consumerSymbols": [
+      "obtenerEscalaAutonomicaIrpf2020",
+      "resolverParametrosComunidadAutonoma2020",
+      "obtenerParametrosComunidadAutonoma",
+      "calcularDesgloseCuotaPorEscala"
+    ],
+    "consumerSiteIds": [
+      "anual.cuota.general-autonomica-tramo",
+      "anual.cuota.minimo-autonomico-tramo"
+    ],
+    "downstream": [
+      "anual.cuota.general-total",
+      "anual.cuota.minimo-general-total",
+      "anual.cuota.liquida",
+      "anual.cuota.diferencial"
+    ],
+    "excluded": [
+      "anual.explicito.cuota.autonomica",
+      "anual.cuota.general-estatal-tramo",
+      "anual.cuota.ahorro-tramo"
+    ],
+    "condition": "Madrid,ejercicio2020; representación integrada, no asumirFpublicada. Tabla publicada ejemplo7395.8289 no es expected universal del helper integrado.",
+    "completeness": "partial: falta descomposición de cada expresión del selector2020 hacia consumidor; no autoriza wiring.",
+    "legalAcceptance": false
+  },
+  "consumerSources": [
+    {
+      "symbol": "resolverParametrosComunidadAutonoma2020",
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 10871,
+        "end": 11530,
+        "offsetEncoding": "utf16"
+      },
+      "expression": "resolverParametrosComunidadAutonoma2020 = (\n  comunidadAutonoma: ComunidadAutonoma\n): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2020(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2020,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2020,\n    escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\",\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2020,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2020(comunidadAutonoma),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}"
+    },
+    {
+      "symbol": "obtenerParametrosComunidadAutonoma",
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 16441,
+        "end": 18919,
+        "offsetEncoding": "utf16"
+      },
+      "expression": "obtenerParametrosComunidadAutonoma = ({\n  anio,\n  baseLiquidableGeneral,\n  comunidadAutonoma,\n  fechaFallecimiento,\n}: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>\n  Match.value(anio).pipe(\n    Match.when(2012, () =>\n      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)\n    ),\n    Match.when(2013, () =>\n      resolverParametrosComunidadAutonoma2013(comunidadAutonoma)\n    ),\n    Match.when(2014, () =>\n      resolverParametrosComunidadAutonoma2014({\n        baseLiquidableGeneral,\n        comunidadAutonoma,\n      })\n    ),\n    Match.when(2015, () =>\n      resolverParametrosComunidadAutonoma2015({\n        baseLiquidableGeneral,\n        comunidadAutonoma,\n        fechaFallecimiento,\n      })\n    ),\n    Match.when(2016, () =>\n      resolverParametrosComunidadAutonoma2016(comunidadAutonoma)\n    ),\n    Match.when(2017, () =>\n      resolverParametrosComunidadAutonoma2017(comunidadAutonoma)\n    ),\n    Match.when(2018, () =>\n      resolverParametrosComunidadAutonoma2018(comunidadAutonoma)\n    ),\n    Match.when(2019, () =>\n      resolverParametrosComunidadAutonoma2019(comunidadAutonoma)\n    ),\n    Match.when(2020, () =>\n      resolverParametrosComunidadAutonoma2020(comunidadAutonoma)\n    ),\n    Match.when(2021, () =>\n      resolverParametrosComunidadAutonoma2021(comunidadAutonoma)\n    ),\n    Match.when(2022, () =>\n      resolverParametrosComunidadAutonoma2022({\n        comunidadAutonoma,\n        fechaFallecimiento,\n      })\n    ),\n    Match.when(2023, () =>\n      resolverParametrosComunidadAutonoma2023({\n        comunidadAutonoma,\n        fechaFallecimiento,\n      })\n    ),\n    Match.when(2024, () =>\n      resolverParametrosComunidadAutonoma2024(comunidadAutonoma)\n    ),\n    Match.when(2025, () =>\n      resolverParametrosComunidadAutonoma2025(comunidadAutonoma)\n    ),\n    Match.when(2026, () =>\n      resolverParametrosComunidadAutonoma2026(comunidadAutonoma)\n    ),\n    Match.orElse(\n      (anio) =>\n        ({\n          _tag: \"ComunidadAutonomaNoSoportada\",\n          comunidadAutonoma,\n          anio,\n          motivo: `Escalas autonomicas del anio ${anio} aun no implementadas`,\n          fuenteReconocida:\n            \"https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html\",\n        }) satisfies ComunidadAutonomaNoSoportada\n    )\n  )"
+    },
+    {
+      "symbol": "calcularDesgloseCuotaPorEscala",
+      "source": {
+        "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+        "sha256": "e199aa7dab1a4e4e4dcf5dd99ef0c4ea81daa69e0c11261b47b0568d5afadb19",
+        "start": 1624,
+        "end": 4468,
+        "offsetEncoding": "utf16"
+      },
+      "expression": "calcularDesgloseCuotaPorEscala = ({\n  base,\n  tramos,\n  escalasPublicadas,\n}: {\n  readonly base: Decimal\n  readonly tramos: TramosIrpf\n  readonly escalasPublicadas?: ReadonlyArray<EscalaPublicada> | undefined\n}): ReadonlyArray<TramoCuotaCalculado> =>\n  escalasPublicadas !== undefined\n    ? EffectArray.flatMap(escalasPublicadas, (filas) =>\n        Option.match(\n          EffectArray.findLast(\n            filas,\n            (fila) =>\n              base.gt(0) &&\n              (fila.inferiorExclusivo === true\n                ? base.gt(fila.baseInferior)\n                : base.gte(fila.baseInferior))\n          ),\n          {\n            onNone: () => [],\n            onSome: (fila) => [\n              {\n                limiteInferior: fila.baseInferior,\n                limiteSuperior: Option.match(\n                  EffectArray.findFirst(filas, (otra) =>\n                    otra.baseInferior.gt(fila.baseInferior)\n                  ),\n                  {\n                    onNone: () => new Decimal(Infinity),\n                    onSome: (otra) => otra.baseInferior,\n                  }\n                ),\n                baseAplicada: base.minus(fila.baseInferior),\n                tipo: fila.tipo,\n                cuotaFija: fila.cuota,\n                cuota: fila.cuota.plus(\n                  base.minus(fila.baseInferior).mul(fila.tipo)\n                ),\n              },\n            ],\n          }\n        )\n      )\n    : Match.value(base).pipe(\n        Match.when(\n          (base) => base.lte(0),\n          () => []\n        ),\n        Match.orElse(\n          (base) =>\n            EffectArray.reduce(\n              tramos,\n              {\n                limiteAnterior: base.mul(0),\n                tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),\n              },\n              (estado, [limite, tipo]) => {\n                const baseRestante = Decimal.max(\n                  0,\n                  base.minus(estado.limiteAnterior)\n                )\n                const anchoTramo = limite.minus(estado.limiteAnterior)\n                const importeEnTramo = Decimal.min(baseRestante, anchoTramo)\n                const tramo = {\n                  limiteInferior: estado.limiteAnterior,\n                  limiteSuperior: limite,\n                  baseAplicada: importeEnTramo,\n                  tipo,\n                  cuota: importeEnTramo.mul(tipo),\n                }\n\n                return {\n                  limiteAnterior: limite,\n                  tramos: Match.value(importeEnTramo).pipe(\n                    Match.when(\n                      (importeEnTramo) => importeEnTramo.gt(0),\n                      () => [...estado.tramos, tramo]\n                    ),\n                    Match.orElse(() => estado.tramos)\n                  ),\n                }\n              }\n            ).tramos\n        )\n      )"
+    },
+    {
+      "symbol": "obtenerEscalaAutonomicaIrpf2020",
+      "source": {
+        "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+        "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+        "start": 14637,
+        "end": 14791,
+        "offsetEncoding": "utf16"
+      },
+      "expression": "obtenerEscalaAutonomicaIrpf2020 = (\n  comunidadAutonoma: ComunidadAutonoma\n): EscalaAutonomicaIrpf2020 => ESCALAS_AUTONOMICAS_IRPF_2020[comunidadAutonoma]"
+    }
+  ]
+}

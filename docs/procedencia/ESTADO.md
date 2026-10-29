@@ -2,7 +2,19 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 20:25 CET
+## Situación más reciente, 29 de octubre, 20:44 CET
+
+Recibidas cinco entregas R21 y la revisión R22: 306 archivos y 21.333.201 bytes, con bases comprobadas físicamente y cero borrados. Los recibos están en correcciones/recepcion-r21-r23 y recepcion-r22-r23. Las entregas originales permanecen intactas. La revisión R22 corrobora su subcontrato limitado; la observación sobre el script de citas se documenta como límite de un contraste fijo, sin convertirlo en verificador de producción.
+
+El padre corrige CR21-A/B y los tres puntos de preservación. Se conservan los rojos; pasan 32 pruebas del AST/recibo, los controles independientes de preservación y 13 métodos adicionales/heredados, 22 regresiones de rastro/evidencia y 20 de contenido. Los recuentos se solapan. Tipos principal/vendor, Ruff y mypy del alcance correctos; lint sin errores y un aviso heredado en la entrega editorial B. Informes y comandos en correcciones/tecnica-r23. Las exclusiones v3 siguen siendo observaciones: 4.147 registros, 1.089 distintos; no se reescribe el manifiesto ni se infla cobertura.
+
+Verificados los 34 snapshots anteriores y los dos nuevos; 36 conservados. V1 a0c7d768c664677bffb583a84f3afb11deda0cf92924480e8b0afd97cde8b34f, V2 57377f076ca1050c368c7b57934d1f8edce13104a27258409ebf7f1a8f58d146, cierre de 719 objetos. Inventario de 52.461 ocurrencias y payload Madrid intactos. Madrid y los 264 bindings siguen pendientes; no se promueven atestaciones.
+
+Retenciones 2012–2014 recibe una edición candidata separada de doce reemplazos. El padre inspecciona y reproduce ocho recortes y dos páginas BOE, conserva el rojo y distingue techo condicionado de nómina completa. Las 32 fronteras del subpaso y las identidades se comprueban, sin habilitar ejercicios. Informe en correcciones/retenciones-2012-2014-r23. Las correcciones requieren revisión independiente nueva.
+
+El flujo editorial permanece parcial: faltan propiedades, selectores, auxiliares y argumentos por instancia. Se prepara su continuación en tres lotes técnicos y nuevas revisiones de AST, preservación y contrato histórico. El paquete v4 sigue pendiente de entrega; no se sondea. Crossa conserva v1 desfasado, copia local del mismo dueño y casa, sin custodia independiente. No hay LFS, gasto, transferencia externa, PR, cambios a main, despliegue ni limpieza. El encargo continúa.
+
+## Situación anterior, 29 de octubre, 20:25 CET
 
 Recibida la revisión Sol de rectificaciones2015–2016:41 archivos y2.199.202 bytes, con14.537 entradas de base comprobadas físicamente y cero borrados. C01 queda corroborada en el alcance visual≤64; la revisión identifica pérdida de guarda, precedencia ambigua y falta de receta del fragmentoHTML. Los informes y rojos históricos permanecen intactos.
 

@@ -1,0 +1,38 @@
+{
+  "base": "960773f909d4ecff290edfa3d7a7b2699a8445d3",
+  "reviewerRuntime": "gpt-6.1-sol, high",
+  "attestationIssued": false,
+  "findings": [
+    {
+      "id": "PR21-SOL-01",
+      "priority": "P3",
+      "status": "candidate-pending-independent-review",
+      "title": "Ruta con salto de línea final llega a publicación",
+      "files": ["tools/procedencia/preservacion_ampliacion.schema.json", "docs/procedencia/preservacion-v3/recolector.py"],
+      "evidence": ["mutaciones.json", "rojos.log", "rojos_test.py"],
+      "physicalEscape": false,
+      "historicalPackageAltered": false
+    },
+    {
+      "id": "PR21-SOL-02",
+      "priority": "P3",
+      "status": "candidate-pending-independent-review",
+      "title": "Listas del sobre admiten duplicados exactos",
+      "files": ["tools/procedencia/preservacion_ampliacion.schema.json", "docs/procedencia/preservacion-v3/recolector.py"],
+      "evidence": ["mutaciones.json", "rojos.log"],
+      "note": "Reserva de consistencia; no demuestra corrupción ni multiplicación de objetos CAS"
+    },
+    {
+      "id": "PR21-SOL-03",
+      "priority": "P3",
+      "status": "candidate-pending-independent-review",
+      "title": "Error de puerto URL expone el valor recibido",
+      "files": ["docs/procedencia/preservacion-v3/recolector.py"],
+      "evidence": ["complementos.json", "complementos.log", "complementos.py"],
+      "publicationRejected": true,
+      "realPrivateDataUsed": false
+    }
+  ],
+  "previousCorrections": ["PV3-SOL-01", "PV3-SOL-02", "PV3-SOL-03", "PV3-SOL-04", "PV3-SOL-05"],
+  "fiscalAcceptance": false
+}

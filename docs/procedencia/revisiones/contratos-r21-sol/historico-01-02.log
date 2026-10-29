@@ -1,0 +1,46 @@
+✖ CP19-01: informe solo espacios debe rechazarse igual que Python (6.134205ms)
+✖ CP19-02: decision contradictoria status/decision debe rechazarse (5.451609ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 259.503006
+
+✖ failing tests:
+
+test at .cache/contratos-r21-sol/adversos-old.test.mjs:49:1
+✖ CP19-01: informe solo espacios debe rechazarse igual que Python (6.134205ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///home/elies/.t3/worktrees/IRoboPF/t3-29bd23a4/.cache/contratos-r21-sol/adversos-old.test.mjs:64:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Informe/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at .cache/contratos-r21-sol/adversos-old.test.mjs:66:1
+✖ CP19-02: decision contradictoria status/decision debe rechazarse (5.451609ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///home/elies/.t3/worktrees/IRoboPF/t3-29bd23a4/.cache/contratos-r21-sol/adversos-old.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

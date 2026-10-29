@@ -68,12 +68,17 @@ def url(value):
         return None
     if p.public_url(value):
         return value
-    parsed = urlsplit(value)
+    try:
+        parsed = urlsplit(value)
+        port = parsed.port
+    except ValueError:
+        # El parser puede incluir el valor privado recibido en su excepción.
+        return None
     decoded = unquote(parsed.path)
     if '..' in decoded.split('/') or '\\' in decoded or re.search(r'[\x00-\x1f\x7f]', decoded):
         return None
     if (parsed.scheme != 'https' or parsed.username or parsed.password or parsed.fragment
-            or parsed.port not in (None, 443) or re.search(r'[\x00-\x20\x7f]', value)):
+            or port not in (None, 443) or re.search(r'[\x00-\x20\x7f]', value)):
         return None
     if parsed.hostname == 'www.seg-social.es':
         return value if value in TGSS_PUBLIC_URLS else None
@@ -198,6 +203,14 @@ def collect():
     print({'baseline': len(blobs), 'new': len(annex), 'newBytes': annex_bytes, 'matrix': len(matrix)})
 
 
+def require_unique(values, label):
+    # Orden irrelevante dentro de objetos; O(bytes) esperado, sin uniqueItems
+    # cuadrático ni valores del documento en el diagnóstico.
+    keys = {p.encoded(value) for value in values}
+    if len(keys) != len(values):
+        raise ValueError('Registros duplicados en ' + label)
+
+
 def load():
     m = p.strict_json((HERE / 'manifest.json').read_bytes())
     schema = p.strict_json(Path(p.__file__).with_name('preservacion_ampliacion.schema.json').read_bytes())
@@ -217,13 +230,26 @@ def load():
     deps = {d['path']: d['sha256'] for d in m['dependencies']}
     if len(deps) != len(m['dependencies']):
         raise ValueError('Dependencia duplicada')
+    unresolved_hashes = {item['sha256'] for item in m['unresolvedReferences']}
+    if len(unresolved_hashes) != len(m['unresolvedReferences']):
+        raise ValueError('Referencia no resuelta duplicada')
+    for item in m['unresolvedReferences']:
+        require_unique(item['sources'], 'fuentes de referencias no resueltas')
+    # exclusions es el registro histórico de observaciones del recolector.
+    # Puede repetir (path, reason, sha256); esa multiplicidad no es evidencia
+    # independiente. No se reescriben ni invalidan los marcadores conservados.
     for obj in m['annex']:
+        for field in ('sources', 'acquisitions', 'references'):
+            require_unique(obj[field], field)
         if set(obj) != {'sha256', 'sha512', 'size', 'class', 'sources', 'acquisitions', 'references'}:
             raise ValueError('Campos del objeto no admitidos')
         if obj['class'] not in {'facsimil', 'documento-primario-candidato', 'captura-secundaria-URL-oficial'}:
             raise ValueError('Clase no admitida')
         if not obj['sources'] or (obj['class'] != 'facsimil' and not obj['acquisitions']):
             raise ValueError('Falta procedencia')
+        if any(not url(e[k]) for e in obj['acquisitions']
+               for k in ('canonicalUrl', 'finalUrl')):
+            raise ValueError('URL de adquisición no admitida')
         secondary = any(urlsplit(e[k]).hostname == 'web.archive.org'
                         for e in obj['acquisitions'] for k in ('canonicalUrl', 'finalUrl'))
         expected_class = ('captura-secundaria-URL-oficial' if secondary else

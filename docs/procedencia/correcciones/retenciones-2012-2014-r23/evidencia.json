@@ -1,0 +1,302 @@
+{
+  "algorithmCrops": [
+    {
+      "document": {
+        "sha256": "c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2",
+        "sha512": "8a205b6d0221a8fb680fb04e41dd51d2ca77451c2aa46afcb52162363543e50653cb0237150a690188dabcef48aaef0ba4d420c74fea5757850b420001934225",
+        "size": 195791,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2"
+      },
+      "page": 10,
+      "bbox": [
+        45,
+        180,
+        570,
+        750
+      ],
+      "matrix": [
+        2,
+        2
+      ],
+      "alpha": false,
+      "renderer": "1.26.7",
+      "quote": " \n \n \nNUMDES3 = 0 \nNUMDES325 = 0 \n \n \nRepetir: \n \nSi  [EDADES (i)  < 3 ] ó  [AÑOADOP (i)  > 2009 ]:  \nNUMDES3 = NUMDES3 + 1 \n \nElse: Si  [EDADES (i)  >= 3 y EDADES (i) < 25] o [EDADES (i) > 25 y DISCADES # SIN    \nDISCAPACIDAD]   :   \n \n \n \nNUMDES325 = NUMDES325 + 1 \n \nFinsi. \n \n \n \ni = i +1 \n \nHasta: i = NUMDES + 1 \n \nFinsi. \n \n \n** Cálculo del número de descendientes menores de 3 años (incluidos adoptados y acogidos hace menos de 3 \naños) computados por entero: \n \nSi NUMDES3 > 0 :  \ni = 1 \n \n \n \nNUMDES3EN = 0 \n \n \n \nRepetir: \n \nSi ENTERO (i) = 1  \nNUMDES3EN = NUMDES3EN + 1 \n \ni = i +1 \n \n \n Hasta: i = NUMDES3 + 1 \n ",
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/2012-enero-p10.png",
+        "sha256": "6f90252a33dee8540dc4f00a6e6bd2f6e5defe739eb60c77d69f94fa3c4259fc"
+      },
+      "renderEqual": true,
+      "visualFinding": "≥25",
+      "visualScope": "Inspección personal puntual; no algoritmo íntegro"
+    },
+    {
+      "document": {
+        "sha256": "c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2",
+        "sha512": "8a205b6d0221a8fb680fb04e41dd51d2ca77451c2aa46afcb52162363543e50653cb0237150a690188dabcef48aaef0ba4d420c74fea5757850b420001934225",
+        "size": 195791,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2"
+      },
+      "page": 16,
+      "bbox": [
+        45,
+        490,
+        570,
+        700
+      ],
+      "matrix": [
+        2,
+        2
+      ],
+      "alpha": false,
+      "renderer": "1.26.7",
+      "quote": " \n \n \nNUMAS65A = 0 \nNUMAS75A = 0 \n \n \nRepetir: \n \nSi  [EDADAS (j)  > 74 ] ]:  \nNUMAS75A = NUMAS75A + 1 \n \nElse: Si  [EDADAS (j)  <= 74  y  EDADAS (j) > 64]  o [EDADAS (j) < 64  y DISCAS # SIN \nDISCAPACIDAD ] :   \nNUMAS65A = NUMAS65A + 1 \n \nFinsi. \n \n \n \nj = j +1 ",
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/2012-enero-p16.png",
+        "sha256": "7710eeb9bcb5b48abca71f776428bc9156f6153ab946ccadca8f9bd5d8442d52"
+      },
+      "renderEqual": true,
+      "visualFinding": "≤64",
+      "visualScope": "Inspección personal puntual; no algoritmo íntegro"
+    },
+    {
+      "document": {
+        "sha256": "a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae",
+        "sha512": "731fb45d71ca8d00cc315dd8017cd871b703eda1efffc7879a6eec2be682a8bf543dd2496acd9af86801e5a6432cc4f96bec5265484a0826cacb960abed9c3f7",
+        "size": 190538,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae"
+      },
+      "page": 10,
+      "bbox": [
+        45,
+        180,
+        570,
+        750
+      ],
+      "matrix": [
+        2,
+        2
+      ],
+      "alpha": false,
+      "renderer": "1.26.7",
+      "quote": " \nRepetir: \n \nSi  [EDADES (i)  < 3 ] ó  [AÑOADOP (i)  > 2009 ]:  \nNUMDES3 = NUMDES3 + 1 \n \nElse: Si  [EDADES (i)  >= 3 y EDADES (i) < 25] o [EDADES (i) > 25 y DISCADES # SIN    \nDISCAPACIDAD]   :   \n \n \n \nNUMDES325 = NUMDES325 + 1 \n \nFinsi. \n \n \n \ni = i +1 \n \nHasta: i = NUMDES + 1 \n \nFinsi. \n \n \n** Cálculo del número de descendientes menores de 3 años (incluidos adoptados y acogidos hace menos de 3 \naños) computados por entero: \n \nSi NUMDES3 > 0 :  \ni = 1 \n \n \n \nNUMDES3EN = 0 \n \n \n \nRepetir: \n \nSi ENTERO (i) = 1  \nNUMDES3EN = NUMDES3EN + 1 \n \ni = i +1 \n \n \n Hasta: i = NUMDES3 + 1 \n \nFinsi. \n \n ",
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/2012-febrero-p10.png",
+        "sha256": "7c475c9beab48083bbbd50e3cf46554edf606d8532ac7158f926ac499a1ba01d"
+      },
+      "renderEqual": true,
+      "visualFinding": "≥25",
+      "visualScope": "Inspección personal puntual; no algoritmo íntegro"
+    },
+    {
+      "document": {
+        "sha256": "a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae",
+        "sha512": "731fb45d71ca8d00cc315dd8017cd871b703eda1efffc7879a6eec2be682a8bf543dd2496acd9af86801e5a6432cc4f96bec5265484a0826cacb960abed9c3f7",
+        "size": 190538,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae"
+      },
+      "page": 16,
+      "bbox": [
+        45,
+        490,
+        570,
+        700
+      ],
+      "matrix": [
+        2,
+        2
+      ],
+      "alpha": false,
+      "renderer": "1.26.7",
+      "quote": " \n \n \nNUMAS65A = 0 \nNUMAS75A = 0 \n \n \nRepetir: \n \nSi  [EDADAS (j)  > 74 ] ]:  \nNUMAS75A = NUMAS75A + 1 \n \nElse: Si  [EDADAS (j)  <= 74  y  EDADAS (j) > 64]  o [EDADAS (j) < 64  y DISCAS # SIN \nDISCAPACIDAD ] :   \nNUMAS65A = NUMAS65A + 1 \n \nFinsi. \n \n \n \nj = j +1 ",
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/2012-febrero-p16.png",
+        "sha256": "7710eeb9bcb5b48abca71f776428bc9156f6153ab946ccadca8f9bd5d8442d52"
+      },
+      "renderEqual": true,
+      "visualFinding": "≤64",
+      "visualScope": "Inspección personal puntual; no algoritmo íntegro"
+    },
+    {
+      "document": {
+        "sha256": "ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c",
+        "sha512": "32b564987b05d3597489ffce74a590f88d8edecf762bdc6fe2a9f91a8ec3984f219535039106fa5c3361001a083db478b0ede56a6a0801cd2bd7dd2b2dfd49bc",
+        "size": 264815,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c"
+      },
+      "page": 10,
+      "bbox": [
+        45,
+        180,
+        570,
+        750
+      ],
+      "matrix": [
+        2,
+        2
+      ],
+      "alpha": false,
+      "renderer": "1.26.7",
+      "quote": " \n \nRepetir: \n \nSi  [EDADES (i)  < 3 ] ó  [AÑOADOP (i)  > 2010 ]:  \nNUMDES3 = NUMDES3 + 1 \n \nElse: Si  [EDADES (i)  >= 3 y EDADES (i) < 25] o [EDADES (i) > 25 y DISCADES # SIN    \nDISCAPACIDAD]   :   \n \n \n \nNUMDES325 = NUMDES325 + 1 \n \nFinsi. \n \n \n \ni = i +1 \n \nHasta: i = NUMDES + 1 \n \nFinsi. \n \n \n** Cálculo del número de descendientes menores de 3 años (incluidos adoptados y acogidos hace menos de 3 \naños) computados por entero: \n \nSi NUMDES3 > 0 :  \ni = 1 \n \n \n \nNUMDES3EN = 0 \n \n \n \nRepetir: \n \nSi ENTERO (i) = 1  \nNUMDES3EN = NUMDES3EN + 1 \n \ni = i +1 \n \n \n Hasta: i = NUMDES3 + 1 \n \nFinsi. ",
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/2013-anual-p10.png",
+        "sha256": "7ce0912971063d0c4a97c60c513e19e5e69277d81ecf882561af161c8a0997a0"
+      },
+      "renderEqual": true,
+      "visualFinding": "≥25",
+      "visualScope": "Inspección personal puntual; no algoritmo íntegro"
+    },
+    {
+      "document": {
+        "sha256": "ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c",
+        "sha512": "32b564987b05d3597489ffce74a590f88d8edecf762bdc6fe2a9f91a8ec3984f219535039106fa5c3361001a083db478b0ede56a6a0801cd2bd7dd2b2dfd49bc",
+        "size": 264815,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c"
+      },
+      "page": 16,
+      "bbox": [
+        45,
+        490,
+        570,
+        700
+      ],
+      "matrix": [
+        2,
+        2
+      ],
+      "alpha": false,
+      "renderer": "1.26.7",
+      "quote": " \n \n \nNUMAS65A = 0 \nNUMAS75A = 0 \n \n \nRepetir: \n \nSi  [EDADAS (j)  > 74 ] ]:  \nNUMAS75A = NUMAS75A + 1 \n \nElse: Si  [EDADAS (j)  <= 74  y  EDADAS (j) > 64]  o [EDADAS (j) < 64  y DISCAS # SIN \nDISCAPACIDAD ] :   \nNUMAS65A = NUMAS65A + 1 \n \nFinsi. \n \n \n \nj = j +1 ",
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/2013-anual-p16.png",
+        "sha256": "eabeefdfd40604f025a07030ab826193f6fb6c1b00f5bbbe2ecb42aecf5e456c"
+      },
+      "renderEqual": true,
+      "visualFinding": "≤64",
+      "visualScope": "Inspección personal puntual; no algoritmo íntegro"
+    },
+    {
+      "document": {
+        "sha256": "32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71",
+        "sha512": "cee18f3f9ddfac87f43a63a62829bde43b666e4d2320457a9ab107b0c18d45e68974b999f66d6f64daa6f3cfe797c43b04dcffe075b70361c16a4102b959b7a7",
+        "size": 263563,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71"
+      },
+      "page": 10,
+      "bbox": [
+        45,
+        180,
+        570,
+        750
+      ],
+      "matrix": [
+        2,
+        2
+      ],
+      "alpha": false,
+      "renderer": "1.26.7",
+      "quote": " \nRepetir: \n \nSi  [EDADES (i)  < 3 ] ó  [AÑOADOP (i)  > 2011 ]:  \nNUMDES3 = NUMDES3 + 1 \n \nElse: Si  [EDADES (i)  >= 3 y EDADES (i) < 25] o [EDADES (i) > 25 y DISCADES # SIN    \nDISCAPACIDAD]   :   \n \n \n \nNUMDES325 = NUMDES325 + 1 \n \nFinsi. \n \n \n \ni = i +1 \n \nHasta: i = NUMDES + 1 \n \nFinsi. \n \n \n** Cálculo del número de descendientes menores de 3 años (incluidos adoptados y acogidos hace menos de 3 \naños) computados por entero: \n \nSi NUMDES3 > 0 :  \ni = 1 \n \n \n \nNUMDES3EN = 0 \n \n \n \nRepetir: \n \nSi ENTERO (i) = 1  \nNUMDES3EN = NUMDES3EN + 1 \n \ni = i +1 \n \n \n Hasta: i = NUMDES3 + 1 \n \nFinsi. \n ",
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/2014-anual-p10.png",
+        "sha256": "d498362d5bcc1550b32782078802fcd6c438706d3e0fb7a5720ffa36d96a89f6"
+      },
+      "renderEqual": true,
+      "visualFinding": "≥25",
+      "visualScope": "Inspección personal puntual; no algoritmo íntegro"
+    },
+    {
+      "document": {
+        "sha256": "32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71",
+        "sha512": "cee18f3f9ddfac87f43a63a62829bde43b666e4d2320457a9ab107b0c18d45e68974b999f66d6f64daa6f3cfe797c43b04dcffe075b70361c16a4102b959b7a7",
+        "size": 263563,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71"
+      },
+      "page": 16,
+      "bbox": [
+        45,
+        490,
+        570,
+        700
+      ],
+      "matrix": [
+        2,
+        2
+      ],
+      "alpha": false,
+      "renderer": "1.26.7",
+      "quote": " \n \n \nNUMAS65A = 0 \nNUMAS75A = 0 \n \n \nRepetir: \n \nSi  [EDADAS (j)  > 74 ] ]:  \nNUMAS75A = NUMAS75A + 1 \n \nElse: Si  [EDADAS (j)  <= 74  y  EDADAS (j) > 64]  o [EDADAS (j) < 64  y DISCAS # SIN \nDISCAPACIDAD ] :   \nNUMAS65A = NUMAS65A + 1 \n \nFinsi. \n \n \n \nj = j +1 ",
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/2014-anual-p16.png",
+        "sha256": "eabeefdfd40604f025a07030ab826193f6fb6c1b00f5bbbe2ecb42aecf5e456c"
+      },
+      "renderEqual": true,
+      "visualFinding": "≤64",
+      "visualScope": "Inspección personal puntual; no algoritmo íntegro"
+    }
+  ],
+  "primary": [
+    {
+      "source": {
+        "sha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
+        "sha512": "4839d5a9619ce7067e389e84734ab8e79128b663bd935911e44a24e597209b3a7c52d66060e47dcd1a030fb1d949bc27c782e42edd8f958566dd9358820491cf",
+        "size": 235188,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae"
+      },
+      "citation": {
+        "id": "bc36ac7820d4:p4",
+        "documentSha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
+        "page": 4,
+        "bbox": [
+          0.0,
+          0.0,
+          595.2760009765625,
+          841.8900146484375
+        ],
+        "text": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 318\t\nViernes 31 de diciembre de 2010\t\nSec. I.   Pág. 109244\nCinco.  El número 1.º del apartado 1 del artículo 85 queda redactado de la siguiente \nforma:\n«1.º  A la base para calcular el tipo de retención a que se refiere el artículo 83 \nde este Reglamento se le aplicarán los tipos que se indican en la siguiente escala:\nBase para calcular\nel tipo de retención\n–\nHasta euros\nCuota\nde retención\n–\nEuros\nResto base para\ncalcular el tipo\nde retención\n–\nHasta euros\nTipo aplicable\n–\nPorcentaje\n0,00\n0,00\n17.707,20\n24\n17.707,20\n4.249,73\n15.300,00\n28\n33.007,20\n8.533,73\n20.400,00\n37\n53.407,20\n16.081,73\n66.593,00\n43\n120.000,20\n44.716,72\n55.000,00\n44\n175.000,20\n68.916,72\nEn adelante.\n45»\nSeis.  El apartado 1 del artículo 86 queda redactado de la siguiente forma:\n«1.  El tipo de retención, que se expresará con dos decimales, se obtendrá \nmultiplicando por 100 el cociente obtenido de dividir la diferencia positiva entre el \nimporte previo de la retención y la cuantía de la deducción a que se refiere el \nartículo 85 bis de este Reglamento, por la cuantía total de las retribuciones a que \nse refiere el artículo 83.2 del presente Reglamento.\nSe entenderá por importe previo de la retención el resultante de aplicar el tipo previo \nde retención a la cuantía total de las retribuciones a que se refiere el artículo 83.2 del \npresente Reglamento.\nEl tipo previo de retención será el resultante de multiplicar por 100 el cociente \nobtenido de dividir la cuota de retención por la cuantía total de las retribuciones a \nque se refiere el artículo 83.2 de este Reglamento, expresándose en números \nenteros. En los casos en que el tipo previo de retención no sea un número entero, \nse redondeará por defecto si el primer decimal es inferior a cinco, y por exceso \ncuando sea igual o superior a cinco.\nCuando fuese cero o negativa la diferencia entre la base para calcular el tipo de \nretención y el mínimo personal y familiar para calcular el tipo de retención, o la \ndiferencia entre el importe previo de la retención y la cuantía de la deducción a que \nse refiere el artículo 85 bis de este Reglamento, el tipo de retención será cero.\nCuando la cuantía total de las retribuciones a la que se refiere el artículo 83.2 de \neste Reglamento sea inferior a 22.000 euros y el contribuyente, de acuerdo con lo \ndispuesto en el artículo 88.1 de este Reglamento, hubiese comunicado a su pagador \nque destina cantidades para la adquisición o rehabilitación de su vivienda habitual \nutilizando financiación ajena por las que vaya a tener derecho a la deducción por \ninversión en vivienda habitual regulada en el artículo 68.1 de la Ley del Impuesto, el \ntipo de retención se reducirá en dos enteros, sin que pueda resultar negativo como \nconsecuencia de tal minoración.»\nSiete.  El apartado 5 del artículo 87 queda redactado de la siguiente forma:\n«5.  El tipo de retención, calculado de acuerdo con el procedimiento previsto en \nel artículo 82 de este Reglamento, no podrá incrementarse cuando se efectúen \nregularizaciones por circunstancias que exclusivamente determinen una disminución \nde la diferencia positiva entre la base para calcular el tipo de retención y el mínimo \npersonal y familiar para calcular el tipo de retención o por quedar obligado el \nperceptor por resolución judicial a satisfacer anualidades por alimentos en favor de \nlos hijos y resulte aplicable lo previsto en el apartado 2 del artículo 85 de este \nReglamento.\ncve: BOE-A-2010-20141\n",
+        "facsimile": "facsimiles/boe-bc36ac7820d4-004.png",
+        "imageSha256": "d6040142ee8fef409993046c8a39c22263665d27293ffa465beae69c72cc1950",
+        "dpi": 110,
+        "renderer": "1.26.7",
+        "inspeccionVisual": true,
+        "alcanceLectura": "página examinada visualmente y pasaje fiscal leído"
+      },
+      "renderEqual": true,
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-sol/facsimiles/boe-bc36ac7820d4-004.png",
+        "sha256": "d6040142ee8fef409993046c8a39c22263665d27293ffa465beae69c72cc1950"
+      }
+    },
+    {
+      "source": {
+        "sha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
+        "sha512": "4839d5a9619ce7067e389e84734ab8e79128b663bd935911e44a24e597209b3a7c52d66060e47dcd1a030fb1d949bc27c782e42edd8f958566dd9358820491cf",
+        "size": 235188,
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae"
+      },
+      "citation": {
+        "id": "bc36ac7820d4:p5",
+        "documentSha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
+        "page": 5,
+        "bbox": [
+          0.0,
+          0.0,
+          595.2760009765625,
+          841.8900146484375
+        ],
+        "text": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 318\t\nViernes 31 de diciembre de 2010\t\nSec. I.   Pág. 109245\nAsimismo, en los supuestos de regularización por circunstancias que determinen \nexclusivamente un aumento de la diferencia positiva entre la base para calcular el \ntipo de retención y el mínimo personal y familiar para calcular el tipo de retención \nprevia a la regularización, el nuevo tipo de retención aplicable no podrá determinar \nun incremento del importe de las retenciones superior a la variación producida en \ndicha magnitud.\nEn ningún caso, cuando se produzcan regularizaciones, el nuevo tipo de \nretención aplicable podrá ser superior al 45 por ciento. El citado porcentaje será \nel 23 por ciento cuando la totalidad de los rendimientos del trabajo se hubiesen \nobtenido en Ceuta y Melilla y se beneficien de la deducción prevista en el artículo 68.4 \nde la Ley del Impuesto.»\nOcho.  El apartado 1 del artículo 88 queda redactado de la siguiente forma:\n«1.  Los contribuyentes deberán comunicar al pagador la situación personal y \nfamiliar que influye en el importe excepcionado de retener, en la determinación del \ntipo de retención o en las regularizaciones de éste, quedando obligado asimismo el \npagador a conservar la comunicación debidamente firmada.\nLa comunicación a que se refiere el párrafo anterior también podrá efectuarse \npor medios telemáticos o electrónicos siempre que se garanticen la autenticidad del \norigen, la integridad del contenido, la conservación de la comunicación y la \naccesibilidad por parte de la Administración tributaria a la misma.\nA efectos de poder aplicar la reducción del tipo de retención prevista en el último \npárrafo del artículo 86.1 de este Reglamento, el contribuyente deberá comunicar al \npagador que está destinando cantidades para la adquisición o rehabilitación de su \nvivienda habitual utilizando financiación ajena, por las que vaya a tener derecho a la \ndeducción por inversión en vivienda habitual regulada en el artículo 68.1 de la Ley \ndel Impuesto, quedando igualmente obligado el pagador a conservar la comunicación \ndebidamente firmada.\nEn el supuesto de que el contribuyente perciba rendimientos del trabajo \nprocedentes de forma simultánea de dos o más pagadores, solamente podrá \nefectuar la comunicación a que se refiere el párrafo anterior cuando la cuantía \ntotal de las retribuciones correspondiente a todos ellos sea inferior a 22.000 \neuros. En el supuesto de que los rendimientos del trabajo se perciban de forma \nsucesiva de dos o más pagadores, sólo se podrá efectuar la comunicación \ncuando la cuantía total de la retribución sumada a la de los pagadores anteriores \nsea inferior a 22.000 euros.\nEn ningún caso procederá la práctica de esta comunicación cuando las \ncantidades se destinen a la construcción o ampliación de la vivienda ni a cuentas \nvivienda.\nEl contenido de las comunicaciones se ajustará al modelo que se apruebe por \nResolución del Departamento de Gestión Tributaria de la Agencia Estatal de \nAdministración Tributaria.»\nNueve.  El apartado 5 del artículo 93 queda redactado de la siguiente forma:\n«5.  En las percepciones derivadas de contratos de seguro y en las rentas \nvitalicias y otras temporales que tengan por causa la imposición de capitales, así \ncomo en los supuestos de reducción de capital social con devolución de aportaciones \ny distribución de la prima de emisión de acciones previstos en el segundo y tercer \npárrafo del artículo 75.3 h) de este Reglamento, la base de retención será la cuantía \na integrar en la base imponible calculada de acuerdo a la Ley del Impuesto.»\ncve: BOE-A-2010-20141\n",
+        "facsimile": "facsimiles/boe-bc36ac7820d4-005.png",
+        "imageSha256": "0396ab79e63b0dd91fde7a5d7cf1d4d5a6b916b3fe04af4815c1c54e2cea84d0",
+        "dpi": 110,
+        "renderer": "1.26.7",
+        "inspeccionVisual": true,
+        "alcanceLectura": "página examinada visualmente y pasaje fiscal leído"
+      },
+      "renderEqual": true,
+      "facsimile": {
+        "path": "docs/procedencia/revisiones/retenciones-2012-2014-sol/facsimiles/boe-bc36ac7820d4-005.png",
+        "sha256": "0396ab79e63b0dd91fde7a5d7cf1d4d5a6b916b3fe04af4815c1c54e2cea84d0"
+      }
+    }
+  ],
+  "historicalAuthenticity": "indeterminada",
+  "completeRuleAcceptance": false
+}

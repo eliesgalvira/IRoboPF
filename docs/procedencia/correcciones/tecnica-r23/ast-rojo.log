@@ -1,0 +1,70 @@
+bun test v1.3.13 (bf2e2cec)
+
+docs/procedencia/revisiones/contratos-r21-sol/ast.test.mjs:
+(pass) comentario [12.00ms]
+(pass) no exportado [4.00ms]
+(pass) export alias [1.00ms]
+(pass) declaraciones duplicadas
+(pass) spread [1.00ms]
+(pass) expresión [1.00ms]
+(pass) plantilla
+(pass) hueco
+(pass) sintaxis rota
+(pass) ruta /abs [1.00ms]
+(pass) ruta ../x
+(pass) ruta a/../b
+(pass) ruta a/./b
+(pass) ruta a//b [1.00ms]
+(pass) ruta a/
+(pass) ruta C:/a
+(pass) ruta a\b [1.00ms]
+(pass) ruta a?b
+(pass) ruta a#b
+(pass) ruta a%2fb
+(pass) ruta 
+(pass) ruta duplicada [1.00ms]
+(pass) helper ausente
+(pass) bytes históricos son datos, no se ejecuta ni un throw [1.00ms]
+(pass) orden, generador, versión y pérdida de fuente no son intercambiables [1.00ms]
+61 |   assert.throws(() => run(version), /distinto/)
+62 |   assert.throws(() => run(fixture(`export const FUENTES_EXPLICACION = ${JSON.stringify([motor, helper])}`)), /distinto/)
+63 | })
+64 | // Nuevos adversos: se conservan rojos si el parser acepta un módulo ambiguo.
+65 | test("CR21-A: exportación duplicada del mismo nombre debe rechazarse", () => {
+66 |   assert.throws(() => run(fixture(`export const FUENTES_EXPLICACION = ${literal}; export { FUENTES_EXPLICACION };`)))
+              ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: undefined,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/contratos-r21-sol/ast.test.mjs:66:10
+      at fn (node:test:210:18)
+(fail) CR21-A: exportación duplicada del mismo nombre debe rechazarse [1.00ms]
+64 | // Nuevos adversos: se conservan rojos si el parser acepta un módulo ambiguo.
+65 | test("CR21-A: exportación duplicada del mismo nombre debe rechazarse", () => {
+66 |   assert.throws(() => run(fixture(`export const FUENTES_EXPLICACION = ${literal}; export { FUENTES_EXPLICACION };`)))
+67 | })
+68 | test("CR21-B: una redeclaración local del binding debe rechazarse", () => {
+69 |   assert.throws(() => run(fixture(`export var FUENTES_EXPLICACION = ${literal}; var FUENTES_EXPLICACION = ['otra'];`)))
+              ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: undefined,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/contratos-r21-sol/ast.test.mjs:69:10
+      at fn (node:test:210:18)
+(fail) CR21-B: una redeclaración local del binding debe rechazarse [1.00ms]
+
+2 tests failed:
+(fail) CR21-A: exportación duplicada del mismo nombre debe rechazarse [1.00ms]
+(fail) CR21-B: una redeclaración local del binding debe rechazarse [1.00ms]
+
+ 25 pass
+ 2 fail
+Ran 27 tests across 1 file. [607.00ms]

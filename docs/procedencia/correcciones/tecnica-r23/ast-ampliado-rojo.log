@@ -1,0 +1,28 @@
+bun test v1.3.13 (bf2e2cec)
+
+tests/software-recibo.test.mjs:
+(pass) un recibo histórico usa sus fuentes conservadas y no las del checkout [9.00ms]
+(pass) sustituir una fuente por otro objeto íntegro no conserva la versión
+(pass) duplicados, fuentes ausentes y bytes corruptos se rechazan [1.00ms]
+(pass) la lista conservada se interpreta como datos y nunca ejecuta expresiones [3.00ms]
+88 |     `export const FUENTES_EXPLICACION = ${literal}; FUENTES_EXPLICACION[0] = 'otra'`,
+89 |     `export const FUENTES_EXPLICACION = ${literal}; const alias = FUENTES_EXPLICACION`,
+90 |     `export const FUENTES_EXPLICACION = ${literal}; export * from './otra.mjs'`,
+91 |     `export const FUENTES_EXPLICACION = ${JSON.stringify([helperPath, 'lib/x.ts\n'])}`,
+92 |   ])
+93 |     assert.throws(() => run(fixture(lista)), /histórica/)
+                ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: /hist\u00F3rica/,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/tests/software-recibo.test.mjs:93:12
+      at fn (node:test:210:18)
+(fail) el binding histórico no admite otras declaraciones, aliases o escrituras [3.00ms]
+
+ 4 pass
+ 1 fail
+Ran 5 tests across 1 file. [350.00ms]

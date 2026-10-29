@@ -1,0 +1,67 @@
+test_rechazar_control_final_en_ruta (__main__.Nuevos.test_rechazar_control_final_en_ruta) ... 
+  test_rechazar_control_final_en_ruta (__main__.Nuevos.test_rechazar_control_final_en_ruta) (field='sources') ... FAIL
+  test_rechazar_control_final_en_ruta (__main__.Nuevos.test_rechazar_control_final_en_ruta) (field='references') ... FAIL
+test_rechazar_duplicados_en_listas_del_sobre (__main__.Nuevos.test_rechazar_duplicados_en_listas_del_sobre) ... 
+  test_rechazar_duplicados_en_listas_del_sobre (__main__.Nuevos.test_rechazar_duplicados_en_listas_del_sobre) (field='acquisitions') ... FAIL
+  test_rechazar_duplicados_en_listas_del_sobre (__main__.Nuevos.test_rechazar_duplicados_en_listas_del_sobre) (field='sources') ... FAIL
+  test_rechazar_duplicados_en_listas_del_sobre (__main__.Nuevos.test_rechazar_duplicados_en_listas_del_sobre) (field='references') ... FAIL
+test_ruta_con_salto_final_no_debe_publicarse (__main__.Nuevos.test_ruta_con_salto_final_no_debe_publicarse) ... FAIL
+
+======================================================================
+FAIL: test_rechazar_control_final_en_ruta (__main__.Nuevos.test_rechazar_control_final_en_ruta) (field='sources')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-6022033f/docs/procedencia/revisiones/preservacion-r21-sol/rojos_test.py", line 44, in test_rechazar_control_final_en_ruta
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_rechazar_control_final_en_ruta (__main__.Nuevos.test_rechazar_control_final_en_ruta) (field='references')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-6022033f/docs/procedencia/revisiones/preservacion-r21-sol/rojos_test.py", line 44, in test_rechazar_control_final_en_ruta
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_rechazar_duplicados_en_listas_del_sobre (__main__.Nuevos.test_rechazar_duplicados_en_listas_del_sobre) (field='acquisitions')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-6022033f/docs/procedencia/revisiones/preservacion-r21-sol/rojos_test.py", line 32, in test_rechazar_duplicados_en_listas_del_sobre
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_rechazar_duplicados_en_listas_del_sobre (__main__.Nuevos.test_rechazar_duplicados_en_listas_del_sobre) (field='sources')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-6022033f/docs/procedencia/revisiones/preservacion-r21-sol/rojos_test.py", line 32, in test_rechazar_duplicados_en_listas_del_sobre
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_rechazar_duplicados_en_listas_del_sobre (__main__.Nuevos.test_rechazar_duplicados_en_listas_del_sobre) (field='references')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-6022033f/docs/procedencia/revisiones/preservacion-r21-sol/rojos_test.py", line 32, in test_rechazar_duplicados_en_listas_del_sobre
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_ruta_con_salto_final_no_debe_publicarse (__main__.Nuevos.test_ruta_con_salto_final_no_debe_publicarse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-6022033f/docs/procedencia/revisiones/preservacion-r21-sol/rojos_test.py", line 17, in test_ruta_con_salto_final_no_debe_publicarse
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.168s
+
+FAILED (failures=6)

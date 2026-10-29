@@ -1,0 +1,17 @@
+test_alimentos_con_delta_positivo_conserva_techo (__main__.Guardia.test_alimentos_con_delta_positivo_conserva_techo) ... FAIL
+
+======================================================================
+FAIL: test_alimentos_con_delta_positivo_conserva_techo (__main__.Guardia.test_alimentos_con_delta_positivo_conserva_techo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2012-2014-r23/rojo.py", line 27, in test_alimentos_con_delta_positivo_conserva_techo
+    self.assertEqual(scope['calculated'], Decimal('12'),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     'Hipótesis: nueva obligación judicial y85.2 ya calificados; mínimo0')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('18') != Decimal('12') : Hipótesis: nueva obligación judicial y85.2 ya calificados; mínimo0
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (failures=1)

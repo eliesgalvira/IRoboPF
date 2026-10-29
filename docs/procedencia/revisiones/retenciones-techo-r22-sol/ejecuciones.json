@@ -1,0 +1,38 @@
+[
+  {
+    "log": "rojo-original.log",
+    "args": [
+      "/home/elies/.t3/worktrees/IRoboPF/t3-8fff9f49/docs/procedencia/revisiones/retenciones-2015-2016-sol/repro_rojo.py"
+    ],
+    "code": 1,
+    "expected": 1
+  },
+  {
+    "log": "rojo-r21.log",
+    "args": [
+      "docs/procedencia/revisiones/retenciones-rectificaciones-r21-sol/rojos.py"
+    ],
+    "code": 1,
+    "expected": 1
+  },
+  {
+    "log": "contraste-viejo.log",
+    "args": [
+      "/home/elies/.t3/worktrees/IRoboPF/t3-8fff9f49/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py",
+      "--edition",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-8fff9f49/docs/procedencia/correcciones/retenciones-2015-2016-r21",
+      "Contraste.test_techo_no_eleva_un_tipo_inferior",
+      "Contraste.test_minimo_satisfecho_se_conserva_en_el_dominio_acotado"
+    ],
+    "code": 1,
+    "expected": 1
+  },
+  {
+    "log": "contraste-nuevo.log",
+    "args": [
+      "/home/elies/.t3/worktrees/IRoboPF/t3-8fff9f49/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py"
+    ],
+    "code": 0,
+    "expected": 0
+  }
+]
