@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2012-2014-sol/regularizacion-casos.py", line 193, in <module>
+    main()
+    ~~~~^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2012-2014-sol/regularizacion-casos.py", line 169, in main
+    eq(label+':cuota', q, expected_quota)
+    ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2012-2014-sol/regularizacion-casos.py", line 16, in eq
+    assert actual == D(expected), (label, actual, expected)
+           ^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('concurrencia1+3+4:True:cuota', Decimal('3863.28'), '3828.914')

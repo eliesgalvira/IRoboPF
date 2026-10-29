@@ -1,0 +1,543 @@
+[
+  {
+    "paso": "remuneracion",
+    "celdas": [
+      "2012-enero:remuneracion",
+      "2012-febrero:remuneracion",
+      "2013-anual:remuneracion",
+      "2014-anual:remuneracion"
+    ],
+    "aserciones": [
+      "manual-jornal-100",
+      "remuneracion-irregular-gastos",
+      "ordinario-RNT"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "irregularidad",
+    "celdas": [
+      "2012-enero:irregularidad",
+      "2012-febrero:irregularidad",
+      "2013-anual:irregularidad",
+      "2014-anual:irregularidad"
+    ],
+    "aserciones": [
+      "irregular-tope-reduccion-no-ingreso"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "gastos",
+    "celdas": [
+      "2012-enero:gastos",
+      "2012-febrero:gastos",
+      "2013-anual:gastos",
+      "2014-anual:gastos"
+    ],
+    "aserciones": [
+      "remuneracion-irregular-gastos",
+      "ordinario-RNT"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "reduccion-trabajo",
+    "celdas": [
+      "2012-enero:reduccion-trabajo",
+      "2012-febrero:reduccion-trabajo",
+      "2013-anual:reduccion-trabajo",
+      "2014-anual:reduccion-trabajo"
+    ],
+    "aserciones": [
+      "reduccion-9179.99",
+      "reduccion-9180",
+      "reduccion-9180.01",
+      "reduccion-13259.99",
+      "reduccion-13260",
+      "reduccion-13260.01",
+      "activo-movil-prolongacion-discapacidad"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "reducciones-personales",
+    "celdas": [
+      "2012-enero:reducciones-personales",
+      "2012-febrero:reducciones-personales",
+      "2013-anual:reducciones-personales",
+      "2014-anual:reducciones-personales"
+    ],
+    "aserciones": [
+      "pension-compensatoria-base",
+      "RRO09-base-1200",
+      "RRO09-cuota-enero-1200",
+      "RRO09-entero-enero-1200",
+      "RRO09-cuota-incrementada-1200",
+      "RRO09-entero-incrementada-1200",
+      "RRO09-base-600",
+      "RRO09-cuota-enero-600",
+      "RRO09-entero-enero-600",
+      "RRO09-cuota-incrementada-600",
+      "RRO09-entero-incrementada-600",
+      "RRO09-limite43"
+    ],
+    "regularizacionAdicional": "regularizacion-resultados.json",
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "minimos",
+    "celdas": [
+      "2012-enero:minimos",
+      "2012-febrero:minimos",
+      "2013-anual:minimos",
+      "2014-anual:minimos"
+    ],
+    "aserciones": [
+      "minimo-tres-hijos-exclusivos",
+      "minimo-tres-hijos-mitad",
+      "ascendiente-75-reparto-tres",
+      "discapacidad-65-asistencia",
+      "nacimiento-minimo-2012-1948",
+      "nacimiento-minimo-2012-1947",
+      "nacimiento-minimo-2012-1946",
+      "nacimiento-minimo-2012-1938",
+      "nacimiento-minimo-2012-1937",
+      "nacimiento-minimo-2012-1936",
+      "nacimiento-minimo-2013-1949",
+      "nacimiento-minimo-2013-1948",
+      "nacimiento-minimo-2013-1947",
+      "nacimiento-minimo-2013-1939",
+      "nacimiento-minimo-2013-1938",
+      "nacimiento-minimo-2013-1937",
+      "nacimiento-minimo-2014-1950",
+      "nacimiento-minimo-2014-1949",
+      "nacimiento-minimo-2014-1948",
+      "nacimiento-minimo-2014-1940",
+      "nacimiento-minimo-2014-1939",
+      "nacimiento-minimo-2014-1938",
+      "familia-discapacidad-por-identidad",
+      "familia-prefijo-literal-no-oracle",
+      "familia-asistencia-segundo",
+      "familia-minimo-dos-hijos-discapacidad",
+      "familiar-renta-7999.99",
+      "familiar-renta-8000",
+      "familiar-renta-8000.01",
+      "edad-descendiente-24-False",
+      "edad-descendiente-25-False",
+      "edad-descendiente-25-True",
+      "edad-descendiente-64-True",
+      "discapacidad-32.99",
+      "discapacidad-33",
+      "discapacidad-33.01",
+      "discapacidad-64.99",
+      "discapacidad-65",
+      "discapacidad-65.01",
+      "conyuge-renta-1499.99",
+      "conyuge-renta-1500",
+      "conyuge-renta-1500.01"
+    ],
+    "regularizacionAdicional": "regularizacion-resultados.json",
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "escala",
+    "celdas": [
+      "2012-enero:escala",
+      "2012-febrero:escala",
+      "2013-anual:escala",
+      "2014-anual:escala"
+    ],
+    "aserciones": [
+      "escala-enero-17707.20--.01",
+      "escala-enero-17707.20-0",
+      "escala-enero-17707.20-.01",
+      "escala-enero-33007.20--.01",
+      "escala-enero-33007.20-0",
+      "escala-enero-33007.20-.01",
+      "escala-enero-53407.20--.01",
+      "escala-enero-53407.20-0",
+      "escala-enero-53407.20-.01",
+      "escala-enero-120000.20--.01",
+      "escala-enero-120000.20-0",
+      "escala-enero-120000.20-.01",
+      "escala-enero-175000.20--.01",
+      "escala-enero-175000.20-0",
+      "escala-enero-175000.20-.01",
+      "escala-incrementada-17707.20--.01",
+      "escala-incrementada-17707.20-0",
+      "escala-incrementada-17707.20-.01",
+      "escala-incrementada-33007.20--.01",
+      "escala-incrementada-33007.20-0",
+      "escala-incrementada-33007.20-.01",
+      "escala-incrementada-53407.20--.01",
+      "escala-incrementada-53407.20-0",
+      "escala-incrementada-53407.20-.01",
+      "escala-incrementada-120000.20--.01",
+      "escala-incrementada-120000.20-0",
+      "escala-incrementada-120000.20-.01",
+      "escala-incrementada-175000.20--.01",
+      "escala-incrementada-175000.20-0",
+      "escala-incrementada-175000.20-.01",
+      "escala-incrementada-300000.20--.01",
+      "escala-incrementada-300000.20-0",
+      "escala-incrementada-300000.20-.01"
+    ],
+    "regularizacionAdicional": "regularizacion-resultados.json",
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "exclusion",
+    "celdas": [
+      "2012-enero:exclusion",
+      "2012-febrero:exclusion",
+      "2013-anual:exclusion",
+      "2014-anual:exclusion"
+    ],
+    "aserciones": [
+      "exclusion-13662-0--.01",
+      "exclusion-13662-0-0",
+      "exclusion-13662-0-.01",
+      "exclusion-13662-600--.01",
+      "exclusion-13662-600-0",
+      "exclusion-13662-600-.01",
+      "exclusion-13662-1200--.01",
+      "exclusion-13662-1200-0",
+      "exclusion-13662-1200-.01",
+      "exclusion-15617-0--.01",
+      "exclusion-15617-0-0",
+      "exclusion-15617-0-.01",
+      "exclusion-15617-600--.01",
+      "exclusion-15617-600-0",
+      "exclusion-15617-600-.01",
+      "exclusion-15617-1200--.01",
+      "exclusion-15617-1200-0",
+      "exclusion-15617-1200-.01",
+      "exclusion-13335-0--.01",
+      "exclusion-13335-0-0",
+      "exclusion-13335-0-.01",
+      "exclusion-13335-600--.01",
+      "exclusion-13335-600-0",
+      "exclusion-13335-600-.01",
+      "exclusion-13335-1200--.01",
+      "exclusion-13335-1200-0",
+      "exclusion-13335-1200-.01",
+      "exclusion-14774-0--.01",
+      "exclusion-14774-0-0",
+      "exclusion-14774-0-.01",
+      "exclusion-14774-600--.01",
+      "exclusion-14774-600-0",
+      "exclusion-14774-600-.01",
+      "exclusion-14774-1200--.01",
+      "exclusion-14774-1200-0",
+      "exclusion-14774-1200-.01",
+      "exclusion-16952-0--.01",
+      "exclusion-16952-0-0",
+      "exclusion-16952-0-.01",
+      "exclusion-16952-600--.01",
+      "exclusion-16952-600-0",
+      "exclusion-16952-600-.01",
+      "exclusion-16952-1200--.01",
+      "exclusion-16952-1200-0",
+      "exclusion-16952-1200-.01",
+      "exclusion-11162-0--.01",
+      "exclusion-11162-0-0",
+      "exclusion-11162-0-.01",
+      "exclusion-11162-600--.01",
+      "exclusion-11162-600-0",
+      "exclusion-11162-600-.01",
+      "exclusion-11162-1200--.01",
+      "exclusion-11162-1200-0",
+      "exclusion-11162-1200-.01",
+      "exclusion-11888-0--.01",
+      "exclusion-11888-0-0",
+      "exclusion-11888-0-.01",
+      "exclusion-11888-600--.01",
+      "exclusion-11888-600-0",
+      "exclusion-11888-600-.01",
+      "exclusion-11888-1200--.01",
+      "exclusion-11888-1200-0",
+      "exclusion-11888-1200-.01",
+      "exclusion-12519-0--.01",
+      "exclusion-12519-0-0",
+      "exclusion-12519-0-.01",
+      "exclusion-12519-600--.01",
+      "exclusion-12519-600-0",
+      "exclusion-12519-600-.01",
+      "exclusion-12519-1200--.01",
+      "exclusion-12519-1200-0",
+      "exclusion-12519-1200-.01",
+      "exclusion-con-minimo-15",
+      "exclusion-con-minimo-2",
+      "exclusion-con-minimo-8",
+      "exclusion-con-minimo-1"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "limite43",
+    "celdas": [
+      "2012-enero:limite43",
+      "2012-febrero:limite43",
+      "2013-anual:limite43",
+      "2014-anual:limite43"
+    ],
+    "aserciones": [
+      "RRO09-limite43",
+      "limite43-condicion-21999.99",
+      "limite43-condicion-22000",
+      "limite43-condicion-22000.01",
+      "limite43-22000-s3-cero"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "deduccion80bis",
+    "celdas": [
+      "2012-enero:deduccion80bis",
+      "2012-febrero:deduccion80bis",
+      "2013-anual:deduccion80bis",
+      "2014-anual:deduccion80bis"
+    ],
+    "aserciones": [
+      "80bis-7999.99",
+      "80bis-8000",
+      "80bis-8000.01",
+      "80bis-11999.99",
+      "80bis-12000",
+      "80bis-12000.01"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "tipo-minimo",
+    "celdas": [
+      "2012-enero:tipo-minimo",
+      "2012-febrero:tipo-minimo",
+      "2013-anual:tipo-minimo",
+      "2014-anual:tipo-minimo"
+    ],
+    "aserciones": [
+      "exclusion-con-minimo-15",
+      "exclusion-con-minimo-2",
+      "exclusion-con-minimo-8",
+      "exclusion-con-minimo-1"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "tipo-maximo",
+    "celdas": [
+      "2012-enero:tipo-maximo",
+      "2012-febrero:tipo-maximo",
+      "2013-anual:tipo-maximo",
+      "2014-anual:tipo-maximo"
+    ],
+    "aserciones": [
+      "tope-45--.01",
+      "tope-45-0",
+      "tope-45-.01",
+      "tope-23--.01",
+      "tope-23-0",
+      "tope-23-.01",
+      "tope-52--.01",
+      "tope-52-0",
+      "tope-52-.01",
+      "tope-26--.01",
+      "tope-26-0",
+      "tope-26-.01"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "redondeos",
+    "celdas": [
+      "2012-enero:redondeos",
+      "2012-febrero:redondeos",
+      "2013-anual:redondeos",
+      "2014-anual:redondeos"
+    ],
+    "aserciones": [
+      "redondeo-entero-21.499",
+      "redondeo-entero-21.50",
+      "redondeo-entero-21.509",
+      "territorial-orden",
+      "importe-empate"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "regularizacion",
+    "celdas": [
+      "2012-enero:regularizacion",
+      "2012-febrero:regularizacion",
+      "2013-anual:regularizacion",
+      "2014-anual:regularizacion"
+    ],
+    "aserciones": [
+      "retenido-superior",
+      "divisor-0",
+      "divisor--.01",
+      "C9-inicio",
+      "C10-cese",
+      "C11-febrero-con-historia",
+      "C11-2013-sin-historia",
+      "C1-vivienda-aumento",
+      "C1-vivienda-disminucion",
+      "87.5-no-sube",
+      "87.5-incremento-base",
+      "87.5-cuota-limitada",
+      "87.5-tipo-recalculado",
+      "87.5-importe-truncado",
+      "87.5-reaplica-minimo-especial"
+    ],
+    "regularizacionAdicional": "regularizacion-resultados.json",
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "comunicacion",
+    "celdas": [
+      "2012-enero:comunicacion",
+      "2012-febrero:comunicacion",
+      "2013-anual:comunicacion",
+      "2014-anual:comunicacion"
+    ],
+    "aserciones": [],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "multiples-pagadores",
+    "celdas": [
+      "2012-enero:multiples-pagadores",
+      "2012-febrero:multiples-pagadores",
+      "2013-anual:multiples-pagadores",
+      "2014-anual:multiples-pagadores"
+    ],
+    "aserciones": [
+      "vivienda-estricto-22000--.01",
+      "vivienda-estricto-22000-0",
+      "vivienda-estricto-22000-.01",
+      "vivienda-estricto-33007.20--.01",
+      "vivienda-estricto-33007.20-0",
+      "vivienda-estricto-33007.20-.01"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "vivienda",
+    "celdas": [
+      "2012-enero:vivienda",
+      "2012-febrero:vivienda",
+      "2013-anual:vivienda",
+      "2014-anual:vivienda"
+    ],
+    "aserciones": [
+      "vivienda-estricto-22000--.01",
+      "vivienda-estricto-22000-0",
+      "vivienda-estricto-22000-.01",
+      "vivienda-estricto-33007.20--.01",
+      "vivienda-estricto-33007.20-0",
+      "vivienda-estricto-33007.20-.01",
+      "vivienda-truncada",
+      "C9-inicio",
+      "C10-cese",
+      "C11-febrero-con-historia",
+      "C11-2013-sin-historia",
+      "ordinario-vivienda-minoracion",
+      "ordinario-vivienda-tipo",
+      "ordinario-vivienda-importe"
+    ],
+    "regularizacionAdicional": "regularizacion-resultados.json",
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "ceuta-melilla",
+    "celdas": [
+      "2012-enero:ceuta-melilla",
+      "2012-febrero:ceuta-melilla",
+      "2013-anual:ceuta-melilla",
+      "2014-anual:ceuta-melilla"
+    ],
+    "aserciones": [
+      "territorial-orden",
+      "mezcla-adquiere-residencia",
+      "mezcla-sale-trabajo",
+      "mezcla-cociente",
+      "territorial-derecho-False-False",
+      "territorial-derecho-False-True",
+      "territorial-derecho-True-False",
+      "territorial-derecho-True-True"
+    ],
+    "regularizacionAdicional": "regularizacion-resultados.json",
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "validaciones",
+    "celdas": [
+      "2012-enero:validaciones",
+      "2012-febrero:validaciones",
+      "2013-anual:validaciones",
+      "2014-anual:validaciones"
+    ],
+    "aserciones": [
+      "divisor-0",
+      "divisor--.01",
+      "familiar-renta-7999.99",
+      "familiar-renta-8000",
+      "familiar-renta-8000.01",
+      "edad-descendiente-24-False",
+      "edad-descendiente-25-False",
+      "edad-descendiente-25-True",
+      "edad-descendiente-64-True",
+      "conyuge-renta-1499.99",
+      "conyuge-renta-1500",
+      "conyuge-renta-1500.01"
+    ],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  },
+  {
+    "paso": "fecha-aplicacion",
+    "celdas": [
+      "2012-enero:fecha-aplicacion",
+      "2012-febrero:fecha-aplicacion",
+      "2013-anual:fecha-aplicacion",
+      "2014-anual:fecha-aplicacion"
+    ],
+    "aserciones": [],
+    "regularizacionAdicional": null,
+    "alcance": "referencias numéricas por suboperación; para comunicación/fecha decide la fuente jurídica y el contrato, no una división; no todos los derechos se prueban con números",
+    "aceptacion": false
+  }
+]

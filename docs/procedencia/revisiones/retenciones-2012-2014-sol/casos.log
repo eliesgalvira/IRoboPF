@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2012-2014-sol/casos.py", line 158, in <module>
+    main()
+    ~~~~^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2012-2014-sol/casos.py", line 133, in main
+    check('ordinario-cuota-incrementada',increased_quota,'5550.8975')
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2012-2014-sol/casos.py", line 13, in check
+    assert actual == wanted, (name, actual, wanted)
+           ^^^^^^^^^^^^^^^^
+AssertionError: ('ordinario-cuota-incrementada', Decimal('5549.8975'), Decimal('5550.8975'))

@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 18:58 CET
+## Situación más reciente, 29 de octubre, 19:14 CET
+
+Recibida la revisión Sol de retenciones 2012–2014: 420 archivos y 72.997.401 bytes cotejados; base de 10.583 blobs intacta, cero borrados. El autor completa lectura e inspección de 187 páginas, 80 decisiones y 44 ramas, y declara 496 aserciones correctas con Ruff/Pyright. El padre verifica integridad y estructura; no se atribuye esa lectura personal ni una validación del motor. Informe de recepción en `correcciones/retenciones-antiguas-r20/INFORME.md`.
+
+SOL-01 a SOL-05 requieren contraste independiente nuevo: CAUSA11/tachados, guarda del divisor, pseudocódigo familiar, doble600 y cadena histórica. RRO-09 mantiene dos hipótesis sin criterio único; tampoco se cierra la selección residual de enero2012 ni autenticidad histórica. No se habilita ningún ejercicio. Nueve originales, 5.332.165 bytes, copiados fuera de T3 con mapa y ambos hashes; el corte v3 y Crossa v1 no se consideran actualizados por esta recepción.
+
+Las siete revisiones R19 siguen en curso. Se prepara una revisión Sol High adicional para todos los IDs y ramas de 2012–2014. Sin cambios fiscales, LFS, gasto, transferencia, PR ni limpieza.
+
+## Avance anterior, 29 de octubre, 18:58 CET
 
 Integradas las entregas Sol de contratos documentales/preservación y retenciones 2015–2016, cotejadas por base y manifiesto. Los dos conflictos eran registro de snapshots y alias de rastro: unión de históricos y regeneración, sin sobrescribir los fixes familiares. Informe `correcciones/integracion-r19/INFORME.md`. La nueva revisión de alimentos confirma la exclusión como límite temporal; MDV2-P01 conserva su reserva jurídica.
 

@@ -287,3 +287,7 @@ Los blobs de la revisión histórica de retenciones se conservan por ambos hashe
 ## D062 — Recibir la autoría sin confundirla con publicación
 
 Los dos lotes editoriales se incorporan como superposiciones candidatas, con identidad histórica intacta. Objeción: transportar texto que todavía no ve el usuario no completa las páginas del encargo. Respuesta: revisión independiente por afirmación antes de adaptar al publicador; la comprobación estructural solo confirma los 65 sitios y sus fuentes actuales. Coste: otra integración y revisión posterior, sin rebajar la calidad ni declarar completas las 52.461 ocurrencias por contar fichas. Los originales y facsímiles referenciados deben seguir preservados antes de limpiar.
+
+## D063 — Separar recepción acotada y trabajos pesados
+
+El cotejo de recepción lee un blob o archivo cada vez y conserva memoria acotada; puede usar un bloqueo propio sin esperar detrás de renders o suites. Objeción: ampliar concurrencia sin medir puede poner en riesgo Victus sin swap. Respuesta: no ejecutar compilación, render ni pruebas en esa excepción; mantener un solo lector de recepción y el bloqueo pesado para todos los trabajos de mayor consumo. Coste: dos clases de bloqueo y obligación de no reutilizar el de recepción para tareas pesadas. La tentativa de cancelar el primer cotejo ya terminado no actuó; se documentan los dos pases, sin inflar cobertura.
