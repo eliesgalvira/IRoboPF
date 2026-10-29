@@ -1,0 +1,16 @@
+docs/procedencia/revisiones/contratos-r21-sol/empaquetar.py:19: error: Need type annotation for "patch" (hint: "patch: list[<type>] = ...")  [var-annotated]
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:34: error: No overload variant of "update" of "MutableMapping" matches argument types "int", "str", "str | None", "str", "bool"  [call-overload]
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:34: note: Possible overload variants:
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:34: note:     def update(self, SupportsKeysAndGetItem[str, str], /) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:34: note:     def update(self, SupportsKeysAndGetItem[str, str], /, **kwargs: str) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:34: note:     def update(self, Iterable[tuple[str, str]], /) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:34: note:     def update(self, Iterable[tuple[str, str]], /, **kwargs: str) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:34: note:     def update(self, **kwargs: str) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:39: error: No overload variant of "update" of "MutableMapping" matches argument types "bool", "bool"  [call-overload]
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:39: note: Possible overload variants:
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:39: note:     def update(self, SupportsKeysAndGetItem[str, str], /) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:39: note:     def update(self, SupportsKeysAndGetItem[str, str], /, **kwargs: str) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:39: note:     def update(self, Iterable[tuple[str, str]], /) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:39: note:     def update(self, Iterable[tuple[str, str]], /, **kwargs: str) -> None
+docs/procedencia/revisiones/contratos-r21-sol/arbol.py:39: note:     def update(self, **kwargs: str) -> None
+Found 3 errors in 2 files (checked 4 source files)

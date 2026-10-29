@@ -1,0 +1,15 @@
+# Rectificación documental 2012–2014
+
+El padre contrasta C01/C02 de la revisión independiente y prepara doce reemplazos separados. Los 80 dictámenes y 44 ramas originales se conservan. La rectificación retira solo las inferencias erróneas sobre los operadores de edad y añade un techo condicionado; no habilita versiones ni acepta una liquidación.
+
+Inspección personal de los ocho recortes de las cuatro versiones: p10 muestra ≥25 y p16 muestra ≤64. Se reabren los cuatro PDF por ambos hashes y tamaño, se extrae el texto en las cajas declaradas y se regeneran los ocho PNG idénticos a los recibidos. Las pérdidas de trazos de la capa textual permanecen documentadas. Los problemas de índices, prefijos y requisitos personales no se dan por resueltos con esta observación.
+
+El original RD 1788/2010, artículo 1.siete, páginas 4–5, acredita la alternativa de nueva obligación judicial antes de 2012. Ambas páginas se inspeccionaron y reprodujeron por texto, PNG y hashes. No se infiere retroactividad a partir de la redacción de 2015. Las dudas históricas sobre mínimo y especialidad concurrentes siguen excluidas, sin atribuir a la ley esa limitación del candidato.
+
+`rojo.py` ejecuta el AST del subpaso real del instrumento antiguo, sin lanzar su main ni reescribir sus resultados. La hipótesis condicionada produce 18 frente al techo esperado 12. Es un rojo documental: no demuestra que una nómina admitida con evento único produzca todas las magnitudes hipotéticas. La edición añade `min(candidato,anterior)` y la precedencia de `CONTRATO.md`; exige hechos, aplicación histórica de 85.2, eficacia, estado conciliado y mínimo satisfecho y compatible. Excluye concurrencias y conflictos de mínimo hasta resolverlos.
+
+`contraste.py` reutiliza el intérprete documental limitado de R22 y comprueba 32 fronteras en cuatro ramas, además de las identidades de las fuentes y doce reemplazos. No ejecuta admisión, fechas, AEAT ni TS. El intérprete distingue asignación y techo; no es un consumidor operativo de contratos. La verificación de evidencia está en `rectificar.py`, que reabre los originales fijados y reproduce los facsímiles. Una revisión nueva debe juzgar las condiciones y su alcance antes de cualquier habilitación.
+
+Comandos, bajo el bloqueo pesado y el entorno UV absoluto: `bash tools/procedencia/run.sh` seguido de cada script de esta carpeta. `rojo.py` debe terminar 1; `rectificar.py` y `contraste.py`, 0. Los logs conservan el fallo previo. Ruff y mypy se registran en `../tecnica-r23/`. El único ajuste de tipos al rojo declara la lista como `list[ast.stmt]`; no cambia la operación ni el esperado.
+
+Objeción experta: una guarda correcta no completa el procedimiento histórico. Respuesta: fuentes anteriores a 2012 y dominio escrito, sin reemplazar los hechos por números de causa. Coste: soporte limitado, revisión nueva y reservas persistentes sobre RRO-09, selección residual de enero, versiones intermedias y composición de regularización. No se modifica motor, registro de confianza ni corpus original.

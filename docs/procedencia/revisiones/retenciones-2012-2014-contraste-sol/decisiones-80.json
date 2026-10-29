@@ -1,0 +1,2020 @@
+[
+  {
+    "id": "2012-enero:remuneracion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RETRIB es previsión anual por pagador, dinero y especie sin ingreso a cuenta; incluye variables previsibles al menos las previas salvo acreditación objetiva. Excluir contribuciones reductoras y atrasos de otros ejercicios. MANUALES requiere 100 jornales diarios, no multiplicar otra vez un total anual.",
+    "razonPropia": "83.2 distingue previsión, especie sin ingreso y jornal diario. 87.43 por 100 son 8743, no una anualización salarial universal.",
+    "contratoViable": "Exigir previsión contractual, variables y calificación por pagador; excluir atrasos interanuales.",
+    "evidenciaPDF": [
+      "2012-enero:p21",
+      "2012-enero:p38",
+      "2012-enero:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de remuneracion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:irregularidad",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "IRREGULAR1 e IRREGULAR2 son reducciones ya calificadas; techo técnico IRREGULAR1=120000, no base irregular=120000. Art.18.2 histórico 40% y límite base300000 requieren además generación y transitorios; Ley16/2012 altera indemnizaciones elevadas desde2013. Ley39/2010art66 establece300000 de base anual desde2011. La nueva limitación de extinciones700000/1000000 no se aplica a extinciones anteriores a01/01/2013 por DT25, aunque se cobren después; no basta año del pago.",
+    "razonPropia": "120000 representa reducción y no ingreso; 300000 por 40% lo explica. DT25 mira extinción, no cobro.",
+    "contratoViable": "Recibir importes previamente calificados, fecha de extinción y agregación de grupo; no evaluar opciones ni generación con solo un importe.",
+    "evidenciaPDF": [
+      "2012-enero:p5",
+      "2012-enero:p21",
+      "2012-enero:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p67",
+      "e7b629a20bde:p68"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de irregularidad.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:gastos",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Restar exclusivamente cotizaciones SS, mutualidades obligatorias, derechos pasivos y colegios de huérfanos del art19.2 a/b/c vía art83.3.b. No cuotas sindicales/colegiación/defensa ni gasto general2000. RNT=max(0,RETRIB-IRREGULAR1-IRREGULAR2-GASTOS).",
+    "razonPropia": "83.3.b remite a19.2 a/b/c. La lista histórica no contiene gasto general2000.",
+    "contratoViable": "No aplicar sindicato, colegio profesional ni defensa como gasto del retenedor; conservar diferencia frente liquidación anual.",
+    "evidenciaPDF": [
+      "2012-enero:p21",
+      "2012-enero:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "ff21371b04e3:p16",
+      "ff21371b04e3:p17"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de gastos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:reduccion-trabajo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RED20=4080 hasta9180; 4080-.35*(RNT-9180) hasta13260;2652 después. REDONDEAR1 al final. PROLONLAB y MOVILGEO añaden cada uno RED20 si hechos habilitantes; DISTRA activo3264/7242. Suelo0 tras conjunto.",
+    "razonPropia": "Ley39/2010arts60-61 aporta vigencia indefinida; 83.3.c limita el cómputo a RNT de a/b. Movilidad y prolongación requieren hechos adicionales.",
+    "contratoViable": "Actividad efectiva, inscripción y traslado acreditados; no inferir por edad/discapacidad un derecho.",
+    "evidenciaPDF": [
+      "2012-enero:p21",
+      "2012-enero:p22"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p60",
+      "e7b629a20bde:p61"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de reduccion-trabajo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:reducciones-personales",
+    "dictamen": "needs-evidence",
+    "afirmacionExaminada": "PENSION600 para SS/Clases Pasivas; HIJOS600 si más de2 elegibles; DESEM1200 para prestación/subsidio. CONYUGE es compensatoria judicial separada. La suma informática de los dos600 es inequívoca; art83.3.d une las condiciones con o y declara compatibilidad después de desempleo.",
+    "razonPropia": "La suma PDF de dos600 existe. La disyunción de83.3.d y compatibilidad posterior no resuelven inequívocamente duplicar600 dentro del primer párrafo.",
+    "contratoViable": "Solo excluir pensión SS/ClasesPasivas con más de dos descendientes elegibles del resultado único; conservar escenarios individuales.",
+    "evidenciaPDF": [
+      "2012-enero:p22",
+      "2012-enero:p28"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de reducciones-personales.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:minimos",
+    "dictamen": "confirmado-parcial-refutacion-C01",
+    "afirmacionExaminada": "MINPER5151;65+918;75+1122. Descendientes1836/2040/3672/4182;incremento<3/adopción2244. Ascendientes918+1122 mayores75. Discapacidad2316/7038 y asistencia2316. Mitad descendientes salvo derecho exclusivo; ascendiente por titulares con derecho, no cualquier conviviente. P23 usa ejercicio-AÑOPER>64 y>74; no convertir sus epígrafes en edad entera>65/>75.",
+    "razonPropia": "Cuantías y reparto se sostienen; son falsos los claims visuales <64 y >25 enero. Persisten j/i y prefijos por categoría incompatibles con orden natal.",
+    "contratoViable": "Aplicar por sujetos elegibles y fechas calificadas; no ejecutar literalmente auxiliares defectuosos ni convertir etiquetas de tablas en topes legales.",
+    "evidenciaPDF": [
+      "2012-enero:p9",
+      "2012-enero:p10",
+      "2012-enero:p11",
+      "2012-enero:p12",
+      "2012-enero:p13",
+      "2012-enero:p14",
+      "2012-enero:p15",
+      "2012-enero:p16",
+      "2012-enero:p17",
+      "2012-enero:p18",
+      "2012-enero:p19",
+      "2012-enero:p20",
+      "2012-enero:p23",
+      "2012-enero:p24",
+      "2012-enero:p25",
+      "2012-enero:p26",
+      "2012-enero:p27"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p61",
+      "e7b629a20bde:p62",
+      "e7b629a20bde:p63",
+      "4850dbc8a508:p3",
+      "4850dbc8a508:p4"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de minimos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:escala",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Cuota fija publicada más exceso marginal. Enero6 filas24/28/37/43/44/45; demás7 filas24.75/30/40/47/49/51/52. Conservar120000.20,175000.20,300000.20. Anualidades judiciales0<A<BASE separan escalas A y BASE-A y aumentan mínimo1600; demás casos sin separación.",
+    "razonPropia": "Cuotas fijas y límites publicados se conservan; complemento se aplica también al mínimo y anualidades+1600. Sumar tipos sin cuotas fijas pierde céntimos.",
+    "contratoViable": "Escala identificada temporalmente; para anualidades exigir resolución y 0<A<BASE. Mismo hijo con mínimo queda fuera del candidato.",
+    "evidenciaPDF": [
+      "2012-enero:p29",
+      "2012-enero:p30"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de escala.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:exclusion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Ocho celdas: situación1 sin hijos inválida;1/2+hijos13662/15617; situación2 13335/14774/16952; situación3 11162/11888/12519. Igualdad excluye. Incremento600 pensiones y1200 desempleo; HIJOS no incrementa tabla. No excluye mínimos contractuales art81.3.",
+    "razonPropia": "RD2004/2009 aporta las ocho celdas; incremento por pensión/desempleo, sin HIJOS. Igualdad excluye salvo mínimos86.2.",
+    "contratoViable": "No usar tabla original2007 niRD861 como tabla vigente2012; calificar situación1 y sujetos antes de contar.",
+    "evidenciaPDF": [
+      "2012-enero:p28",
+      "2012-enero:p29",
+      "2012-enero:p33"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3",
+      "0f6003cfa63f:p38"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de exclusion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:limite43",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Solo RETRIB<=22000: límite cuota=DEDUCCION+.43*max(0,RETRIB-exclusión aplicable). Comparar antes del tipo previo. No se aplica a22000.01.",
+    "razonPropia": "RD2004/2009 sustituye85.3: deducción más43% de diferencia positiva; 22000 incluido. La vieja redacción no basta.",
+    "contratoViable": "Recalcular deducción con base de retención; no confundir este límite de cuota con tipo máximo de regularización.",
+    "evidenciaPDF": [
+      "2012-enero:p31"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de limite43.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:deduccion80bis",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "DEDUCCION400 si BASE<=8000;400-.1*(BASE-8000) hasta12000;cero después. Art85bis usa base de retención; no saldo otras rentas anual. Resta tras importe previo y participa en límite43.",
+    "razonPropia": "Ley26/2009art70 yRD2004/2009 separan base imponible anual de base del retenedor. A12000 la expresión da0.",
+    "contratoViable": "No trasladar otras rentas del contribuyente al testBASE ni restar dos veces la deducción.",
+    "evidenciaPDF": [
+      "2012-enero:p30",
+      "2012-enero:p32"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3",
+      "0abb5d0eda31:p4",
+      "2f13846fcff2:p1",
+      "06d27074a371:art70"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de deduccion80bis.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:tipo-minimo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Mínimos especial15 e inferior año2; Ceuta/Melilla8 y1. No derivar8 redondeando15/2 ni usar6/.8 modernos. Excepción del15/8 a penados e instituciones penitenciarias y relaciones especiales de discapacitados: calificar relación antes de CONTRATO.",
+    "razonPropia": "PDF separa15/2 y8/1; excepción penitenciaria/discapacidad exige relación especial cualificada.",
+    "contratoViable": "No dividir automáticamente15 entre2 ni aplicar mínimo a una relación especial excluida por86.2.",
+    "evidenciaPDF": [
+      "2012-enero:p33",
+      "2012-enero:p35",
+      "2012-enero:p36",
+      "2012-enero:p37"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p40",
+      "0b3ef15bdae6:p2"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de tipo-minimo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:tipo-maximo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Topes regularización enero45/23; resto52/26. Tope reducido requiere derecho y totalidad histórica; no imponer al cálculo inicial indiscriminadamente.",
+    "razonPropia": "RD1788/2010 yDA35 sustentan45/23 y52/26; Ley22/2013art64 extiende2014.",
+    "contratoViable": "Solo regularización; reducido únicamente si totalidad rendimientos cualificados, no mera residencia actual.",
+    "evidenciaPDF": [
+      "2012-enero:p35",
+      "2012-enero:p36"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p5"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de tipo-maximo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:redondeos",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Máxima precisión salvo REDONDEAR1 al céntimo mitad arriba, TRUNCAR dos decimales y REDONDEAR2 entero mitad arriba. Tipo previo: truncar, entero. Territorial: mitad del previo con2decimales, truncar y entero; no mitad del entero ya redondeado. Tipo final truncado; importe final céntimo.",
+    "razonPropia": "PDF usa precisión interna, céntimo mitad arriba, truncado y entero previo; CM parte del previo con decimales antes del entero.",
+    "contratoViable": "No redondear cada producto marginal ni mitad del entero previo; separar política documental de cualquier implementación futura.",
+    "evidenciaPDF": [
+      "2012-enero:p9",
+      "2012-enero:p21",
+      "2012-enero:p31",
+      "2012-enero:p32",
+      "2012-enero:p33",
+      "2012-enero:p35",
+      "2012-enero:p36",
+      "2012-enero:p37"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "0b3ef15bdae6:p2"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de redondeos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:regularizacion",
+    "dictamen": "confirmado-parcial-C02",
+    "afirmacionExaminada": "Nuevo importe previo con circunstancias actuales menos retenido,deducción y minoración pertinente; dividir por RETRIB-PERCIBIDO. Suelo0,truncar,topes,mínimos,importe; después87.5 cuando procede y reaplicar mínimos. Véase ramas-44.json y concurrencias.json.",
+    "razonPropia": "Cociente y orden documentales se sostienen. Falta alternativa judicial de87.5 independiente del signo; figura ya enRD1788/2010p4.",
+    "contratoViable": "Añadir guardia de alimentos85.2 o excluir expresamente ese evento; no habilitar el procedimiento con el contrato actual.",
+    "evidenciaPDF": [
+      "2012-enero:p4",
+      "2012-enero:p5",
+      "2012-enero:p6",
+      "2012-enero:p7",
+      "2012-enero:p8",
+      "2012-enero:p34",
+      "2012-enero:p35",
+      "2012-enero:p36",
+      "2012-enero:p37"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p40",
+      "0f6003cfa63f:p41",
+      "0abb5d0eda31:p4",
+      "0abb5d0eda31:p5",
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de regularizacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:comunicacion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Datos al pagador antes de año/inicio con circunstancias previsibles. Menor retención desde comunicación con al menos5 días para nómina; mayor: comunicar10 días y aplicar primera nómina con5 días. No hay obligación de reiterar sin cambios; conservar comunicación firmada.",
+    "razonPropia": "87.4/88 distinguen hecho, comunicación, cinco días, diez días y opción trimestral del pagador.",
+    "contratoViable": "Conservar comunicación firmada y recibo. En2014 no exigir testimonio adjunto derogado; resolución judicial sigue necesaria.",
+    "evidenciaPDF": [
+      "2012-enero:p4",
+      "2012-enero:p5",
+      "2012-enero:p6",
+      "2012-enero:p7",
+      "2012-enero:p8",
+      "2012-enero:p38",
+      "2012-enero:p39",
+      "2012-enero:p40"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p5",
+      "4850dbc8a508:p3",
+      "4850dbc8a508:p4",
+      "4850dbc8a508:p5",
+      "0f6003cfa63f:p41"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de comunicacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:multiples-pagadores",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Algoritmo general por pagador. Art89.A para pensionistas con varias prestaciones exige solicitud/actuación administrativa y condiciones; no sumar pagadores como si fuera procedimiento general. Vivienda sí requiere suma de rendimientos de todos pagadores.",
+    "razonPropia": "89.A es actuación administrativa distinta del procedimiento por pagador; vivienda agrega según simultáneos/sucesivos.",
+    "contratoViable": "Excluir89.A del cálculo numérico general y no usar suma de pagadores como nómina única.",
+    "evidenciaPDF": [
+      "2012-enero:p38",
+      "2012-enero:p39",
+      "2012-enero:p40"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "bc36ac7820d4:p5"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de multiples-pagadores.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:vivienda",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Enero: régimen general adquirido/rehabilitado desde2011 con total<22000; previo2011<33007.20. Febrero umbral único estricto33007.20 y comunicación145. Desde2013 solo derecho DT18 LIRPF; no adquisición nueva genérica. Minoración2 puntos con suelo0 y mínimos posteriores.",
+    "razonPropia": "DA23 y145 distinguen enero, febrero y nuevaDT18 desde2013; el númeroDT18 tiene dos historias distintas.",
+    "contratoViable": "Derecho transitorio calificado, financiación, comunicación y agregado estricto. No basta escritura ni pagador actual.",
+    "evidenciaPDF": [
+      "2012-enero:p5",
+      "2012-enero:p32",
+      "2012-enero:p35",
+      "2012-enero:p39",
+      "2012-enero:p40"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "bc36ac7820d4:p7",
+      "4850dbc8a508:p4",
+      "4850dbc8a508:p5"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de vivienda.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:ceuta-melilla",
+    "dictamen": "needs-evidence-parcial",
+    "afirmacionExaminada": "Mitad del tipo previo con2decimales y redondeo entero. Exigir residencia y rendimientos con derecho68.4. Mezclas de CAUSA7/8 ponderan percibido y pendiente. En febrero11 incluye variantes;2013 las tacha;2014 las omite.",
+    "razonPropia": "Mezclas7/8 visibles y marcas11 confirmadas; pérdida de residencia con hechos mixtos no recibe respuesta jurídica única por fórmula.",
+    "contratoViable": "Calificar68.4 y pasado/pendiente; excluir mezcla6 sin criterio adicional y11 histórico no admitido por versión.",
+    "evidenciaPDF": [
+      "2012-enero:p32",
+      "2012-enero:p33",
+      "2012-enero:p34",
+      "2012-enero:p35",
+      "2012-enero:p36",
+      "2012-enero:p37"
+    ],
+    "primarios": [
+      "0b3ef15bdae6:p2",
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de ceuta-melilla.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:validaciones",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RETRIB>0; en regularización RETRIB>PERCIBIDO y PERCIBIDO>0. CONVIVENCIA1..9 del PDF con significado de titulares elegibles. Validar coherencia situación laboral/contrato, discapacidad/movilidad, vivienda y causas. Rechazar divisor0 es guarda expresamente documentada.",
+    "razonPropia": "Incidencia37 enero/35 resto excluye divisor no positivo; no demuestra solución jurídica del último pago. AND/OR de vivienda no son especificación inequívoca.",
+    "contratoViable": "Rechazo explícito del dominio inválido; no inventar devolución ni corregir silenciosamente conjunciones.",
+    "evidenciaPDF": [
+      "2012-enero:p4",
+      "2012-enero:p5",
+      "2012-enero:p6",
+      "2012-enero:p7",
+      "2012-enero:p8",
+      "2012-enero:p38",
+      "2012-enero:p39",
+      "2012-enero:p40"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "0abb5d0eda31:p5"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de validaciones.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-enero:fecha-aplicacion",
+    "dictamen": "needs-evidence-parcial",
+    "afirmacionExaminada": "Selección requiere ejercicio,fecha pago,período correspondencia y hechos. Enero pagado en enero y correspondiente a enero conserva norma31/12/2011. Desde febrero y no correspondiente enero aplica complemento y vivienda nueva. No atribuir automáticamente versión al pago tardío correspondiente enero.2014 prórroga art64 desde1enero.",
+    "razonPropia": "DA35.3 yDA23.2 contienen pago y correspondencia simultáneamente; el resto del selector no está decidido por esas dos frases.",
+    "contratoViable": "Excluir residual2012, separar conceptos con distinta correspondencia y no inferir por fecha bancaria.",
+    "evidenciaPDF": [
+      "2012-enero:p1",
+      "2012-enero:p2",
+      "2012-enero:p3",
+      "2012-enero:p29",
+      "2012-enero:p35",
+      "2012-enero:p36"
+    ],
+    "primarios": [
+      "89eaeb5898f7:p54",
+      "89eaeb5898f7:p56",
+      "c81b15469077:p3"
+    ],
+    "version": "2012-enero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de fecha-aplicacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:remuneracion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RETRIB es previsión anual por pagador, dinero y especie sin ingreso a cuenta; incluye variables previsibles al menos las previas salvo acreditación objetiva. Excluir contribuciones reductoras y atrasos de otros ejercicios. MANUALES requiere 100 jornales diarios, no multiplicar otra vez un total anual.",
+    "razonPropia": "83.2 distingue previsión, especie sin ingreso y jornal diario. 87.43 por 100 son 8743, no una anualización salarial universal.",
+    "contratoViable": "Exigir previsión contractual, variables y calificación por pagador; excluir atrasos interanuales.",
+    "evidenciaPDF": [
+      "2012-febrero:p21",
+      "2012-febrero:p38",
+      "2012-febrero:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de remuneracion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:irregularidad",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "IRREGULAR1 e IRREGULAR2 son reducciones ya calificadas; techo técnico IRREGULAR1=120000, no base irregular=120000. Art.18.2 histórico 40% y límite base300000 requieren además generación y transitorios; Ley16/2012 altera indemnizaciones elevadas desde2013. Ley39/2010art66 establece300000 de base anual desde2011. La nueva limitación de extinciones700000/1000000 no se aplica a extinciones anteriores a01/01/2013 por DT25, aunque se cobren después; no basta año del pago.",
+    "razonPropia": "120000 representa reducción y no ingreso; 300000 por 40% lo explica. DT25 mira extinción, no cobro.",
+    "contratoViable": "Recibir importes previamente calificados, fecha de extinción y agregación de grupo; no evaluar opciones ni generación con solo un importe.",
+    "evidenciaPDF": [
+      "2012-febrero:p5",
+      "2012-febrero:p21",
+      "2012-febrero:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p67",
+      "e7b629a20bde:p68"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de irregularidad.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:gastos",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Restar exclusivamente cotizaciones SS, mutualidades obligatorias, derechos pasivos y colegios de huérfanos del art19.2 a/b/c vía art83.3.b. No cuotas sindicales/colegiación/defensa ni gasto general2000. RNT=max(0,RETRIB-IRREGULAR1-IRREGULAR2-GASTOS).",
+    "razonPropia": "83.3.b remite a19.2 a/b/c. La lista histórica no contiene gasto general2000.",
+    "contratoViable": "No aplicar sindicato, colegio profesional ni defensa como gasto del retenedor; conservar diferencia frente liquidación anual.",
+    "evidenciaPDF": [
+      "2012-febrero:p21",
+      "2012-febrero:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "ff21371b04e3:p16",
+      "ff21371b04e3:p17"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de gastos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:reduccion-trabajo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RED20=4080 hasta9180; 4080-.35*(RNT-9180) hasta13260;2652 después. REDONDEAR1 al final. PROLONLAB y MOVILGEO añaden cada uno RED20 si hechos habilitantes; DISTRA activo3264/7242. Suelo0 tras conjunto.",
+    "razonPropia": "Ley39/2010arts60-61 aporta vigencia indefinida; 83.3.c limita el cómputo a RNT de a/b. Movilidad y prolongación requieren hechos adicionales.",
+    "contratoViable": "Actividad efectiva, inscripción y traslado acreditados; no inferir por edad/discapacidad un derecho.",
+    "evidenciaPDF": [
+      "2012-febrero:p21",
+      "2012-febrero:p22"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p60",
+      "e7b629a20bde:p61"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de reduccion-trabajo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:reducciones-personales",
+    "dictamen": "needs-evidence",
+    "afirmacionExaminada": "PENSION600 para SS/Clases Pasivas; HIJOS600 si más de2 elegibles; DESEM1200 para prestación/subsidio. CONYUGE es compensatoria judicial separada. La suma informática de los dos600 es inequívoca; art83.3.d une las condiciones con o y declara compatibilidad después de desempleo.",
+    "razonPropia": "La suma PDF de dos600 existe. La disyunción de83.3.d y compatibilidad posterior no resuelven inequívocamente duplicar600 dentro del primer párrafo.",
+    "contratoViable": "Solo excluir pensión SS/ClasesPasivas con más de dos descendientes elegibles del resultado único; conservar escenarios individuales.",
+    "evidenciaPDF": [
+      "2012-febrero:p22",
+      "2012-febrero:p28"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de reducciones-personales.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:minimos",
+    "dictamen": "confirmado-parcial-refutacion-C01",
+    "afirmacionExaminada": "MINPER5151;65+918;75+1122. Descendientes1836/2040/3672/4182;incremento<3/adopción2244. Ascendientes918+1122 mayores75. Discapacidad2316/7038 y asistencia2316. Mitad descendientes salvo derecho exclusivo; ascendiente por titulares con derecho, no cualquier conviviente. P23 usa ejercicio-AÑOPER>64 y>74; no convertir sus epígrafes en edad entera>65/>75.",
+    "razonPropia": "Cuantías y reparto se sostienen; son falsos los claims visuales <64 y >25 enero. Persisten j/i y prefijos por categoría incompatibles con orden natal.",
+    "contratoViable": "Aplicar por sujetos elegibles y fechas calificadas; no ejecutar literalmente auxiliares defectuosos ni convertir etiquetas de tablas en topes legales.",
+    "evidenciaPDF": [
+      "2012-febrero:p9",
+      "2012-febrero:p10",
+      "2012-febrero:p11",
+      "2012-febrero:p12",
+      "2012-febrero:p13",
+      "2012-febrero:p14",
+      "2012-febrero:p15",
+      "2012-febrero:p16",
+      "2012-febrero:p17",
+      "2012-febrero:p18",
+      "2012-febrero:p19",
+      "2012-febrero:p20",
+      "2012-febrero:p23",
+      "2012-febrero:p24",
+      "2012-febrero:p25",
+      "2012-febrero:p26",
+      "2012-febrero:p27"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p61",
+      "e7b629a20bde:p62",
+      "e7b629a20bde:p63",
+      "4850dbc8a508:p3",
+      "4850dbc8a508:p4"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de minimos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:escala",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Cuota fija publicada más exceso marginal. Enero6 filas24/28/37/43/44/45; demás7 filas24.75/30/40/47/49/51/52. Conservar120000.20,175000.20,300000.20. Anualidades judiciales0<A<BASE separan escalas A y BASE-A y aumentan mínimo1600; demás casos sin separación.",
+    "razonPropia": "Cuotas fijas y límites publicados se conservan; complemento se aplica también al mínimo y anualidades+1600. Sumar tipos sin cuotas fijas pierde céntimos.",
+    "contratoViable": "Escala identificada temporalmente; para anualidades exigir resolución y 0<A<BASE. Mismo hijo con mínimo queda fuera del candidato.",
+    "evidenciaPDF": [
+      "2012-febrero:p29",
+      "2012-febrero:p30"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "89eaeb5898f7:p54"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de escala.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:exclusion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Ocho celdas: situación1 sin hijos inválida;1/2+hijos13662/15617; situación2 13335/14774/16952; situación3 11162/11888/12519. Igualdad excluye. Incremento600 pensiones y1200 desempleo; HIJOS no incrementa tabla. No excluye mínimos contractuales art81.3.",
+    "razonPropia": "RD2004/2009 aporta las ocho celdas; incremento por pensión/desempleo, sin HIJOS. Igualdad excluye salvo mínimos86.2.",
+    "contratoViable": "No usar tabla original2007 niRD861 como tabla vigente2012; calificar situación1 y sujetos antes de contar.",
+    "evidenciaPDF": [
+      "2012-febrero:p28",
+      "2012-febrero:p29",
+      "2012-febrero:p33"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3",
+      "0f6003cfa63f:p38"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de exclusion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:limite43",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Solo RETRIB<=22000: límite cuota=DEDUCCION+.43*max(0,RETRIB-exclusión aplicable). Comparar antes del tipo previo. No se aplica a22000.01.",
+    "razonPropia": "RD2004/2009 sustituye85.3: deducción más43% de diferencia positiva; 22000 incluido. La vieja redacción no basta.",
+    "contratoViable": "Recalcular deducción con base de retención; no confundir este límite de cuota con tipo máximo de regularización.",
+    "evidenciaPDF": [
+      "2012-febrero:p31"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de limite43.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:deduccion80bis",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "DEDUCCION400 si BASE<=8000;400-.1*(BASE-8000) hasta12000;cero después. Art85bis usa base de retención; no saldo otras rentas anual. Resta tras importe previo y participa en límite43.",
+    "razonPropia": "Ley26/2009art70 yRD2004/2009 separan base imponible anual de base del retenedor. A12000 la expresión da0.",
+    "contratoViable": "No trasladar otras rentas del contribuyente al testBASE ni restar dos veces la deducción.",
+    "evidenciaPDF": [
+      "2012-febrero:p30",
+      "2012-febrero:p32"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3",
+      "0abb5d0eda31:p4",
+      "2f13846fcff2:p1",
+      "06d27074a371:art70"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de deduccion80bis.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:tipo-minimo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Mínimos especial15 e inferior año2; Ceuta/Melilla8 y1. No derivar8 redondeando15/2 ni usar6/.8 modernos. Excepción del15/8 a penados e instituciones penitenciarias y relaciones especiales de discapacitados: calificar relación antes de CONTRATO.",
+    "razonPropia": "PDF separa15/2 y8/1; excepción penitenciaria/discapacidad exige relación especial cualificada.",
+    "contratoViable": "No dividir automáticamente15 entre2 ni aplicar mínimo a una relación especial excluida por86.2.",
+    "evidenciaPDF": [
+      "2012-febrero:p33",
+      "2012-febrero:p35",
+      "2012-febrero:p36",
+      "2012-febrero:p37"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p40",
+      "0b3ef15bdae6:p2"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de tipo-minimo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:tipo-maximo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Topes regularización enero45/23; resto52/26. Tope reducido requiere derecho y totalidad histórica; no imponer al cálculo inicial indiscriminadamente.",
+    "razonPropia": "RD1788/2010 yDA35 sustentan45/23 y52/26; Ley22/2013art64 extiende2014.",
+    "contratoViable": "Solo regularización; reducido únicamente si totalidad rendimientos cualificados, no mera residencia actual.",
+    "evidenciaPDF": [
+      "2012-febrero:p35",
+      "2012-febrero:p36"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p5",
+      "89eaeb5898f7:p54"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de tipo-maximo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:redondeos",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Máxima precisión salvo REDONDEAR1 al céntimo mitad arriba, TRUNCAR dos decimales y REDONDEAR2 entero mitad arriba. Tipo previo: truncar, entero. Territorial: mitad del previo con2decimales, truncar y entero; no mitad del entero ya redondeado. Tipo final truncado; importe final céntimo.",
+    "razonPropia": "PDF usa precisión interna, céntimo mitad arriba, truncado y entero previo; CM parte del previo con decimales antes del entero.",
+    "contratoViable": "No redondear cada producto marginal ni mitad del entero previo; separar política documental de cualquier implementación futura.",
+    "evidenciaPDF": [
+      "2012-febrero:p9",
+      "2012-febrero:p21",
+      "2012-febrero:p31",
+      "2012-febrero:p32",
+      "2012-febrero:p33",
+      "2012-febrero:p35",
+      "2012-febrero:p36",
+      "2012-febrero:p37"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "0b3ef15bdae6:p2"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de redondeos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:regularizacion",
+    "dictamen": "confirmado-parcial-C02",
+    "afirmacionExaminada": "Nuevo importe previo con circunstancias actuales menos retenido,deducción y minoración pertinente; dividir por RETRIB-PERCIBIDO. Suelo0,truncar,topes,mínimos,importe; después87.5 cuando procede y reaplicar mínimos. Véase ramas-44.json y concurrencias.json.",
+    "razonPropia": "Cociente y orden documentales se sostienen. Falta alternativa judicial de87.5 independiente del signo; figura ya enRD1788/2010p4.",
+    "contratoViable": "Añadir guardia de alimentos85.2 o excluir expresamente ese evento; no habilitar el procedimiento con el contrato actual.",
+    "evidenciaPDF": [
+      "2012-febrero:p4",
+      "2012-febrero:p5",
+      "2012-febrero:p6",
+      "2012-febrero:p7",
+      "2012-febrero:p8",
+      "2012-febrero:p34",
+      "2012-febrero:p35",
+      "2012-febrero:p36",
+      "2012-febrero:p37"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p40",
+      "0f6003cfa63f:p41",
+      "0abb5d0eda31:p4",
+      "0abb5d0eda31:p5",
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "89eaeb5898f7:p54"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de regularizacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:comunicacion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Datos al pagador antes de año/inicio con circunstancias previsibles. Menor retención desde comunicación con al menos5 días para nómina; mayor: comunicar10 días y aplicar primera nómina con5 días. No hay obligación de reiterar sin cambios; conservar comunicación firmada.",
+    "razonPropia": "87.4/88 distinguen hecho, comunicación, cinco días, diez días y opción trimestral del pagador.",
+    "contratoViable": "Conservar comunicación firmada y recibo. En2014 no exigir testimonio adjunto derogado; resolución judicial sigue necesaria.",
+    "evidenciaPDF": [
+      "2012-febrero:p4",
+      "2012-febrero:p5",
+      "2012-febrero:p6",
+      "2012-febrero:p7",
+      "2012-febrero:p8",
+      "2012-febrero:p38",
+      "2012-febrero:p39",
+      "2012-febrero:p40"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p5",
+      "4850dbc8a508:p3",
+      "4850dbc8a508:p4",
+      "4850dbc8a508:p5",
+      "0f6003cfa63f:p41",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de comunicacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:multiples-pagadores",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Algoritmo general por pagador. Art89.A para pensionistas con varias prestaciones exige solicitud/actuación administrativa y condiciones; no sumar pagadores como si fuera procedimiento general. Vivienda sí requiere suma de rendimientos de todos pagadores.",
+    "razonPropia": "89.A es actuación administrativa distinta del procedimiento por pagador; vivienda agrega según simultáneos/sucesivos.",
+    "contratoViable": "Excluir89.A del cálculo numérico general y no usar suma de pagadores como nómina única.",
+    "evidenciaPDF": [
+      "2012-febrero:p38",
+      "2012-febrero:p39",
+      "2012-febrero:p40"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "bc36ac7820d4:p5",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de multiples-pagadores.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:vivienda",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Enero: régimen general adquirido/rehabilitado desde2011 con total<22000; previo2011<33007.20. Febrero umbral único estricto33007.20 y comunicación145. Desde2013 solo derecho DT18 LIRPF; no adquisición nueva genérica. Minoración2 puntos con suelo0 y mínimos posteriores.",
+    "razonPropia": "DA23 y145 distinguen enero, febrero y nuevaDT18 desde2013; el númeroDT18 tiene dos historias distintas.",
+    "contratoViable": "Derecho transitorio calificado, financiación, comunicación y agregado estricto. No basta escritura ni pagador actual.",
+    "evidenciaPDF": [
+      "2012-febrero:p5",
+      "2012-febrero:p32",
+      "2012-febrero:p35",
+      "2012-febrero:p39",
+      "2012-febrero:p40"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "bc36ac7820d4:p7",
+      "4850dbc8a508:p4",
+      "4850dbc8a508:p5",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de vivienda.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:ceuta-melilla",
+    "dictamen": "needs-evidence-parcial",
+    "afirmacionExaminada": "Mitad del tipo previo con2decimales y redondeo entero. Exigir residencia y rendimientos con derecho68.4. Mezclas de CAUSA7/8 ponderan percibido y pendiente. En febrero11 incluye variantes;2013 las tacha;2014 las omite.",
+    "razonPropia": "Mezclas7/8 visibles y marcas11 confirmadas; pérdida de residencia con hechos mixtos no recibe respuesta jurídica única por fórmula.",
+    "contratoViable": "Calificar68.4 y pasado/pendiente; excluir mezcla6 sin criterio adicional y11 histórico no admitido por versión.",
+    "evidenciaPDF": [
+      "2012-febrero:p32",
+      "2012-febrero:p33",
+      "2012-febrero:p34",
+      "2012-febrero:p35",
+      "2012-febrero:p36",
+      "2012-febrero:p37"
+    ],
+    "primarios": [
+      "0b3ef15bdae6:p2",
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "89eaeb5898f7:p54"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de ceuta-melilla.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:validaciones",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RETRIB>0; en regularización RETRIB>PERCIBIDO y PERCIBIDO>0. CONVIVENCIA1..9 del PDF con significado de titulares elegibles. Validar coherencia situación laboral/contrato, discapacidad/movilidad, vivienda y causas. Rechazar divisor0 es guarda expresamente documentada.",
+    "razonPropia": "Incidencia37 enero/35 resto excluye divisor no positivo; no demuestra solución jurídica del último pago. AND/OR de vivienda no son especificación inequívoca.",
+    "contratoViable": "Rechazo explícito del dominio inválido; no inventar devolución ni corregir silenciosamente conjunciones.",
+    "evidenciaPDF": [
+      "2012-febrero:p4",
+      "2012-febrero:p5",
+      "2012-febrero:p6",
+      "2012-febrero:p7",
+      "2012-febrero:p8",
+      "2012-febrero:p38",
+      "2012-febrero:p39",
+      "2012-febrero:p40"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "0abb5d0eda31:p5"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de validaciones.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2012-febrero:fecha-aplicacion",
+    "dictamen": "needs-evidence-parcial",
+    "afirmacionExaminada": "Selección requiere ejercicio,fecha pago,período correspondencia y hechos. Enero pagado en enero y correspondiente a enero conserva norma31/12/2011. Desde febrero y no correspondiente enero aplica complemento y vivienda nueva. No atribuir automáticamente versión al pago tardío correspondiente enero.2014 prórroga art64 desde1enero.",
+    "razonPropia": "DA35.3 yDA23.2 contienen pago y correspondencia simultáneamente; el resto del selector no está decidido por esas dos frases.",
+    "contratoViable": "Excluir residual2012, separar conceptos con distinta correspondencia y no inferir por fecha bancaria.",
+    "evidenciaPDF": [
+      "2012-febrero:p1",
+      "2012-febrero:p2",
+      "2012-febrero:p3",
+      "2012-febrero:p29",
+      "2012-febrero:p35",
+      "2012-febrero:p36"
+    ],
+    "primarios": [
+      "89eaeb5898f7:p54",
+      "89eaeb5898f7:p56",
+      "c81b15469077:p3",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4"
+    ],
+    "version": "2012-febrero",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de fecha-aplicacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:remuneracion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RETRIB es previsión anual por pagador, dinero y especie sin ingreso a cuenta; incluye variables previsibles al menos las previas salvo acreditación objetiva. Excluir contribuciones reductoras y atrasos de otros ejercicios. MANUALES requiere 100 jornales diarios, no multiplicar otra vez un total anual.",
+    "razonPropia": "83.2 distingue previsión, especie sin ingreso y jornal diario. 87.43 por 100 son 8743, no una anualización salarial universal.",
+    "contratoViable": "Exigir previsión contractual, variables y calificación por pagador; excluir atrasos interanuales.",
+    "evidenciaPDF": [
+      "2013-anual:p21",
+      "2013-anual:p38",
+      "2013-anual:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de remuneracion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:irregularidad",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "IRREGULAR1 e IRREGULAR2 son reducciones ya calificadas; techo técnico IRREGULAR1=120000, no base irregular=120000. Art.18.2 histórico 40% y límite base300000 requieren además generación y transitorios; Ley16/2012 altera indemnizaciones elevadas desde2013. Ley39/2010art66 establece300000 de base anual desde2011. La nueva limitación de extinciones700000/1000000 no se aplica a extinciones anteriores a01/01/2013 por DT25, aunque se cobren después; no basta año del pago.",
+    "razonPropia": "120000 representa reducción y no ingreso; 300000 por 40% lo explica. DT25 mira extinción, no cobro.",
+    "contratoViable": "Recibir importes previamente calificados, fecha de extinción y agregación de grupo; no evaluar opciones ni generación con solo un importe.",
+    "evidenciaPDF": [
+      "2013-anual:p5",
+      "2013-anual:p21",
+      "2013-anual:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p67",
+      "e7b629a20bde:p68",
+      "df00632182a9:p57",
+      "df00632182a9:p58"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de irregularidad.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:gastos",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Restar exclusivamente cotizaciones SS, mutualidades obligatorias, derechos pasivos y colegios de huérfanos del art19.2 a/b/c vía art83.3.b. No cuotas sindicales/colegiación/defensa ni gasto general2000. RNT=max(0,RETRIB-IRREGULAR1-IRREGULAR2-GASTOS).",
+    "razonPropia": "83.3.b remite a19.2 a/b/c. La lista histórica no contiene gasto general2000.",
+    "contratoViable": "No aplicar sindicato, colegio profesional ni defensa como gasto del retenedor; conservar diferencia frente liquidación anual.",
+    "evidenciaPDF": [
+      "2013-anual:p21",
+      "2013-anual:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "ff21371b04e3:p16",
+      "ff21371b04e3:p17"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de gastos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:reduccion-trabajo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RED20=4080 hasta9180; 4080-.35*(RNT-9180) hasta13260;2652 después. REDONDEAR1 al final. PROLONLAB y MOVILGEO añaden cada uno RED20 si hechos habilitantes; DISTRA activo3264/7242. Suelo0 tras conjunto.",
+    "razonPropia": "Ley39/2010arts60-61 aporta vigencia indefinida; 83.3.c limita el cómputo a RNT de a/b. Movilidad y prolongación requieren hechos adicionales.",
+    "contratoViable": "Actividad efectiva, inscripción y traslado acreditados; no inferir por edad/discapacidad un derecho.",
+    "evidenciaPDF": [
+      "2013-anual:p21",
+      "2013-anual:p22"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p60",
+      "e7b629a20bde:p61"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de reduccion-trabajo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:reducciones-personales",
+    "dictamen": "needs-evidence",
+    "afirmacionExaminada": "PENSION600 para SS/Clases Pasivas; HIJOS600 si más de2 elegibles; DESEM1200 para prestación/subsidio. CONYUGE es compensatoria judicial separada. La suma informática de los dos600 es inequívoca; art83.3.d une las condiciones con o y declara compatibilidad después de desempleo.",
+    "razonPropia": "La suma PDF de dos600 existe. La disyunción de83.3.d y compatibilidad posterior no resuelven inequívocamente duplicar600 dentro del primer párrafo.",
+    "contratoViable": "Solo excluir pensión SS/ClasesPasivas con más de dos descendientes elegibles del resultado único; conservar escenarios individuales.",
+    "evidenciaPDF": [
+      "2013-anual:p22",
+      "2013-anual:p28"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de reducciones-personales.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:minimos",
+    "dictamen": "confirmado-parcial-refutacion-C01",
+    "afirmacionExaminada": "MINPER5151;65+918;75+1122. Descendientes1836/2040/3672/4182;incremento<3/adopción2244. Ascendientes918+1122 mayores75. Discapacidad2316/7038 y asistencia2316. Mitad descendientes salvo derecho exclusivo; ascendiente por titulares con derecho, no cualquier conviviente. P23 usa ejercicio-AÑOPER>64 y>74; no convertir sus epígrafes en edad entera>65/>75.",
+    "razonPropia": "Cuantías y reparto se sostienen; son falsos los claims visuales <64 y >25 enero. Persisten j/i y prefijos por categoría incompatibles con orden natal.",
+    "contratoViable": "Aplicar por sujetos elegibles y fechas calificadas; no ejecutar literalmente auxiliares defectuosos ni convertir etiquetas de tablas en topes legales.",
+    "evidenciaPDF": [
+      "2013-anual:p9",
+      "2013-anual:p10",
+      "2013-anual:p11",
+      "2013-anual:p12",
+      "2013-anual:p13",
+      "2013-anual:p14",
+      "2013-anual:p15",
+      "2013-anual:p16",
+      "2013-anual:p17",
+      "2013-anual:p18",
+      "2013-anual:p19",
+      "2013-anual:p20",
+      "2013-anual:p23",
+      "2013-anual:p24",
+      "2013-anual:p25",
+      "2013-anual:p26",
+      "2013-anual:p27"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p61",
+      "e7b629a20bde:p62",
+      "e7b629a20bde:p63",
+      "4850dbc8a508:p3",
+      "4850dbc8a508:p4"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de minimos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:escala",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Cuota fija publicada más exceso marginal. Enero6 filas24/28/37/43/44/45; demás7 filas24.75/30/40/47/49/51/52. Conservar120000.20,175000.20,300000.20. Anualidades judiciales0<A<BASE separan escalas A y BASE-A y aumentan mínimo1600; demás casos sin separación.",
+    "razonPropia": "Cuotas fijas y límites publicados se conservan; complemento se aplica también al mínimo y anualidades+1600. Sumar tipos sin cuotas fijas pierde céntimos.",
+    "contratoViable": "Escala identificada temporalmente; para anualidades exigir resolución y 0<A<BASE. Mismo hijo con mínimo queda fuera del candidato.",
+    "evidenciaPDF": [
+      "2013-anual:p29",
+      "2013-anual:p30"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "89eaeb5898f7:p54"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de escala.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:exclusion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Ocho celdas: situación1 sin hijos inválida;1/2+hijos13662/15617; situación2 13335/14774/16952; situación3 11162/11888/12519. Igualdad excluye. Incremento600 pensiones y1200 desempleo; HIJOS no incrementa tabla. No excluye mínimos contractuales art81.3.",
+    "razonPropia": "RD2004/2009 aporta las ocho celdas; incremento por pensión/desempleo, sin HIJOS. Igualdad excluye salvo mínimos86.2.",
+    "contratoViable": "No usar tabla original2007 niRD861 como tabla vigente2012; calificar situación1 y sujetos antes de contar.",
+    "evidenciaPDF": [
+      "2013-anual:p28",
+      "2013-anual:p29",
+      "2013-anual:p33"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3",
+      "0f6003cfa63f:p38"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de exclusion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:limite43",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Solo RETRIB<=22000: límite cuota=DEDUCCION+.43*max(0,RETRIB-exclusión aplicable). Comparar antes del tipo previo. No se aplica a22000.01.",
+    "razonPropia": "RD2004/2009 sustituye85.3: deducción más43% de diferencia positiva; 22000 incluido. La vieja redacción no basta.",
+    "contratoViable": "Recalcular deducción con base de retención; no confundir este límite de cuota con tipo máximo de regularización.",
+    "evidenciaPDF": [
+      "2013-anual:p31"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de limite43.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:deduccion80bis",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "DEDUCCION400 si BASE<=8000;400-.1*(BASE-8000) hasta12000;cero después. Art85bis usa base de retención; no saldo otras rentas anual. Resta tras importe previo y participa en límite43.",
+    "razonPropia": "Ley26/2009art70 yRD2004/2009 separan base imponible anual de base del retenedor. A12000 la expresión da0.",
+    "contratoViable": "No trasladar otras rentas del contribuyente al testBASE ni restar dos veces la deducción.",
+    "evidenciaPDF": [
+      "2013-anual:p30",
+      "2013-anual:p32"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3",
+      "0abb5d0eda31:p4",
+      "2f13846fcff2:p1",
+      "06d27074a371:art70"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de deduccion80bis.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:tipo-minimo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Mínimos especial15 e inferior año2; Ceuta/Melilla8 y1. No derivar8 redondeando15/2 ni usar6/.8 modernos. Excepción del15/8 a penados e instituciones penitenciarias y relaciones especiales de discapacitados: calificar relación antes de CONTRATO.",
+    "razonPropia": "PDF separa15/2 y8/1; excepción penitenciaria/discapacidad exige relación especial cualificada.",
+    "contratoViable": "No dividir automáticamente15 entre2 ni aplicar mínimo a una relación especial excluida por86.2.",
+    "evidenciaPDF": [
+      "2013-anual:p33",
+      "2013-anual:p35",
+      "2013-anual:p36",
+      "2013-anual:p37"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p40",
+      "0b3ef15bdae6:p2"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de tipo-minimo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:tipo-maximo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Topes regularización enero45/23; resto52/26. Tope reducido requiere derecho y totalidad histórica; no imponer al cálculo inicial indiscriminadamente.",
+    "razonPropia": "RD1788/2010 yDA35 sustentan45/23 y52/26; Ley22/2013art64 extiende2014.",
+    "contratoViable": "Solo regularización; reducido únicamente si totalidad rendimientos cualificados, no mera residencia actual.",
+    "evidenciaPDF": [
+      "2013-anual:p35",
+      "2013-anual:p36"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p5",
+      "89eaeb5898f7:p54"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de tipo-maximo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:redondeos",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Máxima precisión salvo REDONDEAR1 al céntimo mitad arriba, TRUNCAR dos decimales y REDONDEAR2 entero mitad arriba. Tipo previo: truncar, entero. Territorial: mitad del previo con2decimales, truncar y entero; no mitad del entero ya redondeado. Tipo final truncado; importe final céntimo.",
+    "razonPropia": "PDF usa precisión interna, céntimo mitad arriba, truncado y entero previo; CM parte del previo con decimales antes del entero.",
+    "contratoViable": "No redondear cada producto marginal ni mitad del entero previo; separar política documental de cualquier implementación futura.",
+    "evidenciaPDF": [
+      "2013-anual:p9",
+      "2013-anual:p21",
+      "2013-anual:p31",
+      "2013-anual:p32",
+      "2013-anual:p33",
+      "2013-anual:p35",
+      "2013-anual:p36",
+      "2013-anual:p37"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "0b3ef15bdae6:p2"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de redondeos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:regularizacion",
+    "dictamen": "confirmado-parcial-C02",
+    "afirmacionExaminada": "Nuevo importe previo con circunstancias actuales menos retenido,deducción y minoración pertinente; dividir por RETRIB-PERCIBIDO. Suelo0,truncar,topes,mínimos,importe; después87.5 cuando procede y reaplicar mínimos. Véase ramas-44.json y concurrencias.json.",
+    "razonPropia": "Cociente y orden documentales se sostienen. Falta alternativa judicial de87.5 independiente del signo; figura ya enRD1788/2010p4.",
+    "contratoViable": "Añadir guardia de alimentos85.2 o excluir expresamente ese evento; no habilitar el procedimiento con el contrato actual.",
+    "evidenciaPDF": [
+      "2013-anual:p4",
+      "2013-anual:p5",
+      "2013-anual:p6",
+      "2013-anual:p7",
+      "2013-anual:p8",
+      "2013-anual:p34",
+      "2013-anual:p35",
+      "2013-anual:p36",
+      "2013-anual:p37"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p40",
+      "0f6003cfa63f:p41",
+      "0abb5d0eda31:p4",
+      "0abb5d0eda31:p5",
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "89eaeb5898f7:p54"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de regularizacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:comunicacion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Datos al pagador antes de año/inicio con circunstancias previsibles. Menor retención desde comunicación con al menos5 días para nómina; mayor: comunicar10 días y aplicar primera nómina con5 días. No hay obligación de reiterar sin cambios; conservar comunicación firmada.",
+    "razonPropia": "87.4/88 distinguen hecho, comunicación, cinco días, diez días y opción trimestral del pagador.",
+    "contratoViable": "Conservar comunicación firmada y recibo. En2014 no exigir testimonio adjunto derogado; resolución judicial sigue necesaria.",
+    "evidenciaPDF": [
+      "2013-anual:p4",
+      "2013-anual:p5",
+      "2013-anual:p6",
+      "2013-anual:p7",
+      "2013-anual:p8",
+      "2013-anual:p38",
+      "2013-anual:p39",
+      "2013-anual:p40"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p5",
+      "4850dbc8a508:p3",
+      "4850dbc8a508:p4",
+      "4850dbc8a508:p5",
+      "0f6003cfa63f:p41",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4",
+      "df00632182a9:p7",
+      "df00632182a9:p8",
+      "8357df623a45:p11",
+      "8357df623a45:p15",
+      "8357df623a45:p16",
+      "8357df623a45:p17"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de comunicacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:multiples-pagadores",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Algoritmo general por pagador. Art89.A para pensionistas con varias prestaciones exige solicitud/actuación administrativa y condiciones; no sumar pagadores como si fuera procedimiento general. Vivienda sí requiere suma de rendimientos de todos pagadores.",
+    "razonPropia": "89.A es actuación administrativa distinta del procedimiento por pagador; vivienda agrega según simultáneos/sucesivos.",
+    "contratoViable": "Excluir89.A del cálculo numérico general y no usar suma de pagadores como nómina única.",
+    "evidenciaPDF": [
+      "2013-anual:p38",
+      "2013-anual:p39",
+      "2013-anual:p40"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "bc36ac7820d4:p5",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4",
+      "df00632182a9:p7",
+      "df00632182a9:p8",
+      "8357df623a45:p11",
+      "8357df623a45:p15",
+      "8357df623a45:p16",
+      "8357df623a45:p17"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de multiples-pagadores.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:vivienda",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Enero: régimen general adquirido/rehabilitado desde2011 con total<22000; previo2011<33007.20. Febrero umbral único estricto33007.20 y comunicación145. Desde2013 solo derecho DT18 LIRPF; no adquisición nueva genérica. Minoración2 puntos con suelo0 y mínimos posteriores.",
+    "razonPropia": "DA23 y145 distinguen enero, febrero y nuevaDT18 desde2013; el númeroDT18 tiene dos historias distintas.",
+    "contratoViable": "Derecho transitorio calificado, financiación, comunicación y agregado estricto. No basta escritura ni pagador actual.",
+    "evidenciaPDF": [
+      "2013-anual:p5",
+      "2013-anual:p32",
+      "2013-anual:p35",
+      "2013-anual:p39",
+      "2013-anual:p40"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "bc36ac7820d4:p7",
+      "4850dbc8a508:p4",
+      "4850dbc8a508:p5",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4",
+      "df00632182a9:p7",
+      "df00632182a9:p8",
+      "8357df623a45:p11",
+      "8357df623a45:p15",
+      "8357df623a45:p16",
+      "8357df623a45:p17"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de vivienda.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:ceuta-melilla",
+    "dictamen": "needs-evidence-parcial",
+    "afirmacionExaminada": "Mitad del tipo previo con2decimales y redondeo entero. Exigir residencia y rendimientos con derecho68.4. Mezclas de CAUSA7/8 ponderan percibido y pendiente. En febrero11 incluye variantes;2013 las tacha;2014 las omite.",
+    "razonPropia": "Mezclas7/8 visibles y marcas11 confirmadas; pérdida de residencia con hechos mixtos no recibe respuesta jurídica única por fórmula.",
+    "contratoViable": "Calificar68.4 y pasado/pendiente; excluir mezcla6 sin criterio adicional y11 histórico no admitido por versión.",
+    "evidenciaPDF": [
+      "2013-anual:p32",
+      "2013-anual:p33",
+      "2013-anual:p34",
+      "2013-anual:p35",
+      "2013-anual:p36",
+      "2013-anual:p37"
+    ],
+    "primarios": [
+      "0b3ef15bdae6:p2",
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "89eaeb5898f7:p54"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de ceuta-melilla.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:validaciones",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RETRIB>0; en regularización RETRIB>PERCIBIDO y PERCIBIDO>0. CONVIVENCIA1..9 del PDF con significado de titulares elegibles. Validar coherencia situación laboral/contrato, discapacidad/movilidad, vivienda y causas. Rechazar divisor0 es guarda expresamente documentada.",
+    "razonPropia": "Incidencia37 enero/35 resto excluye divisor no positivo; no demuestra solución jurídica del último pago. AND/OR de vivienda no son especificación inequívoca.",
+    "contratoViable": "Rechazo explícito del dominio inválido; no inventar devolución ni corregir silenciosamente conjunciones.",
+    "evidenciaPDF": [
+      "2013-anual:p4",
+      "2013-anual:p5",
+      "2013-anual:p6",
+      "2013-anual:p7",
+      "2013-anual:p8",
+      "2013-anual:p38",
+      "2013-anual:p39",
+      "2013-anual:p40"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "0abb5d0eda31:p5"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de validaciones.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2013-anual:fecha-aplicacion",
+    "dictamen": "needs-evidence-parcial",
+    "afirmacionExaminada": "Selección requiere ejercicio,fecha pago,período correspondencia y hechos. Enero pagado en enero y correspondiente a enero conserva norma31/12/2011. Desde febrero y no correspondiente enero aplica complemento y vivienda nueva. No atribuir automáticamente versión al pago tardío correspondiente enero.2014 prórroga art64 desde1enero.",
+    "razonPropia": "DA35.3 yDA23.2 contienen pago y correspondencia simultáneamente; el resto del selector no está decidido por esas dos frases.",
+    "contratoViable": "Excluir residual2012, separar conceptos con distinta correspondencia y no inferir por fecha bancaria.",
+    "evidenciaPDF": [
+      "2013-anual:p1",
+      "2013-anual:p2",
+      "2013-anual:p3",
+      "2013-anual:p29",
+      "2013-anual:p35",
+      "2013-anual:p36"
+    ],
+    "primarios": [
+      "89eaeb5898f7:p54",
+      "89eaeb5898f7:p56",
+      "c81b15469077:p3",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4",
+      "df00632182a9:p7",
+      "df00632182a9:p8",
+      "8357df623a45:p11",
+      "8357df623a45:p15",
+      "8357df623a45:p16",
+      "8357df623a45:p17"
+    ],
+    "version": "2013-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de fecha-aplicacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:remuneracion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RETRIB es previsión anual por pagador, dinero y especie sin ingreso a cuenta; incluye variables previsibles al menos las previas salvo acreditación objetiva. Excluir contribuciones reductoras y atrasos de otros ejercicios. MANUALES requiere 100 jornales diarios, no multiplicar otra vez un total anual.",
+    "razonPropia": "83.2 distingue previsión, especie sin ingreso y jornal diario. 87.43 por 100 son 8743, no una anualización salarial universal.",
+    "contratoViable": "Exigir previsión contractual, variables y calificación por pagador; excluir atrasos interanuales.",
+    "evidenciaPDF": [
+      "2014-anual:p21",
+      "2014-anual:p38",
+      "2014-anual:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de remuneracion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:irregularidad",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "IRREGULAR1 e IRREGULAR2 son reducciones ya calificadas; techo técnico IRREGULAR1=120000, no base irregular=120000. Art.18.2 histórico 40% y límite base300000 requieren además generación y transitorios; Ley16/2012 altera indemnizaciones elevadas desde2013. Ley39/2010art66 establece300000 de base anual desde2011. La nueva limitación de extinciones700000/1000000 no se aplica a extinciones anteriores a01/01/2013 por DT25, aunque se cobren después; no basta año del pago.",
+    "razonPropia": "120000 representa reducción y no ingreso; 300000 por 40% lo explica. DT25 mira extinción, no cobro.",
+    "contratoViable": "Recibir importes previamente calificados, fecha de extinción y agregación de grupo; no evaluar opciones ni generación con solo un importe.",
+    "evidenciaPDF": [
+      "2014-anual:p5",
+      "2014-anual:p21",
+      "2014-anual:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p67",
+      "e7b629a20bde:p68",
+      "df00632182a9:p57",
+      "df00632182a9:p58"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de irregularidad.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:gastos",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Restar exclusivamente cotizaciones SS, mutualidades obligatorias, derechos pasivos y colegios de huérfanos del art19.2 a/b/c vía art83.3.b. No cuotas sindicales/colegiación/defensa ni gasto general2000. RNT=max(0,RETRIB-IRREGULAR1-IRREGULAR2-GASTOS).",
+    "razonPropia": "83.3.b remite a19.2 a/b/c. La lista histórica no contiene gasto general2000.",
+    "contratoViable": "No aplicar sindicato, colegio profesional ni defensa como gasto del retenedor; conservar diferencia frente liquidación anual.",
+    "evidenciaPDF": [
+      "2014-anual:p21",
+      "2014-anual:p39"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "ff21371b04e3:p16",
+      "ff21371b04e3:p17"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de gastos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:reduccion-trabajo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RED20=4080 hasta9180; 4080-.35*(RNT-9180) hasta13260;2652 después. REDONDEAR1 al final. PROLONLAB y MOVILGEO añaden cada uno RED20 si hechos habilitantes; DISTRA activo3264/7242. Suelo0 tras conjunto.",
+    "razonPropia": "Ley39/2010arts60-61 aporta vigencia indefinida; 83.3.c limita el cómputo a RNT de a/b. Movilidad y prolongación requieren hechos adicionales.",
+    "contratoViable": "Actividad efectiva, inscripción y traslado acreditados; no inferir por edad/discapacidad un derecho.",
+    "evidenciaPDF": [
+      "2014-anual:p21",
+      "2014-anual:p22"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p60",
+      "e7b629a20bde:p61"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de reduccion-trabajo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:reducciones-personales",
+    "dictamen": "needs-evidence",
+    "afirmacionExaminada": "PENSION600 para SS/Clases Pasivas; HIJOS600 si más de2 elegibles; DESEM1200 para prestación/subsidio. CONYUGE es compensatoria judicial separada. La suma informática de los dos600 es inequívoca; art83.3.d une las condiciones con o y declara compatibilidad después de desempleo.",
+    "razonPropia": "La suma PDF de dos600 existe. La disyunción de83.3.d y compatibilidad posterior no resuelven inequívocamente duplicar600 dentro del primer párrafo.",
+    "contratoViable": "Solo excluir pensión SS/ClasesPasivas con más de dos descendientes elegibles del resultado único; conservar escenarios individuales.",
+    "evidenciaPDF": [
+      "2014-anual:p22",
+      "2014-anual:p28"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "8357df623a45:p18",
+      "8357df623a45:p19",
+      "f10ae435f91b:p2",
+      "f10ae435f91b:p3",
+      "f10ae435f91b:p4"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de reducciones-personales.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:minimos",
+    "dictamen": "confirmado-parcial-refutacion-C01",
+    "afirmacionExaminada": "MINPER5151;65+918;75+1122. Descendientes1836/2040/3672/4182;incremento<3/adopción2244. Ascendientes918+1122 mayores75. Discapacidad2316/7038 y asistencia2316. Mitad descendientes salvo derecho exclusivo; ascendiente por titulares con derecho, no cualquier conviviente. P23 usa ejercicio-AÑOPER>64 y>74; no convertir sus epígrafes en edad entera>65/>75.",
+    "razonPropia": "Cuantías y reparto se sostienen; son falsos los claims visuales <64 y >25 enero. Persisten j/i y prefijos por categoría incompatibles con orden natal.",
+    "contratoViable": "Aplicar por sujetos elegibles y fechas calificadas; no ejecutar literalmente auxiliares defectuosos ni convertir etiquetas de tablas en topes legales.",
+    "evidenciaPDF": [
+      "2014-anual:p9",
+      "2014-anual:p10",
+      "2014-anual:p11",
+      "2014-anual:p12",
+      "2014-anual:p13",
+      "2014-anual:p14",
+      "2014-anual:p15",
+      "2014-anual:p16",
+      "2014-anual:p17",
+      "2014-anual:p18",
+      "2014-anual:p19",
+      "2014-anual:p20",
+      "2014-anual:p23",
+      "2014-anual:p24",
+      "2014-anual:p25",
+      "2014-anual:p26",
+      "2014-anual:p27"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "e7b629a20bde:p61",
+      "e7b629a20bde:p62",
+      "e7b629a20bde:p63",
+      "4850dbc8a508:p3",
+      "4850dbc8a508:p4"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de minimos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:escala",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Cuota fija publicada más exceso marginal. Enero6 filas24/28/37/43/44/45; demás7 filas24.75/30/40/47/49/51/52. Conservar120000.20,175000.20,300000.20. Anualidades judiciales0<A<BASE separan escalas A y BASE-A y aumentan mínimo1600; demás casos sin separación.",
+    "razonPropia": "Cuotas fijas y límites publicados se conservan; complemento se aplica también al mínimo y anualidades+1600. Sumar tipos sin cuotas fijas pierde céntimos.",
+    "contratoViable": "Escala identificada temporalmente; para anualidades exigir resolución y 0<A<BASE. Mismo hijo con mínimo queda fuera del candidato.",
+    "evidenciaPDF": [
+      "2014-anual:p29",
+      "2014-anual:p30"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "75af079fc480:p75",
+      "75af079fc480:p76",
+      "75af079fc480:p77",
+      "21e3818c3b87:p1"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de escala.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:exclusion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Ocho celdas: situación1 sin hijos inválida;1/2+hijos13662/15617; situación2 13335/14774/16952; situación3 11162/11888/12519. Igualdad excluye. Incremento600 pensiones y1200 desempleo; HIJOS no incrementa tabla. No excluye mínimos contractuales art81.3.",
+    "razonPropia": "RD2004/2009 aporta las ocho celdas; incremento por pensión/desempleo, sin HIJOS. Igualdad excluye salvo mínimos86.2.",
+    "contratoViable": "No usar tabla original2007 niRD861 como tabla vigente2012; calificar situación1 y sujetos antes de contar.",
+    "evidenciaPDF": [
+      "2014-anual:p28",
+      "2014-anual:p29",
+      "2014-anual:p33"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3",
+      "0f6003cfa63f:p38"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de exclusion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:limite43",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Solo RETRIB<=22000: límite cuota=DEDUCCION+.43*max(0,RETRIB-exclusión aplicable). Comparar antes del tipo previo. No se aplica a22000.01.",
+    "razonPropia": "RD2004/2009 sustituye85.3: deducción más43% de diferencia positiva; 22000 incluido. La vieja redacción no basta.",
+    "contratoViable": "Recalcular deducción con base de retención; no confundir este límite de cuota con tipo máximo de regularización.",
+    "evidenciaPDF": [
+      "2014-anual:p31"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de limite43.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:deduccion80bis",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "DEDUCCION400 si BASE<=8000;400-.1*(BASE-8000) hasta12000;cero después. Art85bis usa base de retención; no saldo otras rentas anual. Resta tras importe previo y participa en límite43.",
+    "razonPropia": "Ley26/2009art70 yRD2004/2009 separan base imponible anual de base del retenedor. A12000 la expresión da0.",
+    "contratoViable": "No trasladar otras rentas del contribuyente al testBASE ni restar dos veces la deducción.",
+    "evidenciaPDF": [
+      "2014-anual:p30",
+      "2014-anual:p32"
+    ],
+    "primarios": [
+      "0abb5d0eda31:p3",
+      "0abb5d0eda31:p4",
+      "2f13846fcff2:p1",
+      "06d27074a371:art70"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de deduccion80bis.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:tipo-minimo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Mínimos especial15 e inferior año2; Ceuta/Melilla8 y1. No derivar8 redondeando15/2 ni usar6/.8 modernos. Excepción del15/8 a penados e instituciones penitenciarias y relaciones especiales de discapacitados: calificar relación antes de CONTRATO.",
+    "razonPropia": "PDF separa15/2 y8/1; excepción penitenciaria/discapacidad exige relación especial cualificada.",
+    "contratoViable": "No dividir automáticamente15 entre2 ni aplicar mínimo a una relación especial excluida por86.2.",
+    "evidenciaPDF": [
+      "2014-anual:p33",
+      "2014-anual:p35",
+      "2014-anual:p36",
+      "2014-anual:p37"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p40",
+      "0b3ef15bdae6:p2"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de tipo-minimo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:tipo-maximo",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Topes regularización enero45/23; resto52/26. Tope reducido requiere derecho y totalidad histórica; no imponer al cálculo inicial indiscriminadamente.",
+    "razonPropia": "RD1788/2010 yDA35 sustentan45/23 y52/26; Ley22/2013art64 extiende2014.",
+    "contratoViable": "Solo regularización; reducido únicamente si totalidad rendimientos cualificados, no mera residencia actual.",
+    "evidenciaPDF": [
+      "2014-anual:p35",
+      "2014-anual:p36"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p5",
+      "75af079fc480:p75",
+      "75af079fc480:p76",
+      "75af079fc480:p77",
+      "21e3818c3b87:p1"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de tipo-maximo.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:redondeos",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Máxima precisión salvo REDONDEAR1 al céntimo mitad arriba, TRUNCAR dos decimales y REDONDEAR2 entero mitad arriba. Tipo previo: truncar, entero. Territorial: mitad del previo con2decimales, truncar y entero; no mitad del entero ya redondeado. Tipo final truncado; importe final céntimo.",
+    "razonPropia": "PDF usa precisión interna, céntimo mitad arriba, truncado y entero previo; CM parte del previo con decimales antes del entero.",
+    "contratoViable": "No redondear cada producto marginal ni mitad del entero previo; separar política documental de cualquier implementación futura.",
+    "evidenciaPDF": [
+      "2014-anual:p9",
+      "2014-anual:p21",
+      "2014-anual:p31",
+      "2014-anual:p32",
+      "2014-anual:p33",
+      "2014-anual:p35",
+      "2014-anual:p36",
+      "2014-anual:p37"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "0b3ef15bdae6:p2"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de redondeos.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:regularizacion",
+    "dictamen": "confirmado-parcial-C02",
+    "afirmacionExaminada": "Nuevo importe previo con circunstancias actuales menos retenido,deducción y minoración pertinente; dividir por RETRIB-PERCIBIDO. Suelo0,truncar,topes,mínimos,importe; después87.5 cuando procede y reaplicar mínimos. Véase ramas-44.json y concurrencias.json.",
+    "razonPropia": "Cociente y orden documentales se sostienen. Falta alternativa judicial de87.5 independiente del signo; figura ya enRD1788/2010p4.",
+    "contratoViable": "Añadir guardia de alimentos85.2 o excluir expresamente ese evento; no habilitar el procedimiento con el contrato actual.",
+    "evidenciaPDF": [
+      "2014-anual:p4",
+      "2014-anual:p5",
+      "2014-anual:p6",
+      "2014-anual:p7",
+      "2014-anual:p8",
+      "2014-anual:p34",
+      "2014-anual:p35",
+      "2014-anual:p36",
+      "2014-anual:p37"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p40",
+      "0f6003cfa63f:p41",
+      "0abb5d0eda31:p4",
+      "0abb5d0eda31:p5",
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "75af079fc480:p75",
+      "75af079fc480:p76",
+      "75af079fc480:p77",
+      "21e3818c3b87:p1"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de regularizacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:comunicacion",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Datos al pagador antes de año/inicio con circunstancias previsibles. Menor retención desde comunicación con al menos5 días para nómina; mayor: comunicar10 días y aplicar primera nómina con5 días. No hay obligación de reiterar sin cambios; conservar comunicación firmada.",
+    "razonPropia": "87.4/88 distinguen hecho, comunicación, cinco días, diez días y opción trimestral del pagador.",
+    "contratoViable": "Conservar comunicación firmada y recibo. En2014 no exigir testimonio adjunto derogado; resolución judicial sigue necesaria.",
+    "evidenciaPDF": [
+      "2014-anual:p4",
+      "2014-anual:p5",
+      "2014-anual:p6",
+      "2014-anual:p7",
+      "2014-anual:p8",
+      "2014-anual:p38",
+      "2014-anual:p39",
+      "2014-anual:p40"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p5",
+      "4850dbc8a508:p3",
+      "4850dbc8a508:p4",
+      "4850dbc8a508:p5",
+      "0f6003cfa63f:p41",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4",
+      "df00632182a9:p7",
+      "df00632182a9:p8",
+      "8357df623a45:p11",
+      "8357df623a45:p15",
+      "8357df623a45:p16",
+      "8357df623a45:p17",
+      "8357df623a45:p18",
+      "8357df623a45:p19",
+      "f10ae435f91b:p2",
+      "f10ae435f91b:p3",
+      "f10ae435f91b:p4"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de comunicacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:multiples-pagadores",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Algoritmo general por pagador. Art89.A para pensionistas con varias prestaciones exige solicitud/actuación administrativa y condiciones; no sumar pagadores como si fuera procedimiento general. Vivienda sí requiere suma de rendimientos de todos pagadores.",
+    "razonPropia": "89.A es actuación administrativa distinta del procedimiento por pagador; vivienda agrega según simultáneos/sucesivos.",
+    "contratoViable": "Excluir89.A del cálculo numérico general y no usar suma de pagadores como nómina única.",
+    "evidenciaPDF": [
+      "2014-anual:p38",
+      "2014-anual:p39",
+      "2014-anual:p40"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "bc36ac7820d4:p5",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4",
+      "df00632182a9:p7",
+      "df00632182a9:p8",
+      "8357df623a45:p11",
+      "8357df623a45:p15",
+      "8357df623a45:p16",
+      "8357df623a45:p17"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de multiples-pagadores.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:vivienda",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "Enero: régimen general adquirido/rehabilitado desde2011 con total<22000; previo2011<33007.20. Febrero umbral único estricto33007.20 y comunicación145. Desde2013 solo derecho DT18 LIRPF; no adquisición nueva genérica. Minoración2 puntos con suelo0 y mínimos posteriores.",
+    "razonPropia": "DA23 y145 distinguen enero, febrero y nuevaDT18 desde2013; el númeroDT18 tiene dos historias distintas.",
+    "contratoViable": "Derecho transitorio calificado, financiación, comunicación y agregado estricto. No basta escritura ni pagador actual.",
+    "evidenciaPDF": [
+      "2014-anual:p5",
+      "2014-anual:p32",
+      "2014-anual:p35",
+      "2014-anual:p39",
+      "2014-anual:p40"
+    ],
+    "primarios": [
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "bc36ac7820d4:p7",
+      "4850dbc8a508:p4",
+      "4850dbc8a508:p5",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4",
+      "df00632182a9:p7",
+      "df00632182a9:p8",
+      "8357df623a45:p11",
+      "8357df623a45:p15",
+      "8357df623a45:p16",
+      "8357df623a45:p17"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de vivienda.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:ceuta-melilla",
+    "dictamen": "needs-evidence-parcial",
+    "afirmacionExaminada": "Mitad del tipo previo con2decimales y redondeo entero. Exigir residencia y rendimientos con derecho68.4. Mezclas de CAUSA7/8 ponderan percibido y pendiente. En febrero11 incluye variantes;2013 las tacha;2014 las omite.",
+    "razonPropia": "Mezclas7/8 visibles y marcas11 confirmadas; pérdida de residencia con hechos mixtos no recibe respuesta jurídica única por fórmula.",
+    "contratoViable": "Calificar68.4 y pasado/pendiente; excluir mezcla6 sin criterio adicional y11 histórico no admitido por versión.",
+    "evidenciaPDF": [
+      "2014-anual:p32",
+      "2014-anual:p33",
+      "2014-anual:p34",
+      "2014-anual:p35",
+      "2014-anual:p36",
+      "2014-anual:p37"
+    ],
+    "primarios": [
+      "0b3ef15bdae6:p2",
+      "bc36ac7820d4:p4",
+      "bc36ac7820d4:p5",
+      "75af079fc480:p75",
+      "75af079fc480:p76",
+      "75af079fc480:p77",
+      "21e3818c3b87:p1"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de ceuta-melilla.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:validaciones",
+    "dictamen": "confirmado-acotado",
+    "afirmacionExaminada": "RETRIB>0; en regularización RETRIB>PERCIBIDO y PERCIBIDO>0. CONVIVENCIA1..9 del PDF con significado de titulares elegibles. Validar coherencia situación laboral/contrato, discapacidad/movilidad, vivienda y causas. Rechazar divisor0 es guarda expresamente documentada.",
+    "razonPropia": "Incidencia37 enero/35 resto excluye divisor no positivo; no demuestra solución jurídica del último pago. AND/OR de vivienda no son especificación inequívoca.",
+    "contratoViable": "Rechazo explícito del dominio inválido; no inventar devolución ni corregir silenciosamente conjunciones.",
+    "evidenciaPDF": [
+      "2014-anual:p4",
+      "2014-anual:p5",
+      "2014-anual:p6",
+      "2014-anual:p7",
+      "2014-anual:p8",
+      "2014-anual:p38",
+      "2014-anual:p39",
+      "2014-anual:p40"
+    ],
+    "primarios": [
+      "0f6003cfa63f:p39",
+      "0abb5d0eda31:p5"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de validaciones.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "2014-anual:fecha-aplicacion",
+    "dictamen": "needs-evidence-parcial",
+    "afirmacionExaminada": "Selección requiere ejercicio,fecha pago,período correspondencia y hechos. Enero pagado en enero y correspondiente a enero conserva norma31/12/2011. Desde febrero y no correspondiente enero aplica complemento y vivienda nueva. No atribuir automáticamente versión al pago tardío correspondiente enero.2014 prórroga art64 desde1enero.",
+    "razonPropia": "DA35.3 yDA23.2 contienen pago y correspondencia simultáneamente; el resto del selector no está decidido por esas dos frases.",
+    "contratoViable": "Excluir residual2012, separar conceptos con distinta correspondencia y no inferir por fecha bancaria.",
+    "evidenciaPDF": [
+      "2014-anual:p1",
+      "2014-anual:p2",
+      "2014-anual:p3",
+      "2014-anual:p29",
+      "2014-anual:p35",
+      "2014-anual:p36"
+    ],
+    "primarios": [
+      "89eaeb5898f7:p54",
+      "89eaeb5898f7:p56",
+      "c81b15469077:p3",
+      "06dd554f71e1:p2",
+      "06dd554f71e1:p3",
+      "06dd554f71e1:p4",
+      "df00632182a9:p7",
+      "df00632182a9:p8",
+      "8357df623a45:p11",
+      "8357df623a45:p15",
+      "8357df623a45:p16",
+      "8357df623a45:p17",
+      "8357df623a45:p18",
+      "8357df623a45:p19",
+      "f10ae435f91b:p2",
+      "f10ae435f91b:p3",
+      "f10ae435f91b:p4",
+      "75af079fc480:p75",
+      "75af079fc480:p76",
+      "75af079fc480:p77"
+    ],
+    "version": "2014-anual",
+    "objecionExperta": "La igualdad numérica no prueba requisitos ni vigencia de fecha-aplicacion.",
+    "respuesta": "Conservar las condiciones de esta celda y las exclusiones expresas; el dictamen no habilita el motor.",
+    "coste": "Calificación externa y contraste posterior de conclusiones nuevas; cobertura menor hasta resolver reservas.",
+    "completeRuleAcceptance": false
+  }
+]

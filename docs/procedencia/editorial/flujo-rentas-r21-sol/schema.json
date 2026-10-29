@@ -1,0 +1,339 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:irobopf:flujo-rentas-r21-sol:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "base",
+    "inventory",
+    "sites"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "head",
+        "physical"
+      ],
+      "properties": {
+        "head": {
+          "const": "960773f909d4ecff290edfa3d7a7b2699a8445d3"
+        },
+        "physical": {
+          "const": "fisico-inicial.json.gz"
+        }
+      }
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifestSha256",
+        "artifactSha256",
+        "occurrences",
+        "totalSites"
+      ],
+      "properties": {
+        "manifestSha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "artifactSha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "occurrences": {
+          "const": 52461
+        },
+        "totalSites": {
+          "const": 65
+        }
+      }
+    },
+    "sites": {
+      "type": "array",
+      "minItems": 37,
+      "maxItems": 37,
+      "items": {
+        "$ref": "#/$defs/site"
+      }
+    }
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "sha256",
+        "start",
+        "end",
+        "offsetEncoding"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "pattern": "^lib/"
+        },
+        "sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "offsetEncoding": {
+          "const": "utf16"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "chainStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "symbol",
+        "sources"
+      ],
+      "properties": {
+        "nodeId": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        }
+      }
+    },
+    "conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "temporal",
+        "territorial",
+        "contract"
+      ],
+      "properties": {
+        "temporal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "territorial": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contract": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "symbol",
+        "chain",
+        "conditions",
+        "reason"
+      ],
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nodeId": {
+          "type": "string"
+        },
+        "occurrenceId": {
+          "type": "string",
+          "pattern": "^inv-"
+        },
+        "chain": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/chainStep"
+          }
+        },
+        "conditions": {
+          "$ref": "#/$defs/conditions"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/edge"
+      }
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "siteId",
+        "subject",
+        "snapshot",
+        "source",
+        "root",
+        "valueDependencies",
+        "controlDependencies",
+        "excludedCoLocations",
+        "completeness",
+        "explanation",
+        "review"
+      ],
+      "properties": {
+        "siteId": {
+          "type": "string",
+          "pattern": "^anual\\."
+        },
+        "subject": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "revision": {
+              "$ref": "#/$defs/hash"
+            }
+          }
+        },
+        "snapshot": {
+          "$ref": "#/$defs/hash"
+        },
+        "source": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "root": {
+          "$ref": "#/$defs/edge"
+        },
+        "valueDependencies": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "direct",
+            "transitive"
+          ],
+          "properties": {
+            "direct": {
+              "$ref": "#/$defs/edges"
+            },
+            "transitive": {
+              "$ref": "#/$defs/edges"
+            }
+          }
+        },
+        "controlDependencies": {
+          "$ref": "#/$defs/edges"
+        },
+        "excludedCoLocations": {
+          "$ref": "#/$defs/edges"
+        },
+        "completeness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "technical",
+            "omissions",
+            "legalAcceptance"
+          ],
+          "properties": {
+            "technical": {
+              "enum": [
+                "partial-explicit",
+                "closed-technical"
+              ]
+            },
+            "omissions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "legalAcceptance": {
+              "const": false
+            }
+          }
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review": {
+          "const": "pendiente de contraste independiente"
+        },
+        "terminalCandidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "occurrenceId",
+              "nodeId",
+              "relation",
+              "detail"
+            ],
+            "properties": {
+              "occurrenceId": {
+                "type": "string",
+                "pattern": "^inv-"
+              },
+              "nodeId": {
+                "type": "string"
+              },
+              "relation": {
+                "enum": [
+                  "value",
+                  "control",
+                  "branch",
+                  "structural-index",
+                  "numeric-policy",
+                  "excluded"
+                ]
+              },
+              "detail": {
+                "type": "string",
+                "pattern": "^ocurrencias-325.json#inv-"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

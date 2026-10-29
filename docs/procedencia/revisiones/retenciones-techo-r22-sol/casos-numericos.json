@@ -1,0 +1,77 @@
+{
+  "admittedConditional": [
+    {
+      "minimum": "0",
+      "previous": "12",
+      "candidate": "0",
+      "expected": "0"
+    },
+    {
+      "minimum": "2",
+      "previous": "12",
+      "candidate": "2",
+      "expected": "2"
+    },
+    {
+      "minimum": "2",
+      "previous": "12",
+      "candidate": "11.999",
+      "expected": "11.999"
+    },
+    {
+      "minimum": "2",
+      "previous": "12",
+      "candidate": "12",
+      "expected": "12"
+    },
+    {
+      "minimum": "2",
+      "previous": "12",
+      "candidate": "12.001",
+      "expected": "12"
+    },
+    {
+      "minimum": "15",
+      "previous": "15",
+      "candidate": "99",
+      "expected": "15"
+    },
+    {
+      "minimum": "1",
+      "previous": "1",
+      "candidate": "1",
+      "expected": "1"
+    },
+    {
+      "minimum": "8",
+      "previous": "8",
+      "candidate": "20",
+      "expected": "8"
+    },
+    {
+      "minimum": "0",
+      "previous": "0",
+      "candidate": "7",
+      "expected": "0"
+    }
+  ],
+  "excluded": [
+    {
+      "candidate": "1",
+      "previous": "12",
+      "minimum": "2",
+      "arithmeticOnly": "1",
+      "contractDecision": "fuera de alcance",
+      "reason": "candidato incumple mínimo"
+    },
+    {
+      "candidate": "15",
+      "previous": "12",
+      "minimum": "15",
+      "arithmeticOnly": "12",
+      "contractDecision": "fuera de alcance",
+      "reason": "mínimo superior al anterior"
+    }
+  ],
+  "caveat": "No se reconstruye nómina; no se exige rechazo a una función que solo interpreta una fórmula."
+}

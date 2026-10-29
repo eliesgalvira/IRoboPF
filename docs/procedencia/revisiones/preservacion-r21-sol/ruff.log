@@ -1,0 +1,335 @@
+E401 [*] Multiple imports on one line
+ --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:1:1
+  |
+1 | import subprocess, os, stat, hashlib, json, gzip, sys
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2 | from pathlib import Path
+3 | base='960773f909d4ecff290edfa3d7a7b2699a8445d3'
+  |
+help: Split imports
+
+E701 Multiple statements on one line (colon)
+ --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:6:14
+  |
+4 | rows=[]
+5 | for entry in subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0'):
+6 |  if not entry: continue
+  |              ^
+7 |  meta,path=entry.split(b'\t'); mode,kind,oid=meta.split(); p=Path(os.fsdecode(path)); row={'path':str(p),'mode':mode.decode(),'oid':oid…
+8 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+  |
+
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:7:30
+  |
+5 | for entry in subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0'):
+6 |  if not entry: continue
+7 |  meta,path=entry.split(b'\t'); mode,kind,oid=meta.split(); p=Path(os.fsdecode(path)); row={'path':str(p),'mode':mode.decode(),'oid':oi…
+  |                              ^
+8 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+9 |  row['baseSha256']=hashlib.sha256(blob).hexdigest()
+  |
+
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:7:58
+  |
+5 | for entry in subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0'):
+6 |  if not entry: continue
+7 |  meta,path=entry.split(b'\t'); mode,kind,oid=meta.split(); p=Path(os.fsdecode(path)); row={'path':str(p),'mode':mode.decode(),'oid':oi…
+  |                                                          ^
+8 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+9 |  row['baseSha256']=hashlib.sha256(blob).hexdigest()
+  |
+
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:7:85
+  |
+5 | for entry in subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0'):
+6 |  if not entry: continue
+7 |  meta,path=entry.split(b'\t'); mode,kind,oid=meta.split(); p=Path(os.fsdecode(path)); row={'path':str(p),'mode':mode.decode(),'oid':oi…
+  |                                                                                     ^
+8 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+9 |  row['baseSha256']=hashlib.sha256(blob).hexdigest()
+  |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:11:14
+   |
+ 9 |  row['baseSha256']=hashlib.sha256(blob).hexdigest()
+10 |  try:
+11 |   s=p.lstat(); row['lstatMode']=oct(s.st_mode); row['size']=s.st_size
+   |              ^
+12 |   if stat.S_ISLNK(s.st_mode):
+13 |    target=os.readlink(p); row['readlink']=target; actual=os.fsencode(target)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:11:47
+   |
+ 9 |  row['baseSha256']=hashlib.sha256(blob).hexdigest()
+10 |  try:
+11 |   s=p.lstat(); row['lstatMode']=oct(s.st_mode); row['size']=s.st_size
+   |                                               ^
+12 |   if stat.S_ISLNK(s.st_mode):
+13 |    target=os.readlink(p); row['readlink']=target; actual=os.fsencode(target)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:13:25
+   |
+11 |   s=p.lstat(); row['lstatMode']=oct(s.st_mode); row['size']=s.st_size
+12 |   if stat.S_ISLNK(s.st_mode):
+13 |    target=os.readlink(p); row['readlink']=target; actual=os.fsencode(target)
+   |                         ^
+14 |   elif stat.S_ISREG(s.st_mode): actual=p.read_bytes()
+15 |   else: actual=b''; row['error']='non regular'
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:13:49
+   |
+11 |   s=p.lstat(); row['lstatMode']=oct(s.st_mode); row['size']=s.st_size
+12 |   if stat.S_ISLNK(s.st_mode):
+13 |    target=os.readlink(p); row['readlink']=target; actual=os.fsencode(target)
+   |                                                 ^
+14 |   elif stat.S_ISREG(s.st_mode): actual=p.read_bytes()
+15 |   else: actual=b''; row['error']='non regular'
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:14:31
+   |
+12 |   if stat.S_ISLNK(s.st_mode):
+13 |    target=os.readlink(p); row['readlink']=target; actual=os.fsencode(target)
+14 |   elif stat.S_ISREG(s.st_mode): actual=p.read_bytes()
+   |                               ^
+15 |   else: actual=b''; row['error']='non regular'
+16 |   row['sha256']=hashlib.sha256(actual).hexdigest(); row['equal']=actual==blob
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:15:7
+   |
+13 |    target=os.readlink(p); row['readlink']=target; actual=os.fsencode(target)
+14 |   elif stat.S_ISREG(s.st_mode): actual=p.read_bytes()
+15 |   else: actual=b''; row['error']='non regular'
+   |       ^
+16 |   row['sha256']=hashlib.sha256(actual).hexdigest(); row['equal']=actual==blob
+17 |  except FileNotFoundError: row['missing']=True; row['equal']=False
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:15:19
+   |
+13 |    target=os.readlink(p); row['readlink']=target; actual=os.fsencode(target)
+14 |   elif stat.S_ISREG(s.st_mode): actual=p.read_bytes()
+15 |   else: actual=b''; row['error']='non regular'
+   |                   ^
+16 |   row['sha256']=hashlib.sha256(actual).hexdigest(); row['equal']=actual==blob
+17 |  except FileNotFoundError: row['missing']=True; row['equal']=False
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:16:51
+   |
+14 |   elif stat.S_ISREG(s.st_mode): actual=p.read_bytes()
+15 |   else: actual=b''; row['error']='non regular'
+16 |   row['sha256']=hashlib.sha256(actual).hexdigest(); row['equal']=actual==blob
+   |                                                   ^
+17 |  except FileNotFoundError: row['missing']=True; row['equal']=False
+18 |  rows.append(row)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:17:26
+   |
+15 |   else: actual=b''; row['error']='non regular'
+16 |   row['sha256']=hashlib.sha256(actual).hexdigest(); row['equal']=actual==blob
+17 |  except FileNotFoundError: row['missing']=True; row['equal']=False
+   |                          ^
+18 |  rows.append(row)
+19 | with gzip.open(sys.argv[1],'wt') as f: json.dump(rows,f,ensure_ascii=False)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:17:47
+   |
+15 |   else: actual=b''; row['error']='non regular'
+16 |   row['sha256']=hashlib.sha256(actual).hexdigest(); row['equal']=actual==blob
+17 |  except FileNotFoundError: row['missing']=True; row['equal']=False
+   |                                               ^
+18 |  rows.append(row)
+19 | with gzip.open(sys.argv[1],'wt') as f: json.dump(rows,f,ensure_ascii=False)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/arbol.py:19:38
+   |
+17 |  except FileNotFoundError: row['missing']=True; row['equal']=False
+18 |  rows.append(row)
+19 | with gzip.open(sys.argv[1],'wt') as f: json.dump(rows,f,ensure_ascii=False)
+   |                                      ^
+20 | print(json.dumps({'head':subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),'entries':len(rows),'different':[r for r…
+   |
+
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:16:1
+   |
+14 | SCRATCH.mkdir(parents=True, exist_ok=True)
+15 | sys.path.insert(0, str(ROOT / 'docs/procedencia/revisiones/preservacion-v3-sol'))
+16 | import auditar
+   | ^^^^^^^^^^^^^^
+17 |
+18 | auditar.SCRATCH = SCRATCH
+   |
+
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:19:1
+   |
+18 | auditar.SCRATCH = SCRATCH
+19 | import adversos_test as old
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+20 | sys.path.insert(0, str(ROOT / 'docs/procedencia/correcciones/preservacion-r21'))
+21 | import adversos as corrected
+   |
+
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:21:1
+   |
+19 | import adversos_test as old
+20 | sys.path.insert(0, str(ROOT / 'docs/procedencia/correcciones/preservacion-r21'))
+21 | import adversos as corrected
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+22 | r = old.r
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:81:26
+   |
+79 |         def dup(m,f=field):
+80 |             obj=m['annex'][0]
+81 |             if not obj[f]: obj[f]=['adquisicion.json']
+   |                          ^
+82 |             obj[f].append(copy.deepcopy(obj[f][0]))
+83 |         probe('duplicate:annex:'+field,dup)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:95:6
+   |
+93 |         ('dependency-absolute',lambda m:m['dependencies'][0].update(path='/private/file')),
+94 |         ('reference-escape',lambda m:m['annex'][0].update(references=['../file'])),
+95 |     ]: probe(label,change)
+   |      ^
+96 |     save('mutaciones.json',rows)
+97 |     c.doCleanups()
+   |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:108:40
+    |
+106 |         calls.append(os.readlink('/proc/self/fd/'+str(fd)))
+107 |         actual(fd)
+108 |     with patch.object(os,'fsync',trace): r.transfer(c.dest,c.source)
+    |                                        ^
+109 |     c.doCleanups()
+110 |     for index in range(len(calls)):
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:124:47
+    |
+122 |         error=None
+123 |         try:
+124 |             with patch.object(os,'fsync',fail): r.transfer(c.dest,c.source)
+    |                                               ^
+125 |         except OSError as exc: error=type(exc).__name__
+126 |         visible=(c.dest/'manifest.json').exists()
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:125:30
+    |
+123 |         try:
+124 |             with patch.object(os,'fsync',fail): r.transfer(c.dest,c.source)
+125 |         except OSError as exc: error=type(exc).__name__
+    |                              ^
+126 |         visible=(c.dest/'manifest.json').exists()
+127 |         recovery=None
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:128:19
+    |
+126 | …     visible=(c.dest/'manifest.json').exists()
+127 | …     recovery=None
+128 | …     if visible: recovery=r.confirm(c.dest)['durability']
+    |                 ^
+129 | …     rows.append(dict(index=index,stage=calls[index].replace(str(SCRATCH),'<scratch>'),failedAt=failed_at,error=error,markerVisible=…
+130 | …     c.doCleanups()
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:145:16
+    |
+143 |                 receipt=r.transfer(c.dest)
+144 |             rows.append(dict(prefix=prefix,durability=receipt['durability']))
+145 |         finally: c.doCleanups()
+    |                ^
+146 |     assert len(r.TGSS_PUBLIC_URLS)==35
+147 |     assert all(r.url(u)==u for u in r.TGSS_PUBLIC_URLS)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:160:12
+    |
+158 |         r.load()
+159 |         rows.append(dict(classification='secondary with official canonical; primary with both official',passed=True))
+160 |     finally: c.doCleanups()
+    |            ^
+161 |     save('rutas-urls.json',rows)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:195:34
+    |
+193 |     if sys.argv[1]=='inherited':
+194 |         sys.exit(0 if inherited() else 1)
+195 |     elif sys.argv[1]=='mutations': mutations()
+    |                                  ^
+196 |     elif sys.argv[1]=='fsync': fsync_matrix()
+197 |     elif sys.argv[1]=='real': real()
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:196:30
+    |
+194 |         sys.exit(0 if inherited() else 1)
+195 |     elif sys.argv[1]=='mutations': mutations()
+196 |     elif sys.argv[1]=='fsync': fsync_matrix()
+    |                              ^
+197 |     elif sys.argv[1]=='real': real()
+198 |     elif sys.argv[1]=='routes': routes()
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:197:29
+    |
+195 |     elif sys.argv[1]=='mutations': mutations()
+196 |     elif sys.argv[1]=='fsync': fsync_matrix()
+197 |     elif sys.argv[1]=='real': real()
+    |                             ^
+198 |     elif sys.argv[1]=='routes': routes()
+    |
+
+E701 Multiple statements on one line (colon)
+   --> docs/procedencia/revisiones/preservacion-r21-sol/revisar.py:198:31
+    |
+196 |     elif sys.argv[1]=='fsync': fsync_matrix()
+197 |     elif sys.argv[1]=='real': real()
+198 |     elif sys.argv[1]=='routes': routes()
+    |                               ^
+    |
+
+Found 31 errors.
+[*] 1 fixable with the `--fix` option.

@@ -313,3 +313,23 @@ Las versiones editoriales corregidas conservan la autoría histórica y enlazan 
 La edición documental R22 del artículo87.5 conserva el tipo inferior y sustituye expresamente el párrafo que mezclaba la calificación legal con los números de causa del PDF. Objeción: reintroducir la guarda sin resolver precedencia deja dos contratos incompatibles; elegir un orden de mínimos arbitrario inventaría una solución. Respuesta: techo min(candidato,anterior) con mínimo ya satisfecho y compatible, evento alimentario único y exclusión expresa de todas las concurrencias en este subcontrato. Coste: menos cobertura operable, sin afirmar que la ley excluya esos hechos; la composición completa sigue pendiente. La corrección exige revisión nueva y no habilita versiones.
 
 El digest bruto del artículo conserva su identidad y recibe una receta exacta de bytes, separada del hash del texto. Objeción: el fragmento entre atributos no equivale al elementoHTML y su hash no prueba vigencia. Respuesta: offsets, marcadores y transformaciones explícitos, sin cambiar el original ni el rojo histórico. Coste: mantener una receta heredada poco intuitiva y usar identidad nueva para cualquier selección semántica futura.
+
+## D069 — Gramática histórica limitada para la lista de fuentes
+
+Se rechazan exportaciones conflictivas, redeclaraciones y usos ambiguos del binding; las rutas no admiten saltos finales. Objeción: un array literal por sí solo no garantiza qué binding exporta el módulo. Respuesta: exigir const y una gramática de usos comprobada sobre los históricos, sin ejecutar código conservado. Coste: formas futuras válidas de JavaScript pueden necesitar migración; no se presenta la comprobación sintáctica como prueba del comportamiento arbitrario de callbacks. Los 34 snapshots previos verifican y los dos nuevos conservan el inventario.
+
+## D070 — Unicidad de evidencia y multiplicidad de observaciones
+
+Fuentes, adquisiciones, referencias y referencias no resueltas rechazan duplicados. Las exclusiones v3 conservan sus 4.147 observaciones y se informa de las 1.089 distintas. Objeción: contar repeticiones infla cobertura, pero rechazar el manifiesto histórico destruye compatibilidad sin cambiar objetos. Respuesta: preservar el registro y separar el recuento único; ninguna exclusión repetida prueba algo nuevo. Coste: esa distinción debe acompañar toda métrica. URLs malformadas se rechazan con diagnóstico constante y los patrones de ruta exigen fin absoluto. Revisión nueva pendiente.
+
+## D071 — Rectificación histórica sin trasladar reglas modernas
+
+La edición 2012–2014 retira las inferencias visuales incorrectas de ≥25 y ≤64, y usa el original de 2010 para la alternativa de alimentos del artículo 87.5. Objeción: aplicar una regla de 2015 por semejanza o llamar nómina a un subpaso inventaría cobertura. Respuesta: fuente histórica, hechos y mínimo compatible explícitos; se conserva el rojo anterior y no se habilita el motor. Coste: concurrencias, RRO-09 y otros contratos completos siguen pendientes. Los reemplazos son candidatos que deben contrarrevisarse.
+
+## D072 — Un contraste fijo no es un validador general
+
+La observación nueva de R22 sobre metadatos y sobres recalculados delimita su script de reproducción. Objeción: un consumidor operativo no puede confiar en los hashes que el propio sobre declara. Respuesta: aquí el ancla es la fuente fijada y revisada externamente; el instrumento solo reproduce esa receta y no recibe confianza ni uso de producción. Coste: desarrollar y revisar otro contrato antes de reutilizarlo como consumidor general. No se abre una corrección ficticia para atribuirle garantías que no ofrece.
+
+## D073 — Completar el flujo por propiedades y contratos de llamada
+
+La continuación editorial se divide entre escalas/mínimos, retenciones/cotizaciones y rentas/actividad. Objeción: un cierre transitivo absoluto repetido por todos los sitios duplica trabajo, mientras tratar cada función como terminal es incompleto. Respuesta: cada lote debe resolver propiedades hasta entradas públicas, constantes o primitivas, y declarar contratos de frontera exactos para composición entre lotes. Una referencia al cuerpo de una función no basta. Coste: componer y revisar las aristas antes de publicar; los 65 sitios y sus recuentos no sustituyen esa prueba ni acreditan aceptación jurídica.
