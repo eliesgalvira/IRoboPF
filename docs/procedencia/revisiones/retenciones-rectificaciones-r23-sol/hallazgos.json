@@ -1,0 +1,39 @@
+{
+  "review": "retenciones-rectificaciones-r23-sol",
+  "status": "candidate-requires-later-contrast",
+  "completeRuleAcceptance": false,
+  "enableVersions": [],
+  "newInDomainDefectsDemonstrated": [],
+  "findings": [
+    {
+      "id": "R23-C01",
+      "related": ["C01", "SOL-03"],
+      "status": "match",
+      "scope": "Ocho recortes de p10/p16 muestran ≥25 y ≤64; extracción defectuosa preservada. SOL-03 restante parcial.",
+      "evidence": ["evidencia-propia.json", "dictamen-12.json"],
+      "objection": "Leer signos no valida índices, prefijos o requisitos familiares.",
+      "response": "Conservar reservas y distinguir imagen de texto extraído.",
+      "cost": "Revisión familiar restante pendiente."
+    },
+    {
+      "id": "R23-C02",
+      "related": ["C02"],
+      "status": "match",
+      "scope": "Alternativa judicial anterior a2012 corroborada; techo limitado al dominio expreso. Sin dos salidas admitidas identificadas.",
+      "evidence": ["contexto-85-88.json", "evidencia-propia.json", "casos-numericos.json", "casos-juridicos.json"],
+      "objection": "Un delta positivo sintético no acredita nómina real ni mínimo compatible.",
+      "response": "No se afirma factibilidad; mínimo satisfecho e inalterado y exclusiones forman el dominio.",
+      "cost": "Sin admisión ejecutable ni regularizador íntegro; concurrencias excluidas."
+    },
+    {
+      "id": "R23-RESIDUO",
+      "status": "ambiguous",
+      "classification": "riesgo de reutilización fuera de alcance; no defecto dentro del contrato compuesto demostrado",
+      "scope": "Filas antiguas con excluye87.5 y enlaces a pruebas previas requieren transportar la adenda prevalente.",
+      "evidence": ["residuos.json", "contrato-compuesto.txt", "superposicion.json"],
+      "objection": "Un consumidor de fila aislada puede perder la precedencia.",
+      "response": "La adenda domina expresamente; no autorizar ese consumidor ni atribuir garantías de admisión al intérpreteR22.",
+      "cost": "Contrato operativo futuro debe representar y revisar la composición."
+    }
+  ]
+}

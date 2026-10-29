@@ -337,3 +337,11 @@ La continuación editorial se divide entre escalas/mínimos, retenciones/cotizac
 ## D074 — Preservar el corte candidato sin presentarlo como actual
 
 V4 se conserva fuera del worktree con pin externo y dos identidades para metadatos saneados: origen y derivado transportado. Objeción: modificar el manifiesto para incluir lo llegado después destruiría su corte, y hashes correctos no prueban que la selección sea exhaustiva. Respuesta: corte R21 fijo, revisión independiente nueva del censo, clases y reconstrucción; los hallazgos posteriores requerirán otra edición. Coste: espacio local adicional y gestión explícita de versiones; ninguna copia en el mismo disco equivale a custodia independiente. Crossa continúa v1 desfasado, sin actualizarlo ni transferir fuera por esta decisión.
+
+## D075 — Aprobar pares exactos sin reescribir identidades
+
+La derivación R23 permite preparar un registro candidato v2 con dos identidades y 264 pares concretos. Objeción: cambiar la grafía del revisor o aceptar por sufijo podría encubrir autorrevisión y extender confianza. Respuesta: conservar originales, cotejar el registro T3 y ambas representaciones, fijar payload y atestación por hash y mantener igualdad estricta en producción. Coste: artefacto derivado adicional y revisión del recorrido completo; el ensayo del auxiliar en scratch no activa confianza ni acepta reglas completas.
+
+## D076 — Un rojo puede conservar una hipótesis refutada
+
+La prueba nueva que esperaba rechazar optional chaining permanece roja. Objeción: tolerar un fallo podría ocultar una regresión. Respuesta: se contrasta la amenaza concreta; el acceso opcional al array const conserva el binding literal y el lector no promete ejecutar JavaScript histórico. No se altera el esperado ni se prohíbe una forma equivalente para anunciar verde. Coste: informar separadamente de esa hipótesis descartada y de los controles válidos del producto; el contrato de ejecución, si se desea, requerirá otro diseño.

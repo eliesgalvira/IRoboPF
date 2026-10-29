@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 20:58 CET
+## Situación más reciente, 29 de octubre, 21:14 CET
+
+Recibidas tres entregas R23: 131 archivos y 12.717.896 bytes, con las 14.957 entradas de base cotejadas físicamente en cada checkout y cero borrados. Informes históricos y rojos intactos; recibo en correcciones/recepcion-r23-r25. La revisión técnica corrobora CR21-A/B; la hipótesis roja de optional chaining se conserva y se descarta como bypass del binding, sin declarar toda la suite verde. Retenciones 2012–2014 corrobora signos y techo condicionado, sin habilitar versiones ni resolver el algoritmo completo.
+
+El padre prepara un registro candidato de dos revisores y 264 pares exactos, sin reescribir atestaciones ni introducir aliases genéricos. El auxiliar real rechaza los 264 con registro vacío y los admite limitadamente en scratch con el candidato. El registro activo permanece vacío. Ruff y mypy propios pasan; se conserva el diagnóstico inicial de entorno/tipado. Lint global termina sin errores y con tres avisos de variables sin uso en entregas editoriales conservadas. Falta revisión independiente del coordinador, los ámbitos y la publicación antes de cualquier promoción. Informe en correcciones/registro-candidato-r25.
+
+El flujo nuevo de rentas y actividad aporta 20 sitios y 19 instancias con argumentos y propiedades separados. Sigue candidato: se prepara revisión nueva antes de componerlo con escalas y cotizaciones, cuyos lotes continúan en curso. Se prepara asimismo la migración documental de Madrid a un payload v2 separado, sin reutilizar aceptación de su v1 ni alterar históricos. Inventario, 36 snapshots, cálculos y confianza activa permanecen intactos.
+
+Ha llegado y se ha leído la revisión de preservación v4: restauración y tres facsímiles reproducidos, cinco rojos de validación y cuatro fuentes oficiales adicionales fuera del paquete. Su recepción física y el contraste de los hallazgos quedan para el siguiente bloque; v4 no se declara aprobado. La revisión de preservación R23 sigue pendiente. Crossa conserva v1 desfasado, copia local del mismo dueño y casa; sin LFS, gasto, transferencia externa, PR, despliegue o limpieza. El encargo continúa.
+
+## Situación anterior, 29 de octubre, 20:58 CET
 
 Recibida la entrega candidata v4: 62 archivos y 9.906.088 bytes cotejados, con las 14.537 entradas de su base R21 intactas y cero borrados. Pin externo definitivo del JSON: `938f230888d2f71a999d5083c3b484e37687ebad03c4b1ca887535710c6071f2`. Los pins intermedios permanecen identificados como ensayos, sin cambiar el corte.
 

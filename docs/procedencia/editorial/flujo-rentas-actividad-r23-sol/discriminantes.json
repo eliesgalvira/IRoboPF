@@ -1,0 +1,242 @@
+{
+  "sourceValidation": "Hashes iguales al checkout antes de ejecutar importaciones del padre solo lectura; mutación compilada en memoria, no escrita al motor.",
+  "runtimeSources": [
+    {
+      "file": "tests/trabajo-anual-contratos.test.ts",
+      "sourceSha256": "365251818aece3da29f31a9ff4df7cab8a68d49e10415c6690544e59b2d8e3ad",
+      "fixture": "gastos",
+      "fragmentSha256": "cc76a4036a431a9313d1a0701c5d5cc528f93749c917966863218a078cc97c74"
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+      "sourceSha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+      "executedSha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+      "sourceSha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+      "executedSha256": "ca7a096697d24dcefe17d946833c363d740bc5a3697d384b884e2c92cc84fa83",
+      "mutation": {
+        "from": "D.min(colegio, 500)",
+        "to": "D.min(colegio, 700)"
+      }
+    },
+    {
+      "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+      "sourceSha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+      "executedSha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sourceSha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "executedSha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sourceSha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "executedSha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/retenciones/versiones/catalogo.ts",
+      "sourceSha256": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
+      "executedSha256": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
+      "mutation": null
+    }
+  ],
+  "cases": [
+    {
+      "id": "M500",
+      "source": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+      "mutation": "500→700 solo colegio",
+      "before": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "16500",
+        "gastosAE": "1700",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "14800",
+        "netoArt19": "12800",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "after": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "16500",
+        "gastosAE": "1900",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "14600",
+        "netoArt19": "12600",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "conclusion": "Invariante íntegro; gastos+200; P y art19-200. No prueba vigencia ni selector jurídico."
+    },
+    {
+      "id": "PERDIDA",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "empleo",
+            "clase": "empleo-laboral",
+            "integro": "100",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "150",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "result": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "100",
+        "gastosAE": "150",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "0",
+        "netoPrevioArt20": "-50",
+        "netoArt19": "-50",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "conclusion": "a-e conserva pérdida, f limitado0."
+    },
+    {
+      "id": "RECHAZO2026",
+      "result": {
+        "estado": "no-soportado",
+        "motivo": "Ámbito territorial o vigencia 2026 no cerrados"
+      }
+    },
+    {
+      "id": "ART20",
+      "conclusion": "O6500/6500.01 cambia selector; fecha devengo2018 distingue4/5julio; no fechaPago.",
+      "values": [
+        "5293",
+        "0",
+        "2652",
+        "2832.8125",
+        "4198.90625"
+      ]
+    },
+    {
+      "id": "SS2018",
+      "canonical": {
+        "alcance": "analitico-doce-mensualidades-uniformes",
+        "redondeoTgss": "pendiente",
+        "baseOrdinaria": "45276.9",
+        "excesoBase": "54723.1",
+        "cotizacionEmpresarialOrdinaria": "14216.9466",
+        "cotizacionTrabajadorOrdinaria": "2875.08315",
+        "meiEmpresarial": "0",
+        "meiTrabajador": "0",
+        "solidaridadEmpresarial": "0",
+        "solidaridadTrabajador": "0",
+        "cotizacionEmpresarial": "14216.9466",
+        "cotizacionTrabajador": "2875.08315"
+      },
+      "legacy": {
+        "baseOrdinaria": "45014.4",
+        "excesoBase": "54985.6",
+        "cotizacionEmpresarial": "14134.5216",
+        "cotizacionTrabajador": "2858.4144",
+        "cotizacionEmpresarialOrdinaria": "14134.5216",
+        "cotizacionTrabajadorOrdinaria": "2858.4144",
+        "meiEmpresarial": "0",
+        "meiTrabajador": "0",
+        "solidaridadEmpresarial": "0",
+        "solidaridadTrabajador": "0"
+      },
+      "conclusion": "Discriminante de modo7/5, no regla mensualTGSS."
+    },
+    {
+      "id": "SOLIDARIDAD",
+      "canonical": {
+        "alcance": "analitico-doce-mensualidades-uniformes",
+        "redondeoTgss": "pendiente",
+        "baseOrdinaria": "58914",
+        "excesoBase": "1086",
+        "cotizacionEmpresarialOrdinaria": "18498.996",
+        "cotizacionTrabajadorOrdinaria": "3741.039",
+        "meiEmpresarial": "394.7238",
+        "meiTrabajador": "76.5882",
+        "solidaridadEmpresarial": "8.3622",
+        "solidaridadTrabajador": "1.629",
+        "cotizacionEmpresarial": "18902.082",
+        "cotizacionTrabajador": "3819.2562"
+      },
+      "legacy": {
+        "baseOrdinaria": "58914",
+        "excesoBase": "1086",
+        "cotizacionEmpresarial": "18902.0458",
+        "cotizacionTrabajador": "3819.2924",
+        "cotizacionEmpresarialOrdinaria": "18498.996",
+        "cotizacionTrabajadorOrdinaria": "3741.039",
+        "meiEmpresarial": "394.7238",
+        "meiTrabajador": "76.5882",
+        "solidaridadEmpresarial": "8.326",
+        "solidaridadTrabajador": "1.6652"
+      },
+      "conclusion": "Reparto publicado vs5/6 con exceso1086; no asigna céntimo residual."
+    },
+    {
+      "id": "VERSION",
+      "conclusion": "Antiguas y extremos2026 rechazados; dentro ventana10sept–29oct selecciona versión."
+    },
+    {
+      "id": "DA61",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "17000",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "1000",
+        "baseLiquidableGeneral": "4000",
+        "cuotaIntegraGeneral": "800",
+        "cuotaLiquidaTotal": "250",
+        "cuotaTrasArt80": "200",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "result": {
+        "estado": "calculado",
+        "deduccionLegal": "255.2",
+        "limiteAtribuible": "200",
+        "importeAplicable": "200",
+        "cuotaPosterior": "0",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "conclusion": "Límite proporcional y cuota posterior; no confundir legal255.2 con aplicable200."
+    }
+  ]
+}

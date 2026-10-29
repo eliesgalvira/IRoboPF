@@ -1,0 +1,122 @@
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:7:16
+  |
+5 | from pathlib import Path
+6 | base='07c07e6376a72f229be735a904ecf36517a1b571'
+7 | root=Path.cwd(); own='docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/'
+  |                ^
+8 | rows=subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0')
+9 | diffs=[]; count=0
+  |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:9:9
+   |
+ 7 | root=Path.cwd(); own='docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/'
+ 8 | rows=subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0')
+ 9 | diffs=[]; count=0
+   |         ^
+10 | for row in rows:
+11 |  if not row: continue
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:11:12
+   |
+ 9 | diffs=[]; count=0
+10 | for row in rows:
+11 |  if not row: continue
+   |            ^
+12 |  meta,path=row.split(b'\t',1); mode,kind,oid=meta.split(); p=os.fsdecode(path); f=root/p; count+=1
+13 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:12:30
+   |
+10 | for row in rows:
+11 |  if not row: continue
+12 |  meta,path=row.split(b'\t',1); mode,kind,oid=meta.split(); p=os.fsdecode(path); f=root/p; count+=1
+   |                              ^
+13 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+14 |  try:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:12:58
+   |
+10 | for row in rows:
+11 |  if not row: continue
+12 |  meta,path=row.split(b'\t',1); mode,kind,oid=meta.split(); p=os.fsdecode(path); f=root/p; count+=1
+   |                                                          ^
+13 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+14 |  try:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:12:79
+   |
+10 | for row in rows:
+11 |  if not row: continue
+12 |  meta,path=row.split(b'\t',1); mode,kind,oid=meta.split(); p=os.fsdecode(path); f=root/p; count+=1
+   |                                                                               ^
+13 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+14 |  try:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:12:89
+   |
+10 | for row in rows:
+11 |  if not row: continue
+12 |  meta,path=row.split(b'\t',1); mode,kind,oid=meta.split(); p=os.fsdecode(path); f=root/p; count+=1
+   |                                                                                         ^
+13 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+14 |  try:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:15:14
+   |
+13 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+14 |  try:
+15 |   s=f.lstat(); data=os.fsencode(os.readlink(f)) if stat.S_ISLNK(s.st_mode) else f.read_bytes()
+   |              ^
+16 |   goodmode=stat.S_ISLNK(s.st_mode) if mode==b'120000' else stat.S_ISREG(s.st_mode) and bool(s.st_mode&0o111)==(mode==b'100755')
+17 |   if data!=blob or not goodmode: diffs.append({'path':p,'bytesEqual':data==blob,'modeEqual':goodmode})
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:17:32
+   |
+15 |   s=f.lstat(); data=os.fsencode(os.readlink(f)) if stat.S_ISLNK(s.st_mode) else f.read_bytes()
+16 |   goodmode=stat.S_ISLNK(s.st_mode) if mode==b'120000' else stat.S_ISREG(s.st_mode) and bool(s.st_mode&0o111)==(mode==b'100755')
+17 |   if data!=blob or not goodmode: diffs.append({'path':p,'bytesEqual':data==blob,'modeEqual':goodmode})
+   |                                ^
+18 |  except FileNotFoundError: diffs.append({'path':p,'missing':True})
+19 | assert count==14957,count
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/cotejo.py:18:26
+   |
+16 |   goodmode=stat.S_ISLNK(s.st_mode) if mode==b'120000' else stat.S_ISREG(s.st_mode) and bool(s.st_mode&0o111)==(mode==b'100755')
+17 |   if data!=blob or not goodmode: diffs.append({'path':p,'bytesEqual':data==blob,'modeEqual':goodmode})
+18 |  except FileNotFoundError: diffs.append({'path':p,'missing':True})
+   |                          ^
+19 | assert count==14957,count
+20 | r={'head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'base':base,'entries':count,'method':'ls-tree; lstat/r…
+   |
+
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/revisiones/retenciones-rectificaciones-r23-sol/leer.py:5:42
+  |
+3 | root=Path('docs/procedencia')
+4 | for file in ['revisiones/retenciones-2012-2014-sol/matriz-80.json','revisiones/retenciones-2012-2014-sol/ramas-44.json','correcciones/r…
+5 |  data=json.loads((root/file).read_text()); rows=data['corrections'] if isinstance(data,dict) else data
+  |                                          ^
+6 |  print('\nARCHIVO',file)
+7 |  for row in rows:
+  |
+
+Found 14 errors (3 fixed, 11 remaining).

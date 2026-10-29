@@ -1,0 +1,22 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: L:cotizacionesSociales
+
+2 !== 1
+
+    at declaration (file:///home/elies/.t3/worktrees/IRoboPF/t3-94b3dc00/docs/procedencia/editorial/flujo-rentas-actividad-r23-sol/construir.mjs:12:333)
+    at file:///home/elies/.t3/worktrees/IRoboPF/t3-94b3dc00/docs/procedencia/editorial/flujo-rentas-actividad-r23-sol/construir.mjs:26:248
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 2,
+  expected: 1,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
