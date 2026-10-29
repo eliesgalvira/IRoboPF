@@ -1,0 +1,1 @@
+Los scripts del revisor se conservan como texto de evidencia, con bytes y hashes intactos. Para reproducirlos, copiar a scratch con el nombre original del manifiesto scripts-conservados.json. No son código de aplicación ni se ejecutan desde documentación. No se han desactivado reglas sobre la implementación.

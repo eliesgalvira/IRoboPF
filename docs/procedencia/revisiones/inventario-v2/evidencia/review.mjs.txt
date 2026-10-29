@@ -1,0 +1,33 @@
+import fs from 'node:fs';
+import {resolve} from 'node:path';
+import {gzipSync} from 'node:zlib';
+import {spawnSync} from 'node:child_process';
+import {readArtifact,compareFiles,buildArtifact} from './scripts/procedencia/inventario-artefacto.mjs';
+import {hash,extractTs} from './scripts/procedencia/inventario-ast.mjs';
+import {flatten} from './scripts/procedencia/inventario.mjs';
+import Decimal from 'decimal.js';
+const root=process.cwd(), out=resolve(fs.realpathSync('.'),'../results');fs.mkdirSync(out,{recursive:true});
+const original=readArtifact(root); const results=[];
+const record=(name,data)=>{results.push({name,...data});fs.writeFileSync(resolve(out,'mutations.json'),JSON.stringify(results,null,2));console.log(name,JSON.stringify(data));};
+function pack(files,dir,entries){const m=JSON.parse(files.get('inventario.json'));for(const p of m.pages){if(files.has(p.file)){p.sha256=hash(files.get(p.file));p.count=JSON.parse(files.get(p.file)).length;}}const idx=JSON.parse(files.get('inventario-indice.json'));for(const p of idx){if(files.has(p.file)){p.sha256=hash(files.get(p.file));p.count=JSON.parse(files.get(p.file)).length;}}files.set('inventario-indice.json',JSON.stringify(idx)+'\n');files.set('inventario.json',JSON.stringify(m)+'\n');const raw=gzipSync(Buffer.from(JSON.stringify(entries??[...files])));m.artifact={...original.manifest.artifact,size:raw.length,sha256:hash(raw)};const folder=resolve(dir,'docs/procedencia');fs.mkdirSync(folder,{recursive:true});fs.writeFileSync(resolve(folder,'inventario.json'),JSON.stringify(m));fs.writeFileSync(resolve(folder,m.artifact.file),raw);}
+const page=original.manifest.pages[0].file;
+const changePage=(files,fn)=>{const items=JSON.parse(files.get(page));fn(items);files.set(page,JSON.stringify(items)+'\n');};
+const mutations={
+ valor:f=>changePage(f,a=>a[0].value='987654321'),
+ hoja_indice:f=>{let id;changePage(f,a=>id=a.shift().id);for(const n of f.keys())if(/^inventario-indice-/.test(n))f.set(n,JSON.stringify(JSON.parse(f.get(n)).filter(x=>x.id!==id))+'\n');},
+ counts:f=>{const m=JSON.parse(f.get('inventario.json'));m.counts.syntactic=1;f.set('inventario.json',JSON.stringify(m)+'\n');},
+ sourceCoverage:f=>{const m=JSON.parse(f.get('inventario.json'));m.syntaxCoverage[0].items=0;m.syntaxCoverage[0].sha256='0'.repeat(64);f.set('inventario.json',JSON.stringify(m)+'\n');},
+ ubicacion:f=>changePage(f,a=>a[0].source.line=999999),
+ grafo:f=>f.set('inventario-bindings.json','[]\n'),
+ sobrante:f=>f.set('inventario-pagina-extra.json','[]\n'),
+ indice_omitido:f=>f.delete('inventario-indice-0000.json'),
+ evidencia:f=>changePage(f,a=>a[0].evidence='accepted'),
+};
+for(const [name,mutate] of Object.entries(mutations)){const f=new Map(original.files);mutate(f);const dir=resolve(out,name);pack(f,dir);let read=true,api;try{readArtifact(dir)}catch(e){read=e.message}try{compareFiles(original.files,readArtifact(dir).files);api='ACCEPT'}catch(e){api=e.message}const cli=spawnSync('bun',['scripts/procedencia/inventario-artefacto.mjs','check',dir],{encoding:'utf8'});record(name,{read,api,cli:cli.status,error:cli.stderr.slice(-650)});}
+for(const [name,entry] of [['duplicado',[page,original.files.get(page)]],['traversal',['../evil.json','[]']]]){const dir=resolve(out,name);pack(new Map(original.files),dir,[...original.files,entry]);try{readArtifact(dir);record(name,{accepted:true})}catch(e){record(name,{error:e.message})}}
+// Interrupción: blob nuevo y manifiesto anterior.
+const interrupted=resolve(out,'interrupted');pack(new Map(original.files),interrupted);fs.copyFileSync(resolve(out,'valor/docs/procedencia/inventario-datos.json.gz'),resolve(interrupted,'docs/procedencia/inventario-datos.json.gz'));try{readArtifact(interrupted);record('interrupted',{accepted:true})}catch(e){record('interrupted',{error:e.message})}
+for(const file of ['bun.lock','scripts/procedencia/inventario-ast.mjs','lib/dominio/irpf/comunidades/comunidad-autonoma.ts']){const old=fs.readFileSync(file);fs.appendFileSync(file,'\n// review changed\n');const r=spawnSync('bun',['scripts/procedencia/inventario-artefacto.mjs','check'],{encoding:'utf8'});fs.writeFileSync(file,old);record('input:'+file,{status:r.status,error:r.stderr.slice(-650)});}
+const samples={bigint:3n,alias:{a:{v:123}},fake:{constructor:{name:'Decimal'},amount:123},tag:{[Symbol.toStringTag]:'Number',amount:123},date:new Date(),map:new Map([['x',123]]),nan:NaN,decimalNaN:new Decimal(NaN),customPrototype:Object.create(Object.assign(Object.create(null),{amount:123}))};samples.alias.b=samples.alias.a;samples.cycle={};samples.cycle.self=samples.cycle;for(const [name,v] of Object.entries(samples)){try{record('flatten:'+name,{leaves:flatten(v)})}catch(e){record('flatten:'+name,{error:e.message})}}
+const text='Math.floor(2.5); Math.ceil(2.5); surround(2); a == b; new Decimal("2"); a != b; a ?? b;';record('ast',{items:extractTs('fixture.ts',text).items.map(x=>({expression:x.expression,kind:x.kind}))});
+const a=extractTs('fixture.ts','const a=[10,20]'),b=extractTs('fixture.ts','const a=[5,10,20]');record('ids',{reused:a.items.filter(x=>b.items.some(y=>x.id===y.id)).length});

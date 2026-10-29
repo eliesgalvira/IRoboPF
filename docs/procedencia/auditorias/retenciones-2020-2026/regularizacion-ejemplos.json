@@ -1,0 +1,380 @@
+[
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 0,
+      "territory": "general",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "6000",
+      "TIPOREG_beforeMaximum": "100.00",
+      "TIPOREG_afterMaximum": "45",
+      "IMPORTE": "2700.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 4000,
+      "territory": "general",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "6000",
+      "TIPOREG_beforeMaximum": "33.33",
+      "TIPOREG_afterMaximum": "33.33",
+      "IMPORTE": "5999.80"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 7000,
+      "territory": "general",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "6000",
+      "TIPOREG_beforeMaximum": "0.00",
+      "TIPOREG_afterMaximum": "0.00",
+      "IMPORTE": "7000.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 0,
+      "territory": "territorial-antes-y-despues",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "2400.0",
+      "TIPOREG_beforeMaximum": "40.00",
+      "TIPOREG_afterMaximum": "18",
+      "IMPORTE": "1080.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 4000,
+      "territory": "territorial-antes-y-despues",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "2400.0",
+      "TIPOREG_beforeMaximum": "0.00",
+      "TIPOREG_afterMaximum": "0.00",
+      "IMPORTE": "4000.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 7000,
+      "territory": "territorial-antes-y-despues",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "2400.0",
+      "TIPOREG_beforeMaximum": "0.00",
+      "TIPOREG_afterMaximum": "0.00",
+      "IMPORTE": "7000.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 0,
+      "territory": "entrada-territorial",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "5280.0",
+      "TIPOREG_beforeMaximum": "88.00",
+      "TIPOREG_afterMaximum": "45",
+      "IMPORTE": "2700.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 4000,
+      "territory": "entrada-territorial",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "5280.0",
+      "TIPOREG_beforeMaximum": "21.33",
+      "TIPOREG_afterMaximum": "21.33",
+      "IMPORTE": "5279.80"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "2020–20oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 7000,
+      "territory": "entrada-territorial",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "5280.0",
+      "TIPOREG_beforeMaximum": "0.00",
+      "TIPOREG_afterMaximum": "0.00",
+      "IMPORTE": "7000.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 0,
+      "territory": "general",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "6000",
+      "TIPOREG_beforeMaximum": "100.00",
+      "TIPOREG_afterMaximum": "47",
+      "IMPORTE": "2820.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 4000,
+      "territory": "general",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "6000",
+      "TIPOREG_beforeMaximum": "33.33",
+      "TIPOREG_afterMaximum": "33.33",
+      "IMPORTE": "5999.80"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 7000,
+      "territory": "general",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "6000",
+      "TIPOREG_beforeMaximum": "0.00",
+      "TIPOREG_afterMaximum": "0.00",
+      "IMPORTE": "7000.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 0,
+      "territory": "territorial-antes-y-despues",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "2400.0",
+      "TIPOREG_beforeMaximum": "40.00",
+      "TIPOREG_afterMaximum": "19",
+      "IMPORTE": "1140.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 4000,
+      "territory": "territorial-antes-y-despues",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "2400.0",
+      "TIPOREG_beforeMaximum": "0.00",
+      "TIPOREG_afterMaximum": "0.00",
+      "IMPORTE": "4000.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 7000,
+      "territory": "territorial-antes-y-despues",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "2400.0",
+      "TIPOREG_beforeMaximum": "0.00",
+      "TIPOREG_afterMaximum": "0.00",
+      "IMPORTE": "7000.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 0,
+      "territory": "entrada-territorial",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "5280.0",
+      "TIPOREG_beforeMaximum": "88.00",
+      "TIPOREG_afterMaximum": "47",
+      "IMPORTE": "2820.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 4000,
+      "territory": "entrada-territorial",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "5280.0",
+      "TIPOREG_beforeMaximum": "21.33",
+      "TIPOREG_afterMaximum": "21.33",
+      "IMPORTE": "5279.80"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  },
+  {
+    "version": "desde21oct2021",
+    "input": {
+      "RETRIB": "30000",
+      "PERCIBIDO": "24000",
+      "CUOTA": "6000",
+      "RETENIDO": 7000,
+      "territory": "entrada-territorial",
+      "MINOPAGO": "0",
+      "contract": "general"
+    },
+    "expected": {
+      "IMPORTEREG": "5280.0",
+      "TIPOREG_beforeMaximum": "0.00",
+      "TIPOREG_afterMaximum": "0.00",
+      "IMPORTE": "7000.00"
+    },
+    "scope": "Subpaso aislado; no aplica aún87.5 ni justifica causa: no es caso completo aceptado",
+    "review": "pendiente",
+    "engineCoverage": "missing"
+  }
+]
