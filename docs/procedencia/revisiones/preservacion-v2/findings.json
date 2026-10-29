@@ -1,0 +1,31 @@
+{
+  "base": "c61a306107f280c399eb57e57a7c45452bd68864",
+  "verdict": "requiere-cambios-acotados",
+  "fiscalAcceptance": "ninguna",
+  "findings": [
+    {
+      "id": "PREV2-01",
+      "priority": "P2",
+      "location": "tools/procedencia/preservacion.py:235-242",
+      "title": "Zona con minutos imposibles aceptada por normalización",
+      "reproduction": "residuales_test.py::Residuales.test_rechaza_zona_con_minutos_imposibles",
+      "observed": "validate acepta 2026-01-01T00:00:00+00:99",
+      "expected": "Rechazar componentes horarios fuera de rango antes de conservar el timestamp",
+      "expertObjection": "Parsear un datetime normalizado no valida la forma original del registro",
+      "cost": "Validación explícita adicional, rechazo de metadatos antes tolerados",
+      "realPackageAffectedObserved": false
+    },
+    {
+      "id": "PREV2-02",
+      "priority": "P2",
+      "location": "tools/procedencia/preservacion.py:101-106",
+      "title": "Fallo del último fsync deja marcador visible",
+      "reproduction": "residuales_test.py::Residuales.test_fallo_final_no_deja_marcador_segun_informe",
+      "observed": "La novena llamada fsync inducida falla; transfer propaga OSError y manifest.json existe",
+      "expected": "Contrato explícito de publicación visible con durabilidad indeterminada y recuperación; retirar promesa universal de ausencia de marcador tras fallo",
+      "expertObjection": "Un rollback tras error de fsync tampoco acredita persistencia; existencia visible no es confirmación de durabilidad",
+      "cost": "Estado operativo y pruebas adicionales, corrección documental",
+      "realPackageCorruptionObserved": false
+    }
+  ]
+}

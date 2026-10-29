@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs"
+import { parseArgs } from "node:util"
+import { readFileSync, lstatSync } from "node:fs"
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import { spawnSync } from "node:child_process"
@@ -12,7 +13,12 @@ import { sourcePaths, filesUnder } from "./inventario.mjs"
 
 // Único punto de entrada de la comprobación completa: reconstruye en proceso
 // nuevo. El auxiliar Python solo comprueba evidencia con el contexto recibido.
-export async function verifyLinks(root = process.cwd()) {
+export async function verifyLinks(root = process.cwd(), { casRoots } = {}) {
+  if (
+    casRoots !== undefined &&
+    (!Array.isArray(casRoots) || casRoots.some((p) => !p.startsWith("/")))
+  )
+    throw new Error("Raíces CAS absolutas requeridas")
   const registryPath = resolve(root, "docs/procedencia/enlaces/registro.json")
   const registryBytes = readFileSync(registryPath)
   const registry = JSON.parse(registryBytes)
@@ -57,6 +63,7 @@ export async function verifyLinks(root = process.cwd()) {
     [
       resolve(root, "tools/procedencia/run.sh"),
       resolve(root, "tools/procedencia/enlaces.py"),
+      ...(casRoots ?? []).flatMap((p) => ["--cas-root", p]),
     ],
     {
       cwd: root,
@@ -83,6 +90,17 @@ export async function verifyLinks(root = process.cwd()) {
         `Documento cambió durante la verificación: ${dependency.path}`
       )
   }
+  for (const dependency of result.casDependencies) {
+    const parts = dependency.path.split("/").filter(Boolean)
+    let path = "/"
+    for (const part of parts) {
+      path = resolve(path, part)
+      if (lstatSync(path).isSymbolicLink())
+        throw new Error("Symlink CAS tardío")
+    }
+    if (hash(readFileSync(path)) !== dependency.sha256)
+      throw new Error("Objeto CAS cambió durante la verificación")
+  }
   ensureInputs()
   compareFiles(artifact.files, readArtifact(root).files)
   return {
@@ -96,6 +114,11 @@ if (
   process.argv[1] &&
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
-  const result = await verifyLinks()
+  const { values } = parseArgs({
+    options: { "cas-root": { type: "string", multiple: true } },
+  })
+  const result = await verifyLinks(process.cwd(), {
+    casRoots: values["cas-root"],
+  })
   process.stdout.write(JSON.stringify(result, null, 2) + "\n")
 }

@@ -1543,3 +1543,5 @@ const rastroResultadoNoSoportado = ({
     },
   ],
 })
+
+export { liquidarIrpfAnualExplicito } from "../trabajo-anual/conexion"
