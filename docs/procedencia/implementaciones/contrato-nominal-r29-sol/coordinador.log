@@ -1,0 +1,23 @@
+file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:241
+    throw new Error(child.stderr || "Falló generación en proceso aislado")
+          ^
+
+Error: 102 |     Predicate.isBigInt(value)
+103 |   )
+104 |     return [{ path, value: String(value) }]
+105 |   if (Decimal.isDecimal(value)) {
+106 |     if (!(value instanceof Decimal))
+107 |       throw new Error(`Decimal ajeno o imitado: ${JSON.stringify(path)}`)
+                      ^
+error: Decimal ajeno o imitado: ["0","baseInferior"]
+      at flatten (/home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:107:17)
+      at generateInProcess (/home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:297:26)
+
+Bun v1.3.13 (Linux x64)
+
+    at generate (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:241:11)
+    at buildArtifact (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario-artefacto.mjs:93:27)
+    at verifyLinks (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/verificar-enlaces.mjs:50:9)
+    at file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/recorrido.mjs:2:22
+
+Node.js v24.19.0

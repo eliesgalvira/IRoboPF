@@ -1,0 +1,23 @@
+70 |   }
+71 | };
+72 | const forced = {
+73 |   [InternalTypeId]: body => {
+74 |     try {
+75 |       return body();
+                  ^
+error: Unexpected key with value "5c155988095e6e9305cc41a74a63f48bdf2b4abad829dfa7f277204bc9d22104"
+  at ["busqueda"]
+Unexpected key with value [{"hash":"d5f34c6678830964e6765d394ce73a615896b4d9cceb9514ecda8134de49c268","sha512":"77e732a15bed7bdc71bf8ab6abba62c9418cc917b023df58e9daa6267b26748acfe6c9ae88c1bcb38c374be997e7761fce3ba7b310695c45cbdfb42e9b4079c8","bytes":10000001,"mime":"application/pdf","clase":"original-pdf"}]
+  at ["externos"]
+      at ~effect/Utils/internal (/home/elies/Repos/IRoboPF/node_modules/effect/dist/Utils.js:75:14)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:670:53)
+      at runLoop (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:444:98)
+      at evaluate (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:412:23)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2110:9)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2188:19)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2201:18)
+      at blobPublico (/home/elies/.t3/worktrees/IRoboPF/t3-b57bec87/lib/procedencia/almacen.ts:158:20)
+      at /home/elies/.t3/worktrees/IRoboPF/t3-b57bec87/tests/cas-local-r27.mjs:19:18
+      at loadAndEvaluateModule (2:1)
+
+Bun v1.3.13 (Linux x64)

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -u
+export PYTHONDONTWRITEBYTECODE=1
+export RUFF_CACHE_DIR=/home/elies/.t3/worktrees/IRoboPF/t3-ad56e1f7/.cache/revision-v5-r28/ruff
+out=docs/procedencia/revisiones/preservacion-v5-r28-sol
+ruff check "$out" --fix
+ruff format "$out"
+ruff check "$out"
+echo "ruff=$?"
+mypy --follow-imports=skip --ignore-missing-imports --check-untyped-defs --cache-dir /home/elies/.t3/worktrees/IRoboPF/t3-ad56e1f7/.cache/revision-v5-r28/mypy "$out"/*.py
+echo "mypy=$?"
+/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --threads 1 --disable-nested-config --config /home/elies/Repos/IRoboPF/.oxlintrc.json lib/formato.ts
+echo "oxlint=$?"

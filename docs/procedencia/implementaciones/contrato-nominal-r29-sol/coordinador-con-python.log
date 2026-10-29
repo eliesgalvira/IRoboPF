@@ -1,0 +1,29 @@
+file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:241
+    throw new Error(child.stderr || "Falló generación en proceso aislado")
+          ^
+
+Error: 551 |         .map((p) => relative(root, p)),
+552 |     ]
+553 |       .sort()
+554 |       .map((file) => ({
+555 |         file,
+556 |         sha256: hash(readFileSync(resolve(root, file))),
+                           ^
+ENOENT: no such file or directory, open '/home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/bun.lock'
+    path: "/home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/bun.lock",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:556:22)
+      at map (1:11)
+      at generateInProcess (/home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:554:8)
+
+Bun v1.3.13 (Linux x64)
+
+    at generate (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:241:11)
+    at buildArtifact (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario-artefacto.mjs:93:27)
+    at verifyLinks (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/verificar-enlaces.mjs:50:9)
+    at file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/recorrido.mjs:2:22
+
+Node.js v24.19.0

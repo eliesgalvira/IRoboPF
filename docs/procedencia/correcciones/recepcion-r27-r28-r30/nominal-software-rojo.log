@@ -1,0 +1,13 @@
+18 |   "schemas/procedencia/nominal-projection.schema.json",
+19 |   "schemas/procedencia/nominal-dependencies.schema.json",
+20 | ]
+21 | 
+22 | for (const changed of nominal) {
+23 |   test(`el snapshot detecta cambios persistentes en ${changed}`, () => {
+       ^
+error: Cannot use test outside of the test runner. Run "bun test" to run tests.
+      at test (node:test:144:8)
+      at /home/elies/Repos/IRoboPF/tests/nominal-software-explicacion.test.mjs:23:3
+      at loadAndEvaluateModule (2:1)
+
+Bun v1.3.13 (Linux x64)

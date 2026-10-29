@@ -29,7 +29,7 @@ export function GET(
         return new Response("Ficha desconocida", { status: 404 })
       const fichaSnapshot = leerSnapshot(snapshot)
       const evidencias =
-        fichaSnapshot?.version === 2
+        fichaSnapshot !== null && fichaSnapshot.version !== 1
           ? fichaSnapshot.evidencias.filter(
               (e) => e.sujeto.id === id && e.sujeto.revision === revision
             )

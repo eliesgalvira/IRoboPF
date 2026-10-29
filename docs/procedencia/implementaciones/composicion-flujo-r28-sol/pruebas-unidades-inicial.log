@@ -1,0 +1,43 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-b958dddb
+
+ ❯ tests/flujo-procedencia.test.ts (16 tests | 3 failed) 5125ms
+     × schema y determinismo conservan el candidato pendiente 1579ms
+     × recorre los 65 sitios con identidad separada y 19 etapas 1491ms
+     × rechaza eliminación, control convertido en valor, conversión y cambio de lado/año por reconstrucción 1514ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-procedencia.test.ts > puertos y puertas de composición > schema y determinismo conservan el candidato pendiente
+Error: Unidades incompatibles
+ ❯ validate scripts/procedencia/flujo-contrato.mjs:12:67
+
+ ❯ compose scripts/procedencia/flujo-componer.mjs:176:11
+ ❯ tests/flujo-procedencia.test.ts:23:75
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/flujo-procedencia.test.ts > puertos y puertas de composición > recorre los 65 sitios con identidad separada y 19 etapas
+Error: Unidades incompatibles
+ ❯ validate scripts/procedencia/flujo-contrato.mjs:12:67
+
+ ❯ compose scripts/procedencia/flujo-componer.mjs:176:11
+ ❯ tests/flujo-procedencia.test.ts:24:77
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/flujo-procedencia.test.ts > puertos y puertas de composición > rechaza eliminación, control convertido en valor, conversión y cambio de lado/año por reconstrucción
+Error: Unidades incompatibles
+ ❯ validate scripts/procedencia/flujo-contrato.mjs:12:67
+
+ ❯ compose scripts/procedencia/flujo-componer.mjs:176:11
+ ❯ tests/flujo-procedencia.test.ts:25:121
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 13 passed (16)
+   Start at  23:13:16
+   Duration  5.50s (transform 65ms, setup 0ms, import 262ms, tests 5.13s, environment 0ms)
+

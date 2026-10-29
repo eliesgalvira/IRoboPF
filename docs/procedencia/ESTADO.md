@@ -2,7 +2,21 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 29 del 29 de octubre
+## Situación más reciente, ronda 30 del 29 de octubre
+
+Recibidos CAS externo R27, revisión v5 R28, composición parcial R28 y contrato nominal R29: 303 archivos y 28.277.076 bytes con sobres de transporte. Cuatro cotejos físicos completos contra sus bases, cero borrados y solo trece modificaciones declaradas. El instrumento preempaque.txt no manifestado se conserva en el hijo y se excluye expresamente; ninguna copia ocurrió antes de resolver esa discrepancia. Recibos e informe en correcciones/recepcion-r27-r28-r30.
+
+CAS v3 queda integrado como candidato técnico. El autor ejecutó 264 pares/102 sujetos y veinte GET; el padre comprueba el ensayo sintético y la integración global, sin confundirlos con revisión independiente. El original grande ya está preservado fuera de T3 en v5 r2 y sus dos hashes/tamaño se verifican de nuevo. La publicación del lote completo y sus límites Linux/recursos requieren revisión nueva. No cambia la confianza activa ni se eleva el límite interno del almacén.
+
+El padre reproduce CL01 y corrige la clasificación actual con prueba previa: selección/cita, texto y software no heredan la clase de original por una URL contigua. Diez casos pasan tras siete fallos previos; las 28 regresiones pasan después de resolver un directorio scratch ausente, conservando ambos intentos. La política nueva no cambia el censo ni los bytes congelados de v5 r2. Las reservas de clasificación histórica, privacidad, cobertura y determinismo permanecen explícitas. Informe en correcciones/preservacion-r30.
+
+Composición R28 permanece parcial: un cierre de valor, otros 64 y toda la admisión pendientes. La integración corrige tipos/plataforma del test y el nombre de callback que ESLint interpretaba como hook, conservando esperados y diagnósticos. La continuación se acota a diecisiete sitios de retenciones/cotizaciones mediante contratos concretos por propiedad; no se acepta una lista de desconocidos como cierre ni se publica el grafo incompleto.
+
+El contrato nominal conserva Madrid2020 y su identidad real, la discordancia ley/manual y un pin de decisión del padre. Siete pruebas Python, seis Node y coordinador real concuerdan en pending, trust-indeterminate y completeRuleAcceptance=false, sin ningún contexto civil admitido. Falta revisión independiente del payload exacto y consumidores; no se emite ni activa atestación. La integración incorpora también el control de versiones del software nominal, con rojos conservados antes del arreglo y resultados finales en el recibo de validación.
+
+El motor, inventario y confianza activa permanecen intactos. La regeneración final conserva 42 snapshots; activo V2 `f811507b90eeb0b2e477a9abfa94c2cec6223992d94106cb6539c08d6c3c933c`, explicación `865be601833379df43bd2e595c394d7e9ca2e221ee1df67082f75843a9c5f8ec`. Las seis mutaciones persistentes ahora se rechazan y las dieciséis pruebas de composición pasan. Los controles finales se documentan en validacion.json y regeneracion-final.json. Crossa conserva v1 desfasado, copia local fuera de Victus del mismo dueño y casa, sin custodia remota ni independiente. V4/v5 permanecen congelados. Sin main, PR, despliegue, LFS, gasto, transferencia externa o limpieza. El encargo global sigue abierto; se preparan revisiones nuevas y continuación Sol 6.1 high priority explícitos.
+
+## Situación anterior, ronda 29 del 29 de octubre
 
 Recibidas por manifiesto las revisiones R27 de multiplicidad y Madrid, y R28 de rectificaciones de flujo: 177 archivos, 20.899.621 bytes. Dos cotejos físicos completos de 15.730 entradas y otro de 15.914, sin diferencias de base ni borrados. Recibos e informe en correcciones/recepcion-r27-r29. Las entregas históricas permanecen intactas.
 

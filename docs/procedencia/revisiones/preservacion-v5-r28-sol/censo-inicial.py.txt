@@ -1,0 +1,210 @@
+"""Contraste independiente y acotado de fragmentos, ausencias y transformación r2."""
+
+from collections import Counter
+import copy
+import gzip
+import io
+import hashlib
+import importlib
+import json
+from pathlib import Path
+import resource
+import sys
+import subprocess
+import time
+
+ROOT = Path.cwd()
+CACHE = ROOT / ".cache/revision-v5-r28"
+SOFT = CACHE / "software-restaurado"
+sys.path.insert(0, str(SOFT / "docs/procedencia/preservacion-v5-sol"))
+c = importlib.import_module("consumidor")
+r = importlib.import_module("recolector")
+start = time.monotonic()
+m = json.loads((CACHE / "manifest-final.json").read_bytes())
+package = CACHE / "restauracion-v5"
+deps = {d["path"]: d for d in m["dependencies"]}
+source = Path(
+    "/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4"
+)
+previous_raw = (source / "manifest-entrada-r1.json").read_bytes()
+assert (
+    hashlib.sha256(previous_raw).hexdigest()
+    == "7883e53fd88d11b8fef626669ce63d0676ea217799551e72195a510710378a41"
+)
+old = json.loads(previous_raw)
+recipe_row = deps["contrato-v5-r2.json"]
+recipe_raw = (package / "dependencies" / recipe_row["sha256"]).read_bytes()
+recipe = json.loads(recipe_raw)
+assert len(recipe["tools"]) == 5
+# Reconstruct the manifest operation without running its initializers or copying 2 GB again.
+new = copy.deepcopy(old)
+selected = {d["path"]: d for d in old["dependencies"]}
+for name in recipe["tools"]:
+    path = "docs/procedencia/preservacion-v5-sol/" + name
+    fp = c.p.fingerprint(SOFT / path)
+    selected[path] = dict(
+        fp,
+        path=path,
+        sourceSha256=fp["sha256"],
+        sourceSha512=fp["sha512"],
+        sourceSize=fp["size"],
+        sanitized=False,
+        historical=False,
+    )
+    new["software"][path] = fp
+selected[recipe_row["path"]] = recipe_row
+new["dependencies"] = [selected[name] for name in sorted(selected)]
+regenerated = c.p.encoded(new)
+assert regenerated == (CACHE / "manifest-final.json").read_bytes()
+a = gzip.compress(regenerated, mtime=0)
+b = gzip.compress(regenerated, mtime=0)
+assert a == b
+# Check the actual GzipFile recipe bytes against the delivered gzip.
+
+sink = io.BytesIO()
+with gzip.GzipFile(filename="", mode="wb", fileobj=sink, mtime=0) as stream:
+    stream.write(regenerated)
+assert (
+    sink.getvalue()
+    == (
+        ROOT / "docs/procedencia/preservacion-v5-sol/r2/manifest-final.json.gz"
+    ).read_bytes()
+)
+fragments = json.loads(
+    (ROOT / "docs/procedencia/preservacion-v5-sol/CENSO-EXTERNO.json").read_bytes()
+)["fragments"]
+classes: Counter[str] = Counter()
+identities = set()
+unresolved = {d["sha256"] for d in m["unresolvedReferences"]}
+missing_classes: Counter[str] = Counter()
+samples: dict[str, dict[str, str]] = {}
+rows_count = 0
+semantic_samples: dict[str, dict[str, str]] = {}
+for fragment in fragments:
+    row = deps[fragment["packageDependencyPath"]]
+    assert all(row[k] == fragment[k] for k in ("sha256", "sha512", "size"))
+    path = package / "dependencies" / row["sha256"]
+    c.p.check(path, row)
+    with gzip.open(path, "rt") as stream:
+        for line in stream:
+            obs = json.loads(line)
+            classes[obs["kind"]] += 1
+            identities.add(obs["sha256"])
+            if (
+                obs["kind"] not in semantic_samples
+                and obs["path"] in deps
+                and deps[obs["path"]]["sourceSize"] < 2_000_000
+            ):
+                semantic_samples[obs["kind"]] = {
+                    k: obs[k] for k in ("path", "pointer", "sha256", "kind")
+                }
+            rows_count += 1
+            if obs["sha256"] in unresolved:
+                missing_classes[obs["kind"]] += 1
+                # Never copy context values: pointers and classes only.
+                samples.setdefault(
+                    obs["kind"],
+                    {
+                        k: obs[k]
+                        for k in ("path", "pointer", "sha256", "kind", "reason")
+                    },
+                )
+semantic_results = []
+for sample in semantic_samples.values():
+    original = subprocess.check_output(
+        ["git", "cat-file", "blob", c.BASE + ":" + sample["path"]]
+    )
+    value = c.p.strict_json(
+        gzip.decompress(original) if sample["path"].endswith(".gz") else original
+    )
+    observed = next(
+        (
+            obs
+            for obs in r.observations(value, sample["path"])
+            if obs["pointer"] == sample["pointer"]
+        ),
+        None,
+    )
+    assert observed is not None and all(
+        observed[k] == sample[k] for k in ("sha256", "kind")
+    )
+    semantic_results.append(dict(sample, sourceBlobExact=True))
+summary = json.loads(
+    (ROOT / "docs/procedencia/preservacion-v5-sol/censo-resumen.json").read_bytes()
+)
+assert dict(classes) == summary["observationsByClass"]
+assert len(identities) == summary["identities"]
+# Discriminating synthetic classification probes, with independently selected expectations.
+probes = [
+    ({"documentSha256": "a" * 64}, "sources.json", "desconocido-documental"),
+    (
+        {
+            "sha256": "a" * 64,
+            "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764",
+        },
+        "sources.json",
+        "original-oficial",
+    ),
+    ({"facsimileSha256": "a" * 64}, "sources.json", "facsimil-receta"),
+    ({"sha256": "a" * 64}, "tests/fixtures/a.json", "fixture-sintetico"),
+    ({"sourceSha256": "a" * 64}, "software.json", "fuente-software"),
+]
+probe_results = []
+for value, path, expected in probes:
+    obs = list(r.observations(value, path))
+    probe_results.append(
+        {
+            "path": path,
+            "expected": expected,
+            "actual": obs[0]["kind"],
+            "pass": obs[0]["kind"] == expected,
+        }
+    )
+assert all(p["pass"] for p in probe_results)
+# Declared grammar limits are not silently elevated into exhaustive discovery.
+for value in [
+    {"a" * 64: {}},
+    {"url": "https://www.boe.es/a.pdf"},
+    {"sha512": "a" * 128},
+]:
+    assert not list(r.observations(value, "a.json"))
+transport = {d["sha256"] for d in m["dependencies"]}
+origins = {d["sourceSha256"] for d in m["dependencies"]}
+objects = {o["sha256"] for o in m["objects"]}
+result = {
+    "pin": hashlib.sha256(regenerated).hexdigest(),
+    "recipeExact": True,
+    "tools": recipe["tools"],
+    "gzipExact": True,
+    "fragments": len(fragments),
+    "observations": rows_count,
+    "classes": dict(classes),
+    "identities": len(identities),
+    "unresolvedIdentities": len(unresolved),
+    "unresolvedObservationClasses": dict(missing_classes),
+    "unresolvedSamples": samples,
+    "classificationProbes": probe_results,
+    "semanticSamples": semantic_results,
+    "identityAxes": {
+        "transportedAuxiliaryDistinct": len(transport),
+        "sourceIdentityDistinct": len(origins),
+        "sanitizedRows": sum(d["sanitized"] for d in m["dependencies"]),
+        "sourceIdentitiesWithoutExactAvailableBytes": len(
+            origins - transport - objects
+        ),
+    },
+    "seconds": time.monotonic() - start,
+    "maxRssKiB": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+}
+(CACHE / "censo-receta.json").write_text(
+    json.dumps(result, indent=2, ensure_ascii=False)
+)
+print(
+    json.dumps(
+        {
+            k: v
+            for k, v in result.items()
+            if k not in ("unresolvedSamples", "classes", "unresolvedObservationClasses")
+        }
+    )
+)

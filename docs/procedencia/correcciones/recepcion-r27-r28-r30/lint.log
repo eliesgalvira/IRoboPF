@@ -1,0 +1,57 @@
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+
+/home/elies/Repos/IRoboPF/docs/procedencia/editorial/flujo-escalas-r23-sol/resolver-datos.mjs
+  6:7  warning  'root' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/editorial/flujo-rentas-actividad-r23-sol/terminales.mjs
+  12:27  warning  'expr' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  17:10  warning  't' is assigned a value but never used     @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/editorial/flujo-rentas-r21-sol/construir.mjs
+  4:8  warning  'zlib' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/implementaciones/cas-local-r27-sol/historicos.mjs
+  6:3  warning  'readdirSync' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-componer.mjs
+   21:98   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   28:17   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   31:20   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   32:68   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   46:59   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   55:9    error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   60:50   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   61:141  error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   62:175  error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   63:110  error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   64:118  error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   64:166  error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   69:48   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   70:62   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   74:7    error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   75:42   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   76:43   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   79:7    error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   79:25   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   80:47   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   82:59   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   93:29   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+   94:37   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  101:7    error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  110:7    error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  116:46   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  129:13   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  131:11   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  139:7    error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  141:114  error    React Hook "use" is called in function "branchUse" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  152:191  error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  160:57   error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  160:129  error    React Hook "use" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function                                                                                            react-hooks/rules-of-hooks
+  173:126  warning  'body' is defined but never used                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+
+✖ 39 problems (33 errors, 6 warnings)
+
+error: script "lint:eslint" exited with code 1
+error: script "lint" exited with code 1

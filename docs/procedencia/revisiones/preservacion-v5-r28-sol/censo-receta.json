@@ -1,0 +1,216 @@
+{
+  "pin": "2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88",
+  "recipeExact": true,
+  "tools": [
+    "selector_ine.py",
+    "recuperar2.py",
+    "materializar2.py",
+    "recolector2.py",
+    "cierre_software.py"
+  ],
+  "gzipExact": true,
+  "fragments": 165,
+  "observationFragments": 164,
+  "resolutionRows": 32465,
+  "resolutionStatuses": {
+    "no-resuelto": 14197,
+    "auxiliar": 16821,
+    "objeto": 1447
+  },
+  "observations": 1635129,
+  "classes": {
+    "desconocido-documental": 97133,
+    "original-oficial": 51956,
+    "metadatos-adquisicion": 32263,
+    "desconocido": 470139,
+    "atestacion-caso-tecnico": 815840,
+    "facsimil-receta": 2492,
+    "fixture-sintetico": 150,
+    "fuente-software": 164813,
+    "contenido-publico-X": 291,
+    "captura-secundaria-URL-oficial": 52
+  },
+  "identities": 32465,
+  "unresolvedIdentities": 14197,
+  "unresolvedObservationClasses": {
+    "desconocido": 105224,
+    "fixture-sintetico": 66,
+    "desconocido-documental": 5,
+    "facsimil-receta": 12,
+    "contenido-publico-X": 193,
+    "atestacion-caso-tecnico": 89793,
+    "fuente-software": 15655,
+    "original-oficial": 4109,
+    "metadatos-adquisicion": 130
+  },
+  "unresolvedSamples": {
+    "desconocido": {
+      "path": "docs/procedencia/auditorias/arquitectura/hallazgos.json",
+      "pointer": "/0/engineLocations/0/fileSha256",
+      "sha256": "de20289cc9d79b2e22fd83f3b41338f923b489e7a1687622b096093c603c4293",
+      "kind": "desconocido",
+      "reason": "campo hash sin semántica documental suficiente"
+    },
+    "fixture-sintetico": {
+      "path": "docs/procedencia/auditorias/cierre-cobertura/registros.json.gz",
+      "pointer": "/11675/declared/fixture/corpusSnapshotSha256",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "kind": "fixture-sintetico",
+      "reason": "ruta de fixture/caso; no norma"
+    },
+    "desconocido-documental": {
+      "path": "docs/procedencia/auditorias/cierre-cobertura/registros.json.gz",
+      "pointer": "/11681/declared/original/sha256",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "kind": "desconocido-documental",
+      "reason": "referencia documental sin URL contigua; requiere resolver cadena"
+    },
+    "facsimil-receta": {
+      "path": "docs/procedencia/auditorias/correcciones-x-2051956145145712916/citas-candidatas.json",
+      "pointer": "/0/facsimileSha256",
+      "sha256": "1c7a254c8087f50baee628fdf28f245e647fccb89818fd2639de61ae8fcde3ce",
+      "kind": "facsimil-receta",
+      "reason": "campo/ancestro de facsímil o receta"
+    },
+    "contenido-publico-X": {
+      "path": "docs/procedencia/auditorias/correcciones-x-2051956145145712916/fuentes-fijadas.json",
+      "pointer": "/3/sha256",
+      "sha256": "64300f6fd1a3456aa3242c8ebc20f3de546c6678dd989690736a184b65eb9a24",
+      "kind": "contenido-publico-X",
+      "reason": "ámbito público X; se excluye payload, no se infiere oficialidad"
+    },
+    "atestacion-caso-tecnico": {
+      "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/snapshot-motor.json",
+      "pointer": "/10/sha256",
+      "sha256": "f8946e55306bd6f7c6c4c79c2152190b594880e0daad91499aa10fa63e0620a9",
+      "kind": "atestacion-caso-tecnico",
+      "reason": "estructura técnica; no aceptación"
+    },
+    "fuente-software": {
+      "path": "docs/procedencia/auditorias/retenciones-2020-2026/inventario-vinculos.json",
+      "pointer": "/links/0/inventoryPageSha256",
+      "sha256": "1dac3669ae2bbef3a6b561036fcd49a2185a85b8ea30780f5653206c2b30c61b",
+      "kind": "fuente-software",
+      "reason": "identidad técnica declarada por campo"
+    },
+    "original-oficial": {
+      "path": "docs/procedencia/editorial/flujo-rentas-r21-sol/entradas-editoriales.json",
+      "pointer": "/citations/0/selectionSha256",
+      "sha256": "5eadc5d542abbf881ba245b97c8d4104d05f0d8cfc944194dc3db9c29d183b4e",
+      "kind": "original-oficial",
+      "reason": "URL admitida junto al campo; no autenticidad jurídica"
+    },
+    "metadatos-adquisicion": {
+      "path": "docs/procedencia/implementaciones/escalas-ahorro/fuentes.json",
+      "pointer": "/0/paginas/0/sha256TextoPoppler",
+      "sha256": "fcb3f71d2397cc46883391d1ebbb0daf110fa0ed062f72529c942457e78010cc",
+      "kind": "metadatos-adquisicion",
+      "reason": "estructura de adquisición; no original por sí sola"
+    }
+  },
+  "classificationProbes": [
+    {
+      "path": "sources.json",
+      "expected": "desconocido-documental",
+      "actual": "desconocido-documental",
+      "pass": true
+    },
+    {
+      "path": "sources.json",
+      "expected": "original-oficial",
+      "actual": "original-oficial",
+      "pass": true
+    },
+    {
+      "path": "sources.json",
+      "expected": "facsimil-receta",
+      "actual": "facsimil-receta",
+      "pass": true
+    },
+    {
+      "path": "tests/fixtures/a.json",
+      "expected": "fixture-sintetico",
+      "actual": "fixture-sintetico",
+      "pass": true
+    },
+    {
+      "path": "software.json",
+      "expected": "fuente-software",
+      "actual": "fuente-software",
+      "pass": true
+    }
+  ],
+  "semanticSamples": [
+    {
+      "path": "docs/procedencia/auditorias/actividades-economicas-2025/citas-candidatas.json",
+      "pointer": "/0/documentSha256",
+      "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+      "kind": "desconocido-documental",
+      "sourceBlobExact": true
+    },
+    {
+      "path": "docs/procedencia/auditorias/actividades-economicas-2025/fuentes.json",
+      "pointer": "/0/sha256",
+      "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+      "kind": "original-oficial",
+      "sourceBlobExact": true
+    },
+    {
+      "path": "docs/procedencia/auditorias/arquitectura/fuentes.json",
+      "pointer": "/0/sha256",
+      "sha256": "e6ecc398fa1c6d598ca682ea074029f2c44efaea7f23ebf87ef837f3427c495f",
+      "kind": "metadatos-adquisicion",
+      "sourceBlobExact": true
+    },
+    {
+      "path": "docs/procedencia/auditorias/arquitectura/hallazgos.json",
+      "pointer": "/0/engineLocations/0/fileSha256",
+      "sha256": "de20289cc9d79b2e22fd83f3b41338f923b489e7a1687622b096093c603c4293",
+      "kind": "desconocido",
+      "sourceBlobExact": true
+    },
+    {
+      "path": "docs/procedencia/auditorias/autonomicas-2012-2016/cobertura.json",
+      "pointer": "/engineSnapshot/0/sha256",
+      "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe",
+      "kind": "atestacion-caso-tecnico",
+      "sourceBlobExact": true
+    },
+    {
+      "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/cobertura.json",
+      "pointer": "/items/0/sourceSha256",
+      "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+      "kind": "fuente-software",
+      "sourceBlobExact": true
+    },
+    {
+      "path": "docs/procedencia/auditorias/ipc-redondeos/citas-candidatas.json",
+      "pointer": "/9/facsimile/documentSha256",
+      "sha256": "95f6b1da10e7ce5807ce200c0914aa97012b722712991d33eb6a0c94576c81d6",
+      "kind": "facsimil-receta",
+      "sourceBlobExact": true
+    },
+    {
+      "path": "docs/procedencia/auditorias/retenciones-originales-2012-2016/fuentes.json",
+      "pointer": "/5/adquisiciones/1/sha256",
+      "sha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+      "kind": "captura-secundaria-URL-oficial",
+      "sourceBlobExact": true
+    },
+    {
+      "path": "docs/procedencia/preservacion-v3/cierre.json",
+      "pointer": "/excludedFixture/sha256",
+      "sha256": "2d0dd390471ad35e96377f925eed42ec8babc55943aa775a7da24c02fe9576eb",
+      "kind": "fixture-sintetico",
+      "sourceBlobExact": true
+    }
+  ],
+  "identityAxes": {
+    "transportedAuxiliaryDistinct": 16698,
+    "sourceIdentityDistinct": 17011,
+    "sanitizedRows": 592,
+    "sourceIdentitiesWithoutExactAvailableBytes": 379
+  },
+  "seconds": 9.332053143996745,
+  "maxRssKiB": 231432
+}

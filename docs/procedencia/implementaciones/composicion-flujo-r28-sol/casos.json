@@ -1,0 +1,166 @@
+{
+  "method": "16/16 del runner, asociado a cada llamada it de la fuente exacta; no son pruebas jurídicas",
+  "logSha256": "410cd385c4d89cd28b137a433c69b196033dfb9cefd74ce27a0ef9ee2aa44a83",
+  "cases": [
+    {
+      "name": "rechaza IDs duplicados, referencias, fuentes, unidades y estados",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 1947,
+        "end": 2433
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "no admite una función pendiente como terminal ni cierra unresolved",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 2435,
+        "end": 2685
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "discrimina argumentos homónimos de otra llamada por AST",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 2687,
+        "end": 3156
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "schema y determinismo conservan el candidato pendiente",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 3158,
+        "end": 3546
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "recorre los 65 sitios con identidad separada y 19 etapas",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 3548,
+        "end": 4005
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "rechaza eliminación, control convertido en valor, conversión y cambio de lado/año por reconstrucción",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 4007,
+        "end": 4408
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "conserva precisión del rastro y separa presentación",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 4488,
+        "end": 4835
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "centimos/EUR y half-up son conversiones distintas",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 4837,
+        "end": 5028
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "2018 usa antes del 5 julio solo antigua; después y ausente media",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 5030,
+        "end": 5550
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "una mutación empresarial no altera trabajador",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 5745,
+        "end": 6268
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "2018 canónico es 7/5 y no hereda el máximo legacy",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 6271,
+        "end": 6892
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "MEI conserva lado y año, no la suma conjunta",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 6895,
+        "end": 7302
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "saldo se transporta en etapas y no se suma como aporte",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 7641,
+        "end": 8264
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "cliente único habilita adicional/discapacidad; rechazo no es cero",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 8266,
+        "end": 8779
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "edad selecciona exención y conserva total; pérdida no produce exención negativa",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 8781,
+        "end": 9621
+      },
+      "result": "passed-in-suite"
+    },
+    {
+      "name": "vitalicia desde2015 conserva margen y ratio propios",
+      "source": {
+        "file": "tests/flujo-procedencia.test.ts",
+        "sha256": "552e4829c38c5ed3973b4022b8f73af9dd58ac31c6e212212b241e41047c16bf",
+        "start": 9623,
+        "end": 10254
+      },
+      "result": "passed-in-suite"
+    }
+  ]
+}

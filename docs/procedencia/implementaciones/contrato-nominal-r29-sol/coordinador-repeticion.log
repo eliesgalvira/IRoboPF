@@ -1,0 +1,22 @@
+file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:241
+    throw new Error(child.stderr || "Falló generación en proceso aislado")
+          ^
+
+Error: 466 |   const python = spawnSync(
+467 |     "python3",
+468 |     [`${root}/scripts/procedencia/inventario-python.py`, pythonPath],
+469 |     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+470 |   )
+471 |   if (python.status !== 0) throw new Error(python.stderr || "Falló AST Python")
+                                           ^
+error: Falló AST Python
+      at generateInProcess (/home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:471:38)
+
+Bun v1.3.13 (Linux x64)
+
+    at generate (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario.mjs:241:11)
+    at buildArtifact (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/inventario-artefacto.mjs:93:27)
+    at verifyLinks (file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/ensayo/scripts/procedencia/verificar-enlaces.mjs:50:9)
+    at file:///home/elies/.t3/worktrees/IRoboPF/t3-51de429b/.cache/nominal-r29/recorrido.mjs:2:22
+
+Node.js v24.19.0

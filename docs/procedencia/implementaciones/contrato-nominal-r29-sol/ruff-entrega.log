@@ -1,0 +1,12 @@
+E741 Ambiguous variable name: `O`
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:8:1
+   |
+ 6 | R = Path.cwd()
+ 7 | S = R / ".cache/nominal-r29/ensayo"
+ 8 | O = R / "docs/procedencia/implementaciones/contrato-nominal-r29-sol"
+   | ^
+ 9 | S.mkdir(parents=True, exist_ok=True)
+10 | for name in ["Calculo_Salario_IRPF.py", "package.json", "tsconfig.json", "bun.lock"]:
+   |
+
+Found 1 error.

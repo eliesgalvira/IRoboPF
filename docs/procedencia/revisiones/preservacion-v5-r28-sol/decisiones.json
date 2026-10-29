@@ -1,0 +1,44 @@
+[
+  {
+    "id": "D-R28-01",
+    "decision": "Conservar solo pin r2 candidato R26",
+    "objection": "confundir versiones o corte actual",
+    "response": "ancla externa exacta y estado candidato",
+    "cost": "mantener entrada r1 y versiones"
+  },
+  {
+    "id": "D-R28-02",
+    "decision": "Restauración nueva sin fallback",
+    "objection": "éxito por cachés ajenas",
+    "response": "software del paquete y guarda de aperturas",
+    "cost": "copia y lecturas adicionales"
+  },
+  {
+    "id": "D-R28-03",
+    "decision": "Contraste mecánico separado de colección",
+    "objection": "mismo recolector puede repetir error",
+    "response": "reconstrucción propia byte a byte",
+    "cost": "no aprobar colección inicial determinista"
+  },
+  {
+    "id": "D-R28-04",
+    "decision": "Clasificación sigue candidata",
+    "objection": "URL o número de hashes confiere oficialidad",
+    "response": "CL01 y muestras discriminantes",
+    "cost": "rectificación y contraste pendientes"
+  },
+  {
+    "id": "D-R28-05",
+    "decision": "Conservar rojos de privacidad",
+    "objection": "exigir anonimización universal cambia contrato",
+    "response": "sintéticos, dos residuales y código1",
+    "cost": "sin certificación ni transferencia"
+  },
+  {
+    "id": "D-R28-06",
+    "decision": "Sin fixes ni promoción",
+    "objection": "preservación técnica parece aceptación jurídica",
+    "response": "ejes y puertas separados",
+    "cost": "contraste del padre y trabajo global pendientes"
+  }
+]

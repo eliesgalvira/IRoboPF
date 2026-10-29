@@ -1,0 +1,14 @@
+file:///home/elies/.t3/worktrees/IRoboPF/t3-b958dddb/scripts/procedencia/flujo-contrato.mjs:12
+    if(e.role==='value'&&from.unit!==to.unit&&!e.conversion)throw Error('Unidades incompatibles')
+                                                                  ^
+
+Error: Unidades incompatibles
+    at validate (file:///home/elies/.t3/worktrees/IRoboPF/t3-b958dddb/scripts/procedencia/flujo-contrato.mjs:12:67)
+    at compose (file:///home/elies/.t3/worktrees/IRoboPF/t3-b958dddb/scripts/procedencia/flujo-componer.mjs:176:3)
+    at generate (file:///home/elies/.t3/worktrees/IRoboPF/t3-b958dddb/scripts/procedencia/flujo-componer.mjs:179:36)
+    at file:///home/elies/.t3/worktrees/IRoboPF/t3-b958dddb/scripts/procedencia/flujo-componer.mjs:185:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0

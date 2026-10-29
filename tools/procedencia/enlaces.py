@@ -5,6 +5,7 @@ autodeclarados dentro de la cita. No es firma digital ni certificación fiscal.
 """
 import argparse
 from cas import CasResolver
+from nominal import verify_nominal
 from jsonschema.exceptions import ValidationError
 from decimal import Decimal
 from datetime import date
@@ -112,6 +113,8 @@ def delegation_entries(registry):
 
 def evaluate_scope(scope, context):
     """Comprueba un contexto declarado; jamás acredita residencia o elegibilidad."""
+    if scope.get('contract') == 'reviewed-nominal-v1':
+        raise ValueError('La proposición nominal no selecciona ningún contexto civil')
     required = {'year', 'territory', 'component', 'taxBase', 'periodStart',
                 'accrual', 'death', 'externalConditions'}
     if not isinstance(context, dict) or not required <= context.keys() or context.keys() - required - {'generalBase'}:
@@ -162,6 +165,8 @@ def evaluate_scope(scope, context):
 
 def verify_executable_scope(reader, payload, item):
     """Propuesta nueva; conserva la decisión original, sin atribuirle aprobación."""
+    if payload['schemaVersion'] == 3:
+        return verify_nominal(reader, payload, item)
     scope = reader.read_ref(payload['executableScope'])
     validate_schema(scope, 'executable-cell-scope')
     if (scope['decision'] != payload['legalReview'] or scope['source'] != payload['source']
@@ -352,7 +357,11 @@ def verify_evidence(root, context, *, cas_roots=None):
         decision = select_decision(decisions, payload['legalReview']['decisionId'])
         if not any(location_matches(loc, source) for loc in decision['engineLocations']):
             raise ValueError('Decisión no refiere a la ocurrencia del motor')
-        if payload['schemaVersion'] == 2:
+        if payload['schemaVersion'] == 3:
+            if entry['attestation'] is not None:
+                raise ValueError('Binding nominal requiere revisión pendiente; no hereda atestación')
+            verify_nominal(reader, payload, item, resolver)
+        elif payload['schemaVersion'] == 2:
             verify_executable_scope(reader, payload, item)
         review = verify_attestation(reader, entry['attestation'], payload, entry['payload']['sha256'])
         # Dimensiones candidatas de ESTA ocurrencia, no inferencias por igualdad numérica.

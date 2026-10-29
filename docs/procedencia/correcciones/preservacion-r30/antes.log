@@ -1,0 +1,98 @@
+Using CPython 3.13.15 interpreter at: /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3
+Creating virtual environment at: .cache/orquestador-recepcion/r30/uv
+Installed 6 packages in 4ms
+...FFFFFFF
+======================================================================
+FAIL: test_key_spelling_is_normalized (__main__.ClassificationTests.test_key_spelling_is_normalized)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_clasificacion.py", line 30, in test_key_spelling_is_normalized
+    self.assertEqual(self.classify("SELECTION_SHA256"), "seleccion-cita")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'seleccion-cita'
+- original-oficial
++ seleccion-cita
+
+
+======================================================================
+FAIL: test_real_record_yields_two_distinct_observations (__main__.ClassificationTests.test_real_record_yields_two_distinct_observations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_clasificacion.py", line 58, in test_real_record_yields_two_distinct_observations
+    self.assertEqual(found, {"/citations/0/documentSha256": "original-oficial",
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             "/citations/0/selectionSha256": "seleccion-cita"})
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'/ci[35 chars]l-oficial', '/citations/0/selectionSha256': 'original-oficial'} != {'/ci[35 chars]l-oficial', '/citations/0/selectionSha256': 'seleccion-cita'}
+  {'/citations/0/documentSha256': 'original-oficial',
+-  '/citations/0/selectionSha256': 'original-oficial'}
+?                                   ^^^^^^^ ^^^^   -
+
++  '/citations/0/selectionSha256': 'seleccion-cita'}
+?                                   ^^ ^^  ++++++
+
+
+======================================================================
+FAIL: test_selection_is_not_the_adjacent_document (__main__.ClassificationTests.test_selection_is_not_the_adjacent_document)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_clasificacion.py", line 23, in test_selection_is_not_the_adjacent_document
+    self.assertEqual(self.classify("selectionSha256"), "seleccion-cita")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'seleccion-cita'
+- original-oficial
++ seleccion-cita
+
+
+======================================================================
+FAIL: test_selection_without_url_has_same_class (__main__.ClassificationTests.test_selection_without_url_has_same_class)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_clasificacion.py", line 27, in test_selection_without_url_has_same_class
+    self.assertEqual(self.classify("selectionSha256", url=""), "seleccion-cita")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'desconocido' != 'seleccion-cita'
+- desconocido
++ seleccion-cita
+
+
+======================================================================
+FAIL: test_software_digest_is_not_original (__main__.ClassificationTests.test_software_digest_is_not_original)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_clasificacion.py", line 36, in test_software_digest_is_not_original
+    self.assertEqual(self.classify("softwareHash"), "fuente-software")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'fuente-software'
+- original-oficial
++ fuente-software
+
+
+======================================================================
+FAIL: test_text_digest_is_not_original (__main__.ClassificationTests.test_text_digest_is_not_original)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_clasificacion.py", line 33, in test_text_digest_is_not_original
+    self.assertEqual(self.classify("quoteSha256"), "texto-extraido")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'texto-extraido'
+- original-oficial
++ texto-extraido
+
+
+======================================================================
+FAIL: test_unknown_field_does_not_inherit_officiality (__main__.ClassificationTests.test_unknown_field_does_not_inherit_officiality)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_clasificacion.py", line 40, in test_unknown_field_does_not_inherit_officiality
+    self.assertEqual(self.classify("unclassifiedSha256"), "desconocido")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'desconocido'
+- original-oficial
++ desconocido
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.003s
+
+FAILED (failures=7)

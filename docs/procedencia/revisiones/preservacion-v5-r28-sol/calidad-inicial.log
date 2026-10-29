@@ -1,0 +1,322 @@
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/censo_receta.py:48:1
+   |
+46 | assert a == b
+47 | # Check the actual GzipFile recipe bytes against the delivered gzip.
+48 | import io
+   | ^^^^^^^^^
+49 | sink = io.BytesIO()
+50 | with gzip.GzipFile(filename='', mode='wb', fileobj=sink, mtime=0) as stream:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:9:16
+   |
+ 7 | import resource
+ 8 | from pathlib import Path
+ 9 | root=Path.cwd(); start=time.monotonic(); rows=[]; bad=[]
+   |                ^
+10 | entries=subprocess.check_output(['git','ls-tree','-rz','HEAD']).split(b'\0')
+11 | for entry in entries:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:9:40
+   |
+ 7 | import resource
+ 8 | from pathlib import Path
+ 9 | root=Path.cwd(); start=time.monotonic(); rows=[]; bad=[]
+   |                                        ^
+10 | entries=subprocess.check_output(['git','ls-tree','-rz','HEAD']).split(b'\0')
+11 | for entry in entries:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:9:49
+   |
+ 7 | import resource
+ 8 | from pathlib import Path
+ 9 | root=Path.cwd(); start=time.monotonic(); rows=[]; bad=[]
+   |                                                 ^
+10 | entries=subprocess.check_output(['git','ls-tree','-rz','HEAD']).split(b'\0')
+11 | for entry in entries:
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:12:14
+   |
+10 | entries=subprocess.check_output(['git','ls-tree','-rz','HEAD']).split(b'\0')
+11 | for entry in entries:
+12 |  if not entry: continue
+   |              ^
+13 |  meta,name=entry.split(b'\t',1); mode,kind,oid=meta.split(); path=os.fsdecode(name); p=root/path
+14 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()]); s=p.lstat()
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:13:32
+   |
+11 | for entry in entries:
+12 |  if not entry: continue
+13 |  meta,name=entry.split(b'\t',1); mode,kind,oid=meta.split(); path=os.fsdecode(name); p=root/path
+   |                                ^
+14 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()]); s=p.lstat()
+15 |  data=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else p.read_bytes()
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:13:60
+   |
+11 | for entry in entries:
+12 |  if not entry: continue
+13 |  meta,name=entry.split(b'\t',1); mode,kind,oid=meta.split(); path=os.fsdecode(name); p=root/path
+   |                                                            ^
+14 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()]); s=p.lstat()
+15 |  data=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else p.read_bytes()
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:13:84
+   |
+11 | for entry in entries:
+12 |  if not entry: continue
+13 |  meta,name=entry.split(b'\t',1); mode,kind,oid=meta.split(); path=os.fsdecode(name); p=root/path
+   |                                                                                    ^
+14 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()]); s=p.lstat()
+15 |  data=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else p.read_bytes()
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:14:70
+   |
+12 |  if not entry: continue
+13 |  meta,name=entry.split(b'\t',1); mode,kind,oid=meta.split(); path=os.fsdecode(name); p=root/path
+14 |  blob=subprocess.check_output(['git','cat-file','blob',oid.decode()]); s=p.lstat()
+   |                                                                      ^
+15 |  data=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else p.read_bytes()
+16 |  ok=data==blob and ((mode==b'120000' and stat.S_ISLNK(s.st_mode)) or (mode!=b'120000' and stat.S_ISREG(s.st_mode) and bool(s.st_mode&0…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:17:154
+   |
+15 | …
+16 | …nd stat.S_ISREG(s.st_mode) and bool(s.st_mode&0o111)==(mode==b'100755')))
+17 | …(data).hexdigest(),'size':len(data),'mode':oct(s.st_mode),'ok':ok}; rows.append(row)
+   |                                                                    ^
+18 | …
+19 | …trip(),'entries':len(rows),'differences':bad,'seconds':time.monotonic()-start,'maxRssKiB':resource.getrusage(resource.RUSAGE_SELF).ru…
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/fisico.py:18:11
+   |
+16 |  ok=data==blob and ((mode==b'120000' and stat.S_ISLNK(s.st_mode)) or (mode!=b'120000' and stat.S_ISREG(s.st_mode) and bool(s.st_mode&0…
+17 |  row={'path':path,'baseSha256':hashlib.sha256(blob).hexdigest(),'sha256':hashlib.sha256(data).hexdigest(),'size':len(data),'mode':oct(…
+18 |  if not ok: bad.append(row)
+   |           ^
+19 | print(json.dumps({'head':subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),'entries':len(rows),'differences':bad,'s…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:9:16
+   |
+ 7 | import os
+ 8 | from pathlib import Path
+ 9 | root=Path.cwd(); cache=root/'.cache/revision-v5-r28'; source=Path('/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b1…
+   |                ^
+10 | sys.path.insert(0,str(root/'docs/procedencia/preservacion-v5-sol'))
+11 | import consumidor as c
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:9:53
+   |
+ 7 | import os
+ 8 | from pathlib import Path
+ 9 | root=Path.cwd(); cache=root/'.cache/revision-v5-r28'; source=Path('/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b1…
+   |                                                     ^
+10 | sys.path.insert(0,str(root/'docs/procedencia/preservacion-v5-sol'))
+11 | import consumidor as c
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:9:146
+   |
+ 7 | …
+ 8 | …
+ 9 | …Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4'); pin='2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d…
+   |                                                                    ^
+10 | …
+11 | …
+   |
+
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:11:1
+   |
+ 9 | root=Path.cwd(); cache=root/'.cache/revision-v5-r28'; source=Path('/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b1…
+10 | sys.path.insert(0,str(root/'docs/procedencia/preservacion-v5-sol'))
+11 | import consumidor as c
+   | ^^^^^^^^^^^^^^^^^^^^^^
+12 | start=time.monotonic(); external=source/'manifest-externo.json'; assert hashlib.sha256(external.read_bytes()).hexdigest()==pin
+13 | shutil.copyfile(external,cache/'manifest-final.json'); shutil.copyfile(root/'docs/procedencia/preservacion-v5-sol/r2/PIN-final.json',c…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:12:23
+   |
+10 | sys.path.insert(0,str(root/'docs/procedencia/preservacion-v5-sol'))
+11 | import consumidor as c
+12 | start=time.monotonic(); external=source/'manifest-externo.json'; assert hashlib.sha256(external.read_bytes()).hexdigest()==pin
+   |                       ^
+13 | shutil.copyfile(external,cache/'manifest-final.json'); shutil.copyfile(root/'docs/procedencia/preservacion-v5-sol/r2/PIN-final.json',c…
+14 | r=c.transfer(source/'paquete',cache/'restauracion-v5',pin,external)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:12:64
+   |
+10 | sys.path.insert(0,str(root/'docs/procedencia/preservacion-v5-sol'))
+11 | import consumidor as c
+12 | start=time.monotonic(); external=source/'manifest-externo.json'; assert hashlib.sha256(external.read_bytes()).hexdigest()==pin
+   |                                                                ^
+13 | shutil.copyfile(external,cache/'manifest-final.json'); shutil.copyfile(root/'docs/procedencia/preservacion-v5-sol/r2/PIN-final.json',c…
+14 | r=c.transfer(source/'paquete',cache/'restauracion-v5',pin,external)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:13:54
+   |
+11 | import consumidor as c
+12 | start=time.monotonic(); external=source/'manifest-externo.json'; assert hashlib.sha256(external.read_bytes()).hexdigest()==pin
+13 | shutil.copyfile(external,cache/'manifest-final.json'); shutil.copyfile(root/'docs/procedencia/preservacion-v5-sol/r2/PIN-final.json',c…
+   |                                                      ^
+14 | r=c.transfer(source/'paquete',cache/'restauracion-v5',pin,external)
+15 | m=c.load(pin,external); soft=cache/'software-restaurado'; wanted=set(m['software']); wanted.update(d['path'] for d in m['dependencies'…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:15:23
+   |
+13 | shutil.copyfile(external,cache/'manifest-final.json'); shutil.copyfile(root/'docs/procedencia/preservacion-v5-sol/r2/PIN-final.json',c…
+14 | r=c.transfer(source/'paquete',cache/'restauracion-v5',pin,external)
+15 | m=c.load(pin,external); soft=cache/'software-restaurado'; wanted=set(m['software']); wanted.update(d['path'] for d in m['dependencies'…
+   |                       ^
+16 | for d in m['dependencies']:
+17 |  if d['path'] in wanted:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:15:57
+   |
+13 | shutil.copyfile(external,cache/'manifest-final.json'); shutil.copyfile(root/'docs/procedencia/preservacion-v5-sol/r2/PIN-final.json',c…
+14 | r=c.transfer(source/'paquete',cache/'restauracion-v5',pin,external)
+15 | m=c.load(pin,external); soft=cache/'software-restaurado'; wanted=set(m['software']); wanted.update(d['path'] for d in m['dependencies'…
+   |                                                         ^
+16 | for d in m['dependencies']:
+17 |  if d['path'] in wanted:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:15:84
+   |
+13 | shutil.copyfile(external,cache/'manifest-final.json'); shutil.copyfile(root/'docs/procedencia/preservacion-v5-sol/r2/PIN-final.json',c…
+14 | r=c.transfer(source/'paquete',cache/'restauracion-v5',pin,external)
+15 | m=c.load(pin,external); soft=cache/'software-restaurado'; wanted=set(m['software']); wanted.update(d['path'] for d in m['dependencies'…
+   |                                                                                    ^
+16 | for d in m['dependencies']:
+17 |  if d['path'] in wanted:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:15:183
+   |
+13 | …/PIN-final.json',cache/'PIN-final.json')
+14 | …
+15 | …n m['dependencies'] if d['path'].startswith('tools/procedencia/')); wanted.add('docs/procedencia/preservacion-v5-sol/recuperar.py')
+   |                                                                    ^
+16 | …
+17 | …
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:18:24
+   |
+16 | for d in m['dependencies']:
+17 |  if d['path'] in wanted:
+18 |   target=soft/d['path']; target.parent.mkdir(parents=True,exist_ok=True); c.put(cache/'restauracion-v5/dependencies'/d['sha256'],targe…
+   |                        ^
+19 | for name,fp in m['software'].items(): c.p.check(soft/name,fp)
+20 | # Paths expected by the historical recovery helper point to the delivered package, read-only.
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:18:73
+   |
+16 | for d in m['dependencies']:
+17 |  if d['path'] in wanted:
+18 |   target=soft/d['path']; target.parent.mkdir(parents=True,exist_ok=True); c.put(cache/'restauracion-v5/dependencies'/d['sha256'],targe…
+   |                                                                         ^
+19 | for name,fp in m['software'].items(): c.p.check(soft/name,fp)
+20 | # Paths expected by the historical recovery helper point to the delivered package, read-only.
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:19:37
+   |
+17 |  if d['path'] in wanted:
+18 |   target=soft/d['path']; target.parent.mkdir(parents=True,exist_ok=True); c.put(cache/'restauracion-v5/dependencies'/d['sha256'],targe…
+19 | for name,fp in m['software'].items(): c.p.check(soft/name,fp)
+   |                                     ^
+20 | # Paths expected by the historical recovery helper point to the delivered package, read-only.
+21 | os.symlink(source/'paquete',cache/'paquete-v5')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:23:70
+   |
+21 | os.symlink(source/'paquete',cache/'paquete-v5')
+22 | r.update(seconds=time.monotonic()-start,maxRssKiB=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,externalSha512=hashlib.sha512(ext…
+23 | (cache/'restauracion-recibo.json').write_text(json.dumps(r,indent=2)); print(json.dumps(r))
+   |                                                                      ^
+   |
+
+Found 29 errors (3 fixed, 26 remaining).
+6 files reformatted
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/censo_receta.py:62:1
+   |
+60 | assert a == b
+61 | # Check the actual GzipFile recipe bytes against the delivered gzip.
+62 | import io
+   | ^^^^^^^^^
+63 |
+64 | sink = io.BytesIO()
+   |
+
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/preservacion-v5-r28-sol/restaurar.py:17:1
+   |
+15 | pin = "2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88"
+16 | sys.path.insert(0, str(root / "docs/procedencia/preservacion-v5-sol"))
+17 | import consumidor as c
+   | ^^^^^^^^^^^^^^^^^^^^^^
+18 |
+19 | start = time.monotonic()
+   |
+
+Found 2 errors.
+ruff=1
+docs/procedencia/revisiones/preservacion-v5-r28-sol/recuperacion.py:106: error: Argument 1 to "Path" has incompatible type "str | None"; expected "str | PathLike[str]"  [arg-type]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/entrega.py:73: error: Unsupported operand types for / ("Path" and "object")  [operator]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/entrega.py:75: error: Unsupported operand types for / ("Path" and "object")  [operator]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/entrega.py:78: error: Unsupported operand types for / ("Path" and "object")  [operator]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/censo_receta.py:76: error: Need type annotation for "classes"  [var-annotated]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/censo_receta.py:79: error: Need type annotation for "missing_classes"  [var-annotated]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/censo_receta.py:80: error: Need type annotation for "samples" (hint: "samples: dict[<type>, <type>] = ...")  [var-annotated]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/casos.py:60: error: Argument 1 to "Path" has incompatible type "str | None"; expected "str | PathLike[str]"  [arg-type]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/casos.py:214: error: Incompatible types in assignment (expression has type "Collection[str]", variable has type "str")  [assignment]
+docs/procedencia/revisiones/preservacion-v5-r28-sol/casos.py:290: error: Argument 1 to "Path" has incompatible type "str | None"; expected "str | PathLike[str]"  [arg-type]
+Found 10 errors in 4 files (checked 6 source files)
+mypy=1
+oxlint=0

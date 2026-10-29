@@ -1,0 +1,361 @@
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/calidad-preparar.py:4:13
+  |
+2 | import shutil
+3 | import json
+4 | R=Path.cwd(); S=R/'.cache/nominal-r29/lint'
+  |             ^
+5 | paths=['.oxlintrc.json','eslint.config.mjs','scripts/procedencia/nominal-contrato.mjs','scripts/procedencia/ambito-publicado.mjs','test…
+6 | paths += [str(p.relative_to(R)) for p in (R/'tools/oxlint').rglob('*') if p.is_file()]
+  |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/calidad-preparar.py:8:14
+   |
+ 6 | paths += [str(p.relative_to(R)) for p in (R/'tools/oxlint').rglob('*') if p.is_file()]
+ 7 | for relative in paths:
+ 8 |  p=S/relative; p.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(R/relative,p)
+   |              ^
+ 9 | p=S/'node_modules'
+10 | if not p.exists(): p.symlink_to('/home/elies/Repos/IRoboPF/node_modules')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/calidad-preparar.py:8:58
+   |
+ 6 | paths += [str(p.relative_to(R)) for p in (R/'tools/oxlint').rglob('*') if p.is_file()]
+ 7 | for relative in paths:
+ 8 |  p=S/relative; p.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(R/relative,p)
+   |                                                          ^
+ 9 | p=S/'node_modules'
+10 | if not p.exists(): p.symlink_to('/home/elies/Repos/IRoboPF/node_modules')
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/calidad-preparar.py:10:18
+   |
+ 8 |  p=S/relative; p.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(R/relative,p)
+ 9 | p=S/'node_modules'
+10 | if not p.exists(): p.symlink_to('/home/elies/Repos/IRoboPF/node_modules')
+   |                  ^
+11 | r=json.loads((S/'.oxlintrc.json').read_bytes())['rules']; assert len(r)==16 and all(x=='error' for x in r.values())
+12 | (R/'docs/procedencia/implementaciones/contrato-nominal-r29-sol/reglas-lint.json').write_text(json.dumps(r,indent=2)+'\n')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/calidad-preparar.py:11:57
+   |
+ 9 | p=S/'node_modules'
+10 | if not p.exists(): p.symlink_to('/home/elies/Repos/IRoboPF/node_modules')
+11 | r=json.loads((S/'.oxlintrc.json').read_bytes())['rules']; assert len(r)==16 and all(x=='error' for x in r.values())
+   |                                                         ^
+12 | (R/'docs/procedencia/implementaciones/contrato-nominal-r29-sol/reglas-lint.json').write_text(json.dumps(r,indent=2)+'\n')
+13 | # Existing Node scope tests run against exact copied consumers with dependencies read-only.
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/calidad-preparar.py:14:38
+   |
+12 | (R/'docs/procedencia/implementaciones/contrato-nominal-r29-sol/reglas-lint.json').write_text(json.dumps(r,indent=2)+'\n')
+13 | # Existing Node scope tests run against exact copied consumers with dependencies read-only.
+14 | T=R/'.cache/nominal-r29/ensayo/tests'; T.mkdir(exist_ok=True)
+   |                                      ^
+15 | shutil.copyfile(R/'tests/ambito-publicado.test.mjs',T/'ambito-publicado.test.mjs')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/lote.py:8:13
+   |
+ 6 | sys.path.insert(0,str(Path.cwd()/'tools/procedencia'))
+ 7 | import enlaces
+ 8 | R=Path.cwd(); manifest=(R/'docs/procedencia/inventario.json').read_bytes(); archive=(R/'docs/procedencia/inventario-datos.json.gz').re…
+   |             ^
+ 9 | assert hashlib.sha256(manifest).hexdigest()=='30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7'
+10 | assert hashlib.sha256(archive).hexdigest()=='59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/lote.py:8:75
+   |
+ 6 | sys.path.insert(0,str(Path.cwd()/'tools/procedencia'))
+ 7 | import enlaces
+ 8 | R=Path.cwd(); manifest=(R/'docs/procedencia/inventario.json').read_bytes(); archive=(R/'docs/procedencia/inventario-datos.json.gz').re…
+   |                                                                           ^
+ 9 | assert hashlib.sha256(manifest).hexdigest()=='30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7'
+10 | assert hashlib.sha256(archive).hexdigest()=='59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/lote.py:12:118
+   |
+10 | assert hashlib.sha256(archive).hexdigest()=='59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'
+11 | items={i['id']:i for name,raw in json.loads(gzip.decompress(archive)) if name.startswith('inventario-pagina-') for i in json.loads(raw…
+12 | rows=json.loads((R/'docs/procedencia/implementaciones/ambitos-juridicos/correspondencias.json').read_bytes())['rows']; reader=enlaces.…
+   |                                                                                                                      ^
+13 | for row in rows:
+14 |  p=reader.read_ref(row['candidate']); i=items[p['itemId']]; a=enlaces.verify_executable_scope(reader,p,i)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/lote.py:12:156
+   |
+10 | …1bb02ad931bfd797a2f7'
+11 | …'inventario-pagina-') for i in json.loads(raw)}
+12 | …json').read_bytes())['rows']; reader=enlaces.DocumentaryReadSet(R); results=[]
+   |                                                                    ^
+13 | …
+14 | …cope(reader,p,i)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/lote.py:14:37
+   |
+12 | rows=json.loads((R/'docs/procedencia/implementaciones/ambitos-juridicos/correspondencias.json').read_bytes())['rows']; reader=enlaces.…
+13 | for row in rows:
+14 |  p=reader.read_ref(row['candidate']); i=items[p['itemId']]; a=enlaces.verify_executable_scope(reader,p,i)
+   |                                     ^
+15 |  assert p['schemaVersion']==2 and a['schemaVersion']==1
+16 |  assert p['source']['file']==i['source']['file'] and p['source']['sha256']==i['source']['sha256'] and p['source']['symbol']==i['symbol…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/lote.py:14:59
+   |
+12 | rows=json.loads((R/'docs/procedencia/implementaciones/ambitos-juridicos/correspondencias.json').read_bytes())['rows']; reader=enlaces.…
+13 | for row in rows:
+14 |  p=reader.read_ref(row['candidate']); i=items[p['itemId']]; a=enlaces.verify_executable_scope(reader,p,i)
+   |                                                           ^
+15 |  assert p['schemaVersion']==2 and a['schemaVersion']==1
+16 |  assert p['source']['file']==i['source']['file'] and p['source']['sha256']==i['source']['sha256'] and p['source']['symbol']==i['symbol…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/lote.py:18:16
+   |
+16 |  assert p['source']['file']==i['source']['file'] and p['source']['sha256']==i['source']['sha256'] and p['source']['symbol']==i['symbol…
+17 |  results.append({'payload':row['candidate'],'itemId':i['id'],'scopeVersion':a['schemaVersion'],'period':a['period'],'predicate':a['pre…
+18 | reader.finish(); assert len(results)==264
+   |                ^
+19 | (R/'docs/procedencia/implementaciones/contrato-nominal-r29-sol/lote-264.json').write_text(json.dumps({'inventorySha256':hashlib.sha256…
+20 | print('264 pares exactos: contrato v1 y valor/identidad del inventario actual; sin aceptación fiscal')
+   |
+
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:5:13
+  |
+3 | import shutil
+4 | from pathlib import Path
+5 | R=Path.cwd(); S=R/'.cache/nominal-r29/ensayo'; O=R/'docs/procedencia/implementaciones/contrato-nominal-r29-sol'
+  |             ^
+6 | S.mkdir(parents=True,exist_ok=True)
+7 | for name in ['Calculo_Salario_IRPF.py','package.json','tsconfig.json','bun.lock']:
+  |
+
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:5:46
+  |
+3 | import shutil
+4 | from pathlib import Path
+5 | R=Path.cwd(); S=R/'.cache/nominal-r29/ensayo'; O=R/'docs/procedencia/implementaciones/contrato-nominal-r29-sol'
+  |                                              ^
+6 | S.mkdir(parents=True,exist_ok=True)
+7 | for name in ['Calculo_Salario_IRPF.py','package.json','tsconfig.json','bun.lock']:
+  |
+
+E741 Ambiguous variable name: `O`
+ --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:5:48
+  |
+3 | import shutil
+4 | from pathlib import Path
+5 | R=Path.cwd(); S=R/'.cache/nominal-r29/ensayo'; O=R/'docs/procedencia/implementaciones/contrato-nominal-r29-sol'
+  |                                                ^
+6 | S.mkdir(parents=True,exist_ok=True)
+7 | for name in ['Calculo_Salario_IRPF.py','package.json','tsconfig.json','bun.lock']:
+  |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:9:19
+   |
+ 7 | for name in ['Calculo_Salario_IRPF.py','package.json','tsconfig.json','bun.lock']:
+ 8 |  p=S/name
+ 9 |  if not p.exists(): p.symlink_to(R/name)
+   |                   ^
+10 | if not (S/'lib').exists(): shutil.copytree(R/'lib',S/'lib')
+11 | p=S/'node_modules'
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:10:26
+   |
+ 8 |  p=S/name
+ 9 |  if not p.exists(): p.symlink_to(R/name)
+10 | if not (S/'lib').exists(): shutil.copytree(R/'lib',S/'lib')
+   |                          ^
+11 | p=S/'node_modules'
+12 | if not p.exists(): p.symlink_to('/home/elies/Repos/IRoboPF/node_modules')
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:12:18
+   |
+10 | if not (S/'lib').exists(): shutil.copytree(R/'lib',S/'lib')
+11 | p=S/'node_modules'
+12 | if not p.exists(): p.symlink_to('/home/elies/Repos/IRoboPF/node_modules')
+   |                  ^
+13 | for folder in ['scripts/procedencia','tools/procedencia','schemas/procedencia']:
+14 |  for src in (R/folder).iterdir():
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:16:25
+   |
+14 |  for src in (R/folder).iterdir():
+15 |   if src.is_file():
+16 |    dst=S/folder/src.name; dst.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(src,dst)
+   |                         ^
+17 | # References are fixtures copied from delivered documents, never an active registry.
+18 | paths={str(x.relative_to(R)) for x in O.glob('*.json')}
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:16:71
+   |
+14 |  for src in (R/folder).iterdir():
+15 |   if src.is_file():
+16 |    dst=S/folder/src.name; dst.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(src,dst)
+   |                                                                       ^
+17 | # References are fixtures copied from delivered documents, never an active registry.
+18 | paths={str(x.relative_to(R)) for x in O.glob('*.json')}
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:25:126
+   |
+23 | # R25 antecedent reference closure, for the independent historical control.
+24 | p=json.loads((O/'payload.json').read_bytes())
+25 | for name in [p['citation']['path'],p['document']['path'],'docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json']: paths.a…
+   |                                                                                                                              ^
+26 | for name in paths:
+27 |  dst=S/name; dst.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(R/name,dst)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:27:12
+   |
+25 | for name in [p['citation']['path'],p['document']['path'],'docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json']: paths.a…
+26 | for name in paths:
+27 |  dst=S/name; dst.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(R/name,dst)
+   |            ^
+28 | cas=R/'.cache/nominal-r29/cas/sha256'; cas.mkdir(parents=True,exist_ok=True)
+29 | source=Path('/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete/sha256')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:27:58
+   |
+25 | for name in [p['citation']['path'],p['document']['path'],'docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json']: paths.a…
+26 | for name in paths:
+27 |  dst=S/name; dst.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(R/name,dst)
+   |                                                          ^
+28 | cas=R/'.cache/nominal-r29/cas/sha256'; cas.mkdir(parents=True,exist_ok=True)
+29 | source=Path('/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete/sha256')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:28:38
+   |
+26 | for name in paths:
+27 |  dst=S/name; dst.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(R/name,dst)
+28 | cas=R/'.cache/nominal-r29/cas/sha256'; cas.mkdir(parents=True,exist_ok=True)
+   |                                      ^
+29 | source=Path('/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete/sha256')
+30 | blobs=[]
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:32:146
+   |
+30 | …
+31 | …
+32 | …nd']=='binding-facsimile' else source/blob['sha256']).read_bytes(); assert len(raw)==blob['size'] and hashlib.sha256(raw).hexdigest()…
+   |                                                                    ^
+33 | …revisiones/madrid-v2-r27-sol/tabla.png').read_bytes(); assert hashlib.sha256(raw).hexdigest()==c['facsimile']['sha256']; (cas/c['facs…
+34 | …payload.json').read_bytes()).hexdigest()}
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:32:281
+   |
+30 | …
+31 | …
+32 | …blob['sha256'] and hashlib.sha512(raw).hexdigest()==blob['sha512']; (cas/blob['sha256']).write_bytes(raw); blobs.append(blob)
+   |                                                                    ^
+33 | …ile']['sha256']).write_bytes(raw)
+34 | …
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:32:320
+   |
+30 | …
+31 | …
+32 | …hexdigest()==blob['sha512']; (cas/blob['sha256']).write_bytes(raw); blobs.append(blob)
+   |                                                                    ^
+33 | …
+34 | …
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:33:53
+   |
+31 | for blob in deps['blobs']:
+32 |  raw=((R/'docs/procedencia/revisiones/madrid-v2-r27-sol/tabla.png') if blob['kind']=='binding-facsimile' else source/blob['sha256']).r…
+33 | c=json.loads((R/p['citation']['path']).read_bytes()); raw=(R/'docs/procedencia/revisiones/madrid-v2-r27-sol/tabla.png').read_bytes(); …
+   |                                                     ^
+34 | ref={'path':str((O/'payload.json').relative_to(R)),'sha256':hashlib.sha256((O/'payload.json').read_bytes()).hexdigest()}
+35 | registry=S/'docs/procedencia/enlaces/registro.json'; registry.parent.mkdir(parents=True,exist_ok=True); registry.write_text(json.dumps…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:33:133
+   |
+31 | …
+32 | …) if blob['kind']=='binding-facsimile' else source/blob['sha256']).read_bytes(); assert len(raw)==blob['size'] and hashlib.sha256(raw…
+33 | …/procedencia/revisiones/madrid-v2-r27-sol/tabla.png').read_bytes(); assert hashlib.sha256(raw).hexdigest()==c['facsimile']['sha256'];…
+   |                                                                    ^
+34 | …b.sha256((O/'payload.json').read_bytes()).hexdigest()}
+35 | …nt.mkdir(parents=True,exist_ok=True); registry.write_text(json.dumps({'schemaVersion':1,'entries':[{'payload':ref,'attestation':None}…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:33:199
+   |
+31 | …
+32 | ….read_bytes(); assert len(raw)==blob['size'] and hashlib.sha256(raw).hexdigest()==blob['sha256'] and hashlib.sha512(raw).hexdigest()=…
+33 | …; assert hashlib.sha256(raw).hexdigest()==c['facsimile']['sha256']; (cas/c['facsimile']['sha256']).write_bytes(raw)
+   |                                                                    ^
+34 | …
+35 | …ps({'schemaVersion':1,'entries':[{'payload':ref,'attestation':None}]})+'\n')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:35:52
+   |
+33 | c=json.loads((R/p['citation']['path']).read_bytes()); raw=(R/'docs/procedencia/revisiones/madrid-v2-r27-sol/tabla.png').read_bytes(); …
+34 | ref={'path':str((O/'payload.json').relative_to(R)),'sha256':hashlib.sha256((O/'payload.json').read_bytes()).hexdigest()}
+35 | registry=S/'docs/procedencia/enlaces/registro.json'; registry.parent.mkdir(parents=True,exist_ok=True); registry.write_text(json.dumps…
+   |                                                    ^
+36 | (O/'originales.json').write_text(json.dumps({'cas':str(cas.parent),'documents':[b for b in blobs if b['kind']=='context-original'],'fi…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/preparar.py:35:103
+   |
+33 | c=json.loads((R/p['citation']['path']).read_bytes()); raw=(R/'docs/procedencia/revisiones/madrid-v2-r27-sol/tabla.png').read_bytes(); …
+34 | ref={'path':str((O/'payload.json').relative_to(R)),'sha256':hashlib.sha256((O/'payload.json').read_bytes()).hexdigest()}
+35 | registry=S/'docs/procedencia/enlaces/registro.json'; registry.parent.mkdir(parents=True,exist_ok=True); registry.write_text(json.dumps…
+   |                                                                                                       ^
+36 | (O/'originales.json').write_text(json.dumps({'cas':str(cas.parent),'documents':[b for b in blobs if b['kind']=='context-original'],'fi…
+   |
+
+Found 37 errors (4 fixed, 33 remaining).

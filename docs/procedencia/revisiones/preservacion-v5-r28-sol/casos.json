@@ -1,0 +1,244 @@
+{
+  "cases": [
+    {
+      "id": "baseline",
+      "schemaAccepts": true,
+      "expected": "accept",
+      "actual": "accept",
+      "pass": true,
+      "errorType": null
+    },
+    {
+      "id": "duplicate-object",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "duplicate-dependency-path",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "duplicate-reference",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "duplicate-unresolved",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "path-traversal",
+      "schemaAccepts": false,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "path-absolute",
+      "schemaAccepts": false,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "path-backslash",
+      "schemaAccepts": false,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "path-newline",
+      "schemaAccepts": false,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "path-empty-component",
+      "schemaAccepts": false,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "prefix-conflict",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "identity-incoherent",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "extra-root",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "extra-cas",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "missing-cas",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "tampered-bytes",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "symlink-blob",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "url-credential",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "url-private-query",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "url-lookalike",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "duplicate-acquisition",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "duplicate-unresolved-source",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "marker-changed",
+      "schemaAccepts": true,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "unknown-schema-field",
+      "schemaAccepts": false,
+      "expected": "reject",
+      "actual": "reject",
+      "pass": true,
+      "errorType": "ValueError"
+    },
+    {
+      "id": "privacy-private-key",
+      "expectedChange": true,
+      "actualChange": true,
+      "pass": true,
+      "classification": "control"
+    },
+    {
+      "id": "privacy-encoded-query",
+      "expectedChange": true,
+      "actualChange": true,
+      "pass": true,
+      "classification": "control"
+    },
+    {
+      "id": "privacy-embedded-path",
+      "expectedChange": true,
+      "actualChange": false,
+      "pass": false,
+      "classification": "residual-conocido"
+    },
+    {
+      "id": "privacy-upper-file",
+      "expectedChange": true,
+      "actualChange": false,
+      "pass": false,
+      "classification": "residual-conocido"
+    },
+    {
+      "id": "durability-after-marker",
+      "pass": true,
+      "visibleMarkerPreserved": true
+    },
+    {
+      "id": "exclusive-publication",
+      "pass": true
+    },
+    {
+      "id": "transfer-final-fsync-recovery",
+      "pass": true,
+      "markerPreserved": true,
+      "confirm": "fsync-confirmed"
+    }
+  ],
+  "imports": {
+    "preservacion_urls": "/home/elies/.t3/worktrees/IRoboPF/t3-ad56e1f7/.cache/revision-v5-r28/software-restaurado/tools/procedencia/preservacion_urls.py",
+    "preservacion": "/home/elies/.t3/worktrees/IRoboPF/t3-ad56e1f7/.cache/revision-v5-r28/software-restaurado/tools/procedencia/preservacion.py",
+    "consumidor": "/home/elies/.t3/worktrees/IRoboPF/t3-ad56e1f7/.cache/revision-v5-r28/software-restaurado/docs/procedencia/preservacion-v5-sol/consumidor.py"
+  }
+}

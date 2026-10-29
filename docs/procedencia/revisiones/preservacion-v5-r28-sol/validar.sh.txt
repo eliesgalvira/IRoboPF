@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -u
+export PYTHONDONTWRITEBYTECODE=1
+export UV_PROJECT_ENVIRONMENT=/home/elies/.t3/worktrees/IRoboPF/t3-ad56e1f7/.cache/revision-v5-r28/venv
+base=/home/elies/.t3/worktrees/IRoboPF/t3-ad56e1f7
+cache="$base/.cache/revision-v5-r28"
+out="$base/docs/procedencia/revisiones/preservacion-v5-r28-sol"
+runner="$cache/software-restaurado/tools/procedencia/run.sh"
+for script in recuperacion casos censo_receta; do
+  flock /tmp/irobopf-validacion-pesada.lock bash "$runner" "$out/$script.py" > "$cache/$script.log" 2>&1
+  result=$?
+  echo "$script $result"
+done

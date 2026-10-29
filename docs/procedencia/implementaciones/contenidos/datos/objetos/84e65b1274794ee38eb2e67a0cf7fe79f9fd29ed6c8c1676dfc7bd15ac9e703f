@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "decision": {
+          "type": "object",
+          "properties": {
+            "decisions": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "pattern": "^docs/procedencia/[^\\\\]+$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "path",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "decisionId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "decisions",
+            "decisionId"
+          ],
+          "additionalProperties": false
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "symbol": {
+              "type": "string",
+              "minLength": 1
+            },
+            "tablePath": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "file",
+            "sha256",
+            "symbol",
+            "tablePath"
+          ],
+          "additionalProperties": false
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^inv-[0-9a-f]{32}$"
+        },
+        "inventory": {
+          "type": "object",
+          "properties": {
+            "manifestSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "artifactSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "manifestSha256",
+            "artifactSha256"
+          ],
+          "additionalProperties": false
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 2012,
+          "maximum": 2026
+        },
+        "territory": {
+          "enum": [
+            "estatal-comun",
+            "andalucia",
+            "comunitat-valenciana",
+            "catalunya",
+            "madrid",
+            "murcia"
+          ]
+        },
+        "unit": {
+          "const": "EUR"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[0-9]+(?:\\.[0-9]+)?$"
+        },
+        "component": {
+          "enum": [
+            "estatal",
+            "autonomico"
+          ]
+        },
+        "taxBase": {
+          "const": "general"
+        },
+        "period": {
+          "enum": [
+            "nominal-only",
+            "ordinary-no-death",
+            "madrid-2022"
+          ]
+        },
+        "predicate": {
+          "enum": [
+            "nominal-cell",
+            "murcia-blg-gt-60000"
+          ]
+        },
+        "externalConditions": {
+          "const": [
+            "residence-unverified",
+            "eligibility-unverified"
+          ]
+        },
+        "editorialConditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "completeRuleAcceptance": {
+          "const": false
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "decision",
+        "source",
+        "itemId",
+        "inventory",
+        "year",
+        "territory",
+        "unit",
+        "value",
+        "component",
+        "taxBase",
+        "period",
+        "predicate",
+        "externalConditions",
+        "editorialConditions",
+        "completeRuleAcceptance"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 2
+        },
+        "decision": {
+          "type": "object",
+          "properties": {
+            "decisions": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "pattern": "^docs/procedencia/[^\\\\]+$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "path",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "decisionId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "decisions",
+            "decisionId"
+          ],
+          "additionalProperties": false
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "symbol": {
+              "type": "string",
+              "minLength": 1
+            },
+            "tablePath": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "file",
+            "sha256",
+            "symbol",
+            "tablePath"
+          ],
+          "additionalProperties": false
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^inv-[0-9a-f]{32}$"
+        },
+        "inventory": {
+          "type": "object",
+          "properties": {
+            "manifestSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "artifactSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "manifestSha256",
+            "artifactSha256"
+          ],
+          "additionalProperties": false
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 2012,
+          "maximum": 2026
+        },
+        "territory": {
+          "enum": [
+            "estatal-comun",
+            "andalucia",
+            "comunitat-valenciana",
+            "catalunya",
+            "madrid",
+            "murcia"
+          ]
+        },
+        "unit": {
+          "const": "EUR"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[0-9]+(?:\\.[0-9]+)?$"
+        },
+        "component": {
+          "enum": [
+            "estatal",
+            "autonomico"
+          ]
+        },
+        "taxBase": {
+          "const": "general"
+        },
+        "period": {
+          "const": "nominal-only"
+        },
+        "predicate": {
+          "const": "nominal-cell"
+        },
+        "externalConditions": {
+          "const": [
+            "residence-unverified",
+            "eligibility-unverified"
+          ]
+        },
+        "editorialConditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "completeRuleAcceptance": {
+          "const": false
+        },
+        "contract": {
+          "const": "reviewed-nominal-v1"
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "decision",
+        "source",
+        "itemId",
+        "inventory",
+        "year",
+        "territory",
+        "unit",
+        "value",
+        "component",
+        "taxBase",
+        "period",
+        "predicate",
+        "externalConditions",
+        "editorialConditions",
+        "completeRuleAcceptance",
+        "contract",
+        "meaning",
+        "exclusions"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

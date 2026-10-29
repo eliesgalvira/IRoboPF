@@ -1,4 +1,4 @@
-import { readFileSync, existsSync, resolve } from "./io.mjs"
+import { readFileSync, resolve, leerLocalCerrado, leerExterno } from "./io.mjs"
 import { gunzipSync } from "node:zlib"
 import { Schema } from "effect"
 import {
@@ -16,14 +16,19 @@ export const directorioContenido = resolve(
   "docs/procedencia/implementaciones/contenidos/datos"
 )
 const Indice = Schema.Array(Referencia)
-export function objeto(raiz: string, revision: string) {
+export function objeto(raiz: string, revision: string, snapshot?: Snapshot) {
   Schema.decodeUnknownSync(Hash)(revision)
-  const ruta = resolve(raiz, "objetos", revision)
-  if (!existsSync(ruta)) throw new Error("Objeto prometido ausente")
-  const bytes = readFileSync(ruta)
-  if (bytes.length > 10_000_000 || hash(bytes) !== revision)
-    throw new Error("Objeto corrupto")
-  return bytes
+  const externo =
+    snapshot?.version === 3
+      ? snapshot.externos.find((e) => e.hash === revision)
+      : undefined
+  if (externo !== undefined) return leerExterno(externo)
+  return leerLocalCerrado(
+    resolve(raiz, "objetos"),
+    revision,
+    10_000_000,
+    undefined
+  )
 }
 export function leerSnapshot(revision: string, raiz = directorioContenido) {
   if (!Schema.is(Hash)(revision)) return null
@@ -95,7 +100,7 @@ export function buscar(
   const encontrados: Array<{ id: string; revision: string; titulo: string }> =
     []
   const q = consulta.slice(0, 120).toLocaleLowerCase("es")
-  if (snapshot.version === 2) {
+  if (snapshot.version !== 1) {
     const filas = leerBusqueda(snapshot, raiz)
     return filas
       .filter(
@@ -137,7 +142,7 @@ let indiceReciente:
   | { hash: string; filas: typeof IndiceBusqueda.Type }
   | undefined
 export function leerBusqueda(snapshot: Snapshot, raiz = directorioContenido) {
-  if (snapshot.version !== 2) throw new Error("Índice v2 requerido")
+  if (snapshot.version === 1) throw new Error("Índice v2 requerido")
   const bytes = objeto(raiz, snapshot.busqueda)
   if (indiceReciente?.hash === snapshot.busqueda) return indiceReciente.filas
   const filas = Schema.decodeUnknownSync(Schema.fromJsonString(IndiceBusqueda))(
@@ -156,10 +161,10 @@ export function blobPublico(
 ) {
   if (!Schema.is(Hash)(revision)) return null
   const snapshot = leerSnapshot(snapshotId, raiz)
-  if (snapshot?.version !== 2) return null
+  if (snapshot === null || snapshot.version === 1) return null
   const ficha = snapshot.publicos.find((p) => p.hash === revision)
   if (ficha === undefined) return null
-  const bytes = objeto(raiz, revision)
+  const bytes = objeto(raiz, revision, snapshot)
   if (bytes.length !== ficha.bytes) throw new Error("Tamaño público incorrecto")
   const firma =
     ficha.mime === "application/pdf"
@@ -176,10 +181,11 @@ export function enlacesDocumentales(
   raiz = directorioContenido
 ) {
   const snapshot = leerSnapshot(snapshotId, raiz)
-  if (snapshot?.version !== 2) return []
+  if (snapshot === null || snapshot.version === 1) return []
   const pendientes = [entidad]
   const vistos = new Set<string>()
   const enlaces: Array<{ titulo: string; href: string }> = []
+  const comprobados = new Set<string>()
   for (let i = 0; i < pendientes.length; i++) {
     const e = pendientes[i]
     if (e === undefined || vistos.has(e.id)) continue
@@ -197,8 +203,12 @@ export function enlacesDocumentales(
           ? e.imagen
           : null
     if (blob !== null) {
-      if (blobPublico(snapshotId, blob, raiz) === null)
+      if (
+        !comprobados.has(blob) &&
+        blobPublico(snapshotId, blob, raiz) === null
+      )
         throw new Error("Evidencia no publicable")
+      comprobados.add(blob)
       enlaces.push({
         titulo: e.tipo === "Document" ? "Original PDF" : "Captura PNG",
         href: `/procedencia/${snapshotId}/objetos/${blob}`,

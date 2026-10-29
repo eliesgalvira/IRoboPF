@@ -1,0 +1,25 @@
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
+import { createHash } from 'node:crypto'
+import assert from 'node:assert/strict'
+const scratch = resolve('.cache/nominal-r29/ensayo')
+const { verifyLinks } = await import(pathToFileURL(resolve(scratch,'scripts/procedencia/verificar-enlaces.mjs')))
+const { verificarNominalPublicado } = await import(pathToFileURL(resolve(scratch,'scripts/procedencia/ambito-publicado.mjs')))
+const result = await verifyLinks(scratch,{casRoots:[resolve('.cache/nominal-r29/cas')]})
+const prefix='docs/procedencia/implementaciones/contrato-nominal-r29-sol/'
+const p=JSON.parse(readFileSync(resolve(scratch,prefix+'payload.json'), 'utf8'))
+const closure=JSON.parse(readFileSync('schemas/procedencia/nominal-dependencies.schema.json', 'utf8')).const
+const paths=[prefix+'payload.json',prefix+'ambito.json',p.legalReview.decisions.path,'docs/procedencia/enlaces/registro.json',...closure.documents.map((r)=>r.path)]
+const objects=new Map()
+const dependencies=paths.map((path)=>{
+ const raw=readFileSync(resolve(scratch,path));const sha256=createHash('sha256').update(raw).digest('hex');objects.set(sha256,raw);return {path,sha256}
+})
+for(const blob of closure.blobs) objects.set(blob.sha256,readFileSync(resolve('.cache/nominal-r29/cas/sha256',blob.sha256)))
+objects.set(p.source.sha256,readFileSync(resolve(scratch,p.source.file)))
+const payload=dependencies.find((d)=>d.path===prefix+'payload.json')
+const node=verificarNominalPublicado(payload.sha256,p.itemId,dependencies,(h)=>objects.get(h))
+for(const key of ['bindingReview','authenticity','completeRuleAcceptance']) assert.equal(node[key],result.evidence[0][key])
+assert.equal(result.evidence[0].integrity,'verified')
+assert.equal(result.evidence[0].numericBinding,'verified')
+console.log(JSON.stringify({fixtureOnly:true,payload,coordinator:result,node},null,2))

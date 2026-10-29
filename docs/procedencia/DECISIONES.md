@@ -393,3 +393,19 @@ Madrid 2020 conserva su identidad y una decisión nominal nueva del padre, deriv
 ## D087 — Distinguir coherencia de un sobre y autorización para servirlo
 
 La hipótesis RS27-H03 conserva un sobre reconstruido que pasa el auxiliar de consistencia en v1 y v2. Objeción: recalcular hashes no debe permitir atribuir una proposición ajena a un binding. Respuesta: el ancla operativa es el snapshot admitido y sus bytes fijados, con evidencia originada por el coordinador; el revisor demuestra rechazo por la ruta y bajo el pin original. El padre contrasta esa frontera en el lector y publicador. No se ha demostrado bypass operativo ni se declara seguridad general. Coste: documentar el límite del auxiliar y conservar el rojo de la hipótesis; no relajar controles, inventar un fix o abrir una revisión recursiva sin un defecto nuevo demostrado.
+
+## D088 — Clasificar la huella antes de heredar la URL contigua
+
+El padre reproduce CL01: selectionSha256 se clasificaba como original-oficial por una URL de documento en la misma fila. Objeción: cambiar la función actual no reclasifica el censo congelado ni convierte su taxonomía en verdad fiscal. Respuesta: priorizar los campos de selección, texto y software, restringir la inferencia documental y versionar la política; conservar v5 r2 y su software por hash. Coste: pruebas y revisión nuevas, con clasificación histórica pendiente y sin prometer exhaustividad, determinismo o privacidad universal.
+
+## D089 — Incorporar CAS externo como mecanismo local candidato
+
+Snapshot v3 conserva descriptores tipados del original grande y su ubicación se configura explícitamente fuera de Git. Objeción: la lectura completa por petición y el límite por objeto no acreditan capacidad de producción ni custodia. Respuesta: preservar los límites internos, verificar bytes e identidad física, declarar Linux y medir recursos en una revisión nueva del recorrido completo. Coste: configuración y restauración explícitas, memoria por lectura y tratamiento separado de publicación visible y durabilidad. No hay despliegue ni transferencia externa y los candidatos no se autoaceptan.
+
+## D090 — Completar la composición por contratos concretos
+
+R28 solo cierra un valor y no cierra admisión. Objeción: otra capa de hashes o una llamada declarada terminal ocultaría dependencias; construir un compilador general excedería el objetivo. Respuesta: continuar con diecisiete sitios de retenciones y cotizaciones, mediante puertos por propiedad, funciones concretas, condiciones, unidades y discriminantes con el motor real. Los otros cuarenta y ocho conservan sus pendientes. Coste: implementación y revisión por grupos; ningún cierre técnico transmite aceptación jurídica ni autoriza wiring público.
+
+## D091 — Versionar las dependencias nominales incorporadas
+
+Seis mutaciones persistentes de módulos/schemas nominales pasan indebidamente el contraste de un snapshot anterior. Objeción: añadir un import sin incluir su fuente en el contrato de software permite cambiar la explicación sin cambiar su versión. Respuesta: conservar las seis pruebas rojas y añadir las rutas exactas a la lista literal que se preserva por snapshot; los históricos siguen leyéndose por su propia lista. Coste: dos snapshots intermedios conservados y una regeneración adicional justificada. No se afirma cierre transitivo universal ni se promueve el binding nominal por esta comprobación técnica.

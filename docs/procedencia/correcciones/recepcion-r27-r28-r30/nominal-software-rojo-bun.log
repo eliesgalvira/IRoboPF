@@ -1,0 +1,109 @@
+bun test v1.3.13 (bf2e2cec)
+
+tests/nominal-software-explicacion.test.mjs:
+40 |       auxiliares: fuentesSoftware,
+41 |     }
+42 |     assert.doesNotThrow(() => verificarSoftwareExplicacion(snapshot, target))
+43 |     const path = resolve(target, changed)
+44 |     writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from("\n ")]))
+45 |     assert.throws(
+                ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: /Software de explicaci\u00F3n distinto/,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/tests/nominal-software-explicacion.test.mjs:45:12
+      at fn (node:test:210:18)
+(fail) el snapshot detecta cambios persistentes en scripts/procedencia/nominal-contrato.mjs [10.00ms]
+40 |       auxiliares: fuentesSoftware,
+41 |     }
+42 |     assert.doesNotThrow(() => verificarSoftwareExplicacion(snapshot, target))
+43 |     const path = resolve(target, changed)
+44 |     writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from("\n ")]))
+45 |     assert.throws(
+                ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: /Software de explicaci\u00F3n distinto/,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/tests/nominal-software-explicacion.test.mjs:45:12
+      at fn (node:test:210:18)
+(fail) el snapshot detecta cambios persistentes en tools/procedencia/nominal.py [3.00ms]
+40 |       auxiliares: fuentesSoftware,
+41 |     }
+42 |     assert.doesNotThrow(() => verificarSoftwareExplicacion(snapshot, target))
+43 |     const path = resolve(target, changed)
+44 |     writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from("\n ")]))
+45 |     assert.throws(
+                ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: /Software de explicaci\u00F3n distinto/,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/tests/nominal-software-explicacion.test.mjs:45:12
+      at fn (node:test:210:18)
+(fail) el snapshot detecta cambios persistentes en schemas/procedencia/binding-payload.schema.json [2.00ms]
+40 |       auxiliares: fuentesSoftware,
+41 |     }
+42 |     assert.doesNotThrow(() => verificarSoftwareExplicacion(snapshot, target))
+43 |     const path = resolve(target, changed)
+44 |     writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from("\n ")]))
+45 |     assert.throws(
+                ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: /Software de explicaci\u00F3n distinto/,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/tests/nominal-software-explicacion.test.mjs:45:12
+      at fn (node:test:210:18)
+(fail) el snapshot detecta cambios persistentes en schemas/procedencia/nominal-cell-scope.schema.json [3.00ms]
+40 |       auxiliares: fuentesSoftware,
+41 |     }
+42 |     assert.doesNotThrow(() => verificarSoftwareExplicacion(snapshot, target))
+43 |     const path = resolve(target, changed)
+44 |     writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from("\n ")]))
+45 |     assert.throws(
+                ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: /Software de explicaci\u00F3n distinto/,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/tests/nominal-software-explicacion.test.mjs:45:12
+      at fn (node:test:210:18)
+(fail) el snapshot detecta cambios persistentes en schemas/procedencia/nominal-projection.schema.json [3.00ms]
+40 |       auxiliares: fuentesSoftware,
+41 |     }
+42 |     assert.doesNotThrow(() => verificarSoftwareExplicacion(snapshot, target))
+43 |     const path = resolve(target, changed)
+44 |     writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from("\n ")]))
+45 |     assert.throws(
+                ^
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: /Software de explicaci\u00F3n distinto/,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/tests/nominal-software-explicacion.test.mjs:45:12
+      at fn (node:test:210:18)
+(fail) el snapshot detecta cambios persistentes en schemas/procedencia/nominal-dependencies.schema.json [3.00ms]
+
+ 0 pass
+ 6 fail
+Ran 6 tests across 1 file. [476.00ms]

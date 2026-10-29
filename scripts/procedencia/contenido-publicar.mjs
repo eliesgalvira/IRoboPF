@@ -8,8 +8,13 @@ import {
   mkdirSync,
   existsSync,
   renameSync,
+  openSync,
+  closeSync,
+  fsyncSync,
 } from "node:fs"
 import { resolve } from "node:path"
+import { createHash, randomUUID } from "node:crypto"
+import { guardarExterno } from "../../lib/procedencia/io.mjs"
 import { gzipSync } from "node:zlib"
 import { Schema } from "effect"
 import { Snapshot } from "../../lib/procedencia/modelo.ts"
@@ -24,6 +29,16 @@ import { generarEvidencia, comprobarEntrada } from "./evidencia-contenido.mjs"
 import { verificarContenido } from "./contenido-verificar.mjs"
 import { extraerPuntos } from "./rastro-extraer.mjs"
 import { FUENTES_EXPLICACION } from "./explicacion-version.mjs"
+
+function escribirDurable(ruta, bytes) {
+  const fd = openSync(ruta, "wx", 0o600)
+  try {
+    writeFileSync(fd, bytes)
+    fsyncSync(fd)
+  } finally {
+    closeSync(fd)
+  }
+}
 
 export function filaBusqueda({ revision, entidad }) {
   return {
@@ -51,7 +66,8 @@ export async function publicar(
     objetos.set(h, Buffer.from(bytes))
     return h
   }
-  for (const h of anterior.auxiliares) objetos.set(h, objeto(origen, h))
+  for (const h of anterior.auxiliares)
+    objetos.set(h, objeto(origen, h, anterior))
   const reemplazos = new Map(
     generado.informe.entradas.map((e) => [e.entidad.id, e])
   )
@@ -170,6 +186,25 @@ export async function publicar(
     porHashPublico.set(blob.hash, blob)
   }
   const publicos = [...porHashPublico.values()]
+  const externos = publicos
+    .filter((p) => p.bytes > 10_000_000)
+    .map((p) => {
+      const bytes = objetos.get(p.hash)
+      if (
+        p.mime !== "application/pdf" ||
+        p.bytes > 100_000_000 ||
+        !bytes.subarray(0, 5).equals(Buffer.from("%PDF-")) ||
+        !entradas.some(
+          ({ entidad: e }) => e.tipo === "Document" && e.original === p.hash
+        )
+      )
+        throw new Error("Original externo fuera de contrato")
+      return {
+        ...p,
+        clase: "original-pdf",
+        sha512: createHash("sha512").update(bytes).digest("hex"),
+      }
+    })
   const generador = guardar(
     readFileSync(resolve(root, "scripts/procedencia/contenido-generar.mjs"))
   )
@@ -181,34 +216,41 @@ export async function publicar(
       level: 9,
     })
   )
-  const snapshot = Schema.decodeUnknownSync(Snapshot)(
-    {
-      ...anterior,
-      version: 2,
-      generador,
-      versiones: {
-        ...anterior.versiones,
-        explicacion: hash(JSON.stringify({ generador, fuentesSoftware })),
-      },
-      paquetes,
-      cantidad: entradas.length,
-      busqueda,
-      catalogo,
-      evidencias,
-      publicos,
-      auxiliares: [...objetos.keys()].sort(),
-      dependencias: [...objetos]
-        .map(([hash, b]) => ({ hash, bytes: b.length }))
-        .sort((a, b) => a.hash.localeCompare(b.hash)),
+  const candidato = {
+    ...anterior,
+    version: externos.length ? 3 : 2,
+
+    generador,
+    versiones: {
+      ...anterior.versiones,
+      explicacion: hash(JSON.stringify({ generador, fuentesSoftware })),
     },
-    { onExcessProperty: "error" }
-  )
+    paquetes,
+    cantidad: entradas.length,
+    busqueda,
+    catalogo,
+    evidencias,
+    publicos,
+    auxiliares: [...objetos.keys()].sort(),
+    dependencias: [...objetos]
+      .map(([hash, b]) => ({ hash, bytes: b.length }))
+      .sort((a, b) => a.hash.localeCompare(b.hash)),
+  }
+  if (externos.length > 0) candidato.externos = externos
+  else delete candidato.externos
+  const snapshot = Schema.decodeUnknownSync(Snapshot)(candidato, {
+    onExcessProperty: "error",
+  })
+  // Primero objetos externos completos; el registro visible se cambia al final.
+  for (const descriptor of externos)
+    guardarExterno(descriptor, objetos.get(descriptor.hash))
   mkdirSync(resolve(destino, "objetos"), { recursive: true })
   for (const [h, bytes] of objetos) {
+    if (externos.some((e) => e.hash === h)) continue
     if (bytes.length > 10_000_000)
       throw new Error("CAS externo no resoluble: objeto excede 10 MB")
     const ruta = resolve(destino, "objetos", h)
-    if (!existsSync(ruta)) writeFileSync(ruta, bytes, { flag: "wx" })
+    if (!existsSync(ruta)) escribirDurable(ruta, bytes)
     const real = readFileSync(ruta)
     if (hash(real) !== h || real.length !== bytes.length)
       throw new Error("CAS corrupto")
@@ -217,18 +259,30 @@ export async function publicar(
   const bytes = Buffer.from(JSON.stringify(snapshot))
   const id = hash(bytes)
   const ruta = resolve(destino, "objetos", id)
-  if (!existsSync(ruta)) writeFileSync(ruta, bytes, { flag: "wx" })
+  if (!existsSync(ruta)) escribirDurable(ruta, bytes)
   if (hash(readFileSync(ruta)) !== id) throw new Error("Snapshot corrupto")
+  const fdObjetos = openSync(resolve(destino, "objetos"), "r")
+  try {
+    fsyncSync(fdObjetos)
+  } finally {
+    closeSync(fdObjetos)
+  }
   comprobarEntrada(root, entrada)
   const registro = resolve(destino, "snapshots.json")
   const anteriores = existsSync(registro)
     ? JSON.parse(readFileSync(registro, "utf8"))
     : []
-  const temporal = resolve(destino, `registro-${id}.tmp`)
-  writeFileSync(
+  const temporal = resolve(destino, `registro-${id}-${randomUUID()}.tmp`)
+  escribirDurable(
     temporal,
     JSON.stringify([...new Set([...anteriores, id])].sort()) + "\n"
   )
   renameSync(temporal, registro)
+  const fd = openSync(destino, "r")
+  try {
+    fsyncSync(fd)
+  } finally {
+    closeSync(fd)
+  }
   return { snapshot: id, evidencias, objetos: objetos.size }
 }
