@@ -11,6 +11,7 @@ import { gzipSync } from "node:zlib"
 import { Schema } from "effect"
 import { readArtifact } from "./inventario-artefacto.mjs"
 import { Entidad, Snapshot } from "../../lib/procedencia/modelo.ts"
+import { extraerPuntos } from "./rastro-extraer.mjs"
 import {
   hash,
   bytesEntidad,
@@ -69,6 +70,7 @@ export function generar(
     const grupo = paquetes.get(prefijo) ?? []
     grupo.push({ revision, entidad: JSON.parse(bytes) })
     paquetes.set(prefijo, grupo)
+    return { id: entidad.id, revision }
   }
   let ocurrencias = 0
   for (const [archivo, bytes] of files) {
@@ -127,6 +129,37 @@ export function generar(
       },
     })
   }
+  const { puntos, fuentes: fuentesRastro } = extraerPuntos(
+    root,
+    manifest.generationInputs
+  )
+  const bindings = puntos.map((p) => ({
+    siteId: p.siteId,
+    sujeto: agregar({
+      ...baseFicha(`paso.${p.siteId}`, p.titulo, "concepto"),
+      tipo: "Step",
+      fuentes: [p.fuente],
+      expresion: p.expresion,
+      valorObservado: null,
+      unidadCandidata: p.unidad,
+      ejerciciosCandidatos: [],
+      territoriosCandidatos: [],
+      claseInventario: "PuntoRastro",
+      secciones: {
+        ...baseFicha(p.siteId, p.titulo, "concepto").secciones,
+        formula: {
+          estado: "candidata",
+          texto: `Expresión implementada: ${p.expresion}. Presentación: ${p.formula}`,
+        },
+        derivacion: {
+          estado: "pendiente",
+          texto:
+            "El punto identifica una expresión de salida y su unidad. No prueba por sí solo todas sus dependencias ni su ámbito jurídico.",
+        },
+      },
+    }),
+    unidad: p.unidad,
+  }))
   mkdirSync(resolve(destino, "objetos"), { recursive: true })
   function guardar(bytes) {
     if (bytes.length >= 10_000_000)
@@ -159,7 +192,11 @@ export function generar(
     "lib/procedencia/io.mjs",
     "lib/procedencia/revision.ts",
     "lib/procedencia/rastro.ts",
+    "lib/procedencia/rastro-anual.ts",
+    "scripts/procedencia/rastro-extraer.mjs",
   ].map((archivo) => guardar(readFileSync(resolve(root, archivo))))
+  const catalogoSha256 = guardar(Buffer.from(JSON.stringify(bindings)))
+  const originalesRastro = fuentesRastro.map((f) => guardar(f.bytes))
   const inventario = guardar(
     readFileSync(resolve(root, "docs/procedencia/inventario.json"))
   )
@@ -199,7 +236,7 @@ export function generar(
     versiones: {
       algoritmo: hash(JSON.stringify(manifest.generationInputs)),
       datos: manifest.artifact.sha256,
-      explicacion: "contenido-1",
+      explicacion: hash(JSON.stringify({ generador, fuentesSoftware })),
     },
     paquetes: registros,
     auxiliares: [
@@ -208,6 +245,8 @@ export function generar(
       inventario,
       datosInventario,
       ...fuentesSoftware,
+      catalogoSha256,
+      ...originalesRastro,
     ],
     cantidad: ids.size,
   })
@@ -223,10 +262,22 @@ export function generar(
     JSON.stringify([...new Set([...anteriores, snapshotId])].sort()) + "\n"
   )
   renameSync(temporal, ruta)
+  writeFileSync(
+    resolve(root, "lib/procedencia/rastro-generado.json"),
+    JSON.stringify({
+      version: 1,
+      actual: {
+        versiones: { snapshot: snapshotId, ...snapshot.versiones },
+        catalogoSha256,
+      },
+      bindings,
+    }) + "\n"
+  )
   const metricas = {
     snapshot: snapshotId,
     ocurrencias,
     conceptos: editorial.length,
+    puntosRastro: puntos.length,
     paquetes: registros.length,
     bytesComprimidos: registros.reduce((n, p) => n + p.bytes, 0),
     maximoPaquete: Math.max(...registros.map((p) => p.bytes)),

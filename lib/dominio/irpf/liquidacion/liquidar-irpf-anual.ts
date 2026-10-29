@@ -1,3 +1,5 @@
+import { crearLineaCalculo } from "../../explicacion/linea-calculo"
+import { enlazarRastroAnualActual } from "../../../procedencia/rastro-anual"
 import Decimal from "decimal.js"
 import { Context, Effect, Layer, Match, Option } from "effect"
 
@@ -63,7 +65,7 @@ import {
   sumarRendimientosTrabajo,
 } from "../rendimientos/rendimientos-trabajo"
 import { calcularGananciasPatrimonialesPorTransmision } from "../rendimientos/ganancias-perdidas-patrimoniales"
-import { calcularReduccionRendimientosTrabajo } from "../reducciones/reduccion-rendimientos-trabajo"
+import { calcularReduccionTrabajoConOtrasRentas } from "../reducciones/reduccion-rendimientos-trabajo"
 import {
   calcularConciliacionSimuladorLegacy,
   type ConciliacionSimuladorLegacy,
@@ -290,15 +292,6 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
       })
   )
-  const reduccionRendimientosTrabajo = medirAuditoriaSync(
-    "liquidacion.reduccionRendimientosTrabajo",
-    () =>
-      calcularReduccionRendimientosTrabajo({
-        anio: caso.anio,
-        fechaFallecimiento: caso.fechaFallecimiento,
-        rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
-      })
-  )
   const gananciasPatrimoniales = medirAuditoriaSync(
     "liquidacion.gananciasPatrimoniales",
     () =>
@@ -309,6 +302,22 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
           caso.rendimientos.gananciasPatrimoniales
         ).pipe(Option.getOrElse(() => [])),
         convertirCentimos: centimosAEuros,
+      })
+  )
+  // Este perfil solo admite alquiler simplificado y ganancias por transmisión.
+  // Conservar pérdidas y excluir exenciones antes de cualquier compensación
+  // de bases. Las rentas nuevas deberán incorporarse explícitamente aquí.
+  const otrasRentasNoExentas = rendimientoCapitalInmobiliario.rendimientoNeto
+    .plus(gananciasPatrimoniales.gananciaSujetaGeneral)
+    .plus(gananciasPatrimoniales.gananciaSujetaAhorro)
+  const reduccionRendimientosTrabajo = medirAuditoriaSync(
+    "liquidacion.reduccionRendimientosTrabajo",
+    () =>
+      calcularReduccionTrabajoConOtrasRentas({
+        anio: caso.anio,
+        fechaFallecimiento: caso.fechaFallecimiento,
+        rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
+        otrasRentasNoExentas,
       })
   )
   const baseImponibleGeneral = medirAuditoriaSync(
@@ -719,43 +728,65 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     }),
     rastro: {
       titulo: `Liquidación anual del IRPF ${caso.anio}`,
+      contexto: {
+        anio: caso.anio,
+        territorio: caso.comunidadAutonoma,
+        perfilCalculo: contexto.modo,
+      },
       pasos: [
         {
           _tag: "PasoExplicacion",
           titulo: "Rendimientos del trabajo",
           descripcion: `Rendimiento íntegro ${rendimientoIntegroTrabajo.toFixed(2)} euros menos cotización del trabajador y gastos deducibles.`,
           lineasCalculo: [
-            {
+            crearLineaCalculo({
+              siteId: "anual.trabajo.integro",
+              instancia: 0,
+              importe: rendimientoTrabajo.rendimientoIntegro,
+              unidad: "EUR",
               etiqueta: "Rendimiento íntegro del trabajo",
               formula: "Suma de importes declarados como trabajo",
-              resultado: euros(rendimientoTrabajo.rendimientoIntegro),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.trabajo.cotizacion",
+              instancia: 0,
+              importe: rendimientoTrabajo.cotizacionTrabajador,
+              unidad: "EUR",
               etiqueta: "Cotización deducible del trabajador",
               formula: "Cotizaciones sociales calculadas para el salario anual",
-              resultado: euros(rendimientoTrabajo.cotizacionTrabajador),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.trabajo.previo-neto",
+              instancia: 0,
+              importe: rendimientoTrabajo.rendimientoPrevioNeto,
+              unidad: "EUR",
               etiqueta: "Rendimiento previo neto",
               formula: `${euros(rendimientoTrabajo.rendimientoIntegro)} - ${euros(rendimientoTrabajo.cotizacionTrabajador)}`,
-              resultado: euros(rendimientoTrabajo.rendimientoPrevioNeto),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.trabajo.gastos",
+              instancia: 0,
+              importe: rendimientoTrabajo.gastosDeducibles,
+              unidad: "EUR",
               etiqueta: "Gastos deducibles aplicados",
               formula: "Gasto fijo del rendimiento del trabajo",
-              resultado: euros(rendimientoTrabajo.gastosDeducibles),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.trabajo.neto",
+              instancia: 0,
+              importe: rendimientoTrabajo.rendimientoNeto,
+              unidad: "EUR",
               etiqueta: "Rendimiento neto del trabajo",
               formula: `max(0, ${euros(rendimientoTrabajo.rendimientoPrevioNeto)} - ${euros(rendimientoTrabajo.gastosDeducibles)})`,
-              resultado: euros(rendimientoTrabajo.rendimientoNeto),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.trabajo.reduccion",
+              instancia: 0,
+              importe: reduccionRendimientosTrabajo,
+              unidad: "EUR",
               etiqueta: "Reducción por rendimientos del trabajo",
-              formula:
-                "Reducción estatal por obtención de rendimientos del trabajo",
-              resultado: euros(reduccionRendimientosTrabajo),
-            },
+              formula: `Reducción estatal; otras rentas netas no exentas antes de compensaciones: ${euros(otrasRentasNoExentas)}`,
+            }),
           ],
           fuentes: [
             {
@@ -772,82 +803,111 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               ? "Estimación analítica de doce mensualidades uniformes, con prorrata de extras, año completo y tipos ordinarios del perfil heredado. No acredita mínimos por grupo, elegibilidad ni redondeo mensual TGSS."
               : "Desglose del perfil compatible-legacy, conservado para comparación con el oracle histórico.",
           lineasCalculo: [
-            {
+            crearLineaCalculo({
+              siteId: "anual.ss.base",
+              instancia: 0,
+              importe: cotizacionesSociales.baseOrdinaria,
+              unidad: "EUR",
               etiqueta: "Base ordinaria de cotización",
               formula:
-                "min(rendimiento íntegro del trabajo, base máxima anual)",
-              resultado: euros(cotizacionesSociales.baseOrdinaria),
-            },
-            {
+                contexto.modo === "canonico"
+                  ? "Suma de doce bases mensuales uniformes, limitadas por el tope vigente en cada mes"
+                  : "min(rendimiento íntegro del trabajo, base máxima anual legacy)",
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.exceso",
+              instancia: 0,
+              importe: cotizacionesSociales.excesoBase,
+              unidad: "EUR",
               etiqueta: "Exceso sobre base máxima",
               formula:
-                "max(0, rendimiento íntegro del trabajo - base máxima anual)",
-              resultado: euros(cotizacionesSociales.excesoBase),
-            },
-            {
+                "max(0, rendimiento íntegro del trabajo - base ordinaria aplicada)",
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.empresarial-ordinaria",
+              instancia: 0,
+              importe: cotizacionesSociales.cotizacionEmpresarialOrdinaria,
+              unidad: "EUR",
               etiqueta: "Cotización empresarial ordinaria",
               formula:
                 "Base ordinaria x tipos empresariales sin MEI ni solidaridad",
-              resultado: euros(
-                cotizacionesSociales.cotizacionEmpresarialOrdinaria
-              ),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.trabajador-ordinaria",
+              instancia: 0,
+              importe: cotizacionesSociales.cotizacionTrabajadorOrdinaria,
+              unidad: "EUR",
               etiqueta: "Cotización del trabajador ordinaria",
               formula:
                 "Base ordinaria x tipos del trabajador sin MEI ni solidaridad",
-              resultado: euros(
-                cotizacionesSociales.cotizacionTrabajadorOrdinaria
-              ),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.mei-empresarial",
+              instancia: 0,
+              importe: cotizacionesSociales.meiEmpresarial,
+              unidad: "EUR",
               etiqueta: "MEI empresarial",
               formula: "Base ordinaria x tipo empresarial del MEI",
-              resultado: euros(cotizacionesSociales.meiEmpresarial),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.mei-trabajador",
+              instancia: 0,
+              importe: cotizacionesSociales.meiTrabajador,
+              unidad: "EUR",
               etiqueta: "MEI del trabajador",
               formula: "Base ordinaria x tipo del trabajador del MEI",
-              resultado: euros(cotizacionesSociales.meiTrabajador),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.solidaridad-empresarial",
+              instancia: 0,
+              importe: cotizacionesSociales.solidaridadEmpresarial,
+              unidad: "EUR",
               etiqueta: "Solidaridad empresarial",
               formula:
                 contexto.modo === "canonico"
                   ? "Suma de excesos por los tipos empresariales publicados de cada tramo"
                   : "5/6 de la cuota adicional de solidaridad",
-              resultado: euros(cotizacionesSociales.solidaridadEmpresarial),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.solidaridad-trabajador",
+              instancia: 0,
+              importe: cotizacionesSociales.solidaridadTrabajador,
+              unidad: "EUR",
               etiqueta: "Solidaridad del trabajador",
               formula:
                 contexto.modo === "canonico"
                   ? "Suma de excesos por los tipos del trabajador publicados de cada tramo"
                   : "1/6 de la cuota adicional de solidaridad",
-              resultado: euros(cotizacionesSociales.solidaridadTrabajador),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.empresarial-total",
+              instancia: 0,
+              importe: cotizacionesSociales.cotizacionEmpresarial,
+              unidad: "EUR",
               etiqueta: "Cotización empresarial total",
               formula:
                 "Ordinaria empresarial + MEI empresarial + solidaridad empresarial",
-              resultado: euros(cotizacionesSociales.cotizacionEmpresarial),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.trabajador-total",
+              instancia: 0,
+              importe: cotizacionesSociales.cotizacionTrabajador,
+              unidad: "EUR",
               etiqueta: "Cotización total del trabajador",
               formula:
                 "Ordinaria trabajador + MEI trabajador + solidaridad trabajador",
-              resultado: euros(cotizacionesSociales.cotizacionTrabajador),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ss.coste-laboral",
+              instancia: 0,
+              importe: rendimientoIntegroTrabajo.plus(
+                cotizacionesSociales.cotizacionEmpresarial
+              ),
+              unidad: "EUR",
               etiqueta: "Coste laboral",
               formula:
                 "Rendimiento íntegro del trabajo + cotización empresarial",
-              resultado: euros(
-                rendimientoIntegroTrabajo.plus(
-                  cotizacionesSociales.cotizacionEmpresarial
-                )
-              ),
-            },
+            }),
           ],
           fuentes: [
             {
@@ -866,19 +926,23 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
           titulo: "Rendimientos de capital inmobiliario",
           descripcion: `Rendimiento íntegro ${rendimientoCapitalInmobiliario.rendimientoIntegro.toFixed(2)} euros integrado como rendimiento neto simplificado en la base general.`,
           lineasCalculo: [
-            {
+            crearLineaCalculo({
+              siteId: "anual.inmobiliario.integro",
+              instancia: 0,
+              importe: rendimientoCapitalInmobiliario.rendimientoIntegro,
+              unidad: "EUR",
               etiqueta: "Rendimiento íntegro de capital inmobiliario",
               formula: "Suma de importes declarados en el formulario",
-              resultado: euros(
-                rendimientoCapitalInmobiliario.rendimientoIntegro
-              ),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.inmobiliario.neto",
+              instancia: 0,
+              importe: rendimientoCapitalInmobiliario.rendimientoNeto,
+              unidad: "EUR",
               etiqueta: "Rendimiento neto simplificado",
               formula:
                 "Sin gastos, amortizaciones ni reducciones específicas todavía implementadas",
-              resultado: euros(rendimientoCapitalInmobiliario.rendimientoNeto),
-            },
+            }),
           ],
           fuentes: [
             {
@@ -892,54 +956,76 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
           titulo: "Base general y mínimo personal",
           descripcion: `Base liquidable general ${baseLiquidableGeneral.toFixed(2)} euros, mínimo estatal ${minimoPersonalYFamiliar.toFixed(2)} euros y mínimo autonómico ${minimoPersonalYFamiliarAutonomico.toFixed(2)} euros.`,
           lineasCalculo: [
-            {
+            crearLineaCalculo({
+              siteId: "anual.base.general-imponible",
+              instancia: 0,
+              importe: baseImponibleGeneral,
+              unidad: "EUR",
               etiqueta: "Base imponible general",
-              formula: `max(0, ${euros(rendimientoTrabajo.rendimientoNeto)} - ${euros(reduccionRendimientosTrabajo)}) + ${euros(rendimientoCapitalInmobiliario.rendimientoNeto)}`,
-              resultado: euros(baseImponibleGeneral),
-            },
-            {
+              formula: `max(0, ${euros(rendimientoTrabajo.rendimientoNeto)} - ${euros(reduccionRendimientosTrabajo)}) + ${euros(rendimientoCapitalInmobiliario.rendimientoNeto)} + ${euros(gananciasPatrimoniales.gananciaSujetaGeneral)}`,
+            }),
+            crearLineaCalculo({
+              siteId: "anual.base.general-liquidable",
+              instancia: 0,
+              importe: baseLiquidableGeneral,
+              unidad: "EUR",
               etiqueta: "Base liquidable general",
               formula:
                 "Base imponible general sin reducciones de base aplicadas",
-              resultado: euros(baseLiquidableGeneral),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.minimo.contribuyente",
+              instancia: 0,
+              importe: minimoContribuyente,
+              unidad: "EUR",
               etiqueta: "Mínimo del contribuyente",
               formula: `Edad del contribuyente: ${caso.situacionFamiliar.edad}`,
-              resultado: euros(minimoContribuyente),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.minimo.ascendientes",
+              instancia: 0,
+              importe: minimoAscendientes,
+              unidad: "EUR",
               etiqueta: "Mínimo por ascendientes",
-              formula: `${caso.situacionFamiliar.ascendientes.length} ascendiente(s) computados`,
-              resultado: euros(minimoAscendientes),
-            },
-            {
+              formula: `${caso.situacionFamiliar.ascendientes.length} ascendiente(s) declarados; se aplican las condiciones de edad y discapacidad modeladas`,
+            }),
+            crearLineaCalculo({
+              siteId: "anual.minimo.descendientes",
+              instancia: 0,
+              importe: minimoDescendientes,
+              unidad: "EUR",
               etiqueta: "Mínimo por descendientes",
-              formula: `${caso.situacionFamiliar.descendientes.length} descendiente(s) computados`,
-              resultado: euros(minimoDescendientes),
-            },
-            {
+              formula: `${caso.situacionFamiliar.descendientes.length} descendiente(s) declarados; se filtra edad y discapacidad antes de ordenar`,
+            }),
+            crearLineaCalculo({
+              siteId: "anual.minimo.estatal",
+              instancia: 0,
+              importe: minimoPersonalYFamiliar,
+              unidad: "EUR",
               etiqueta: "Mínimo personal y familiar",
               formula: `${euros(minimoContribuyente)} + ${euros(minimoDescendientes)} + ${euros(minimoAscendientes)} + ${euros(minimoDiscapacidadContribuyente)} + ${euros(minimoDiscapacidadFamiliares)}`,
-              resultado: euros(minimoPersonalYFamiliar),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.minimo.autonomico",
+              instancia: 0,
+              importe: minimoPersonalYFamiliarAutonomico,
+              unidad: "EUR",
               etiqueta: "Mínimo personal y familiar autonómico",
               formula: parametrosComunidad.minimoAutonomicoIgualEstatal
                 ? "Coincide con el mínimo estatal"
                 : `Minimos autonomicos IRPF ${caso.anio} de ${parametrosComunidad.escalaAutonomica.nombre}`,
-              resultado: euros(minimoPersonalYFamiliarAutonomico),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.minimo.discapacidad",
+              instancia: 0,
+              importe: minimoDiscapacidadContribuyente.plus(
+                minimoDiscapacidadFamiliares
+              ),
+              unidad: "EUR",
               etiqueta: "Mínimo por discapacidad",
               formula:
                 "Contribuyente, descendientes y ascendientes con discapacidad computados",
-              resultado: euros(
-                minimoDiscapacidadContribuyente.plus(
-                  minimoDiscapacidadFamiliares
-                )
-              ),
-            },
+            }),
           ],
           fuentes: [
             {
@@ -952,24 +1038,33 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
           _tag: "PasoExplicacion",
           titulo: "Ganancias patrimoniales y base del ahorro",
           descripcion:
-            "Las ganancias patrimoniales por transmisión se integran en la base del ahorro salvo la parte exenta reconocida para mayores de 65 años.",
+            "Las ganancias sujetas se clasifican por ejercicio y fechas: el perfil histórico de 2013–2014 puede integrarlas en la base general. Se conservan pérdidas y se excluyen las exenciones modeladas; la compensación completa y los arrastres siguen pendientes.",
           lineasCalculo: [
-            {
+            crearLineaCalculo({
+              siteId: "anual.ganancias.total",
+              instancia: 0,
+              importe: gananciasPatrimoniales.gananciaTotal,
+              unidad: "EUR",
               etiqueta: "Ganancias patrimoniales declaradas",
               formula: "Suma de ganancias por transmisión",
-              resultado: euros(gananciasPatrimoniales.gananciaTotal),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.ganancias.exenta",
+              instancia: 0,
+              importe: gananciasPatrimoniales.gananciaExenta,
+              unidad: "EUR",
               etiqueta: "Ganancia patrimonial exenta",
               formula:
-                "Exenciones por vivienda habitual o reinversión en renta vitalicia para mayores de 65 años",
-              resultado: euros(gananciasPatrimoniales.gananciaExenta),
-            },
-            {
+                "Exenciones modeladas por mayores de 65 años y por inmuebles urbanos adquiridos en la ventana de 2012, con límites de concurrencia",
+            }),
+            crearLineaCalculo({
+              siteId: "anual.base.ahorro",
+              instancia: 0,
+              importe: baseLiquidableAhorro,
+              unidad: "EUR",
               etiqueta: "Base liquidable del ahorro",
-              formula: `max(0, ${euros(gananciasPatrimoniales.gananciaTotal)} - ${euros(gananciasPatrimoniales.gananciaExenta)})`,
-              resultado: euros(baseLiquidableAhorro),
-            },
+              formula: `max(0, ganancias sujetas clasificadas como ahorro: ${euros(gananciasPatrimoniales.gananciaSujetaAhorro)})`,
+            }),
           ],
           fuentes: [
             {
@@ -1013,25 +1108,38 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             ? `Aplicación separada de las escalas estatal y autonómica. ${escalaPublicadaAutonomica === undefined ? "La escala autonómica conserva la integración previa de tipos; su política de cuotas publicadas no está cerrada para este supuesto." : "La escala autonómica usa cuota publicada más exceso; la aceptación se limita a esa representación y no certifica la liquidación completa."}`
             : "Aplicación de la escala general a la base liquidable general.",
           lineasCalculo: [
-            ...desgloseCuotaIntegraGeneralEstatal.map((tramo) => ({
-              etiqueta: usaEscalaAutonomicaReal
-                ? `Tramo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
-                : `Tramo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
-              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
-              resultado: euros(tramo.cuota),
-            })),
-            ...desgloseCuotaIntegraGeneralAutonomica.map((tramo) => ({
-              etiqueta: `Tramo autonomico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
-              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
-              resultado: euros(tramo.cuota),
-            })),
-            {
+            ...desgloseCuotaIntegraGeneralEstatal.map((tramo, indice) =>
+              crearLineaCalculo({
+                siteId: "anual.cuota.general-estatal-tramo",
+                instancia: indice,
+                importe: tramo.cuota,
+                unidad: "EUR",
+                etiqueta: usaEscalaAutonomicaReal
+                  ? `Tramo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
+                  : `Tramo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+                formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              })
+            ),
+            ...desgloseCuotaIntegraGeneralAutonomica.map((tramo, indice) =>
+              crearLineaCalculo({
+                siteId: "anual.cuota.general-autonomica-tramo",
+                instancia: indice,
+                importe: tramo.cuota,
+                unidad: "EUR",
+                etiqueta: `Tramo autonomico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+                formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              })
+            ),
+            crearLineaCalculo({
+              siteId: "anual.cuota.general-total",
+              instancia: 0,
+              importe: cuotaIntegraGeneral,
+              unidad: "EUR",
               etiqueta: "Cuota íntegra general",
               formula: usaEscalaAutonomicaReal
                 ? "Suma de cuota estatal general y cuota autonómica general"
                 : "Suma de cuotas por tramo",
-              resultado: euros(cuotaIntegraGeneral),
-            },
+            }),
           ],
           fuentes: [
             {
@@ -1048,23 +1156,36 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             ? "Aplicación de la escala estatal y autonómica al mínimo personal y familiar para minorar la cuota íntegra general."
             : "Aplicación de la misma escala general al mínimo personal y familiar.",
           lineasCalculo: [
-            ...desgloseCuotaMinimoPersonalEstatal.map((tramo) => ({
-              etiqueta: usaEscalaAutonomicaReal
-                ? `Tramo mínimo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
-                : `Tramo mínimo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
-              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
-              resultado: euros(tramo.cuota),
-            })),
-            ...desgloseCuotaMinimoPersonalAutonomica.map((tramo) => ({
-              etiqueta: `Tramo mínimo autonómico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
-              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
-              resultado: euros(tramo.cuota),
-            })),
-            {
+            ...desgloseCuotaMinimoPersonalEstatal.map((tramo, indice) =>
+              crearLineaCalculo({
+                siteId: "anual.cuota.minimo-estatal-tramo",
+                instancia: indice,
+                importe: tramo.cuota,
+                unidad: "EUR",
+                etiqueta: usaEscalaAutonomicaReal
+                  ? `Tramo mínimo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
+                  : `Tramo mínimo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+                formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              })
+            ),
+            ...desgloseCuotaMinimoPersonalAutonomica.map((tramo, indice) =>
+              crearLineaCalculo({
+                siteId: "anual.cuota.minimo-autonomico-tramo",
+                instancia: indice,
+                importe: tramo.cuota,
+                unidad: "EUR",
+                etiqueta: `Tramo mínimo autonómico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+                formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              })
+            ),
+            crearLineaCalculo({
+              siteId: "anual.cuota.minimo-general-total",
+              instancia: 0,
+              importe: cuotaMinimoPersonal,
+              unidad: "EUR",
               etiqueta: "Cuota del mínimo personal y familiar",
               formula: "Suma de cuotas por tramo del mínimo",
-              resultado: euros(cuotaMinimoPersonal),
-            },
+            }),
           ],
           fuentes: [
             {
@@ -1079,37 +1200,53 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
           titulo: "Cuota íntegra del ahorro",
           descripcion: `Escalas estatal y autonómica del ahorro de ${caso.anio}. ${caso.anio <= 2014 ? "El remanente reduce la base antes de aplicar cada tarifa." : "Cada cuota se minora aplicando su tarifa a su propio remanente."} Las cuantías de los mínimos se reciben del selector; esta fórmula no valida su procedencia.`,
           lineasCalculo: [
-            ...desgloseCuotaIntegraAhorro.map((tramo) => ({
-              etiqueta: `Tramo ahorro ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
-              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
-              resultado: euros(tramo.cuota),
-            })),
-            {
+            ...desgloseCuotaIntegraAhorro.map((tramo, indice) =>
+              crearLineaCalculo({
+                siteId: "anual.cuota.ahorro-tramo",
+                instancia: indice,
+                importe: tramo.cuota,
+                unidad: "EUR",
+                etiqueta: `Tramo ahorro ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+                formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+              })
+            ),
+            crearLineaCalculo({
+              siteId: "anual.cuota.ahorro-total",
+              instancia: 0,
+              importe: cuotaIntegraAhorro,
+              unidad: "EUR",
               etiqueta: "Cuota íntegra del ahorro",
               formula: "Suma de cuotas por tramo",
-              resultado: euros(cuotaIntegraAhorro),
-            },
+            }),
             ...(
               [
                 ["estatal", ahorroConMinimos.estatal],
                 ["autonómico", ahorroConMinimos.autonomico],
               ] as const
-            ).map(([nombre, componente]) => ({
-              etiqueta: `Ahorro ${nombre} después del mínimo`,
-              formula:
-                caso.anio <= 2014
-                  ? `F ${nombre}(${euros(baseLiquidableAhorro)} − ${euros(componente.remanente)})`
-                  : `F ${nombre}(${euros(baseLiquidableAhorro)}) − F ${nombre}(${euros(componente.remanente)})`,
-              resultado: euros(componente.despuesMinimo),
-            })),
-            {
+            ).map(([nombre, componente], indice) =>
+              crearLineaCalculo({
+                siteId: "anual.cuota.ahorro-componente-postminimo",
+                instancia: indice,
+                importe: componente.despuesMinimo,
+                unidad: "EUR",
+                etiqueta: `Ahorro ${nombre} después del mínimo`,
+                formula:
+                  caso.anio <= 2014
+                    ? `F ${nombre}(${euros(baseLiquidableAhorro)} − ${euros(componente.remanente)})`
+                    : `F ${nombre}(${euros(baseLiquidableAhorro)}) − F ${nombre}(${euros(componente.remanente)})`,
+              })
+            ),
+            crearLineaCalculo({
+              siteId: "anual.cuota.minimo-ahorro-total",
+              instancia: 0,
+              importe: cuotaMinimoPersonalAhorro,
+              unidad: "EUR",
               etiqueta: "Minoración total por mínimos en el ahorro",
               formula:
                 caso.anio <= 2014
                   ? "Suma por componente de F(base) − F(base − remanente)"
                   : "F estatal(remanente estatal) + F autonómica(remanente autonómico)",
-              resultado: euros(cuotaMinimoPersonalAhorro),
-            },
+            }),
           ],
           fuentes: [
             {
@@ -1131,48 +1268,59 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
           titulo: "Cuota diferencial",
           descripcion: `Cuota líquida ${cuotaLiquida.toFixed(2)} euros menos retenciones y pagos a cuenta declarados o calculados.`,
           lineasCalculo: [
-            {
+            crearLineaCalculo({
+              siteId: "anual.cuota.liquida",
+              instancia: 0,
+              importe: cuotaLiquida,
+              unidad: "EUR",
               etiqueta: "Cuota líquida",
               formula: `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(deduccionesAutonomicasAplicadas)})`,
-              resultado: euros(cuotaLiquida),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.deducciones.autonomicas",
+              instancia: 0,
+              importe: deduccionesAutonomicasAplicadas,
+              unidad: "EUR",
               etiqueta: "Deducciones autonómicas aplicadas",
               formula: usaEscalaAutonomicaReal
                 ? `${deduccionesAutonomicasDescripcion(caso)}; límite por cuota autonómica general más ahorro disponible ${euros(cuotaAutonomicaGeneralDespuesMinimo.plus(ahorroConMinimos.autonomico.despuesMinimo))}`
                 : deduccionesAutonomicasDescripcion(caso),
-              resultado: euros(deduccionesAutonomicasAplicadas),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.pagos.retenciones",
+              instancia: 0,
+              importe: centimosAEuros(caso.retencionesSoportadasCentimos),
+              unidad: "EUR",
               etiqueta: "Retenciones soportadas",
               formula: "Importe declarado en el caso fiscal",
-              resultado: euros(
-                centimosAEuros(caso.retencionesSoportadasCentimos)
-              ),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.pagos.cuenta",
+              instancia: 0,
+              importe: centimosAEuros(pagosACuentaAplicadosCentimos),
+              unidad: "EUR",
               etiqueta: "Pagos a cuenta",
               formula:
                 retencionTrabajoAeat !== undefined
                   ? "Importe declarado más retención de trabajo estimada"
                   : "Importe declarado en el caso fiscal",
-              resultado: euros(centimosAEuros(pagosACuentaAplicadosCentimos)),
-            },
-            {
+            }),
+            crearLineaCalculo({
+              siteId: "anual.cuota.diferencial",
+              instancia: 0,
+              importe: centimosAEuros(
+                calcularCuotaDiferencialCentimos({
+                  cuotaLiquidaCentimos:
+                    importesLiquidacion.cuotaLiquidaCentimos,
+                  pagosACuentaCentimos: pagosACuentaAplicadosCentimos,
+                  retencionesSoportadasCentimos:
+                    caso.retencionesSoportadasCentimos,
+                })
+              ),
+              unidad: "EUR",
               etiqueta: "Cuota diferencial",
               formula: `${euros(cuotaLiquida)} - ${euros(centimosAEuros(caso.retencionesSoportadasCentimos))} - ${euros(centimosAEuros(pagosACuentaAplicadosCentimos))}`,
-              resultado: euros(
-                centimosAEuros(
-                  calcularCuotaDiferencialCentimos({
-                    cuotaLiquidaCentimos:
-                      importesLiquidacion.cuotaLiquidaCentimos,
-                    pagosACuentaCentimos: pagosACuentaAplicadosCentimos,
-                    retencionesSoportadasCentimos:
-                      caso.retencionesSoportadasCentimos,
-                  })
-                )
-              ),
-            },
+            }),
           ],
           fuentes: [],
         },
@@ -1187,7 +1335,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     "liquidacion.trabajoIndividualSimple.total",
     tiempoAuditoriaMs() - inicioLiquidacionSimple
   )
-  return resultado
+  return { ...resultado, rastro: enlazarRastroAnualActual(resultado.rastro) }
 })
 
 const detectarCasoNoSoportado = Effect.fn(
@@ -1291,26 +1439,38 @@ const pasoRetencionTrabajoAeat = (
   descripcion:
     "Retención anual estimada con el procedimiento no regularizado para rendimientos del trabajo.",
   lineasCalculo: [
-    {
+    crearLineaCalculo({
+      siteId: "anual.retencion.base",
+      instancia: 0,
+      importe: centimosAEuros(retencion.baseRetencionCentimos),
+      unidad: "EUR",
       etiqueta: "Base de retención",
       formula: "Rendimiento neto reducido menos reducciones comunicadas",
-      resultado: euros(centimosAEuros(retencion.baseRetencionCentimos)),
-    },
-    {
+    }),
+    crearLineaCalculo({
+      siteId: "anual.retencion.cuota",
+      instancia: 0,
+      importe: centimosAEuros(retencion.cuotaRetencionCentimos),
+      unidad: "EUR",
       etiqueta: "Cuota de retención",
       formula: "Escala de retención sobre base menos escala sobre mínimo",
-      resultado: euros(centimosAEuros(retencion.cuotaRetencionCentimos)),
-    },
-    {
+    }),
+    crearLineaCalculo({
+      siteId: "anual.retencion.tipo",
+      instancia: 0,
+      importe: new Decimal(retencion.tipoRetencionPorcentaje),
+      unidad: "percent",
       etiqueta: "Tipo de retención",
       formula: "Tipo truncado a dos decimales",
-      resultado: `${retencion.tipoRetencionPorcentaje}%`,
-    },
-    {
+    }),
+    crearLineaCalculo({
+      siteId: "anual.retencion.anual",
+      instancia: 0,
+      importe: centimosAEuros(retencion.importeRetencionAnualCentimos),
+      unidad: "EUR",
       etiqueta: "Retención anual",
       formula: "Retribuciones x tipo de retención",
-      resultado: euros(centimosAEuros(retencion.importeRetencionAnualCentimos)),
-    },
+    }),
   ],
   fuentes: [
     {

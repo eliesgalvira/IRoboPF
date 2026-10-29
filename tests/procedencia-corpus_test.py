@@ -79,6 +79,37 @@ class EvidenceTest(unittest.TestCase):
         with self.assertRaises(ValidationError):
             corpus.verify(record, self.citation, self.root)
 
+    def test_replacement_character_prevents_numeric_binding(self):
+        for text in ('−\u0301\ufffd8,50 euros', '−\ufffd 8,50 euros',
+                     '8,50\ufffd euros', 'Nota \ufffd\n8,50 euros'):
+            start = text.index('8,50')
+            unit_start = text.index('euros')
+            binding = {'number': {'start': start, 'end': start + 4, 'literal': '8,50'},
+                       'numberFormat': 'es-ES', 'value': '8.50',
+                       'unit': {'start': unit_start, 'end': unit_start + 5, 'literal': 'euros'},
+                       'unitCode': 'EUR'}
+            with self.subTest(text=text), self.assertRaisesRegex(ValueError, 'extracción'):
+                corpus.verify_binding(text, binding)
+
+    def test_pdf_with_lost_glyph_cannot_bind_positive_amount(self):
+        # Bytes del contraejemplo independiente ENV2-01, no documento oficial.
+        fixture = Path(__file__).resolve().parents[1] / 'docs/procedencia/revisiones/enlaces-v2/tab.pdf'
+        data = fixture.read_bytes()
+        sha = corpus.hashlib.sha256(data).hexdigest()
+        (self.root / 'sha256' / sha).write_bytes(data)
+        record = dict(self.record, sha256=sha, sha512=corpus.hashlib.sha512(data).hexdigest(),
+                      size=len(data))
+        citation = corpus.cite(record, self.root, 1, [0, 0, 300, 110])
+        text = citation['quote']
+        self.assertIn('\ufffd', text)
+        start, unit_start = text.index('8,50'), text.index('euros')
+        binding = {'number': {'start': start, 'end': start + 4, 'literal': '8,50'},
+                   'numberFormat': 'es-ES', 'value': '8.50',
+                   'unit': {'start': unit_start, 'end': unit_start + 5, 'literal': 'euros'},
+                   'unitCode': 'EUR'}
+        with self.assertRaisesRegex(ValueError, 'extracción'):
+            corpus.cite(record, self.root, 1, [0, 0, 300, 110], binding)
+
     def test_public_metadata_and_cache_identity(self):
         record = dict(self.record, headers={'Set-Cookie': 'fixture', 'ETag': 'hash', 'X-Private': 'fixture'},
                       redirects=[{'headers': {'Authorization': 'fixture'}}])

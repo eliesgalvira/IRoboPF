@@ -125,3 +125,15 @@ RET20-008 demuestra Success con divisor cero. Se rechazan divisores no enteros p
 ## D023. Cierre de dependencias y saneamiento previo al hash
 
 ENV1-01/02/03 se reproducen y corrigen personalmente: marcas combinantes, edición persistente de payloads y cabeceras privadas en bytes públicos. Objeción: comprobar fuentes al final sin comprobar documentos deja un verde obsoleto; sanear una copia en memoria no limpia el artefacto publicado. Motivo: registrar/releer todas las dependencias y exigir manifiesto ya saneado. Coste: IO adicional, rechazo conservador de texto ambiguo y revisión nueva; no se afirma atomicidad frente a ABA. El payload madrileño anterior conserva su aceptación candidata exacta, sin traslado automático al snapshot actual.
+
+## D024. Información perdida no admite binding numérico
+
+ENV2-01 añade U+FFFD al contraejemplo del signo omitido. Se rechaza cualquier binding numérico de una cita que lo contenga, conservando los bytes originales y la posibilidad de registrar la cita pendiente. Objeción experta: filtrar únicamente el vecino inmediato deja nuevas separaciones y pérdida de contexto. Motivo: no convertir información ausente en una afirmación positiva. Coste: algún pasaje ajeno al número obligará a delimitar mejor el recorte o revisar la extracción. Dos pruebas con cinco comprobaciones fallan antes del fix; 24 pasan después.
+
+## D025. Saldo explícito de otras rentas y perfil heredado separado
+
+La API canónica de reducción requiere otras rentas algebraicas no exentas antes de reducciones y compensaciones. El anual calcula ese saldo con sus categorías admitidas. Objeción: una base del ahorro limitada o un alquiler reducido pueden cambiar indebidamente la elegibilidad. Motivo: aplicar el contrato contrastado de TDE-09/10; antes de 2015 la reducción no desaparece, pasa a 2.652 euros. Coste: adaptar llamadas y conservar una API antigua exclusivamente para el perfil sin otras rentas y reproducciones históricas. No se amplía por inferencia a rentas todavía ausentes.
+
+## D026. Identidad del rastro en el punto de código
+
+Cada línea anual propia recibe siteId explícito, instanceId por ejecución y decimal anterior al formato. El generador inspecciona esos puntos y fija sus fichas, fuentes e inventario en un snapshot. Objeción: deducir identidades de etiquetas o sustituir el snapshot de un resultado histórico produciría enlaces plausibles pero falsos. Motivo: enlazar al crear el resultado y rechazar su retagging. Coste: catálogo generado, conservación de fuentes y verificación de cobertura; las líneas de motores aún no instrumentados quedan pendientes. La ficha describe la expresión técnica; el ámbito y los enlaces jurídicos siguen pendientes hasta su verificación individual. Solo se añade el enlace mínimo en el texto existente, sin rediseño.
