@@ -1,0 +1,51 @@
+{
+  "base": "e6869301240add8a0bd3c8727998c83a214abd43",
+  "entries": 14596,
+  "request": {
+    "clientRequestId": "irobopf-r22-sol-retenciones-techo",
+    "role": "review",
+    "isolation": "worktree",
+    "mode": "async",
+    "target": {
+      "providerInstanceId": "codex",
+      "model": "gpt-6.1-sol",
+      "options": {
+        "reasoningEffort": "high",
+        "serviceTier": "priority"
+      }
+    },
+    "task": "Encargo de Elies: sesión larga IRoboPF. Eres Sol 6.1 (gpt-6.1-sol), esfuerzo high y prioridad; esta orden sustituye Astra en el BRIEF. Haz personalmente la tarea, sin subdelegar ni cambiar modelo. Español claro. Lee enteros /home/elies/irobopf-contexto/BRIEF.md, AGENTS.md, docs/procedencia/CONTRATO-AUDITORIA.md, COORDINACION.md, ESTADO.md y DECISIONES.md. Cada decisión: objeción del mejor experto, respuesta y coste. No declarar completo el encargo ni aceptación fiscal por métricas.\n\nT3 prepara TU worktree. Exige HEAD e6869301240add8a0bd3c8727998c83a214abd43: 14.596 entradas de base. Antes y al terminar comprueba diff contra base y lstat/readlink/bytes de TODAS las entradas, un blob cada vez; no confíes solo en el índice. Nunca jj git init en worktree Git de T3. Ninguna operación VCS mutante (init, commit, reset, bookmark, push, PR); no crear checkouts en shell. El padre integra por archivos/base/hash y rechaza borrados. No borrar originales, contexto, worktrees ni material ajeno. Nunca rm/mv relativos. Nada a main, sin PR, deploy, servidor, preview, interfaz/rediseño, LFS, gastos ni transferencias externas; ninguna interacción en X ni mensajes a terceros. Lectura del padre permitida solo para fuentes/CAS ya entregados; escribe exclusivamente en TU checkout y carpeta propia abajo. No tocar ESTADO/DECISIONES ni entregas de otros autores.\n\n11 GB RAM sin swap: un trabajador y flock /tmp/irobopf-validacion-pesada.lock para renders, suites, tipos, restauraciones y recorridos masivos. Recepción acotada por un blob puede usar flock /tmp/irobopf-recepcion-acotada.lock; no reutilizar ese lock para pruebas/renders. Sin Next build ni suites legacy masivas. Herramientas por Nix; no instalar global. Python bash tools/procedencia/run.sh con UV_PROJECT_ENVIRONMENT ABSOLUTO en TU .cache y PYTHONDONTWRITEBYTECODE=1; NO crear tools/procedencia/.venv. Bun/Node/python3 explícitos en nix shell. node_modules del padre solo lectura. Antes de escribir Effect: consulta effect-solutions list/show y fuente ~/.local/share/effect-solutions/effect (CLI disponible bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js). Lint/tipos del alcance,16 reglas anti-slop a error, oxlint --threads=1 --disable-nested-config; no ocultar fallos ni sustituir tipado Python por lint TS.\n\nContexto: correcciones/recepcion-r19-sol/INFORME.md y correcciones/{contratos-r21,preservacion-r21,editorial-r21,retenciones-2015-2016-r21}/INFORME.md. Inventario intacto30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7; artefacto59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7;52.461 ocurrencias,65 sitios. V1 a257e37f24d5a8c2f9306d64b1b706c658de067e501128652db550a7e485280f; V2 082bfc98eb13469b45e456a3d6cc65ebe811a748c1535d606efc3b06e78370ad,719 objetos,34 snapshots. Madrid e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258 sigue pendiente.264 payloads exactos en correcciones/integracion-r19/candidatos/,sin promociones. Las revisiones R19 ya terminaron: se pueden leer, no modificar. Originales/atestaciones históricas permanecen intactos; integridad, autenticidad, interpretación, número y revisión son ejes distintos. Toda nueva conclusión tuya requiere contraste posterior. Crossa tiene v1 2df6c208… desfasado, misma casa/dueño, no custodia independiente o remota; no escribir allí.\n\nEntrega: informe sustantivo, hallazgos/casos/controles máquina, comandos y límites; manifiesto de archivos relativos con SHA256/tamaño/baseSha256, HEAD y comprobación física sin borrados; patch textual gzip contra base y binarios por ruta/hash, sin commit. Comprime logs/JSON de control >1 MB; no incluir PDF originales en Git ni entornos, node_modules o copias de app bajo docs. Conserva originales nuevos en TU CAS, registra ambos hashes y adquisición saneada; el padre los preservará fuera de T3. Ninguna atestación real ni registro de confianza mutado. Para revisiones: no fixes; conserva rojos sin alterar expectativas. Si emites atestación candidata usa identidad REAL del runtime, distingue clave de comando e ID canónico de T3, y nunca apruebes código propio.\n\n\nLa revisión R21 de rectificaciones2015–2016 ha terminado y está recibida íntegra. El padre prepara la edición R22 después de reproducir sus rojos;59archivos/2.404.500bytes comprobados contra el commit, cero borrados. La base nueva no modifica inventario, snapshots, motor ni registros de confianza. Usa la edición R22 y su CONTRATO como objeto de esta revisión, conservando R21 para contraste histórico.\n\nPropiedad exclusiva docs/procedencia/revisiones/retenciones-techo-r22-sol/. Revisión NUEVA y focalizada de docs/procedencia/correcciones/retenciones-2015-2016-r22/, contra la edición R21 y revisión retenciones-rectificaciones-r21-sol recibida. No repetir140páginas ni reabrir≤64 ya confirmado salvo evidencia nueva. Lee completos los12reemplazos, CONTRATO.md, receta de las2citas, informe y rojos; coteja los contratos originales y artículos85.2,86.2,87.2/3/4/5,88 pertinentes.\n\nCuestiona R21-01: techo min(candidato,anterior) frente a asignación; candidatos por debajo/en/encima; mínimos previamente satisfechos. R21-02: sustitución expresa del párrafo antiguo, precedencia jurídica frente a filtro PDF, alcance de evento judicial único, exclusión inequívoca de TODAS las concurrencias aun declaradas conciliadas, caso custodio sin mínimo, prohibición de inferir exclusividad del delta, mínimo cambiado/desconocido/superior al anterior. No confundas exclusión de soporte con solución jurídica. Verifica que ninguna fórmula residual ni otra sección del contrato compuesto contradice la adenda. El candidato se refiere a un subpaso condicionado, no a una nómina implementada; no inventes un fallo del motor. R21-03: reproduce por bytes los2fragmentos con offsets/marcadores y hash texto; distingue selección bruta dentro de etiquetas de DOM#a87. Ataca receta distinta, límites, Unicode, datos alterados, sin atribuir a un script de contraste documental garantías de un verificador operativo de producción.\n\nEntrega decisiones por3hallazgos y12IDs, propios contraejemplos significativos, objeciones/costes, comandos y límites, sin fixes ni modificar expectativas/revisiones históricas. Reproduce rojo original y contrasteviejo como historia; ejecuta los nuevos controles y refuta si son tautológicos o insuficientes. Ningún enable, aceptación fiscal, promoción ni nuevas atestaciones. Si el nuevo contrato sigue insuficiente, precisa exactamente qué entrada/orden queda ambiguo y por qué. No generalices un caso de hipótesis aritmética a la existencia de una nómina sin reconstruirla."
+  },
+  "result": {
+    "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r22-sol-retenciones-techo",
+    "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r22-sol-retenciones-techo",
+    "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r22-sol-retenciones-techo>",
+    "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r22-sol-retenciones-techo:ordinal:1",
+    "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r22-sol-retenciones-techo",
+    "status": "running",
+    "workState": "working",
+    "hasPendingChildRuns": false,
+    "latestTerminalRunId": null,
+    "latestTerminalStatus": null,
+    "latestTerminalSummary": null,
+    "latestTerminalResultContextTransferId": null,
+    "providerInstanceId": "codex",
+    "model": "gpt-6.1-sol",
+    "options": [
+      {
+        "id": "reasoningEffort",
+        "value": "high"
+      },
+      {
+        "id": "serviceTier",
+        "value": "priority"
+      }
+    ],
+    "summary": null,
+    "resultContextTransferId": null,
+    "hasPendingQuestion": false,
+    "pendingApproval": null,
+    "waitTimedOut": false,
+    "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+  }
+}
