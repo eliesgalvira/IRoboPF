@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r19-EAV2-catalunya-2021-f1-cuota",
+  "authorTaskId": "Codex /root orquestador integracion-r19",
+  "inventory": {
+    "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+    "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+  },
+  "itemId": "inv-875dc28dea11a3a1a67058957ce02f5d",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "CATALUNYA_2020_2021",
+    "tablePath": [
+      "0",
+      "cuota"
+    ]
+  },
+  "scope": {
+    "year": 2021,
+    "territory": "catalunya",
+    "unit": "EUR",
+    "claim": "Candidato: cuota publicado, fila 1; coincidencia con identidad canónica exacta.",
+    "conditions": [
+      "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+      "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+      "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+      "Ámbito aceptado: cierre ordinario anual sin fallecimiento. Los supuestos de fallecimiento quedan fuera de esta decisión limitada."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/autonomicas-v2/citas/catalunya-2020-f1-cuota.json",
+    "sha256": "d1ae7cac342ff5539ca854628f6a6098be8cd85d569e9642436746a4cf2567b3"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/autonomicas/documentos/adb7645ce524963d3768e6dfff8547c1fa3076d18e9b64c76f3af93978b214ef.json",
+    "sha256": "1e935316bdfa96a8ad59f3c6142b096059796c6fbe1c854b9330e3d049af795d"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-catalunya-2021-f1-cuota"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/correcciones/integracion-r19/candidatos/ambitos/EAV2-catalunya-2021-f1-cuota.json",
+    "sha256": "86895001530b36d7c9242c1d392011dfae4e0e09750c9a7bd3ceffc650610777"
+  }
+}

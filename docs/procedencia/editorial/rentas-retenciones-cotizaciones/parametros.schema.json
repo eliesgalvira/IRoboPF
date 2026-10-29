@@ -1,0 +1,349 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "ocurrencia",
+      "valor",
+      "unidad",
+      "ejercicios",
+      "territorio",
+      "usosCandidatos",
+      "razonVinculo",
+      "contextoCodigo",
+      "secciones",
+      "aceptacionFiscalCompleta",
+      "papel",
+      "derivacionCompartida",
+      "objetivo"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "ocurrencia": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "fuente",
+          "simbolo",
+          "ruta",
+          "capa"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fuente": {
+            "type": "object",
+            "required": [
+              "file",
+              "sha256",
+              "start",
+              "end",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          },
+          "simbolo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ruta": {
+            "type": "string",
+            "minLength": 1
+          },
+          "capa": {
+            "enum": [
+              "syntactic",
+              "effective"
+            ]
+          }
+        }
+      },
+      "valor": {
+        "type": "string",
+        "minLength": 1
+      },
+      "unidad": {
+        "type": "string",
+        "minLength": 1
+      },
+      "ejercicios": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 2012,
+          "maximum": 2026
+        }
+      },
+      "territorio": {
+        "type": "string",
+        "minLength": 1
+      },
+      "usosCandidatos": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "razonVinculo": {
+        "type": "string",
+        "minLength": 1
+      },
+      "contextoCodigo": {
+        "type": "string",
+        "minLength": 1
+      },
+      "secciones": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "formula",
+          "derivacion",
+          "norma",
+          "evidencia",
+          "bordes"
+        ],
+        "properties": {
+          "formula": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "enum": [
+                  "candidata",
+                  "pendiente",
+                  "no-aplica"
+                ]
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              },
+              "citas": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "derivacion": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "enum": [
+                  "candidata",
+                  "pendiente",
+                  "no-aplica"
+                ]
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              },
+              "citas": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "norma": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "enum": [
+                  "candidata",
+                  "pendiente",
+                  "no-aplica"
+                ]
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              },
+              "citas": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "evidencia": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "enum": [
+                  "candidata",
+                  "pendiente",
+                  "no-aplica"
+                ]
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              },
+              "citas": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "bordes": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "enum": [
+                  "candidata",
+                  "pendiente",
+                  "no-aplica"
+                ]
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              },
+              "citas": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "aceptacionFiscalCompleta": {
+        "const": false
+      },
+      "papel": {
+        "type": "string",
+        "minLength": 1
+      },
+      "derivacionCompartida": {
+        "type": "object",
+        "required": [
+          "archivo",
+          "papel",
+          "condicion"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "archivo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "papel": {
+            "type": "string",
+            "minLength": 1
+          },
+          "condicion": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "objetivo": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "snapshot",
+          "siteId",
+          "sujeto"
+        ],
+        "properties": {
+          "snapshot": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "siteId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sujeto": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "revision"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "revision": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

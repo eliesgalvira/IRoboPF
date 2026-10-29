@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r17-EAV2-catalunya-2020-f6-baseInferior",
+  "authorTaskId": "Codex /root checkout T3 t3-ec1d8368 integracion-r17",
+  "inventory": {
+    "manifestSha256": "21516a24e30d5106d229b1fead87aa0889700df3950fabfe0f4bb69b23631266",
+    "artifactSha256": "5095690502f91a0157ea0323410531f120849cf8e776c3d813fa490fb322df48"
+  },
+  "itemId": "inv-55c38bb5e37a3613d5f7c2b039a3962b",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "CATALUNYA_2020_2021",
+    "tablePath": [
+      "5",
+      "baseInferior"
+    ]
+  },
+  "scope": {
+    "year": 2020,
+    "territory": "catalunya",
+    "unit": "EUR",
+    "claim": "Candidato: baseInferior publicado, fila 6; coincidencia con identidad canónica exacta.",
+    "conditions": [
+      "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+      "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+      "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+      "Ámbito aceptado: cierre ordinario anual sin fallecimiento. Los supuestos de fallecimiento quedan fuera de esta decisión limitada."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/autonomicas-v2/citas/catalunya-2020-f6-baseInferior.json",
+    "sha256": "cd1da45075012f53040e361822a20db810d9a25bbdda44d1f145acccd5623d03"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/autonomicas/documentos/adb7645ce524963d3768e6dfff8547c1fa3076d18e9b64c76f3af93978b214ef.json",
+    "sha256": "1e935316bdfa96a8ad59f3c6142b096059796c6fbe1c854b9330e3d049af795d"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-catalunya-2020-f6-baseInferior"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/implementaciones/integracion-sol-r17/candidatos/ambitos/EAV2-catalunya-2020-f6-baseInferior.json",
+    "sha256": "24302c77ed6b925155755f37000ef6586e914ac794360dfdb8553fcc4fa73528"
+  }
+}

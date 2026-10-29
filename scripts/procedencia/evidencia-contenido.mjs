@@ -89,7 +89,17 @@ export function prepararEntrada(root, snapshot) {
     const payload = referencia(entry.payload)
     const citation = referencia(payload.citation)
     const document = referencia(payload.document)
-    referencia(payload.legalReview.decisions)
+    const decisiones = referencia(payload.legalReview.decisions)
+    if (payload.schemaVersion === 2) {
+      referencia(payload.executableScope)
+      const decision = decisiones.find(
+        (d) => d.id === payload.legalReview.decisionId
+      )
+      if (!decision) throw new Error("Decisión ausente")
+      for (const citation of decision.citations) referencia(citation)
+      for (const key of ["chainEvidence", "additionalCitations"])
+        if (decision[key]) referencia(decision[key])
+    }
     paths.add(payload.source.file)
     paths.add(fixtures + document.sha256)
     paths.add(fixtures + citation.facsimile.sha256)
@@ -172,6 +182,7 @@ export async function generarEvidencia(root, entrada) {
     const result = execution.evidence.find((e) => e.id === payload.id)
     if (
       !result ||
+      result.itemId !== payload.itemId ||
       result.numericBinding !== "verified" ||
       result.integrity !== "verified" ||
       result.completeRuleAcceptance !== false
@@ -180,6 +191,14 @@ export async function generarEvidencia(root, entrada) {
     const item = items.get(payload.itemId)
     if (!item || !["Parameter", "Step"].includes(item.kind))
       throw new Error("Tipo no soportado: requiere adaptador explícito")
+    const executable =
+      payload.schemaVersion === 2
+        ? json(leer(root, payload.executableScope.path))
+        : null
+    const scopeText =
+      executable === null
+        ? ""
+        : `\nÁmbito ejecutable v${executable.schemaVersion}: ${executable.year}, ${executable.territory}; componente ${executable.component}, base ${executable.taxBase}; período ${executable.period}; condición ${executable.predicate}. Residencia y elegibilidad: externas, no acreditadas. Celda: ${executable.source.symbol}[${executable.source.tablePath[0]}].${executable.source.tablePath[1]}.`
     const geometry = citation.geometry
     if (
       geometry.rotation !== 0 ||
@@ -213,6 +232,7 @@ export async function generarEvidencia(root, entrada) {
             estado: "candidata",
             texto:
               payload.scope.conditions.join("\n") +
+              scopeText +
               "\nAceptación fiscal completa: pendiente. Revisión del binding: " +
               result.bindingReview +
               ". Autenticidad histórica: " +

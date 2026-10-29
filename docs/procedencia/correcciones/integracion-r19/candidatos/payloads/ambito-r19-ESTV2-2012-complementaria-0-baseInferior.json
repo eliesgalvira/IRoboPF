@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r19-ESTV2-2012-complementaria-0-baseInferior",
+  "authorTaskId": "Codex /root orquestador integracion-r19",
+  "inventory": {
+    "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+    "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+  },
+  "itemId": "inv-f9cf076b400a200a1c79b6cf4f8e9d11",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "ESTATAL_COMPLEMENTARIA_2012_2014",
+    "tablePath": [
+      "0",
+      "baseInferior"
+    ]
+  },
+  "scope": {
+    "year": 2012,
+    "territory": "estatal-comun",
+    "unit": "EUR",
+    "claim": "Cuantía publicada ESTATAL_COMPLEMENTARIA_2012_2014, fila 0, columna baseInferior: 0 EUR.",
+    "conditions": [
+      "Aceptación limitada a cuantía nominal de esta celda y ejercicio, componente estatal de base general.",
+      "No acepta base del ahorro, retenciones, componente autonómico, régimen foral ni declaración completa.",
+      "La cuota tabulada es publicada: no sustituirla por integral de tipos.",
+      "Elegibilidad, minoración por mínimos, anualidades, selección del caso y redondeo final quedan fuera."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/estatales-v2/citas/escala-complementaria-0-baseInferior.json",
+    "sha256": "7be05942a269c19f998d93f07ccf23d6e59671851edc2e6f43343425845917cb"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/estatales/documentos/2011-20638.json",
+    "sha256": "08d639c8e03a3cc5ef4e5097deef84a4321e65cf1d268455db8ae26c5a5f7f53"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-estatales-v2/decisiones-canonicas.json",
+      "sha256": "ca93109793d89d3bf4211bd01ff4fe19f1cfe444e5d42873741e00f23eaf885c"
+    },
+    "decisionId": "ESTV2-2012-complementaria-0-baseInferior"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/correcciones/integracion-r19/candidatos/ambitos/ESTV2-2012-complementaria-0-baseInferior.json",
+    "sha256": "d917c4b03c7f42c196c2d6dcbb9fd6912508d17cc13acac7599eb843340e2b68"
+  }
+}

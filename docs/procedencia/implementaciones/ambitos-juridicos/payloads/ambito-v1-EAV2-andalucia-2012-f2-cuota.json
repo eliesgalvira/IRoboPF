@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-v1-EAV2-andalucia-2012-f2-cuota",
+  "authorTaskId": "Codex /root checkout T3 t3-d3757c76",
+  "inventory": {
+    "manifestSha256": "4f00b24bfa37baa3521d54af1448d99a2ef6d1eee3e08bcf8b4d16ec97af7314",
+    "artifactSha256": "b5450d431eefa13765ec0009a6be579e15848524799f2a467a46b5746caf087f"
+  },
+  "itemId": "inv-af10bce77547e3e384a06a40b9fe2241",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "ANDALUCIA_2012_2015",
+    "tablePath": [
+      "1",
+      "cuota"
+    ]
+  },
+  "scope": {
+    "year": 2012,
+    "territory": "andalucia",
+    "unit": "EUR",
+    "claim": "Candidato: cuota publicado, fila 2; coincidencia con identidad canónica exacta.",
+    "conditions": [
+      "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+      "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+      "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+      "Ámbito aceptado: cierre ordinario anual sin fallecimiento. Los supuestos de fallecimiento quedan fuera de esta decisión limitada."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/autonomicas-v2/citas/andalucia-2012-f2-cuota.json",
+    "sha256": "ccd53033db15c54fc81951853a1f29d170b3ec3c3ea8ed6a0214883d199fe52f"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/autonomicas/documentos/09f01627f64790629169c728da9292d81e46a99392641597d1cc93b1b1799154.json",
+    "sha256": "6545052ad5e79dcc09cea493b43b5da739d190cc3175b2d04710ac08c67ac9ff"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-andalucia-2012-f2-cuota"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/implementaciones/ambitos-juridicos/ambitos/EAV2-andalucia-2012-f2-cuota.json",
+    "sha256": "be6decb1c65bd1de47040baa826ea466022c07411be404ba4d72af91ac650151"
+  }
+}

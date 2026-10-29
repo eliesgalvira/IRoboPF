@@ -28,6 +28,8 @@ it("RV3-01 rechaza software de explicación cambiado fuera del dominio", () => {
     "lib",
     "scripts",
     "app/procedencia",
+    "tools/procedencia",
+    "schemas/procedencia",
     "next.config.mjs",
   ])
     cpSync(resolve(carpeta), resolve(scratch, carpeta), { recursive: true })
@@ -39,6 +41,9 @@ it("RV3-01 rechaza software de explicación cambiado fuera del dominio", () => {
   expect(verificarRastroGenerado(scratch).puntos).toBe(65)
   for (const file of [
     "lib/procedencia/rastro-anual.ts",
+    "tools/procedencia/enlaces.py",
+    "schemas/procedencia/executable-cell-scope.schema.json",
+    "scripts/procedencia/ambito-publicado.mjs",
     "scripts/procedencia/contenido-generar.mjs",
     "scripts/procedencia/rastro-verificar.mjs",
     "app/procedencia/[snapshot]/objetos/[hash]/route.ts",

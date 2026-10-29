@@ -1,0 +1,10 @@
+{ "diagnostics": [{"message": "Do not import Effect service constructor \"makeExample\" into runtime code. Import the owning Layer, yield the contextual service, and allow its requirements to propagate to the composition root.","code": "anti-slop-effect(no-service-constructor-imports)","severity": "error","filename": ".cache/integracion-r17/tmp/irobopf-lint-Vs6vZI/sample.ts","labels": [{"span": {"offset": 9,"length": 11,"line": 1,"column": 10}}]},
+{"message": "Parameter `value` leaves input unparsed. Accept a named domain type; run the expected schema or parser at the I/O boundary before calling this function.","code": "anti-slop(no-unknown-parameters)","severity": "error","filename": ".cache/integracion-r17/tmp/irobopf-lint-Vs6vZI/sample.ts","labels": [{"span": {"offset": 74,"length": 7,"line": 2,"column": 31}}]}],
+              "number_of_files": 1,
+              "number_of_rules": 16,
+              "threads_count": 1,
+              "start_time": 0.125230255
+            }
+            
+
+16 reglas a error; ambos plugins cargan y rechazan el fixture.

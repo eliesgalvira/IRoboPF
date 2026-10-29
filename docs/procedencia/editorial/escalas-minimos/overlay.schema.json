@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Superposición editorial escalas y mínimos: candidata sin promoción",
+  "type": "array",
+  "minItems": 28,
+  "maxItems": 28,
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "estado",
+      "titulo",
+      "selector",
+      "unidad",
+      "entradasSalidas",
+      "secciones",
+      "fuentesPrimarias",
+      "derivacionComun",
+      "pendientes",
+      "contrarrevision",
+      "aceptacionFiscalCompleta",
+      "localizadoresNorma",
+      "dependenciasTecnicas"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "estado": {
+        "const": "candidata"
+      },
+      "titulo": {
+        "type": "string",
+        "minLength": 1
+      },
+      "selector": {
+        "type": "object",
+        "required": [
+          "base",
+          "siteId",
+          "sujeto",
+          "fuente",
+          "offsetEncoding",
+          "codigoExacto",
+          "ejercicios",
+          "territorios",
+          "razon"
+        ],
+        "properties": {
+          "base": {
+            "const": "1196269d4e73742beeed35cc05011b70c21a0b69"
+          },
+          "siteId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sujeto": {
+            "type": "object",
+            "required": [
+              "id",
+              "revision"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "revision": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "unidad": {
+        "const": "EUR/año"
+      },
+      "entradasSalidas": {
+        "type": "string",
+        "minLength": 1
+      },
+      "secciones": {
+        "type": "object",
+        "required": [
+          "formula",
+          "derivacion",
+          "norma",
+          "evidencia",
+          "bordes"
+        ],
+        "properties": {
+          "formula": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "const": "candidata"
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "derivacion": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "const": "candidata"
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "norma": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "const": "candidata"
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "evidencia": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "const": "candidata"
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "bordes": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "estado",
+              "texto"
+            ],
+            "properties": {
+              "estado": {
+                "const": "candidata"
+              },
+              "texto": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "fuentesPrimarias": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "derivacionComun": {
+        "enum": [
+          "bases",
+          "escalas",
+          "ahorro",
+          "minimos",
+          "deducciones",
+          "explicito"
+        ]
+      },
+      "pendientes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "afirmacion",
+            "falta"
+          ],
+          "properties": {
+            "afirmacion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "falta": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "contrarrevision": {
+        "const": "pendiente"
+      },
+      "aceptacionFiscalCompleta": {
+        "const": false
+      },
+      "localizadoresNorma": {
+        "type": "array"
+      },
+      "dependenciasTecnicas": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256",
+          "selector"
+        ]
+      }
+    },
+    "additionalProperties": false
+  }
+}

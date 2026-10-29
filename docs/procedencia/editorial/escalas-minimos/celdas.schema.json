@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "estado",
+      "revisionIndependiente",
+      "aceptacionFiscalCompleta",
+      "decisionPrevia",
+      "selector",
+      "valor",
+      "unidad",
+      "filaCodigo0Based",
+      "filaDecision",
+      "columna",
+      "secciones",
+      "casoIndependiente",
+      "bloqueos",
+      "propuestaAnterior",
+      "payloadOriginal"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "estado": {
+        "const": "candidata"
+      },
+      "revisionIndependiente": {
+        "const": "pendiente"
+      },
+      "aceptacionFiscalCompleta": {
+        "const": false
+      },
+      "decisionPrevia": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256",
+          "selector",
+          "id",
+          "alcanceOriginal"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "selector": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "alcanceOriginal": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "selector": {
+        "type": "object",
+        "required": [
+          "base",
+          "archivo",
+          "sha256",
+          "simbolo",
+          "ruta",
+          "ejercicio",
+          "territorio",
+          "itemId"
+        ],
+        "properties": {
+          "base": {
+            "type": "string"
+          },
+          "archivo": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "simbolo": {
+            "type": "string"
+          },
+          "ruta": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ejercicio": {
+            "type": "integer"
+          },
+          "territorio": {
+            "type": "string"
+          },
+          "itemId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "valor": {
+        "type": "string"
+      },
+      "unidad": {
+        "type": "string"
+      },
+      "filaCodigo0Based": {
+        "type": "integer"
+      },
+      "filaDecision": {
+        "type": "integer"
+      },
+      "columna": {
+        "type": "string"
+      },
+      "secciones": {
+        "type": "object",
+        "required": [
+          "formula",
+          "derivacion",
+          "norma",
+          "evidencia",
+          "bordes"
+        ],
+        "properties": {
+          "formula": {
+            "type": "string"
+          },
+          "derivacion": {
+            "type": "string"
+          },
+          "norma": {
+            "type": "string"
+          },
+          "evidencia": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "bordes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "casoIndependiente": {
+        "type": "object",
+        "required": [
+          "entradaEUR",
+          "cuotaExactaEUR",
+          "cuotaPresentadaHalfUpEUR",
+          "alcance",
+          "hojas"
+        ],
+        "properties": {
+          "entradaEUR": {
+            "type": "string"
+          },
+          "cuotaExactaEUR": {
+            "type": "string"
+          },
+          "cuotaPresentadaHalfUpEUR": {
+            "type": "string"
+          },
+          "alcance": {
+            "type": "string"
+          },
+          "hojas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "source",
+                "symbol",
+                "path",
+                "value",
+                "unit"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "object",
+                  "required": [
+                    "file",
+                    "sha256",
+                    "start",
+                    "end",
+                    "line",
+                    "column",
+                    "offsetEncoding"
+                  ],
+                  "properties": {
+                    "file": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    },
+                    "start": {
+                      "type": "integer"
+                    },
+                    "end": {
+                      "type": "integer"
+                    },
+                    "line": {
+                      "type": "integer"
+                    },
+                    "column": {
+                      "type": "integer"
+                    },
+                    "offsetEncoding": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "symbol": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "bloqueos": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "propuestaAnterior": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "payloadOriginal": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "minItems": 264,
+  "maxItems": 264
+}

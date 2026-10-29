@@ -1,3 +1,7 @@
+import {
+  verificarAceptacionLimitada,
+  estadoAutenticidad,
+} from "./ambito-publicado.mjs"
 import { readFileSync } from "node:fs"
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -261,16 +265,19 @@ export function verificarContenido(snapshot, raiz) {
       for (const d of recibo.entrada.dependencias)
         if (!cierre.has(d.sha256))
           throw new Error("Dependencia del recibo ausente")
+      if (e.revisionBinding === "accepted-limited")
+        verificarAceptacionLimitada(
+          e.payload,
+          e.sujeto.id,
+          recibo.entrada.dependencias,
+          (h) => objeto(raiz, h)
+        )
       const payload = JSON.parse(objeto(raiz, e.payload).toString())
       const manifiesto = JSON.parse(objeto(raiz, e.manifiesto).toString())
       if (
         payload.document.sha256 !== e.manifiesto ||
         JSON.stringify(e.autenticidad) !==
-          JSON.stringify({
-            estado: manifiesto.authenticity.status,
-            fecha: manifiesto.authenticity.checkedAt,
-            limites: manifiesto.authenticity.scope,
-          })
+          JSON.stringify(estadoAutenticidad(manifiesto))
       )
         throw new Error("Autenticidad distinta del manifiesto")
     }

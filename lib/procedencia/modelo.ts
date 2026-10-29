@@ -204,7 +204,7 @@ export const EstadoEvidencia = Schema.Struct({
     limites: Texto,
   }),
   interpretacion: Schema.Literal("candidata"),
-  revisionBinding: Schema.Literal("pending"),
+  revisionBinding: Schema.Literals(["pending", "accepted-limited"]),
   aceptacionFiscalCompleta: Schema.Literal(false),
 })
 export const IndiceBusqueda = Schema.Array(

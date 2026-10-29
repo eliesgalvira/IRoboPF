@@ -1,0 +1,38 @@
+{
+  "bases": {
+    "magnitud": "Renta anual general o del ahorro, antes de obtener cuota, en euros.",
+    "pasos": ["Clasificar cada rendimiento y ganancia antes de integrar; el nombre de una cuenta no demuestra clasificación fiscal.", "El perfil parcial suma trabajo reducido, alquiler simplificado y ganancias generales; limita el saldo de trabajo antes de sumar los demás.", "El saldo del ahorro representado solo recibe ganancias de transmisión y se limita a cero; no implementa integración y compensación completa del artículo 49.", "La igualdad BIG=BLG es una exclusión contractual de reducciones y compensaciones previas, no una identidad tributaria universal."],
+    "redondeo": "Las operaciones intermedias usan Decimal. El perfil agregado exporta céntimos al final; el explícito conserva bases con signo en decimal y presenta el diferencial half-up a dos decimales.",
+    "frontera": "Una pérdida general puede sobrevivir a la suma; una pérdida del ahorro recortada en esta salida sigue siendo una limitación de cobertura. No convertirla en exención."
+  },
+  "escalas": {
+    "magnitud": "Cuota, euros de impuesto por ejercicio; no porcentaje efectivo ni base de renta.",
+    "pasos": ["Identificar componente, año, territorio y supuesto temporal, incluido fallecimiento cuando el selector lo representa.", "Con filas publicadas seleccionar la última base inferior aplicable, positiva la base; usar cuota fija publicada Q y exceso B−L.", "Multiplicar exceso EUR por tipo adimensional (porcentaje/100), obteniendo EUR, y sumar Q en EUR.", "Si existen varias escalas del mismo componente, sumar cada cuota: ordinaria y complementaria estatal 2012–2014 son dos tablas.", "Sin tabla publicada el helper integra anchuras por marginal; es otra representación. La ausencia de selección no valida ese contrato fiscalmente.", "Para el mínimo aplicar las mismas escalas sobre min(base,mínimo), y restar la cuota obtenida, nunca el importe nominal del mínimo."],
+    "redondeo": "No redondea cada producto antes de sumar. El rastro puede presentar cada línea a dos decimales mientras el total procede de cantidades sin redondear. En el caso de ocho descendientes de Andalucía2012 la suma presentada de líneas9213,23 difiere del total presentado9213,24. Esa observación del informe previo no constituye prueba propia nueva.",
+    "frontera": "Murcia2022: la fila con L=60000 exige estrictamente B>60000. En B=60000 la fila anterior da8625,8332; en60000,01 la nueva da8716,67227. No imponer continuidad inventando una errata."
+  },
+  "ahorro": {
+    "magnitud": "Cuota estatal y autonómica del ahorro y minoración, en euros anuales; remanente es euros de mínimo sin absorber.",
+    "pasos": ["Para cada componente C computar rC=min(max(MC−max(BG,0),0),max(BA,0)); no tomar el mayor de los dos mínimos.", "2012–2014: gravar BA−rC. El Estado usa escala ordinaria más complementaria y la autonomía solo ordinaria.", "Desde2015: gravar BA y minorar por la cuota de rC; no trasladar esta fórmula al período anterior.", "2015: tipos estatales9,5/10,5/11,5 y autonómicos10/11/12; no partir una cuota conjunta por dos.", "Suma de minoraciones = suma de cuotas brutas menos suma de cuotas posteriores. La fórmula no acredita cuantía ni derecho al mínimo recibido."],
+    "redondeo": "Con BG0, BA10000, ME5550 y MA5956,65 en2025: brutas990 y990; posteriores462,75 y424,11825. Total886,86825 presenta886,87; minoración1093,13175 presenta1093,13.",
+    "frontera": "Con rC=BA se agota ese componente; nunca produce cuota negativa. La tabla2025 reutilizada para2026 es hipótesis técnica y necesita norma propia. País Vasco y Navarra no se convierten en territorio común por desconocimiento."
+  },
+  "minimos": {
+    "magnitud": "Mínimos personales/familiares nominales en euros anuales; se transforman después en cuota.",
+    "pasos": ["Distinguir el helper familiar antiguo, que recibe edad y etiquetas, del contrato de derechos explícitos Madrid2025.", "En derechos explícitos exigir hechos de elegibilidad, renta no exenta, declaración individual y convivencia/dependencia. Renta8000 exactos no excede8000; declaración1800 exactos no excede1800.", "Seleccionar titulares con derecho y grado preferente por descendiente antes de ordenar. Ordenar únicamente quienes generan derecho; después repartir cada importe entre titulares aplicables.", "El mínimo propio del contribuyente no se reparte por el mero hecho de compartir descendientes.", "Separar constitución civil del vínculo y primer evento habilitante del incremento. No reiniciar el plazo al sucederse acogimiento y adopción. No resolver mayoría de edad solo restando años.", "MDV2-P01: la ruta anual actual rechaza alimentos propios sin derecho al mínimo, incluso si otro hijo sí lo tiene. La exclusión no resuelve si materialmente debe aplicarse especialidad o cálculo ordinario.", "Usar el juego2012–2014 (5151 base propia) separado del posterior (5550); repetir un valor en todos los años no acredita continuidad normativa."],
+    "redondeo": "En derechos explícitos la renta propia se concilia antes de reducciones y compensaciones; se rechaza una representación a céntimos que cambie de lado el umbral8000. No se convierte el redondeo técnico en norma universal.",
+    "frontera": "El helper sin derechos no verifica renta/convivencia/reparto; los ascendientes no están abiertos por el contrato de descendientes. Custodia no equivale por sí sola a derecho."
+  },
+  "deducciones": {
+    "magnitud": "Importe consignado y aplicado contra cuota en euros, sin acreditación de elegibilidad.",
+    "pasos": ["La lista de deducciones catalogadas carece de evaluadores generales; la ruta parcial rechaza su solicitud.", "El campo agregado en céntimos se convierte a EUR. En territorio real se limita a la suma de cuotas autonómicas general y ahorro después de sus mínimos.", "Restar el importe aplicado al total de cuotas después de mínimos. No consumir cuota estatal con una consignación autonómica excesiva.", "Obtener diferencial después de convertir la cuota líquida a céntimos: restar retenciones y pagos una sola vez."],
+    "redondeo": "El cap puede tener fracciones de céntimo antes de exportar. En ahorroMadrid2025 del ejemplo común declarar10000 consume424,11825 y preserva462,75 estatales.",
+    "frontera": "El límite general no implementa límites especiales, requisitos, compatibilidad ni orden de cada una de351 deducciones. No ofrecer automatización de todas por tener catálogo."
+  },
+  "explicito": {
+    "magnitud": "Bases con signo y cuotas condicionadas del perfil individualMadrid2025,18–64 sin familiares/discapacidad.",
+    "pasos": ["Conciliar trabajo o aporte EDS, sin mezclarlos; gastos, RETA y reducciones del aporte no se descuentan otra vez.", "Conservar neto con signo para BIG y BLG; usar max(neto,0) únicamente como base de tarifa.", "Calcular Estado y Madrid por separado, cada uno con su propio mínimo limitado a base.", "Sumar cuota líquida legal antes de DA61; art.80 sin importe al excluir rentas extranjeras. Descontar DA61 una sola vez para servicios elegibles; pensiones y EDS quedan fuera de esa deducción de servicios.", "Restar retenciones y pagos efectivos disjuntos al resultado posterior; no inventar cotizaciones ni deducirlas desde el salario bruto."],
+    "redondeo": "Decimal de precisión80 en la conexión, helpers según configuración propia; salida exacta en strings y presentación diferencial a dos decimales ROUND_HALF_UP. No equivale al orden binary64 del oracle legacy.",
+    "frontera": "No trasladar a2026, otros territorios, fallecimientos, familiares ni discapacidad. Los ejemplos algebraicos de composición no acreditan un derecho a deducción."
+  }
+}

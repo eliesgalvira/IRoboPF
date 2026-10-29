@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict';import {readFileSync,writeFileSync} from 'node:fs';import {spawnSync} from 'node:child_process';import {resolve} from 'node:path';
+import antiSlop from '../../tools/oxlint/anti-slop/index.ts';import effect from '../../tools/oxlint/anti-slop/effect/index.ts';
+const config=JSON.parse(readFileSync('.oxlintrc.json','utf8'));
+for(const [prefix,plugin] of [['anti-slop',antiSlop],['anti-slop-effect',effect]])for(const name of Object.keys(plugin.rules))assert.equal(config.rules[`${prefix}/${name}`],'error');assert.equal(Object.keys(config.rules).length,16);
+const fixtureConfig=resolve('.cache/alimentos-sol/lint-config.json');writeFileSync(fixtureConfig,JSON.stringify({...config,ignorePatterns:[],jsPlugins:config.jsPlugins.map(p=>resolve(p))}));
+const fixture=resolve('.cache/alimentos-sol/invalid.ts');writeFileSync(fixture,'import { makeExample } from "./example.ts";\nexport function accept(value: unknown) { return value; }\n');
+const r=spawnSync(resolve('node_modules/.bin/oxlint'),['--no-ignore','--disable-nested-config','--config',fixtureConfig,'--format','json',fixture],{encoding:'utf8'});assert.equal(r.status,1,r.stderr);const codes=JSON.parse(r.stdout).diagnostics.map(x=>x.code);assert.ok(codes.includes('anti-slop(no-unknown-parameters)'));assert.ok(codes.includes('anti-slop-effect(no-service-constructor-imports)'));console.log('16 reglas a error; dos plugins verificados; fixture rechazado con exit 1; ensayo exit 0');
