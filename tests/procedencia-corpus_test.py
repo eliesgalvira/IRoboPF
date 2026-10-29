@@ -50,13 +50,21 @@ class EvidenceTest(unittest.TestCase):
             corpus.verify(record, citation, base / 'fixtures', accepted=True)
 
     def test_unicode_sign_cannot_be_omitted(self):
-        for sign in ('−', '﹣', '－', '＋', '±'):
+        for sign in ('−', '﹣', '－', '＋', '±', '⁻', '₋'):
             text = sign + '8,50%'
             binding = {'number': {'start': 1, 'end': 5, 'literal': '8,50'},
                        'numberFormat': 'es-ES', 'value': '8.50',
                        'unit': {'start': 5, 'end': 6, 'literal': '%'}, 'unitCode': 'percent'}
             with self.subTest(sign=sign), self.assertRaises(ValueError):
                 corpus.verify_binding(text, binding)
+
+    def test_separated_sign_cannot_be_omitted(self):
+        text = '− 8,50%'
+        binding = {'number': {'start': 2, 'end': 6, 'literal': '8,50'},
+                   'numberFormat': 'es-ES', 'value': '8.50',
+                   'unit': {'start': 6, 'end': 7, 'literal': '%'}, 'unitCode': 'percent'}
+        with self.assertRaises(ValueError):
+            corpus.verify_binding(text, binding)
 
     def test_api_rejects_unknown_document_field(self):
         record = dict(self.record, unexpected=True)
