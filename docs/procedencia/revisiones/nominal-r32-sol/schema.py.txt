@@ -1,0 +1,17 @@
+import sys,json
+from pathlib import Path
+sys.path.insert(0,str(Path.cwd()/'tools/procedencia'))
+from corpus import validate_schema
+from jsonschema.exceptions import ValidationError
+O=Path('docs/procedencia/revisiones/nominal-r32-sol');rows=[]
+for case in json.loads((O/'casos-node.json').read_bytes())['rows']:
+ result={'id':case['id'],'expected':case['expected']}
+ for key,schema in [('payloadFile','binding-payload'),('scopeFile','nominal-cell-scope')]:
+  try:validate_schema(json.loads(Path(case[key]).read_bytes()),schema)
+  except ValidationError as e:result[key]={'rejected':True,'diagnostic':str(e)[:1800]}
+  else:result[key]={'rejected':False}
+ rows.append(result)
+(O/'casos-schema.json').write_text(json.dumps(rows,indent=2)+'\n')
+assert all(next(r for r in rows if r['id']=='original-'+n)['payloadFile']['rejected'] for n in ['executableScope','legalReview'])
+assert not next(r for r in rows if r['id']=='exact')['payloadFile']['rejected']
+print(json.dumps({'cases':len(rows),'note':'schema checks shape; pin and applicability are separate'}))

@@ -1,0 +1,23 @@
+from pathlib import Path
+import shutil,difflib,re,json
+R=Path.cwd();S=R/'.cache/revision-nominal-r32';V=S/'ensayo';O=R/'docs/procedencia/revisiones/nominal-r32-sol'
+for name in re.findall(r'^  "([^"]+)",?$',(R/'scripts/procedencia/explicacion-version.mjs').read_text(),re.M)+['scripts/procedencia/contenido-generar.mjs']:
+ dst=V/name;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(R/name,dst)
+for name in ['nominal-contrato.test.mjs','nominal-software-explicacion.test.mjs','ambito-publicado.test.mjs','test_nominal_contrato.py']:
+ a=(R/'tests'/name).read_text();b=a.replace('.cache/nominal-r29','.cache/revision-nominal-r32').replace('.cache/nominal-software-pruebas','.cache/revision-nominal-r32/software').replace('new URL(".cache/revision-nominal-r32/cas/sha256/" + blob.sha256, root)','new URL("../cas/sha256/" + blob.sha256, root)')
+ (V/'tests').mkdir(exist_ok=True);(V/'tests'/name).write_text(b);(O/(name+'.diff')).write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True),fromfile='tests/'+name,tofile='scratch/tests/'+name)))
+for name in ['software-propio.mjs','casos.mjs']:
+ src=R/'docs/procedencia/revisiones/nominal-r30-sol'/name;a=src.read_text();b=a.replace('revision-nominal-r30','revision-nominal-r32').replace('nominal-r30-sol','nominal-r32-sol');dst=S/('r30-'+name);dst.write_text(b);(O/(name+'.adaptacion.diff')).write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True),fromfile=str(src.relative_to(R)),tofile=str(dst.relative_to(R)))))
+# Historical references for ambito-publicado tests.
+queue=['docs/procedencia/implementaciones/ambitos-juridicos/correspondencias.json'];seen=set()
+def visit(v):
+ if isinstance(v,list):
+  for x in v:visit(x)
+ elif isinstance(v,dict):
+  if isinstance(v.get('path'),str) and v['path'].startswith('docs/procedencia/') and (R/v['path']).is_file():queue.append(v['path'])
+  for x in v.values():visit(x)
+while queue:
+ name=queue.pop()
+ if name in seen:continue
+ seen.add(name);dst=V/name;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(R/name,dst)
+ if name.endswith('.json'):visit(json.loads((R/name).read_bytes()))

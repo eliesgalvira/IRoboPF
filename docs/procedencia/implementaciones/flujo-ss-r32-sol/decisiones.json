@@ -1,0 +1,44 @@
+[
+  {
+    "id": "SS32-D01",
+    "decision": "Compositor especializado, fuentes fijas y operaciones explícitas",
+    "objecion": "Duplicar el motor puede perpetuar omisiones y divergir",
+    "respuesta": "No ejecutar cuerpos financieros como primitivas; puertos de operaciones, selección, literales y transporte. Invalidar cambio de fuente y contrastar TS real",
+    "coste": "Contrato finito requiere revisión al cambiar las fuentes; no es compilador general"
+  },
+  {
+    "id": "SS32-D02",
+    "decision": "Valor/selección cerrados como candidato; admisión separada",
+    "objecion": "Un valor calculable puede corresponder a entrada rechazada",
+    "respuesta": "admissionRequirement anual-publico-r32, siteClosed false, wiringAllowed false",
+    "coste": "No permite publicación hasta composición y contraste del padre"
+  },
+  {
+    "id": "SS32-D03",
+    "decision": "Conservar ambos modos y perfil analítico",
+    "objecion": "Coincidir con TS no valida TGSS ni exactitud mensual",
+    "respuesta": "Describir defectos históricos y diferencias de política sin nuevo oracle normativo, sin tocar motor ni esperados",
+    "coste": "Elegibilidad, mínimos por grupo y redondeo TGSS siguen fuera del contrato técnico"
+  },
+  {
+    "id": "SS32-D04",
+    "decision": "Evaluador con snapshot privado y memoización por caso",
+    "objecion": "Cachear un grafo mutable podría ocultar mutaciones",
+    "respuesta": "Validar reconstrucción antes de tomar copia privada; memorias nuevas por caso y por elemento del reduce",
+    "coste": "Una reconstrucción por creación de evaluador y memoria acotada al DAG del caso"
+  },
+  {
+    "id": "SS32-D05",
+    "decision": "Exigir cobertura física explícita del lint",
+    "objecion": "Un código 0 sobre enlaces puede no analizar archivos",
+    "respuesta": "Dos copias físicas idénticas y recibo JSON de dos archivos/dieciséis reglas/un hilo",
+    "coste": "Scratch adicional y repetición de lint, sin afirmar cobertura global"
+  },
+  {
+    "id": "SS32-D06",
+    "decision": "Derivar cierre por recorrido de cada salida",
+    "objecion": "Asignar booleanos no demuestra que se hayan ligado parámetros ni ramas",
+    "respuesta": "Recorrer ambas ramas, comprobar aridad/aristas/fuentes y marco reduce; adverso de campo desvinculado abre los once sitios",
+    "coste": "Regeneración y validación nuevas; sigue siendo contrato finito pendiente de revisión independiente"
+  }
+]

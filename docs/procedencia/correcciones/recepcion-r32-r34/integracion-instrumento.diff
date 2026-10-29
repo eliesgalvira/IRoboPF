@@ -1,0 +1,9 @@
+--- prueba recibida
++++ prueba padre r34
+@@ -1,3 +1,6 @@
++// Instrumento síncrono de archivos y entorno: contrasta bytes y la frontera scratch de Node.
++// @effect-diagnostics effect/nodeBuiltinImport:off
++// @effect-diagnostics effect/processEnv:off
+ import { describe, it, expect } from "vitest"
+ import { readFileSync, writeFileSync, mkdirSync } from "node:fs"
+ import { resolve } from "node:path"

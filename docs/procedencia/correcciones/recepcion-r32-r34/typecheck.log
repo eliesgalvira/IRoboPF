@@ -1,0 +1,4 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/incorporacion-lote-r32.test.ts(2,56): error TS52: This module reference uses the `fs` module, the corresponding Effect API is `FileSystem` from `effect`.    effect(nodeBuiltinImport)
+tests/incorporacion-lote-r32.test.ts(3,25): error TS52: This module reference uses the `path` module, the corresponding Effect API is `Path` from `effect`.    effect(nodeBuiltinImport)
+tests/incorporacion-lote-r32.test.ts(5,14): error TS64: This code reads from `process.env`, environment configuration is represented through `Config` from Effect.    effect(processEnv)

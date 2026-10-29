@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "kind",
+    "contractId",
+    "sources",
+    "ports",
+    "edges",
+    "predicates",
+    "bodies",
+    "bindings",
+    "parameterBindings",
+    "admissionProgram",
+    "evaluationOrder",
+    "dependencies",
+    "sites",
+    "unresolved",
+    "completeRuleAcceptance",
+    "wiringAllowed"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "kind": {
+      "const": "annual-public-admission-fragment"
+    },
+    "contractId": {
+      "const": "anual-publico-r32"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "size"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "predicates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "bodies": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "parameterBindings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "admissionProgram": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "evaluationOrder": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 10
+    },
+    "dependencies": {
+      "type": "object"
+    },
+    "sites": {
+      "type": "array",
+      "minItems": 17,
+      "maxItems": 17,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "siteId",
+          "contractId",
+          "role",
+          "evidence",
+          "predicateRefs",
+          "admissionPredicate",
+          "reachableApis",
+          "neverApis",
+          "admissionClosed",
+          "valueClosed",
+          "selectionClosed",
+          "siteClosed"
+        ],
+        "properties": {
+          "siteId": {
+            "enum": [
+              "anual.ss.base",
+              "anual.ss.exceso",
+              "anual.ss.empresarial-ordinaria",
+              "anual.ss.trabajador-ordinaria",
+              "anual.ss.mei-empresarial",
+              "anual.ss.mei-trabajador",
+              "anual.ss.solidaridad-empresarial",
+              "anual.ss.solidaridad-trabajador",
+              "anual.ss.empresarial-total",
+              "anual.ss.trabajador-total",
+              "anual.ss.coste-laboral",
+              "anual.retencion.base",
+              "anual.retencion.cuota",
+              "anual.retencion.tipo",
+              "anual.retencion.anual",
+              "anual.pagos.retenciones",
+              "anual.pagos.cuenta"
+            ]
+          },
+          "contractId": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "predicateRefs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "admissionPredicate": {
+            "type": "string"
+          },
+          "reachableApis": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "neverApis": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "admissionClosed": {
+            "const": true
+          },
+          "valueClosed": {
+            "const": false
+          },
+          "selectionClosed": {
+            "const": false
+          },
+          "siteClosed": {
+            "const": false
+          }
+        }
+      }
+    },
+    "unresolved": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "completeRuleAcceptance": {
+      "const": false
+    },
+    "wiringAllowed": {
+      "const": false
+    }
+  }
+}

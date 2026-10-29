@@ -1,0 +1,14 @@
+# Código inline ejecutado por Nix antes de toda escritura; resultado inicial.json.
+import os,stat,subprocess,hashlib,json
+head=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(); assert head=="846f25e183ba07414065d4e6bdf9e98311b98a17"
+entries=subprocess.check_output(["git","ls-tree","-rz",head]).split(b"\0"); differences=[]; n=0
+for e in entries:
+ if not e: continue
+ meta,p=e.split(b"\t",1); mode,kind,oid=meta.split(); p=os.fsdecode(p); n+=1
+ try:
+  s=os.lstat(p); blob=subprocess.check_output(["git","cat-file","blob",oid.decode()]); actual=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else open(p,"rb").read()
+  ok=(stat.S_ISLNK(s.st_mode) if mode==b"120000" else stat.S_ISREG(s.st_mode) and bool(s.st_mode&0o111)==(mode==b"100755")) and blob==actual
+  if not ok: differences.append({"path":p,"baseSha256":hashlib.sha256(blob).hexdigest(),"actualSha256":hashlib.sha256(actual).hexdigest()})
+ except Exception as ex: differences.append({"path":p,"error":str(ex)})
+assert n==16855
+print(json.dumps({"head":head,"entries":n,"differences":differences,"diff":subprocess.check_output(["git","diff","--stat",head],text=True),"method":"lstat/readlink/bytes/executable; git cat-file one blob at a time","complete":True}))

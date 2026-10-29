@@ -1,0 +1,44 @@
+[
+  {
+    "id": "IL32-D01",
+    "decision": "Unir 264 pares exactos con el registro previo intacto",
+    "objecion": "Sustituir por el ensayo histórico perdería Madrid2020 pendiente",
+    "respuesta": "Conservar primera entrada y sus bytes previos; sin atestación cruzada Madrid2022",
+    "coste": "Recorrido total distinto del lote: métricas separadas"
+  },
+  {
+    "id": "IL32-D02",
+    "decision": "Aplicación y reversión solo en scratch con precondiciones",
+    "objecion": "La herramienta podría activar confianza o pisar una edición posterior",
+    "respuesta": "Raíz restringida, plan rederivado y hashes de ambos archivos antes de escribir",
+    "coste": "Acto editorial operativo posterior y recuperación explícita ante IO/apagón"
+  },
+  {
+    "id": "IL32-D03",
+    "decision": "Conservar identidades exactas y atestaciones R19",
+    "objecion": "Un alias por sufijo o una reemisión encubrirían autorrevisión",
+    "respuesta": "Ancla R23, objetos T3 y ambas grafías; payload, scope, inventario e informe fijados",
+    "coste": "Dependencia de raíz editorial y revisión nueva de incorporación"
+  },
+  {
+    "id": "IL32-D04",
+    "decision": "Original grande desde v5 r2 raíz fuera de T3",
+    "objecion": "CAS en worktree efímero no sirve de custodia",
+    "respuesta": "Referencia al pin externo y ambos hashes; scratch no es destino final",
+    "coste": "Custodia local sin independencia ni capacidad concurrente acreditadas"
+  },
+  {
+    "id": "IL32-D05",
+    "decision": "Mantener alcance nominal y condiciones por enlace",
+    "objecion": "Un pase técnico puede aparentar aceptación temporal o regla completa",
+    "respuesta": "Scopes R19 intactos, Madrid2020 pending, completeRuleAcceptance false",
+    "coste": "Aplicabilidad, autenticidad y aceptación nueva siguen separadas y pendientes"
+  },
+  {
+    "id": "IL32-D06",
+    "decision": "Transportar objetos técnicos comprimidos en siete partes exactas",
+    "objecion": "Un gzip de 27 MB obliga a una excepción innecesaria de recepción y podría esconder originales",
+    "respuesta": "Cero PDF/PNG en el contenido nuevo, partes de hasta cuatro millones, hashes parciales/global, recomposición y consumidor ensayados",
+    "coste": "Conservar siete partes y el índice; sin una de ellas no puede restaurarse el candidato"
+  }
+]

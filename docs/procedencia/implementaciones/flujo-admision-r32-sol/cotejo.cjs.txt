@@ -1,0 +1,8 @@
+const fs=require('node:fs'),cp=require('node:child_process'),crypto=require('node:crypto');
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const base='846f25e183ba07414065d4e6bdf9e98311b98a17';
+if(cp.execFileSync('git',['rev-parse','HEAD']).toString().trim()!==base)throw Error('HEAD');
+const rows=cp.execFileSync('git',['ls-tree','-rz',base],{maxBuffer:16e6}).toString().split('\0').filter(Boolean);
+if(rows.length!==16855)throw Error('censo');
+const changes=[],missing=[];for(const row of rows){const [meta,p]=row.split('\t'),[mode,,oid]=meta.split(' ');let st;try{st=fs.lstatSync(p)}catch{missing.push(p);continue}const old=cp.execFileSync('git',['cat-file','blob',oid],{maxBuffer:256e6});const bytes=st.isSymbolicLink()?Buffer.from(fs.readlinkSync(p)):st.isFile()?fs.readFileSync(p):Buffer.from('NOT FILE');if(!bytes.equals(old)||(mode==='120000')!==st.isSymbolicLink()||(mode!=='120000'&&!!(st.mode&0o111)!==(mode==='100755')))changes.push({path:p,baseSha256:sha(old),sha256:sha(bytes),mode:st.mode});}
+const report={base,entries:rows.length,changes,missing,diff:cp.execFileSync('git',['diff','--no-ext-diff',base]).toString()};fs.writeFileSync(process.argv[2],JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({entries:rows.length,changes,missing}));if(missing.length)process.exitCode=1;

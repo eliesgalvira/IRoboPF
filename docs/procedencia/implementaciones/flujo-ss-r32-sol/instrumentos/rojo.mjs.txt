@@ -1,0 +1,8 @@
+import {Composer} from '../../scripts/procedencia/flujo-componer.mjs'
+import {ts} from '../../scripts/procedencia/flujo-ast.mjs'
+const c=new Composer();let body
+function visit(n){if(ts.isVariableDeclaration(n)&&n.name.getText()==='calcularTotalSolidaridad')body=n.initializer.body;ts.forEachChild(n,visit)}
+visit(c.sources.load('lib/dominio/laboral/cotizaciones-sociales.ts').ast)
+const p=c.trace(body,'',new Map(),'ss-r32','EUR')
+console.log(JSON.stringify({expression:body.getText(),unresolved:p.unresolved},null,2))
+if(p.unresolved)process.exitCode=1

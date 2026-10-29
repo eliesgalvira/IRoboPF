@@ -1,0 +1,31 @@
+from pathlib import Path
+import gzip,hashlib,json,difflib,subprocess,shutil
+R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r32-sol';S=R/'.cache/revision-nominal-r32';T=S/'transporte'
+T.mkdir(exist_ok=False)
+# Only our generated controls are relocated; historical evidence never changes.
+for p in list(O.iterdir()):
+ if p.is_file() and p.stat().st_size>1_000_000 and p.suffix!='.gz':
+  (O/(p.name+'.gz')).write_bytes(gzip.compress(p.read_bytes(),mtime=0));shutil.move(str(p),str(S/(p.name+'.sin-comprimir')))
+excluded={'manifiesto.json','binarios.json','entrega.patch.gz','transporte.json','final-entrega.json.gz'}
+rows=[];bins=[];patch=[]
+for p in sorted(O.rglob('*')):
+ if not p.is_file() or p.name in excluded:continue
+ raw=p.read_bytes();rel=str(p.relative_to(R));row={'path':rel,'sha256':hashlib.sha256(raw).hexdigest(),'size':len(raw),'baseSha256':None,'executable':False};rows.append(row)
+ try:text=raw.decode('utf-8');assert '\0' not in text
+ except (UnicodeDecodeError,AssertionError):
+  bins.append({**row,'transportPath':rel});dst=T/rel;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(raw);continue
+ if not raw:
+  dst=T/rel;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(raw)
+ else:
+  for line in difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile=rel):patch.append(line if line.endswith('\n') else line+'\n\\ No newline at end of file\n')
+payload=''.join(patch).encode();(O/'entrega.patch.gz').write_bytes(gzip.compress(payload,mtime=0))
+run=subprocess.run(['patch','-p0','--batch'],input=payload,cwd=T,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+(S/'patch.log').write_bytes(run.stdout);assert run.returncode==0,run.stdout.decode()
+for row in rows:
+ raw=(T/row['path']).read_bytes();assert len(raw)==row['size'] and hashlib.sha256(raw).hexdigest()==row['sha256']
+(O/'manifiesto.json').write_text(json.dumps({'head':'846f25e183ba07414065d4e6bdf9e98311b98a17','files':rows,'excludedEnvelopes':sorted(excluded),'baseModifications':[],'deleted':[]},indent=2)+'\n')
+(O/'binarios.json').write_text(json.dumps(bins,indent=2)+'\n')
+transport={'verified':True,'files':len(rows),'bytes':sum(r['size'] for r in rows),'binaryFiles':len(bins),'scratch':str(T),'excludedEnvelopes':sorted(excluded),'zeroDeletions':True,'patchExitCode':run.returncode}
+transport['emptyFiles']=[r['path'] for r in rows if r['size']==0]
+transport['envelopes']=[{'path':str((O/n).relative_to(R)),'sha256':hashlib.sha256((O/n).read_bytes()).hexdigest(),'size':(O/n).stat().st_size} for n in ['manifiesto.json','binarios.json','entrega.patch.gz']]
+(O/'transporte.json').write_text(json.dumps(transport,indent=2)+'\n');print(json.dumps(transport))
