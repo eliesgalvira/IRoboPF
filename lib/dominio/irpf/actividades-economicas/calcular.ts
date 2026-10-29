@@ -211,7 +211,12 @@ export function calcularActividad2025(
     if (!fechaValida(d.fecha)) rechazar("AE25-02", d.id, "Fecha inexistente")
   }
   const facturas = new Set<string>()
-  for (const a of [...caso.ingresos, ...caso.gastos, ...caso.activos]) {
+  for (const a of [
+    ...caso.ingresos,
+    ...caso.gastos,
+    ...caso.reta,
+    ...caso.activos,
+  ]) {
     if (facturas.has(a.justificante))
       rechazar(
         "AE25-02",
@@ -286,7 +291,7 @@ export function calcularActividad2025(
       a.leasing ||
       a.incentivo ||
       a.metodoHistorico !== "lineal" ||
-      a.coeficiente !== a.coeficienteHistorico ||
+      !coef.eq(a.coeficienteHistorico) ||
       !fechaValida(a.fechaUso) ||
       !fechaValida(a.fechaAdquisicion) ||
       !fechaValida(a.usoHasta) ||
@@ -300,6 +305,9 @@ export function calcularActividad2025(
       caso.fechaFin !== "2025-12-31" ||
       base.lt(0) ||
       saldo.lt(0) ||
+      new D(a.acumulada).gt(
+        base.times(coef).times(2025 - Number(a.fechaUso.slice(0, 4)))
+      ) ||
       coef.lt(a.grupo === "hardware" ? "0.1" : "0.05") ||
       coef.gt(a.grupo === "hardware" ? "0.26" : "0.10")
     )

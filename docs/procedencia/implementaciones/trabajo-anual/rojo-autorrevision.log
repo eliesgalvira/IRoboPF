@@ -1,0 +1,38 @@
+$ vitest run tests/trabajo-anual-contratos.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-8bd00bb5
+
+ ❯ tests/trabajo-anual-contratos.test.ts (36 tests | 1 failed) 19ms
+   × autorrevisión: rechaza neto atribuible mayor que su bruto 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/trabajo-anual-contratos.test.ts > autorrevisión: rechaza neto atribuible mayor que su bruto
+AssertionError: expected { estado: 'calculado', …(6) } to match object { estado: 'no-soportado' }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "estado": "no-soportado",
++   "estado": "calculado",
+  }
+
+ ❯ tests/trabajo-anual-contratos.test.ts:212:134
+    210|
+    211| it("autorrevisión: rechaza neto atribuible mayor que su bruto", () => {
+    212|   expect(calcularDeduccionTrabajo({ ...da61(), brutoServicios: "100", …
+       |                                                                                                                                      ^
+    213| })
+    214| it("dos pagadores no duplican topes ni gasto general", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 35 passed (36)
+   Start at  13:24:49
+   Duration  347ms (transform 41ms, setup 0ms, import 216ms, tests 19ms, environment 0ms)
+
+error: script "test" exited with code 1

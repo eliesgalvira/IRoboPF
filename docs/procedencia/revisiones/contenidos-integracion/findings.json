@@ -1,0 +1,60 @@
+{
+  "base": "0ca324b082676e15ae443b3c83d7f81828fbc0ce",
+  "verdict": "requiere-cambios",
+  "findings": [
+    {
+      "id": "CI-01",
+      "priority": "P2",
+      "status": "reproducido",
+      "title": "La matriz de aristas impide cualquier Facsimile",
+      "file": "lib/procedencia/verificador.ts",
+      "line_start": 117,
+      "line_end": 125,
+      "objection": "Se exige evidencia hacia Citation pero se prohíbe Facsimile como origen.",
+      "reason": "Impide incorporar toda captura al DAG válido.",
+      "cost": "Corregir matriz y probar cadena positiva y rechazos de cierre/tipo.",
+      "evidence": "pruebas/repro.json:facsimil,facsimilSinCita",
+      "acceptance": "Ninguna aceptación fiscal"
+    },
+    {
+      "id": "CI-02",
+      "priority": "P2",
+      "status": "reproducido",
+      "title": "Fuente y localizador adulterados pasan el cotejo con inventario",
+      "file": "scripts/procedencia/contenido-verificar.mjs",
+      "line_start": 73,
+      "line_end": 82,
+      "objection": "Comparar el hash de fuente no compara archivo, localizador ni clase técnica con el inventario.",
+      "reason": "Puede mostrar Fuentes exactas inventadas y devolver integridad comprobada.",
+      "cost": "Cotejar proyección técnica completa y mutaciones campo a campo, manteniendo inventario histórico.",
+      "evidence": "pruebas/repro.json:adulteracion",
+      "acceptance": "El ataque conserva aceptación fiscal pendiente"
+    },
+    {
+      "id": "CI-03",
+      "priority": "P3",
+      "status": "confirmado-por-lectura",
+      "title": "Recuento público fijo obsoleto",
+      "file": "app/procedencia/page.tsx",
+      "line_start": 17,
+      "line_end": 18,
+      "objection": "Presenta 47.789 ocurrencias sin snapshot aunque el integrado contiene 49.883.",
+      "reason": "Confunde cobertura seleccionable.",
+      "cost": "Conteos por snapshot o retirar cifra global fija.",
+      "evidence": "pruebas/snapshots.log",
+      "acceptance": "No afecta a aceptación fiscal"
+    }
+  ],
+  "observations": [
+    {
+      "id": "CI-O1",
+      "scope": "publicación pendiente",
+      "detail": "Búsqueda vacía síncrona 3399,37 ms; coste previamente declarado, ahora medido."
+    },
+    {
+      "id": "CI-O2",
+      "scope": "instrumentación pendiente",
+      "detail": "El integrador debe resolver snapshot/bindings/ámbito; el adaptador solo verifica lo recibido."
+    }
+  ]
+}

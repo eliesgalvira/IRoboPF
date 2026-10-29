@@ -1,0 +1,23 @@
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {gzipSync} from 'node:zlib';
+import {leerPaquete} from '../../../lib/procedencia/almacen.ts';
+import {hash,bytesEntidad} from '../../../lib/procedencia/verificador.ts';
+import {baseFicha} from '../../../scripts/procedencia/contenido-generar.mjs';
+import {verificarRastro} from '../../../lib/procedencia/rastro.ts';
+const out={};
+const v={snapshot:'a'.repeat(64),algoritmo:'b'.repeat(64),datos:'c'.repeat(64),explicacion:'1'};
+const punto={siteId:'sitio',instanceId:'instancia',sujeto:{id:'concepto',revision:'d'.repeat(64)}};
+const bindings=new Map([[punto.siteId,punto.sujeto]]);
+for(const decimal of ['0','-0','9007199254740993.0000000000000001','1e3','NaN','Infinity','١٢','1,20','01','+1','1−2']) {
+ try { verificarRastro(v,v,[{punto,resultado:{estado:'aplicada',decimal,unidad:'EUR'}}],bindings);out[decimal]='admite exacto como texto';}catch {out[decimal]='rechaza';}
+}
+try {verificarRastro(v,v,[{punto,resultado:{estado:'no-soportada',motivo:'desconocido',decimal:'0'}}],bindings);out.unknown='admite';}catch{out.unknown='rechaza número';}
+for(const url of ['https://www.boe.es/documento','https://usuario:clave@example.test/documento','https://www.boe.es/documento?token=centinela','javascript:alert(1)']) {
+ try {bytesEntidad({...baseFicha('doc','Documento','concepto'),tipo:'Document',original:'e'.repeat(64),mime:'text/plain',url});out[url]='admite';}catch{out[url]='rechaza';}
+}
+const root=resolve('.cache/procedencia/revision-contenidos-integracion/limite');mkdirSync(resolve(root,'objetos'),{recursive:true});
+const raw=gzipSync(Buffer.alloc(9000001,32));const h=hash(raw);writeFileSync(resolve(root,'objetos',h),raw);
+try{leerPaquete({paquetes:[{prefijo:'00',hash:h,bytes:raw.length,cantidad:0}]},'00',root);out.gzip='admite';}catch(e){out.gzip=e.message;}
+writeFileSync('/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/contenidos-integracion/pruebas/bordes.json',JSON.stringify(out,null,2)+'\n');
+console.log(JSON.stringify(out));

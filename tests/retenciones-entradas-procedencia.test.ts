@@ -7,6 +7,7 @@ import {
 
 const base: CasoRetencionTrabajo = {
   anio: 2026,
+  fechaPago: "2026-09-10",
   edad: 40,
   retribucionAnualCentimos: 3_000_000,
   cotizacionesCentimos: 114_300,

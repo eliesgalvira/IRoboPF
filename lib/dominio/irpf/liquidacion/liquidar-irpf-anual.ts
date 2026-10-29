@@ -644,7 +644,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     caso.retencionTrabajoAeat !== undefined
       ? yield* dependencias.retencionTrabajoAeat.calcular(
           caso.retencionTrabajoAeat,
-          { modo: "canonico" }
+          contexto
         )
       : undefined
   registrarTiempoAgregadoAuditoria(
@@ -718,6 +718,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       caso.retencionesSoportadasCentimos + pagosACuentaAplicadosCentimos,
     cuotaDiferencialCentimos,
     conciliacionSimuladorLegacy: calcularConciliacionSimuladorLegacy({
+      modoCuotaOrigen: contexto.modo,
       anio: caso.anio,
       rendimientoIntegroTrabajoCentimos:
         importesLiquidacion.rendimientoIntegroTrabajoCentimos,

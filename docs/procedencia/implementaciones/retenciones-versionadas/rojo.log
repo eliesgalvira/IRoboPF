@@ -1,0 +1,202 @@
+$ vitest run tests/retenciones-versionadas.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-1450c7fe
+
+ ❯ tests/retenciones-versionadas.test.ts (23 tests | 18 failed) 28ms
+     × 2017 2017-12-31: importe 188820 10ms
+     × 2019 2019-12-31: importe 171900 1ms
+     × 2020 2020-12-31: importe 171900 1ms
+     × 2021 2021-12-31: importe 171900 1ms
+     × 2022 2022-12-31: importe 171900 1ms
+     × 2023 2023-01-31: importe 171900 1ms
+     × 2023 2023-02-01: importe 114120 1ms
+     × 2024 2024-02-07: importe 114120 1ms
+     × escala alta 2017 1ms
+     × escala alta 2019 1ms
+     × escala alta 2020 1ms
+     × corte 43: 2200001 1ms
+     × excluye al descendiente de 25 sin discapacidad 1ms
+     × rechaza fecha 2020-02-30 1ms
+     × rechaza fecha 2021-01-01 1ms
+     × rechaza fecha invalid 1ms
+     × rechaza irregular1 9000001 1ms
+     × rechaza irregular1 15000000 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 18 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > 2017 2017-12-31: importe 188820
+AssertionError: expected 104760 to be 188820 // Object.is equality
+
+- Expected
++ Received
+
+- 188820
++ 104760
+
+ ❯ tests/retenciones-versionadas.test.ts:23:73
+     21|     [2024, "2024-02-08", 91260],
+     22|   ] as const)("%s %s: importe %s", (anio, fechaPago, esperado) => {
+     23|     expect(calcular({ anio, fechaPago }).importeRetencionAnualCentimos…
+       |                                                                         ^
+     24|   })
+     25|   it.each([2017, 2019, 2020, 2021] as const)("escala alta %s", (anio) …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/18]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > 2019 2019-12-31: importe 171900
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > 2020 2020-12-31: importe 171900
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > 2021 2021-12-31: importe 171900
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > 2022 2022-12-31: importe 171900
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > 2023 2023-01-31: importe 171900
+AssertionError: expected 104760 to be 171900 // Object.is equality
+
+- Expected
++ Received
+
+- 171900
++ 104760
+
+ ❯ tests/retenciones-versionadas.test.ts:23:73
+     21|     [2024, "2024-02-08", 91260],
+     22|   ] as const)("%s %s: importe %s", (anio, fechaPago, esperado) => {
+     23|     expect(calcular({ anio, fechaPago }).importeRetencionAnualCentimos…
+       |                                                                         ^
+     24|   })
+     25|   it.each([2017, 2019, 2020, 2021] as const)("escala alta %s", (anio) …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/18]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > 2023 2023-02-01: importe 114120
+AssertionError: expected 104760 to be 114120 // Object.is equality
+
+- Expected
++ Received
+
+- 114120
++ 104760
+
+ ❯ tests/retenciones-versionadas.test.ts:23:73
+     21|     [2024, "2024-02-08", 91260],
+     22|   ] as const)("%s %s: importe %s", (anio, fechaPago, esperado) => {
+     23|     expect(calcular({ anio, fechaPago }).importeRetencionAnualCentimos…
+       |                                                                         ^
+     24|   })
+     25|   it.each([2017, 2019, 2020, 2021] as const)("escala alta %s", (anio) …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/18]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > 2024 2024-02-07: importe 114120
+AssertionError: expected 91260 to be 114120 // Object.is equality
+
+- Expected
++ Received
+
+- 114120
++ 91260
+
+ ❯ tests/retenciones-versionadas.test.ts:23:73
+     21|     [2024, "2024-02-08", 91260],
+     22|   ] as const)("%s %s: importe %s", (anio, fechaPago, esperado) => {
+     23|     expect(calcular({ anio, fechaPago }).importeRetencionAnualCentimos…
+       |                                                                         ^
+     24|   })
+     25|   it.each([2017, 2019, 2020, 2021] as const)("escala alta %s", (anio) …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/18]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > escala alta 2017
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > escala alta 2019
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > escala alta 2020
+AssertionError: expected 17088000 to be 16892000 // Object.is equality
+
+- Expected
++ Received
+
+- 16892000
++ 17088000
+
+ ❯ tests/retenciones-versionadas.test.ts:26:151
+     24|   })
+     25|   it.each([2017, 2019, 2020, 2021] as const)("escala alta %s", (anio) …
+     26|     expect(calcular({ anio, fechaPago: `${anio}-12-31`, retribucionAnu…
+       |                                                                                                                                                       ^
+     27|   })
+     28|   it.each([[2199999, 187660], [2200000, 187660], [2200001, 263780]] as…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/18]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > corte 43: 2200001
+AssertionError: expected 187660 to be 263780 // Object.is equality
+
+- Expected
++ Received
+
+- 263780
++ 187660
+
+ ❯ tests/retenciones-versionadas.test.ts:29:202
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/18]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > excluye al descendiente de 25 sin discapacidad
+AssertionError: expected 675000 to be 555000 // Object.is equality
+
+- Expected
++ Received
+
+- 555000
++ 675000
+
+ ❯ tests/retenciones-versionadas.test.ts:32:84
+     30|   })
+     31|   it("excluye al descendiente de 25 sin discapacidad", () => {
+     32|     expect(calcular({ descendientes: [hijo(25)] }).minimoPersonalFamil…
+       |                                                                                    ^
+     33|   })
+     34|   it.each(["2020-02-30", "2021-01-01", "invalid"])("rechaza fecha %s",…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/18]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > rechaza fecha 2020-02-30
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > rechaza fecha 2021-01-01
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > rechaza fecha invalid
+AssertionError: expected 'Success' to be 'Failure' // Object.is equality
+
+Expected: "Failure"
+Received: "Success"
+
+ ❯ tests/retenciones-versionadas.test.ts:35:116
+     33|   })
+     34|   it.each(["2020-02-30", "2021-01-01", "invalid"])("rechaza fecha %s",…
+     35|     expect(Effect.runSyncExit(calcularRetencionTrabajoAeat({ ...base, …
+       |                                                                                                                    ^
+     36|   })
+     37|   it.each([9000001, 15000000])("rechaza irregular1 %s", (irregular1Cen…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/18]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > rechaza irregular1 9000001
+ FAIL  tests/retenciones-versionadas.test.ts > Retenciones históricas: referencias independientes, SS suministrada > rechaza irregular1 15000000
+AssertionError: expected 'Success' to be 'Failure' // Object.is equality
+
+Expected: "Failure"
+Received: "Success"
+
+ ❯ tests/retenciones-versionadas.test.ts:38:156
+     36|   })
+     37|   it.each([9000001, 15000000])("rechaza irregular1 %s", (irregular1Cen…
+     38|     expect(Effect.runSyncExit(calcularRetencionTrabajoAeat({ ...base, …
+       |                                                                                                                                                            ^
+     39|   })
+     40|   it("legacy conserva la reproducción de base", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/18]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  18 failed | 5 passed (23)
+   Start at  13:21:15
+   Duration  402ms (transform 50ms, setup 0ms, import 236ms, tests 28ms, environment 0ms)
+
+error: script "test" exited with code 1

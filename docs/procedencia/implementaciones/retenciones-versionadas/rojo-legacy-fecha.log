@@ -1,0 +1,32 @@
+$ vitest run tests/retenciones-versionadas.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-1450c7fe
+
+ ❯ tests/retenciones-versionadas.test.ts (64 tests | 1 failed) 38ms
+   × legacy rechaza instrucciones temporales que no puede aplicar 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > legacy rechaza instrucciones temporales que no puede aplicar
+AssertionError: expected 'Success' to be 'Failure' // Object.is equality
+
+Expected: "Failure"
+Received: "Success"
+
+ ❯ tests/retenciones-versionadas.test.ts:289:130
+    287|
+    288| it("legacy rechaza instrucciones temporales que no puede aplicar", () …
+    289|   expect(Effect.runSyncExit(calcularRetencionTrabajoAeat({...base, fec…
+       |                                                                                                                                  ^
+    290| })
+    291|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 63 passed (64)
+   Start at  13:26:29
+   Duration  428ms (transform 66ms, setup 0ms, import 262ms, tests 38ms, environment 0ms)
+
+error: script "test" exited with code 1

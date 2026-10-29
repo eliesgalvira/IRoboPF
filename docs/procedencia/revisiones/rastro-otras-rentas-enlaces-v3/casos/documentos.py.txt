@@ -1,0 +1,29 @@
+import json, hashlib, sys
+from pathlib import Path
+import pymupdf
+root=Path.cwd()
+sys.path.insert(0,str(root/'tools/procedencia'))
+import corpus
+citations=json.loads((root/'docs/procedencia/auditorias/trabajo-deducciones-estatales/citas-focales.json').read_text())
+for cid in ['TDE-C-ley39-2010-60-17','TDE-C-ley26-2014-12-10']:
+ c=next(c for c in citations if c['id']==cid)
+ data=Path(c['localPath']).read_bytes();assert hashlib.sha256(data).hexdigest()==c['documentSha256']
+ with pymupdf.open(stream=data,filetype='pdf') as doc:
+  text=doc[c['page']-1].get_text();print(cid,c['documentSha256'],text)
+for name in ['tab','plain']:
+ path=root/'docs/procedencia/revisiones/enlaces-v2'/f'{name}.pdf'
+ with pymupdf.open(path) as doc: text=doc[0].get_text(flags=0)
+ n=text.index('8,50');u=text.index('euros')
+ binding={'number':{'start':n,'end':n+4,'literal':'8,50'},'numberFormat':'es-ES','value':'8.50','unit':{'start':u,'end':u+5,'literal':'euros'},'unitCode':'EUR'}
+ cas=root/'.cache/procedencia/revision-rastro-v3/cas';(cas/'sha256').mkdir(parents=True,exist_ok=True)
+ data=path.read_bytes();h=hashlib.sha256(data).hexdigest();(cas/'sha256'/h).write_bytes(data)
+ record={'canonicalUrl':'https://www.boe.es/synthetic-review.pdf','finalUrl':'https://www.boe.es/synthetic-review.pdf','sha256':h,'sha512':hashlib.sha512(data).hexdigest(),'size':len(data),'retrievedAt':'2026-10-29T10:00:00Z','httpStatus':200,'headers':{},'mimeType':'application/pdf','authenticity':{'status':'not-validated'}}
+ if name=='tab':
+  assert '\ufffd' in text
+  try: corpus.cite(record,cas,1,[0,0,300,110],binding)
+  except ValueError as e: print('RECHAZO_TAB',str(e))
+  else: raise AssertionError('binding aceptado')
+  c=corpus.cite(record,cas,1,[0,0,300,110]);print('CITA_PENDIENTE',json.dumps(c,ensure_ascii=True));assert '\ufffd' in json.dumps(c,ensure_ascii=False)
+ else:
+  c=corpus.cite(record,cas,1,[0,0,300,110],binding);corpus.verify(record,c,cas);print('POSITIVO_INTEGRO_OK')
+ assert path.read_bytes()==data

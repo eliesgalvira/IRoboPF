@@ -119,7 +119,10 @@ const origenes = new Map<string, ReadonlyArray<Entidad["tipo"]>>([
   ["entrada", ["Formula", "Step", "Derivation"]],
   ["derivacion", ["Parameter", "Step"]],
   ["norma", ["Parameter", "Formula", "Step", "Derivation", "Rule"]],
-  ["evidencia", ["Parameter", "Formula", "Step", "Derivation", "Rule"]],
+  [
+    "evidencia",
+    ["Parameter", "Formula", "Step", "Derivation", "Rule", "Facsimile"],
+  ],
   ["documento", ["Citation"]],
   ["captura", ["Parameter", "Step", "Rule"]],
   ["dependencia", ["Step"]],

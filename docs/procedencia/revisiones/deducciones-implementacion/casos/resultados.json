@@ -1,0 +1,400 @@
+[
+  {
+    "id": "ambito-ABA",
+    "esperado": [
+      200,
+      0,
+      200
+    ],
+    "observado": [
+      200,
+      0,
+      200
+    ]
+  },
+  {
+    "id": "antiguo-year-2024",
+    "esperado": "error",
+    "observado": {
+      "error": "Catálogo no soportado para este ejercicio"
+    }
+  },
+  {
+    "id": "nuevo-year-2024",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Solo Andalucía, ejercicio 2025"
+    }
+  },
+  {
+    "id": "antiguo-year-2026",
+    "esperado": "error",
+    "observado": {
+      "error": "Catálogo no soportado para este ejercicio"
+    }
+  },
+  {
+    "id": "nuevo-year-2026",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Solo Andalucía, ejercicio 2025"
+    }
+  },
+  {
+    "id": "andalucia-gemelos-dos-titulares",
+    "esperado": 400,
+    "observado": {
+      "estado": "evaluacion_automatica",
+      "importe": 400,
+      "motivo": "Ámbito ordinario individual; titulares identificados; interpretación candidata pendiente de revisión",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "andalucia-eventos-distintos",
+    "esperado": 200,
+    "observado": {
+      "estado": "evaluacion_automatica",
+      "importe": 200,
+      "motivo": "Ámbito ordinario individual; titulares identificados; interpretación candidata pendiente de revisión",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "acogimiento-89",
+    "esperado": 0,
+    "observado": {
+      "estado": "evaluacion_automatica",
+      "importe": 0,
+      "motivo": "Ámbito ordinario individual; titulares identificados; interpretación candidata pendiente de revisión",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "acogimiento-90",
+    "esperado": 100,
+    "observado": {
+      "estado": "evaluacion_automatica",
+      "importe": 100,
+      "motivo": "Ámbito ordinario individual; titulares identificados; interpretación candidata pendiente de revisión",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "acogimiento-90.5",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Hechos de acogimiento inválidos"
+    }
+  },
+  {
+    "id": "acogimiento-ayuda",
+    "esperado": 0,
+    "observado": {
+      "estado": "evaluacion_automatica",
+      "importe": 0,
+      "motivo": "Ámbito ordinario individual; titulares identificados; interpretación candidata pendiente de revisión",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "andalucia-incompatible",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Debe resolver elección incompatible; no se suma ni se elige automáticamente"
+    }
+  },
+  {
+    "id": "andalucia-beneficiario-duplicado",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Identidades vacías o duplicadas: posible doble cómputo de acogimiento/adopción"
+    }
+  },
+  {
+    "id": "andalucia-titular-duplicado",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Titulares o beneficiarios inválidos"
+    }
+  },
+  {
+    "id": "generic-count-0.5",
+    "esperado": "error",
+    "observado": {
+      "error": "Personas deben ser enteras y no negativas"
+    }
+  },
+  {
+    "id": "specific-count-0.5",
+    "esperado": "rechazo, nunca derecho fraccionario",
+    "observado": 100
+  },
+  {
+    "id": "generic-count--1",
+    "esperado": "error",
+    "observado": {
+      "error": "Personas deben ser enteras y no negativas"
+    }
+  },
+  {
+    "id": "specific-count--1",
+    "esperado": "rechazo, nunca derecho fraccionario",
+    "observado": -200
+  },
+  {
+    "id": "madrid-ventana-2022",
+    "esperado": "excluida",
+    "observado": {
+      "estado": "excluida",
+      "motivo": "Fuera de ventana temporal o sin convivencia"
+    }
+  },
+  {
+    "id": "madrid-ventana-2023",
+    "esperado": 721.7,
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 721.7,
+      "motivo": "Historial y cuantía calculados; falta acreditar unidad familiar y modalidad histórica por período",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "madrid-ventana-2024",
+    "esperado": 721.7,
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 721.7,
+      "motivo": "Historial y cuantía calculados; falta acreditar unidad familiar y modalidad histórica por período",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "madrid-ventana-2025",
+    "esperado": 1443.4,
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 1443.4,
+      "motivo": "Historial y cuantía calculados; falta acreditar unidad familiar y modalidad histórica por período",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "madrid-ventana-2026",
+    "esperado": "excluida",
+    "observado": {
+      "estado": "excluida",
+      "motivo": "Fuera de ventana temporal o sin convivencia"
+    }
+  },
+  {
+    "id": "madrid-historia-duplicada",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Falta historial único de bases desde el evento"
+    }
+  },
+  {
+    "id": "madrid-familiar-excede",
+    "esperado": "excluida",
+    "observado": {
+      "estado": "excluida",
+      "motivo": "Límite de base imponible personal o familiar excedido"
+    }
+  },
+  {
+    "id": "madrid-evento-NaN",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 721.7,
+      "motivo": "Historial y cuantía calculados; falta acreditar unidad familiar y modalidad histórica por período",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "canarias-ordenes-reparto",
+    "esperado": 1263,
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 1263,
+      "motivo": "Solo cuantía y reparto individual: faltan cadena de rentas, convivencia, supervivencia e historial para aplicación",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "canarias-agregado",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Solo cuantía y reparto individual: faltan cadena de rentas, convivencia, supervivencia e historial para aplicación"
+    }
+  },
+  {
+    "id": "murcia-gasto-comun-ayudas",
+    "esperado": 400,
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 400,
+      "motivo": "Gastos comunes y tope por hijo repartidos; pendientes centro, etapa, mínimo, convivencia, pagadores y facturas",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "murcia-dos-hijos-topes",
+    "esperado": 1000,
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 1000,
+      "motivo": "Gastos comunes y tope por hijo repartidos; pendientes centro, etapa, mínimo, convivencia, pagadores y facturas",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "murcia-base-excede",
+    "esperado": "excluida",
+    "observado": {
+      "estado": "excluida",
+      "motivo": "Base imponible excedida"
+    }
+  },
+  {
+    "id": "rioja-reparto-retro2025",
+    "esperado": 125,
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 125,
+      "motivo": "Cuantía y reparto 2025; derecho al mínimo y vínculo conyugal aportados externamente, no evaluados aquí",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "rioja-sin-personas",
+    "esperado": 0,
+    "observado": {
+      "estado": "calculo_parcial",
+      "importe": 0,
+      "motivo": "Cuantía y reparto 2025; derecho al mínimo y vínculo conyugal aportados externamente, no evaluados aquí",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "rioja-parcial-agregado",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Cuantía y reparto 2025; derecho al mínimo y vínculo conyugal aportados externamente, no evaluados aquí"
+    }
+  },
+  {
+    "id": "rioja-mezcla-elegible-no-elegible",
+    "esperado": "no perder parcial de persona elegible",
+    "observado": {
+      "estado": "excluida",
+      "motivo": "Sin derecho al mínimo por esta persona"
+    }
+  },
+  {
+    "id": "rioja-mezcla-agregado",
+    "esperado": "no_soportado, nunca cero automatico",
+    "observado": {
+      "estado": "evaluacion_automatica",
+      "importe": 0,
+      "motivo": "Importe generado antes de cuota; aceptación fiscal pendiente",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "catalunya-alquiler",
+    "esperado": "excluida",
+    "observado": {
+      "estado": "excluida",
+      "motivo": "Base menos mínimo superior a 30.000"
+    }
+  },
+  {
+    "id": "catalunya-alquiler-frontera",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Faltan acreditación, vivienda, pagos y duración del derecho"
+    }
+  },
+  {
+    "id": "catalunya-socio-temporal",
+    "esperado": "excluida",
+    "observado": {
+      "estado": "excluida",
+      "motivo": "Socio temporal excluido"
+    }
+  },
+  {
+    "id": "extremadura-A",
+    "esperado": "incompatibles",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Viudedad y trabajo incompatibles por contribuyente: requiere elección"
+    }
+  },
+  {
+    "id": "extremadura-B",
+    "esperado": "Sin conflicto",
+    "observado": {
+      "estado": "no_soportado",
+      "motivo": "Sin conflicto detectado; falta evaluar requisitos individuales"
+    }
+  },
+  {
+    "id": "galicia-externo",
+    "esperado": 999999,
+    "observado": {
+      "estado": "importe_externo",
+      "importe": 999999,
+      "motivo": "Importe generado antes de cuota; aceptación fiscal pendiente",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "consignacion-otro-titular",
+    "esperado": "no_soportado, no cero silencioso",
+    "observado": {
+      "estado": "evaluacion_automatica",
+      "importe": 0,
+      "motivo": "Importe generado antes de cuota; aceptación fiscal pendiente",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "agregado-vacio-2024",
+    "esperado": "no_soportado",
+    "observado": {
+      "estado": "evaluacion_automatica",
+      "importe": 0,
+      "motivo": "Importe generado antes de cuota; aceptación fiscal pendiente",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "antiguo-andalucia-gemelos",
+    "esperado": 800,
+    "observado": 400
+  },
+  {
+    "id": "antiguo-madrid-gemelos",
+    "esperado": 2886.8,
+    "observado": 1443.4
+  },
+  {
+    "id": "antiguo-catalunya-temporal",
+    "esperado": "excluida segun perfil externo",
+    "observado": 200
+  }
+]

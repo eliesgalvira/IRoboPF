@@ -12,6 +12,7 @@ import { Schema } from "effect"
 import { readArtifact } from "./inventario-artefacto.mjs"
 import { Entidad, Snapshot } from "../../lib/procedencia/modelo.ts"
 import { extraerPuntos } from "./rastro-extraer.mjs"
+import { FUENTES_EXPLICACION } from "./explicacion-version.mjs"
 import {
   hash,
   bytesEntidad,
@@ -185,16 +186,9 @@ export function generar(
   )
   const contrato = guardar(contratoBytes)
   const generador = guardar(readFileSync(fileURLToPath(import.meta.url)))
-  const fuentesSoftware = [
-    "lib/procedencia/modelo.ts",
-    "lib/procedencia/verificador.ts",
-    "lib/procedencia/almacen.ts",
-    "lib/procedencia/io.mjs",
-    "lib/procedencia/revision.ts",
-    "lib/procedencia/rastro.ts",
-    "lib/procedencia/rastro-anual.ts",
-    "scripts/procedencia/rastro-extraer.mjs",
-  ].map((archivo) => guardar(readFileSync(resolve(root, archivo))))
+  const fuentesSoftware = FUENTES_EXPLICACION.map((archivo) =>
+    guardar(readFileSync(resolve(root, archivo)))
+  )
   const catalogoSha256 = guardar(Buffer.from(JSON.stringify(bindings)))
   const originalesRastro = fuentesRastro.map((f) => guardar(f.bytes))
   const inventario = guardar(

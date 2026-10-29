@@ -1,0 +1,50 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+stdout | tests/calculo-salario-neto-irpf.test.ts > EMI-01 propaga el modo canónico hasta cotizaciones y neto
+[13:59:53.736] ERROR (#13): Error [AssertionError]: expected 4208170 to be 4208171 // Object.is equality
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/calculo-salario-neto-irpf.test.ts:64:47) {
+  actual: 4208170,
+  expected: 4208171,
+  showDiff: true,
+  operator: 'strictEqual',
+  [cause]: undefined
+}
+
+ ❯ tests/calculo-salario-neto-irpf.test.ts (3 tests | 1 failed) 28ms
+   × EMI-01 propaga el modo canónico hasta cotizaciones y neto 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/calculo-salario-neto-irpf.test.ts > EMI-01 propaga el modo canónico hasta cotizaciones y neto
+AssertionError: expected 4208170 to be 4208171 // Object.is equality
+
+- Expected
++ Received
+
+- 4208171
++ 4208170
+
+ ❯ Array.<anonymous> tests/calculo-salario-neto-irpf.test.ts:64:47
+     62|   expect(r.desglose.cotizacionTrabajadorCentimos).toBe(287508)
+     63|   expect(r.desglose.irpfFinalCentimos).toBe(1504322)
+     64|   expect(r.desglose.salarioNetoAnualCentimos).toBe(4208171)
+       |                                               ^
+     65| }))
+     66|
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 194 passed (195)
+   Start at  13:59:52
+   Duration  2.25s (transform 460ms, setup 0ms, import 1.48s, tests 143ms, environment 1ms)
+

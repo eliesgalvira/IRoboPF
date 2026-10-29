@@ -1,0 +1,74 @@
+{
+  "cita": {
+    "integridad": "comprobada",
+    "aceptacionFiscal": "pendiente"
+  },
+  "facsimil": "Tipo de arista inválido",
+  "facsimilSinCita": "Facsímil sin cita única",
+  "snapshots": [
+    {
+      "id": "066f8cd6f9a5c046c659f0b23e000a3547ea21efccdf7f311e10a3420a241d92",
+      "cantidad": 47793,
+      "datos": "0823ae38e9addad9814fee73e3a31dbc968395a7f5939f37cb003ec10257ac87"
+    },
+    {
+      "id": "31be43e7347ee116fd6349e946914602a706dbdce56b955a5aa8290fa9f7325e",
+      "cantidad": 47793,
+      "datos": "0823ae38e9addad9814fee73e3a31dbc968395a7f5939f37cb003ec10257ac87"
+    },
+    {
+      "id": "4919c9ec5fa20e858d5a4e99f53e7628c2a6e0a9e7852a44de34513de0b0763c",
+      "cantidad": 49887,
+      "datos": "a4fb9d8d6109aae6f15d4be1bd9e69158357663910557dd6da87cd46dda0ff1d"
+    },
+    {
+      "id": "65ed048d3a7e88ea3ae74c4418e99bf1e56788b1a8be99ddf93a73da6dbfb067",
+      "cantidad": 47793,
+      "datos": "0823ae38e9addad9814fee73e3a31dbc968395a7f5939f37cb003ec10257ac87"
+    },
+    {
+      "id": "88d2de62bb8d5fafb4cc5752a12b9464bf85a4ae3c0e25f20af030ce4530c72f",
+      "cantidad": 47793,
+      "datos": "0823ae38e9addad9814fee73e3a31dbc968395a7f5939f37cb003ec10257ac87"
+    }
+  ],
+  "busquedaVacia": {
+    "resultado": [],
+    "ms": 3399.368064,
+    "rss": 233390080
+  },
+  "render": {
+    "ms": 19.744177000000036,
+    "escape": true,
+    "script": false,
+    "bytes": 2086
+  },
+  "adulteracion": {
+    "antes": [
+      {
+        "archivo": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+        "sha256": "cd85ba5bf5e43ec2e353ecbfa8983933adce1a9ce1e26663ca761f8826ae32e1",
+        "localizador": "{\"symbol\":\"MURCIA_DEDUCCIONES_ESPECIFICAS_2025\",\"path\":\"[[\\\"FirstStatement:MURCIA_DEDUCCIONES_ESPECIFICAS_2025\\\",0],[\\\"VariableDeclarationList\\\",0],[\\\"VariableDeclaration:MURCIA_DEDUCCIONES_ESPECIFICAS_2025\\\",0],[\\\"SatisfiesExpression\\\",0],[\\\"AsExpression\\\",0],[\\\"ArrayLiteralExpression\\\",0],[\\\"CallExpression\\\",18]]\",\"file\":\"lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts\",\"sha256\":\"cd85ba5bf5e43ec2e353ecbfa8983933adce1a9ce1e26663ca761f8826ae32e1\",\"start\":18649,\"end\":18717,\"line\":559,\"column\":3,\"offsetEncoding\":\"utf16\"}"
+      }
+    ],
+    "id": "inv-00a38588e71f99a4ffc856e1883de1d4",
+    "despues": [
+      {
+        "archivo": "docs/fuente-inexistente.md",
+        "sha256": "cd85ba5bf5e43ec2e353ecbfa8983933adce1a9ce1e26663ca761f8826ae32e1",
+        "localizador": "artículo inventado"
+      }
+    ],
+    "veredicto": {
+      "integridad": "comprobada",
+      "aceptacionFiscal": "pendiente",
+      "cantidad": 49887
+    }
+  },
+  "rastro": {
+    "validacionLocal": "pasa",
+    "href": "/procedencia/4919c9ec5fa20e858d5a4e99f53e7628c2a6e0a9e7852a44de34513de0b0763c/inexistente/ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "resolucion": null,
+    "obligacion": "El integrador debe resolver binding/ámbito contra snapshot antes de llamar al adaptador."
+  }
+}

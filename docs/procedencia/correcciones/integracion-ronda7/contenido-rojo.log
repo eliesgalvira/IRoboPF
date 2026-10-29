@@ -1,0 +1,35 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/contenido-integridad-procedencia.test.ts (2 tests | 2 failed) 11ms
+   × CI-02 comprueba la identidad completa de la proyección técnica 4ms
+   × CI-01 admite Document → Citation → Facsimile, con cierre completo 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/contenido-integridad-procedencia.test.ts > CI-02 comprueba la identidad completa de la proyección técnica
+AssertionError: expected [Function] to throw an error
+ ❯ tests/contenido-integridad-procedencia.test.ts:13:72
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/contenido-integridad-procedencia.test.ts > CI-01 admite Document → Citation → Facsimile, con cierre completo
+Error: Tipo de arista inválido
+ ❯ verificarGrafo lib/procedencia/verificador.ts:152:15
+    150|         origenes.get(arista.relacion)?.includes(entidad.tipo) !== true
+    151|       )
+    152|         throw new Error("Tipo de arista inválido")
+       |               ^
+    153|       const a = entidad.ambito
+    154|       const b = objetivo.ambito
+ ❯ tests/contenido-integridad-procedencia.test.ts:21:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  14:00:29
+   Duration  690ms (transform 170ms, setup 0ms, import 568ms, tests 11ms, environment 0ms)
+

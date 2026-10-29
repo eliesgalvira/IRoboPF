@@ -20,6 +20,15 @@ const contexto = {
   contribuyente: "madre",
   modalidad: "individual" as const,
 }
+
+it("DED-I-05 agregado vacío fuera de 2025 no declara evaluación automática", () => {
+  expect(
+    totalDeduccionesEvaluadas(
+      { ...contexto, ejercicio: 2024, territorio: "galicia" },
+      []
+    )
+  ).toMatchObject({ estado: "no_soportado" })
+})
 const evento = {
   id: "parto",
   ejercicio: 2025,
@@ -30,6 +39,60 @@ const evento = {
   diasAcogimiento: 0,
   ayudaAcogimiento: 0,
 }
+
+it("DED-I-01 una exclusión individual no cancela un cálculo parcial colectivo", () => {
+  const ctx = { ...contexto, territorio: "la-rioja" }
+  const p = {
+    id: "hijo",
+    relacion: "descendiente" as const,
+    titularesDeduccion: ["madre", "padre"],
+    titularesDelMinimo: ["madre"],
+    certificado: {
+      referencia: "informe",
+      medico: "medico",
+      colegiado: "numero",
+      especialidad: "especialidad",
+      fechaEmision: "2025-06-01",
+      fechaDiagnostico: "2025-01-01",
+      diagnostico: "definitivo" as const,
+      ejercicioMedico: "activo" as const,
+    },
+  }
+  for (const otro of [
+    { ...p, id: "otro", titularesDelMinimo: [] },
+    {
+      ...p,
+      id: "otro",
+      certificado: {
+        ...p.certificado,
+        fechaDiagnostico: "2026-01-01",
+        fechaEmision: "2026-01-01",
+      },
+    },
+  ]) {
+    expect(evaluarCeliaquiaRioja(ctx, [p, otro])).toMatchObject({
+      estado: "calculo_parcial",
+      importe: 125,
+    })
+    expect(
+      totalDeduccionesEvaluadas(ctx, [
+        { tipo: "rioja_celiaquia", contexto: ctx, personas: [p, otro] },
+      ])
+    ).toMatchObject({ estado: "no_soportado" })
+  }
+})
+it.each([NaN, Infinity, 2024.5])(
+  "DED-I-04 rechaza año de evento inválido %s",
+  (ejercicio) => {
+    expect(
+      evaluarNacimientoMadrid(
+        { ...contexto, territorio: "madrid" },
+        { ejercicio, hijos: ["hijo"], progenitoresConvivientes: ["madre"] },
+        []
+      )
+    ).toMatchObject({ estado: "no_soportado" })
+  }
+)
 it("gemelos andaluces con hechos y titulares", () => {
   expect(evaluarNacimientoAndaluz(contexto, [evento], [])).toMatchObject({
     estado: "evaluacion_automatica",

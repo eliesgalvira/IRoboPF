@@ -11,6 +11,37 @@ import {
 } from "../../lib/procedencia/almacen.ts"
 import { hash, verificarGrafo } from "../../lib/procedencia/verificador.ts"
 
+export function verificarOcurrencia(entidad, item) {
+  if (
+    !entidad ||
+    entidad.id !== item.id ||
+    entidad.identidad !== "ocurrencia" ||
+    entidad.titulo !== item.name ||
+    entidad.tipo !==
+      (["Parameter", "Formula", "Step", "Derivation"].includes(item.kind)
+        ? item.kind
+        : "Step") ||
+    entidad.claseInventario !== item.kind ||
+    entidad.fuentes.length !== 1 ||
+    entidad.fuentes[0]?.archivo !== item.source.file ||
+    entidad.fuentes[0]?.localizador !==
+      JSON.stringify({
+        symbol: item.symbol,
+        path: item.path,
+        ...item.source,
+      }) ||
+    entidad.expresion !== item.expression ||
+    entidad.valorObservado !== item.value ||
+    entidad.fuentes[0]?.sha256 !== item.source.sha256 ||
+    entidad.unidadCandidata !== item.unit ||
+    JSON.stringify(entidad.ejerciciosCandidatos) !==
+      JSON.stringify(item.years) ||
+    JSON.stringify(entidad.territoriosCandidatos) !==
+      JSON.stringify(item.territories)
+  )
+    throw new Error("Ficha distinta del inventario fijado")
+}
+
 export function verificar(snapshotId, raiz = directorioContenido) {
   const snapshot = leerSnapshot(snapshotId, raiz)
   if (!snapshot) throw new Error("Snapshot desconocido")
@@ -70,18 +101,7 @@ export function verificar(snapshotId, raiz = directorioContenido) {
     if (!/^inventario-pagina-\d+\.json$/.test(nombre)) continue
     for (const item of JSON.parse(contenido)) {
       const entidad = porId.get(item.id)
-      if (
-        !entidad ||
-        entidad.expresion !== item.expression ||
-        entidad.valorObservado !== item.value ||
-        entidad.fuentes[0]?.sha256 !== item.source.sha256 ||
-        entidad.unidadCandidata !== item.unit ||
-        JSON.stringify(entidad.ejerciciosCandidatos) !==
-          JSON.stringify(item.years) ||
-        JSON.stringify(entidad.territoriosCandidatos) !==
-          JSON.stringify(item.territories)
-      )
-        throw new Error("Ficha distinta del inventario fijado")
+      verificarOcurrencia(entidad, item)
       cotejadas++
     }
   }

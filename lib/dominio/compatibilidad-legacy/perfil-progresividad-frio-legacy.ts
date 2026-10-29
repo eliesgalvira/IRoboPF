@@ -40,6 +40,7 @@ const construirCalcularSalarioNetoEIrpf = ({
     const desglose = yield* compatibilidadSalarioLegacy.calcular({
       anio: entrada.anio,
       salarioBrutoAnualCentimos: entrada.salarioBrutoAnualCentimos,
+      modo: contexto.modo,
     })
 
     return {

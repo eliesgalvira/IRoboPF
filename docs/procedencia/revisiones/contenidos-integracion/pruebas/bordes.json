@@ -1,0 +1,19 @@
+{
+  "0": "admite exacto como texto",
+  "-0": "admite exacto como texto",
+  "9007199254740993.0000000000000001": "admite exacto como texto",
+  "1e3": "rechaza",
+  "NaN": "rechaza",
+  "Infinity": "rechaza",
+  "١٢": "rechaza",
+  "1,20": "rechaza",
+  "01": "rechaza",
+  "+1": "rechaza",
+  "1−2": "rechaza",
+  "unknown": "rechaza número",
+  "https://www.boe.es/documento": "admite",
+  "https://usuario:clave@example.test/documento": "rechaza",
+  "https://www.boe.es/documento?token=centinela": "rechaza",
+  "javascript:alert(1)": "rechaza",
+  "gzip": "Cannot create a Buffer larger than 9000000 bytes"
+}

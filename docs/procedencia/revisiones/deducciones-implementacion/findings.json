@@ -1,0 +1,204 @@
+[
+  {
+    "id": "DED-I-01",
+    "priority": "P1",
+    "origin": "nuevo",
+    "title": "Rioja pierde personas calculables y convierte parcial en cero automático",
+    "status": "mismatch",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/deducciones/contratos-2025.ts",
+        "line": 421
+      }
+    ],
+    "years": [
+      2025
+    ],
+    "cases": [
+      "rioja-mezcla-elegible-no-elegible",
+      "rioja-mezcla-agregado"
+    ],
+    "engineValue": "Un descendiente con derecho al mínimo y certificado aporta 125; otro sin mínimo hace retornar excluida para toda la lista. El agregado descarta toda la solicitud y publica evaluacion_automatica 0.",
+    "reason": "La exclusión pertenece a la persona; no demuestra ausencia de derecho por las demás. Ley 9/2025 art.1.4, 250 por persona y reparto.",
+    "proposedTest": "Conservar estado parcial por colección o rechazar hechos contradictorios; añadir regresión mixta antes de corregir. Coste: composición por beneficiario y bloqueo del agregado.",
+    "review": {
+      "conclusion": "requiere_cambios",
+      "acceptanceScope": "reproducción y alcance descritos; ninguna aceptación fiscal global"
+    },
+    "legacyComparison": "No ejecutado; d9ff49c7 determina origen del cambio.",
+    "domain": "deducciones-autonomicas",
+    "units": "euros y estados de evaluación",
+    "itemIds": [],
+    "sources": [
+      "hashes-codigo.json",
+      "casos/resultados.json",
+      "casos/pasajes-originales.json"
+    ],
+    "officialValue": "Véase razón y caso con perfil; defectos de contrato no equivalen a importe fiscal universal.",
+    "territories": [
+      "la-rioja"
+    ]
+  },
+  {
+    "id": "DED-I-02",
+    "priority": "P1",
+    "origin": "preexistente_no_resuelto",
+    "title": "La liquidación sigue consumiendo aritmética parcial antigua",
+    "status": "mismatch",
+    "engineLocations": [
+      {
+        "path": "components/liquidacion-irpf.tsx",
+        "line": 598
+      }
+    ],
+    "years": [
+      2025
+    ],
+    "cases": [
+      "antiguo-andalucia-gemelos",
+      "antiguo-madrid-gemelos",
+      "antiguo-catalunya-temporal"
+    ],
+    "engineValue": "Andalucía gemelos un titular: 400 en lugar de 800; Madrid gemelos: 1443.40 en lugar de 2886.80; cooperativa catalana temporal: 200 en vez de exclusión. Perfiles externos detallados en el informe.",
+    "reason": "El agregado nuevo no está en esta ruta; el rótulo parcial no bloquea importes transmitidos como deduccionAutonomicaAgregadaCentimos.",
+    "proposedTest": "No declarar atendido el encargo hasta bloquear la aplicación automática de cifras parciales o conectarla a contratos completos. Mantener consignación profesional explícita. Coste: menos cálculo automático mientras falten hechos; no se solicita diseño UI.",
+    "review": {
+      "conclusion": "requiere_cambios",
+      "acceptanceScope": "reproducción y alcance descritos; ninguna aceptación fiscal global"
+    },
+    "legacyComparison": "No ejecutado; d9ff49c7 determina origen del cambio.",
+    "domain": "deducciones-autonomicas",
+    "units": "euros y estados de evaluación",
+    "itemIds": [],
+    "sources": [
+      "hashes-codigo.json",
+      "casos/resultados.json",
+      "casos/pasajes-originales.json"
+    ],
+    "officialValue": "Véase razón y caso con perfil; defectos de contrato no equivalen a importe fiscal universal.",
+    "territories": [
+      "andalucia",
+      "madrid",
+      "catalunya"
+    ]
+  },
+  {
+    "id": "DED-I-03",
+    "priority": "P2",
+    "origin": "defensa_nueva_incompleta_sobre_comportamiento_previo",
+    "title": "La validación de personas enteras omite contadores específicos",
+    "status": "mismatch",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/deducciones/ambito.ts",
+        "line": 51
+      }
+    ],
+    "years": [
+      2025
+    ],
+    "cases": [
+      "generic-count-0.5",
+      "specific-count-0.5",
+      "specific-count--1"
+    ],
+    "engineValue": "El sufijo :unidades rechaza 0.5 pero andaluciaHijosNacimientoAdopcion acepta 0.5 y -1, produciendo 100 y -200.",
+    "reason": "Contadores específicos y genéricos representan personas; el nuevo filtro no acredita la garantía general de integer counts. No se afirma haber introducido estos valores desde navegador.",
+    "proposedTest": "Validar los contadores por contrato, sin convertir importes o prorratas monetarias en personas. Coste: clasificar campos y pruebas de todas las rutas de contador.",
+    "review": {
+      "conclusion": "requiere_cambios",
+      "acceptanceScope": "reproducción y alcance descritos; ninguna aceptación fiscal global"
+    },
+    "legacyComparison": "No ejecutado; d9ff49c7 determina origen del cambio.",
+    "domain": "deducciones-autonomicas",
+    "units": "euros y estados de evaluación",
+    "itemIds": [],
+    "sources": [
+      "hashes-codigo.json",
+      "casos/resultados.json",
+      "casos/pasajes-originales.json"
+    ],
+    "officialValue": "Véase razón y caso con perfil; defectos de contrato no equivalen a importe fiscal universal.",
+    "territories": [
+      "andalucia"
+    ]
+  },
+  {
+    "id": "DED-I-04",
+    "priority": "P2",
+    "origin": "nuevo",
+    "title": "Madrid admite NaN como año de evento y omite todo el historial",
+    "status": "mismatch",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/deducciones/contratos-2025.ts",
+        "line": 271
+      }
+    ],
+    "years": [
+      2025
+    ],
+    "cases": [
+      "madrid-evento-NaN"
+    ],
+    "engineValue": "NaN evita comparaciones de ventana y el bucle histórico; devuelve calculo_parcial 721.70 con historial vacío.",
+    "reason": "number permite NaN. El estado parcial impide agregación, pero el motivo afirma historial calculado cuando no se comprobó ningún período.",
+    "proposedTest": "Rechazar ejercicio no entero/finito antes de ventana; coste pequeño, regresión explícita. No equivale a una declaración actualmente aplicada.",
+    "review": {
+      "conclusion": "requiere_cambios",
+      "acceptanceScope": "reproducción y alcance descritos; ninguna aceptación fiscal global"
+    },
+    "legacyComparison": "No ejecutado; d9ff49c7 determina origen del cambio.",
+    "domain": "deducciones-autonomicas",
+    "units": "euros y estados de evaluación",
+    "itemIds": [],
+    "sources": [
+      "hashes-codigo.json",
+      "casos/resultados.json",
+      "casos/pasajes-originales.json"
+    ],
+    "officialValue": "Véase razón y caso con perfil; defectos de contrato no equivalen a importe fiscal universal.",
+    "territories": [
+      "madrid"
+    ]
+  },
+  {
+    "id": "DED-I-05",
+    "priority": "P3",
+    "origin": "nuevo",
+    "title": "El agregado vacío declara evaluación automática fuera de 2025",
+    "status": "mismatch",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/deducciones/contratos-2025.ts",
+        "line": 514
+      }
+    ],
+    "years": [
+      2024
+    ],
+    "cases": [
+      "agregado-vacio-2024"
+    ],
+    "engineValue": "totalDeduccionesEvaluadas con ámbito Galicia 2024 y ninguna solicitud devuelve evaluacion_automatica 0.",
+    "reason": "No aplica una deducción histórica, pero el agregador no preserva por sí mismo el contrato year2025only. Las consignaciones externas deben distinguirse de ese contrato automático.",
+    "proposedTest": "Validar ámbito automático del agregado o declarar explícitamente neutralidad de lista vacía. Coste: clarificar semántica sin restringir arbitrariamente la consignación profesional.",
+    "review": {
+      "conclusion": "requiere_cambios",
+      "acceptanceScope": "reproducción y alcance descritos; ninguna aceptación fiscal global"
+    },
+    "legacyComparison": "No ejecutado; d9ff49c7 determina origen del cambio.",
+    "domain": "deducciones-autonomicas",
+    "units": "euros y estados de evaluación",
+    "itemIds": [],
+    "sources": [
+      "hashes-codigo.json",
+      "casos/resultados.json",
+      "casos/pasajes-originales.json"
+    ],
+    "officialValue": "Véase razón y caso con perfil; defectos de contrato no equivalen a importe fiscal universal.",
+    "territories": [
+      "galicia"
+    ]
+  }
+]

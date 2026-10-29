@@ -1,0 +1,20 @@
+3 | import { liquidarIrpfAnual } from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts'
+4 | import { sinDiscapacidad } from '../../../lib/dominio/irpf/caso-fiscal-anual.ts'
+5 | import cat from '../../../lib/procedencia/rastro-generado.json'
+6 | const r=Effect.runSync(liquidarIrpfAnual({anio:2025,comunidadAutonoma:'madrid',situacionFamiliar:{tipo:'individual',edad:40,discapacidad:sinDiscapacidad,descendientes:[],ascendientes:[]},rendimientos:{trabajo:[{importeIntegroCentimos:3000000}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0,retencionTrabajoAeat:{anio:2025,edad:40,retribucionAnualCentimos:3000000,cotizacionesCentimos:194400,situacionFamiliar:'situacion3',situacionLaboral:'activo',contrato:'general',discapacidad:'sin-discapacidad',movilidadGeografica:false,descendientes:[],ascendientes:[],irregular1Centimos:0,irregular2Centimos:0,pensionCompensatoriaConyugeCentimos:0,anualidadesAlimentosHijosCentimos:0,residenciaCeutaMelilla:false,rendimientosCeutaMelilla:false,pagosViviendaHabitual:false}},{modo:'canonico'}))
+7 | const lines=r.rastro.pasos.flatMap(p=>p.lineasCalculo??[]), own=lines.filter(l=>l.origen), internal=lines.filter(l=>!l.origen)
+8 | assert.equal(new Set(own.map(l=>l.origen.siteId)).size,49)
+           ^
+AssertionError: Expected values to be strictly equal:
+
+48 !== 49
+
+ generatedMessage: true,
+     actual: 48,
+   expected: 49,
+   operator: "strictEqual",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/.t3/worktrees/IRoboPF/t3-3f24be83/.cache/procedencia/revision-rastro-v3/retencion.mjs:8:8
+
+Bun v1.3.13 (Linux x64)

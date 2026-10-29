@@ -1,0 +1,36 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/deducciones-contratos.test.ts (24 tests | 1 failed | 23 skipped) 9ms
+   × DED-I-05 agregado vacío fuera de 2025 no declara evaluación automática 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/deducciones-contratos.test.ts > DED-I-05 agregado vacío fuera de 2025 no declara evaluación automática
+AssertionError: expected { …(4) } to match object { estado: 'no_soportado' }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "estado": "no_soportado",
++   "estado": "evaluacion_automatica",
+  }
+
+ ❯ tests/deducciones-contratos.test.ts:25:98
+     23|
+     24| it("DED-I-05 agregado vacío fuera de 2025 no declara evaluación automá…
+     25|   expect(totalDeduccionesEvaluadas({ ...contexto, ejercicio: 2024, ter…
+       |                                                                                                  ^
+     26| })
+     27| const evento = {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 skipped (24)
+   Start at  14:03:38
+   Duration  178ms (transform 42ms, setup 0ms, import 57ms, tests 9ms, environment 0ms)
+

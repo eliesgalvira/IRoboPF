@@ -140,6 +140,59 @@ function activo(): CasoActividad2025["activos"][number] {
     saldoDocumentado: "registro-activo",
   }
 }
+
+it("AEI-01 rechaza un justificante económico repetido entre gasto y RETA", () => {
+  rechazo({
+    ...casoBase(),
+    gastos: [{ ...gasto("300"), justificante: "r" }],
+    reta: [
+      {
+        id: "reta",
+        justificante: "r",
+        fecha: "2025-06-01",
+        importe: "300",
+        tipo: "ordinaria",
+        propia: true,
+        efectiva: true,
+        periodo: "2025-06",
+      },
+    ],
+  })
+})
+it("AEI-02 rechaza acumulada imposible con un único año previo lineal", () => {
+  rechazo({
+    ...casoBase(),
+    fechaInicio: "2024-01-01",
+    diasActividad2024: 366,
+    historial: [
+      {
+        ejercicio: 2024,
+        documento: "2024",
+        regimen: "eds",
+        renuncia: false,
+        exclusion: false,
+        criterio: "devengo",
+        netoAntesReducciones: "0",
+      },
+    ],
+    activos: [
+      {
+        ...activo(),
+        fechaUso: "2024-01-01",
+        fechaAdquisicion: "2024-01-01",
+        acumulada: "999",
+      },
+    ],
+  })
+})
+it("AEI-03 acepta coeficientes históricamente iguales en valor", () => {
+  expect(
+    calcularActividad2025({
+      ...casoBase(),
+      activos: [{ ...activo(), coeficiente: "0.260" }],
+    }).estado
+  ).toBe("soportado")
+})
 function importe(c: CasoActividad2025, id: string): string {
   const r = calcularActividad2025(c)
   expect(r.estado, JSON.stringify(r)).toBe("soportado")

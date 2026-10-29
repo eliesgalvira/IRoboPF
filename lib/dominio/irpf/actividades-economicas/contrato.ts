@@ -135,7 +135,9 @@ export const CasoActividad2025 = Schema.Struct({
       leasing: Schema.Boolean,
       incentivo: Schema.Boolean,
       metodoHistorico: Schema.Literals(["lineal", "otro", "desconocido"]),
-      coeficienteHistorico: Schema.String,
+      coeficienteHistorico: Schema.String.check(
+        Schema.isPattern(/^0\.[0-9]{1,6}$/)
+      ),
       saldoDocumentado: Texto,
     })
   ),

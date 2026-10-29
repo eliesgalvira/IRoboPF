@@ -1,0 +1,137 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/actividades-economicas-2025.test.ts (59 tests | 3 failed | 56 skipped) 11ms
+   × AEI-01 rechaza un justificante económico repetido entre gasto y RETA 8ms
+   × AEI-02 rechaza acumulada imposible con un único año previo lineal 1ms
+   × AEI-03 acepta coeficientes históricamente iguales en valor 1ms
+ ❯ tests/deducciones-contratos.test.ts (23 tests | 3 failed | 19 skipped) 12ms
+   × DED-I-01 una exclusión individual no cancela un cálculo parcial colectivo 8ms
+   × DED-I-04 rechaza año de evento inválido NaN 1ms
+   × DED-I-04 rechaza año de evento inválido Infinity 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/actividades-economicas-2025.test.ts > AEI-01 rechaza un justificante económico repetido entre gasto y RETA
+AssertionError: expected 'soportado' to be 'no-soportado' // Object.is equality
+
+Expected: "no-soportado"
+Received: "soportado"
+
+ ❯ rechazo tests/actividades-economicas-2025.test.ts:168:20
+    166| function rechazo(c: CasoActividad2025, id?: string) {
+    167|   const r = calcularActividad2025(c)
+    168|   expect(r.estado).toBe("no-soportado")
+       |                    ^
+    169|   if (id !== undefined && r.estado === "no-soportado")
+    170|     expect(r.motivos.some((m) => m.id === id)).toBe(true)
+ ❯ tests/actividades-economicas-2025.test.ts:145:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/actividades-economicas-2025.test.ts > AEI-02 rechaza acumulada imposible con un único año previo lineal
+AssertionError: expected 'soportado' to be 'no-soportado' // Object.is equality
+
+Expected: "no-soportado"
+Received: "soportado"
+
+ ❯ rechazo tests/actividades-economicas-2025.test.ts:168:20
+    166| function rechazo(c: CasoActividad2025, id?: string) {
+    167|   const r = calcularActividad2025(c)
+    168|   expect(r.estado).toBe("no-soportado")
+       |                    ^
+    169|   if (id !== undefined && r.estado === "no-soportado")
+    170|     expect(r.motivos.some((m) => m.id === id)).toBe(true)
+ ❯ tests/actividades-economicas-2025.test.ts:150:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/actividades-economicas-2025.test.ts > AEI-03 acepta coeficientes históricamente iguales en valor
+AssertionError: expected 'no-soportado' to be 'soportado' // Object.is equality
+
+Expected: "soportado"
+Received: "no-soportado"
+
+ ❯ tests/actividades-economicas-2025.test.ts:156:109
+    154| })
+    155| it("AEI-03 acepta coeficientes históricamente iguales en valor", () =>…
+    156|   expect(calcularActividad2025({ ...casoBase(), activos: [{ ...activo(…
+       |                                                                                                             ^
+    157| })
+    158| function importe(c: CasoActividad2025, id: string): string {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/deducciones-contratos.test.ts > DED-I-01 una exclusión individual no cancela un cálculo parcial colectivo
+AssertionError: expected { estado: 'excluida', …(1) } to match object { estado: 'calculo_parcial', …(1) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "estado": "calculo_parcial",
+-   "importe": 125,
++   "estado": "excluida",
+  }
+
+ ❯ tests/deducciones-contratos.test.ts:42:51
+     40|   for (const otro of [ { ...p, id: "otro", titularesDelMinimo: [] },
+     41|     { ...p, id: "otro", certificado: { ...p.certificado, fechaDiagnost…
+     42|     expect(evaluarCeliaquiaRioja(ctx, [p, otro])).toMatchObject({ esta…
+       |                                                   ^
+     43|     expect(totalDeduccionesEvaluadas(ctx, [{ tipo: "rioja_celiaquia", …
+     44|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/deducciones-contratos.test.ts > DED-I-04 rechaza año de evento inválido NaN
+AssertionError: expected { estado: 'calculo_parcial', …(3) } to match object { estado: 'no_soportado' }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "estado": "no_soportado",
++   "estado": "calculo_parcial",
+  }
+
+ ❯ tests/deducciones-contratos.test.ts:48:79
+     46| it.each([NaN, Infinity, 2024.5])("DED-I-04 rechaza año de evento invál…
+     47|   expect(evaluarNacimientoMadrid({ ...contexto, territorio: "madrid" },
+     48|     { ejercicio, hijos: ["hijo"], progenitoresConvivientes: ["madre"] …
+       |                                                                               ^
+     49| })
+     50| it("gemelos andaluces con hechos y titulares", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/deducciones-contratos.test.ts > DED-I-04 rechaza año de evento inválido Infinity
+AssertionError: expected { estado: 'excluida', …(1) } to match object { estado: 'no_soportado' }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "estado": "no_soportado",
++   "estado": "excluida",
+  }
+
+ ❯ tests/deducciones-contratos.test.ts:48:79
+     46| it.each([NaN, Infinity, 2024.5])("DED-I-04 rechaza año de evento invál…
+     47|   expect(evaluarNacimientoMadrid({ ...contexto, territorio: "madrid" },
+     48|     { ejercicio, hijos: ["hijo"], progenitoresConvivientes: ["madre"] …
+       |                                                                               ^
+     49| })
+     50| it("gemelos andaluces con hechos y titulares", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  6 failed | 1 passed | 75 skipped (82)
+   Start at  13:57:58
+   Duration  536ms (transform 97ms, setup 0ms, import 290ms, tests 23ms, environment 0ms)
+

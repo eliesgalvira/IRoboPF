@@ -1,0 +1,307 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+stdout | tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > calcula el tipo e importe anual de retención para un asalariado sin regularización
+[14:01:33.375] ERROR (#7): Error: {"_tag":"ResultadoNoSoportado","motivo":"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre","fuenteReconocida":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md","rastro":{"titulo":"Procedimiento de retención de trabajo 2025","pasos":[{"_tag":"PasoExplicacion","titulo":"Caso de retención reconocido","descripcion":"El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.","fuentes":[{"titulo":"Contrato histórico y límites","referencia":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md"}]}]}}
+    at RetencionTrabajoAeat.calcular (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1047:27)
+    at RetencionTrabajoAeat.calcular (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:969:49)
+    at RetencionTrabajoAeat.calcularDesdeServicio (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1055:3)
+    at RetencionTrabajoAeat.calcularDesdeServicio (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1042:58) {
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  [cause]: undefined
+}
+
+stdout | tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > aplica movilidad reducida del perceptor con discapacidad en gastos y mínimo
+[14:01:33.377] ERROR (#13): Error: {"_tag":"ResultadoNoSoportado","motivo":"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre","fuenteReconocida":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md","rastro":{"titulo":"Procedimiento de retención de trabajo 2025","pasos":[{"_tag":"PasoExplicacion","titulo":"Caso de retención reconocido","descripcion":"El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.","fuentes":[{"titulo":"Contrato histórico y límites","referencia":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md"}]}]}}
+    at RetencionTrabajoAeat.calcular (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1047:27)
+    at RetencionTrabajoAeat.calcular (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:969:49)
+    at RetencionTrabajoAeat.calcularDesdeServicio (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1055:3)
+    at RetencionTrabajoAeat.calcularDesdeServicio (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1042:58) {
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  [cause]: undefined
+}
+
+stdout | tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > devuelve retención cero cuando aplica el límite exento
+[14:01:33.378] ERROR (#19): Error: {"_tag":"ResultadoNoSoportado","motivo":"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre","fuenteReconocida":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md","rastro":{"titulo":"Procedimiento de retención de trabajo 2025","pasos":[{"_tag":"PasoExplicacion","titulo":"Caso de retención reconocido","descripcion":"El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.","fuentes":[{"titulo":"Contrato histórico y límites","referencia":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md"}]}]}}
+    at RetencionTrabajoAeat.calcular (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1047:27)
+    at RetencionTrabajoAeat.calcular (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:969:49)
+    at RetencionTrabajoAeat.calcularDesdeServicio (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1055:3)
+    at RetencionTrabajoAeat.calcularDesdeServicio (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1042:58) {
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  [cause]: undefined
+}
+
+stdout | tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > usa el umbral 2026 de situacion 2 con dos descendientes
+[14:01:33.379] ERROR (#25): Error: {"_tag":"ResultadoNoSoportado","motivo":"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre","fuenteReconocida":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md","rastro":{"titulo":"Procedimiento de retención de trabajo 2026","pasos":[{"_tag":"PasoExplicacion","titulo":"Caso de retención reconocido","descripcion":"El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.","fuentes":[{"titulo":"Contrato histórico y límites","referencia":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md"}]}]}}
+    at RetencionTrabajoAeat.calcular (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1047:27)
+    at RetencionTrabajoAeat.calcular (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:969:49)
+    at RetencionTrabajoAeat.calcularDesdeServicio (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1055:3)
+    at RetencionTrabajoAeat.calcularDesdeServicio (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1042:58) {
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2026',
+    pasos: [ [Object] ]
+  },
+  [cause]: undefined
+}
+
+stdout | tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > usa el umbral 2019 de situacion 2 con dos descendientes
+[14:01:33.385] ERROR (#31): Error [AssertionError]: expected 395880 to be 531738 // Object.is equality
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/retencion-trabajo-aeat.test.ts:185:42) {
+  actual: 395880,
+  expected: 531738,
+  showDiff: true,
+  operator: 'strictEqual',
+  [cause]: undefined
+}
+
+stdout | tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > expone el procedimiento de retención como servicio Effect
+[14:01:33.387] ERROR (#37): Error: {"_tag":"ResultadoNoSoportado","motivo":"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre","fuenteReconocida":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md","rastro":{"titulo":"Procedimiento de retención de trabajo 2026","pasos":[{"_tag":"PasoExplicacion","titulo":"Caso de retención reconocido","descripcion":"El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.","fuentes":[{"titulo":"Contrato histórico y límites","referencia":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md"}]}]}}
+    at RetencionTrabajoAeat.calcular (/home/elies/Repos/IRoboPF/tests/retencion-trabajo-aeat.test.ts:194:42)
+    at RetencionTrabajoAeat.calcular (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:969:49) {
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2026',
+    pasos: [ [Object] ]
+  },
+  [cause]: undefined
+}
+
+stdout | tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > rechaza casos incompletos sin confundirlos con una liquidación anual
+[14:01:33.389] ERROR (#43): Error [AssertionError]: expected { _tag: 'ResultadoNoSoportado', …(3) } to deeply equal { _tag: 'ResultadoNoSoportado', …(3) }
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/retencion-trabajo-aeat.test.ts:213:23) {
+  actual: {
+    _tag: 'ResultadoNoSoportado',
+    motivo: 'Entradas no soportadas por el cálculo inicial parcial',
+    fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+    rastro: {
+      titulo: 'Procedimiento de retención de trabajo 2026',
+      pasos: [Array]
+    }
+  },
+  expected: {
+    _tag: 'ResultadoNoSoportado',
+    motivo: 'Caso de retención de trabajo no soportado con las entradas actuales',
+    fuenteReconocida: 'docs/fuentes/aeat/algoritmo-retenciones-2026.md',
+    rastro: {
+      titulo: 'Procedimiento de retención de trabajo 2026',
+      pasos: [Array]
+    }
+  },
+  showDiff: true,
+  operator: 'deepStrictEqual',
+  [cause]: undefined
+}
+
+ ❯ tests/retencion-trabajo-aeat.test.ts (8 tests | 7 failed) 26ms
+     × calcula el tipo e importe anual de retención para un asalariado sin regularización 4ms
+     × aplica movilidad reducida del perceptor con discapacidad en gastos y mínimo 1ms
+     × devuelve retención cero cuando aplica el límite exento 1ms
+     × usa el umbral 2026 de situacion 2 con dos descendientes 1ms
+     × usa el umbral 2019 de situacion 2 con dos descendientes 7ms
+     × expone el procedimiento de retención como servicio Effect 1ms
+     × rechaza casos incompletos sin confundirlos con una liquidación anual 3ms
+stdout | tests/liquidacion-irpf-anual.test.ts > liquidarIrpfAnual > resta la retención estimada y la incorpora al rastro general
+[14:01:35.176] ERROR (#14): Error: {"_tag":"ResultadoNoSoportado","motivo":"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre","fuenteReconocida":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md","rastro":{"titulo":"Procedimiento de retención de trabajo 2025","pasos":[{"_tag":"PasoExplicacion","titulo":"Caso de retención reconocido","descripcion":"El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.","fuentes":[{"titulo":"Contrato histórico y límites","referencia":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md"}]}]}}
+    at RetencionTrabajoAeat.calcular (/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:645:50)
+    at RetencionTrabajoAeat.calcular (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:969:49)
+    at LiquidacionIrpfAnual.liquidarTrabajoIndividualSimple (/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:176:9)
+    at LiquidacionIrpfAnual.liquidarTrabajoIndividualSimple (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:233:48)
+    at LiquidacionIrpfAnual.liquidar (/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:221:29)
+    at LiquidacionIrpfAnual.liquidar (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:150:10)
+    at LiquidacionIrpfAnual.liquidarDesdeServicio (/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:229:3)
+    at LiquidacionIrpfAnual.liquidarDesdeServicio (definition) (/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:217:47) {
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  [cause]: undefined
+}
+
+ ❯ tests/liquidacion-irpf-anual.test.ts (57 tests | 1 failed) 128ms
+     × resta la retención estimada y la incorpora al rastro general 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/liquidacion-irpf-anual.test.ts > liquidarIrpfAnual > resta la retención estimada y la incorpora al rastro general
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > calcula el tipo e importe anual de retención para un asalariado sin regularización
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > aplica movilidad reducida del perceptor con discapacidad en gastos y mínimo
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > devuelve retención cero cuando aplica el límite exento
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > usa el umbral 2026 de situacion 2 con dos descendientes
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2026',
+    pasos: [ [Object] ]
+  },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > usa el umbral 2019 de situacion 2 con dos descendientes
+AssertionError: expected 395880 to be 531738 // Object.is equality
+
+- Expected
++ Received
+
+- 531738
++ 395880
+
+ ❯ Array.<anonymous> tests/retencion-trabajo-aeat.test.ts:185:42
+    183|       )
+    184|
+    185|       expect(resultado.limite43Centimos).toBe(531_738)
+       |                                          ^
+    186|     })
+    187|   )
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > expone el procedimiento de retención como servicio Effect
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2026',
+    pasos: [ [Object] ]
+  },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  tests/retencion-trabajo-aeat.test.ts > calcularRetencionTrabajoAeat > rechaza casos incompletos sin confundirlos con una liquidación anual
+AssertionError: expected { _tag: 'ResultadoNoSoportado', …(3) } to deeply equal { _tag: 'ResultadoNoSoportado', …(3) }
+
+- Expected
++ Received
+
+@@ -1,18 +1,18 @@
+  {
+    "_tag": "ResultadoNoSoportado",
+-   "fuenteReconocida": "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
+-   "motivo": "Caso de retención de trabajo no soportado con las entradas actuales",
++   "fuenteReconocida": "docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md",
++   "motivo": "Entradas no soportadas por el cálculo inicial parcial",
+    "rastro": {
+      "pasos": [
+        {
+          "_tag": "PasoExplicacion",
+          "descripcion": "El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.",
+          "fuentes": [
+            {
+-             "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
+-             "titulo": "Algoritmo de retenciones 2026",
++             "referencia": "docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md",
++             "titulo": "Contrato histórico y límites",
+            },
+          ],
+          "titulo": "Caso de retención reconocido",
+        },
+      ],
+
+ ❯ Array.<anonymous> tests/retencion-trabajo-aeat.test.ts:213:23
+    211|         }).pipe(Effect.flip)
+    212|
+    213|         expect(error).toEqual({
+       |                       ^
+    214|           _tag: "ResultadoNoSoportado",
+    215|           motivo:
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  2 failed | 3 passed (5)
+      Tests  8 failed | 66 passed (74)
+   Start at  14:01:33
+   Duration  2.47s (transform 516ms, setup 0ms, import 1.72s, tests 193ms, environment 0ms)
+

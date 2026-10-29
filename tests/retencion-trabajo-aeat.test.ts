@@ -10,21 +10,25 @@ import {
 } from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
 
 describe("calcularRetencionTrabajoAeat", () => {
-  it.effect("conserva el rechazo tipado de entradas JavaScript malformadas", () =>
-    Effect.gen(function* () {
-      const casos = [
-        { ...casoRetencionCalculable(), cotizacionesCentimos: null },
-        { ...casoRetencionCalculable(), cotizacionesCentimos: "194400" },
-        { ...casoRetencionCalculable(), contrato: null },
-        { ...casoRetencionCalculable(), situacionLaboral: 42 },
-      ]
-      for (const caso of casos) {
-        // @ts-expect-error: entrada JavaScript deliberadamente inválida; se comprueba el rechazo runtime, sin aserciones de tipo.
-        const calculo = calcularRetencionTrabajoAeat(caso, { modo: "canonico" })
-        const error = yield* Effect.flip(calculo)
-        expect(error._tag).toBe("ResultadoNoSoportado")
-      }
-    })
+  it.effect(
+    "conserva el rechazo tipado de entradas JavaScript malformadas",
+    () =>
+      Effect.gen(function* () {
+        const casos = [
+          { ...casoRetencionCalculable(), cotizacionesCentimos: null },
+          { ...casoRetencionCalculable(), cotizacionesCentimos: "194400" },
+          { ...casoRetencionCalculable(), contrato: null },
+          { ...casoRetencionCalculable(), situacionLaboral: 42 },
+        ]
+        for (const caso of casos) {
+          // @ts-expect-error: entrada JavaScript deliberadamente inválida; se comprueba el rechazo runtime, sin aserciones de tipo.
+          const calculo = calcularRetencionTrabajoAeat(caso, {
+            modo: "canonico",
+          })
+          const error = yield* Effect.flip(calculo)
+          expect(error._tag).toBe("ResultadoNoSoportado")
+        }
+      })
   )
 
   it.effect(
@@ -34,6 +38,7 @@ describe("calcularRetencionTrabajoAeat", () => {
         const resultado = yield* calcularRetencionTrabajoAeat(
           {
             anio: 2025,
+            fechaPago: "2025-12-31",
             edad: 40,
             retribucionAnualCentimos: 30_000_00,
             cotizacionesCentimos: 1_944_00,
@@ -74,6 +79,7 @@ describe("calcularRetencionTrabajoAeat", () => {
           {
             ...casoRetencionCalculable(),
             anio: 2025,
+            fechaPago: "2025-12-31",
             discapacidad: "de33a65",
             movilidadReducidaPerceptor: true,
           },
@@ -96,6 +102,7 @@ describe("calcularRetencionTrabajoAeat", () => {
       const resultado = yield* calcularRetencionTrabajoAeat(
         {
           anio: 2025,
+          fechaPago: "2025-12-31",
           edad: 40,
           retribucionAnualCentimos: 15_876_00,
           cotizacionesCentimos: 1_028_77,
@@ -161,6 +168,8 @@ describe("calcularRetencionTrabajoAeat", () => {
         {
           ...casoRetencionCalculable(),
           anio: 2019,
+          fechaPago: "2019-12-31",
+          retribucionAnualCentimos: 2200000,
           situacionFamiliar: "situacion2",
           descendientes: [
             {
@@ -182,7 +191,7 @@ describe("calcularRetencionTrabajoAeat", () => {
         { modo: "canonico" }
       )
 
-      expect(resultado.limite43Centimos).toBe(531_738)
+      expect(resultado.limite43Centimos).toBe(187_738)
     })
   )
 
@@ -212,9 +221,9 @@ describe("calcularRetencionTrabajoAeat", () => {
 
         expect(error).toEqual({
           _tag: "ResultadoNoSoportado",
-          motivo:
-            "Caso de retención de trabajo no soportado con las entradas actuales",
-          fuenteReconocida: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
+          motivo: "Entradas no soportadas por el cálculo inicial parcial",
+          fuenteReconocida:
+            "docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md",
           rastro: {
             titulo: "Procedimiento de retención de trabajo 2026",
             pasos: [
@@ -225,9 +234,9 @@ describe("calcularRetencionTrabajoAeat", () => {
                   "El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.",
                 fuentes: [
                   {
-                    titulo: "Algoritmo de retenciones 2026",
+                    titulo: "Contrato histórico y límites",
                     referencia:
-                      "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
+                      "docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md",
                   },
                 ],
               },
@@ -241,6 +250,7 @@ describe("calcularRetencionTrabajoAeat", () => {
 const casoRetencionBasico = (): CasoRetencionTrabajo => {
   const caso = {
     anio: 2026,
+    fechaPago: "2026-09-10",
     retribucionAnualCentimos: 30_000_00,
     situacionFamiliar: "general",
     descendientes: 0,
@@ -253,6 +263,7 @@ const casoRetencionBasico = (): CasoRetencionTrabajo => {
 
 const casoRetencionCalculable = (): CasoRetencionTrabajo => ({
   anio: 2026,
+  fechaPago: "2026-09-10",
   edad: 40,
   retribucionAnualCentimos: 30_000_00,
   cotizacionesCentimos: 1_944_00,

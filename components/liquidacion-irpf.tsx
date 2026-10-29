@@ -36,7 +36,7 @@ import type {
 import { CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import {
   booleanoDeduccion,
-  calcularDeduccionesAutonomicasAplicadas,
+  calcularDeduccionesConsignadas,
   ENTRADAS_DEDUCCIONES_INICIALES,
   numeroDeduccion,
   textoDeduccion,
@@ -473,6 +473,7 @@ const construirCasoRetencionAeat = ({
 
   return {
     anio: 2025,
+    perfilTemporal: "cierre",
     edad,
     retribucionAnualCentimos: eurosACentimos(entradas.retribucionAnualEuros),
     cotizacionesCentimos: eurosACentimos(entradas.cotizacionesEuros),
@@ -598,10 +599,10 @@ export function LiquidacionIrpf() {
     () =>
       comunidadAutonoma === "simulada-estatal"
         ? 0
-        : calcularDeduccionesAutonomicasAplicadas(
-            entradasDeduccionesAutonomicas,
-            { ejercicio: 2025, territorio: comunidadAutonoma }
-          ),
+        : calcularDeduccionesConsignadas(entradasDeduccionesAutonomicas, {
+            ejercicio: 2025,
+            territorio: comunidadAutonoma,
+          }),
     [comunidadAutonoma, entradasDeduccionesAutonomicas]
   )
   const deduccionesAutonomicasEuros =
@@ -1366,7 +1367,7 @@ function FormularioCaso({
               <NumberField
                 ayuda={AYUDAS_FORMULARIO["Deducciones autonómicas"]}
                 compacto
-                etiqueta="Deducción agregada"
+                etiqueta="Deducción consignada"
                 formato={FORMATO_ENTERO}
                 onChange={(valor) =>
                   fijarDeduccionAutonomicaManualEuros(
@@ -1376,6 +1377,11 @@ function FormularioCaso({
                 paso={100}
                 valor={deduccionesAutonomicasEuros}
               />
+              <p className="text-sm">
+                Solo se aplican importes consignados expresamente. Las fórmulas
+                parciales del catálogo requieren verificar sus requisitos y
+                consignar el resultado; sus estimaciones no reducen la cuota.
+              </p>
               <div className="grid gap-1.5">
                 <div className="flex min-h-8 items-end">
                   <p className="text-sm leading-tight font-bold">
@@ -2123,7 +2129,7 @@ function DialogoPagosACuentaRetenciones({
               />
               <Switch
                 checked={usarRetencionAeat}
-                etiqueta="Estimar retención"
+                etiqueta="Retención inicial al cierre de 2025"
                 onCheckedChange={activarRetencionAeat}
               />
             </div>
@@ -2861,11 +2867,10 @@ function ConciliacionSimuladorLegacyPanel({
       titulo={`Conciliación con simulador simplificado ${conciliacion.anio}`}
     >
       <div className="rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-3 text-sm leading-6 text-[var(--ink-soft)]">
-        La cuota diferencial es una magnitud de declaración anual. El simulador
-        simplificado muestra una estimación de IRPF de nómina: parte de la cuota
-        anual y después aplica la deducción vinculada al SMI y el límite legal
-        de retención de nómina. Todos estos importes son nominales de{" "}
-        {conciliacion.anio}.
+        Ajuste salarial del perfil simplificado, calculado desde una cuota en
+        modo {conciliacion.modoCuotaOrigen}. Aplica convenciones heredadas de
+        deducción y límite de nómina. No es un oracle independiente del Excel ni
+        una retención oficial. Importes nominales de {conciliacion.anio}.
       </div>
       <LineaResumen
         ayuda="Cuota anual antes de restar retenciones y pagos a cuenta; es la base comparable con el cálculo de nómina."

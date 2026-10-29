@@ -1,0 +1,23 @@
+import {mkdirSync,readFileSync,writeFileSync,cpSync} from 'node:fs';
+import {resolve} from 'node:path';
+const original=process.cwd();
+const source=resolve(original,'docs/procedencia/implementaciones/contenidos/datos');
+const scratch=resolve(original,'.cache/procedencia/revision-contenidos-integracion/route');
+const dest=resolve(scratch,'docs/procedencia/implementaciones/contenidos/datos');
+mkdirSync(resolve(dest,'objetos'),{recursive:true});
+cpSync(resolve(source,'snapshots.json'),resolve(dest,'snapshots.json'));
+const sid='4919c9ec5fa20e858d5a4e99f53e7628c2a6e0a9e7852a44de34513de0b0763c';
+cpSync(resolve(source,'objetos',sid),resolve(dest,'objetos',sid));
+const s=JSON.parse(readFileSync(resolve(source,'objetos',sid)));
+const p=s.paquetes[0];
+cpSync(resolve(source,'objetos',p.indice),resolve(dest,'objetos',p.indice));
+const entry=JSON.parse(readFileSync(resolve(source,'objetos',p.indice)))[0];
+process.chdir(scratch);
+const {GET}=await import('../../../app/procedencia/[snapshot]/[id]/[revision]/route.ts');
+const result=[];
+for(const [name,id,rev] of [['prometido-ausente',entry.id,entry.revision],['revision-desconocida',entry.id,'f'.repeat(64)],['traversal','../privado',entry.revision]]) {
+ const r=await GET(new Request('https://example.test/'),{params:Promise.resolve({snapshot:sid,id,revision:rev})});
+ result.push({name,status:r.status,body:await r.text()});
+}
+writeFileSync('/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/contenidos-integracion/pruebas/route.json',JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result));

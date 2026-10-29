@@ -1,0 +1,92 @@
+{
+  "base": "0ca324b082676e15ae443b3c83d7f81828fbc0ce",
+  "verdict": "requires-changes-mode-integration",
+  "findings": [
+    {
+      "id": "EMI-01",
+      "severity": "P2",
+      "status": "mismatch",
+      "domain": "propagacion-modo-cotizaciones",
+      "years": [
+        2018,
+        2025,
+        2026
+      ],
+      "territories": [
+        "simulada-estatal"
+      ],
+      "engineLocations": [
+        {
+          "path": "lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy.ts",
+          "line": 40
+        },
+        {
+          "path": "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+          "line": 95
+        }
+      ],
+      "title": "El perfil etiquetado canónico ejecuta compatible-legacy",
+      "engineValue": {
+        "case": "2018 salario60000",
+        "ssCentimos": 285841,
+        "irpfCentimos": 1504939
+      },
+      "officialValue": null,
+      "expectedTechnicalValue": {
+        "ssCentimos": 287508,
+        "irpfCentimos": 1504322
+      },
+      "units": "céntimos",
+      "reason": "El contexto se devuelve como etiqueta pero no llega a la liquidación; la ruta canónica directa sí aplica el perfil uniforme.",
+      "objection": "El nombre legacy justifica preservar el oracle, pero no devolver canonico como modo ejecutado.",
+      "cost": "Propagar modo o rechazar combinación no soportada, preservando regresión compatible.",
+      "sources": [
+        "docs/adr/0001-separar-modo-compatible-legacy-y-modo-canonico.md",
+        "manifiesto/codigo.json",
+        "casos/resultados.json"
+      ],
+      "legacyComparison": "Modo compatible conserva su resultado; seis contrapruebas canónicas divergen.",
+      "proposedTest": "Pedir ambos modos al perfil2018 salario60000 y comparar con la liquidación directa equivalente.",
+      "review": {
+        "status": "pendiente-integracion-padre",
+        "scope": "Defecto técnico reproducido, no declaración fiscal completa"
+      }
+    },
+    {
+      "id": "EMI-02",
+      "severity": "P2",
+      "status": "ambiguous",
+      "domain": "interpretacion-conciliacion",
+      "years": [
+        2018,
+        2025,
+        2026
+      ],
+      "territories": [
+        "simulada-estatal"
+      ],
+      "engineLocations": [
+        {
+          "path": "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+          "line": 116
+        }
+      ],
+      "title": "Conciliación canónica no es un oracle legacy independiente",
+      "engineValue": "irpfFinalSimulador varía con la cuota recibida desde2015",
+      "officialValue": null,
+      "units": "euros",
+      "reason": "La fórmula ajusta la cuota recibida; no reconstruye el resultado legacy desde2015.",
+      "objection": "Es válido como ajuste de la cuota seleccionada, pero insuficiente para certificar una regresión contra el simulador.",
+      "cost": "Explicitar origen/modo y calcular por separado el comparador si se ofrece esa comparación.",
+      "sources": [
+        "casos/resultados.json",
+        "manifiesto/codigo.json"
+      ],
+      "legacyComparison": "2018/60000:15043.22 canónico y15049.39 compatible;400000 queda oculto por cap.",
+      "review": {
+        "status": "limitacion-documentada",
+        "scope": "No se rechaza la fórmula fiscal ni se exige reemplazar cuota canónica"
+      }
+    }
+  ]
+}

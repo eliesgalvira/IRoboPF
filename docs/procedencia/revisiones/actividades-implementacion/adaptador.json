@@ -1,0 +1,170 @@
+{
+  "estado": "aporte-disponible",
+  "aporte": {
+    "clase": "rendimiento-actividad-2025",
+    "importeEurosExactos": "9500",
+    "retencionesEuros": "1500",
+    "pagosFraccionadosEuros": "2500",
+    "liquidacionAnual": "no-calculada"
+  },
+  "etapas": [
+    {
+      "reglaId": "AE25-02",
+      "id": "ingreso:i",
+      "formula": "base devengada, antes de retención y sin IVA recuperable",
+      "importe": "10000",
+      "fuentes": [
+        "manual",
+        "lirpf-original"
+      ],
+      "documentos": [
+        "i"
+      ]
+    },
+    {
+      "reglaId": "AE25-02",
+      "id": "ingresos",
+      "formula": "sum(base antes de retención; IVA recuperable excluido)",
+      "importe": "10000",
+      "fuentes": [
+        "manual",
+        "lirpf-original"
+      ],
+      "documentos": [
+        "i"
+      ]
+    },
+    {
+      "reglaId": "AE25-02",
+      "id": "gastos",
+      "formula": "sum(base gastos admitidos)",
+      "importe": "0",
+      "fuentes": [
+        "manual",
+        "lirpf-original"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-03",
+      "id": "reta",
+      "formula": "sum(cuotas ordinarias efectivas)",
+      "importe": "0",
+      "fuentes": [
+        "manual",
+        "lirpf-original"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-04",
+      "id": "amortizacion",
+      "formula": "sum(cuotas activos)",
+      "importe": "0",
+      "fuentes": [
+        "manual",
+        "orden1998",
+        "rd634-2015",
+        "rd633-2015"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-02",
+      "id": "P",
+      "formula": "ingresos-gastos-RETA-amortizacion",
+      "importe": "10000",
+      "fuentes": [
+        "manual",
+        "lirpf-original"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-05",
+      "id": "G",
+      "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+      "importe": "500",
+      "fuentes": [
+        "manual",
+        "rd633-2015",
+        "ley31-2022"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-06",
+      "id": "RN",
+      "formula": "P-G (con signo)",
+      "importe": "9500",
+      "fuentes": [
+        "manual",
+        "lirpf-original",
+        "ley26-2014"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-11",
+      "id": "reduccion32_2",
+      "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+      "importe": "0",
+      "fuentes": [
+        "manual",
+        "ley26-2014"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-12",
+      "id": "reduccionInicio",
+      "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+      "importe": "0",
+      "fuentes": [
+        "manual",
+        "ley11-2013"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-14",
+      "id": "aporteBIG",
+      "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+      "importe": "9500",
+      "fuentes": [
+        "manual",
+        "lirpf-original"
+      ],
+      "documentos": []
+    },
+    {
+      "reglaId": "AE25-15",
+      "id": "retenciones",
+      "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+      "importe": "1500",
+      "fuentes": [
+        "manual",
+        "lirpf-original",
+        "rirpf-original"
+      ],
+      "documentos": [
+        "rt"
+      ]
+    },
+    {
+      "reglaId": "AE25-15",
+      "id": "pagos",
+      "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+      "importe": "2500",
+      "fuentes": [
+        "manual",
+        "lirpf-original",
+        "rirpf-original"
+      ],
+      "documentos": [
+        "p"
+      ]
+    }
+  ],
+  "aceptacionFiscal": "pendiente"
+}

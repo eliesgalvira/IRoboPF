@@ -1,0 +1,57 @@
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, symlinkSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { gzipSync, gunzipSync } from 'node:zlib';
+import { performance } from 'node:perf_hooks';
+import { baseFicha } from '../../../scripts/procedencia/contenido-generar.mjs';
+import { verificar } from '../../../scripts/procedencia/contenido-verificar.mjs';
+import { bytesEntidad, hash, verificarGrafo } from '../../../lib/procedencia/verificador.ts';
+import { buscar, resolver, leerSnapshot, directorioContenido } from '../../../lib/procedencia/almacen.ts';
+import { verificarRastro, enlaceRastro } from '../../../lib/procedencia/rastro.ts';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { Ficha } from '../../../lib/procedencia/ficha.tsx';
+const out = '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/contenidos-integracion';
+const results = {};
+const pack = entidad => ({ entidad, revision: hash(bytesEntidad(entidad)) });
+const ref = p => ({ id:p.entidad.id, revision:p.revision });
+const original = hash('original'), receta = hash('receta'), imagen = hash('imagen');
+const doc = pack({...baseFicha('documento', 'Documento', 'concepto'), tipo:'Document', original, mime:'text/plain', url:'https://www.boe.es/documento.txt'});
+const cita = pack({...baseFicha('cita', 'Cita', 'concepto'), tipo:'Citation', selector:{tipo:'texto',encoding:'UTF-8',inicioByte:0,finByte:1,texto:'1'}, aristas:[{relacion:'documento', destino:ref(doc)}]});
+results.cita = verificarGrafo([doc,cita],new Set([original]));
+const fac = pack({...baseFicha('facsimil', 'Facsímil', 'concepto'),tipo:'Facsimile',imagen,receta,transcripcion:'1',aristas:[{relacion:'evidencia',destino:ref(cita)}]});
+try { verificarGrafo([doc,cita,fac],new Set([original,imagen,receta])); results.facsimil='aceptado'; } catch(e) { results.facsimil=e.message; }
+try { verificarGrafo([doc,cita,pack({...fac.entidad,aristas:[]})],new Set([original,imagen,receta])); results.facsimilSinCita='aceptado'; } catch(e) { results.facsimilSinCita=e.message; }
+const ids = JSON.parse(readFileSync(resolve(directorioContenido,'snapshots.json')));
+const actual = ids.find(id=>leerSnapshot(id).cantidad===49887);
+results.snapshots = ids.map(id=>({id,cantidad:leerSnapshot(id).cantidad,datos:leerSnapshot(id).versiones.datos}));
+const t=performance.now();
+results.busquedaVacia={resultado:buscar(actual,'zzzz-no-existe-2718281828'),ms:performance.now()-t,rss:process.memoryUsage().rss};
+const first=buscar(actual,'')[0];
+const t2=performance.now(); const e=resolver(actual,first.id,first.revision);
+const html=renderToStaticMarkup(createElement(Ficha,{entidad:{...e,titulo:'<script>alert(1)</script>'},snapshot:actual}));
+results.render={ms:performance.now()-t2,escape:html.includes('&lt;script&gt;'),script:html.includes('<script>'),bytes:Buffer.byteLength(html)};
+// Cambiar únicamente fuente/localizador y clase, manteniendo cifra, hash de fuente y dimensiones.
+const root=resolve('.cache/procedencia/revision-contenidos-integracion/adulterado'); mkdirSync(resolve(root,'objetos'),{recursive:true});
+for(const f of readdirSync(resolve(directorioContenido,'objetos'))) symlinkSync(resolve(directorioContenido,'objetos',f),resolve(root,'objetos',f));
+const snapshot=structuredClone(leerSnapshot(actual));
+const p=snapshot.paquetes.find(p=>p.prefijo===hash(first.id).slice(0,2));
+const grupo=JSON.parse(gunzipSync(readFileSync(resolve(directorioContenido,'objetos',p.hash))));
+const target=grupo.find(x=>x.entidad.identidad==='ocurrencia');
+results.adulteracion={antes:structuredClone(target.entidad.fuentes),id:target.entidad.id};
+target.entidad.fuentes[0].archivo='docs/fuente-inexistente.md';
+target.entidad.fuentes[0].localizador='artículo inventado';
+target.entidad.claseInventario='Rule';
+target.revision=hash(bytesEntidad(target.entidad));
+const store=bytes=>{const h=hash(bytes);writeFileSync(resolve(root,'objetos',h),bytes,{flag:'wx'});return h;};
+const compressed=gzipSync(Buffer.from(JSON.stringify(grupo))); p.hash=store(compressed);p.bytes=compressed.length;
+p.indice=store(Buffer.from(JSON.stringify(grupo.map(x=>({id:x.entidad.id,revision:x.revision})))));
+const changed=store(Buffer.from(JSON.stringify(snapshot)));writeFileSync(resolve(root,'snapshots.json'),JSON.stringify([changed]));
+results.adulteracion.despues=target.entidad.fuentes;
+results.adulteracion.veredicto=verificar(changed,root);
+// Igualdad de versiones no prueba resolución: obligación del integrador, no aceptación fiscal.
+const v={snapshot:actual,...leerSnapshot(actual).versiones};
+const point={siteId:'sitio.falso',instanceId:'instancia',sujeto:{id:'inexistente',revision:'f'.repeat(64)}};
+verificarRastro(v,v,[{punto:point,resultado:{estado:'aplicada',decimal:'9007199254740993.0000000000000001',unidad:'EUR'}}],new Map([[point.siteId,point.sujeto]]));
+results.rastro={validacionLocal:'pasa',href:enlaceRastro(v,point),resolucion:resolver(actual,point.sujeto.id,point.sujeto.revision),obligacion:'El integrador debe resolver binding/ámbito contra snapshot antes de llamar al adaptador.'};
+writeFileSync(resolve(out,'pruebas/repro.json'),JSON.stringify(results,null,2)+'\n');
+console.log(JSON.stringify(results,null,2));

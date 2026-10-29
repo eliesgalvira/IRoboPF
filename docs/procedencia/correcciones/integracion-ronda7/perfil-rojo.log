@@ -1,0 +1,50 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+stdout | tests/calculo-salario-neto-irpf.test.ts > EMI-01 propaga el modo canónico hasta cotizaciones y neto
+[13:58:28.463] ERROR (#1): Error [AssertionError]: expected 285841 to be 287508 // Object.is equality
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/calculo-salario-neto-irpf.test.ts:62:51) {
+  actual: 285841,
+  expected: 287508,
+  showDiff: true,
+  operator: 'strictEqual',
+  [cause]: undefined
+}
+
+ ❯ tests/calculo-salario-neto-irpf.test.ts (3 tests | 1 failed | 2 skipped) 21ms
+   × EMI-01 propaga el modo canónico hasta cotizaciones y neto 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/calculo-salario-neto-irpf.test.ts > EMI-01 propaga el modo canónico hasta cotizaciones y neto
+AssertionError: expected 285841 to be 287508 // Object.is equality
+
+- Expected
++ Received
+
+- 287508
++ 285841
+
+ ❯ Array.<anonymous> tests/calculo-salario-neto-irpf.test.ts:62:51
+     60| it.effect("EMI-01 propaga el modo canónico hasta cotizaciones y neto",…
+     61|   const r = yield* calcularSalarioNetoEIrpf({ perfil: "legacy-progresi…
+     62|   expect(r.desglose.cotizacionTrabajadorCentimos).toBe(287508)
+       |                                                   ^
+     63|   expect(r.desglose.irpfFinalCentimos).toBe(1504322)
+     64|   expect(r.desglose.salarioNetoAnualCentimos).toBe(4208171)
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 skipped (3)
+   Start at  13:58:27
+   Duration  774ms (transform 345ms, setup 0ms, import 623ms, tests 21ms, environment 0ms)
+

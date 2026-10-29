@@ -83,6 +83,25 @@ export const UMBRALES_RETENCION_2018_DESDE_5_JULIO = {
   },
 } as const satisfies TablaUmbralesRetencion
 
+// AEAT 2018 julio, p.30, tabla específica de pensiones/desempleo (sin incrementos).
+export const UMBRALES_RETENCION_2018_PENSIONES = {
+  situacion1: {
+    sinDescendientes: null,
+    unDescendiente: 15106.5,
+    dosOMasDescendientes: 16451.5,
+  },
+  situacion2: {
+    sinDescendientes: 14576,
+    unDescendiente: 15733,
+    dosOMasDescendientes: 17386,
+  },
+  situacion3: {
+    sinDescendientes: 13000,
+    unDescendiente: 13561.5,
+    dosOMasDescendientes: 14184,
+  },
+} as const satisfies TablaUmbralesRetencion
+
 export const UMBRALES_RETENCION_2019_2022 = {
   situacion1: {
     sinDescendientes: null,
@@ -195,14 +214,24 @@ const tablaVigenteAlCierreDelAnio = (
 export const tablaUmbralesRetencionTrabajo = ({
   anio,
   fecha,
+  situacionLaboral,
 }: {
   readonly anio: AnioFiscal
-  readonly fecha?: string
+  readonly fecha?: string | undefined
+  readonly situacionLaboral?: SituacionLaboralRetencionTabla | undefined
 }): TablaUmbralesRetencion => {
   if (fecha === undefined) {
     return tablaVigenteAlCierreDelAnio(anio)
   }
 
+  if (!esFechaCivilDelAnio(fecha, anio))
+    throw new Error("Fecha civil inválida o ajena al ejercicio")
+  if (
+    anio === 2018 &&
+    fecha >= "2018-07-05" &&
+    (situacionLaboral === "pensionista" || situacionLaboral === "desempleado")
+  )
+    return UMBRALES_RETENCION_2018_PENSIONES
   const periodos: ReadonlyArray<PeriodoUmbralesRetencion> =
     UMBRALES_RETENCION_NOMINA_POR_ANIO[anio]
   const periodo = periodos.find(
@@ -210,7 +239,8 @@ export const tablaUmbralesRetencionTrabajo = ({
       fecha >= desde && (hasta === undefined || fecha <= hasta)
   )
 
-  return periodo?.tabla ?? tablaVigenteAlCierreDelAnio(anio)
+  if (periodo === undefined) throw new Error("Sin tabla para la fecha indicada")
+  return periodo.tabla
 }
 
 const umbralPorDescendientes = (
@@ -233,17 +263,18 @@ export const umbralRetencionTrabajoEuros = ({
   fecha,
   numeroDescendientes,
   situacionFamiliar,
+  situacionLaboral,
 }: {
   readonly anio: AnioFiscal
-  readonly fecha?: string
+  readonly fecha?: string | undefined
   readonly numeroDescendientes: number
   readonly situacionFamiliar: SituacionFamiliarRetencionTabla
-  readonly situacionLaboral?: SituacionLaboralRetencionTabla
+  readonly situacionLaboral?: SituacionLaboralRetencionTabla | undefined
 }): number | null => {
   const tabla =
     fecha === undefined
       ? tablaUmbralesRetencionTrabajo({ anio })
-      : tablaUmbralesRetencionTrabajo({ anio, fecha })
+      : tablaUmbralesRetencionTrabajo({ anio, fecha, situacionLaboral })
 
   return umbralPorDescendientes(tabla[situacionFamiliar], numeroDescendientes)
 }
@@ -263,15 +294,16 @@ export const umbralRetencionTrabajoRequeridoEuros = (
 export const maximoUmbralRetencionTrabajoEuros = ({
   anio,
   fecha,
+  situacionLaboral,
 }: {
   readonly anio: AnioFiscal
-  readonly fecha?: string
-  readonly situacionLaboral?: SituacionLaboralRetencionTabla
+  readonly fecha?: string | undefined
+  readonly situacionLaboral?: SituacionLaboralRetencionTabla | undefined
 }): number => {
   const tabla =
     fecha === undefined
       ? tablaUmbralesRetencionTrabajo({ anio })
-      : tablaUmbralesRetencionTrabajo({ anio, fecha })
+      : tablaUmbralesRetencionTrabajo({ anio, fecha, situacionLaboral })
   const umbrales = [
     tabla.situacion1.sinDescendientes,
     tabla.situacion1.unDescendiente,
@@ -285,4 +317,15 @@ export const maximoUmbralRetencionTrabajoEuros = ({
   ].filter((umbral): umbral is number => umbral !== null)
 
   return Math.max(...umbrales)
+}
+
+/** Calendario civil gregoriano, sin huso horario ni normalización de fechas imposibles. */
+export const esFechaCivilDelAnio = (fecha: string, anio: number): boolean => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha) || !fecha.startsWith(`${anio}-`))
+    return false
+  const mes = Number(fecha.slice(5, 7))
+  const dia = Number(fecha.slice(8, 10))
+  const bisiesto = anio % 4 === 0 && (anio % 100 !== 0 || anio % 400 === 0)
+  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  return mes >= 1 && mes <= 12 && dia >= 1 && dia <= dias[mes - 1]
 }

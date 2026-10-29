@@ -1,0 +1,115 @@
+$ vitest run tests/trabajo-anual-contratos.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-8bd00bb5
+
+ ❯ tests/trabajo-anual-contratos.test.ts (31 tests | 5 failed) 19ms
+     × cotización efectiva 1200, no estimada 5ms
+     × topes anuales 300 y 500; sindicato sin ese tope 1ms
+     × gastos generales limitados; pérdidas de a–e conservadas 1ms
+     × discapacidad activa limitada al rendimiento asociado único 1ms
+     × adapter no resta otra vez gastos 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/trabajo-anual-contratos.test.ts > contrato anual separado, expectativas de originales > cotización efectiva 1200, no estimada
+AssertionError: expected { estado: 'no-soportado', …(1) } to match object { gastosAE: '1200', …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "gastosAE": "1200",
+-   "netoArt19": "13300",
+-   "netoPrevioArt20": "15300",
++   "estado": "no-soportado",
++   "motivo": "Entrada inválida, incompleta o con campos ajenos",
+  }
+
+ ❯ tests/trabajo-anual-contratos.test.ts:17:93
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/trabajo-anual-contratos.test.ts > contrato anual separado, expectativas de originales > topes anuales 300 y 500; sindicato sin ese tope
+AssertionError: expected { estado: 'no-soportado', …(1) } to match object { gastosAE: '2600' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "gastosAE": "2600",
++   "estado": "no-soportado",
++   "motivo": "Entrada inválida, incompleta o con campos ajenos",
+  }
+
+ ❯ tests/trabajo-anual-contratos.test.ts:18:316
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/trabajo-anual-contratos.test.ts > contrato anual separado, expectativas de originales > gastos generales limitados; pérdidas de a–e conservadas
+AssertionError: expected { estado: 'no-soportado', …(1) } to match object { generalesAplicados: '0', …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "generalesAplicados": "0",
+-   "netoArt19": "-200",
++   "estado": "no-soportado",
++   "motivo": "Entrada inválida, incompleta o con campos ajenos",
+  }
+
+ ❯ tests/trabajo-anual-contratos.test.ts:19:193
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/trabajo-anual-contratos.test.ts > contrato anual separado, expectativas de originales > discapacidad activa limitada al rendimiento asociado único
+AssertionError: expected { estado: 'no-soportado', …(1) } to match object { discapacidadAplicada: '800', …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "discapacidadAplicada": "800",
+-   "netoArt19": "0",
++   "estado": "no-soportado",
++   "motivo": "Entrada inválida, incompleta o con campos ajenos",
+  }
+
+ ❯ tests/trabajo-anual-contratos.test.ts:20:308
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  tests/trabajo-anual-contratos.test.ts > contrato anual separado, expectativas de originales > adapter no resta otra vez gastos
+AssertionError: expected { estado: 'no-soportado', …(1) } to match object { Object (rendimientoAntesArt20, argumentoArt20) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "argumentoArt20": "15300",
+-   "rendimientoAntesArt20": "13300",
++   "estado": "no-soportado",
++   "motivo": "Entrada inválida, incompleta o con campos ajenos",
+  }
+
+ ❯ tests/trabajo-anual-contratos.test.ts:23:86
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 26 passed (31)
+   Start at  13:23:45
+   Duration  361ms (transform 48ms, setup 0ms, import 225ms, tests 19ms, environment 0ms)
+
+error: script "test" exited with code 1

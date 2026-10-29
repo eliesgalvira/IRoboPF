@@ -1,0 +1,47 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/retenciones-versionadas.test.ts (64 tests | 2 failed | 61 skipped) 13ms
+     × mínimo territorial 2017 especial 9ms
+     × mínimo territorial 2017 inferior-anio 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Contrato temporal, límites y controles > mínimo territorial 2017 especial
+AssertionError: expected '6.00' to be '8.00' // Object.is equality
+
+Expected: "8.00"
+Received: "6.00"
+
+ ❯ tests/retenciones-versionadas.test.ts:196:7
+    194|         rendimientosCeutaMelilla: true,
+    195|       }).tipoRetencionPorcentaje
+    196|     ).toBe(esperado)
+       |       ^
+    197|   })
+    198|   it("pensión 2018 julio usa 13.000 + 600", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/retenciones-versionadas.test.ts > Contrato temporal, límites y controles > mínimo territorial 2017 inferior-anio
+AssertionError: expected '0.80' to be '1.00' // Object.is equality
+
+Expected: "1.00"
+Received: "0.80"
+
+ ❯ tests/retenciones-versionadas.test.ts:196:7
+    194|         rendimientosCeutaMelilla: true,
+    195|       }).tipoRetencionPorcentaje
+    196|     ).toBe(esperado)
+       |       ^
+    197|   })
+    198|   it("pensión 2018 julio usa 13.000 + 600", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed | 61 skipped (64)
+   Start at  13:56:46
+   Duration  360ms (transform 54ms, setup 0ms, import 234ms, tests 13ms, environment 0ms)
+
