@@ -86,6 +86,89 @@ const anual = (
     pagosACuentaCentimos: 0,
   })
 
+for (const custodia of ["exclusiva", "compartida"] as const) {
+  for (const causa of ["renta", "declaracion"] as const) {
+    it(`MDV2-P01: rechaza alimentos propios con custodia ${custodia} sin mínimo por ${causa}`, () => {
+      const d: DescendienteDerechos = {
+        ...hijo([{ ...titular(), custodia, alimentosJudiciales: true }]),
+        rentasNoExentasCentimos: causa === "renta" ? 800001 : 180001,
+        declaracion:
+          causa === "declaracion"
+            ? { modalidad: "individual", rentasCentimos: 180001 }
+            : { modalidad: "no-presenta" },
+      }
+      const r = Effect.runSync(Effect.result(anual(hechos(d))))
+      expect(Result.isFailure(r)).toBe(true)
+      if (Result.isFailure(r)) {
+        expect(r.failure._tag).toBe("ResultadoNoSoportado")
+        expect(r.failure.motivo).toContain("alimentos")
+      }
+    })
+  }
+
+  for (const renta of [180000, 800000]) {
+    it(`MDV2-P01: mantiene al custodio ${custodia} elegible en la frontera ${renta}`, () => {
+      const d: DescendienteDerechos = {
+        ...hijo([{ ...titular(), custodia, alimentosJudiciales: true }]),
+        rentasNoExentasCentimos: renta,
+        declaracion:
+          renta === 180000
+            ? { modalidad: "individual", rentasCentimos: 180000 }
+            : { modalidad: "no-presenta" },
+      }
+      expect(
+        Result.isSuccess(Effect.runSync(Effect.result(anual(hechos(d)))))
+      ).toBe(true)
+    })
+  }
+}
+
+it("MDV2-P01: el mínimo de otro hijo no oculta alimentos propios sin derecho", () => {
+  const sinDerecho = {
+    ...hijo([
+      {
+        ...titular(),
+        custodia: "exclusiva" as const,
+        alimentosJudiciales: true,
+      },
+    ]),
+    rentasNoExentasCentimos: 800001,
+  }
+  const h = {
+    ...hechos(sinDerecho),
+    descendientes: [sinDerecho, { ...hijo(), sujetoId: "s-4" }],
+  }
+  const r = Effect.runSync(Effect.result(anual(h)))
+  expect(Result.isFailure(r)).toBe(true)
+  if (Result.isFailure(r)) expect(r.failure.motivo).toContain("alimentos")
+})
+
+it("MDV2-P01: no bloquea renta alta del hijo cuando no hay alimentos propios", () => {
+  const d = { ...hijo(), rentasNoExentasCentimos: 800001 }
+  expect(
+    Result.isSuccess(Effect.runSync(Effect.result(anual(hechos(d)))))
+  ).toBe(true)
+})
+
+it("MDV2-P01: alimentos de otro titular no bloquean al contribuyente sin mínimo", () => {
+  const d = {
+    ...hijo([
+      { ...titular(), custodia: "exclusiva" as const },
+      {
+        ...titular("s-2", 3000000),
+        custodia: "sin-custodia" as const,
+        relacion: "dependencia-economica" as const,
+        alimentosJudiciales: true,
+        aplicaEspecialidadAlimentos: true,
+      },
+    ]),
+    rentasNoExentasCentimos: 800001,
+  }
+  expect(
+    Result.isSuccess(Effect.runSync(Effect.result(anual(hechos(d)))))
+  ).toBe(true)
+})
+
 it("MDV1-02: no deduce edad al adoptar de la fecha de inscripción o de un acogimiento previo", () => {
   const t: TitularDescendiente = {
     ...titular(),

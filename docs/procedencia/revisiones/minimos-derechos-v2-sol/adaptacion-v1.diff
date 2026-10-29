@@ -1,0 +1,109 @@
+--- /home/elies/.t3/worktrees/IRoboPF/t3-c190fe20/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts	2026-10-29 17:40:54.214985945 +0100
++++ /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v2-sol/positivos-v1-adaptados.test.ts	2026-10-29 17:42:46.444156443 +0100
+@@ -4,21 +4,21 @@
+   DerechosMinimos2025,
+   DescendienteDerechos,
+   TitularDescendiente,
+-} from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos-contrato"
+-import { calcularDerechosMinimos } from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos"
+-import { MINIMOS_ESTATALES_2025 } from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/normativa/datos/minimos-autonomicos-2025"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-c190fe20/lib/dominio/irpf/minimos/derechos-contrato"
++import { calcularDerechosMinimos } from "/home/elies/.t3/worktrees/IRoboPF/t3-c190fe20/lib/dominio/irpf/minimos/derechos"
++import { MINIMOS_ESTATALES_2025 } from "/home/elies/.t3/worktrees/IRoboPF/t3-c190fe20/lib/dominio/normativa/datos/minimos-autonomicos-2025"
+ import {
+   liquidarIrpfAnualConDerechos,
+   liquidarIrpfAnual,
+-} from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-c190fe20/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+ import {
+   sinDiscapacidad,
+   type CasoFiscalAnual,
+-} from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/caso-fiscal-anual"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-c190fe20/lib/dominio/irpf/caso-fiscal-anual"
+ 
+ const titular = (
+   titularId = "s-1",
+-  renta = 2605000,
++  renta = 2605600,
+   grado = 1
+ ): TitularDescendiente => ({
+   titularId,
+@@ -60,6 +60,7 @@
+   ascendientes: "ninguno",
+   fallecimientosEnElEjercicio: "ninguno",
+   descendientesCompletos: true,
++  conciliacionRentasContribuyente: { perfil: "caso-anual-parcial", otrasRentasOGastosNoRepresentados: "ninguno" },
+   descendientes,
+ })
+ const anual = (
+@@ -167,7 +168,7 @@
+   (renta) => {
+     const h = hechos([
+       hijo("s-3", "2017-12-31", [
+-        titular("s-1", 2605000, 2),
++        titular("s-1", 2605600, 2),
+         titular("s-2", renta),
+       ]),
+     ])
+@@ -181,6 +182,7 @@
+     vinculo: {
+       clase: "adopcion",
+       fechaInicioIncremento: year + "-12-31",
++      fechaConstitucionVinculo: year + "-12-31",
+       fundamento: "inscripcion-registro-civil",
+       historialCompleto: true,
+     },
+@@ -196,6 +198,7 @@
+     vinculo: {
+       clase: "adopcion",
+       fechaInicioIncremento: "2025-01-01",
++      fechaConstitucionVinculo: "2025-01-01",
+       fundamento: "inscripcion-registro-civil",
+       historialCompleto: true,
+     },
+@@ -314,45 +317,3 @@
+   )
+   expect(JSON.stringify(l.rastro)).toContain("sin acreditar derecho ni reparto")
+ })
+-it("MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual", () => {
+-  const h = hechos([
+-    hijo("s-3", "2017-12-31", [titular("s-1", 0), titular("s-2", 3000000, 2)]),
+-  ])
+-  const r = liquidar(h)
+-  expect(r.rendimientoNetoTrabajoCentimos).toBeGreaterThan(800000)
+-  // El mismo contribuyente declara renta cero para ceder el mínimo al abuelo.
+-  rechaza(h)
+-})
+-it("MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance", () => {
+-  const t = {
+-    ...titular(),
+-    vinculo: {
+-      clase: "adopcion",
+-      fechaInicioIncremento: "2025-01-02",
+-      fundamento: "inscripcion-registro-civil",
+-      historialCompleto: true,
+-    },
+-  } satisfies TitularDescendiente
+-  const h = hechos([hijo("s-3", "2007-12-31", [t])])
+-  // Tenía 17 al adoptar; cumple 18 al devengo. Mínimo 2400+2800.
+-  const r = liquidar(h)
+-  expect(r.cuotaMinimoPersonalCentimos).toBe(200195)
+-  expect(calcular(h).descendientes.toNumber()).toBe(5200)
+-})
+-it("MDV1-03 ROJO: anual no debe liquidar pagador judicial sin custodia omitiendo especialidad obligatoria", () => {
+-  const t = {
+-    ...titular(),
+-    relacion: "dependencia-economica",
+-    custodia: "sin-custodia",
+-    alimentosJudiciales: true,
+-  } satisfies TitularDescendiente
+-  // La especialidad se deriva de los hechos, no de marcar voluntariamente su flag.
+-  rechaza(
+-    hechos([
+-      hijo("s-3", "2017-01-01", [
+-        t,
+-        { ...titular("s-2"), custodia: "exclusiva" },
+-      ]),
+-    ])
+-  )
+-})

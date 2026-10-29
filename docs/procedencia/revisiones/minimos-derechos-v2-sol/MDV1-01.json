@@ -1,0 +1,27 @@
+{
+  "id": "MDV1-01",
+  "status": "corregido-en-alcance-acotado",
+  "severity": "alta-historica",
+  "conclusion": "La frontera anual exige conciliación y compara saldo neto algebraico anterior a art20, integración y compensación; el lado del umbral no puede cambiar por céntimos.",
+  "tests": [
+    "renta contradictoria con contrato completo",
+    "neto 26056",
+    "neto 7352",
+    "pérdidas 6056 y -3944",
+    "categorías múltiples",
+    "exención 50% representada",
+    "bruto 10692.90",
+    "varios censos",
+    "no finitos y límites"
+  ],
+  "locations": [
+    "lib/dominio/irpf/minimos/derechos.ts:199",
+    "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:417"
+  ],
+  "objection": "El perfil parcial no acredita renta fiscal exhaustiva ni documentación externa.",
+  "cost": "Exigir declaración honesta del perfil y rechazar incoherencia; quedan fuera rentas y gastos no representados.",
+  "scope": "Coherencia interna Madrid 2025 individual, no validación de todas las categorías o cotizaciones.",
+  "base": "1ec684b4e4408068282febf1319c12c6ac8a15c1",
+  "completeFiscalAcceptance": false,
+  "evidence": "casos.test.ts, pruebas-final.log y fuentes-verificadas.json"
+}

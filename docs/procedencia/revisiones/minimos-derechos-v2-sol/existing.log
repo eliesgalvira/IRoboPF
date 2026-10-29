@@ -1,0 +1,45 @@
+node_modules/.bin/vitest run tests/minimos-derechos.test.ts tests/minimos-derechos-integracion.test.ts tests/minimos-procedencia.test.ts tests/rastro-anual-procedencia.test.ts tests/publicacion-evidencia.test.ts --maxWorkers=1
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-c190fe20
+
+ ❯ tests/publicacion-evidencia.test.ts (6 tests | 6 skipped) 7464ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/publicacion-evidencia.test.ts [ tests/publicacion-evidencia.test.ts ]
+Error: 466 |   const python = spawnSync(
+467 |     "python3",
+468 |     [`${root}/scripts/procedencia/inventario-python.py`, pythonPath],
+469 |     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+470 |   )
+471 |   if (python.status !== 0) throw new Error(python.stderr || "Falló AST Python")
+                                           ^
+error: Falló AST Python
+      at generateInProcess (/home/elies/.t3/worktrees/IRoboPF/t3-c190fe20/scripts/procedencia/inventario.mjs:471:38)
+
+Bun v1.3.13 (Linux x64)
+
+ ❯ generateInProcess scripts/procedencia/inventario.mjs:471:38
+    469|     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+    470|   )
+    471|   if (python.status !== 0) throw new Error(python.stderr || "Falló AST…
+       |                                      ^
+    472|   const legacy = JSON.parse(python.stdout)
+    473|   for (const entry of legacy.items) {
+ ❯ generate scripts/procedencia/inventario.mjs:241:11
+ ❯ buildArtifact scripts/procedencia/inventario-artefacto.mjs:93:35
+ ❯ verifyLinks scripts/procedencia/verificar-enlaces.mjs:50:22
+ ❯ generarEvidencia scripts/procedencia/evidencia-contenido.mjs:140:38
+ ❯ publicar scripts/procedencia/contenido-publicar.mjs:43:42
+ ❯ tests/publicacion-evidencia.test.ts:55:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  66 passed | 6 skipped (72)
+   Start at  17:58:02
+   Duration  13.47s (transform 569ms, setup 0ms, import 2.26s, tests 10.69s, environment 0ms)
+
+
+exit=1

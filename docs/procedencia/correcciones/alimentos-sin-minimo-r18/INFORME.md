@@ -1,0 +1,29 @@
+# Alimentos propios sin mínimo: exclusión expresa del contrato anual
+
+La revisión independiente Sol `minimos-derechos-v2-sol` confirma MDV1-01/02/03 y la separación de fechas de constitución e inicio del incremento en el alcance ensayado. Sus 86 casos propios y 72 pruebas existentes no acreditan una liquidación universal. Se conservan íntegros sus informes, fuentes y manifest; la recepción comprueba 43 archivos y las 10.583 entradas de su base, sin ausencias ni borrados.
+
+MDV2-P01 es una reserva jurídica, no un defecto numérico demostrado. El custodio que paga alimentos propios puede perder el mínimo por renta o declaración del descendiente, y el contrato anterior devolvía una liquidación sin haber cerrado el tratamiento de ese cruce. La revisión propone investigarlo o excluirlo expresamente. Se elige la exclusión acotada; no se inventa una cuota ni se afirma que corresponda aplicar la especialidad.
+
+## Decisión y coste
+
+La frontera anual rechaza alimentos judiciales propios respecto de un descendiente cuando el contribuyente no figura entre sus titulares con derecho según el contrato de mínimos validado. Reutiliza esa selección por descendiente: no equipara custodia con derecho, no suma los mínimos de otros hijos para ocultar la ausencia y no bloquea por alimentos de otro titular. Los custodios elegibles mantienen su comportamiento. El helper de mínimos aislado sigue describiendo su resultado condicionado; la exclusión pertenece a la liquidación anual.
+
+Objeción experta: un rechazo conservador puede excluir un caso que jurídicamente deba liquidarse sin especialidad; no demuestra inexistencia de derecho ni sustituye el criterio administrativo. Respuesta: el mensaje declara tratamiento pendiente y fuera del alcance actual. Coste: menor cobertura de la ruta anual hasta resolver la cuestión y representar los hechos necesarios. No se cambia una cuantía, escala, fórmula de cuota o expectativa fiscal para obtener verde. La reserva jurídica sigue abierta aunque la API deje de ofrecer esos resultados.
+
+El [manual AEAT 2025 sobre anualidades](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c15-calculo-impuesto-determinacion-cuotas-integras/especialidades-determinacion-cuota-integra-estatal-autonomica/anualidades-alimentos-favor-hijos/especialidad-tratamiento-anualidades-alimentos.html) se reabrió. Enuncia la falta de derecho al mínimo, la cuantía satisfecha y la base, y contiene precisiones generales sobre convivencia y custodia. No se convierte esa redacción general en resolución específica del cruce planteado. La copia original de la revisión, SHA-256 `a5c98d375357847cee81335056afb3c1e4277d0330f8cc0015c140cd51dfef22`, queda conservada con adquisición y manifiesto; el hash acredita bytes, no autenticidad histórica ni interpretación aceptada.
+
+## Pruebas y reproducción
+
+Antes del cambio se añadieron once casos a `tests/minimos-derechos-integracion.test.ts`: cuatro cruces de custodia exclusiva/compartida con renta/declaración por encima de los límites, un caso donde otro hijo conserva mínimo, cuatro controles en los límites inclusivos, ausencia de alimentos propios y alimentos de otro titular. `rojo.log` conserva cinco fallos y 24 controles correctos del archivo completo. Son rojos del contrato de exclusión elegido, no expectativas de cuota legal.
+
+Después del cambio, `verde.log` registra 57 pruebas familiares correctas entre dos archivos. Tipos principal/vendor y lint global pasan en `tipos.log` y `lint.log`. No se modifican las dos caracterizaciones históricas Success del revisor; describen su base anterior, y no se convierten retrospectivamente en pruebas fiscales verdes de la exclusión nueva.
+
+Se consultaron las guías Effect de errores/pruebas y se conserva el rechazo tipado existente. Las comprobaciones pesadas usan `flock /tmp/irobopf-validacion-pesada.lock`, un trabajador. Reproducción del pase focalizado: `nix shell nixpkgs#bun nixpkgs#nodejs -c bunx vitest run tests/minimos-derechos-integracion.test.ts tests/minimos-derechos.test.ts --maxWorkers=1`. No se ejecuta Next build ni las suites legacy pesadas.
+
+La regeneración de inventario, contenido y publicación se registra en `generacion.log` y `publicacion.log`; el enlace Madrid usa otra identidad de inventario, con atestación nula. Los snapshots anteriores se preservan. `actualizar-enlace.mjs` comprueba que la identidad de fuente, tabla, valor y unidad de Madrid permanece igual antes de actualizar el manifiesto. `publicar.mjs` invoca el coordinador real; su entrada y resultado quedan fijados aquí. Ningún binding obtiene aceptación por este cambio.
+
+Queda pendiente una revisión independiente nueva de la exclusión y sus controles. El encargo general sigue abierto. Sin aceptación fiscal completa, LFS, gasto, transferencia externa, PR, despliegue ni limpieza. Crossa conserva su paquete v1 histórico desfasado; los nuevos originales deben incorporarse a una futura ampliación local.
+
+El pase final de rastro/publicación obtiene 13 pruebas correctas, con coordinador real. V1 `522677b42b24d885d415be2cf649c4e8dc38c28611bc5e27f5e4af0686e40396` y v2 `259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608`; 52.461 ocurrencias y 715 objetos de publicación, sin aceptación fiscal. También pasan ESLint y oxlint de los dos scripts de reproducción nuevos.
+
+Corrección de metadatos local: la selección `root-file` aplicada antes al directorio de recepción no retiraba sus descendientes. Se usa `root-glob:".cache/orquestador-recepcion/**"` para quitar únicamente su seguimiento provisional; lista versionada resultante vacía y 742 archivos físicos conservados. Ninguno estaba en los commits respaldados. Los commits de entrega siguen seleccionando archivos individuales con `root-file` literal y cotejo posterior de bytes. No se borró el paquete ni se limpió ningún worktree.

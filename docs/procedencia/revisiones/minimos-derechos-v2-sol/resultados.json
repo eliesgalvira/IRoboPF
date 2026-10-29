@@ -1,0 +1,64 @@
+{
+  "pruebas": [
+    "",
+    "",
+    "exit=0"
+  ],
+  "pruebas-final": [
+    "   Duration  1.44s (transform 396ms, setup 0ms, import 945ms, tests 206ms, environment 0ms)",
+    "",
+    "exit=0"
+  ],
+  "existing": [
+    "",
+    "",
+    "exit=1"
+  ],
+  "existing-final": [
+    "   Duration  89.41s (transform 571ms, setup 0ms, import 2.28s, tests 86.61s, environment 0ms)",
+    "",
+    "exit=0"
+  ],
+  "tipos": [
+    "node_modules/.bin/tsc --noEmit --incremental false",
+    "",
+    "exit=0"
+  ],
+  "tipos-vendor": [
+    "node_modules/.bin/tsc --noEmit -p tools/oxlint/tsconfig.json --incremental false",
+    "",
+    "exit=0"
+  ],
+  "tipos-propios": [
+    "../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v2-sol/casos.test.ts(37,6): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)",
+    "",
+    "exit=2"
+  ],
+  "tipos-propios-final": [
+    "exit=0"
+  ],
+  "lint": [
+    "$ eslint .",
+    "",
+    "exit=0"
+  ],
+  "lint-propios": [
+    "oxlint=0",
+    "eslint=0"
+  ],
+  "lint-propios-final": [
+    "oxlint=0",
+    "eslint=0"
+  ],
+  "anti-slop": [
+    "16 reglas a error; ambos plugins cargan y rechazan el fixture.",
+    "",
+    "exit=0"
+  ],
+  "extraccion-completa": [
+    "extraccion-completa=0"
+  ],
+  "adquisicionExit": 0,
+  "legacyPesado": "no ejecutado",
+  "buildServidorPreview": "no ejecutado"
+}

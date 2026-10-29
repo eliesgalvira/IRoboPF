@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 17:35 CET
+## Situación más reciente, 29 de octubre, 18:31 CET
+
+Recibida y cotejada la revisión independiente de Sol sobre derechos familiares: MDV1-01/02/03 y separación de fechas comprobados en su alcance. La reserva nueva MDV2-P01 no demuestra una cuota errónea: falta resolver el tratamiento del custodio pagador que pierde el mínimo por otras condiciones. Se excluye expresamente ese cruce de la liquidación anual, sin atribuirle una especialidad ni cambiar cuantías. Cinco rojos contractuales conservados; pasan 57 pruebas familiares, 13 de rastro/publicación, lint y tipos principal/vendor. Informe: `correcciones/alimentos-sin-minimo-r18/INFORME.md`. Queda pendiente revisión nueva de esta exclusión; la cuestión jurídica sigue abierta.
+
+Inventario regenerado: **52.461 ocurrencias**, 29.595 unidades pendientes y 65 puntos de rastro. Manifiesto `30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7`; artefacto `59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7`. Snapshot v1 `522677b42b24d885d415be2cf649c4e8dc38c28611bc5e27f5e4af0686e40396`; v2 `259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608`, 715 objetos. Payload Madrid `e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258`, binding pendiente y aceptación completa false. Los históricos y atestaciones anteriores se conservan sin migración.
+
+Las otras tres tareas Sol de ronda 17 continúan: retenciones antiguas en dos períodos e integración técnica. La matriz recibida de cobertura documenta que las fichas siguen careciendo de derivación sustantiva completa. El siguiente lote preparará explicaciones españolas por concepto y correspondencias exactas, con revisión posterior, sin rediseño ni aceptación por plantilla. Todos los hijos nuevos mantienen gpt-6.1-sol high con prioridad.
+
+No se afirma cierre fiscal ni se inicia limpieza final. Sin LFS, gasto o transferencia externa; Crossa conserva v1 histórico desfasado. La nueva fuente de anualidades de la revisión queda preservada en la raíz y pendiente de la futura ampliación del paquete local.
+
+## Situación anterior, 29 de octubre, 17:35 CET
 
 Aplicada la corrección urgente de Elies: Astra solo orquesta; todos los hijos nuevos serán **gpt-6.1-sol high**, con modelo y esfuerzo explícitos. La revisión familiar de ronda 16 era la única ejecución Astra activa; se canceló y se conservaron sus avances. Las otras seis tareas ya habían terminado: recogidas por manifiesto y preservadas fuera de T3 en `.cache/orquestador-recepcion/cambio-modelo-20261029/`. No queda ningún hijo Astra activo ni se le enviará más trabajo.
 

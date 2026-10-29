@@ -1,5 +1,6 @@
 import {
   calcularDerechosMinimos,
+  hayAlimentosPropiosSinMinimo,
   validarDerechosMinimos,
   validarRentasAnualesDerechos,
 } from "../minimos/derechos"
@@ -194,20 +195,11 @@ const construirLiquidarIrpfAnual = (
         Effect.mapError(errorDerechosMinimos)
       )
       const familiar = caso.situacionFamiliar
-      if (
-        derechos.descendientes.some((d) =>
-          d.titulares.some(
-            (t) =>
-              t.titularId === derechos.contribuyenteId &&
-              t.alimentosJudiciales &&
-              t.custodia === "sin-custodia"
-          )
-        )
-      )
+      if (hayAlimentosPropiosSinMinimo(derechos))
         return yield* Effect.fail(
           errorDerechosMinimos({
             motivo:
-              "El contribuyente necesita resolver la especialidad de alimentos judiciales, fuera del alcance anual actual",
+              "El tratamiento de alimentos propios sin derecho al mínimo está pendiente y queda fuera del alcance anual actual",
           })
         )
       if (
