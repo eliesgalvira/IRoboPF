@@ -84,7 +84,7 @@ Contrarrevisión recibida: 14 hallazgos de capacidad aceptables dentro del alcan
 
 ## Recepción documental y contrarrevisión
 
-Diez ámbitos adicionales entregan 736 registros candidatos, con solapamientos: arquitectura, escalas estatales/ahorro, autonómicas 2012–2016 y 2022–2026, retenciones 2012–2019, capital/ganancias, los dos grupos de deducciones, IPC/redondeos y actividades económicas 2025. No son 736 errores ni reglas aceptadas. Sus informes y matrices conservan expresamente las lagunas normativas y de ejecución. Se preparan diez revisiones independientes nuevas, una por ámbito, con respuesta individual por identificador.
+Diez ámbitos adicionales entregan 736 registros candidatos, con solapamientos: arquitectura, escalas estatales/ahorro, autonómicas 2012–2016 y 2022–2026, retenciones 2012–2019, capital/ganancias, los dos grupos de deducciones, IPC/redondeos y actividades económicas 2025. No son 736 errores ni reglas aceptadas. Sus informes y matrices conservan expresamente las lagunas normativas y de ejecución. Hay diez revisiones independientes nuevas en marcha, una por ámbito, con respuesta individual por identificador; registro en `delegaciones-ronda3.json`.
 
 Recepción del orquestador en `recepciones-ronda3.json`: JSON parseables, hashes y tamaños contrastados contra los archivos locales de cada referencia; seis campos de cabeceras de sesión omitidos en arquitectura y autonómicas 2022–2026. Ningún original documental referenciado falló la comprobación. Sí cambió `app/layout.tsx` respecto de la instantánea arquitectónica, por la integración de lint: se conserva la instantánea y se exige revisión del código actual, sin alterar el hash histórico para ocultar la diferencia. Este control no verifica firmas, semántica ni coordenadas.
 
@@ -104,7 +104,7 @@ La revisión de autonómicas 2017–2021 cubre los 95 IDs y 582 filas con extrac
 
 `AUT1721-RASTRO-ANIO`: sustituida la explicación fija «2025» por el ejercicio seleccionado. Una prueba con 2020 falló antes del cambio. No se ha confundido el texto incorrecto con una selección global de tabla equivocada.
 
-Después de ambos cambios: 80 pruebas de comunidades y liquidación correctas; lint global correcto. Informe y registro reproducible en `correcciones/madrid-2020.md`. Sigue pendiente el enlace a snapshot, cita y facsímil definitivos del nuevo corpus.
+Después de ambos cambios: 80 pruebas de comunidades y liquidación correctas; lint global y typecheck correctos. Informe y registro reproducible en `correcciones/madrid-2020.md`. Sigue pendiente el enlace a snapshot, cita y facsímil definitivos del nuevo corpus. Corrección respaldada en origin en `fe876680`; recepción documental anterior en `4109c4fe`.
 
 ## Bootstrap anti-slop completado
 
