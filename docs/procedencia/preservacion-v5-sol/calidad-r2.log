@@ -1,0 +1,15 @@
+3 files reformatted
+F401 [*] `pathlib.Path` imported but unused
+ --> docs/procedencia/preservacion-v5-sol/recolector2.py:6:21
+  |
+4 | import hashlib
+5 | import json
+6 | from pathlib import Path
+  |                     ^^^^
+7 | import subprocess
+8 | import consumidor as c
+  |
+help: Remove unused import: `pathlib.Path`
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

@@ -1,0 +1,1989 @@
+{
+  "base": "0a0200e6a9c18d6f9bd3860006419c01ab776d9a",
+  "sourceCodeBase": "07c07e6376a72f229be735a904ecf36517a1b571",
+  "artifacts": [
+    {
+      "file": "escalas.candidato.json.gz",
+      "sha256": "d5047b808002fc095bd780851890938223eb843e5af628f1fe9dea28e9a68f93",
+      "size": 36594,
+      "contentSha256": "117d17f4c22d2e5dbebe5c946ed205efa2003baf939a036197e79ec880e67eb7",
+      "from": {
+        "path": "docs/procedencia/editorial/flujo-escalas-r23-sol/grafo.json.gz",
+        "sha256": "919cfa143a61ae7a929c643d4d77cdf1e38198453c3e0611c730e127e3b3ed37"
+      }
+    },
+    {
+      "file": "rentas.candidato.json.gz",
+      "sha256": "506baf35f1e78d0ef43b46242590a7928e0942f6f265ec13b71cd3be53977122",
+      "size": 87337,
+      "contentSha256": "0bed2bf443ec08dc9736c50f1baff9933d070e67793d6e2e092f034a33a6f07a",
+      "from": {
+        "path": "docs/procedencia/editorial/flujo-rentas-actividad-r23-sol/grafo.json",
+        "sha256": "3bc0d737f29f082868040c60ed9a723dc9b63554fa5fd5c222b51cc1e46a842b"
+      }
+    },
+    {
+      "file": "instancias.candidato.json.gz",
+      "sha256": "57938f253450650fd1c8e4b8ab8fe72cf4e790dd4052a0e38f631a59c7178932",
+      "size": 3119,
+      "contentSha256": "1883c155869ddb369491ffe9c0c8c02cc9ed34ade15f25f74143b454f945e6fc",
+      "from": {
+        "path": "docs/procedencia/editorial/flujo-rentas-actividad-r23-sol/instancias.json",
+        "sha256": "092c71c786bff92c33b7654f5874ad99529c906e10764ec928fea91eccc849c5"
+      }
+    },
+    {
+      "file": "ss.candidato.json.gz",
+      "sha256": "1161caa2bb21e8ff822504061969de7f41e793bbd6dd0a4b4cef4e026f5780d4",
+      "size": 44851,
+      "contentSha256": "34bdc86a9fc01863c60ad8697256f0d9ff8545854b2bd7edc477c139fa307cae",
+      "from": {
+        "path": "docs/procedencia/editorial/flujo-retenciones-ss-r23-sol/grafo.json",
+        "sha256": "a36727039b5b4f3b1e8367ea612ef2918f34afe40e139a5fb6612232331cb4bb"
+      }
+    }
+  ],
+  "changes": [
+    {
+      "group": "rentas.argument4",
+      "index": 0,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8274,
+        "end": 8279,
+        "offsetEncoding": "utf16",
+        "text": "cuota",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 10064,
+        "end": 10069,
+        "offsetEncoding": "utf16",
+        "text": "cuota",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "rentas.argument4",
+      "index": 4,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 10861,
+        "end": 10877,
+        "offsetEncoding": "utf16",
+        "text": "new D(r.importe)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12637,
+        "end": 12653,
+        "offsetEncoding": "utf16",
+        "text": "new D(r.importe)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "rentas.argument4",
+      "index": 8,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8437,
+        "end": 8449,
+        "offsetEncoding": "utf16",
+        "text": "amortizacion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 13288,
+        "end": 13300,
+        "offsetEncoding": "utf16",
+        "text": "amortizacion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "rentas.argument4",
+      "index": 12,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14551,
+        "end": 14560,
+        "offsetEncoding": "utf16",
+        "text": "adicional",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15032,
+        "end": 15041,
+        "offsetEncoding": "utf16",
+        "text": "adicional",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "rentas.argument4",
+      "index": 13,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14682,
+        "end": 14692,
+        "offsetEncoding": "utf16",
+        "text": "incremento",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15177,
+        "end": 15187,
+        "offsetEncoding": "utf16",
+        "text": "incremento",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "rentas.argument4",
+      "index": 14,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1040,
+        "end": 1049,
+        "offsetEncoding": "utf16",
+        "text": "reduccion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15573,
+        "end": 15582,
+        "offsetEncoding": "utf16",
+        "text": "reduccion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "instancias.argument4",
+      "index": 0,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8274,
+        "end": 8279,
+        "offsetEncoding": "utf16",
+        "text": "cuota",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 10064,
+        "end": 10069,
+        "offsetEncoding": "utf16",
+        "text": "cuota",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "instancias.argument4",
+      "index": 4,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 10861,
+        "end": 10877,
+        "offsetEncoding": "utf16",
+        "text": "new D(r.importe)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12637,
+        "end": 12653,
+        "offsetEncoding": "utf16",
+        "text": "new D(r.importe)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "instancias.argument4",
+      "index": 8,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8437,
+        "end": 8449,
+        "offsetEncoding": "utf16",
+        "text": "amortizacion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 13288,
+        "end": 13300,
+        "offsetEncoding": "utf16",
+        "text": "amortizacion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "instancias.argument4",
+      "index": 12,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14551,
+        "end": 14560,
+        "offsetEncoding": "utf16",
+        "text": "adicional",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15032,
+        "end": 15041,
+        "offsetEncoding": "utf16",
+        "text": "adicional",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "instancias.argument4",
+      "index": 13,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14682,
+        "end": 14692,
+        "offsetEncoding": "utf16",
+        "text": "incremento",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15177,
+        "end": 15187,
+        "offsetEncoding": "utf16",
+        "text": "incremento",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "instancias.argument4",
+      "index": 14,
+      "finding": "FA25-01",
+      "before": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1040,
+        "end": 1049,
+        "offsetEncoding": "utf16",
+        "text": "reduccion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "after": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15573,
+        "end": 15582,
+        "offsetEncoding": "utf16",
+        "text": "reduccion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 40,
+      "finding": "R26-02",
+      "before": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralEstatal.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "cuotaIntegraGeneralEstatal",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaEstatalGeneral",
+          "escalasPublicadasEstatales"
+        ],
+        "role": "value",
+        "formula": "Base = BG; F o desglose del componente estatal. Real usa publicadas si presentes, si no integrada. Simulada usa conjunta legacy para estatal y cero/[] para autonómico.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "cuotaIntegraGeneralEstatal",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 18114,
+            "end": 18449
+          },
+          "expression": "cuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal\n    ? calcularCuotaPorEscala({\n        base: baseLiquidableGeneral,\n        tramos: tramosIrpfEstatalGeneral,\n        escalasPublicadas: escalasPublicadasEstatales,\n      })\n    : calcularCuotaPorEscalaGeneral({\n        anio: caso.anio,\n        base: baseLiquidableGeneral,\n      })",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralEstatal.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "cuotaIntegraGeneralEstatal",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaEstatalGeneral",
+          "escalasPublicadasEstatales"
+        ],
+        "role": "value",
+        "formula": "Base = BG; componente estatal. Con usaEscalaAutonomicaReal true usa su tarifa/desglose por componente, publicada si existe o integrada; con false usa tarifa o desglose general conjunto legacy. En simulada-estatal 2012–2015 el flag escalaAutonomicaIgualEstatal es false: se evalúan dos componentes.",
+        "condition": "usaEscalaAutonomicaReal = !parametrosComunidad.escalaAutonomicaIgualEstatal; no se infiere la rama únicamente del nombre del territorio.",
+        "evidence": {
+          "symbol": "cuotaIntegraGeneralEstatal",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 18114,
+            "end": 18449
+          },
+          "expression": "cuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal\n    ? calcularCuotaPorEscala({\n        base: baseLiquidableGeneral,\n        tramos: tramosIrpfEstatalGeneral,\n        escalasPublicadas: escalasPublicadasEstatales,\n      })\n    : calcularCuotaPorEscalaGeneral({\n        anio: caso.anio,\n        base: baseLiquidableGeneral,\n      })",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 41,
+      "finding": "R26-02",
+      "before": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralAutonomica.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "cuotaIntegraGeneralAutonomica",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaAutonomica.tramos",
+          "escalasPublicadasAutonomicas"
+        ],
+        "role": "value",
+        "formula": "Base = BG; F o desglose del componente autonomico. Real usa publicadas si presentes, si no integrada. Simulada usa conjunta legacy para estatal y cero/[] para autonómico.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "cuotaIntegraGeneralAutonomica",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 18458,
+            "end": 18743
+          },
+          "expression": "cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal\n    ? calcularCuotaPorEscala({\n        base: baseLiquidableGeneral,\n        tramos: parametrosComunidad.escalaAutonomica.tramos,\n        escalasPublicadas: escalasPublicadasAutonomicas,\n      })\n    : baseLiquidableGeneral.mul(0)",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralAutonomica.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "cuotaIntegraGeneralAutonomica",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaAutonomica.tramos",
+          "escalasPublicadasAutonomicas"
+        ],
+        "role": "value",
+        "formula": "Base = BG; componente autonómico. Con usaEscalaAutonomicaReal true usa su tarifa/desglose por componente, publicada si existe o integrada; con false usa cero. En simulada-estatal 2012–2015 el flag escalaAutonomicaIgualEstatal es false: se evalúan dos componentes.",
+        "condition": "usaEscalaAutonomicaReal = !parametrosComunidad.escalaAutonomicaIgualEstatal; no se infiere la rama únicamente del nombre del territorio.",
+        "evidence": {
+          "symbol": "cuotaIntegraGeneralAutonomica",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 18458,
+            "end": 18743
+          },
+          "expression": "cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal\n    ? calcularCuotaPorEscala({\n        base: baseLiquidableGeneral,\n        tramos: parametrosComunidad.escalaAutonomica.tramos,\n        escalasPublicadas: escalasPublicadasAutonomicas,\n      })\n    : baseLiquidableGeneral.mul(0)",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 42,
+      "finding": "R26-02",
+      "before": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralEstatal.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "desgloseCuotaIntegraGeneralEstatal",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaEstatalGeneral",
+          "escalasPublicadasEstatales"
+        ],
+        "role": "value",
+        "formula": "Base = BG; F o desglose del componente estatal. Real usa publicadas si presentes, si no integrada. Simulada usa conjunta legacy para estatal y cero/[] para autonómico.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "desgloseCuotaIntegraGeneralEstatal",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 18971,
+            "end": 19330
+          },
+          "expression": "desgloseCuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal\n    ? calcularDesgloseCuotaPorEscala({\n        base: baseLiquidableGeneral,\n        tramos: tramosIrpfEstatalGeneral,\n        escalasPublicadas: escalasPublicadasEstatales,\n      })\n    : calcularDesgloseCuotaPorEscalaGeneral({\n        anio: caso.anio,\n        base: baseLiquidableGeneral,\n      })",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralEstatal.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "desgloseCuotaIntegraGeneralEstatal",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaEstatalGeneral",
+          "escalasPublicadasEstatales"
+        ],
+        "role": "value",
+        "formula": "Base = BG; componente estatal. Con usaEscalaAutonomicaReal true usa su tarifa/desglose por componente, publicada si existe o integrada; con false usa tarifa o desglose general conjunto legacy. En simulada-estatal 2012–2015 el flag escalaAutonomicaIgualEstatal es false: se evalúan dos componentes.",
+        "condition": "usaEscalaAutonomicaReal = !parametrosComunidad.escalaAutonomicaIgualEstatal; no se infiere la rama únicamente del nombre del territorio.",
+        "evidence": {
+          "symbol": "desgloseCuotaIntegraGeneralEstatal",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 18971,
+            "end": 19330
+          },
+          "expression": "desgloseCuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal\n    ? calcularDesgloseCuotaPorEscala({\n        base: baseLiquidableGeneral,\n        tramos: tramosIrpfEstatalGeneral,\n        escalasPublicadas: escalasPublicadasEstatales,\n      })\n    : calcularDesgloseCuotaPorEscalaGeneral({\n        anio: caso.anio,\n        base: baseLiquidableGeneral,\n      })",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 43,
+      "finding": "R26-02",
+      "before": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralAutonomica.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "desgloseCuotaIntegraGeneralAutonomica",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaAutonomica.tramos",
+          "escalasPublicadasAutonomicas"
+        ],
+        "role": "value",
+        "formula": "Base = BG; F o desglose del componente autonomico. Real usa publicadas si presentes, si no integrada. Simulada usa conjunta legacy para estatal y cero/[] para autonómico.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "desgloseCuotaIntegraGeneralAutonomica",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 19339,
+            "end": 19614
+          },
+          "expression": "desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal\n    ? calcularDesgloseCuotaPorEscala({\n        base: baseLiquidableGeneral,\n        tramos: parametrosComunidad.escalaAutonomica.tramos,\n        escalasPublicadas: escalasPublicadasAutonomicas,\n      })\n    : []",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralAutonomica.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "desgloseCuotaIntegraGeneralAutonomica",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaAutonomica.tramos",
+          "escalasPublicadasAutonomicas"
+        ],
+        "role": "value",
+        "formula": "Base = BG; componente autonómico. Con usaEscalaAutonomicaReal true usa su tarifa/desglose por componente, publicada si existe o integrada; con false usa array vacío. En simulada-estatal 2012–2015 el flag escalaAutonomicaIgualEstatal es false: se evalúan dos componentes.",
+        "condition": "usaEscalaAutonomicaReal = !parametrosComunidad.escalaAutonomicaIgualEstatal; no se infiere la rama únicamente del nombre del territorio.",
+        "evidence": {
+          "symbol": "desgloseCuotaIntegraGeneralAutonomica",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 19339,
+            "end": 19614
+          },
+          "expression": "desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal\n    ? calcularDesgloseCuotaPorEscala({\n        base: baseLiquidableGeneral,\n        tramos: parametrosComunidad.escalaAutonomica.tramos,\n        escalasPublicadas: escalasPublicadasAutonomicas,\n      })\n    : []",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 44,
+      "finding": "R26-02",
+      "before": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalEstatal.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "cuotaMinimoPersonalEstatal",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaEstatalGeneral",
+          "escalasPublicadasEstatales",
+          "minimoPersonalYFamiliar"
+        ],
+        "role": "value",
+        "formula": "Base = min(minimoPersonalYFamiliar,BG); F o desglose del componente estatal. Real usa publicadas si presentes, si no integrada. Simulada usa conjunta legacy para estatal y cero/[] para autonómico.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "cuotaMinimoPersonalEstatal",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 22143,
+            "end": 22554
+          },
+          "expression": "cuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal\n    ? calcularCuotaPorEscala({\n        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),\n        tramos: tramosIrpfEstatalGeneral,\n        escalasPublicadas: escalasPublicadasEstatales,\n      })\n    : calcularCuotaPorEscalaGeneral({\n        anio: caso.anio,\n        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),\n      })",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalEstatal.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "cuotaMinimoPersonalEstatal",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaEstatalGeneral",
+          "escalasPublicadasEstatales",
+          "minimoPersonalYFamiliar"
+        ],
+        "role": "value",
+        "formula": "Base = min(minimoPersonalYFamiliar,BG); componente estatal. Con usaEscalaAutonomicaReal true usa su tarifa/desglose por componente, publicada si existe o integrada; con false usa tarifa o desglose general conjunto legacy. En simulada-estatal 2012–2015 el flag escalaAutonomicaIgualEstatal es false: se evalúan dos componentes.",
+        "condition": "usaEscalaAutonomicaReal = !parametrosComunidad.escalaAutonomicaIgualEstatal; no se infiere la rama únicamente del nombre del territorio.",
+        "evidence": {
+          "symbol": "cuotaMinimoPersonalEstatal",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 22143,
+            "end": 22554
+          },
+          "expression": "cuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal\n    ? calcularCuotaPorEscala({\n        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),\n        tramos: tramosIrpfEstatalGeneral,\n        escalasPublicadas: escalasPublicadasEstatales,\n      })\n    : calcularCuotaPorEscalaGeneral({\n        anio: caso.anio,\n        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),\n      })",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 45,
+      "finding": "R26-02",
+      "before": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalAutonomica.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "cuotaMinimoPersonalAutonomica",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaAutonomica.tramos",
+          "escalasPublicadasAutonomicas",
+          "minimoPersonalYFamiliarAutonomico"
+        ],
+        "role": "value",
+        "formula": "Base = min(minimoPersonalYFamiliarAutonomico,BG); F o desglose del componente autonomico. Real usa publicadas si presentes, si no integrada. Simulada usa conjunta legacy para estatal y cero/[] para autonómico.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "cuotaMinimoPersonalAutonomica",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 22563,
+            "end": 22928
+          },
+          "expression": "cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal\n    ? calcularCuotaPorEscala({\n        base: Decimal.min(\n          minimoPersonalYFamiliarAutonomico,\n          baseLiquidableGeneral\n        ),\n        tramos: parametrosComunidad.escalaAutonomica.tramos,\n        escalasPublicadas: escalasPublicadasAutonomicas,\n      })\n    : minimoPersonalYFamiliar.mul(0)",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalAutonomica.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "cuotaMinimoPersonalAutonomica",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaAutonomica.tramos",
+          "escalasPublicadasAutonomicas",
+          "minimoPersonalYFamiliarAutonomico"
+        ],
+        "role": "value",
+        "formula": "Base = min(minimoPersonalYFamiliarAutonomico,BG); componente autonómico. Con usaEscalaAutonomicaReal true usa su tarifa/desglose por componente, publicada si existe o integrada; con false usa cero. En simulada-estatal 2012–2015 el flag escalaAutonomicaIgualEstatal es false: se evalúan dos componentes.",
+        "condition": "usaEscalaAutonomicaReal = !parametrosComunidad.escalaAutonomicaIgualEstatal; no se infiere la rama únicamente del nombre del territorio.",
+        "evidence": {
+          "symbol": "cuotaMinimoPersonalAutonomica",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 22563,
+            "end": 22928
+          },
+          "expression": "cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal\n    ? calcularCuotaPorEscala({\n        base: Decimal.min(\n          minimoPersonalYFamiliarAutonomico,\n          baseLiquidableGeneral\n        ),\n        tramos: parametrosComunidad.escalaAutonomica.tramos,\n        escalasPublicadas: escalasPublicadasAutonomicas,\n      })\n    : minimoPersonalYFamiliar.mul(0)",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 46,
+      "finding": "R26-02",
+      "before": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalEstatal.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "desgloseCuotaMinimoPersonalEstatal",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaEstatalGeneral",
+          "escalasPublicadasEstatales",
+          "minimoPersonalYFamiliar"
+        ],
+        "role": "value",
+        "formula": "Base = min(minimoPersonalYFamiliar,BG); F o desglose del componente estatal. Real usa publicadas si presentes, si no integrada. Simulada usa conjunta legacy para estatal y cero/[] para autonómico.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "desgloseCuotaMinimoPersonalEstatal",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 23416,
+            "end": 23851
+          },
+          "expression": "desgloseCuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal\n    ? calcularDesgloseCuotaPorEscala({\n        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),\n        tramos: tramosIrpfEstatalGeneral,\n        escalasPublicadas: escalasPublicadasEstatales,\n      })\n    : calcularDesgloseCuotaPorEscalaGeneral({\n        anio: caso.anio,\n        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),\n      })",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalEstatal.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "desgloseCuotaMinimoPersonalEstatal",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaEstatalGeneral",
+          "escalasPublicadasEstatales",
+          "minimoPersonalYFamiliar"
+        ],
+        "role": "value",
+        "formula": "Base = min(minimoPersonalYFamiliar,BG); componente estatal. Con usaEscalaAutonomicaReal true usa su tarifa/desglose por componente, publicada si existe o integrada; con false usa tarifa o desglose general conjunto legacy. En simulada-estatal 2012–2015 el flag escalaAutonomicaIgualEstatal es false: se evalúan dos componentes.",
+        "condition": "usaEscalaAutonomicaReal = !parametrosComunidad.escalaAutonomicaIgualEstatal; no se infiere la rama únicamente del nombre del territorio.",
+        "evidence": {
+          "symbol": "desgloseCuotaMinimoPersonalEstatal",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 23416,
+            "end": 23851
+          },
+          "expression": "desgloseCuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal\n    ? calcularDesgloseCuotaPorEscala({\n        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),\n        tramos: tramosIrpfEstatalGeneral,\n        escalasPublicadas: escalasPublicadasEstatales,\n      })\n    : calcularDesgloseCuotaPorEscalaGeneral({\n        anio: caso.anio,\n        base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),\n      })",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 47,
+      "finding": "R26-02",
+      "before": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalAutonomica.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "desgloseCuotaMinimoPersonalAutonomica",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaAutonomica.tramos",
+          "escalasPublicadasAutonomicas",
+          "minimoPersonalYFamiliarAutonomico"
+        ],
+        "role": "value",
+        "formula": "Base = min(minimoPersonalYFamiliarAutonomico,BG); F o desglose del componente autonomico. Real usa publicadas si presentes, si no integrada. Simulada usa conjunta legacy para estatal y cero/[] para autonómico.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "desgloseCuotaMinimoPersonalAutonomica",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 23860,
+            "end": 24213
+          },
+          "expression": "desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal\n    ? calcularDesgloseCuotaPorEscala({\n        base: Decimal.min(\n          minimoPersonalYFamiliarAutonomico,\n          baseLiquidableGeneral\n        ),\n        tramos: parametrosComunidad.escalaAutonomica.tramos,\n        escalasPublicadas: escalasPublicadasAutonomicas,\n      })\n    : []",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalAutonomica.value",
+        "output": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "symbol": "desgloseCuotaMinimoPersonalAutonomica",
+          "property": "value"
+        },
+        "inputs": [
+          "baseLiquidableGeneral",
+          "usaEscalaAutonomicaReal",
+          "parametrosComunidad.escalaAutonomica.tramos",
+          "escalasPublicadasAutonomicas",
+          "minimoPersonalYFamiliarAutonomico"
+        ],
+        "role": "value",
+        "formula": "Base = min(minimoPersonalYFamiliarAutonomico,BG); componente autonómico. Con usaEscalaAutonomicaReal true usa su tarifa/desglose por componente, publicada si existe o integrada; con false usa array vacío. En simulada-estatal 2012–2015 el flag escalaAutonomicaIgualEstatal es false: se evalúan dos componentes.",
+        "condition": "usaEscalaAutonomicaReal = !parametrosComunidad.escalaAutonomicaIgualEstatal; no se infiere la rama únicamente del nombre del territorio.",
+        "evidence": {
+          "symbol": "desgloseCuotaMinimoPersonalAutonomica",
+          "source": {
+            "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+            "offsetEncoding": "utf16",
+            "start": 23860,
+            "end": 24213
+          },
+          "expression": "desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal\n    ? calcularDesgloseCuotaPorEscala({\n        base: Decimal.min(\n          minimoPersonalYFamiliarAutonomico,\n          baseLiquidableGeneral\n        ),\n        tramos: parametrosComunidad.escalaAutonomica.tramos,\n        escalasPublicadas: escalasPublicadasAutonomicas,\n      })\n    : []",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 77,
+      "finding": "R26-01",
+      "before": {
+        "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2012.escalaAutonomicaIgualEstatal",
+        "output": {
+          "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "symbol": "resolverParametrosComunidadAutonoma2012",
+          "property": "escalaAutonomicaIgualEstatal"
+        },
+        "inputs": [
+          "comunidadAutonoma"
+        ],
+        "role": "selection",
+        "formula": "false hasta2015; desde2016 comunidad===simulada-estatal. Es esta propiedad la que decide conjunta legacy frente a dos componentes.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "resolverParametrosComunidadAutonoma2012",
+          "source": {
+            "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+            "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+            "offsetEncoding": "utf16",
+            "start": 5308,
+            "end": 5932
+          },
+          "expression": "resolverParametrosComunidadAutonoma2012 = (\n  comunidadAutonoma: ComunidadAutonoma\n): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2012(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2012,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2012,\n    escalaAutonomicaIgualEstatal: false,\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2012,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2012(comunidadAutonoma),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2012.escalaAutonomicaIgualEstatal",
+        "output": {
+          "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "symbol": "resolverParametrosComunidadAutonoma2012",
+          "property": "escalaAutonomicaIgualEstatal"
+        },
+        "inputs": [],
+        "role": "value",
+        "formula": "Literal false de esta propiedad en este ejercicio; no depende de comunidadAutonoma ni de otros campos del objeto devuelto.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "resolverParametrosComunidadAutonoma2012",
+          "source": {
+            "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+            "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+            "offsetEncoding": "utf16",
+            "start": 5308,
+            "end": 5932
+          },
+          "expression": "resolverParametrosComunidadAutonoma2012 = (\n  comunidadAutonoma: ComunidadAutonoma\n): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2012(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2012,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2012,\n    escalaAutonomicaIgualEstatal: false,\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2012,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2012(comunidadAutonoma),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 85,
+      "finding": "R26-01",
+      "before": {
+        "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2013.escalaAutonomicaIgualEstatal",
+        "output": {
+          "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "symbol": "resolverParametrosComunidadAutonoma2013",
+          "property": "escalaAutonomicaIgualEstatal"
+        },
+        "inputs": [
+          "comunidadAutonoma"
+        ],
+        "role": "selection",
+        "formula": "false hasta2015; desde2016 comunidad===simulada-estatal. Es esta propiedad la que decide conjunta legacy frente a dos componentes.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "resolverParametrosComunidadAutonoma2013",
+          "source": {
+            "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+            "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+            "offsetEncoding": "utf16",
+            "start": 5940,
+            "end": 6564
+          },
+          "expression": "resolverParametrosComunidadAutonoma2013 = (\n  comunidadAutonoma: ComunidadAutonoma\n): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2013(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2013,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2013,\n    escalaAutonomicaIgualEstatal: false,\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2013,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2013(comunidadAutonoma),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2013.escalaAutonomicaIgualEstatal",
+        "output": {
+          "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "symbol": "resolverParametrosComunidadAutonoma2013",
+          "property": "escalaAutonomicaIgualEstatal"
+        },
+        "inputs": [],
+        "role": "value",
+        "formula": "Literal false de esta propiedad en este ejercicio; no depende de comunidadAutonoma ni de otros campos del objeto devuelto.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "resolverParametrosComunidadAutonoma2013",
+          "source": {
+            "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+            "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+            "offsetEncoding": "utf16",
+            "start": 5940,
+            "end": 6564
+          },
+          "expression": "resolverParametrosComunidadAutonoma2013 = (\n  comunidadAutonoma: ComunidadAutonoma\n): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2013(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2013,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2013,\n    escalaAutonomicaIgualEstatal: false,\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2013,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2013(comunidadAutonoma),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 93,
+      "finding": "R26-01",
+      "before": {
+        "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2014.escalaAutonomicaIgualEstatal",
+        "output": {
+          "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "symbol": "resolverParametrosComunidadAutonoma2014",
+          "property": "escalaAutonomicaIgualEstatal"
+        },
+        "inputs": [
+          "comunidadAutonoma"
+        ],
+        "role": "selection",
+        "formula": "false hasta2015; desde2016 comunidad===simulada-estatal. Es esta propiedad la que decide conjunta legacy frente a dos componentes.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "resolverParametrosComunidadAutonoma2014",
+          "source": {
+            "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+            "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+            "offsetEncoding": "utf16",
+            "start": 6572,
+            "end": 7344
+          },
+          "expression": "resolverParametrosComunidadAutonoma2014 = ({\n  baseLiquidableGeneral,\n  comunidadAutonoma,\n}: Pick<\n  EntradaParametrosComunidadAutonoma,\n  \"baseLiquidableGeneral\" | \"comunidadAutonoma\"\n>): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2014(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2014,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2014,\n    escalaAutonomicaIgualEstatal: false,\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2014,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2014({\n      baseLiquidableGeneral,\n      comunidadAutonoma,\n    }),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2014.escalaAutonomicaIgualEstatal",
+        "output": {
+          "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "symbol": "resolverParametrosComunidadAutonoma2014",
+          "property": "escalaAutonomicaIgualEstatal"
+        },
+        "inputs": [],
+        "role": "value",
+        "formula": "Literal false de esta propiedad en este ejercicio; no depende de comunidadAutonoma ni de otros campos del objeto devuelto.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "resolverParametrosComunidadAutonoma2014",
+          "source": {
+            "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+            "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+            "offsetEncoding": "utf16",
+            "start": 6572,
+            "end": 7344
+          },
+          "expression": "resolverParametrosComunidadAutonoma2014 = ({\n  baseLiquidableGeneral,\n  comunidadAutonoma,\n}: Pick<\n  EntradaParametrosComunidadAutonoma,\n  \"baseLiquidableGeneral\" | \"comunidadAutonoma\"\n>): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2014(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2014,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2014,\n    escalaAutonomicaIgualEstatal: false,\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2014,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2014({\n      baseLiquidableGeneral,\n      comunidadAutonoma,\n    }),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "escalas.edges",
+      "index": 101,
+      "finding": "R26-01",
+      "before": {
+        "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2015.escalaAutonomicaIgualEstatal",
+        "output": {
+          "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "symbol": "resolverParametrosComunidadAutonoma2015",
+          "property": "escalaAutonomicaIgualEstatal"
+        },
+        "inputs": [
+          "comunidadAutonoma"
+        ],
+        "role": "selection",
+        "formula": "false hasta2015; desde2016 comunidad===simulada-estatal. Es esta propiedad la que decide conjunta legacy frente a dos componentes.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "resolverParametrosComunidadAutonoma2015",
+          "source": {
+            "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+            "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+            "offsetEncoding": "utf16",
+            "start": 7352,
+            "end": 8195
+          },
+          "expression": "resolverParametrosComunidadAutonoma2015 = ({\n  baseLiquidableGeneral,\n  comunidadAutonoma,\n  fechaFallecimiento,\n}: Pick<\n  EntradaParametrosComunidadAutonoma,\n  \"baseLiquidableGeneral\" | \"comunidadAutonoma\" | \"fechaFallecimiento\"\n>): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2015(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2015,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2015,\n    escalaAutonomicaIgualEstatal: false,\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2015,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2015({\n      baseLiquidableGeneral,\n      comunidadAutonoma,\n      fechaFallecimiento,\n    }),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "after": {
+        "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2015.escalaAutonomicaIgualEstatal",
+        "output": {
+          "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "symbol": "resolverParametrosComunidadAutonoma2015",
+          "property": "escalaAutonomicaIgualEstatal"
+        },
+        "inputs": [],
+        "role": "value",
+        "formula": "Literal false de esta propiedad en este ejercicio; no depende de comunidadAutonoma ni de otros campos del objeto devuelto.",
+        "condition": "Dentro del dominio del contrato general; ejercicio y territorio del caso.",
+        "evidence": {
+          "symbol": "resolverParametrosComunidadAutonoma2015",
+          "source": {
+            "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+            "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+            "offsetEncoding": "utf16",
+            "start": 7352,
+            "end": 8195
+          },
+          "expression": "resolverParametrosComunidadAutonoma2015 = ({\n  baseLiquidableGeneral,\n  comunidadAutonoma,\n  fechaFallecimiento,\n}: Pick<\n  EntradaParametrosComunidadAutonoma,\n  \"baseLiquidableGeneral\" | \"comunidadAutonoma\" | \"fechaFallecimiento\"\n>): ParametrosComunidadAutonoma => {\n  const minimosAutonomicos =\n    obtenerMinimosAutonomicosIrpf2015(comunidadAutonoma)\n\n  return {\n    _tag: \"ParametrosComunidadAutonoma\",\n    comunidadAutonoma,\n    anio: 2015,\n    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2015,\n    escalaAutonomicaIgualEstatal: false,\n    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2015,\n    escalaAutonomica: obtenerEscalaAutonomicaIrpf2015({\n      baseLiquidableGeneral,\n      comunidadAutonoma,\n      fechaFallecimiento,\n    }),\n    minimosAutonomicos,\n    deduccionesAutonomicasSoportadas: [],\n  }\n}",
+          "rangeKind": "declaration-not-literal"
+        },
+        "review": "pending-independent",
+        "legalAcceptance": false
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "rentas.edges",
+      "index": 201,
+      "finding": "FA25-03",
+      "before": {
+        "from": "primitive.decimal",
+        "to": "money",
+        "kind": "value",
+        "propertyPath": "constructor Decimal y divisor100",
+        "condition": "ejercicio/contexto general admitidos; predicado exacto de la fórmula; valor/selector por propiedad, no módulo compartido",
+        "reason": "constructor Decimal y divisor100",
+        "evidence": {
+          "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+          "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479",
+          "start": 8110,
+          "end": 8539,
+          "offsetEncoding": "utf16",
+          "text": "sumarUnAnioFechaCivilIso = (fechaIso: string): string => {\n  const [year = 0, month = 1, day = 1] = fechaIso.split(\"-\").map(Number)\n  const fecha = DateTime.makeUnsafe({ year: year + 1, month, day })\n  const partes = DateTime.toPartsUtc(fecha)\n  const yyyy = String(partes.year).padStart(4, \"0\")\n  const mm = String(partes.month).padStart(2, \"0\")\n  const dd = String(partes.day).padStart(2, \"0\")\n\n  return `${yyyy}-${mm}-${dd}`\n}",
+          "rangeRole": "declaration; not literal"
+        }
+      },
+      "after": {
+        "from": "primitive.decimal",
+        "to": "money",
+        "kind": "value",
+        "propertyPath": "constructor Decimal y divisor100",
+        "condition": "ejercicio/contexto general admitidos; predicado exacto de la fórmula; valor/selector por propiedad, no módulo compartido",
+        "reason": "constructor Decimal y divisor100",
+        "evidence": {
+          "file": "lib/dominio/dinero/importe-monetario.ts",
+          "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+          "start": 197,
+          "end": 660,
+          "offsetEncoding": "utf16",
+          "text": "crearImporteMonetario = (valor: Decimal.Value): ImporteMonetario =>\n  new Decimal(valor)\n\n// Constantes Decimal compartidas para evitar mezclar literales `number` en\n// acumuladores monetarios y para expresar identidades aritmeticas de dominio.\nexport const IMPORTE_CERO = crearImporteMonetario(0)\nexport const IMPORTE_UNO = crearImporteMonetario(1)\n\nexport const centimosAEuros = (centimos: number): ImporteMonetario =>\n  crearImporteMonetario(centimos).div(100)",
+          "rangeRole": "span de declaraciones crearImporteMonetario a centimosAEuros; no literal individual"
+        }
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "ss.edges",
+      "index": 6,
+      "finding": "RSS26-02",
+      "before": {
+        "from": "entrada:contexto.modo",
+        "to": "A.modo",
+        "property": "return",
+        "relation": "valor",
+        "reason": "canonico ? perfilUniforme({anio:caso.anio,salarioBrutoAnual:rendimientoIntegroTrabajo}) : legacy(mismos argumentos)",
+        "conditions": "Inicial parcial; sin aceptación fiscal",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "start": 9979,
+          "end": 10029,
+          "offsetEncoding": "utf16",
+          "text": "cotizacionesSociales = yield* CotizacionesSociales"
+        }
+      },
+      "after": {
+        "from": "entrada:contexto.modo",
+        "to": "A.modo",
+        "property": "return",
+        "relation": "control-seleccion",
+        "reason": "canonico ? perfilUniforme({anio:caso.anio,salarioBrutoAnual:rendimientoIntegroTrabajo}) : legacy(mismos argumentos)",
+        "conditions": "Inicial parcial; sin aceptación fiscal",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "start": 12683,
+          "end": 13022,
+          "offsetEncoding": "utf16",
+          "text": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )"
+        }
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "ss.edges",
+      "index": 73,
+      "finding": "RSS26-02",
+      "before": {
+        "from": "R.menor3",
+        "to": "R.minHijos",
+        "property": "return",
+        "relation": "valor",
+        "reason": "ordena por edad descendente; suma cuantia(indice)*multiplicador; suma 2800*multiplicador si menor3; redondea separadamente ambas sumas y las suma",
+        "conditions": "Inicial parcial; sin aceptación fiscal",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 10899,
+          "end": 11807,
+          "offsetEncoding": "utf16",
+          "text": "calcularMinimoDescendientes = (\n  descendientes: ReadonlyArray<DescendienteRetencion>\n) => {\n  const descendientesOrdenados = [...descendientes].sort(\n    (a, b) => b.edad - a.edad\n  )\n  const minimoGeneral = descendientesOrdenados.reduce(\n    (total, descendiente, indice) => {\n      const cuantia = cuantiaMinimoDescendiente(indice)\n      const multiplicador = multiplicadorDescendiente(descendiente)\n\n      return total.plus(cuantia.mul(multiplicador))\n    },\n    CERO\n  )\n  const minimoMenoresTres = descendientesOrdenados.reduce(\n    (total, descendiente) =>\n      Match.value(esDescendienteMenorTres(descendiente)).pipe(\n        Match.when(false, () => total),\n        Match.orElse(() =>\n          total.plus(\n            new Decimal(2800).mul(multiplicadorDescendiente(descendiente))\n          )\n        )\n      ),\n    CERO\n  )\n\n  return redondear1(minimoGeneral).plus(redondear1(minimoMenoresTres))\n}"
+        }
+      },
+      "after": {
+        "from": "R.menor3",
+        "to": "R.minHijos",
+        "property": "return",
+        "relation": "control-seleccion",
+        "reason": "ordena por edad descendente; suma cuantia(indice)*multiplicador; suma 2800*multiplicador si menor3; redondea separadamente ambas sumas y las suma",
+        "conditions": "Inicial parcial; sin aceptación fiscal",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 10899,
+          "end": 11807,
+          "offsetEncoding": "utf16",
+          "text": "calcularMinimoDescendientes = (\n  descendientes: ReadonlyArray<DescendienteRetencion>\n) => {\n  const descendientesOrdenados = [...descendientes].sort(\n    (a, b) => b.edad - a.edad\n  )\n  const minimoGeneral = descendientesOrdenados.reduce(\n    (total, descendiente, indice) => {\n      const cuantia = cuantiaMinimoDescendiente(indice)\n      const multiplicador = multiplicadorDescendiente(descendiente)\n\n      return total.plus(cuantia.mul(multiplicador))\n    },\n    CERO\n  )\n  const minimoMenoresTres = descendientesOrdenados.reduce(\n    (total, descendiente) =>\n      Match.value(esDescendienteMenorTres(descendiente)).pipe(\n        Match.when(false, () => total),\n        Match.orElse(() =>\n          total.plus(\n            new Decimal(2800).mul(multiplicadorDescendiente(descendiente))\n          )\n        )\n      ),\n    CERO\n  )\n\n  return redondear1(minimoGeneral).plus(redondear1(minimoMenoresTres))\n}"
+        }
+      },
+      "review": "pending-independent"
+    },
+    {
+      "group": "ss.nodes",
+      "index": 3,
+      "finding": "RSS26-source-mode",
+      "before": {
+        "id": "A.modo",
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "symbol": "cotizacionesSociales",
+        "output": "return",
+        "formula": "canonico ? perfilUniforme({anio:caso.anio,salarioBrutoAnual:rendimientoIntegroTrabajo}) : legacy(mismos argumentos)",
+        "inputs": [
+          "A.bruto",
+          "entrada:caso.anio",
+          "entrada:contexto.modo"
+        ],
+        "conditions": "Inicial parcial; sin aceptación fiscal",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "start": 9979,
+          "end": 10029,
+          "offsetEncoding": "utf16",
+          "text": "cotizacionesSociales = yield* CotizacionesSociales"
+        },
+        "formalParameters": [],
+        "argumentBindings": []
+      },
+      "after": {
+        "id": "A.modo",
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "symbol": "cotizacionesSociales",
+        "output": "return",
+        "formula": "canonico ? perfilUniforme({anio:caso.anio,salarioBrutoAnual:rendimientoIntegroTrabajo}) : legacy(mismos argumentos)",
+        "inputs": [
+          "A.bruto",
+          "entrada:caso.anio",
+          "entrada:contexto.modo"
+        ],
+        "conditions": "Inicial parcial; sin aceptación fiscal",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "start": 12683,
+          "end": 13022,
+          "offsetEncoding": "utf16",
+          "text": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )"
+        },
+        "formalParameters": [],
+        "argumentBindings": []
+      },
+      "review": "pending-independent"
+    }
+  ],
+  "checks": [
+    {
+      "id": "rentas.argument4.0",
+      "actual": [
+        10064,
+        10069,
+        "cuota"
+      ],
+      "expected": [
+        10064,
+        10069,
+        "cuota"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.1",
+      "actual": [
+        10206,
+        10224,
+        "saldo.minus(cuota)"
+      ],
+      "expected": [
+        10206,
+        10224,
+        "saldo.minus(cuota)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.2",
+      "actual": [
+        12267,
+        12280,
+        "new D(i.base)"
+      ],
+      "expected": [
+        12267,
+        12280,
+        "new D(i.base)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.3",
+      "actual": [
+        12461,
+        12474,
+        "new D(g.base)"
+      ],
+      "expected": [
+        12461,
+        12474,
+        "new D(g.base)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.4",
+      "actual": [
+        12637,
+        12653,
+        "new D(r.importe)"
+      ],
+      "expected": [
+        12637,
+        12653,
+        "new D(r.importe)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.5",
+      "actual": [
+        12797,
+        12835,
+        "suma(caso.ingresos.map((i) => i.base))"
+      ],
+      "expected": [
+        12797,
+        12835,
+        "suma(caso.ingresos.map((i) => i.base))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.6",
+      "actual": [
+        12971,
+        13007,
+        "suma(caso.gastos.map((g) => g.base))"
+      ],
+      "expected": [
+        12971,
+        13007,
+        "suma(caso.gastos.map((g) => g.base))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.7",
+      "actual": [
+        13139,
+        13176,
+        "suma(caso.reta.map((r) => r.importe))"
+      ],
+      "expected": [
+        13139,
+        13176,
+        "suma(caso.reta.map((r) => r.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.8",
+      "actual": [
+        13288,
+        13300,
+        "amortizacion"
+      ],
+      "expected": [
+        13288,
+        13300,
+        "amortizacion"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.9",
+      "actual": [
+        13486,
+        13508,
+        "ingresos.minus(gastos)"
+      ],
+      "expected": [
+        13486,
+        13508,
+        "ingresos.minus(gastos)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.10",
+      "actual": [
+        14306,
+        14401,
+        "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))"
+      ],
+      "expected": [
+        14306,
+        14401,
+        "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.11",
+      "actual": [
+        14461,
+        14471,
+        "P.minus(G)"
+      ],
+      "expected": [
+        14461,
+        14471,
+        "P.minus(G)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.12",
+      "actual": [
+        15032,
+        15041,
+        "adicional"
+      ],
+      "expected": [
+        15032,
+        15041,
+        "adicional"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.13",
+      "actual": [
+        15177,
+        15187,
+        "incremento"
+      ],
+      "expected": [
+        15177,
+        15187,
+        "incremento"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.14",
+      "actual": [
+        15573,
+        15582,
+        "reduccion"
+      ],
+      "expected": [
+        15573,
+        15582,
+        "reduccion"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.15",
+      "actual": [
+        16311,
+        16430,
+        "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)"
+      ],
+      "expected": [
+        16311,
+        16430,
+        "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.16",
+      "actual": [
+        16553,
+        16595,
+        "RN.minus(reduccion).minus(reduccionInicio)"
+      ],
+      "expected": [
+        16553,
+        16595,
+        "RN.minus(reduccion).minus(reduccionInicio)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.17",
+      "actual": [
+        16734,
+        16778,
+        "suma(caso.retenciones.map((r) => r.importe))"
+      ],
+      "expected": [
+        16734,
+        16778,
+        "suma(caso.retenciones.map((r) => r.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.18",
+      "actual": [
+        16938,
+        16988,
+        "suma(caso.pagosFraccionados.map((p) => p.importe))"
+      ],
+      "expected": [
+        16938,
+        16988,
+        "suma(caso.pagosFraccionados.map((p) => p.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.0",
+      "actual": [
+        10064,
+        10069,
+        "cuota"
+      ],
+      "expected": [
+        10064,
+        10069,
+        "cuota"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.1",
+      "actual": [
+        10206,
+        10224,
+        "saldo.minus(cuota)"
+      ],
+      "expected": [
+        10206,
+        10224,
+        "saldo.minus(cuota)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.2",
+      "actual": [
+        12267,
+        12280,
+        "new D(i.base)"
+      ],
+      "expected": [
+        12267,
+        12280,
+        "new D(i.base)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.3",
+      "actual": [
+        12461,
+        12474,
+        "new D(g.base)"
+      ],
+      "expected": [
+        12461,
+        12474,
+        "new D(g.base)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.4",
+      "actual": [
+        12637,
+        12653,
+        "new D(r.importe)"
+      ],
+      "expected": [
+        12637,
+        12653,
+        "new D(r.importe)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.5",
+      "actual": [
+        12797,
+        12835,
+        "suma(caso.ingresos.map((i) => i.base))"
+      ],
+      "expected": [
+        12797,
+        12835,
+        "suma(caso.ingresos.map((i) => i.base))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.6",
+      "actual": [
+        12971,
+        13007,
+        "suma(caso.gastos.map((g) => g.base))"
+      ],
+      "expected": [
+        12971,
+        13007,
+        "suma(caso.gastos.map((g) => g.base))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.7",
+      "actual": [
+        13139,
+        13176,
+        "suma(caso.reta.map((r) => r.importe))"
+      ],
+      "expected": [
+        13139,
+        13176,
+        "suma(caso.reta.map((r) => r.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.8",
+      "actual": [
+        13288,
+        13300,
+        "amortizacion"
+      ],
+      "expected": [
+        13288,
+        13300,
+        "amortizacion"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.9",
+      "actual": [
+        13486,
+        13508,
+        "ingresos.minus(gastos)"
+      ],
+      "expected": [
+        13486,
+        13508,
+        "ingresos.minus(gastos)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.10",
+      "actual": [
+        14306,
+        14401,
+        "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))"
+      ],
+      "expected": [
+        14306,
+        14401,
+        "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.11",
+      "actual": [
+        14461,
+        14471,
+        "P.minus(G)"
+      ],
+      "expected": [
+        14461,
+        14471,
+        "P.minus(G)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.12",
+      "actual": [
+        15032,
+        15041,
+        "adicional"
+      ],
+      "expected": [
+        15032,
+        15041,
+        "adicional"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.13",
+      "actual": [
+        15177,
+        15187,
+        "incremento"
+      ],
+      "expected": [
+        15177,
+        15187,
+        "incremento"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.14",
+      "actual": [
+        15573,
+        15582,
+        "reduccion"
+      ],
+      "expected": [
+        15573,
+        15582,
+        "reduccion"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.15",
+      "actual": [
+        16311,
+        16430,
+        "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)"
+      ],
+      "expected": [
+        16311,
+        16430,
+        "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.16",
+      "actual": [
+        16553,
+        16595,
+        "RN.minus(reduccion).minus(reduccionInicio)"
+      ],
+      "expected": [
+        16553,
+        16595,
+        "RN.minus(reduccion).minus(reduccionInicio)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.17",
+      "actual": [
+        16734,
+        16778,
+        "suma(caso.retenciones.map((r) => r.importe))"
+      ],
+      "expected": [
+        16734,
+        16778,
+        "suma(caso.retenciones.map((r) => r.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.18",
+      "actual": [
+        16938,
+        16988,
+        "suma(caso.pagosFraccionados.map((p) => p.importe))"
+      ],
+      "expected": [
+        16938,
+        16988,
+        "suma(caso.pagosFraccionados.map((p) => p.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2012.escalaAutonomicaIgualEstatal",
+      "actual": {
+        "inputs": [],
+        "role": "value"
+      },
+      "expected": {
+        "inputs": [],
+        "role": "value"
+      },
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2013.escalaAutonomicaIgualEstatal",
+      "actual": {
+        "inputs": [],
+        "role": "value"
+      },
+      "expected": {
+        "inputs": [],
+        "role": "value"
+      },
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2014.escalaAutonomicaIgualEstatal",
+      "actual": {
+        "inputs": [],
+        "role": "value"
+      },
+      "expected": {
+        "inputs": [],
+        "role": "value"
+      },
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2015.escalaAutonomicaIgualEstatal",
+      "actual": {
+        "inputs": [],
+        "role": "value"
+      },
+      "expected": {
+        "inputs": [],
+        "role": "value"
+      },
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralEstatal.value",
+      "actual": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralAutonomica.value",
+      "actual": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralEstatal.value",
+      "actual": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralAutonomica.value",
+      "actual": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalEstatal.value",
+      "actual": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalAutonomica.value",
+      "actual": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalEstatal.value",
+      "actual": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalAutonomica.value",
+      "actual": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "id": "FA25-03",
+      "actual": {
+        "file": "lib/dominio/dinero/importe-monetario.ts",
+        "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+        "start": 197,
+        "end": 660,
+        "offsetEncoding": "utf16",
+        "text": "crearImporteMonetario = (valor: Decimal.Value): ImporteMonetario =>\n  new Decimal(valor)\n\n// Constantes Decimal compartidas para evitar mezclar literales `number` en\n// acumuladores monetarios y para expresar identidades aritmeticas de dominio.\nexport const IMPORTE_CERO = crearImporteMonetario(0)\nexport const IMPORTE_UNO = crearImporteMonetario(1)\n\nexport const centimosAEuros = (centimos: number): ImporteMonetario =>\n  crearImporteMonetario(centimos).div(100)",
+        "rangeRole": "span de declaraciones crearImporteMonetario a centimosAEuros; no literal individual"
+      },
+      "expected": {
+        "file": "lib/dominio/dinero/importe-monetario.ts",
+        "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+        "start": 197,
+        "end": 660,
+        "offsetEncoding": "utf16",
+        "text": "crearImporteMonetario = (valor: Decimal.Value): ImporteMonetario =>\n  new Decimal(valor)\n\n// Constantes Decimal compartidas para evitar mezclar literales `number` en\n// acumuladores monetarios y para expresar identidades aritmeticas de dominio.\nexport const IMPORTE_CERO = crearImporteMonetario(0)\nexport const IMPORTE_UNO = crearImporteMonetario(1)\n\nexport const centimosAEuros = (centimos: number): ImporteMonetario =>\n  crearImporteMonetario(centimos).div(100)",
+        "rangeRole": "span de declaraciones crearImporteMonetario a centimosAEuros; no literal individual"
+      },
+      "pass": true
+    },
+    {
+      "id": "RSS26-02.entrada:contexto.modo",
+      "actual": "control-seleccion",
+      "expected": "control-seleccion",
+      "pass": true
+    },
+    {
+      "id": "RSS26-02.R.menor3",
+      "actual": "control-seleccion",
+      "expected": "control-seleccion",
+      "pass": true
+    },
+    {
+      "id": "RSS26-source-mode",
+      "actual": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 12683,
+        "end": 13022,
+        "offsetEncoding": "utf16",
+        "text": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )"
+      },
+      "expected": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 12683,
+        "end": 13022,
+        "offsetEncoding": "utf16",
+        "text": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )"
+      },
+      "pass": true
+    }
+  ],
+  "completeClosure": false,
+  "wiringAllowed": false,
+  "completeRuleAcceptance": false,
+  "pending": [
+    "FA25-02/04/05/06: aporte/etapas, condiciones, llamadores y límite semántico",
+    "R26-03/04/05: puertos, cierre alcanzable y puerta referencial",
+    "RSS26-01/03/04: propagación de modo, céntimos a euros y lado/instancia",
+    "Revisión independiente de estas rectificaciones antes de composición"
+  ]
+}

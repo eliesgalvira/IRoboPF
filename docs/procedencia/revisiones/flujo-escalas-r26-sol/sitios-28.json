@@ -1,0 +1,783 @@
+[
+  {
+    "siteId": "anual.base.ahorro",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 47479,
+      "end": 47844,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "baseLiquidableAhorro"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#baseLiquidableAhorro.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.base.general-imponible",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 42190,
+      "end": 42666,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "baseImponibleGeneral"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#baseImponibleGeneral.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.base.general-liquidable",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 42680,
+      "end": 43022,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "baseLiquidableGeneral"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#baseLiquidableGeneral.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.ahorro-componente-postminimo",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 55804,
+      "end": 56367,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "ahorroConMinimos"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#ahorroConMinimos.estatal|autonomico",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#componente.remanente",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#componente.bruta",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#componente.despuesMinimo",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#componente.minoracion",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#calcularCuotaComponenteAhorro.return",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#calcularCuotaPorEscalaAhorro.return",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#calcularDesgloseCuotaPorEscalaAhorro.return"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.ahorro-total",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 55275,
+      "end": 55562,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "cuotaIntegraAhorro"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraAhorro.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.ahorro-tramo",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 54794,
+      "end": 55247,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "desgloseCuotaIntegraAhorro"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraAhorro.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo.",
+      "R26-04: se adjuntan también ramas publicadas del helper, aunque el productor pasa solo tramos integrados. No son todas alcanzables en este sitio."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.diferencial",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 59426,
+      "end": 60185,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "cuotaLiquida",
+      "pagosACuentaAplicadosCentimos"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaLiquida.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#pagosACuentaAplicadosCentimos.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo.",
+      "R26-04: falta raíz directa cuotaDiferencialCentimos/llamada y retencionesSoportadasCentimos en edges; la expresión sí los usa."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.general-autonomica-tramo",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 50757,
+      "end": 51273,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "desgloseCuotaIntegraGeneralAutonomica"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralAutonomica.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralAutonomica.value",
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.general-estatal-tramo",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 50052,
+      "end": 50651,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "desgloseCuotaIntegraGeneralEstatal"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralEstatal.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralEstatal.value",
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.general-total",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 51301,
+      "end": 51706,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "cuotaIntegraGeneral"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneral.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.liquida",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 57639,
+      "end": 58004,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "cuotaLiquida"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaLiquida.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.minimo-ahorro-total",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 56395,
+      "end": 56883,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "cuotaMinimoPersonalAhorro"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalAhorro.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.minimo-autonomico-tramo",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 53155,
+      "end": 53677,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "desgloseCuotaMinimoPersonalAutonomica"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalAutonomica.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalAutonomica.value",
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.minimo-estatal-tramo",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 52437,
+      "end": 53049,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "desgloseCuotaMinimoPersonalEstatal"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalEstatal.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalEstatal.value",
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.minimo-general-total",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 53705,
+      "end": 54024,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "cuotaMinimoPersonal"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonal.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.deducciones.autonomicas",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 58018,
+      "end": 58603,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "deduccionesAutonomicasAplicadas"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#deduccionesAutonomicasAplicadas.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.big",
+    "source": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "start": 9967,
+      "end": 10202,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "neto"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#neto.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.blg",
+    "source": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "start": 10210,
+      "end": 10467,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "neto"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#neto.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.cuota.autonomica",
+    "source": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "start": 10746,
+      "end": 11036,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "cuotaAutonomica"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#cuotaAutonomica.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.cuota.estatal",
+    "source": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "start": 10475,
+      "end": 10738,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "cuotaEstatal"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#cuotaEstatal.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.cuota.liquida-legal",
+    "source": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "start": 11044,
+      "end": 11309,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "liquida"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#liquida.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.cuota.posterior",
+    "source": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "start": 11573,
+      "end": 11809,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "posterior"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#posterior.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.ascendientes",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 43370,
+      "end": 43765,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "minimoAscendientes"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoAscendientes.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.autonomico",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 45109,
+      "end": 45604,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "minimoPersonalYFamiliarAutonomico"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoPersonalYFamiliarAutonomico.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.contribuyente",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 43036,
+      "end": 43356,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "minimoContribuyente"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoContribuyente.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.descendientes",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 43779,
+      "end": 44638,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "minimoDescendientes"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoDescendientes.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.discapacidad",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 45618,
+      "end": 46048,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "minimoDiscapacidadContribuyente",
+      "minimoDiscapacidadFamiliares"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoDiscapacidadContribuyente.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoDiscapacidadFamiliares.value",
+      "lib/dominio/irpf/minimos/minimo-discapacidad.ts#obtenerMinimoPorDiscapacidad.return",
+      "lib/dominio/irpf/minimos/minimo-discapacidad.ts#obtenerMinimoDiscapacidadContribuyente.return",
+      "lib/dominio/irpf/minimos/minimo-discapacidad.ts#obtenerMinimoDiscapacidadFamiliares.return",
+      "lib/dominio/irpf/minimos/minimo-discapacidad.ts#obtenerMinimoDiscapacidadAscendientes.return"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.estatal",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 44652,
+      "end": 45095,
+      "offsetEncoding": "utf16"
+    },
+    "roots": [
+      "minimoPersonalYFamiliar"
+    ],
+    "edgesExamined": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoPersonalYFamiliar.value"
+    ],
+    "missingIds": [],
+    "decision": "conservar-candidato-rechazar-cierre-composicion",
+    "issues": [
+      "R26-04: enlaces de entrada son strings no resueltos; el listado directo no certifica cierre transitivo."
+    ],
+    "objection": "Una lista no vacía de aristas no acredita rutas completas ni alcanzabilidad.",
+    "response": "No se borra la localización histórica y no se publica el cierre.",
+    "cost": "Adaptador y contraste posterior por propiedad y condiciones.",
+    "legalAcceptance": false
+  }
+]
