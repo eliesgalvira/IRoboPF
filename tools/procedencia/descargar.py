@@ -29,6 +29,12 @@ def download(url: str, root: Path) -> dict:
             cached = json.loads(record.read_text())
             path = Path(cached["localPath"])
             if path.exists() and hashlib.sha256(path.read_bytes()).hexdigest() == cached["sha256"]:
+                cached["headers"] = {
+                    key: value for key, value in cached.get("headers", {}).items()
+                    if key.lower() not in {
+                        "set-cookie", "cookie", "authorization", "proxy-authorization"
+                    }
+                }
                 return cached
         request = urllib.request.Request(url, headers={
             "User-Agent": "IRoboPF-auditoria/1.0 (+https://github.com/eliesgalvira/IRoboPF)",
@@ -37,7 +43,12 @@ def download(url: str, root: Path) -> dict:
         try:
             with urllib.request.urlopen(request, timeout=120) as response:
                 body = response.read()
-                headers = dict(response.headers.items())
+                headers = {
+                    key: value for key, value in response.headers.items()
+                    if key.lower() not in {
+                        "set-cookie", "cookie", "authorization", "proxy-authorization"
+                    }
+                }
                 status = response.status
                 final_url = response.url
                 mime = response.headers.get_content_type()

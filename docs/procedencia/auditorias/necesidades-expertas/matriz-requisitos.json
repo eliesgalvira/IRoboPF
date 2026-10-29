@@ -29,7 +29,8 @@
     "territories": [
       "régimen común; detalle en cobertura"
     ],
-    "test": "Fijar factor IPC y versión normativa; comparar cuota anual, límite y cantidad final por separado; comprobar 18.000 ±0,01."
+    "test": "Fijar factor IPC y versión normativa; comparar cuota anual, límite y cantidad final por separado; comprobar 18.000 ±0,01.",
+    "reviewClarification": "Se reformula como fixture público ambiguo: no demuestra fallo del motor TS ni cuota legal incorrecta."
   },
   {
     "id": "NE-02",
@@ -93,7 +94,8 @@
     "territories": [
       "régimen común; detalle en cobertura"
     ],
-    "test": "Resolver B+SSempresa(B)=coste objetivo por tramos; comprobar residual y que MEI altere el bruto bajo coste constante."
+    "test": "Resolver B+SSempresa(B)=coste objetivo por tramos; comprobar residual y que MEI altere el bruto bajo coste constante.",
+    "reviewClarification": "normalizarEscenarioAuditoriaNormativa impone varianteAuditoriaPorDefecto; falta la inversión para mantener coste real, aunque sí se calcula coste laboral."
   },
   {
     "id": "NE-04",
@@ -349,7 +351,8 @@
     "territories": [
       "régimen común; detalle en cobertura"
     ],
-    "test": "Tipo efectivo en bruto cero marcado no definido; marginal izquierdo/derecho con paso y denominador explícitos; saltos por obligación separados."
+    "test": "Tipo efectivo en bruto cero marcado no definido; marginal izquierdo/derecho con paso y denominador explícitos; saltos por obligación separados.",
+    "reviewClarification": "El motor ya incorpora puntos normativos y la interfaz calcula marginales. Falta acreditar exhaustividad de fronteras, no toda capacidad de marginales."
   },
   {
     "id": "NE-12",
@@ -381,7 +384,8 @@
     "territories": [
       "régimen común; detalle en cobertura"
     ],
-    "test": "Foral debe quedar no soportado; nunca sustituir por simulada-estatal; 2026 requiere comprobar alcance técnico."
+    "test": "Foral debe quedar no soportado; nunca sustituir por simulada-estatal; 2026 requiere comprobar alcance técnico.",
+    "reviewClarification": "El evaluador UI ejecuta deducciones y pasa su importe agregado; catálogo, evaluación y vía por código son contratos distintos. Los territorios reales se rechazan en 2026."
   },
   {
     "id": "NE-13",
@@ -390,7 +394,7 @@
     "reproducibleCase": "Un caso por año más controles y fila de frontera, con versión y evidencia enlazada",
     "variablesAndOfficialSources": "Inputs, política de redondeo, norma y hash original; datos canónicos/legacy distintos",
     "engineModule": "lib/export/auditoria-excel.ts",
-    "symbol": "exportación compatible",
+    "symbol": "construirLibroAuditoriaCompatible",
     "gap": "Contrato tabular documentado; igualdad legacy no valida regla ni cita. No se ejecutó suite pesada en esta ronda.",
     "dataSufficiency": "Insuficiente para aceptación fiscal histórica; véanse fuentes y pendientes",
     "years": [
@@ -413,7 +417,8 @@
     "territories": [
       "régimen común; detalle en cobertura"
     ],
-    "test": "Fixture pequeño con filas frontera, celdas y unidades; cambio de un céntimo debe localizar primera divergencia; versiones de fuente presentes."
+    "test": "Fixture pequeño con filas frontera, celdas y unidades; cambio de un céntimo debe localizar primera divergencia; versiones de fuente presentes.",
+    "reviewClarification": "Hay exportación XLSX efectiva. Falta identificar un requisito concreto de trazabilidad incumplido y verificarlo; no se ha demostrado divergencia tabular."
   },
   {
     "id": "NE-14",
@@ -445,7 +450,8 @@
     "territories": [
       "régimen común; detalle en cobertura"
     ],
-    "test": "Diferenciar perfil constante de cohorte envejecida; probar cumpleaños a ambos lados del devengo y fallecimiento."
+    "test": "Diferenciar perfil constante de cohorte envejecida; probar cumpleaños a ambos lados del devengo y fallecimiento.",
+    "reviewClarification": "La carencia se refiere a evolución automática de una cohorte; sí pueden construirse casos anuales manuales con edades distintas."
   },
   {
     "id": "NE-15",

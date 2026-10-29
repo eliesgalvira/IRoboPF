@@ -36,12 +36,12 @@ export function Select<TValor extends string>({
   )
 
   return (
-    <SelectPrimitive.Root
+    <SelectPrimitive.Root<TValor>
       items={items}
       modal={false}
       onValueChange={(siguiente) => {
         if (siguiente !== null) {
-          onChange(siguiente as TValor)
+          onChange(siguiente)
         }
       }}
       value={valor}

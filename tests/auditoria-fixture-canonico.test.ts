@@ -1,3 +1,4 @@
+import { Result, Schema } from "effect"
 // Characterization harness: Node child-process/env and Vitest async boundaries
 // are intentional here.
 // @effect-diagnostics effect/asyncFunction:off
@@ -11,10 +12,13 @@ import { describe, expect, it } from "@effect/vitest"
 
 import {
   type HashHojaCanonica,
-  type FixtureCanonicoTabular,
+  HashHojaCanonicaSchema,
+  FixtureCanonicoTabularSchema,
 } from "./helpers/canonical-tabular-hashes"
 
-const fixture = fixtureCanonico as FixtureCanonicoTabular
+const fixture = Schema.decodeUnknownSync(FixtureCanonicoTabularSchema)(
+  fixtureCanonico
+)
 const CONCURRENCIA_HASH_EFFECT = Number(
   process.env.IROBOPF_CONCURRENCIA_FIXTURE_CANONICO ?? 8
 )
@@ -43,7 +47,11 @@ const hashearHojaEffect = (nombreHoja: string) =>
         return
       }
 
-      resolve(JSON.parse(stdout) as HashHojaCanonica)
+      const resultado = Schema.decodeUnknownResult(
+        Schema.fromJsonString(HashHojaCanonicaSchema)
+      )(stdout)
+      if (Result.isFailure(resultado)) reject(resultado.failure)
+      else resolve(resultado.success)
     })
   })
 

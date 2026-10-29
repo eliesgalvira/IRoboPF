@@ -4,6 +4,16 @@
 // @effect-diagnostics effect/globalConsole:off
 import { DateTime, Duration, Effect, Exit, Match, Metric, Option } from "effect"
 
+type DetalleAuditoria =
+  | Option.Option<number>
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | ReadonlyArray<DetalleAuditoria>
+  | { readonly [clave: string]: DetalleAuditoria }
+
 export const diagnosticoRendimientoAuditoriaActivo =
   process.env.IROBOPF_AUDITORIA_PERF === "1" ||
   process.env.NEXT_PUBLIC_AUDITORIA_PERF === "1" ||
@@ -31,8 +41,8 @@ export const metricaDuracionFilasGraficosAuditoria = Metric.timer(
 )
 
 const ahora = () =>
-  Match.value(typeof performance).pipe(
-    Match.when("undefined", () => DateTime.nowUnsafe().epochMilliseconds),
+  Match.value(globalThis.performance).pipe(
+    Match.when(Match.undefined, () => DateTime.nowUnsafe().epochMilliseconds),
     Match.orElse(() => performance.now())
   )
 
@@ -107,7 +117,7 @@ export const resumenTiemposAgregadosAuditoria = () =>
 
 export const registrarResumenTiemposAuditoria = (
   evento: string,
-  detalles: Record<string, unknown> = {}
+  detalles: Readonly<Record<string, DetalleAuditoria>> = {}
 ) => {
   if (!diagnosticoRendimientoAuditoriaActivo) return
   console.table(resumenTiemposAgregadosAuditoria())
@@ -119,7 +129,7 @@ export const registrarResumenTiemposAuditoria = (
 
 export const registrarMarcaAuditoria = (
   evento: string,
-  detalles: Record<string, unknown> = {}
+  detalles: Readonly<Record<string, DetalleAuditoria>> = {}
 ) => {
   if (!diagnosticoRendimientoAuditoriaActivo) return
   console.info(`[auditoria/perf] ${evento}`, {
@@ -135,7 +145,7 @@ export const instrumentarEffectAuditoria = <A, E, R>({
   efecto,
 }: {
   readonly nombre: string
-  readonly detalles?: Record<string, unknown>
+  readonly detalles?: Readonly<Record<string, DetalleAuditoria>>
   readonly metrica: Metric.Histogram<Duration.Duration>
   readonly efecto: Effect.Effect<A, E, R>
 }): Effect.Effect<A, E, R> => {

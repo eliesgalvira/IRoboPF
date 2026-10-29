@@ -161,10 +161,10 @@ const esCasoCalculable = (
   readonly descendientes: ReadonlyArray<DescendienteRetencion>
   readonly ascendientes: ReadonlyArray<AscendienteRetencion>
 } =>
-  typeof caso.cotizacionesCentimos === "number" &&
+  Match.number(caso.cotizacionesCentimos) &&
   caso.situacionFamiliar !== "general" &&
-  typeof caso.situacionLaboral === "string" &&
-  typeof caso.contrato === "string" &&
+  Match.string(caso.situacionLaboral) &&
+  Match.string(caso.contrato) &&
   Array.isArray(caso.descendientes) &&
   Array.isArray(caso.ascendientes) &&
   !(caso.situacionFamiliar === "situacion1" && caso.descendientes.length === 0)

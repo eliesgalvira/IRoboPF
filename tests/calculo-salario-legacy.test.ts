@@ -1,9 +1,10 @@
+import { aniosFiscalesLegacy } from "../lib/dominio/normativa/anio-fiscal"
 // Tests are Effect entry points; env-gated and async Vitest harness code is
 // intentional here.
 // @effect-diagnostics effect/asyncFunction:off
 // @effect-diagnostics effect/processEnv:off
 // @effect-diagnostics effect/strictEffectProvide:off
-import { Effect } from "effect"
+import { Schema, Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import fixture from "./fixtures/caracterizacion-legacy.json"
@@ -23,7 +24,7 @@ const ANIOS_CON_LIQUIDACION_LEGACY = [
 ] as const satisfies ReadonlyArray<AnioFiscal>
 
 describe("calcularSalarioLegacy", () => {
-  const centimosDesdeCeldaEuros = (valor: unknown): number =>
+  const centimosDesdeCeldaEuros = (valor: number | string): number =>
     Math.round(Number(valor) * 100)
   const sinPrecisionDecimal = <
     T extends { irpfFinalPrecisoEuros?: string | undefined },
@@ -44,7 +45,7 @@ describe("calcularSalarioLegacy", () => {
   }: {
     readonly anio: AnioFiscal
     readonly compatibilidad: ServicioCompatibilidadSalarioLegacy
-    readonly fila: ReadonlyArray<unknown>
+    readonly fila: ReadonlyArray<number | string>
     readonly indice: Record<string, number>
   }) =>
     Effect.gen(function* () {
@@ -196,7 +197,9 @@ describe("calcularSalarioLegacy", () => {
 
         for (const caso of casosConLiquidacionNueva) {
           const resultado = yield* calcularSalarioLegacy({
-            anio: caso.anio as AnioFiscal,
+            anio: Schema.decodeUnknownSync(
+              Schema.Literals(aniosFiscalesLegacy)
+            )(caso.anio),
             salarioBrutoAnualCentimos: caso.salarioBrutoAnualCentimos,
           })
 

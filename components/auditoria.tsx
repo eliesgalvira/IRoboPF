@@ -1,4 +1,5 @@
 "use client"
+import { aniosFiscalesLegacy } from "@/lib/dominio/normativa/anio-fiscal"
 
 import Decimal from "decimal.js"
 import * as React from "react"
@@ -7,7 +8,7 @@ import { Dialog } from "@base-ui/react/dialog"
 import { NumberField } from "@base-ui/react/number-field"
 import { Slider } from "@base-ui/react/slider"
 import { Tabs } from "@base-ui/react/tabs"
-import { Cause, Effect, Exit, Fiber, Match, Option } from "effect"
+import { Schema, Cause, Effect, Exit, Fiber, Match, Option } from "effect"
 import {
   Area,
   AreaChart,
@@ -1588,7 +1589,11 @@ const aniosDesdeClaveGrafico = (clave: string): ReadonlyArray<AnioFiscal> =>
   clave
     .split(",")
     .filter((valor) => valor.length > 0)
-    .map((valor) => Number(valor) as AnioFiscal)
+    .map((valor) =>
+      Schema.decodeUnknownSync(Schema.Literals(aniosFiscalesLegacy))(
+        Number(valor)
+      )
+    )
 
 const colorSerieAuditoria = (
   _comunidadAutonoma: ComunidadAuditada,
@@ -1734,10 +1739,26 @@ const itemsLeyendaCunaFiscal = ({
     )
   )
 
-type FilaTipoEfectivoIrpf = Record<string, number | string>
-type FilaDiferenciaTipoIrpf = Record<string, number | string | undefined>
-type FilaCunaFiscal = Record<string, number | string | undefined>
-type FilaTipoMarginalIrpf = Record<string, number | string | undefined>
+interface FilaTipoEfectivoIrpf {
+  salarioEuros: number
+  salario: string
+  [serie: string]: number | string
+}
+interface FilaDiferenciaTipoIrpf {
+  salarioEuros: number
+  salario: string
+  [serie: string]: number | string | undefined
+}
+interface FilaCunaFiscal {
+  salarioEuros: number
+  salario: string
+  [serie: string]: number | string | undefined
+}
+interface FilaTipoMarginalIrpf {
+  salarioEuros: number
+  salario: string
+  [serie: string]: number | string | undefined
+}
 type ModoTipoEfectivoIrpf = ModoUnidadGraficoAuditoria
 type ModoDiferenciaTipoIrpf = ModoUnidadGraficoAuditoria
 type ModoCunaFiscal = ModoUnidadGraficoAuditoria
@@ -2315,7 +2336,7 @@ const numeroEnFila = (
   clave: string
 ) => {
   const valor = fila[clave]
-  if (typeof valor === "number" && Number.isFinite(valor)) {
+  if (Match.number(valor) && Number.isFinite(valor)) {
     return Option.some(valor)
   }
 
@@ -2910,9 +2931,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
         })
       })
     ),
-    Match.orElse(() =>
-      Effect.succeed([] as ReadonlyArray<FilaTipoEfectivoIrpf>)
-    )
+    Match.orElse(() => Effect.succeed<ReadonlyArray<FilaTipoEfectivoIrpf>>([]))
   )
 
   const diferenciaTipoIrpf = yield* Match.value(vistaGrafico).pipe(
@@ -2953,7 +2972,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
       })
     ),
     Match.orElse(() =>
-      Effect.succeed([] as ReadonlyArray<FilaDiferenciaTipoIrpf>)
+      Effect.succeed<ReadonlyArray<FilaDiferenciaTipoIrpf>>([])
     )
   )
 
@@ -2995,7 +3014,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
         })
       })
     ),
-    Match.orElse(() => Effect.succeed([] as ReadonlyArray<FilaCunaFiscal>))
+    Match.orElse(() => Effect.succeed<ReadonlyArray<FilaCunaFiscal>>([]))
   )
 
   const tipoMarginalIrpf = yield* Match.value(vistaGrafico).pipe(
@@ -3045,9 +3064,7 @@ const construirFilasGraficosAuditoria = Effect.fn(
         })
       })
     ),
-    Match.orElse(() =>
-      Effect.succeed([] as ReadonlyArray<FilaTipoMarginalIrpf>)
-    )
+    Match.orElse(() => Effect.succeed<ReadonlyArray<FilaTipoMarginalIrpf>>([]))
   )
 
   return { tipoEfectivoIrpf, diferenciaTipoIrpf, cunaFiscal, tipoMarginalIrpf }
@@ -3060,7 +3077,7 @@ const valoresNumericosDeFilas = (
   filas.flatMap((fila) =>
     claves.flatMap((clave) => {
       const valor = fila[clave]
-      return typeof valor === "number" && Number.isFinite(valor) ? [valor] : []
+      return Match.number(valor) && Number.isFinite(valor) ? [valor] : []
     })
   )
 
@@ -4947,7 +4964,7 @@ function Visualizaciones({
         aniosTipoEfectivoIrpf.includes(anioGraficoTipoMarginalIrpf)
       ).pipe(
         Match.when(true, () => anioGraficoTipoMarginalIrpf),
-        Match.orElse(() => 2025 as AnioFiscal)
+        Match.orElse(() => 2025 as const)
       ),
     [anioGraficoTipoMarginalIrpf, aniosTipoEfectivoIrpf]
   )
@@ -4962,10 +4979,10 @@ function Visualizaciones({
   const anioReferenciaGraficosIrpf = Match.value(
     permiteReferenciaTecnica2026
   ).pipe(
-    Match.when(true, () => 2026 as AnioFiscal),
+    Match.when(true, () => 2026 as const),
     Match.orElse(() =>
       Option.match(auditoria, {
-        onNone: () => 2025 as AnioFiscal,
+        onNone: () => 2025 as const,
         onSome: (auditoriaLista) => auditoriaLista.anioReferencia,
       })
     )
