@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "base": "7956b16ae41b30697cefc5924d562dc6707e5156",
+  "model": "gpt-6-astra",
+  "options": {
+    "reasoningEffort": "high",
+    "serviceTier": "priority"
+  },
+  "isolation": "worktree",
+  "delegates": [
+    {
+      "key": "revision-derechos-v2",
+      "role": "review",
+      "title": "Contrarrevisión de conciliación de rentas y fechas familiares",
+      "task": "Eres un revisor independiente NUEVO de IRoboPF. Trabajo personal, sin subdelegar ni fixes. Base esperada 7956b16ae41b30697cefc5924d562dc6707e5156; verifica HEAD, todos los archivos de base por lstat/readlink, hash y diff sin borrados. Lee íntegros /home/elies/irobopf-contexto/BRIEF.md, AGENTS.md, docs/procedencia/{CONTRATO-AUDITORIA,COORDINACION,ESTADO,DECISIONES}.md (D054–D056), correcciones/derechos-familiares-r15/INFORME.md y revisiones/minimos-derechos-v1/INFORME.md. Español claro. Objeción experta, coste y alcance explícitos por decisión.\n\nEntrega únicamente /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v2/. Scratch en TU .cache. No tocar código, informes ajenos, originales, registros, atestaciones, confianza ni estado. Manifiesto de archivos SHA256/size/baseSha256, casos independientes, logs/códigos de salida, fuentes y hallazgos individuales. Los logs mayores de 1 MB comprimidos. No copia de código/tsconfig/node_modules en docs.\n\nVCS: NUNCA jj git init dentro de worktree Git T3. Ninguna operación mutante commit/init/reset/push/bookmarks/PR/deploy ni reparación del índice. Solo lecturas Git; no crear worktrees por shell. Nunca rm/mv relativos ni borrar originales/contexto/Reactivity/worktrees. Padre integra con hashes y rutas literales.\nNix/uv, sin instalaciones globales. node_modules raíz puede enlazarse. Effect-solutions list/show y fuente ~/.local/share/effect-solutions/effect antes de Effect; CLI bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js. Lint y tipos, 16 reglas anti-slop a error, oxlint --disable-nested-config; no evadir con extensiones o ignores. Máquina de 11 GB sin swap: TODO trabajo pesado con flock /tmp/irobopf-validacion-pesada.lock y UN trabajador. Sin build/servidor/preview/suites legacy pesadas. Python corpus bash tools/procedencia/run.sh con UV_PROJECT_ENVIRONMENT absoluto en TU .cache.\nSin LFS, gasto,redacción a terceros ni transferencia externa. CAS raíz legible, originales inmutables. Crossa conserva v1 histórico, misma casa/dueño y desfasado, no custodia independiente. No leer trabajos activos de otros hijos.\n\nALCANCE:\nRevisa MDV1-01/02/03 y las ampliaciones del padre. El padre conservó 3 rojos previos más uno de fecha civil insuficiente. Renta propia: Schema incorpora conciliacionRentasContribuyente (perfil caso-anual-parcial y otrasRentasOGastosNoRepresentados ninguno). El helper aislado no la exige; la conexión anual sí. Se compara saldo neto del perfil antes de art20/integración/compensación con la cifra propia en céntimos, conservando pérdidas/exenciones representadas. También exige mismo lado del umbral de 8.000 antes/después de representar en céntimos. No confundir coherencia interna con validación fiscal de cotización uniforme, alquiler simplificado o exhaustividad de categorías reales.\n\nVerifica fórmulas y frontera pública real, no solo helper. 30000−1944−2000=26056; con pérdida20000 saldo6056. Caso laboral10000 neto7352 antes de art20, no bruto ni base. Frontera10692.90×0.9352−2000=8000.00008 no puede cambiar prioridad por redondeo. Prueba positivos/negativos, saldo negativo, categorías múltiples, exenciones, contribuyente en varios censos, contradicciones, valores no finitos/defectos y límites de representación pertinentes. Evalúa si la declaración de conciliación tiene un contrato suficiente y límites honestos; no darla por prueba externa ni exigir por defecto una API universal que aquí no se anuncia.\n\nEdad: se valida fechaConstitucionVinculo separada de fechaInicioIncremento; son necesarias para decidir edad y plazo respectivamente. Primer evento puede venir de acogimiento anterior y no reiniciarse. Distingue constitución judicial, inscripción y primer evento; reabre art176/240 CC y art58/manual AEAT. Prueba antes/en/después del cumpleaños, nacido2007-12-31 adoptado2025-01-02; constitución2025-06-14 e inscripción2025-06-16 con cumpleaños15junio; adopción adulta2025-06-16 tras acogimiento2024 no debe atravesar exclusión. Fechas ausentes/imposibles, nacimiento/devengo, primer evento y capacidad real. Padre rechaza frontera bisiesta28feb del decimoctavo aniversario por interpretación no cerrada; trátala como capacidad pendiente salvo evidencia concluyente, no inventar una regla.\n\nAlimentos: hechos propios sin custodia obligan rechazo anual aunque flagfalse; otro titular pagador no bloquea al custodio, incluso flagtrue válido. Revisa contradicciones de flag/custodia, derecho al mínimo y supuestos sin derecho por otras condiciones. No implementar cuota alimenticia ni inventar un expected; el contrato no contiene importe. Preserva controles de custodias y reparto.\n\nFuentes originales: revisión v1 y corrección del padre, fuentes.json y primarios por hashes; ley95d7f... en correcciones-x-v1. Reabre originales y sus partes necesarias personalmente; autenticar checksum no acredita vigencia. No certificar toda ley Madrid2025 ni completar ejercicios por tests. Caso mínimo custodio:7950×.095+8532.50×.085=1480.5125→1480.51; padre corrigió un esperado nuevo1480.50, no el motor. Los tests de autor pasaron de renta propia bruta30000 a neta26056 sin tocar esperados; revisor anterior usó26050 en fábrica (ahora incoherente). Para repetir sus positivos adapta solo los hechos necesarios a la nueva declaración/fechas y renta, registra modificaciones y mantiene sus artefactos originales; no convertir sus tres rojos viejos en verde sin probar el contrato corregido.\n\nPrueba rastro, componentes estatal/autonómico y remanentes del ahorro, preservación del modo legacy y ausencia de IDs personales en rastro. Contrarrevisión nueva, no herencia de dictámenes. Informe por ID y nuevos defectos, comandos/resultados reales, rojos si existen, límites y manifiesto. Sin atestaciones ni aceptación fiscal completa.\n\nEstado exacto de esta base: inventario 21516a24e30d5106d229b1fead87aa0889700df3950fabfe0f4bb69b23631266, artefacto 5095690502f91a0157ea0323410531f120849cf8e776c3d813fa490fb322df48. Snapshot v1 d452f38ec6018458d6a500b9df141c802fd9e74aa96ac5f3f83eef635d3d214b; v2 5f8043815f095d8bad3bb1ea2656e9669e42cb13386f42104e5587a6bdc26964. 52.455 ocurrencias, 65 puntos de rastro y 715 objetos. Son recuentos técnicos, no reglas fiscales aceptadas.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r16-revision-derechos-v2",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r16-revision-derechos-v2",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r16-revision-derechos-v2>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r16-revision-derechos-v2:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r16-revision-derechos-v2",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    }
+  ]
+}

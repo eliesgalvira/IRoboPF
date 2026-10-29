@@ -12,7 +12,9 @@ El pase final tras separar fechas obtiene 46 pruebas de derechos/integración y 
 
 Inventario **52.455 ocurrencias**, 29.589 unidades pendientes y 65 puntos de rastro. V1 `d452f38ec6018458d6a500b9df141c802fd9e74aa96ac5f3f83eef635d3d214b`; v2 `5f8043815f095d8bad3bb1ea2656e9669e42cb13386f42104e5587a6bdc26964`, con 715 objetos. Payload Madrid `5128cec8db668a8716ae4ac60d220b28b053cef17a1d6c3ef3bf08b28337d5b1`, binding pendiente; las atestaciones anteriores no se trasladan. Se conservan 26 snapshots. El número de fichas no representa aceptación fiscal.
 
-Las otras seis tareas de ronda 15 continúan: ámbito jurídico ejecutable, preservación ampliada, retenciones por períodos, etapas TGSS y cobertura global. La revisión de los fixes familiares se delegará desde el commit exacto nuevo. El paquete ampliado deberá identificar su corte y cotejar los documentos familiares recién recibidos. Crossa conserva v1 histórico y desfasado. Sin gasto, LFS, transferencia externa, despliegue ni limpieza final; el encargo sigue abierto.
+Las otras seis tareas de ronda 15 continúan: ámbito jurídico ejecutable, preservación ampliada, retenciones por períodos, etapas TGSS y cobertura global. El paquete ampliado deberá identificar su corte y cotejar los documentos familiares recién recibidos. Crossa conserva v1 histórico y desfasado. Sin gasto, LFS, transferencia externa, despliegue ni limpieza final; el encargo sigue abierto.
+
+Correcciones familiares respaldadas en origin: `7956b16ae41b30697cefc5924d562dc6707e5156`, con 1.129 archivos cotejados byte a byte contra el commit y cero borrados. Recibo en `correcciones/derechos-familiares-r15/commit-comprobado.json`. Lanzada una revisión independiente nueva, high/priority y worktree, sobre esa base exacta; registro en `delegaciones-ronda16.json`. Examina conciliación de rentas, fechas civiles separadas, alimentos y límites del contrato. Su finalización reactivará al orquestador; no es cierre del encargo ni aceptación fiscal.
 
 ## Situación anterior, 29 de octubre, 16:55 CET
 
