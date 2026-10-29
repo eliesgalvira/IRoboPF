@@ -1,0 +1,249 @@
+[
+  {
+    "id": "AND-MULTIPLE",
+    "code": "andalucia_nacimiento_adopcion_acogimiento_menores",
+    "inputs": {
+      "andaluciaHijosNacimientoAdopcion": 2
+    },
+    "predicted": 400,
+    "expected": 800,
+    "reason": "Gemelos, municipio no despoblado, un solo titular: 2*(200+200). Falta el incremento de 200 por hijo.",
+    "observed": 400,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "AND-PRORRATA",
+    "code": "andalucia_nacimiento_adopcion_acogimiento_menores",
+    "inputs": {
+      "andaluciaHijosNacimientoAdopcion": 1
+    },
+    "predicted": 200,
+    "expected": 100,
+    "reason": "Un hijo, dos contribuyentes con derecho: mitad para cada uno.",
+    "observed": 200,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "AND-INCOMPATIBLE",
+    "code": "andalucia_nacimiento_adopcion_acogimiento_menores",
+    "inputs": {
+      "andaluciaHijosNacimientoAdopcion": 1,
+      "andaluciaCategoriaFamiliaNumerosa": "general",
+      "andaluciaFamiliaNumerosaCumpleLimites": true
+    },
+    "predicted": 400,
+    "expected": 200,
+    "reason": "Nacimiento y familia numerosa incompatibles; elegir una, nunca sumar ambas.",
+    "observed": 400,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "AND-BASE",
+    "code": "andalucia_familia_monoparental_ascendientes_mayores_75",
+    "inputs": {
+      "andaluciaFamiliaMonoparental": true,
+      "baseImponibleGeneral": 80000.01
+    },
+    "predicted": 100,
+    "expected": 0,
+    "reason": "Monoparental en individual con base total 80.000,01; no hay entrada ni validación real de base.",
+    "observed": 100,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "ARA-DEPENDIENTES",
+    "code": "aragon_cuidado_personas_dependientes",
+    "inputs": {
+      "aragonPersonasDependientes": 2,
+      "aragonDependientesCumpleLimites": true
+    },
+    "predicted": 300,
+    "expected": 150,
+    "reason": "La cuantía es 150 por cuidado de personas dependientes, no 150 por cada dependiente; revisar artículo 110-5 antes de aceptación.",
+    "observed": 300,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "ARA-PRORRATA",
+    "code": "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+    "inputs": {
+      "aragonTercerHijoSucesivos": 1
+    },
+    "predicted": 500,
+    "expected": 250,
+    "reason": "Dos progenitores con derecho, declaración individual, sin tipo incrementado.",
+    "observed": 500,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CAN-ORDEN-DISCAPACIDAD",
+    "code": "canarias_nacimiento_adopcion_hijos",
+    "inputs": {
+      "canariasOrdenHijoNacimientoAdopcion": "tercero",
+      "canariasHijosNacimientoAdopcion": 1,
+      "canariasHijosNacimientoAdopcionDiscapacidad65": 1,
+      "canariasNacimientoCumpleLimites": true
+    },
+    "predicted": 1630,
+    "expected": 1130,
+    "reason": "Tercer hijo total pero primero con discapacidad >=65: 530+600; el motor asigna 1100 de incremento.",
+    "observed": 1630,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CAN-ORDEN-MULTIPLE",
+    "code": "canarias_nacimiento_adopcion_hijos",
+    "inputs": {
+      "canariasOrdenHijoNacimientoAdopcion": "tercero",
+      "canariasHijosNacimientoAdopcion": 2,
+      "canariasNacimientoCumpleLimites": true
+    },
+    "predicted": 1060,
+    "expected": 1326,
+    "reason": "Nacen hijos tercero y cuarto; un único campo de orden produce 2*530 en lugar de 530+796; un solo titular.",
+    "observed": 1060,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CAN-FAMILIA-PRORRATA",
+    "code": "canarias_familia_numerosa",
+    "inputs": {
+      "canariasCategoriaFamiliaNumerosa": "general"
+    },
+    "predicted": 597,
+    "expected": 298.5,
+    "reason": "Dos contribuyentes con derecho, individual: 597/2.",
+    "observed": 597,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CANT-ALQUILER-CONJUNTA",
+    "code": "cantabria_arrendamiento_jovenes_mayores_discapacidad",
+    "inputs": {
+      "cantabria_arrendamiento_jovenes_mayores_discapacidad:cumple": true,
+      "cantabria_arrendamiento_jovenes_mayores_discapacidad:base": 6000
+    },
+    "predicted": 300,
+    "expected": 600,
+    "reason": "Conjunta, al menos un declarante cumple, alquiler 6000 y resto de requisitos: límite 600.",
+    "observed": 300,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CANT-NACIMIENTO-INDIVIDUAL",
+    "code": "cantabria_nacimiento_adopcion_hijos",
+    "inputs": {
+      "cantabria_nacimiento_adopcion_hijos:cumple": true,
+      "cantabria_nacimiento_adopcion_hijos:unidades": 1
+    },
+    "predicted": 1400,
+    "expected": 700,
+    "reason": "Declaración individual: prorrateo obligatorio por mitad, incluso si el otro progenitor reside fuera.",
+    "observed": 1400,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CANT-CUIDADO-DOBLE",
+    "code": "cantabria_cuidado_familiares",
+    "inputs": {
+      "cantabria_cuidado_familiares:cumple": true,
+      "cantabria_cuidado_familiares:unidades": 1
+    },
+    "predicted": 100,
+    "expected": 200,
+    "reason": "Un descendiente menor de 3 con discapacidad >=65: 100 por edad más 100 por discapacidad; sin nacimiento elegible para aislar regla.",
+    "observed": 100,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "AST-CELIACA-PRORRATA",
+    "code": "asturias_enfermedad_celiaca",
+    "inputs": {
+      "asturias_enfermedad_celiaca:cumple": true,
+      "asturias_enfermedad_celiaca:unidades": 0.5
+    },
+    "predicted": 100,
+    "expected": 50,
+    "reason": "Dos titulares por mismo descendiente; ni siquiera unidades fraccionarias permiten prorrateo porque se fuerza mínimo 1.",
+    "observed": 100,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "AST-ARRENDAMIENTO-CONJUNTA",
+    "code": "asturias_gastos_arrendamiento_viviendas",
+    "inputs": {
+      "asturias_gastos_arrendamiento_viviendas:cumple": true,
+      "asturias_gastos_arrendamiento_viviendas:base": 1000
+    },
+    "predicted": 500,
+    "expected": 1000,
+    "reason": "Dos miembros con 500 de gasto propio elegible cada uno en conjunta: límite 500 por miembro.",
+    "observed": 500,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CLM-INCOMPATIBLE",
+    "code": "clm_discapacidad_contribuyente",
+    "inputs": {
+      "clmContribuyenteDiscapacidad65": true,
+      "clmDiscapacidadContribuyenteCumpleLimites": true,
+      "clm_mayores_75:cumple": true,
+      "clm_mayores_75:unidades": 1
+    },
+    "predicted": 450,
+    "expected": 300,
+    "reason": "Contribuyente >75 con discapacidad >=65: discapacidad y mayores75 incompatibles.",
+    "observed": 450,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CAT-INTERESES-ORIGEN",
+    "code": "cataluna_intereses_prestamos_master_doctorado",
+    "inputs": {
+      "catalunyaInteresesMasterDoctorado": 100
+    },
+    "predicted": 100,
+    "expected": 0,
+    "reason": "Préstamo ordinario bancario, no concedido a través de AGAUR. El motor no distingue origen.",
+    "observed": 100,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CAT-ALQUILER-BASE",
+    "code": "cataluna_alquiler_victimas_violencia_machista",
+    "inputs": {
+      "catalunyaAlquilerVictima": 1000,
+      "catalunyaVictimaViolenciaMachista": true,
+      "baseImponibleMenosMinimo": 30000.01
+    },
+    "predicted": 200,
+    "expected": 0,
+    "reason": "Base general+ahorro-mínimo >30000, ninguna entrada efectiva controla umbral.",
+    "observed": 200,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CAT-COOPERATIVA-TEMPORAL",
+    "code": "cataluna_inversion_cooperativas_agrarias_vivienda",
+    "inputs": {
+      "catalunyaAportacionesCooperativas": 1000
+    },
+    "predicted": 200,
+    "expected": 0,
+    "reason": "Aportación como socio temporal, expresamente excluido; no existe entrada para distinguirlo.",
+    "observed": 200,
+    "failsBeforeFix": true
+  },
+  {
+    "id": "CAT-VIUDEDAD-ANTIGUA",
+    "code": "cataluna_viudedad_2023_2024_2025",
+    "inputs": {
+      "catalunyaViudedad": true
+    },
+    "predicted": 150,
+    "expected": 0,
+    "reason": "Viudedad de 2022 en ejercicio 2025; falta año de fallecimiento.",
+    "observed": 150,
+    "failsBeforeFix": true
+  }
+]

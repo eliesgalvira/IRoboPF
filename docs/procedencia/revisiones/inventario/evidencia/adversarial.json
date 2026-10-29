@@ -1,0 +1,138 @@
+{
+  "ids": [
+    {
+      "old": "10",
+      "new": "5",
+      "id": "inv-1acc47198dd8efb3dfb59f7d6bae4265"
+    },
+    {
+      "old": "20",
+      "new": "10",
+      "id": "inv-647e4120d7fe9534cf6c5da27834648e"
+    }
+  ],
+  "literals": [
+    {
+      "expression": "[\"1E-3\",-2,3n,Infinity,\"hasta 42 euros\"]",
+      "value": null,
+      "kind": "Parameter"
+    },
+    {
+      "expression": "\"1E-3\"",
+      "value": "1E-3",
+      "kind": "Parameter"
+    },
+    {
+      "expression": "-2",
+      "value": null,
+      "kind": "Formula"
+    },
+    {
+      "expression": "2",
+      "value": "2",
+      "kind": "Parameter"
+    },
+    {
+      "expression": "3n",
+      "value": null,
+      "kind": "Parameter"
+    },
+    {
+      "expression": "Infinity",
+      "value": null,
+      "kind": "Parameter"
+    },
+    {
+      "expression": "(x)=> Math.floor(x)",
+      "value": null,
+      "kind": "Step"
+    },
+    {
+      "expression": "Math.floor(x)",
+      "value": null,
+      "kind": "Formula"
+    },
+    {
+      "expression": "(x)=>x==2",
+      "value": null,
+      "kind": "Step"
+    },
+    {
+      "expression": "x==2",
+      "value": null,
+      "kind": "Formula"
+    },
+    {
+      "expression": "2",
+      "value": "2",
+      "kind": "Parameter"
+    }
+  ],
+  "bigint": [],
+  "cycle": [
+    {
+      "path": [
+        "x"
+      ],
+      "value": "1"
+    }
+  ],
+  "fakeDecimal": [
+    {
+      "path": [],
+      "value": "[object Object]"
+    }
+  ],
+  "fakeTag": [
+    {
+      "path": [],
+      "value": "[object Number]"
+    }
+  ],
+  "dimensions": {
+    "years": [
+      2024
+    ],
+    "territories": [
+      "madrid"
+    ],
+    "unit": "pending"
+  },
+  "evidence": "accepted",
+  "unicode": [
+    {
+      "id": "inv-85f4d7f1da63615d04667a058e3d8005",
+      "layer": "syntactic",
+      "kind": "Parameter",
+      "name": "Parámetro: x / /FirstStatement:x/VariableDeclarationList/VariableDeclaration:x/FirstLiteralToken",
+      "domain": "",
+      "symbol": "x",
+      "path": "/FirstStatement:x/VariableDeclarationList/VariableDeclaration:x/FirstLiteralToken",
+      "expression": "12",
+      "value": "12",
+      "unit": "pending",
+      "years": [],
+      "territories": [],
+      "regimes": [],
+      "applicability": "pending",
+      "status": "pending",
+      "evidence": "pending",
+      "independentReview": "pending",
+      "relations": {
+        "itemIds": [],
+        "ruleIds": [],
+        "citationIds": [],
+        "findingIds": []
+      },
+      "source": {
+        "file": "fixture.ts",
+        "sha256": "9046de431329793af1eff6254784ff054f62fe464d60bda735e732464187a568",
+        "start": 22,
+        "end": 24,
+        "line": 1,
+        "column": 23,
+        "offsetEncoding": "utf16"
+      }
+    }
+  ]
+}

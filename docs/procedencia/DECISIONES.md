@@ -46,6 +46,12 @@ Las cabeceras ETag, Last-Modified, Content-Type, tamaño, estado y fecha permite
 
 La primera ejecución de lint en el padre encontró un script experimental de otro auditor dentro de `.cache/procedencia/`, directorio ignorado por VCS. Se excluye `.cache/` de ESLint, oxlint y del proyecto TypeScript, como almacenamiento temporal; las fuentes mantenidas en app, components, lib, scripts, tools y tests conservan sus comprobaciones. Coste: un script temporal no recibe garantía de lint global. Si se promueve al repositorio deberá salir de la caché, pasar los controles de su lenguaje y ser revisado antes de usarse en CI.
 
+## D011. Cerrar la aceptación del corpus hasta enlazar inventario y revisiones
+
+La revisión adversarial demuestra que una cita puede repetir un valor y declarar dos revisores inexistentes sin consultar el motor. Se rechaza esa puerta de aceptación. El verificador deberá cargar un snapshot de inventario seleccionado por el integrador, comprobar su correspondencia con el código actual y resolver registros independientes que se refieran a ese mismo elemento y evidencia. Integridad, binding numérico, interpretación y contrarrevisión tendrán resultados separados.
+
+Objeción experta: una igualdad entre dos campos suministrados por la misma cita no verifica el valor ejecutable ni la independencia de la revisión. Motivo: impedir una certificación circular y conservar el trabajo útil de adquisición y facsímiles. Coste aceptado: mayor integración y pruebas adversariales; mientras falte ese puente, la salida solo acredita las comprobaciones técnicas que realmente ejecuta, sin aceptación fiscal global. Los ocho hallazgos y reproducciones se conservan en `revisiones/corpus/`.
+
 ## D004. Oxlint anti-slop junto a ESLint de Next
 
 Se mantienen los presets core-web-vitals y typescript de eslint-config-next 16.1.7 y se añade oxlint 1.78.0 con @oxlint/plugins de la misma versión exacta. El runtime anti-slop v0.1.2 queda incorporado con licencia y hashes. Las 15 reglas generales y la regla Effect están a error. El script lint ejecuta ambos analizadores y falla si cualquiera falla.

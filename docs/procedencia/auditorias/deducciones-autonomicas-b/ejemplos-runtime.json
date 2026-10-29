@@ -1,0 +1,65 @@
+[
+  {
+    "id": "madrid_sin_requisitos",
+    "inputs": {
+      "madridHijosNacimientoAdopcion": 1
+    },
+    "result": 721.7
+  },
+  {
+    "id": "madrid_gemelos",
+    "inputs": {
+      "madridHijosNacimientoAdopcion": 2
+    },
+    "result": 1443.4
+  },
+  {
+    "id": "murcia_dos_hijos",
+    "inputs": {
+      "murcia_gastos_guarderia:cumple": true,
+      "murcia_gastos_guarderia:base": 10000
+    },
+    "result": 1000
+  },
+  {
+    "id": "balears_dos_personas",
+    "inputs": {
+      "balears_gastos_mayores_65_discapacidad:cumple": true,
+      "balears_gastos_mayores_65_discapacidad:base": 4000
+    },
+    "result": 660
+  },
+  {
+    "id": "valencia_reduccion",
+    "inputs": {
+      "valenciana_ascendientes_mayores_discapacidad:cumple": true,
+      "valenciana_ascendientes_mayores_discapacidad:unidades": 1
+    },
+    "result": 197
+  },
+  {
+    "id": "rioja_cero",
+    "inputs": {
+      "rioja_enfermedad_celiaca:cumple": true,
+      "rioja_enfermedad_celiaca:unidades": 0
+    },
+    "result": 250
+  },
+  {
+    "id": "manual_arbitrario",
+    "inputs": {
+      "galicia_familias_dos_hijos:cumple": true,
+      "galicia_familias_dos_hijos:importe": 999999
+    },
+    "result": 999999
+  },
+  {
+    "id": "extremadura_incompatibles",
+    "inputs": {
+      "extremadura_trabajo_dependiente:cumple": true,
+      "extremadura_contribuyentes_viudos:cumple": true,
+      "extremadura_contribuyentes_viudos:importe": 100
+    },
+    "result": 175
+  }
+]

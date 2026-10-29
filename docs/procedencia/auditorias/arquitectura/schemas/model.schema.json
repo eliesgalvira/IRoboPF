@@ -1,0 +1,2104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://irobopf.com/contracts/procedencia/v1/model.schema.json",
+  "title": "Propuesta de contratos de procedencia IRoboPF; pendiente de contrarrevisión",
+  "$defs": {
+    "Ref": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "additionalProperties": false
+    },
+    "Blob": {
+      "type": "object",
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sha512": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{128}$"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mimeType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^sha256/[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "sha256",
+        "sha512",
+        "size",
+        "mimeType",
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "years": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 2012,
+            "maximum": 2026
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "territories": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "ES",
+              "ES-AN",
+              "ES-AR",
+              "ES-AS",
+              "ES-CN",
+              "ES-CB",
+              "ES-CL",
+              "ES-CM",
+              "ES-CT",
+              "ES-EX",
+              "ES-GA",
+              "ES-IB",
+              "ES-RI",
+              "ES-MD",
+              "ES-MC",
+              "ES-NC",
+              "ES-PV",
+              "ES-VC",
+              "ES-CE",
+              "ES-ML",
+              "ES-VI",
+              "ES-BI",
+              "ES-SS",
+              "simulada-estatal"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "regime": {
+          "enum": [
+            "comun",
+            "foral",
+            "legacy-simulado",
+            "general",
+            "no-fiscal"
+          ]
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date"
+        },
+        "validToExclusive": {
+          "type": "string",
+          "format": "date"
+        },
+        "timeBasis": {
+          "enum": [
+            "devengo",
+            "pago",
+            "periodo-cotizacion",
+            "fecha-fallecimiento",
+            "ejercicio-anual",
+            "no-fiscal"
+          ]
+        },
+        "conditionEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditionRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "inheritance": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "direct"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "inherited"
+                },
+                "from": {
+                  "$ref": "#/$defs/Ref"
+                },
+                "continuityRuleRefs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Ref"
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "kind",
+                "from",
+                "continuityRuleRefs"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "years",
+        "territories",
+        "regime",
+        "validFrom",
+        "validToExclusive",
+        "timeBasis",
+        "conditionEs",
+        "conditionRefs",
+        "inheritance"
+      ],
+      "additionalProperties": false
+    },
+    "Knowledge": {
+      "enum": [
+        "sin-evidencia",
+        "evidencia-localizada",
+        "interpretacion-candidata",
+        "contradicha",
+        "no-aplica"
+      ]
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pendiente",
+            "objetada",
+            "aceptada",
+            "rechazada"
+          ]
+        },
+        "authorId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "reviewerId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "reportRef": {
+          "$ref": "#/$defs/Blob"
+        },
+        "examined": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "reasonEs": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "status",
+        "authorId"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "aceptada",
+                  "rechazada",
+                  "objetada"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reviewerId",
+              "reportRef",
+              "examined",
+              "reasonEs"
+            ]
+          }
+        }
+      ]
+    },
+    "Edge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "conditionEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expectedEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "testId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        }
+      },
+      "required": [
+        "id",
+        "conditionEs",
+        "expectedEs",
+        "testId"
+      ],
+      "additionalProperties": false
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "anchor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fileSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "symbol",
+        "anchor",
+        "fileSha256"
+      ],
+      "additionalProperties": false
+    },
+    "Section": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "disponible"
+            },
+            "textEs": {
+              "type": "string",
+              "minLength": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Ref"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "status",
+            "textEs",
+            "refs"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "pendiente",
+                "no-aplica"
+              ]
+            },
+            "reasonEs": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "status",
+            "reasonEs"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "locale": {
+          "const": "es"
+        },
+        "summaryEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formula": {
+          "$ref": "#/$defs/Section"
+        },
+        "derivation": {
+          "$ref": "#/$defs/Section"
+        },
+        "legalBasis": {
+          "$ref": "#/$defs/Section"
+        },
+        "capture": {
+          "$ref": "#/$defs/Section"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Edge"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "locale",
+        "summaryEs",
+        "formula",
+        "derivation",
+        "legalBasis",
+        "capture",
+        "edges"
+      ],
+      "additionalProperties": false
+    },
+    "Parameter": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "titleEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Knowledge"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        },
+        "page": {
+          "$ref": "#/$defs/Page"
+        },
+        "kind": {
+          "const": "parameter"
+        },
+        "classification": {
+          "enum": [
+            "regla-legal",
+            "simplificacion-legacy",
+            "valor-derivado",
+            "constante-tecnica",
+            "supuesto",
+            "proyeccion",
+            "dato-economico"
+          ]
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "decimal"
+                },
+                "decimal": {
+                  "type": "string",
+                  "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+                }
+              },
+              "required": [
+                "type",
+                "decimal"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "table"
+                },
+                "rows": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+                      },
+                      "cells": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "column": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+                            },
+                            "decimal": {
+                              "type": "string",
+                              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+                            },
+                            "unit": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "column",
+                            "decimal",
+                            "unit"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "cells"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "type",
+                "rows"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "unknown"
+                },
+                "reasonEs": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "type",
+                "reasonEs"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ruleRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "citationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "derivationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "engineLocations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Location"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "execution": {
+          "enum": [
+            "catalogado",
+            "implementado",
+            "no-soportado"
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "titleEs",
+        "scope",
+        "knowledge",
+        "review",
+        "page",
+        "kind",
+        "classification",
+        "value",
+        "unit",
+        "ruleRefs",
+        "citationRefs",
+        "derivationRefs",
+        "engineLocations",
+        "execution"
+      ],
+      "additionalProperties": false
+    },
+    "Formula": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "titleEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Knowledge"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        },
+        "page": {
+          "$ref": "#/$defs/Page"
+        },
+        "kind": {
+          "const": "formula"
+        },
+        "classification": {
+          "enum": [
+            "regla-legal",
+            "simplificacion-legacy",
+            "valor-derivado",
+            "constante-tecnica",
+            "supuesto",
+            "proyeccion"
+          ]
+        },
+        "expressionEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1
+              },
+              "parameterRefs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/Ref"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "name",
+              "unit",
+              "parameterRefs"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "outputUnit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "roundingRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "ruleRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "citationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "engineLocations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Location"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "execution": {
+          "enum": [
+            "catalogado",
+            "implementado",
+            "no-soportado"
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "titleEs",
+        "scope",
+        "knowledge",
+        "review",
+        "page",
+        "kind",
+        "classification",
+        "expressionEs",
+        "inputs",
+        "outputUnit",
+        "roundingRefs",
+        "ruleRefs",
+        "citationRefs",
+        "engineLocations",
+        "execution"
+      ],
+      "additionalProperties": false
+    },
+    "Step": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "titleEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Knowledge"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        },
+        "page": {
+          "$ref": "#/$defs/Page"
+        },
+        "kind": {
+          "const": "step"
+        },
+        "formulaRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "parameterRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "ruleRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "citationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "applicationEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "engineLocations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Location"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "titleEs",
+        "scope",
+        "knowledge",
+        "review",
+        "page",
+        "kind",
+        "formulaRefs",
+        "parameterRefs",
+        "ruleRefs",
+        "citationRefs",
+        "dependsOn",
+        "applicationEs",
+        "engineLocations"
+      ],
+      "additionalProperties": false
+    },
+    "Derivation": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "titleEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Knowledge"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        },
+        "page": {
+          "$ref": "#/$defs/Page"
+        },
+        "kind": {
+          "const": "derivation"
+        },
+        "inputRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "formulaRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "result": {
+          "type": "string",
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "roundingEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reasonEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "citationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "titleEs",
+        "scope",
+        "knowledge",
+        "review",
+        "page",
+        "kind",
+        "inputRefs",
+        "formulaRef",
+        "result",
+        "unit",
+        "roundingEs",
+        "reasonEs",
+        "citationRefs"
+      ],
+      "additionalProperties": false
+    },
+    "Rule": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "titleEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Knowledge"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        },
+        "page": {
+          "$ref": "#/$defs/Page"
+        },
+        "kind": {
+          "const": "rule"
+        },
+        "legalIdentifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "article": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ruleType": {
+          "enum": [
+            "norma",
+            "algoritmo-oficial",
+            "interpretacion",
+            "hipotesis",
+            "convencion-tecnica"
+          ]
+        },
+        "publicationDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "entryIntoForce": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "textEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "citationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "amends": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "measureIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "titleEs",
+        "scope",
+        "knowledge",
+        "review",
+        "page",
+        "kind",
+        "legalIdentifier",
+        "article",
+        "ruleType",
+        "publicationDate",
+        "entryIntoForce",
+        "textEs",
+        "citationRefs",
+        "amends",
+        "supersedes",
+        "measureIds"
+      ],
+      "additionalProperties": false
+    },
+    "AuthenticityCheck": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "enum": [
+            "https-origin",
+            "pades",
+            "csv",
+            "rfc3161",
+            "warc",
+            "publisher-signature"
+          ]
+        },
+        "status": {
+          "enum": [
+            "no-evaluada",
+            "valida",
+            "invalida",
+            "indeterminada",
+            "no-aplica"
+          ]
+        },
+        "checkedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1
+        },
+        "toolVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scopeEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reportBlob": {
+          "$ref": "#/$defs/Blob"
+        }
+      },
+      "required": [
+        "method",
+        "status",
+        "scopeEs"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "valida",
+                  "invalida",
+                  "indeterminada"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "checkedAt",
+              "tool",
+              "toolVersion",
+              "reportBlob"
+            ]
+          }
+        }
+      ]
+    },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "document"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "titleEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "original": {
+          "$ref": "#/$defs/Blob"
+        },
+        "canonicalUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "finalUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "httpStatus": {
+          "type": "integer",
+          "minimum": 200,
+          "maximum": 299
+        },
+        "headers": {
+          "type": "object",
+          "properties": {
+            "etag": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "lastModified": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "contentType": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "etag",
+            "lastModified",
+            "contentType"
+          ],
+          "additionalProperties": false
+        },
+        "identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "publication": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authenticityChecks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AuthenticityCheck"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        },
+        "localPath": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "kind",
+        "id",
+        "titleEs",
+        "original",
+        "canonicalUrl",
+        "finalUrl",
+        "retrievedAt",
+        "httpStatus",
+        "headers",
+        "identifier",
+        "publication",
+        "version",
+        "authenticityChecks",
+        "review"
+      ],
+      "additionalProperties": false
+    },
+    "Box": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "number",
+          "minimum": 0
+        }
+      ],
+      "items": false,
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "Quote": {
+      "type": "object",
+      "properties": {
+        "exact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "suffix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "exact",
+        "prefix",
+        "suffix"
+      ],
+      "additionalProperties": false
+    },
+    "PdfLocator": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "pdf"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pageLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coordinateSystem": {
+          "const": "pymupdf-unrotated-cropbox-top-left-pt"
+        },
+        "pageWidthPt": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "pageHeightPt": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rotation": {
+          "enum": [
+            0,
+            90,
+            180,
+            270
+          ]
+        },
+        "boxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Box"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "quote": {
+          "$ref": "#/$defs/Quote"
+        },
+        "extraction": {
+          "enum": [
+            "text-layer",
+            "ocr"
+          ]
+        },
+        "extractorVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "table": {
+          "type": "object",
+          "properties": {
+            "tableId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "row": {
+              "type": "string",
+              "minLength": 1
+            },
+            "column": {
+              "type": "string",
+              "minLength": 1
+            },
+            "headerQuote": {
+              "type": "string",
+              "minLength": 1
+            },
+            "cellBoxes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Box"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "tableId",
+            "row",
+            "column",
+            "headerQuote",
+            "cellBoxes"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "page",
+        "coordinateSystem",
+        "pageWidthPt",
+        "pageHeightPt",
+        "rotation",
+        "boxes",
+        "quote",
+        "extraction",
+        "extractorVersion"
+      ],
+      "additionalProperties": false
+    },
+    "HtmlLocator": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "html"
+        },
+        "selector": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote": {
+          "$ref": "#/$defs/Quote"
+        },
+        "textAlgorithm": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "type",
+        "selector",
+        "quote",
+        "textAlgorithm"
+      ],
+      "additionalProperties": false
+    },
+    "Citation": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "citation"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "documentRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "documentSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "locator": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/PdfLocator"
+            },
+            {
+              "$ref": "#/$defs/HtmlLocator"
+            }
+          ]
+        },
+        "purpose": {
+          "enum": [
+            "valor",
+            "vigencia",
+            "condicion",
+            "formula",
+            "procedencia-tecnica"
+          ]
+        },
+        "supports": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "kind",
+        "id",
+        "documentRef",
+        "documentSha256",
+        "locator",
+        "purpose",
+        "supports",
+        "review"
+      ],
+      "additionalProperties": false
+    },
+    "Facsimile": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "facsimile"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "citationRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "documentSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "clip": {
+          "$ref": "#/$defs/Box"
+        },
+        "render": {
+          "type": "object",
+          "properties": {
+            "engine": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "environmentDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "dpi": {
+              "type": "integer",
+              "minimum": 72,
+              "maximum": 600
+            },
+            "rotation": {
+              "enum": [
+                0,
+                90,
+                180,
+                270
+              ]
+            },
+            "colorspace": {
+              "enum": [
+                "rgb",
+                "gray"
+              ]
+            },
+            "alpha": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "boolean"
+            },
+            "encoderVersion": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "engine",
+            "version",
+            "environmentDigest",
+            "dpi",
+            "rotation",
+            "colorspace",
+            "alpha",
+            "annotations",
+            "encoderVersion"
+          ],
+          "additionalProperties": false
+        },
+        "image": {
+          "$ref": "#/$defs/Blob"
+        },
+        "widthPx": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "heightPx": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "altEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transcriptEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "kind",
+        "id",
+        "citationRef",
+        "documentSha256",
+        "page",
+        "clip",
+        "render",
+        "image",
+        "widthPx",
+        "heightPx",
+        "altEs",
+        "transcriptEs",
+        "review"
+      ],
+      "additionalProperties": false
+    },
+    "Entry": {
+      "type": "object",
+      "properties": {
+        "entity": {
+          "$ref": "#/$defs/Ref"
+        },
+        "kind": {
+          "enum": [
+            "parameter",
+            "formula",
+            "step",
+            "derivation",
+            "rule",
+            "document",
+            "citation",
+            "facsimile"
+          ]
+        },
+        "blob": {
+          "$ref": "#/$defs/Blob"
+        }
+      },
+      "required": [
+        "entity",
+        "kind",
+        "blob"
+      ],
+      "additionalProperties": false
+    },
+    "Package": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "package"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Entry"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "kind",
+        "entries"
+      ],
+      "additionalProperties": false
+    },
+    "Snapshot": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "snapshot"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "parent": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "inventoryRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "engineAlgorithmVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "engineDataRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "explanationVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "packages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+              },
+              "blob": {
+                "$ref": "#/$defs/Blob"
+              },
+              "entryCount": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "dependencies": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "blob",
+              "entryCount",
+              "dependencies"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "bindingIndex": {
+          "$ref": "#/$defs/Blob"
+        },
+        "coverageIndex": {
+          "$ref": "#/$defs/Blob"
+        },
+        "reviewReports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Blob"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "releasePolicy": {
+          "enum": [
+            "candidata",
+            "revisada"
+          ]
+        },
+        "schemaBundleSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "kind",
+        "createdAt",
+        "parent",
+        "inventoryRevision",
+        "engineAlgorithmVersion",
+        "engineDataRevision",
+        "explanationVersion",
+        "packages",
+        "bindingIndex",
+        "coverageIndex",
+        "reviewReports",
+        "releasePolicy",
+        "schemaBundleSha256"
+      ],
+      "additionalProperties": false
+    },
+    "Binding": {
+      "type": "object",
+      "properties": {
+        "siteId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "subjectRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "ruleRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "citationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "evidenceStatus": {
+          "enum": [
+            "enlazada",
+            "pendiente",
+            "no-aplica"
+          ]
+        },
+        "reasonEs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context": {
+          "$ref": "#/$defs/Scope"
+        }
+      },
+      "required": [
+        "siteId",
+        "subjectRef",
+        "ruleRefs",
+        "citationRefs",
+        "evidenceStatus",
+        "reasonEs",
+        "context"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "evidenceStatus": {
+                "const": "enlazada"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "ruleRefs": {
+                "minItems": 1
+              },
+              "citationRefs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BindingIndex": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "engineAlgorithmVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "engineDataRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "explanationVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Binding"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "engineAlgorithmVersion",
+        "engineDataRevision",
+        "explanationVersion",
+        "bindings"
+      ],
+      "additionalProperties": false
+    },
+    "Trace": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 2
+        },
+        "corpusSnapshotSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "engineAlgorithmVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "engineDataRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "explanationVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "canonico",
+            "compatible-legacy"
+          ]
+        },
+        "scenarioId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+        },
+        "scenarioRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "context": {
+          "$ref": "#/$defs/Scope"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "instanceId": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+              },
+              "binding": {
+                "$ref": "#/$defs/Binding"
+              },
+              "lines": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "instanceId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9]*([.-][a-z0-9]+)*$"
+                    },
+                    "binding": {
+                      "$ref": "#/$defs/Binding"
+                    },
+                    "formulaRef": {
+                      "$ref": "#/$defs/Ref"
+                    },
+                    "parameterRefs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Ref"
+                      },
+                      "minItems": 0,
+                      "uniqueItems": true
+                    },
+                    "result": {
+                      "type": "string",
+                      "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "roundingRef": {
+                      "$ref": "#/$defs/Ref"
+                    },
+                    "disposition": {
+                      "enum": [
+                        "aplicada",
+                        "no-aplica",
+                        "no-soportada"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "instanceId",
+                    "binding",
+                    "formulaRef",
+                    "parameterRefs",
+                    "result",
+                    "unit",
+                    "roundingRef",
+                    "disposition"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "instanceId",
+              "binding",
+              "lines"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "corpusSnapshotSha256",
+        "engineAlgorithmVersion",
+        "engineDataRevision",
+        "explanationVersion",
+        "mode",
+        "scenarioId",
+        "scenarioRevision",
+        "context",
+        "steps"
+      ],
+      "additionalProperties": false
+    },
+    "PageEnvelope": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "snapshotSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "subject": {
+          "$ref": "#/$defs/Ref"
+        },
+        "entityKind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content": {
+          "$ref": "#/$defs/Page"
+        },
+        "ruleRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "citationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "facsimileRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Knowledge"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "snapshotSha256",
+        "subject",
+        "entityKind",
+        "content",
+        "ruleRefs",
+        "citationRefs",
+        "facsimileRefs",
+        "knowledge",
+        "review"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

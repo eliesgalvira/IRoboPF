@@ -1,0 +1,138 @@
+{
+  "delivery_hashes": {
+    "docs/procedencia/CORPUS.md": true,
+    "docs/procedencia/corpus/INFORME-IMPLEMENTACION.md": true,
+    "docs/procedencia/corpus/bocm-celda.citation.json": true,
+    "docs/procedencia/corpus/bocm-firmado.citation.json": true,
+    "docs/procedencia/corpus/bocm-firmado.manifest.json": true,
+    "docs/procedencia/corpus/boe-firmado.citation.json": true,
+    "docs/procedencia/corpus/boe-firmado.manifest.json": true,
+    "docs/procedencia/corpus/fixtures/sha256/0230d274887ce9a409bf980775f23491b0fbe8e0a3afccb79a58f9e5d0d7d5ee": true,
+    "docs/procedencia/corpus/fixtures/sha256/19167d1e8e077bdcdfd230adad9e8caaa726e4641462db03a2c5951faf2e9efa": true,
+    "docs/procedencia/corpus/fixtures/sha256/2f4df0379d7faa86b4b76542afb5f6b53a3f8c29d758f9f16ccac4b66f41330e": true,
+    "docs/procedencia/corpus/fixtures/sha256/67c8af922fe823337e0130d589cf5d51b364720936fd0319009a4783a728b544": true,
+    "docs/procedencia/corpus/fixtures/sha256/d246a21b9753380c1a2a7cdc0865afdd33da4460a597d69ab9b93be8f47df561": true,
+    "docs/procedencia/corpus/irpf-consolidado.citation.json": true,
+    "docs/procedencia/corpus/irpf-consolidado.manifest.json": true,
+    "schemas/procedencia/citation.schema.json": true,
+    "schemas/procedencia/document.schema.json": true,
+    "tests/procedencia-corpus_test.py": true,
+    "tools/procedencia/corpus.py": true,
+    "tools/procedencia/descargar.py": true,
+    "tools/procedencia/make_examples.py": true,
+    "tools/procedencia/run.sh": true
+  },
+  "sensitive_header_counts": {
+    "boe-firmado.manifest.json": 0,
+    "irpf-consolidado.manifest.json": 0,
+    "bocm-firmado.manifest.json": 1
+  },
+  "fabricated_acceptance": {
+    "integrity": "verified",
+    "fiscalAcceptance": "attested"
+  },
+  "document_unknown_fields_status": "accepted",
+  "citation_unknown_review_fields": "accepted",
+  "legacy_unknown_redirects": {
+    "sourcePolicy": {
+      "status": "allowlisted"
+    },
+    "redirects": null
+  },
+  "bool_page_direct_api": true,
+  "bad_boxes_rejected": {
+    "[True, 40, 300, 100]": true,
+    "[0, 0, nan, 40]": true,
+    "[0, 0, inf, 40]": true,
+    "[-1, 0, 40, 40]": true,
+    "[4, 4, 2, 2]": true
+  },
+  "rotations_nonzero_origin": {
+    "0": {
+      "text": "Capa selectiva\n",
+      "dimensions": [
+        360,
+        120
+      ],
+      "pixels_nonwhite": true,
+      "stable": true
+    },
+    "90": {
+      "text": "Capa selectiva\n",
+      "dimensions": [
+        120,
+        360
+      ],
+      "pixels_nonwhite": true,
+      "stable": true
+    },
+    "180": {
+      "text": "Capa selectiva\n",
+      "dimensions": [
+        360,
+        120
+      ],
+      "pixels_nonwhite": true,
+      "stable": true
+    },
+    "270": {
+      "text": "Capa selectiva\n",
+      "dimensions": [
+        120,
+        360
+      ],
+      "pixels_nonwhite": true,
+      "stable": true
+    }
+  },
+  "missing_crop_no_write": {
+    "reject": true,
+    "not_recreated": true
+  },
+  "unicode_minus": true,
+  "fraction_percent_rejected": true,
+  "unrelated_unit": true,
+  "url_rejections": {
+    "https://user@www.boe.es/a": true,
+    "https://@www.boe.es/a": false,
+    "https://www.boe.es:444/a": true,
+    "https://[::1]/a": true,
+    "https://www.bоe.es/a": true,
+    "https://www.boe.es./a": true,
+    "https://127.0.0.1/a": true,
+    "https://www.boe.es/a#x": true
+  },
+  "signature_irpf-consolidado": {
+    "status": "unsigned",
+    "certificateValidations": [],
+    "signatureValidations": [],
+    "version": "pdfsig version 26.06.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+    "exitCode": 2
+  },
+  "signature_bocm-firmado": {
+    "status": "trust-indeterminate",
+    "certificateValidations": [
+      "Certificate has Expired"
+    ],
+    "signatureValidations": [
+      "Signature is Valid."
+    ],
+    "version": "pdfsig version 26.06.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+    "exitCode": 0
+  },
+  "unsigned_incremental": {
+    "status": "trust-indeterminate",
+    "validations": [
+      "Signature is Valid."
+    ],
+    "coverage_lines": [
+      "  - Signed Ranges: [0 - 160], [20000 - 123061]",
+      "  - Not total document signed"
+    ]
+  },
+  "signature_parser_90": "trust-indeterminate",
+  "signature_parser_27": "not-validated",
+  "signature_parser_12": "not-validated",
+  "wrong_cache_url": "https://example.org/a",
+  "hash_traversal_rejected": true
+}
