@@ -1,0 +1,582 @@
+[
+  {
+    "siteId": "anual.trabajo.integro",
+    "root": "g.I",
+    "subject": {
+      "id": "paso.anual.trabajo.integro",
+      "revision": "53ff0e2ba6382aedd6a90b0727badaa061dec17858f7ff887cc28f7437501de1"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 32635,
+        "end": 32961,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.trabajo.integro\",\n              instancia: 0,\n              importe: rendimientoTrabajo.rendimientoIntegro,\n              unidad: \"EUR\",\n              etiqueta: \"Rendimiento íntegro del trabajo\",\n              formula: \"Suma de importes declarados como trabajo\",\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Suma declarada en céntimos; conversor divide por100, cuota obrera suministrada por modo, P=I-C, F por año y N=max(0,P-F). Fallback no alcanzado; validación familiar decide existencia, no importe.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.trabajo.cotizacion",
+    "root": "g.C",
+    "subject": {
+      "id": "paso.anual.trabajo.cotizacion",
+      "revision": "dd232f1be4668ef08f5bdd7876b0662ad9f82d690173831161c0c23aa371ce79"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 32975,
+        "end": 33324,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.trabajo.cotizacion\",\n              instancia: 0,\n              importe: rendimientoTrabajo.cotizacionTrabajador,\n              unidad: \"EUR\",\n              etiqueta: \"Cotización deducible del trabajador\",\n              formula: \"Cotizaciones sociales calculadas para el salario anual\",\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Suma declarada en céntimos; conversor divide por100, cuota obrera suministrada por modo, P=I-C, F por año y N=max(0,P-F). Fallback no alcanzado; validación familiar decide existencia, no importe.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.trabajo.previo-neto",
+    "root": "g.P",
+    "subject": {
+      "id": "paso.anual.trabajo.previo-neto",
+      "revision": "75923a0ec53793fa66419f4a6ab1929d69f3b636d5ca44b32109f4a24fc8c63f"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 33338,
+        "end": 33722,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.trabajo.previo-neto\",\n              instancia: 0,\n              importe: rendimientoTrabajo.rendimientoPrevioNeto,\n              unidad: \"EUR\",\n              etiqueta: \"Rendimiento previo neto\",\n              formula: `${euros(rendimientoTrabajo.rendimientoIntegro)} - ${euros(rendimientoTrabajo.cotizacionTrabajador)}`,\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Suma declarada en céntimos; conversor divide por100, cuota obrera suministrada por modo, P=I-C, F por año y N=max(0,P-F). Fallback no alcanzado; validación familiar decide existencia, no importe.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.trabajo.gastos",
+    "root": "g.F",
+    "subject": {
+      "id": "paso.anual.trabajo.gastos",
+      "revision": "4446644fafe17e880d83d1f1d3e27bb1d6621d2b6d29139a1783c255748c1a46"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 33736,
+        "end": 34053,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.trabajo.gastos\",\n              instancia: 0,\n              importe: rendimientoTrabajo.gastosDeducibles,\n              unidad: \"EUR\",\n              etiqueta: \"Gastos deducibles aplicados\",\n              formula: \"Gasto fijo del rendimiento del trabajo\",\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Suma declarada en céntimos; conversor divide por100, cuota obrera suministrada por modo, P=I-C, F por año y N=max(0,P-F). Fallback no alcanzado; validación familiar decide existencia, no importe.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.trabajo.neto",
+    "root": "g.N",
+    "subject": {
+      "id": "paso.anual.trabajo.neto",
+      "revision": "6a98f95db08fc5593e77cecb58685ed4ce9f5f9609b0ff1ac9cbd6ff652fd8e9"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 34067,
+        "end": 34450,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.trabajo.neto\",\n              instancia: 0,\n              importe: rendimientoTrabajo.rendimientoNeto,\n              unidad: \"EUR\",\n              etiqueta: \"Rendimiento neto del trabajo\",\n              formula: `max(0, ${euros(rendimientoTrabajo.rendimientoPrevioNeto)} - ${euros(rendimientoTrabajo.gastosDeducibles)})`,\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Suma declarada en céntimos; conversor divide por100, cuota obrera suministrada por modo, P=I-C, F por año y N=max(0,P-F). Fallback no alcanzado; validación familiar decide existencia, no importe.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.trabajo.reduccion",
+    "root": "g.R",
+    "subject": {
+      "id": "paso.anual.trabajo.reduccion",
+      "revision": "6210dca901442423733d0958b23c78b5b4c4e90a1cbead9a9ce24cc6f3cce292"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 34464,
+        "end": 34854,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.trabajo.reduccion\",\n              instancia: 0,\n              importe: reduccionRendimientosTrabajo,\n              unidad: \"EUR\",\n              etiqueta: \"Reducción por rendimientos del trabajo\",\n              formula: `Reducción estatal; otras rentas netas no exentas antes de compensaciones: ${euros(otrasRentasNoExentas)}`,\n            })"
+      }
+    ],
+    "decision": "bloqueado-condiciones-FA25-04",
+    "reason": "Suma declarada en céntimos; conversor divide por100, cuota obrera suministrada por modo, P=I-C, F por año y N=max(0,P-F). Fallback no alcanzado; validación familiar decide existencia, no importe.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.integro",
+    "root": "w.I",
+    "subject": {
+      "id": "paso.anual.explicito.trabajo.integro",
+      "revision": "78357bc80a0a9997565db947797b7961490d576f661ca6318ddcba22d7544ada"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 4157,
+        "end": 4441,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.integro\",\n          instancia: 0,\n          importe: new D(trabajo.gastos.integro),\n          unidad: \"EUR\",\n          etiqueta: \"Trabajo íntegro\",\n          formula: \"suma de rendimientos anuales conciliados\",\n        })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Acumuladores por rendimiento, requisitos por gasto y topes sobre suma. Adaptador separa art19 y P; art20 consume P2025/O0 limitado por art19 positivo. No trasladar suelo general al explícito.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.gastos-a-e",
+    "root": "w.AE",
+    "subject": {
+      "id": "paso.anual.explicito.trabajo.gastos-a-e",
+      "revision": "c80dc8c46284f21852d7fd7324968c911362000acfa138515e6969bf469c346f"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 4451,
+        "end": 4794,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.gastos-a-e\",\n          instancia: 0,\n          importe: new D(trabajo.gastos.gastosAE),\n          unidad: \"EUR\",\n          etiqueta: \"Gastos a–e\",\n          formula:\n            \"cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año\",\n        })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Acumuladores por rendimiento, requisitos por gasto y topes sobre suma. Adaptador separa art19 y P; art20 consume P2025/O0 limitado por art19 positivo. No trasladar suelo general al explícito.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.gasto-f",
+    "root": "w.F",
+    "subject": {
+      "id": "paso.anual.explicito.trabajo.gasto-f",
+      "revision": "f6251fa2576b78c0f7cecb309da319908497812fb433ad7e920487b734101dd9"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 4804,
+        "end": 5106,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.gasto-f\",\n          instancia: 0,\n          importe: new D(trabajo.gastos.generalesAplicados),\n          unidad: \"EUR\",\n          etiqueta: \"Gasto general aplicado\",\n          formula: \"min(2000, saldo positivo después de a–e)\",\n        })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Acumuladores por rendimiento, requisitos por gasto y topes sobre suma. Adaptador separa art19 y P; art20 consume P2025/O0 limitado por art19 positivo. No trasladar suelo general al explícito.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.art19",
+    "root": "w.adapter.N",
+    "subject": {
+      "id": "paso.anual.explicito.trabajo.art19",
+      "revision": "237c167fe0673a7e0a536367d098309fbc1d51010b1a7a120ea5fecc4a68db13"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 5116,
+        "end": 5419,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.art19\",\n          instancia: 0,\n          importe: new D(trabajo.rendimientoAntesArt20),\n          unidad: \"EUR\",\n          etiqueta: \"Neto artículo 19\",\n          formula: \"íntegro menos gastos efectivos a–e y gasto f limitado\",\n        })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Acumuladores por rendimiento, requisitos por gasto y topes sobre suma. Adaptador separa art19 y P; art20 consume P2025/O0 limitado por art19 positivo. No trasladar suelo general al explícito.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.art20",
+    "root": "x.R",
+    "subject": {
+      "id": "paso.anual.explicito.trabajo.art20",
+      "revision": "899f7642d1296ec981fae1becdec9187bbee32dffa1f80825b7bf05bc6046cca"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 5429,
+        "end": 5745,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.art20\",\n          instancia: 0,\n          importe: reduccionArt20,\n          unidad: \"EUR\",\n          etiqueta: \"Reducción artículo 20\",\n          formula:\n            \"min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)\",\n        })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Acumuladores por rendimiento, requisitos por gasto y topes sobre suma. Adaptador separa art19 y P; art20 consume P2025/O0 limitado por art19 positivo. No trasladar suelo general al explícito.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.da61",
+    "root": "x.deduction",
+    "subject": {
+      "id": "paso.anual.explicito.da61",
+      "revision": "2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 11317,
+        "end": 11565,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n        siteId: \"anual.explicito.da61\",\n        instancia: 0,\n        importe: deduccion,\n        unidad: \"EUR\",\n        etiqueta: \"DA61\",\n        formula: \"deducción de servicios después del artículo 80, una sola vez\",\n      })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Conexión fija Madrid2025. Base positiva solo para tarifas; mínimo se tarifa limitado a base. DA61 recibe regla literal y cuotas, aplica guarda base0 y limita después de art80. Retenciones/pagos se restan de posterior, no de renta.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.retenciones",
+    "root": "x.ret",
+    "subject": {
+      "id": "paso.anual.explicito.retenciones",
+      "revision": "05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 11817,
+        "end": 12055,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n        siteId: \"anual.explicito.retenciones\",\n        instancia: 0,\n        importe: retenciones,\n        unidad: \"EUR\",\n        etiqueta: \"Retenciones efectivas\",\n        formula: \"suma por operación única\",\n      })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Conexión fija Madrid2025. Base positiva solo para tarifas; mínimo se tarifa limitado a base. DA61 recibe regla literal y cuotas, aplica guarda base0 y limita después de art80. Retenciones/pagos se restan de posterior, no de renta.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.pagos",
+    "root": "x.pay",
+    "subject": {
+      "id": "paso.anual.explicito.pagos",
+      "revision": "9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 12063,
+        "end": 12296,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n        siteId: \"anual.explicito.pagos\",\n        instancia: 0,\n        importe: pagos,\n        unidad: \"EUR\",\n        etiqueta: \"Pagos fraccionados efectivos\",\n        formula: \"suma por operación única\",\n      })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Conexión fija Madrid2025. Base positiva solo para tarifas; mínimo se tarifa limitado a base. DA61 recibe regla literal y cuotas, aplica guarda base0 y limita después de art80. Retenciones/pagos se restan de posterior, no de renta.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.diferencial",
+    "root": "x.diff",
+    "subject": {
+      "id": "paso.anual.explicito.diferencial",
+      "revision": "7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 12304,
+        "end": 12564,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n        siteId: \"anual.explicito.diferencial\",\n        instancia: 0,\n        importe: diferencial,\n        unidad: \"EUR\",\n        etiqueta: \"Cuota diferencial\",\n        formula: \"cuota posterior − retenciones − pagos fraccionados\",\n      })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Conexión fija Madrid2025. Base positiva solo para tarifas; mínimo se tarifa limitado a base. DA61 recibe regla literal y cuotas, aplica guarda base0 y limita después de art80. Retenciones/pagos se restan de posterior, no de renta.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.inmobiliario.integro",
+    "root": "i.I",
+    "subject": {
+      "id": "paso.anual.inmobiliario.integro",
+      "revision": "ed68728601f0363817e3cda97aeb743fb6177250dc2fc11e80748ef0447eccc6"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 40852,
+        "end": 41211,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.inmobiliario.integro\",\n              instancia: 0,\n              importe: rendimientoCapitalInmobiliario.rendimientoIntegro,\n              unidad: \"EUR\",\n              etiqueta: \"Rendimiento íntegro de capital inmobiliario\",\n              formula: \"Suma de importes declarados en el formulario\",\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Suma declarada en céntimos; conversor divide por100, cuota obrera suministrada por modo, P=I-C, F por año y N=max(0,P-F). Fallback no alcanzado; validación familiar decide existencia, no importe.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.inmobiliario.neto",
+    "root": "i.N",
+    "subject": {
+      "id": "paso.anual.inmobiliario.neto",
+      "revision": "c18ed071d033920ebaf4ca7893f900edb8908a9762270c8389c4d19d7ee67871"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 41225,
+        "end": 41611,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.inmobiliario.neto\",\n              instancia: 0,\n              importe: rendimientoCapitalInmobiliario.rendimientoNeto,\n              unidad: \"EUR\",\n              etiqueta: \"Rendimiento neto simplificado\",\n              formula:\n                \"Sin gastos, amortizaciones ni reducciones específicas todavía implementadas\",\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Suma declarada en céntimos; conversor divide por100, cuota obrera suministrada por modo, P=I-C, F por año y N=max(0,P-F). Fallback no alcanzado; validación familiar decide existencia, no importe.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.ganancias.total",
+    "root": "h.total",
+    "subject": {
+      "id": "paso.anual.ganancias.total",
+      "revision": "94dcc012e06f2fc63808d4ce0d761aa9b57800615ae627cbbc156c8e068ea450"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 46702,
+        "end": 47023,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ganancias.total\",\n              instancia: 0,\n              importe: gananciasPatrimoniales.gananciaTotal,\n              unidad: \"EUR\",\n              etiqueta: \"Ganancias patrimoniales declaradas\",\n              formula: \"Suma de ganancias por transmisión\",\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Map por transmisión y reduce por propiedad: total no consume exenciones. Edad/tratamiento y DA37 operan por j; exenta limitada por j antes de sumar; sujeta conserva signo. Clasificación usa año y fechas, aniversario civil y defaults.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.ganancias.exenta",
+    "root": "h.exempt",
+    "subject": {
+      "id": "paso.anual.ganancias.exenta",
+      "revision": "04e48322363ea38e4bcad8ef0f97b922af064dc9b4495258910f9f38dd08d598"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 47037,
+        "end": 47465,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ganancias.exenta\",\n              instancia: 0,\n              importe: gananciasPatrimoniales.gananciaExenta,\n              unidad: \"EUR\",\n              etiqueta: \"Ganancia patrimonial exenta\",\n              formula:\n                \"Exenciones modeladas por mayores de 65 años y por inmuebles urbanos adquiridos en la ventana de 2012, con límites de concurrencia\",\n            })"
+      }
+    ],
+    "decision": "concordancia-local-sin-composicion",
+    "reason": "Map por transmisión y reduce por propiedad: total no consume exenciones. Edad/tratamiento y DA37 operan por j; exenta limitada por j antes de sumar; sujeta conserva signo. Clasificación usa año y fechas, aniversario civil y defaults.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  },
+  {
+    "siteId": "anual.explicito.actividad.etapa",
+    "root": "a.adapter",
+    "subject": {
+      "id": "paso.anual.explicito.actividad.etapa",
+      "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+    },
+    "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+    "source": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "start": 7016,
+        "end": 7268,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.actividad.etapa\",\n          instancia: instancia,\n          importe: new D(e.importe),\n          unidad: \"EUR\",\n          etiqueta: `${e.reglaId}: ${e.id}`,\n          formula: e.formula,\n        })"
+      }
+    ],
+    "decision": "bloqueado-FA25-01-02-04-05",
+    "reason": "Diarios individuales y sumas separados. P descuenta ordinarios/RETA/cuotas, nunca saldo. G/opción, RN, adicional/discapacidad/rentas bajas, inicio y aporte son propiedades diferentes. Alcance anual rechaza activos y grado no0.",
+    "pending": [
+      "FA25-06: validador de referencias no prueba dependencias",
+      "Composición con contratos externos, cuando aplican",
+      "Contraste posterior de conclusiones nuevas; fiscalidad pendiente"
+    ],
+    "objection": "Un sitio concordante no cierra sus hojas ni controles transitivos.",
+    "response": "Se conservan identificadores históricos y omisiones R21; ninguna migración de aceptación.",
+    "cost": "Integración bloqueada como grafo completo; aprovechamiento selectivo posible tras corrección y contraste."
+  }
+]

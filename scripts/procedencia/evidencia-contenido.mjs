@@ -174,7 +174,8 @@ export async function generarEvidencia(root, entrada) {
     entradas.push({ revision, entidad })
     return { id: entidad.id, revision }
   }
-  const estados = []
+  const sujetos = new Map()
+  const estadosPendientes = []
   for (const entry of json(leer(root, registro)).entries) {
     const payload = json(leer(root, entry.payload.path))
     const citation = json(leer(root, payload.citation.path))
@@ -284,7 +285,7 @@ export async function generarEvidencia(root, entrada) {
         { relacion: "captura", destino: crop },
       ],
     })
-    const sujeto = agregar({
+    const fichaSujeto = {
       ...base(item.id, item.name),
       identidad: "ocurrencia",
       tipo: item.kind,
@@ -306,9 +307,12 @@ export async function generarEvidencia(root, entrada) {
         },
       ],
       aristas: [{ relacion: "norma", destino: rule }],
-    })
-    estados.push({
-      sujeto,
+    }
+    const existente = sujetos.get(item.id)
+    if (existente) existente.aristas.push(...fichaSujeto.aristas)
+    else sujetos.set(item.id, fichaSujeto)
+    estadosPendientes.push({
+      itemId: item.id,
       payload: entry.payload,
       snapshotOrigen: entrada.snapshot,
       integridad: result.integrity,
@@ -323,11 +327,41 @@ export async function generarEvidencia(root, entrada) {
       aceptacionFiscalCompleta: false,
     })
   }
+  const referenciasSujetos = new Map()
+  for (const ficha of sujetos.values()) {
+    if (ficha.aristas.length > 1) {
+      // Cada Rule conserva su ámbito y estados. Ninguno se generaliza al sujeto.
+      ficha.aristas.sort((a, b) => a.destino.id.localeCompare(b.destino.id))
+      ficha.secciones = {
+        ...baseFicha(ficha.id, ficha.titulo, "ocurrencia").secciones,
+        norma: {
+          estado: "candidata",
+          texto:
+            "Varias proposiciones documentales enlazadas; cada una conserva su ejercicio y condiciones.",
+        },
+        evidencia: {
+          estado: "candidata",
+          texto:
+            "Las citas y facsímiles se conservan por enlace exacto, sin extender su alcance a otros ejercicios.",
+        },
+        bordes: {
+          estado: "candidata",
+          texto:
+            "Consultar cada proposición y su revisión. Compartir una ocurrencia técnica no acredita aplicabilidad ni aceptación fiscal completa.",
+        },
+      }
+    }
+    referenciasSujetos.set(ficha.id, agregar(ficha))
+  }
+  const estados = estadosPendientes.map(({ itemId, ...estado }) => ({
+    sujeto: referenciasSujetos.get(itemId),
+    ...estado,
+  }))
   verificarGrafo(entradas, new Set(objetos.keys()))
   comprobarEntrada(root, entrada)
   for (const dependency of entrada.dependencias)
     guardar(leer(root, dependency.path))
-  const informe = { version: 1, entrada, estados, entradas }
+  const informe = { version: 2, entrada, estados, entradas }
   const revision = guardar(JSON.stringify(informe))
   return { revision, informe, objetos }
 }

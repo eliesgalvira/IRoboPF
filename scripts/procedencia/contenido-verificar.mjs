@@ -63,17 +63,32 @@ function claveSujeto(sujeto) {
   return JSON.stringify([sujeto.id, sujeto.revision])
 }
 
+function claveEnlace(sujeto, payload) {
+  return JSON.stringify([sujeto.id, sujeto.revision, payload])
+}
+
 function coberturaEvidencias(snapshot, entradas, raiz) {
   const sujetos = entradas.filter(
     ({ entidad }) =>
       entidad.identidad === "ocurrencia" &&
       entidad.aristas.some((a) => a.relacion === "norma")
   )
-  const esperados = new Set(
-    sujetos.map((e) => claveSujeto({ id: e.entidad.id, revision: e.revision }))
-  )
+  const esperados = new Set()
+  for (const e of sujetos) {
+    const sujeto = { id: e.entidad.id, revision: e.revision }
+    for (const arista of e.entidad.aristas.filter(
+      (a) => a.relacion === "norma"
+    )) {
+      const match = /^evidencia\.([a-f0-9]{64})\.rule$/.exec(arista.destino.id)
+      if (!match) throw new Error("Cobertura de evidencia sin enlace exacto")
+      const clave = claveEnlace(sujeto, match[1])
+      if (esperados.has(clave))
+        throw new Error("Cobertura de evidencia duplicada")
+      esperados.add(clave)
+    }
+  }
   const declarados = new Set(
-    snapshot.evidencias.map((e) => claveSujeto(e.sujeto))
+    snapshot.evidencias.map((e) => claveEnlace(e.sujeto, e.payload))
   )
   if (
     declarados.size !== snapshot.evidencias.length ||
@@ -84,27 +99,46 @@ function coberturaEvidencias(snapshot, entradas, raiz) {
 
   const recibos = new Map()
   const documentados = new Set()
+  const porReferencia = new Map(
+    entradas.map((e) => [
+      claveSujeto({ id: e.entidad.id, revision: e.revision }),
+      e,
+    ])
+  )
   for (const h of new Set(snapshot.evidencias.map((e) => e.recibo))) {
     const recibo = JSON.parse(objeto(raiz, h).toString())
     const estados = snapshot.evidencias.filter((e) => e.recibo === h)
     if (
-      recibo.version !== 1 ||
+      ![1, 2].includes(recibo.version) ||
       !Array.isArray(recibo.estados) ||
       !Array.isArray(recibo.entradas) ||
       recibo.estados.length !== estados.length ||
-      new Set(recibo.estados.map((e) => claveSujeto(e.sujeto))).size !==
-        estados.length ||
+      new Set(
+        recibo.estados.map((e) => claveEnlace(e.sujeto, e.payload.sha256))
+      ).size !== estados.length ||
+      (recibo.version === 1 &&
+        new Set(recibo.estados.map((e) => claveSujeto(e.sujeto))).size !==
+          estados.length) ||
       recibo.estados.some(
         (e) =>
-          !estados.some((s) => claveSujeto(s.sujeto) === claveSujeto(e.sujeto))
+          !estados.some(
+            (s) =>
+              claveEnlace(s.sujeto, s.payload) ===
+              claveEnlace(e.sujeto, e.payload.sha256)
+          )
       )
     )
       throw new Error("Cobertura de evidencia distinta del recibo")
     verificarSoftwareRecibo(snapshot, recibo.entrada.dependencias, (h) =>
       objeto(raiz, h)
     )
-    for (const e of recibo.entradas)
-      documentados.add(claveSujeto({ id: e.entidad.id, revision: e.revision }))
+    for (const e of recibo.entradas) {
+      const clave = claveSujeto({ id: e.entidad.id, revision: e.revision })
+      const actual = porReferencia.get(clave)
+      if (!actual || bytesEntidad(actual.entidad) !== bytesEntidad(e.entidad))
+        throw new Error("Grafo distinto del recibo")
+      documentados.add(clave)
+    }
     recibos.set(h, recibo)
   }
   for (const e of entradas)
@@ -237,7 +271,8 @@ export function verificarContenido(snapshot, raiz) {
       const recibo = recibos.get(e.recibo)
       const estado = recibo.estados.find(
         (s) =>
-          s.sujeto.id === e.sujeto.id && s.sujeto.revision === e.sujeto.revision
+          claveEnlace(s.sujeto, s.payload.sha256) ===
+          claveEnlace(e.sujeto, e.payload)
       )
       if (
         !estado ||
@@ -256,16 +291,6 @@ export function verificarContenido(snapshot, raiz) {
         )
       )
         throw new Error("Sujeto ausente")
-      for (const historica of recibo.entradas) {
-        if (
-          !entradas.some(
-            (actual) =>
-              actual.revision === historica.revision &&
-              bytesEntidad(actual.entidad) === bytesEntidad(historica.entidad)
-          )
-        )
-          throw new Error("Grafo distinto del recibo")
-      }
       for (const d of recibo.entrada.dependencias)
         if (!cierre.has(d.sha256))
           throw new Error("Dependencia del recibo ausente")

@@ -1,0 +1,60 @@
+{
+  "files": [
+    {
+      "path": "tools/procedencia/enlaces.py",
+      "sha256": "e0c1f038eb01d2029a49ce39242158530db307306d45acd5bcf3bd702e4c5b81",
+      "sha512": "01844eaede20595c8798e5ab378f39afc97d649eae7dde240c170a40884a7d383181b3bc21e695adc00bcbc369e392864c77a75a5b3071e556858c1bdf71a81d",
+      "size": 19561
+    },
+    {
+      "path": "scripts/procedencia/verificar-enlaces.mjs",
+      "sha256": "f482ec0afbf7d473f5f02043d79383b4fc5cf4b55dadd692a631f900a9af9291",
+      "sha512": "834dc4ed325a86de3d8dba0d9b0e6261612a20165dbf006ae7ce89dcf8233acfd60463947f2fef58108a47123d3ce43b51804d484b2748ae36e6b55dffd96e76",
+      "size": 4820
+    },
+    {
+      "path": "scripts/procedencia/ambito-publicado.mjs",
+      "sha256": "39938dd90fa07f3abf74fee6b1ebf458b203e11ebbbf1bd59660e1bf28279290",
+      "sha512": "fcf4adb069e9fa6c3addd25ded0415952b206ece330c353d2fcbf931574417b4804c7056b17c4baad43b8a99b39f8df2b6025ad57dbcaccb5768872f81ab42c1",
+      "size": 8180
+    },
+    {
+      "path": "schemas/procedencia/executable-cell-scope.schema.json",
+      "sha256": "858de6df2543292ddb9c2530ad5fb803dac15a06e3ab1f61b61509f80c955237",
+      "sha512": "0999767a414270b44e4270fe449b8401134c94898787a56c6ba85f361a88a5844010ada0700de3c224767c018335bfe059ffc2b24fc4f4293993eb643e1c44fe",
+      "size": 3470
+    },
+    {
+      "path": "schemas/procedencia/binding-payload.schema.json",
+      "sha256": "a2740e6e5bdad1e0864306eac1d93b8876a7c8614d3faba00b04f556e4c079fa",
+      "sha512": "dabd23fb38de685eeb848c1018c569327e12abe2c7208b1e318b40deaf4b2f1f0a8e22a8ad9da8123676e95aaadac3bbfdb1ee518018e3f9cb74bcf04ddcbcd8",
+      "size": 10405
+    },
+    {
+      "path": ".oxlintrc.json",
+      "sha256": "9fc01d4624f79c0583b5b3d5d21aed0afcdb22af10eac5ea6881629ff970c934",
+      "sha512": "0dca5964145abddffab1ce375999cc633c5831c5dd943147f98dc3b99db89af58016300685db4e141c181dee76566237f1f93e2f69002e971a122e247d1e9baf",
+      "size": 1515
+    }
+  ],
+  "rules": {
+    "anti-slop/no-chained-type-assertions": "error",
+    "anti-slop/no-conditional-empty-object-spread": "error",
+    "anti-slop/no-known-value-widening": "error",
+    "anti-slop/no-module-mocking": "error",
+    "anti-slop/no-object-parameters": "error",
+    "anti-slop/no-reflect-apply": "error",
+    "anti-slop/no-reflect-get": "error",
+    "anti-slop/no-runtime-typeof": "error",
+    "anti-slop/no-unsafe-dictionary-type": "error",
+    "anti-slop/no-shape-in-symbol-names": "error",
+    "anti-slop/no-unknown-parameters": "error",
+    "anti-slop/no-unknown-returns": "error",
+    "anti-slop/no-unknown-type-aliases": "error",
+    "anti-slop/no-widen-then-assert": "error",
+    "anti-slop/require-safety-comment-for-type-assertion": "error",
+    "anti-slop-effect/no-service-constructor-imports": "error"
+  },
+  "changesToConsumers": false,
+  "scope": "Inspección de Python y consumidor de publicación Node, sin publicación nueva."
+}

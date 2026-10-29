@@ -28,12 +28,12 @@ export function GET(
       if (entidad === null)
         return new Response("Ficha desconocida", { status: 404 })
       const fichaSnapshot = leerSnapshot(snapshot)
-      const evidencia =
+      const evidencias =
         fichaSnapshot?.version === 2
-          ? fichaSnapshot.evidencias.find(
+          ? fichaSnapshot.evidencias.filter(
               (e) => e.sujeto.id === id && e.sujeto.revision === revision
             )
-          : undefined
+          : []
       const documento = createElement(
         "html",
         { lang: "es" },
@@ -53,7 +53,7 @@ export function GET(
           createElement(Ficha, {
             entidad,
             snapshot,
-            evidencia,
+            evidencias,
             enlaces: enlacesDocumentales(snapshot, entidad),
           })
         )

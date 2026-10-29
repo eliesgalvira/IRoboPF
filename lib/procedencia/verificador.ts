@@ -31,11 +31,17 @@ export function verificarPublico(entidad: Entidad) {
     throw new Error("Payload privado rechazado")
   if (entidad.tipo === "Document") {
     const url = new URL(entidad.url)
+    // BORM identifica el PDF con un id público. No se admiten queries libres,
+    // parámetros adicionales ni grafías alternativas del endpoint.
+    const identificadorBorm =
+      /^https:\/\/www\.borm\.es\/services\/anuncio\/ano\/[12]\d{3}\/numero\/[1-9]\d{0,8}\/pdf\?id=[1-9]\d{0,11}(?![\s\S])/.test(
+        entidad.url
+      )
     if (
       url.protocol !== "https:" ||
       url.username.length > 0 ||
       url.password.length > 0 ||
-      url.search.length > 0 ||
+      (url.search.length > 0 && !identificadorBorm) ||
       url.hash.length > 0
     )
       throw new Error("URL pública inválida")

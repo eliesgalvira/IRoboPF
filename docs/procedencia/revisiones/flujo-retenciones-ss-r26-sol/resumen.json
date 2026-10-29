@@ -1,0 +1,52 @@
+{
+  "head": "6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9",
+  "nodes": 89,
+  "edges": 243,
+  "sites": 17,
+  "locations": 4710,
+  "green": 19,
+  "red": [
+    {
+      "id": "RSS26-01-selector-modo-llega-a-base-SS",
+      "status": "ROJO",
+      "error": "AssertionError [ERR_ASSERTION]: Falta camino de contexto.modo a S.B"
+    },
+    {
+      "id": "RSS26-02-aristas-control-distinguidas",
+      "status": "ROJO",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'valor'\n- 'control-seleccion'\n"
+    },
+    {
+      "id": "RSS26-03-conversion-cuenta-explicita",
+      "status": "ROJO",
+      "error": "AssertionError [ERR_ASSERTION]: Sitio EUR conserva suma en céntimos sin conversión en fórmula/inputs"
+    }
+  ],
+  "mutations": [
+    {
+      "id": "sin-aristas",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    },
+    {
+      "id": "arista-fuente-falsa",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    },
+    {
+      "id": "arista-destino-inexistente",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    },
+    {
+      "id": "binding-argumentos-falsos",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    },
+    {
+      "id": "sobre-subject-extra",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    }
+  ]
+}
