@@ -132,7 +132,11 @@ export function verificarGrafo(
   auxiliares: ReadonlySet<string> = new Set()
 ) {
   const indice = new Map<string, Entidad>()
+  const ids = new Set<string>()
   for (const { revision, entidad } of entradas) {
+    if (ids.has(entidad.id))
+      throw new Error("Entidad duplicada: ID duplicado en snapshot")
+    ids.add(entidad.id)
     const clave = `${entidad.id}/${revision}`
     if (indice.has(clave)) throw new Error("Entidad duplicada")
     indice.set(clave, entidad)
@@ -200,6 +204,19 @@ export function verificarGrafo(
         documento.mime !== mimes.get(entidad.selector.tipo)
       )
         throw new Error("Selector incompatible con documento")
+    }
+    if (entidad.tipo === "Facsimile") {
+      const ref = entidad.aristas.find((a) => a.relacion === "evidencia")
+      const cita =
+        ref === undefined
+          ? undefined
+          : indice.get(`${ref.destino.id}/${ref.destino.revision}`)
+      if (
+        cita?.tipo === "Citation" &&
+        cita.selector.tipo === "pdf" &&
+        cita.selector.receta !== entidad.receta
+      )
+        throw new Error("Receta de facsímil distinta de la cita")
     }
     const blobs =
       entidad.tipo === "Document"

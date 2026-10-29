@@ -141,11 +141,13 @@ def selectors(page_number, box, text):
              'value': [x0, y0, x1 - x0, y1 - y0]}]
 
 
-def cite(record, root, page_number, box, binding=None, table=None, *, store=True):
+def cite(record, root, page_number, box, binding=None, table=None, *, store=True, resolver=None):
     validate_schema(public_document(record), 'document')
     if type(page_number) is not int:
         raise ValueError('Página debe ser entero, no booleano')
-    path = verify_blob(record, root)
+    path = verify_blob(record, root) if resolver is None else resolver.resolve(record['sha256'])
+    if resolver is not None and (digest(path, 'sha512') != record['sha512'] or path.stat().st_size != record['size']):
+        raise ValueError('Original corrupto')
     pdf = mupdf()
     with pdf.open(path) as doc:
         if not doc.is_pdf or doc.needs_pass or not 1 <= page_number <= len(doc):
@@ -157,7 +159,7 @@ def cite(record, root, page_number, box, binding=None, table=None, *, store=True
         png = crop_bytes(page, box)
         sha = hashlib.sha256(png).hexdigest()
         target = Path(root) / 'sha256' / sha
-        if target.exists() and digest(target) != sha:
+        if resolver is None and target.exists() and digest(target) != sha:
             raise ValueError('Facsímil CAS corrupto')
         if store:
             store_bytes(target, png)
@@ -220,23 +222,23 @@ def verify_binding(text, binding):
     unit_start, unit_end = binding['unit']['start'], binding['unit']['end']
     if (unit[0].isalnum() and unit_start and text[unit_start - 1].isalnum() or unit[-1].isalnum() and unit_end < len(text) and text[unit_end].isalnum()):
         raise ValueError('Unidad es substring de otro token')
-    if unit not in ('%', 'euros', 'EUROS', '€', 'años'):
+    if unit not in ('%', 'euros', 'Euros', 'EUROS', '€', 'años'):
         raise ValueError('Unidad no soportada explícitamente')
-    allowed = {'%': 'percent', 'euros': 'EUR', 'EUROS': 'EUR', '€': 'EUR', 'años': 'year'}
+    allowed = {'%': 'percent', 'euros': 'EUR', 'Euros': 'EUR', 'EUROS': 'EUR', '€': 'EUR', 'años': 'year'}
     if allowed[unit] != binding['unitCode']:
         raise ValueError('Unidad distinta')
     return True
 
 
-def verify(record, citation, root, accepted=False):
+def verify(record, citation, root, accepted=False, *, resolver=None):
     validate_schema(public_document(record), 'document')
     validate_schema(citation, 'citation')
     if citation['documentSha256'] != record['sha256']:
         raise ValueError('Referencia documental rota')
     crop_hash = citation['facsimile']['sha256']
-    if not re.fullmatch('[0-9a-f]{64}', crop_hash) or digest(Path(root) / 'sha256' / crop_hash) != crop_hash:
+    if not re.fullmatch('[0-9a-f]{64}', crop_hash) or digest(Path(root) / 'sha256' / crop_hash if resolver is None else resolver.resolve(crop_hash)) != crop_hash:
         raise ValueError('Facsímil ausente o corrupto')
-    regenerated = cite(record, root, citation['page'], citation['bbox'], citation['engineBinding'], citation['table'], store=False)
+    regenerated = cite(record, root, citation['page'], citation['bbox'], citation['engineBinding'], citation['table'], store=False, resolver=resolver)
     # No sobrescribir facsímil alterado: cite comprueba el CAS antes de escribir.
     for key in ('geometry', 'quote', 'normalization', 'extraction', 'selectors', 'facsimile'):
         if citation[key] != regenerated[key]:

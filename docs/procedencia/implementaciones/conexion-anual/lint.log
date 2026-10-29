@@ -1,0 +1,6 @@
+$ bun scripts/run-lint.mjs
+$ oxlint
+lib/dominio/irpf/trabajo-anual/conexion.ts:24:23: error anti-slop(no-unknown-parameters): Parameter `entrada` leaves input unparsed. Accept a named domain type; run the expected schema or parser at the I/O boundary before calling this function.
+error: script "lint:oxlint" exited with code 1
+$ eslint .
+error: script "lint" exited with code 1

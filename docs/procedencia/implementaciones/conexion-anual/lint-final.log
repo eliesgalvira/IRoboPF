@@ -1,0 +1,6 @@
+$ bun scripts/run-lint.mjs
+$ oxlint
+tests/conexion-anual.test.ts:409:45: error anti-slop(no-object-parameters): Parameter `entrada` uses the broad `object` type. Accept a named owner type; parse external input at its boundary before calling this function.
+error: script "lint:oxlint" exited with code 1
+$ eslint .
+error: script "lint" exited with code 1

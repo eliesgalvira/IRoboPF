@@ -1,0 +1,883 @@
+--- a/lib/dominio/irpf/caso-fiscal-anual.ts
++++ b/lib/dominio/irpf/caso-fiscal-anual.ts
+@@ -118,3 +118,6 @@
+   readonly pagosACuentaCentimos: number
+   readonly retencionTrabajoAeat?: CasoRetencionTrabajo
+ }
++
++/** Entrada optativa; no altera los contratos ni perfiles salariales anteriores. */
++export { CasoFiscalAnualExplicito } from "./trabajo-anual/conexion-contrato"
+--- a/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
++++ b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
+@@ -1543,3 +1543,5 @@
+     },
+   ],
+ })
++
++export { liquidarIrpfAnualExplicito } from "../trabajo-anual/conexion"
+--- a/lib/dominio/irpf/trabajo-anual/contrato.ts
++++ b/lib/dominio/irpf/trabajo-anual/contrato.ts
+@@ -6,6 +6,10 @@
+ )
+ export const Renta = Schema.String.check(
+   Schema.isPattern(/^-?(0|[1-9][0-9]{0,11})(\.[0-9]{1,2})?$/)
++)
++/** Magnitudes calculadas: no se redondean a céntimos entre etapas. */
++const MagnitudCalculada = Schema.String.check(
++  Schema.isPattern(/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,60})?$/)
+ )
+ const Hecho = Schema.Literals(["si", "no", "desconocido"])
+ const Pago = Schema.Struct({ importe: Euros, satisfecho: Hecho })
+@@ -83,11 +87,11 @@
+     ejercicio: Schema.Literals([2025, 2026]),
+     brutoServicios: Euros,
+     otrasRentasNoExentas: Renta,
+-    netoReducidoServicios: Euros,
+-    baseLiquidableGeneral: Euros,
+-    cuotaIntegraGeneral: Euros,
+-    cuotaLiquidaTotal: Euros,
+-    cuotaTrasArt80: Euros,
++    netoReducidoServicios: MagnitudCalculada,
++    baseLiquidableGeneral: MagnitudCalculada,
++    cuotaIntegraGeneral: MagnitudCalculada,
++    cuotaLiquidaTotal: MagnitudCalculada,
++    cuotaTrasArt80: MagnitudCalculada,
+     etapa: Schema.Literal("despues-art80-sin-deduccion-trabajo"),
+     calificacion: Schema.Literals([
+       "laboral-estatutaria-acreditada",
+--- /dev/null
++++ b/lib/dominio/irpf/trabajo-anual/conexion-contrato.ts
+@@ -0,0 +1,52 @@
++import { Schema } from "effect"
++import { Euros, GastosTrabajo } from "./contrato"
++import { CasoActividad2025 } from "../actividades-economicas/contrato"
++
++const Procedencia = Schema.String.check(Schema.isPattern(/\S/))
++const Alcance = {
++  ejercicio: Schema.Literal(2025),
++  comunidadAutonoma: Schema.Literal("madrid"),
++  edad: Schema.Number.check(
++    Schema.isInt(),
++    Schema.isGreaterThanOrEqualTo(18),
++    Schema.isLessThanOrEqualTo(64)
++  ),
++  modalidad: Schema.Literal("individual"),
++  residenciaTodoElAnio: Schema.Literal(true),
++  devengo: Schema.Literal("2025-12-31"),
++  otrasRentas: Schema.Literal("ninguna"),
++  familiaresConDerechoMinimo: Schema.Literal("ninguno"),
++  discapacidad: Schema.Literal("ninguna"),
++  reduccionesBase: Schema.Literal("ninguna"),
++  saldosAnteriores: Schema.Literal("ninguno"),
++  deducciones: Schema.Literal("solo-da61-si-procede"),
++  rentasExtranjeras: Schema.Literal("ninguna"),
++  especialidades: Schema.Literal("ninguna"),
++}
++export const CasoFiscalAnualExplicito = Schema.Union([
++  Schema.Struct({
++    ...Alcance,
++    perfil: Schema.Literal("solo-trabajo"),
++    trabajo: GastosTrabajo,
++    conciliacion: Schema.Struct({
++      ejercicio: Schema.Literal(2025),
++      estado: Schema.Literal("totales-anuales-sin-duplicados"),
++      procedencia: Schema.Array(Procedencia).check(Schema.isMinLength(1)),
++    }),
++    retenciones: Schema.Array(
++      Schema.Struct({
++        operacionId: Procedencia,
++        procedencia: Procedencia,
++        ejercicio: Schema.Literal(2025),
++        importe: Euros,
++        efectiva: Schema.Literal(true),
++      })
++    ),
++  }),
++  Schema.Struct({
++    ...Alcance,
++    perfil: Schema.Literal("solo-actividad-eds"),
++    actividad: CasoActividad2025,
++  }),
++])
++export type CasoFiscalAnualExplicito = typeof CasoFiscalAnualExplicito.Type
+--- /dev/null
++++ b/lib/dominio/irpf/trabajo-anual/conexion.ts
+@@ -0,0 +1,362 @@
++import Decimal from "decimal.js"
++import { Effect, Result, Schema } from "effect"
++import { CasoFiscalAnualExplicito } from "./conexion-contrato"
++import { adaptarTrabajoAnual } from "./adaptador"
++import { adaptarActividadGeneral } from "../actividades-economicas/adaptador"
++import { calcularDeduccionTrabajo } from "./calcular"
++import { calcularReduccionTrabajoConOtrasRentas } from "../reducciones/reduccion-rendimientos-trabajo"
++import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
++import { obtenerEscalaAutonomicaPublicada } from "../cuotas/escalas-publicadas"
++import { MINIMOS_ESTATALES_2025 } from "../../normativa/datos/minimos-autonomicos-2025"
++import { calcularCuotaPorEscala } from "../cuotas/escalas-gravamen"
++import { crearLineaCalculo } from "../../explicacion/linea-calculo"
++import type { RastroCalculo } from "../../explicacion/rastro-calculo"
++import type { ResultadoNoSoportado } from "../liquidacion/liquidar-irpf-anual"
++
++const D = Decimal.clone({ precision: 80 })
++const rechazar = (motivo: string): ResultadoNoSoportado => ({
++  _tag: "ResultadoNoSoportado",
++  motivo,
++  fuenteReconocida:
++    "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
++  rastro: { titulo: "Alcance anual explícito 2025", pasos: [] },
++})
++
++/** Liquidación condicionada a los hechos declarados, sin aceptación fiscal automática. */
++export const liquidarIrpfAnualExplicito = Effect.fn(
++  "Liquidacion.explicita2025"
++)(function* (entrada: CasoFiscalAnualExplicito) {
++  const decoded = Schema.decodeUnknownResult(CasoFiscalAnualExplicito)(
++    entrada,
++    { onExcessProperty: "error" }
++  )
++  if (Result.isFailure(decoded))
++    return yield* Effect.fail(
++      rechazar(
++        "Entrada incompleta o fuera del alcance individual Madrid 2025 declarado"
++      )
++    )
++  const caso = decoded.success
++  const pasos: RastroCalculo["pasos"][number][] = []
++  let neto = new D(0),
++    reduccionArt20 = new D(0),
++    brutoServicios = new D(0)
++  let retenciones = new D(0),
++    pagos = new D(0)
++  if (caso.perfil === "solo-trabajo") {
++    if (
++      caso.trabajo.ejercicio !== 2025 ||
++      caso.trabajo.discapacidadActiva !== "ninguna"
++    )
++      return yield* Effect.fail(
++        rechazar(
++          "Ejercicio o discapacidad del trabajo incompatibles con el alcance anual"
++        )
++      )
++    const clases = new Set(caso.trabajo.rendimientos.map((r) => r.clase))
++    const empleo = [...clases].every(
++      (c) => c === "empleo-laboral" || c === "empleo-estatutario"
++    )
++    const pension = clases.size === 1 && clases.has("pension")
++    if ((!empleo && !pension) || caso.trabajo.rendimientos.length === 0)
++      return yield* Effect.fail(
++        rechazar(
++          "Atribución de gastos y reducciones entre pensión, empleo u otras rentas no soportada"
++        )
++      )
++    const trabajo = adaptarTrabajoAnual(caso.trabajo)
++    if (trabajo.estado === "no-soportado")
++      return yield* Effect.fail(rechazar(trabajo.motivo))
++    neto = new D(trabajo.rendimientoAntesArt20)
++    reduccionArt20 = D.min(
++      D.max(neto, 0),
++      calcularReduccionTrabajoConOtrasRentas({
++        anio: 2025,
++        rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
++        otrasRentasNoExentas: new D(0),
++      })
++    )
++    neto = neto.minus(reduccionArt20)
++    if (empleo) brutoServicios = new D(trabajo.gastos.integro)
++    if (
++      new Set(caso.retenciones.map((r) => r.operacionId)).size !==
++      caso.retenciones.length
++    )
++      return yield* Effect.fail(rechazar("Operación de retención duplicada"))
++    retenciones = caso.retenciones.reduce((a, r) => a.plus(r.importe), new D(0))
++    pasos.push({
++      _tag: "PasoExplicacion",
++      titulo: "Trabajo conciliado y reducción única",
++      descripcion: `Totales anuales disjuntos aportados: ${caso.conciliacion.procedencia.join(", ")}. Pensión excluida de DA61.`,
++      fuentes: [
++        {
++          titulo: "Alcance y evidencia de la conexión anual",
++          referencia:
++            "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
++        },
++      ],
++      lineasCalculo: [
++        crearLineaCalculo({
++          siteId: "anual.explicito.trabajo.integro",
++          instancia: 0,
++          importe: new D(trabajo.gastos.integro),
++          unidad: "EUR",
++          etiqueta: "Trabajo íntegro",
++          formula: "suma de rendimientos anuales conciliados",
++        }),
++        crearLineaCalculo({
++          siteId: "anual.explicito.trabajo.gastos-a-e",
++          instancia: 0,
++          importe: new D(trabajo.gastos.gastosAE),
++          unidad: "EUR",
++          etiqueta: "Gastos a–e",
++          formula:
++            "cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año",
++        }),
++        crearLineaCalculo({
++          siteId: "anual.explicito.trabajo.gasto-f",
++          instancia: 0,
++          importe: new D(trabajo.gastos.generalesAplicados),
++          unidad: "EUR",
++          etiqueta: "Gasto general aplicado",
++          formula: "min(2000, saldo positivo después de a–e)",
++        }),
++        crearLineaCalculo({
++          siteId: "anual.explicito.trabajo.art19",
++          instancia: 0,
++          importe: new D(trabajo.rendimientoAntesArt20),
++          unidad: "EUR",
++          etiqueta: "Neto artículo 19",
++          formula: "íntegro menos gastos efectivos a–e y gasto f limitado",
++        }),
++        crearLineaCalculo({
++          siteId: "anual.explicito.trabajo.art20",
++          instancia: 0,
++          importe: reduccionArt20,
++          unidad: "EUR",
++          etiqueta: "Reducción artículo 20",
++          formula:
++            "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
++        }),
++      ],
++    })
++  } else {
++    // La cota del adaptador no concilia amortizaciones históricas: no promoverlas al anual.
++    if (
++      caso.actividad.activos.length > 0 ||
++      caso.actividad.discapacidad.grado !== 0
++    )
++      return yield* Effect.fail(
++        rechazar(
++          "Activos con amortización y discapacidad de actividad fuera del alcance anual integrado"
++        )
++      )
++    const actividad = adaptarActividadGeneral(caso.actividad)
++    if (actividad.estado === "no-soportado")
++      return yield* Effect.fail(
++        rechazar(actividad.motivos.map((m) => m.motivo).join("; "))
++      )
++    neto = new D(actividad.aporte.importeEurosExactos)
++    retenciones = new D(actividad.aporte.retencionesEuros)
++    pagos = new D(actividad.aporte.pagosFraccionadosEuros)
++    pasos.push({
++      _tag: "PasoExplicacion",
++      titulo: "Actividad EDS 2025",
++      descripcion:
++        "RETA y artículo 32 ya incluidos en el aporte; no se aplican cotizaciones salariales ni artículo 20.",
++      fuentes: [
++        {
++          titulo: "Alcance y evidencia de la conexión anual",
++          referencia:
++            "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
++        },
++      ],
++      lineasCalculo: actividad.etapas.map((e, instancia) =>
++        crearLineaCalculo({
++          siteId: "anual.explicito.actividad.etapa",
++          instancia,
++          importe: new D(e.importe),
++          unidad: "EUR",
++          etiqueta: `${e.reglaId}: ${e.id}`,
++          formula: e.formula,
++        })
++      ),
++    })
++  }
++  // Sin otras rentas, reducciones de base ni saldos anteriores: BIG = BLG con signo.
++  const base = D.max(neto, 0)
++  const parametros = obtenerParametrosComunidadAutonoma({
++    anio: 2025,
++    comunidadAutonoma: "madrid",
++    baseLiquidableGeneral: base,
++  })
++  if (parametros._tag === "ComunidadAutonomaNoSoportada")
++    return yield* Effect.fail(rechazar(parametros.motivo))
++  const publicada = obtenerEscalaAutonomicaPublicada({
++    anio: 2025,
++    comunidadAutonoma: "madrid",
++  })
++  const estatal = (b: Decimal) =>
++    calcularCuotaPorEscala({ base: b, tramos: parametros.escalaEstatalGeneral })
++  const autonomica = (b: Decimal) =>
++    calcularCuotaPorEscala({
++      base: b,
++      tramos: parametros.escalaAutonomica.tramos,
++      escalasPublicadas: publicada === undefined ? undefined : [publicada],
++    })
++  const cuotaEstatal = D.max(
++    0,
++    estatal(base).minus(
++      estatal(D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general))
++    )
++  )
++  const cuotaAutonomica = D.max(
++    0,
++    autonomica(base).minus(
++      autonomica(
++        D.min(base, parametros.minimosAutonomicos.contribuyente.general)
++      )
++    )
++  )
++  const liquida = cuotaEstatal.plus(cuotaAutonomica)
++  let deduccion = new D(0),
++    posterior = liquida
++  if (brutoServicios.gt(0)) {
++    const resultado = calcularDeduccionTrabajo({
++      regla: "da61",
++      ambito: "comun-individual",
++      ejercicio: 2025,
++      brutoServicios: brutoServicios.toFixed(),
++      otrasRentasNoExentas: "0",
++      netoReducidoServicios: base.toFixed(),
++      baseLiquidableGeneral: base.toFixed(),
++      cuotaIntegraGeneral: liquida.toFixed(),
++      cuotaLiquidaTotal: liquida.toFixed(),
++      cuotaTrasArt80: liquida.toFixed(),
++      etapa: "despues-art80-sin-deduccion-trabajo",
++      calificacion: "laboral-estatutaria-acreditada",
++    })
++    if (resultado.estado === "no-soportado")
++      return yield* Effect.fail(rechazar(resultado.motivo))
++    deduccion = new D(resultado.importeAplicable)
++    posterior = new D(resultado.cuotaPosterior)
++  }
++  const diferencial = posterior.minus(retenciones).minus(pagos)
++  pasos.push({
++    _tag: "PasoExplicacion",
++    titulo: "Bases, cuotas y pagos anuales",
++    descripcion:
++      "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
++    fuentes: [
++      {
++        titulo: "Alcance y evidencia de la conexión anual",
++        referencia:
++          "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
++      },
++    ],
++    lineasCalculo: [
++      crearLineaCalculo({
++        siteId: "anual.explicito.big",
++        instancia: 0,
++        importe: neto,
++        unidad: "EUR",
++        etiqueta: "Base imponible general",
++        formula: "rendimiento neto reducido con signo",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.blg",
++        instancia: 0,
++        importe: neto,
++        unidad: "EUR",
++        etiqueta: "Base liquidable general",
++        formula: "BIG sin reducciones de base ni compensaciones anteriores",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.cuota.estatal",
++        instancia: 0,
++        importe: cuotaEstatal,
++        unidad: "EUR",
++        etiqueta: "Cuota estatal",
++        formula: "escala(base positiva) − escala(mínimo limitado a base)",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.cuota.autonomica",
++        instancia: 0,
++        importe: cuotaAutonomica,
++        unidad: "EUR",
++        etiqueta: "Cuota autonómica",
++        formula:
++          "escala publicada Madrid(base) − escala(mínimo limitado a base)",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.cuota.liquida-legal",
++        instancia: 0,
++        importe: liquida,
++        unidad: "EUR",
++        etiqueta: "Cuota líquida legal",
++        formula: "cuota estatal + autonómica; sin otras deducciones",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.da61",
++        instancia: 0,
++        importe: deduccion,
++        unidad: "EUR",
++        etiqueta: "DA61",
++        formula: "deducción de servicios después del artículo 80, una sola vez",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.cuota.posterior",
++        instancia: 0,
++        importe: posterior,
++        unidad: "EUR",
++        etiqueta: "Cuota posterior",
++        formula: "cuota líquida legal − DA61",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.retenciones",
++        instancia: 0,
++        importe: retenciones,
++        unidad: "EUR",
++        etiqueta: "Retenciones efectivas",
++        formula: "suma por operación única",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.pagos",
++        instancia: 0,
++        importe: pagos,
++        unidad: "EUR",
++        etiqueta: "Pagos fraccionados efectivos",
++        formula: "suma por operación única",
++      }),
++      crearLineaCalculo({
++        siteId: "anual.explicito.diferencial",
++        instancia: 0,
++        importe: diferencial,
++        unidad: "EUR",
++        etiqueta: "Cuota diferencial",
++        formula: "cuota posterior − retenciones − pagos fraccionados",
++      }),
++    ],
++  })
++  return {
++    _tag: "LiquidacionIrpfAnualExplicitaCalculada" as const,
++    perfil: caso.perfil,
++    ejercicio: 2025 as const,
++    alcance:
++      "individual-madrid-18-a-64-sin-familiares-ni-discapacidad" as const,
++    rendimientoNetoReducido: neto.toFixed(),
++    baseImponibleGeneral: neto.toFixed(),
++    baseLiquidableGeneral: neto.toFixed(),
++    baseLiquidableAhorro: "0",
++    reduccionArt20: reduccionArt20.toFixed(),
++    cuotaLiquidaLegal: liquida.toFixed(),
++    deduccionTrabajo: deduccion.toFixed(),
++    cuotaPosterior: posterior.toFixed(),
++    retenciones: retenciones.toFixed(),
++    pagosFraccionados: pagos.toFixed(),
++    cuotaDiferencial: diferencial.toFixed(),
++    cuotaDiferencialPresentada: diferencial.toFixed(2, Decimal.ROUND_HALF_UP),
++    aceptacionFiscal: "pendiente" as const,
++    rastro: { titulo: "Liquidación anual explícita 2025", pasos },
++  }
++})
+--- /dev/null
++++ b/tests/conexion-anual.test.ts
+@@ -0,0 +1,413 @@
++import { expect, it } from "vitest"
++import { Effect } from "effect"
++import { liquidarIrpfAnualExplicito } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
++import { calcularDeduccionTrabajo } from "../lib/dominio/irpf/trabajo-anual/calcular"
++
++const alcance = {
++  ejercicio: 2025,
++  comunidadAutonoma: "madrid",
++  edad: 40,
++  modalidad: "individual",
++  residenciaTodoElAnio: true,
++  devengo: "2025-12-31",
++  otrasRentas: "ninguna",
++  familiaresConDerechoMinimo: "ninguno",
++  discapacidad: "ninguna",
++  reduccionesBase: "ninguna",
++  saldosAnteriores: "ninguno",
++  deducciones: "solo-da61-si-procede",
++  rentasExtranjeras: "ninguna",
++  especialidades: "ninguna",
++}
++function trabajo(bruto = "16576.01", clase = "empleo-laboral") {
++  return {
++    ...alcance,
++    perfil: "solo-trabajo",
++    conciliacion: {
++      ejercicio: 2025,
++      estado: "totales-anuales-sin-duplicados",
++      procedencia: ["certificado-anual#2025"],
++    },
++    trabajo: {
++      ejercicio: 2025,
++      territorio: "comun",
++      reduccionesArt18: "ninguna",
++      movilidad: "ninguna",
++      discapacidadActiva: "ninguna",
++      rendimientos: [
++        {
++          id: "anual",
++          clase,
++          integro: bruto,
++          cotizaciones: {
++            clase: "efectivas",
++            seguridadSocial: "0",
++            derechosPasivos: "0",
++            colegiosHuerfanos: "0",
++          },
++          sindicato: { importe: "0", satisfecho: "no" },
++          colegio: {
++            importe: "0",
++            satisfecho: "no",
++            obligatorio: "no",
++            finesEsenciales: "no",
++          },
++          defensa: {
++            importe: "0",
++            satisfecho: "no",
++            litigioDirectoPagador: "no",
++          },
++        },
++      ],
++    },
++    retenciones: [],
++  }
++}
++it("conserva magnitudes calculadas de más de dos decimales en DA61", () => {
++  expect(
++    calcularDeduccionTrabajo({
++      regla: "da61",
++      ambito: "comun-individual",
++      ejercicio: 2025,
++      brutoServicios: "16576.01",
++      otrasRentasNoExentas: "0",
++      netoReducidoServicios: "10291.0275",
++      baseLiquidableGeneral: "10291.0275",
++      cuotaIntegraGeneral: "859.68835375",
++      cuotaLiquidaTotal: "859.68835375",
++      cuotaTrasArt80: "859.68835375",
++      etapa: "despues-art80-sin-deduccion-trabajo",
++      calificacion: "laboral-estatutaria-acreditada",
++    })
++  ).toMatchObject({
++    estado: "calculado",
++    importeAplicable: "339.998",
++    cuotaPosterior: "519.69035375",
++  })
++})
++it("conecta gastos efectivos, art20 y DA61 sin cotización simulada ni doble SMI", () => {
++  const r = Effect.runSync(liquidarEntradaJavaScript(trabajo()))
++  expect(r).toMatchObject({
++    baseImponibleGeneral: "10291.0275",
++    baseLiquidableGeneral: "10291.0275",
++    reduccionArt20: "4284.9825",
++    deduccionTrabajo: "339.998",
++    aceptacionFiscal: "pendiente",
++  })
++})
++it("pensión sola no es empleo para DA61", () => {
++  expect(
++    Effect.runSync(liquidarEntradaJavaScript(trabajo("16576.01", "pension")))
++      .deduccionTrabajo
++  ).toBe("0")
++})
++it("conserva pérdidas y no crea reducción negativa", () => {
++  const c = trabajo("0")
++  c.trabajo.rendimientos[0]!.cotizaciones.seguridadSocial = "100"
++  expect(Effect.runSync(liquidarEntradaJavaScript(c))).toMatchObject({
++    baseImponibleGeneral: "-100",
++    baseLiquidableGeneral: "-100",
++    cuotaLiquidaLegal: "0",
++    reduccionArt20: "0",
++  })
++})
++it.each([
++  { ejercicio: 2026 },
++  { otrasRentas: "presentes" },
++  { modalidad: "conjunta" },
++  { comunidadAutonoma: "simulada-estatal" },
++  { conciliacion: undefined },
++  { retencionTrabajoAeat: {} },
++  { pagosACuentaCentimos: 100 },
++])("rechaza incompatibilidad o hecho ausente %j", (cambio) => {
++  const r = Effect.runSync(
++    Effect.result(liquidarEntradaJavaScript({ ...trabajo(), ...cambio }))
++  )
++  expect(r).toMatchObject({
++    _tag: "Failure",
++    failure: { _tag: "ResultadoNoSoportado" },
++  })
++})
++
++import type { CasoActividad2025 } from "../lib/dominio/irpf/actividades-economicas/contrato"
++function casoBase(): CasoActividad2025 {
++  return {
++    ejercicio: 2025,
++    territorio: "comun",
++    individual: true,
++    actividadId: "profesion",
++    iae: "servicios",
++    fechaInicio: "2025-01-01",
++    fechaFin: "2025-12-31",
++    serviciosOrdinarios: true,
++    hechos: {
++      otrasActividades: false,
++      otrasRentas: false,
++      existencias: false,
++      empleados: false,
++      artistica: false,
++      irregular: false,
++      subvenciones: false,
++      transmisiones: false,
++      extranjero: false,
++      mutualidad: false,
++      especialidadesTerritoriales: false,
++      saldosPendientes: false,
++      serviciosGratuitos: false,
++      autoconsumo: false,
++      noFacturados: false,
++      subvalorados: false,
++      trade: false,
++      hechosDesconocidos: false,
++    },
++    historial: [],
++    actividadPreviaAlInicio: "ausente",
++    regimen2025: "eds",
++    criterio2025: "devengo",
++    documentoCriterio2025: "alta",
++    renuncia2025: false,
++    exclusion2025: false,
++    volumen2024: "0",
++    diasActividad2024: 0,
++    documentoVolumen2024: "sin-actividad",
++    clientes: [
++      {
++        id: "cliente",
++        vinculado: false,
++        empleadorEnAnioAnteriorAlInicio: false,
++        documento: "contrato",
++      },
++    ],
++    ingresos: [],
++    gastos: [],
++    reta: [],
++    activos: [],
++    obligacionesFormales: true,
++    documentoObligaciones: "libros",
++    discapacidad: {
++      grado: 0,
++      ayudaOMovilidad: false,
++      ejercicioEfectivo: true,
++      documento: "sin-discapacidad",
++    },
++    opcion: "gastos-dificiles",
++    aplicarRentasBajas: true,
++    aplicarInicio: false,
++    retenciones: [],
++    pagosFraccionados: [],
++  }
++}
++function ingreso(
++  base: string,
++  sujetoRetencion = false,
++  id = "factura",
++  clienteId = "cliente"
++): CasoActividad2025["ingresos"][number] {
++  return {
++    id,
++    justificante: id,
++    fecha: "2025-06-01",
++    base,
++    iva: "0",
++    ivaRecuperable: "0",
++    afectacionExclusiva: true,
++    registrado: true,
++    categoria: "servicio",
++    clienteId,
++    sujetoRetencion,
++    rectificativa: false,
++  }
++}
++function actividad() {
++  return {
++    ...alcance,
++    perfil: "solo-actividad-eds",
++    actividad: {
++      ...casoBase(),
++      ingresos: [ingreso("10000", true)],
++      retenciones: [
++        {
++          id: "ret",
++          justificante: "cert",
++          fecha: "2025-12-31",
++          operacionId: "ret-1",
++          ingresoId: "factura",
++          importe: "1500",
++          efectiva: true,
++        },
++      ],
++      pagosFraccionados: [
++        {
++          id: "pago",
++          justificante: "130",
++          fecha: "2025-04-20",
++          operacionId: "pago-1",
++          periodo: "2025-1T",
++          modelo: "130",
++          importe: "100",
++          efectivo: true,
++        },
++      ],
++    },
++  }
++}
++it("EDS integra art32 una vez y pagos fuera de la base", () => {
++  // Cliente único elegible elige gasto difícil: no acumula reducción por rentas bajas.
++  const r = Effect.runSync(liquidarEntradaJavaScript(actividad()))
++  expect(r).toMatchObject({
++    baseImponibleGeneral: "9500",
++    baseLiquidableGeneral: "9500",
++    reduccionArt20: "0",
++    deduccionTrabajo: "0",
++    retenciones: "1500",
++    pagosFraccionados: "100",
++  })
++  // Madrid: (9500-5550)*9,5% + (9500-5956,65)*8,5% = 676,43475.
++  expect(r).toMatchObject({
++    cuotaLiquidaLegal: "676.43475",
++    cuotaDiferencial: "-923.56525",
++    cuotaDiferencialPresentada: "-923.57",
++  })
++})
++it("inicio se aplica después de art32 sin restar pagos de la BIG", () => {
++  const c = actividad()
++  c.actividad.aplicarInicio = true
++  expect(
++    Effect.runSync(liquidarEntradaJavaScript(c)).baseImponibleGeneral
++  ).toBe("7600")
++})
++it("rechaza pagos repetidos entre retenciones y modelo130", () => {
++  const c = actividad()
++  c.actividad.pagosFraccionados[0]!.operacionId = "ret-1"
++  expect(
++    Effect.runSync(Effect.result(liquidarEntradaJavaScript(c)))
++  ).toMatchObject({
++    _tag: "Failure",
++    failure: { _tag: "ResultadoNoSoportado" },
++  })
++})
++it("rechaza pensión y empleo mezclados aunque se aporten totales", () => {
++  const c = trabajo()
++  c.trabajo.rendimientos.push({
++    ...c.trabajo.rendimientos[0]!,
++    id: "pension",
++    clase: "pension",
++  })
++  expect(
++    Effect.runSync(Effect.result(liquidarEntradaJavaScript(c)))
++  ).toMatchObject({
++    _tag: "Failure",
++    failure: { _tag: "ResultadoNoSoportado" },
++  })
++})
++it("dos importes iguales con operaciones distintas no se deduplican", () => {
++  const c = trabajo()
++  const retenciones = ["r1", "r2"].map((operacionId) => ({
++    operacionId,
++    procedencia: "cert#" + operacionId,
++    ejercicio: 2025,
++    importe: "100",
++    efectiva: true,
++  }))
++  expect(
++    Effect.runSync(liquidarEntradaJavaScript({ ...c, retenciones })).retenciones
++  ).toBe("200")
++})
++it("rastro conserva decimales e identidades distintas", () => {
++  const r = Effect.runSync(liquidarEntradaJavaScript(trabajo()))
++  const lineas = r.rastro.pasos.flatMap((p) => p.lineasCalculo ?? [])
++  expect(
++    lineas.find((l) => l.origen?.siteId === "anual.explicito.big")?.origen
++      ?.decimal
++  ).toBe("10291.0275")
++  expect(new Set(lineas.map((l) => l.origen?.instanceId)).size).toBe(
++    lineas.length
++  )
++})
++it("cuota legal de trabajo y posterior mantienen el orden con expectativa independiente", () => {
++  // 4741,0275 * 9,5% + 4334,3775 * 8,5%; DA61 = 340 − 0,01 * 0,2.
++  expect(Effect.runSync(liquidarEntradaJavaScript(trabajo()))).toMatchObject({
++    cuotaLiquidaLegal: "818.8197",
++    cuotaPosterior: "478.8217",
++    cuotaDiferencialPresentada: "478.82",
++  })
++})
++it.each(["16576", "18276", "19747.50"])(
++  "fronteras anuales %s sin doble deducción",
++  (bruto) => {
++    const r = Effect.runSync(liquidarEntradaJavaScript(trabajo(bruto)))
++    expect(r.deduccionTrabajo).toBe(bruto === "16576" ? "340" : "0")
++    if (bruto === "19747.50") expect(r.reduccionArt20).toBe("0")
++  }
++)
++it("gastos conciliados tienen límites anuales, no por pagador", () => {
++  const c = trabajo("20000")
++  const primero = c.trabajo.rendimientos[0]!
++  primero.sindicato = { importe: "600", satisfecho: "si" }
++  primero.colegio = {
++    importe: "400",
++    satisfecho: "si",
++    obligatorio: "si",
++    finesEsenciales: "si",
++  }
++  primero.defensa = {
++    importe: "200",
++    satisfecho: "si",
++    litigioDirectoPagador: "si",
++  }
++  c.trabajo.rendimientos.push({ ...primero, id: "segundo" })
++  // 40000 − 1200 sindicato − 500 colegio − 300 defensa − 2000 generales.
++  expect(
++    Effect.runSync(liquidarEntradaJavaScript(c)).baseImponibleGeneral
++  ).toBe("36000")
++})
++it.each(["ordinaria", "desconocida"])(
++  "no presume movilidad %s",
++  (movilidad) => {
++    const c = trabajo()
++    c.trabajo.movilidad = movilidad
++    expect(
++      Effect.runSync(Effect.result(liquidarEntradaJavaScript(c)))
++    ).toMatchObject({
++      _tag: "Failure",
++      failure: { _tag: "ResultadoNoSoportado" },
++    })
++  }
++)
++it("pérdida EDS llega con signo a BIG y BLG", () => {
++  const c = actividad()
++  const actividadConPerdida = {
++    ...c.actividad,
++    ingresos: [],
++    retenciones: [],
++    pagosFraccionados: [],
++    reta: [
++      {
++        id: "cuota",
++        justificante: "extracto#op1",
++        fecha: "2025-06-30",
++        importe: "300",
++        tipo: "ordinaria",
++        propia: true,
++        efectiva: true,
++        periodo: "2025-06",
++      },
++    ],
++  }
++  expect(
++    Effect.runSync(
++      liquidarEntradaJavaScript({ ...c, actividad: actividadConPerdida })
++    )
++  ).toMatchObject({
++    baseImponibleGeneral: "-300",
++    baseLiquidableGeneral: "-300",
++    cuotaDiferencial: "0",
++  })
++})
++
++/** Simula consumidores JavaScript para probar la frontera runtime, incluso entradas inválidas. */
++interface CasoAnualJavaScript { readonly ejercicio: number }
++function liquidarEntradaJavaScript<Entrada extends CasoAnualJavaScript>(entrada: Entrada) {
++  // @ts-expect-error El ensayo omite deliberadamente la garantía estática del contrato.
++  return liquidarIrpfAnualExplicito(entrada)
++}

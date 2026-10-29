@@ -20,7 +20,7 @@ const fixture = Schema.decodeUnknownSync(FixtureCanonicoTabularSchema)(
   fixtureCanonico
 )
 const CONCURRENCIA_HASH_EFFECT = Number(
-  process.env.IROBOPF_CONCURRENCIA_FIXTURE_CANONICO ?? 8
+  process.env.IROBOPF_CONCURRENCIA_FIXTURE_CANONICO ?? 1
 )
 
 const hashearHojaEffect = (nombreHoja: string) =>

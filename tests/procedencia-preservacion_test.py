@@ -179,6 +179,44 @@ class PreservationTests(unittest.TestCase):
                 p.transfer(self.manifest, self.root, self.root / 'failed-sync')
         self.assertFalse((self.root / 'failed-sync/manifest.json').exists())
 
+    def test_prev2_offset_components_are_not_normalized(self):
+        value = json.loads(self.manifest.read_text())
+        for offset in ['+00:99', '-01:60', '+24:00']:
+            with self.subTest(offset=offset):
+                value['blobs'][0]['acquisitions'][0]['retrievedAt'] = '2026-01-01T00:00:00' + offset
+                with self.assertRaises(ValueError):
+                    p.validate(value)
+        value['blobs'][0]['acquisitions'][0]['retrievedAt'] = '2026-01-01T00:00:00+05:45'
+        p.validate(value)
+
+    def test_prev2_visible_publication_has_explicit_indeterminate_error(self):
+        destination = self.root / 'indeterminate'
+        actual = p.sync_directory
+        def fail(path):
+            if Path(path) == destination and (destination / 'manifest.json').exists():
+                raise OSError('Fallo final sintético')
+            actual(path)
+        with patch.object(p, 'sync_directory', fail):
+            with self.assertRaises(OSError) as raised:
+                p.transfer(self.manifest, self.root, destination)
+        self.assertEqual(type(raised.exception).__name__, 'PublicationDurabilityUnknown')
+        self.assertEqual((destination / 'manifest.json').read_bytes(), self.manifest.read_bytes())
+        # No prometer rollback durable. Se verifica y sincroniza de nuevo el paquete.
+        result = p.confirm(self.manifest, destination)
+        self.assertEqual(result['durability'], 'fsync-confirmed')
+        self.assertEqual(result['objects'], 1)
+
+    def test_prev2_confirmation_rejects_another_marker(self):
+        destination = self.root / 'confirmation'
+        p.transfer(self.manifest, self.root, destination)
+        marker = destination / 'manifest.json'
+        with self.assertRaisesRegex(ValueError, 'fuera del paquete'):
+            p.confirm(marker, destination)
+        marker.chmod(0o644)
+        marker.write_bytes(self.manifest.read_bytes() + b'\n')
+        with self.assertRaises(ValueError):
+            p.confirm(self.manifest, destination)
+
 
 if __name__ == '__main__':
     unittest.main()

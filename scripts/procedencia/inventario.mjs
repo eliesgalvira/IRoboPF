@@ -13,6 +13,37 @@ import { bindingGraph } from "./inventario-bindings.mjs"
 import Decimal from "decimal.js"
 import { Predicate } from "effect"
 
+// Lista deliberadamente cerrada: datos, nunca getters ni funciones del motor.
+const publishedScalesFile = "lib/dominio/irpf/cuotas/escalas-publicadas.ts"
+const publishedScaleExports = [
+  "ESTATAL_ORDINARIA_2012_2014",
+  "ESTATAL_COMPLEMENTARIA_2012_2014",
+  "ANDALUCIA_2012_2015",
+  "VALENCIA_2014_2016",
+  "CATALUNYA_2020_2021",
+  "CATALUNYA_2022_2024",
+  "MADRID_2022",
+  "MURCIA_2022",
+  "AHORRO_ORDINARIO_2012_2014",
+  "AHORRO_COMPLEMENTARIO_2012_2014",
+  "AHORRO_2016_2020",
+  "AHORRO_AUTONOMICO_2015",
+  "AHORRO_2021_2022",
+  "AHORRO_2023_2024",
+  "AHORRO_2025",
+]
+function effectiveBindings(source) {
+  if (source.file === publishedScalesFile) {
+    return publishedScaleExports.map((name) => {
+      const binding = source.bindings.find((b) => b.symbol === name)
+      if (!binding?.exported || binding.function)
+        throw new Error(`Export de datos requerido: ${name}`)
+      return binding
+    })
+  }
+  return source.bindings.filter((b) => b.exported && !b.function)
+}
+
 export function scenarios(year, territory) {
   const inputs = [{ name: "sin entradas opcionales", base: null, death: null }]
   if ([2014, 2015].includes(year) && territory === "galicia") {
@@ -93,11 +124,19 @@ export function flatten(value, path = [], seen = new Set()) {
 export function dimensions(symbol, path) {
   const years = path.filter((p) => /^20(?:1[2-9]|2[0-6])$/.test(p)).map(Number)
   if (!years.length) {
+    // «2020 distintas de 2025» identifica una tabla anual, no un intervalo.
+    const anual = symbol.match(
+      /^ESCALAS_AUTONOMICAS_IRPF_(20(?:1[2-9]|2[0-6]))_DISTINTAS_DE_2025$/
+    )
     const matches = [...symbol.matchAll(/20(?:1[2-9]|2[0-6])/g)].map((m) =>
       Number(m[0])
     )
-    if (matches.length === 1) years.push(matches[0])
-    if (matches.length === 2)
+    if (anual) years.push(Number(anual[1]))
+    else if (matches.length === 1) years.push(matches[0])
+    else if (
+      matches.length === 2 &&
+      /20(?:1[2-9]|2[0-6])_20(?:1[2-9]|2[0-6])(?:_|$)/.test(symbol)
+    )
       for (let year = matches[0]; year <= matches[1]; year++) years.push(year)
   }
   const territories = path.filter((p) =>
@@ -136,6 +175,10 @@ export function dimensions(symbol, path) {
   if (path.at(-1) === "euros" || path.at(-1) === "limiteMaximoEuros")
     unit = "EUR"
   if (path.at(-1) === "porcentaje") unit = "porcentaje por cien"
+  if (publishedScaleExports.includes(symbol)) {
+    if (["baseInferior", "cuota"].includes(path.at(-1))) unit = "EUR"
+    if (path.at(-1) === "tipo") unit = "proporción por uno"
+  }
   return { years: [...new Set(years)], territories, unit }
 }
 export function validate(items, files) {
@@ -200,8 +243,9 @@ async function generateInProcess(root, output) {
   const executor = extracted.find((s) =>
     s.file.endsWith("/deducciones-autonomicas-aplicadas.ts")
   )
-  for (const source of extracted.filter((s) =>
-    s.file.includes("/normativa/datos/")
+  for (const source of extracted.filter(
+    (s) =>
+      s.file.includes("/normativa/datos/") || s.file === publishedScalesFile
   )) {
     // Solo módulos locales de datos del checkout de confianza; no módulos indicados por entrada externa.
     // No se invocan funciones exportadas ni se ejecutan servicios del motor.
@@ -220,10 +264,14 @@ async function generateInProcess(root, output) {
         symbols: indirectExports,
       })
     let leaves = 0
-    for (const binding of source.bindings.filter(
-      (b) => b.exported && !b.function
-    )) {
-      const value = exports[binding.symbol]
+    for (const binding of effectiveBindings(source)) {
+      const descriptor = Object.getOwnPropertyDescriptor(
+        exports,
+        binding.symbol
+      )
+      if (!descriptor || !("value" in descriptor))
+        throw new Error(`Export no es dato: ${binding.symbol}`)
+      const value = descriptor.value
       for (const leaf of flatten(value)) {
         if (
           !/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$|^Infinity$|^-Infinity$/i.test(
@@ -421,7 +469,13 @@ async function generateInProcess(root, output) {
   }
   for (const source of extracted) {
     const unresolved = source.bindings.filter(
-      (b) => b.function || !source.file.includes("/normativa/datos/")
+      (b) =>
+        b.function ||
+        (!source.file.includes("/normativa/datos/") &&
+          !(
+            source.file === publishedScalesFile &&
+            publishedScaleExports.includes(b.symbol)
+          ))
     )
     if (unresolved.length)
       gaps.push({

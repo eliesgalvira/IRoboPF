@@ -1,0 +1,115 @@
+[
+  {
+    "id": "positivo-real",
+    "resultado": {
+      "revision": "d8a5c568cb193aead0a91e32cbca71ba36f3620b5e43c9cc13f5c4d2c1bf47ec",
+      "estados": [
+        {
+          "sujeto": {
+            "id": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+            "revision": "c5ded02b246c8f481a734675d53aebff48a03a7d2994c4460f3f04d0e86acec3"
+          },
+          "payload": {
+            "path": "docs/procedencia/enlaces/madrid-2020-limite.json",
+            "sha256": "bf0de6f19d6b0b91a6b208f7eab7913d6761fc5eb4ba8ae30af950e9176ff4ed"
+          },
+          "snapshotOrigen": "7dd9c9c6147b6b1931b51944c885abd528550c27b5a3c31392b37e01be9f712d",
+          "integridad": "verified",
+          "exactitudNumerica": "verified",
+          "autenticidad": "trust-indeterminate",
+          "interpretacion": {
+            "decisionLimitada": "AUT1721-MADRID-2020-LIMITE",
+            "alcance": {
+              "year": 2020,
+              "territory": "madrid",
+              "unit": "EUR",
+              "claim": "El límite superior del cuarto tramo autonómico general de Madrid es 53.407,20 euros en 2020.",
+              "conditions": [
+                "Base liquidable general; no base del ahorro.",
+                "Solo límite; no acepta cuotas fijas, mínimos, liquidación completa ni otros ejercicios."
+              ],
+              "completeRule": false
+            },
+            "estado": "candidata"
+          },
+          "revisionBinding": "pending",
+          "aceptacionFiscalCompleta": false
+        }
+      ],
+      "objetos": 9
+    }
+  },
+  {
+    "id": "claim-y-ambito-repinados",
+    "resultado": [
+      {
+        "sujeto": {
+          "id": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+          "revision": "90cce410d484d63f941fea7857fd32110fb85388623f48d0e873bb446fac349e"
+        },
+        "payload": {
+          "path": "docs/procedencia/enlaces/madrid-2020-limite.json",
+          "sha256": "27bd3c794be05649ca80d50f7d44a7ca873a0c7d72816eb68d192c1695c26f20"
+        },
+        "snapshotOrigen": "7dd9c9c6147b6b1931b51944c885abd528550c27b5a3c31392b37e01be9f712d",
+        "integridad": "verified",
+        "exactitudNumerica": "verified",
+        "autenticidad": "trust-indeterminate",
+        "interpretacion": {
+          "decisionLimitada": "AUT1721-MADRID-2020-LIMITE",
+          "alcance": {
+            "year": 2021,
+            "territory": "andalucia",
+            "unit": "EUR",
+            "claim": "Este límite acredita toda la escala de Andalucía en 2021.",
+            "conditions": [
+              "Base liquidable general; no base del ahorro.",
+              "Solo límite; no acepta cuotas fijas, mínimos, liquidación completa ni otros ejercicios."
+            ],
+            "completeRule": false
+          },
+          "estado": "candidata"
+        },
+        "revisionBinding": "pending",
+        "aceptacionFiscalCompleta": false
+      }
+    ]
+  },
+  {
+    "id": "unidad-repinada",
+    "rechazo": "Error: Traceback (most recent call last):\n  File \"/home/local/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/scratch/tools/procedencia/enlaces.py\", line 175, in <module>\n    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()))\n  File \"/home/local/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/scratch/tools/procedencia/enlaces.py\", line 151, in verify_evidence\n    raise ValueError('Unidad o conversión no acreditadas')\nValueError: Unidad o conversión no acreditadas\n"
+  },
+  {
+    "id": "texto-y-selector-repinados",
+    "rechazo": "Error: Traceback (most recent call last):\n  File \"/home/local/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/scratch/tools/procedencia/enlaces.py\", line 175, in <module>\n    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()))\n  File \"/home/local/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/scratch/tools/procedencia/enlaces.py\", line 145, in verify_evidence\n    verify(document, citation, root / 'docs/procedencia/corpus/fixtures')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/local/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/scratch/tools/procedencia/corpus.py\", line 243, in verify\n    raise ValueError('Cita alterada: ' + key)\nValueError: Cita alterada: quote\n"
+  },
+  {
+    "id": "geometria-repinada",
+    "rechazo": "Error: Traceback (most recent call last):\n  File \"/home/local/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/scratch/tools/procedencia/enlaces.py\", line 175, in <module>\n    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()))\n  File \"/home/local/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/scratch/tools/procedencia/enlaces.py\", line 145, in verify_evidence\n    verify(document, citation, root / 'docs/procedencia/corpus/fixtures')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/local/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/scratch/tools/procedencia/corpus.py\", line 243, in verify\n    raise ValueError('Cita alterada: ' + key)\nValueError: Cita alterada: geometry\n"
+  },
+  {
+    "id": "recibo-inyectado",
+    "rechazo": "Error: Campos extra o ausentes"
+  },
+  {
+    "id": "cierre-solo-declarado",
+    "resultado": {
+      "integridad": "comprobada",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "ids-iguales-revisiones-distintas",
+    "resultado": {
+      "integridad": "comprobada",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "id": "receta-crop-divergente-rehasheada",
+    "resultado": {
+      "integridad": "comprobada",
+      "aceptacionFiscal": "pendiente"
+    }
+  }
+]

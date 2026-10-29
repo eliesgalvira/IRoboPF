@@ -62,10 +62,14 @@ Fuentes relacionadas:
 
 - `lib/dominio/dinero/redondeo.ts`
 
-## Half-even tabular legacy
+## Redondeo tabular y porcentajes legacy
 
-Redondeo usado solo para artefactos tabulares observables del `progresividad.ts` anterior, como porcentajes y rotulos de tramos en la exportacion compatible. No debe usarse para dinero.
+El detalle `DAT_YYYY` reproduce el orden de operaciones y los escalares binarios del Python original. NumPy redondea al par después de multiplicar por la potencia de diez; `round(float, n)` de Python redondea el racional del valor binario recibido. Pueden discrepar en un céntimo. Son contratos de reproducción técnica del libro, no normas fiscales.
+
+El helper actual `porcentajeCompatibleLegacy` usa HALF_UP, también para valores negativos. La presentación mensual de céntimos legacy usa `Math.round(anual / 12)`, con empate hacia más infinito: no es antisimétrica. La tabla Python divide euros precisos antes de redondear. No intercambiar estas etapas ni atribuirles una política TGSS universal.
 
 Fuentes relacionadas:
 
 - `docs/fuentes/legacy/progresividad-ts-antes-refactor.md`
+- `lib/dominio/compatibilidad-legacy/aritmetica-tabular.ts`
+- `docs/procedencia/implementaciones/redondeos-legacy/INFORME.md`

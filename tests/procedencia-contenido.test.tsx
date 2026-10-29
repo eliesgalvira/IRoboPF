@@ -74,6 +74,82 @@ if (!ids.includes(snapshotId))
   throw new Error("Snapshot histórico de prueba ausente")
 
 describe("contenido versionado", () => {
+  it("rechaza dos revisiones del mismo ID dentro del snapshot", () => {
+    const original = ficha()
+    expect(() =>
+      verificarGrafo([
+        empaquetar(original),
+        empaquetar({ ...original, titulo: "Otra revisión" }),
+      ])
+    ).toThrow("ID duplicado")
+  })
+  it("exige la misma receta en cita PDF y facsímil, aunque se rehashee", () => {
+    const document = empaquetar(
+      Schema.decodeUnknownSync(Entidad)({
+        ...baseFicha("documento", "Documento sintético", "concepto"),
+        tipo: "Document",
+        original: "a".repeat(64),
+        mime: "application/pdf",
+        url: "https://www.boe.es/ejemplo.pdf",
+      })
+    )
+    const citation = empaquetar(
+      Schema.decodeUnknownSync(Entidad)({
+        ...baseFicha("cita", "Cita sintética", "concepto"),
+        tipo: "Citation",
+        aristas: [
+          {
+            relacion: "documento",
+            destino: { id: document.entidad.id, revision: document.revision },
+          },
+        ],
+        selector: {
+          tipo: "pdf",
+          pagina: 1,
+          ancho: 100,
+          alto: 100,
+          caja: [1, 1, 20, 20],
+          coordenadas: "pymupdf-cropbox-sin-rotar",
+          extraccion: "text-layer",
+          receta: "b".repeat(64),
+          texto: "123 euros",
+        },
+      })
+    )
+    const facsimile = Schema.decodeUnknownSync(Entidad)({
+      ...baseFicha("captura", "Captura sintética", "concepto"),
+      tipo: "Facsimile",
+      imagen: "c".repeat(64),
+      receta: "b".repeat(64),
+      transcripcion: "123 euros",
+      aristas: [
+        {
+          relacion: "evidencia",
+          destino: { id: citation.entidad.id, revision: citation.revision },
+        },
+      ],
+    })
+    const auxiliars = new Set(["a", "b", "c", "d"].map((s) => s.repeat(64)))
+    expect(
+      verificarGrafo([document, citation, empaquetar(facsimile)], auxiliars)
+        .integridad
+    ).toBe("comprobada")
+    expect(() =>
+      verificarGrafo(
+        [
+          document,
+          citation,
+          empaquetar(
+            Schema.decodeUnknownSync(Entidad)({
+              ...facsimile,
+              receta: "d".repeat(64),
+            })
+          ),
+        ],
+        auxiliars
+      )
+    ).toThrow("Receta")
+  })
   it("serializa de forma determinista y rechaza mutaciones de bytes", () => {
     const e = ficha()
     const p = empaquetar(e)
