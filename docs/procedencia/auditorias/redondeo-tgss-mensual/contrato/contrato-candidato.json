@@ -1,0 +1,191 @@
+{
+  "version": 1,
+  "status": "candidato incompleto; bloquear salida cuota TGSS",
+  "accepted": false,
+  "requiredInputs": [
+    "año y mes",
+    "relación laboral sintética",
+    "modalidad mensual/diaria",
+    "grupo",
+    "días y tramos temporales",
+    "remuneración computable por mes y devengo/prorrata",
+    "bases por concepto en céntimos comunicadas",
+    "contrato y tarifa IT/IMS",
+    "situaciones especiales",
+    "política monetaria primaria revisada"
+  ],
+  "rules": [
+    {
+      "id": "R01",
+      "concept": "bases-fichero",
+      "rule": "Formato C en céntimos de euro, no determina redondeo de la remuneración devengada",
+      "document": "bases-v2024",
+      "page": 31,
+      "status": "documentado-formato",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R02",
+      "concept": "solidaridad-conceptos",
+      "rule": "497, 498 y 499; tipo de cada pagador aplicado a cada concepto; se comunican en primer tramo temporal",
+      "document": "bnr-07-2024",
+      "page": 3,
+      "status": "documentado-procedimiento",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R03",
+      "concept": "cuotas-pagadores",
+      "rule": "Empresa, trabajador y total son campos separados; no repartir 5/6",
+      "document": "consulta-calculos",
+      "page": 24,
+      "status": "documentado-procedimiento",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R04",
+      "concept": "pago-euros",
+      "rule": "Céntimo más próximo para importes abonados; empate de conversión a cifra superior",
+      "document": "euro-2001",
+      "page": 1,
+      "status": "documentado-con-alcance",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R05",
+      "concept": "redondeo-cuota-producto",
+      "rule": "No cerrado: momento exacto, empate del producto no conversión, cuota total versus suma de pagadores",
+      "document": null,
+      "page": null,
+      "status": "pendiente",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R06",
+      "concept": "acumulacion",
+      "rule": "Acumulación por trabajador y liquidación visible; falta regla de ajustes de céntimos entre total y componentes",
+      "document": "consulta-calculos",
+      "page": 19,
+      "status": "parcial",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R07",
+      "concept": "prorrata",
+      "rule": "Remuneración mensual más prorrata anual /12; no confundir esa división con doce pagos iguales al céntimo",
+      "document": "orden-2025",
+      "page": 3,
+      "status": "documentado-con-alcance",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R08",
+      "concept": "solidaridad-tipos-2025",
+      "rule": "Empresa .0077/.0083/.0098; trabajador .0015/.0017/.0019; máximo 4909.50",
+      "document": "orden-2025",
+      "page": 16,
+      "status": "candidato-parametros",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R09",
+      "concept": "solidaridad-tipos-2026",
+      "rule": "Empresa .0096/.0104/.0122; trabajador .0019/.0021/.0024; máximo 5101.20",
+      "document": "orden-2026",
+      "page": 16,
+      "status": "candidato-parametros",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R10",
+      "concept": "AT-EP",
+      "rule": "Necesita separación IT/IMS y tarifa aplicable; 1.5% agregado no acredita operación de redondeo",
+      "document": null,
+      "page": null,
+      "status": "pendiente",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R11",
+      "concept": "MEI",
+      "rule": "Tipos separados 2025 .0067/.0013, 2026 .0075/.0015; política de redondeo del producto no cerrada",
+      "document": "orden-2025",
+      "page": 16,
+      "status": "parcial",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R12",
+      "concept": "ordinarias",
+      "rule": "CC, desempleo, FOGASA, FP, IT e IMS conservan identidades distintas; falta política monetaria por operación",
+      "document": "sld-especificaciones",
+      "page": 91,
+      "status": "parcial",
+      "review": {
+        "status": "pendiente",
+        "requires": "revisión NUEVA independiente"
+      },
+      "fiscalAcceptance": false
+    }
+  ],
+  "algorithm": [
+    "Validar hechos mensuales y vigencias; rechazar insuficiencia",
+    "Construir bases CC, AT/EP y fracciones 497/498/499 separadas; no compensar meses",
+    "Aplicar tipos separados; conservar resultado decimal exacto",
+    "Si falta política R05/R06/R10: devolver contrato mensual pendiente, nunca importe ingresable",
+    "Solo tras revisión de política: redondear en operaciones acreditadas, acumular con trazabilidad, conciliar recibo"
+  ],
+  "variants": [
+    "HALF_UP por concepto/pagador/mes",
+    "HALF_UP después de sumar tramos de solidaridad por pagador/mes",
+    "HALF_EVEN por concepto",
+    "truncamiento por concepto",
+    "empresa como cuota total menos trabajador",
+    "AT/EP agregado frente IT e IMS separados"
+  ],
+  "variantStatus": "experimentos, no opciones legales equivalentes acreditadas"
+}

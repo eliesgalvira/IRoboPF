@@ -1843,7 +1843,10 @@ describe("liquidarIrpfAnual", () => {
 
     expect(resultado).toMatchObject({
       _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaIntegraGeneralCentimos: 563_325,
+      // BLG 26.056: estatal 2.991,15 + Madrid
+      // 1.739,53 + (26.056 - 19.004,63) × 0,128 = 5.633,25536.
+      // Cuota fija publicada: BOE-A-2024-5610, p. 3 (CAV1-01).
+      cuotaIntegraGeneralCentimos: 563_326,
       cuotaMinimoPersonalCentimos: 103_357,
       cuotaLiquidaCentimos: 459_969,
       cuotaDiferencialCentimos: 459_969,

@@ -183,7 +183,9 @@ def plan(root):
                     exclusions.append({'path': rel, 'sha256': sha, 'reason': 'URL-no-publicable-o-no-fiscal'})
                     continue
                 facts = blobs[sha]['facts']
-                if any(record.get(k) != facts[k] for k in ('sha512', 'size')) or record.get('httpStatus') != 200:
+                if (record.get('sha512') != facts['sha512']
+                        or record.get('size') != facts['size']
+                        or record.get('httpStatus') != 200):
                     exclusions.append({'path': rel, 'sha256': sha, 'reason': 'metadatos-no-concuerdan'})
                     continue
                 retrieved = record.get('retrievedAt')

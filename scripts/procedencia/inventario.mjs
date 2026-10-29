@@ -23,6 +23,7 @@ const publishedScaleExports = [
   "CATALUNYA_2020_2021",
   "CATALUNYA_2022_2024",
   "MADRID_2022",
+  "MADRID_2025",
   "MURCIA_2022",
   "AHORRO_ORDINARIO_2012_2014",
   "AHORRO_COMPLEMENTARIO_2012_2014",
@@ -32,6 +33,19 @@ const publishedScaleExports = [
   "AHORRO_2023_2024",
   "AHORRO_2025",
 ]
+// Ámbito técnico de estas tablas concretas; no acredita su vigencia jurídica.
+// La identidad incluye archivo y export: no inferir una comunidad de un nombre libre.
+const publishedScaleTerritories = new Map([
+  ["ESTATAL_ORDINARIA_2012_2014", "estatal-comun"],
+  ["ESTATAL_COMPLEMENTARIA_2012_2014", "estatal-comun"],
+  ["ANDALUCIA_2012_2015", "andalucia"],
+  ["VALENCIA_2014_2016", "comunitat-valenciana"],
+  ["CATALUNYA_2020_2021", "catalunya"],
+  ["CATALUNYA_2022_2024", "catalunya"],
+  ["MADRID_2022", "madrid"],
+  ["MADRID_2025", "madrid"],
+  ["MURCIA_2022", "murcia"],
+])
 function effectiveBindings(source) {
   if (source.file === publishedScalesFile) {
     return publishedScaleExports.map((name) => {
@@ -121,7 +135,7 @@ export function flatten(value, path = [], seen = new Set()) {
     flatten(child, [...path, key], next)
   )
 }
-export function dimensions(symbol, path) {
+export function dimensions(symbol, path, sourceFile) {
   const years = path.filter((p) => /^20(?:1[2-9]|2[0-6])$/.test(p)).map(Number)
   if (!years.length) {
     // «2020 distintas de 2025» identifica una tabla anual, no un intervalo.
@@ -161,6 +175,14 @@ export function dimensions(symbol, path) {
       "melilla",
     ].includes(p)
   )
+  if (sourceFile === publishedScalesFile) {
+    const territory = publishedScaleTerritories.get(symbol)
+    if (territory !== undefined) {
+      if (territories.some((candidate) => candidate !== territory))
+        throw new Error("Ámbito técnico contradictorio en tabla publicada")
+      if (!territories.includes(territory)) territories.push(territory)
+    }
+  }
   let unit = "pending"
   if (/ESCALAS_AUTONOMICAS|TRAMOS_IRPF/.test(symbol)) {
     if (path.at(-1) === "0")
@@ -289,7 +311,7 @@ async function generateInProcess(root, output) {
           binding.source,
           "effective"
         )
-        Object.assign(item, dimensions(binding.symbol, leaf.path), {
+        Object.assign(item, dimensions(binding.symbol, leaf.path, source.file), {
           value: leaf.value,
           applicability: "datos evaluados; selección por motor pendiente",
           resolution: "module-evaluation",

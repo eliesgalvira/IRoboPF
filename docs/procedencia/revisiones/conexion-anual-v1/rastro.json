@@ -1,0 +1,1234 @@
+[
+  {
+    "id": "empleo-laboral-16576.01",
+    "contexto": null,
+    "lineas": [
+      {
+        "etiqueta": "Trabajo íntegro",
+        "formula": "suma de rendimientos anuales conciliados",
+        "resultado": "16576.01 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.integro",
+          "instanceId": "anual.explicito.trabajo.integro.0",
+          "decimal": "16576.01",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Gastos a–e",
+        "formula": "cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.gastos-a-e",
+          "instanceId": "anual.explicito.trabajo.gastos-a-e.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Gasto general aplicado",
+        "formula": "min(2000, saldo positivo después de a–e)",
+        "resultado": "2000.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.gasto-f",
+          "instanceId": "anual.explicito.trabajo.gasto-f.0",
+          "decimal": "2000",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Neto artículo 19",
+        "formula": "íntegro menos gastos efectivos a–e y gasto f limitado",
+        "resultado": "14576.01 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art19",
+          "instanceId": "anual.explicito.trabajo.art19.0",
+          "decimal": "14576.01",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "4284.98 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "4284.9825",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Base imponible general",
+        "formula": "rendimiento neto reducido con signo",
+        "resultado": "10291.03 euros",
+        "origen": {
+          "siteId": "anual.explicito.big",
+          "instanceId": "anual.explicito.big.0",
+          "decimal": "10291.0275",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Base liquidable general",
+        "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+        "resultado": "10291.03 euros",
+        "origen": {
+          "siteId": "anual.explicito.blg",
+          "instanceId": "anual.explicito.blg.0",
+          "decimal": "10291.0275",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota estatal",
+        "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+        "resultado": "450.40 euros",
+        "origen": {
+          "siteId": "anual.explicito.cuota.estatal",
+          "instanceId": "anual.explicito.cuota.estatal.0",
+          "decimal": "450.3976125",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota autonómica",
+        "formula": "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+        "resultado": "368.42 euros",
+        "origen": {
+          "siteId": "anual.explicito.cuota.autonomica",
+          "instanceId": "anual.explicito.cuota.autonomica.0",
+          "decimal": "368.4220875",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota líquida legal",
+        "formula": "cuota estatal + autonómica; sin otras deducciones",
+        "resultado": "818.82 euros",
+        "origen": {
+          "siteId": "anual.explicito.cuota.liquida-legal",
+          "instanceId": "anual.explicito.cuota.liquida-legal.0",
+          "decimal": "818.8197",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "DA61",
+        "formula": "deducción de servicios después del artículo 80, una sola vez",
+        "resultado": "340.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.da61",
+          "instanceId": "anual.explicito.da61.0",
+          "decimal": "339.998",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota posterior",
+        "formula": "cuota líquida legal − DA61",
+        "resultado": "478.82 euros",
+        "origen": {
+          "siteId": "anual.explicito.cuota.posterior",
+          "instanceId": "anual.explicito.cuota.posterior.0",
+          "decimal": "478.8217",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Retenciones efectivas",
+        "formula": "suma por operación única",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.retenciones",
+          "instanceId": "anual.explicito.retenciones.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Pagos fraccionados efectivos",
+        "formula": "suma por operación única",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.pagos",
+          "instanceId": "anual.explicito.pagos.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota diferencial",
+        "formula": "cuota posterior − retenciones − pagos fraccionados",
+        "resultado": "478.82 euros",
+        "origen": {
+          "siteId": "anual.explicito.diferencial",
+          "instanceId": "anual.explicito.diferencial.0",
+          "decimal": "478.8217",
+          "unidad": "EUR"
+        }
+      }
+    ],
+    "resolucionManual": [
+      {
+        "origen": {
+          "siteId": "anual.explicito.trabajo.integro",
+          "instanceId": "anual.explicito.trabajo.integro.0",
+          "decimal": "16576.01",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.trabajo.integro",
+            "revision": "43dadb994c1e02d823f6327f7139cb272419fc1261e3c97d74ddb97b29db3c37"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.trabajo.integro/43dadb994c1e02d823f6327f7139cb272419fc1261e3c97d74ddb97b29db3c37"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.trabajo.gastos-a-e",
+          "instanceId": "anual.explicito.trabajo.gastos-a-e.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.trabajo.gastos-a-e",
+            "revision": "4934b7297078ca1aaef730e21a18ff8df27fe9bf40f66709c5bcf91f15d13f0a"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.trabajo.gastos-a-e/4934b7297078ca1aaef730e21a18ff8df27fe9bf40f66709c5bcf91f15d13f0a"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.trabajo.gasto-f",
+          "instanceId": "anual.explicito.trabajo.gasto-f.0",
+          "decimal": "2000",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.trabajo.gasto-f",
+            "revision": "4c243b0c931e70021b62c4022469e744d9853f000f30ff087dee2c008e6939d7"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.trabajo.gasto-f/4c243b0c931e70021b62c4022469e744d9853f000f30ff087dee2c008e6939d7"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art19",
+          "instanceId": "anual.explicito.trabajo.art19.0",
+          "decimal": "14576.01",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.trabajo.art19",
+            "revision": "290bfe3b8bada40210e2f7f8d2f99a90ab1cbfe2d48a33bdfed4dc85004830c4"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.trabajo.art19/290bfe3b8bada40210e2f7f8d2f99a90ab1cbfe2d48a33bdfed4dc85004830c4"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "4284.9825",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.trabajo.art20",
+            "revision": "68e92cb6681c777997f432d59d9cdaaeb55689e2a0ab97cc93e988f549b45b27"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.trabajo.art20/68e92cb6681c777997f432d59d9cdaaeb55689e2a0ab97cc93e988f549b45b27"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.big",
+          "instanceId": "anual.explicito.big.0",
+          "decimal": "10291.0275",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.big",
+            "revision": "a63a2951a017ce795c946810d33b3c220b7d4897b2e7eda04a82456ed1e9cfa2"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.big/a63a2951a017ce795c946810d33b3c220b7d4897b2e7eda04a82456ed1e9cfa2"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.blg",
+          "instanceId": "anual.explicito.blg.0",
+          "decimal": "10291.0275",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.blg",
+            "revision": "faef5f10315976427d487be16e2e173d4bbf6f798273cf4fba4886082460cccc"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.blg/faef5f10315976427d487be16e2e173d4bbf6f798273cf4fba4886082460cccc"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.cuota.estatal",
+          "instanceId": "anual.explicito.cuota.estatal.0",
+          "decimal": "450.3976125",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.cuota.estatal",
+            "revision": "33d12a99a007b16aeea84a933e943bb282266b6e69ed238a96065f1fd2a64d66"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.cuota.estatal/33d12a99a007b16aeea84a933e943bb282266b6e69ed238a96065f1fd2a64d66"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.cuota.autonomica",
+          "instanceId": "anual.explicito.cuota.autonomica.0",
+          "decimal": "368.4220875",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.cuota.autonomica",
+            "revision": "171593b83a5df0bb5d2cc615bbfc26efe5d1967ce17e87fa70557159e7774837"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.cuota.autonomica/171593b83a5df0bb5d2cc615bbfc26efe5d1967ce17e87fa70557159e7774837"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.cuota.liquida-legal",
+          "instanceId": "anual.explicito.cuota.liquida-legal.0",
+          "decimal": "818.8197",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.cuota.liquida-legal",
+            "revision": "af4af7721895948be3d0c196bf826290a949e49cb3e7247138c9efcb598afaa6"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.cuota.liquida-legal/af4af7721895948be3d0c196bf826290a949e49cb3e7247138c9efcb598afaa6"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.da61",
+          "instanceId": "anual.explicito.da61.0",
+          "decimal": "339.998",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.da61",
+            "revision": "7e3546e578b91846f8d1b0748a252fe5f6ecbe4661957581be92ac9cfa157c3c"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.da61/7e3546e578b91846f8d1b0748a252fe5f6ecbe4661957581be92ac9cfa157c3c"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.cuota.posterior",
+          "instanceId": "anual.explicito.cuota.posterior.0",
+          "decimal": "478.8217",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.cuota.posterior",
+            "revision": "cdf3f601be5e0e6a8eec58ba90d6e69ae795309f4be2928747d165b36dc37e68"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.cuota.posterior/cdf3f601be5e0e6a8eec58ba90d6e69ae795309f4be2928747d165b36dc37e68"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.retenciones",
+          "instanceId": "anual.explicito.retenciones.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.retenciones",
+            "revision": "c489449c6eb12322f5f2dba8d29658378b346bd29e46658643bdef43be9f1077"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.retenciones/c489449c6eb12322f5f2dba8d29658378b346bd29e46658643bdef43be9f1077"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.pagos",
+          "instanceId": "anual.explicito.pagos.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.pagos",
+            "revision": "e3c1ef8f69cda1d16c8021d92960aa00905464749a2445a5bfdd2c9e442660a6"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.pagos/e3c1ef8f69cda1d16c8021d92960aa00905464749a2445a5bfdd2c9e442660a6"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.diferencial",
+          "instanceId": "anual.explicito.diferencial.0",
+          "decimal": "478.8217",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.diferencial",
+            "revision": "c54ca1229405a7a68aac97cc1627325499dffb861e770be085f5954075307bd2"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.diferencial/c54ca1229405a7a68aac97cc1627325499dffb861e770be085f5954075307bd2"
+        },
+        "tipo": "Step"
+      }
+    ]
+  },
+  {
+    "id": "eds-10000",
+    "contexto": null,
+    "lineas": [
+      {
+        "etiqueta": "AE25-02: ingreso:factura",
+        "formula": "base devengada, antes de retención y sin IVA recuperable",
+        "resultado": "10000.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.0",
+          "decimal": "10000",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-02: ingresos",
+        "formula": "sum(base antes de retención; IVA recuperable excluido)",
+        "resultado": "10000.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.1",
+          "decimal": "10000",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-02: gastos",
+        "formula": "sum(base gastos admitidos)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.2",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-03: reta",
+        "formula": "sum(cuotas ordinarias efectivas)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.3",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-04: amortizacion",
+        "formula": "sum(cuotas activos)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.4",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-02: P",
+        "formula": "ingresos-gastos-RETA-amortizacion",
+        "resultado": "10000.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.5",
+          "decimal": "10000",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-05: G",
+        "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+        "resultado": "500.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.6",
+          "decimal": "500",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-06: RN",
+        "formula": "P-G (con signo)",
+        "resultado": "9500.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.7",
+          "decimal": "9500",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-11: reduccion32_2",
+        "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.8",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-12: reduccionInicio",
+        "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.9",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-14: aporteBIG",
+        "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+        "resultado": "9500.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.10",
+          "decimal": "9500",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-15: retenciones",
+        "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.11",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "AE25-15: pagos",
+        "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.12",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Base imponible general",
+        "formula": "rendimiento neto reducido con signo",
+        "resultado": "9500.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.big",
+          "instanceId": "anual.explicito.big.0",
+          "decimal": "9500",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Base liquidable general",
+        "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+        "resultado": "9500.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.blg",
+          "instanceId": "anual.explicito.blg.0",
+          "decimal": "9500",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota estatal",
+        "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+        "resultado": "375.25 euros",
+        "origen": {
+          "siteId": "anual.explicito.cuota.estatal",
+          "instanceId": "anual.explicito.cuota.estatal.0",
+          "decimal": "375.25",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota autonómica",
+        "formula": "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+        "resultado": "301.18 euros",
+        "origen": {
+          "siteId": "anual.explicito.cuota.autonomica",
+          "instanceId": "anual.explicito.cuota.autonomica.0",
+          "decimal": "301.18475",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota líquida legal",
+        "formula": "cuota estatal + autonómica; sin otras deducciones",
+        "resultado": "676.43 euros",
+        "origen": {
+          "siteId": "anual.explicito.cuota.liquida-legal",
+          "instanceId": "anual.explicito.cuota.liquida-legal.0",
+          "decimal": "676.43475",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "DA61",
+        "formula": "deducción de servicios después del artículo 80, una sola vez",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.da61",
+          "instanceId": "anual.explicito.da61.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota posterior",
+        "formula": "cuota líquida legal − DA61",
+        "resultado": "676.43 euros",
+        "origen": {
+          "siteId": "anual.explicito.cuota.posterior",
+          "instanceId": "anual.explicito.cuota.posterior.0",
+          "decimal": "676.43475",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Retenciones efectivas",
+        "formula": "suma por operación única",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.retenciones",
+          "instanceId": "anual.explicito.retenciones.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Pagos fraccionados efectivos",
+        "formula": "suma por operación única",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.pagos",
+          "instanceId": "anual.explicito.pagos.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        }
+      },
+      {
+        "etiqueta": "Cuota diferencial",
+        "formula": "cuota posterior − retenciones − pagos fraccionados",
+        "resultado": "676.43 euros",
+        "origen": {
+          "siteId": "anual.explicito.diferencial",
+          "instanceId": "anual.explicito.diferencial.0",
+          "decimal": "676.43475",
+          "unidad": "EUR"
+        }
+      }
+    ],
+    "resolucionManual": [
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.0",
+          "decimal": "10000",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.1",
+          "decimal": "10000",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.2",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.3",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.4",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.5",
+          "decimal": "10000",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.6",
+          "decimal": "500",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.7",
+          "decimal": "9500",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.8",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.9",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.10",
+          "decimal": "9500",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.11",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.actividad.etapa",
+          "instanceId": "anual.explicito.actividad.etapa.12",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.actividad.etapa",
+            "revision": "acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.actividad.etapa/acb25347b1db84849646c13c029b24b8c47f0560690ebbc909017c783126bc92"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.big",
+          "instanceId": "anual.explicito.big.0",
+          "decimal": "9500",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.big",
+            "revision": "a63a2951a017ce795c946810d33b3c220b7d4897b2e7eda04a82456ed1e9cfa2"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.big/a63a2951a017ce795c946810d33b3c220b7d4897b2e7eda04a82456ed1e9cfa2"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.blg",
+          "instanceId": "anual.explicito.blg.0",
+          "decimal": "9500",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.blg",
+            "revision": "faef5f10315976427d487be16e2e173d4bbf6f798273cf4fba4886082460cccc"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.blg/faef5f10315976427d487be16e2e173d4bbf6f798273cf4fba4886082460cccc"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.cuota.estatal",
+          "instanceId": "anual.explicito.cuota.estatal.0",
+          "decimal": "375.25",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.cuota.estatal",
+            "revision": "33d12a99a007b16aeea84a933e943bb282266b6e69ed238a96065f1fd2a64d66"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.cuota.estatal/33d12a99a007b16aeea84a933e943bb282266b6e69ed238a96065f1fd2a64d66"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.cuota.autonomica",
+          "instanceId": "anual.explicito.cuota.autonomica.0",
+          "decimal": "301.18475",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.cuota.autonomica",
+            "revision": "171593b83a5df0bb5d2cc615bbfc26efe5d1967ce17e87fa70557159e7774837"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.cuota.autonomica/171593b83a5df0bb5d2cc615bbfc26efe5d1967ce17e87fa70557159e7774837"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.cuota.liquida-legal",
+          "instanceId": "anual.explicito.cuota.liquida-legal.0",
+          "decimal": "676.43475",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.cuota.liquida-legal",
+            "revision": "af4af7721895948be3d0c196bf826290a949e49cb3e7247138c9efcb598afaa6"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.cuota.liquida-legal/af4af7721895948be3d0c196bf826290a949e49cb3e7247138c9efcb598afaa6"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.da61",
+          "instanceId": "anual.explicito.da61.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.da61",
+            "revision": "7e3546e578b91846f8d1b0748a252fe5f6ecbe4661957581be92ac9cfa157c3c"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.da61/7e3546e578b91846f8d1b0748a252fe5f6ecbe4661957581be92ac9cfa157c3c"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.cuota.posterior",
+          "instanceId": "anual.explicito.cuota.posterior.0",
+          "decimal": "676.43475",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.cuota.posterior",
+            "revision": "cdf3f601be5e0e6a8eec58ba90d6e69ae795309f4be2928747d165b36dc37e68"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.cuota.posterior/cdf3f601be5e0e6a8eec58ba90d6e69ae795309f4be2928747d165b36dc37e68"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.retenciones",
+          "instanceId": "anual.explicito.retenciones.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.retenciones",
+            "revision": "c489449c6eb12322f5f2dba8d29658378b346bd29e46658643bdef43be9f1077"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.retenciones/c489449c6eb12322f5f2dba8d29658378b346bd29e46658643bdef43be9f1077"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.pagos",
+          "instanceId": "anual.explicito.pagos.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.pagos",
+            "revision": "e3c1ef8f69cda1d16c8021d92960aa00905464749a2445a5bfdd2c9e442660a6"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.pagos/e3c1ef8f69cda1d16c8021d92960aa00905464749a2445a5bfdd2c9e442660a6"
+        },
+        "tipo": "Step"
+      },
+      {
+        "origen": {
+          "siteId": "anual.explicito.diferencial",
+          "instanceId": "anual.explicito.diferencial.0",
+          "decimal": "676.43475",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "enlazada",
+          "snapshot": "5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8",
+          "algoritmo": "38a4d1372562d64ffae3a69b1d8a4166217ec0196e4ad31e629fcf0a798f412a",
+          "datos": "d6e71d1d5a2eeb8f81f607cc8b61415ee7eb8af180e4dd288aa61cd3a3a07a46",
+          "explicacion": "1df972b1a755e98e6a15141576edbb6c958c8e399f72f573d34f01082669189d",
+          "sujeto": {
+            "id": "paso.anual.explicito.diferencial",
+            "revision": "c54ca1229405a7a68aac97cc1627325499dffb861e770be085f5954075307bd2"
+          },
+          "href": "/procedencia/5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8/paso.anual.explicito.diferencial/c54ca1229405a7a68aac97cc1627325499dffb861e770be085f5954075307bd2"
+        },
+        "tipo": "Step"
+      }
+    ]
+  }
+]

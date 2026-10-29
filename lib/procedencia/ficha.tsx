@@ -1,11 +1,15 @@
-import type { Entidad } from "./modelo"
+import type { Entidad, EstadoEvidencia } from "./modelo"
 
 export function Ficha({
   entidad,
   snapshot,
+  evidencia,
+  enlaces = [],
 }: {
   entidad: Entidad
   snapshot: string
+  enlaces?: ReadonlyArray<{ titulo: string; href: string }>
+  evidencia?: typeof EstadoEvidencia.Type | undefined
 }) {
   return (
     <main>
@@ -15,7 +19,37 @@ export function Ficha({
           ? "Ocurrencia técnica versionada; no es una regla fiscal aceptada."
           : "Concepto editorial pendiente de enlace y revisión."}
       </p>
-      <p>Interpretación, autenticidad y contrarrevisión: pendientes.</p>
+      {evidencia !== undefined ? (
+        <dl>
+          <dt>Integridad</dt>
+          <dd>{evidencia.integridad}</dd>
+          <dt>Exactitud numérica del sujeto</dt>
+          <dd>{evidencia.exactitudNumerica}</dd>
+          <dt>Autenticidad según manifiesto</dt>
+          <dd>
+            {evidencia.autenticidad.estado}. Evaluación:{" "}
+            {evidencia.autenticidad.fecha}. {evidencia.autenticidad.limites}
+          </dd>
+          <dt>Interpretación</dt>
+          <dd>candidata</dd>
+          <dt>Revisión del binding</dt>
+          <dd>pendiente</dd>
+          <dt>Aceptación fiscal completa</dt>
+          <dd>false</dd>
+        </dl>
+      ) : (
+        <p>Interpretación, autenticidad y contrarrevisión: pendientes.</p>
+      )}
+      <ul>
+        {enlaces.map((e) => (
+          <li key={e.href}>
+            <a href={e.href}>{e.titulo}</a>
+          </li>
+        ))}
+      </ul>
+      {entidad.tipo === "Citation" && (
+        <blockquote>{entidad.selector.texto}</blockquote>
+      )}
       <p>Snapshot: {snapshot}</p>
       {"expresion" in entidad && (
         <dl>

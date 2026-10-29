@@ -26,6 +26,16 @@ import {
 } from "../scripts/procedencia/inventario-artefacto.mjs"
 
 describe("inventario sintáctico y efectivo", () => {
+  it("fija el ámbito técnico por archivo y export, sin aceptar nombres ajenos", () => {
+    const file = "lib/dominio/irpf/cuotas/escalas-publicadas.ts"
+    expect(dimensions("MADRID_2025", ["1", "cuota"], file)).toMatchObject({
+      years: [2025], territories: ["madrid"], unit: "EUR",
+    })
+    expect(dimensions("MADRID_2025", [], "lib/otra.ts").territories).toEqual([])
+    expect(dimensions("ESTATAL_ORDINARIA_2012_2014", ["0", "cuota"], file).territories).toEqual(["estatal-comun"])
+    expect(dimensions("AHORRO_2025", [], file).territories).toEqual([])
+    expect(() => dimensions("MADRID_2025", ["andalucia"], file)).toThrow("contradictorio")
+  })
   it("no convierte una comparación contra 2025 en vigencia hasta 2025", () => {
     expect(
       dimensions("ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025", [
@@ -73,7 +83,7 @@ if (item?.value !== "5551") throw new Error("Valor cacheado: " + item?.value);
 const scales = items.filter(item => item.layer === "effective" && item.source.file.endsWith("/cuotas/escalas-publicadas.ts"));
 const expectedRows = { ESTATAL_ORDINARIA_2012_2014: 6, ESTATAL_COMPLEMENTARIA_2012_2014: 7,
 ANDALUCIA_2012_2015: 6, VALENCIA_2014_2016: 6, CATALUNYA_2020_2021: 7,
-CATALUNYA_2022_2024: 9, MADRID_2022: 5, MURCIA_2022: 5,
+CATALUNYA_2022_2024: 9, MADRID_2022: 5, MADRID_2025: 5, MURCIA_2022: 5,
 AHORRO_ORDINARIO_2012_2014: 2, AHORRO_COMPLEMENTARIO_2012_2014: 3,
 AHORRO_2016_2020: 3, AHORRO_AUTONOMICO_2015: 3, AHORRO_2021_2022: 4,
 AHORRO_2023_2024: 5, AHORRO_2025: 5 };
@@ -82,7 +92,7 @@ for (const [symbol, rows] of Object.entries(expectedRows)) {
   if (scales.filter(item => item.symbol === symbol && item.path === JSON.stringify([String(row), key])).length !== 1) throw new Error("Identidad de celda ausente: " + symbol + row + key);
  }
 }
-if (scales.length !== 228) throw new Error("Hojas canónicas ausentes: " + scales.length);
+if (scales.length !== 243) throw new Error("Hojas canónicas ausentes: " + scales.length);
 const murcia = scales.find(item => item.symbol === "MURCIA_2022" && item.path === '["4","cuota"]');
 if (murcia?.value !== "8716.68") throw new Error("Identidad Murcia ausente");
 const again = await generate(process.cwd(), process.cwd() + "/generated-again");

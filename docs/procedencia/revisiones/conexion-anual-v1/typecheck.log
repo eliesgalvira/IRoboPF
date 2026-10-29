@@ -1,0 +1,11 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/actividades-economicas-2025.test.ts(4,28): error TS2307: Cannot find module '../docs/procedencia/auditorias/actividades-economicas-2025/especificacion-implementacion.json' or its corresponding type declarations.
+tests/actividades-economicas-2025.test.ts(232,17): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/actividades-economicas-2025.test.ts(248,47): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'Value'.
+tests/progresividad-caracterizacion-legacy.test.ts(6,20): error TS2307: Cannot find module '../docs/procedencia/correcciones/integracion-ronda10/caracterizacion-python.json' or its corresponding type declarations.
+tests/progresividad-caracterizacion-legacy.test.ts(68,14): error TS7006: Parameter 'fila' implicitly has an 'any' type.
+tests/redondeos-legacy-oracle.test.ts(22,19): error TS2307: Cannot find module '../docs/procedencia/implementaciones/redondeos-legacy/excel.json' or its corresponding type declarations.
+tests/redondeos-legacy-oracle.test.ts(39,41): error TS7006: Parameter 'n' implicitly has an 'any' type.
+tests/redondeos-legacy-oracle.test.ts(39,44): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/redondeos-legacy-oracle.test.ts(64,20): error TS2307: Cannot find module '../docs/procedencia/implementaciones/redondeos-legacy/python-oracle.json' or its corresponding type declarations.
+tests/redondeos-legacy-oracle.test.ts(84,22): error TS2307: Cannot find module '../docs/procedencia/implementaciones/redondeos-legacy/excel-ampliado.json' or its corresponding type declarations.

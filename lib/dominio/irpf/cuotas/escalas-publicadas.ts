@@ -81,6 +81,15 @@ export const MADRID_2022 = filas([
   ["34360.50", "3725.91", ".174"],
   ["55596.90", "7421.04", ".205"],
 ])
+// CAV1-01: Ley 13/2023, BOE-A-2024-5610 p3; manual AEAT 2025 p1128.
+// Ámbito revisado aquí: ejercicio 2025 ordinario, sin extender a fallecimientos.
+export const MADRID_2025 = filas([
+  ["0", "0", ".085"],
+  ["13362.22", "1135.79", ".107"],
+  ["19004.63", "1739.53", ".128"],
+  ["35425.68", "3841.42", ".174"],
+  ["57320.40", "7651.10", ".205"],
+])
 export const MURCIA_2022: EscalaPublicada = [
   ...filas([
     ["0", "0", ".096"],
@@ -119,6 +128,12 @@ export const obtenerEscalaAutonomicaPublicada = ({
   if (comunidadAutonoma === "catalunya" && anio >= 2022 && anio <= 2024)
     return CATALUNYA_2022_2024
   if (comunidadAutonoma === "madrid" && anio === 2022) return MADRID_2022
+  if (
+    comunidadAutonoma === "madrid" &&
+    anio === 2025 &&
+    fechaFallecimiento === undefined
+  )
+    return MADRID_2025
   // No extender el cierre ordinario a fallecimientos cuyo régimen sigue pendiente.
   if (
     comunidadAutonoma === "murcia" &&
