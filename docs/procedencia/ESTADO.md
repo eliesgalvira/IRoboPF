@@ -12,6 +12,8 @@ Inventario **51.880 ocurrencias**. Nuevo v1 `54194f5a7ec34412ac9aa4aa27d8bcea053
 
 Ronda 13 restante en curso. Build webpack correcto con un trabajador y límite de memoria. Se corrigió el render incompatible de la ruta y la omisión de datos en las trazas del paquete. GET compilados correctos desde una copia exclusiva de esas trazas: 4.811 archivos, 266.814.325 bytes. Sin servidor ni despliegue. Siguen pendientes ampliar preservación, completar la evidencia jurídica y revisar contratos. Crossa conserva v1 histórico, desfasado respecto de v2; sin transferencia, LFS o gasto. No se inicia limpieza final ni se declara terminado el encargo.
 
+Bloque de producto y evidencia respaldado en `6e210920a9063b7a7efd0730ae4ab1ac73a2141e`: **128 archivos cotejados byte a byte contra el commit**, cero borrados. Prueba de integración en `correcciones/publicacion-r13/commit-comprobado.json`. Revisión independiente nueva lanzada con high/priority y worktree, registrada en `delegaciones-ronda14.json`; cubre publicación compilada, paquete aislado y coherencia de cuota/neto. Su finalización reactivará el trabajo. El padre continúa como orquestador; no es cierre de la sesión ni aceptación fiscal.
+
 ## Situación anterior, 29 de octubre, 16:04 CET
 
 Integradas las entregas de ronda 11 y las dos de ronda 12 por base, archivo y hash, sin borrados. Se han corregido CAV1-01/02/03 y RT11-01; informe en `correcciones/integracion-ronda11/INFORME.md`. La exportación de inflación ya reproduce las 18 hojas del Excel en el contraste de hashes independiente. El perfil heredado conserva sus límites fiscales; quedan abiertos CX-06-A (reparto entre titulares) y CX-07-B (coherencia de cuota y neto) de la nueva revisión de X.
