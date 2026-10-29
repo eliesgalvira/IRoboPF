@@ -173,3 +173,16 @@ Instrumentados 49 puntos propios del rastro anual con identidad de código, inst
 El usuario ha restablecido el límite de uso y ha indicado continuar. No hay nuevo bloqueo ni reducción de alcance. Próximos trabajos del padre: recibir las entregas pendientes, integrar contratos, separar IPC observado/escenario y resolver contratos de redondeo, ampliar enlaces documentales y preservar el corpus. La exhaustividad fiscal, la autenticidad histórica y las puertas finales siguen abiertas. No se ha iniciado la limpieza.
 
 Bloque integrado en c2894133f9b5. La comprobación final pasa 88 pruebas seleccionadas de motor/rastro, 15 de contenido, seis de rastro tras fijar por hash la versión de explicación, verificación del snapshot completo, lint y typecheck. Los recuentos se solapan. El puente reconstruye el inventario actual y verifica el binding numérico de Madrid, sin aceptación fiscal completa. Nueva contrarrevisión independiente abierta en delegaciones-ronda8.json para rastro, TDE-09/10 y ENV2-01; las otras entregas de ronda 7 siguen su curso. Se comprobaron los 2.146 archivos de base y no hubo borrados.
+
+
+## Avance del 29 de octubre, 14:10 CET: integración revisada y correcciones
+
+Recibidas las siete entregas pendientes y la revisión del rastro. Integrados contratos de trabajo anual, retenciones históricas y preservación por archivos, con hashes y cero borrados; se conservan los 3.230 archivos de base. El padre corrigió EMI-01, la clasificación de conciliación EMI-02, los cinco puntos de deducciones, los tres hallazgos de actividades con límites documentados, CI-01/02/03 y RV3-01. Informe completo y rojos: correcciones/integracion-ronda7/INFORME.md. Ningún resultado se autoacepta fiscalmente.
+
+Pasan **495 pruebas de 38 archivos**, 15 de contenido y nueve de preservación; no se suman recuentos seleccionados solapados. Las dos suites legacy pesadas siguen reservadas para la comprobación final. Lint y typecheck correctos. Los diez snapshots históricos verifican íntegros. El puente reconstruye el inventario actual y coteja Madrid con siete dependencias documentales, sin atestación nueva.
+
+Inventario: **50.646 ocurrencias**, contenido: **50.699 fichas** con cuatro conceptos y 49 puntos. Snapshot actual `babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68`. Payload Madrid `3c7ac6d902081f1d7d2cb28cc556ffbef9bcac5ae8303f9c6cbbef291983c88e`; el anterior se conserva. Estas cifras no representan reglas jurídicas aceptadas.
+
+Trabajo y actividad siguen necesitando integración anual tras revisión independiente. Retenciones ya está conectada y requiere selección temporal expresa cuando corresponde. Los controles antiguos de deducciones solo aplican consignaciones, con limitación visible. IPC observado/escenario y redondeos continúan como trabajo del padre. Se preparan nuevas revisiones y ampliación de enlaces documentales.
+
+Preservación local: 708 originales candidatos, 0,908 GiB; ninguna copia externa nueva acreditada. Pregunta pendiente a Elies: confirmar al menos 2 GiB libres de LFS, autorizar hasta 1 €/mes o dejar preparada la transferencia. No se infiere respuesta, cuota o permiso nuevo. El resto del encargo continúa. Sin PR, deploy ni limpieza final.

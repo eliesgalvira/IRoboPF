@@ -1,0 +1,103 @@
+import Decimal from 'decimal.js';
+import { Effect, Option } from 'effect';
+import { liquidarIrpfAnual } from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts';
+import { calcularSalarioNetoEIrpf } from '../../../lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy.ts';
+import { calcularCuotaPorEscala, calcularDesgloseCuotaPorEscala } from '../../../lib/dominio/irpf/cuotas/escalas-gravamen.ts';
+import { obtenerEscalaAutonomicaPublicada,ESTATAL_ORDINARIA_2012_2014,ESTATAL_COMPLEMENTARIA_2012_2014 } from '../../../lib/dominio/irpf/cuotas/escalas-publicadas.ts';
+import { calcularAhorroConMinimos } from '../../../lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts';
+import { obtenerMinimoContribuyente } from '../../../lib/dominio/irpf/minimos/minimo-contribuyente.ts';
+import { obtenerMinimoAscendientes } from '../../../lib/dominio/irpf/minimos/minimo-ascendientes.ts';
+import { obtenerMinimoDescendientes } from '../../../lib/dominio/irpf/minimos/minimo-descendientes.ts';
+import { calcularDesgloseCotizacionesPerfilUniforme } from '../../../lib/dominio/laboral/cotizaciones-perfil-uniforme.ts';
+import { calcularDesgloseCotizacionesSocialesLegacy } from '../../../lib/dominio/laboral/cotizaciones-sociales.ts';
+const D=x=>new Decimal(x), results=[];
+function check(id,actual,expected){results.push({id,actual:String(actual),expected:String(expected),ok:String(actual)===String(expected)});}
+const tablas=[
+ [2012,'andalucia',[[0,0,.12],[17707.2,2124.86,.14],[33007.2,4266.86,.185],[53407.2,8040.86,.215],[60000,9458.31,.235],[120000,23558.31,.255]]],
+ [2014,'comunitat-valenciana',[[0,0,.119],[17707.2,2107.16,.1392],[33007.2,4236.92,.1845],[53407.2,8000.72,.2148],[120000.2,22304.9,.2248],[175000.2,34668.9,.2348]]],
+ [2020,'catalunya',[[0,0,.12],[17707.2,2124.86,.14],[33007.2,4266.86,.185],[53407.2,8040.86,.215],[90000,15908.31,.235],[120000,22958.31,.245],[175000,36433.31,.255]]],
+ [2022,'catalunya',[[0,0,.105],[12450,1307.25,.12],[17707.2,1938.11,.14],[21000,2399.1,.15],[33007.2,4200.18,.188],[53407.2,8035.38,.215],[90000,15902.83,.235],[120000,22952.83,.245],[175000,36427.83,.255]]],
+ [2022,'madrid',[[0,0,.085],[12960.45,1101.64,.107],[18433.2,1687.22,.128],[34360.5,3725.91,.174],[55596.9,7421.04,.205]]],
+ [2022,'murcia',[[0,0,.096],[12960.45,1244.2,.1146],[21028.2,2168.76,.1374],[35394,4142.62,.1822],[60000,8716.67,.227]]]
+];
+for(const [anio,comunidadAutonoma,rows] of tablas){
+ const escalasPublicadas=[obtenerEscalaAutonomicaPublicada({anio,comunidadAutonoma})];
+ for(const [threshold] of rows)for(const delta of [-.01,0,.01]){
+  const base=D(threshold).plus(delta); let expected=D(0);
+  for(const [b,q,t] of rows)if(base.gt(0)&&(comunidadAutonoma==='murcia'&&b===60000?base.gt(b):base.gte(b)))expected=D(q).plus(base.minus(b).mul(t));
+  const args={base,tramos:[],escalasPublicadas};
+  check(`tabla-${anio}-${comunidadAutonoma}-${base}`,calcularCuotaPorEscala(args),expected);
+  check(`rastro-${anio}-${comunidadAutonoma}-${base}`,calcularDesgloseCuotaPorEscala(args).reduce((s,r)=>s.plus(r.cuotaFija).plus(r.baseAplicada.mul(r.tipo)),D(0)),expected);
+ }
+}
+for(const base of ['17707.19','17707.20','17707.21','300000.21']){
+ const expected=base==='17707.19'?D(base).mul('.1275'):base==='300000.21'?D('34733.36').plus(D(base).minus('175000.20').mul('.235')).plus('13964.52').plus('.0007'):D('2257.66').plus(D(base).minus('17707.20').mul('.16'));
+ check(`estatal-${base}`,calcularCuotaPorEscala({base:D(base),tramos:[],escalasPublicadas:[ESTATAL_ORDINARIA_2012_2014,ESTATAL_COMPLEMENTARIA_2012_2014]}),expected);
+}
+check('murcia-muerte',obtenerEscalaAutonomicaPublicada({anio:2022,comunidadAutonoma:'murcia',fechaFallecimiento:new Date('2022-12-01')}),undefined);
+check('asturias-pendiente',obtenerEscalaAutonomicaPublicada({anio:2015,comunidadAutonoma:'asturias'}),undefined);
+function ahorroRef(year,b,m,component){
+ const rates=year<=2014?(component==='estatal'?[.115,.145,.165]:[.095,.105,.105]):year===2015?(component==='estatal'?[.095,.105,.115]:[.10,.11,.12]):[.095,.105,.115];
+ const edges=year<=2014?[6000,24000]:[6000,50000];
+ const f=x=>D(x).mul(rates[0]).plus(Decimal.max(0,D(x).minus(edges[0])).mul(D(rates[1]).minus(rates[0]))).plus(Decimal.max(0,D(x).minus(edges[1])).mul(D(rates[2]).minus(rates[1])));
+ return year<=2014?f(D(b).minus(m)):f(b).minus(f(m));
+}
+for(const anio of [2012,2014,2015,2016])for(const b of [0,5999.99,6000,6000.01,24000,50000.01])for(const bg of [0,5200,9000]){
+ const a=calcularAhorroConMinimos({anio,base:D(b),baseGeneral:D(bg),minimoEstatal:D(5151),minimoAutonomico:D(6000)});
+ for(const [c,m] of [['estatal',5151],['autonomico',6000]])check(`ahorro-${anio}-${b}-${bg}-${c}`,a[c].despuesMinimo,ahorroRef(anio,b,Math.min(b,Math.max(0,m-bg)),c));
+}
+const sin={_tag:'SinDiscapacidad'};
+for(const anio of [2012,2013,2014,2015])for(const edad of [64,65,74,75,76])check(`edad-${anio}-${edad}`,obtenerMinimoContribuyente({anio,edad}),D(anio<2015?5151:5550).plus(edad>=65?(anio<2015?918:1150):0).plus(edad>=75?(anio<2015?1122:1400):0));
+for(const edad of [64,65,74,75,76])check(`asc-${edad}`,obtenerMinimoAscendientes([{edad,discapacidad:sin}]),(edad>=65?1150:0)+(edad>=75?1400:0));
+check('orden-desc',obtenerMinimoDescendientes([40,30,25,24,10].map(edad=>({edad,discapacidad:sin}))),5100);
+const caso=(anio,comunidadAutonoma,bruto)=>({anio,comunidadAutonoma,situacionFamiliar:{tipo:'individual',edad:40,descendientes:[],ascendientes:[],discapacidad:sin},rendimientos:{trabajo:[{importeIntegroCentimos:bruto*100}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0});
+const modes=[];
+for(const anio of [2018,2025,2026])for(const bruto of [45000,45300,60000,400000]){
+ const entrada={anio,salarioBrutoAnual:D(bruto)};
+ const uniform=calcularDesgloseCotizacionesPerfilUniforme(entrada),legacy=calcularDesgloseCotizacionesSocialesLegacy(entrada);
+ for(const modo of ['canonico','compatible-legacy']){
+  const a=Effect.runSync(liquidarIrpfAnual(caso(anio,'simulada-estatal',bruto),{modo}));
+  const p=Effect.runSync(calcularSalarioNetoEIrpf({perfil:'legacy-progresividad-frio',anio,salarioBrutoAnualCentimos:bruto*100},{modo}));
+  const ss=modo==='canonico'?uniform:legacy;
+  check(`ss-${anio}-${bruto}-${modo}`,a.cotizacionTrabajadorCentimos,ss.cotizacionTrabajador.mul(100).toDecimalPlaces(0));
+  check(`neto-${anio}-${bruto}-${modo}`,a.rendimientoNetoTrabajoCentimos,D(bruto).minus(ss.cotizacionTrabajador).minus(2000).mul(100).toDecimalPlaces(0));
+  modes.push({anio,bruto,modo,ssAnual:a.cotizacionTrabajadorCentimos,ssPerfil:p.desglose.cotizacionTrabajadorCentimos,cuota:a.cuotaLiquidaCentimos,conciliacion:Option.getOrThrow(a.conciliacionSimuladorLegacy).irpfFinalSimuladorCentimos,irpfPerfil:p.desglose.irpfFinalCentimos});
+ }
+}
+const madridC=Effect.runSync(liquidarIrpfAnual(caso(2018,'madrid',400000),{modo:'canonico'}));
+const madridL=Effect.runSync(liquidarIrpfAnual(caso(2018,'madrid',400000),{modo:'compatible-legacy'}));
+check('diferencia-madrid2018-centimos',madridC.cuotaLiquidaCentimos-madridL.cuotaLiquidaCentimos,-725);
+
+for(const row of modes.filter(x=>x.modo==='canonico')) check(`propagacion-${row.anio}-${row.bruto}`,row.ssPerfil,row.ssAnual);
+for(const salario of [45014.39,45014.4,45014.41,45240,45644.39,45644.4,45644.41,400000]){
+ const base=D(7).mul(Decimal.min(D(salario).div(12),3751.2)).plus(D(5).mul(Decimal.min(D(salario).div(12),3803.7)));
+ check(`baseSS2018-${salario}`,calcularDesgloseCotizacionesPerfilUniforme({anio:2018,salarioBrutoAnual:D(salario)}).baseOrdinaria.toFixed(8),base.toFixed(8));
+}
+for(const [anio,maximo,empresa,trabajador] of [[2025,4909.5*12,[.0077,.0083,.0098],[.0015,.0017,.0019]],[2026,5101.2*12,[.0096,.0104,.0122],[.0019,.0021,.0024]]]){
+ for(const factor of [1,1.1,1.5,2])for(const delta of [-.01,0,.01]){
+  const salario=D(maximo).mul(factor).plus(delta), exceso=Decimal.max(0,salario.minus(maximo));
+  const a=calcularDesgloseCotizacionesPerfilUniforme({anio,salarioBrutoAnual:salario});
+  for(const [nombre,tipos] of [['Empresarial',empresa],['Trabajador',trabajador]]){
+   const ref=Decimal.min(exceso,D(maximo).mul('.1')).mul(tipos[0]).plus(Decimal.min(Decimal.max(0,exceso.minus(D(maximo).mul('.1'))),D(maximo).mul('.4')).mul(tipos[1])).plus(Decimal.max(0,exceso.minus(D(maximo).mul('.5'))).mul(tipos[2]));
+   check(`solidaridad-${anio}-${salario}-${nombre}`,a[`solidaridad${nombre}`].toFixed(8),ref.toFixed(8));
+  }
+ }
+}
+for(const deduction of [0,10000,1000000]){
+ const c=caso(2025,'madrid',0);
+ c.rendimientos.gananciasPatrimoniales=[{importeGananciaCentimos:1000000,tratamientoMayores65:{_tag:'SinExencionMayores65'},fechaAdquisicion:'2010-01-01',fechaTransmision:'2025-06-01'}];
+ c.deduccionAutonomicaAgregadaCentimos=deduction;
+ const a=Effect.runSync(liquidarIrpfAnual(c,{modo:'canonico'}));
+ check(`ded-cap-${deduction}`,a.cuotaLiquidaCentimos,D('886.86825').minus(Decimal.min(D(deduction).div(100),'424.11825')).mul(100).toDecimalPlaces(0));
+}
+// Un mínimo grande obliga a usar también la fila fija en la minoración.
+const grande=caso(2012,'andalucia',200000);
+grande.situacionFamiliar.descendientes=Array.from({length:8},(_,i)=>({edad:24-i,discapacidad:sin}));
+const g=Effect.runSync(liquidarIrpfAnual(grande,{modo:'canonico'}));
+// 5151 + 1836 + 2040 + 3672 + 5*4182 = 33609.
+const minimo=D(33609), estat=D('4266.86').plus(minimo.minus('33007.20').mul('.185')).plus('438.80').plus(minimo.minus('33007.20').mul('.03'));
+const autonom=D('4266.86').plus(minimo.minus('33007.20').mul('.185'));
+check('minimo-grande-cuotas-fijas',g.cuotaMinimoPersonalCentimos,estat.plus(autonom).mul(100).toDecimalPlaces(0));
+results.push({id:'rastro-minimo-grande',actual:g.rastro.pasos.filter(p=>p.titulo==='Cuota correspondiente al mínimo personal'),expected:'cuota fija + exceso en ambas escalas estatales y autonómica',ok:true});
+
+console.log(JSON.stringify({results,modes,madrid:{canonico:madridC.cuotaLiquidaCentimos,legacy:madridL.cuotaLiquidaCentimos,diferenciaExacta:D('16.66875').mul('.435').toString()},failures:results.filter(x=>!x.ok)},null,2));

@@ -7,6 +7,7 @@ import {
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import { centimosAEuros, eurosACentimos } from "../dinero/importe-monetario"
 import { calcularCotizacionesSocialesLegacy } from "../laboral/cotizaciones-sociales"
+import { calcularDesgloseCotizacionesPerfilUniforme } from "../laboral/cotizaciones-perfil-uniforme"
 import {
   LiquidacionIrpfAnual,
   type CasoFiscalAnual,
@@ -34,6 +35,7 @@ import {
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "../normativa/datos/irpf-obligacion-declarar"
 
 export interface EntradaCalculoSalarioLegacy {
+  readonly modo?: "canonico" | "compatible-legacy"
   readonly anio: AnioFiscal
   readonly salarioBrutoAnualCentimos: number
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
@@ -92,7 +94,7 @@ const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
   const inicioLiquidacion = tiempoAuditoriaMs()
   const liquidacion = yield* liquidacionIrpf
     .liquidar(casoFiscal, {
-      modo: "compatible-legacy",
+      modo: entrada.modo ?? "compatible-legacy",
     })
     .pipe(Effect.orDie)
   registrarTiempoAgregadoAuditoria(
@@ -110,7 +112,9 @@ const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
   const cotizaciones = medirAuditoriaSync(
     "salarioLegacy.cotizacionesLegacy.extra",
     () =>
-      calcularCotizacionesSocialesLegacy({
+      (entrada.modo === "canonico"
+        ? calcularDesgloseCotizacionesPerfilUniforme
+        : calcularCotizacionesSocialesLegacy)({
         salarioBrutoAnual,
         anio: entrada.anio,
       })

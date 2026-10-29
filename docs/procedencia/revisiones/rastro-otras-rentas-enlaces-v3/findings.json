@@ -1,0 +1,42 @@
+{
+  "base": "c2894133f9b5179a7a67364897fe0b04671715f1",
+  "findings": [
+    {
+      "id": "RV3-01",
+      "priority": "P2",
+      "status": "mismatch",
+      "title": "La versión de explicación no se coteja con su software actual",
+      "locations": [
+        {
+          "file": "scripts/procedencia/rastro-verificar.mjs",
+          "line": 28
+        },
+        {
+          "file": "scripts/procedencia/rastro-verificar.mjs",
+          "line": 68
+        }
+      ],
+      "reason": "Solo coteja versiones declaradas y fuentes de dominio; fuentesSoftware actuales quedan fuera.",
+      "scope": "Detección de catálogo obsoleto tras modificar software de explicación. Los hashes del checkout revisado coinciden.",
+      "cost": "Cotejar receta y dependencias de explicación en verificador actual; conservar verificación histórica independiente.",
+      "evidence": [
+        "casos/sondeos.mjs.txt",
+        "logs/sondeos.log"
+      ],
+      "integridad": "control incompleto de software actual",
+      "autenticidad": "sin nueva afirmación",
+      "interpretacion": "no altera conclusión jurídica",
+      "exactitud": "sin discrepancia monetaria actual demostrada",
+      "aceptacion": "pendiente de corrección por padre",
+      "review": {
+        "status": "candidate",
+        "independentReviewer": "revision-rastro-otras-rentas-enlaces-v3"
+      }
+    }
+  ],
+  "conclusions": {
+    "TDE-09/10": "aprobable con alcance limitado",
+    "ENV2-01": "aprobable con alcance limitado",
+    "madrid": "sin nueva atestación"
+  }
+}

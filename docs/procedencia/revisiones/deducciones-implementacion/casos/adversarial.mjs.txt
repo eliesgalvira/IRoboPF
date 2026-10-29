@@ -1,0 +1,54 @@
+import * as c from '../../../lib/dominio/irpf/deducciones/contratos-2025.ts';
+import {calcularDeduccionesAutonomicasAplicadas as antiguo} from '../../../lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts';
+const resultados=[];
+function caso(id,esperado,fn){let observado;try{observado=fn()}catch(e){observado={error:e.message}}resultados.push({id,esperado,observado});}
+const ctx=(territorio,ejercicio=2025)=>({territorio,ejercicio,contribuyente:'A',modalidad:'individual'});
+const e={id:'E',ejercicio:2025,tipo:'nacimiento',hijos:['H1','H2'],titulares:['A','B'],municipio:'ordinario',diasAcogimiento:0,ayudaAcogimiento:0};
+const and=(ev,elecciones=[])=>c.evaluarNacimientoAndaluz(ctx('andalucia'),ev,elecciones);
+caso('ambito-ABA',[200,0,200],()=>['andalucia','madrid','andalucia'].map(territorio=>antiguo({andaluciaHijosNacimientoAdopcion:1},ctx(territorio))));
+for(const year of [2024,2026]){
+caso('antiguo-year-'+year,'error',()=>antiguo({madridHijosNacimientoAdopcion:1},ctx('madrid',year)));
+caso('nuevo-year-'+year,'no_soportado',()=>c.evaluarNacimientoAndaluz(ctx('andalucia',year),[e],[]));
+}
+caso('andalucia-gemelos-dos-titulares',400,()=>and([e]));
+caso('andalucia-eventos-distintos',200,()=>and([{...e,hijos:['H1']},{...e,id:'E2',hijos:['H2']}]));
+for(const dias of [89,90,90.5])caso('acogimiento-'+dias,dias===89?0:dias===90?100:'no_soportado',()=>and([{...e,tipo:'acogimiento',hijos:['H1'],diasAcogimiento:dias}]));
+caso('acogimiento-ayuda',0,()=>and([{...e,tipo:'acogimiento',hijos:['H1'],diasAcogimiento:90,ayudaAcogimiento:1}]));
+caso('andalucia-incompatible','no_soportado',()=>and([e],[{contribuyente:'A',codigo:'andalucia_familia_numerosa'}]));
+caso('andalucia-beneficiario-duplicado','no_soportado',()=>and([e,{...e,id:'otro'}]));
+caso('andalucia-titular-duplicado','no_soportado',()=>and([{...e,titulares:['A','A']}]));
+for(const n of [0.5,-1]){
+caso('generic-count-'+n,'error',()=>antiguo({'rioja_enfermedad_celiaca:unidades':n},ctx('la-rioja')));
+caso('specific-count-'+n,'rechazo, nunca derecho fraccionario',()=>antiguo({andaluciaHijosNacimientoAdopcion:n},ctx('andalucia')));
+}
+const madrid=(year)=>({ejercicio:year,hijos:['H1','H2'],progenitoresConvivientes:['A','B']});
+const historia=[2023,2024,2025].map(ejercicio=>({ejercicio,general:30930,ahorro:0,basesUnidadFamiliar:[30930,30930]}));
+for(const y of [2022,2023,2024,2025,2026])caso('madrid-ventana-'+y,y<2023||y>2025?'excluida':y===2025?1443.4:721.7,()=>c.evaluarNacimientoMadrid(ctx('madrid'),madrid(y),historia));
+caso('madrid-historia-duplicada','no_soportado',()=>c.evaluarNacimientoMadrid(ctx('madrid'),madrid(2023),[...historia,historia[0]]));
+caso('madrid-familiar-excede','excluida',()=>c.evaluarNacimientoMadrid(ctx('madrid'),madrid(2025),[{...historia[2],basesUnidadFamiliar:[30930,30930.01]}]));
+caso('madrid-evento-NaN','no_soportado',()=>c.evaluarNacimientoMadrid(ctx('madrid'),madrid(NaN),[]));
+const can={tipo:'canarias_nacimiento',contexto:ctx('canarias'),hijos:[{id:'H1',orden:3,ordenDiscapacidad:1},{id:'H2',orden:4,ordenDiscapacidad:2}],titulares:['A','B']};
+caso('canarias-ordenes-reparto',1263,()=>c.evaluarDeduccion(can));
+caso('canarias-agregado','no_soportado',()=>c.totalDeduccionesEvaluadas(can.contexto,[can]));
+const gasto={hijo:'H1',titulares:['A','B'],custodia:4000,alimentacion:1000,vestuarioEscolar:1000,ayudas:2000};
+caso('murcia-gasto-comun-ayudas',400,()=>c.calcularGuarderiaMurciaParcial(ctx('murcia'),[gasto],30000));
+caso('murcia-dos-hijos-topes',1000,()=>c.calcularGuarderiaMurciaParcial(ctx('murcia'),[{...gasto,custodia:10000},{...gasto,hijo:'H2',custodia:10000}],30000));
+caso('murcia-base-excede','excluida',()=>c.calcularGuarderiaMurciaParcial(ctx('murcia'),[gasto],30000.01));
+const persona={id:'H1',relacion:'descendiente',titularesDelMinimo:['A','B'],titularesDeduccion:['A','B'],certificado:{referencia:'S',medico:'M',colegiado:'C',especialidad:'digestivo',fechaEmision:'2026-01-20',fechaDiagnostico:'2025-12-31',diagnostico:'definitivo',ejercicioMedico:'activo'}};
+caso('rioja-reparto-retro2025',125,()=>c.evaluarCeliaquiaRioja(ctx('la-rioja'),[persona]));
+caso('rioja-sin-personas',0,()=>c.evaluarCeliaquiaRioja(ctx('la-rioja'),[]));
+caso('rioja-parcial-agregado','no_soportado',()=>c.totalDeduccionesEvaluadas(ctx('la-rioja'),[{tipo:'rioja_celiaquia',contexto:ctx('la-rioja'),personas:[persona]}]));
+caso('rioja-mezcla-elegible-no-elegible','no perder parcial de persona elegible',()=>c.evaluarCeliaquiaRioja(ctx('la-rioja'),[persona,{...persona,id:'H2',titularesDelMinimo:[]}]));
+caso('rioja-mezcla-agregado','no_soportado, nunca cero automatico',()=>c.totalDeduccionesEvaluadas(ctx('la-rioja'),[{tipo:'rioja_celiaquia',contexto:ctx('la-rioja'),personas:[persona,{...persona,id:'H2',titularesDelMinimo:[]}]}]));
+caso('catalunya-alquiler','excluida',()=>c.excluirAlquilerCatalan(30000.01));
+caso('catalunya-alquiler-frontera','no_soportado',()=>c.excluirAlquilerCatalan(30000));
+caso('catalunya-socio-temporal','excluida',()=>c.excluirCooperativaCatalana('temporal'));
+for(const titular of ['A','B'])caso('extremadura-'+titular,titular==='A'?'incompatibles':'Sin conflicto',()=>c.comprobarIncompatibilidadExtremena([{contribuyente:'A',codigo:'extremadura_contribuyentes_viudos'},{contribuyente:titular,codigo:'extremadura_trabajo_dependiente'}]));
+const consignacion={tipo:'consignacion',contexto:ctx('galicia'),entrada:{...ctx('galicia'),codigo:'galicia_familias_dos_hijos',importe:999999,soporte:'referencia-sintetica'}};
+caso('galicia-externo',999999,()=>c.totalDeduccionesEvaluadas(ctx('galicia'),[consignacion]));
+caso('consignacion-otro-titular','no_soportado, no cero silencioso',()=>c.totalDeduccionesEvaluadas(ctx('galicia'),[{...consignacion,entrada:{...consignacion.entrada,contribuyente:'B'}}]));
+caso('agregado-vacio-2024','no_soportado',()=>c.totalDeduccionesEvaluadas(ctx('galicia',2024),[]));
+caso('antiguo-andalucia-gemelos',800,()=>antiguo({andaluciaHijosNacimientoAdopcion:2},ctx('andalucia')));
+caso('antiguo-madrid-gemelos',2886.8,()=>antiguo({madridHijosNacimientoAdopcion:2},ctx('madrid')));
+caso('antiguo-catalunya-temporal','excluida segun perfil externo',()=>antiguo({catalunyaAportacionesCooperativas:1000},ctx('catalunya')));
+console.log(JSON.stringify(resultados,null,2));

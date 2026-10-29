@@ -12,8 +12,8 @@ export default function Procedencia() {
     <main>
       <h1>Contenido documental versionado</h1>
       <p>
-        47.789 ocurrencias técnicas pendientes de interpretación. No son 47.789
-        reglas jurídicas redactadas ni aceptadas.
+        Fichas técnicas pendientes de interpretación. Cada versión conserva su
+        propio inventario; su número no equivale a reglas jurídicas aceptadas.
       </p>
       <ul>
         {snapshots.slice(0, 20).map((id) => (

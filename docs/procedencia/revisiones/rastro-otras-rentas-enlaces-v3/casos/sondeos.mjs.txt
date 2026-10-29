@@ -1,0 +1,44 @@
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, unlinkSync } from 'node:fs'
+import { resolve, dirname } from 'node:path'
+import assert from 'node:assert/strict'
+import { Effect } from 'effect'
+import Decimal from 'decimal.js'
+import { verificarRastroGenerado } from '../../../scripts/procedencia/rastro-verificar.mjs'
+import { extraerPuntosTexto } from '../../../scripts/procedencia/rastro-extraer.mjs'
+import { directorioContenido, leerSnapshot } from '../../../lib/procedencia/almacen.ts'
+import { hash } from '../../../lib/procedencia/verificador.ts'
+import { liquidarIrpfAnual } from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts'
+import { sinDiscapacidad } from '../../../lib/dominio/irpf/caso-fiscal-anual.ts'
+import { calcularReduccionTrabajoConOtrasRentas } from '../../../lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts'
+const root=process.cwd(), scratch=resolve(root,'.cache/procedencia/revision-rastro-v3/fixture')
+const copy=(file)=>{const dest=resolve(scratch,file);mkdirSync(dirname(dest),{recursive:true});copyFileSync(resolve(root,file),dest)}
+const manifest=JSON.parse(readFileSync('docs/procedencia/inventario.json'))
+for(const file of ['docs/procedencia/inventario.json','lib/procedencia/rastro-generado.json','lib/procedencia/rastro-anual.ts',...manifest.generationInputs.filter(x=>x.file.startsWith('lib/dominio/')).map(x=>x.file)])copy(file)
+assert.equal(verificarRastroGenerado(scratch).puntos,49)
+const changed=resolve(scratch,'lib/procedencia/rastro-anual.ts')
+writeFileSync(changed,readFileSync(changed,'utf8').replace('href: enlaceRastro(versiones,','href: enlaceRastro({ ...versiones, snapshot: "0".repeat(64) },'))
+assert.notEqual(hash(readFileSync(changed)),hash(readFileSync('lib/procedencia/rastro-anual.ts')))
+console.log('EXPLICACION_MODIFICADA',verificarRastroGenerado(scratch))
+const domain='lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts'
+writeFileSync(resolve(scratch,domain),readFileSync(resolve(scratch,domain),'utf8')+'\n// mutacion\n')
+assert.throws(()=>verificarRastroGenerado(scratch),/Fuente/);console.log('FUENTE_DOMINIO_MODIFICADA_RECHAZADA');copy(domain)
+const cat=JSON.parse(readFileSync('lib/procedencia/rastro-generado.json'))
+const snapshot=leerSnapshot(cat.actual.versiones.snapshot)
+assert.equal(snapshot.versiones.algoritmo,hash(JSON.stringify(manifest.generationInputs)))
+assert.equal(snapshot.versiones.datos,manifest.artifact.sha256)
+const software=['lib/procedencia/modelo.ts','lib/procedencia/verificador.ts','lib/procedencia/almacen.ts','lib/procedencia/io.mjs','lib/procedencia/revision.ts','lib/procedencia/rastro.ts','lib/procedencia/rastro-anual.ts','scripts/procedencia/rastro-extraer.mjs'].map(x=>hash(readFileSync(x)))
+assert.equal(snapshot.versiones.explicacion,hash(JSON.stringify({generador:hash(readFileSync('scripts/procedencia/contenido-generar.mjs')),fuentesSoftware:software})))
+console.log('VERSIONES_ACTUALES_COINCIDEN')
+cat.actual.versiones.algoritmo='0'.repeat(64);writeFileSync(resolve(scratch,'lib/procedencia/rastro-generado.json'),JSON.stringify(cat));assert.throws(()=>verificarRastroGenerado(scratch),/Versiones/);copy('lib/procedencia/rastro-generado.json');console.log('CATALOGO_OBSOLETO_RECHAZADO')
+const cas=resolve(scratch,'cas');mkdirSync(resolve(cas,'objetos'),{recursive:true});copyFileSync(resolve(directorioContenido,'snapshots.json'),resolve(cas,'snapshots.json'));copyFileSync(resolve(directorioContenido,'objetos',cat.actual.versiones.snapshot),resolve(cas,'objetos',cat.actual.versiones.snapshot));
+assert.throws(()=>verificarRastroGenerado(scratch,cas));console.log('OBJETO_AUSENTE_RECHAZADO')
+const points=extraerPuntosTexto(readFileSync(domain,'utf8'),domain);assert.equal(points.length,49)
+writeFileSync(resolve(root,'.cache/procedencia/revision-rastro-v3/puntos.json'),JSON.stringify(points,null,2))
+for(const anio of [2012,2013,2014,2015,2018,2025,2026])for(const centimos of [650000,650001,-700000]){
+ const caso={anio,comunidadAutonoma:'simulada-estatal',situacionFamiliar:{tipo:'individual',edad:40,discapacidad:sinDiscapacidad,descendientes:[],ascendientes:[]},rendimientos:{trabajo:[{importeIntegroCentimos:900000}],gananciasPatrimoniales:[{importeGananciaCentimos:centimos,tratamientoMayores65:{_tag:'SinExencionMayores65'}}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0}
+ const r=Effect.runSync(liquidarIrpfAnual(caso,{modo:'canonico'}));const expected=anio<=2014?265200:0
+ if(centimos>650000)assert.equal(r.reduccionRendimientosTrabajoCentimos,expected);else assert.ok(r.reduccionRendimientosTrabajoCentimos>expected)
+ const lines=r.rastro.pasos.flatMap(p=>p.lineasCalculo??[])
+ for(const l of lines){assert.equal(l.procedencia.estado,'enlazada');assert.match(l.procedencia.href,/^\/procedencia\/[a-f0-9]{64}\/paso\.[a-z0-9.-]+\/[a-f0-9]{64}$/);assert.equal(l.resultado,`${new Decimal(l.origen.decimal).toFixed(2)} euros`)}
+ console.log('ANUAL',anio,centimos,r.reduccionRendimientosTrabajoCentimos,lines.length)
+}
