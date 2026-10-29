@@ -1,0 +1,30 @@
+71 |       timeout: 180_000,
+72 |     }
+73 |   )
+74 |   if (run.error) throw run.error
+75 |   if (run.status !== 0)
+76 |     throw new Error(run.stderr || "Verificación documental fallida")
+                   ^
+error: Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-75d4965a/.cache/procedencia/revision-enlaces-v2/coordinator-fixture/tools/procedencia/enlaces.py", line 175, in <module>
+    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()))
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-75d4965a/.cache/procedencia/revision-enlaces-v2/coordinator-fixture/tools/procedencia/enlaces.py", line 116, in verify_evidence
+    validate_schema(registry, 'binding-registry')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-75d4965a/.cache/procedencia/revision-enlaces-v2/coordinator-fixture/tools/procedencia/corpus.py", line 84, in validate_schema
+    jsonschema.Draft202012Validator(json.loads(path.read_text()),
+                                               ~~~~~~~~~~~~~~^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/elies/.t3/worktrees/IRoboPF/t3-75d4965a/.cache/procedencia/revision-enlaces-v2/coordinator-fixture/schemas/procedencia/binding-registry.schema.json'
+
+      at verifyLinks (/home/elies/.t3/worktrees/IRoboPF/t3-75d4965a/.cache/procedencia/revision-enlaces-v2/coordinator-fixture/scripts/procedencia/verificar-enlaces.mjs:76:15)
+
+Bun v1.3.13 (Linux x64)

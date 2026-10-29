@@ -1,0 +1,40 @@
+{
+  "base": "0ca324b082676e15ae443b3c83d7f81828fbc0ce",
+  "reviewTaskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Aad85698a-2fe1-4104-99ce-0b5fe0a11ddd",
+  "previousFindings": [
+    {
+      "id": "ENV1-01",
+      "status": "original-reproduction-rejected"
+    },
+    {
+      "id": "ENV1-02",
+      "status": "original-reproduction-rejected"
+    },
+    {
+      "id": "ENV1-03",
+      "status": "original-reproduction-rejected"
+    }
+  ],
+  "findings": [
+    {
+      "id": "ENV2-01",
+      "severity": "P2",
+      "status": "candidate",
+      "file": "tools/procedencia/corpus.py",
+      "function": "verify_binding",
+      "title": "U+FFFD permite seleccionar positivo junto a signo y extracción ambigua",
+      "reproduction": "adversarial.py, caso tab: PDF extrae U+2212 U+0301 U+FFFD 8,50 euros y cite/verify aceptan +8.50. PNG inspeccionado.",
+      "reason": "La información perdida en la extracción no acredita un token numérico autónomo; no reinterpretar ni normalizar silenciosamente.",
+      "proposal": "Rechazar U+FFFD adyacente al span y exigir revisión del facsímil.",
+      "cost": "Más citas pendientes en PDFs defectuosos.",
+      "limits": "Sintético; no demuestra defecto en Madrid ni aceptación fiscal."
+    }
+  ],
+  "newFiscalFindingsAccepted": false,
+  "madridPayloadSha256": "3937b0c9561305de45755a52fa36c48fb8cfd8f75befb7294f0f2a800839d48b",
+  "tests": {
+    "corpus": 22,
+    "bridge": 18,
+    "dependencyMutationsRejected": 33
+  }
+}

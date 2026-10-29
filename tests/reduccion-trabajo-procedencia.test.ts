@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@effect/vitest"
 import Decimal from "decimal.js"
 
-import { calcularReduccionRendimientosTrabajo } from "../lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo"
+import { calcularReduccionTrabajoConOtrasRentas } from "../lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo"
 import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
 
 describe("TDE-18: extremo excluido del artículo 20", () => {
@@ -9,21 +9,24 @@ describe("TDE-18: extremo excluido del artículo 20", () => {
     "no reduce desde 19747,50 en %s",
     (anio) => {
       expect(
-        calcularReduccionRendimientosTrabajo({
+        calcularReduccionTrabajoConOtrasRentas({
           anio,
           rendimientoPrevioNeto: new Decimal("19747.50"),
+          otrasRentasNoExentas: new Decimal(0),
         }).toString()
       ).toBe("0")
       expect(
-        calcularReduccionRendimientosTrabajo({
+        calcularReduccionTrabajoConOtrasRentas({
           anio,
           rendimientoPrevioNeto: new Decimal("19747.51"),
+          otrasRentasNoExentas: new Decimal(0),
         }).toString()
       ).toBe("0")
       expect(
-        calcularReduccionRendimientosTrabajo({
+        calcularReduccionTrabajoConOtrasRentas({
           anio,
           rendimientoPrevioNeto: new Decimal("19747.49"),
+          otrasRentasNoExentas: new Decimal(0),
         }).toString()
       ).toBe("0.0142")
     }

@@ -1,0 +1,36 @@
+$ bun scripts/procedencia/inventario-artefacto.mjs write
+{"mode":"write","counts":{"filesTs":107,"filesPython":1,"syntactic":22131,"effective":16100,"selected":11727,"pendingUnits":27335,"catalog":351,"audited":0}}
+{"snapshot":"75b6e2f8db019edb0b9ac17ca243cd15472560d4eafe86b15195dbbbbe6e357b","ocurrencias":49958,"conceptos":4,"puntosRastro":49,"paquetes":256,"bytesComprimidos":11662976,"maximoPaquete":56862,"rss":1346285568,"aceptacionFiscal":"pendiente"}
+{"puntos":49,"snapshot":"75b6e2f8db019edb0b9ac17ca243cd15472560d4eafe86b15195dbbbbe6e357b","aceptacionFiscal":"pendiente"}
+$ vitest run tests/rastro-anual-procedencia.test.ts tests/otras-rentas-trabajo-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  3 passed (3)
+      Tests  88 passed (88)
+   Start at  13:42:52
+   Duration  3.40s (transform 437ms, setup 0ms, import 1.43s, tests 1.67s, environment 0ms)
+
+$ vitest run --config scripts/procedencia/contenido-vitest.mjs
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  1 passed (1)
+      Tests  15 passed (15)
+   Start at  13:42:56
+   Duration  11.48s (transform 191ms, setup 0ms, import 601ms, tests 10.77s, environment 0ms)
+
+{"snapshot":"066f8cd6f9a5c046c659f0b23e000a3547ea21efccdf7f311e10a3420a241d92","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":47793}
+{"snapshot":"31be43e7347ee116fd6349e946914602a706dbdce56b955a5aa8290fa9f7325e","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":47793}
+{"snapshot":"4919c9ec5fa20e858d5a4e99f53e7628c2a6e0a9e7852a44de34513de0b0763c","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":49887}
+{"snapshot":"65ed048d3a7e88ea3ae74c4418e99bf1e56788b1a8be99ddf93a73da6dbfb067","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":47793}
+{"snapshot":"75b6e2f8db019edb0b9ac17ca243cd15472560d4eafe86b15195dbbbbe6e357b","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50011}
+{"snapshot":"88d2de62bb8d5fafb4cc5752a12b9464bf85a4ae3c0e25f20af030ce4530c72f","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":47793}
+{"snapshot":"9fc577465498f8059bfa42f91bbd182ffd9bc97f9e84aae7d556e097a732e7b4","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50009}
+{"snapshot":"b81dfa780bc65e49ad855f9bb2cf79bf0a9128a9201b4bb1f4fbae4e311949fc","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50009}
+$ bun scripts/run-lint.mjs
+$ oxlint
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json

@@ -1,0 +1,266 @@
+$ vitest run tests/otras-rentas-trabajo-procedencia.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts (25 tests | 25 failed) 43ms
+     × aplica el límite estricto por encima de 6500 en 2012 5ms
+     × aplica el límite estricto por encima de 6500 en 2013 1ms
+     × aplica el límite estricto por encima de 6500 en 2014 1ms
+     × aplica el límite estricto por encima de 6500 en 2015 1ms
+     × aplica el límite estricto por encima de 6500 en 2016 1ms
+     × aplica el límite estricto por encima de 6500 en 2017 0ms
+     × aplica el límite estricto por encima de 6500 en 2018 1ms
+     × aplica el límite estricto por encima de 6500 en 2019 0ms
+     × aplica el límite estricto por encima de 6500 en 2020 0ms
+     × aplica el límite estricto por encima de 6500 en 2021 0ms
+     × aplica el límite estricto por encima de 6500 en 2022 0ms
+     × aplica el límite estricto por encima de 6500 en 2023 0ms
+     × aplica el límite estricto por encima de 6500 en 2024 1ms
+     × aplica el límite estricto por encima de 6500 en 2025 0ms
+     × aplica el límite estricto por encima de 6500 en 2026 0ms
+     × integra otras rentas en el servicio anual de 2012 10ms
+     × integra otras rentas en el servicio anual de 2013 2ms
+     × integra otras rentas en el servicio anual de 2014 2ms
+     × integra otras rentas en el servicio anual de 2015 2ms
+     × integra otras rentas en el servicio anual de 2024 2ms
+     × integra otras rentas en el servicio anual de 2025 2ms
+     × integra otras rentas en el servicio anual de 2026 5ms
+     × suma algebraicamente la pérdida antes de limitar la base del ahorro 2ms
+     × excluye la ganancia exenta del umbral 1ms
+     × el límite también incluye el capital inmobiliario simplificado 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 25 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2012
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2013
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2014
+AssertionError: expected '4080' to be '2652' // Object.is equality
+
+Expected: "2652"
+Received: "4080"
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:57:44
+     55|     expect(calcular("6500").eq(sinOtrasRentas)).toBe(true)
+     56|     expect(calcular("-7000").eq(sinOtrasRentas)).toBe(true)
+     57|     expect(calcular("6500.01").toString()).toBe(anio <= 2014 ? "2652" …
+       |                                            ^
+     58|   })
+     59|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2015
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2016
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2017
+AssertionError: expected '3700' to be '0' // Object.is equality
+
+Expected: "0"
+Received: "3700"
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:57:44
+     55|     expect(calcular("6500").eq(sinOtrasRentas)).toBe(true)
+     56|     expect(calcular("-7000").eq(sinOtrasRentas)).toBe(true)
+     57|     expect(calcular("6500.01").toString()).toBe(anio <= 2014 ? "2652" …
+       |                                            ^
+     58|   })
+     59|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2018
+AssertionError: expected '4632.5' to be '0' // Object.is equality
+
+Expected: "0"
+Received: "4632.5"
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:57:44
+     55|     expect(calcular("6500").eq(sinOtrasRentas)).toBe(true)
+     56|     expect(calcular("-7000").eq(sinOtrasRentas)).toBe(true)
+     57|     expect(calcular("6500.01").toString()).toBe(anio <= 2014 ? "2652" …
+       |                                            ^
+     58|   })
+     59|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2019
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2020
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2021
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2022
+AssertionError: expected '5565' to be '0' // Object.is equality
+
+Expected: "0"
+Received: "5565"
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:57:44
+     55|     expect(calcular("6500").eq(sinOtrasRentas)).toBe(true)
+     56|     expect(calcular("-7000").eq(sinOtrasRentas)).toBe(true)
+     57|     expect(calcular("6500.01").toString()).toBe(anio <= 2014 ? "2652" …
+       |                                            ^
+     58|   })
+     59|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2023
+AssertionError: expected '6498' to be '0' // Object.is equality
+
+Expected: "0"
+Received: "6498"
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:57:44
+     55|     expect(calcular("6500").eq(sinOtrasRentas)).toBe(true)
+     56|     expect(calcular("-7000").eq(sinOtrasRentas)).toBe(true)
+     57|     expect(calcular("6500.01").toString()).toBe(anio <= 2014 ? "2652" …
+       |                                            ^
+     58|   })
+     59|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2024
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2025
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > aplica el límite estricto por encima de 6500 en 2026
+AssertionError: expected '7302' to be '0' // Object.is equality
+
+Expected: "0"
+Received: "7302"
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:57:44
+     55|     expect(calcular("6500").eq(sinOtrasRentas)).toBe(true)
+     56|     expect(calcular("-7000").eq(sinOtrasRentas)).toBe(true)
+     57|     expect(calcular("6500.01").toString()).toBe(anio <= 2014 ? "2652" …
+       |                                            ^
+     58|   })
+     59|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > integra otras rentas en el servicio anual de 2012
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > integra otras rentas en el servicio anual de 2013
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > integra otras rentas en el servicio anual de 2014
+AssertionError: expected 408000 to be 265200 // Object.is equality
+
+- Expected
++ Received
+
+- 265200
++ 408000
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:63:54
+     61|     "integra otras rentas en el servicio anual de %s", (anio) => {
+     62|       const r = Effect.runSync(liquidarIrpfAnual(caso(anio, [700_000])…
+     63|       expect(r.reduccionRendimientosTrabajoCentimos).toBe(anio <= 2014…
+       |                                                      ^
+     64|     }
+     65|   )
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > integra otras rentas en el servicio anual de 2015
+AssertionError: expected 370000 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 370000
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:63:54
+     61|     "integra otras rentas en el servicio anual de %s", (anio) => {
+     62|       const r = Effect.runSync(liquidarIrpfAnual(caso(anio, [700_000])…
+     63|       expect(r.reduccionRendimientosTrabajoCentimos).toBe(anio <= 2014…
+       |                                                      ^
+     64|     }
+     65|   )
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > integra otras rentas en el servicio anual de 2024
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > integra otras rentas en el servicio anual de 2025
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > integra otras rentas en el servicio anual de 2026
+AssertionError: expected 730200 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 730200
+
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:63:54
+     61|     "integra otras rentas en el servicio anual de %s", (anio) => {
+     62|       const r = Effect.runSync(liquidarIrpfAnual(caso(anio, [700_000])…
+     63|       expect(r.reduccionRendimientosTrabajoCentimos).toBe(anio <= 2014…
+       |                                                      ^
+     64|     }
+     65|   )
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > suma algebraicamente la pérdida antes de limitar la base del ahorro
+TypeError: Cannot read properties of undefined (reading 'modo')
+ ❯ Object.<anonymous> lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:157:61
+    155|       caso.comunidadAutonoma
+    156|     )
+    157|     yield* Effect.annotateCurrentSpan("irpf.modo", contexto.modo)
+       |                                                             ^
+    158|
+    159|     const inicioDeteccion = tiempoAuditoriaMs()
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5261:18
+ ❯ runSyncExit node_modules/effect/src/internal/effect.ts:5276:17
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:67:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > excluye la ganancia exenta del umbral
+TypeError: Cannot read properties of undefined (reading 'modo')
+ ❯ Object.<anonymous> lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:157:61
+    155|       caso.comunidadAutonoma
+    156|     )
+    157|     yield* Effect.annotateCurrentSpan("irpf.modo", contexto.modo)
+       |                                                             ^
+    158|
+    159|     const inicioDeteccion = tiempoAuditoriaMs()
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5261:18
+ ❯ runSyncExit node_modules/effect/src/internal/effect.ts:5276:17
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:71:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/25]⎯
+
+ FAIL  tests/otras-rentas-trabajo-procedencia.test.ts > TDE-09/10: otras rentas netas no exentas > el límite también incluye el capital inmobiliario simplificado
+TypeError: Cannot read properties of undefined (reading 'modo')
+ ❯ Object.<anonymous> lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:157:61
+    155|       caso.comunidadAutonoma
+    156|     )
+    157|     yield* Effect.annotateCurrentSpan("irpf.modo", contexto.modo)
+       |                                                             ^
+    158|
+    159|     const inicioDeteccion = tiempoAuditoriaMs()
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5261:18
+ ❯ runSyncExit node_modules/effect/src/internal/effect.ts:5276:17
+ ❯ tests/otras-rentas-trabajo-procedencia.test.ts:75:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/25]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  25 failed (25)
+   Start at  13:30:06
+   Duration  784ms (transform 286ms, setup 0ms, import 548ms, tests 43ms, environment 0ms)
+
+error: script "test" exited with code 1

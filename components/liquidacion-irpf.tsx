@@ -2776,9 +2776,25 @@ function Resultado({
                     {paso.lineasCalculo?.map((linea) => (
                       <div
                         className="grid gap-2 border border-[var(--rule)] bg-[var(--paper-2)] p-3 md:grid-cols-[minmax(10rem,0.9fr)_minmax(14rem,1.4fr)_minmax(8rem,0.7fr)]"
-                        key={`${paso.titulo}-${linea.etiqueta}`}
+                        key={
+                          linea.origen?.instanceId ??
+                          `${paso.titulo}-${linea.etiqueta}`
+                        }
                       >
-                        <dt className="text-xs font-bold">{linea.etiqueta}</dt>
+                        <dt className="text-xs font-bold">
+                          {linea.procedencia?.estado === "enlazada" ? (
+                            <a
+                              href={linea.procedencia.href}
+                              referrerPolicy="no-referrer"
+                              className="underline"
+                              title="Documentación y estado de verificación de este paso"
+                            >
+                              {linea.etiqueta}
+                            </a>
+                          ) : (
+                            linea.etiqueta
+                          )}
+                        </dt>
                         <dd className="text-xs break-words text-[var(--ink-soft)]">
                           {linea.formula}
                         </dd>
