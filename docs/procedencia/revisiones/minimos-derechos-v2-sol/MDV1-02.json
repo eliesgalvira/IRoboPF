@@ -1,0 +1,25 @@
+{
+  "id": "MDV1-02",
+  "status": "corregido-en-alcance-acotado",
+  "severity": "media-historica",
+  "conclusion": "Compara fecha civil completa de constitución, distinta del primer evento; conserva rechazo de adopción adulta y de la frontera bisiesta pendiente.",
+  "tests": [
+    "2007-12-31 / 2025-01-02",
+    "cumpleaños 15 junio antes/en/después",
+    "constitución14 e inscripción16",
+    "adopción adulta tras acogimiento2024",
+    "constitución ausente/imposible",
+    "primer evento 2022/2023",
+    "bisiesto"
+  ],
+  "locations": [
+    "lib/dominio/irpf/minimos/derechos.ts:153",
+    "lib/dominio/irpf/minimos/derechos-contrato.ts:52"
+  ],
+  "objection": "HistorialCompleto no demuestra documentos ni resuelve leyes personales/capacidad civil excluidas.",
+  "cost": "Exigir dos fechas e historia externa; mantener capacidad bisiesta pendiente.",
+  "scope": "Frontera civil representada y plazo fiscal, sin aceptar adopciones adultas ni regla inventada del 29-2.",
+  "base": "1ec684b4e4408068282febf1319c12c6ac8a15c1",
+  "completeFiscalAcceptance": false,
+  "evidence": "casos.test.ts, pruebas-final.log y fuentes-verificadas.json"
+}

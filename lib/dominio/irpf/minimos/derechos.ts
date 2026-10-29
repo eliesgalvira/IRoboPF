@@ -49,6 +49,16 @@ const titularesConDerecho = (d: DescendienteDerechos) => {
     : cercanos
 }
 
+/** Reserva del contrato anual; no decide la especialidad ni calcula alimentos. */
+export const hayAlimentosPropiosSinMinimo = (caso: DerechosMinimos2025) =>
+  caso.descendientes.some(
+    (d) =>
+      d.titulares.some(
+        (t) => t.titularId === caso.contribuyenteId && t.alimentosJudiciales
+      ) &&
+      !titularesConDerecho(d).some((t) => t.titularId === caso.contribuyenteId)
+  )
+
 /** Valida estructura y coherencia antes de cualquier operación monetaria. */
 export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
   function* (entrada: DerechosMinimos2025) {
