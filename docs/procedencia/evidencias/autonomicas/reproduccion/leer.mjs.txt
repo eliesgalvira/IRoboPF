@@ -1,0 +1,6 @@
+import {readArtifact} from '../../scripts/procedencia/inventario-artefacto.mjs';
+import {writeFileSync} from 'node:fs';
+const {files}=readArtifact();
+const items=[...files].filter(([n])=>/^inventario-pagina-/.test(n)).flatMap(([,s])=>JSON.parse(s));
+writeFileSync('.cache/autonomicas-investigacion/items.json',JSON.stringify(items.filter(i=>/(irpf-autonomico|escalas-publicadas)/.test(i.source.file))));
+console.log(JSON.stringify(items.filter(i=>i.layer==='effective'&&/(irpf-autonomico|escalas-publicadas)/.test(i.source.file)&&i.path.includes('andalucia')).slice(0,4),null,2));

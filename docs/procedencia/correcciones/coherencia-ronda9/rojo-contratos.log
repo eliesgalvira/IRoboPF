@@ -1,0 +1,57 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/deducciones-ambito.test.ts (11 tests | 1 failed) 14ms
+   × CV2-01 rechaza aliases de códigos en consignaciones 5ms
+ ❯ tests/deducciones-contratos.test.ts (24 tests | 1 failed) 14ms
+   × DED-I-01 una exclusión individual no cancela un cálculo parcial colectivo 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/deducciones-ambito.test.ts > CV2-01 rechaza aliases de códigos en consignaciones
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/deducciones-ambito.test.ts:12:139
+     10|   const ambito = {ejercicio: 2025, territorio: "andalucia"}
+     11|   expect(calcularDeduccionesConsignadas(entradas, ambito)).toBe(100)
+     12|   expect(() => calcularDeduccionesConsignadas({...entradas, [`${codigo…
+       |                                                                                                                                           ^
+     13| })
+     14|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/deducciones-contratos.test.ts > DED-I-01 una exclusión individual no cancela un cálculo parcial colectivo
+AssertionError: expected { estado: 'calculo_parcial', …(3) } to match object { estado: 'no_soportado' }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "estado": "no_soportado",
++   "estado": "calculo_parcial",
+  }
+
+ ❯ tests/deducciones-contratos.test.ts:63:101
+     61|   for (const fecha of ["2025-02-29", "2025-02-30", "2025-04-31", "2025…
+     62|     for (const campo of ["fechaEmision", "fechaDiagnostico"] as const)
+     63|       expect(evaluarCeliaquiaRioja(ctx, [{...p, certificado: {...p.cer…
+       |                                                                                                     ^
+     64|   }
+     65|   for (const otro of [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 33 passed (35)
+   Start at  14:26:13
+   Duration  621ms (transform 150ms, setup 0ms, import 381ms, tests 29ms, environment 0ms)
+

@@ -1,0 +1,26 @@
+import json,hashlib,pathlib,pymupdf
+out=pathlib.Path('/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/trabajo-anual-implementacion/logs')
+sel={'ley26-2014':[11,12,35],'reglamento-original':[16,17],'ley26-2009':[], 'correccion2009':[], 'aeat2015':[144,145], 'ley5-2025':[46,47], 'aeat2025':[1372,1373,1374,1375]}
+records=[]
+for d in json.load(open('docs/procedencia/auditorias/trabajo-deducciones-estatales/documentos.json')):
+ label=d['auditLabel']
+ if label not in sel and label!='lirpf20141017':continue
+ p=pathlib.Path(d['localPath']); h=hashlib.sha256(p.read_bytes()).hexdigest(); assert h==d['sha256']
+ rec={'label':label,'sha256':h,'url':d['canonicalUrl'],'size':p.stat().st_size,'integridad':True,'pasajes':[]}
+ if label=='lirpf20141017':
+  from bs4 import BeautifulSoup
+  soup=BeautifulSoup(p.read_bytes(),'html.parser')
+  for ident in ['a19','a20','a63','a74','a80bis']:
+   el=soup.find(id=ident); rec['pasajes'].append({'selector':ident,'texto':el.get_text(' ',strip=True) if el else 'NO LOCALIZADO'})
+ else:
+  with pymupdf.open(p) as pdf:
+   for i in range(len(pdf)):
+    if sel[label] and i+1 not in sel[label]:continue
+    t=pdf[i].get_text()
+    if not sel[label] and label=='ley26-2009' and 'Artículo 70.' not in t:continue
+    rec['pasajes'].append({'paginaFisica':i+1,'texto':t})
+ records.append(rec)
+(out/'primarias.json').write_text(json.dumps(records,ensure_ascii=False,indent=2))
+for r in records:
+ print(r['label'],r['sha256'],len(r['pasajes']))
+ if r['label']=='aeat2025': print(r['pasajes'][-1]['texto'])

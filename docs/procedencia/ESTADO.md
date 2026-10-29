@@ -188,3 +188,17 @@ Trabajo y actividad siguen necesitando integración anual tras revisión indepen
 Preservación local: 708 originales candidatos, 0,908 GiB; ninguna copia externa nueva acreditada. Pregunta pendiente a Elies: confirmar al menos 2 GiB libres de LFS, autorizar hasta 1 €/mes o dejar preparada la transferencia. No se infiere respuesta, cuota o permiso nuevo. El resto del encargo continúa. Sin PR, deploy ni limpieza final.
 
 Bloque respaldado en origin: `ed6a43fd750de05609abc3710dabdc2f8261020c`. Ronda 9 abierta con ocho tareas: cinco revisiones nuevas, dos lotes de evidencia por celda (estatal y autonómico) y un adaptador de evidencia para fichas. Registro completo en delegaciones-ronda9.json. Los hijos no cambian VCS ni aceptan sus propios resultados. El orquestador continuará con IPC/redondeos y conexión anual al reactivarse por las entregas. La sesión permanece abierta.
+
+### Decisión de Elies sobre respaldo, 14:27 CET
+
+Elies responde «Dejar preparada la transferencia». Se cierra la pregunta de cuota: no habrá subida de objetos LFS ni gasto en esta sesión. Se conserva y revisa el paquete local, con instrucciones y transferencia preparada. No se acredita custodia externa del corpus; los commits de código y documentación siguen respaldándose en origin conforme al encargo. Las ocho entregas de ronda 9 han llegado y están en integración y corrección, sin cierre fiscal global.
+
+## Avance del 29 de octubre, 14:40 CET
+
+Integradas por archivos las tres entregas de evidencias, con hashes y cero borrados. Corregidos RTI-01/02/03, CV2-01/02, el residuo explicativo CMV2-01 y la propagación del modo en la auditoría por rango. IPC distingue observado/escenario y corrige el factor inverso. Preservación v2 cierra los cuatro puntos reproducidos y una carencia adicional de validación de fechas. Informes: correcciones/coherencia-ronda9/INFORME.md e ipc-escenarios/INFORME.md.
+
+Pasan 517 pruebas globales en 41 archivos, 15 de contenido y 16 de preservación; lint, typecheck y comprobaciones Python correctos. Los once snapshots verifican. Inventario 50.684; fichas 50.737. Snapshot actual `7dd9c9c6147b6b1931b51944c885abd528550c27b5a3c31392b37e01be9f712d`. Las cifras son cobertura técnica, no aceptación jurídica. Madrid tiene payload nuevo `c63794f9cea15c1ed8d736ed4719253e058d4616e83ed22d3ac02506e1035dd2`, sin migrar atestación.
+
+Exportación/restauración completa en la raíz principal: 708 originales y 974.801.535 bytes, ambos hashes y tamaño verificados. Manifiesto v2 `1382c7186c84cdf7c1892b9b16a8ca7e222aeac54380d3ed41952deea47a67db`. Transferencia externa preparada y detenida por elección de Elies; no se repetirá la pregunta de cuota.
+
+Pendientes inmediatos: revisiones nuevas del bloque, revisión de los 455 payloads candidatos y del adaptador, exposición efectiva de cuotas y conexión anual de trabajo/actividades. Redondeos legacy, cobertura jurídica y medición del backend siguen abiertos. No hay PR, deploy, cambios de main ni limpieza final.

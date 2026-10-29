@@ -1,0 +1,42 @@
+import json, sys, hashlib, subprocess
+from pathlib import Path
+from collections import Counter
+W=Path.cwd(); O=Path('/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion/logs'); D=W/'docs/procedencia/preservacion'; R=Path('/home/elies/Repos/IRoboPF'); P=Path('/home/elies/.t3/worktrees/IRoboPF/t3-16df10f6/.cache/procedencia/preservacion-en-preparacion/paquete')
+sys.path.insert(0,str(W/'tools/procedencia')); import preservacion as p
+m=json.loads((D/'manifest.json').read_bytes()); by={b['sha256']:b for b in m['blobs']}
+ptr=json.loads((D/'lfs-pointers.json').read_bytes()); assert len(ptr)==708
+for x in ptr:
+ h=x['path'].split('/')[-1]; b=by[h]; assert x['pointer']==f'version https://git-lfs.github.com/spec/v1\noid sha256:{h}\nsize {b["size"]}\n'
+# Revisión de metadatos seleccionados y existencia sin releer gigabyte de originales.
+errors=[]; events=0
+for b in m['blobs']:
+ for src in b['sources']:
+  q=R/src
+  if not q.is_file() or q.stat().st_size!=b['size']: errors.append(['source',src])
+ for e in b['acquisitions']:
+  events+=1; f=R/e['source']; raw=f.read_bytes()
+  if hashlib.sha256(raw).hexdigest()!=e['sourceSha256']: errors.append(['changedMetadata',e['source']]); continue
+  candidates=[v for v in p.nodes(json.loads(raw)) if v.get('sha256')==b['sha256'] and v.get('canonicalUrl')==e['canonicalUrl'] and v.get('finalUrl')==e['finalUrl'] and v.get('sha512')==b['sha512'] and v.get('size')==b['size'] and v.get('httpStatus')==200 and v.get('retrievedAt')==e['retrievedAt']]
+  if not candidates: errors.append(['eventMissing',e['source']])
+# Los 27 se contrastan con JSON de dependencias conservadas, sin reclamar universalidad.
+exc=[e for e in m['exclusions'] if e['reason']=='sin-adquisicion-oficial-verificada']; excluded={e['sha256'] for e in exc}; observations={h:[] for h in excluded}
+for dep in m['dependencies']:
+ f=R/dep['path']
+ if f.suffix!='.json' or not f.exists(): continue
+ try: data=json.loads(f.read_bytes())
+ except (ValueError,UnicodeError): continue
+ for v in p.nodes(data):
+  h=v.get('sha256')
+  if isinstance(h,str) and h in excluded and 'canonicalUrl' in v:
+   try: reason='URL-admisible' if p.public_url(v.get('canonicalUrl')) and p.public_url(v.get('finalUrl')) else 'URL-excluida'
+   except ValueError: reason='URL-malformada'
+   observations[h].append({'source':dep['path'],'urlStatus':reason})
+result=dict(pointersVerified=len(ptr),acquisitions=events,sourceMetadataErrors=errors,excludedWithoutAcquisition=len(exc),excludedMetadata=observations,unresolved=len(m['unresolvedReferences']))
+(O/'seleccion.json').write_text(json.dumps(result,indent=2)+'\n')
+f=json.loads((D/'firmas.json').read_bytes()); out=[]
+for r in f['results']:
+ h=r['sha256']; assert h in by
+ q=subprocess.run(['pdfsig','-no-ocsp',str(P/'sha256'/h)],capture_output=True,text=True)
+ out.append(dict(sha256=h,exit=q.returncode,stdout=q.stdout,stderr=q.stderr,expectedValid='Signature is Valid.' in r['pdfsig'],actualValid='Signature is Valid.' in q.stdout))
+(O/'firmas-independientes.json').write_text(json.dumps(out,indent=2)+'\n')
+print(json.dumps(dict(events=events,errors=errors,signatures=len(out),valid=sum(x['actualValid'] for x in out))))

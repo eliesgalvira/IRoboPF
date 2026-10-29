@@ -1,0 +1,16 @@
+error:
+       … while evaluating a branch condition
+         at /nix/store/pnl8li8q1bvaq6hr5y3mfdqhyjvsqwk6-source/pkgs/top-level/aliases.nix:26:5:
+           25|     alias:
+           26|     if alias.recurseForDerivations or false then
+             |     ^
+           27|       lib.removeAttrs alias [ "recurseForDerivations" ]
+
+       … while calling the 'throw' builtin
+         at /nix/store/pnl8li8q1bvaq6hr5y3mfdqhyjvsqwk6-source/pkgs/top-level/aliases.nix:1746:19:
+         1745|   polypane = throw "'polypane' has been removed due to lack of maintenance in nixpkgs"; # Added 2025-06-25
+         1746|   poppler_utils = throw "'poppler_utils' has been renamed to/replaced by 'poppler-utils'"; # Converted to throw 2025-10-27
+             |                   ^
+         1747|   popura = throw "'popura' is abandoned upstream and in nixpkgs and has been removed"; # Added 2026-01-15
+
+       error: 'poppler_utils' has been renamed to/replaced by 'poppler-utils'

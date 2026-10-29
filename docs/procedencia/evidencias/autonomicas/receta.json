@@ -1,0 +1,14 @@
+{
+  "entry": "tools/procedencia/run.sh",
+  "flakeLock": {
+    "path": "tools/procedencia/flake.lock",
+    "sha256": "050a8f1cc980e14bd4df8dfa5965305126fb8854ca452f4b214586a8866df06d"
+  },
+  "uvLock": {
+    "path": "tools/procedencia/uv.lock",
+    "sha256": "a7461b803bb64069ea23fda7811dfdbf6c95f6932d007bec7eaf922b0da20da9"
+  },
+  "originalResolution": "Buscar SHA256 de documentos/*.json bajo /home/elies/Repos/IRoboPF/.cache/procedencia/**/sha256; solo lectura. No descargar si existe.",
+  "render": "corpus.cite / corpus.verify; parámetros exactos en cada cita; PNG en recortes/<sha256>.png",
+  "writePolicy": "Solo scratch propio y carpeta de evidencias; no registro ni fixtures comunes."
+}

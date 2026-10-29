@@ -1,0 +1,37 @@
+import json,hashlib,re,shutil
+from pathlib import Path
+from decimal import Decimal,InvalidOperation
+O=Path('docs/procedencia/evidencias/autonomicas');S=Path('.cache/autonomicas-investigacion')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def write(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+items=json.loads((S/'items.json').read_text());coverage=json.loads((O/'cobertura.json').read_text())
+source=Path('lib/dominio/irpf/cuotas/escalas-publicadas.ts');lines=source.read_text().splitlines()
+for c in coverage['entries']:
+ symbol=c['helper']['symbol']; c['helper']['declarationLine']=next(n for n,l in enumerate(lines,1) if l.startswith('const '+symbol))
+ c['helper']['sha256']=sha(source)
+ matches=[]
+ for i in items:
+  if i['layer']!='syntactic' or i['symbol']!=symbol:continue
+  try: equal=Decimal(i.get('value','NaN'))==Decimal(c['value'])
+  except (InvalidOperation,TypeError,ValueError):equal=False
+  if equal:matches.append({'id':i['id'],'source':i['source'],'symbol':i['symbol'],'path':i['path'],'layer':'syntactic'})
+ c['syntacticLocations']=matches
+ # No sustituir nunca esta colección por value efectivo.
+ c['canonicalHelperBinding']='blocked-no-effective-occurrence'
+coverage['pendingTypes']=[{'territory':c['territory'],'year':c['year'],'row':c['row'],'symbol':c['helper']['symbol'],'status':'blocked-percent-to-fraction-not-identity'} for c in coverage['entries'] if c['field']=='baseInferior']
+coverage['notNumericUpperLimits']=[{'territory':t,'year':y,'status':'Infinity-no-literal-EUR'} for t,y in sorted({(c['territory'],c['year']) for c in coverage['entries']})]
+write(O/'cobertura.json',coverage)
+context=[]
+for name in ['autonomicas-2012-2016','autonomicas-2017-2021','autonomicas-2022-2026','cadena-autonomica-a','cadena-autonomica-b','cadena-autonomica-c']:
+ p=Path(f'docs/procedencia/revisiones/{name}/revisiones.json')
+ for r in json.loads(p.read_text()):
+  context.append({'review':{'path':str(p),'sha256':sha(p)},'id':r['id'],'priorDecision':r.get('decision',r.get('status',r.get('review',{}))),'scope':r.get('acceptanceScope',r.get('scope')),'reason':r.get('reason'),'thisDelivery':'candidate-only-no-promotion','objections':r.get('objections')})
+write(O/'matriz-revisiones.json',context)
+inputs=json.loads(Path('docs/procedencia/inventario.json').read_text())['generationInputs'];bad=[i['file'] for i in inputs if sha(i['file'])!=i['sha256']];assert not bad,bad
+write(O/'contexto-verificado.json',{'generationInputsVerified':len(inputs),'inventoryManifestSha256':sha('docs/procedencia/inventario.json'),'artifactSha256':sha('docs/procedencia/inventario-datos.json.gz'),'method':'readArtifact + SHA256 de entradas presentes; NO reconstrucción','canonicalHelperEffectiveCount':sum(i['layer']=='effective' and i['symbol'] in {c['helper']['symbol'] for c in coverage['entries']} for i in items),'referenceReviews':len(context)})
+# Retener solo los instrumentos usados, no notas ni metadatos privados de caché.
+(O/'reproduccion').mkdir(exist_ok=True)
+for name in ['leer.mjs','generar.py','completar.py']:
+ shutil.copyfile(S/name,O/'reproduccion'/(name+'.txt'))
+write(O/'receta.json',{'entry':'tools/procedencia/run.sh','flakeLock':{'path':'tools/procedencia/flake.lock','sha256':sha('tools/procedencia/flake.lock')},'uvLock':{'path':'tools/procedencia/uv.lock','sha256':sha('tools/procedencia/uv.lock')},'originalResolution':'Buscar SHA256 de documentos/*.json bajo /home/elies/Repos/IRoboPF/.cache/procedencia/**/sha256; solo lectura. No descargar si existe.','render':'corpus.cite / corpus.verify; parámetros exactos en cada cita; PNG en recortes/<sha256>.png','writePolicy':'Solo scratch propio y carpeta de evidencias; no registro ni fixtures comunes.'})
+print(coverage['counts'],len(context))

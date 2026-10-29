@@ -154,3 +154,25 @@ La versión de explicación incluye sus fuentes y verificadores. La puerta actua
 ## D030 — Originales fuera del equipo
 
 Se integra el manifiesto de 708 originales candidatos (974.801.535 bytes), exportación/restauración local y ensayo negativo. Se prefiere almacenamiento LFS por objeto en el remoto ya existente a introducir casi 1 GB de blobs en Git ordinario. Objeción: los punteros empujados por JJ no transfieren los objetos LFS, y una caché local no es respaldo externo. Faltan revisión, adaptador de transferencia, cuota disponible y recuperación desde destino vacío. La API no permitió comprobar cuota sin ampliar permisos; se pregunta a Elies por cuota o límite, continuando trabajo independiente. Sin respuesta no se infiere autorización de gasto. Dos copias en GitHub no constituyen dos custodias independientes. No se elimina el paquete local.
+
+Elies ha elegido dejar preparada la transferencia. Se respeta esa decisión sin subir objetos ni contratar almacenamiento. Coste explícito: persiste la dependencia de este equipo para los originales; el paquete verificado y el plan permiten una transferencia posterior. La limpieza final debe preservar el paquete y al menos una copia completa dentro de la raíz del repositorio, fuera de los worktrees que se retiren.
+
+## D031 — IPC observado, escenario y sentido de comparación
+
+Diciembre de 2026 queda fuera de la serie observada. La API general exige elegir su escenario y el perfil heredado selecciona explícitamente la hipótesis fija del 3 %. Se conserva el producto de tasas publicadas, con ese método en el resultado y en metadatos Excel. Objeción: el cociente de índices no coincide necesariamente con tasas redondeadas y 2026 aún no ha terminado. Coste: preservar la reproducción legacy sin atribuirle precisión de índices; esa modalidad queda separada y pendiente. La comparación inversa usa el recíproco y la ausencia de dato no se transforma en cero.
+
+## D032 — Coherencia temporal y errores recuperables
+
+La liquidación rechaza retenciones de otro ejercicio y el adaptador recibe selección temporal explícita por año. Sus errores previstos se propagan por Effect en vez de convertirse en defectos. Objeción: escoger cierre por defecto ocultaría reformas intranuales; propagar solo la etiqueta del modo produce un cálculo híbrido. Coste: los consumidores deben tratar rechazos y proporcionar elecciones cuando faltan; la API de auditoría amplía su contrato. No se pretende calcular una retención anual oficial mediante una conciliación salarial.
+
+## D033 — Identidad y fechas en consignaciones
+
+Las claves usan código completo y campo canónico; las fechas riojanas se comprueban como fechas civiles reales. Objeción: prefijos equivalentes duplican importes y Date.parse normaliza días inexistentes. Coste: entradas antes toleradas ahora se rechazan. La validación de estructura no acredita requisitos fiscales ni conecta automáticamente contratos parciales a los controles antiguos.
+
+## D034 — Paquetes de preservación inequívocos y durables
+
+Schema v2 cerrado, parser sin duplicados, tipos enteros exactos, URLs documentales clasificadas y ancestros sin symlinks. Sincronización de objetos, directorios y marcador, con fallo explícito. Objeción: un digest no hace publicables los metadatos ni garantiza persistencia del árbol tras caída. Coste: rechazo de paquetes v1 por la API nueva, clasificación de endpoints e IO adicional. Se conserva v1 histórico, se prepara v2 con los mismos 708 objetos y se verifica restauración completa. La política no promete seguridad frente a escritor hostil ni confianza histórica de firmas.
+
+## D035 — Candidatos documentales sin sustitución de identidad
+
+Se conservan las 455 propuestas estatales/autonómicas sin insertarlas automáticamente en el registro. La igualdad de un límite legacy no acredita una cuota de un helper canónico; tampoco extiende una aceptación acotada a todos sus aliases anuales. Objeción: añadir citas por coincidencia de número generaría una falsa cadena de prueba. Coste: ampliar exposición efectiva, resolver CAS y contratos de decisión y revisar enlaces de nuevo. El adaptador genera cinco entidades con estados técnicos separados; su wiring y revisión permanecen pendientes. Sus tests dejan los informes del autor inmutables.

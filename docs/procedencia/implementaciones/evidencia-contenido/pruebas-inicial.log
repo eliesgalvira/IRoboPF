@@ -1,0 +1,41 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-4a9b21cb
+
+ ❯ tests/evidencia-contenido-procedencia.test.ts (11 tests | 11 skipped) 1725ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/evidencia-contenido-procedencia.test.ts [ tests/evidencia-contenido-procedencia.test.ts ]
+Error: 396 |   const python = spawnSync(
+397 |     "python3",
+398 |     [`${root}/scripts/procedencia/inventario-python.py`, pythonPath],
+399 |     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+400 |   )
+401 |   if (python.status !== 0) throw new Error(python.stderr || "Falló AST Python")
+                                           ^
+error: Falló AST Python
+      at generateInProcess (/home/elies/.t3/worktrees/IRoboPF/t3-4a9b21cb/scripts/procedencia/inventario.mjs:401:38)
+
+Bun v1.3.13 (Linux x64)
+
+ ❯ generateInProcess scripts/procedencia/inventario.mjs:401:38
+    399|     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+    400|   )
+    401|   if (python.status !== 0) throw new Error(python.stderr || "Falló AST…
+       |                                      ^
+    402|   const legacy = JSON.parse(python.stdout)
+    403|   for (const entry of legacy.items) {
+ ❯ generate scripts/procedencia/inventario.mjs:176:11
+ ❯ buildArtifact scripts/procedencia/inventario-artefacto.mjs:93:35
+ ❯ verifyLinks scripts/procedencia/verificar-enlaces.mjs:44:22
+ ❯ generarEvidencia scripts/procedencia/evidencia-contenido.mjs:97:38
+ ❯ tests/evidencia-contenido-procedencia.test.ts:13:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  11 skipped (11)
+   Start at  14:17:46
+   Duration  2.44s (transform 190ms, setup 0ms, import 602ms, tests 1.72s, environment 0ms)
+

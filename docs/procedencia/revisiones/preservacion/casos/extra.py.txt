@@ -1,0 +1,39 @@
+import json,sys,os,hashlib,stat
+from pathlib import Path
+from urllib.parse import urlsplit,parse_qsl
+W=Path.cwd(); S=W/'.scratch-preservacion'; O=Path('/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion/logs'); R=Path('/home/elies/Repos/IRoboPF')
+sys.path.insert(0,str(W/'tools/procedencia')); import preservacion as p
+m=json.loads((W/'docs/procedencia/preservacion/manifest.json').read_bytes()); excluded={x['sha256'] for x in m['exclusions'] if x['reason']=='sin-adquisicion-oficial-verificada'}
+summary=[]
+for dep in m['dependencies']:
+ f=R/dep['path']
+ if f.suffix!='.json' or not f.is_file(): continue
+ try: data=json.loads(f.read_bytes())
+ except ValueError: continue
+ for x in p.nodes(data):
+  h=x.get('sha256')
+  if isinstance(h,str) and h in excluded and 'canonicalUrl' in x:
+   u=urlsplit(x['canonicalUrl']); summary.append(dict(sha256=h,host=u.hostname,queryKeys=[k for k,v in parse_qsl(u.query)],source=dep['path']))
+(O/'exclusiones-hosts.json').write_text(json.dumps(summary,indent=2)+'\n')
+# Instrumentación fsync sin simular avería de alimentación.
+seen=[]; original=os.fsync
+
+def sync(fd):
+ seen.append(dict(path=os.readlink('/proc/self/fd/'+str(fd)),directory=stat.S_ISDIR(os.fstat(fd).st_mode))); return original(fd)
+os.fsync=sync
+p.transfer(S/'casos/private.json',S/'casos',S/'casos/durabilidad')
+os.fsync=original
+(O/'fsync.json').write_text(json.dumps(seen,indent=2)+'\n')
+# El test usa digest deliberadamente de un original alterado; verificar rechazos sin releer corpus.
+b=m['blobs'][0]; q=S/'restauracion/sha256'/b['sha256']; saved=q.read_bytes(); q.chmod(0o644); q.write_bytes(b'alterado')
+out={}
+for label in ['tamper','absence']:
+ try: p.check(q,b); out[label]='accepted'
+ except Exception as e: out[label]=type(e).__name__
+ if label=='tamper': q.unlink()
+q.write_bytes(saved); q.chmod(0o444); p.check(q,b); out['recovered']='verified'
+(O/'negativos-restauracion.json').write_text(json.dumps(out,indent=2)+'\n')
+# Verificaciones de relaciones sobre todos los registros, sin regenerar inventario.
+U={x['sha256'] for x in m['unresolvedReferences']}; halves={b['sha512'][i:i+64] for b in m['blobs'] for i in (0,64)}
+(O/'referencias.json').write_text(json.dumps(dict(unresolved=len(U),matchingSha512Halves=len(U&halves),examples=sorted(U&halves)[:4]),indent=2)+'\n')
+print(json.dumps(dict(fsync=seen,negatives=out,sha512Halves=len(U&halves))))

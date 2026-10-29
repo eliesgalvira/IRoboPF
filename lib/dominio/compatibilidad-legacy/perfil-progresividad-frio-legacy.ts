@@ -4,6 +4,7 @@ import type { DesgloseLiquidado } from "./progresividad-frio"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
 import { CompatibilidadSalarioLegacy } from "./calculo-salario-legacy"
+import type { LiquidarIrpfAnualError } from "../irpf/liquidacion/liquidar-irpf-anual"
 
 export type PerfilCalculoLegacy = Extract<
   PerfilCalculo,
@@ -58,7 +59,7 @@ export class PerfilProgresividadFrioLegacy extends Context.Service<
     readonly calcular: (
       entrada: EntradaCalculoSalarioNetoIrpf,
       contexto: ContextoCalculo
-    ) => Effect.Effect<ResultadoCalculoSalarioNetoIrpf>
+    ) => Effect.Effect<ResultadoCalculoSalarioNetoIrpf, LiquidarIrpfAnualError>
   }
 >()(
   "irobopf/lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy/PerfilProgresividadFrioLegacy"
@@ -91,7 +92,7 @@ const calcularSalarioNetoEIrpfDesdeServicio = Effect.fn(
 export const calcularSalarioNetoEIrpf = (
   entrada: EntradaCalculoSalarioNetoIrpf,
   contexto: ContextoCalculo
-): Effect.Effect<ResultadoCalculoSalarioNetoIrpf> =>
+): Effect.Effect<ResultadoCalculoSalarioNetoIrpf, LiquidarIrpfAnualError> =>
   // @effect-diagnostics-next-line effect/strictEffectProvide:off
   calcularSalarioNetoEIrpfDesdeServicio(entrada, contexto).pipe(
     Effect.provide(PerfilProgresividadFrioLegacy.layer)

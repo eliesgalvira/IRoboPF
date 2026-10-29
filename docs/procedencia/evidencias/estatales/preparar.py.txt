@@ -1,0 +1,215 @@
+import hashlib
+import json
+import re
+import sys
+from decimal import Decimal
+from pathlib import Path
+sys.path.insert(0, str(Path('tools/procedencia').resolve()))
+from corpus import cite, crop_bytes, mupdf, public_document, validate_schema, verify
+
+OUT = Path('docs/procedencia/evidencias/estatales')
+CAS = Path('.cache/estatales/cas')
+ORIGINAL = Path('/home/elies/Repos/IRoboPF/.cache/procedencia/sha256')
+for folder in ['citas', 'payloads', 'documentos', 'recortes']:
+    (OUT / folder).mkdir(parents=True, exist_ok=True)
+(CAS / 'sha256').mkdir(parents=True, exist_ok=True)
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+def save(path, value):
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
+    return {'path': str(path), 'sha256': sha(path.read_bytes())}
+
+records = {}
+for domain in ['escalas-estatales-ahorro', 'minimos', 'trabajo-deducciones-estatales']:
+    for record in json.loads(Path('docs/procedencia/auditorias', domain, 'documentos.json').read_text()):
+        if record['mimeType'] == 'application/pdf':
+            records[record['sha256']] = record
+
+DOCS = {}
+for code in ['2010-19703', '2011-20638', '2013-13616', '2014-12327', '2018-9268', '2022-22128', '2024-12944']:
+    record = next(d for d in records.values() if 'BOE-A-' + code in d['canonicalUrl'])
+    record = {k: v for k, v in public_document(record).items() if k in json.loads(Path('schemas/procedencia/document.schema.json').read_text())['properties']}
+    record['authenticity'] = {'status': 'not-validated', 'reason': 'Reextracción y hashes comprobados; firma PAdES, CSV, confianza histórica y sello externo no validados en esta entrega.'}
+    record = {k: v for k, v in record.items() if k in ['canonicalUrl', 'finalUrl', 'retrievedAt', 'httpStatus', 'headers', 'sha256', 'sha512', 'size', 'mimeType', 'authenticity']}
+    record['officialIdentifier'] = {'status': 'url-derived', 'value': 'BOE-A-' + code}
+    validate_schema(record, 'document')
+    raw = (ORIGINAL / record['sha256']).read_bytes()
+    assert sha(raw) == record['sha256'] and len(raw) == record['size']
+    assert hashlib.sha512(raw).hexdigest() == record['sha512']
+    link = CAS / 'sha256' / record['sha256']
+    if not link.exists():
+        link.symlink_to(ORIGINAL / record['sha256'])
+    DOCS[code] = (record, save(OUT / 'documentos' / (code + '.json'), record))
+
+pages = {}
+citations = {}
+matrix = []
+items = json.loads(Path('.cache/estatales/all-effective.json').read_text())
+inventory = {'manifestSha256': sha(Path('docs/procedencia/inventario.json').read_bytes()), 'artifactSha256': '29fb5e311f33982395227b15f2e08705e2943bf5ea21409702f48dd8ba4e613c'}
+
+def page_data(code, n):
+    key = (code, n)
+    if key not in pages:
+        rec = DOCS[code][0]
+        with mupdf().open(ORIGINAL / rec['sha256']) as doc:
+            p = doc[n - 1]
+            box = list(p.rect)
+            citation = cite(rec, CAS, n, box, store=False)
+            png = crop_bytes(p, box)
+            crop = OUT / 'recortes' / (citation['facsimile']['sha256'] + '.png')
+            crop.write_bytes(png)
+            link = CAS / 'sha256' / citation['facsimile']['sha256']
+            if not link.exists():
+                link.symlink_to(crop.resolve())
+            pages[key] = (citation, p.get_text('words', flags=0, sort=False))
+    return pages[key]
+
+def evidence(name, code, page, anchor, literal, occurrence=0, column=None, cell=None, forced_start=None):
+    template, words = page_data(code, page)
+    citation = json.loads(json.dumps(template))
+    text = citation['quote']
+    if anchor and anchor not in text:
+        raise ValueError((name, repr(anchor), repr(text)))
+    lower = text.index(anchor) if anchor else 0
+    positions = [m.start() for m in re.finditer(re.escape(literal), text[lower:])]
+    start = lower + positions[occurrence] if forced_start is None else forced_start
+    unit = next(re.finditer(r'\beuros\b', text[start:], re.I), None)
+    if unit is None:
+        unit = next(re.finditer(r'\beuros\b', text, re.I))
+        ustart = unit.start()
+    else:
+        ustart = start + unit.start()
+    u = text[ustart:ustart + 5]
+    # Tablas BOE usan «Euros», no admitido por el lexer: la cabecera «Hasta euros» sí lo es.
+    if u not in ['euros', 'EUROS']:
+        ustart = text.index('euros')
+        u = 'euros'
+    binding = {'number': {'start': start, 'end': start + len(literal), 'literal': literal}, 'numberFormat': 'es-ES', 'value': str(Decimal(literal.replace('.', '').replace(',', '.'))), 'unit': {'start': ustart, 'end': ustart + len(u), 'literal': u}, 'unitCode': 'EUR'}
+    citation['engineBinding'] = binding
+    citation['table'] = {'row': name, 'column': column} if column else None
+    validate_schema(citation, 'citation')
+    verify(DOCS[code][0], citation, CAS)
+    ref = save(OUT / 'citas' / (name + '.json'), citation)
+    if cell is None:
+        matches = list(re.finditer(r'(?<![0-9.,])' + re.escape(literal) + r'(?![0-9.,])', text))
+        ordinal = next(i for i, match in enumerate(matches) if match.start() == start)
+        tokens = [w for w in words if w[4] == literal]
+        if len(tokens) == len(matches):
+            cell = tokens[ordinal][:4]
+    citations[name] = {'citation': ref, 'document': DOCS[code][1], 'value': binding['value'], 'cellBBox': cell, 'page': page, 'code': code, 'anchor': anchor, 'occurrence': occurrence}
+    return name
+
+# Cada selección parte del artículo y concepto, no de un número global coincidente.
+for old, code in [(True, '2010-19703'), (False, '2014-12327')]:
+    era = '2012-2014' if old else '2015-2025'
+    pcon, pdes, pdis = (61, 62, 62) if old else (27, 27, 28)
+    groups = [
+        ('contribuyente', pcon, '«Artículo 57.', [('general', '5.151' if old else '5.550', 0), ('adicionalMayor65', '918' if old else '1.150', 0), ('adicionalMayor75', '1.122' if old else '1.400', 0)]),
+        ('descendientes', pdes, '«Artículo 58.', [('primero', '1.836' if old else '2.400', 0), ('segundo', '2.040' if old else '2.700', 0), ('tercero', '3.672' if old else '4.000', 0), ('cuartoYSiguientes', '4.182' if old else '4.500', 0), ('adicionalMenorTres', '2.244' if old else '2.800', 0)]),
+        ('ascendientes', 62 if old else 28, '«Artículo 59.', [('mayor65OConDiscapacidad', '918' if old else '1.150', 0), ('adicionalMayor75', '1.122' if old else '1.400', 0)]),
+        ('discapacidad-contribuyente', pdis, '1. El mínimo por discapacidad del contribuyente', [('grado33Hasta65', '2.316' if old else '3.000', 0), ('grado65OMas', '7.038' if old else '9.000', 0), ('gastosAsistencia', '2.316' if old else '3.000', 1)]),
+        ('discapacidad-familiar', 63 if old else 28, 'derecho a la aplicación' if old else '2. El mínimo por discapacidad de ascendientes', [('grado65OMas', '7.038' if old else '9.000', 0), ('gastosAsistencia', '2.316' if old else '3.000', 0 if old else 1)]),
+        ('discapacidad-familiar', pdis, '2. El mínimo por discapacidad de ascendientes', [('grado33Hasta65', '2.316' if old else '3.000', 0)]),
+    ]
+    for group, n, anchor, specs in groups:
+        for concept, literal, occurrence in specs:
+            evidence(f'min-{era}-{group}-{concept}', code, n, anchor, literal, occurrence)
+
+# Selección geométrica explícita: columna base/cuota y fila; no búsqueda por coincidencia numérica.
+for component, code, n, count in [('ordinaria', '2010-19703', 63, 6), ('complementaria', '2011-20638', 53, 7)]:
+    template, words = page_data(code, n)
+    candidates = [w for w in words if re.fullmatch(r'[0-9][0-9.,]*', w[4]) and (w[1] > 640 if component == 'ordinaria' else 330 < w[1] < 460)]
+    save(OUT / ('geometria-' + component + '.json'), candidates)
+    for column, xmin, xmax in ([('baseInferior', 180, 230), ('cuota', 250, 300)] if component == 'ordinaria' else [('baseInferior', 120, 180), ('cuota', 220, 280)]):
+        selected = sorted([w for w in candidates if xmin < w[0] < xmax], key=lambda w: w[1])
+        # Las coordenadas exactas se fijan tras inspección de las columnas.
+        for row, w in enumerate(selected):
+            if row >= count:
+                break
+            text = template['quote']
+            matches = list(re.finditer(re.escape(w[4]), text))
+            same = [z for z in words if z[4] == w[4]]
+            ordinal = same.index(w)
+            if len(matches) != len(same):
+                # Evitar subcadenas: coincidencia del token completo.
+                matches = list(re.finditer(r'(?<![0-9.,])' + re.escape(w[4]) + r'(?![0-9.,])', text))
+            start = matches[ordinal].start()
+            anchor = text[:start + len(w[4])]
+            # anchor se fija al prefijo exacto para desambiguar ceros y columnas repetidas.
+            name = f'escala-{component}-{row}-{column}'
+            evidence(name, code, n, '', w[4], 0, column=column, cell=w[:4], forced_start=start)
+            matrix.append({'id': name, 'years': [2012, 2013, 2014], 'status': 'blocked-no-effective-exposure', 'source': {'file': 'lib/dominio/irpf/cuotas/escalas-publicadas.ts', 'symbol': 'ESTATAL_' + component.upper() + '_2012_2014', 'tablePath': [str(row), column]}, 'evidence': name, 'decision': 'EEA-CUOTAS-FIJAS', 'reason': 'El extractor efectivo solo evalúa normativa/datos; no exporta estas hojas. Decisión previa tampoco refiere al nuevo archivo. No se crea payload con literal sintáctico.'})
+
+for code, n, decision, anchor, specs in [
+    ('2010-19703', 60, 'TDE-12', '«Artículo 20.', [('umbralInferior', '9.180'), ('umbralSuperior', '13.260'), ('reduccionMaxima', '4.080'), ('reduccionMinima', '2.652')]),
+    ('2014-12327', 12, 'TDE-13', '«Artículo 20.', [('umbralInferior', '11.250'), ('umbralSuperior', '14.450'), ('reduccionMaxima', '3.700')]),
+    ('2018-9268', 77, 'TDE-14', '«Artículo 20.', [('umbralInferior', '13.115'), ('umbralSuperior', '16.825'), ('reduccionMaxima', '5.565')]),
+    ('2022-22128', 84, 'TDE-15', '«Artículo', [('umbralInferior', '14.047,5'), ('umbralSuperior', '19.747,5'), ('reduccionMaxima', '6.498')]),
+    ('2024-12944', 23, 'TDE-17', '«Artículo 20.', [('umbralInferior', '14.852'), ('umbralSuperior', '19.747,5'), ('reduccionMaxima', '7.302')]),
+]:
+    for concept, literal in specs:
+        evidence(f'{decision}-{concept}', code, n, anchor, literal)
+evidence('TDE-03-gastos', '2014-12327', 12, 'f)', '2.000')
+
+for label, code, n, anchor, literal, file, symbol, decision in [
+    ('defensa', '2014-12327', 12, 'e)', '300', 'lib/dominio/irpf/trabajo-anual/calcular.ts', 'calcularGastosTrabajo', 'TDE-02'),
+    ('discapacidad-activa-ordinaria', '2014-12327', 12, 'Tratándose de personas', '3.500', 'lib/dominio/irpf/trabajo-anual/calcular.ts', 'calcularGastosTrabajo', 'TDE-06'),
+    ('discapacidad-activa-reforzada', '2014-12327', 12, 'Tratándose de personas', '7.750', 'lib/dominio/irpf/trabajo-anual/calcular.ts', 'calcularGastosTrabajo', 'TDE-06'),
+    ('otras-rentas', '2010-19703', 60, '«Artículo 20.', '6.500', 'lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts', 'calcularReduccionTrabajoConOtrasRentas', 'TDE-09'),
+    ('umbral-intermedio-2024', '2024-12944', 23, '«Artículo 20.', '17.673,52', 'lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts', 'reduccionTrabajoDesde2024', 'TDE-17'),
+    ('reduccion-intermedia-2024', '2024-12944', 23, '«Artículo 20.', '2.364,34', 'lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts', 'reduccionTrabajoDesde2024', 'TDE-17'),
+]:
+    name = evidence('trabajo-canonico-' + label, code, n, anchor, literal)
+    matrix.append({'id': name, 'evidence': name, 'source': {'file': file, 'sha256': sha(Path(file).read_bytes()), 'symbol': symbol, 'tablePath': None}, 'value': citations[name]['value'], 'decision': decision, 'status': 'blocked-no-effective-exposure', 'reason': 'Constante dentro de función, sin hoja efectiva ni tablePath en el inventario actual; no se sustituye por metadato legacy.'})
+
+for component, count in [('ORDINARIA', 6), ('COMPLEMENTARIA', 7)]:
+    for row in range(count):
+        matrix.append({'id': f'tipo-{component}-{row}', 'years': [2012, 2013, 2014], 'source': {'file': 'lib/dominio/irpf/cuotas/escalas-publicadas.ts', 'symbol': 'ESTATAL_' + component + '_2012_2014', 'tablePath': [str(row), 'tipo']}, 'status': 'blocked-conversion-and-exposure', 'reason': 'Porcentaje de tabla frente a fracción del código; identity no admite /100 y falta exposición efectiva.'})
+
+for item in items:
+    symbol = item['symbol']
+    path = json.loads(item['path'])
+    key = None
+    if re.fullmatch(r'MINIMOS_ESTATALES_20[12][0-9]', symbol):
+        year = int(symbol[-4:])
+        era = '2012-2014' if year < 2015 else '2015-2025'
+        group = path[0] if path[0] != 'discapacidad' else 'discapacidad-' + ('contribuyente' if path[1] == 'contribuyente' else 'familiar')
+        key = f'min-{era}-{group}-{path[-1]}'
+        domain = 'minimos'
+        decision = 'MIN-012' if year < 2015 else 'MIN-013'
+        conditions = ['Solo cuantía nominal del concepto; no acredita elegibilidad, convivencia, reparto ni fecha de devengo.', 'MIN-013 acepta texto de reforma; alias anuales requieren revisión independiente.']
+    elif symbol == 'METADATOS_ARTICULO_20_LEGACY':
+        year = int(path[0])
+        decision = 'TDE-12' if year < 2015 else 'TDE-13' if year < 2018 else 'TDE-14' if 2019 <= year <= 2022 else 'TDE-15' if year == 2023 else 'TDE-17'
+        key = f'{decision}-{path[1]}'
+        domain = 'trabajo-deducciones-estatales'
+        conditions = ['Metadato nominal legacy efectivo; no prueba que el cálculo canónico consuma este campo.', 'No extiende vigencia a cierre 2026 ni acepta el régimen transitorio 2018.']
+        if year == 2018 or year == 2026 or key not in citations:
+            matrix.append({'id': item['id'], 'source': item['source'], 'symbol': symbol, 'tablePath': path, 'year': year, 'status': 'blocked-scope-or-no-literal', 'value': item['value']})
+            continue
+    elif symbol == 'GASTOS_FIJOS_IRPF_LEGACY' and 2015 <= int(path[0]) <= 2025:
+        year = int(path[0])
+        decision = 'TDE-03'
+        key = 'TDE-03-gastos'
+        domain = 'trabajo-deducciones-estatales'
+        conditions = ['Solo gasto general nominal art19.2.f; no importe aplicado ni demás gastos.', 'Tabla compatible-legacy, no aceptación del evaluador canónico.']
+    if key is None:
+        continue
+    ev = citations[key]
+    assert Decimal(item['value']) == Decimal(ev['value'])
+    assert sha(Path(item['source']['file']).read_bytes()) == item['source']['sha256']
+    decisions_path = Path('docs/procedencia/revisiones', domain, 'revisiones.json')
+    decisions = json.loads(decisions_path.read_text())
+    dec = next(d for d in decisions if d['id'] == decision)
+    assert dec['status'] == 'accepted'
+    located = any(loc['path'] == item['source']['file'] for loc in dec.get('engineLocations', []))
+    payload = {'schemaVersion': 1, 'id': 'estatal-' + item['id'], 'authorTaskId': 'research-estatales-t3-78d7c69b', 'inventory': inventory, 'itemId': item['id'], 'source': {'file': item['source']['file'], 'sha256': item['source']['sha256'], 'symbol': symbol, 'tablePath': path}, 'scope': {'year': year, 'territory': 'estatal-comun', 'unit': 'EUR', 'claim': f'Correspondencia nominal {symbol} {path}: {item["value"]} EUR.', 'conditions': conditions, 'completeRule': False}, 'conversion': 'identity', 'citation': ev['citation'], 'document': ev['document'], 'legalReview': {'decisions': {'path': str(decisions_path), 'sha256': sha(decisions_path.read_bytes())}, 'decisionId': decision}}
+    validate_schema(payload, 'binding-payload')
+    ref = save(OUT / 'payloads' / (payload['id'] + '.json'), payload)
+    matrix.append({'id': payload['id'], 'itemId': item['id'], 'year': year, 'concept': key, 'source': payload['source'], 'value': item['value'], 'payload': ref, 'integrity': 'verified', 'numericBindingAgainstArtifact': 'verified', 'legalDecision': decision, 'legalFileGate': located, 'status': 'candidate-component-verified' if located else 'blocked-legal-file-gate', 'bindingReview': 'pending', 'completeRuleAcceptance': False})
+
+save(OUT / 'citas-indice.json', citations)
+save(OUT / 'cobertura.json', {'base': 'ed6a43fd750de05609abc3710dabdc2f8261020c', 'inventory': inventory, 'uniqueCitations': len(citations), 'uniqueFacsimiles': len(pages), 'payloads': sum('payload' in r for r in matrix), 'matrix': matrix, 'limitations': ['Sin reconstrucción actual: lectura readArtifact y hashes de fuentes; no sustituye coordinador.', 'Puente integrado requiere CAS en fixtures; estos originales permanecen externos y no se modifica registro.', 'Aceptación fiscal y nueva revisión independientes pendientes.']})
+print(json.dumps({'citations': len(citations), 'pages': len(pages), 'matrix': len(matrix), 'payloads': sum('payload' in r for r in matrix)}))

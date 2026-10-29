@@ -1,0 +1,38 @@
+import * as c from '../../lib/dominio/irpf/deducciones/contratos-2025.ts';
+import {calcularDeduccionesConsignadas as consignar,calcularDeduccionesAutonomicasAplicadas as legacy} from '../../lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts';
+import {calcularActividad2025 as actividad} from '../../lib/dominio/irpf/actividades-economicas/calcular.ts';
+import {readFileSync,writeFileSync} from 'node:fs';
+const out='/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/contratos-v2/casos/';
+const resultados=[];
+const run=(id,esperado,entrada,fn)=>{let observado;try{observado=fn()}catch(e){observado={error:e.name,mensaje:e.message}}resultados.push({id,esperado,entrada,observado});};
+const ctx=(territorio,ejercicio=2025)=>({territorio,ejercicio,contribuyente:'A',modalidad:'individual'});
+const p={id:'H1',relacion:'descendiente',titularesDelMinimo:['A','B'],titularesDeduccion:['A','B'],certificado:{referencia:'cert',medico:'M',colegiado:'C',especialidad:'E',fechaEmision:'2026-01-03',fechaDiagnostico:'2025-12-01',diagnostico:'definitivo',ejercicioMedico:'activo'}};
+for(const [id,personas,n] of [['elegible',[p],125],['mixto',[p,{...p,id:'H2',titularesDelMinimo:[]}],125],['mixto-inverso',[{...p,id:'H2',titularesDelMinimo:[]},p],125],['posterior',[p,{...p,id:'H2',certificado:{...p.certificado,fechaDiagnostico:'2026-01-01'}}],125],['excluidos',[{...p,titularesDelMinimo:[]}],0],['vacio',[],0]]){
+run('rioja-'+id,{estado:'calculo_parcial',importe:n},personas,()=>c.evaluarCeliaquiaRioja(ctx('la-rioja'),personas));
+run('rioja-agregado-'+id,{estado:'no_soportado'},personas,()=>c.totalDeduccionesEvaluadas(ctx('la-rioja'),[{tipo:'rioja_celiaquia',contexto:ctx('la-rioja'),personas}]));}
+for(const year of [NaN,Infinity,-Infinity,2025.5,'2025',2025])run('madrid-'+String(year),{estado:year===2025?'calculo_parcial':'no_soportado'},year,()=>c.evaluarNacimientoMadrid(ctx('madrid'),{ejercicio:year,hijos:['H'],progenitoresConvivientes:['A']},[{ejercicio:2025,general:0,ahorro:0,basesUnidadFamiliar:[0]}]));
+for(const valor of [0,1,-1,.5,'1','0',NaN,Infinity])for(const clave of ['andaluciaHijosNacimientoAdopcion','andalucia_nacimiento_adopcion_acogimiento_menores:unidades']){
+const entrada={[clave]:valor};
+run('contador-'+clave+'-'+String(valor),[0,1].includes(valor)?'numero':'RangeError',entrada,()=>legacy(entrada,ctx('andalucia')));
+run('consignacion-con-contador-'+clave+'-'+String(valor),'solo consignaciones; observar excepciones',entrada,()=>consignar(entrada,ctx('andalucia')));}
+for(const year of [2024,2025,2026,NaN])run('agregado-vacio-'+String(year),{estado:year===2025?'evaluacion_automatica':'no_soportado'},year,()=>c.totalDeduccionesEvaluadas(ctx('galicia',year),[]));
+const codigo='andalucia_nacimiento_adopcion_acogimiento_menores';
+for(const [id,entrada] of Object.entries({explicita:{[codigo+':importe']:100,[codigo+':cumple']:true},sinCumple:{[codigo+':importe']:100},cumpleString:{[codigo+':importe']:100,[codigo+':cumple']:'true'},importeString:{[codigo+':importe']:'100',[codigo+':cumple']:true},noFinito:{[codigo+':importe']:Infinity,[codigo+':cumple']:true},negativo:{[codigo+':importe']:-1,[codigo+':cumple']:true},heredada:{andaluciaHijosNacimientoAdopcion:2},sufijoExtra:{[codigo+':extra:importe']:100,[codigo+':extra:cumple']:true},duplicadoAlias:{[codigo+':importe']:100,[codigo+':cumple']:true,[codigo+':extra:importe']:100,[codigo+':extra:cumple']:true}}))run('consignar-'+id,'contrato codigo:importe exacto, cumple === true',entrada,()=>consignar(entrada,ctx('andalucia')));
+run('consignacion-ABA',[100,0,100],null,()=>['andalucia','madrid','andalucia'].map(t=>consignar({[codigo+':importe']:100,[codigo+':cumple']:true},ctx(t))));
+for(const year of [2024,2026])run('externa-historica-'+year,{estado:'importe_externo',importe:123},null,()=>c.totalDeduccionesEvaluadas(ctx('galicia',year),[{tipo:'consignacion',contexto:ctx('galicia',year),entrada:{...ctx('galicia',year),codigo:'x',importe:123,soporte:'expediente-sintetico'}}]));
+const prev=JSON.parse(readFileSync('docs/procedencia/revisiones/actividades-implementacion/casos-independientes.json','utf8'));
+for(const x of prev)run('AE-previo-'+x.id,x.esperado??'reproducción anterior',x.entrada,()=>actividad(x.entrada));
+const hist=structuredClone(prev.find(x=>x.id==='activo-historia-imposible').entrada);
+for(const [id,fecha,acumulada] of [['limite','2024-01-01','260'],['sobre-limite','2024-01-01','260.01'],['parcial-admitido','2024-12-31','260'],['sin-saldo-historico','2024-01-01','0'],['saldo-agotado-prematuro','2024-01-01','1000'],['inicio-actual','2025-01-01','1']]){
+const x=structuredClone(hist);Object.assign(x.activos[0],{fechaUso:fecha,fechaAdquisicion:fecha,acumulada});run('AE-historia-'+id,'contrastar cota y límites declarados',x,()=>actividad(x));}
+for(const coef of ['0.260','0.26','NaN','Infinity','-0.26','foo','0.27']){const x=structuredClone(hist);Object.assign(x.activos[0],{acumulada:'260',coeficienteHistorico:coef});run('AE-coef-'+coef,['0.260','0.26'].includes(coef)?'soportado':'no-soportado',x,()=>actividad(x));}
+const dup=structuredClone(prev.find(x=>x.id==='RETA-gasto-mismo-justificante').entrada);
+run('AE-RETA-distintas-operaciones','soportado; suma 600, no deduplicar importes',dup,()=>{const x=structuredClone(dup);x.reta[0].justificante='pdf#operacion-2';x.gastos[0].justificante='pdf#operacion-1';return actividad(x)});
+writeFileSync(out+'resultados.json',JSON.stringify(resultados,(_,v)=>typeof v==='number'&&!Number.isFinite(v)?String(v):v,2)+'\n');
+console.log('Sondeos:',resultados.length);
+console.log(JSON.stringify(resultados.filter(x=>x.id.includes('sufijo')||x.id.includes('duplicadoAlias')||x.id.includes('AE-historia')).map(x=>({id:x.id,estado:x.observado.estado,importe:x.observado.aporte?.importeEurosExactos,observado:typeof x.observado==='number'?x.observado:undefined})),null,2));
+for(const fecha of ['2025-02-29','2025-02-30','2025-04-31']){const personas=[{...p,certificado:{...p.certificado,fechaDiagnostico:fecha}}];run('rioja-fecha-inexistente-'+fecha,{estado:'no_soportado'},personas,()=>c.evaluarCeliaquiaRioja(ctx('la-rioja'),personas));}
+const {toValidatedNumber}=await import('../../node_modules/@base-ui/react/number-field/utils/validate.js');
+for(const valor of [.5,-1,1.5])run('ui-normalizacion-contador-'+valor,'entero no negativo',valor,()=>toValidatedNumber(valor,{format:{maximumFractionDigits:0},minWithDefault:0,maxWithDefault:Number.MAX_SAFE_INTEGER,minWithZeroDefault:0,snapOnStep:true,small:false,clamp:true}));
+writeFileSync(out+'resultados.json',JSON.stringify(resultados,(_,v)=>typeof v==='number'&&!Number.isFinite(v)?String(v):v,2)+'\n');
+console.log('Total final:',resultados.length);

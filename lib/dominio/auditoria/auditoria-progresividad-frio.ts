@@ -23,14 +23,12 @@ import {
 import {
   CompatibilidadSalarioLegacy,
   type ServicioCompatibilidadSalarioLegacy,
+  type SeleccionTemporalRetencion,
 } from "../compatibilidad-legacy/calculo-salario-legacy"
+import type { LiquidarIrpfAnualError } from "../irpf/liquidacion/liquidar-irpf-anual"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
-import {
-  centimosAEuros,
-  crearImporteMonetario,
-  eurosACentimos,
-} from "../dinero/importe-monetario"
-import { IPC_ANUAL_DICIEMBRE } from "../normativa/datos/ipc-2012-2026"
+import { centimosAEuros, eurosACentimos } from "../dinero/importe-monetario"
+import { factorIpcPerfilLegacy } from "../inflacion/factor-ipc"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "../normativa/datos/irpf-obligacion-declarar"
 import {
   instrumentarEffectAuditoria,
@@ -78,12 +76,19 @@ export type PerfilAuditoriaProgresividadFrio =
   | PerfilAuditoriaNormativa
 
 export interface EntradaAuditoriaProgresividadFrio extends EntradaAuditoriaRangoSalarial {
+  readonly seleccionRetencionPorAnio?:
+    | Partial<Record<AnioFiscal, SeleccionTemporalRetencion>>
+    | undefined
   readonly perfil: PerfilAuditoriaProgresividadFrio
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
   readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
 }
 
 interface EntradaAuditoriaRangoSalarialConComunidad extends EntradaAuditoriaRangoSalarial {
+  readonly modo?: ModoCalculo | undefined
+  readonly seleccionRetencionPorAnio?:
+    | Partial<Record<AnioFiscal, SeleccionTemporalRetencion>>
+    | undefined
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
   readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
 }
@@ -93,6 +98,8 @@ export interface ContextoAuditoriaProgresividadFrio {
 }
 
 export interface EntradaPuntosAuditoriaAnioAjustado {
+  readonly modo?: ModoCalculo | undefined
+  readonly seleccionRetencion?: SeleccionTemporalRetencion | undefined
   readonly salarioBrutoAnualMinimoCentimos: number
   readonly salarioBrutoAnualMaximoCentimos: number
   readonly pasoCentimos: number
@@ -109,30 +116,11 @@ export interface ResultadoAuditoriaProgresividadFrio {
   readonly auditoria: AuditoriaRangoSalarial
 }
 
-const CERO = crearImporteMonetario(0)
-const UNO = crearImporteMonetario(1)
 const CONCURRENCIA_AUDITORIA_RANGO = 8
 const TAMANO_LOTE_AUDITORIA_RANGO = 64
 
-const rangoNumerico = (inicio: number, fin: number): ReadonlyArray<number> =>
-  Match.value(inicio > fin).pipe(
-    Match.when(true, () => []),
-    Match.orElse(() =>
-      EffectArray.makeBy(fin - inicio + 1, (index) => inicio + index)
-    )
-  )
-
-const ipcAnualConocido = (anio: number): Decimal =>
-  Match.value(IPC_ANUAL_DICIEMBRE[anio]).pipe(
-    Match.when(Match.undefined, () => CERO),
-    Match.orElse((tipo) => tipo)
-  )
-
 const factorIpc = (anioBase: AnioFiscal, anioReferencia: AnioFiscal) =>
-  rangoNumerico(anioBase + 1, anioReferencia).reduce(
-    (factor, anio) => factor.mul(UNO.plus(ipcAnualConocido(anio))),
-    UNO
-  )
+  factorIpcPerfilLegacy(anioBase, anioReferencia).factor
 
 const escalarCentimos = (centimos: number, factor: Decimal): number =>
   eurosACentimos(centimosAEuros(centimos).mul(factor))
@@ -197,6 +185,10 @@ const ajustarDesglose = (
 const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   "auditoria.compararAjustadoPorIpcConLiquidacion"
 )(function* (entrada: {
+  readonly modo?: ModoCalculo | undefined
+  readonly seleccionRetencionPorAnio?:
+    | Partial<Record<AnioFiscal, SeleccionTemporalRetencion>>
+    | undefined
   readonly salarioBrutoAnualReferenciaCentimos: number
   readonly anioComparado: AnioFiscal
   readonly anioReferencia: AnioFiscal
@@ -216,6 +208,9 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   )
   const inicioReferencia = tiempoAuditoriaMs()
   const referencia = yield* entrada.compatibilidadSalarioLegacy.calcular({
+    modo: entrada.modo,
+    seleccionRetencion:
+      entrada.seleccionRetencionPorAnio?.[entrada.anioReferencia],
     anio: entrada.anioReferencia,
     salarioBrutoAnualCentimos: entrada.salarioBrutoAnualReferenciaCentimos,
     comunidadAutonoma: entrada.comunidadAutonoma,
@@ -227,6 +222,9 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   )
   const inicioComparado = tiempoAuditoriaMs()
   const comparadoNominal = yield* entrada.compatibilidadSalarioLegacy.calcular({
+    modo: entrada.modo,
+    seleccionRetencion:
+      entrada.seleccionRetencionPorAnio?.[entrada.anioComparado],
     anio: entrada.anioComparado,
     salarioBrutoAnualCentimos: salarioBrutoNominalAnualCentimos,
     comunidadAutonoma: entrada.comunidadAutonoma,
@@ -247,6 +245,10 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
       ({
         anioReferencia: entrada.anioReferencia,
         anioComparado: entrada.anioComparado,
+        procedenciaIpc: factorIpcPerfilLegacy(
+          entrada.anioComparado,
+          entrada.anioReferencia
+        ).procedencia,
         factorIpc: factor.toFixed(12),
         referencia,
         comparado: {
@@ -398,6 +400,8 @@ const construirPuntoAuditoriaConLiquidacion = Effect.fn(
 ) {
   const inicioComparacion = tiempoAuditoriaMs()
   const comparacion = yield* compararAjustadoPorIpcConLiquidacion({
+    modo: entrada.modo,
+    seleccionRetencionPorAnio: entrada.seleccionRetencionPorAnio,
     salarioBrutoAnualReferenciaCentimos: salarioBrutoAnualCentimos,
     anioComparado: entrada.anioComparado,
     anioReferencia: entrada.anioReferencia,
@@ -452,6 +456,8 @@ const construirPuntoAuditoriaAnioAjustadoConLiquidacion = Effect.fn(
   )
   const inicioLiquidacion = tiempoAuditoriaMs()
   const desgloseNominal = yield* compatibilidadSalarioLegacy.calcular({
+    modo: entrada.modo,
+    seleccionRetencion: entrada.seleccionRetencion,
     anio: entrada.anio,
     salarioBrutoAnualCentimos: salarioBrutoNominalAnualCentimos,
     comunidadAutonoma: entrada.comunidadAutonoma,
@@ -475,6 +481,10 @@ const construirPuntoAuditoriaAnioAjustadoConLiquidacion = Effect.fn(
       ({
         anioReferencia: entrada.anioReferencia,
         anioComparado: entrada.anio,
+        procedenciaIpc: factorIpcPerfilLegacy(
+          entrada.anio,
+          entrada.anioReferencia
+        ).procedencia,
         factorIpc: factor.toFixed(12),
         referencia: desgloseAjustado,
         comparado: {
@@ -709,6 +719,8 @@ const auditarProgresividadFrioImpl = Effect.fn(
   contexto: ContextoAuditoriaProgresividadFrio
 ) {
   const auditoriaEffect = auditarRangoSalarialConLiquidacionIrpf({
+    modo: contexto.modo,
+    seleccionRetencionPorAnio: entrada.seleccionRetencionPorAnio,
     salarioBrutoAnualMinimoCentimos: entrada.salarioBrutoAnualMinimoCentimos,
     salarioBrutoAnualMaximoCentimos: entrada.salarioBrutoAnualMaximoCentimos,
     pasoCentimos: entrada.pasoCentimos,
@@ -740,7 +752,10 @@ export class AuditoriaProgresividadFrio extends Context.Service<
     readonly auditar: (
       entrada: EntradaAuditoriaProgresividadFrio,
       contexto: ContextoAuditoriaProgresividadFrio
-    ) => Effect.Effect<ResultadoAuditoriaProgresividadFrio>
+    ) => Effect.Effect<
+      ResultadoAuditoriaProgresividadFrio,
+      LiquidarIrpfAnualError
+    >
   }
 >()(
   "irobopf/lib/dominio/auditoria/auditoria-progresividad-frio/AuditoriaProgresividadFrio"
@@ -764,7 +779,7 @@ const auditarProgresividadFrioDesdeServicio = Effect.fn(
 export const auditarProgresividadFrio = (
   entrada: EntradaAuditoriaProgresividadFrio,
   contexto: ContextoAuditoriaProgresividadFrio
-): Effect.Effect<ResultadoAuditoriaProgresividadFrio> =>
+): Effect.Effect<ResultadoAuditoriaProgresividadFrio, LiquidarIrpfAnualError> =>
   // @effect-diagnostics-next-line effect/strictEffectProvide:off
   auditarProgresividadFrioDesdeServicio(entrada, contexto).pipe(
     Effect.provide(AuditoriaProgresividadFrio.layer)
@@ -772,7 +787,10 @@ export const auditarProgresividadFrio = (
 
 export const construirPuntosAuditoriaAnioAjustado = (
   entrada: EntradaPuntosAuditoriaAnioAjustado
-): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
+): Effect.Effect<
+  ReadonlyArray<PuntoAuditoriaRangoSalarial>,
+  LiquidarIrpfAnualError
+> =>
   // @effect-diagnostics-next-line effect/strictEffectProvide:off
   construirPuntosAuditoriaAnioAjustadoImpl(entrada).pipe(
     Effect.provide(CompatibilidadSalarioLegacy.layer)

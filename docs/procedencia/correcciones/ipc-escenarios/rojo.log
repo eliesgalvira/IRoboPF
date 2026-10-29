@@ -1,0 +1,110 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+stdout | tests/ipc-escenarios-procedencia.test.ts > IPC-INVERSO obtiene un recíproco, no el producto vacío
+[14:18:13.176] ERROR (#1): Error [AssertionError]: expected '1.000000000000' to be '0.971817298348' // Object.is equality
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/ipc-escenarios-procedencia.test.ts:11:23) {
+  actual: '1.000000000000',
+  expected: '0.971817298348',
+  showDiff: true,
+  operator: 'strictEqual',
+  [cause]: undefined
+}
+
+stdout | tests/ipc-escenarios-procedencia.test.ts > IPC-ESCENARIO conserva la hipótesis y declara su procedencia
+[14:18:13.181] ERROR (#7): Error [AssertionError]: expected { anioReferencia: 2026, …(6) } to have property "procedenciaIpc.estado" with value 'incluye-escenario'
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/ipc-escenarios-procedencia.test.ts:16:13) {
+  actual: undefined,
+  expected: 'incluye-escenario',
+  showDiff: true,
+  [cause]: undefined
+}
+
+ ❯ tests/ipc-escenarios-procedencia.test.ts (3 tests | 3 failed) 19ms
+   × IPC-2026 no se publica como observación de diciembre 4ms
+   × IPC-INVERSO obtiene un recíproco, no el producto vacío 12ms
+   × IPC-ESCENARIO conserva la hipótesis y declara su procedencia 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ipc-escenarios-procedencia.test.ts > IPC-2026 no se publica como observación de diciembre
+AssertionError: expected 0.03 to be undefined
+
+- Expected:
+undefined
+
++ Received:
+Decimal {
+  "constructor": [Function Decimal],
+  "d": [
+    300000,
+  ],
+  "e": -2,
+  "s": 1,
+}
+
+ ❯ tests/ipc-escenarios-procedencia.test.ts:7:37
+      5|
+      6| it("IPC-2026 no se publica como observación de diciembre", () => {
+      7|   expect(IPC_ANUAL_DICIEMBRE[2026]).toBeUndefined()
+       |                                     ^
+      8| })
+      9| it.effect("IPC-INVERSO obtiene un recíproco, no el producto vacío", ()…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/ipc-escenarios-procedencia.test.ts > IPC-INVERSO obtiene un recíproco, no el producto vacío
+AssertionError: expected '1.000000000000' to be '0.971817298348' // Object.is equality
+
+Expected: "0.971817298348"
+Received: "1.000000000000"
+
+ ❯ Array.<anonymous> tests/ipc-escenarios-procedencia.test.ts:11:23
+      9| it.effect("IPC-INVERSO obtiene un recíproco, no el producto vacío", ()…
+     10|   const r = yield* compararAjustadoPorIpc({ salarioBrutoAnualReferenci…
+     11|   expect(r.factorIpc).toBe("0.971817298348")
+       |                       ^
+     12| }))
+     13| it.effect("IPC-ESCENARIO conserva la hipótesis y declara su procedenci…
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/ipc-escenarios-procedencia.test.ts > IPC-ESCENARIO conserva la hipótesis y declara su procedencia
+AssertionError: expected { anioReferencia: 2026, …(6) } to have property "procedenciaIpc.estado" with value 'incluye-escenario'
+
+- Expected:
+"incluye-escenario"
+
++ Received:
+undefined
+
+ ❯ Array.<anonymous> tests/ipc-escenarios-procedencia.test.ts:16:13
+     14|   const r = yield* compararAjustadoPorIpc({ salarioBrutoAnualReferenci…
+     15|   expect(r.factorIpc).toBe("1.030000000000")
+     16|   expect(r).toHaveProperty("procedenciaIpc.estado", "incluye-escenario…
+       |             ^
+     17|   expect(r).toHaveProperty("procedenciaIpc.escenario.horizonte", "2026…
+     18| }))
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  14:18:12
+   Duration  445ms (transform 80ms, setup 0ms, import 268ms, tests 19ms, environment 0ms)
+

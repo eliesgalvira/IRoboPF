@@ -539,7 +539,7 @@ function BandaIpc({
       </div>
       <div className="grid gap-0.5 lg:justify-items-end">
         <p className="hidden text-sm tracking-[0.16em] text-[var(--ink-soft)] uppercase lg:block">
-          En 2026 se usa IPC = 3,00%
+          Diciembre 2026: escenario 3,00 %, no observado
         </p>
         <p className="text-sm tracking-[0.22em] text-[var(--ink-soft)] uppercase">
           IPC acumulado
@@ -549,7 +549,7 @@ function BandaIpc({
             {porcentaje.format(inflacion)}
           </p>
           <p className="max-w-[12rem] text-sm leading-5 tracking-[0.16em] text-[var(--ink-soft)] uppercase lg:hidden">
-            En 2026 se usa IPC = 3,00%
+            Diciembre 2026: escenario 3,00 %, no observado
           </p>
         </div>
       </div>

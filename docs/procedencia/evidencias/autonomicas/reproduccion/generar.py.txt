@@ -1,0 +1,80 @@
+import sys,json,hashlib,re,shutil
+from pathlib import Path
+from decimal import Decimal
+sys.path.insert(0,str(Path('tools/procedencia').resolve()))
+import corpus
+from descargar import sanitize_metadata
+O=Path('docs/procedencia/evidencias/autonomicas'); S=Path('.cache/autonomicas-investigacion'); CAS=S/'cas'; (CAS/'sha256').mkdir(parents=True,exist_ok=True)
+for d in ['citas','payloads','documentos','recortes']: (O/d).mkdir(exist_ok=True)
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def write(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+def ref(p):return {'path':str(p),'sha256':sha(p)}
+records=[]
+for mp in (O/'documentos').glob('*.json'):
+ r=json.loads(mp.read_text()); blobs=list(Path('/home/elies/Repos/IRoboPF/.cache/procedencia').glob('**/sha256/'+r['sha256'])); assert blobs; r['_index']=str(blobs[0].parent.parent/'urls'/'resolved.json'); records.append(r)
+if not records: records=json.loads((S/'documentos.json').read_text())
+items=json.loads((S/'items.json').read_text())
+manifest=Path('docs/procedencia/inventario.json'); inv={'manifestSha256':sha(manifest),'artifactSha256':json.loads(manifest.read_text())['artifact']['sha256']}
+# Cajas delimitadas tras lectura de la página original; filas identificadas geométricamente.
+specs=[
+ ('andalucia',list(range(2012,2016)),'ANDALUCIA_2012_2015','BOE-A-2012-13126.pdf',[(4,[125,414,480,527],200,240,285,451)],'autonomicas-2012-2016','autonomicas-2012-2016-cuotas-andalucia'),
+ ('comunitat-valenciana',[2014,2015,2016],'VALENCIA_2014_2016','BOE-A-2015-1236.pdf',[(58,[125,168,480,281],200,240,285,205)],'autonomicas-2012-2016','autonomicas-2012-2016-cuotas-valencia'),
+ ('catalunya',[2020,2021],'CATALUNYA_2020_2021','BOE-A-2020-5569.pdf',[(62,[110,490,480,640],180,215,285,517)],'cadena-autonomica-b','cadena-b-cat-cuotas-2020'),
+ ('catalunya',[2022,2023],'CATALUNYA_2022_2024','BOE-A-2022-953.pdf',[(46,[170,718,455,776],235,240,290,745),(47,[170,113,455,255],235,240,290,140)],'cadena-autonomica-b','cadena-b-cat-cuotas-2022'),
+ ('catalunya',[2024],'CATALUNYA_2022_2024','BOE-A-2024-6951.pdf',[(6,[105,304,495,483],180,215,285,331)],'cadena-autonomica-b','cadena-b-cat-cuotas-2022'),
+ ('madrid',[2022],'MADRID_2022','BOE-A-2023-7340.pdf',[(3,[160,427,455,558],230,240,295,474)],'cadena-autonomica-c','CAD-C-madrid-2022'),
+ ('murcia',[2022],'MURCIA_2022','4846/pdf',[(4,[95,83,535,208],180,215,255,118)],'autonomicas-2022-2026','AUT22-26-2022-murcia-general')]
+coverage=[]; cells=[]; checks=[]
+for territory,years,symbol,key,parts,rev,rid in specs:
+ record=next(x for x in records if key in x['canonicalUrl']); blob=Path(record['_index']).parent.parent/'sha256'/record['sha256']; assert sha(blob)==record['sha256']
+ target=CAS/'sha256'/record['sha256']
+ if not target.exists(): target.symlink_to(blob)
+ public=corpus.public_document({k:v for k,v in record.items() if k!='_index'})
+ public.setdefault('authenticity',{'status':'not-validated'})
+ dp=O/'documentos'/f'{record["sha256"]}.json'; write(dp,public);corpus.validate_schema(public,'document')
+ decisions=Path(f'docs/procedencia/revisiones/{rev}/revisiones.json'); decision=next(x for x in json.loads(decisions.read_text()) if x['id']==rid)
+ assert decision.get('decision',decision.get('status'))=='accepted'
+ rownum=0
+ with corpus.mupdf().open(blob) as pdf:
+  for page_no,box,basex,quotex0,quotex1,rowy in parts:
+   page=pdf[page_no-1]; words=page.get_text('words',clip=corpus.mupdf().Rect(box)); text=corpus.extract(page,box)
+   basewords=[w for w in words if w[0]<basex and w[1]>=rowy and re.fullmatch(r'[0-9][0-9.,]*',w[4])]
+   if territory=='murcia':basewords=[w for w in basewords if w[1]<164]
+   for bw in basewords:
+    qw=next(w for w in words if quotex0<w[0]<quotex1 and abs(w[1]-bw[1])<1)
+    rownum+=1
+    for field,w in [('baseInferior',bw),('cuota',qw)]:
+     literal=w[4]; value=str(Decimal(literal.replace('.','').replace(',','.')))
+     cellbox=[w[0]-.05,w[1]-.05,w[2]+.05,w[3]+.05]; celltext=corpus.extract(page,cellbox);assert celltext.strip()==literal
+     # Offset recuperado mediante el mismo orden de palabras de la capa, nunca primer número igual.
+     numwords=[v for v in words if v[4]==literal]; idx=next(j for j,v in enumerate(numwords) if v[:4]==w[:4]); spans=list(re.finditer(r'(?<![\d.,])'+re.escape(literal)+r'(?![\d.,])',text)); assert len(spans)==len(numwords),(key,literal)
+     pos=spans[idx].start(); units=[v for v in words if v[4].lower().strip('()')=='euros' and v[1]<rowy and ((v[0]<basex) if field=='baseInferior' else quotex0<v[0]<quotex1)]
+     uw=units[0]; unit=uw[4].strip('()'); unitidx=[v for v in words if v[4].strip('()')==unit].index(uw); upos=list(re.finditer(re.escape(unit),text))[unitidx].start()
+     binding={'number':{'start':pos,'end':pos+len(literal),'literal':literal},'numberFormat':'es-ES','value':value,'unit':{'start':upos,'end':upos+len(unit),'literal':unit},'unitCode':'EUR'}
+     stem=f'{territory}-{years[0]}-f{rownum}-{field}'
+     citation=corpus.cite(public,CAS,page_no,box,binding if unit in ('euros','EUROS') else None,{'row':str(rownum),'column':field})
+     cp=O/'citas'/f'{stem}.json';write(cp,citation);corpus.verify(public,citation,CAS)
+     png=citation['facsimile']['sha256'];shutil.copyfile(CAS/'sha256'/png,O/'recortes'/f'{png}.png')
+     headerbox=[(box[0] if field=='baseInferior' else quotex0),box[1],(basex if field=='baseInferior' else quotex1),rowy-1]
+     cell={'id':stem,'document':ref(dp),'citation':ref(cp),'page':page_no,'bbox':cellbox,'quote':celltext,'row':rownum,'column':field,'header':{'bbox':headerbox,'quote':corpus.extract(page,headerbox)},'documentSha256':public['sha256'],'value':value}
+     cells.append(cell)
+     for year in years:
+      entries=[i for i in items if i['layer']=='effective' and i['source']['file']==f'lib/dominio/normativa/datos/irpf-autonomico-{year}.ts' and json.loads(i['path'])==[territory,'tramos',str(rownum-2),'0']] if field=='baseInferior' and rownum>1 else []
+      entries=[i for i in entries if Decimal(i['value'])==Decimal(value)]
+      syntactic=[{'id':i['id'],'source':i['source'],'symbol':i['symbol']} for i in items if i['layer']=='syntactic' and i['symbol']==symbol and i.get('value') in [value,'"'+value+'"']]
+      c={'year':year,'territory':territory,'row':rownum,'field':field,'value':value,'citationId':stem,'helper':{'file':'lib/dominio/irpf/cuotas/escalas-publicadas.ts','symbol':symbol,'rowIndex':rownum-1},'legalReview':{'decisions':ref(decisions),'decisionId':rid,'acceptanceScope':decision['acceptanceScope']},'status':'blocked-no-effective-helper','bindingReview':'pending','syntacticLocations':syntactic,'payloads':[]}
+      for i in entries:
+       assert sha(i['source']['file'])==i['source']['sha256']
+       payload={'schemaVersion':1,'id':stem+'-'+str(year)+'-'+i['id'][4:12],'authorTaskId':'research-autonomicas-t3-6cf673be','inventory':inv,'itemId':i['id'],'source':{'file':i['source']['file'],'sha256':i['source']['sha256'],'symbol':i['symbol'],'tablePath':json.loads(i['path'])},'scope':{'year':year,'territory':territory,'unit':'EUR','claim':f'Coincidencia candidata del límite de la tabla efectiva con la base inferior de la fila {rownum} publicada: {literal} EUR.','conditions':['Base liquidable general; perfil y aplicación anual pendientes de nueva contrarrevisión.','La aceptación previa trata discrepancias de cuota bruta; no acepta por asociación cada límite ni el helper canónico.','Sin aceptación de mínimos, fallecimientos, deuda final ni regla completa.'],'completeRule':False},'conversion':'identity','citation':ref(cp),'document':ref(dp),'legalReview':{'decisions':ref(decisions),'decisionId':rid}}
+       pp=O/'payloads'/f'{payload["id"]}.json';write(pp,payload);corpus.validate_schema(payload,'binding-payload');c['payloads'].append(ref(pp));c['status']='candidate-numeric-match-legal-binding-pending'
+       checks.append({'payload':ref(pp),'effectiveId':i['id'],'value':i['value'],'numericBinding':'verified-against-fixed-artifact','integrity':'verified','authenticity':public['authenticity']['status'],'bindingReview':'pending','completeRuleAcceptance':False,'bridgeBlockers':['decision-field-not-status','original-and-crop-outside-fixed-fixtures','legal-scope-needs-cell-review']})
+      coverage.append(c)
+   if territory=='murcia':
+    # Cláusula independiente: superior estricto; no quinta fila tabulada ficticia.
+    cp=O/'citas'/'murcia-2022-clausula-superior.json';ci=corpus.cite(public,CAS,4,[95,165,535,208]);write(cp,ci);corpus.verify(public,ci,CAS);png=ci['facsimile']['sha256'];shutil.copyfile(CAS/'sha256'/png,O/'recortes'/f'{png}.png')
+    for field,value,literal in [('baseInferior','60000','60.000,00'),('cuota','8716.67','8.716,67')]:
+     w=next(w for w in words if w[4]==literal);bbox=[w[0]-.05,w[1]-.05,w[2]+.05,w[3]+.05]
+     cells.append({'id':'murcia-2022-clausula-'+field,'document':ref(dp),'citation':ref(cp),'page':4,'bbox':bbox,'quote':corpus.extract(page,bbox),'row':'cláusula posterior a tabla','column':field,'header':{'quote':ci['quote'],'bbox':ci['bbox']},'documentSha256':public['sha256'],'value':value})
+     coverage.append({'year':2022,'territory':'murcia','row':5,'field':field,'value':value,'citationId':'murcia-2022-clausula-'+field,'helper':{'file':'lib/dominio/irpf/cuotas/escalas-publicadas.ts','symbol':symbol,'rowIndex':4,'inferiorExclusivo':True},'status':'blocked-no-effective-helper','effectiveThresholdCandidates':[i['id'] for i in items if i['layer']=='effective' and i['source']['file'].endswith('irpf-autonomico-2022.ts') and i['path']=='["murcia","tramos","3","0"]'] if field=='baseInferior' else [],'bindingReview':'pending','payloads':[],'reason':'La condición estricta >60000 y la exclusión de fallecimientos no se deducen de igualdad del umbral; mantener cláusula completa.'})
+write(O/'citas-celdas.json',cells);write(O/'cobertura.json',{'base':'ed6a43fd750de05609abc3710dabdc2f8261020c','inventory':inv,'snapshot':'babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68','entries':coverage,'counts':{'annualCellsEUR':len(coverage),'uniqueCellsEUR':len(cells),'payloads':len(checks)},'scope':'Todas las bases inferiores y cuotas EUR de las seis tablas prioritarias; Catalunya 2022–2024 con dos originales. Tipos pendientes: conversión porcentual no identity.'});write(O/'verificacion.json',{'context':'Artefacto fijado, sin reconstrucción ni aceptación del coordinador','results':checks})
+print(json.dumps({'cells':len(cells),'annual':len(coverage),'payloads':len(checks)}))

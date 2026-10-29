@@ -1,0 +1,151 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+stdout | tests/retenciones-coherencia-procedencia.test.ts > RTI-01 rechaza retenciones de otro ejercicio antes de descontarlas
+[14:25:19.480] ERROR (#1): Error [AssertionError]: expected false to be true // Object.is equality
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/retenciones-coherencia-procedencia.test.ts:24:33) {
+  actual: false,
+  expected: true,
+  showDiff: true,
+  operator: 'strictEqual',
+  [cause]: undefined
+}
+
+stdout | tests/retenciones-coherencia-procedencia.test.ts > RTI-03 rechaza edades negativas, fraccionarias y no finitas en cada persona
+[14:25:19.486] ERROR (#7): Error [AssertionError]: expected false to be true // Object.is equality
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/retenciones-coherencia-procedencia.test.ts:38:134) {
+  actual: false,
+  expected: true,
+  showDiff: true,
+  operator: 'strictEqual',
+  [cause]: undefined
+}
+
+stdout | tests/retenciones-coherencia-procedencia.test.ts > RTI-02 permite elegir cierre y devuelve rechazo tipado si falta selección
+[14:25:19.490] ERROR (#13): Error: {"_tag":"ResultadoNoSoportado","motivo":"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre","fuenteReconocida":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md","rastro":{"titulo":"Procedimiento de retención de trabajo 2025","pasos":[{"_tag":"PasoExplicacion","titulo":"Caso de retención reconocido","descripcion":"El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.","fuentes":[{"titulo":"Contrato histórico y límites","referencia":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md"}]}]}}
+    at compatibilidadLegacy.calcularSalarioLegacyConLiquidacionIrpfAnual (/home/elies/Repos/IRoboPF/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:68:11)
+    at compatibilidadLegacy.calcularSalarioLegacyConLiquidacionIrpfAnual (definition) (/home/elies/Repos/IRoboPF/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:80:61)
+    at compatibilidadLegacy.calcularSalarioLegacy (/home/elies/Repos/IRoboPF/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:273:32)
+    at compatibilidadLegacy.calcularSalarioLegacy (definition) (/home/elies/Repos/IRoboPF/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:61:10)
+    at compatibilidadLegacy.calcularSalarioLegacyDesdeServicio (/home/elies/Repos/IRoboPF/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:280:3)
+    at compatibilidadLegacy.calcularSalarioLegacyDesdeServicio (definition) (/home/elies/Repos/IRoboPF/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:268:51) {
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  [cause]: undefined
+}
+
+stdout | tests/retenciones-coherencia-procedencia.test.ts > AUD-MODO transmite el modo real a ambas ramas de la comparación
+[14:25:19.501] ERROR (#19): Error [AssertionError]: expected 285841 to be 287508 // Object.is equality
+    at Array.<anonymous> (/home/elies/Repos/IRoboPF/tests/retenciones-coherencia-procedencia.test.ts:56:86) {
+  actual: 285841,
+  expected: 287508,
+  showDiff: true,
+  operator: 'strictEqual',
+  [cause]: undefined
+}
+
+ ❯ tests/retenciones-coherencia-procedencia.test.ts (4 tests | 4 failed) 40ms
+   × RTI-01 rechaza retenciones de otro ejercicio antes de descontarlas 22ms
+   × RTI-03 rechaza edades negativas, fraccionarias y no finitas en cada persona 3ms
+   × RTI-02 permite elegir cierre y devuelve rechazo tipado si falta selección 5ms
+   × AUD-MODO transmite el modo real a ambas ramas de la comparación 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/retenciones-coherencia-procedencia.test.ts > RTI-01 rechaza retenciones de otro ejercicio antes de descontarlas
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ Array.<anonymous> tests/retenciones-coherencia-procedencia.test.ts:24:33
+     22|   for (const modo of ["canonico", "compatible-legacy"] as const) {
+     23|     const r = yield* Effect.result(liquidarIrpfAnual({...anual, retenc…
+     24|     expect(Result.isFailure(r)).toBe(true)
+       |                                 ^
+     25|     if (Result.isFailure(r)) expect(r.failure.motivo).toContain("ejerc…
+     26|   }
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ value node_modules/effect/src/internal/effect.ts:880:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/retenciones-coherencia-procedencia.test.ts > RTI-03 rechaza edades negativas, fraccionarias y no finitas en cada persona
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ Array.<anonymous> tests/retenciones-coherencia-procedencia.test.ts:38:134
+
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ value node_modules/effect/src/internal/effect.ts:880:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/retenciones-coherencia-procedencia.test.ts > RTI-02 permite elegir cierre y devuelve rechazo tipado si falta selección
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2025',
+    pasos: [ [Object] ]
+  },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/retenciones-coherencia-procedencia.test.ts > AUD-MODO transmite el modo real a ambas ramas de la comparación
+AssertionError: expected 285841 to be 287508 // Object.is equality
+
+- Expected
++ Received
+
+- 287508
++ 285841
+
+ ❯ Array.<anonymous> tests/retenciones-coherencia-procedencia.test.ts:56:86
+     54|   const r = yield* auditarProgresividadFrio(entrada, {modo: "canonico"…
+     55|   const directo = yield* calcularSalarioLegacy({anio: 2018, salarioBru…
+     56|   expect(r.auditoria.puntos[0]?.comparacion.referencia.cotizacionTraba…
+       |                                                                                      ^
+     57|   expect(r.auditoria.puntos[0]?.comparacion.comparado.ajustado.cotizac…
+     58| }))
+ ❯ next node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  14:25:18
+   Duration  844ms (transform 364ms, setup 0ms, import 643ms, tests 40ms, environment 0ms)
+

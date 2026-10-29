@@ -1,0 +1,34 @@
+import json,sys,hashlib,shutil
+from pathlib import Path
+from decimal import Decimal
+sys.path.insert(0,str(Path('tools/procedencia').resolve()))
+import corpus
+O=Path('docs/procedencia/evidencias/autonomicas');S=Path('.cache/autonomicas-investigacion');CAS=S/'cas'
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def write(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+cells=json.loads((O/'citas-celdas.json').read_text())
+for c in cells:
+ with corpus.mupdf().open(CAS/'sha256'/c['documentSha256']) as doc:
+  page=doc[c['page']-1]; assert corpus.extract(page,c['bbox'])==c['quote']
+  if isinstance(c['row'],int):
+   x0,y0,x1,y1=c['header']['bbox']
+   words=[w for w in page.get_text('words') if x0<=w[0]<x1 and y0<=w[1]<y1]
+   b=[min(w[0] for w in words)-.05,min(w[1] for w in words)-.05,max(w[2] for w in words)+.05,max(w[3] for w in words)+.05]
+   c['header']={'bbox':b,'quote':corpus.extract(page,b)}
+  assert 'euros' in c['header']['quote'].lower(),c['id']
+write(O/'citas-celdas.json',cells)
+used=set();count=0
+for cp in (O/'citas').glob('*.json'):
+ c=json.loads(cp.read_text());record=json.loads((O/'documentos'/(c['documentSha256']+'.json')).read_text());corpus.verify(record,c,CAS);count+=1
+ h=c['facsimile']['sha256'];assert sha(O/'recortes'/(h+'.png'))==h;used.add(h)
+for p in (O/'recortes').glob('*.png'):
+ if p.stem not in used:p.resolve().unlink() # Solo recortes propios sustituidos tras inspección visual.
+items={i['id']:i for i in json.loads((S/'items.json').read_text())}
+for pp in (O/'payloads').glob('*.json'):
+ p=json.loads(pp.read_text());corpus.validate_schema(p,'binding-payload');i=items[p['itemId']];assert i['layer']=='effective'
+ assert sha(p['source']['file'])==p['source']['sha256']; assert json.loads(i['path'])==p['source']['tablePath'];assert i['symbol']==p['source']['symbol']
+ for k in ['citation','document']:assert sha(p[k]['path'])==p[k]['sha256']
+ c=json.loads(Path(p['citation']['path']).read_text());assert Decimal(c['engineBinding']['value'])==Decimal(i['value'])
+write(O/'verificacion-final.json',{'citationsReextractedAndRendered':count,'cellsReextracted':len(cells),'crops':len(used),'payloadsSchemaSourceAndDecimal':len(list((O/'payloads').glob('*.json'))),'accepted':0,'visualInspection':'Nueve recortes examinados; se amplió Murcia a x95..535 para evitar cortar el párrafo. Cabeceras refinadas al bbox de palabras completas, sin cambiar texto original.'})
+shutil.copyfile(S/'verificar.py',O/'reproduccion'/'verificar.py.txt')
+print('OK',count,len(cells),len(used))

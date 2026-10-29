@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "estatal-inv-602efe9b5acef647d49f770c98322ecf",
+  "authorTaskId": "research-estatales-t3-78d7c69b",
+  "inventory": {
+    "manifestSha256": "6872a5fb9315a4e970c5da7fb3d8ad58f2ebf74b3d84fe07101b90cb8c58564d",
+    "artifactSha256": "29fb5e311f33982395227b15f2e08705e2943bf5ea21409702f48dd8ba4e613c"
+  },
+  "itemId": "inv-602efe9b5acef647d49f770c98322ecf",
+  "source": {
+    "file": "lib/dominio/normativa/datos/minimos-autonomicos-2016.ts",
+    "sha256": "28c9e6fae0aaa064f0c1ea069c5efa3808310435564533b80fba52b41f6c6ce1",
+    "symbol": "MINIMOS_ESTATALES_2016",
+    "tablePath": [
+      "contribuyente",
+      "adicionalMayor75"
+    ]
+  },
+  "scope": {
+    "year": 2016,
+    "territory": "estatal-comun",
+    "unit": "EUR",
+    "claim": "Correspondencia nominal MINIMOS_ESTATALES_2016 ['contribuyente', 'adicionalMayor75']: 1400 EUR.",
+    "conditions": [
+      "Solo cuantía nominal del concepto; no acredita elegibilidad, convivencia, reparto ni fecha de devengo.",
+      "MIN-013 acepta texto de reforma; alias anuales requieren revisión independiente."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/estatales/citas/min-2015-2025-contribuyente-adicionalMayor75.json",
+    "sha256": "51b1c120b45b9e5bd4fb2e55a9a68fac0f030f0381d48b637be0b167fca861a2"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/estatales/documentos/2014-12327.json",
+    "sha256": "a1aa2263b195cafeb758fd48037c0f8c044742752e08cbb8637ca68aa154d3a5"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/minimos/revisiones.json",
+      "sha256": "62251e763ca7e2f60a1a916ea614753211cb8f4f2fe0262bfd44d11a20d84a8f"
+    },
+    "decisionId": "MIN-013"
+  }
+}

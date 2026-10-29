@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+while read -r snapshot; do
+ bun .cache/revision-contenido-modo-v2/sondeos.mjs history "$snapshot"
+done < <(bun -e 'for(const id of await Bun.file("docs/procedencia/implementaciones/contenidos/datos/snapshots.json").json())console.log(id)')

@@ -1,0 +1,33 @@
+import hashlib
+import json
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path('tools/procedencia').resolve()))
+from corpus import cite, crop_bytes, mupdf, verify
+root = Path('docs/procedencia/evidencias/estatales')
+cas = Path('.cache/estatales/cas')
+record = json.loads((root / 'documentos/2013-13616.json').read_text())
+results = []
+for number in [75, 76]:
+    with mupdf().open(cas / 'sha256' / record['sha256']) as doc:
+        page = doc[number - 1]
+        citation = cite(record, cas, number, list(page.rect), store=False)
+        png = crop_bytes(page, list(page.rect))
+    dest = root / 'recortes' / (citation['facsimile']['sha256'] + '.png')
+    dest.write_bytes(png)
+    link = cas / 'sha256' / citation['facsimile']['sha256']
+    if not link.exists():
+        link.symlink_to(dest.resolve())
+    verify(record, citation, cas)
+    path = root / ('prorroga-2014-p' + str(number) + '.json')
+    path.write_text(json.dumps(citation, ensure_ascii=False, indent=2) + '\n')
+    results.append({'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'scope': 'Contexto de prórroga; sin binding numérico ni nueva aceptación de vigencia.'})
+(root / 'contextos.json').write_text(json.dumps(results, ensure_ascii=False, indent=2) + '\n')
+print('Dos páginas reextraídas y facsímiles verificados; sin binding numérico.')
+
+coverage_path = root / 'cobertura.json'
+coverage = json.loads(coverage_path.read_text())
+coverage['uniqueNumericalFacsimiles'] = 11
+coverage['uniqueFacsimiles'] = 13
+coverage['contextCitations'] = results
+coverage_path.write_text(json.dumps(coverage, ensure_ascii=False, indent=2) + '\n')

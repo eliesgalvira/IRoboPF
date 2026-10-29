@@ -1,0 +1,34 @@
+{
+  "estado": "propuesta-no-aplicada",
+  "modeloActual": "lib/procedencia/modelo.ts",
+  "versionPropuesta": 2,
+  "cambios": [
+    {
+      "ruta": "Entidad.estados.integridad",
+      "actual": ["por-comprobar"],
+      "propuesto": ["por-comprobar", "comprobada"],
+      "condicion": "comprobada exige referencia al informe de ejecución, sus dependencias fijadas y cierre físico de auxiliares; nunca implica autenticidad"
+    },
+    {
+      "ruta": "Entidad.verificacion",
+      "propuesto": {
+        "informe": "Hash",
+        "payload": "Hash",
+        "snapshotOrigen": "Hash",
+        "exactitudNumerica": ["pendiente", "comprobada"],
+        "autenticidadHistorica": ["pendiente", "indeterminada"],
+        "interpretacion": "decisionId + alcance exacto + estado candidata",
+        "revisionBinding": ["pending", "accepted-limited"],
+        "aceptacionFiscalCompleta": false
+      },
+      "condicion": "No migrar automáticamente atestaciones; conservar referencias exactas al payload revisado"
+    },
+    {
+      "ruta": "Selector.pdf",
+      "propuesto": "Añadir geometry {mediaBox, cropBox, rotation, coordinateSystem: pymupdf-unrotated-top-left-points}; conservar coordenadas nativas y receta hash",
+      "condicion": "Versionar selector y verificador conjuntamente. Hasta entonces rechazar rotación u origen no nulo; Madrid tiene ambas cajas iguales con origen cero"
+    }
+  ],
+  "compatibilidad": "Las entidades v1 conservan literalmente estados pendientes del contrato. Los resultados técnicos reales se conservan sin pérdida en informe.estados; el consumidor debe mostrarlo junto a la entidad. No anunciar integridad pendiente como resultado de la ejecución ni presentar candidata como aceptada.",
+  "noIncluido": "No ampliar autoridad del coordinador: su comprobación de decisión jurídica no demuestra por sí sola cada palabra del claim. La revisión nueva sigue pendiente."
+}

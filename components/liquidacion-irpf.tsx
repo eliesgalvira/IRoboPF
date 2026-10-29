@@ -2861,19 +2861,27 @@ function ConciliacionSimuladorLegacyPanel({
 }: {
   readonly conciliacion: ConciliacionSimuladorLegacy
 }) {
+  const reconstruccionHistorica =
+    conciliacion.naturaleza === "reconstruccion-legacy-hasta-2014"
   return (
     <GrupoResumen
       tono="amarillo"
       titulo={`Conciliación con simulador simplificado ${conciliacion.anio}`}
     >
       <div className="rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-3 text-sm leading-6 text-[var(--ink-soft)]">
-        Ajuste salarial del perfil simplificado, calculado desde una cuota en
-        modo {conciliacion.modoCuotaOrigen}. Aplica convenciones heredadas de
-        deducción y límite de nómina. No es un oracle independiente del Excel ni
-        una retención oficial. Importes nominales de {conciliacion.anio}.
+        {reconstruccionHistorica
+          ? "Reconstrucción salarial legacy hasta 2014 desde el bruto, sus cotizaciones, reducción, escala y mínimo heredados. La cuota anual mostrada no interviene en ese resultado."
+          : `Ajuste salarial del perfil simplificado desde la cuota anual suministrada en modo ${conciliacion.modoCuotaOrigen}.`}{" "}
+        Aplica convenciones heredadas de deducción y límite de nómina. No es un
+        oracle independiente del Excel ni una retención oficial. Importes
+        nominales de {conciliacion.anio}.
       </div>
       <LineaResumen
-        ayuda="Cuota anual antes de restar retenciones y pagos a cuenta; es la base comparable con el cálculo de nómina."
+        ayuda={
+          reconstruccionHistorica
+            ? "Cuota de la liquidación anual para contraste; la reconstrucción legacy no parte de ella."
+            : "Cuota anual antes de restar retenciones y pagos a cuenta; base del ajuste salarial."
+        }
         etiqueta="Cuota liquidada anual"
         signo="+"
         valor={formatearEuros(conciliacion.cuotaLiquidadaAnualCentimos)}
@@ -2924,7 +2932,11 @@ function ConciliacionSimuladorLegacyPanel({
         valor={formatearEuros(conciliacion.limiteRetencionNominaCentimos)}
       />
       <LineaResumen
-        ayuda="Resultado que muestra el simulador simplificado como IRPF final: el menor entre cuota tras SMI y límite de retención."
+        ayuda={
+          reconstruccionHistorica
+            ? "Resultado reconstruido desde el bruto con las reglas legacy hasta 2014, incluido su límite de nómina. No se obtiene de la cuota tras SMI mostrada arriba."
+            : "Resultado que muestra el simulador simplificado como IRPF final: el menor entre cuota tras SMI y límite de retención."
+        }
         destacado
         etiqueta="IRPF final simulador"
         signo="="

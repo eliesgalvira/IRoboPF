@@ -176,6 +176,8 @@ const esCasoCalculable = (
   readonly descendientes: ReadonlyArray<DescendienteRetencion>
   readonly ascendientes: ReadonlyArray<AscendienteRetencion>
 } =>
+  (caso.edad === undefined ||
+    (Number.isSafeInteger(caso.edad) && caso.edad >= 0)) &&
   Match.number(caso.cotizacionesCentimos) &&
   Number.isSafeInteger(caso.retribucionAnualCentimos) &&
   caso.retribucionAnualCentimos >= 0 &&
@@ -195,8 +197,14 @@ const esCasoCalculable = (
   Match.string(caso.contrato) &&
   Array.isArray(caso.descendientes) &&
   Array.isArray(caso.ascendientes) &&
+  caso.descendientes.every(
+    (descendiente) =>
+      Number.isSafeInteger(descendiente.edad) && descendiente.edad >= 0
+  ) &&
   caso.ascendientes.every(
     (ascendiente) =>
+      Number.isSafeInteger(ascendiente.edad) &&
+      ascendiente.edad >= 0 &&
       Number.isSafeInteger(ascendiente.convivencia) &&
       ascendiente.convivencia > 0
   ) &&

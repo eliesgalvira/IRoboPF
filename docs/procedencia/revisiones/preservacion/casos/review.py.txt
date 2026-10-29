@@ -1,0 +1,78 @@
+import sys, json, hashlib, shutil, copy, os, subprocess
+from pathlib import Path
+from collections import Counter
+W=Path.cwd(); S=W/'.scratch-preservacion'; O=Path('/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion')
+sys.path.insert(0,str(W/'tools/procedencia'))
+import preservacion as p
+D=W/'docs/procedencia/preservacion'; P=Path('/home/elies/.t3/worktrees/IRoboPF/t3-16df10f6/.cache/procedencia/preservacion-en-preparacion/paquete')
+def dump(name,v): (O/'logs'/name).write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def digest(path):
+ a=hashlib.sha256(); b=hashlib.sha512(); n=0
+ with path.open('rb') as f:
+  while chunk:=f.read(1024*1024): a.update(chunk); b.update(chunk); n+=len(chunk)
+ return dict(sha256=a.hexdigest(),sha512=b.hexdigest(),size=n)
+dups=[]
+def pairs(items):
+ d={}
+ for k,v in items:
+  if k in d: dups.append(k)
+  d[k]=v
+ return d
+files={}
+for f in sorted(D.iterdir()):
+ raw=f.read_bytes(); files[f.name]=dict(sha256=hashlib.sha256(raw).hexdigest(),size=len(raw))
+ if f.suffix=='.json': json.loads(raw,object_pairs_hook=pairs)
+m=json.loads((D/'manifest.json').read_bytes()); blobs=m['blobs']; by={b['sha256']:b for b in blobs}
+assert files['manifest.json']['sha256']=='2df6c208eed389614e678c9009ccf463b00f3bfed9cf098876ce7d9329f593fb'
+assert (P/'manifest.json').read_bytes()==(D/'manifest.json').read_bytes()
+ptr=json.loads((D/'lfs-pointers.json').read_bytes())
+dump('estructura.json',dict(files=files,duplicateKeys=dups,objects=len(blobs),bytes=sum(b['size'] for b in blobs),dependencies=len(m['dependencies']),unresolved=len(m['unresolvedReferences']),exclusions=Counter(e['reason'] for e in m['exclusions']),pointerStructure=str(type(ptr)),pointerSample=str(ptr)[:500]))
+# Pase independiente completo; lectura en flujo sin usar fingerprint del producto.
+results=[]
+for b in blobs:
+ path=P/'sha256'/b['sha256']; got=digest(path); assert got=={k:b[k] for k in got}
+ results.append(got)
+dump('hashes-708.json',results)
+# Restauración real completa, destino nuevo. El producto coteja cada objeto copiado.
+p.transfer(D/'manifest.json',P,S/'restauracion',True)
+assert (S/'restauracion/manifest.json').read_bytes()==(D/'manifest.json').read_bytes()
+assert all((P/'sha256'/b['sha256']).stat().st_ino!=(S/'restauracion/sha256'/b['sha256']).stat().st_ino for b in blobs)
+dump('restauracion.json',dict(objects=len(blobs),bytes=sum(b['size'] for b in blobs),manifestExact=True,hardlinks=False,destination=str(S/'restauracion')))
+# Casos sintéticos; no tocar los originales.
+T=S/'casos'; T.mkdir(); (T/'a').write_bytes(b'a'); b={**digest(T/'a'),'sources':['a']}; base=dict(version=1,acceptance='ninguna',bytes=1,blobs=[b]); out=[]
+def trial(name,fn):
+ try: v=fn(); out.append(dict(case=name,result='accepted',detail=v))
+ except Exception as e: out.append(dict(case=name,result='rejected',exception=type(e).__name__,detail=str(e)))
+def transfer_case(name,raw):
+ f=T/(name+'.json'); f.write_bytes(raw); p.transfer(f,T,T/name); return (T/name/'manifest.json').read_bytes()==raw
+trial('unknown_private_fields',lambda:transfer_case('private',p.encoded({**base,'headers':{'Cookie':'SYNTHETIC_SENTINEL'}})))
+trial('duplicate_acceptance_key',lambda:transfer_case('duplicate',p.encoded(base).replace(b'"acceptance": "ninguna"',b'"acceptance": "accepted", "acceptance": "ninguna"')))
+trial('version_bool_bytes_float',lambda:transfer_case('types',p.encoded({**base,'version':True,'bytes':1.0})))
+trial('blob_authenticity_and_acquisition_unchecked',lambda:transfer_case('claims',p.encoded({**base,'blobs':[{**b,'authenticity':'certificada','acquisitions':[{'canonicalUrl':'https://example.invalid/?token=SYNTHETIC_SENTINEL'}]}]})))
+trial('duplicate_hash',lambda:p.validate({**base,'bytes':2,'blobs':[b,b]}))
+trial('wrong_sha512',lambda:transfer_case('sha512',p.encoded({**base,'blobs':[{**b,'sha512':'0'*128}]})))
+trial('wrong_size',lambda:transfer_case('size',p.encoded({**base,'bytes':2,'blobs':[{**b,'size':2}]})))
+trial('size_bool',lambda:p.validate({**base,'blobs':[{**b,'size':True}]}))
+trial('existing_destination',lambda:p.transfer(T/'private.json',T,T/'private'))
+(T/'alias').symlink_to(T,target_is_directory=True)
+trial('source_symlink_ancestor',lambda:p.safe_source(T/'alias','a'))
+trial('destination_symlink_ancestor',lambda:p.transfer(T/'private.json',T,T/'alias'/'via-link'))
+trial('source_escape',lambda:p.safe_source(T,'../out'))
+trial('absolute_in_root',lambda:p.safe_source(T,str(T/'a')).as_posix())
+for i,u in enumerate(['https://www.boe.es/a?id=SYNTHETIC_PRIVATE_CASE','https://www.boe.es/private/SYNTHETIC_PRIVATE_CASE','https://www.boe.es/a?txt=SYNTHETIC_SENTINEL','https://www.boe.es:bad/a','https://www.boe.es/a?token=SYNTHETIC_SENTINEL']):
+ trial('url_'+str(i),lambda u=u:p.public_url(u))
+# Sustitución completa coherente: límite expresamente documentado.
+f=T/'substituted.json'; f.write_bytes(p.encoded(dict(version=1,acceptance='ninguna',bytes=0,blobs=[])))
+trial('substituted_empty_manifest',lambda:p.verify(f,P))
+# Plan con raíz de caché symlink: rglob sí atraviesa el punto de partida.
+A=T/'plan-root'; A.mkdir(); (A/'.cache').mkdir(); C=T/'external-cache'; (C/'sha256').mkdir(parents=True)
+(C/'sha256'/b['sha256']).write_bytes(b'a')
+rec={**b,'canonicalUrl':'https://www.boe.es/a?txt=SYNTHETIC_SENTINEL','finalUrl':'https://www.boe.es/a','httpStatus':200,'retrievedAt':'2026-10-29'}
+(C/'record.json').write_bytes(p.encoded(rec)); (A/'.cache/procedencia').symlink_to(C,target_is_directory=True)
+trial('plan_cache_symlink',lambda:dict(selected=len(p.plan(A)['blobs']),url=p.plan(A)['blobs'][0]['acquisitions'][0]['canonicalUrl']))
+# Fallo tardío deja objetos pero no manifest.
+trial('source_changed',lambda:transfer_case('changed',p.encoded({**base,'blobs':[{**b,'sources':['substituted.json']}]})))
+dump('adversarial.json',out)
+# Punteros y exclusiones se leen completos, se conserva detalle excluido ya público.
+dump('exclusiones.json',m['exclusions'])
+print(json.dumps(dict(hashes=len(results),restored=len(blobs),cases=out),ensure_ascii=False))

@@ -1,0 +1,2899 @@
+{
+  "count": 66,
+  "failed": 0,
+  "results": [
+    {
+      "id": "efectivos-tres-cotizaciones-y-sindicato",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "gastosAE": "1750",
+        "netoPrevioArt20": "18250",
+        "netoArt19": "16250"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "20000",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "18250",
+        "netoArt19": "16250",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "colegio-499.99",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "499.99",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "gastosAE": "2249.99"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "20000",
+        "gastosAE": "2249.99",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "17750.01",
+        "netoArt19": "15750.01",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "colegio-500",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "500",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "gastosAE": "2250"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "20000",
+        "gastosAE": "2250",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "17750",
+        "netoArt19": "15750",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "colegio-500.01",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "500.01",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "gastosAE": "2250"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "20000",
+        "gastosAE": "2250",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "17750",
+        "netoArt19": "15750",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "defensa-299.99",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "299.99",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "gastosAE": "2049.99"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "20000",
+        "gastosAE": "2049.99",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "17950.01",
+        "netoArt19": "15950.01",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "defensa-300",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "300",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "gastosAE": "2050"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "20000",
+        "gastosAE": "2050",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "17950",
+        "netoArt19": "15950",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "defensa-300.01",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "300.01",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "gastosAE": "2050"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "20000",
+        "gastosAE": "2050",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "17950",
+        "netoArt19": "15950",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "defensa-350",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "350",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "gastosAE": "2050"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "20000",
+        "gastosAE": "2050",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "17950",
+        "netoArt19": "15950",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "desconocido-sindicatosatisfecho",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "desconocido"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Requisitos de los gastos desconocidos"
+      },
+      "pass": true
+    },
+    {
+      "id": "desconocido-colegiosatisfecho",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "desconocido",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Requisitos de los gastos desconocidos"
+      },
+      "pass": true
+    },
+    {
+      "id": "desconocido-colegioobligatorio",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "desconocido",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Requisitos de los gastos desconocidos"
+      },
+      "pass": true
+    },
+    {
+      "id": "desconocido-colegiofinesEsenciales",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "desconocido"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Requisitos de los gastos desconocidos"
+      },
+      "pass": true
+    },
+    {
+      "id": "desconocido-defensasatisfecho",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "desconocido",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Requisitos de los gastos desconocidos"
+      },
+      "pass": true
+    },
+    {
+      "id": "desconocido-defensalitigioDirectoPagador",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "desconocido"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Requisitos de los gastos desconocidos"
+      },
+      "pass": true
+    },
+    {
+      "id": "neto-0",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "0",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "netoArt19": "-1750"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "0",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "0",
+        "netoPrevioArt20": "-1750",
+        "netoArt19": "-1750",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "neto-1749.99",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "1749.99",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "netoArt19": "-0.01"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "1749.99",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "0",
+        "netoPrevioArt20": "-0.01",
+        "netoArt19": "-0.01",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "neto-1750",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "1750",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "netoArt19": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "1750",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "0",
+        "netoPrevioArt20": "0",
+        "netoArt19": "0",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "neto-3750",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "3750",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "netoArt19": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "3750",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "2000",
+        "netoArt19": "0",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "neto-3750.01",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "3750.01",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "netoArt19": "0.01"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "3750.01",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "2000.01",
+        "netoArt19": "0.01",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "discapacidad-33-a-64no",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": {
+          "grado": "33-a-64",
+          "ayudaOMovilidadReducida": "no",
+          "acreditadaDuranteTodoElTrabajo": "si"
+        }
+      },
+      "expected": {
+        "discapacidadAplicada": "3500"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "3500",
+        "integro": "20000",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "18250",
+        "netoArt19": "12750",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "discapacidad-33-a-64si",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": {
+          "grado": "33-a-64",
+          "ayudaOMovilidadReducida": "si",
+          "acreditadaDuranteTodoElTrabajo": "si"
+        }
+      },
+      "expected": {
+        "discapacidadAplicada": "7750"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "7750",
+        "integro": "20000",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "18250",
+        "netoArt19": "8500",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "discapacidad-65-o-masno",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": {
+          "grado": "65-o-mas",
+          "ayudaOMovilidadReducida": "no",
+          "acreditadaDuranteTodoElTrabajo": "si"
+        }
+      },
+      "expected": {
+        "discapacidadAplicada": "7750"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "7750",
+        "integro": "20000",
+        "gastosAE": "1750",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "18250",
+        "netoArt19": "8500",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "discapacidad-exclusion-22",
+      "input": {
+        "ejercicio": 2014,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": {
+          "grado": "33-a-64",
+          "ayudaOMovilidadReducida": "no",
+          "acreditadaDuranteTodoElTrabajo": "si"
+        }
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Discapacidad: solo empleo efectivo único con acreditación durante todos los rendimientos, desde 2015; asociación parcial/histórica pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "discapacidad-exclusion-23",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          },
+          {
+            "id": "B",
+            "clase": "pension",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": {
+          "grado": "33-a-64",
+          "ayudaOMovilidadReducida": "no",
+          "acreditadaDuranteTodoElTrabajo": "si"
+        }
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Discapacidad: solo empleo efectivo único con acreditación durante todos los rendimientos, desde 2015; asociación parcial/histórica pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "discapacidad-exclusion-24",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          },
+          {
+            "id": "B",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": {
+          "grado": "33-a-64",
+          "ayudaOMovilidadReducida": "no",
+          "acreditadaDuranteTodoElTrabajo": "si"
+        }
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Discapacidad: solo empleo efectivo único con acreditación durante todos los rendimientos, desde 2015; asociación parcial/histórica pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "movilidad-ordinaria",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ordinaria",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Movilidad ordinaria/histórica y DT6 requieren contrato temporal y de rendimientos asociados; no acumulables"
+      },
+      "pass": true
+    },
+    {
+      "id": "movilidad-dt6-2015",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "dt6-2015",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Movilidad ordinaria/histórica y DT6 requieren contrato temporal y de rendimientos asociados; no acumulables"
+      },
+      "pass": true
+    },
+    {
+      "id": "movilidad-desconocida",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "desconocida",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Movilidad ordinaria/histórica y DT6 requieren contrato temporal y de rendimientos asociados; no acumulables"
+      },
+      "pass": true
+    },
+    {
+      "id": "ambito-28",
+      "input": {
+        "ejercicio": 2026,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Ámbito territorial o vigencia 2026 no cerrados"
+      },
+      "pass": true
+    },
+    {
+      "id": "ambito-29",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "foral",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Ámbito territorial o vigencia 2026 no cerrados"
+      },
+      "pass": true
+    },
+    {
+      "id": "ambito-30",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "pendiente",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Imputación y reducciones art18 pendientes"
+      },
+      "pass": true
+    },
+    {
+      "id": "ambito-31",
+      "input": {
+        "ejercicio": 2011,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Entrada inválida, incompleta o con campos ajenos"
+      },
+      "pass": true
+    },
+    {
+      "id": "ambito-32",
+      "input": {
+        "ejercicio": 2025.5,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Entrada inválida, incompleta o con campos ajenos"
+      },
+      "pass": true
+    },
+    {
+      "id": "general-una-vez",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          },
+          {
+            "id": "B",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "generalesAplicados": "2000",
+        "gastosAE": "3500"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "40000",
+        "gastosAE": "3500",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "36500",
+        "netoArt19": "34500",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "id-duplicado",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          },
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Rendimiento duplicado"
+      },
+      "pass": true
+    },
+    {
+      "id": "vacio",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "generalesAplicados": "0",
+        "netoArt19": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "0",
+        "gastosAE": "0",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "0",
+        "netoPrevioArt20": "0",
+        "netoArt19": "0",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "adaptador-argumentos",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "expected": {
+        "rendimientoAntesArt20": "16250",
+        "argumentoArt20": "18250"
+      },
+      "actual": {
+        "estado": "aporte-disponible",
+        "ejercicio": 2025,
+        "rendimientoAntesArt20": "16250",
+        "argumentoArt20": "18250",
+        "gastos": {
+          "estado": "calculado",
+          "discapacidadAplicada": "0",
+          "integro": "20000",
+          "gastosAE": "1750",
+          "generalesTeoricos": "2000",
+          "generalesAplicados": "2000",
+          "netoPrevioArt20": "18250",
+          "netoArt19": "16250",
+          "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+          "aceptacionFiscal": "pendiente"
+        },
+        "clases": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000"
+          }
+        ],
+        "pendientes": [
+          "otras rentas fiscales art20",
+          "reducción art20",
+          "integración de bases",
+          "cuotas y art80",
+          "deducción anual",
+          "pagos a cuenta"
+        ],
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-2012",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2012,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "deduccionLegal": "300",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "55.1"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "300",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "55.1",
+        "cuotaPosterior": "444.9",
+        "fuente": "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-2013",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "deduccionLegal": "300",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "55.1"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "300",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "55.1",
+        "cuotaPosterior": "444.9",
+        "fuente": "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-2014",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2014,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "deduccionLegal": "300",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "55.1"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "300",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "55.1",
+        "cuotaPosterior": "444.9",
+        "fuente": "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-BI--100",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "-100",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "deduccionLegal": "400"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "400",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "55.1",
+        "cuotaPosterior": "444.9",
+        "fuente": "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-BI-8000.01",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "8000.01",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "deduccionLegal": "399.999"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "399.999",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "55.1",
+        "cuotaPosterior": "444.9",
+        "fuente": "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-BI-12000",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "12000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "deduccionLegal": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "0",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "0",
+        "cuotaPosterior": "500",
+        "fuente": "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-cuota",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "25",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "importeAplicable": "25",
+        "cuotaPosterior": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "300",
+        "limiteAtribuible": "55.1",
+        "importeAplicable": "25",
+        "cuotaPosterior": "0",
+        "fuente": "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-sin-rendimiento",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "0",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "importeAplicable": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "300",
+        "limiteAtribuible": "0",
+        "importeAplicable": "0",
+        "cuotaPosterior": "500",
+        "fuente": "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-rechazo-45",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2015,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Entrada de deducción inválida o etapa incorrecta"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-rechazo-46",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "100.01",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Tipos medios fuera de rango"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-rechazo-47",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.355",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Entrada de deducción inválida o etapa incorrecta"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-rechazo-48",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "brutos",
+        "ejercicio": 2013,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "despues-art80-sin-deduccion-trabajo"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Entrada de deducción inválida o etapa incorrecta"
+      },
+      "pass": true
+    },
+    {
+      "id": "80bis-rechazo-49",
+      "input": {
+        "regla": "art80bis",
+        "ambito": "comun-individual",
+        "computo": "netos-tras-art20-art32-sin-exterior-no-gravado",
+        "ejercicio": 2013,
+        "baseImponible": "9000",
+        "tipoMedioEstatalPorcentaje": "2.35",
+        "tipoMedioAutonomicoPorcentaje": "3.16",
+        "rendimientoComputableTrabajoActividad": "1000",
+        "cuotaTrasArt80": "500",
+        "etapa": "antes-art80"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Entrada de deducción inválida o etapa incorrecta"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-otras--500",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "-500",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "deduccionLegal": "340"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "340",
+        "limiteAtribuible": "300",
+        "importeAplicable": "300",
+        "cuotaPosterior": "100",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-otras-6500",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "6500",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "deduccionLegal": "340"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "340",
+        "limiteAtribuible": "300",
+        "importeAplicable": "300",
+        "cuotaPosterior": "100",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-otras-6500.01",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "6500.01",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "deduccionLegal": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "0",
+        "limiteAtribuible": "300",
+        "importeAplicable": "0",
+        "cuotaPosterior": "400",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-bruto-16575.99",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16575.99",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "deduccionLegal": "340"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "340",
+        "limiteAtribuible": "300",
+        "importeAplicable": "300",
+        "cuotaPosterior": "100",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-bruto-16576",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "deduccionLegal": "340"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "340",
+        "limiteAtribuible": "300",
+        "importeAplicable": "300",
+        "cuotaPosterior": "100",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-bruto-16576.01",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576.01",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "deduccionLegal": "339.998"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "339.998",
+        "limiteAtribuible": "300",
+        "importeAplicable": "300",
+        "cuotaPosterior": "100",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-bruto-18275.99",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "18275.99",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "deduccionLegal": "0.002"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "0.002",
+        "limiteAtribuible": "300",
+        "importeAplicable": "0.002",
+        "cuotaPosterior": "399.998",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-bruto-18276",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "18276",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "deduccionLegal": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "0",
+        "limiteAtribuible": "300",
+        "importeAplicable": "0",
+        "cuotaPosterior": "400",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-proporcion",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "limiteAtribuible": "300",
+        "importeAplicable": "300",
+        "cuotaPosterior": "100"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "340",
+        "limiteAtribuible": "300",
+        "importeAplicable": "300",
+        "cuotaPosterior": "100",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-art80",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "40",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "limiteAtribuible": "300",
+        "importeAplicable": "40",
+        "cuotaPosterior": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "340",
+        "limiteAtribuible": "300",
+        "importeAplicable": "40",
+        "cuotaPosterior": "0",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-rechazo-60",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "pendiente"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Servicios efectivos sin calificación acreditada"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-rechazo-61",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2026,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "DA61 2026: vigencia y alcance pendientes de cierre en esta implementación"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-rechazo-62",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "10001",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Proporción con pérdidas/compensaciones no cerrada"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-rechazo-63",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "501",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Cuota posterior al art80 superior a cuota líquida"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-rechazo-64",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "antes-art80",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "estado": "no-soportado"
+      },
+      "actual": {
+        "estado": "no-soportado",
+        "motivo": "Entrada de deducción inválida o etapa incorrecta"
+      },
+      "pass": true
+    },
+    {
+      "id": "DA61-sin-servicios",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "0",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "0",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "expected": {
+        "importeAplicable": "0"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "0",
+        "limiteAtribuible": "0",
+        "importeAplicable": "0",
+        "cuotaPosterior": "400",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "pass": true
+    }
+  ],
+  "observations": [
+    {
+      "id": "duplicacion-material-no-detectable",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "A",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          },
+          {
+            "id": "B",
+            "clase": "empleo-laboral",
+            "integro": "20000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "100",
+              "colegiosHuerfanos": "50"
+            },
+            "sindicato": {
+              "importe": "600",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      },
+      "actual": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "40000",
+        "gastosAE": "3500",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "36500",
+        "netoArt19": "34500",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "nota": "Si ambos sindicatos de 600 representan el mismo pago, el gasto debido es 2900, no 3500. La API presupone importes disjuntos; no acredita identidad de operaciones."
+    },
+    {
+      "id": "atribucion-externa",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16576",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "5000",
+        "baseLiquidableGeneral": "10000",
+        "cuotaIntegraGeneral": "600",
+        "cuotaLiquidaTotal": "500",
+        "cuotaTrasArt80": "400",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "actual": {
+        "estado": "calculado",
+        "deduccionLegal": "340",
+        "limiteAtribuible": "300",
+        "importeAplicable": "300",
+        "cuotaPosterior": "100",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      },
+      "nota": "La API no reconstruye clasificación ni otras rentas; calificacion es un hecho externo."
+    }
+  ]
+}

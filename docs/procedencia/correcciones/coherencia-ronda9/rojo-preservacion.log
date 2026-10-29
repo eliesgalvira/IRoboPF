@@ -1,0 +1,82 @@
+.......FFFFFEFF..
+======================================================================
+ERROR: test_pre02_values_routes_and_ports (__main__.PreservationTests.test_pre02_values_routes_and_ports) (url='https://www.boe.es:wrong/buscar/act.php?id=BOE-A-2006-20764')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 116, in test_pre02_values_routes_and_ports
+    self.assertIsNone(p.public_url(url))
+                      ~~~~~~~~~~~~^^^^^
+  File "/home/elies/Repos/IRoboPF/tools/procedencia/preservacion.py", line 68, in public_url
+    or u.password or u.fragment or u.port not in (None, 443)):
+                                   ^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/urllib/parse.py", line 182, in port
+    raise ValueError(f"Port could not be cast to integer value as {port!r}")
+ValueError: Port could not be cast to integer value as 'wrong'
+
+======================================================================
+FAIL: test_pre01_duplicate_keys (__main__.PreservationTests.test_pre01_duplicate_keys)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 107, in test_pre01_duplicate_keys
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_pre01_private_field_rejected_before_creation (__main__.PreservationTests.test_pre01_private_field_rejected_before_creation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 100, in test_pre01_private_field_rejected_before_creation
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_pre02_values_routes_and_ports (__main__.PreservationTests.test_pre02_values_routes_and_ports) (url='https://www.boe.es/buscar/act.php?id=PRIVATE_SENTINEL')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 116, in test_pre02_values_routes_and_ports
+    self.assertIsNone(p.public_url(url))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: 'https://www.boe.es/buscar/act.php?id=PRIVATE_SENTINEL' is not None
+
+======================================================================
+FAIL: test_pre02_values_routes_and_ports (__main__.PreservationTests.test_pre02_values_routes_and_ports) (url='https://www.boe.es/buscar/act.php?txt=PRIVATE_SENTINEL')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 116, in test_pre02_values_routes_and_ports
+    self.assertIsNone(p.public_url(url))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: 'https://www.boe.es/buscar/act.php?txt=PRIVATE_SENTINEL' is not None
+
+======================================================================
+FAIL: test_pre02_values_routes_and_ports (__main__.PreservationTests.test_pre02_values_routes_and_ports) (url='https://www.boe.es/PRIVATE_SENTINEL')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 116, in test_pre02_values_routes_and_ports
+    self.assertIsNone(p.public_url(url))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: 'https://www.boe.es/PRIVATE_SENTINEL' is not None
+
+======================================================================
+FAIL: test_pre03_entry_and_destination_ancestors (__main__.PreservationTests.test_pre03_entry_and_destination_ancestors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 120, in test_pre03_entry_and_destination_ancestors
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_pre04_syncs_tree_before_marker (__main__.PreservationTests.test_pre04_syncs_tree_before_marker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 135, in test_pre04_syncs_tree_before_marker
+    self.assertIn(str(self.root / 'durable/sha256'), synced)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '/tmp/nix-shell.N4LshJ/tmponjl0j08/durable/sha256' not found in ['/tmp/nix-shell.N4LshJ/tmponjl0j08/durable/sha256/bfe493683b29ddd275bed83fff21e90ea5b75ef7a9d9cda3c2d8941188628c87', '/tmp/nix-shell.N4LshJ/tmponjl0j08/durable/tmpu2yj2kyw', '/tmp/nix-shell.N4LshJ/tmponjl0j08/durable']
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.072s
+
+FAILED (failures=7, errors=1)

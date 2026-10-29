@@ -1,0 +1,42 @@
+import {readFileSync as read,writeFileSync as write,mkdirSync as mkdir,readdirSync,symlinkSync,cpSync,existsSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {gzipSync} from 'node:zlib';
+import assert from 'node:assert/strict';
+import {hash,bytesEntidad,verificarGrafo} from '../../lib/procedencia/verificador.ts';
+import {leerSnapshot,leerPaquete,directorioContenido} from '../../lib/procedencia/almacen.ts';
+import {verificar} from '../../scripts/procedencia/contenido-verificar.mjs';
+import {verificarRastroGenerado} from '../../scripts/procedencia/rastro-verificar.mjs';
+import {FUENTES_EXPLICACION} from '../../scripts/procedencia/explicacion-version.mjs';
+import {baseFicha} from '../../scripts/procedencia/contenido-generar.mjs';
+const scratch=resolve('.cache/revision-contenido-modo-v2');
+const log=(x)=>console.log(JSON.stringify(x));
+const reject=(name,f)=>{let error;try{f()}catch(e){error=e.message}assert.ok(error,name);log({name,rejected:error})};
+const id=JSON.parse(read('lib/procedencia/rastro-generado.json')).actual.versiones.snapshot;
+if(process.argv[2]==='history'){const s=leerSnapshot(process.argv[3]);log({snapshot:process.argv[3],datos:s.versiones.datos,...verificar(process.argv[3])});process.exit(0)}
+const raiz=resolve(scratch,'cas');mkdir(resolve(raiz,'objetos'),{recursive:true});
+for(const h of readdirSync(resolve(directorioContenido,'objetos')))if(!existsSync(resolve(raiz,'objetos',h)))symlinkSync(resolve(directorioContenido,'objetos',h),resolve(raiz,'objetos',h));
+const put=b=>{const h=hash(b),p=resolve(raiz,'objetos',h);if(!existsSync(p))write(p,b,{flag:'wx'});return h};
+const s=leerSnapshot(id);write(resolve(raiz,'snapshots.json'),JSON.stringify([id]));log({control:verificar(id,raiz)});
+const p=s.paquetes.find(p=>leerPaquete(s,p.prefijo).some(e=>e.entidad.identidad==='ocurrencia'&&e.entidad.valorObservado!==null));
+const group=leerPaquete(s,p.prefijo),at=group.findIndex(e=>e.entidad.identidad==='ocurrencia'&&e.entidad.valorObservado!==null);
+for(const field of ['archivo','localizador','titulo','tipo','claseInventario','identidad']){
+ const g=structuredClone(group),e=g[at].entidad,original=e.valorObservado;
+ if(field==='archivo')e.fuentes[0].archivo='docs/inexistente.md';else if(field==='localizador')e.fuentes[0].localizador='Artículo inventado';else if(field==='tipo')e.tipo=e.tipo==='Step'?'Parameter':'Step';else if(field==='identidad')e.identidad='concepto';else e[field]='Otra identidad';
+ assert.equal(e.valorObservado,original);g[at].revision=hash(bytesEntidad(e));
+ const zip=gzipSync(Buffer.from(JSON.stringify(g))),idx=put(Buffer.from(JSON.stringify(g.map(e=>({id:e.entidad.id,revision:e.revision})))));
+ const mut=structuredClone(s);Object.assign(mut.paquetes.find(q=>q.prefijo===p.prefijo),{hash:put(zip),indice:idx,bytes:zip.length});
+ const next=put(Buffer.from(JSON.stringify(mut)));write(resolve(raiz,'snapshots.json'),JSON.stringify([id,next]));reject('CI-02 '+field,()=>verificar(next,raiz));
+}
+const root=resolve(scratch,'inputs');mkdir(root,{recursive:true});for(const folder of ['lib','scripts'])cpSync(folder,resolve(root,folder),{recursive:true});mkdir(resolve(root,'docs/procedencia'),{recursive:true});cpSync('docs/procedencia/inventario.json',resolve(root,'docs/procedencia/inventario.json'));
+log({rastro:verificarRastroGenerado(root)});
+for(const file of ['scripts/procedencia/contenido-generar.mjs',...FUENTES_EXPLICACION]){const path=resolve(root,file),b=read(path);write(path,Buffer.concat([b,Buffer.from('\n// revisión independiente\n')]));reject('RV3 '+file,()=>verificarRastroGenerado(root));write(path,b)}
+const pack=e=>({entidad:e,revision:hash(bytesEntidad(e))}),ref=x=>({id:x.entidad.id,revision:x.revision});
+const original=hash('original'),imagen=hash('imagen'),receta=hash('receta');
+const doc=pack({...baseFicha('doc','Documento','concepto'),tipo:'Document',original,mime:'text/plain',url:'https://www.boe.es/ejemplo.txt'});
+const cita=pack({...baseFicha('cita','Cita','concepto'),tipo:'Citation',selector:{tipo:'texto',encoding:'UTF-8',inicioByte:0,finByte:1,texto:'1'},aristas:[{relacion:'documento',destino:ref(doc)}]});
+const fac=pack({...baseFicha('fac','Captura','concepto'),tipo:'Facsimile',imagen,receta,transcripcion:'1',aristas:[{relacion:'evidencia',destino:ref(cita)}]});
+const all=[doc,cita,fac],blobs=[original,imagen,receta];log({grafo:verificarGrafo(all,new Set(blobs))});
+for(const h of blobs)reject('CI-01 blob '+h,()=>verificarGrafo(all,new Set(blobs.filter(x=>x!==h))));
+reject('CI-01 cita ausente',()=>verificarGrafo([doc,fac],new Set(blobs)));
+reject('CI-01 destino incorrecto',()=>verificarGrafo([doc,cita,pack({...fac.entidad,aristas:[{relacion:'evidencia',destino:ref(doc)}]})],new Set(blobs)));
+for(const title of ['Cookie: sintetica','Authorization: sintetica','Set-Cookie: sintetica','/home/sintetico'])reject('privacidad '+title.split(':')[0],()=>bytesEntidad({...doc.entidad,titulo:title}));
