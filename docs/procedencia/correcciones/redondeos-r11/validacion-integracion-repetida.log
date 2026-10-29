@@ -1,0 +1,120 @@
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/caso-fiscal-anual.ts(1,33): error TS2307: Cannot find module '../normativa/anio-fiscal' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/caso-fiscal-anual.ts(2,43): error TS2307: Cannot find module './retenciones/retencion-trabajo-aeat' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1,35): error TS2307: Cannot find module '../../explicacion/linea-calculo' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(2,42): error TS2307: Cannot find module '../../../procedencia/rastro-anual' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(10,36): error TS2307: Cannot find module '../../explicacion/rastro-calculo' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(16,8): error TS2307: Cannot find module '../../dinero/importe-monetario' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(21,8): error TS2307: Cannot find module '../../laboral/cotizaciones-sociales' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(22,60): error TS2307: Cannot find module '../../laboral/cotizaciones-perfil-uniforme' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(23,54): error TS2307: Cannot find module '../../normativa/datos/minimos-autonomicos-2025' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(24,40): error TS2307: Cannot find module '../../normativa/datos/minimos-autonomicos-2014' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(25,40): error TS2307: Cannot find module '../../normativa/datos/minimos-autonomicos-2013' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(26,40): error TS2307: Cannot find module '../../normativa/datos/minimos-autonomicos-2012' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(31,8): error TS2307: Cannot find module '../comunidades/comunidad-autonoma' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(36,8): error TS2307: Cannot find module '../cuotas/escalas-publicadas' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(37,50): error TS2307: Cannot find module '../cuotas/cuota-diferencial' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(42,8): error TS2307: Cannot find module '../cuotas/cuota-integra-ahorro' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(48,8): error TS2307: Cannot find module '../cuotas/escalas-gravamen' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(49,45): error TS2307: Cannot find module '../integracion/base-imponible-ahorro' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(50,46): error TS2307: Cannot find module '../integracion/base-imponible-general' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(51,43): error TS2307: Cannot find module '../minimos/minimo-ascendientes' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(52,44): error TS2307: Cannot find module '../minimos/minimo-contribuyente' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(53,44): error TS2307: Cannot find module '../minimos/minimo-descendientes' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(58,8): error TS2307: Cannot find module '../minimos/minimo-discapacidad' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(62,8): error TS2307: Cannot find module '../rendimientos/rendimientos-capital-inmobiliario' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(66,8): error TS2307: Cannot find module '../rendimientos/rendimientos-trabajo' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(67,62): error TS2307: Cannot find module '../rendimientos/ganancias-perdidas-patrimoniales' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(68,56): error TS2307: Cannot find module '../reducciones/reduccion-rendimientos-trabajo' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(72,8): error TS2307: Cannot find module './conciliacion-simulador-legacy' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(78,8): error TS2307: Cannot find module '../retenciones/retencion-trabajo-aeat' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(83,8): error TS2307: Cannot find module '../../../observabilidad/auditoria-rendimiento' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(181,9): error TS28: This has unknown in the requirements channel and unknown in the error channel which is not recommended.
+Only service identifiers should appear in the requirements channel.
+Having an unknown or any error type is not useful. Consider instead using specific error types baked by Data.TaggedError for example.    effect(anyUnknownInErrorContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(190,9): error TS28: This has unknown in the requirements channel and unknown in the error channel which is not recommended.
+Only service identifiers should appear in the requirements channel.
+Having an unknown or any error type is not useful. Consider instead using specific error types baked by Data.TaggedError for example.    effect(anyUnknownInErrorContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(204,3): error TS25: This key does not match the deterministic key for this declaration. The expected key is `irobopf/docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual/LiquidacionIrpfAnual`.    effect(deterministicKeys)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(206,19): error TS28: This has any in the requirements channel and any in the error channel which is not recommended.
+Only service identifiers should appear in the requirements channel.
+Having an unknown or any error type is not useful. Consider instead using specific error types baked by Data.TaggedError for example.    effect(anyUnknownInErrorContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(208,5): error TS28: This has unknown in the requirements channel and unknown in the error channel which is not recommended.
+Only service identifiers should appear in the requirements channel.
+Having an unknown or any error type is not useful. Consider instead using specific error types baked by Data.TaggedError for example.    effect(anyUnknownInErrorContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(208,5): error TS2379: Argument of type 'Effect<{ liquidar: (caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf) => Effect<{ rastro: any; _tag: "LiquidacionIrpfAnualCalculada"; perfil: "renta-individual-general"; ... 27 more ...; conciliacionSimuladorLegacy: any; }, unknown, unknown>; }, unknown, unknown>' is not assignable to parameter of type 'Effect<{ readonly liquidar: (caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf) => Effect<LiquidacionIrpfAnualCalculada, any, never>; }, unknown, unknown>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ liquidar: (caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf) => Effect.Effect<{ rastro: any; _tag: "LiquidacionIrpfAnualCalculada"; perfil: "renta-individual-general"; ... 27 more ...; conciliacionSimuladorLegacy: any; }, unknown, unknown>; }' is not assignable to type '{ readonly liquidar: (caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf) => Effect<LiquidacionIrpfAnualCalculada, any, never>; }'.
+    The types returned by 'liquidar(...)' are incompatible between these types.
+      Type 'Effect<{ rastro: any; _tag: "LiquidacionIrpfAnualCalculada"; perfil: "renta-individual-general"; anio: AnioFiscal; rendimientoIntegroTrabajoCentimos: any; rendimientoNetoTrabajoCentimos: any; rendimientoNetoCapitalInmobiliarioCentimos: any; ... 23 more ...; conciliacionSimuladorLegacy: any; }, unknown, unknown>' is not assignable to type 'Effect<LiquidacionIrpfAnualCalculada, any, never>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+        Type 'unknown' is not assignable to type 'never'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(235,17): error TS28: This has any in the error channel which is not recommended.
+Having an unknown or any error type is not useful. Consider instead using specific error types baked by Data.TaggedError for example.    effect(anyUnknownInErrorContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(243,3): error TS28: This has any in the error channel which is not recommended.
+Having an unknown or any error type is not useful. Consider instead using specific error types baked by Data.TaggedError for example.    effect(anyUnknownInErrorContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(243,3): error TS1: This Effect requires a service that is missing from the expected Effect context: `any`.    effect(missingEffectContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(243,3): error TS2375: Type 'Effect<LiquidacionIrpfAnualCalculada, any, any>' is not assignable to type 'Effect<LiquidacionIrpfAnualCalculada, any, never>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'any' is not assignable to type 'never'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(244,41): error TS28: This has any in the requirements channel and any in the error channel which is not recommended.
+Only service identifiers should appear in the requirements channel.
+Having an unknown or any error type is not useful. Consider instead using specific error types baked by Data.TaggedError for example.    effect(anyUnknownInErrorContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(370,7): error TS2322: Type '(parametrosComunidad: any) => Effect<never, { _tag: "ResultadoNoSoportado"; motivo: any; fuenteReconocida: any; rastro: RastroCalculo; }, never>' is not assignable to type 'never'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(385,7): error TS2322: Type '(parametrosComunidad: any) => Effect<any, never, never>' is not assignable to type 'never'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(405,6): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1029,24): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1126,56): error TS7006: Parameter 'tramo' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1126,63): error TS7006: Parameter 'indice' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1138,59): error TS7006: Parameter 'tramo' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1138,66): error TS7006: Parameter 'indice' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1174,56): error TS7006: Parameter 'tramo' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1174,63): error TS7006: Parameter 'indice' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1186,59): error TS7006: Parameter 'tramo' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1186,66): error TS7006: Parameter 'indice' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1218,48): error TS7006: Parameter 'tramo' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1218,55): error TS7006: Parameter 'indice' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1365,7): error TS28: This has unknown in the requirements channel and unknown in the error channel which is not recommended.
+Only service identifiers should appear in the requirements channel.
+Having an unknown or any error type is not useful. Consider instead using specific error types baked by Data.TaggedError for example.    effect(anyUnknownInErrorContext)
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1377,67): error TS18046: 'deduccionCatalogada' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1394,38): error TS18046: 'deduccionCatalogada' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1394,79): error TS18046: 'deduccionCatalogada' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion-contrato.ts(3,35): error TS2307: Cannot find module '../actividades-economicas/contrato' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(4,37): error TS2307: Cannot find module './adaptador' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(5,41): error TS2307: Cannot find module '../actividades-economicas/adaptador' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(6,42): error TS2307: Cannot find module './calcular' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(7,56): error TS2307: Cannot find module '../reducciones/reduccion-rendimientos-trabajo' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(8,52): error TS2307: Cannot find module '../comunidades/comunidad-autonoma' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(9,50): error TS2307: Cannot find module '../cuotas/escalas-publicadas' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(10,40): error TS2307: Cannot find module '../../normativa/datos/minimos-autonomicos-2025' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(11,40): error TS2307: Cannot find module '../cuotas/escalas-gravamen' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(12,35): error TS2307: Cannot find module '../../explicacion/linea-calculo' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(13,36): error TS2307: Cannot find module '../../explicacion/rastro-calculo' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(29,46): error TS2345: Argument of type 'Union<readonly [Struct<{ readonly perfil: Literal<"solo-trabajo">; readonly trabajo: Struct<{ readonly ejercicio: Number; readonly territorio: Literals<readonly ["comun", "foral"]>; readonly rendimientos: $Array<...>; readonly reduccionesArt18: Literals<...>; readonly movilidad: Literals<...>; readonly discapacidadA...' is not assignable to parameter of type 'Decoder<unknown, never>'.
+  Types of property '"DecodingServices"' are incompatible.
+    Type 'any' is not assignable to type 'never'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(46,7): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(48,7): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(49,7): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(56,28): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(56,59): error TS7006: Parameter 'r' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(61,34): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(67,41): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(82,15): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(82,37): error TS7006: Parameter 'r' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(83,7): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(86,19): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(86,44): error TS7006: Parameter 'a' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(86,47): error TS7006: Parameter 'r' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(90,60): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(146,7): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(147,7): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(154,47): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(157,41): error TS7006: Parameter 'm' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(174,44): error TS7006: Parameter 'e' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(174,47): error TS7006: Parameter 'instancia' implicitly has an 'any' type.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/lib/dominio/irpf/trabajo-anual/conexion.ts(343,13): error TS18046: 'caso' is of type 'unknown'.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/tests/conexion-anual.test.ts(4,42): error TS2307: Cannot find module '../lib/dominio/irpf/trabajo-anual/calcular' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/tests/conexion-anual.test.ts(132,40): error TS2307: Cannot find module '../lib/dominio/irpf/actividades-economicas/contrato' or its corresponding type declarations.
+docs/procedencia/revisiones/conexion-anual-v1/lint-input/tests/conexion-anual.test.ts(411,3): error TS2578: Unused '@ts-expect-error' directive.

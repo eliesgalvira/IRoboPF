@@ -8,6 +8,7 @@ import { Result, Schema } from "effect"
 import { spawn } from "node:child_process"
 
 import fixtureCanonico from "./fixtures/canonical-tabular-hashes.json"
+import fixtureExcelIndependiente from "../docs/procedencia/revisiones/redondeos-legacy-v1/hashes-excel-independientes.json"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -16,8 +17,11 @@ import {
   FixtureCanonicoTabularSchema,
 } from "./helpers/canonical-tabular-hashes"
 
-const fixture = Schema.decodeUnknownSync(FixtureCanonicoTabularSchema)(
+const fixtureAnterior = Schema.decodeUnknownSync(FixtureCanonicoTabularSchema)(
   fixtureCanonico
+)
+const fixture = Schema.decodeUnknownSync(FixtureCanonicoTabularSchema)(
+  fixtureExcelIndependiente
 )
 const CONCURRENCIA_HASH_EFFECT = Number(
   process.env.IROBOPF_CONCURRENCIA_FIXTURE_CANONICO ?? 1
@@ -79,13 +83,16 @@ const hashearHojasEffect = async (hojas: ReadonlyArray<HashHojaCanonica>) => {
   return resultados.sort((a, b) => a.name.localeCompare(b.name))
 }
 
-describe("fixture canónico tabular", () => {
-  it("versiona hashes tabulares canónicos del contrato legacy", () => {
+describe("hashes del Excel extraídos independientemente", () => {
+  it("conserva separados el fixture TypeScript anterior y la evidencia XML", () => {
     expect(fixture.schemaVersion).toBe(1)
     expect(fixture.sheets).toHaveLength(18)
+    expect(fixtureAnterior.sheets).toHaveLength(18)
+    expect(fixture.sheets.filter((h) => h.name.startsWith("DAT_"))).toHaveLength(15)
+    expect(fixture.sheets).not.toEqual(fixtureAnterior.sheets)
   })
 
-  it("mantiene equivalencia tabular completa con las tablas Effect", async () => {
+  it("coteja las 18 hojas contra el XML original sin tolerancia de céntimo", async () => {
     const actual = {
       ...fixture,
       sheets: await hashearHojasEffect(fixture.sheets),

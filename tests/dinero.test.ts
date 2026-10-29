@@ -71,6 +71,11 @@ it("separa round binary de half-up monetario, también con signo", () => {
   }
 })
 
+it("convierte el entero redondeado una vez al regresar a binary64", () => {
+  expect(redondearPython(56294995342131.5, 3)).toBe(56294995342131.5)
+  expect(redondearPython(-56294995342131.5, 3)).toBe(-56294995342131.5)
+})
+
 it("declara el empate mensual de presentación legacy, sin atribuirle norma fiscal", () => {
   expect(mensualizarCentimosPresentacionLegacy(18)).toBe(2)
   expect(mensualizarCentimosPresentacionLegacy(-18)).toBe(-1)

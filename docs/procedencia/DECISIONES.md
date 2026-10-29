@@ -192,3 +192,15 @@ Se conecta trabajo o EDS al cálculo anual 2025 mediante una entrada optativa, i
 ## D039 — Identidad de ámbito y grafo
 
 El puente exige pertenencia a las dimensiones de la ocurrencia y el inventario distingue comparación nominal de intervalo. El grafo exige un solo ID y receta coherente entre cita y captura. Objeción: números iguales o nombres de hashes no prueban identidad ni preservación. Coste: bloquear ámbitos sin dimensiones explícitas y materializar el cierre antes de publicar. Las dimensiones técnicas tampoco acreditan vigencia; no se autoacepta el texto de un claim.
+
+## D040 — Hashes del original y conversiones binarias
+
+El contrato tabular se comprueba contra una extracción XML independiente del Excel y conserva el fixture TypeScript anterior como historia. Objeción: un expected generado por la propia implementación puede perpetuar sus errores. Coste: mantener dos procedencias explícitas y conservar rojo el contraste de inflación hasta resolver sus 69 diferencias. El helper convierte la magnitud decimal completa al final para evitar una segunda pérdida de precisión; hay rojo independiente previo y regresiones de ambos signos. Coincidir con Excel no acepta fiscalmente sus reglas.
+
+## D041 — Copias aisladas y configuración de lint
+
+Las copias temporales de ejecución de los revisores permanecen en disco, fuera de la entrega seleccionada por manifiesto y de las comprobaciones del producto. Oxlint no descubre configuraciones anidadas de esas copias; carga la configuración única con las 16 reglas a error. Objeción: analizar otra copia del mismo proyecto provoca plugins duplicados e imports parciales, mientras excluir toda la documentación ocultaría scripts reales. Coste: una lista explícita de subdirectorios temporales que debe mantenerse; pruebas y scripts entregados continúan analizándose. No se elimina deuda con excepciones por regla.
+
+## D042 — Correcciones públicas como afirmaciones contrastables
+
+Se conservan posts verificados, imágenes originales y transcripciones por corrección, separados del corpus oficial. Objeción: una anotación correcta puede mezclar tipos normativos, redondeo mensual e hipótesis familiares no declaradas. Coste: distinguir la discrepancia histórica ya corregida de los nueve casos todavía indeterminados y volver a revisar ambos grupos con primarios. No se fabrican hechos ni pruebas rojas; tampoco se trata la falta de datos como cierre del encargo. Solo se guardan handles públicos, contenido y metadatos de adquisición necesarios, sin perfiles adicionales.

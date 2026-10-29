@@ -1,0 +1,37 @@
+{
+  "base": "eaed990c620b5fc4d3ff2e74dc68e0c8481c43db",
+  "dictamen": "DAT conforme al Excel completo en el contrato canónico; no equivalencia global de todas las hojas",
+  "aceptacionFiscal": false,
+  "hallazgos": [
+    {
+      "id": "RLV1-01",
+      "severidad": "P2",
+      "estado": "confirmado, conocido por el padre",
+      "descripcion": "El fixture antiguo de hashes procede de TypeScript y difiere del original en 16 hojas; source induce a atribuirle procedencia Excel.",
+      "evidencia": ["hashes-excel-independientes.json", "resultados.json", "rojos.log"],
+      "decision": "Entregar extracción nueva sin modificar fixture; el padre decide separación de contratos.",
+      "objecion": "Regenerar expected desde el motor sería circular.",
+      "coste": "Conservar caracterización histórica y evidencia independiente como contratos distintos."
+    },
+    {
+      "id": "RLV1-02",
+      "severidad": "P2",
+      "estado": "confirmado en base; corrección asignada a otro checkout",
+      "descripcion": "COMPARATIVA_INFLACION difiere en 69 celdas, +1 céntimo en todas: K 15, L 53, J 1.",
+      "evidencia": ["resultados.json", "rojos.log"],
+      "decision": "Conservar baseline de las tres hojas no detalle.",
+      "objecion": "Un verde de DAT no acredita equivalencia de inflación.",
+      "coste": "Cierre de la futura corrección requiere otra validación."
+    },
+    {
+      "id": "RLV1-03",
+      "severidad": "P3",
+      "estado": "confirmado fuera del rango salarial declarado; no bloquea DAT",
+      "descripcion": "redondearPython(56294995342131.5,3) devuelve 56294995342131.51; Python devuelve 56294995342131.5.",
+      "evidencia": ["boundaries-result.json", "rojo-fuera-rango.mjs", "rojo-fuera-rango.log"],
+      "decision": "Documentar límite sin fix; proponer contrato explícito o conversión final correctamente redondeada.",
+      "objecion": "Convertir BigInt a Number antes de dividir puede perder precisión, aunque la decisión de empate sea exacta.",
+      "coste": "Restringir entradas o asumir complejidad adicional para soporte general."
+    }
+  ]
+}
