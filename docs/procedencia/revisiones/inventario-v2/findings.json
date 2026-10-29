@@ -1,0 +1,83 @@
+{
+  "verdict": "changes-required",
+  "scope": "Inventario técnico versionado; ninguna aceptación fiscal",
+  "head": "12976509f7b78241e0da173e19557206f5d4330e",
+  "implementationBase": "4a41ce0c",
+  "previousBlockers": {
+    "INV-R01": "CLI corregida; API abierta por INV2-R01",
+    "INV-R02": "Corregido para ocurrencias versionadas; alias cambiado renueva ID",
+    "INV-R03": "Casos anteriores corregidos; omisión residual INV2-R03",
+    "INV-R04": "Corregido dentro de clasificación sintáctica declarada"
+  },
+  "findings": [
+    {
+      "id": "INV2-R01",
+      "severity": "P1",
+      "status": "confirmed",
+      "title": "La API reconstruye con imports cacheados y acepta valores anteriores junto a hashes actuales",
+      "locations": [
+        {"file": "scripts/procedencia/inventario.mjs", "line": 183},
+        {"file": "scripts/procedencia/inventario.mjs", "line": 268},
+        {"file": "scripts/procedencia/inventario-artefacto.mjs", "line": 89}
+      ],
+      "objection": "Reconstruir debe derivar valores del checkout actual. await import de la misma URL no reevalúa módulos ni sus dependencias dentro de un proceso existente.",
+      "reproduction": "Importar MINIMOS_ESTATALES_2024; cambiar el primer literal 5550 a 5551 en minimos-autonomicos-2025.ts sin cambiar contenedor 2024; generar en el proceso precargado; empaquetar esos archivos con todos sus hashes; buildArtifact(root, check, artifactRoot) en otro proceso que precargó igualmente la versión anterior. Comparar con CLI en proceso nuevo mientras la fuente modificada permanece en disco.",
+      "executedResult": "Mismos generationInputs: API cacheada produce 5550 y proceso nuevo 5551. API ACCEPTED con counts completos; CLI nueva exit 1, diferencia en inventario-indice-0000.json. El archivo contenedor del alias permanece idéntico.",
+      "evidence": ["evidencia/api-cache.json", "evidencia/api-python.log", "evidencia/alias.mjs", "evidencia/cache-api.mjs", "evidencia/api-accept.mjs"],
+      "recommendation": "Ejecutar la evaluación/reconstrucción de la API en un proceso nuevo, con raíz y entradas fijadas. No basta añadir query al módulo superior: deben invalidarse también las dependencias transitivas. Añadir prueba de API precargada y cambio de alias.",
+      "limits": "No se demuestra aceptación indebida por la CLI nueva ni alteración de datos actuales. Requiere módulos precargados antes del cambio, situación reproducida en consumidor API. No es un fallo de readArtifact, cuyo contrato es solo lectura íntegra."
+    },
+    {
+      "id": "INV2-R02",
+      "severity": "P2",
+      "status": "confirmed",
+      "title": "La exclusión de lib/procedencia se aplica al path absoluto y vacía el inventario según la ubicación del checkout",
+      "locations": [{"file": "scripts/procedencia/inventario.mjs", "line": 166}],
+      "objection": "El nombre de un directorio padre no debe cambiar el conjunto de fuentes lib inventariadas.",
+      "reproduction": "Ejecutar check/test:inventario desde una copia en .cache/procedencia/revision-inventario-v2/root, sin modificar fuentes ni artefacto.",
+      "executedResult": "13/14 tests; baseline falla en selectorSource.bindings porque no hay ninguna fuente seleccionada. Con la misma copia accesible por /proc/self/cwd, baseline coincide byte a byte y pasan 14/14.",
+      "evidence": ["evidencia/tests.log", "evidencia/baseline.log", "evidencia/final-tests.log", "evidencia/preload.mjs"],
+      "recommendation": "Filtrar rutas relativas a root y excluir específicamente lib/procedencia, con prueba en directorio padre llamado procedencia.",
+      "limits": "Falla cerrada, no acepta un inventario incorrecto. El checkout entregado normal no tiene ese segmento en su ruta."
+    },
+    {
+      "id": "INV2-R03",
+      "severity": "P2",
+      "status": "confirmed",
+      "title": "Un prototipo personalizado de profundidad uno pasa el recorrido y oculta su propiedad numérica heredada",
+      "locations": [{"file": "scripts/procedencia/inventario.mjs", "line": 68}, {"file": "scripts/procedencia/inventario.mjs", "line": 85}],
+      "objection": "El contrato promete rechazo de tipos ajenos con ruta. Comprobar que el padre del prototipo es null no distingue Object.prototype de un prototipo personalizado con valores.",
+      "reproduction": "const proto = Object.assign(Object.create(null), {amount:123}); const x = Object.create(proto); flatten(x). x.amount vale 123.",
+      "executedResult": "Devuelve [] sin error ni laguna. Date/Map/ciclos/toStringTag sí se rechazan; BigInt y aliases compartidos sí se conservan.",
+      "evidence": ["evidencia/review.mjs", "evidencia/mutations.json"],
+      "recommendation": "Definir y comprobar el contrato de objetos planos, incluyendo soporte explícito cross-realm si se necesita. Rechazar prototipos personalizados con ruta; no incorporar indiscriminadamente propiedades heredadas.",
+      "limits": "Fixture adversarial: no se encontró ese objeto en los datos actuales. NaN y Decimal(NaN) devuelven texto NaN y el filtro efectivo lo descarta por inspección; no se afirma NaN actual ni una reproducción de generación completa para ese caso adicional."
+    }
+  ],
+  "verification": {
+    "testsPassed": 14,
+    "testsDurationSeconds": 22.65,
+    "artifactMutationsRejectedByCLI": 9,
+    "changedInputsRejectedByCLI": ["source", "lock", "generator"],
+    "runtimeScenarios": 7,
+    "runtimeLeavesMatched": 313,
+    "independentASTNumericLiteralsMatched": 187,
+    "pythonOptimizedBaseline": "pass",
+    "pythonOptimizedTamperedValue": "rejected",
+    "oxlintRules": 16,
+    "oxlintFiles": 6,
+    "oxlintDiagnostics": 0,
+    "eslintExit": 0,
+    "baselineWallSeconds": 8.90,
+    "baselineMaxRSSKiB": 2321700,
+    "fiscalCertification": false
+  },
+  "limits": [
+    "Mismo extractor en reconstrucción: no demuestra exhaustividad ni corrección semántica",
+    "CI no invoca Python/schema; sí reconstrucción y pruebas",
+    "Smoke anti-slop en scratch excluido por herramientas: no acreditado; lint de fuentes con 16 reglas sí ejecutado",
+    "No build, suite legacy, typecheck, vigencia legal, apagado físico ni carrera de publicación",
+    "Datos originales intactos; cambios adversariales solo en copia scratch",
+    "El índice/hash cambiante no es identidad jurídica permanente y no se evalúa como tal"
+  ]
+}
