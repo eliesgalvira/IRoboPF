@@ -1,0 +1,16 @@
+{
+  "base": "6e210920a9063b7a7efd0730ae4ab1ac73a2141e",
+  "dictamen": "aprobable técnicamente con salvedad de reproducción literal del paquete",
+  "bloqueosProductoDemostrados": [],
+  "decisiones": [
+    {"id":"PE-01","estado":"corregido","evidencia":"resultados.json, build.log, compilado.json","objecion":"El helper y el disco no prueban bytes comprometidos ni GET compilado","coste":"cat-file, un build y ejecución aislada","alcance":"ruta de objetos de la base"},
+    {"id":"PE-02","estado":"corregido","evidencia":"compilado.json, contenido.log","objecion":"No heredar estados de Madrid a otra ficha","coste":"sujeto exacto, otra ficha, escape y 404/503","alcance":"GET de ficha, sin navegador"},
+    {"id":"PE-03","estado":"corregido","evidencia":"resultados.json, publicacion.log, puerta.json","objecion":"Cobertura no equivale a aceptación fiscal","coste":"verificación de recibos y publicación doble real","alcance":"estados por ocurrencia normativa y entidades documentales, no todas las ocurrencias técnicas"},
+    {"id":"CX-07-B","estado":"corregido en presentación","evidencia":"comparable.json, tests.log, base.json comprimido","objecion":"No cambiar oracle ni validar fiscalmente una cuota por conciliación","coste":"contrato comparable separado y ajustes de céntimos","alcance":"neto, coste, diferencias y cuña; consumidor inspeccionado por código"},
+    {"id":"PQV2-01","severidad":"salvedad operativa de entorno","estado":"reproducción literal no acreditada","evidencia":"compilado-primer-intento.log, retraza.json, compilado.json","objecion":"node_modules enlazado produce una entrada de directorio; copiar dependencias implícitamente falsearía la medición","coste":"retraza explícita y copia física de dependencias externas de Node","alcance":"4811 archivos, 267676833 bytes; GET aislados correctos, no certificación de 266814325 bytes ni hosting"}
+  ],
+  "atestacionCandidataEmitida": false,
+  "autenticidadHistorica": "indeterminada",
+  "interpretacion": "candidata",
+  "aceptacionFiscalCompleta": false
+}

@@ -1,0 +1,10 @@
+import { expect, it } from "vitest"
+import { obtenerMinimoDescendientes } from "../lib/dominio/irpf/minimos/minimo-descendientes"
+import { sinDiscapacidad } from "../lib/dominio/irpf/caso-fiscal-anual"
+it("CX-06-A: dos progenitores con derecho, hijos 8/5, individual", () => {
+  const minimo = obtenerMinimoDescendientes([
+    { edad: 8, discapacidad: sinDiscapacidad },
+    { edad: 5, discapacidad: sinDiscapacidad },
+  ])
+  expect(minimo.toNumber()).toBe(2550)
+})

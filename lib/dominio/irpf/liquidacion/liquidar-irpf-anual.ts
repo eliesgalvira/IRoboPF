@@ -1,3 +1,7 @@
+import {
+  calcularDerechosMinimos,
+  validarDerechosMinimos,
+} from "../minimos/derechos"
 import { crearLineaCalculo } from "../../explicacion/linea-calculo"
 import { enlazarRastroAnualActual } from "../../../procedencia/rastro-anual"
 import Decimal from "decimal.js"
@@ -144,6 +148,18 @@ interface DependenciasLiquidacionIrpfAnual {
   readonly retencionTrabajoAeat: ServicioRetencionTrabajoAeat
 }
 
+const errorDerechosMinimos = ({
+  motivo,
+}: {
+  readonly motivo: string
+}): ResultadoNoSoportado => ({
+  _tag: "ResultadoNoSoportado",
+  motivo,
+  fuenteReconocida:
+    "docs/procedencia/implementaciones/minimos-derechos/INFORME.md",
+  rastro: { titulo: "Derechos a mínimos no soportados", pasos: [] },
+})
+
 const construirLiquidarIrpfAnual = (
   dependencias: DependenciasLiquidacionIrpfAnual
 ) =>
@@ -170,6 +186,35 @@ const construirLiquidarIrpfAnual = (
           "docs/procedencia/correcciones/coherencia-ronda9/INFORME.md",
         rastro: { titulo: "Coherencia del ejercicio", pasos: [] },
       } satisfies ResultadoNoSoportado)
+    }
+
+    if (caso.derechosMinimos !== undefined) {
+      const derechos = yield* validarDerechosMinimos(caso.derechosMinimos).pipe(
+        Effect.mapError(errorDerechosMinimos)
+      )
+      const familiar = caso.situacionFamiliar
+      if (
+        contexto.modo !== "canonico" ||
+        caso.anio !== derechos.ejercicio ||
+        caso.comunidadAutonoma !== derechos.territorio ||
+        caso.fechaFallecimiento !== undefined ||
+        familiar.tipo !== "individual" ||
+        familiar.edad !== derechos.edadContribuyenteDevengo ||
+        familiar.descendientes.length !== 0 ||
+        familiar.ascendientes.length !== 0 ||
+        familiar.discapacidad._tag !==
+          derechos.discapacidadContribuyente._tag ||
+        (familiar.discapacidad._tag === "Discapacidad33a64" &&
+          derechos.discapacidadContribuyente._tag === "Discapacidad33a64" &&
+          familiar.discapacidad.necesitaAyudaOMovilidadReducida !==
+            derechos.discapacidadContribuyente.necesitaAyudaOMovilidadReducida)
+      )
+        return yield* Effect.fail(
+          errorDerechosMinimos({
+            motivo:
+              "Derechos incompatibles con el modo, ámbito o datos familiares parciales del caso anual",
+          })
+        )
     }
 
     const inicioDeteccion = tiempoAuditoriaMs()
@@ -243,6 +288,20 @@ export const liquidarIrpfAnual = (
   liquidarIrpfAnualDesdeServicio(caso, contexto).pipe(
     Effect.provide(LiquidacionIrpfAnual.layer)
   )
+
+/** Ruta explícita: exige hechos, sin reconstruirlos a partir del perfil histórico. */
+export const liquidarIrpfAnualConDerechos = Effect.fn(
+  "Liquidacion.conDerechos"
+)(function* (
+  caso: CasoFiscalAnual & {
+    readonly derechosMinimos: NonNullable<CasoFiscalAnual["derechosMinimos"]>
+  }
+) {
+  yield* validarDerechosMinimos(caso.derechosMinimos).pipe(
+    Effect.mapError(errorDerechosMinimos)
+  )
+  return yield* liquidarIrpfAnual(caso, { modo: "canonico" })
+})
 
 const liquidarTrabajoIndividualSimple = Effect.fn(
   "LiquidacionIrpfAnual.liquidarTrabajoIndividualSimple"
@@ -453,43 +512,68 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     tiempoAuditoriaMs() - inicioCuotasIntegras
   )
   const inicioMinimos = tiempoAuditoriaMs()
-  const minimoContribuyente = obtenerMinimoContribuyente({
-    anio: caso.anio,
-    edad: caso.situacionFamiliar.edad,
-    minimos: minimosEstatales,
-  })
-  const minimoAscendientes = obtenerMinimoAscendientes(
-    caso.situacionFamiliar.ascendientes,
-    minimosEstatales
-  )
-  const minimoDescendientes = obtenerMinimoDescendientes(
-    caso.situacionFamiliar.descendientes,
-    minimosEstatales
-  )
+  const derechosEstatales =
+    caso.derechosMinimos === undefined
+      ? undefined
+      : yield* calcularDerechosMinimos(
+          caso.derechosMinimos,
+          minimosEstatales
+        ).pipe(Effect.mapError(errorDerechosMinimos))
+  const derechosAutonomicos =
+    caso.derechosMinimos === undefined
+      ? undefined
+      : yield* calcularDerechosMinimos(
+          caso.derechosMinimos,
+          parametrosComunidad.minimosAutonomicos
+        ).pipe(Effect.mapError(errorDerechosMinimos))
+  const minimoContribuyente =
+    derechosEstatales?.contribuyente ??
+    obtenerMinimoContribuyente({
+      anio: caso.anio,
+      edad: caso.situacionFamiliar.edad,
+      minimos: minimosEstatales,
+    })
+  const minimoAscendientes =
+    derechosEstatales?.ascendientes ??
+    obtenerMinimoAscendientes(
+      caso.situacionFamiliar.ascendientes,
+      minimosEstatales
+    )
+  const minimoDescendientes =
+    derechosEstatales?.descendientes ??
+    obtenerMinimoDescendientes(
+      caso.situacionFamiliar.descendientes,
+      minimosEstatales
+    )
   const minimoDiscapacidadContribuyente =
+    derechosEstatales?.discapacidadContribuyente ??
     obtenerMinimoDiscapacidadContribuyente(
       caso.situacionFamiliar,
       minimosEstatales
     )
-  const minimoDiscapacidadFamiliares = obtenerMinimoDiscapacidadFamiliares(
-    caso.situacionFamiliar.descendientes,
-    minimosEstatales
-  ).plus(
-    obtenerMinimoDiscapacidadAscendientes(
-      caso.situacionFamiliar.ascendientes,
+  const minimoDiscapacidadFamiliares =
+    derechosEstatales?.discapacidadFamiliares ??
+    obtenerMinimoDiscapacidadFamiliares(
+      caso.situacionFamiliar.descendientes,
       minimosEstatales
+    ).plus(
+      obtenerMinimoDiscapacidadAscendientes(
+        caso.situacionFamiliar.ascendientes,
+        minimosEstatales
+      )
     )
-  )
   const minimoPersonalYFamiliar = minimoContribuyente
     .plus(minimoDescendientes)
     .plus(minimoAscendientes)
     .plus(minimoDiscapacidadContribuyente)
     .plus(minimoDiscapacidadFamiliares)
-  const minimoPersonalYFamiliarAutonomico = calcularMinimoPersonalYFamiliar({
-    situacionFamiliar: caso.situacionFamiliar,
-    anio: caso.anio,
-    minimos: parametrosComunidad.minimosAutonomicos,
-  })
+  const minimoPersonalYFamiliarAutonomico =
+    derechosAutonomicos?.total ??
+    calcularMinimoPersonalYFamiliar({
+      situacionFamiliar: caso.situacionFamiliar,
+      anio: caso.anio,
+      minimos: parametrosComunidad.minimosAutonomicos,
+    })
   registrarTiempoAgregadoAuditoria(
     "liquidacion.minimosPersonalesFamiliares",
     tiempoAuditoriaMs() - inicioMinimos
@@ -1010,7 +1094,15 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               importe: minimoDescendientes,
               unidad: "EUR",
               etiqueta: "Mínimo por descendientes",
-              formula: `${caso.situacionFamiliar.descendientes.length} descendiente(s) declarados; se filtra edad y discapacidad antes de ordenar`,
+              formula:
+                derechosEstatales === undefined
+                  ? `${caso.situacionFamiliar.descendientes.length} descendiente(s); perfil parcial de edad/discapacidad sin acreditar derecho ni reparto`
+                  : derechosEstatales.atribuciones
+                      .map(
+                        (a) =>
+                          `orden ${a.orden}, divisor ${a.divisor}, incremento ${a.incremento ? "sí" : "no"}`
+                      )
+                      .join("; "),
             }),
             crearLineaCalculo({
               siteId: "anual.minimo.estatal",
