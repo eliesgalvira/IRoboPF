@@ -1,0 +1,83 @@
+bun test v1.3.13 (bf2e2cec)
+
+tests/software-recibo.test.mjs:
+(pass) un recibo histórico usa sus fuentes conservadas y no las del checkout [13.00ms]
+(pass) sustituir una fuente por otro objeto íntegro no conserva la versión [1.00ms]
+(pass) duplicados, fuentes ausentes y bytes corruptos se rechazan [1.00ms]
+(pass) la lista conservada se interpreta como datos y nunca ejecuta expresiones [4.00ms]
+(pass) el binding histórico no admite otras declaraciones, aliases o escrituras [4.00ms]
+
+docs/procedencia/revisiones/tecnica-r23-sol/adversos.test.mjs:
+(pass) binding adverso: export { otra as "FUENTES_EXPLICACION" }
+(pass) binding adverso: export { otra as "FUENTES_\u0045XPLICACION" } from "otro" [1.00ms]
+(pass) binding adverso: export * as FUENTES_EXPLICACION from "otro"
+(pass) binding adverso: let FUENTES_EXPLICACION
+(pass) binding adverso: function FUENTES_EXPLICACION() {} [1.00ms]
+(pass) binding adverso: class FUENTES_EXPLICACION {}
+(pass) binding adverso: import { FUENTES_EXPLICACION } from "otro"
+(pass) binding adverso: const { x: FUENTES_EXPLICACION } = otro [1.00ms]
+(pass) binding adverso: const [FUENTES_EXPLICACION] = otro
+(pass) binding adverso: const alias = FUENTES_EXPLICACION
+(pass) binding adverso: FUENTES_EXPLICACION = []
+AssertionError: Missing expected exception.
+ generatedMessage: false,
+     actual: undefined,
+   expected: undefined,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at fn (node:test:210:18)
+(fail) binding adverso: FUENTES_EXPLICACION?.map(x => x) [1.00ms]
+(pass) binding adverso: FUENTES_EXPLICACION["map"](x => x) [1.00ms]
+(pass) binding adverso: export { FUENTES_EXPLICACION as otra }
+(pass) ruta exacta rechazada "lib/ñ.ts"
+(pass) ruta exacta rechazada "lib/x.ts\n"
+(pass) ruta exacta rechazada "lib/x.ts\r" [1.00ms]
+(pass) ruta exacta rechazada "lib/x.ts "
+(pass) ruta exacta rechazada "lib/x.ts "
+(pass) ruta exacta rechazada "lib/x.ts\u0000"
+(pass) ruta exacta rechazada "lib/ｘ.ts"
+(pass) ruta exacta rechazada "lib/x.ts "
+(pass) ruta exacta rechazada "lib/x.ts\t" [1.00ms]
+(pass) ruta exacta rechazada "lib/../x.ts"
+(pass) ruta exacta rechazada "//x.ts"
+(pass) ruta exacta rechazada "lib\\x.ts"
+(pass) escape JS que representa el mismo identificador y ruta ASCII
+(pass) map con callback opaco no es prueba de ejecución; sigue siendo dato [1.00ms]
+(pass) throw y bucle infinito no se ejecutan
+
+docs/procedencia/revisiones/tecnica-r23-sol/ast.test.mjs:
+(pass) comentario [1.00ms]
+(pass) no exportado
+(pass) export alias
+(pass) declaraciones duplicadas [1.00ms]
+(pass) spread
+(pass) expresión
+(pass) plantilla
+(pass) hueco
+(pass) sintaxis rota [1.00ms]
+(pass) ruta /abs
+(pass) ruta ../x
+(pass) ruta a/../b
+(pass) ruta a/./b
+(pass) ruta a//b [1.00ms]
+(pass) ruta a/
+(pass) ruta C:/a
+(pass) ruta a\b
+(pass) ruta a?b
+(pass) ruta a#b
+(pass) ruta a%2fb
+(pass) ruta 
+(pass) ruta duplicada [1.00ms]
+(pass) helper ausente
+(pass) bytes históricos son datos, no se ejecuta ni un throw
+(pass) orden, generador, versión y pérdida de fuente no son intercambiables [1.00ms]
+(pass) CR21-A: exportación duplicada del mismo nombre debe rechazarse
+(pass) CR21-B: una redeclaración local del binding debe rechazarse
+
+1 tests failed:
+(fail) binding adverso: FUENTES_EXPLICACION?.map(x => x) [1.00ms]
+
+ 60 pass
+ 1 fail
+Ran 61 tests across 3 files. [367.00ms]

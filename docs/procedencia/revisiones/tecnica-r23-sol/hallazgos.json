@@ -1,0 +1,12 @@
+{
+  "base": "07c07e6376a72f229be735a904ecf36517a1b571",
+  "status": "candidato-pendiente-de-contraste",
+  "productFixes": [],
+  "findings": [
+    {"id":"CR21-A","verdict":"corregido-en-caso-acotado","historicalSource":"341e88f3:scripts/procedencia/explicacion-version.mjs","historicalResult":"Missing expected exception","currentResult":"rechazo de exportación duplicada","objection":"No prueba publicación indebida real","response":"Dictamen exclusivo del lector de fuentes como datos","cost":"No extender a ejecución o confianza"},
+    {"id":"CR21-B","verdict":"corregido-en-caso-acotado","historicalSource":"341e88f3:scripts/procedencia/explicacion-version.mjs","historicalResult":"Missing expected exception","currentResult":"rechazo de var y redeclaración","objection":"Fixture sintético no reproduce aplicación antigua completa","response":"Se conserva alcance de comprobación semántica del recibo","cost":"Historia y ejecución se evalúan separadamente"},
+    {"id":"TR23-H1","verdict":"hipotesis-de-bypass-descartada","severity":null,"case":"FUENTES_EXPLICACION?.map(x => x)","testExpectation":"throws","observed":"aceptado","expectationChanged":false,"objection":"La gramática dice lectura directa con map","response":"Mismo binding const y array literal; cadena opcional no altera identidad ni valor. No hay garantía de ejecución prometida","cost":"Conservar suite roja y someter clasificación a contraste"},
+    {"id":"TR23-ID","verdict":"derivacion-explicita-admisible-candidata","operationalApproval":false,"artifact":"registro-derivado-candidato.json","objection":"Normalización podría ocultar suplantación o autorrevisión","response":"Dos correspondencias exactas ancladas por hashes e IDs reales y autor distinto en ambas grafías; ningún alias de búsqueda","cost":"Revisión del padre y aprobación individual de pares exactos"},
+    {"id":"TR23-PUB","verdict":"no-promover-por-esta-revision","completeRuleAcceptance":false,"madridAttestationIssued":false,"objection":"Integridad, GET y pruebas verdes no acreditan regla fiscal","response":"Estados pendientes preservados; no nueva lectura jurídica/visual ni confianza mutada","cost":"Revisión e integración posteriores"}
+  ]
+}

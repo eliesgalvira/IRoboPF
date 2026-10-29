@@ -1,0 +1,648 @@
+[
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 9927,
+      "end": 10119,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n      \"AE25-04\",\n      a.id,\n      \"min(coste+puestaMarcha-residual-acumulada, (coste+puestaMarcha-residual)*coeficiente)\",\n      cuota,\n      [a.justificante, a.saldoDocumentado]\n    )"
+    },
+    "regla": "\"AE25-04\"",
+    "instance": "a.id",
+    "value": "cuota",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.asset.quota",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 8274,
+      "end": 8279,
+      "offsetEncoding": "utf16",
+      "text": "cuota",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "min(base−acumulada,base×coeficiente)",
+    "control": "for(caso.activos): submotor aislado, rechazado en conexión anual",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 10124,
+      "end": 10258,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n      \"AE25-04\",\n      `${a.id}:saldo`,\n      \"saldoAnterior-cuota\",\n      saldo.minus(cuota),\n      [a.saldoDocumentado]\n    )"
+    },
+    "regla": "\"AE25-04\"",
+    "instance": "`${a.id}:saldo`",
+    "value": "saldo.minus(cuota)",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.saldo",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 10206,
+      "end": 10224,
+      "offsetEncoding": "utf16",
+      "text": "saldo.minus(cuota)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "base−acumulada−cuota",
+    "control": "for(caso.activos): submotor aislado, rechazado en conexión anual",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12146,
+      "end": 12300,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n      \"AE25-02\",\n      `ingreso:${i.id}`,\n      \"base devengada, antes de retención y sin IVA recuperable\",\n      new D(i.base),\n      [i.id]\n    )"
+    },
+    "regla": "\"AE25-02\"",
+    "instance": "`ingreso:${i.id}`",
+    "value": "new D(i.base)",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.item.income",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12267,
+      "end": 12280,
+      "offsetEncoding": "utf16",
+      "text": "new D(i.base)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "caso.ingresos[*].base",
+    "control": "por asiento admitido",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12336,
+      "end": 12494,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n      \"AE25-16\",\n      `gasto:${g.id}`,\n      \"base de categoría admitida correlacionada, sin IVA recuperable\",\n      new D(g.base),\n      [g.id]\n    )"
+    },
+    "regla": "\"AE25-16\"",
+    "instance": "`gasto:${g.id}`",
+    "value": "new D(g.base)",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.item.expense",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12461,
+      "end": 12474,
+      "offsetEncoding": "utf16",
+      "text": "new D(g.base)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "caso.gastos[*].base",
+    "control": "por asiento admitido",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12528,
+      "end": 12673,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n      \"AE25-03\",\n      `reta:${r.id}`,\n      \"cuota propia ordinaria efectivamente satisfecha\",\n      new D(r.importe),\n      [r.id]\n    )"
+    },
+    "regla": "\"AE25-03\"",
+    "instance": "`reta:${r.id}`",
+    "value": "new D(r.importe)",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.item.reta",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 10861,
+      "end": 10877,
+      "offsetEncoding": "utf16",
+      "text": "new D(r.importe)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "caso.reta[*].importe",
+    "control": "por asiento admitido",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12693,
+      "end": 12875,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-02\",\n    \"ingresos\",\n    \"sum(base antes de retención; IVA recuperable excluido)\",\n    suma(caso.ingresos.map((i) => i.base)),\n    caso.ingresos.map((i) => i.id)\n  )"
+    },
+    "regla": "\"AE25-02\"",
+    "instance": "\"ingresos\"",
+    "value": "suma(caso.ingresos.map((i) => i.base))",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.income",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12797,
+      "end": 12835,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.ingresos.map((i) => i.base))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "Σcaso.ingresos[*].base; no IVA ni retenciones",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12897,
+      "end": 13045,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-02\",\n    \"gastos\",\n    \"sum(base gastos admitidos)\",\n    suma(caso.gastos.map((g) => g.base)),\n    caso.gastos.map((g) => g.id)\n  )"
+    },
+    "regla": "\"AE25-02\"",
+    "instance": "\"gastos\"",
+    "value": "suma(caso.gastos.map((g) => g.base))",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.ordinary",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12971,
+      "end": 13007,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.gastos.map((g) => g.base))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "Σcaso.gastos[*].base",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13061,
+      "end": 13212,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-03\",\n    \"reta\",\n    \"sum(cuotas ordinarias efectivas)\",\n    suma(caso.reta.map((r) => r.importe)),\n    caso.reta.map((r) => r.id)\n  )"
+    },
+    "regla": "\"AE25-03\"",
+    "instance": "\"reta\"",
+    "value": "suma(caso.reta.map((r) => r.importe))",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.reta",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13139,
+      "end": 13176,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.reta.map((r) => r.importe))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "Σcaso.reta[*].importe; cuotas reales; no estimación salarial",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13215,
+      "end": 13339,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-04\",\n    \"amortizacion\",\n    \"sum(cuotas activos)\",\n    amortizacion,\n    caso.activos.map((a) => a.id)\n  )"
+    },
+    "regla": "\"AE25-04\"",
+    "instance": "\"amortizacion\"",
+    "value": "amortizacion",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.amort",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 8437,
+      "end": 8449,
+      "offsetEncoding": "utf16",
+      "text": "amortizacion",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "acumulador0; por a: base=coste+puestaMarcha−residual; saldo=base−acumulada; cuota=min(saldo,base×coeficiente); amortizacion+=cuota. Activos rechazados en conexión anual",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13410,
+      "end": 13512,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-02\",\n    \"P\",\n    \"ingresos-gastos-RETA-amortizacion\",\n    ingresos.minus(gastos)\n  )"
+    },
+    "regla": "\"AE25-02\"",
+    "instance": "\"P\"",
+    "value": "ingresos.minus(gastos)",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.P",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13486,
+      "end": 13508,
+      "offsetEncoding": "utf16",
+      "text": "ingresos.minus(gastos)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "ingresos−gastos",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14212,
+      "end": 14405,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-05\",\n    \"G\",\n    \"opcion cliente único ? 0 : min(2000, 0.05*max(P,0))\",\n    caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))\n  )"
+    },
+    "regla": "\"AE25-05\"",
+    "instance": "\"G\"",
+    "value": "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.G",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14306,
+      "end": 14401,
+      "offsetEncoding": "utf16",
+      "text": "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "opcion cliente-unico→0; otra→min(2000,max(P,0)×0.05)",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14419,
+      "end": 14472,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\"AE25-06\", \"RN\", \"P-G (con signo)\", P.minus(G))"
+    },
+    "regla": "\"AE25-06\"",
+    "instance": "\"RN\"",
+    "value": "P.minus(G)",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.RN",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14461,
+      "end": 14471,
+      "offsetEncoding": "utf16",
+      "text": "P.minus(G)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "P−G, con signo",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14923,
+      "end": 15047,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n      \"AE25-09\",\n      \"adicional\",\n      \"RN<=14047.5 ? 6498 : max(0,6498-1.14*(RN-14047.5))\",\n      adicional\n    )"
+    },
+    "regla": "\"AE25-09\"",
+    "instance": "\"adicional\"",
+    "value": "adicional",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.additional",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14551,
+      "end": 14560,
+      "offsetEncoding": "utf16",
+      "text": "adicional",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "RN<=14047.5→6498; resto max(0,6498−1.14×(RN−14047.5)); solo cliente-unico",
+    "control": "opcion===cliente-unico",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 15052,
+      "end": 15225,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n      \"AE25-10\",\n      \"discapacidad\",\n      \"3500 o 7750 alternativos, con ejercicio efectivo y acreditación\",\n      incremento,\n      [discapacidad.documento]\n    )"
+    },
+    "regla": "\"AE25-10\"",
+    "instance": "\"discapacidad\"",
+    "value": "incremento",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.dis",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14682,
+      "end": 14692,
+      "offsetEncoding": "utf16",
+      "text": "incremento",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "ejercicioEfectivo && grado>=33 → (grado>=65 || ayuda ?7750:3500); otro0. Anual grado0→0",
+    "control": "opcion===cliente-unico",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 15405,
+      "end": 15586,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    caso.opcion === \"cliente-unico\" ? \"AE25-08\" : \"AE25-11\",\n    \"reduccion32_2\",\n    \"reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2\",\n    reduccion\n  )"
+    },
+    "regla": "caso.opcion === \"cliente-unico\" ? \"AE25-08\" : \"AE25-11\"",
+    "instance": "\"reduccion32_2\"",
+    "value": "reduccion",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.reduction",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 1040,
+      "end": 1049,
+      "offsetEncoding": "utf16",
+      "text": "reduccion",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "cliente-unico→min(max(RN,0),adicional+incremento+2000); otra opción solo si !elegible && aplicarRentasBajas→a.low; resto0",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16200,
+      "end": 16434,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-12\",\n    \"reduccionInicio\",\n    \"si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))\",\n    caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)\n  )"
+    },
+    "regla": "\"AE25-12\"",
+    "instance": "\"reduccionInicio\"",
+    "value": "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.start",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16311,
+      "end": 16430,
+      "offsetEncoding": "utf16",
+      "text": "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "aplicarInicio && inicioElegible ? min(100000,max(0,RN−reduccion))×0.2 :0",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16452,
+      "end": 16599,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-14\",\n    \"aporteBIG\",\n    \"RN-R32_2-Rinicio (con signo; no liquidación anual)\",\n    RN.minus(reduccion).minus(reduccionInicio)\n  )"
+    },
+    "regla": "\"AE25-14\"",
+    "instance": "\"aporteBIG\"",
+    "value": "RN.minus(reduccion).minus(reduccionInicio)",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.contribution",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16553,
+      "end": 16595,
+      "offsetEncoding": "utf16",
+      "text": "RN.minus(reduccion).minus(reduccionInicio)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "RN−reduccion−reduccionInicio; con signo",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16622,
+      "end": 16821,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-15\",\n    \"retenciones\",\n    \"sum(retenciones efectivas únicas); separado del rendimiento\",\n    suma(caso.retenciones.map((r) => r.importe)),\n    caso.retenciones.map((r) => r.id)\n  )"
+    },
+    "regla": "\"AE25-15\"",
+    "instance": "\"retenciones\"",
+    "value": "suma(caso.retenciones.map((r) => r.importe))",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.withholding",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16734,
+      "end": 16778,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.retenciones.map((r) => r.importe))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "Σcaso.retenciones[*].importe; separado de ingreso/rendimiento",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  },
+  {
+    "source": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16838,
+      "end": 17037,
+      "offsetEncoding": "utf16",
+      "text": "etapa(\n    \"AE25-15\",\n    \"pagos\",\n    \"sum(pagos efectivos únicos); separado del rendimiento\",\n    suma(caso.pagosFraccionados.map((p) => p.importe)),\n    caso.pagosFraccionados.map((p) => p.id)\n  )"
+    },
+    "regla": "\"AE25-15\"",
+    "instance": "\"pagos\"",
+    "value": "suma(caso.pagosFraccionados.map((p) => p.importe))",
+    "annualExclusions": "Activos y discapacidad de actividad rechazados por conexión; historial y pagos preservados.",
+    "root": "a.payments",
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16938,
+      "end": 16988,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.pagosFraccionados.map((p) => p.importe))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "argument4Property": "Σcaso.pagosFraccionados[*].importe; separado de gastos",
+    "control": "tras admisión; ver selectores del nodo",
+    "adapterChain": [
+      "etapa: valor → etapas.push({importe:valor.toFixed()}); return valor",
+      "calcularActividad2025: return etapas/aporte",
+      "adaptarActividadGeneral: resultado.etapas y resultado.aporte sin cambiar",
+      "liquidarIrpfAnualExplicito: actividad.etapas.map(e) → new D(e.importe) → crearLineaCalculo.importe"
+    ],
+    "metadataNotValue": "reglaId/id/formula/documentos/fuentes identifican; no se suman al importe",
+    "review": "pendiente"
+  }
+]
