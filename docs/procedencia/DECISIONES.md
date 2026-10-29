@@ -333,3 +333,7 @@ La observación nueva de R22 sobre metadatos y sobres recalculados delimita su s
 ## D073 — Completar el flujo por propiedades y contratos de llamada
 
 La continuación editorial se divide entre escalas/mínimos, retenciones/cotizaciones y rentas/actividad. Objeción: un cierre transitivo absoluto repetido por todos los sitios duplica trabajo, mientras tratar cada función como terminal es incompleto. Respuesta: cada lote debe resolver propiedades hasta entradas públicas, constantes o primitivas, y declarar contratos de frontera exactos para composición entre lotes. Una referencia al cuerpo de una función no basta. Coste: componer y revisar las aristas antes de publicar; los 65 sitios y sus recuentos no sustituyen esa prueba ni acreditan aceptación jurídica.
+
+## D074 — Preservar el corte candidato sin presentarlo como actual
+
+V4 se conserva fuera del worktree con pin externo y dos identidades para metadatos saneados: origen y derivado transportado. Objeción: modificar el manifiesto para incluir lo llegado después destruiría su corte, y hashes correctos no prueban que la selección sea exhaustiva. Respuesta: corte R21 fijo, revisión independiente nueva del censo, clases y reconstrucción; los hallazgos posteriores requerirán otra edición. Coste: espacio local adicional y gestión explícita de versiones; ninguna copia en el mismo disco equivale a custodia independiente. Crossa continúa v1 desfasado, sin actualizarlo ni transferir fuera por esta decisión.

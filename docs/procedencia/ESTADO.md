@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 20:44 CET
+## Situación más reciente, 29 de octubre, 20:58 CET
+
+Recibida la entrega candidata v4: 62 archivos y 9.906.088 bytes cotejados, con las 14.537 entradas de su base R21 intactas y cero borrados. Pin externo definitivo del JSON: `938f230888d2f71a999d5083c3b484e37687ebad03c4b1ca887535710c6071f2`. Los pins intermedios permanecen identificados como ensayos, sin cambiar el corte.
+
+El padre verifica las dos copias del autor, conserva un paquete fuera de T3 y realiza una restauración nueva en `.cache/orquestador-preservacion/v4-938f230888d2/`. Las cuatro copias coinciden en ambos hashes, tamaño y conjunto de 7.991 archivos, 1.525.761.945 bytes por copia; sin hardlinks entre pares y fsync confirmado en las nuevas. Incluyen 1.443 objetos documentales y 6.816 referencias auxiliares. Informe y recibos en correcciones/recepcion-preservacion-v4-r24. Son copias locales en el mismo disco, sin custodia independiente.
+
+V4 fija R21 y no incluye las revisiones y correcciones recibidas después. Las 447 referencias tipadas del autor no prueban cierre de todas las citas del repositorio. Ruff y mypy propios pasan sobre ocho scripts; se conserva el intento inicial sin Ruff disponible. Se prepara revisión independiente nueva del consumidor, censo, saneamiento y reconstrucción desde el paquete. Llegó entretanto la revisión técnica R23; queda en cola de recepción por manifiesto, sin promover todavía su registro derivado candidato. Las otras cinco tareas R23 continúan; no se sondean. Inventario, cálculos, snapshots, Madrid y los 264 bindings no cambian por esta recepción. Crossa conserva v1 desfasado. Sin aceptación fiscal nueva, LFS, gasto, transferencia externa, PR, despliegue ni limpieza; el encargo permanece abierto.
+
+## Situación anterior, 29 de octubre, 20:44 CET
 
 Recibidas cinco entregas R21 y la revisión R22: 306 archivos y 21.333.201 bytes, con bases comprobadas físicamente y cero borrados. Los recibos están en correcciones/recepcion-r21-r23 y recepcion-r22-r23. Las entregas originales permanecen intactas. La revisión R22 corrobora su subcontrato limitado; la observación sobre el script de citas se documenta como límite de un contraste fijo, sin convertirlo en verificador de producción.
 
