@@ -116,6 +116,8 @@ Recibidas las diez contrarrevisiones de la ronda 3. Se conservan sus decisiones 
 
 Recibidas también Seguridad Social (108 candidatos), cadena autonómica A (33) y cadena B (9). Se preparan revisiones nuevas de esos tres ámbitos. Los candidatos incluyen la doble base máxima de 2018, reparto de solidaridad por pagador, vigencias territoriales y reforma extremeña de 2026; no se modifica cálculo por esta recepción. `recepciones-ronda4.json` documenta el control mecánico de archivos y fuentes, separado de aceptación fiscal.
 
+Se incorpora después la cadena C: 92 candidatos, 90 pares año-territorio, reforma valenciana de 2026 y nuevos eslabones para Murcia 2022 y Valencia 2014. Recepción mecánica: 133 referencias locales con hashes y tamaños correctos, sin cabeceras de sesión; véase `recepcion-cadena-c.json`. Su revisión independiente se incluye en la siguiente ronda. La corrección técnica del inventario y las diez revisiones recibidas quedaron respaldadas en `4a41ce0c`.
+
 ## Bootstrap anti-slop completado
 
 Runtime v0.1.2 verificado, incorporado con licencia y hashes, 16 reglas a error y oxlint 1.78.0 junto a ESLint. CI nueva con límite de 15 minutos y ejecución secuencial, sin build ni suite legacy pesada. Typecheck, humo del plugin y 5 pruebas seleccionadas pasan; ESLint pasa. Lint global falla con 96 errores preexistentes en 25 archivos, registrados en [LINT.md](LINT.md) y `lint/`. No se modificó el motor ni se validó cifra fiscal alguna. Auditoría documental desbloqueada; corrección de deuda pendiente de reparto por archivo. Integración y respaldo corresponden al orquestador. No se borró contexto ni Reactivity.
