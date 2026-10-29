@@ -11,6 +11,7 @@ import shutil
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools/procedencia'))
 from enlaces import sha, verify_evidence
@@ -190,6 +191,29 @@ class BindingTest(unittest.TestCase):
         (self.root / self.attestation['report']['path']).write_text('Sustitución')
         with self.assertRaisesRegex(ValueError, 'Informe independiente'):
             verify_evidence(self.root, self.context)
+
+    def test_public_manifest_must_already_be_sanitized(self):
+        path = self.payload['document']['path']
+        document = json.loads((self.root / path).read_text())
+        document['headers']['set-cookie'] = 'SYNTHETIC-NOT-A-SECRET'
+        self.payload['document'] = self.write(path, document)
+        self.change_payload()
+        with self.assertRaisesRegex(ValueError, 'saneado'):
+            verify_evidence(self.root, self.context)
+
+    def test_persistent_documentary_change_during_verification_is_rejected(self):
+        import enlaces
+        original = enlaces.verify
+
+        def change_after_read(*args, **kwargs):
+            result = original(*args, **kwargs)
+            path = self.root / PAYLOAD
+            path.write_text(path.read_text() + ' ')
+            return result
+
+        with patch('enlaces.verify', side_effect=change_after_read):
+            with self.assertRaisesRegex(ValueError, 'cambió durante'):
+                verify_evidence(self.root, self.context)
 
 
 if __name__ == '__main__':

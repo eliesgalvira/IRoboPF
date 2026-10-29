@@ -1,0 +1,66 @@
+import json
+from decimal import Decimal as D, ROUND_HALF_UP
+from pathlib import Path
+
+p = Path("docs/procedencia/revisiones/minimos")
+d = json.load(open(p / "casos-ejecutados.json"))
+results = []
+for c in d["annual"]:
+    y = c["input"]["anio"]
+    ter = c["input"]["comunidadAutonoma"]
+    b = D(c["result"]["baseLiquidableAhorroCentimos"]) / 100
+    state = D(5151 if y < 2015 else 5550)
+    auto = D(
+        "5777.55"
+        if ter == "madrid" and y == 2022
+        else "5956.65"
+        if ter == "madrid" and y == 2025
+        else str(state)
+    )
+
+    def f(x, rate):
+        return min(max(x, D(0)), D(6000)) * rate + max(x - D(6000), D(0)) * (
+            rate + D(".01")
+        )
+
+    if y < 2015:
+        x = max(b - state, D(0))
+        z = max(b - auto, D(0))
+        expected = (
+            min(x, D(6000)) * D(".115")
+            + max(min(x, D(24000)) - D(6000), D(0)) * D(".145")
+            + max(x - D(24000), D(0)) * D(".165")
+            + f(z, D(".095"))
+        )
+    else:
+        sr = D(".095")
+        ar = D(".10") if y == 2015 else sr
+        expected = f(b, sr) + f(b, ar) - f(min(b, state), sr) - f(min(b, auto), ar)
+    cents = int((expected * 100).quantize(D(1), rounding=ROUND_HALF_UP))
+    actual = c["result"]["cuotaLiquidaCentimos"]
+    results.append(
+        dict(
+            anio=y,
+            territorio=ter,
+            baseAhorro=str(b),
+            baseGeneral=0,
+            minimoEstatal=str(state),
+            minimoAutonomico=str(auto),
+            expectedCentimos=cents,
+            actualCentimos=actual,
+            pass_=cents == actual,
+            scope="Ahorro <=10000; BG=0; sin deducciones; mínimos suministrados. No certificación de declaración.",
+        )
+    )
+p.joinpath("contraste-independiente.json").write_text(json.dumps(results, indent=2))
+print(
+    "Contrastes",
+    len(results),
+    "coinciden",
+    sum(r["pass_"] for r in results),
+    "fallan",
+    sum(not r["pass_"] for r in results),
+)
+for r in results:
+    if not r["pass_"]:
+        print(r)

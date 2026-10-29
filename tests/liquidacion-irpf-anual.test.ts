@@ -1491,10 +1491,12 @@ describe("liquidarIrpfAnual", () => {
 
     expect(liquidarCasoCanonico(caso)).toMatchObject({
       _tag: "LiquidacionIrpfAnualCalculada",
-      baseLiquidableGeneralCentimos: 39_514_159,
-      cuotaIntegraGeneralCentimos: 16_351_763,
+      // SS uniforme revisada: 45276,90 × 6,35 % = 2875,08315.
+      // El aumento de gasto 16,66875 reduce cuota al marginal conjunto 43,5 %.
+      baseLiquidableGeneralCentimos: 39_512_492,
+      cuotaIntegraGeneralCentimos: 16_351_038,
       cuotaMinimoPersonalCentimos: 102_675,
-      cuotaLiquidaCentimos: 16_249_088,
+      cuotaLiquidaCentimos: 16_248_363,
     })
   })
 

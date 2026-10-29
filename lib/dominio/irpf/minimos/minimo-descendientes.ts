@@ -24,7 +24,12 @@ export const obtenerMinimoDescendientes = (
   minimos: MinimosPersonalesFamiliaresIrpf = MINIMOS_ESTATALES_2025
 ): Decimal =>
   EffectArray.reduce(
-    descendientes.toSorted((a, b) => b.edad - a.edad),
+    descendientes
+      .filter(
+        (familiar) =>
+          familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
+      )
+      .toSorted((a, b) => b.edad - a.edad),
     IMPORTE_CERO,
     (total, descendiente, indice) => {
       const incrementoMenorTres =

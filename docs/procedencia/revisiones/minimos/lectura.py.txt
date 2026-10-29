@@ -1,0 +1,43 @@
+import json
+import subprocess
+from pathlib import Path
+
+ds = json.load(open("docs/procedencia/auditorias/minimos/documentos.json"))
+out = []
+for d in ds:
+    if not Path(d["localPath"]).read_bytes().startswith(b"%PDF"):
+        continue
+    name = d.get("auditName", "")
+    if name.startswith("manual") and name not in ("manual2014", "manual2025"):
+        continue
+    pages = {
+        "pre2015": [61, 62, 63, 64],
+        "reforma": [27, 28, 29, 30, 31, 34, 79],
+        "manual2014": [447, 451, 467],
+        "manual2025": [1069, 1071, 1072, 1073, 1075],
+        "catalunyaTC": [13],
+    }
+    nums = pages.get(name)
+    text = subprocess.check_output(
+        ["pdftotext", "-layout", d["localPath"], "-"]
+    ).decode()
+    split = text.split("\f")
+    if nums is None:
+        nums = [
+            i + 1
+            for i, t in enumerate(split)
+            if any(
+                s in t.lower()
+                for s in [
+                    "mínimo del contribuyente",
+                    "mínimo por descendientes",
+                    "entrada en vigor",
+                    "disposición final décima",
+                    "mínimos personales",
+                ]
+            )
+        ]
+    for n in nums:
+        out.append(f"\n=== {name or d['canonicalUrl']} p{n} ===\n" + split[n - 1])
+Path(".cache/procedencia/revision-minimos/lectura.txt").write_text("".join(out))
+print("pages", len(out))

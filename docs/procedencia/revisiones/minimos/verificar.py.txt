@@ -1,0 +1,52 @@
+import json
+from pathlib import Path
+import pymupdf as f
+
+f.TOOLS.set_small_glyph_heights(True)
+out = Path("docs/procedencia/revisiones/minimos")
+cs = json.load(open("docs/procedencia/auditorias/minimos/citas-candidatas.json"))
+groups = {}
+for c in cs:
+    if c.get("page") is not None:
+        groups.setdefault((c["documentSha256"], c["page"]), []).append(c)
+results = []
+doc = None
+previous = None
+
+
+def norm(x):
+    return " ".join(x.split())
+
+
+for (h, p), group in groups.items():
+    if previous != h:
+        if doc is not None:
+            doc.close()
+        doc = f.open(group[0]["localPath"])
+        previous = h
+    tp = doc[p - 1].get_textpage()
+    for c in group:
+        t = "\n".join(tp.extractTextbox(f.Rect(b)) for b in c["boxes"])
+        a = norm(c["quote"])
+        b = norm(t)
+        results.append(
+            dict(
+                id=c["id"],
+                status="exact-normalized"
+                if a == b
+                else "contained-with-context"
+                if a in b
+                else "not-matched",
+            )
+        )
+if doc is not None:
+    doc.close()
+out.joinpath("comprobacion-citas-candidatas.json").write_text(
+    json.dumps(results, indent=2)
+)
+print(
+    {
+        s: sum(r["status"] == s for r in results)
+        for s in set(r["status"] for r in results)
+    }
+)

@@ -599,7 +599,8 @@ export function LiquidacionIrpf() {
       comunidadAutonoma === "simulada-estatal"
         ? 0
         : calcularDeduccionesAutonomicasAplicadas(
-            entradasDeduccionesAutonomicas
+            entradasDeduccionesAutonomicas,
+            { ejercicio: 2025, territorio: comunidadAutonoma }
           ),
     [comunidadAutonoma, entradasDeduccionesAutonomicas]
   )
@@ -814,7 +815,13 @@ export function LiquidacionIrpf() {
             fijarCatalogoDeduccionesAbierto={fijarCatalogoDeduccionesAbierto}
             fijarAscendientes={fijarAscendientes}
             fijarCapitalInmobiliarioEuros={fijarCapitalInmobiliarioEuros}
-            fijarComunidadAutonoma={fijarComunidadAutonoma}
+            fijarComunidadAutonoma={(territorio) => {
+              fijarComunidadAutonoma(territorio)
+              fijarDeduccionAutonomicaManualEuros(0)
+              fijarEntradasDeduccionesAutonomicas(
+                ENTRADAS_DEDUCCIONES_INICIALES
+              )
+            }}
             fijarDescendientes={fijarDescendientes}
             fijarDescendientesConAsistencia={fijarDescendientesConAsistencia}
             fijarDescendientesConDiscapacidad={
@@ -1129,7 +1136,8 @@ function FormularioCaso({
                     Deducciones autonómicas
                   </p>
                   <Dialog.Title className="mt-1 text-xl font-bold">
-                    {catalogoDeducciones?.comunidad ?? comunidadAutonoma}
+                    {catalogoDeducciones?.comunidad ?? comunidadAutonoma} —
+                    2025: consignación y cálculo parcial
                   </Dialog.Title>
                 </div>
                 <Dialog.Close className="border border-[var(--rule)] bg-[var(--paper-2)] px-3 py-1 text-sm font-bold hover:bg-[var(--paper)]">
@@ -1960,7 +1968,7 @@ function ControlesDeduccionAutonomica({
                 euros: true,
                 paso: 100,
               })
-            : campoNumero(claveImporte, "Importe calculado", {
+            : campoNumero(claveImporte, "Importe consignado externamente", {
                 euros: true,
                 paso: 100,
               })}

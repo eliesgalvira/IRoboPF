@@ -1,0 +1,3882 @@
+[
+  {
+    "id": "a15b7fee871d-p2-b5",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "a15b7fee871d-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "a15b7fee871d-p22-b15",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "a15b7fee871d-p22-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "a15b7fee871d-p22-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "a15b7fee871d-p22-b19",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "a15b7fee871d-p22-b21",
+    "equal": true,
+    "quote": "Finsi \n \nD. TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "a15b7fee871d-p24-b4",
+    "equal": true,
+    "quote": "MINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2026 – AÑOPER) > 64: 65PER = 1.150,00  \n "
+  },
+  {
+    "id": "a15b7fee871d-p24-b12",
+    "equal": true,
+    "quote": "B1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n "
+  },
+  {
+    "id": "a15b7fee871d-p24-b13",
+    "equal": true,
+    "quote": "Repetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 17 \n "
+  },
+  {
+    "id": "a15b7fee871d-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) "
+  },
+  {
+    "id": "a15b7fee871d-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n "
+  },
+  {
+    "id": "a15b7fee871d-p25-b3",
+    "equal": true,
+    "quote": "Si AÑODES (i) > 2023:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n "
+  },
+  {
+    "id": "a15b7fee871d-p25-b5",
+    "equal": true,
+    "quote": " \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n "
+  },
+  {
+    "id": "a15b7fee871d-p25-b10",
+    "equal": true,
+    "quote": "  \n \n \n \nSi NUMAS65A o NUMAS75A > 0: \n j = 1 \n \n \n \n \n \n \n65AS = 0,00 \n \n \n \n \n \nRepetir: \n "
+  },
+  {
+    "id": "a15b7fee871d-p25-b15",
+    "equal": true,
+    "quote": "65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "a15b7fee871d-p26-b14",
+    "equal": true,
+    "quote": "Si DISCAPER = DESDE65: DISPER = 9.000,00 \n "
+  },
+  {
+    "id": "a15b7fee871d-p26-b15",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n "
+  },
+  {
+    "id": "a15b7fee871d-p26-b16",
+    "equal": true,
+    "quote": "Else: DISPER = 0,00  \n "
+  },
+  {
+    "id": "a15b7fee871d-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN "
+  },
+  {
+    "id": "a15b7fee871d-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n17.644 \n18.694 \nSITUACIÓN 2 \n17.197 \n18.130 \n19.262 \nSITUACIÓN 3 \n15.876 \n16.342 \n16.867 \n \n \n \nSi RETRIB ≤ (19.262,00 + PENSION + DESEM): \n "
+  },
+  {
+    "id": "a15b7fee871d-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (17.644,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "a15b7fee871d-p29-b11",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (18.694,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n "
+  },
+  {
+    "id": "a15b7fee871d-p29-b12",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (17.197,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (18.130,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.262,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "a15b7fee871d-p30-b4",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (15.876,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "a15b7fee871d-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (16.342,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "a15b7fee871d-p30-b6",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (16.867,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "a15b7fee871d-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  "
+  },
+  {
+    "id": "a15b7fee871d-p31-b13",
+    "equal": true,
+    "quote": "Finsi. \n \n \n** Límite del 43 % (art. 85.3 RIRPF, según modif R.D. 1039/2022): \n \n \nSi RETRIB ≤ 35.200,00: "
+  },
+  {
+    "id": "a15b7fee871d-p32-b21",
+    "equal": true,
+    "quote": " MINOPAGO = 2,00% *RETRIB \n \nElse: MINOPAGO = 0 "
+  },
+  {
+    "id": "a15b7fee871d-p32-b22",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "a15b7fee871d-p33-b15",
+    "equal": true,
+    "quote": "             IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "a15b7fee871d-p33-b16",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "a15b7fee871d-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 "
+  },
+  {
+    "id": "a15b7fee871d-p34-b5",
+    "equal": true,
+    "quote": "Quedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "a15b7fee871d-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "a15b7fee871d-p34-b9",
+    "equal": true,
+    "quote": "Adquisición de la residencia habitual y efectiva en Ceuta o Melilla  \nCAUSA7 \nComenzar a realizar trabajos fuera de Ceuta o Melilla por residentes en dichos \nterritorios \nCAUSA8 "
+  },
+  {
+    "id": "a15b7fee871d-p34-b10",
+    "equal": true,
+    "quote": "El perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 "
+  },
+  {
+    "id": "a15b7fee871d-p34-b11",
+    "equal": true,
+    "quote": "El perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "a15b7fee871d-p34-b14",
+    "equal": true,
+    "quote": "Finsi. \n \n \nElse: Si [RESICEME = S y RENCEME = N y RENCEMEA = S y CAUSA8 = S ]: \n "
+  },
+  {
+    "id": "a15b7fee871d-p35-b2",
+    "equal": true,
+    "quote": " \n** Tratamiento especial por minoración por pagos de préstamos para la vivienda habitual \n \nSi [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S o CAUSA5=S o CAUSA6=S o CAUSA7=S o       \nCAUSA8 =S): "
+  },
+  {
+    "id": "a15b7fee871d-p37-b13",
+    "equal": true,
+    "quote": "Finsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "a15b7fee871d-p41-b21",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p41-b22",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "a15b7fee871d-p41-b24",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p41-b26",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p41-b27",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "a15b7fee871d-p41-b30",
+    "equal": true,
+    "quote": "CAUSA7 \nADQUISICIÓN DE LA RESIDENCIA HABITUAL Y EFECTIVA EN CEUTA O MELILLA  \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p41-b31",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHOS \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p42-b3",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p42-b4",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p42-b5",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p43-b9",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "a15b7fee871d-p43-b10",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "a15b7fee871d-p45-b20",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p45-b21",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p45-b22",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p45-b24",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p45-b25",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "a15b7fee871d-p45-b28",
+    "equal": true,
+    "quote": "CAUSA7 \nADQUISICIÓN DE LA RESIDENCIA HABITUAL Y EFECTIVA EN CEUTA O MELILLA  \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p45-b29",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHOS \nTERRITORIOS \nS/N \nN "
+  },
+  {
+    "id": "a15b7fee871d-p45-b30",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "a15b7fee871d-p46-b2",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "a15b7fee871d-p46-b4",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p2-b5",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "b1a120d93bf5-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "b1a120d93bf5-p22-b15",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "b1a120d93bf5-p22-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "b1a120d93bf5-p22-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "b1a120d93bf5-p22-b19",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "b1a120d93bf5-p22-b21",
+    "equal": true,
+    "quote": "Finsi \n \nD. TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "b1a120d93bf5-p24-b4",
+    "equal": true,
+    "quote": "MINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2026 – AÑOPER) > 64: 65PER = 1.150,00  \n "
+  },
+  {
+    "id": "b1a120d93bf5-p24-b12",
+    "equal": true,
+    "quote": "B1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n "
+  },
+  {
+    "id": "b1a120d93bf5-p24-b13",
+    "equal": true,
+    "quote": "Repetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 17 \n "
+  },
+  {
+    "id": "b1a120d93bf5-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) "
+  },
+  {
+    "id": "b1a120d93bf5-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n "
+  },
+  {
+    "id": "b1a120d93bf5-p25-b3",
+    "equal": true,
+    "quote": "Si AÑODES (i) > 2023:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n "
+  },
+  {
+    "id": "b1a120d93bf5-p25-b5",
+    "equal": true,
+    "quote": " \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n "
+  },
+  {
+    "id": "b1a120d93bf5-p25-b10",
+    "equal": true,
+    "quote": "  \n \n \n \nSi NUMAS65A o NUMAS75A > 0: \n j = 1 \n \n \n \n \n \n \n65AS = 0,00 \n \n \n \n \n \nRepetir: \n "
+  },
+  {
+    "id": "b1a120d93bf5-p25-b15",
+    "equal": true,
+    "quote": "65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "b1a120d93bf5-p26-b14",
+    "equal": true,
+    "quote": "Si DISCAPER = DESDE65: DISPER = 9.000,00 \n "
+  },
+  {
+    "id": "b1a120d93bf5-p26-b15",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n "
+  },
+  {
+    "id": "b1a120d93bf5-p26-b16",
+    "equal": true,
+    "quote": "Else: DISPER = 0,00  \n "
+  },
+  {
+    "id": "b1a120d93bf5-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN "
+  },
+  {
+    "id": "b1a120d93bf5-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n17.644 \n18.694 \nSITUACIÓN 2 \n17.197 \n18.130 \n19.262 \nSITUACIÓN 3 \n15.876 \n16.342 \n16.867 \n \n \n \nSi RETRIB ≤ (19.262,00 + PENSION + DESEM): \n "
+  },
+  {
+    "id": "b1a120d93bf5-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (17.644,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "b1a120d93bf5-p29-b11",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (18.694,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n "
+  },
+  {
+    "id": "b1a120d93bf5-p29-b12",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (17.197,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (18.130,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.262,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "b1a120d93bf5-p30-b4",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (15.876,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "b1a120d93bf5-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (16.342,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "b1a120d93bf5-p30-b6",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (16.867,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "b1a120d93bf5-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  "
+  },
+  {
+    "id": "b1a120d93bf5-p31-b13",
+    "equal": true,
+    "quote": "Finsi. \n \n \n** Límite del 43 % (art. 85.3 RIRPF, según modif R.D. 1039/2022): \n \n \nSi RETRIB ≤ 35.200,00: "
+  },
+  {
+    "id": "b1a120d93bf5-p32-b20",
+    "equal": true,
+    "quote": " MINOPAGO = 2,00% *RETRIB \n \nElse: MINOPAGO = 0 "
+  },
+  {
+    "id": "b1a120d93bf5-p32-b21",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "b1a120d93bf5-p33-b16",
+    "equal": true,
+    "quote": "             IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "b1a120d93bf5-p33-b18",
+    "equal": true,
+    "quote": "     IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "b1a120d93bf5-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 "
+  },
+  {
+    "id": "b1a120d93bf5-p34-b5",
+    "equal": true,
+    "quote": "Quedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "b1a120d93bf5-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "b1a120d93bf5-p34-b10",
+    "equal": true,
+    "quote": "El perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 "
+  },
+  {
+    "id": "b1a120d93bf5-p34-b11",
+    "equal": true,
+    "quote": "El perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "b1a120d93bf5-p34-b14",
+    "equal": true,
+    "quote": "Finsi. \n \n \nElse: Si [RESICEME = S y RENCEME = N y RENCEMEA = S y CAUSA8 = S]: \n "
+  },
+  {
+    "id": "b1a120d93bf5-p35-b2",
+    "equal": true,
+    "quote": " \n** Tratamiento especial por minoración por pagos de préstamos para la vivienda habitual \n \nSi [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S o CAUSA5=S o CAUSA6=S o CAUSA7=S o       \nCAUSA8 =S): "
+  },
+  {
+    "id": "b1a120d93bf5-p37-b13",
+    "equal": true,
+    "quote": "Finsi. \n \nFinsi. \n \n IMPORTE = {[ (RETRIB – PERCIBIDO) *TIPOREG] / 100} + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "b1a120d93bf5-p41-b27",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p41-b28",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "b1a120d93bf5-p41-b30",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p42-b3",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p42-b4",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "b1a120d93bf5-p42-b9",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "b1a120d93bf5-p42-b11",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p42-b12",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p43-b14",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "b1a120d93bf5-p43-b15",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "b1a120d93bf5-p46-b2",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p46-b3",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR EL TIPO \nDE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p46-b4",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p46-b6",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p46-b7",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "b1a120d93bf5-p46-b13",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p46-b14",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "b1a120d93bf5-p46-b15",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p2-b5",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "3ad944876c88-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "3ad944876c88-p22-b15",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "3ad944876c88-p22-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "3ad944876c88-p22-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "3ad944876c88-p22-b19",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "3ad944876c88-p22-b21",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "3ad944876c88-p24-b4",
+    "equal": true,
+    "quote": "MINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2025 – AÑOPER) > 64: 65PER = 1.150,00  \n "
+  },
+  {
+    "id": "3ad944876c88-p24-b12",
+    "equal": true,
+    "quote": "B1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n "
+  },
+  {
+    "id": "3ad944876c88-p24-b13",
+    "equal": true,
+    "quote": "Repetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 17 \n "
+  },
+  {
+    "id": "3ad944876c88-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) "
+  },
+  {
+    "id": "3ad944876c88-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n "
+  },
+  {
+    "id": "3ad944876c88-p25-b3",
+    "equal": true,
+    "quote": "Si AÑODES (i) > 2022:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n "
+  },
+  {
+    "id": "3ad944876c88-p25-b5",
+    "equal": true,
+    "quote": " \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n "
+  },
+  {
+    "id": "3ad944876c88-p25-b10",
+    "equal": true,
+    "quote": "  \n \n \n \nSi NUMAS65A o NUMAS75A > 0: \n j = 1 \n \n \n \n \n \n \n65AS = 0,00 \n \n \n \n \n \nRepetir: \n "
+  },
+  {
+    "id": "3ad944876c88-p25-b15",
+    "equal": true,
+    "quote": "65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "3ad944876c88-p26-b14",
+    "equal": true,
+    "quote": "Si DISCAPER = DESDE65: DISPER = 9.000,00 \n "
+  },
+  {
+    "id": "3ad944876c88-p26-b15",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n "
+  },
+  {
+    "id": "3ad944876c88-p26-b16",
+    "equal": true,
+    "quote": "Else: DISPER = 0,00  \n "
+  },
+  {
+    "id": "3ad944876c88-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN "
+  },
+  {
+    "id": "3ad944876c88-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n17.644 \n18.694 \nSITUACIÓN 2 \n17.197 \n18.130 \n19.262 \nSITUACIÓN 3 \n15.876 \n16.342 \n16.867 \n \n \n \nSi RETRIB ≤ (19.262,00 + PENSION + DESEM): \n "
+  },
+  {
+    "id": "3ad944876c88-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (17.644,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "3ad944876c88-p29-b11",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (18.694,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n "
+  },
+  {
+    "id": "3ad944876c88-p29-b12",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (17.197,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (18.130,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.262,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "3ad944876c88-p30-b4",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (15.876,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "3ad944876c88-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (16.342,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "3ad944876c88-p30-b6",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (16.867,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "3ad944876c88-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  "
+  },
+  {
+    "id": "3ad944876c88-p31-b13",
+    "equal": true,
+    "quote": "Finsi. \n \n \n** Límite del 43 % (art. 85.3 RIRPF, según modif R.D. 1039/2022): \n \n \nSi RETRIB ≤ 35.200,00: "
+  },
+  {
+    "id": "3ad944876c88-p32-b22",
+    "equal": true,
+    "quote": " MINOPAGO = 2,00% *RETRIB \n \nElse: MINOPAGO = 0 "
+  },
+  {
+    "id": "3ad944876c88-p32-b23",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "3ad944876c88-p33-b15",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "3ad944876c88-p33-b17",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "3ad944876c88-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 "
+  },
+  {
+    "id": "3ad944876c88-p34-b5",
+    "equal": true,
+    "quote": "Quedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "3ad944876c88-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "3ad944876c88-p34-b10",
+    "equal": true,
+    "quote": "El perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 "
+  },
+  {
+    "id": "3ad944876c88-p34-b11",
+    "equal": true,
+    "quote": "El perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "3ad944876c88-p34-b14",
+    "equal": true,
+    "quote": "Finsi. \n \n \nElse: Si [RESICEME = S y RENCEME = N y RENCEMEA = S y (CAUSA8 = S o CAUSA11 = S)]: \n "
+  },
+  {
+    "id": "3ad944876c88-p35-b2",
+    "equal": true,
+    "quote": "** Tratamiento especial por minoración por pagos de préstamos para la vivienda habitual \n \nSi [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S o CAUSA5=S o CAUSA6=S o CAUSA7=S o       \nCAUSA8 =S): "
+  },
+  {
+    "id": "3ad944876c88-p37-b13",
+    "equal": true,
+    "quote": "Finsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "3ad944876c88-p41-b21",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p41-b22",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "3ad944876c88-p41-b24",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p41-b26",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p41-b27",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "3ad944876c88-p42-b2",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p42-b3",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p42-b4",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p43-b9",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "3ad944876c88-p43-b10",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "3ad944876c88-p45-b19",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p45-b20",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p45-b21",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p45-b23",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "3ad944876c88-p45-b24",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "3ad944876c88-p45-b30",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "3ad944876c88-p46-b2",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "3ad944876c88-p46-b4",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "d28bef425295-p2-b5",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "d28bef425295-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "d28bef425295-p22-b15",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "d28bef425295-p22-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "d28bef425295-p22-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "d28bef425295-p22-b19",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "d28bef425295-p22-b21",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "d28bef425295-p23-b15",
+    "equal": true,
+    "quote": " \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20  \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA: PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2: HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO: DESEM = 1.200,00 \n \nElse: DESEM= 0,00 \n \nFinsi. "
+  },
+  {
+    "id": "d28bef425295-p24-b3",
+    "equal": true,
+    "quote": "A1.CON CARÁCTER GENERAL \n \nMINPER = 5.550,00 "
+  },
+  {
+    "id": "d28bef425295-p24-b4",
+    "equal": true,
+    "quote": " \nMINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2024 – AÑOPER) > 64: 65PER = 1.150,00  \n \nElse: 65PER = 0,00 "
+  },
+  {
+    "id": "d28bef425295-p24-b12",
+    "equal": true,
+    "quote": " \nB1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n \nRepetir: "
+  },
+  {
+    "id": "d28bef425295-p24-b13",
+    "equal": true,
+    "quote": " \nRepetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 17 \n \n Finsi. "
+  },
+  {
+    "id": "d28bef425295-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) \n "
+  },
+  {
+    "id": "d28bef425295-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n \nSi AÑODES (i) > 2021:  MINDES3 = MI"
+  },
+  {
+    "id": "d28bef425295-p25-b3",
+    "equal": true,
+    "quote": " \nSi AÑODES (i) > 2021:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \nElse: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2021 ]}:   "
+  },
+  {
+    "id": "d28bef425295-p25-b5",
+    "equal": true,
+    "quote": "Else: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2021 ]}:   \n \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n \nFinsi. "
+  },
+  {
+    "id": "d28bef425295-p25-b14",
+    "equal": true,
+    "quote": " \n65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n \n "
+  },
+  {
+    "id": "d28bef425295-p26-b13",
+    "equal": true,
+    "quote": " \n** Contribuyente con discapacidad \n \nSi DISCAPER = DESDE65: DISPER = 9"
+  },
+  {
+    "id": "d28bef425295-p26-b14",
+    "equal": true,
+    "quote": " \nSi DISCAPER = DESDE65: DISPER = 9.000,00 \n \nElse: Si DISCAPER = DE33A65: DISPER = 3.00"
+  },
+  {
+    "id": "d28bef425295-p26-b15",
+    "equal": true,
+    "quote": " \nElse: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n \nElse: DISPER = 0,00  "
+  },
+  {
+    "id": "d28bef425295-p26-b16",
+    "equal": true,
+    "quote": " \nElse: DISPER = 0,00  \n \nFinsi "
+  },
+  {
+    "id": "d28bef425295-p29-b4",
+    "equal": true,
+    "quote": " \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RET"
+  },
+  {
+    "id": "d28bef425295-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \nArt. 81 RIRPF (según modif R.D. 1039/2022): "
+  },
+  {
+    "id": "d28bef425295-p29-b6",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETE\nArt. 81 RIRPF (según modif R.D. 1039/2022): \n \n "
+  },
+  {
+    "id": "d28bef425295-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n17.270 \n18.617 \nSITUACIÓN 2 \n16.696 \n17.894 \n19.241 \nSITUACIÓN 3 \n15.000 \n15.599 \n16.272 \n \n \n \nSi RETRIB ≤ (19.241,00 + PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: "
+  },
+  {
+    "id": "d28bef425295-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (17.270,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (18.617,00 + PENSION + DESEM)]: EXENTOS"
+  },
+  {
+    "id": "d28bef425295-p29-b11",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (18.617,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB  (16.696,00+ PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "d28bef425295-p29-b12",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (16.696,00+ PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (17.894,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.241,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "d28bef425295-p30-b4",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (15.000,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB  (15.599,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "d28bef425295-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (15.599,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (16.272,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "d28bef425295-p30-b6",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (16.272,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "d28bef425295-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n "
+  },
+  {
+    "id": "d28bef425295-p31-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \n \n** Límite del 43 % (art. 85.3 RIRPF, según modif R.D. 1039/2022): \n \n \nSi RETRIB ≤ 35.200,00: \n "
+  },
+  {
+    "id": "d28bef425295-p32-b23",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "d28bef425295-p33-b15",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "d28bef425295-p33-b17",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "d28bef425295-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al "
+  },
+  {
+    "id": "d28bef425295-p34-b5",
+    "equal": true,
+    "quote": "para calcular el tipo de retención \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "d28bef425295-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "d28bef425295-p34-b10",
+    "equal": true,
+    "quote": "dichos territorios \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por "
+  },
+  {
+    "id": "d28bef425295-p34-b11",
+    "equal": true,
+    "quote": "o rehabilitación de su vivienda habitual \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "d28bef425295-p37-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "d28bef425295-p41-b6",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "d28bef425295-p41-b28",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN \nC"
+  },
+  {
+    "id": "d28bef425295-p41-b29",
+    "equal": true,
+    "quote": "C\nCAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "d28bef425295-p41-b31",
+    "equal": true,
+    "quote": "PARA CALCULAR EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "d28bef425295-p41-b34",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "d28bef425295-p42-b2",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "d28bef425295-p42-b4",
+    "equal": true,
+    "quote": "REHABILITACIÓN DE SU VIVIENDA HABITUAL \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "d28bef425295-p42-b6",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "d28bef425295-p43-b7",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "d28bef425295-p43-b8",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "d28bef425295-p43-b12",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "d28bef425295-p45-b22",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "d28bef425295-p45-b23",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "d28bef425295-p45-b25",
+    "equal": true,
+    "quote": "EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "d28bef425295-p45-b36",
+    "equal": true,
+    "quote": "DICHOS TERRITORIOS. \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "d28bef425295-p46-b2",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "d28bef425295-p46-b4",
+    "equal": true,
+    "quote": "POR PRÉSTAMOS\nCAUSA11 \nOTRAS CAUSAS \n "
+  },
+  {
+    "id": "cc2697a37b3f-p2-b6",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "cc2697a37b3f-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "cc2697a37b3f-p22-b13",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "cc2697a37b3f-p22-b14",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "cc2697a37b3f-p22-b15",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "cc2697a37b3f-p22-b16",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "cc2697a37b3f-p22-b17",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "cc2697a37b3f-p23-b15",
+    "equal": true,
+    "quote": " \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20  \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA: PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2: HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO: DESEM = 1.200,00 \n \nElse: DESEM= 0,00 \n \nFinsi. "
+  },
+  {
+    "id": "cc2697a37b3f-p24-b3",
+    "equal": true,
+    "quote": "A1.CON CARÁCTER GENERAL \n \nMINPER = 5.550,00 "
+  },
+  {
+    "id": "cc2697a37b3f-p24-b4",
+    "equal": true,
+    "quote": " \nMINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2023 – AÑOPER) > 64: 65PER = 1.150,00  \n \nElse: 65PER = 0,00 "
+  },
+  {
+    "id": "cc2697a37b3f-p24-b12",
+    "equal": true,
+    "quote": " \nB1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n \nRepetir: "
+  },
+  {
+    "id": "cc2697a37b3f-p24-b13",
+    "equal": true,
+    "quote": " \nRepetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 16 \n \n Finsi. "
+  },
+  {
+    "id": "cc2697a37b3f-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) \n "
+  },
+  {
+    "id": "cc2697a37b3f-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n \nSi AÑODES (i) > 2020:  MINDES3 = MI"
+  },
+  {
+    "id": "cc2697a37b3f-p25-b3",
+    "equal": true,
+    "quote": " \nSi AÑODES (i) > 2020:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \nElse: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2020 ]}:   "
+  },
+  {
+    "id": "cc2697a37b3f-p25-b5",
+    "equal": true,
+    "quote": "Else: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2020 ]}:   \n \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n \nFinsi. "
+  },
+  {
+    "id": "cc2697a37b3f-p25-b15",
+    "equal": true,
+    "quote": " \n65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "cc2697a37b3f-p26-b14",
+    "equal": true,
+    "quote": " \nSi DISCAPER = DESDE65: DISPER = 9.000,00 \n \nElse: Si DISCAPER = DE33A65: DISPER = 3.00"
+  },
+  {
+    "id": "cc2697a37b3f-p26-b15",
+    "equal": true,
+    "quote": " \nElse: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n \nElse: DISPER = 0,00  "
+  },
+  {
+    "id": "cc2697a37b3f-p26-b16",
+    "equal": true,
+    "quote": " \nElse: DISPER = 0,00  \n \nFinsi "
+  },
+  {
+    "id": "cc2697a37b3f-p29-b4",
+    "equal": true,
+    "quote": " \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RET"
+  },
+  {
+    "id": "cc2697a37b3f-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \n "
+  },
+  {
+    "id": "cc2697a37b3f-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n15.947,00 17.100,00 \nSITUACIÓN 2 15.456,00 16.481,00 17.634,00 \nSITUACIÓN 3 14.000,00 14.516,00 15.093,00 \n \n \n \nSi RETRIB ≤ (17.634,00 + PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: "
+  },
+  {
+    "id": "cc2697a37b3f-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (15.947,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (17.100,00 + PENSION + DESEM)]: EXENTOS"
+  },
+  {
+    "id": "cc2697a37b3f-p29-b11",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (17.100,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB  (15.456,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "cc2697a37b3f-p29-b12",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (15.456,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (16. 481,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (17. 634,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "cc2697a37b3f-p30-b4",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (14.000,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB  (14.516,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "cc2697a37b3f-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (14.516,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (15.093,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "cc2697a37b3f-p30-b6",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (15.093,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "cc2697a37b3f-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n "
+  },
+  {
+    "id": "cc2697a37b3f-p31-b17",
+    "equal": true,
+    "quote": "se:  Si SITUFAM = SITUACION2: \n \nSi NUMDES = 0: LIMITE = [RETRIB - (15.456,00 + PENSION + DESEM)] *043  "
+  },
+  {
+    "id": "cc2697a37b3f-p32-b24",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "cc2697a37b3f-p33-b13",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "cc2697a37b3f-p33-b15",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "cc2697a37b3f-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al "
+  },
+  {
+    "id": "cc2697a37b3f-p34-b5",
+    "equal": true,
+    "quote": "para calcular el tipo de retención \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "cc2697a37b3f-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "cc2697a37b3f-p34-b10",
+    "equal": true,
+    "quote": "dichos territorios \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por "
+  },
+  {
+    "id": "cc2697a37b3f-p34-b11",
+    "equal": true,
+    "quote": "o rehabilitación de su vivienda habitual \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "cc2697a37b3f-p37-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "cc2697a37b3f-p40-b12",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "cc2697a37b3f-p40-b40",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "cc2697a37b3f-p40-b41",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "cc2697a37b3f-p40-b43",
+    "equal": true,
+    "quote": "PARA CALCULAR EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "cc2697a37b3f-p41-b9",
+    "equal": true,
+    "quote": "DICHOS TERRITORIOS \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \n "
+  },
+  {
+    "id": "cc2697a37b3f-p41-b13",
+    "equal": true,
+    "quote": " \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "cc2697a37b3f-p41-b15",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "cc2697a37b3f-p42-b16",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "cc2697a37b3f-p42-b17",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "cc2697a37b3f-p42-b27",
+    "equal": true,
+    "quote": " \nEL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "cc2697a37b3f-p44-b34",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "cc2697a37b3f-p44-b35",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "cc2697a37b3f-p44-b37",
+    "equal": true,
+    "quote": "EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "cc2697a37b3f-p45-b11",
+    "equal": true,
+    "quote": "DICHOS TERRITORIOS \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "cc2697a37b3f-p45-b13",
+    "equal": true,
+    "quote": "REHABILITACIÓN DE SU VIVIENDA HABITUAL \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "cc2697a37b3f-p45-b15",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p2-b6",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p21-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p21-b13",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p21-b14",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p21-b15",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p21-b16",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p21-b17",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p22-b15",
+    "equal": true,
+    "quote": " \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20  \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA: PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2: HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO: DESEM = 1.200,00 \n \nElse: DESEM= 0,00 \n \nFinsi. "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p23-b3",
+    "equal": true,
+    "quote": "A1.CON CARÁCTER GENERAL \n \nMINPER = 5.550,00 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p23-b4",
+    "equal": true,
+    "quote": " \nMINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2022 – AÑOPER) > 64: 65PER = 1.150,00  \n \nElse: 65PER = 0,00 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p23-b12",
+    "equal": true,
+    "quote": " \nB1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n \nRepetir: "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p23-b13",
+    "equal": true,
+    "quote": " \nRepetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 16 \n \n Finsi. "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p23-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) \n "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p24-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n \nSi AÑODES (i) > 2019:  MINDES3 = MI"
+  },
+  {
+    "id": "a4bb4dc6ddd0-p24-b3",
+    "equal": true,
+    "quote": " \nSi AÑODES (i) > 2019:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \nElse: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) >   2019]}:   "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p24-b5",
+    "equal": true,
+    "quote": "Else: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) >   2019]}:   \n \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n \nFinsi. "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p24-b15",
+    "equal": true,
+    "quote": " \n65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p25-b14",
+    "equal": true,
+    "quote": " \nSi DISCAPER = DESDE65: DISPER = 9.000,00 \n \nElse: Si DISCAPER = DE33A65: DISPER = 3.00"
+  },
+  {
+    "id": "a4bb4dc6ddd0-p25-b15",
+    "equal": true,
+    "quote": " \nElse: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n \nElse: DISPER = 0,00  "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p25-b16",
+    "equal": true,
+    "quote": " \nElse: DISPER = 0,00  \n \nFinsi "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p28-b4",
+    "equal": true,
+    "quote": " \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RET"
+  },
+  {
+    "id": "a4bb4dc6ddd0-p28-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \n "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p28-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n15.947,00 17.100,00 \nSITUACIÓN 2 15.456,00 16.481,00 17.634,00 \nSITUACIÓN 3 14.000,00 14.516,00 15.093,00 \n \n \n \nSi RETRIB ≤ (17.634,00 + PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p28-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (15.947,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (17.100,00 + PENSION + DESEM)]: EXENTOS"
+  },
+  {
+    "id": "a4bb4dc6ddd0-p28-b11",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (17.100,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB  (15.456,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p28-b12",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (15.456,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (16. 481,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (17. 634,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p29-b4",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (14.000,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB  (14.516,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p29-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (14.516,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (15.093,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p29-b6",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (15.093,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p29-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p31-b21",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p32-b8",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p32-b10",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p33-b4",
+    "equal": true,
+    "quote": "retención \nCircunstancias que determinan variaciones en el importe del mínimo personal y \nfamiliar para calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p33-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p33-b10",
+    "equal": true,
+    "quote": "o Melilla \nComenzar a realizar trabajos fuera de Ceuta o Melilla por residentes en dichas \nciudades \nCAUSA8 \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p33-b11",
+    "equal": true,
+    "quote": "ciudades \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la \nadquisición o rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p33-b12",
+    "equal": true,
+    "quote": "adquisición o rehabilitación de su vivienda habitual \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención \npor pagos por préstamos destinados a la adquisición o rehabilitación de su \nvivienda habitual \nOtras causas "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p33-b13",
+    "equal": true,
+    "quote": "CAUSA10 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p36-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p39-b5",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p39-b26",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p39-b27",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p39-b29",
+    "equal": true,
+    "quote": "PARA CALCULAR EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p39-b32",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN \nPÉRDIDADELACONDICIÓNDERESIDENTERESIDENCIAHABITUALYEFECTIVAENCEUTAO"
+  },
+  {
+    "id": "a4bb4dc6ddd0-p39-b37",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHAS CIUDADES \nS/N \nN \nE"
+  },
+  {
+    "id": "a4bb4dc6ddd0-p39-b38",
+    "equal": true,
+    "quote": "CCM \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \n "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p40-b2",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p40-b4",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p41-b2",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p41-b3",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p41-b7",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p43-b11",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p43-b12",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p43-b14",
+    "equal": true,
+    "quote": "EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p43-b17",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN \nen el "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p43-b24",
+    "equal": true,
+    "quote": "M \nCAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHAS CIUDADES \nS/N \nN \nE"
+  },
+  {
+    "id": "a4bb4dc6ddd0-p43-b25",
+    "equal": true,
+    "quote": "CCM \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p43-b27",
+    "equal": true,
+    "quote": "REHABILITACIÓN DE SU VIVIENDA HABITUAL \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "a4bb4dc6ddd0-p43-b29",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p2-b7",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "8d435c1b9ffc-p21-b6",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "8d435c1b9ffc-p21-b15",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "8d435c1b9ffc-p21-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "8d435c1b9ffc-p21-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "8d435c1b9ffc-p21-b18",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "8d435c1b9ffc-p21-b19",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "8d435c1b9ffc-p22-b16",
+    "equal": true,
+    "quote": " \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20  \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA: PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2: HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO: DESEM = 1.200,00 \n \nElse: DESEM= 0,00 \n \nFinsi. "
+  },
+  {
+    "id": "8d435c1b9ffc-p23-b5",
+    "equal": true,
+    "quote": "MINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2021 – AÑOPER) > 64: 65PER = 1.150,00  \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p23-b13",
+    "equal": true,
+    "quote": "B1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p23-b14",
+    "equal": true,
+    "quote": "Repetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 16 \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p23-b16",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) "
+  },
+  {
+    "id": "8d435c1b9ffc-p24-b3",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p24-b4",
+    "equal": true,
+    "quote": "Si AÑODES (i) > 2018:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p24-b6",
+    "equal": true,
+    "quote": " \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p24-b11",
+    "equal": true,
+    "quote": "C1. ASCENDIENTES ≥ 65 AÑOS O DISCAPACITADOS  \n \n \n \nSi NUMAS65A o NUMAS75A > 0: \n j = 1 \n \n \n \n \n \n \n65AS = 0,00 \n \n \n \n \n \nRepetir: \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p24-b16",
+    "equal": true,
+    "quote": "65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p25-b15",
+    "equal": true,
+    "quote": "Si DISCAPER = DESDE65: DISPER = 9.000,00 \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p25-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p25-b17",
+    "equal": true,
+    "quote": "Else: DISPER = 0,00  \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p28-b6",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN "
+  },
+  {
+    "id": "8d435c1b9ffc-p28-b9",
+    "equal": true,
+    "quote": "FAMILIAR \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n15.947,00 17.100,00 \nSITUACIÓN 2 15.456,00 16.481,00 17.634,00 \nSITUACIÓN 3 14.000,00 14.516,00 15.093,00 \n \n \n \nSi RETRIB ≤ (17.634,00 + PENSION + DESEM): \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p28-b11",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (15.947,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p28-b12",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (17.100,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p28-b13",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (15.456,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (16. 481,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (17. 634,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p29-b5",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (14.000,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p29-b6",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (14.516,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p29-b7",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (15.093,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p29-b16",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  "
+  },
+  {
+    "id": "8d435c1b9ffc-p30-b16",
+    "equal": true,
+    "quote": " \nSi NUMDES = 0: LIMITE = [RETRIB - (15.456,00 + PENSION + DESEM)] *043  \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p31-b21",
+    "equal": true,
+    "quote": " MINOPAGO = 2,00% *RETRIB \n \nElse: MINOPAGO = 0 "
+  },
+  {
+    "id": "8d435c1b9ffc-p31-b22",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "8d435c1b9ffc-p32-b9",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "8d435c1b9ffc-p32-b11",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "8d435c1b9ffc-p33-b5",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en el importe del mínimo personal y \nfamiliar para calcular el tipo de retención \nCAUSA2 "
+  },
+  {
+    "id": "8d435c1b9ffc-p33-b6",
+    "equal": true,
+    "quote": "Quedar obligado judicialmente el perceptor a satisfacer pensión compensatoria \nal cónyuge \nCAUSA3 "
+  },
+  {
+    "id": "8d435c1b9ffc-p33-b9",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "8d435c1b9ffc-p33-b10",
+    "equal": true,
+    "quote": "Adquisición de la condición de residente en Ceuta o Melilla \nCAUSA7 \nComenzar a realizar trabajos fuera de Ceuta o Melilla por residentes en dichas \nciudades \nCAUSA8 "
+  },
+  {
+    "id": "8d435c1b9ffc-p33-b11",
+    "equal": true,
+    "quote": "El perceptor ha comunicado que realiza pagos por préstamos destinados a la \nadquisición o rehabilitación de su vivienda habitual \nCAUSA9 "
+  },
+  {
+    "id": "8d435c1b9ffc-p33-b12",
+    "equal": true,
+    "quote": "El perceptor ha comunicado la improcedencia de reducción del tipo de retención \npor pagos por préstamos destinados a la adquisición o rehabilitación de su \nvivienda habitual "
+  },
+  {
+    "id": "8d435c1b9ffc-p33-b13",
+    "equal": true,
+    "quote": "CAUSA10 "
+  },
+  {
+    "id": "8d435c1b9ffc-p33-b16",
+    "equal": true,
+    "quote": "Finsi. \n \n \nElse: Si [RESICEME = S y RENCEME = N y RENCEMEA = S y CAUSA8 = S]: \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p34-b6",
+    "equal": true,
+    "quote": " \n** Tratamiento especial por minoración por pagos de préstamos para la vivienda habitual \n \nSi [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S o CAUSA5=S o CAUSA6=S o CAUSA7=S o       \nCAUSA8 =S): "
+  },
+  {
+    "id": "8d435c1b9ffc-p36-b15",
+    "equal": true,
+    "quote": "Finsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "8d435c1b9ffc-p39-b20",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p39-b21",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p39-b22",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p39-b24",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p39-b25",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "8d435c1b9ffc-p39-b28",
+    "equal": true,
+    "quote": "CAUSA7 \nADQUISICIÓN DE LA CONDICIÓN DE RESIDENTE EN CEUTA O MELILLA \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p39-b29",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHAS CIUDADES \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p39-b30",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "8d435c1b9ffc-p40-b2",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p40-b3",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p41-b2",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "8d435c1b9ffc-p41-b3",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b9",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b10",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b11",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b13",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b14",
+    "equal": true,
+    "quote": "CAUSA6 \nPÉRDIDA DE LA CONDICIÓN DE RESIDENTE EN CEUTA O MELILLA \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b15",
+    "equal": true,
+    "quote": "CAUSA7 \nADQUISICIÓN DE LA CONDICIÓN DE RESIDENTE EN CEUTA O MELILLA \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b16",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHAS CIUDADES \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b17",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b18",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "8d435c1b9ffc-p43-b20",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "f433d785bb13-p2-b6",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "f433d785bb13-p21-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "f433d785bb13-p21-b13",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "f433d785bb13-p21-b14",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "f433d785bb13-p21-b15",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "f433d785bb13-p21-b16",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "f433d785bb13-p21-b17",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "f433d785bb13-p22-b15",
+    "equal": true,
+    "quote": " \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20  \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA: PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2: HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO: DESEM = 1.200,00 \n \nElse: DESEM= 0,00 \n \nFinsi. "
+  },
+  {
+    "id": "f433d785bb13-p23-b3",
+    "equal": true,
+    "quote": "A1.CON CARÁCTER GENERAL \n \nMINPER = 5.550,00 "
+  },
+  {
+    "id": "f433d785bb13-p23-b4",
+    "equal": true,
+    "quote": " \nMINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2021 – AÑOPER) > 64: 65PER = 1.150,00  \n \nElse: 65PER = 0,00 "
+  },
+  {
+    "id": "f433d785bb13-p23-b12",
+    "equal": true,
+    "quote": " \nB1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n \nRepetir: "
+  },
+  {
+    "id": "f433d785bb13-p23-b13",
+    "equal": true,
+    "quote": " \nRepetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 16 \n \n Finsi. "
+  },
+  {
+    "id": "f433d785bb13-p23-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) \n "
+  },
+  {
+    "id": "f433d785bb13-p24-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n \nSi AÑODES (i) > 2018:  MINDES3 = MI"
+  },
+  {
+    "id": "f433d785bb13-p24-b3",
+    "equal": true,
+    "quote": " \nSi AÑODES (i) > 2018:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \nElse: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2018 ]}:   "
+  },
+  {
+    "id": "f433d785bb13-p24-b5",
+    "equal": true,
+    "quote": "Else: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2018 ]}:   \n \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n \nFinsi. "
+  },
+  {
+    "id": "f433d785bb13-p24-b15",
+    "equal": true,
+    "quote": " \n65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "f433d785bb13-p25-b14",
+    "equal": true,
+    "quote": " \nSi DISCAPER = DESDE65: DISPER = 9.000,00 \n \nElse: Si DISCAPER = DE33A65: DISPER = 3.00"
+  },
+  {
+    "id": "f433d785bb13-p25-b15",
+    "equal": true,
+    "quote": " \nElse: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n \nElse: DISPER = 0,00  "
+  },
+  {
+    "id": "f433d785bb13-p25-b16",
+    "equal": true,
+    "quote": " \nElse: DISPER = 0,00  \n \nFinsi "
+  },
+  {
+    "id": "f433d785bb13-p28-b4",
+    "equal": true,
+    "quote": " \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RET"
+  },
+  {
+    "id": "f433d785bb13-p28-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \n "
+  },
+  {
+    "id": "f433d785bb13-p28-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n15.947,00 17.100,00 \nSITUACIÓN 2 15.456,00 16.481,00 17.634,00 \nSITUACIÓN 3 14.000,00 14.516,00 15.093,00 \n \n \n \nSi RETRIB ≤ (17.634,00 + PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: "
+  },
+  {
+    "id": "f433d785bb13-p28-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (15.947,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (17.100,00 + PENSION + DESEM)]: EXENTOS"
+  },
+  {
+    "id": "f433d785bb13-p28-b11",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (17.100,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB  (15.456,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "f433d785bb13-p28-b12",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (15.456,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (16. 481,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (17. 634,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "f433d785bb13-p29-b4",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (14.000,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB  (14.516,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "f433d785bb13-p29-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (14.516,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (15.093,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "f433d785bb13-p29-b6",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (15.093,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "f433d785bb13-p29-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n "
+  },
+  {
+    "id": "f433d785bb13-p31-b21",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "f433d785bb13-p32-b8",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "f433d785bb13-p32-b10",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "f433d785bb13-p33-b4",
+    "equal": true,
+    "quote": "retención \nCircunstancias que determinan variaciones en el importe del mínimo personal y \nfamiliar para calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria "
+  },
+  {
+    "id": "f433d785bb13-p33-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "f433d785bb13-p33-b10",
+    "equal": true,
+    "quote": "ciudades \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la \nadquisición o rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención "
+  },
+  {
+    "id": "f433d785bb13-p33-b11",
+    "equal": true,
+    "quote": "adquisición o rehabilitación de su vivienda habitual \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención \npor pagos por préstamos destinados a la adquisición o rehabilitación de su \nvivienda habitual \nOtras causas "
+  },
+  {
+    "id": "f433d785bb13-p33-b12",
+    "equal": true,
+    "quote": "CAUSA10 "
+  },
+  {
+    "id": "f433d785bb13-p36-b14",
+    "equal": true,
+    "quote": " \nFinsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "f433d785bb13-p39-b5",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "f433d785bb13-p39-b26",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "f433d785bb13-p39-b27",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "f433d785bb13-p39-b29",
+    "equal": true,
+    "quote": "PARA CALCULAR EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "f433d785bb13-p39-b38",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHAS CIUDADES \nS/N \nN \nE"
+  },
+  {
+    "id": "f433d785bb13-p39-b39",
+    "equal": true,
+    "quote": "CCM \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "f433d785bb13-p40-b2",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "f433d785bb13-p40-b4",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "f433d785bb13-p41-b2",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "f433d785bb13-p41-b3",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "f433d785bb13-p41-b7",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "f433d785bb13-p43-b11",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "f433d785bb13-p43-b12",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "f433d785bb13-p43-b14",
+    "equal": true,
+    "quote": "EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "f433d785bb13-p43-b23",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHAS CIUDADES \nS/N \nN \nE"
+  },
+  {
+    "id": "f433d785bb13-p43-b24",
+    "equal": true,
+    "quote": "CCM \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "f433d785bb13-p43-b26",
+    "equal": true,
+    "quote": "REHABILITACIÓN DE SU VIVIENDA HABITUAL \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "f433d785bb13-p43-b28",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p2-b7",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "645d06d2dc5a-p21-b5",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "645d06d2dc5a-p21-b14",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "645d06d2dc5a-p21-b15",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "645d06d2dc5a-p21-b16",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "645d06d2dc5a-p21-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "645d06d2dc5a-p21-b18",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "645d06d2dc5a-p22-b16",
+    "equal": true,
+    "quote": " \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20  \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA: PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2: HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO: DESEM = 1.200,00 \n \nElse: DESEM= 0,00 \n \nFinsi. "
+  },
+  {
+    "id": "645d06d2dc5a-p23-b5",
+    "equal": true,
+    "quote": "MINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2020 – AÑOPER) > 64: 65PER = 1.150,00  \n "
+  },
+  {
+    "id": "645d06d2dc5a-p23-b13",
+    "equal": true,
+    "quote": "B1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n "
+  },
+  {
+    "id": "645d06d2dc5a-p23-b14",
+    "equal": true,
+    "quote": "Repetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 16 \n "
+  },
+  {
+    "id": "645d06d2dc5a-p23-b16",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) "
+  },
+  {
+    "id": "645d06d2dc5a-p24-b3",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n "
+  },
+  {
+    "id": "645d06d2dc5a-p24-b4",
+    "equal": true,
+    "quote": "Si AÑODES (i) > 2017:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n "
+  },
+  {
+    "id": "645d06d2dc5a-p24-b6",
+    "equal": true,
+    "quote": " \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n "
+  },
+  {
+    "id": "645d06d2dc5a-p24-b11",
+    "equal": true,
+    "quote": "C1. ASCENDIENTES ≥ 65 AÑOS O DISCAPACITADOS  \n \n \n \nSi NUMAS65A o NUMAS75A > 0: \n j = 1 \n \n \n \n \n \n \n65AS = 0,00 \n \n \n \n \n \nRepetir: \n "
+  },
+  {
+    "id": "645d06d2dc5a-p24-b16",
+    "equal": true,
+    "quote": "65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "645d06d2dc5a-p25-b15",
+    "equal": true,
+    "quote": "Si DISCAPER = DESDE65: DISPER = 9.000,00 \n "
+  },
+  {
+    "id": "645d06d2dc5a-p25-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n "
+  },
+  {
+    "id": "645d06d2dc5a-p25-b17",
+    "equal": true,
+    "quote": "Else: DISPER = 0,00  \n "
+  },
+  {
+    "id": "645d06d2dc5a-p28-b6",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN "
+  },
+  {
+    "id": "645d06d2dc5a-p28-b12",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (17.100,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n "
+  },
+  {
+    "id": "645d06d2dc5a-p28-b13",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (15.456,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (16. 481,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (17. 634,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "645d06d2dc5a-p29-b5",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (14.000,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "645d06d2dc5a-p29-b6",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (14.516,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "645d06d2dc5a-p29-b7",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (15.093,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "645d06d2dc5a-p30-b16",
+    "equal": true,
+    "quote": " \nSi NUMDES = 0: LIMITE = [RETRIB - (15.456,00 + PENSION + DESEM)] *043  \n "
+  },
+  {
+    "id": "645d06d2dc5a-p31-b21",
+    "equal": true,
+    "quote": " MINOPAGO = 2,00% *RETRIB \n \nElse: MINOPAGO = 0 "
+  },
+  {
+    "id": "645d06d2dc5a-p31-b22",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "645d06d2dc5a-p32-b9",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "645d06d2dc5a-p32-b11",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b5",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en el importe del mínimo personal y \nfamiliar para calcular el tipo de retención \nCAUSA2 "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b6",
+    "equal": true,
+    "quote": "Quedar obligado judicialmente el perceptor a satisfacer pensión compensatoria \nal cónyuge \nCAUSA3 "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b8",
+    "equal": true,
+    "quote": "Cambio de la situación familiar “2” a la situación familiar “3” \nCAUSA5 "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b9",
+    "equal": true,
+    "quote": "Pérdida de la condición de residente en Ceuta o Melilla \nCAUSA6 "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b10",
+    "equal": true,
+    "quote": "Adquisición de la condición de residente en Ceuta o Melilla \nCAUSA7 "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b11",
+    "equal": true,
+    "quote": "Comenzar a realizar trabajos fuera de Ceuta o Melilla por residentes en dichas ciudades \nCAUSA8 \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la \nadquisición o rehabilitación de su vivienda habitual \nCAUSA9 "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b12",
+    "equal": true,
+    "quote": "El perceptor ha comunicado la improcedencia de reducción del tipo de retención \npor pagos por préstamos destinados a la adquisición o rehabilitación de su \nvivienda habitual "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b13",
+    "equal": true,
+    "quote": "CAUSA10 "
+  },
+  {
+    "id": "645d06d2dc5a-p33-b16",
+    "equal": true,
+    "quote": "Finsi. \n \n \nElse: Si [RESICEME = S y RENCEME = N y RENCEMEA = S y CAUSA8 = S]: \n "
+  },
+  {
+    "id": "645d06d2dc5a-p34-b3",
+    "equal": true,
+    "quote": "** Tratamiento especial por minoración por pagos de préstamos para la vivienda habitual \n \nSi [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S o CAUSA5=S o CAUSA6=S o CAUSA7=S o       \nCAUSA8 =S): "
+  },
+  {
+    "id": "645d06d2dc5a-p36-b15",
+    "equal": true,
+    "quote": "Finsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b20",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b21",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA \nCALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b22",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL CÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b24",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b25",
+    "equal": true,
+    "quote": "CAUSA6 \nPÉRDIDA DE LA CONDICIÓN DE RESIDENTE EN CEUTA O MELILLA \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b26",
+    "equal": true,
+    "quote": "CAUSA7 \nADQUISICIÓN DE LA CONDICIÓN DE RESIDENTE EN CEUTA O MELILLA \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b27",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHAS CIUDADES \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b28",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b29",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "645d06d2dc5a-p39-b31",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p40-b29",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "645d06d2dc5a-p40-b30",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b6",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b7",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR EL \nTIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b8",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL CÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b10",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b11",
+    "equal": true,
+    "quote": "CAUSA6 \nPÉRDIDA DE LA CONDICIÓN DE RESIDENTE EN CEUTA O MELILLA \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b12",
+    "equal": true,
+    "quote": "CAUSA7 \nADQUISICIÓN DE LA CONDICIÓN DE RESIDENTE EN CEUTA O MELILLA \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b13",
+    "equal": true,
+    "quote": "CAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHAS CIUDADES \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b14",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b15",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS POR \nPRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "645d06d2dc5a-p43-b16",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p2-b5",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "329fc013487a-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "329fc013487a-p22-b15",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "329fc013487a-p22-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "329fc013487a-p22-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "329fc013487a-p22-b19",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "329fc013487a-p22-b21",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "329fc013487a-p24-b4",
+    "equal": true,
+    "quote": "MINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2025 – AÑOPER) > 64: 65PER = 1.150,00  \n "
+  },
+  {
+    "id": "329fc013487a-p24-b12",
+    "equal": true,
+    "quote": "B1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n "
+  },
+  {
+    "id": "329fc013487a-p24-b13",
+    "equal": true,
+    "quote": "Repetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 17 \n "
+  },
+  {
+    "id": "329fc013487a-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) "
+  },
+  {
+    "id": "329fc013487a-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n "
+  },
+  {
+    "id": "329fc013487a-p25-b3",
+    "equal": true,
+    "quote": "Si AÑODES (i) > 2022:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n "
+  },
+  {
+    "id": "329fc013487a-p25-b5",
+    "equal": true,
+    "quote": " \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n "
+  },
+  {
+    "id": "329fc013487a-p25-b10",
+    "equal": true,
+    "quote": "  \n \n \n \nSi NUMAS65A o NUMAS75A > 0: \n j = 1 \n \n \n \n \n \n \n65AS = 0,00 \n \n \n \n \n \nRepetir: \n "
+  },
+  {
+    "id": "329fc013487a-p25-b15",
+    "equal": true,
+    "quote": "65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "329fc013487a-p26-b14",
+    "equal": true,
+    "quote": "Si DISCAPER = DESDE65: DISPER = 9.000,00 \n "
+  },
+  {
+    "id": "329fc013487a-p26-b15",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n "
+  },
+  {
+    "id": "329fc013487a-p26-b16",
+    "equal": true,
+    "quote": "Else: DISPER = 0,00  \n "
+  },
+  {
+    "id": "329fc013487a-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN "
+  },
+  {
+    "id": "329fc013487a-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n17.644 \n18.694 \nSITUACIÓN 2 \n17.197 \n18.130 \n19.262 \nSITUACIÓN 3 \n15.876 \n16.342 \n16.867 \n \n \n \nSi RETRIB ≤ (19.262,00 + PENSION + DESEM): \n "
+  },
+  {
+    "id": "329fc013487a-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (17.644,00 + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "329fc013487a-p29-b11",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (18.694,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n "
+  },
+  {
+    "id": "329fc013487a-p29-b12",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (17.197,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (18.130,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.262,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "329fc013487a-p30-b4",
+    "equal": true,
+    "quote": "Si [NUMDES = 0 y RETRIB ≤ (15.876,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "329fc013487a-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (16.342,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "329fc013487a-p30-b6",
+    "equal": true,
+    "quote": "Else: Si [NUMDES > 1 y RETRIB ≤ (16.867,00  + PENSION + DESEM)]: EXENTOS = S \n "
+  },
+  {
+    "id": "329fc013487a-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  "
+  },
+  {
+    "id": "329fc013487a-p31-b13",
+    "equal": true,
+    "quote": "Finsi. \n \n \n** Límite del 43 % (art. 85.3 RIRPF, según modif R.D. 1039/2022): \n \n \nSi RETRIB ≤ 35.200,00: "
+  },
+  {
+    "id": "329fc013487a-p32-b23",
+    "equal": true,
+    "quote": " MINOPAGO = 2,00% *RETRIB \n \nElse: MINOPAGO = 0 "
+  },
+  {
+    "id": "329fc013487a-p32-b24",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "329fc013487a-p33-b18",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "329fc013487a-p33-b20",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "329fc013487a-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 "
+  },
+  {
+    "id": "329fc013487a-p34-b5",
+    "equal": true,
+    "quote": "Quedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "329fc013487a-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "329fc013487a-p34-b10",
+    "equal": true,
+    "quote": "El perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 "
+  },
+  {
+    "id": "329fc013487a-p34-b11",
+    "equal": true,
+    "quote": "El perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "329fc013487a-p34-b14",
+    "equal": true,
+    "quote": "Finsi. \n \n \nElse: Si [RESICEME = S y RENCEME = N y RENCEMEA = S y (CAUSA8 = S o CAUSA11 = S)]: \n "
+  },
+  {
+    "id": "329fc013487a-p35-b2",
+    "equal": true,
+    "quote": "** Tratamiento especial por minoración por pagos de préstamos para la vivienda habitual \n \nSi [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S o CAUSA5=S o CAUSA6=S o CAUSA7=S o       \nCAUSA8 =S): "
+  },
+  {
+    "id": "329fc013487a-p37-b13",
+    "equal": true,
+    "quote": "Finsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "329fc013487a-p42-b27",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p42-b28",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "329fc013487a-p42-b30",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p43-b3",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p43-b4",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "329fc013487a-p43-b10",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p43-b11",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p43-b12",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p44-b14",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "329fc013487a-p44-b15",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "329fc013487a-p47-b2",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p47-b3",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p47-b4",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p47-b6",
+    "equal": true,
+    "quote": "CAUSA5 \nCAMBIO DE LA SITUACIÓN FAMILIAR “2” A LA SITUACIÓN FAMILIAR “3” \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p47-b7",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "329fc013487a-p47-b13",
+    "equal": true,
+    "quote": "CAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \nS/N \nN "
+  },
+  {
+    "id": "329fc013487a-p47-b14",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "329fc013487a-p47-b16",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "c4d53e76b59e-p2-b5",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "c4d53e76b59e-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "c4d53e76b59e-p22-b15",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "c4d53e76b59e-p22-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "c4d53e76b59e-p22-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "c4d53e76b59e-p22-b19",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "c4d53e76b59e-p22-b21",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "c4d53e76b59e-p24-b3",
+    "equal": true,
+    "quote": "A1.CON CARÁCTER GENERAL \n \nMINPER = 5.550,00 "
+  },
+  {
+    "id": "c4d53e76b59e-p24-b4",
+    "equal": true,
+    "quote": " \nMINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2024 – AÑOPER) > 64: 65PER = 1.150,00  \n \nElse: 65PER = 0,00 "
+  },
+  {
+    "id": "c4d53e76b59e-p24-b12",
+    "equal": true,
+    "quote": " \nB1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n \nRepetir: "
+  },
+  {
+    "id": "c4d53e76b59e-p24-b13",
+    "equal": true,
+    "quote": " \nRepetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 17 \n \n Finsi. "
+  },
+  {
+    "id": "c4d53e76b59e-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) \n "
+  },
+  {
+    "id": "c4d53e76b59e-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n \nSi AÑODES (i) > 2021:  MINDES3 = MI"
+  },
+  {
+    "id": "c4d53e76b59e-p25-b3",
+    "equal": true,
+    "quote": " \nSi AÑODES (i) > 2021:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \nElse: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2021 ]}:   "
+  },
+  {
+    "id": "c4d53e76b59e-p25-b5",
+    "equal": true,
+    "quote": "Else: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2021 ]}:   \n \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n \nFinsi. "
+  },
+  {
+    "id": "c4d53e76b59e-p25-b15",
+    "equal": true,
+    "quote": " \n65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "c4d53e76b59e-p26-b13",
+    "equal": true,
+    "quote": " \n** Contribuyente con discapacidad \n \nSi DISCAPER = DESDE65: DISPER = 9"
+  },
+  {
+    "id": "c4d53e76b59e-p26-b14",
+    "equal": true,
+    "quote": " \nSi DISCAPER = DESDE65: DISPER = 9.000,00 \n \nElse: Si DISCAPER = DE33A65: DISPER = 3.00"
+  },
+  {
+    "id": "c4d53e76b59e-p26-b15",
+    "equal": true,
+    "quote": " \nElse: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n \nElse: DISPER = 0,00  "
+  },
+  {
+    "id": "c4d53e76b59e-p26-b16",
+    "equal": true,
+    "quote": " \nElse: DISPER = 0,00  \n \nFinsi "
+  },
+  {
+    "id": "c4d53e76b59e-p29-b4",
+    "equal": true,
+    "quote": " \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RET"
+  },
+  {
+    "id": "c4d53e76b59e-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \nArt. 81 RIRPF (según modif. Real Decreto 142/2024, de"
+  },
+  {
+    "id": "c4d53e76b59e-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n17.644 \n18.694 \nSITUACIÓN 2 \n17.197 \n18.130 \n19.262 \nSITUACIÓN 3 \n15.876 \n16.342 \n16.867 \n \n \n \nSi RETRIB ≤ (19.262,00 + PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: "
+  },
+  {
+    "id": "c4d53e76b59e-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (17.644,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (18.694,00 + PENSION + DESEM)]: EXENTOS"
+  },
+  {
+    "id": "c4d53e76b59e-p29-b11",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (18.694,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB  (17.197,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "c4d53e76b59e-p29-b12",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (17.197,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (18.130,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.262,00  + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "c4d53e76b59e-p30-b4",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (15.876,00  + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB  (16.342,00  + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "c4d53e76b59e-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (16.342,00  + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (16.867,00  + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "c4d53e76b59e-p30-b6",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (16.867,00  + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "c4d53e76b59e-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n "
+  },
+  {
+    "id": "c4d53e76b59e-p31-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \n \n** Límite del 43 % (art. 85.3 RIRPF, según modif R.D. 1039/2022): \n \n \nSi RETRIB ≤ 35.200,00: \n "
+  },
+  {
+    "id": "c4d53e76b59e-p32-b23",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "c4d53e76b59e-p33-b16",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "c4d53e76b59e-p33-b18",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "c4d53e76b59e-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al "
+  },
+  {
+    "id": "c4d53e76b59e-p34-b5",
+    "equal": true,
+    "quote": "para calcular el tipo de retención \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "c4d53e76b59e-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "c4d53e76b59e-p34-b9",
+    "equal": true,
+    "quote": "Adquisición de la residencia habitual y efectiva en Ceuta o Melilla  \nCAUSA7 \nComenzar a realizar trabajos fuera de Ceuta o Melilla por residentes en dichos \nterritorios \nCAUSA8 \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición "
+  },
+  {
+    "id": "c4d53e76b59e-p34-b10",
+    "equal": true,
+    "quote": "territorios \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por "
+  },
+  {
+    "id": "c4d53e76b59e-p34-b11",
+    "equal": true,
+    "quote": "o rehabilitación de su vivienda habitual \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "c4d53e76b59e-p37-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "c4d53e76b59e-p41-b6",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "c4d53e76b59e-p41-b27",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN \nC"
+  },
+  {
+    "id": "c4d53e76b59e-p41-b28",
+    "equal": true,
+    "quote": "C\nCAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "c4d53e76b59e-p41-b30",
+    "equal": true,
+    "quote": "PARA CALCULAR EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "c4d53e76b59e-p41-b38",
+    "equal": true,
+    "quote": "ACMA \nCAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA  POR RESIDENTES EN DICHOS \nTERRITORIOS "
+  },
+  {
+    "id": "c4d53e76b59e-p41-b40",
+    "equal": true,
+    "quote": "TERRITORIOS \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nS/N \nN "
+  },
+  {
+    "id": "c4d53e76b59e-p42-b3",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "c4d53e76b59e-p42-b5",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "c4d53e76b59e-p43-b7",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "c4d53e76b59e-p43-b8",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "c4d53e76b59e-p43-b12",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "c4d53e76b59e-p45-b21",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "c4d53e76b59e-p45-b22",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "c4d53e76b59e-p45-b24",
+    "equal": true,
+    "quote": "EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "c4d53e76b59e-p45-b32",
+    "equal": true,
+    "quote": " \nCAUSA7 \nADQUISICIÓN DE LA RESIDENCIA HABITUAL Y EFECTIVA EN CEUTA O MELILLA. \nS/N \nN \nCCMDICHOS"
+  },
+  {
+    "id": "c4d53e76b59e-p45-b33",
+    "equal": true,
+    "quote": "ARESIDENCIAHABITUALYEFECTIVACM. \nCAUSA8 \nCOMENZAR A REALIZAR TRABAJOS FUERA DE CEUTA O MELILLA POR RESIDENTES EN DICHOS \nTERRITORIOS. "
+  },
+  {
+    "id": "c4d53e76b59e-p45-b35",
+    "equal": true,
+    "quote": "TERRITORIOS. \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "c4d53e76b59e-p45-b37",
+    "equal": true,
+    "quote": "CAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nS/N \nN "
+  },
+  {
+    "id": "c4d53e76b59e-p46-b3",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \n "
+  },
+  {
+    "id": "349c093fe191-p2-b5",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "349c093fe191-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "349c093fe191-p22-b15",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "349c093fe191-p22-b16",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "349c093fe191-p22-b17",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "349c093fe191-p22-b19",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "349c093fe191-p22-b21",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "349c093fe191-p24-b3",
+    "equal": true,
+    "quote": "A1.CON CARÁCTER GENERAL \n \nMINPER = 5.550,00 "
+  },
+  {
+    "id": "349c093fe191-p24-b4",
+    "equal": true,
+    "quote": " \nMINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2024 – AÑOPER) > 64: 65PER = 1.150,00  \n \nElse: 65PER = 0,00 "
+  },
+  {
+    "id": "349c093fe191-p24-b12",
+    "equal": true,
+    "quote": " \nB1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n \nRepetir: "
+  },
+  {
+    "id": "349c093fe191-p24-b13",
+    "equal": true,
+    "quote": " \nRepetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 17 \n \n Finsi. "
+  },
+  {
+    "id": "349c093fe191-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) \n "
+  },
+  {
+    "id": "349c093fe191-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n \nSi AÑODES (i) > 2021:  MINDES3 = MI"
+  },
+  {
+    "id": "349c093fe191-p25-b3",
+    "equal": true,
+    "quote": " \nSi AÑODES (i) > 2021:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \nElse: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2021 ]}:   "
+  },
+  {
+    "id": "349c093fe191-p25-b5",
+    "equal": true,
+    "quote": "Else: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2021 ]}:   \n \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n \nFinsi. "
+  },
+  {
+    "id": "349c093fe191-p25-b15",
+    "equal": true,
+    "quote": " \n65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "349c093fe191-p26-b13",
+    "equal": true,
+    "quote": " \n** Contribuyente con discapacidad \n \nSi DISCAPER = DESDE65: DISPER = 9"
+  },
+  {
+    "id": "349c093fe191-p26-b14",
+    "equal": true,
+    "quote": " \nSi DISCAPER = DESDE65: DISPER = 9.000,00 \n \nElse: Si DISCAPER = DE33A65: DISPER = 3.00"
+  },
+  {
+    "id": "349c093fe191-p26-b15",
+    "equal": true,
+    "quote": " \nElse: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n \nElse: DISPER = 0,00  "
+  },
+  {
+    "id": "349c093fe191-p26-b16",
+    "equal": true,
+    "quote": " \nElse: DISPER = 0,00  \n \nFinsi "
+  },
+  {
+    "id": "349c093fe191-p29-b4",
+    "equal": true,
+    "quote": " \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RET"
+  },
+  {
+    "id": "349c093fe191-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \nArt. 81 RIRPF (según modif. Real Decreto 142/2024, de"
+  },
+  {
+    "id": "349c093fe191-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n17.644 \n18.694 \nSITUACIÓN 2 \n17.197 \n18.130 \n19.262 \nSITUACIÓN 3 \n15.876 \n16.342 \n16.867 \n \n \n \nSi RETRIB ≤ (19.262,00 + PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: "
+  },
+  {
+    "id": "349c093fe191-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (17.644,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (18.694,00 + PENSION + DESEM)]: EXENTOS"
+  },
+  {
+    "id": "349c093fe191-p29-b11",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (18.694,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB  (17.197,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "349c093fe191-p29-b12",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (17.197,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (18.130,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.262,00  + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "349c093fe191-p30-b4",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (15.876,00  + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB  (16.342,00  + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "349c093fe191-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (16.342,00  + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (16.867,00  + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "349c093fe191-p30-b6",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (16.867,00  + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "349c093fe191-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n "
+  },
+  {
+    "id": "349c093fe191-p31-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \n \n** Límite del 43 % (art. 85.3 RIRPF, según modif R.D. 1039/2022): \n \n \nSi RETRIB ≤ 35.200,00: \n "
+  },
+  {
+    "id": "349c093fe191-p32-b24",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "349c093fe191-p33-b16",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "349c093fe191-p33-b18",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "349c093fe191-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al "
+  },
+  {
+    "id": "349c093fe191-p34-b5",
+    "equal": true,
+    "quote": "para calcular el tipo de retención \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "349c093fe191-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "349c093fe191-p34-b10",
+    "equal": true,
+    "quote": "dichos territorios \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por "
+  },
+  {
+    "id": "349c093fe191-p34-b11",
+    "equal": true,
+    "quote": "o rehabilitación de su vivienda habitual \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "349c093fe191-p37-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "349c093fe191-p41-b12",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "349c093fe191-p41-b40",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN \nC"
+  },
+  {
+    "id": "349c093fe191-p41-b41",
+    "equal": true,
+    "quote": "C\nCAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "349c093fe191-p41-b43",
+    "equal": true,
+    "quote": "PARA CALCULAR EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "349c093fe191-p42-b9",
+    "equal": true,
+    "quote": "DICHOS TERRITORIOS \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "349c093fe191-p42-b11",
+    "equal": true,
+    "quote": "REHABILITACIÓN DE SU VIVIENDA HABITUAL \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "349c093fe191-p42-b13",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "349c093fe191-p43-b15",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "349c093fe191-p43-b16",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "349c093fe191-p43-b26",
+    "equal": true,
+    "quote": " \nEL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "349c093fe191-p45-b34",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "349c093fe191-p45-b35",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "349c093fe191-p45-b37",
+    "equal": true,
+    "quote": "EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "349c093fe191-p46-b11",
+    "equal": true,
+    "quote": "DICHOS TERRITORIOS \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "349c093fe191-p46-b13",
+    "equal": true,
+    "quote": "REHABILITACIÓN DE SU VIVIENDA HABITUAL \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "349c093fe191-p46-b15",
+    "equal": true,
+    "quote": "POR PRÉSTAMOS\nCAUSA11 \nOTRAS CAUSAS \n "
+  },
+  {
+    "id": "244fa7f987b8-p2-b5",
+    "equal": true,
+    "quote": "VALIDACIONES DE LOS DATOS DE ENTRADA.......................................... \n4 "
+  },
+  {
+    "id": "244fa7f987b8-p22-b4",
+    "equal": true,
+    "quote": "GASTOSGEN = 2.000,00 "
+  },
+  {
+    "id": "244fa7f987b8-p22-b13",
+    "equal": true,
+    "quote": "Si [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 "
+  },
+  {
+    "id": "244fa7f987b8-p22-b14",
+    "equal": true,
+    "quote": "Else: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 "
+  },
+  {
+    "id": "244fa7f987b8-p22-b15",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "244fa7f987b8-p22-b16",
+    "equal": true,
+    "quote": "Else: INCREGASDISTRA= 0,00 "
+  },
+  {
+    "id": "244fa7f987b8-p22-b17",
+    "equal": true,
+    "quote": "Finsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 "
+  },
+  {
+    "id": "244fa7f987b8-p23-b15",
+    "equal": true,
+    "quote": " \n \n \nRENDIMIENTO NETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20  \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \nREDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA: PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \nREDUCCIÓN MAS DE DOS DESCENDIENTES \n \nSi NUMDES > 2: HIJOS = 600,00 \n \nElse: HIJOS = 0,00 \n \nFinsi \n \n \n \nREDUCCIÓN POR SER DESEMPLEADO \n \n \nSi SITUPER = DESEMPLEADO: DESEM = 1.200,00 \n \nElse: DESEM= 0,00 \n \nFinsi. "
+  },
+  {
+    "id": "244fa7f987b8-p24-b3",
+    "equal": true,
+    "quote": "A1.CON CARÁCTER GENERAL \n \nMINPER = 5.550,00 "
+  },
+  {
+    "id": "244fa7f987b8-p24-b4",
+    "equal": true,
+    "quote": " \nMINPER = 5.550,00 \n \n \nA2. SI EDAD ≥ 65 \n \n \n \nSi (2023 – AÑOPER) > 64: 65PER = 1.150,00  \n \nElse: 65PER = 0,00 "
+  },
+  {
+    "id": "244fa7f987b8-p24-b12",
+    "equal": true,
+    "quote": " \nB1. CON CARÁCTER GENERAL \n \n \nSi AÑODES (1) > 0 :  \ni = 1 \n \n \n \n \nMINDESG = 0,00 \n \nRepetir: "
+  },
+  {
+    "id": "244fa7f987b8-p24-b13",
+    "equal": true,
+    "quote": " \nRepetir: \n \n \nSi i = 1: MINDESG = 2.400,00 * ENTERO (i) \n \n \n \nElse: Si i = 2: MINDESG = MINDESG + [2.700,00 * ENTERO (i)] \n \n \n \nElse: Si i = 3: MINDESG = MINDESG + [4.000,00 * ENTERO (i)] \n \n \n \nElse: MINDESG = MINDESG + [4.500,00 * ENTERO (i)] \n \n \n \n \n \nFinsi. \n \n \n    \n i = i +1 \n \n \n    Hasta: AÑODES (i) = 0 ó i = 16 \n \n Finsi. "
+  },
+  {
+    "id": "244fa7f987b8-p24-b15",
+    "equal": true,
+    "quote": "MINDESG = REDONDEAR1 (MINDESG) \n "
+  },
+  {
+    "id": "244fa7f987b8-p25-b2",
+    "equal": true,
+    "quote": " \nB2. DESCENDIENTES < 3 AÑOS \n \n \n \n \nSi NUMDES > 0:  \ni = 1 \nMINDES3 = 0,00 \n \nRepetir: \n \nSi AÑODES (i) > 2020:  MINDES3 = MI"
+  },
+  {
+    "id": "244fa7f987b8-p25-b3",
+    "equal": true,
+    "quote": " \nSi AÑODES (i) > 2020:  MINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \nElse: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2020 ]}:   "
+  },
+  {
+    "id": "244fa7f987b8-p25-b5",
+    "equal": true,
+    "quote": "Else: Si {[AÑOADOP (i )   AÑODES (i)]  y [ AÑOADOP (i) > 2020 ]}:   \n \nMINDES3 = MINDES3 + [2.800,00 * ENTERO (i)] \n \n \n \nFinsi. \n \nFinsi. "
+  },
+  {
+    "id": "244fa7f987b8-p25-b15",
+    "equal": true,
+    "quote": " \n65AS = REDONDEAR1 (65AS) \n \n \n \n \n \n "
+  },
+  {
+    "id": "244fa7f987b8-p26-b14",
+    "equal": true,
+    "quote": " \nSi DISCAPER = DESDE65: DISPER = 9.000,00 \n \nElse: Si DISCAPER = DE33A65: DISPER = 3.00"
+  },
+  {
+    "id": "244fa7f987b8-p26-b15",
+    "equal": true,
+    "quote": " \nElse: Si DISCAPER = DE33A65: DISPER = 3.000,00 \n \nElse: DISPER = 0,00  "
+  },
+  {
+    "id": "244fa7f987b8-p26-b16",
+    "equal": true,
+    "quote": " \nElse: DISPER = 0,00  \n \nFinsi "
+  },
+  {
+    "id": "244fa7f987b8-p29-b4",
+    "equal": true,
+    "quote": " \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RET"
+  },
+  {
+    "id": "244fa7f987b8-p29-b5",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \nArt. 81 RIRPF (según modif R.D. 1039/2022): "
+  },
+  {
+    "id": "244fa7f987b8-p29-b6",
+    "equal": true,
+    "quote": "TABLA 1 - LIMITES EXCLUYENTES DE RETE\nArt. 81 RIRPF (según modif R.D. 1039/2022): \n \n "
+  },
+  {
+    "id": "244fa7f987b8-p29-b8",
+    "equal": true,
+    "quote": "SITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1 \n--- \n17.270 \n18.617 \nSITUACIÓN 2 \n16.696 \n17.894 \n19.241 \nSITUACIÓN 3 \n15.000 \n15.599 \n16.272 \n \n \n \nSi RETRIB ≤ (19.241,00 + PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: "
+  },
+  {
+    "id": "244fa7f987b8-p29-b10",
+    "equal": true,
+    "quote": "Si [NUMDES = 1 y RETRIB ≤ (17.270,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (18.617,00 + PENSION + DESEM)]: EXENTOS"
+  },
+  {
+    "id": "244fa7f987b8-p29-b11",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (18.617,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB  (16.696,00+ PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "244fa7f987b8-p29-b12",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (16.696,00+ PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (17.894,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.241,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "244fa7f987b8-p30-b4",
+    "equal": true,
+    "quote": " \nSi [NUMDES = 0 y RETRIB ≤ (15.000,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB  (15.599,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "244fa7f987b8-p30-b5",
+    "equal": true,
+    "quote": "Else: Si [NUMDES = 1 y RETRIB ≤ (15.599,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB  (16.272,00 + PENSION + DESEM)]: EXENTOS = S "
+  },
+  {
+    "id": "244fa7f987b8-p30-b6",
+    "equal": true,
+    "quote": " \nElse: Si [NUMDES > 1 y RETRIB ≤ (16.272,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. "
+  },
+  {
+    "id": "244fa7f987b8-p30-b15",
+    "equal": true,
+    "quote": " \nCUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n "
+  },
+  {
+    "id": "244fa7f987b8-p31-b17",
+    "equal": true,
+    "quote": "Else:  Si SITUFAM = SITUACION2: \n \nSi NUMDES = 0: LIMITE = [RETRIB - (16.696,00 + PENSION + DESEM)] *043  \n "
+  },
+  {
+    "id": "244fa7f987b8-p32-b23",
+    "equal": true,
+    "quote": "      MINOPAGO = TRUNCAR (MINOPAGO)  "
+  },
+  {
+    "id": "244fa7f987b8-p33-b15",
+    "equal": true,
+    "quote": "              IMPORTE = (RETRIB * TIPO) /100             "
+  },
+  {
+    "id": "244fa7f987b8-p33-b17",
+    "equal": true,
+    "quote": "             IMPORTE = REDONDEAR1 (IMPORTE) "
+  },
+  {
+    "id": "244fa7f987b8-p34-b4",
+    "equal": true,
+    "quote": "Circunstancias que determinan variaciones en la base para calcular el tipo de retención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y familiar \npara calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al "
+  },
+  {
+    "id": "244fa7f987b8-p34-b5",
+    "equal": true,
+    "quote": "para calcular el tipo de retención \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria al \ncónyuge \nCAUSA3 "
+  },
+  {
+    "id": "244fa7f987b8-p34-b8",
+    "equal": true,
+    "quote": "CAUSA6 "
+  },
+  {
+    "id": "244fa7f987b8-p34-b10",
+    "equal": true,
+    "quote": "dichos territorios \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la adquisición \no rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por "
+  },
+  {
+    "id": "244fa7f987b8-p34-b11",
+    "equal": true,
+    "quote": "o rehabilitación de su vivienda habitual \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención por \npagos por préstamos destinados a la adquisición o rehabilitación de su vivienda habitual \nCAUSA10 "
+  },
+  {
+    "id": "244fa7f987b8-p37-b13",
+    "equal": true,
+    "quote": " \nFinsi. \n \nFinsi. \n \n IMPORTE =  {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO \nFinsi. \nFin. Mostrar resultados. "
+  },
+  {
+    "id": "244fa7f987b8-p41-b12",
+    "equal": true,
+    "quote": "EL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "244fa7f987b8-p41-b40",
+    "equal": true,
+    "quote": "CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "244fa7f987b8-p41-b41",
+    "equal": true,
+    "quote": "CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR \nPARA CALCULAR EL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "244fa7f987b8-p41-b43",
+    "equal": true,
+    "quote": "PARA CALCULAR EL TIPO DE RETENCIÓN \nCAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "244fa7f987b8-p42-b9",
+    "equal": true,
+    "quote": "DICHOS TERRITORIOS \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL \n "
+  },
+  {
+    "id": "244fa7f987b8-p42-b13",
+    "equal": true,
+    "quote": " \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "244fa7f987b8-p42-b15",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  },
+  {
+    "id": "244fa7f987b8-p43-b17",
+    "equal": true,
+    "quote": "INCREGASDISTRA \nOTROS GASTOS. INCREMENTO PARA TRABAJADORES ACTIVOS CON DISCAPACIDAD \n≥ 0,00 Y ≤ 7.750, 00 \n0,00 "
+  },
+  {
+    "id": "244fa7f987b8-p43-b18",
+    "equal": true,
+    "quote": "OTROSGASTOS \nGASTOS ART 19.2.f): OTROS GASTOS (GASTOSGEN + INCREGASMOVIL + INGREGASDISTRA) \n≥ 2.000, 00  y ≤  11.750,00 \n "
+  },
+  {
+    "id": "244fa7f987b8-p43-b28",
+    "equal": true,
+    "quote": " \nEL  PERCEPTOR HA COMUNICADO EN EL MODELO 145 QUE ESTÁ EFECTUANDO PAGOS POR PRÉSTAMOS \nDESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL POR LOS QUE VA A TENER "
+  },
+  {
+    "id": "244fa7f987b8-p45-b35",
+    "equal": true,
+    "quote": " CAUSA1 \nCIRCUNSTANCIAS QUE  DETERMINAN VARIACIONES EN LA BASE PARA CALCULAR EL TIPO DE RETENCIÓN \nS/N \nN "
+  },
+  {
+    "id": "244fa7f987b8-p45-b36",
+    "equal": true,
+    "quote": " CAUSA2 \nCIRCUNSTANCIAS QUE DETERMINAN VARIACIONES EN EL IMPORTE DEL MÍNIMO PERSONAL Y FAMILIAR PARA CALCULAR \nEL TIPO DE RETENCIÓN "
+  },
+  {
+    "id": "244fa7f987b8-p46-b2",
+    "equal": true,
+    "quote": "CAUSA3 \nQUEDAR OBLIGADO JUDICIALMENTE EL PERCEPTOR A SATISFACER PENSIÓN COMPENSATORIA AL \nCÓNYUGE "
+  },
+  {
+    "id": "244fa7f987b8-p46-b13",
+    "equal": true,
+    "quote": "DICHOS TERRITORIOS \nCAUSA9 \nEL PERCEPTOR HA COMUNICADO QUE REALIZA PAGOS POR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O \nREHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "244fa7f987b8-p46-b15",
+    "equal": true,
+    "quote": "REHABILITACIÓN DE SU VIVIENDA HABITUAL \nCAUSA10 \nEL PERCEPTOR HA COMUNICADO LA IMPROCEDENCIA DE REDUCCIÓN DEL TIPO DE RETENCIÓN POR PAGOS \nPOR PRÉSTAMOS DESTINADOS A LA ADQUISICIÓN O REHABILITACIÓN DE SU VIVIENDA HABITUAL "
+  },
+  {
+    "id": "244fa7f987b8-p46-b17",
+    "equal": true,
+    "quote": "CAUSA11 \nOTRAS CAUSAS \nS/N \nN "
+  }
+]
