@@ -1,0 +1,55 @@
+[
+  {
+    "name": "tests-inicial",
+    "exitCode": 1,
+    "passed": 241,
+    "failed": 2,
+    "cause": "HEAD fijado antes de integrar; dos rojos conservados",
+    "log": "docs/procedencia/correcciones/recepcion-r32-r34/tests-inicial.log"
+  },
+  {
+    "name": "reconstruccion",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-r32-r34/contrastar.mjs"
+    ],
+    "exitCode": 0,
+    "elapsedIncludingLockSeconds": 0.765,
+    "log": "docs/procedencia/correcciones/recepcion-r32-r34/reconstruccion.log"
+  },
+  {
+    "name": "tests-incorporacion",
+    "command": [
+      "bun",
+      "x",
+      "vitest",
+      "run",
+      "tests/incorporacion-lote-r32.test.ts",
+      "--maxWorkers=1"
+    ],
+    "exitCode": 0,
+    "elapsedIncludingLockSeconds": 1.067,
+    "log": "docs/procedencia/correcciones/recepcion-r32-r34/tests-incorporacion.log"
+  },
+  {
+    "name": "restauracion-candidato",
+    "command": [
+      "bun",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r34/restaurar.mjs"
+    ],
+    "exitCode": 0,
+    "elapsedIncludingLockSeconds": 16.002,
+    "log": "docs/procedencia/correcciones/recepcion-r32-r34/restauracion-candidato.log"
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 2,
+    "elapsedIncludingLockSeconds": 5.127,
+    "log": "docs/procedencia/correcciones/recepcion-r32-r34/typecheck.log"
+  }
+]

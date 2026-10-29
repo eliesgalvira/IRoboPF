@@ -1,0 +1,33 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2f9f638f
+
+ ❯ tests/flujo-ss-r32.test.ts (1 test | 1 failed) 30ms
+   × R32: solidaridad legacy alcanza selección y valor sin callbacks abiertos 29ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-ss-r32.test.ts > R32: solidaridad legacy alcanza selección y valor sin callbacks abiertos
+AssertionError: expected 'Forma AST no admitida: FirstStatement' to be null
+
+- Expected:
+null
+
++ Received:
+"Forma AST no admitida: FirstStatement"
+
+ ❯ tests/flujo-ss-r32.test.ts:11:27
+      9|   expect(source).toBeDefined()
+     10|   const port = c.trace(source!, "", new Map(), "ss-r32", "EUR")
+     11|   expect(port.unresolved).toBeNull()
+       |                           ^
+     12| })
+     13|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  00:19:09
+   Duration  386ms (transform 50ms, setup 0ms, import 235ms, tests 30ms, environment 0ms)
+

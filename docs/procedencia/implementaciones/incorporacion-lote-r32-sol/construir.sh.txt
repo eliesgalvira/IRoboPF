@@ -1,0 +1,8 @@
+set -euo pipefail
+export PYTHONDONTWRITEBYTECODE=1
+export UV_PROJECT_ENVIRONMENT=/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/venv
+export NODE_PATH=/home/elies/Repos/IRoboPF/node_modules
+bun .cache/incorporacion-lote-r32/preparar-ensayo.mjs
+bash .cache/incorporacion-lote-r32/ejecutar-recorrido.sh
+bash .cache/incorporacion-lote-r32/calidad.sh
+bun .cache/incorporacion-lote-r32/transportar-snapshot.mjs

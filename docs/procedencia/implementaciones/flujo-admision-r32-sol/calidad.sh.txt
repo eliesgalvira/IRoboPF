@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set +e
+export IROBOPF_DEPENDENCIES_PACKAGE=/home/elies/Repos/IRoboPF/package.json
+root=/home/elies/.t3/worktrees/IRoboPF/t3-529a7558
+out="$root/docs/procedencia/implementaciones/flujo-admision-r32-sol"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node /home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs run --config .cache/flujo-admision-r32/vitest.mjs --reporter=default --reporter=json --outputFile="$out/pruebas.json" > "$out/pruebas.log" 2>&1
+printf '%s\n' "$?" > "$out/pruebas.exit"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc --noEmit -p .cache/flujo-admision-r32/tsconfig.json > "$out/tipos.log" 2>&1
+printf '%s\n' "$?" > "$out/tipos.exit"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c /home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --config .cache/flujo-admision-r32/oxlint.json --threads=1 --disable-nested-config scripts/procedencia/flujo-admision-r32.mjs tests/flujo-admision-r32.test.ts tests/flujo-admision-r32-runtime.test.ts > "$out/lint.log" 2>&1
+printf '%s\n' "$?" > "$out/lint.exit"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node /home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js --config .cache/flujo-admision-r32/eslint.mjs scripts/procedencia/flujo-admision-r32.mjs tests/flujo-admision-r32.test.ts tests/flujo-admision-r32-runtime.test.ts > "$out/eslint.log" 2>&1
+printf '%s\n' "$?" > "$out/eslint.exit"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node .cache/flujo-admision-r32/schema-check.cjs > "$out/schema.log" 2>&1
+printf '%s\n' "$?" > "$out/schema.exit"

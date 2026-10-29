@@ -1,0 +1,9 @@
+import fs from 'node:fs';
+let s=fs.readFileSync('docs/procedencia/revisiones/cas-local-r30-sol/recorrido.mjs.txt','utf8').replaceAll('.cache/revision-cas-r30','.cache/incorporacion-lote-r32');
+s=s.replace('assert.equal(snapshot.evidencias.length, 264)','assert.equal(snapshot.evidencias.length, 265)');
+s=s.replace('assert.equal(sujetos.length, 102)','assert.equal(sujetos.length, 103)');
+s=s.replace('  assert.equal(e.revisionBinding, "accepted-limited")','  assert.equal(e.revisionBinding, e.payload === "e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258" ? "pending" : "accepted-limited")');
+s=s.replace('const sujetos = [','const batch = snapshot.evidencias.filter(e => e.payload !== "e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258");\nassert.equal(batch.length,264);assert.equal(new Set(batch.map(e=>e.sujeto.id)).size,102);\nconst sujetos = [');
+s=s.replace('      pares: 264,','      paresLote: 264,\n      paresTotales:265,\n      sujetosLote:102,\n      estados:snapshot.evidencias.map(e=>({sujeto:e.sujeto,payload:e.payload,revisionBinding:e.revisionBinding,aceptacionFiscalCompleta:e.aceptacionFiscalCompleta})),');
+s=s.replace('const start = performance.now()','const start = performance.now()');
+fs.writeFileSync('.cache/incorporacion-lote-r32/recorrido.mjs',s);

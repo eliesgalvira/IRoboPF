@@ -1,0 +1,59 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/incorporacion-lote-r32.test.ts (2 tests | 2 failed) 16ms
+     × conserva Madrid y revierte bytes; rechaza una base inesperada 11ms
+     × rechaza identidad, payload y atestación cruzados aunque se reserialice el plan 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/incorporacion-lote-r32.test.ts > incorporación candidata exacta R32 > conserva Madrid y revierte bytes; rechaza una base inesperada
+AssertionError: HEAD inesperado
++ actual - expected
+
++ '779cd37e86d930cd90c69c3fe6555a66f88eb6e7'
+- '846f25e183ba07414065d4e6bdf9e98311b98a17'
+
+
+Expected: "846f25e183ba07414065d4e6bdf9e98311b98a17"
+Received: "779cd37e86d930cd90c69c3fe6555a66f88eb6e7"
+
+ ❯ preparar scripts/procedencia/incorporacion-lote-r32.mjs:15:10
+     13| const serialize = (value) => Buffer.from(JSON.stringify(value, null, 2…
+     14| export function preparar(root = source) {
+     15|   assert.equal(execFileSync("git", ["rev-parse", "HEAD"], {cwd:root}).…
+       |          ^
+     16|   assert.equal(sha(readFileSync(resolve(root, reviewerPath))), "26d396…
+     17|   const load = (p) => JSON.parse(readFileSync(resolve(root, p)).toStri…
+ ❯ tests/incorporacion-lote-r32.test.ts:9:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/incorporacion-lote-r32.test.ts > incorporación candidata exacta R32 > rechaza identidad, payload y atestación cruzados aunque se reserialice el plan
+AssertionError: HEAD inesperado
++ actual - expected
+
++ '779cd37e86d930cd90c69c3fe6555a66f88eb6e7'
+- '846f25e183ba07414065d4e6bdf9e98311b98a17'
+
+
+Expected: "846f25e183ba07414065d4e6bdf9e98311b98a17"
+Received: "779cd37e86d930cd90c69c3fe6555a66f88eb6e7"
+
+ ❯ preparar scripts/procedencia/incorporacion-lote-r32.mjs:15:10
+     13| const serialize = (value) => Buffer.from(JSON.stringify(value, null, 2…
+     14| export function preparar(root = source) {
+     15|   assert.equal(execFileSync("git", ["rev-parse", "HEAD"], {cwd:root}).…
+       |          ^
+     16|   assert.equal(sha(readFileSync(resolve(root, reviewerPath))), "26d396…
+     17|   const load = (p) => JSON.parse(readFileSync(resolve(root, p)).toStri…
+ ❯ tests/incorporacion-lote-r32.test.ts:28:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  2 failed | 241 passed (243)
+   Start at  00:48:49
+   Duration  3.61s (transform 441ms, setup 0ms, import 1.73s, tests 1.44s, environment 0ms)
+

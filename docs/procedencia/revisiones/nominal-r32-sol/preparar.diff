@@ -1,0 +1,29 @@
+--- docs/procedencia/correcciones/nominal-r32/preparar.py
++++ .cache/revision-nominal-r32/fixture.py
+@@ -4,7 +4,7 @@
+ from pathlib import Path
+ 
+ R = Path.cwd()
+-S = R / ".cache/nominal-r29/ensayo"
++S = R / ".cache/revision-nominal-r32/ensayo"
+ OUT = R / "docs/procedencia/implementaciones/contrato-nominal-r29-sol"
+ S.mkdir(parents=True, exist_ok=True)
+ for name in ["Calculo_Salario_IRPF.py", "package.json", "tsconfig.json", "bun.lock"]:
+@@ -50,7 +50,7 @@
+     dst = S / name
+     dst.parent.mkdir(parents=True, exist_ok=True)
+     shutil.copyfile(R / name, dst)
+-cas = R / ".cache/nominal-r29/cas/sha256"
++cas = R / ".cache/revision-nominal-r32/cas/sha256"
+ cas.mkdir(parents=True, exist_ok=True)
+ source = Path(
+     "/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete/sha256"
+@@ -83,7 +83,7 @@
+     json.dumps({"schemaVersion": 1, "entries": [{"payload": ref, "attestation": None}]})
+     + "\n"
+ )
+-(R / "docs/procedencia/correcciones/nominal-r32/originales-nominal.json").write_text(
++(R / "docs/procedencia/revisiones/nominal-r32-sol/originales.json").write_text(
+     json.dumps(
+         {
+             "cas": str(cas.parent),

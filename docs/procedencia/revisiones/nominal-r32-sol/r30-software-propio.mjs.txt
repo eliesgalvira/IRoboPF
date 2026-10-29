@@ -1,0 +1,20 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {resolve,dirname} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import assert from 'node:assert/strict';
+const root=process.cwd(),view=resolve('.cache/revision-nominal-r32/ensayo');
+const {FUENTES_EXPLICACION:paths,verificarSoftwareExplicacion:verify,verificarSoftwareRecibo:receipt}=await import(pathToFileURL(resolve(view,'scripts/procedencia/explicacion-version.mjs')));
+const {hash}=await import(pathToFileURL(resolve(view,'lib/procedencia/verificador.ts')));
+const target=resolve('.cache/revision-nominal-r32/software-propio');
+const files=new Map();
+for(const path of [...paths,'scripts/procedencia/contenido-generar.mjs']){const raw=readFileSync(resolve(root,path));files.set(path,raw);mkdirSync(dirname(resolve(target,path)),{recursive:true});writeFileSync(resolve(target,path),raw);}
+const generator=hash(files.get('scripts/procedencia/contenido-generar.mjs')),sources=paths.map(p=>hash(files.get(p)));
+const snapshot={generador:generator,versiones:{explicacion:hash(JSON.stringify({generador:generator,fuentesSoftware:sources}))},auxiliares:[generator,...sources]};
+const dependencies=[...files].map(([path,raw])=>({path,sha256:hash(raw)}));
+const objects=new Map([...files].map(([,raw])=>[hash(raw),raw]));
+verify(snapshot,target);receipt(snapshot,dependencies,h=>objects.get(h));
+const rows=[];
+for(const [path,raw]of files){let error;writeFileSync(resolve(target,path),Buffer.concat([raw,Buffer.from('\n ')]));try{verify(snapshot,target);}catch(e){error=String(e);}finally{writeFileSync(resolve(target,path),raw);}rows.push({path,error,ok:!!error});}
+// El lector histórico conserva los bytes antiguos; no exige igualdad con el checkout nuevo.
+receipt(snapshot,dependencies,h=>objects.get(h));
+writeFileSync('docs/procedencia/revisiones/nominal-r32-sol/casos-software.json',JSON.stringify({snapshot,rows,historicalReceipt:'verified-from-original-bytes'},null,2)+'\n');assert(rows.every(r=>r.ok));console.log(JSON.stringify({cases:rows.length,failed:rows.filter(r=>!r.ok)}));

@@ -433,3 +433,15 @@ La revisión independiente y el contraste del padre corroboran el recorrido loca
 ## D097 — Revisar la suficiencia del fragmento antes de aceptar sus cierres
 
 Se integra el candidato R32 de retenciones/pagos conservando su declaración de cierre de valor/selección y la admisión pendiente. Objeción experta: reconstruir exactamente una receta y rechazar fuentes distintas no demuestra que la receta incluya todas las dependencias. Respuesta: el padre no acepta todavía esos cierres; un revisor nuevo contrasta campos, instancias de escala, celdas, callbacks y conversiones con el software fijado. Coste: revisión semántica adicional y ausencia de wiring hasta resolverla, sin imponer un compilador universal ni convertir siete rojos de un esqueleto vacío en errores fiscales.
+
+## D098 — Recibir los fragmentos sin aceptar todavía su cierre conjunto
+
+SS y admisión se incorporan como candidatos exactos para revisión independiente; no se conectan al producto. Objeción: cuerpos AST, predicados y un intérprete propio pueden omitir condiciones o atribuir cierre por una igualdad autorreferente. Respuesta: contrastar por propiedad y llamada las once salidas SS y las diecisiete obligaciones de admisión con el motor real y casos nuevos. Coste: composición posterior a las tres revisiones, conservación del rojo tardío de SS y de A32-P01/P02 como asuntos abiertos. No se acepta fiscalidad ni se recorta el alcance de los restantes 48 sitios.
+
+## D099 — Fijar los contenidos del plan sin congelar HEAD para siempre
+
+El preparador R32 rechaza la propia integración porque HEAD avanzó. Objeción: eliminar la igualdad sin otra frontera podría admitir contenidos distintos. Respuesta: exigir ascendencia de la base y conservar los hashes, derivación, identidad, plan y estado físico previo; la escritura sigue restringida al scratch. Los dos fallos previos y los bytes candidatos idénticos quedan comprobados. Coste: dependencia de la historia Git legible y revisión independiente del cambio. La restauración del candidato no activa los registros ni acepta reglas completas.
+
+## D100 — Completar las correspondencias omitidas sin repetir una revisión favorable parcial
+
+R33 corrobora únicamente el campo directo de retenciones soportadas y deja cinco recorridos sin acreditar. Objeción: la representación contiene cuerpos y argumentos reales; afirmar que faltan todos ellos sería incorrecto. Respuesta: conservar lo corroborado y completar los campos/defaults, semillas literales, celdas y selecciones por instancia que aún exigen reinterpretar TS para producir la ficha. El padre reproduce los cuatro rojos contractuales y los cinco controles positivos. Coste: nueva implementación finita y revisión posterior; schema y consumidor deberán representar pendientes sin forzar true. No se altera la fiscalidad ni se confunde permiso estructural del schema con bypass del verificador real.

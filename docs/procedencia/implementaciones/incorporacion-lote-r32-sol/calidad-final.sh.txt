@@ -1,0 +1,4 @@
+set -euo pipefail
+export IROBOPF_R32_SOURCE="$PWD"
+/home/elies/Repos/IRoboPF/node_modules/.bin/vitest run --root "$PWD/.cache/incorporacion-lote-r32/calidad" --config "$PWD/.cache/incorporacion-lote-r32/calidad/vitest.config.mjs" --configLoader runner
+bash .cache/incorporacion-lote-r32/calidad.sh

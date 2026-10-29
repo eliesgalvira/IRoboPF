@@ -1,0 +1,20 @@
+--- tests/flujo-retenciones-r32.test.ts	2026-10-30 00:45:12.152354454 +0100
++++ .cache/revision-flujo-retenciones-r33/autor.test.ts	2026-10-30 00:46:24.496220760 +0100
+@@ -1,14 +1,14 @@
+ import { describe, expect, it } from "vitest"
+ import { Effect } from "effect"
+-import { composeRetencionesR32 } from "../scripts/procedencia/flujo-retenciones-r32.mjs"
++import { composeRetencionesR32 } from "/home/elies/.t3/worktrees/IRoboPF/t3-2f79775b/scripts/procedencia/flujo-retenciones-r32.mjs"
+ import {
+   calcularRetencionTrabajoAeat,
+   type CasoRetencionTrabajo,
+-} from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-2f79775b/lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+ import {
+   liquidarIrpfAnual,
+   type CasoFiscalAnual,
+-} from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-2f79775b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+ 
+ const base: CasoRetencionTrabajo = {
+   anio: 2020,

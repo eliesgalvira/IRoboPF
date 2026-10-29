@@ -2,7 +2,19 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 33 del 30 de octubre
+## Situación más reciente, ronda 34 del 30 de octubre
+
+Recibidas cuatro entregas Sol: revisión nominal R32, once sitios SS, admisión anual de diecisiete sitios e incorporación candidata del lote de 264 enlaces. Manifiestos/sobres y cuatro cotejos físicos de 16.855 entradas: 269 archivos, 38.496.380 bytes, cero borrados. Informe y recibos en correcciones/recepcion-r32-r34. NR30-01 corroborado estructuralmente, sin revisión recursiva, atestación ni cambio de confianza.
+
+El padre reconstruye ambos fragmentos y el plan exacto, pero mantiene pendientes los cierres declarados. SS reconoce que el rojo semántico correcto terminó después de escribir la implementación; no se altera esa cronología. Los riesgos nuevos A32-P01/P02 quedan para revisión. La composición común sigue pendiente, junto con los otros 48 sitios del plan.
+
+Durante la recepción termina R33 de retenciones: se reciben 44 archivos adicionales, 1.925.129 bytes y cotejo físico de 16.909 entradas intactas. Total: 313 archivos recibidos y 40.421.509 bytes, cero borrados. El padre reproduce los nueve controles, conservando cuatro rojos. Corroborado condicionalmente anual.pagos.retenciones; cinco cierres sin acreditar por campos/defaults, constantes y selección de celdas por instancia. Se prepara su continuación de implementación; no se acepta como defecto fiscal ni se abre revisión recursiva de la misma corroboración.
+
+Validación del padre: 241 pruebas SS/admisión y dos de incorporación correctas; tipos y lint globales pasan. Se conservan dos rojos de integración por HEAD exacto, corregido a ascendencia con pines intactos, y el diagnóstico global inicial del instrumento síncrono. Snapshot candidato b32c2166e71a4bf53d8bdaf51da7e70b11c3004179c3dd0abead3cec80303f26 restaurado desde siete partes: 3.345 dependencias verificadas. Los registros activos, motor, inventario y 44 snapshots permanecen intactos. Se preparan tres revisiones nuevas Sol high priority, sin activar el lote.
+
+V5 sigue en corte R26 y Crossa v1 desfasado, copia local fuera de Victus del mismo dueño y casa. Sin custodia remota o independiente, LFS, gasto, transferencia externa, main, PR, despliegue o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 33 del 30 de octubre
 
 Recibido el fragmento Sol de seis sitios de retenciones y pagos: 41 archivos, 1.881.405 bytes. ENTREGA y sobres cotejados; 16.855 entradas físicas intactas, cero borrados, todo altas del ámbito. El padre lee implementación, schema, pruebas e informe y reconstruye exactamente el artefacto: 133 puertos, 257 relaciones, 51 contratos. Las 46 pruebas pasan en el padre, junto con tipos y lint globales. Recibos en correcciones/retenciones-flujo-r33.
 

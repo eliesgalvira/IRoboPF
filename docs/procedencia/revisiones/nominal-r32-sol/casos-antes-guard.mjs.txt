@@ -1,0 +1,56 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+const scratch=resolve('.cache/revision-nominal-r32'),out=resolve('docs/procedencia/revisiones/nominal-r32-sol');
+const current=await import(pathToFileURL(resolve(scratch,'ensayo/scripts/procedencia/nominal-contrato.mjs')));
+const before=await import(pathToFileURL(resolve(scratch,'anterior/scripts/procedencia/nominal-contrato.mjs')));
+const prefix='docs/procedencia/implementaciones/contrato-nominal-r29-sol/';
+const closure=JSON.parse(readFileSync('schemas/procedencia/nominal-dependencies.schema.json')).const;
+const digest=b=>createHash('sha256').update(b).digest('hex');
+const original=JSON.parse(readFileSync(prefix+'payload.json')),scope=JSON.parse(readFileSync(prefix+'ambito.json'));
+const originals=new Map(closure.blobs.map(b=>[b.sha256,readFileSync(resolve(scratch,'cas/sha256',b.sha256))]));
+originals.set(original.source.sha256,readFileSync(original.source.file));
+const definitions=[
+ ['exact',null,'pending'],
+ ['original-executableScope',p=>p.executableScope.unexpected='campo fuera del schema','reject'],
+ ['original-legalReview',(p,a)=>{p.legalReview.unexpected='campo fuera del schema';a.decision=p.legalReview;},'reject'],
+ ...['executableScope','legalReview','legalReview.decisions','source','scope','citation','document','inventory'].flatMap(field=>[
+  ['extra-'+field,(p,a)=>{const t=field.split('.').reduce((v,k)=>v[k],p);t.extra=1;a.decision=p.legalReview;},'reject'],
+  ['missing-'+field,p=>{const keys=field.split('.'),key=keys.pop();delete keys.reduce((v,k)=>v[k],p)[key];},'reject'],
+  ['type-'+field,p=>{const keys=field.split('.'),key=keys.pop();keys.reduce((v,k)=>v[k],p)[key]=[];},'reject']]),
+ ['scope-null',p=>p.executableScope=null,'reject'],
+ ['path-invalid',p=>p.executableScope.path='fuera/ambito.json','reject'],
+ ['reference-crossed',p=>p.document=p.citation,'reject'],
+ ['decision-duplicate',(p,a,files)=>{const path=p.legalReview.decisions.path,d=JSON.parse(files.get(path));d.push(d[0]);files.set(path,Buffer.from(JSON.stringify(d)));p.legalReview.decisions.sha256=digest(files.get(path));a.decision=p.legalReview;},'reject'],
+ ['decision-coherent',(p,a,files)=>{const path=p.legalReview.decisions.path,d=JSON.parse(files.get(path));d[0].year=2022;files.set(path,Buffer.from(JSON.stringify(d)));p.legalReview.decisions.sha256=digest(files.get(path));a.year=2022;p.scope.year=2022;a.decision=p.legalReview;},'reject'],
+ ['id-decision-coherent',(p,a)=>{p.legalReview.decisionId='otra';a.decision=p.legalReview;},'reject'],
+ ['civil-scope',(p,a)=>a.period='ordinary-no-death','reject'],
+ ['value-coherent',(p,a)=>a.value='53407.29','reject'],
+ ['year-coherent',(p,a)=>{a.year=2022;p.scope.year=2022;},'reject'],
+ ['whitespace',null,'pending'],['reordered',null,'pending'],
+ ['escaped',p=>p.id='texto " : {} \\ \n','pending']
+];
+const rows=[];
+for(const [id,mutate,expected] of definitions){
+ const p=structuredClone(original),a=structuredClone(scope),files=new Map();
+ for(const path of [p.legalReview.decisions.path,...closure.documents.map(d=>d.path)])files.set(path,readFileSync(path));
+ mutate?.(p,a,files);
+ const ab=Buffer.from(JSON.stringify(a));
+ if(p.executableScope&&typeof p.executableScope.path==='string') {files.set(p.executableScope.path,ab);p.executableScope.sha256=digest(ab);}
+ let text=JSON.stringify(p);if(id==='whitespace')text=JSON.stringify(p,null,4)+'\n';if(id==='reordered')text=JSON.stringify(Object.fromEntries(Object.entries(p).reverse()));
+ const pb=Buffer.from(text);const ref={path:prefix+'payload.json',sha256:digest(pb)};files.set(ref.path,pb);
+ files.set('docs/procedencia/enlaces/registro.json',Buffer.from(JSON.stringify({schemaVersion:1,entries:[{payload:ref,attestation:null}]})));
+ const objects=new Map(originals),deps=[];for(const [path,raw]of files){const sha256=digest(raw);objects.set(sha256,raw);deps.push({path,sha256});}
+ const results={};for(const [name,mod]of [['before',before],['current',current]]){try{results[name]={result:mod.verificarNominalPublicado(ref.sha256,p.itemId,deps,h=>objects.get(h)),rejected:false};}catch(e){results[name]={error:String(e),rejected:true};}}
+ const dir=resolve(scratch,'cases',id);mkdirSync(dir,{recursive:true});writeFileSync(resolve(dir,'payload.json'),pb);writeFileSync(resolve(dir,'scope.json'),ab);
+ const overrides=[];let i=0;for(const [path,raw]of files){const local=resolve(dir,String(i++));writeFileSync(local,raw);overrides.push({path,local});}
+ const mismatch=expected==='reject'?!results.current.rejected:results.current.rejected;
+ rows.push({id,expected,payloadSha256:ref.sha256,scopeSha256:digest(ab),results,mismatch,overrides,payloadFile:resolve(dir,'payload.json'),scopeFile:resolve(dir,'scope.json')});
+}
+// Exact historical mutant bytes are required, not merely equivalent objects.
+for(const name of ['executableScope','legalReview']){const row=rows.find(r=>r.id==='original-'+name),raw=readFileSync('docs/procedencia/revisiones/nominal-r30-sol/'+name+'-mutante.json.txt');assert.equal(row.payloadSha256,digest(raw));assert.equal(row.results.before.rejected,false);assert.equal(row.results.current.rejected,true);}
+for(const id of ['exact','whitespace','reordered','escaped']){const r=rows.find(r=>r.id===id).results.current.result;assert.equal(r.bindingReview,'pending');assert.equal(r.authenticity,'trust-indeterminate');assert.equal(r.completeRuleAcceptance,false);assert.equal(r.scope.year,2020);assert.equal(r.scope.period,'nominal-only');assert.deepEqual(r.scope.source.tablePath,['madrid','tramos','3','0']);}
+const civil=[];for(const year of [2019,2020,2021,2022])for(const death of [null,`${year}-06-20`]){assert.throws(()=>current.seleccionarContextoNominal(scope,{year,death}));civil.push({year,death,rejected:true});}
+writeFileSync(resolve(out,'casos-node-antes-guard.json'),JSON.stringify({rows,civil},null,2)+'\n');console.log(JSON.stringify({cases:rows.length,mismatches:rows.filter(r=>r.mismatch).map(r=>r.id),civil:civil.length}));assert(rows.every(r=>!r.mismatch));

@@ -1,0 +1,33 @@
+from pathlib import Path
+import os,stat,subprocess,hashlib,json,gzip,sys
+R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r32-sol';S=R/'.cache/revision-nominal-r32'
+head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert head=='846f25e183ba07414065d4e6bdf9e98311b98a17'
+rows=[];diffs=[];basepaths=set();proc=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+for entry in subprocess.check_output(['git','ls-tree','-rz',head]).split(b'\0'):
+ if not entry:continue
+ meta,path=entry.split(b'\t',1);mode,kind,oid=meta.split();name=os.fsdecode(path);basepaths.add(name)
+ proc.stdin.write(oid+b'\n');proc.stdin.flush();header=proc.stdout.readline().split();size=int(header[2]);blob=proc.stdout.read(size);assert proc.stdout.read(1)==b'\n'
+ p=R/name
+ try:
+  st=p.lstat();raw=os.fsencode(os.readlink(p)) if stat.S_ISLNK(st.st_mode) else p.read_bytes()
+  match=(stat.S_ISLNK(st.st_mode) if mode==b'120000' else stat.S_ISREG(st.st_mode) and bool(st.st_mode&0o111)==(mode==b'100755')) and raw==blob
+  row={'path':name,'mode':mode.decode(),'size':size,'baseSha256':hashlib.sha256(blob).hexdigest(),'sha256':hashlib.sha256(raw).hexdigest(),'match':match}
+ except Exception as e:row={'path':name,'error':str(e),'match':False}
+ rows.append(row)
+ if not row['match']:diffs.append(row)
+proc.stdin.close();assert proc.wait()==0;assert len(rows)==16855
+extra=[];dirs=[]
+for root,ds,fs in os.walk(R,followlinks=False):
+ if Path(root)==R:ds[:]=[d for d in ds if d not in ['.git','.jj']]
+ for d in list(ds):
+  p=Path(root)/d;rel=str(p.relative_to(R));st=p.lstat();dirs.append({'path':rel,'mode':stat.S_IMODE(st.st_mode)})
+  if p.is_symlink():fs.append(d);ds.remove(d)
+ for n in fs:
+  p=Path(root)/n;rel=str(p.relative_to(R))
+  if rel in basepaths or rel=='.git':continue
+  st=p.lstat();raw=os.fsencode(os.readlink(p)) if stat.S_ISLNK(st.st_mode) else p.read_bytes()
+  extra.append({'path':rel,'size':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'symlink':stat.S_ISLNK(st.st_mode),'executable':bool(st.st_mode&0o111)})
+allowed=['docs/procedencia/revisiones/nominal-r32-sol/','.cache/revision-nominal-r32/']
+unexpected=[r for r in extra if not any(r['path'].startswith(p) for p in allowed)]
+report={'head':head,'entries':len(rows),'differences':diffs,'deleted':[],'base':rows,'additionalPhysicalFiles':extra,'directories':dirs,'unexpectedAdditions':unexpected,'diff':subprocess.check_output(['git','diff',head,'--stat'],text=True),'method':'lstat/readlink/bytes/executable; persistent cat-file reads exactly one blob per request; os.walk does not follow symlinks','complete':True,'selfExclusion':'output written after scan; transport envelopes listed separately'}
+(O/(sys.argv[1] if len(sys.argv)>1 else 'final.json.gz')).write_bytes(gzip.compress((json.dumps(report,indent=2)+'\n').encode(),mtime=0));print(json.dumps({'entries':len(rows),'differences':len(diffs),'unexpectedAdditions':unexpected,'additionalPhysicalFiles':len(extra)}));assert not diffs and not unexpected

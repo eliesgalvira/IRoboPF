@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -uo pipefail
+R=/home/elies/.t3/worktrees/IRoboPF/t3-aad367de
+O="$R/docs/procedencia/revisiones/nominal-r32-sol"
+cd "$R/.cache/revision-nominal-r32/lint"
+./node_modules/.bin/oxlint --threads=1 --disable-nested-config docs/procedencia/revisiones/nominal-r32-sol > "$O/oxlint.log" 2>&1
+echo "oxlint $?" >> "$O/calidad-exit.log"
+./node_modules/.bin/eslint docs/procedencia/revisiones/nominal-r32-sol > "$O/eslint.log" 2>&1
+echo "eslint $?" >> "$O/calidad-exit.log"
+./node_modules/.bin/tsc --noEmit --allowJs --checkJs --skipLibCheck --target es2023 --module nodenext scripts/procedencia/nominal-contrato.mjs > "$O/tipos.log" 2>&1
+echo "tipos $?" >> "$O/calidad-exit.log"

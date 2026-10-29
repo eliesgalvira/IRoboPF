@@ -1,0 +1,25 @@
+{
+  "productDefect": false,
+  "receivedFilesModified": false,
+  "incidents": [
+    {
+      "id": "lint-runtime-typeof",
+      "firstOxlintExit": 1,
+      "fix": "guarda explícita por id del caso; sin cambio de producto ni esperados",
+      "evidence": "instrumento-lint.diff"
+    },
+    {
+      "id": "colision-salida-r30",
+      "effect": "El instrumento R30 adaptado escribió casos-node.json en la carpeta propia; la comparación posterior de ese JSON de 61 casos con el nuevo de 39 falló",
+      "preserved": "r30-casos-node.json",
+      "fix": "ruta específica para R30 y repetición de ambas guardas propias hacia salidas separadas",
+      "environmentOrProductRejection": false
+    },
+    {
+      "id": "comprobacion-prematura",
+      "effect": "FileNotFoundError al lanzar resultados.py antes de terminar la repetición de la guarda anterior bajo el bloqueo compartido",
+      "resolution": "Se espera el fin con exit 0; resultados.py posterior termina con exit 0 y exige igualdad completa de los 39 casos",
+      "productRejection": false
+    }
+  ]
+}

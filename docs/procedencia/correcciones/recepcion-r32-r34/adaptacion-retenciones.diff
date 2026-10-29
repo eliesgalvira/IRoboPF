@@ -1,0 +1,11 @@
+--- instrumento recibido
++++ scratch padre r34
+@@ -1,6 +1,6 @@
+-import fs from 'node:fs';import {gzipSync,gunzipSync}from'node:zlib';import{createRequire}from'node:module';import{composeRetencionesR32,verifyRetencionesR32}from'../../scripts/procedencia/flujo-retenciones-r32.mjs';
++import fs from 'node:fs';import {gzipSync,gunzipSync}from'node:zlib';import{createRequire}from'node:module';import{composeRetencionesR32,verifyRetencionesR32}from'../../../scripts/procedencia/flujo-retenciones-r32.mjs';
+ const ts=createRequire('/home/elies/Repos/IRoboPF/package.json')('typescript');
+-const out='.cache/revision-flujo-retenciones-r33/';const g=composeRetencionesR32();const b=gzipSync(JSON.stringify(g,null,2)+'\n',{level:9});fs.writeFileSync(out+'reconstruido.json.gz',b);
++const out='.cache/orquestador-recepcion/r34/';const g=composeRetencionesR32();const b=gzipSync(JSON.stringify(g,null,2)+'\n',{level:9});fs.writeFileSync(out+'reconstruido.json.gz',b);
+ const received=fs.readFileSync('docs/procedencia/implementaciones/flujo-retenciones-r32-sol/fragmento.json.gz');const checks=[];function check(id,expected,actual,kind){checks.push({id,expected,actual,pass:JSON.stringify(expected)===JSON.stringify(actual),kind})}
+ check('reconstruccion-bytes',true,b.equals(received),'integridad');check('verificador-original',true,verifyRetencionesR32(g),'integridad');
+ const sourceText=r=>fs.readFileSync(r.file,'utf8').slice(r.start,r.end);

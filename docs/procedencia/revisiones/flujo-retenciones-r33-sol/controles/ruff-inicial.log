@@ -1,0 +1,12 @@
+E702 Multiple statements on one line (semicolon)
+ --> .cache/revision-flujo-retenciones-r33/schema.py:4:16
+  |
+2 | from pathlib import Path
+3 | from jsonschema import Draft202012Validator
+4 | root=Path.cwd(); out=root/'.cache/revision-flujo-retenciones-r33'
+  |                ^
+5 | schema=json.loads((root/'schemas/procedencia/flujo/retenciones-r32.schema.json').read_text())
+6 | Draft202012Validator.check_schema(schema)
+  |
+
+Found 1 error.

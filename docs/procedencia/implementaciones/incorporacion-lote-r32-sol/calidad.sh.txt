@@ -1,0 +1,5 @@
+set -euo pipefail
+cd /home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/calidad
+node_modules/.bin/oxlint --threads=1 --disable-nested-config scripts/procedencia/incorporacion-lote-r32.mjs tests/incorporacion-lote-r32.test.ts
+node_modules/.bin/eslint scripts/procedencia/incorporacion-lote-r32.mjs tests/incorporacion-lote-r32.test.ts
+node_modules/.bin/tsc --noEmit -p tsconfig.json

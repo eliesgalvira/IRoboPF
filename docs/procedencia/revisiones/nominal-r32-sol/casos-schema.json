@@ -1,0 +1,424 @@
+[
+  {
+    "id": "exact",
+    "expected": "pending",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "original-executableScope",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "original-legalReview",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": true,
+      "diagnostic": "Additional properties are not allowed ('unexpected' was unexpected)\n\nFailed validating 'additionalProperties' in schema['properties']['decision']:\n    {'type': 'object',\n     'properties': {'decisions': {'type': 'object',\n                                  'properties': {'path': {'type': 'string',\n                                                          'pattern': '^docs/procedencia/[^\\\\\\\\]+$'},\n                                                 'sha256': {'type': 'string',\n                                                            'pattern': '^[0-9a-f]{64}$'}},\n                                  'required': ['path', 'sha256'],\n                                  'additionalProperties': False},\n                    'decisionId': {'type': 'string', 'minLength': 1}},\n     'required': ['decisions', 'decisionId'],\n     'additionalProperties': False}\n\nOn instance['decision']:\n    {'decisions': {'path': 'docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json',\n                   'sha256': '49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5'},\n     'decisionId': 'MADRID-2020-NOMINAL-53407-20-R29',\n     'unexpected': 'campo fuera del schema'}"
+    }
+  },
+  {
+    "id": "extra-executableScope",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "missing-executableScope",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "type-executableScope",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "extra-legalReview",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": true,
+      "diagnostic": "Additional properties are not allowed ('extra' was unexpected)\n\nFailed validating 'additionalProperties' in schema['properties']['decision']:\n    {'type': 'object',\n     'properties': {'decisions': {'type': 'object',\n                                  'properties': {'path': {'type': 'string',\n                                                          'pattern': '^docs/procedencia/[^\\\\\\\\]+$'},\n                                                 'sha256': {'type': 'string',\n                                                            'pattern': '^[0-9a-f]{64}$'}},\n                                  'required': ['path', 'sha256'],\n                                  'additionalProperties': False},\n                    'decisionId': {'type': 'string', 'minLength': 1}},\n     'required': ['decisions', 'decisionId'],\n     'additionalProperties': False}\n\nOn instance['decision']:\n    {'decisions': {'path': 'docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json',\n                   'sha256': '49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5'},\n     'decisionId': 'MADRID-2020-NOMINAL-53407-20-R29',\n     'extra': 1}"
+    }
+  },
+  {
+    "id": "missing-legalReview",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "type-legalReview",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "extra-legalReview.decisions",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": true,
+      "diagnostic": "Additional properties are not allowed ('extra' was unexpected)\n\nFailed validating 'additionalProperties' in schema['properties']['decision']['properties']['decisions']:\n    {'type': 'object',\n     'properties': {'path': {'type': 'string',\n                             'pattern': '^docs/procedencia/[^\\\\\\\\]+$'},\n                    'sha256': {'type': 'string',\n                               'pattern': '^[0-9a-f]{64}$'}},\n     'required': ['path', 'sha256'],\n     'additionalProperties': False}\n\nOn instance['decision']['decisions']:\n    {'path': 'docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json',\n     'sha256': '49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5',\n     'extra': 1}"
+    }
+  },
+  {
+    "id": "missing-legalReview.decisions",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "type-legalReview.decisions",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "extra-source",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0'], 'extra': 1}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "missing-source",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3n completa ni otros ejercicios.', 'La aceptaci\u00f3n nominal no acepta el binding nuevo ni su consumidor. Ambos requieren revisi\u00f3n independiente de sus bytes exactos; no heredan atestaciones hist\u00f3ricas.'], 'completeRule': False}, 'conversion': 'identity', 'citati"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "type-source",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': [], 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3n completa ni otros ejercicios.', 'La aceptaci\u00f3n nominal no acepta el binding nuevo ni su consumidor. Ambos requieren revisi\u00f3n independiente de sus bytes exactos; no heredan atestaciones hist\u00f3ricas.'], 'completeRule': False}, 'conversion': 'iden"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "extra-scope",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "missing-scope",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'conversion': 'identity', 'citation': {'path': 'docs/procedencia/corpus/madrid-2020-limite.citation.json', 'sha256': '9ddaab1ca3a55d960b27b0f471535103231eda90eb755fe513a3cd43b1fa5fa4'}, 'document': {'path': 'docs/procedencia/corpus/madrid-2018-norma.manifest.json', 'sha256': 'ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091'}, 'legalReview': {'decisions': {'path': 'docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json', 'sha256': '49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5'}, 'decisionId': 'MADRID-2020-NOMINAL-53407-20-R29'}, 'executableScope': {'path': 'docs/procedencia/implementaciones/contrato-nominal-r29-sol/ambito.json', 'sha256': '147b417ed1b904eea488c810d8b755a08c9ad070a59c1f4c8c5680f4a147bb8b'}} is not valid under any of the given schemas\n\nFailed validating 'oneOf' in schema:\n    {'$schema': 'https://json-schema.org/draft/2020-12/schema',\n     'oneOf': [{'type': 'object',\n                'properties': {'schemaVersion': {'const': 1},\n                               'id': {'type': 'string', 'minLength': 1},\n                  "
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "type-scope",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': [], 'conversion': 'identity', 'citation': {'path': 'docs/procedencia/corpus/madrid-2020-limite.citation.json', 'sha256': '9ddaab1ca3a55d960b27b0f471535103231eda90eb755fe513a3cd43b1fa5fa4'}, 'document': {'path': 'docs/procedencia/corpus/madrid-2018-norma.manifest.json', 'sha256': 'ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091'}, 'legalReview': {'decisions': {'path': 'docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json', 'sha256': '49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5'}, 'decisionId': 'MADRID-2020-NOMINAL-53407-20-R29'}, 'executableScope': {'path': 'docs/procedencia/implementaciones/contrato-nominal-r29-sol/ambito.json', 'sha256': '147b417ed1b904eea488c810d8b755a08c9ad070a59c1f4c8c5680f4a147bb8b'}} is not valid under any of the given schemas\n\nFailed validating 'oneOf' in schema:\n    {'$schema': 'https://json-schema.org/draft/2020-12/schema',\n     'oneOf': [{'type': 'object',\n                'properties': {'schemaVersion': {'const': 1},\n                               'id': {'type': 'string', 'minLength': 1},\n     "
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "extra-citation",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "missing-citation",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "type-citation",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "extra-document",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "missing-document",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "type-document",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "extra-inventory",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7', 'extra': 1}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "missing-inventory",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3n completa ni otros ejercicios.', 'La aceptaci\u00f3n nominal no acepta el binding nuevo ni su consumidor. Ambos requieren revisi\u00f3n independiente de sus bytes exactos; no heredan atestaciones "
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "type-inventory",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': [], 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3n completa ni otros ejercicios.', 'La aceptaci\u00f3n nominal no acepta el binding nuevo ni su consumidor. Ambos requieren revisi\u00f3n independiente de sus bytes exactos; no here"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "scope-null",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "path-invalid",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": true,
+      "diagnostic": "{'schemaVersion': 3, 'id': 'madrid-2020-nominal-r29-sol', 'authorTaskId': 'thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r29-sol-contrato-nominal', 'inventory': {'manifestSha256': '30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7', 'artifactSha256': '59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7'}, 'itemId': 'inv-c24095c17f76bb198b34cf8b8d5a45ed', 'source': {'file': 'lib/dominio/normativa/datos/irpf-autonomico-2020.ts', 'sha256': 'bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab', 'symbol': 'ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025', 'tablePath': ['madrid', 'tramos', '3', '0']}, 'scope': {'year': 2020, 'territory': 'madrid', 'unit': 'EUR', 'claim': 'L\u00edmite superior nominal del cuarto tramo auton\u00f3mico sobre base liquidable general; quinta fila legal primera columna.', 'conditions': ['Componente auton\u00f3mico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.', 'Proposici\u00f3n nominal de una sola celda: l\u00edmite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona per\u00edodo, devengo ni fallecimiento.', 'La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaraci\u00f3n oficial de errata de AEAT.', 'No se acredita b\u00fasqueda exhaustiva de reformas y correcciones intermedias, ni nueva validaci\u00f3n de la correcci\u00f3n de firma de 2019. Autenticidad hist\u00f3rica y aplicabilidad permanecen indeterminadas.', 'No acepta cuotas, tipos, integraci\u00f3n, tratamiento liquidatorio de fronteras, redondeos, m\u00ednimos, deducciones, deuda, retenciones, liquidaci\u00f3"
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "reference-crossed",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "decision-duplicate",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "decision-coherent",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "id-decision-coherent",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "civil-scope",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": true,
+      "diagnostic": "'nominal-only' was expected\n\nFailed validating 'const' in schema['properties']['period']:\n    {'const': 'nominal-only'}\n\nOn instance['period']:\n    'ordinary-no-death'"
+    }
+  },
+  {
+    "id": "value-coherent",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "year-coherent",
+    "expected": "reject",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "whitespace",
+    "expected": "pending",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "reordered",
+    "expected": "pending",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  },
+  {
+    "id": "escaped",
+    "expected": "pending",
+    "payloadFile": {
+      "rejected": false
+    },
+    "scopeFile": {
+      "rejected": false
+    }
+  }
+]

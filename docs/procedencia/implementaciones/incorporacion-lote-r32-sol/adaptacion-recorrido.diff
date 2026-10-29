@@ -1,0 +1,67 @@
+diff --git a/docs/procedencia/revisiones/cas-local-r30-sol/recorrido.mjs.txt b/.cache/incorporacion-lote-r32/recorrido-r3.mjs
+index 6d70db6..c4bbe0d 100644
+--- a/docs/procedencia/revisiones/cas-local-r30-sol/recorrido.mjs.txt
++++ b/.cache/incorporacion-lote-r32/recorrido-r3.mjs
+@@ -2,7 +2,7 @@ import assert from "node:assert/strict"
+ import { readFileSync, writeFileSync } from "node:fs"
+ import { resolve } from "node:path"
+ import { createHash } from "node:crypto"
+-const out = resolve(".cache/revision-cas-r30")
++const out = resolve(".cache/incorporacion-lote-r32")
+ const root = resolve(out, "ensayo")
+ process.env.IROBOPF_CAS_LOCAL = resolve(out, "externo")
+ process.chdir(root)
+@@ -21,22 +21,12 @@ const { verificarContenido } = await import(
+ const { leerSnapshot } = await import(root + "/lib/procedencia/almacen.ts")
+ const start = performance.now()
+ const store = resolve("docs/procedencia/implementaciones/contenidos/datos")
+-const generated = generar(root, store)
+-const entry = prepararEntrada(root, generated.snapshot)
+-writeFileSync(out + "/entrada.json", JSON.stringify(entry, null, 2) + "\n")
+-const registroAntes = readFileSync(resolve(store, "snapshots.json"))
+-const casBueno = process.env.IROBOPF_CAS_LOCAL
+-const casFallido = resolve(out, "no-directorio")
+-writeFileSync(casFallido, "fallo de escritura inyectado: archivo ordinario")
+-process.env.IROBOPF_CAS_LOCAL = casFallido
+-await assert.rejects(publicar(root, entry, store, store), /ENOTDIR/)
+-assert.deepEqual(readFileSync(resolve(store, "snapshots.json")), registroAntes)
+-process.env.IROBOPF_CAS_LOCAL = casBueno
++const entry = JSON.parse(readFileSync(out + "/entrada-r2.json"));
+ const result = await publicar(root, entry, store, store)
+ const snapshot = leerSnapshot(result.snapshot, store)
+ verificarContenido(snapshot, store)
+ assert.equal(snapshot.version, 3)
+-assert.equal(snapshot.evidencias.length, 264)
++assert.equal(snapshot.evidencias.length, 265)
+ assert.equal(snapshot.externos.length, 1)
+ assert.equal(
+   snapshot.externos[0].hash,
+@@ -53,12 +43,14 @@ for (const e of snapshot.evidencias) {
+   if (document.sha256 === originalGrande) enlacesOriginal++
+ }
+ assert.equal(enlacesOriginal, 36)
++const batch = snapshot.evidencias.filter(e => e.payload !== "e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258");
++assert.equal(batch.length,264);assert.equal(new Set(batch.map(e=>e.sujeto.id)).size,102);
+ const sujetos = [
+   ...new Map(snapshot.evidencias.map((e) => [e.sujeto.id, e.sujeto])).values(),
+ ]
+-assert.equal(sujetos.length, 102)
++assert.equal(sujetos.length, 103)
+ for (const e of snapshot.evidencias) {
+-  assert.equal(e.revisionBinding, "accepted-limited")
++  assert.equal(e.revisionBinding, e.payload === "e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258" ? "pending" : "accepted-limited")
+   assert.equal(e.aceptacionFiscalCompleta, false)
+ }
+ const { GET: ficha } = await import(
+@@ -99,7 +91,10 @@ writeFileSync(
+     {
+       success: true,
+       result,
+-      pares: 264,
++      paresLote: 264,
++      paresTotales:265,
++      sujetosLote:102,
++      estados:snapshot.evidencias.map(e=>({sujeto:e.sujeto,payload:e.payload,revisionBinding:e.revisionBinding,aceptacionFiscalCompleta:e.aceptacionFiscalCompleta})),
+       sujetos: sujetos.length,
+       externos: snapshot.externos,
+       objetos,

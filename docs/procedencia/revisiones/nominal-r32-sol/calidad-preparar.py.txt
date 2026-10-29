@@ -1,0 +1,13 @@
+from pathlib import Path
+import shutil,json
+R=Path.cwd();S=R/'.cache/revision-nominal-r32';O=R/'docs/procedencia/revisiones/nominal-r32-sol';L=S/'lint'
+for name in ['casos.mjs','coordinador.mjs','historicos.mjs']:
+ shutil.copyfile(S/name,O/name)
+for p in S.iterdir():
+ if p.is_file() and p.suffix in ['.py','.sh']:shutil.copyfile(p,O/(p.name+'.txt'))
+paths=['.oxlintrc.json','eslint.config.mjs','scripts/procedencia/nominal-contrato.mjs']+[str(p.relative_to(R)) for p in O.glob('*.mjs')]+[str(p.relative_to(R)) for p in (R/'tools/oxlint').rglob('*') if p.is_file()]
+for name in paths:
+ dst=L/name;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(R/name,dst)
+if not (L/'node_modules').exists():(L/'node_modules').symlink_to('/home/elies/Repos/IRoboPF/node_modules')
+rules=json.loads((L/'.oxlintrc.json').read_bytes())['rules'];assert len(rules)==16 and set(rules.values())=={'error'}
+(O/'anti-slop.json').write_text(json.dumps(rules,indent=2)+'\n')

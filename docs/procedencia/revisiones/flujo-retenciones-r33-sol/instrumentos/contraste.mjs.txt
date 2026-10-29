@@ -1,0 +1,20 @@
+import fs from 'node:fs';import {gzipSync,gunzipSync}from'node:zlib';import{createRequire}from'node:module';import{composeRetencionesR32,verifyRetencionesR32}from'../../scripts/procedencia/flujo-retenciones-r32.mjs';
+const ts=createRequire('/home/elies/Repos/IRoboPF/package.json')('typescript');
+const out='.cache/revision-flujo-retenciones-r33/';const g=composeRetencionesR32();const b=gzipSync(JSON.stringify(g,null,2)+'\n',{level:9});fs.writeFileSync(out+'reconstruido.json.gz',b);
+const received=fs.readFileSync('docs/procedencia/implementaciones/flujo-retenciones-r32-sol/fragmento.json.gz');const checks=[];function check(id,expected,actual,kind){checks.push({id,expected,actual,pass:JSON.stringify(expected)===JSON.stringify(actual),kind})}
+check('reconstruccion-bytes',true,b.equals(received),'integridad');check('verificador-original',true,verifyRetencionesR32(g),'integridad');
+const sourceText=r=>fs.readFileSync(r.file,'utf8').slice(r.start,r.end);
+const ret='lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts';const ast=ts.createSourceFile(ret,fs.readFileSync(ret,'utf8'),ts.ScriptTarget.Latest,true);const decls=[];function visit(n){if(ts.isVariableDeclaration(n))decls.push(n);ts.forEachChild(n,visit)}visit(ast);
+const coveredExact=(n)=>g.ports.some(p=>p.source.file===ret&&p.source.start===n.getStart()&&p.source.end===n.end);
+for(const name of ['CERO','CIEN']){const d=decls.find(n=>n.name.getText()===name);check('terminal-literal-'+name,true,coveredExact(d),'cierre-propiedad');}
+const scale=g.contracts.find(c=>c.id.endsWith(':calcularCuotaEscala'));const tramos=decls.find(n=>n.name.getText()==='tramos');
+check('celdas-escala-en-puertos',true,g.ports.some(p=>p.source.file===ret&&p.source.start>=tramos.getStart()&&p.source.end<=tramos.end),'cierre-propiedad');
+const fields=['retribucionAnualCentimos','cotizacionesCentimos','irregular1Centimos','irregular2Centimos','pensionCompensatoriaConyugeCentimos','anualidadesAlimentosHijosCentimos','edad','movilidadGeografica','movilidadReducidaPerceptor','contrato','situacionLaboral','situacionFamiliar','descendientes','ascendientes','discapacidad'];
+check('frontera-subcaso-por-campo',true,fields.every(f=>g.ports.some(p=>p.terminal&&p.property===f)),'cierre-propiedad');
+const collections=scale.collections.map(c=>({operation:c.operation,receiver:sourceText(c.receiver),callback:c.callback?sourceText(c.callback):null,seed:c.seed?sourceText(c.seed):null,semantics:c.semantics}));
+const calls=g.contracts.find(c=>c.id.endsWith(':calcularCuotaRetencion')).calls.filter(c=>c.target.endsWith(':calcularCuotaEscala')).map(c=>({call:sourceText(c.source),arguments:c.arguments.map(a=>sourceText(a.argument)),formal:c.arguments.map(a=>a.formal?sourceText(a.formal):null)}));
+check('cinco-llamadas-escala-inventariadas',5,calls.length,'positivo-inventario');
+const mut=structuredClone(g);mut.sites[0]=structuredClone(mut.sites[1]);let rejected=false;try{verifyRetencionesR32(mut)}catch{rejected=true}check('duplicado-rechazado-verificador',true,rejected,'integridad');
+const missing=structuredClone(g);missing.contracts=[];missing.ports=[];missing.edges=[];let rejectedMissing=false;try{verifyRetencionesR32(missing)}catch{rejectedMissing=true}check('omisiones-rechazadas-verificador',true,rejectedMissing,'integridad');
+fs.writeFileSync(out+'mutantes-schema.json',JSON.stringify({duplicado:mut,omisiones:missing}));
+fs.writeFileSync(out+'contraste.json',JSON.stringify({checks,collections,calls,subcaso:g.ports.find(p=>p.id==='A.subcaso'),nota:'Rojos de contrato previo a cualquier corrección; no se modifica producto. Una referencia al cuerpo conserva bytes pero no sustituye puertos/celdas/bindings por propiedad.'},null,2));console.log(JSON.stringify(checks,null,2));

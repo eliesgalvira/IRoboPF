@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -uo pipefail
+R=/home/elies/.t3/worktrees/IRoboPF/t3-aad367de
+O="$R/docs/procedencia/revisiones/nominal-r32-sol"
+export PYTHONDONTWRITEBYTECODE=1 UV_PROJECT_ENVIRONMENT="$R/.cache/revision-nominal-r32/uv"
+run() { local label=$1; shift; "$@" > "$O/$label.log" 2>&1; local rc=$?; echo "$label $rc" >> "$O/regresiones-exit.log"; }
+run nominal node --test --test-concurrency=1 .cache/revision-nominal-r32/ensayo/tests/nominal-contrato.test.mjs .cache/revision-nominal-r32/ensayo/tests/ambito-publicado.test.mjs
+run software bun test ./.cache/revision-nominal-r32/ensayo/tests/nominal-software-explicacion.test.mjs
+run software-propio bun .cache/revision-nominal-r32/r30-software-propio.mjs
+run r30-casos node .cache/revision-nominal-r32/r30-casos.mjs
+run python bash tools/procedencia/run.sh .cache/revision-nominal-r32/ensayo/tests/test_nominal_contrato.py
+run historicos bun .cache/revision-nominal-r32/historicos.mjs

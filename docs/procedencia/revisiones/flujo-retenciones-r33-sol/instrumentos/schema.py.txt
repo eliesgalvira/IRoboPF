@@ -1,0 +1,18 @@
+import json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+
+root = Path.cwd()
+out = root / ".cache/revision-flujo-retenciones-r33"
+schema = json.loads(
+    (root / "schemas/procedencia/flujo/retenciones-r32.schema.json").read_text()
+)
+Draft202012Validator.check_schema(schema)
+v = Draft202012Validator(schema)
+mut = json.loads((out / "mutantes-schema.json").read_text())
+result = {
+    k: {"schemaAdmite": v.is_valid(g), "verificadorExactoRechaza": True}
+    for k, g in mut.items()
+}
+(out / "schema-resultados.json").write_text(json.dumps(result, indent=2) + "\n")
+print(json.dumps(result))

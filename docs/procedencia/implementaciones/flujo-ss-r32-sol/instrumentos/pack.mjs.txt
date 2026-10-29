@@ -1,0 +1,36 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import crypto from 'node:crypto'
+import zlib from 'node:zlib'
+import {spawnSync,execFileSync} from 'node:child_process'
+const root=process.cwd(),doc='docs/procedencia/implementaciones/flujo-ss-r32-sol/',scratch=fs.mkdtempSync(root+'/.cache/flujo-ss-r32/transport-')
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex')
+const files=['scripts/procedencia/flujo-ss-r32.mjs','tests/flujo-ss-r32.test.ts','schemas/procedencia/flujo/ss-r32.schema.json']
+function walk(dir){for(const n of fs.readdirSync(dir)){const p=dir+n;if(fs.statSync(p).isDirectory())walk(p+'/');else files.push(p)}}
+walk(doc)
+const excluded=['manifiesto.json','entrega.patch.gz','binarios.json','transporte.json','empaque.log']
+const payload=files.filter(p=>!excluded.some(n=>p===doc+n)).sort()
+let patch='';const binaries=[],entries=[]
+for(const p of payload){
+ const b=fs.readFileSync(p),sha256=hash(b);let baseSha256=null
+ const r=spawnSync('git',['cat-file','blob','846f25e183ba07414065d4e6bdf9e98311b98a17:'+p])
+ if(r.status===0){baseSha256=hash(r.stdout);throw Error('No se esperaba modificar base: '+p)}
+ entries.push({path:p,sha256,size:b.length,baseSha256})
+ if(b.length===0||p.endsWith('.gz')||b.includes(0)){binaries.push({path:p,sha256,size:b.length});continue}
+ const text=b.toString('utf8'),ends=text.endsWith('\n')
+ const lines=text.split('\n');if(ends)lines.pop()
+ patch+='diff --git a/'+p+' b/'+p+'\nnew file mode 100644\n--- /dev/null\n+++ b/'+p+'\n@@ -0,0 +1,'+lines.length+' @@\n'+lines.map((l,i)=>'+'+l+'\n'+(!ends&&i===lines.length-1?'\\ No newline at end of file\n':'')).join('')
+}
+const physical=JSON.parse(zlib.gunzipSync(fs.readFileSync(doc+'fisico-final.json.gz')));if(physical.mismatches.length||physical.deleted.length)throw Error('Base alterada');
+const compressed=zlib.gzipSync(Buffer.from(patch),{level:9})
+fs.writeFileSync(doc+'entrega.patch.gz',compressed)
+fs.writeFileSync(doc+'binarios.json',JSON.stringify(binaries,null,2)+'\n')
+fs.writeFileSync(doc+'manifiesto.json',JSON.stringify({head:'846f25e183ba07414065d4e6bdf9e98311b98a17',files:entries,envelopes:[{path:doc+'entrega.patch.gz',sha256:hash(compressed),size:compressed.length},{path:doc+'binarios.json',sha256:hash(fs.readFileSync(doc+'binarios.json')),size:fs.statSync(doc+'binarios.json').size}],excludedReceipts:[doc+'transporte.json',doc+'empaque.log']},null,2)+'\n')
+fs.mkdirSync(scratch,{recursive:true})
+const result=spawnSync('patch',['--batch','-p1','-d',scratch],{input:zlib.gunzipSync(compressed),encoding:'utf8'})
+fs.writeFileSync(root+'/.cache/flujo-ss-r32/patch.log',String(result.stdout)+String(result.stderr))
+if(result.status!==0)throw Error('Transporte patch: '+result.status)
+for(const b of binaries){const target=path.join(scratch,b.path);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(b.path,target)}
+for(const e of entries)if(fs.statSync(path.join(scratch,e.path)).size!==e.size||hash(fs.readFileSync(path.join(scratch,e.path)))!==e.sha256)throw Error('Transporte distinto: '+e.path)
+fs.writeFileSync(doc+'transporte.json',JSON.stringify({passed:true,files:entries.length,binaries:binaries.length,patchSha256:hash(compressed),method:'gzip + patch en scratch vacío; binarios por ruta/hash; SHA256 y tamaño cotejados para cada payload',baseUnchanged:true},null,2)+'\n')
+console.log(JSON.stringify({files:entries.length,bytes:entries.reduce((n,e)=>n+e.size,0),patchBytes:compressed.length,binaries:binaries.length,passed:true}))

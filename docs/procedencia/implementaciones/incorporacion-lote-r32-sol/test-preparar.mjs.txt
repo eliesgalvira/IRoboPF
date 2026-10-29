@@ -1,0 +1,7 @@
+import {mkdirSync,copyFileSync,symlinkSync,existsSync,writeFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+const target=resolve('.cache/incorporacion-lote-r32/calidad');mkdirSync(target+'/tests',{recursive:true});mkdirSync(target+'/scripts/procedencia',{recursive:true});
+copyFileSync('tests/incorporacion-lote-r32.test.ts',target+'/tests/incorporacion-lote-r32.test.ts');
+if(existsSync('scripts/procedencia/incorporacion-lote-r32.mjs'))copyFileSync('scripts/procedencia/incorporacion-lote-r32.mjs',target+'/scripts/procedencia/incorporacion-lote-r32.mjs');
+if(!existsSync(target+'/node_modules'))symlinkSync('/home/elies/Repos/IRoboPF/node_modules',target+'/node_modules');
+writeFileSync(target+'/vitest.config.mjs','export default {test:{include:["tests/incorporacion-lote-r32.test.ts"],maxWorkers:1}}');

@@ -1,0 +1,11 @@
+--- instrumento-antes
++++ instrumento-despues
+@@ -38,7 +38,7 @@
+  for(const path of [p.legalReview.decisions.path,...closure.documents.map(d=>d.path)])files.set(path,readFileSync(path));
+  mutate?.(p,a,files);
+  const ab=Buffer.from(JSON.stringify(a));
+- if(p.executableScope&&typeof p.executableScope.path==='string') {files.set(p.executableScope.path,ab);p.executableScope.sha256=digest(ab);}
++ if(!['missing-executableScope','type-executableScope','scope-null'].includes(id)) {files.set(p.executableScope.path,ab);p.executableScope.sha256=digest(ab);}
+  let text=JSON.stringify(p);if(id==='whitespace')text=JSON.stringify(p,null,4)+'\n';if(id==='reordered')text=JSON.stringify(Object.fromEntries(Object.entries(p).reverse()));
+  const pb=Buffer.from(text);const ref={path:prefix+'payload.json',sha256:digest(pb)};files.set(ref.path,pb);
+  files.set('docs/procedencia/enlaces/registro.json',Buffer.from(JSON.stringify({schemaVersion:1,entries:[{payload:ref,attestation:null}]})));

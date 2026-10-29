@@ -1,0 +1,5 @@
+import fs from 'node:fs';import {resolve} from 'node:path';
+const target=resolve('.cache/incorporacion-lote-r32/calidad');
+fs.cpSync('tools/oxlint',target+'/tools/oxlint',{recursive:true});fs.copyFileSync('.oxlintrc.json',target+'/.oxlintrc.json');fs.copyFileSync('eslint.config.mjs',target+'/eslint.config.mjs');
+fs.writeFileSync(target+'/package.json','{"type":"module"}');fs.writeFileSync(target+'/tsconfig.json',JSON.stringify({compilerOptions:{noEmit:true,allowJs:true,checkJs:false,module:'esnext',moduleResolution:'bundler',target:'es2022',esModuleInterop:true,types:['node'],skipLibCheck:true},include:['tests/incorporacion-lote-r32.test.ts','scripts/procedencia/incorporacion-lote-r32.mjs']}));
+const config=JSON.parse(fs.readFileSync('.oxlintrc.json'));const rules=Object.entries(config.rules).filter(([name])=>name.startsWith('anti-slop'));if(rules.length!==16||rules.some(([,v])=>v!=='error'))throw Error('Severidades');fs.writeFileSync('docs/procedencia/implementaciones/incorporacion-lote-r32-sol/lint-reglas.json',JSON.stringify(rules,null,2)+'\n');

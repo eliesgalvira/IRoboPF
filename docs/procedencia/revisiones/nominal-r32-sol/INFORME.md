@@ -1,0 +1,61 @@
+# Revisión independiente NR30-01, ronda 32
+
+**Dictamen: NR30-01 corroborado como corregido en el alcance estructural revisado, pendiente de contraste del padre.** No aparece un defecto nuevo reproducido. Pasan 39 casos nuevos Node y 39 del coordinador, ocho rechazos civiles, 61 casos R30, 20 regresiones Node, siete Python, seis pruebas de software y 28 mutaciones de su lista; los grupos se solapan. Los 44 históricos verifican con sus fuentes conservadas. Oxlint, ESLint y checkJs del consumidor terminan con salida cero; las 16 reglas siguen a error.
+
+Esta revisión se limita al fix del padre del consumidor nominal. No aplica fixes, modifica esperados históricos, emite atestación ni escribe registros. Sus conclusiones nuevas requieren contraste del padre. El encargo global y la aceptación fiscal completa permanecen abiertos.
+
+## Bytes y frontera revisados
+
+HEAD exigido y observado: `846f25e183ba07414065d4e6bdf9e98311b98a17`, 16.855 entradas. El cotejo inicial terminó antes de la primera escritura: lstat, readlink, bytes y ejecutabilidad, un blob cada vez, sin diferencias ni borrados. No se usa el índice como prueba de presencia. inicial.json conserva el resultado; final.json.gz contiene el cotejo detallado y la enumeración física final. El manifiesto enumera las adiciones propias con baseSha256 null; no hay modificación autorizada de ningún archivo de base en esta revisión.
+
+El consumidor anterior se extrae, mediante lectura del objeto Git, de la base **7f02834dbfc87f25abf513f40c8376fedbcb8e9a** de `correcciones/recepcion-r30-r32/archivos-precommit.json`. SHA256 anterior: `83a20b46a2ad8eb81c9c8e0ba7ad6476eebfcb0d7991f599848a165e1ae3c998`; actual: `d89214b4d0c2ddaa5f6f9fc6c14d106a0e29973cba82190f384a8c0d68169bf5`. consumidores.json y fix.diff fijan exactamente el cambio examinado: cierre de las dos claves de executableScope, patrón de su ruta y comparación exacta de legalReview contra la decisión fijada. No basta comparar dos objetos suministrados coherentes entre sí.
+
+Se conservan por referencia y hash los informes, casos, rojos, recibos y adaptaciones entregados en R30 y por el padre en R32 (recibidos.json). No se sobrescribe ninguna salida histórica. El fallo previo de carga Ajv2020 del padre fue ambiental: no se cuenta como rechazo de un mutante. Se usa aquí el schema completo del proyecto mediante Python/jsonschema, sin convertir su versión ni sustituirlo por un subconjunto.
+
+## NR30-01 y casos propios
+
+Los dos mutantes originales se cotejan byte por byte mediante SHA256 con los `.json.txt` recibidos. El primero añade `executableScope.unexpected`; el segundo añade `legalReview.unexpected` y la misma clave en `ambito.decision`. Cada sobre conserva hashes coherentes. Sus payloads exactos son `8eaa2bf64dfef4963a884fa04ab88762749d2e6ed343fdfd0ea430467fa599c4` y `241d3853624d4631ccba780e4260b638650817a101dec8a93394b20241c923bf`.
+
+Se comparan directamente las dos funciones exportadas, anterior y actual, contra el mismo cierre. No se reemplaza el rojo histórico por un esperado de admisión: la aceptación anterior continúa registrada como el comportamiento defectuoso. El positivo exacto se ejecuta también sobre ambos consumidores y sobre el coordinador real. El schema completo rechaza ambos mutantes; los diagnósticos del coordinador corresponden a validación sustantiva, no a ausencia de módulos, CAS o ejecutables.
+
+Los casos propios incluyen campos extra, ausentes y arrays en lugar de objetos en ocho posiciones anidadas; null; ruta ajena al patrón; referencias cruzadas; decisión duplicada; documento de decisión, ámbito y payload alterados coherentemente hacia 2022; decisionId alterado coherentemente; período civil y cifra del manual. Las formas legítimas incluyen el payload exacto, espacios/indentación, orden inverso de claves y una cadena con comillas, barras y salto escapados. casos-node.json conserva cada resultado anterior/actual y los bytes concretos reproducibles en scratch; casos-schema.json distingue forma de autoridad. Una forma válida de schema puede carecer de autorización por el pin; no es una contradicción del schema. casos-coordinador.json conserva los recorridos reales, positivos y negativos, con diagnósticos completos.
+
+Se reproducen asimismo los casos Node R30 recibidos sin alterar sus esperados y las regresiones existentes nominales, de ámbitos y de software. Son grupos solapados: no se suman como pruebas independientes ni como reglas fiscales aceptadas.
+
+## Madrid2020, decisión y dimensiones separadas
+
+El positivo exacto sigue correspondiendo a `inv-c24095c17f76bb198b34cf8b8d5a45ed`, archivo `lib/dominio/normativa/datos/irpf-autonomico-2020.ts`, símbolo `ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025`, ruta `["madrid","tramos","3","0"]`, valor serializado `53407.2`, EUR, componente autonómico y base general. Sigue siendo Madrid **2020**, nominal-only. No se sustituye por Madrid2022 ni se cambia la correspondencia entre cuarta pareja del motor y quinta fila legal.
+
+El ancla externa sigue siendo la decisión del padre `49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5`, `MADRID-2020-NOMINAL-53407-20-R29`. Se preservan identidad del autor de la proyección y antecedentes del revisor independiente; no se atribuyen al autor del payload ni a esta revisión. La igualdad del pin acredita la decisión editorial concreta, no vigencia ni independencia por sí sola.
+
+El resultado legítimo conserva `bindingReview:pending`, `authenticity:trust-indeterminate`, `applicability:not-established`, `completeRuleAcceptance:false`. Los contextos ordinarios y de fallecimiento de 2019, 2020, 2021 y 2022 son rechazados. La proyección cerrada y el selector que siempre rechaza impiden presentar nominal-only como autorización civil, incluso en 2020.
+
+Se separan explícitamente: forma contractual; pin y autorización editorial; integridad y autenticidad; aplicabilidad; aceptación de regla completa. Los hashes, recuentos y pruebas comprueban partes técnicas, sin resolver las otras dimensiones. La discordancia ley 53.407,20/manual 53.407,29 se conserva como reserva ya corroborada. No se reabre la auditoría jurídica entera ni se declara errata oficial, cadena exhaustiva de reformas o nueva validación histórica de firma.
+
+## Software e historia
+
+Se comprueban las seis dependencias nominales incorporadas a FUENTES_EXPLICACION y sus pruebas de mutación persistente; el instrumento R30 adaptado examina además toda la lista actual y el generador. Se separa software actual de software conservado: cambiar una fuente exige otra versión actual, mientras un recibo histórico se contrasta con su propia lista literal y objetos por hash, sin ejecutar JavaScript histórico. No se promete cierre transitivo universal ni protección ABA frente a un escritor que restaure los bytes entre lecturas.
+
+Los 44 snapshots se verifican con el recorrido histórico del proyecto sobre sus fuentes conservadas. No se exige que los antiguos utilicen el software actual. El activo de esta base sigue siendo `01b1978e79700018ce8f7a55cf0b98bcf2957590e159908de6ca27e87b66587a`, explicación `f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c`. El Madrid histórico activo mantiene pending; esta revisión no inserta el contrato nominal en el registro activo. Los diagnósticos y resultados finales se fijan en dictamen.json y los logs correspondientes.
+
+## Decisiones, objeciones y costes
+
+1. Corroborar solo NR30-01. Objeción experta: tolerar extras no demuestra error fiscal ni bypass del publicador activo. Respuesta: reproducir los dos bytes exactos antes/después y contrastar schema/coordinador, limitando la conclusión a la forma cerrada. Coste: la conclusión necesita contraste del padre y no habilita promoción.
+2. Exigir un ancla externa. Objeción: dos sobres coherentes pueden repetir la misma alteración. Respuesta: casos de decisión duplicada y alteración coherente, contra pin y proyección fija. Coste: contrato específico y comprobaciones redundantes que deben mantenerse.
+3. Leer historia con sus propias fuentes. Objeción: actualizar todos los históricos borraría la prueba anterior. Respuesta: conservarlos y verificar sus bytes/listas. Coste: IO y almacenamiento; la gramática literal no prueba comportamiento arbitrario.
+4. Mantener límites jurídicos. Objeción: la revisión estructural puede confundirse con aceptación de Madrid2020. Respuesta: estados separados, nominal-only y rechazo civil explícitos. Coste: vigencia, elegibilidad y autenticidad histórica continúan abiertas.
+5. Conservar originales en CAS propio. Objeción archivística: un checkout T3 es custodia local transitoria. Respuesta: originales.json fija ambos hashes/tamaño y referencia al paquete v5 r2 conservado; su contenido no se modifica ni se reexporta. Coste: el padre deberá preservar esta entrega antes de retirar scratch. Crossa sigue v1 desfasado, mismo dueño y casa, sin custodia remota ni independiente.
+
+## Entorno, entrega y límites
+
+Ejecución mediante Codex en T3 Code, runtime gpt-6.1-sol con esfuerzo high según el entorno de esta sesión; priority es la configuración solicitada, sin una comprobación adicional del planificador en esta revisión. No se inventa identidad T3 ni se emite atestación. Sin subdelegación ni cambio de modelo. Leídos BRIEF, AGENTS, contrato, coordinación, situación de ESTADO/DECISIONES y entregas recibidas relevantes; prevalecen las restricciones y la corrección urgente del usuario.
+
+Herramientas por Nix. Python gestionado con run.sh, PYTHONDONTWRITEBYTECODE=1 y entorno absoluto propio; no se crea tools/procedencia/.venv. Dependencias del padre solo lectura. Bloqueo pesado exclusivo para validaciones; recepción física acotada bajo su bloqueo propio. No se escribe Effect. Oxlint usa un hilo, --disable-nested-config y las 16 reglas a error. Las copias de app/dependencias y los PDF permanecen en scratch/CAS, fuera de docs.
+
+COMANDOS.md y las recetas/diffs permiten repetir los instrumentos en scratch nuevo; no se ejecutan productores históricos sobre su salida original. Manifiesto con rutas relativas, SHA256, tamaño y baseSha256; patch textual gzip contra la base y binarios por ruta/hash; transporte ensayado con patch en un directorio scratch vacío, sin crear checkout. Los sobres se enumeran aparte para evitar circularidad. Los controles mayores de 1 MB se comprimen y su original propio se conserva en scratch.
+
+No se modifican producto, inventario, motor, registros, confianza, ESTADO/DECISIONES ni informes ajenos. Ninguna operación VCS mutante, PR, main, despliegue, servidor, preview, X, transferencia externa, LFS, gasto o borrado. El cotejo final y transporte documentan el alcance físico exacto. Una conclusión favorable de NR30-01 no cierra el encargo global ni acepta una regla fiscal completa.
+
+El primer Oxlint detecta no-runtime-typeof en el generador propio de mutantes. Se conserva el rojo en oxlint-antes.log y el código de salida anterior en calidad-exit-antes.log. La guarda de construcción usa ahora los identificadores explícitos de los casos sin referencia de ámbito, en lugar de inspeccionar tipos de la entrada fabricada. instrumento-lint.diff registra ese cambio. La repetición y paridad-tras-lint.json comprueban que los 39 payloads, ámbitos y resultados no cambian; por ello no se atribuye un nuevo recorrido del coordinador a esa corrección instrumental. El aviso de ESLint sobre pages ausente en la vista de lint es ambiental, con salida cero y sin desactivar reglas.
+
+Al ensamblar los recibos se detecta una colisión de salida propia: la adaptación del instrumento R30 había escrito sus 61 casos en casos-node.json, la ruta de los 39 casos nuevos. No afecta a los informes recibidos ni a los recorridos ya ejecutados del coordinador/schema. El resultado R30 se conserva ahora en r30-casos-node.json y su cambio de ruta en r30-rutas-salida.diff. La primera comparación de paridad falla porque compara dos instrumentos diferentes; no es defecto del consumidor. Se reconstruye y ejecuta por separado la guarda anterior del instrumento propio, con salida casos-node-antes-guard.json, y se exige igualdad completa con los 39 casos posteriores. paridad-tras-lint.json corresponde a esa repetición de ambas guardas; no pretende ser un JSON inicial preservado que la colisión había sobrescrito. Ningún esperado se cambia.

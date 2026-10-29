@@ -1,0 +1,26 @@
+--- docs/procedencia/implementaciones/flujo-retenciones-ss-r30-sol/instrumentos/calidad.mjs.txt	2026-10-30 00:18:08.895379421 +0100
++++ .cache/flujo-ss-r32/quality.mjs	2026-10-30 00:38:44.211681158 +0100
+@@ -1,6 +1,17 @@
+-import fs from 'node:fs';import path from 'node:path';
+-const root=process.cwd(),dest=root+'/.cache/flujo-retenciones-ss-r30/calidad';fs.mkdirSync(dest,{recursive:true});
+-for(const name of fs.readdirSync(root)){if(['.git','.cache','node_modules'].includes(name))continue;const target=dest+'/'+name;if(fs.existsSync(target))continue;if(['package.json','tsconfig.json','eslint.config.mjs','.oxlintrc.json'].includes(name))fs.copyFileSync(root+'/'+name,target);else fs.symlinkSync(root+'/'+name,target)}
+-if(!fs.existsSync(dest+'/node_modules'))fs.symlinkSync('/home/elies/Repos/IRoboPF/node_modules',dest+'/node_modules');
+-const config=JSON.parse(fs.readFileSync(dest+'/.oxlintrc.json'));if(Object.keys(config.rules).length!==16||Object.values(config.rules).some(x=>x!=='error'))throw Error('anti-slop');
+-fs.writeFileSync(root+'/.cache/flujo-retenciones-ss-r30/reglas.json',JSON.stringify(config.rules,null,2));
++import fs from 'node:fs'
++const root=process.cwd(),dest=root+'/.cache/flujo-ss-r32/quality'
++fs.mkdirSync(dest,{recursive:true})
++for(const name of ['lib','types'])if(fs.existsSync(root+'/'+name)&&!fs.existsSync(dest+'/'+name))fs.symlinkSync(root+'/'+name,dest+'/'+name)
++for(const n of ['scripts/procedencia','tests'])fs.mkdirSync(dest+'/'+n,{recursive:true})
++for(const p of ['scripts/procedencia/flujo-ss-r32.mjs','tests/flujo-ss-r32.test.ts'])fs.copyFileSync(root+'/'+p,dest+'/'+p)
++if(!fs.existsSync(dest+'/scripts/procedencia/flujo-ast.mjs'))fs.symlinkSync(root+'/scripts/procedencia/flujo-ast.mjs',dest+'/scripts/procedencia/flujo-ast.mjs')
++fs.mkdirSync(dest+'/tools',{recursive:true})
++fs.cpSync(root+'/tools/oxlint',dest+'/tools/oxlint',{recursive:true})
++fs.copyFileSync(root+'/.oxlintrc.json',dest+'/.oxlintrc.json')
++fs.copyFileSync(root+'/eslint.config.mjs',dest+'/eslint.config.mjs')
++fs.copyFileSync(root+'/package.json',dest+'/package.json')
++if(!fs.existsSync(dest+'/node_modules'))fs.symlinkSync('/home/elies/Repos/IRoboPF/node_modules',dest+'/node_modules')
++const config=JSON.parse(fs.readFileSync(root+'/tsconfig.json'))
++config.include=['tests/flujo-ss-r32.test.ts','scripts/procedencia/flujo-ss-r32.mjs'];config.compilerOptions.incremental=false
++fs.writeFileSync(dest+'/tsconfig.json',JSON.stringify(config,null,2))
++const lint=JSON.parse(fs.readFileSync(dest+'/.oxlintrc.json'));if(Object.keys(lint.rules).length!==16||Object.values(lint.rules).some(v=>v!=='error'))throw Error('anti-slop')

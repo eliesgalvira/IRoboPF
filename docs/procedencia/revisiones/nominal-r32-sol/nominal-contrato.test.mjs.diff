@@ -1,0 +1,11 @@
+--- tests/nominal-contrato.test.mjs
++++ scratch/tests/nominal-contrato.test.mjs
+@@ -33,7 +33,7 @@
+     objects.set(
+       blob.sha256,
+       readFileSync(
+-        new URL(".cache/nominal-r29/cas/sha256/" + blob.sha256, root),
++        new URL("../cas/sha256/" + blob.sha256, root),
+       ),
+     );
+   const p = JSON.parse(objects.get(payload.sha256));

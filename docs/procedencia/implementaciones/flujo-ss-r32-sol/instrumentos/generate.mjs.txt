@@ -1,0 +1,31 @@
+import fs from 'node:fs'
+import {composeSS,validateSS} from '../../scripts/procedencia/flujo-ss-r32.mjs'
+const dest='docs/procedencia/implementaciones/flujo-ss-r32-sol/'
+const g=composeSS();validateSS(g)
+fs.writeFileSync(dest+'fragmento.json',JSON.stringify(g,null,2)+'\n')
+const string={type:'string'},integer={type:'integer'},array=items=>({type:'array',items}),closed=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties})
+const ref=closed({id:string,file:string,sha256:{type:'string',pattern:'^[a-f0-9]{64}$'},start:integer,end:integer,text:string,offsetEncoding:{const:'utf16'},syntax:string})
+const site=closed({siteId:{type:'string',pattern:'^anual\\.ss\\.'},output:string,source:string,unit:{const:'EUR'},frequency:{const:'anual'},side:{enum:['ambos','empresarial','trabajador']},valueClosed:{const:true},selectionClosed:{const:true},siteClosed:{const:false},admissionRequirement:{const:'anual-publico-r32'}})
+const port=closed({id:string,op:{enum:['literal','input','element','accumulator','reduce','if','eq','gte','lte','plus','minus','mul','div','min','max']},args:array(string),unit:string,frequency:{const:'anual'},source:string,detail:{type:['object','null']},property:string,instance:string,role:{enum:['value','selection','admission']}})
+const edge=closed({id:string,from:string,to:string,argument:integer,evidence:array(string),role:{enum:['selection','value']},condition:string})
+const schema={$schema:'https://json-schema.org/draft/2020-12/schema',...closed({version:{const:1},kind:{const:'flujo-ss-r32'},base:{const:g.base},sources:array(ref),ports:array(port),edges:array(edge),bindings:array(closed({call:string,callee:string,arguments:array(string),parameters:array(closed({parameter:string,argument:{type:['string','null']},index:integer}))})),transport:array({type:'object'}),closures:array(closed({siteId:string,root:string,ports:array(string),terminals:array(string),unresolved:{type:'array',maxItems:0},closed:{const:true}})),sites:{...array(site),minItems:11,maxItems:11},unresolved:{type:'array',maxItems:0},completeRuleAcceptance:{const:false},wiringAllowed:{const:false}})}
+fs.writeFileSync('schemas/procedencia/flujo/ss-r32.schema.json',JSON.stringify(schema,null,2)+'\n')
+const descriptions=[
+'Legacy aplica min(S,M[año]). Canónico conserva esa base salvo 2018: [7 min(S,3751.20×12)+5 min(S,3803.70×12)]/12. Se transporta caso.anio y S desde la suma por índice del trabajo anual. Los dos topes no se sustituyen por una media constante.',
+'Legacy: max(0,S−M[año]). Canónico: max(0,S−base canónica). La saturación a cero se conserva antes de calcular los tramos.',
+'Base seleccionada × suma empresarial de comunes, desempleo, fogasa, fp y atep. Object.values se reduce desde cero; cada lado llega a su celda real. La tabla constante se obtiene mediante obtenerParametrosCotizacionLegacy(caso.anio), no como entrada pública.',
+'Base seleccionada × suma del lado trabajador de las cinco celdas ordinarias. FOGASA y AT/EP aportan cero; no se reutiliza el tipo empresarial.',
+'Base seleccionada × MEI empresarial: cero antes de 2023; 0.005 en 2023, 0.0058 en 2024, 0.0067 en 2025 y 0.0075 desde 2026. El selector es caso.anio.',
+'Base seleccionada × MEI trabajador: cero antes de 2023; 0.001, 0.0012, 0.0013 y 0.0015 respectivamente. Se mantienen proporciones, no porcentajes enteros.',
+'Canónico pondera tres excesos por los índices 0/1/2 del array empresarial 2025 o 2026. Resto de años: array cero. Legacy selecciona SinSolidaridad/ConSolidaridad mediante año, devuelve cero para exceso≤0 y reparte la cuota total ×5/6. Los tramos son min(E,0.1M), min(max(0,E−0.1M),0.4M), max(0,E−0.5M). Legacy calcula la anchura como 0.5M−0.1M.',
+'Canónico usa los índices 0/1/2 del array trabajador, distintos del empresarial. Legacy divide por seis el total previamente calculado con los tipos conjuntos por año. La coincidencia del total no demuestra coincidencia por lado.',
+'Suma ordinaria empresarial + MEI empresarial + solidaridad empresarial, con el mismo modo y año en todos los términos; conserva el orden de sumas Decimal.',
+'Suma ordinaria trabajador + MEI trabajador + solidaridad trabajador; conserva la selección común y el orden de sumas.',
+'Suma S + cotización empresarial total. S procede de reducir caso.rendimientos.trabajo: semilla convertir(0), añadir convertir(elemento[i].importeIntegroCentimos) por índice, convertir(c)=Decimal(c)/100. No se suma el campo equivocado ni se redondea mensualmente.'
+]
+for(let i=0;i<g.sites.length;i++) {
+ const s=g.sites[i]
+ fs.writeFileSync(dest+s.siteId+'.md',`${s.siteId}\n\n${descriptions[i]}\n\nSalida: ${s.output}; EUR anuales; lado ${s.side}. Referencias normalizadas en fragmento.json, incluidos rangos UTF16, llamadas y argumentos. Valor y selección resueltos para el código fijado; siteClosed=false y admissionRequirement=anual-publico-r32. No prueba elegibilidad, mínimos por grupo ni redondeo mensual TGSS; sin aceptación jurídica propia ni wiring.\n`)
+}
+fs.writeFileSync(dest+'casos.json',JSON.stringify({years:[2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],modes:['canonico','compatible-legacy'],salaryArrays:['vacío','un elemento','tres elementos'],frontiers2018:[45014.39,45014.4,45014.41,45240,45644.39,45644.4,45644.41],bands:'M, 1.1M y 1.5M ±0.01 EUR en 2025/2026',comparison:'Desglose TS real y suma TS real; Decimal antes de liquidar céntimos',oracleNormativoNuevo:false},null,2)+'\n')
+console.log(JSON.stringify({sites:g.sites.length,ports:g.ports.length,edges:g.edges.length,sources:g.sources.length,bindings:g.bindings.length}))

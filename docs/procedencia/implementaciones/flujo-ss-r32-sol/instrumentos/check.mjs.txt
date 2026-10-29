@@ -1,0 +1,20 @@
+import fs from 'node:fs'
+import {spawnSync} from 'node:child_process'
+const root=process.cwd(),out='docs/procedencia/implementaciones/flujo-ss-r32-sol/'
+const jobs=[
+ ['preparar',['.cache/flujo-ss-r32/quality.mjs'],root],
+ ['generacion-definitiva',['.cache/flujo-ss-r32/generate.mjs'],root],
+ ['tipos-definitivo',['node_modules/typescript/bin/tsc','--noEmit'],root+'/.cache/flujo-ss-r32/quality'],
+ ['oxlint-definitivo',['node_modules/oxlint/bin/oxlint','--threads=1','--disable-nested-config','--no-ignore','--format=json','scripts/procedencia/flujo-ss-r32.mjs','tests/flujo-ss-r32.test.ts'],root+'/.cache/flujo-ss-r32/quality'],
+ ['eslint-definitivo',['node_modules/eslint/bin/eslint.js','scripts/procedencia/flujo-ss-r32.mjs','tests/flujo-ss-r32.test.ts'],root+'/.cache/flujo-ss-r32/quality'],
+ ['pruebas-definitivo',['/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs','run','--config','.cache/flujo-ss-r32/vitest.config.mjs'],root]
+]
+const results=[]
+for(const [name,args,cwd] of jobs) {
+ const r=spawnSync(process.execPath,args,{cwd,encoding:'utf8',maxBuffer:8*1024*1024})
+ fs.writeFileSync(out+name+'.log',String(r.stdout??'')+String(r.stderr??''))
+ results.push({name,args,cwd:cwd===root?'.':'.cache/flujo-ss-r32/quality',exitCode:r.status,signal:r.signal})
+}
+fs.writeFileSync(out+'validacion-final.json',JSON.stringify({results,completeRuleAcceptance:false,scope:'dos archivos propios; sin Next build ni suites legacy'},null,2)+'\n')
+console.log(JSON.stringify(results))
+if(results.some(r=>r.exitCode!==0))process.exitCode=1

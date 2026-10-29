@@ -1,0 +1,86 @@
+{
+  "base": "846f25e183ba07414065d4e6bdf9e98311b98a17",
+  "runtime": {
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "providerHarness": "Codex en T3 Code",
+    "priority": "solicitada; sin recibo independiente en este runtime"
+  },
+  "red": {
+    "log": "rojo.log",
+    "failed": 1,
+    "passed": 168,
+    "reason": "export evaluateRetentionAdmission ausente"
+  },
+  "final": {
+    "passed": 204,
+    "failed": 0
+  },
+  "controls": [
+    {
+      "id": "pruebas",
+      "exit": 0,
+      "log": "pruebas.log",
+      "sha256": "f98f25f89f2ddd158e07eb1ad18fa71a27bac46089b67f456337e956677dbb0d",
+      "size": 491
+    },
+    {
+      "id": "tipos",
+      "exit": 0,
+      "log": "tipos.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "id": "lint",
+      "exit": 0,
+      "log": "lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "id": "eslint",
+      "exit": 0,
+      "log": "eslint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "id": "schema",
+      "exit": 0,
+      "log": "schema.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    }
+  ],
+  "antiSlop": {
+    "anti-slop/no-chained-type-assertions": "error",
+    "anti-slop/no-conditional-empty-object-spread": "error",
+    "anti-slop/no-known-value-widening": "error",
+    "anti-slop/no-module-mocking": "error",
+    "anti-slop/no-object-parameters": "error",
+    "anti-slop/no-reflect-apply": "error",
+    "anti-slop/no-reflect-get": "error",
+    "anti-slop/no-runtime-typeof": "error",
+    "anti-slop/no-unsafe-dictionary-type": "error",
+    "anti-slop/no-shape-in-symbol-names": "error",
+    "anti-slop/no-unknown-parameters": "error",
+    "anti-slop/no-unknown-returns": "error",
+    "anti-slop/no-unknown-type-aliases": "error",
+    "anti-slop/no-widen-then-assert": "error",
+    "anti-slop/require-safety-comment-for-type-assertion": "error",
+    "anti-slop-effect/no-service-constructor-imports": "error"
+  },
+  "physical": [
+    "recepcion-inicial.json",
+    "cotejo-final.json"
+  ],
+  "limits": [
+    "revisión propia no independiente",
+    "sin aceptación fiscal",
+    "sin wiring ni composición pública",
+    "mutaciones comprueban obsolescencia del contrato por bytes, no ejecución de todos los mutantes del motor"
+  ],
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false
+}

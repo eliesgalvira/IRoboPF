@@ -1,0 +1,22 @@
+ 6 | for(const f of plan.files){write(docs+'/candidatos/'+f.path.split('/').at(-1),Buffer.from(f.after,'base64'));write(docs+'/previos/'+f.path.split('/').at(-1),Buffer.from(f.before,'base64'))}
+ 7 | write(docs+'/identidades.json',JSON.stringify(plan.identities,null,2)+'\n');write(docs+'/casos.json',JSON.stringify(plan.cases,null,2)+'\n');
+ 8 | const recipe=JSON.parse(fs.readFileSync('docs/procedencia/correcciones/multiplicidad-r27/despues-url/preparacion.json'));
+ 9 | const pinEntry=JSON.parse(fs.readFileSync('docs/procedencia/implementaciones/cas-local-r27-sol/entrada.json'));
+10 | const pins=new Map(pinEntry.dependencias.map(d=>[d.path,d.sha256]));const copied=[];
+11 | for(const p of recipe.files){if(p.includes('/.venv/'))continue;const b=fs.readFileSync(resolve(root,p));const pin=pins.get(p);if(pin&&!/^(lib|scripts|schemas|app)\/procedencia\//.test(p))assert.equal(sha(b),pin,p);write(resolve(tree,p),b);copied.push({path:p,sha256:sha(b),historicalPin:pin??null})}
+                                                                                                                                                                                                       ^
+AssertionError: tools/procedencia/enlaces.py
++ actual - expected
+
++ '9677597b2172538d50c554e921027b0752ce87fee7229aeab20c82ee30422b48'
+- 'e0c1f038eb01d2029a49ce39242158530db307306d45acd5bcf3bd702e4c5b81'
+
+ generatedMessage: false,
+     actual: "9677597b2172538d50c554e921027b0752ce87fee7229aeab20c82ee30422b48",
+   expected: "e0c1f038eb01d2029a49ce39242158530db307306d45acd5bcf3bd702e4c5b81",
+   operator: "strictEqual",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/preparar-ensayo.mjs:11:195
+
+Bun v1.3.13 (Linux x64)

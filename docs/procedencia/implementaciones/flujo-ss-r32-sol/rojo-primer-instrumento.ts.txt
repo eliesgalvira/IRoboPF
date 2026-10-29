@@ -1,0 +1,12 @@
+import { expect, test } from "vitest"
+import { Composer } from "../scripts/procedencia/flujo-componer.mjs"
+
+test("R32: solidaridad legacy alcanza selección y valor sin callbacks abiertos", () => {
+  const c = new Composer()
+  const file = "lib/dominio/laboral/cotizaciones-sociales.ts"
+  const ast = c.sources.load(file).ast
+  const source = ast.statements.find(n => n.getText().startsWith("const calcularTotalSolidaridad ="))
+  expect(source).toBeDefined()
+  const port = c.trace(source!, "", new Map(), "ss-r32", "EUR")
+  expect(port.unresolved).toBeNull()
+})

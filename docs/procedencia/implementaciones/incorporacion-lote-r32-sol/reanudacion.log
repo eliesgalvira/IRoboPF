@@ -1,0 +1,28 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/calidad
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  00:35:13
+   Duration  672ms (transform 25ms, setup 0ms, import 42ms, tests 520ms, environment 0ms)
+
+Pages directory cannot be found at /home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/calidad/pages or /home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/calidad/src/pages. If using a custom path, please configure with the `no-html-link-for-pages` rule in your eslint config file.
+35 |   let actual = ""
+36 |   try {
+37 |     for (const parte of ["", ...ruta.split("/").filter(Boolean)]) {
+38 |       actual = parte ? actual + "/" + parte : "/"
+39 |       const parent = abiertos.at(-1)
+40 |       const fd = openSync(
+                      ^
+ENOENT: no such file or directory, open '/proc/self/fd/25/externo'
+    path: "/proc/self/fd/25/externo",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at directorios (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/lib/procedencia/io.mjs:40:18)
+      at guardarExterno (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/lib/procedencia/io.mjs:169:16)
+      at publicar (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/scripts/procedencia/contenido-publicar.mjs:246:5)
+
+Bun v1.3.13 (Linux x64)

@@ -1,0 +1,52 @@
+Ensayo preparado 1132 20
+Madrid previo conservado
+Versiones conservadas 6941
+AssertionError: The input did not match the regular expression /ENOTDIR/. Input:
+
+'Error: 466 |   const python = spawnSync(\n' +
+  '467 |     "python3",\n' +
+  '468 |     [`${root}/scripts/procedencia/inventario-python.py`, pythonPath],\n' +
+  '469 |     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }\n' +
+  '470 |   )\n' +
+  '471 |   if (python.status !== 0) throw new Error(python.stderr || "Falló AST Python")\n' +
+  '                                           ^\n' +
+  'error: Falló AST Python\n' +
+  '      at generateInProcess (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/scripts/procedencia/inventario.mjs:471:38)\n' +
+  '\n' +
+  'Bun v1.3.13 (Linux x64)\n' +
+  ''
+
+ generatedMessage: true,
+   expected: /ENOTDIR/,
+   operator: "rejects",
+       code: "ERR_ASSERTION"
+
+      at processTicksAndRejections (native:7:39)
+
+236 |       encoding: "utf8",
+237 |       maxBuffer: 4 * 1024 * 1024,
+238 |     }
+239 |   )
+240 |   if (child.status !== 0)
+241 |     throw new Error(child.stderr || "Falló generación en proceso aislado")
+                    ^
+error: 466 |   const python = spawnSync(
+467 |     "python3",
+468 |     [`${root}/scripts/procedencia/inventario-python.py`, pythonPath],
+469 |     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+470 |   )
+471 |   if (python.status !== 0) throw new Error(python.stderr || "Falló AST Python")
+                                           ^
+error: Falló AST Python
+      at generateInProcess (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/scripts/procedencia/inventario.mjs:471:38)
+
+Bun v1.3.13 (Linux x64)
+
+      at generate (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/scripts/procedencia/inventario.mjs:241:15)
+      at buildArtifact (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/scripts/procedencia/inventario-artefacto.mjs:93:27)
+      at verifyLinks (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/scripts/procedencia/verificar-enlaces.mjs:50:9)
+      at generarEvidencia (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/scripts/procedencia/evidencia-contenido.mjs:152:27)
+      at publicar (/home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/ensayo/scripts/procedencia/contenido-publicar.mjs:62:26)
+      at /home/elies/.t3/worktrees/IRoboPF/t3-9951149a/.cache/incorporacion-lote-r32/recorrido.mjs:32:22
+
+Bun v1.3.13 (Linux x64)

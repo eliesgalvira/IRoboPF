@@ -1,0 +1,4 @@
+import fs from 'node:fs'
+const dest='docs/procedencia/implementaciones/flujo-ss-r32-sol/instrumentos/'
+fs.mkdirSync(dest,{recursive:true})
+for(const n of ['rojo.mjs','vitest.config.mjs','quality.mjs','check.mjs','generate.mjs','physical.py','schema.py','pack.mjs','save-instruments.mjs'])fs.copyFileSync('.cache/flujo-ss-r32/'+n,dest+n+'.txt')

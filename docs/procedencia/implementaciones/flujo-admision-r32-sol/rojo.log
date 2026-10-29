@@ -1,0 +1,26 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-529a7558
+
+ ❯ tests/flujo-admision-r32.test.ts (61 tests | 1 failed) 136ms
+   × exporta un predicado ejecutable expandido de admisión del subservicio 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-admision-r32.test.ts > exporta un predicado ejecutable expandido de admisión del subservicio
+AssertionError: expected { …(5), …(1) } to have property "evaluateRetentionAdmission"
+ ❯ tests/flujo-admision-r32.test.ts:11:21
+      9| import * as admission from "../scripts/procedencia/flujo-admision-r32.…
+     10| it("exporta un predicado ejecutable expandido de admisión del subservi…
+     11|   expect(admission).toHaveProperty("evaluateRetentionAdmission")
+       |                     ^
+     12| })
+     13| import { readFileSync } from "node:fs"
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 168 passed (169)
+   Start at  00:34:14
+   Duration  1.64s (transform 450ms, setup 0ms, import 1.16s, tests 266ms, environment 0ms)
+
