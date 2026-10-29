@@ -62,11 +62,25 @@ El delegado entregó un parche de 29 archivos contra `d4d708f6`, sin commit. El 
 
 Según la ejecución del delegado: lint sin diagnósticos, typecheck y ensayo anti-slop correctos; suite ampliada 177 pruebas correctas y una omitida; suite CI cinco correctas. Estos resultados aún requieren revisión e integración del orquestador. El parche no está aplicado al motor principal. Se encarga revisión independiente de preservación de comportamiento, contratos de entrada, esquema de fixtures y adaptadores de exportación/gráficos. La revisión fiscal continúa separadamente.
 
+Actualización: contrarrevisión independiente aprobable, sin P1/P2 demostrados, con 29 hashes y parche verificados, upstream contrastado, lint/typecheck y 19 pruebas focalizadas correctos. El orquestador integró selectivamente los 29 archivos, sin copiar metadatos VCS. Conservó además el rechazo runtime previo de cotizaciones/contrato/situación laboral malformados mediante `Match.number`/`Match.string`: una prueba nueva falló primero con defecto Decimal ante null, antes de restaurar los predicados. No es una corrección de cuantías fiscales. El payload gráfico queda restringido a las propiedades propias de sus productores actuales, según revisión documentada.
+
+Validación posterior en el padre: lint y typecheck de aplicación/vendor correctos, 16 reglas a error confirmadas por el ensayo, 20 pruebas focalizadas correctas. Cero diagnósticos en fuentes mantenidas. La caché temporal de auditores queda fuera del proyecto comprobado, según D010.
+
+## Inventario, corpus y escalas 2017–2021 recibidos
+
+Inventario: 350 archivos, 94.635.059 bytes, máximo individual 3.675.420; hashes comprobados y cero archivos de base ausentes. Sus 47.713 elementos suman capas sintácticas, efectivas y seleccionadas con solapamientos: no son 47.713 parámetros fiscales distintos ni aceptados. Quedan 25.090 unidades por interpretar y otras lagunas explícitas. Se encarga revisión del extractor, IDs, cobertura, tamaño y relación con el código actual antes de integrar.
+
+Corpus: 21 archivos, 1.407.417 bytes, máximo individual 1.175.521; hashes comprobados, cero archivos de base ausentes. Solo modifica el helper existente; restantes rutas nuevas. Falta contrarrevisión de adquisición, autenticidad, coordenadas, facsímiles y bindings, incluida la conexión real con valores del motor. Los ejemplos no constituyen validación fiscal. El helper del padre ya omite cabeceras de sesión; preservar esa mejora al integrar.
+
+Escalas autonómicas 2017–2021: 95 candidatos (60 match, dos mismatch, 32 ambiguous, uno missing), 582 filas y 90 entradas año-territorio. Pendientes de contrarrevisión. Madrid 2020 y la etiqueta fija de ejercicio son candidatos concretos, aún sin fix. La cadena de normas originales/vigencias está incompleta y debe completarse antes de aceptación jurídica. Se han omitido tres campos de cabeceras de sesión en los JSON publicables de esta entrega, conservando hashes y originales documentales.
+
 ## Necesidades expertas: primera entrega documental
 
 Recibidos 16 candidatos de capacidad: 11 carencias y cinco ambigüedades. El orquestador comprobó hashes SHA-256/SHA-512 y tamaños de los seis originales referenciados. Ningún candidato se acepta todavía; se encarga contrarrevisión de los 16 requisitos, la comprobación pública de posts/artículo, las citas y la lectura del motor.
 
 La diferencia reproducida para el ejemplo de 18.000 € compara parametrizaciones ilustrativas, no acredita una deuda tributaria: no se utilizará para corregir el motor sin contraste normativo. Las carencias de actividad económica se investigarán como una vertical distinta del salario; primera investigación delimitada a estimación directa simplificada de 2025, sin prometer cobertura de RETA ni de otros regímenes antes de acreditarlos.
+
+Contrarrevisión recibida: 14 hallazgos de capacidad aceptables dentro del alcance revisado; NE-01 y NE-13 requieren evidencia adicional. No son 14 reglas fiscales validadas. El revisor confirma ocho extracciones y pide ampliar cuatro pasajes antes de usarlos como fundamento sustantivo. De los diez posts contrastados, tres textos completos y siete prefijos: no se presentará esa comprobación como autenticación del texto completo de todos los posts. Véase `revisiones/necesidades-expertas/`.
 
 ## Bootstrap anti-slop completado
 

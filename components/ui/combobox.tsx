@@ -1,5 +1,7 @@
 "use client"
 
+import { Predicate } from "effect"
+
 import * as React from "react"
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox"
 import { Check, ChevronDown, X } from "lucide-react"
@@ -27,7 +29,7 @@ const asignarRefs =
   <T,>(...refs: ReadonlyArray<React.Ref<T> | undefined>) =>
   (valor: T) => {
     for (const ref of refs) {
-      if (typeof ref === "function") {
+      if (Predicate.isFunction(ref)) {
         ref(valor)
       } else if (ref !== undefined && ref !== null) {
         ref.current = valor

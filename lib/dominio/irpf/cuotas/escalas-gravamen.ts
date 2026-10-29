@@ -76,7 +76,7 @@ export const calcularDesgloseCuotaPorEscala = ({
           tramos,
           {
             limiteAnterior: base.mul(0),
-            tramos: [] as ReadonlyArray<TramoCuotaGeneralCalculado>,
+            tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
           },
           (estado, [limite, tipo]) => {
             const baseRestante = Decimal.max(

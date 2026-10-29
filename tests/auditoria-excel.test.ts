@@ -1,6 +1,6 @@
 import ExcelJS from "exceljs"
 import type { CellValue } from "exceljs"
-import { Effect } from "effect"
+import { Match, Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -71,11 +71,11 @@ const valorCelda = (valor: CellValue): number | string => {
     return ""
   }
 
-  if (typeof valor === "number") {
+  if (Match.number(valor)) {
     return Number(valor.toFixed(2))
   }
 
-  if (typeof valor === "string") {
+  if (Match.string(valor)) {
     return valor
   }
 
@@ -83,11 +83,11 @@ const valorCelda = (valor: CellValue): number | string => {
     return valor.toISOString()
   }
 
-  if (typeof valor === "object" && "result" in valor) {
+  if (!(valor === true || valor === false) && "result" in valor) {
     return valorCelda(valor.result)
   }
 
-  if (typeof valor === "object" && "text" in valor) {
+  if (!(valor === true || valor === false) && "text" in valor) {
     return valor.text
   }
 

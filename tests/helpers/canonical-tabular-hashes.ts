@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto"
 
-import { Match } from "effect"
+import { Schema, Match } from "effect"
 
 import {
   aniosFiscalesLegacy,
@@ -8,7 +8,6 @@ import {
   construirTablaControlGeneralCompatible,
   construirTablaControlTramosIrpfCompatible,
   construirTablaDetalleAnualCompatible,
-  type AnioFiscal,
   type TablaCompatible,
   type ValorCeldaCompatible,
 } from "../../lib/dominio/compatibilidad-legacy/progresividad-frio"
@@ -25,20 +24,21 @@ export const HOJAS_LEGACY_COMPLETAS = [
   ...aniosFiscalesLegacy.map((anio) => `DAT_${anio}`),
 ] as const
 
-export interface HashHojaCanonica {
-  readonly name: string
-  readonly columns: number
-  readonly dataRows: number
-  readonly headerHash: string
-  readonly dataHash: string
-}
-
-export interface FixtureCanonicoTabular {
-  readonly schemaVersion: 1
-  readonly source: string
-  readonly canonicalization: string
-  readonly sheets: ReadonlyArray<HashHojaCanonica>
-}
+export const HashHojaCanonicaSchema = Schema.Struct({
+  name: Schema.String,
+  columns: Schema.Number,
+  dataRows: Schema.Number,
+  headerHash: Schema.String,
+  dataHash: Schema.String,
+})
+export type HashHojaCanonica = typeof HashHojaCanonicaSchema.Type
+export const FixtureCanonicoTabularSchema = Schema.Struct({
+  schemaVersion: Schema.Literal(1),
+  source: Schema.String,
+  canonicalization: Schema.String,
+  sheets: Schema.Array(HashHojaCanonicaSchema),
+})
+export type FixtureCanonicoTabular = typeof FixtureCanonicoTabularSchema.Type
 
 export interface AcumuladorHashTabular {
   readonly anadirFilaDatos: (fila: ReadonlyArray<ValorCeldaCompatible>) => void
@@ -46,7 +46,7 @@ export interface AcumuladorHashTabular {
 }
 
 const normalizarValor = (valor: ValorCeldaCompatible) => {
-  if (typeof valor === "number") {
+  if (Match.number(valor)) {
     return `n:${valorACentimos(valor)}`
   }
 
@@ -121,7 +121,9 @@ export const tablaEsperadaPorHoja = (nombreHoja: string): TablaCompatible =>
       (nombreHoja) => nombreHoja.startsWith("DAT_"),
       (nombreHoja) =>
         construirTablaDetalleAnualCompatible(
-          Number(nombreHoja.slice(4)) as AnioFiscal
+          Schema.decodeUnknownSync(Schema.Literals(aniosFiscalesLegacy))(
+            Number(nombreHoja.slice(4))
+          )
         )
     ),
     Match.orElse((nombreHoja) => {

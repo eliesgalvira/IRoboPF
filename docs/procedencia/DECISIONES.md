@@ -34,6 +34,18 @@ La primera revisión de capacidades propone una vertical de estimación directa 
 
 Objeción experta: presentar facturación como salario, reducir RETA a una cotización empresarial o ignorar amortizaciones y regímenes produciría una falsa cobertura de autónomos. Se rechazan esos atajos. Coste aceptado: investigación adicional y alcance inicial estrecho, manteniendo visibles los regímenes y años no implementados. Los requisitos de producto detectados no se convierten automáticamente en reglas fiscales aceptadas.
 
+## D008. Preservar defensas runtime durante la corrección de lint
+
+Aunque los productores tipados actuales no generan las entradas malformadas del ensayo del revisor, sustituir tres comprobaciones de tipo por presencia retiraba un rechazo previo y permitía un defecto Decimal ante null. Se conservan los rechazos con los predicados equivalentes de Effect, después de reproducir el fallo en una prueba. Coste: una prueba adicional de frontera y una expectativa explícita de error TypeScript por entradas JavaScript deliberadamente inválidas; no se relaja anti-slop ni se cambian cuantías.
+
+## D009. Publicar cabeceras de procedencia sin cookies de sesión
+
+Las cabeceras ETag, Last-Modified, Content-Type, tamaño, estado y fecha permiten describir la adquisición. Cookies y cabeceras de autorización no aportan evidencia fiscal y no deben formar parte del manifiesto público. Se omiten esos campos al publicar, sin modificar los bytes originales del documento ni sus hashes. Coste: el manifiesto publicado no es una captura HTTP íntegra ni un WARC; esa limitación se declara expresamente.
+
+## D010. Separar artefactos temporales de las fuentes comprobadas
+
+La primera ejecución de lint en el padre encontró un script experimental de otro auditor dentro de `.cache/procedencia/`, directorio ignorado por VCS. Se excluye `.cache/` de ESLint, oxlint y del proyecto TypeScript, como almacenamiento temporal; las fuentes mantenidas en app, components, lib, scripts, tools y tests conservan sus comprobaciones. Coste: un script temporal no recibe garantía de lint global. Si se promueve al repositorio deberá salir de la caché, pasar los controles de su lenguaje y ser revisado antes de usarse en CI.
+
 ## D004. Oxlint anti-slop junto a ESLint de Next
 
 Se mantienen los presets core-web-vitals y typescript de eslint-config-next 16.1.7 y se añade oxlint 1.78.0 con @oxlint/plugins de la misma versión exacta. El runtime anti-slop v0.1.2 queda incorporado con licencia y hashes. Las 15 reglas generales y la regla Effect están a error. El script lint ejecuta ambos analizadores y falla si cualquiera falla.

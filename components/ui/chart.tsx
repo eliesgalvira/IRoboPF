@@ -1,11 +1,17 @@
 "use client"
 
+import { Match, Schema } from "effect"
+
 // @effect-diagnostics effect/strictBooleanExpressions:off
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-import type { TooltipValueType } from "recharts"
+import type {
+  TooltipValueType,
+  TooltipPayloadEntry,
+  LegendPayload,
+} from "recharts"
 
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
@@ -94,15 +100,14 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   return (
     <style
       dangerouslySetInnerHTML={{
-        __html: Object.entries(THEMES)
+        __html: (["light", "dark"] as const)
+          .map((theme) => [theme, THEMES[theme]] as const)
           .map(
             ([theme, prefix]) => `
 ${prefix} [data-chart=${id}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
-    const color =
-      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ??
-      itemConfig.color
+    const color = itemConfig.theme?.[theme] ?? itemConfig.color
     return color ? `  --color-${key}: ${color};` : null
   })
   .join("\n")}
@@ -156,7 +161,7 @@ function ChartTooltipContent({
     const key = `${labelKey ?? item?.dataKey ?? item?.name ?? "value"}`
     const itemConfig = getPayloadConfigFromPayload(config, item, key)
     const value =
-      !labelKey && typeof label === "string"
+      !labelKey && Match.string(label)
         ? (config[label]?.label ?? label)
         : itemConfig?.label
 
@@ -205,6 +210,14 @@ function ChartTooltipContent({
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
             const indicatorColor = color ?? item.payload?.fill ?? item.color
 
+            const estiloIndicador: React.CSSProperties & {
+              "--color-bg": string | undefined
+              "--color-border": string | undefined
+            } = {
+              "--color-bg": indicatorColor,
+              "--color-border": indicatorColor,
+            }
+
             return (
               <div
                 key={index}
@@ -232,12 +245,7 @@ function ChartTooltipContent({
                               "my-0.5": nestLabel && indicator === "dashed",
                             }
                           )}
-                          style={
-                            {
-                              "--color-bg": indicatorColor,
-                              "--color-border": indicatorColor,
-                            } as React.CSSProperties
-                          }
+                          style={estiloIndicador}
                         />
                       )
                     )}
@@ -255,7 +263,7 @@ function ChartTooltipContent({
                       </div>
                       {item.value != null && (
                         <span className="font-mono font-medium text-foreground tabular-nums">
-                          {typeof item.value === "number"
+                          {Match.number(item.value)
                             ? item.value.toLocaleString()
                             : String(item.value)}
                         </span>
@@ -328,40 +336,25 @@ function ChartLegendContent({
   )
 }
 
-function getPayloadConfigFromPayload(
+export function getPayloadConfigFromPayload(
   config: ChartConfig,
-  payload: unknown,
+  payload: TooltipPayloadEntry | LegendPayload | undefined,
   key: string
 ) {
-  if (typeof payload !== "object" || payload === null) {
-    return undefined
+  const campo = Schema.Struct({ [key]: Schema.String })
+  const directo = Schema.decodeUnknownOption(campo)(payload)
+  if (directo._tag === "Some") {
+    const nombre = directo.value[key]
+    return nombre in config ? config[nombre] : config[key]
   }
-
-  const payloadPayload =
-    "payload" in payload &&
-    typeof payload.payload === "object" &&
-    payload.payload !== null
-      ? payload.payload
-      : undefined
-
-  let configLabelKey: string = key
-
-  if (
-    key in payload &&
-    typeof payload[key as keyof typeof payload] === "string"
-  ) {
-    configLabelKey = payload[key as keyof typeof payload] as string
-  } else if (
-    payloadPayload &&
-    key in payloadPayload &&
-    typeof payloadPayload[key as keyof typeof payloadPayload] === "string"
-  ) {
-    configLabelKey = payloadPayload[
-      key as keyof typeof payloadPayload
-    ] as string
+  const anidado = Schema.decodeUnknownOption(Schema.Struct({ payload: campo }))(
+    payload
+  )
+  if (anidado._tag === "Some") {
+    const nombre = anidado.value.payload[key]
+    return nombre in config ? config[nombre] : config[key]
   }
-
-  return configLabelKey in config ? config[configLabelKey] : config[key]
+  return payload == null ? undefined : config[key]
 }
 
 export {

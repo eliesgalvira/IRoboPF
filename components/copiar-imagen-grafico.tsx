@@ -1,5 +1,7 @@
 "use client"
 
+import { Match } from "effect"
+
 // @effect-diagnostics effect/asyncFunction:off
 // @effect-diagnostics effect/globalConsole:off
 // @effect-diagnostics effect/newPromise:off
@@ -247,7 +249,7 @@ function leerBlobComoDataUrl(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const lector = new FileReader()
     lector.onload = () => {
-      if (typeof lector.result === "string") {
+      if (Match.string(lector.result)) {
         resolve(lector.result)
         return
       }
@@ -482,6 +484,7 @@ function crearUrlSvgDesdeElemento({
   const rectGrafico = grafico.getBoundingClientRect()
   const anchoGrafico = Math.max(1, Math.ceil(rectGrafico.width))
   const altoGrafico = Math.max(1, Math.ceil(rectGrafico.height))
+  // SAFETY: cloneNode conserva el tipo de elemento SVG del receptor grafico; solo pierde su subtipo en lib.dom.
   const graficoClonado = grafico.cloneNode(true) as SVGSVGElement
   copiarEstilosComputados(grafico, graficoClonado)
   graficoClonado.querySelectorAll("text").forEach((texto) => texto.remove())

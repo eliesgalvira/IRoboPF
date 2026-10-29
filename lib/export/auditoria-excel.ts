@@ -1,5 +1,5 @@
 import ExcelJS from "exceljs"
-import { Clock, DateTime, Effect } from "effect"
+import { Match, Clock, DateTime, Effect } from "effect"
 import { Deflate } from "fflate"
 
 import type {
@@ -76,7 +76,7 @@ const descargarLibro = Effect.fn("export.auditoriaExcel.descargarLibro")(
   }
 )
 
-const textoCabecera = (cabecera: unknown) => {
+const textoCabecera = (cabecera: ExcelJS.Column["header"] | null) => {
   if (cabecera === undefined) {
     return ""
   }
@@ -724,9 +724,16 @@ class ZipComprimido {
       })
     )
 
-    return new Blob(this.partes as unknown as BlobPart[], {
-      type: tipoMimeXlsx,
-    })
+    return new Blob(
+      this.partes.map((parte) =>
+        parte.buffer instanceof ArrayBuffer
+          ? new Uint8Array(parte.buffer, parte.byteOffset, parte.byteLength)
+          : new Uint8Array(parte)
+      ),
+      {
+        type: tipoMimeXlsx,
+      }
+    )
   }
 
   private anadirBytes(datos: Uint8Array) {
@@ -764,7 +771,7 @@ const celdaXml = (
 ) => {
   const referencia = `${columnaExcel(indiceColumna)}${indiceFila}`
   const atributoEstilo = estilo === undefined ? "" : ` s="${estilo}"`
-  if (typeof valor === "number") {
+  if (Match.number(valor)) {
     return `<c r="${referencia}"${atributoEstilo}><v>${Number.isFinite(valor) ? valor : 0}</v></c>`
   }
 

@@ -216,7 +216,7 @@ const casoFiscalLegacy = (
       ? casoRetencionTrabajoPerfil({ entrada, perfil })
       : undefined
 
-  return {
+  const caso: CasoFiscalAnual = {
     anio: entrada.anio,
     comunidadAutonoma: entrada.comunidadAutonoma ?? "simulada-estatal",
     situacionFamiliar: {
@@ -237,8 +237,10 @@ const casoFiscalLegacy = (
     deducciones: [],
     retencionesSoportadasCentimos: 0,
     pagosACuentaCentimos: 0,
-    ...(retencionTrabajoAeat !== undefined ? { retencionTrabajoAeat } : {}),
   }
+  return retencionTrabajoAeat === undefined
+    ? caso
+    : { ...caso, retencionTrabajoAeat }
 }
 
 export class CompatibilidadSalarioLegacy extends Context.Service<

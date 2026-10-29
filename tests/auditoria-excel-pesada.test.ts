@@ -8,7 +8,7 @@ import { spawn } from "node:child_process"
 import { existsSync } from "node:fs"
 import { resolve } from "node:path"
 
-import { Clock, Effect, Match } from "effect"
+import { Schema, Clock, Effect, Match } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import {
@@ -17,7 +17,6 @@ import {
   construirTablaControlGeneralCompatible,
   construirTablaControlTramosIrpfCompatible,
   construirTablaDetalleAnualCompatible,
-  type AnioFiscal,
   type TablaCompatible,
 } from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
@@ -118,7 +117,7 @@ const valoresFilaXml = (filaXml: string): ReadonlyArray<ValorTabular> => {
 }
 
 const normalizarEsperado = (valor: ValorTabular): ValorTabular => {
-  if (typeof valor === "number") {
+  if (Match.number(valor)) {
     return Number(valor.toFixed(2))
   }
 
@@ -134,13 +133,13 @@ const compararCelda = (
 ) => {
   const posicion = `${hoja} fila ${fila}, columna ${columna}`
 
-  if (typeof legacy !== typeof esperado) {
+  if (Match.number(legacy) !== Match.number(esperado)) {
     throw new Error(
-      `Tipo distinto en ${posicion}: legacy=${typeof legacy}, esperado=${typeof esperado}, legacyValor=${legacy}, esperadoValor=${esperado}`
+      `Tipo distinto en ${posicion}: legacy=${Match.number(legacy) ? "number" : "string"}, esperado=${Match.number(esperado) ? "number" : "string"}, legacyValor=${legacy}, esperadoValor=${esperado}`
     )
   }
 
-  if (typeof legacy === "number" && typeof esperado === "number") {
+  if (Match.number(legacy) && Match.number(esperado)) {
     const centimosLegacy = Math.round(legacy * 100)
     const centimosEsperado = Math.round(esperado * 100)
     const diferenciaCentimos = Math.abs(centimosLegacy - centimosEsperado)
@@ -170,7 +169,9 @@ const tablaEsperadaPorHoja = (nombreHoja: string): TablaCompatible =>
       (nombreHoja) => nombreHoja.startsWith("DAT_"),
       (nombreHoja) =>
         construirTablaDetalleAnualCompatible(
-          Number(nombreHoja.slice(4)) as AnioFiscal
+          Schema.decodeUnknownSync(Schema.Literals(aniosFiscalesLegacy))(
+            Number(nombreHoja.slice(4))
+          )
         )
     ),
     Match.orElse((nombreHoja) => {

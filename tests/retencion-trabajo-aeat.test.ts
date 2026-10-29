@@ -10,6 +10,23 @@ import {
 } from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
 
 describe("calcularRetencionTrabajoAeat", () => {
+  it.effect("conserva el rechazo tipado de entradas JavaScript malformadas", () =>
+    Effect.gen(function* () {
+      const casos = [
+        { ...casoRetencionCalculable(), cotizacionesCentimos: null },
+        { ...casoRetencionCalculable(), cotizacionesCentimos: "194400" },
+        { ...casoRetencionCalculable(), contrato: null },
+        { ...casoRetencionCalculable(), situacionLaboral: 42 },
+      ]
+      for (const caso of casos) {
+        // @ts-expect-error: entrada JavaScript deliberadamente inválida; se comprueba el rechazo runtime, sin aserciones de tipo.
+        const calculo = calcularRetencionTrabajoAeat(caso, { modo: "canonico" })
+        const error = yield* Effect.flip(calculo)
+        expect(error._tag).toBe("ResultadoNoSoportado")
+      }
+    })
+  )
+
   it.effect(
     "calcula el tipo e importe anual de retención para un asalariado sin regularización",
     () =>

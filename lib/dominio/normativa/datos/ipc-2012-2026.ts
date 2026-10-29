@@ -1,7 +1,9 @@
+import type { AnioFiscal } from "../anio-fiscal"
 import { crearImporteMonetario } from "../../dinero/importe-monetario"
 
 export const IPC_ANUAL_DICIEMBRE: Readonly<
-  Record<number, ReturnType<typeof crearImporteMonetario>>
+  Record<Exclude<AnioFiscal, 2012>, ReturnType<typeof crearImporteMonetario>> &
+    Partial<Record<number, ReturnType<typeof crearImporteMonetario>>>
 > = {
   2013: crearImporteMonetario("0.003"),
   2014: crearImporteMonetario("-0.010"),

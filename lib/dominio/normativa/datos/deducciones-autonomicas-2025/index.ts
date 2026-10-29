@@ -160,7 +160,9 @@ const construirCatalogoDeduccionesAutonomicas2025 = <
 })
 
 export const CATALOGOS_DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD =
+  // SAFETY: se construye exactamente una entrada por cada clave del objeto literal de metadatos, sin filtrar ni renombrar claves.
   Object.fromEntries(
+    // SAFETY: metadatos es un literal local cerrado; sus claves propias coinciden con ComunidadCatalogoDeduccionesAutonomicas2025.
     (
       Object.keys(
         METADATOS_CATALOGO_DEDUCCIONES_AUTONOMICAS_2025
