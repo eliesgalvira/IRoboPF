@@ -1,0 +1,624 @@
+PÁGINA 29
+                                                                                Departamento de Informática Tributaria
+
+BASE PARA CALCULAR EL TIPO DE RETE CIO   .
+
+
+
+** Suma de reducciones:
+
+  REDU = PENSION + HIJOS + DESEM + CONYUGE
+
+
+** Cálculo de la base:
+
+   Si RNTREDU > REDU : BASE = RNTREDU – REDU
+
+    Else: BASE = 0,00
+
+    Finsi.
+
+
+CUOTA DE RETE CIÓ
+
+
+A. RE DIMIE TOS EXE TOS DE RETE CIÓ
+
+Según TABLA 1
+
+
+      TABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN
+
+          SITUACIÓN      Número de descendientes
+         FAMILIAR        0        1      2 ó más
+          SITUACIÓN 1       ---     14.266,00  15.803,00
+          SITUACIÓN 2  13.696,00  14.985,00  17.138,00
+          SITUACIÓN 3  12.000,00  12.607,00  13.275,00
+
+
+
+
+Si RETRIB ≤ (17.138,00 + PENSION + DESEM):
+
+   Si SITUFAM = SITUACION1:
+
+          Si [NUMDES = 1 y RETRIB ≤ (14.266,00 + PENSION + DESEM)]: EXENTOS = S
+
+           Else: Si [NUMDES > 1 y RETRIB ≤ (15.803,00 + PENSION + DESEM)] : EXENTOS = S
+
+           Finsi.
+
+
+    Else: Si SITUFAM = SITUACION2:
+
+          Si [NUMDES = 0 y RETRIB ≤ (13.696,00 + PENSION + DESEM)] : EXENTOS = S
+
+            Else: Si [NUMDES = 1 y RETRIB ≤ (14.985,00 + PENSION + DESEM)] : EXENTOS = S
+
+            Else: Si [NUMDES > 1 y RETRIB ≤ (17.138,00 + PENSION + DESEM) ] : EXENTOS = S
+
+           Finsi.
+
+
+
+
+
+                                                     Página 28
+PÁGINA 30
+                                                                                Departamento de Informática Tributaria
+
+    Else: Si SITUFAM = SITUACION3:
+
+          Si [NUMDES = 0 y RETRIB ≤ (12.000,00 + PENSION + DESEM)]: EXENTOS = S
+
+            Else: Si [NUMDES = 1 y RETRIB ≤ (12.607,00 + PENSION + DESEM)]: EXENTOS = S
+
+            Else: Si [NUMDES > 1 y RETRIB ≤ (13.275,00 + PENSION + DESEM)]: EXENTOS = S
+
+           Finsi.
+
+         Finsi.
+
+     Finsi.
+
+
+Si EXENTOS = S :    CUOTA = 0,00
+
+                   TIPO = 0,00
+
+                                Ir a     1
+
+Finsi.
+
+
+
+
+B. RE DIMIE TOS SUJETOS A RETE CIÓ
+
+  B1.CUOTA1
+
+   ** Calculo de la cuota 1. Función ESCALA (BASE ...): Consiste en la aplicación de la
+  TABLA 2.
+
+        Ejemplo:     Para una base de 24.000,00:
+
+                        Hasta 20.200,00: 4.225,50
+
+                         Resto: 24.000,00 – 20.200,00 = 3.800,00: 3.800,00* 0,30 = 1.140,00
+
+               CUOTA 1= 4.225,50 + 1.140, 00 = 5.365,50
+
+
+   TABLA 2 - ESCALA DE RETENCIÓN
+
+
+
+                                       Resto BASE
+       BASE hasta     Cuota                        Porcentaje
+                                         hasta
+          0,00             0,00            12.450,00      19,00
+          12.450,00        2.365,50        7.750,00       24,00
+          20.200,00        4.225,50        15.000,00      30,00
+          35.200,00        8.725,50        24.800,00      37,00
+          60.000,00        17.901,50     En adelante    45,00
+
+
+
+
+
+                                                     Página 29
+PÁGINA 31
+                                                                                Departamento de Informática Tributaria
+
+
+
+
+
+   ** Anualidades:                       Si [ANUALIDADES > 0,00 y (BASE – ANUALIDADES) > 0,00 ] :
+
+                                   BASE1 = BASE – ANUALIDADES
+
+                                   BASE2 = ANUALIDADES
+
+                                    CUOTA1.1 = ESCALA (BASE1)
+
+                                    CUOTA1.2 = ESCALA (BASE2)
+
+                                CUOTA1 = CUOTA1.1+ CUOTA1.2
+
+
+   ** Anualidades = 0,00 ó ≥ BASE:     Else:  CUOTA1 = ESCALA (BASE)
+
+                                               Finsi.
+
+
+
+
+B2.CUOTA2
+
+   ** Calculo de la cuota 2. Función ESCALA (MINPERFA...): Consiste en la aplicación de la
+  TABLA 2
+
+
+
+
+   ** Anualidades:                       Si [ANUALIDADES > 0,00 y (BASE – ANUALIDADES) > 0,00] :
+
+                               CUOTA 2 = ESCALA (MINPERFA + 1.980)
+
+   ** Anualidades = 0,00 ó ≥ BASE:      Else:  CUOTA2 = ESCALA (MINPERFA)
+
+                                               Finsi.
+
+
+
+
+
+B3. CUOTA
+
+   ** Cálculo de la cuota:
+
+
+       Si CUOTA 1 > CUOTA 2: CUOTA = CUOTA1 - CUOTA2
+
+       Else: CUOTA = 0,00
+
+      Finsi.
+
+
+
+
+
+                                                     Página 30
+PÁGINA 32
+                                                                                      Departamento de Informática Tributaria
+
+
+
+        ** Límite del 43 %:
+
+              Si RETRIB ≤ 22.000,00:
+
+                 Si SITUFAM = SITUACION1:
+
+                    Si NUMDES = 1: LIMITE = [RETRIB - (14.266,00 + PENSION + DESEM)] * 0,43
+
+                     Else: Si NUMDES > 1: LIMITE = [RETRIB - (15.803,00 + PENSION + DESEM)] * 0,43
+
+                       Finsi.
+
+
+                  Else:  Si SITUFAM = SITUACION2:
+
+                    Si NUMDES = 0: LIMITE = [RETRIB - (13.696,00 + PENSION + DESEM)] *043
+
+                      Else: Si NUMDES = 1: LIMITE = [RETRIB - (14.985,00 + PENSION + DESEM)] * 0,43
+
+                      Else: Si NUMDES > 1: LIMITE = [RETRIB - (17.138,00 + PENSION + DESEM)] * 0,43
+
+                  Finsi.
+
+                  Else: Si SITUFAM = SITUACION3:
+
+                    Si NUMDES = 0: LIMITE = [RETRIB - (12.000,00 + PENSION + DESEM)] * 0,43
+
+                       Else: Si NUMDES = 1: LIMITE = [RETRIB - (12.607,00 + PENSION + DESEM)] * 0,43
+
+                       Else: Si NUMDES > 1: LIMITE = [RETRIB - (13.275,00 + PENSION + DESEM)] *0,43
+
+                      Finsi.
+
+                   Finsi.
+
+              Si CUOTA > LIMITE: CUOTA = LIMITE
+
+          Finsi.
+
+
+
+
+1   CÁLCULO TIPO DE RETE CIÓ
+
+
+
+      ** Tratamiento de Ceuta y Melilla
+
+
+          Si (RESICEME = S y RENCEME = S): CEUMELI = S
+
+           Else: CEUMELI = N
+
+           Finsi.
+
+
+
+
+
+                                                            Página 31
+PÁGINA 33
+                                                                                Departamento de Informática Tributaria
+
+
+
+APLICACIO  DE LA REDUCCIO  POR PAGO DE PRÉSTAMOS   PARA ADQUISICIO  O
+REHABILITACIO DE LA VIVIE DA HABITUAL (RD 1975/2008)
+
+
+   Si RETRIB < 33.007,20 y PRESVIV= S:
+           MINOPAGO = 2,00% *RETRIB
+
+    Else: MINOPAGO = 0
+
+  MINOPAGO = TRUNCAR (MINOPAGO)
+
+    Finsi
+
+
+
+     Si CEUMELI = S: DIFERENCIA POSITIVA = (CUOTA/2) - MINOPAGO
+
+     Else: DIFERENCIA POSITIVA = CUOTA - MINOPAGO
+
+    Si DIFERENCIAPOSITIVA < 0: DIFERENCIAPOSITIVA = 0
+
+     Finsi.
+
+
+
+TIPO DE RETE CIÓ  APLICABLE
+
+
+
+   TIPO = (DIFERENCIAPOSITIVA/RETRIB) * 100
+
+   TIPO = TRUNCAR (TIPO)
+
+
+** Truncado del tipo de retención. Se define la función TRUNCAR (TIPO), que consiste en truncar el tipo
+en el segundo decimal. Ejemplo: TIPO = 17,85964523; TRUNCAR (TIPO) = 17,85
+
+
+
+**      Límites generales mínimos del 15% y 2%)
+
+
+    Si (CEUMELI = S
+
+
+                 Si (CONTRATO = ESPECIAL y TIPO < 8,00):    TIPO = 8,00
+
+                  Else: Si (CONTRATO = INFERIORAÑO y TIPO < 1,00): TIPO = 1,00
+                   Finsi.
+
+    Else: Si (CONTRATO = ESPECIAL y TIPO < 15,00):  TIPO = 15,00
+
+    Else: Si (CONTRATO = INFERIORAÑO y TIPO < 2,00): TIPO = 2,00
+
+    Finsi.
+
+
+
+
+
+                                                     Página 32
+PÁGINA 34
+                                                                                Departamento de Informática Tributaria
+
+
+
+IMPORTE A UAL DE LAS RETE CIO ES E I GRESOS A CUE TA
+
+
+      IMPORTE = (RETRIB * TIPO) /100
+
+
+
+     IMPORTE = REDONDEAR1 (IMPORTE)
+
+
+
+    Si REGULARIZACION = N: Fin. Mostrar resultados.
+
+
+
+     Else: Continuar
+
+
+
+     Finsi.
+
+
+
+
+
+                                                     Página 33
+PÁGINA 35
+                                                                                Departamento de Informática Tributaria
+
+REGULARIZACIÓ
+
+
+
+
+CAUSA DE REGULARIZACIÓ                                       VBLE.
+ Circunstancias que determinan variaciones en la base para calcular el tipo de
+                                                         CAUSA1
+ retención
+ Circunstancias que determinan variaciones en el importe del mínimo personal y
+                                                         CAUSA2
+ familiar para calcular el tipo de retención
+ Quedar obligado judicialmente el perceptor a satisfacer pensión compensatoria
+                                                         CAUSA3
+ al cónyuge
+ Quedar obligado judicialmente el perceptor a satisfacer anualidades a favor de
+                                                         CAUSA4
+ los hijos
+ Cambio de la situación familiar “2” a la situación familiar “3”                  CAUSA5
+
+ Pérdida de la condición de residente en Ceuta o Melilla                      CAUSA6
+
+ Adquisición de la condición de residente en Ceuta o Melilla                    CAUSA7
+
+ Comenzar a realizar trabajos fuera de Ceuta o Melilla por residentes en dichas ciudades  CAUSA8
+ El perceptor ha comunicado que realiza pagos por préstamos destinados a la
+                                                         CAUSA9
+ adquisición o rehabilitación de su vivienda habitual
+ El perceptor ha comunicado la improcedencia de reducción del tipo de retención
+ por pagos por préstamos destinados a la adquisición o rehabilitación de su  CAUSA10
+ vivienda habitual
+ Otras causas                                                  CAUSA11
+
+
+
+** Cálculo importe para la determinación del tipo de retención a partir de la regularización.
+
+
+   SI REGULARIZACIÓN = S
+
+         Si [CEUMELI = S y RENCEMEA = N y CAUSA7 = S]:
+
+
+            IMPORTEREG = PERCIBIDO * CUOTA/RETRIB + (RETRIB – PERCIBIDO ) * (CUOTA/2) /RETRIB
+
+          Finsi.
+
+
+         Else: Si [RESICEME = S y RENCEME = N y RENCEMEA = S y CAUSA8 = S ]:
+
+            IMPORTEREG = PERCIBIDO * (CUOTA/2) /RETRIB + (RETRIB – PERCIBIDO) * CUOTA/RETRIB
+
+         Finsi
+
+
+         Else: Si [CEUMELI=S y RENCEMEA = S]:
+
+           IMPORTEREG = CUOTA/2
+
+         Finsi.
+
+         Else: IMPORTEREG = CUOTA
+
+          Finsi.
+
+
+
+
+
+                                                     Página 34
+PÁGINA 36
+                                                                                Departamento de Informática Tributaria
+
+
+** Tratamiento especial por minoración por pagos de préstamos para la vivienda habitual
+
+Si [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S  o CAUSA5=S o CAUSA6=S o CAUSA7=S  o
+CAUSA8 =S ):
+         Si (MINORADO = S y PRESVIV =S y RETRIB < 33.007,20):
+                    Si RETRIB>RETRIBA: MINOPAGO = MINOPAGOA+2,00%*(RETRIB-RETRIBA)
+                     Else: Si RETRIB<RETRIBA: MINOPAGO = MINOPAGOA−2,00%*(RETRIBA-RETRIB)
+                     Else: MINOPAGO = MINOPAGOA
+
+          Else: Si MINORADO = S y PRESVIV =N:
+            MINOPAGO = MINOPAGOA
+
+          Else: MINOPAGO= 0
+
+Else: Si CAUSA9 = S y PRESVIV= S y RETRIB < 33.007,20:
+          Si MINORADO= S:
+           MINOPAGO =MINOPAGOA+ 2,00%*(RETRIB−PERCIBIDO)
+           Else: MINOPAGO = 2,00%*(RETRIB−PERCIBIDO)
+
+Else: Si CAUSA10 = S y MINORADO = S y PRESVIV =N:
+      MINOPAGO = MINOPAGOA−2%*(RETRIB−PERCIBIDO)
+
+Else: Si CAUSA11=S y PRESVIV =S y RETRIB < 33.007,20:
+     MINOPAGO = 2% * (RETRIB – PERCIBIDO)
+         Else: MINOPAGO= 0
+
+Else: MINOPAGO = 0
+
+Finsi.
+
+Si (PRESVIV= S y MINOPAGO > 2,00%*33.007,20): MINOPAGO =2,00%*33.007,20
+
+
+MINOPAGO = TRUNCAR (MINOPAGO)
+
+
+** Cálculo del tipo de retención a partir de la regularización
+
+  TIPOREG = [( IMPORTEREG – RETENIDO−MINOPAGO) / (RETRIB – PERCIBIDO )] * 100
+
+   Si TIPOREG < 0: TIPOREG = 0,00
+
+  TIPOREG = TRUNCAR (TIPOREG)
+
+    Finsi:
+
+
+** Límites generales en la aplicación del tipo (máximo del 45 % y mínimos del 15 % y 2 %)
+
+    Si CEUMELI = S y
+
+                  Si (RENCEMEA = S  y TIPOREG > 23,00): TIPOREG = 23,00
+
+                    Else: Si TIPOREG > 45,00: TIPOREG = 45,00
+
+                    Else: Si (CONTRATO = ESPECIAL y TIPOREG < 8,00):   TIPOREG = 8,00
+
+                  Else: Si (CONTRATO = INFERIORAÑO y TIPOREG < 1,00): TIPOREG = 1,00
+
+                  Finsi
+
+     Else: Si TIPOREG > 45,00: TIPOREG = 45,00
+
+
+
+                                                     Página 35
+PÁGINA 37
+                                                                                Departamento de Informática Tributaria
+
+     Else: Si (CONTRATO = ESPECIAL y TIPOREG < 15,00):    TIPOREG = 15,00
+
+     Else: Si (CONTRATO = INFERIORAÑO y TIPOREG < 2,00):  TIPOREG = 2,00
+
+     Finsi.
+
+
+** Cálculo del importe anual de la retención
+
+  IMPORTE = {[(RETRIB – PERCIBIDO) * TIPOREG] / 100 } + RETENIDO
+
+  IMPORTE = REDONDEAR1 (IMPORTE)
+
+
+
+
+** Causas de regularización a las que no son aplicables los límites del art. 87.5 del RIRPF (R.D.439/2007).
+
+
+   Si [CAUSA5 = S o CAUSA6 = S o CAUSA8 = S o CAUSA9 = S o CAUSA10 = S o CAUSA11 = S]: Fin.
+   Mostrar resultados.
+
+    Else: continuar.
+
+    Finsi.
+
+
+
+
+
+                                                     Página 36
+PÁGINA 38
+                                                                                Departamento de Informática Tributaria
+** Límites del art. 87.5 del RIRPF (R.D.439/2007), específicos de los procedimientos de regularización.
+
+  REVISAR = N
+
+  DIFERENCIA = (BASEA – MINPERFAA)
+
+   SI DIFERENCIA < 0: DIFERENCIA = 0
+
+   Si [ (DIFERENCIA ≥ BASE - MINPERFA) y (TIPOREG > TIPOA) ] :   TIPOREG = TIPOA
+
+                                                    REVISAR = S
+
+   Else: Si  [ (DIFERENCIA < BASE - MINPERFA) y (IMPORTEA < IMPORTE) ]:
+
+             INCREIMPORTE = IMPORTE - IMPORTEA
+             INCREBASEMIN =( BASE - MINPERFA) – (DIFERENCIA)
+
+
+                   Si INCREIMPORTE > INCREBASEMIN:
+
+                 REVISAR = S
+                 IMPORTE = IMPORTEA + INCREBASEMIN
+                  TIPOREG = [ ( IMPORTE – RETENIDO ) / ( RETRIB – PERCIBIDO ) ] * 100
+
+
+                          Si TIPOREG < 0,00:    TIPOREG = 0
+
+                           Else:   TIPOREG = TRUNCAR (TIPOREG)
+                        IMPORTE = {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO
+                       INCREIMPORTE = IMPORTE – IMPORTEA
+                                    Finsi
+
+                   Si [(INCREIMPORTE > INCREBASEMIN) y TIPOREG > 0]: TIPOREG = [(IMPORTEA +
+           INCREBASEMIN – RETENIDO) / (RETRIB – PERCIBIDO)] * 100
+
+            TIPOREG = TRUNCAR (TIPOREG)
+                   Finsi.
+            Finsi.
+
+    Finsi.
+
+Si REVISAR = S:
+
+       Si CEUMELI = S
+
+          Si ( CONTRATO = ESPECIAL y TIPOREG < 8 ) :     TIPOREG = 8
+
+           Else: Si ( CONTRATO = INFERIORAÑO y TIPOREG < 1 ) :    TIPOREG = 1
+
+           Finsi.
+
+       Else:
+
+          Si (CONTRATO = ESPECIAL y TIPOREG < 15):      TIPOREG = 15
+
+           Else: Si (CONTRATO = INFERIORAÑO y TIPOREG < 2):     TIPOREG = 2
+
+           Finsi.
+
+        Finsi.
+IMPORTE = {[ (RETRIB – PERCIBIDO) * TIPOREG ] / 100 } + RETENIDO
+
+Finsi.
+Fin. Mostrar resultados.
+
+
+
+                                                     Página 37
+PÁGINA 39
+Tributaria
+                                         POR                                                                                                                                                                                                                                                                                                                                                                 DISCAPACIDADInformática                                                                    VALOR DEFECTO                                                         SITUACION3    N       SIN   N N                ACTIVO                               GENERAL  N
+de
+Departamento
+                                                                                                     física                                       física
+                                                                          2016
+                   ≤                                                                                                                      persona Y                                  persona                                                                                                                                     SITUACIÓN                                  de             de                                   DISCAPACIDAD                                                                                VALORES    NIF    ≥1.905        SITUACION1 SITUACION2 SITUACION3  NIF  S/N    SIN DE33A65 DESDE65    S/N   S/N      ACTIVO  PENSIONISTA  DESEMPLEADO OTRA       GENERAL  INFERIORAÑO ESPECIAL MANUALES  S/N  2014 2015
+
+
+
+
+
+                                                                                 38
+                                                                                                                                                                                                                                                                       REDUCIDA
+                                                                                                                                                                                                                                                                                                        MOVILIDAD
+                                 O
+                                                                                                                                                                                                                                                                       PERSONAS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             RESIDENCIA
+                                                                                                   DE                                                                                                                                                                                                                                                                       TERCERAS                                                                                                                                                                                                                                                                         PERCEPTOR                                                                  DE                                                                                                                                                                       PERCEPTOR                                                                                                                                                                          PERCEPTOR                                                                                        DEL                               MELILLA                                                                                 CAMBIO                                                        DEL               O        DEL                                   RELACIÓN         DE                                                                                                                                                                     AYUDA          O
+                                                                  DE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         GEOGRÁFICA                                                                                                                                                                            FAMILIAR                                               DISCAPACITADO                        MINUSVALÍA                      CEUTAEN                   LABORAL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             IMPOSITIVO                                                                                                                                                       PERCEPTOR       NACIMIENTO                                  CÓNYUGE        DE                                                                                                           CONTRATO                     TRADA                                     DE                                                                                                                         NECESIDAD                    DE                                                  DEL                    DEL    E          PERCEPTOR              DESCRIPCIÓ    NIF  AÑO                 SITUACIÓN      NIF      PERCEPTOR            GRADO        CON        RESIDENTE                        SITUACIÓN                 TIPO                      MOVILIDAD       PERIODO
+         DE   DEL
+                                                                                                                                                                                                     RESI
+                                                         OMBRE                     DATOS      DATOS             NIF    AÑOPER             SITUFAM           NIFCON         DISCAPACITADO                   DISCAPER                    MOVILPER       RESICEME                   SITUPER                                   CONTRATO            MOVIL      CAMBIO

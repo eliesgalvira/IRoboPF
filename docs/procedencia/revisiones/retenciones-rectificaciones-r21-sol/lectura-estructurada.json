@@ -1,0 +1,1242 @@
+[
+  {
+    "path": "docs/procedencia/revisiones/retenciones-2015-2016-sol/matriz-60.json",
+    "sha256": "32b4b18923c2116bfa842641a8827d38cd07c08c3d14ea42e580f288afc9b5d0",
+    "count": 60,
+    "first": {
+      "remuneracion": {
+        "id": "2015-enero-revision:remuneracion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-con-precondiciones",
+        "alcance": "RIRPF83.2: total anual por pagador dinerario+especie valorada sin ingreso a cuenta, excluidas contribuciones empresariales reductoras y atrasos de ejercicios anteriores; variables previsibles al menos año anterior salvo justificación objetiva; jornal esporádico diario por100. Entrada normalizada con desglose, no salario bruto sin calificar.",
+        "objecionExperta": "El PDF recibe RETRIB; no construye los hechos de previsión.",
+        "respuesta": "Exigir componentes y justificación externa o rechazar; caso jornal75,25→7525.",
+        "coste": "Adaptador jurídico necesario, sin automatización de hechos.",
+        "fuentes": "RIRPF83.2; algoritmos entrada económica",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "irregularidad": {
+        "id": "2015-enero-revision:irregularidad",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-parcial",
+        "alcance": "Art18.2:30%, base máxima300000; extinción700000,01..1000000 con base decreciente y0 desde1000000, generación>2años y cinco ejercicios previos salvo extinción. Art18.3 capital prestaciones1ª/2ª>2años salvo invalidez; no extender a plan ordinario. DT11/12 yDT25.3 se califican separadamente. DT12 capital plan pre2007:40% en caso cerrado del informe.",
+        "objecionExperta": "Validación IRREGULAR1<=90000 y<=30/40% no acredita elegibilidad ni las exclusiones.",
+        "respuesta": "No tomar validación como motor de calificación; entrada reducción documentada por régimen; preservar DT12/art17/Manual.",
+        "coste": "Regímenes excepcionales necesitan expediente individual, no un booleano.",
+        "fuentes": "Ley26/2014 art1.10; LIRPF18,DT11,DT12,DT25; RDL3/2004 art17.2.b",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "gastos": {
+        "id": "2015-enero-revision:gastos",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "discrepancia-documental-cerrada",
+        "alcance": "2000 general; movilidad+2000 con traslado laboral elegible año del cambio y siguiente; activo discapacidad+3500 o7750 con65%/asistencia/movilidad reducida. Límite83.3.c resta a)+b), incluidas reducciones irregulares. PDF RETRIB-SS no equivale. Caso capital3000, reducción1200:1800 legal frente2000 PDF, ambas bases0. En2015 separar movilidad2014 con régimenDT14 de nuevo gasto para cambio2015; en2016 terminaMOVILGEO pero gastoMOVIL del año del cambio y siguiente subsiste.",
+        "objecionExperta": "No confundir discrepancia de gasto mostrado con diferencia de retención final; tampoco mezclar pensionista con gasto de activo.",
+        "respuesta": "Caso plan ordinario sin gasto de activo; no presume pensión SS; test ambas bases0. Rechazar mezcla de ingresos especiales sin atribución.",
+        "coste": "Rastro documental corregible en tarea futura, sin fix ni habilitación aquí.",
+        "fuentes": "RD1003/2014 artúnico7, p7; LIRPF19.2.f; Manual2016",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "reduccion-trabajo": {
+        "id": "2015-enero-revision:reduccion-trabajo",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-con-precondiciones",
+        "alcance": "RED20=3700 hasta11250; 3700−1,15625*(RNT−11250) hasta14450;0 después. RNT para retención antes de gastos f), después de irregularidad ySS. No importar condición de otras rentas del cálculo de liquidación. REDONDEAR1 al céntimo.",
+        "objecionExperta": "Aplicar directamente función anual art20 puede cambiar rendimiento neto y condición de otras rentas.",
+        "respuesta": "Usar remisión especial83.3.d y ensayo en seis fronteras; lectura personal p22 de las tres versiones.",
+        "coste": "Función documental distinta de liquidación anual.",
+        "fuentes": "RD1003/2014 artúnico7.d; Ley26/2014 art20; algoritmos p22",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "reducciones-personales": {
+        "id": "2015-enero-revision:reducciones-personales",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "bloqueo-aislado-acumulacion",
+        "alcance": "PDF suma PENSION600+HIJOS600+DESEM1200+CONYUGE.83.3.e agrupa pensión o>2descendientes en una cuantía600, desempleo1200 y declara compatibilidad. Una sola condición600 y desempleo por separado son candidatos; doble600 por ser pensionista y>2hijos no se acepta por la prosa disyuntiva ni por suma de pseudocódigo.",
+        "objecionExperta": "Falta criterio primario específico que explique doble600 frente a una sola condición normativa.",
+        "respuesta": "Bloquear exclusivamente concurrencia pensionistaSS+>2descendientes para reproducción AEAT; no seguir llamando ausente al algoritmo.",
+        "coste": "No emite esa rama; resto de reducciones continúa.",
+        "fuentes": "RIRPF83.3.e-f; algoritmos p22-23 y p29",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "minimos": {
+        "id": "2015-enero-revision:minimos",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-legal-rechazo-literal",
+        "alcance": "5550+1150desde65+1400desde75. Descendientes2400/2700/4000/4500; incremento2800<3 y adopción/acogimiento en ejercicio inscripción y2siguientes. Ascendientes1150 más1400desde75. Discapacidad3000/9000 másasistencia3000. Exigir convivencia/renta<=8000 exentas aparte, declaración propia no se usa como exclusión por84.1º (excepción a61.2ª), grado prioritario, titulares y reparto del84; ascendiente convivencia al menos medio año. Bucles PDF no autorizan recortar primerosN.",
+        "objecionExperta": "Con constantes correctas pueden omitirse sujetos por índice o atribuir mínimos sin derecho.",
+        "respuesta": "Contraejemplos independientes:64discapacitado2015, cuarto/sucesivos y discapacidad segundo hijo; rechazo de literalidad y candidato normativo por persona.",
+        "coste": "No promover fórmula de bucles ni adopción solo por diferencia de años.",
+        "fuentes": "LIRPF57..61; Ley26/2014; RIRPF84; algoritmos p9..28",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "escala": {
+        "id": "2015-enero-revision:escala",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-operable",
+        "alcance": "Cuotas fijas publicadas más exceso marginal. Tabla entera por versión y selector conjunto de fecha/topes; enero20/25/31/39/47 yjulio19,5/24,5/30,5/38/46, corte34000;2016 19/24/30/37/45,corte35200.",
+        "objecionExperta": "Una tabla correcta fuera de fecha no calcula retención correcta.",
+        "respuesta": "Selector con opción del pagador y ejemplos publicados24000; racionales comprueban aritmética sin ser segunda fuente.",
+        "coste": "Solo suboperación, no aceptación procedimiento.",
+        "fuentes": "RD1003/2014 p8,13-14;RDL9/2015 p11;algoritmos p30",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "exclusion": {
+        "id": "2015-enero-revision:exclusion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-con-precondiciones",
+        "alcance": "Ocho importes: situación1 hijos1/2+14266/15803;sit2 13696/14985/17138;sit3 12000/12607/13275. Más600 pensiónSS o1200desempleo. Situación1sin hijos inválida. No aplica a tipos fijos ni mínimos86.2.",
+        "objecionExperta": "Exclusión de retener no es exención IRPF; hijos deben dar derecho y cónyuge sit2 renta<=1500 exentas excluidas.",
+        "respuesta": "Exigir situación calificada, revisar mínimos aun bajo umbral;72 fronteras de valores+incrementos.",
+        "coste": "Sin comprobación administrativa de hechos familiares.",
+        "fuentes": "RD1003/2014 artúnico5;RIRPF81.2-3;algoritmos p29-30",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "limite43": {
+        "id": "2015-enero-revision:limite43",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-operable",
+        "alcance": "Si RETRIB<=22000, cuota<=43%*(RETRIB−umbral81.1 con incrementos81.2). Sin deducción80bis. Si superior22000 no se aplica.",
+        "objecionExperta": "No extender umbral a35200 ni trasladar tope de liquidación.",
+        "respuesta": "Pruebas21999,99/22000/22000,01 e importe18000→2580 antes del tipo.",
+        "coste": "Depende de exclusión/situación legítima.",
+        "fuentes": "RD1003/2014 artúnico8,85.3;algoritmos p31-32",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "deduccion80bis": {
+        "id": "2015-enero-revision:deduccion80bis",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-operable",
+        "alcance": "No se ejecuta en2015/2016. Enero conserva bloque y variables tachados, incluyendo entero previo; julio/2016 los suprimen.",
+        "objecionExperta": "Capa textual devuelve fórmulas derogadas.",
+        "respuesta": "Lectura visual personal y RD1003 supresión85bis; no deducir400 por BASE<=8000.",
+        "coste": "Conservar literal de la cita sin ejecutarlo.",
+        "fuentes": "RD1003/2014 artúnico9;Ley26/2014;enero p31-33",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "tipo-minimo": {
+        "id": "2015-enero-revision:tipo-minimo",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-con-precondiciones",
+        "alcance": "Especial15% e inferioraño2%; CM beneficiado8%/1%, no7,5%. Exceptuar reclusos instituciones penitenciarias y relaciones especiales dependientes con discapacidad conforme86.2; no inferir de cualquier discapacidad. Jornal diario normalizado separado.",
+        "objecionExperta": "PDF categoríaESPECIAL no transporta todas las excepciones reglamentarias.",
+        "respuesta": "Exigir calificación de relación y excepción; pruebas de valores mínimos y territorialidad.",
+        "coste": "No prometer soporte de relaciones especiales sin hechos.",
+        "fuentes": "RIRPF86.2;algoritmos p33-34",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "tipo-maximo": {
+        "id": "2015-enero-revision:tipo-maximo",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-operable",
+        "alcance": "Máximos regularización: enero47/24;julio46/23;2016 45/23. Territorial reducido requiere totalidad rendimientos beneficiados. No son tipo inicial universal ni mitad automática del47/45.",
+        "objecionExperta": "Mezclar tabla nueva con tope viejo fabrica régimen inexistente.",
+        "respuesta": "Selector devuelve tabla y dos topes juntos; probar opciones12/31julio y1agosto.",
+        "coste": "Identidad editorial separada de vigencia legal.",
+        "fuentes": "RD1003/2014 DT13;RD633/2015 p23-24;RIRPF87.5",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "redondeos": {
+        "id": "2015-enero-revision:redondeos",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-operable",
+        "alcance": "Máxima precisión interna; RED20 e importes finales half-up0,005→0,01; tipo final y regularizado truncar2decimales; vivienda truncar importe según algoritmo. No entero previo desde2015.",
+        "objecionExperta": "No convertir regla de magnitud final en redondeo universal de intermediarios.",
+        "respuesta": "Decimal exacto y Fraction en escala, empate y17,85964523→17,85; no binary64 oracle.",
+        "coste": "No acredita especificación de cada etapa mensual TGSS ni devolución negativa.",
+        "fuentes": "Algoritmos nota p9,REDONDEAR1 yTRUNCAR;RIRPF86.1",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "regularizacion": {
+        "id": "2015-enero-revision:regularizacion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-parcial",
+        "alcance": "Secuencia objetivo territorial→minoración vivienda→(objetivo−retenido−minoración)/(RETRIB−PERCIBIDO)*100→suelo0→truncar→topes y mínimos→importe acumulado→87.5 salvo causas5/6/8/9/10/11.87.5 restringe subida si diferencia base−mínimo no crece y aumento de importe al incremento de diferencia; reaplica mínimos y recalcula importe.",
+        "objecionExperta": "Un caso sobrecuota no prueba aceptación de entrada ni causa concurrente.",
+        "respuesta": "Causas11 y1..10 incompatibles; validar divisor/estado; tablas de ramas e hipótesis julio separadas. No calcular devolución por exceso retenido.",
+        "coste": "Bloqueos territoriales/editoriales y doble600 aislados; no habilitación completa.",
+        "fuentes": "RIRPF87;algoritmos regularización p34..38",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "comunicacion": {
+        "id": "2015-enero-revision:comunicacion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-documental",
+        "alcance": "Comunicación firmada al pagador: inicio antes del año/relación; cambios que bajan tipo optativos, subidas obligatorias10días; antelación5días para confección. Opción trimestral del pagador87.4 distinta de opción agosto2015. Solicitud tipo superior por escrito mínimo5días; no sustituir por retención legal calculada.",
+        "objecionExperta": "PDF aritmético no implementa agenda/eficacia ni custodia de comunicación.",
+        "respuesta": "Candidato exige fecha efectiva, recepción, elección y fuente de hechos; ausencia rechaza cálculo regularizado.",
+        "coste": "Requiere adaptador de eventos; sin prueba de recepción real.",
+        "fuentes": "RIRPF87.4,88.1..5",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "multiples-pagadores": {
+        "id": "2015-enero-revision:multiples-pagadores",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "excluido-del-candidato",
+        "alcance": "Procedimiento general se aplica por pagador, sin consolidar salarios como si fueran uno. Procedimiento89.A de prestaciones pasivas múltiples es distinto: solicitud<=primeros2meses, únicos rendimientos del trabajo prestaciones pasivas forma renta<=22000, todos los pagadores obligados a retener, procedimiento AEAT.",
+        "objecionExperta": "Suma de sueldos no es retención de todos pagadores;89.A no cubre cualquier pensionista.",
+        "respuesta": "Excluir89.A del ejecutable candidato; documentar norma y recibir remuneración de pagador individual.",
+        "coste": "No se declara ausencia de primaria: es otro procedimiento excluido explícitamente.",
+        "fuentes": "RIRPF89.A,83.2;algoritmos entrada",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "vivienda": {
+        "id": "2015-enero-revision:vivienda",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-con-precondiciones",
+        "alcance": "DT18 LIRPF, derecho transitorio y comunicación145; total todos pagadores<33007,20. Inicial2enteros sin negativo; algoritmo minoración2%retribución truncada. Reg causas1..8 ajusta previa por variación,9añade pendiente,10revierte,11 cambia por versión; cap660,14 en campo, fórmula2%*33007,20 antes de truncar.",
+        "objecionExperta": "No basta préstamo ni booleano; no aplicar beneficio de vivienda adquirida nueva sin régimen transitorio.",
+        "respuesta": "Fronteras y rama documentadas; dos regularizaciones sucesivas si9/10 con cambio salarial; rechazar hechos no conciliados.",
+        "coste": "No liquida deducción anual ni comprueba documentación hipotecaria.",
+        "fuentes": "RIRPF86.1,87.3,88.1;LIRPFDT18;algoritmos p33,35-36",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "ceuta-melilla": {
+        "id": "2015-enero-revision:ceuta-melilla",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-parcial-bloqueo-julio11",
+        "alcance": "Cuota/2 requiere rendimiento beneficiado y residencia cuando proceda68.4. Alta y cese trabajo exterior prorratean cuota por percibido/pendiente, no mitad sin hechos. Julio34 conservaRESICEME=S,RENCEME=N sin tachar para causa11. Pérdida residencia conRESICEME=N no entra; anuncio14julio no identifica bytes corregidos.",
+        "objecionExperta": "Eliminar condición por conveniencia sería una corrección del original; causa6+11 además inadmisible.",
+        "respuesta": "Causa11sola con hechos de pérdida; mantener30/20 como hipótesis, bloquear esperado fiscal de esa rama; resto escala/topes independiente.",
+        "coste": "Historial editorial y testimonio alternativo aún concretamente indeterminados.",
+        "fuentes": "LIRPF68.4;RIRPF80.2,87;HTMLa03f;algoritmos julio34",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "validaciones": {
+        "id": "2015-enero-revision:validaciones",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-documental",
+        "alcance": "Datos obligatorios y rangos no agotan elegibilidad. Regularización exige0<PERCIBIDO<RETRIB; causa11 incompatible1..10;6/7/8mutuamente excluyentes;9/10incompatibles; escalonar9/10 y cambio salarial. Salida OTROSGASTOS>=2000 contradice cap: no usar rango como regla.",
+        "objecionExperta": "Dar por válido porque cabe en rango produce entradas imposibles o rechaza gasto limitado legal.",
+        "respuesta": "Rechazos de divisor y códigos; cotejo visual de tachados julio71..74 y2016 restaurados.",
+        "coste": "No certifica un servicio AEAT ejecutado ni JSON de transporte.",
+        "fuentes": "Algoritmos p4..8 y tablas finales",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      },
+      "fecha-aplicacion": {
+        "id": "2015-enero-revision:fecha-aplicacion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "decision": "candidato-operable",
+        "alcance": "Enero2015: efectos iniciales1enero, testimonio revisión14enero; hasta11julio y extensión hasta31julio si opción. Julio desde12julio o1agosto.2016 régimen permanente1enero; portada24nov2015 no es pago ni efecto. Anuncio22dic no prueba otro bitstream.",
+        "objecionExperta": "No corregir informe histórico ni convertir fecha editorial en vigencia normativa.",
+        "respuesta": "Corrección de dictamen propio de versiones-7; selector conjunto y bloqueo identidad separado.",
+        "coste": "Preserva contradicción13/14julio y24nov/22dic sin resolver por elección.",
+        "fuentes": "RD1003DF2,DT13;RDL9DA31.2;RD633DT13",
+        "lectura": "mapa-paginas.json: todas las páginas de esta versión, examen personal",
+        "integridad": "SHA256/SHA512/tamaño verificados",
+        "autenticidad": "histórica indeterminada para algoritmo archivado;BOE/AEAT adquisición actual separada",
+        "interpretacion": "candidata acotada por esta celda y sus exclusiones",
+        "exactitud": "casos-resultados.json, sin motor; no todas las combinaciones fácticas",
+        "aceptacionFiscal": false
+      }
+    },
+    "differences": [
+      {
+        "id": "2015-julio-revision:remuneracion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:irregularidad",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:gastos",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:reduccion-trabajo",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:reducciones-personales",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:minimos",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:escala",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:exclusion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:limite43",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:deduccion80bis",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:tipo-minimo",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:tipo-maximo",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:redondeos",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:regularizacion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
+        "alcance": "Secuencia objetivo territorial→minoración vivienda→(objetivo−retenido−minoración)/(RETRIB−PERCIBIDO)*100→suelo0→truncar→topes y mínimos→importe acumulado→87.5 salvo causas5/6/8/9/10/11.87.5 restringe subida si diferencia base−mínimo no crece y aumento de importe al incremento de diferencia; reaplica mínimos y recalcula importe. Julio causa11 admiteRETRIBA/RENCEMEA/MINORADO/MINOPAGOA por tachados, pero exige causa11sola. No acepta esperado de pérdidaresidencia."
+      },
+      {
+        "id": "2015-julio-revision:comunicacion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:multiples-pagadores",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:vivienda",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:ceuta-melilla",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:validaciones",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:fecha-aplicacion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2016-anual:remuneracion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:irregularidad",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:gastos",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:reduccion-trabajo",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:reducciones-personales",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:minimos",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:escala",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:exclusion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:limite43",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:deduccion80bis",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:tipo-minimo",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:tipo-maximo",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:redondeos",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:regularizacion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
+        "alcance": "Secuencia objetivo territorial→minoración vivienda→(objetivo−retenido−minoración)/(RETRIB−PERCIBIDO)*100→suelo0→truncar→topes y mínimos→importe acumulado→87.5 salvo causas5/6/8/9/10/11.87.5 restringe subida si diferencia base−mínimo no crece y aumento de importe al incremento de diferencia; reaplica mínimos y recalcula importe.2016 vuelve a prohibir esos datos previos para causa11 y no contiene su rama territorial11; no se afirma continuidad del parchejulio."
+      },
+      {
+        "id": "2016-anual:comunicacion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:multiples-pagadores",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:vivienda",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:ceuta-melilla",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:validaciones",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:fecha-aplicacion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      }
+    ]
+  },
+  {
+    "path": "docs/procedencia/revisiones/retenciones-2015-2016-sol/ramas-regularizacion.json",
+    "sha256": "9d0b175c04150980d4816af42e18e356233a2340253978fa0f062bf5ea34a0b6",
+    "count": 43,
+    "first": {
+      "admisibilidad": {
+        "id": "2015-enero-revision:admisibilidad",
+        "condicion": "Todas",
+        "formula": "0<PERCIBIDO<RETRIB, causa admisible y estado previo suficiente;11 incompatible con1..10;6/7/8 excluyentes;9/10 excluyentes.",
+        "decision": "candidato-documental",
+        "objecionExperta": "No basta divisor positivo para que la entrada sea admitida.",
+        "respuesta": "Validar la totalidad de condiciones antes de cociente.",
+        "coste": "No se ejecutó servicioAEAT.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "objetivo-general": {
+        "id": "2015-enero-revision:objetivo-general",
+        "condicion": "Sin circunstancia territorial especial",
+        "formula": "IMPORTEREG=CUOTA",
+        "decision": "candidato-operable",
+        "objecionExperta": "Cuota debe venir del procedimiento inicial legítimo de la versión.",
+        "respuesta": "No aceptar cuota supuesta como caso fiscal completo.",
+        "coste": "Casos de subpaso etiquetados.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "objetivo-altaCM": {
+        "id": "2015-enero-revision:objetivo-altaCM",
+        "condicion": "CEUMELI=S,RENCEMEA=N,causa7",
+        "formula": "PERCIBIDO*CUOTA/RETRIB+(RETRIB-PERCIBIDO)*CUOTA/(2*RETRIB)",
+        "decision": "candidato-operable",
+        "objecionExperta": "La mitad territorial requiere derecho y período.",
+        "respuesta": "Exigir hechos y aplicar fórmula sin redondeo intermedio.",
+        "coste": "No valida residencia real.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "objetivo-trabajo-fuera": {
+        "id": "2015-enero-revision:objetivo-trabajo-fuera",
+        "condicion": "RESICEME=S,RENCEME=N,RENCEMEA=S,causa8",
+        "formula": "PERCIBIDO*CUOTA/(2*RETRIB)+(RETRIB-PERCIBIDO)*CUOTA/RETRIB",
+        "decision": "candidato-operable",
+        "objecionExperta": "No confundir dejar trabajo territorial con perder residencia.",
+        "respuesta": "Conservar condiciones distintas y validar causas.",
+        "coste": "No se extiende automáticamente a causa6.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "objetivo-totalCM": {
+        "id": "2015-enero-revision:objetivo-totalCM",
+        "condicion": "CEUMELI=S y RENCEMEA=S",
+        "formula": "CUOTA/2",
+        "decision": "candidato-operable",
+        "objecionExperta": "No depende de residencia sola.",
+        "respuesta": "Exigir ambas etapas territoriales con derecho.",
+        "coste": "Totalidad necesaria para tope reducido.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "vivienda1a8": {
+        "id": "2015-enero-revision:vivienda1a8",
+        "condicion": "Con minoración previa y derecho vigente bajo umbral",
+        "formula": "MINOPAGOA+0,02*(RETRIB-RETRIBA); sin derecho actual conserva previa; sin previa0",
+        "decision": "candidato-operable",
+        "objecionExperta": "Estado previo omitido altera minoración.",
+        "respuesta": "Exigir y conciliar RETRIBA/MINOPAGOA;aplicar cap y truncado.",
+        "coste": "Cálculo puro no comprueba hipoteca.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "vivienda9": {
+        "id": "2015-enero-revision:vivienda9",
+        "condicion": "Comunica derecho válido",
+        "formula": "Si previa:MINOPAGOA+0,02*pendiente;si no:0,02*pendiente",
+        "decision": "candidato-operable",
+        "objecionExperta": "Variación salarial simultánea exige orden.",
+        "respuesta": "Aumento:primero9 después salario;disminución:primero salario después9.",
+        "coste": "Dos eventos separados.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "vivienda10": {
+        "id": "2015-enero-revision:vivienda10",
+        "condicion": "Comunica improcedencia y hubo minoración",
+        "formula": "MINOPAGOA-0,02*pendiente",
+        "decision": "candidato-operable",
+        "objecionExperta": "Restar más de lo permitido genera negativo.",
+        "respuesta": "Validaciones de previa y coherencia;orden como9.",
+        "coste": "Rechazar estado incoherente.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "vivienda11": {
+        "id": "2015-enero-revision:vivienda11",
+        "condicion": "Causa11sola",
+        "formula": "Enero/2016:0,02*pendiente si derecho; julio:ajuste previa por variación o nueva sobrependiente según bloqueazul",
+        "decision": "candidato-por-version",
+        "objecionExperta": "Copiar rama julio a2016 contradice texto y datos permitidos.",
+        "respuesta": "Conservar reglas/validaciones propias de cada hash.",
+        "coste": "Historia editorial2016 indeterminada.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "tipo-acumulado": {
+        "id": "2015-enero-revision:tipo-acumulado",
+        "condicion": "Objetivo y vivienda determinados",
+        "formula": "trunc2(max(0,(objetivo-retenido-minoracion)*100/pendiente));topes/minimos;importe=retenido+pendiente*tipo/100",
+        "decision": "candidato-operable",
+        "objecionExperta": "Exceso retenido no prueba devolución.",
+        "respuesta": "Suelo0 antes de mínimos y no restitución por pagador.",
+        "coste": "Solo entradas admitidas.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "87.5-excepciones": {
+        "id": "2015-enero-revision:87.5-excepciones",
+        "condicion": "Causas5/6/8/9/10/11 delPDF",
+        "formula": "No aplica restricciones especiales; sigue máximo general",
+        "decision": "candidato-documental",
+        "objecionExperta": "CódigosPDF no son números de87.2.",
+        "respuesta": "Mapear hechos por descripción y separar topesgenerales.",
+        "coste": "No extender a todos cambios mixtos.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "87.5-no-aumento": {
+        "id": "2015-enero-revision:87.5-no-aumento",
+        "condicion": "Causas restantes,diferencia no aumenta,tipo pretende subir",
+        "formula": "TIPOREG=TIPOA;reaplicar mínimos,recalcular importe",
+        "decision": "candidato-operable",
+        "objecionExperta": "La norma dice circunstancias exclusivamente; no todo evento mixto.",
+        "respuesta": "Exigir calificación del cambio; rechazar mixto no conciliado.",
+        "coste": "No universalizar por signo de una sola cifra.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "87.5-aumento": {
+        "id": "2015-enero-revision:87.5-aumento",
+        "condicion": "Causas restantes,diferencia aumenta,importe pretende aumentar más",
+        "formula": "Techoimporte=IMPORTEA+incrementodiferencia;tipo de pendiente,truncado,revisar mínimos,recalcular",
+        "decision": "candidato-operable",
+        "objecionExperta": "El importe final tras mínimos puede requerir reconciliación.",
+        "respuesta": "Conservar orden y magnitudes de rastro.",
+        "coste": "No aceptar combinaciones de hechos insuficientes.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "eficacia": {
+        "id": "2015-enero-revision:eficacia",
+        "condicion": "Todas",
+        "formula": "87.4:1..4 desdevariación;5..11 desdecomunicación>=5días;opción1abril/julio/octubre;88subidas10días",
+        "decision": "candidato-documental",
+        "objecionExperta": "Fecha de cálculo no sustituye comunicación ni confección de nómina.",
+        "respuesta": "Adaptador con eventos y fechas civiles explícitas.",
+        "coste": "No verifica recepción real.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      },
+      "objetivo-julio11-perdida-residencia": {
+        "id": "2015-julio-revision:objetivo-julio11-perdida-residencia",
+        "condicion": "Solo11,RESICEME=N,RENCEMEA=S",
+        "formula": "Literal no entra en condiciónRESICEME=S;6000 frente4500hipotético",
+        "decision": "bloqueo-primaria-exacto",
+        "objecionExperta": "Anuncio14julio y PDF13julio no prueban el mismo contenido corregido.",
+        "respuesta": "No fijar esperado fiscal;6+11 rechazada por75.",
+        "coste": "Necesita bytes o aclaración primaria independiente.",
+        "fuentes": [
+          "RIRPF87-88",
+          "citas-paginas.json",
+          "CONTRATO-CANDIDATO.md"
+        ],
+        "aceptacionFiscal": false
+      }
+    },
+    "differences": [
+      {
+        "id": "2015-julio-revision:admisibilidad"
+      },
+      {
+        "id": "2015-julio-revision:objetivo-general"
+      },
+      {
+        "id": "2015-julio-revision:objetivo-altaCM"
+      },
+      {
+        "id": "2015-julio-revision:objetivo-trabajo-fuera"
+      },
+      {
+        "id": "2015-julio-revision:objetivo-totalCM"
+      },
+      {
+        "id": "2015-julio-revision:vivienda1a8"
+      },
+      {
+        "id": "2015-julio-revision:vivienda9"
+      },
+      {
+        "id": "2015-julio-revision:vivienda10"
+      },
+      {
+        "id": "2015-julio-revision:vivienda11"
+      },
+      {
+        "id": "2015-julio-revision:tipo-acumulado"
+      },
+      {
+        "id": "2015-julio-revision:87.5-excepciones"
+      },
+      {
+        "id": "2015-julio-revision:87.5-no-aumento"
+      },
+      {
+        "id": "2015-julio-revision:87.5-aumento"
+      },
+      {
+        "id": "2015-julio-revision:eficacia"
+      },
+      {
+        "id": "2016-anual:admisibilidad"
+      },
+      {
+        "id": "2016-anual:objetivo-general"
+      },
+      {
+        "id": "2016-anual:objetivo-altaCM"
+      },
+      {
+        "id": "2016-anual:objetivo-trabajo-fuera"
+      },
+      {
+        "id": "2016-anual:objetivo-totalCM"
+      },
+      {
+        "id": "2016-anual:vivienda1a8"
+      },
+      {
+        "id": "2016-anual:vivienda9"
+      },
+      {
+        "id": "2016-anual:vivienda10"
+      },
+      {
+        "id": "2016-anual:vivienda11"
+      },
+      {
+        "id": "2016-anual:tipo-acumulado"
+      },
+      {
+        "id": "2016-anual:87.5-excepciones"
+      },
+      {
+        "id": "2016-anual:87.5-no-aumento"
+      },
+      {
+        "id": "2016-anual:87.5-aumento"
+      },
+      {
+        "id": "2016-anual:eficacia"
+      }
+    ]
+  },
+  {
+    "path": "docs/procedencia/revisiones/retenciones-2015-2016-contraste-sol/decisiones-60.json",
+    "sha256": "3e7e39665059b80462005008636660d26a8b65e2f99365425e49b33c709e5c29",
+    "count": 60,
+    "first": {
+      "remuneracion": {
+        "id": "2015-enero-revision:remuneracion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "condicionado",
+        "afirmacionContrastada": "RIRPF83.2: total anual por pagador dinerario+especie valorada sin ingreso a cuenta, excluidas contribuciones empresariales reductoras y atrasos de ejercicios anteriores; variables previsibles al menos año anterior salvo justificación objetiva; jornal esporádico diario por100. Entrada normalizada con desglose, no salario bruto sin calificar.",
+        "contratoViable": "83.2 exige previsión por pagador y desglose de especie sin ingreso a cuenta; jornal diario solo en relación esporádica.",
+        "contraejemplo": "7525 por jornal75,25; rechazar volver a multiplicar salario anual.",
+        "objecionExperta": "El bruto comunicado puede incluir atrasos o contribuciones excluidas.",
+        "respuesta": "Requerir calificación y prueba objetiva de variables inferiores al año previo.",
+        "coste": "No automatiza hechos externos.",
+        "fuentesPrimarias": "RIRPF83.2; algoritmos entrada económica",
+        "aceptacionFiscalCompleta": false
+      },
+      "irregularidad": {
+        "id": "2015-enero-revision:irregularidad",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "parcial",
+        "afirmacionContrastada": "Art18.2:30%, base máxima300000; extinción700000,01..1000000 con base decreciente y0 desde1000000, generación>2años y cinco ejercicios previos salvo extinción. Art18.3 capital prestaciones1ª/2ª>2años salvo invalidez; no extender a plan ordinario. DT11/12 yDT25.3 se califican separadamente. DT12 capital plan pre2007:40% en caso cerrado del informe.",
+        "contratoViable": "Separar art18.2,18.3,DT11,DT12 y DT25.3; 90000 no acredita elegibilidad. DT12 del plan ordinario pre2007 conserva40%.",
+        "contraejemplo": "Capital3000, reducción1200 con contingencia2016, cobro2016, primera aportación>2años y atribución contable pre2007.",
+        "objecionExperta": "Un porcentaje correcto sobre capital inelegible sería falso.",
+        "respuesta": "Exigir régimen, contingencia, plazo y porción elegible; excluir mezclas sin atribución.",
+        "coste": "No valida expediente de beneficiario real.",
+        "fuentesPrimarias": "Ley26/2014 art1.10; LIRPF18,DT11,DT12,DT25; RDL3/2004 art17.2.b",
+        "aceptacionFiscalCompleta": false
+      },
+      "gastos": {
+        "id": "2015-enero-revision:gastos",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "confirmacion-acotada",
+        "afirmacionContrastada": "2000 general; movilidad+2000 con traslado laboral elegible año del cambio y siguiente; activo discapacidad+3500 o7750 con65%/asistencia/movilidad reducida. Límite83.3.c resta a)+b), incluidas reducciones irregulares. PDF RETRIB-SS no equivale. Caso capital3000, reducción1200:1800 legal frente2000 PDF, ambas bases0. En2015 separar movilidad2014 con régimenDT14 de nuevo gasto para cambio2015; en2016 terminaMOVILGEO pero gastoMOVIL del año del cambio y siguiente subsiste.",
+        "contratoViable": "83.3.c limita por retribución menos reducciones a) y cotizaciones b), a diferencia del cap RETRIB−SS del PDF.",
+        "contraejemplo": "Plan3000 menos1200: gasto1800 legal,2000 literal; base0 en ambos.",
+        "objecionExperta": "La discrepancia de subpaso no prueba cuota distinta.",
+        "respuesta": "Conservar ambas bases y no atribuir gasto de activo a pensión de plan.",
+        "coste": "No demuestra bug de servicioAEAT.",
+        "fuentesPrimarias": "RD1003/2014 artúnico7, p7; LIRPF19.2.f; Manual2016",
+        "aceptacionFiscalCompleta": false
+      },
+      "reduccion-trabajo": {
+        "id": "2015-enero-revision:reduccion-trabajo",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "condicionado",
+        "afirmacionContrastada": "RED20=3700 hasta11250; 3700−1,15625*(RNT−11250) hasta14450;0 después. RNT para retención antes de gastos f), después de irregularidad ySS. No importar condición de otras rentas del cálculo de liquidación. REDONDEAR1 al céntimo.",
+        "contratoViable": "83.3.d usa neto después de a/b y antes de f; RED20 3700 hasta11250, pendiente1,15625 hasta14450.",
+        "contraejemplo": "11250,01 produce3699,99;14450 produce0.",
+        "objecionExperta": "Importar otras rentas del art20 anual altera retención.",
+        "respuesta": "Usar especialidad reglamentaria, sin confundir liquidación anual.",
+        "coste": "Contrato separado por procedimiento.",
+        "fuentesPrimarias": "RD1003/2014 artúnico7.d; Ley26/2014 art20; algoritmos p22",
+        "aceptacionFiscalCompleta": false
+      },
+      "reducciones-personales": {
+        "id": "2015-enero-revision:reducciones-personales",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "bloqueo-localizado",
+        "afirmacionContrastada": "PDF suma PENSION600+HIJOS600+DESEM1200+CONYUGE.83.3.e agrupa pensión o>2descendientes en una cuantía600, desempleo1200 y declara compatibilidad. Una sola condición600 y desempleo por separado son candidatos; doble600 por ser pensionista y>2hijos no se acepta por la prosa disyuntiva ni por suma de pseudocódigo.",
+        "contratoViable": "PENSION600 e HIJOS600 se suman en PDF; norma83.3.e formula pensión o>2descendientes por600, más desempleo1200 compatible.",
+        "contraejemplo": "Una circunstancia600; doble condición produce600 frente1200 según lectura; no elegir deuda.",
+        "objecionExperta": "Compatibilidad no identifica por sí sola tres reducciones independientes.",
+        "respuesta": "Excluir solo pensionistaSS con>2descendientes hasta criterio primario discriminante.",
+        "coste": "Esa concurrencia no operable; resto evaluable.",
+        "fuentesPrimarias": "RIRPF83.3.e-f; algoritmos p22-23 y p29",
+        "aceptacionFiscalCompleta": false
+      },
+      "minimos": {
+        "id": "2015-enero-revision:minimos",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "requiere-rectificacion-C01",
+        "afirmacionContrastada": "5550+1150desde65+1400desde75. Descendientes2400/2700/4000/4500; incremento2800<3 y adopción/acogimiento en ejercicio inscripción y2siguientes. Ascendientes1150 más1400desde75. Discapacidad3000/9000 másasistencia3000. Exigir convivencia/renta<=8000 exentas aparte, declaración propia no se usa como exclusión por84.1º (excepción a61.2ª), grado prioritario, titulares y reparto del84; ascendiente convivencia al menos medio año. Bucles PDF no autorizan recortar primerosN.",
+        "contratoViable": "Importes y reparto84 confirmados; rechazar traducción de bucles por subgrupo. Rectificar supuesto <64: imagen muestra≤64 en las tres versiones.",
+        "contraejemplo": "Cuatro hijos: contador4 vs1 pero MINDESG13600 correcto. DISDES con grados[0,33], contador1:0 vs3000 en subpaso.",
+        "objecionExperta": "La capa textual pierde la igualdad y genera un rojo espurio.",
+        "respuesta": "Leer operador visible y separar contador auxiliar, subpaso y resultado final. Art84 excluye aplicar61.2 anual.",
+        "coste": "Retirar la afirmación de cambio2016; no modificar original ni prueba del autor.",
+        "fuentesPrimarias": "LIRPF57..61; Ley26/2014; RIRPF84; algoritmos p9..28",
+        "aceptacionFiscalCompleta": false
+      },
+      "escala": {
+        "id": "2015-enero-revision:escala",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "confirmacion-acotada",
+        "afirmacionContrastada": "Cuotas fijas publicadas más exceso marginal. Tabla entera por versión y selector conjunto de fecha/topes; enero20/25/31/39/47 yjulio19,5/24,5/30,5/38/46, corte34000;2016 19/24/30/37/45,corte35200.",
+        "contratoViable": "Tres tablas leídas visualmente: enero20/25/31/39/47; julio19,5/24,5/30,5/38/46;2016 19/24/30/37/45.",
+        "contraejemplo": "Base24000:5605,50 /5485,50 /5365,50; corte34000 en2015 y35200 en2016.",
+        "objecionExperta": "Tipos correctos no prueban selección de fecha ni cuota fija.",
+        "respuesta": "Seleccionar juntos tabla, cuotas publicadas y topes; no integrar desde cero ignorando anclas.",
+        "coste": "No acepta regla completa por coincidencia.",
+        "fuentesPrimarias": "RD1003/2014 p8,13-14;RDL9/2015 p11;algoritmos p30",
+        "aceptacionFiscalCompleta": false
+      },
+      "exclusion": {
+        "id": "2015-enero-revision:exclusion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "condicionado",
+        "afirmacionContrastada": "Ocho importes: situación1 hijos1/2+14266/15803;sit2 13696/14985/17138;sit3 12000/12607/13275. Más600 pensiónSS o1200desempleo. Situación1sin hijos inválida. No aplica a tipos fijos ni mínimos86.2.",
+        "contratoViable": "Ocho umbrales art81 leídos:14266/15803;13696/14985/17138;12000/12607/13275 con incrementos.",
+        "contraejemplo": "No retener al umbral no significa exención de IRPF; mínimos86.2 pueden subsistir.",
+        "objecionExperta": "Setenta y dos comparaciones tautológicas del autor no acreditan calificación familiar.",
+        "respuesta": "Exigir situación y elegibilidad; aplicar mínimos contractuales.",
+        "coste": "No aceptación de familia por tabla.",
+        "fuentesPrimarias": "RD1003/2014 artúnico5;RIRPF81.2-3;algoritmos p29-30",
+        "aceptacionFiscalCompleta": false
+      },
+      "limite43": {
+        "id": "2015-enero-revision:limite43",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "confirmacion-acotada",
+        "afirmacionContrastada": "Si RETRIB<=22000, cuota<=43%*(RETRIB−umbral81.1 con incrementos81.2). Sin deducción80bis. Si superior22000 no se aplica.",
+        "contratoViable": "85.3: hasta22000 inclusive,43% de diferencia positiva con umbral81.",
+        "contraejemplo": "18000 con umbral12000: techo2580;22000,01 fuera.",
+        "objecionExperta": "Umbral no equivale a mínimo familiar ni base.",
+        "respuesta": "Usar retribución83.2 y umbral correcto, sin80bis.",
+        "coste": "No sustituye procedimiento inicial.",
+        "fuentesPrimarias": "RD1003/2014 artúnico8,85.3;algoritmos p31-32",
+        "aceptacionFiscalCompleta": false
+      },
+      "deduccion80bis": {
+        "id": "2015-enero-revision:deduccion80bis",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "confirmacion-acotada",
+        "afirmacionContrastada": "No se ejecuta en2015/2016. Enero conserva bloque y variables tachados, incluyendo entero previo; julio/2016 los suprimen.",
+        "contratoViable": "Enero contiene bloques tachados; no ejecutar80bis ni entero previo. Julio/2016 los omiten.",
+        "contraejemplo": "Tipo17,50 permanece17,50; no redondearlo18.",
+        "objecionExperta": "Extraer texto mantiene lo tachado.",
+        "respuesta": "Prevalecer lectura de marcas, conservando texto original.",
+        "coste": "No equivalencia automática PDF→código.",
+        "fuentesPrimarias": "RD1003/2014 artúnico9;Ley26/2014;enero p31-33",
+        "aceptacionFiscalCompleta": false
+      },
+      "tipo-minimo": {
+        "id": "2015-enero-revision:tipo-minimo",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "condicionado",
+        "afirmacionContrastada": "Especial15% e inferioraño2%; CM beneficiado8%/1%, no7,5%. Exceptuar reclusos instituciones penitenciarias y relaciones especiales dependientes con discapacidad conforme86.2; no inferir de cualquier discapacidad. Jornal diario normalizado separado.",
+        "contratoViable": "86.2:2/15 y1/8 para CM beneficiada; excepciones especiales de penados y personas con discapacidad.",
+        "contraejemplo": "8 territorial especial, no7,5; discapacidad general no basta para excepción.",
+        "objecionExperta": "El PDF simplifica a CONTRATO y no modela toda excepción normativa.",
+        "respuesta": "Hechos expresos o rechazo del perfil especial.",
+        "coste": "Sin habilitación de casos fuera de alcance.",
+        "fuentesPrimarias": "RIRPF86.2;algoritmos p33-34",
+        "aceptacionFiscalCompleta": false
+      },
+      "tipo-maximo": {
+        "id": "2015-enero-revision:tipo-maximo",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "confirmacion-acotada",
+        "afirmacionContrastada": "Máximos regularización: enero47/24;julio46/23;2016 45/23. Territorial reducido requiere totalidad rendimientos beneficiados. No son tipo inicial universal ni mitad automática del47/45.",
+        "contratoViable": "87.5 yDT13:47/24 inicial2015,46/23 transiciónjulio,45/23 en2016; solo regularización.",
+        "contraejemplo": "No dividir47 ni45 por2; exigir totalidadCM para24/23.",
+        "objecionExperta": "RD1003 dice podrá sinno; cita no prueba prohibición original.",
+        "respuesta": "Fundar límite en cadena posteriorRD633 aplicable desdeenero y algoritmos, preservar errata.",
+        "coste": "Reserva de historia anterior no borrada.",
+        "fuentesPrimarias": "RD1003/2014 DT13;RD633/2015 p23-24;RIRPF87.5",
+        "aceptacionFiscalCompleta": false
+      },
+      "redondeos": {
+        "id": "2015-enero-revision:redondeos",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "condicionado",
+        "afirmacionContrastada": "Máxima precisión interna; RED20 e importes finales half-up0,005→0,01; tipo final y regularizado truncar2decimales; vivienda truncar importe según algoritmo. No entero previo desde2015.",
+        "contratoViable": "Nota de máxima precisión y operaciones explícitas; tipos truncados2 y finales halfup.",
+        "contraejemplo": "0,005→0,01;17,85964523→17,85.",
+        "objecionExperta": "Fraction del autor comparte tabla y no es fuente independiente.",
+        "respuesta": "Usarlo para aritmética; cotejar tabla con norma y facsímil.",
+        "coste": "No prueba todos los intermediarios ni equivalencia binary64.",
+        "fuentesPrimarias": "Algoritmos nota p9,REDONDEAR1 yTRUNCAR;RIRPF86.1",
+        "aceptacionFiscalCompleta": false
+      },
+      "regularizacion": {
+        "id": "2015-enero-revision:regularizacion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "requiere-ampliacion-C02",
+        "afirmacionContrastada": "Secuencia objetivo territorial→minoración vivienda→(objetivo−retenido−minoración)/(RETRIB−PERCIBIDO)*100→suelo0→truncar→topes y mínimos→importe acumulado→87.5 salvo causas5/6/8/9/10/11.87.5 restringe subida si diferencia base−mínimo no crece y aumento de importe al incremento de diferencia; reaplica mínimos y recalcula importe.",
+        "contratoViable": "Orden general contrastado; falta explicitar alternativa de no aumento por nueva obligación judicial de alimentos del87.5.",
+        "contraejemplo": "Subpaso: diferencia10000→11000, tipo12→18, nueva obligación85.2; el signo de diferencia no permite18.",
+        "objecionExperta": "Cuarenta y tres ramas no incluyen explícitamente esta garantía.",
+        "respuesta": "Añadir rama legal independiente o excluir su entrada; no presentarla cubierta por comparación.",
+        "coste": "Revisión candidata incompleta en esa condición, no bug de servidor.",
+        "fuentesPrimarias": "RIRPF87;algoritmos regularización p34..38",
+        "aceptacionFiscalCompleta": false
+      },
+      "comunicacion": {
+        "id": "2015-enero-revision:comunicacion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "condicionado",
+        "afirmacionContrastada": "Comunicación firmada al pagador: inicio antes del año/relación; cambios que bajan tipo optativos, subidas obligatorias10días; antelación5días para confección. Opción trimestral del pagador87.4 distinta de opción agosto2015. Solicitud tipo superior por escrito mínimo5días; no sustituir por retención legal calculada.",
+        "contratoViable": "87.4/88:fechas de variación y comunicación distintas;5días confección y10días obligatorios de subidas.",
+        "contraejemplo": "Opción trimestral no es opción agosto2015.",
+        "objecionExperta": "Número de causaPDF no es apartado87.2.",
+        "respuesta": "Mapear por hecho, fecha efectiva, recepción y elección documentada.",
+        "coste": "No acredita comunicación real.",
+        "fuentesPrimarias": "RIRPF87.4,88.1..5",
+        "aceptacionFiscalCompleta": false
+      },
+      "multiples-pagadores": {
+        "id": "2015-enero-revision:multiples-pagadores",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "exclusion-justificada",
+        "afirmacionContrastada": "Procedimiento general se aplica por pagador, sin consolidar salarios como si fueran uno. Procedimiento89.A de prestaciones pasivas múltiples es distinto: solicitud<=primeros2meses, únicos rendimientos del trabajo prestaciones pasivas forma renta<=22000, todos los pagadores obligados a retener, procedimiento AEAT.",
+        "contratoViable": "83.2 general por pagador;89.A pasivas en renta<=22000, todos obligados y solicitud primeros2meses.",
+        "contraejemplo": "Dos salarios no se consolidan como una retención;89.A no exige65años en texto.",
+        "objecionExperta": "Excluir un procedimiento no significa que falte norma.",
+        "respuesta": "Mantener exclusión expresa y referencia primaria.",
+        "coste": "Cobertura menor, sin rechazo jurídico universal.",
+        "fuentesPrimarias": "RIRPF89.A,83.2;algoritmos entrada",
+        "aceptacionFiscalCompleta": false
+      },
+      "vivienda": {
+        "id": "2015-enero-revision:vivienda",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "condicionado",
+        "afirmacionContrastada": "DT18 LIRPF, derecho transitorio y comunicación145; total todos pagadores<33007,20. Inicial2enteros sin negativo; algoritmo minoración2%retribución truncada. Reg causas1..8 ajusta previa por variación,9añade pendiente,10revierte,11 cambia por versión; cap660,14 en campo, fórmula2%*33007,20 antes de truncar.",
+        "contratoViable": "86/87/88 yDT18: derecho transitorio y comunicación, total todos pagadores<33007,20; no basta préstamo.",
+        "contraejemplo": "33007,19 frente33007,20; aumento9/10 antes vivienda y luego salario, disminución orden inverso.",
+        "objecionExperta": "Aritmética con estado previo incoherente inventa minoración.",
+        "respuesta": "Conciliar minoración previa y rechazar estados no soportados; conservar diferencias por versión.",
+        "coste": "No certifica hipoteca ni deducción anual.",
+        "fuentesPrimarias": "RIRPF86.1,87.3,88.1;LIRPFDT18;algoritmos p33,35-36",
+        "aceptacionFiscalCompleta": false
+      },
+      "ceuta-melilla": {
+        "id": "2015-enero-revision:ceuta-melilla",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "parcial-bloqueo-julio11",
+        "afirmacionContrastada": "Cuota/2 requiere rendimiento beneficiado y residencia cuando proceda68.4. Alta y cese trabajo exterior prorratean cuota por percibido/pendiente, no mitad sin hechos. Julio34 conservaRESICEME=S,RENCEME=N sin tachar para causa11. Pérdida residencia conRESICEME=N no entra; anuncio14julio no identifica bytes corregidos.",
+        "contratoViable": "Julio34 mantieneRESICEME=S,RENCEME=N azules sin tachar; no igualar anuncio14 conPDF13.",
+        "contraejemplo": "Solo11,RESICEME=N,RENCEMEA=S:6000 objetivo literal frente4500 hipótesis.",
+        "objecionExperta": "6+11 está expresamente prohibido y no reproduce petición admitida.",
+        "respuesta": "Conservar reserva solo en rama/identidad editorial, sin elegir20 o30 como tipo fiscal.",
+        "coste": "Historia editorial y salida fiscal pendientes.",
+        "fuentesPrimarias": "LIRPF68.4;RIRPF80.2,87;HTMLa03f;algoritmos julio34",
+        "aceptacionFiscalCompleta": false
+      },
+      "validaciones": {
+        "id": "2015-enero-revision:validaciones",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "condicionado",
+        "afirmacionContrastada": "Datos obligatorios y rangos no agotan elegibilidad. Regularización exige0<PERCIBIDO<RETRIB; causa11 incompatible1..10;6/7/8mutuamente excluyentes;9/10incompatibles; escalonar9/10 y cambio salarial. Salida OTROSGASTOS>=2000 contradice cap: no usar rango como regla.",
+        "contratoViable": "0<PERCIBIDO<RETRIB;11 incompatible1..10;6/7/8 excluyentes;9/10 excluyentes.",
+        "contraejemplo": "OTROSGASTOS1000 bajo cap contradice rango>=2000 de tabla.",
+        "objecionExperta": "Rangos o HTTP200 no acreditan elegibilidad ni versión.",
+        "respuesta": "No tratar validadores como calificación jurídica; preservar marcas julio y retorno de restricciones2016.",
+        "coste": "Sin clienteAEAT ejecutado.",
+        "fuentesPrimarias": "Algoritmos p4..8 y tablas finales",
+        "aceptacionFiscalCompleta": false
+      },
+      "fecha-aplicacion": {
+        "id": "2015-enero-revision:fecha-aplicacion",
+        "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
+        "dictamenPropio": "confirmacion-acotada",
+        "afirmacionContrastada": "Enero2015: efectos iniciales1enero, testimonio revisión14enero; hasta11julio y extensión hasta31julio si opción. Julio desde12julio o1agosto.2016 régimen permanente1enero; portada24nov2015 no es pago ni efecto. Anuncio22dic no prueba otro bitstream.",
+        "contratoViable": "Norma define1enero2015 y12julio con opción hastaagosto; revisión informática no fecha de efecto.",
+        "contraejemplo": "11/12julio,31julio/1agosto con opción y1enero2016.",
+        "objecionExperta": "Portada13julio y anuncio14 no bastan para identidad binaria.",
+        "respuesta": "Seleccionar tabla y tope conjuntos por pago/opción, separar historia editorial.",
+        "coste": "No identifica versión alternativa anunciada.",
+        "fuentesPrimarias": "RD1003DF2,DT13;RDL9DA31.2;RD633DT13",
+        "aceptacionFiscalCompleta": false
+      }
+    },
+    "differences": [
+      {
+        "id": "2015-julio-revision:remuneracion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:irregularidad",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:gastos",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:reduccion-trabajo",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:reducciones-personales",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:minimos",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:escala",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:exclusion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:limite43",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:deduccion80bis",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:tipo-minimo",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:tipo-maximo",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:redondeos",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:regularizacion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
+        "afirmacionContrastada": "Secuencia objetivo territorial→minoración vivienda→(objetivo−retenido−minoración)/(RETRIB−PERCIBIDO)*100→suelo0→truncar→topes y mínimos→importe acumulado→87.5 salvo causas5/6/8/9/10/11.87.5 restringe subida si diferencia base−mínimo no crece y aumento de importe al incremento de diferencia; reaplica mínimos y recalcula importe. Julio causa11 admiteRETRIBA/RENCEMEA/MINORADO/MINOPAGOA por tachados, pero exige causa11sola. No acepta esperado de pérdidaresidencia."
+      },
+      {
+        "id": "2015-julio-revision:comunicacion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:multiples-pagadores",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:vivienda",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:ceuta-melilla",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:validaciones",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2015-julio-revision:fecha-aplicacion",
+        "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc"
+      },
+      {
+        "id": "2016-anual:remuneracion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:irregularidad",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:gastos",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:reduccion-trabajo",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:reducciones-personales",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:minimos",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:escala",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:exclusion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:limite43",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:deduccion80bis",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:tipo-minimo",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:tipo-maximo",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:redondeos",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:regularizacion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
+        "afirmacionContrastada": "Secuencia objetivo territorial→minoración vivienda→(objetivo−retenido−minoración)/(RETRIB−PERCIBIDO)*100→suelo0→truncar→topes y mínimos→importe acumulado→87.5 salvo causas5/6/8/9/10/11.87.5 restringe subida si diferencia base−mínimo no crece y aumento de importe al incremento de diferencia; reaplica mínimos y recalcula importe.2016 vuelve a prohibir esos datos previos para causa11 y no contiene su rama territorial11; no se afirma continuidad del parchejulio."
+      },
+      {
+        "id": "2016-anual:comunicacion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:multiples-pagadores",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:vivienda",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:ceuta-melilla",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:validaciones",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      },
+      {
+        "id": "2016-anual:fecha-aplicacion",
+        "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31"
+      }
+    ]
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "head": "960773f909d4ecff290edfa3d7a7b2699a8445d3",
+  "reviewerRuntime": "gpt-6.1-sol / high / T3 Code Codex",
+  "attestationIssued": false,
+  "acceptance": false,
+  "enableVersions": [],
+  "findings": [
+    {
+      "id": "R21-01",
+      "status": "ambiguous",
+      "priority": "medium",
+      "subject": "Tres reemplazos *:87.5-no-aumento",
+      "claim": "Asignación TIPOREG=TIPOA sin condición de intento de subida",
+      "counterexample": "Candidato6, anterior12, nueva obligación85.2: asignación12 frente techo6, antes de mínimos",
+      "evidence": ["dictamen-12.json", "rojos.log", "casos.json"],
+      "objection": "El intento de subida podría entenderse implícito",
+      "response": "La condición histórica era expresa y el reemplazo completo la elimina",
+      "cost": "Precisar tres ramas y volver a contrastarlas, sin fix en esta revisión",
+      "subsequentContrastRequired": true
+    },
+    {
+      "id": "R21-02",
+      "status": "ambiguous",
+      "priority": "medium",
+      "subject": "Contrato base más adenda y celdas de regularización",
+      "claim": "Guarda independiente correcta, precedencia respecto de salvo causasPDF y combinaciones conciliadas insuficientemente explícita",
+      "evidence": ["INFORME.md", "dictamen-12.json", "casos.json"],
+      "objection": "Rechazar hechos mixtos no conciliados limita suficientemente un candidato parcial",
+      "response": "Lo conserva como candidato, pero no define la precedencia ni hechos admitidos para operar combinaciones conciliadas",
+      "cost": "Tabla futura de hechos y precedencia o exclusión expresa del alcance; ninguna cuota fabricada",
+      "subsequentContrastRequired": true
+    },
+    {
+      "id": "R21-03",
+      "status": "missing",
+      "priority": "low",
+      "subject": "Receta de sectionSha256 en citas-art87-5.json",
+      "claim": "Documentos y texto citado cotejados; digest de sección no reproducido en las representaciones ensayadas",
+      "evidence": ["selector-comprobado.json", "hash-fragmento.json"],
+      "objection": "Puede corresponder a otra representación legítima",
+      "response": "No se afirma digest falso; se conserva la falta de receta reproducible",
+      "cost": "No usar ese digest como control propio de sección hasta documentar su cálculo",
+      "subsequentContrastRequired": true
+    }
+  ]
+}
