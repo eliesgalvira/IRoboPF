@@ -1,0 +1,15 @@
+--- docs/procedencia/correcciones/flujos-r28/rectificar.mjs	2026-10-29 22:55:34.208591783 +0100
++++ .cache/flujos-review/rectificar.mjs	2026-10-29 22:58:31.860418549 +0100
+@@ -3,10 +3,10 @@
+ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+ import { resolve } from 'node:path'
+ import { gunzipSync, gzipSync } from 'node:zlib'
+-import ts from 'typescript'
++import ts from '/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js'
+ 
+ const root = process.cwd()
+-const out = resolve(root, 'docs/procedencia/correcciones/flujos-r28')
++const out = resolve(root, '.cache/flujos-review/padre')
+ mkdirSync(out, { recursive: true })
+ const paths = {
+   escalas: 'docs/procedencia/editorial/flujo-escalas-r23-sol/grafo.json.gz',

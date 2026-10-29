@@ -1,0 +1,2 @@
+Código 1. AssertionError en entregar.py: patch: **** malformed patch at line 568: --- /dev/null
+Causa: difflib no añade el marcador de archivo sin newline final. Se preservan el patch y el scratch parcial.

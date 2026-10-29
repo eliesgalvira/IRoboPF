@@ -1,0 +1,104 @@
+[
+  {
+    "id": "MADRID-2020-NOMINAL-53407-20-R29",
+    "status": "accepted",
+    "acceptanceKind": "nominal-proposition-only",
+    "projectionAuthorTaskId": "mcp:81fd9b2d-806e-4a35-8b7d-3f1d9d00e5db",
+    "derivedFromIndependentReview": {
+      "path": "docs/procedencia/revisiones/madrid-v2-r27-sol/decisiones.json",
+      "sha256": "795f21666ba26f2abe8809c576c6d1ee884bf4d547d946376c34ab69d1267f61"
+    },
+    "independentReviewerTaskId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r27-sol-revision-madrid-v2",
+    "reviewedAntecedentPayloadSha256": "c8722b5f4aed938ae4ba73e60a3e69716900d46a89289299dbeea0428681fde6",
+    "parentReport": {
+      "path": "docs/procedencia/correcciones/madrid-nominal-r29/INFORME.md",
+      "sha256": "a94c9fd98a24efb39b7681c9a0cefa3cd91702be6bad25f77b41bd3e6a5ed724"
+    },
+    "year": 2020,
+    "territory": "madrid",
+    "unit": "EUR",
+    "value": "53407.2",
+    "component": "autonomico",
+    "taxBase": "general",
+    "period": "nominal-only",
+    "predicate": "nominal-cell",
+    "conditions": [
+      "Componente autonómico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.",
+      "Proposición nominal de una sola celda: límite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona período, devengo ni fallecimiento.",
+      "La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaración oficial de errata de AEAT.",
+      "No se acredita búsqueda exhaustiva de reformas y correcciones intermedias, ni nueva validación de la corrección de firma de 2019. Autenticidad histórica y aplicabilidad permanecen indeterminadas.",
+      "No acepta cuotas, tipos, integración, tratamiento liquidatorio de fronteras, redondeos, mínimos, deducciones, deuda, retenciones, liquidación completa ni otros ejercicios.",
+      "La aceptación nominal no acepta el binding nuevo ni su consumidor. Ambos requieren revisión independiente de sus bytes exactos; no heredan atestaciones históricas."
+    ],
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+        "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+        "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025.madrid.tramos[3][0]"
+      }
+    ],
+    "exactSource": {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+      "tablePath": [
+        "madrid",
+        "tramos",
+        "3",
+        "0"
+      ]
+    },
+    "inventory": {
+      "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+      "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+    },
+    "itemId": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+    "meaning": "Límite superior nominal del cuarto tramo autonómico sobre base liquidable general; quinta fila legal primera columna.",
+    "exclusions": [
+      "cuotas fijas",
+      "tipos",
+      "integración",
+      "redondeos",
+      "mínimos",
+      "deducciones",
+      "liquidación completa",
+      "residencia",
+      "elegibilidad",
+      "selector civil",
+      "otros años",
+      "autenticidad histórica"
+    ],
+    "citations": [
+      {
+        "path": "docs/procedencia/corpus/madrid-2020-limite.citation.json",
+        "sha256": "9ddaab1ca3a55d960b27b0f471535103231eda90eb755fe513a3cd43b1fa5fa4"
+      }
+    ],
+    "chainEvidence": [
+      {
+        "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/evidencias-temporales.json",
+        "sha256": "1b6105e74f297c81812718a89cb83dfa4e0e7287f1d3f8a43a857b0a08c8e304"
+      },
+      {
+        "path": "docs/procedencia/revisiones/madrid-v2-r27-sol/evidencia-reproducida.json",
+        "sha256": "5223ed700290d6fb313b03effc96485cc21ff8eea7223bb73542f32098e46b1f"
+      },
+      {
+        "path": "docs/procedencia/correcciones/madrid-nominal-r29/contraste-evidencias.json",
+        "sha256": "70fd639425c3e0245943f3c7078feb9477cad1a75b1a67d77dbceaffa8a5da11"
+      }
+    ],
+    "externalConditions": [
+      "residence-unverified",
+      "eligibility-unverified"
+    ],
+    "civilSelection": "not-established",
+    "applicability": "not-established",
+    "authenticity": "trust-indeterminate",
+    "completeRuleAcceptance": false,
+    "bindingReview": "pending",
+    "newBindingIndependentReviewRequired": true,
+    "attestation": null,
+    "activeTrustChanges": false
+  }
+]

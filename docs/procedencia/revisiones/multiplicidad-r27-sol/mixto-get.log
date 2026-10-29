@@ -1,0 +1,20 @@
+15 | assert.ok(expected.some(e=>e.revisionBinding==='accepted-limited'))
+16 | const params={snapshot:run.result.snapshot,...pending[0].sujeto}
+17 | const response=await ficha(new Request('http://localhost/'),{params:Promise.resolve(params)})
+18 | assert.equal(response.status,200);const html=await response.text()
+19 | const sections=[...html.matchAll(/<h2>Enlace documental: ([a-f0-9]{64})<\/h2><dl>(.*?)<\/dl>/gs)]
+20 | assert.equal(sections.length,expected.length)
+            ^
+AssertionError: Expected values to be strictly equal:
+
+0 !== 3
+
+ generatedMessage: true,
+     actual: 0,
+   expected: 3,
+   operator: "strictEqual",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/.t3/worktrees/IRoboPF/t3-639ae305/docs/procedencia/revisiones/multiplicidad-r27-sol/mixto-get.mjs:20:8
+
+Bun v1.3.13 (Linux x64)

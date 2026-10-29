@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "path": "tools/procedencia/enlaces.py",
+      "sha256": "e0c1f038eb01d2029a49ce39242158530db307306d45acd5bcf3bd702e4c5b81",
+      "size": 19561
+    },
+    {
+      "path": "tools/procedencia/corpus.py",
+      "sha256": "e6518192fa3ff8b3abe159eab6930cd65e944383dc8a1959c2f94dafdd98d2e4",
+      "size": 16535
+    },
+    {
+      "path": "scripts/procedencia/verificar-enlaces.mjs",
+      "sha256": "f482ec0afbf7d473f5f02043d79383b4fc5cf4b55dadd692a631f900a9af9291",
+      "size": 4820
+    },
+    {
+      "path": "scripts/procedencia/ambito-publicado.mjs",
+      "sha256": "39938dd90fa07f3abf74fee6b1ebf458b203e11ebbbf1bd59660e1bf28279290",
+      "size": 8180
+    },
+    {
+      "path": "schemas/procedencia/executable-cell-scope.schema.json",
+      "sha256": "858de6df2543292ddb9c2530ad5fb803dac15a06e3ab1f61b61509f80c955237",
+      "size": 3470
+    },
+    {
+      "path": "schemas/procedencia/binding-payload.schema.json",
+      "sha256": "a2740e6e5bdad1e0864306eac1d93b8876a7c8614d3faba00b04f556e4c079fa",
+      "size": 10405
+    },
+    {
+      "path": "docs/procedencia/revisiones/autonomicas-2017-2021/sources.json",
+      "sha256": "85b2c8e32ad4cdb0c9680a81c885efa5b2bbf94ac4bcbc82d0a4f3a146ffd4f2",
+      "size": 9412
+    },
+    {
+      "path": "docs/procedencia/revisiones/autonomicas-2017-2021/refined-citations.json",
+      "sha256": "67d3533bfa4309569b8e17dd50a6db420edb6c075ab48d11279e9e89a6ec7909",
+      "size": 29696
+    },
+    {
+      "path": ".oxlintrc.json",
+      "sha256": "9fc01d4624f79c0583b5b3d5d21aed0afcdb22af10eac5ea6881629ff970c934",
+      "size": 1515
+    }
+  ],
+  "rules": {
+    "anti-slop/no-chained-type-assertions": "error",
+    "anti-slop/no-conditional-empty-object-spread": "error",
+    "anti-slop/no-known-value-widening": "error",
+    "anti-slop/no-module-mocking": "error",
+    "anti-slop/no-object-parameters": "error",
+    "anti-slop/no-reflect-apply": "error",
+    "anti-slop/no-reflect-get": "error",
+    "anti-slop/no-runtime-typeof": "error",
+    "anti-slop/no-unsafe-dictionary-type": "error",
+    "anti-slop/no-shape-in-symbol-names": "error",
+    "anti-slop/no-unknown-parameters": "error",
+    "anti-slop/no-unknown-returns": "error",
+    "anti-slop/no-unknown-type-aliases": "error",
+    "anti-slop/no-widen-then-assert": "error",
+    "anti-slop/require-safety-comment-for-type-assertion": "error",
+    "anti-slop-effect/no-service-constructor-imports": "error"
+  },
+  "sourceInspectionOnlyForLaterBlockers": true
+}

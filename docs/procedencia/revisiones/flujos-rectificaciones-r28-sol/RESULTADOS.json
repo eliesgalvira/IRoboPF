@@ -1,0 +1,62 @@
+{
+  "dictamen": "Rectificaciones corroboradas técnicamente en alcance limitado; contraste del padre pendiente",
+  "base": "5e69c68077ffd18be20457160595adb3f0ff52e4",
+  "baseEntries": 15914,
+  "initialPhysicalDifferences": 0,
+  "initialDeleted": 0,
+  "ownASTRuntime": {
+    "exitCode": 0,
+    "calls": 19,
+    "wrongBefore": 6,
+    "equalBefore": 13,
+    "representations": 2,
+    "flagCases": 28,
+    "formulaSelections": 192,
+    "modeCases": 2,
+    "negativeCases": 8,
+    "fiscalCoverageCount": null
+  },
+  "parentReproduction": {
+    "beforeExitCode": 1,
+    "beforeChecks": 54,
+    "beforeFailures": 28,
+    "afterExitCode": 0,
+    "afterFailures": 0,
+    "outputsComparedByBytes": 6,
+    "equal": true,
+    "originalsRewritten": false
+  },
+  "transport": {
+    "exitCode": 0,
+    "artifacts": 4,
+    "substitutions": 28,
+    "schemas": 3,
+    "onlyDeclaredChanges": true
+  },
+  "quality": {
+    "typescriptCheckJs": 0,
+    "oxlint": 0,
+    "antiSlopRulesAtError": 16,
+    "ruffInitial": 0,
+    "ruffFinal": 0,
+    "mypyInitial": 1,
+    "mypyInitialErrors": 8,
+    "mypyFinal": 0,
+    "pythonFilesChecked": 3,
+    "typeLimits": "checkJs sin noImplicitAny; mypy con cuerpos y fronteras JSON parciales"
+  },
+  "incidents": [
+    {
+      "kind": "instrumento propio",
+      "detail": "Mypy detectó ocho errores de tipado en auxiliares físicos/de entrega; conservado mypy-inicial.log, corregidos nombres de variable y tipos concretos. Sin cambios de producto o esperados."
+    },
+    {
+      "kind": "auxiliares propios",
+      "detail": "Primer cotejo final mantuvo 15914 entradas base idénticas pero rechazó tres archivos de .ruff_cache creados por Ruff; caché propia trasladada con rutas absolutas a .cache/flujos-review/ruff-inicial, sin borrar bytes. Ruff posterior fija --cache-dir propio. El primer ensayo de patch omitió logs vacíos; se conserva, y r2 transporta también vacíos por ruta/hash en destino nuevo."
+    }
+  ],
+  "completeClosure": false,
+  "wiringAllowed": false,
+  "completeRuleAcceptance": false,
+  "globalTaskClosed": false
+}

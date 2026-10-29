@@ -1,0 +1,35 @@
+[
+  {
+    "attack": "proposicion-ajena",
+    "rejected": false,
+    "error": null,
+    "subject": {
+      "id": "inv-f9cf076b400a200a1c79b6cf4f8e9d11",
+      "revision": "8e69265ceb740464261343950fb878301096e3f2c5b4631402ddddb60713d2d4"
+    },
+    "payload": "1af812f521e5591b7cb2d12c16a3143f45f4cac90c8c1f9354359dc3a5b3a7b4",
+    "receipt": "0b29505ddea2e3a5aa419d67716d61957295022f01d544ef58fdb97cf1baa6c0"
+  },
+  {
+    "attack": "recibo-v1-multiplicidad",
+    "rejected": true,
+    "error": "Error: Cobertura de evidencia distinta del recibo",
+    "subject": {
+      "id": "inv-f9cf076b400a200a1c79b6cf4f8e9d11",
+      "revision": "4ee17431821c365de841bbda360ba0a51ea859d12a306eabe4ab36491ead8d04"
+    },
+    "payload": "1af812f521e5591b7cb2d12c16a3143f45f4cac90c8c1f9354359dc3a5b3a7b4",
+    "receipt": "06d6e5140b607f1e80d12897677f22c76b85d07ac80ab9e8c400b22562eae626"
+  },
+  {
+    "attack": "arista-cruzada",
+    "rejected": true,
+    "error": "Error: Cobertura de evidencia incompleta o duplicada",
+    "subject": {
+      "id": "inv-f9cf076b400a200a1c79b6cf4f8e9d11",
+      "revision": "d9da3cac34dee8f48dabf52229cbdd5ca58c192b8ba14fa26317d493e5d587fa"
+    },
+    "payload": "1af812f521e5591b7cb2d12c16a3143f45f4cac90c8c1f9354359dc3a5b3a7b4",
+    "receipt": "dd83c91545c1919357605e2943f4823ac77e9e8051c4405ec5e93a78c85fc003"
+  }
+]

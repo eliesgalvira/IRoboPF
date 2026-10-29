@@ -1,0 +1,146 @@
+{
+  "format": "informe-editorial-propuesto-r27-no-schema-operativo",
+  "reviewer": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r27-sol-revision-madrid-v2",
+  "subjectPayloadSha256": "c8722b5f4aed938ae4ba73e60a3e69716900d46a89289299dbeea0428681fde6",
+  "source": {
+    "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+    "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+    "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+    "tablePath": [
+      "madrid",
+      "tramos",
+      "3",
+      "0"
+    ]
+  },
+  "inventory": {
+    "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+    "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+  },
+  "itemId": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+  "decisions": [
+    {
+      "id": "MR27-D01",
+      "claimAxis": "identidad",
+      "verdict": "corroborated-limited",
+      "proposition": "La identidad real es Madrid 2020 y la ruta madrid/tramos/3/0; valor efectivo 53407.2.",
+      "expertObjection": "Un número igual puede pertenecer a otra celda o año.",
+      "response": "Se fijan archivo, símbolo, ruta, item e inventario exactos.",
+      "cost": "No puede aprovechar el consumidor exclusivo de Madrid2022.",
+      "evidenceReport": "INFORME.md",
+      "requiresParentContrast": true,
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "MR27-D02",
+      "claimAxis": "numero-unidad-significado",
+      "verdict": "proposed-limited",
+      "proposition": "53407.20 EUR de base liquidable general, límite superior nominal del cuarto tramo autonómico; quinta fila/primera columna legal.",
+      "expertObjection": "Una cifra del inicio de fila no equivale automáticamente a límite de la fila anterior del motor.",
+      "response": "Se ve tabla completa y ancho anterior 20400.00 desde 33007.20; se declara la transformación semántica, conversión monetaria identity.",
+      "cost": "No se aceptan cuota fija, integración de tipos ni punto exacto liquidado.",
+      "evidenceReport": "INFORME.md",
+      "requiresParentContrast": true,
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "MR27-D03",
+      "claimAxis": "discordancia-manual",
+      "verdict": "corroborated-limited",
+      "proposition": "Manual2020 imprime 53.407,29; Ley6/2018 imprime 53.407,20.",
+      "expertObjection": "Podría tratarse de extracción o tabla de Murcia.",
+      "response": "Inspección personal de Madrid en p893 y continuación p894 antes del encabezado Murcia; discrepancia visible.",
+      "cost": "Conservar ambos documentos; no inventar errata formal de AEAT.",
+      "evidenceReport": "INFORME.md",
+      "requiresParentContrast": true,
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "MR27-D04",
+      "claimAxis": "vigencia",
+      "verdict": "not-established-complete",
+      "proposition": "Contexto nominal 2020 respaldado con reserva temporal expresa; no se establece selector civil.",
+      "expertObjection": "La continuidad histórica alegada podría bastar para una afirmación más amplia.",
+      "response": "La ley2018 y la reforma2021 se ven; no se repite búsqueda exhaustiva de reformas/correcciones ni se revalida la corrección2019.",
+      "cost": "No se autoriza ni siquiera una liquidación ordinaria por este dictamen.",
+      "evidenceReport": "INFORME.md",
+      "requiresParentContrast": true,
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "MR27-D05",
+      "claimAxis": "admision",
+      "verdict": "blocked",
+      "proposition": "El payload exacto no recibe atestación por decisión histórica sin conditions y restricciones del lector.",
+      "expertObjection": "Una nueva revisión podría completar silenciosamente la vieja decisión.",
+      "response": "Se entrega propuesta aparte; originales y rechazos intactos.",
+      "cost": "Nueva decisión, versión y revisión exacta antes de incorporación.",
+      "evidenceReport": "INFORME.md",
+      "requiresParentContrast": true,
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "MR27-D06",
+      "claimAxis": "autenticidad",
+      "verdict": "trust-indeterminate",
+      "proposition": "Integridad de bytes separada de autenticidad histórica.",
+      "expertObjection": "Hash y firma criptográfica válida no prueban confianza histórica ni revocación.",
+      "response": "Se conservan metadatos y límites, sin nueva certificación PAdES/CSV/OCSP.",
+      "cost": "Falta validación histórica; CAS propio tampoco es custodia independiente.",
+      "evidenceReport": "INFORME.md",
+      "requiresParentContrast": true,
+      "completeRuleAcceptance": false
+    }
+  ],
+  "nominalContractProposal": {
+    "yearLabel": 2020,
+    "territory": "madrid",
+    "unit": "EUR",
+    "value": "53407.20",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+      "tablePath": [
+        "madrid",
+        "tramos",
+        "3",
+        "0"
+      ]
+    },
+    "itemId": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+    "meaning": "Límite superior nominal del cuarto tramo autonómico sobre base liquidable general; quinta fila legal primera columna.",
+    "period": "nominal-only",
+    "civilSelection": "not-established",
+    "applicability": "not-established",
+    "authenticity": "trust-indeterminate",
+    "editorialConditionsOfReviewedPayload": [
+      "Componente autonómico de la base liquidable general de Madrid, ejercicio 2020; residencia y elegibilidad no acreditadas.",
+      "Cuantía nominal de una sola celda: límite superior del cuarto tramo, 53.407,20 EUR. No selecciona período, devengo ni fallecimiento.",
+      "No acepta cuotas fijas, tipos, mínimos, deducciones, redondeos, liquidación completa, otros ejercicios ni autenticidad histórica.",
+      "Propuesta nueva pendiente de revisión independiente exacta; no hereda la atestación ni la aceptación histórica de Madrid v1."
+    ],
+    "additionalReservations": [
+      "Contradicción impresa Manual2020 ,29 frente a ley ,20.",
+      "Búsqueda exhaustiva de reformas/correcciones intermedias no repetida.",
+      "No se revalida visualmente corrección de firma2019."
+    ],
+    "exclusions": [
+      "cuotas fijas",
+      "tipos",
+      "integración",
+      "redondeos",
+      "mínimos",
+      "deducciones",
+      "liquidación completa",
+      "residencia",
+      "elegibilidad",
+      "selector civil",
+      "otros años",
+      "autenticidad histórica"
+    ],
+    "completeRuleAcceptance": false
+  },
+  "attestation": null,
+  "activeTrustChanges": false
+}

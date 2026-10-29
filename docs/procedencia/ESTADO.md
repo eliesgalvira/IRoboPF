@@ -2,7 +2,19 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 28 del 29 de octubre
+## Situación más reciente, ronda 29 del 29 de octubre
+
+Recibidas por manifiesto las revisiones R27 de multiplicidad y Madrid, y R28 de rectificaciones de flujo: 177 archivos, 20.899.621 bytes. Dos cotejos físicos completos de 15.730 entradas y otro de 15.914, sin diferencias de base ni borrados. Recibos e informe en correcciones/recepcion-r27-r29. Las entregas históricas permanecen intactas.
+
+Multiplicidad/BORM quedan corroborados en el recorrido acotado de 228 pares y 90 sujetos; los 264 siguen pendientes del CAS externo. El padre contrasta la frontera del sobre reconstruido: pasar el auxiliar de consistencia no autoriza a servir un snapshot no registrado ni bytes alterados bajo su pin. La hipótesis roja se conserva con su límite, sin un bypass operativo demostrado. No se repite la publicación pesada para esta recepción documental ni se abre una revisión recursiva de la corroboración.
+
+Madrid conserva 2020 y su ruta real de cuatro segmentos. El padre inspecciona ley/manual y dos pasajes temporales: 53.407,20 en la ley, 53.407,29 en el manual. Reabre los tres originales desde v5 r2 y reproduce diez selecciones/PNG exactamente. Estaban ya conservados fuera de T3; no se descarga ni reexporta el paquete. Prepara una decisión nominal separada derivada de la revisión independiente, sin modificar la histórica ni aceptar el binding nuevo. Nominal-only no habilita ninguna fecha civil. Vigencia exhaustiva, aplicabilidad y autenticidad histórica siguen pendientes. Informe, proyección y controles en correcciones/madrid-nominal-r29; Ruff/mypy correctos. Se prepara una implementación Sol del contrato nominal versionado con revisión posterior de los bytes exactos.
+
+Las rectificaciones R28 de argumentos, constantes, fórmulas y controles quedan corroboradas en su alcance técnico. Puertos, condiciones, transporte, modo y cierre por sitio siguen abiertos. La entrega de composición acaba de terminar y comunica una implementación parcial, con 64 cierres de valor y toda la admisión pendientes: no satisface el encargo completo y queda en cola de recepción sustantiva. También llegó la revisión v5: informa de restauración correcta y una nueva clasificación CL01, además de reservas de privacidad. Se han leído sus mensajes finales; aún no se han recibido físicamente ni contrastado esas dos entregas. El padre deberá recibirlas, reproducir CL01 y resolver los fixes pequeños personalmente, y completar la composición a partir de su trabajo real. No se aceptan sus conclusiones por la notificación.
+
+La tarea R27 de CAS local externo continúa sin sondeos. Inventario, motor, 38 snapshots y confianza activa permanecen intactos; Madrid v1 sigue pendiente y registro de revisores vacío. Crossa mantiene v1 desfasado, copia local fuera de Victus del mismo dueño y casa. Sin LFS, gasto, transferencia externa, PR, main, despliegue ni limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 28 del 29 de octubre
 
 Recibidas las tres entregas R26: revisión de preservación, revisión de escalas/mínimos y candidato v5 r2. Son 145 archivos y 19.357.067 bytes; cotejo físico de 15.456 entradas en cada checkout, sin diferencias de base ni borrados. Los manifiestos y los informes históricos permanecen intactos. La corroboración acotada de preservación R26 no abre una revisión recursiva; el nuevo consumidor y censo v5 sí necesitan revisión independiente.
 

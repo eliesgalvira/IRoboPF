@@ -1,0 +1,28 @@
+{
+  attack: "proposicion-ajena",
+  rejected: false,
+  error: null,
+  subject: {
+    id: "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+    revision: "083c5e07211d8fa0d4b9c4a294ee4f7ad126f64e734588155159131ba3565991",
+  },
+  payload: "e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258",
+  receipt: "3e7e59a404b18f3f709a56ebffa1eac8aa92a5775a9062936d9a546a96817efc",
+}
+47 |  try{verificarContenido(s,store)}catch(e){rejected=true;error=String(e)}
+48 |  results.push({attack,rejected,error,subject:evidence.sujeto,payload:evidence.payload,receipt:h})
+49 |  writeFileSync(out+'/reconstruidos-historico.json',JSON.stringify(results,null,2)+'\n')
+50 |  console.log(results.at(-1))
+51 | }
+52 | assert.ok(results.every(r=>r.rejected),'Se esperaba rechazo de reconstrucciones semánticamente ajenas')
+            ^
+AssertionError: Se esperaba rechazo de reconstrucciones semánticamente ajenas
+ generatedMessage: false,
+     actual: false,
+   expected: true,
+   operator: "==",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/.t3/worktrees/IRoboPF/t3-639ae305/docs/procedencia/revisiones/multiplicidad-r27-sol/reconstruidos-historico.mjs:52:8
+
+Bun v1.3.13 (Linux x64)

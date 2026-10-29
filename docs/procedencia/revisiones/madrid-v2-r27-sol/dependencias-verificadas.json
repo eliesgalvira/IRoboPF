@@ -1,0 +1,70 @@
+{
+  "references": [
+    {
+      "path": "docs/procedencia/corpus/madrid-2020-limite.citation.json",
+      "sha256": "9ddaab1ca3a55d960b27b0f471535103231eda90eb755fe513a3cd43b1fa5fa4",
+      "size": 2452
+    },
+    {
+      "path": "docs/procedencia/corpus/madrid-2018-norma.manifest.json",
+      "sha256": "ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091",
+      "size": 2279
+    },
+    {
+      "path": "docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json",
+      "sha256": "9fa6fd22257a7fd803b71af1a393d1890b69509bc179dd67e206a70eb128b5ae",
+      "size": 145006
+    },
+    {
+      "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/ambito.json",
+      "sha256": "48a10afb7bf6a5dd82332573e4a9c6af30904f5ea9005a0e034b97c8dad72e5d",
+      "size": 1743
+    },
+    {
+      "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/payload-v2.json",
+      "sha256": "c8722b5f4aed938ae4ba73e60a3e69716900d46a89289299dbeea0428681fde6",
+      "size": 2440
+    }
+  ],
+  "item": {
+    "id": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+    "layer": "effective",
+    "kind": "Parameter",
+    "name": "Parámetro: ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025 / [\"madrid\",\"tramos\",\"3\",\"0\"]",
+    "domain": "dominio/normativa/datos",
+    "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+    "path": "[\"madrid\",\"tramos\",\"3\",\"0\"]",
+    "expression": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025[\"madrid\"][\"tramos\"][\"3\"][\"0\"]",
+    "value": "53407.2",
+    "unit": "EUR (límite de base; periodicidad pendiente)",
+    "years": [
+      2020
+    ],
+    "territories": [
+      "madrid"
+    ],
+    "regimes": [],
+    "applicability": "datos evaluados; selección por motor pendiente",
+    "status": "pending",
+    "evidence": "pending",
+    "independentReview": "pending",
+    "relations": {
+      "itemIds": [
+        "inv-87e7254216ead566dccb0a931dc0fe4c"
+      ],
+      "ruleIds": [],
+      "citationIds": [],
+      "findingIds": []
+    },
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "start": 1637,
+      "end": 13058,
+      "line": 50,
+      "column": 14,
+      "offsetEncoding": "utf16"
+    },
+    "resolution": "module-evaluation"
+  }
+}
