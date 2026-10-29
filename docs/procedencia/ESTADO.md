@@ -8,7 +8,9 @@ Recibido el fragmento Sol de seis sitios de retenciones y pagos: 41 archivos, 1.
 
 Se integra como candidato. El padre no acepta aún valueClosed/selectionClosed: faltan el contraste semántico independiente de campos, celdas, instancias, callbacks y conversiones, y la composición anual-publico-r32. SiteClosed=false; sin wiring ni aceptación fiscal. Los siete rojos de capacidad contra un esqueleto y los ocho mutantes rechazados por pin conservan su alcance real. La revisión nueva no debe confundir igualdad de receta con exhaustividad causal.
 
-Los otros cuatro encargos R32 continúan sin sondeos ni lectura de entregas parciales. Motor, inventario, 44 snapshots y confianza activa intactos; no se regenera el publicador. V4/v5 congelados; Crossa sigue v1 desfasado, copia local fuera de Victus, mismo dueño y casa, sin custodia remota o independiente. Sin main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global permanece abierto. Se prepara una contrarrevisión nueva Sol6.1 high priority del fragmento exacto.
+Los otros cuatro encargos R32 continúan sin sondeos ni lectura de entregas parciales. Motor, inventario, 44 snapshots y confianza activa intactos; no se regenera el publicador. V4/v5 congelados; Crossa sigue v1 desfasado, copia local fuera de Victus, mismo dueño y casa, sin custodia remota o independiente. Sin main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global permanece abierto. Lanzada una contrarrevisión independiente nueva del fragmento exacto, explícitamente gpt-6.1-sol, high y priority, confirmados por el lanzador. Encargo y resultado en delegaciones-ronda33.json; su finalización reactivará al padre, sin sondeos.
+
+Bloque R33 respaldado en origin: `fa64e05ccb9b52f1fe3495ee9e24b5459c439cc2`, 54 archivos y 2091830 bytes cotejados contra los blobs, cero borrados; base de 16909 entradas para la revisión nueva. Las seis sobras históricas siguen excluidas e intactas.
 
 ## Situación anterior, ronda 32 del 30 de octubre
 
