@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 17:28 CET
+## Situación más reciente, 29 de octubre, 17:35 CET
+
+Aplicada la corrección urgente de Elies: Astra solo orquesta; todos los hijos nuevos serán **gpt-6.1-sol high**, con modelo y esfuerzo explícitos. La revisión familiar de ronda 16 era la única ejecución Astra activa; se canceló y se conservaron sus avances. Las otras seis tareas ya habían terminado: recogidas por manifiesto y preservadas fuera de T3 en `.cache/orquestador-recepcion/cambio-modelo-20261029/`. No queda ningún hijo Astra activo ni se le enviará más trabajo.
+
+Recibo de las seis entregas en `correcciones/cambio-modelo-sol/recepcion.json`: bases, hashes, tamaños y ausencia de borrados comprobados. Las implementaciones de ámbitos jurídicos y preservación siguen siendo candidatas pendientes de integración y revisión. Las dos revisiones de retenciones antiguas reconocen lectura jurídica y visual todavía incompleta; no se confunde la entrega parcial con cierre. Se preparan continuaciones Sol para esas lecturas y la revisión familiar, más la integración técnica de los archivos recibidos. No cambia la aceptación fiscal.
+
+La copia Crossa conserva v1 histórico y desfasado frente a las ampliaciones locales; no es custodia independiente. Se mantienen `procedencia-documental`, nada a main, sin PR ni despliegue, sin LFS, gasto o transferencia externa y sin limpieza final.
+
+## Situación anterior, 29 de octubre, 17:28 CET
 
 La revisión familiar independiente encontró tres defectos reales: renta propia contradictoria, edad de adopción calculada solo por años y alimentos judiciales omitidos en la frontera anual. El padre conserva tres rojos previos y aplica fixes en `correcciones/derechos-familiares-r15/INFORME.md`. La conexión exige conciliación explícita con el perfil parcial, compara netos antes de reducciones/compensaciones y rechaza si los céntimos cambiarían el lado del límite de 8.000. Exige fecha de constitución del vínculo separada de la fecha de inicio del incremento; compara fechas civiles completas y rechaza al pagador judicial sin custodia; no bloquea al custodio por alimentos de otro titular. No se implementa todavía la especialidad de alimentos ni una liquidación familiar universal.
 

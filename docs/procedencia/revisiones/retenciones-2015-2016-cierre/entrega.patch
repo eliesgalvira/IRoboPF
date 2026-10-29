@@ -1,0 +1,2962 @@
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/COMANDOS.md
+@@ -0,0 +1,17 @@
++# Comandos y resultados
++
++Ejecutar desde el checkout base. Ninguna mutación VCS. Git solo lectura: `git rev-parse HEAD`, `git diff --stat 65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`, `git status --short`, `git ls-tree -rz --name-only BASE`. Comprobación lstat/readlink por cada ruta: control-base.json. rg y python3 no estaban inicialmente en PATH; se usó nix shell nixpkgs#ripgrep y nixpkgs#python3. El primer flock python3 falló sin ejecutar lectura. No se instaló globalmente.
++
++Pruebas:
++
++```sh
++flock /tmp/irobopf-validacion-pesada.lock env UV_PROJECT_ENVIRONMENT=/home/elies/.t3/worktrees/IRoboPF/t3-0d5d5c94/.cache/retenciones-cierre/venv bash tools/procedencia/run.sh /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos.py
++```
++
++Resultado:54 escenarios,57 aserciones. El primer pase y el posterior al arreglo de anotaciones están en casos.log y casos-final.log; no sumarlos. Son pruebas documentales sin motor.
++
++Lint: `flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#ruff nixpkgs#mypy -c bash -c 'ruff check RUTA/casos.py && mypy --strict --cache-dir /home/elies/.t3/worktrees/IRoboPF/t3-0d5d5c94/.cache/retenciones-cierre/mypy RUTA/casos.py'`, con RUTA absoluta de esta entrega. Diagnóstico inicial en lint-tipos.log; nombres distintos para variables Decimal/string/tuple resuelven cuatro errores. Pase final en lint-tipos-final.log. No se ejecutó oxlint porque no hay JS/TS propio; las16 severidades se cotejaron en control-base.json.
++
++Extracción y renders mediante el mismo wrapper, entorno absoluto y flock. PyMuPDF1.26.7, get_text de página completa y get_pixmap(dpi=100). Cada cita contiene hash del original, página física1-based, rectángulo en puntos y hash del PNG. La geometría es contextual, no crop fino por celda. Los originales se abren desde las rutas absolutas de originales-verificados.json. No hay OCR ni saneamiento de números. Se omiten metadatos internos y cabeceras de sesión.
++
++Algunas lecturas largas por herramienta quedaron truncadas; se hicieron lecturas adicionales por rangos, pero no se declara lectura completa de todas las fuentes. No se confunde extracción a scratch con lectura personal. mapa-paginas.json fija el límite visual real.
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/CONTRATO-CANDIDATO.md
+@@ -0,0 +1,33 @@
++# Subcontratos documentales candidatos
++
++No habilitan el cálculo de retenciones2015/2016. Ningún registro o atestación cambia. Fuera de estos subcontratos no hay resultado autorizado por esta entrega.
++
++## Selector de escala y máximos
++
++Entrada: fecha civil real de pago en2015/2016 y elección expresa del pagador sobre aplazamiento2015. Salida: identidad de tabla y dos máximos de regularización. El máximo reducido se aplica solo tras comprobar totalidad de rendimientos territorialmente beneficiados; no se elige por booleano de residencia aislado. En2016 la opción2015 no tiene efecto.
++
++| Período y elección | Tabla | Máximo general | Máximo territorial condicionado |
++|---|---|---:|---:|
++| 2015 hasta11julio | enero |47|24|
++| 12–31julio, sin aplazamiento | julio |46|23|
++| 12–31julio, con aplazamiento | enero |47|24|
++| 2015 desde1agosto | julio |46|23|
++| 2016 | permanente |45|23|
++
++No admite otros ejercicios ni fechas inválidas. La selección no prueba historia editorial de los PDF. Fuentes y objeciones en C1516-01 del informe. Coste: contrato separado que no produce retención final.
++
++## Escala como operación pura
++
++Base decimal no negativa; cuota fija publicada más exceso multiplicado por tipo/100. No redondear productos intermedios sin instrucción del paso que consume la cuota. Tablas transcritas en casos.py: enero y julio usan34000;2016 usa35200. Las pruebas comparan ejemplos24000 y fronteras±0,01 de cada corte con racionales. El racional comparte la tabla: no multiplica el número de fuentes.
++
++Objeción experta: una operación exacta no demuestra vigencia ni selección correcta. Respuesta: debe pasar por selector y hechos válidos. Coste: no llamarla algoritmo fiscal completo.
++
++## Rechazos y bloqueos
++
++Regularización con RETRIB≤PERCIBIDO: rechazo documental expresado en2016 p6 validación35. No inventar devolución. Para las demás entradas, incluso con divisor positivo, esta entrega no ofrece regularización completa: estado previo, causas, vivienda, residencia y art87.5 siguen fuera del contrato operable.
++
++Julio2015 causa11 concurrente con pérdida de residencia: no se fija expected fiscal. Los30% y20% calculados solo discriminan dos hipótesis. No aceptar marcado simultáneo de códigos sin revisar validaciones. Versiones13/14julio y24noviembre/22diciembre permanecen separadas.
++
++Gastos con irregularidad: usar fórmula legal como candidato de subpaso; no promover el ejemploDT12 hasta completar el eslabón antiguo y su cita. Familia, movilidad, discapacidad, vivienda, varios pagadores, remuneración normalizada y excepciones contractuales no están cerrados en todas sus ramas. La prueba aritmética de saturación a cero no valida el importe de gasto publicado en el rastro.
++
++Objeción experta: excluir todo lo no revisado reduce utilidad. Respuesta: no emitir una cifra final aparentemente validada; entregar operaciones y bloqueos precisos. Coste: continúa pendiente la revisión exhaustiva solicitada.
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/INFORME.md
+@@ -0,0 +1,71 @@
++# Revisión 2015–2016: entrega parcial, cierre exhaustivo no alcanzado
++
++Base y HEAD: `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. Revisión personal del agente de `t3-0d5d5c94`, sin subdelegación. Esta entrega **no satisface la lectura jurídica y visual exhaustiva solicitada**. No habilita versiones ni acepta fiscalmente el procedimiento. Se entregan resultados útiles y límites explícitos; no se presenta una nueva revisión selectiva como cierre.
++
++Se comprobó presencia con lstat de las 9.391 entradas del índice, tres symlinks con readlink y destino existente, HEAD y diff contra base vacíos. Los 19 originales de la revisión anterior se comprobaron por SHA256/SHA512/tamaño en el CAS del padre. La lectura de contexto abarcó BRIEF, AGENTS, contrato, coordinación, estado, decisiones, integración ronda13 y los cuatro informes de auditoría/revisión indicados. La ruta de integración correcta lleva prefijo docs/procedencia. No se consultó trabajo activo de otros hijos. La ronda14 no cambia este ámbito fiscal.
++
++## Decisiones e información nueva
++
++### C1516-01 — Selección temporal conjunta, candidata operable como subcontrato
++
++RDL9/2015, PDF `6e2dc7a4f586…`, p.11, y RD633/2015 `6fe8785ba1a1…`, pp.23–24, examinados en texto y facsímil, cierran la selección conjunta de escala y máximos. Hasta 11julio: enero y 47/24. Desde 12julio: julio y 46/23; si el pagador elige aplazar, enero y 47/24 hasta 31julio, julio y 46/23 desde 1agosto. La condición territorial del máximo reducido exige totalidad de rendimientos obtenidos en Ceuta/Melilla con derecho a deducción. No basta residencia actual. La opción no autoriza elegir tabla por conveniencia después del período transitorio. La función select del ensayo es solo este subcontrato documental, no implementación del procedimiento fiscal.
++
++Error documental localizado: versiones-7.json de la revisión anterior asigna a enero2015 un texto de vigencia «desde 12julio», compartido con julio. Debe distinguirse identidad técnica de portada 14enero de efectos de la reforma inicial desde 1enero y del régimen posterior. No se modifica el informe ajeno.
++
++Objeción experta: aprobar la escala sin las condiciones de topes permite una combinación inexistente. Respuesta: selector único que devuelve ambas magnitudes, con fronteras comprobadas. Coste: el contrato completo sigue excluido y exige hechos territoriales y elección del pagador.
++
++### C1516-02 — Julio, discrepancia persistente; no inventar corrección
++
++Lectura personal de p.34 del PDF `e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc`, incluido el facsímil previo a 140dpi: RESICEME=S y RENCEME=N permanece azul sin tachar. El HTML `a03f2252d4e3c3ef51f99025dd11355aa5e2da039968920f3603c128a2cbc17d` anuncia 14julio y corrección de la regularización11 concurrente con hechos de causa6. No demuestra que el PDF con portada13julio contenga esos cambios. Las búsquedas por nombre y fechas no recuperaron bytes alternativos.
++
++Con CUOTA6000, RETRIB30000, PERCIBIDO15000 y RETENIDO1500, el objetivo literal6000 da30%; una mezcla hipotética4500 da20%. Se asertaron ambos cocientes, **ninguno como resultado fiscal**. Además, el anuncio describe concurrencia de circunstancias, lo que no demuestra que sea válido marcar simultáneamente dos códigos en el servicio. El fixture anterior que marca causa6 y causa11 requiere contrastar las validaciones de entrada antes de tratarlo como petición admitida. Esta entrega no demuestra ese permiso.
++
++Objeción: escoger anuncio o pseudocódigo por conveniencia convertiría una interpretación en prueba histórica. Respuesta: bloqueo de esta rama y de la identidad anunciada; conservar testimonios. Coste: falta recuperar revisión/ejecutable/testimonio independiente que permita discriminar. No se presume que la mezcla sea la solución correcta.
++
++### C1516-03 — Movilidad 2016
++
++P.21 de `32e6d445c02e…` tacha solo «y CAMBIORESI=2015» y conserva MOVIL=S; p.22 tacha MOVILGEO y su resta en RNTREDU. Enero2015 p.22 conserva MOVILGEO para cambio2014 y tacha PROLONLAB/DISTRA, mientras p.21 conserva incremento de gasto para cambio2015. RD1003/2014 p.14 distingue transición2015. No trasladar el régimen transitorio a2016 ni suprimir el gasto vigente por asociación.
++
++Objeción: los colores no significan por sí solos borrado. Respuesta: se observaron las rayas; literal y decisión separados. Coste: no está cerrada toda elegibilidad y compatibilidad de movilidad/discapacidad por la sola observación de estas páginas.
++
++### C1516-04 — Divisor: existe validación documental concreta
++
++La validación35, p.6 de2016, exige rechazar RETRIB≤PERCIBIDO al regularizar. Por tanto el rechazo de dominio tiene apoyo del algoritmo y no es únicamente una elección arbitraria de API como podía sugerir el contrato anterior. La página se examinó visualmente. Eso no prueba el tratamiento jurídico de devoluciones ni sustituye art.87.
++
++Objeción: una especificación informática no decide el derecho material. Respuesta: conclusión limitada a admisibilidad documental de entrada. Coste: no se ejecutó el servicio AEAT ni se promovió un contrato.
++
++### C1516-05 — RRO-08: discrepancia de subpaso y ejemplo candidato aplicable
++
++RD1003/2014 p.7 art83.3.c limita los gastos por a)+b), incluidas reducciones irregulares, frente a RETRIB−COTIZACIONES de los tres algoritmos. Caso candidato: capital único de plan de pensiones3000, íntegramente atribuible a aportaciones anteriores a2007 con más de dos años de antigüedad; contingencia y percepción2016, reducción DT12 de40%=1200, sin cotizaciones ni gastos incrementados de trabajador activo. No se mezcla pensionista con discapacidad laboral/movilidad. RNT1800; gasto legal1800 frente a2000 literal; RED20=3700 y ambas bases finales0. No se prueba perjuicio monetario de retención.
++
++Cadena: DT12 de Ley35/2006 original; Ley26/2014 p.60 añade plazo del ejercicio de contingencia y dos siguientes; remisión a art17 del texto anterior. El Manual AEAT2016 recuperado por búsqueda corrobora el régimen transitorio de capital. **Falta preservar y cerrar en esta entrega el eslabón art17 del texto2004 y la cita exacta del apartado de planes del manual**; por ello el ejemplo no se eleva a caso jurídico cerrado. Los hechos expresos evitan la mezcla imposible, pero la comprobación numérica no suple ese eslabón.
++
++Demostración acotada: si el único desacuerdo es usar un gasto G por encima de RNT≥0 y los demás descuentos son no negativos, sustituir G por RNT no cambia max(0,RNT−G−descuentos): ambas bases son0. Esto explica por qué no se deduce automáticamente una retención final errónea del subpaso. No autoriza publicar G incorrecto en el rastro.
++
++Objeción: un ejemplo hipotético de irregularidad no prueba elegibilidad. Respuesta: hechos de DT12 explícitos, aserciones separadas, reserva concreta sobre cadena documental. Coste: RRO-08 queda demostrado aritméticamente, pendiente cierre jurídico completo del caso.
++
++### C1516-06 — 2016, fechas sin resolver
++
++Portada24noviembre2015 permanece distinta del anuncio editorial22diciembre2015. La búsqueda exacta vuelve a localizar la página CCOO del7enero2016; no es norma ni testimonio independiente de bytes. Dos consultas a rutas AEAT actuales devolvieron inaccesibilidad del tool y404, respectivamente; no se equiparan ni prueban inexistencia. No se recuperó otra versión. Objeción: repetir ausencia de búsqueda no cierra historia. Respuesta: mantener identidad por hash y fechas separadas. Coste: bloqueo del historial editorial, no negación de toda tabla contrastada con BOE.
++
++## Cobertura y controles
++
++Se inspeccionaron personalmente 20 páginas distintas: RD1003 pp7,8,13,14; RDL9 p11; RD633 pp23,24; enero2015 pp21,22,30; julio2015 pp30,34,35,36;2016 pp6,21,22,30,35,36. Se conservan veinte renders100dpi por hash; para julio34 y2016 pp21–22 también se vieron renders anteriores. No afirmar que se vieron dos veces todos los renders propios.
++
++La lectura textual de2016 cubrió entradas y pp21–38; parte de la salida completa estuvo truncada, por lo que tampoco acredita lectura integral. No se completó lectura personal de todas las páginas operativas de enero/julio2015 y2016 ni cadena jurídica familiar, vivienda, reducciones y regularización por todas las ramas. La matriz de60 grupos mantiene bloqueos; no son60 reglas aceptadas. El mapa marca expresamente páginas no leídas. No se sustituye esa carencia por hashes, extracción ni estos veinte facsímiles.
++
++casos.py contiene expectativas de los tres ejemplos publicados de escala, fronteras Decimal contrastadas con racionales, seis selecciones temporales, seis fronteras de reducción, caso de gastos, dos hipótesis de julio y dos redondeos. Las fronteras racionales comparten tabla transcrita: son control aritmético, no fuente fiscal independiente adicional. No hay TS actual como expected, motor ejecutado, fix o falso rojo contra períodos rechazados. Los logs registran ejecución y lint/tipos del único Python mantenido. Sin Effect/TypeScript nuevo: no se atribuye a esta entrega un typecheck global ni un pase oxlint inexistente. Se cotejan las16 reglas a error, sin modificar configuración.
++
++Integridad comprobada de19 PDF; autenticidad histórica indeterminada; interpretación candidata por subpaso; exactitud aritmética limitada a casos ejecutados; aceptación fiscal completa false. Ninguna transferencia, modificación VCS, cambio de ESTADO/DECISIONES, package/locks/CI, borrado, servidor ni Next build. Originales siguen preservados en CAS del padre, no dependen de este worktree. Crossa continúa v1 histórico comunicado, sin comprobación propia nueva ni custodia independiente.
++
++## Fuentes y límites de investigación
++
++- [RD1003/2014 original](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2014-12730), PDF preservado `4b1117dfa72d…`.
++- [RDL9/2015 original](https://www.boe.es/boe/dias/2015/07/11/pdfs/BOE-A-2015-7765.pdf), `6e2dc7a4f586…`.
++- [RD633/2015 original](https://www.boe.es/eli/es/rd/2015/07/10/633/dof/spa/pdf), `6fe8785ba1a1…`.
++- [Ley35/2006 original, DT12](https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf).
++- [Manual AEAT2016](https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2016/ManualRentaPatrimonio2016_es_es.pdf), consulta web parcial, no nueva descarga CAS.
++
++Se buscaron nombres exactos de algoritmos, versiones14/07/2015 y22/12/2015, causa11/pérdida de residencia, y dominios AEAT actuales/históricos. No hubo consulta CDX nueva ni adquisición independiente de otro bitstream. Pendientes concretos: esos bytes e historia; lectura restante por página; art17 histórico del caso DT12; condiciones familiares/vivienda y todas las ramas de regularización; pruebas de fronteras faltantes y contrato completo. Esta entrega no autoriza marcar terminado el encargo del revisor.
++
++Consulta primaria adicional al finalizar: [RDL3/2004, texto original, art17.2.b](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2004-4347) confirma el40% para capital de las prestaciones remitidas, con más de dos años desde primera aportación y exclusión del apartado5. La laguna del ejemploDT12 se reduce: se localizó el eslabón sustantivo, pero falta su preservación por hash y cotejo completo de la cadena hasta31diciembre2006. No se mantiene una afirmación de que el art17 sea inencontrable. No altera las aserciones ni acepta fiscalmente el ejemplo.
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos-final.log
+@@ -0,0 +1 @@
++54 escenarios comprobados; 57 aserciones ejecutadas; sin motor ni fix.
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos-resultados.json
+@@ -0,0 +1,284 @@
++{
++  "cases": [
++    {
++      "case": "ejemplo-publicado-enero",
++      "actual": "5605.50",
++      "expected": "5605.50"
++    },
++    {
++      "case": "frontera-enero-12449.99",
++      "actual": "2489.998",
++      "rational": "1244999/500"
++    },
++    {
++      "case": "frontera-enero-12450",
++      "actual": "2490",
++      "rational": "2490"
++    },
++    {
++      "case": "frontera-enero-12450.01",
++      "actual": "2490.0025",
++      "rational": "996001/400"
++    },
++    {
++      "case": "frontera-enero-20199.99",
++      "actual": "4427.4975",
++      "rational": "1770999/400"
++    },
++    {
++      "case": "frontera-enero-20200",
++      "actual": "4427.50",
++      "rational": "8855/2"
++    },
++    {
++      "case": "frontera-enero-20200.01",
++      "actual": "4427.5031",
++      "rational": "44275031/10000"
++    },
++    {
++      "case": "frontera-enero-33999.99",
++      "actual": "8705.4969",
++      "rational": "87054969/10000"
++    },
++    {
++      "case": "frontera-enero-34000",
++      "actual": "8705.50",
++      "rational": "17411/2"
++    },
++    {
++      "case": "frontera-enero-34000.01",
++      "actual": "8705.5039",
++      "rational": "87055039/10000"
++    },
++    {
++      "case": "frontera-enero-59999.99",
++      "actual": "18845.4961",
++      "rational": "188454961/10000"
++    },
++    {
++      "case": "frontera-enero-60000",
++      "actual": "18845.50",
++      "rational": "37691/2"
++    },
++    {
++      "case": "frontera-enero-60000.01",
++      "actual": "18845.5047",
++      "rational": "188455047/10000"
++    },
++    {
++      "case": "ejemplo-publicado-julio",
++      "actual": "5485.50",
++      "expected": "5485.50"
++    },
++    {
++      "case": "frontera-julio-12449.99",
++      "actual": "2427.74805",
++      "rational": "48554961/20000"
++    },
++    {
++      "case": "frontera-julio-12450",
++      "actual": "2427.75",
++      "rational": "9711/4"
++    },
++    {
++      "case": "frontera-julio-12450.01",
++      "actual": "2427.75245",
++      "rational": "48555049/20000"
++    },
++    {
++      "case": "frontera-julio-20199.99",
++      "actual": "4326.49755",
++      "rational": "86529951/20000"
++    },
++    {
++      "case": "frontera-julio-20200",
++      "actual": "4326.50",
++      "rational": "8653/2"
++    },
++    {
++      "case": "frontera-julio-20200.01",
++      "actual": "4326.50305",
++      "rational": "86530061/20000"
++    },
++    {
++      "case": "frontera-julio-33999.99",
++      "actual": "8535.49695",
++      "rational": "170709939/20000"
++    },
++    {
++      "case": "frontera-julio-34000",
++      "actual": "8535.50",
++      "rational": "17071/2"
++    },
++    {
++      "case": "frontera-julio-34000.01",
++      "actual": "8535.5038",
++      "rational": "42677519/5000"
++    },
++    {
++      "case": "frontera-julio-59999.99",
++      "actual": "18415.4962",
++      "rational": "92077481/5000"
++    },
++    {
++      "case": "frontera-julio-60000",
++      "actual": "18415.50",
++      "rational": "36831/2"
++    },
++    {
++      "case": "frontera-julio-60000.01",
++      "actual": "18415.5046",
++      "rational": "92077523/5000"
++    },
++    {
++      "case": "ejemplo-publicado-2016",
++      "actual": "5365.50",
++      "expected": "5365.50"
++    },
++    {
++      "case": "frontera-2016-12449.99",
++      "actual": "2365.4981",
++      "rational": "23654981/10000"
++    },
++    {
++      "case": "frontera-2016-12450",
++      "actual": "2365.50",
++      "rational": "4731/2"
++    },
++    {
++      "case": "frontera-2016-12450.01",
++      "actual": "2365.5024",
++      "rational": "1478439/625"
++    },
++    {
++      "case": "frontera-2016-20199.99",
++      "actual": "4225.4976",
++      "rational": "2640936/625"
++    },
++    {
++      "case": "frontera-2016-20200",
++      "actual": "4225.50",
++      "rational": "8451/2"
++    },
++    {
++      "case": "frontera-2016-20200.01",
++      "actual": "4225.503",
++      "rational": "4225503/1000"
++    },
++    {
++      "case": "frontera-2016-35199.99",
++      "actual": "8725.497",
++      "rational": "8725497/1000"
++    },
++    {
++      "case": "frontera-2016-35200",
++      "actual": "8725.50",
++      "rational": "17451/2"
++    },
++    {
++      "case": "frontera-2016-35200.01",
++      "actual": "8725.5037",
++      "rational": "87255037/10000"
++    },
++    {
++      "case": "frontera-2016-59999.99",
++      "actual": "17901.4963",
++      "rational": "179014963/10000"
++    },
++    {
++      "case": "frontera-2016-60000",
++      "actual": "17901.50",
++      "rational": "35803/2"
++    },
++    {
++      "case": "frontera-2016-60000.01",
++      "actual": "17901.5045",
++      "rational": "35803009/2000"
++    },
++    {
++      "case": "fecha-2015-07-11-False",
++      "actual": "('enero', 47, 24)",
++      "expected": "('enero', 47, 24)"
++    },
++    {
++      "case": "fecha-2015-07-12-False",
++      "actual": "('julio', 46, 23)",
++      "expected": "('julio', 46, 23)"
++    },
++    {
++      "case": "fecha-2015-07-12-True",
++      "actual": "('enero', 47, 24)",
++      "expected": "('enero', 47, 24)"
++    },
++    {
++      "case": "fecha-2015-07-31-True",
++      "actual": "('enero', 47, 24)",
++      "expected": "('enero', 47, 24)"
++    },
++    {
++      "case": "fecha-2015-08-01-True",
++      "actual": "('julio', 46, 23)",
++      "expected": "('julio', 46, 23)"
++    },
++    {
++      "case": "fecha-2016-01-01-False",
++      "actual": "('2016', 45, 23)",
++      "expected": "('2016', 45, 23)"
++    },
++    {
++      "case": "reduccion-11249.99",
++      "raw": "3700",
++      "actual": "3700.00",
++      "expected": "3700.00"
++    },
++    {
++      "case": "reduccion-11250",
++      "raw": "3700",
++      "actual": "3700.00",
++      "expected": "3700.00"
++    },
++    {
++      "case": "reduccion-11250.01",
++      "raw": "3699.9884375",
++      "actual": "3699.99",
++      "expected": "3699.99"
++    },
++    {
++      "case": "reduccion-14449.99",
++      "raw": "0.0115625",
++      "actual": "0.01",
++      "expected": ".01"
++    },
++    {
++      "case": "reduccion-14450",
++      "raw": "0.00000",
++      "actual": "0.00",
++      "expected": "0"
++    },
++    {
++      "case": "reduccion-14450.01",
++      "raw": "0",
++      "actual": "0.00",
++      "expected": "0"
++    },
++    {
++      "case": "RRO08-DT12",
++      "rnt": "1800",
++      "gastoLegal": "1800",
++      "gastoPDF": "2000",
++      "baseAmbas": "0",
++      "efectoRetencion": "0"
++    },
++    {
++      "case": "julio-hipotesis-6000",
++      "actual": "30.00",
++      "expected": "30.00"
++    },
++    {
++      "case": "julio-hipotesis-4500",
++      "actual": "20.00",
++      "expected": "20.00"
++    }
++  ],
++  "aceptacionFiscal": false
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos.log
+@@ -0,0 +1 @@
++54 escenarios comprobados; 57 aserciones ejecutadas; sin motor ni fix.
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos.py
+@@ -0,0 +1,85 @@
++"""Comprobaciones documentales independientes; no ejecutan el motor."""
++import json
++from datetime import date
++from decimal import ROUND_DOWN, ROUND_HALF_UP, Decimal
++from fractions import Fraction
++from pathlib import Path
++
++D = Decimal
++TABLES = {
++    'enero': [('0', '0', '20'), ('12450', '2490', '25'), ('20200', '4427.50', '31'), ('34000', '8705.50', '39'), ('60000', '18845.50', '47')],
++    'julio': [('0', '0', '19.5'), ('12450', '2427.75', '24.5'), ('20200', '4326.50', '30.5'), ('34000', '8535.50', '38'), ('60000', '18415.50', '46')],
++    '2016': [('0', '0', '19'), ('12450', '2365.50', '24'), ('20200', '4225.50', '30'), ('35200', '8725.50', '37'), ('60000', '17901.50', '45')],
++}
++
++
++def scale(value: Decimal, version: str) -> Decimal:
++    lower, fixed, rate = next(row for row in reversed(TABLES[version]) if value >= D(row[0]))
++    return D(fixed) + (value - D(lower)) * D(rate) / 100
++
++
++def select(payment: date, august: bool) -> tuple[str, int, int]:
++    if payment.year == 2016:
++        return '2016', 45, 23
++    if payment.year != 2015:
++        raise ValueError('Fuera del contrato documental')
++    boundary = date(2015, 8, 1) if august else date(2015, 7, 12)
++    return ('enero', 47, 24) if payment < boundary else ('julio', 46, 23)
++
++
++def main() -> None:
++    results: list[dict[str, str]] = []
++    for version, expected in [('enero', '5605.50'), ('julio', '5485.50'), ('2016', '5365.50')]:
++        actual = scale(D('24000'), version)
++        assert actual == D(expected)
++        results.append({'case': 'ejemplo-publicado-' + version, 'actual': str(actual), 'expected': expected})
++        rows = TABLES[version]
++        for i in range(1, len(rows)):
++            lower, fixed, rate = map(D, rows[i])
++            prior_lower, prior_fixed, prior_rate = map(D, rows[i - 1])
++            # Dos representaciones aritméticas; no dos autoridades jurídicas.
++            for delta in ['-.01', '0', '.01']:
++                value = lower + D(delta)
++                anchor, quota, marginal = (prior_lower, prior_fixed, prior_rate) if D(delta) < 0 else (lower, fixed, rate)
++                rational = Fraction(quota) + (Fraction(value) - Fraction(anchor)) * Fraction(marginal) / 100
++                actual = scale(value, version)
++                assert Fraction(actual) == rational
++                results.append({'case': f'frontera-{version}-{value}', 'actual': str(actual), 'rational': str(rational)})
++    for day, august, expected_selection in [
++        ('2015-07-11', False, ('enero', 47, 24)),
++        ('2015-07-12', False, ('julio', 46, 23)),
++        ('2015-07-12', True, ('enero', 47, 24)),
++        ('2015-07-31', True, ('enero', 47, 24)),
++        ('2015-08-01', True, ('julio', 46, 23)),
++        ('2016-01-01', False, ('2016', 45, 23)),
++    ]:
++        actual_selection = select(date.fromisoformat(day), august)
++        assert actual_selection == expected_selection
++        results.append({'case': f'fecha-{day}-{august}', 'actual': str(actual_selection), 'expected': str(expected_selection)})
++    for value_text, expected in [('11249.99', '3700.00'), ('11250', '3700.00'), ('11250.01', '3699.99'), ('14449.99', '.01'), ('14450', '0'), ('14450.01', '0')]:
++        rnt = D(value_text)
++        raw = D(3700) if rnt <= 11250 else D(3700) - D('1.15625') * (rnt - 11250) if rnt <= 14450 else D(0)
++        actual = raw.quantize(D('.01'), rounding=ROUND_HALF_UP)
++        assert actual == D(expected)
++        results.append({'case': 'reduccion-' + value_text, 'raw': str(raw), 'actual': str(actual), 'expected': expected})
++    # DT12: capital de plan de pensiones, aportaciones anteriores a 2007,
++    # contingencia y capital en 2016, antigüedad >2 años, sin gasto de activo.
++    gross, irregular, ss = D(3000), D(1200), D(0)
++    rnt = gross - irregular - ss
++    legal_expense = min(D(2000), rnt)
++    literal_expense = min(D(2000), gross - ss)
++    assert (rnt, legal_expense, literal_expense) == (D(1800), D(1800), D(2000))
++    assert max(D(0), rnt - legal_expense - D(3700)) == max(D(0), rnt - literal_expense - D(3700)) == 0
++    results.append({'case': 'RRO08-DT12', 'rnt': str(rnt), 'gastoLegal': str(legal_expense), 'gastoPDF': str(literal_expense), 'baseAmbas': '0', 'efectoRetencion': '0'})
++    for target, expected in [('6000', '30.00'), ('4500', '20.00')]:
++        actual = ((D(target) - 1500) / 15000 * 100).quantize(D('.01'), rounding=ROUND_DOWN)
++        assert actual == D(expected)
++        results.append({'case': 'julio-hipotesis-' + target, 'actual': str(actual), 'expected': expected})
++    assert D('.005').quantize(D('.01'), rounding=ROUND_HALF_UP) == D('.01')
++    assert D('17.85964523').quantize(D('.01'), rounding=ROUND_DOWN) == D('17.85')
++    Path(__file__).with_name('casos-resultados.json').write_text(json.dumps({'cases': results, 'aceptacionFiscal': False}, ensure_ascii=False, indent=2) + '\n')
++    print(f'{len(results)} escenarios comprobados; 57 aserciones ejecutadas; sin motor ni fix.')
++
++
++if __name__ == '__main__':
++    main()
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/citas.json
+@@ -0,0 +1,322 @@
++[
++  {
++    "documentSha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
++    "page": 7,
++    "bbox": [
++      0.0,
++      0.0,
++      595.2760009765625,
++      841.8900146484375
++    ],
++    "quote": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 295\t\nSábado 6 de diciembre de 2014\t\nSec. I.   Pág. 100636\nc)  Los contribuyentes que no manifiesten estar en ninguna de las situaciones 1.ª \ny 2.ª anteriores.»\nSeis.  Se modifica el artículo 82, que queda redactado de la siguiente forma:\n«Artículo 82.  Procedimiento general para determinar el importe de la retención.\nPara calcular las retenciones sobre rendimientos del trabajo, a las que se \nrefiere el artículo 80.1.1.º de este Reglamento, se practicarán, sucesivamente, las \nsiguientes operaciones:\n1.ª  Se determinará, de acuerdo con lo previsto en el artículo 83 de este \nReglamento, la base para calcular el tipo de retención.\n2.ª  Se determinará, de acuerdo con lo previsto en el artículo 84 de este \nReglamento, el mínimo personal y familiar para calcular el tipo de retención.\n3.ª  Se determinará, de acuerdo con lo previsto en el artículo 85 de este \nReglamento, la cuota de retención.\n4.ª  Se determinará el tipo de retención, en la forma prevista en el artículo 86 \nde este Reglamento.\n5.ª  El importe de la retención será el resultado de aplicar el tipo de retención a \nla cuantía total de las retribuciones que se satisfagan o abonen, teniendo en cuenta \nlas regularizaciones que procedan de acuerdo al artículo 87 de este Reglamento.»\nSiete.  Se modifica el apartado 3 del artículo 83, que queda redactado de la siguiente \nforma:\n«3.  La cuantía total de las retribuciones de trabajo, dinerarias y en especie, \ncalculadas de acuerdo al apartado anterior, se minorará en los importes siguientes:\na)  En las reducciones previstas en el artículo 18, apartados 2 y 3, y \ndisposiciones transitorias undécima y duodécima de la Ley del Impuesto.\nb)  En las cotizaciones a la Seguridad Social, a las mutualidades generales \nobligatorias de funcionarios, detracciones por derechos pasivos y cotizaciones a colegios \nde huérfanos o entidades similares, a las que se refieren los párrafos a), b) y c) del \nartículo 19.2 de la Ley del Impuesto,\nc)  En los gastos a que se refiere la letra f) del artículo 19.2 de Ley del \nImpuesto. A estos efectos, dichos gastos tendrán como límite la cuantía total de las \nretribuciones de trabajo minorada exclusivamente en los importes previstos en las \nletras a) y b) anteriores.\nd)  En la reducción por obtención de rendimientos del trabajo que se regula en \nel artículo 20 de la Ley del Impuesto. Para el cómputo de dicha reducción el \npagador deberá tener en cuenta, exclusivamente, la cuantía del rendimiento neto \ndel trabajo resultante de las minoraciones previstas en los párrafos a) y b) \nanteriores.\ne)  En el importe que proceda, según las siguientes circunstancias:\nCuando se trate de contribuyentes que perciban pensiones y haberes pasivos \ndel régimen de Seguridad Social y de Clases Pasivas o que tengan más de dos \ndescendientes que den derecho a la aplicación del mínimo por descendientes \nprevisto en el artículo 58 de la Ley del Impuesto, 600 euros.\nCuando sean prestaciones o subsidios por desempleo, 1.200 euros.\nEstas reducciones son compatibles entre sí.\nf)  Cuando el perceptor de rendimientos del trabajo estuviese obligado a \nsatisfacer por resolución judicial una pensión compensatoria a su cónyuge, el \nimporte de ésta podrá disminuir la cuantía resultante de lo dispuesto en los párrafos \nanteriores. A tal fin, el contribuyente deberá poner en conocimiento de su pagador, \nen la forma prevista en el artículo 88 de este Reglamento, dichas circunstancias.»\ncve: BOE-A-2014-12730\n",
++    "renderSha256": "bcbe39635050eac961238ceadb03060462c0716c4d49471fc6cea65dfcd5dc99",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "bcbe39635050eac961238ceadb03060462c0716c4d49471fc6cea65dfcd5dc99.png"
++  },
++  {
++    "documentSha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
++    "page": 8,
++    "bbox": [
++      0.0,
++      0.0,
++      595.2760009765625,
++      841.8900146484375
++    ],
++    "quote": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 295\t\nSábado 6 de diciembre de 2014\t\nSec. I.   Pág. 100637\nOcho.  Se modifica el artículo 85, que queda redactado de la siguiente forma:\n«Artículo 85.  Cuota de retención.\n1.  Para calcular la cuota de retención se practicarán, sucesivamente, las \nsiguientes operaciones:\n1.º  A la base para calcular el tipo de retención a que se refiere el artículo 83 \nde este Reglamento se le aplicarán los tipos que se indican en la siguiente escala:\nBase para calcular el tipo \nde retención\n–\nHasta euros\nCuota de retención\n–\nEuros\nResto base para calcular el \ntipo de retención\n–\nHasta euros\nTipo aplicable\n–\nPorcentaje\n0,00\n0,00\n12.450,00\n19,00\n12.450,00\n2.365,50\n7.750,00\n24,00\n20.200,00\n4.225,50\n15.000,00\n30,00\n35.200,00\n8.725,50\n24.800,00\n37,00\n60.000,00\n17.901,50\nEn adelante\n45,00\n2.º  La cuantía resultante se minorará en el importe derivado de aplicar al \nimporte del mínimo personal y familiar para calcular el tipo de retención a que se \nrefiere el artículo 84 de este Reglamento, la escala prevista en el número 1.º \nanterior, sin que pueda resultar negativa como consecuencia de tal minoración.\n2.  Cuando el perceptor de rendimientos del trabajo satisfaga anualidades por \nalimentos en favor de los hijos por decisión judicial sin derecho a la aplicación por \nestos últimos del mínimo por descendientes previsto en el artículo 58 de la Ley del \nImpuesto, siempre que su importe sea inferior a la base para calcular el tipo de \nretención, para calcular la cuota de retención se practicarán, sucesivamente, las \nsiguientes operaciones:\n1.º  Se aplicará la escala prevista en el número 1.º del apartado anterior \nseparadamente al importe de dichas anualidades y al resto de la base para calcular \nel tipo de retención.\n2.º  La cuantía total resultante se minorará en el importe derivado de aplicar la \nescala prevista en el número 1.º del apartado anterior al importe del mínimo \npersonal y familiar para calcular el tipo de retención incrementado en 1.980 euros \nanuales, sin que pueda resultar negativa como consecuencia de tal minoración.\nA tal fin, el contribuyente deberá poner en conocimiento de su pagador, en la \nforma prevista en el artículo 88 de este Reglamento, dicha circunstancia.\n3.  Cuando el contribuyente obtenga una cuantía total de retribución, a la que \nse refiere el artículo 83.2 de este Reglamento, no superior a 22.000 euros anuales, \nla cuota de retención, calculada de acuerdo con lo previsto en los apartados \nanteriores, tendrá como límite máximo el resultado de aplicar el porcentaje del 43 \npor ciento a la diferencia positiva entre el importe de la cuantía total de retribución y \nel que corresponda, según su situación, de los mínimos excluidos de retención \nprevistos en el artículo 81 de este Reglamento.»\nNueve.  Se suprime el artículo 85 bis.\nDiez.  Se modifica el apartado 1 del artículo 86, que queda redactado de la siguiente \nforma:\n«1.  El tipo de retención será el resultante de multiplicar por 100 el cociente \nobtenido de dividir la cuota de retención por la cuantía total de las retribuciones a \ncve: BOE-A-2014-12730\n",
++    "renderSha256": "04b4566fb9e35834f98dee21c0cbda1da9bf4e334bafb601552d52c4313b7c56",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "04b4566fb9e35834f98dee21c0cbda1da9bf4e334bafb601552d52c4313b7c56.png"
++  },
++  {
++    "documentSha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
++    "page": 13,
++    "bbox": [
++      0.0,
++      0.0,
++      595.2760009765625,
++      841.8900146484375
++    ],
++    "quote": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 295\t\nSábado 6 de diciembre de 2014\t\nSec. I.   Pág. 100642\nDiecinueve.  Se modifica la letra c) del apartado 3 del artículo 110, que queda \nredactada de la siguiente forma:\n«c)  Cuando la cuantía de los rendimientos netos de actividades económicas \ndel ejercicio anterior sea igual o inferior a 12.000 euros, el importe que resulte del \nsiguiente cuadro:\nCuantía de los rendimientos netos \ndel ejercicio anterior\n–\nEuros\nImporte de la \nminoración\n–\nEuros\nIgual o inferior a 9.000 .  .  .  . . . . .\n100\nEntre 9.000,01 y 10.000  .  .  . . . .\n75\nEntre 10.000,01 y 11.000  .  . . . .\n50\nEntre 11.000,01 y 12.000  .  . . . .\n25\nCuando el importe de la minoración prevista en esta letra sea superior a la \ncantidad resultante por aplicación de lo dispuesto en los apartados anteriores y en \nlas letras a) y b) de este apartado, la diferencia podrá deducirse en cualquiera de \nlos siguientes pagos fraccionados correspondientes al mismo período impositivo \ncuyo importe positivo lo permita y hasta el límite máximo de dicho importe.»\nVeinte.  Se suprime el apartado 5 del artículo 110.\nVeintiuno.  Se modifica el apartado 3 del artículo 114, que queda redactado de la \nsiguiente forma:\n«3.  Las retenciones e ingresos a cuenta en concepto de pagos a cuenta de \neste régimen especial se practicarán de acuerdo con lo establecido en la normativa \ndel Impuesto sobre la Renta de no Residentes.\nNo obstante, el porcentaje de retención o ingreso a cuenta sobre rendimientos \ndel trabajo será el 24 por ciento. Cuando las retribuciones satisfechas por un mismo \npagador de rendimientos del trabajo durante el año natural excedan de 600.000 de \neuros, el porcentaje de retención aplicable al exceso será el 45 por ciento.\nCuando concurran las circunstancias previstas en el artículo 76.2.a) de este \nReglamento, estarán obligados a retener las entidades residentes o los \nestablecimientos permanentes en los que presten servicios los contribuyentes, en \nrelación con las rentas que estos obtengan en territorio español.\nEl cumplimento de las obligaciones formales previstas en el artículo 108 de \neste Reglamento, por las retenciones e ingresos a cuenta a que se refiere el párrafo \nanterior, se realizará mediante los modelos de declaración previstos para el \nImpuesto sobre la Renta de no Residentes para las rentas obtenidas sin mediación \nde establecimiento permanente.»\nVeintidós.  Se añade una nueva disposición transitoria decimotercera, que queda \nredactada de la siguiente forma:\n«Disposición transitoria decimotercera.  Tipos de retención aplicables en 2015.\n1.  En el período impositivo 2015, la escala a la que se refiere el artículo 85 de \neste Reglamento será la siguiente:\nBase para calcular el tipo \nde retención\n–\nHasta euros\nCuota de retención\n–\nEuros\nResto base para calcular el \ntipo de retención\n–\nHasta euros\nTipo aplicable\n–\nPorcentaje\n0,00\n0,00\n12.450,00\n20,00\n12.450,00\n2.490,00\n7.750,00\n25,00\ncve: BOE-A-2014-12730\n",
++    "renderSha256": "d3aa744a93c2443c46f67ce3a672bb6ea94b01ab093675a2492ecbb6f0c0d3cc",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "d3aa744a93c2443c46f67ce3a672bb6ea94b01ab093675a2492ecbb6f0c0d3cc.png"
++  },
++  {
++    "documentSha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
++    "page": 14,
++    "bbox": [
++      0.0,
++      0.0,
++      595.2760009765625,
++      841.8900146484375
++    ],
++    "quote": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 295\t\nSábado 6 de diciembre de 2014\t\nSec. I.   Pág. 100643\nBase para calcular el tipo \nde retención\n–\nHasta euros\nCuota de retención\n–\nEuros\nResto base para calcular el \ntipo de retención\n–\nHasta euros\nTipo aplicable\n–\nPorcentaje\n20.200,00\n4.427,50\n13.800,00\n31,00\n34.000,00\n8.705,50\n26.000,00\n39,00\n60.000,00\n18.845,50\nEn adelante\n47,00\n2.  En el período impositivo 2015, los porcentajes de pagos a cuenta del 19 \npor ciento previstos en los artículos 80, 90, 96, 99, 100, 101 y 107 de este \nReglamento serán el 20 por 100.\nAsimismo, en el período impositivo 2015, el porcentaje de retención del 35 por \nciento previsto en el artículo 80.1.3.º de este Reglamento, será el 37 por ciento; los \nporcentajes de retención del 18 por ciento previstos en los artículos 80.1.4.º y 95 \nde este Reglamento, serán el 19 por ciento; y el porcentaje de retención del 45 por \nciento previsto el artículo 114.3 de este Reglamento, será el 47 por ciento.\n3.  Cuando en el periodo impositivo 2015 se produzcan regularizaciones del tipo \nde retención conforme al artículo 87 de este Reglamento, el nuevo tipo de retención \naplicable podrá ser superior al 47 por ciento. El citado porcentaje será el 24 por ciento \ncuando la totalidad de los rendimientos del trabajo se hubiesen obtenido en Ceuta y \nMelilla y se beneficien de la deducción prevista en el artículo 68.4 de esta Ley.»\nVeintitrés.  Se añade una nueva disposición transitoria decimocuarta, que queda \nredactada de la siguiente forma:\n«Disposición transitoria decimocuarta.  Reducción por movilidad geográfica en 2015 \na efectos de retenciones.\nA efectos de lo establecido en el apartado 3 del artículo 83 de este Reglamento, \nen los supuestos a que se refiere la disposición transitoria sexta de la Ley del \nImpuesto, la cuantía total de las retribuciones de trabajo se minorará en la reducción \nprevista en el apartado 1 del artículo 20 de la Ley del Impuesto en su redacción en \nvigor a 31 de diciembre de 2014 y no resultará de aplicación lo dispuesto en el \nsegundo párrafo de la letra f) del apartado 2 del artículo 19 de la Ley del Impuesto. \nPara el cómputo de esta reducción el pagador deberá tener en cuenta, \nexclusivamente, la cuantía del rendimiento neto del trabajo resultante de las \nminoraciones previstas en los párrafos a) y b) del apartado 3 del artículo 83 de este \nReglamento.»\nVeinticuatro.  Se añade una nueva disposición transitoria decimoquinta, que queda \nredactada de la siguiente forma:\n«Disposición transitoria decimoquinta.  Aplicación de lo dispuesto en las \ndisposiciones transitorias cuarta y novena de la Ley del Impuesto respecto de \nobligaciones de retener que nazcan en el primer trimestre de 2015.\nCuando el nacimiento de la obligación de retener se produzca en el primer \ntrimestre de 2015 y el sujeto obligado a retener deba presentar la declaración de \nlas cantidades retenidas e ingresos a cuenta correspondiente a dicho trimestre en \nel plazo previsto en el párrafo primero del apartado 1 del artículo 108 de este \nReglamento, la comunicación a la que se refieren el apartado 5 del artículo 93 y el \napartado 1 del artículo 97, ambos de este Reglamento, podrá realizarse hasta el 10 \nde abril de 2015.»\ncve: BOE-A-2014-12730\n",
++    "renderSha256": "ea04c5919c64e4351470091bdc557d52f74f5433cfd990803c549d5fe801b723",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "ea04c5919c64e4351470091bdc557d52f74f5433cfd990803c549d5fe801b723.png"
++  },
++  {
++    "documentSha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
++    "page": 11,
++    "bbox": [
++      0.0,
++      0.0,
++      595.2760009765625,
++      841.8900146484375
++    ],
++    "quote": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 165\t\nSábado 11 de julio de 2015\t\nSec. I.   Pág. 57691\na 12 de julio a los que resulte de aplicación el procedimiento general de retención a \nque se refiere el artículo 82 del Reglamento del Impuesto sobre la Renta de las \nPersonas Físicas, la escala de retención a que se refiere el apartado 1 del artículo 101 \nde esta Ley será la siguiente:\nBase para calcular el \ntipo de retención\n–\nHasta euros\nCuota de retención\n–\nEuros\nResto base para calcular \nel tipo de retención\n–\nHasta euros\nTipo aplicable\n–\nPorcentaje\n0,00\n0,00\n12.450,00\n20,00\n12.450,00\n2.490,00\n7.750,00\n25,00\n20.200,00\n4.427,50\n13.800,00\n31,00\n34.000,00\n8.705,50\n26.000,00\n39,00\n60.000,00\n18.845,50\nEn adelante\n47,00\nA partir de 12 de julio para calcular el tipo de retención o ingreso a cuenta \naplicable a los rendimientos que se satisfagan o abonen a partir de dicha fecha, la \nescala de retención a tomar en consideración será la siguiente:\nBase para calcular el \ntipo de retención\n–\nHasta euros\nCuota de retención\n–\nEuros\nResto base para calcular el \ntipo de retención\n–\nHasta euros\nTipo aplicable\n–\nPorcentaje\n0,00\n0,00\n12.450,00\n19,50\n12.450,00\n2.427,75\n7.750,00\n24,50\n20.200,00\n4.326,5\n13.800,00\n30,50\n34.000,00\n8.535,5\n26.000,00\n38,00\n60.000,00\n18.415,5\nEn adelante\n46,00\nEl tipo de retención o ingreso a cuenta se regularizará de acuerdo con la anterior \nescala, si procede, en los primeros rendimientos del trabajo que se satisfagan o \nabonen a partir de 12 de julio, de acuerdo con lo señalado en el Reglamento del \nImpuesto sobre la Renta de las Personas Físicas.\nNo obstante, la regularización a que se refiere el párrafo anterior podrá \nrealizarse, a opción del pagador, en los primeros rendimientos del trabajo que se \nsatisfagan o abonen a partir de 1 de agosto, en cuyo caso, el tipo de retención o \ningreso a cuenta a practicar sobre los rendimientos del trabajo satisfechos con \nanterioridad a esta fecha se determinará tomando en consideración la escala de \nretención a que se refiere el primer párrafo de este apartado.\n3.  En el período impositivo 2015:\na)  El porcentaje de retención e ingreso a cuenta aplicable a los rendimientos \nprevistos en el apartado 3 del artículo 101 de esta Ley, satisfechos o abonados con \nanterioridad a 12 de julio, será el 19 por ciento. El porcentaje de retención o ingreso \na cuenta aplicable a dichos rendimientos que se satisfagan o abonen a partir de \ndicha fecha, será el 15 por ciento.\nb)  El porcentaje de retención e ingreso a cuenta a que se refiere el primer \npárrafo de la letra a) del apartado 5 del artículo 101 de esta Ley aplicable a los \nrendimientos satisfechos o abonados con anterioridad a 12 de julio, será el 19 por \nciento. No obstante, dicho porcentaje será el 15 por ciento cuando el volumen de \nrendimientos íntegros de tales actividades correspondiente al ejercicio inmediato \nanterior sea inferior a 15.000 euros y represente más del 75 por ciento de la suma \nde los rendimientos íntegros de actividades económicas y del trabajo obtenidos por \ncve: BOE-A-2015-7765\nVerificable en http://www.boe.es\n",
++    "renderSha256": "f8a06f1a96f75a009a494b4c7812bc99d161023a3e0374cd54c102fe7c9b325b",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "f8a06f1a96f75a009a494b4c7812bc99d161023a3e0374cd54c102fe7c9b325b.png"
++  },
++  {
++    "documentSha256": "6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
++    "page": 23,
++    "bbox": [
++      0.0,
++      0.0,
++      595.2760009765625,
++      841.8900146484375
++    ],
++    "quote": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 165\t\nSábado 11 de julio de 2015\t\nSec. I.   Pág. 57724\nEn un plazo máximo de diez días hábiles a contar desde la recepción por parte \nde la entidad de origen de la solicitud con la documentación correspondiente, esta \nentidad deberá ordenar la transferencia bancaria y remitir a la entidad de destino \ntoda la información financiera y fiscal necesaria para el traspaso.\nNo se podrán aplicar penalizaciones, gastos o descuentos al importe de esta \nmovilización que se generen como consecuencia del propio traspaso de fondos. A \nestos efectos, tratándose de un Seguro Individual de Ahorro a Largo Plazo, los \nderechos económicos se valorarán por el importe de la provisión matemática o por \nel valor de mercado de los activos asignados.\nEn los procedimientos de movilizaciones a que se refiere esta disposición \nadicional se autoriza que la transmisión de la solicitud de traspaso, la transferencia \nde efectivo y la transmisión de la información entre las entidades intervinientes, \npuedan realizarse a través del Sistema Nacional de Compensación Electrónica, \nmediante las operaciones que, para estos supuestos, se habiliten en dicho Sistema.»\nTreinta y ocho.  Se modifica la disposición transitoria tercera, que queda redactada de \nla siguiente forma:\n«Disposición transitoria tercera.  Regularización de deducciones por incumplimiento \nde requisitos.\n1.  Cuando, por incumplimiento de alguno de los requisitos establecidos, se \npierda el derecho, en todo o en parte, a las deducciones aplicadas en períodos \nimpositivos iniciados con anterioridad a 1 de enero de 2009, las cantidades \nindebidamente deducidas se sumarán a la cuota líquida estatal y a la cuota líquida \nautonómica, del ejercicio en que se produzca el incumplimiento, en el mismo \nporcentaje que, en su momento, se aplicó.\n2.  Cuando, en períodos impositivos posteriores al de su aplicación se pierda el \nderecho, en todo o en parte, a las deducciones practicadas por cuenta ahorro-\nempresa, el contribuyente estará obligado a sumar a la cuota líquida estatal y a la \ncuota líquida autonómica o complementaria devengadas en el ejercicio en que se \nhayan incumplido los requisitos, las cantidades indebidamente deducidas, más los \nintereses de demora a que se refiere el artículo 26.6 de la Ley 58/2003, de 17 de \ndiciembre, General Tributaria, en la forma prevista en la letra b) del apartado 2 del \nartículo 59 de este Reglamento, en su redacción en vigor a 31 de diciembre de 2014.»\nTreinta y nueve.  Se modifica la disposición transitoria decimotercera, que queda \nredactada de la siguiente forma:\n«Disposición transitoria decimotercera.  Tipos de retención aplicables en 2015.\n1.  En el período impositivo 2015, la escala a la que se refiere el artículo 85 de \neste Reglamento será la prevista, según proceda, en el apartado 2 de la disposición \nadicional trigésima primera de la Ley del Impuesto.\n2.  En el período impositivo 2015, los porcentajes de pagos a cuenta previstos \nen los artículos 80.1, números 3.º y 4.º, 90, 95.1, 96, 99, 100, 101.2, 107 y 114.3 \nserán los previstos en el apartado 3 de la disposición adicional trigésima primera de \nla Ley del Impuesto.\n3.  Cuando se produzcan regularizaciones del tipo de retención conforme al \nartículo 87 de este Reglamento con anterioridad a 12 de julio, el nuevo tipo de \nretención aplicable no podrá ser superior al 47 por ciento. A partir de dicha fecha, el \ntipo máximo de retención resultante de las regularizaciones efectuadas será el 46 \npor ciento, salvo en el supuesto previsto en el último párrafo del apartado 2 de la \ndisposición adicional trigésima primera, en el que el tipo del 47 por ciento resultará \nde aplicación hasta 31 de julio.\ncve: BOE-A-2015-7770\nVerificable en http://www.boe.es\n",
++    "renderSha256": "00e880ef40a568ecfa8df230dc6fe3cc43a5b85e5089fabcd2fc991cecee6e75",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "00e880ef40a568ecfa8df230dc6fe3cc43a5b85e5089fabcd2fc991cecee6e75.png"
++  },
++  {
++    "documentSha256": "6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
++    "page": 24,
++    "bbox": [
++      0.0,
++      0.0,
++      595.2760009765625,
++      841.8900146484375
++    ],
++    "quote": "BOLETÍN OFICIAL DEL ESTADO\nNúm. 165\t\nSábado 11 de julio de 2015\t\nSec. I.   Pág. 57725\nLos citados porcentajes serán, respectivamente, el 24 o el 23 por ciento, cuando \nla totalidad de los rendimientos del trabajo se hubiesen obtenido en Ceuta y Melilla \ny se beneficien de la deducción prevista en el artículo 68.4 de esta Ley.»\nCuarenta.  Se añade una nueva disposición transitoria decimosexta, que queda \nredactada de la siguiente forma:\n«Disposición transitoria decimosexta.  Salario medio anual del conjunto de \ndeclarantes del Impuesto.\nEn el caso de rendimientos del trabajo que deriven del ejercicio de opciones de \ncompra sobre acciones o participaciones por los trabajadores a los que resulte de \naplicación lo previsto en el apartado 4 de la disposición transitoria vigésima quinta \nde la Ley del Impuesto, a efectos de aplicar del límite previsto en el número 1.º de \nla letra b) del apartado 2 del artículo 18 de la Ley del Impuesto en su redacción en \nvigor a 31 de diciembre de 2014, la cuantía del salario medio anual del conjunto de \ndeclarantes del Impuesto será de 22.100 euros.»\nCuarenta y uno.  Se añade una nueva disposición transitoria decimoséptima, que \nqueda redactada de la siguiente forma:\n«Disposición transitoria decimoséptima.  Incumplimiento del requisito de \nmantenimiento de las acciones en los planes generales de entrega de opciones \nsobre acciones.\nEn los planes generales de entrega de opciones de compra sobre acciones o \nparticipaciones regulados en el artículo 18.2 de la Ley del Impuesto, en su redacción \nen vigor a 31 de diciembre de 2014, el incumplimiento del requisito de mantenimiento \nde las acciones o participaciones adquiridas, al menos, durante tres años, motivará \nla obligación de presentar una autoliquidación complementaria, con inclusión de los \nintereses de demora, en el plazo que medie entre la fecha en que se incumpla el \nrequisito y la finalización del plazo reglamentario de declaración correspondiente al \nperíodo impositivo en que se produzca dicho incumplimiento.»\nArtículo segundo.  Modificación del Reglamento del Impuesto sobre la Renta de no \nResidentes, aprobado por el Real Decreto 1776/2004, de 30 de julio.\nSe introducen las siguientes modificaciones en el Reglamento del Impuesto sobre la \nRenta de no Residentes, aprobado por el Real Decreto 1776/2004, de 30 de julio:\nUno.  Se introduce un nuevo artículo 7 bis, que queda redactado de la siguiente forma:\n«Artículo 7 bis.  Borrador de declaración.\n1.  Los contribuyentes podrán solicitar la puesta a disposición de un borrador \nde declaración en los términos previstos en el artículo 28 bis de la Ley del Impuesto.\nA tales efectos, la Administración tributaria podrá requerir a los contribuyentes la \npresentación de la información y documentos que resulten necesarios para su \nelaboración.\nEl Ministro de Hacienda y Administraciones Públicas determinará el lugar, plazo, \nforma y procedimiento de dicho requerimiento.\n2.  Cuando el contribuyente considere que el borrador de declaración no refleja \nsu situación tributaria a efectos de este Impuesto, deberá presentar la \ncorrespondiente declaración, de acuerdo con lo dispuesto en el artículo 28 del texto \nrefundido de la Ley del Impuesto.\nNo obstante, podrá instar la rectificación del borrador cuando advierta que \ncontiene datos erróneos o inexactos.\ncve: BOE-A-2015-7770\nVerificable en http://www.boe.es\n",
++    "renderSha256": "c80cb521d1783ebee3731dce08129746ce419bae52b559b717db38b9ba318da0",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "c80cb521d1783ebee3731dce08129746ce419bae52b559b717db38b9ba318da0.png"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 21,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 20 \n \n \n \n \nCÁLCULO DE LOS GASTOS DEDUCIBLES \n \nOTROS GASTOS  \n \nA. CO\u0010  CARÁCTER GE\u0010ERAL \n \nGASTOSGEN = 2.000,00 \n \nB. I\u0010CREME\u0010TO POR MOVILIDAD GEOGRAFICA \n \nSi MOVIL = S y CAMBIORESI = 2015: INCREGASMOVIL = 2000 \nElse: INCREGASMOVIL = 0.00 \nFinsi \n \nC. I\u0010CREME\u0010TO PARA TRABAJADORES ACTIVOS CO\u0010 DISCAPACIDAD \n \nSi SITUPER = ACTIVO: \nSi [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 \nElse: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 \nElse: INCREGASDISTRA= 0,00 \nElse: INCREGASDISTRA= 0,00 \nFinsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN  + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 \n \nSI OTROSGASTOS > RETRIB – COTIZACIONES: OTROSGASTOS = RETRIB – COTIZACIONES \n \nFinsi. \n \nGASTOS  DEDUCIBLES \n \nGASTOS = COTIZACIONES + OTROSGASTOS \n \n \nRE\u0010DIMIE\u0010TO \u0010ETO DEL TRABAJO (a efectos del cálculo de la reducción por obtención \nde rendimientos del trabajo). \n \n \nRNT = RETRIB – IRREGULAR1 – IRREGULAR2  –  COTIZACIONES \n \nSi RNT < 0 : RNT = 0 \n \n \n \n \n",
++    "renderSha256": "617ddd6f02203a8505698e6c171a67188462844a147145599205948556741466",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "617ddd6f02203a8505698e6c171a67188462844a147145599205948556741466.png"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 22,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 21 \n \n \n \n \n \n \nREDUCCIÓ\u0010 POR OBTE\u0010CIO\u0010 DE RE\u0010DIMIE\u0010TOS DEL TRABAJO  \n \nA.REDUCCIÓ\u0010 DE CARÁCTER GE\u0010ERAL \n \nSi RNT  ≤  11.250,00 : RED20 = 3.700 \n \nElse: Si  RNT  ≤ 14.450,00 : RED20 = 3.700,00 – [1,15625 * (RNT- 11.250,00)]   \n \nElse: RED20 = 0,00 \n \nFinsi. \n \nSe define la función REDONDEAR1 (...), consistente en redondear al segundo decimal magnitudes que se \nconsideran “finales”, en aplicación de la normativa sobre introducción del EURO, y teniendo en cuenta que \n0,005 se redondea a 0,01. \n \nRED20 = REDONDEAR1 (RED20) \n \n \nB.REDUCCIÓ\u0010 POR PROLO\u0010GACIÓ\u0010 DE LA ACTIVIDAD LABORAL. \n \n \nSi PROLON = S : PROLONLAB = RED20 \n \nElse: PROLONLAB = 0,00 \n \nFinsi. \n \n \nB.REDUCCIÓ\u0010 POR MOVILIDAD GEOGRÁFICA. \n \nSi MOVIL = S y CAMBIORESI = 2014:  \n \nSi RNT  ≤  9.180,00 : MOVILGEO = 4.080 \n \nElse: Si  RNT  ≤  13.260,00 : MOVILGEO = 4.080,00 – [0,35 * (RNT- 9.180,00)]   \n \nElse: MOVILGEO = 2.652,00 \nElse: MOVILGEO = 0,00 \nFinsi \n \nMOVILGEO = REDONDEAR1 (MOVILGEO) \n \n \nRE\u0010DIMIE\u0010TO \u0010ETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20 – PROLONLAB – MOVILGEO - DISTRA \n \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \n",
++    "renderSha256": "679397c3a06b6aca04660234d600e327e2663bdf809d7326d29c8060f19352c4",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "679397c3a06b6aca04660234d600e327e2663bdf809d7326d29c8060f19352c4.png"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 30,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 29 \n \n \n \n \nElse: Si SITUFAM = SITUACION3: \n \nSi [NUMDES = 0 y RETRIB ≤  (12.000,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤  (12.607,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤  (13.275,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \nFinsi. \n \nFinsi. \n \n \nSi  EXENTOS = S :  \nCUOTA = 0,00  \n \nTIPO = 0,00 \n \n \n \n \nIr a   \n \n \n \n  \n \nFinsi. \n \n \n \nB.  RE\u0010DIMIE\u0010TOS SUJETOS A RETE\u0010CIÓ\u0010 \n \nB1.CUOTA1 \n \n** Calculo de la cuota 1. Función ESCALA (BASE ...): Consiste en la aplicación de la \nTABLA 2. \n \nEjemplo: \nPara una base de 24.000,00: \n \nHasta 20.200,00: 4.427,50 \n \nResto: 24.000,00 – 20.200,00 = 3.800,00: 3.800,00* 0,31 = 1.178,00 \n \nCUOTA 1=  4.427,50 + 1.178, 00 = 5.605,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN INCREMENTADA \n \n \nBASE hasta \nCuota \nResto BASE \nhasta \nPorcentaje \n0,00 \n0,00 \n12.450,00 \n20,00 \n12.450,00 \n2.490,00 \n7.750,00 \n25,00 \n20.200,00 \n4.427,50 \n13.800,00 \n31,00 \n34.000,00 \n8.705,50 \n26.000,00 \n39,00 \n60.000,00 \n18.845,50 \nEn adelante \n47,00 \n \nNOTA: Las cantidades que figuran en la columna cuota y en la columna de porcentaje son el resultado de agregar la  \nescala de retención del artículo 85.1.1.º del RIRPF y la escala de incrementos de la cuota de retención establecida en el \napartado 2 de la disposición adicional trigésima quinta de la LIRPF, según la redacción dada por el Real Decreto-ley \n20/2011, de 30  de diciembre, prorrogada para 2014, por la Ley 22/2013 de 23 de diciembre  de Presupuestos Generales \ndel Estado para el año 2014. \n \n \n1 \n",
++    "renderSha256": "f596a5bcd006150731377e317011536cc73852271a55dd7e4071206fc85d56d5",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "f596a5bcd006150731377e317011536cc73852271a55dd7e4071206fc85d56d5.png"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 6,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 5 \n \n \n \n35. Si (REGULARIZACIÓN = S y RETRIB ≤  PERCIBIDO) : “Las Retribuciones totales consignadas en \nDatos económicos (importes anuales) no pueden ser inferiores o iguales a las Retribuciones ya \nsatisfechas con anterioridad a la regularización”. \n36. Si (REGULARIZACION = S y CAUSA11 = N y  RETRIBA = 0,00): “Las Retribuciones anuales \nconsideradas con anterioridad a la regularización son obligatorias”. \n37. Si (REGULARIZACION = S y PERCIBIDO = 0,00): “Las Retribuciones ya satisfechas con anterioridad \na la regularización son obligatorias”. \n38. Si (REGULARIZACION = S y CAUSA9 = N y CAUSA10 = N y CAUSA11 = N y  MINPERFAA = \n0,00): “Mínimo personal y familiar determinado antes de la regularización es obligatorio.”  \n39. Si [ (REGULARIZACION = S) y (CAUSA1 a CAUSA11 = N) ] :  “No ha seleccionado ninguna causa \nde regularización”. \n40. Si [ (REGULARIZACION = S) y (CAUSA1 = S ) y (BASE=BASEA) ] :  “De los datos introducidos no \nse desprende que se hayan producido variaciones en la base para determinar el tipo de retención, lo cual \nes incompatible con la causa de regularización consignada” \n41. Si [ (REGULARIZACION = S) y (CAUSA2 = S) y (MINPERFA=MINPERFAA) ] : “De los datos \nintroducidos no se desprende que se hayan producido variaciones en el mínimo personal y familiar para \ndeterminar el tipo de retención, lo cual es incompatible con la causa de regularización consignada”. \n42. Si (REGULARIZACION = S y CAUSA3 = S y  CONYUGE = 0,00) : “No ha consignado el importe de \nla Pensión compensatoria a favor del cónyuge”. \n43. Si (REGULARIZACION = S y CAUSA4 = S y  ANUALIDADES = 0,00) : “No ha consignado el \nimporte de las Anualidades por alimentos a favor de hijos” \n44. Si (REGULARIZACION = S y CAUSA5 = S y SITUFAM no= SITUACION3):“Si selecciona como \ncausa de regularización el cambio de la situación familiar “2” a la situación familiar “3”, sólo puede \nseleccionar situación familiar “3”. \n45. Si (REGULARIZACION = S y CAUSA6 = S y CAUSA7 = S): “Ha seleccionado dos causas \nincompatibles entre si”. \n46. Si (REGULARIZACION = S y CAUSA6 = S y CAUSA8 = S): “Ha seleccionado dos causas \nincompatibles entre si”. \n47. Si (REGULARIZACION = S y CAUSA7 = S y CAUSA8 = S): “Ha seleccionado dos causas \nincompatibles entre si”. \n48. Si (REGULARIZACION = S y CAUSA9 = S y CAUSA10 = S): “Ha seleccionado dos causas \nincompatibles entre si”. \n49. Si (REGULARIZACION = S y CAUSA9 = S y CAUSA1 a CAUSA8 = S y CAUSA11 = S  ): “Ha \nseleccionado causas de regularización incompatibles entre sí” \n50.  Si (REGULARIZACION = S y CAUSA10 = S y CAUSA1 a CAUSA8 = S y CAUSA11 = S ): “Ha \nseleccionado causas de regularización incompatibles entre sí” \n51. Si REGULARIZACION = S y CAUSA9 = S   y PRESVIV = N “Si el perceptor no comunica que \nefectúa pagos por préstamos, la causa de regularización no puede ser  la realización de pagos por \npréstamos destinados para la adquisición de la vivienda habitual”. \n52. Si (REGULARIZACION = S y MINORADO = S  y MINOPAGOA = 0): “Debe consignar el importe de \nla minoración por pagos de préstamos para vivienda antes de la regularización”. \n53. Si \n(REGULARIZACION \n= \nS \ny \nMINORADO= \nS \n \ny \n(MINOPAGOA \n> \n660.14 \no \nMINOPAGOA>2,00%*RETRIBA)): “El importe de la minoración por pagos de préstamos para \nvivienda determinado antes de la regularización no puede superar el 2 por 100 de las retribuciones totales \nanuales determinadas antes de la regularización ni tampoco ser mayor de 660,14€”. \n54. Si (REGULARIZACION = S y CAUSA9 = N y PRESVIV = S  y MINORADO= N): “Si el perceptor ha \ncomunicado que realiza pagos  para el préstamo de su vivienda y antes de la regularización no se aplicó \nminoración por dicho concepto por pagos, la causa de regularización debe ser “El perceptor ha \n",
++    "renderSha256": "f745cf77f9b83f1638d28dda4512f9bd4fe17f9e293b0954954c856bc32dc6b6",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "f745cf77f9b83f1638d28dda4512f9bd4fe17f9e293b0954954c856bc32dc6b6.png"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 21,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 20 \n \n \n \n \nCÁLCULO DE LOS GASTOS DEDUCIBLES \n \nOTROS GASTOS  \n \nA. CO\u0010  CARÁCTER GE\u0010ERAL \n \nGASTOSGEN = 2.000,00 \n \nB. I\u0010CREME\u0010TO POR MOVILIDAD GEOGRAFICA \n \nSi MOVIL = S y CAMBIORESI = 2015: INCREGASMOVIL = 2000 \nElse: INCREGASMOVIL = 0.00 \nFinsi \n \nC. I\u0010CREME\u0010TO PARA TRABAJADORES ACTIVOS CO\u0010 DISCAPACIDAD \n \nSi SITUPER = ACTIVO: \nSi [DISCAPER = DESDE65 ó (DISCAPER = DE33A65 y MOVILPER = S)]: INCREGASDISTRA = 7.750,00 \nElse: Si DISCAPER = DE33A65: INCREGASDISTRA = 3.500,00 \nElse: INCREGASDISTRA= 0,00 \nElse: INCREGASDISTRA= 0,00 \nFinsi \n \nD.TOTAL OTROS GASTOS  \n \nOTROSGASTOS = GASTOSGEN  + INCREGASMOVIL + INCREGASDISTRA \n \nSI RETRIB – COTIZACIONES < 0: OTROSGASTOS = 0 \n \nSI OTROSGASTOS > RETRIB – COTIZACIONES: OTROSGASTOS = RETRIB – COTIZACIONES \n \nFinsi. \n \nGASTOS  DEDUCIBLES \n \nGASTOS = COTIZACIONES + OTROSGASTOS \n \n \nRE\u0010DIMIE\u0010TO \u0010ETO DEL TRABAJO (a efectos del cálculo de la reducción por obtención \nde rendimientos del trabajo). \n \n \nRNT = RETRIB – IRREGULAR1 – IRREGULAR2  –  COTIZACIONES \n \nSi RNT < 0 : RNT = 0 \n \n \n \n \n",
++    "renderSha256": "f32511aaf856b9614b6076b81b32c39830dc30a9800d5e1a90622d34bce87e55",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "render anterior72dpi"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 22,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 21 \n \n \n \n \n \n \nREDUCCIÓ\u0010 POR OBTE\u0010CIO\u0010 DE RE\u0010DIMIE\u0010TOS DEL TRABAJO  \n \nA.REDUCCIÓ\u0010 DE CARÁCTER GE\u0010ERAL \n \nSi RNT  ≤  11.250,00 : RED20 = 3.700 \n \nElse: Si  RNT  ≤ 14.450,00 : RED20 = 3.700,00 – [1,15625 * (RNT- 11.250,00)]   \n \nElse: RED20 = 0,00 \n \nFinsi. \n \nSe define la función REDONDEAR1 (...), consistente en redondear al segundo decimal magnitudes que se \nconsideran “finales”, en aplicación de la normativa sobre introducción del EURO, y teniendo en cuenta que \n0,005 se redondea a 0,01. \n \nRED20 = REDONDEAR1 (RED20) \n \nB.REDUCCIÓ\u0010 POR MOVILIDAD GEOGRÁFICA. \n \nSi MOVIL = S y CAMBIORESI = 2014:  \n \nSi RNT  ≤  9.180,00 : MOVILGEO = 4.080 \n \nElse: Si  RNT  ≤  13.260,00 : MOVILGEO = 4.080,00 – [0,35 * (RNT- 9.180,00)]   \n \nElse: MOVILGEO = 2.652,00 \nElse: MOVILGEO = 0,00 \nFinsi \n \nMOVILGEO = REDONDEAR1 (MOVILGEO) \n \n \nRE\u0010DIMIE\u0010TO \u0010ETO REDUCIDO \n \n \nRNTREDU = RNT – OTROSGASTOS -  RED20 – MOVILGEO  \nSi RNTRDU < 0 : RNTREDU = 0 \n \n \n \nREDUCCIÓ\u0010 PE\u0010SIO\u0010ISTA DE LA S. SOCIAL O CLASES PASIVAS \n \n \nSi SITUPER = PENSIONISTA : PENSION = 600,00 \n \nElse: PENSION = 0,00 \n \nFinsi. \n \n \n \n \n \n \n",
++    "renderSha256": "6764d2f22370ca8e4e35e8cd6c07e3d7585946dc0b5a883982e74c3016d3dd67",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "render anterior72dpi"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 30,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 29 \n \n \n \n \nElse: Si SITUFAM = SITUACION3: \n \nSi [NUMDES = 0 y RETRIB ≤  (12.000,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤  (12.607,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤  (13.275,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \nFinsi. \n \nFinsi. \n \n \nSi  EXENTOS = S :  \nCUOTA = 0,00  \n \nTIPO = 0,00 \n \n \n \n \nIr a   \n \n \n \n  \n \nFinsi. \n \n \n \nB.  RE\u0010DIMIE\u0010TOS SUJETOS A RETE\u0010CIÓ\u0010 \n \nB1.CUOTA1 \n \n** Calculo de la cuota 1. Función ESCALA (BASE ...): Consiste en la aplicación de la \nTABLA 2. \n \nEjemplo: \nPara una base de 24.000,00: \n \nHasta 20.200,00: 4.225,50 \n \nResto: 24.000,00 – 20.200,00 = 3.800,00: 3.800,00* 0,30 = 1.140,00 \n \nCUOTA 1=  4.225,50 + 1.140, 00 = 5.365,50 \n \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n \n \nBASE hasta \nCuota \nResto BASE \nhasta \nPorcentaje \n0,00 \n0,00 \n12.450,00 \n19,00 \n12.450,00 \n2.365,50 \n7.750,00 \n24,00 \n20.200,00 \n4.225,50 \n15.000,00 \n30,00 \n35.200,00 \n8.725,50 \n24.800,00 \n37,00 \n60.000,00 \n17.901,50 \nEn adelante \n45,00 \n \n \n \n \n \n \n \n1 \n",
++    "renderSha256": "ccf8f2832061640e0c72503d3c84fe9970c1d0381ef521524f87a3c0a4bf3f61",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "ccf8f2832061640e0c72503d3c84fe9970c1d0381ef521524f87a3c0a4bf3f61.png"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 35,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 34 \n \n \n \n \nREGULARIZACIÓ\u0010 \n \n \n \nCAUSA DE REGULARIZACIÓ\u0010 \nVBLE. \nCircunstancias que determinan variaciones en la base para calcular el tipo de \nretención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y \nfamiliar para calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria \nal cónyuge \nCAUSA3 \nQuedar obligado judicialmente el perceptor a satisfacer anualidades a favor de \nlos hijos \nCAUSA4 \nCambio de la situación familiar “2” a la situación familiar “3” \nCAUSA5 \nPérdida de la condición de residente en Ceuta o Melilla \nCAUSA6 \nAdquisición de la condición de residente en Ceuta o Melilla \nCAUSA7 \nComenzar a realizar trabajos fuera de Ceuta o Melilla por residentes en dichas ciudades \nCAUSA8 \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la \nadquisición o rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención \npor pagos por préstamos destinados a la adquisición o rehabilitación de su \nvivienda habitual \nCAUSA10 \nOtras causas \nCAUSA11 \n \n \n** Cálculo importe para la determinación del tipo de retención a partir de la regularización.                                                \n \n \n \nSI REGULARIZACIÓN = S  \n \n \nSi [CEUMELI = S y  RENCEMEA = N  y  CAUSA7  =  S]: \n \n \n \n \nIMPORTEREG = PERCIBIDO *  CUOTA/RETRIB + (RETRIB –  PERCIBIDO ) * (CUOTA/2) /RETRIB \n \nFinsi. \n \n \n \nElse: Si [RESICEME = S y RENCEME = N y RENCEMEA = S  y  CAUSA8  = S ]: \n \n \nIMPORTEREG = PERCIBIDO * (CUOTA/2) /RETRIB + (RETRIB – PERCIBIDO) * CUOTA/RETRIB   \n \nFinsi \n \n \n \nElse: Si [CEUMELI=S y RENCEMEA = S]:   \n \n  \nIMPORTEREG = CUOTA/2 \n \n \nFinsi. \n \nElse: IMPORTEREG = CUOTA \n \nFinsi. \n \n   \n",
++    "renderSha256": "74f978e3fb922573a3f3c89290652724b99098ea6271402799b108f92a07fa27",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "74f978e3fb922573a3f3c89290652724b99098ea6271402799b108f92a07fa27.png"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 36,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 35 \n \n \n \n \n** Tratamiento especial por minoración  por pagos de préstamos para la vivienda habitual \n \nSi [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S  o CAUSA5=S o CAUSA6=S o CAUSA7=S  o       \nCAUSA8 =S ): \nSi (MINORADO = S y PRESVIV =S y  RETRIB < 33.007,20): \n                           Si RETRIB>RETRIBA: MINOPAGO = MINOPAGOA+2,00%*(RETRIB-RETRIBA) \n                           Else: Si RETRIB<RETRIBA: MINOPAGO = MINOPAGOA−2,00%*(RETRIBA-RETRIB) \n                           Else: MINOPAGO = MINOPAGOA \n \n                Else: Si MINORADO = S y PRESVIV =N: \n                           MINOPAGO = MINOPAGOA \n  \n             Else: MINOPAGO= 0   \n \nElse: Si CAUSA9 = S  y  PRESVIV= S y  RETRIB < 33.007,20: \n                 Si MINORADO= S:  \nMINOPAGO =MINOPAGOA+ 2,00%*(RETRIB−PERCIBIDO) \n                 Else: MINOPAGO = 2,00%*(RETRIB−PERCIBIDO) \n         \nElse: Si CAUSA10 = S  y MINORADO = S y PRESVIV =N:  \n   MINOPAGO = MINOPAGOA−2%*(RETRIB−PERCIBIDO) \n \nElse: Si CAUSA11=S y PRESVIV =S y  RETRIB < 33.007,20: \n \nMINOPAGO = 2%  * (RETRIB – PERCIBIDO) \n \nElse: MINOPAGO= 0           \n                                                                                                                                              \nElse: MINOPAGO = 0 \n \nFinsi. \n \n \n \n \n \n \n \n \n \n \n \n \n \n  \nSi (PRESVIV= S y MINOPAGO > 2,00%*33.007,20): MINOPAGO =2,00%*33.007,20 \n \nMINOPAGO = TRUNCAR (MINOPAGO) \n \n \n** Cálculo del tipo de retención a partir de la regularización \n \nTIPOREG = [( IMPORTEREG – RETENIDO−MINOPAGO) / (RETRIB – PERCIBIDO )] * 100 \n \nSi TIPOREG < 0: TIPOREG = 0,00 \n \n      TIPOREG = TRUNCAR (TIPOREG) \n \nFinsi: \n \n \n** Límites generales en la aplicación del tipo (máximo del 45 %  y mínimos del  15 % y 2 %) \n \nSi  CEUMELI = S  y   \n \n \n \nSi (RENCEMEA  = S    y  TIPOREG > 23,00): TIPOREG = 23,00 \n \n \n \nElse: Si TIPOREG > 45,00: TIPOREG = 45,00  \n \n \n \n \nElse: Si (CONTRATO = ESPECIAL y TIPOREG < 8,00):  \nTIPOREG = 8,00 \n \n \nElse: Si (CONTRATO = INFERIORAÑO y TIPOREG < 1,00): TIPOREG = 1,00 \n \nFinsi \n \nElse: Si TIPOREG > 45,00: TIPOREG = 45,00 \n",
++    "renderSha256": "d0b8101ff14a0f9a75a9d133da28a9e94b468da3844a97231e3412cfdc26e79f",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "d0b8101ff14a0f9a75a9d133da28a9e94b468da3844a97231e3412cfdc26e79f.png"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 30,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 29 \n \n \n \n \nElse: Si SITUFAM = SITUACION3: \n \nSi [NUMDES = 0 y RETRIB ≤  (12.000,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤  (12.607,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤  (13.275,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \nFinsi. \n \nFinsi. \n \n \nSi  EXENTOS = S :  \nCUOTA = 0,00  \n \nTIPO = 0,00 \n \n \n \n \nIr a   \n \n \n \n  \n \nFinsi. \n \n \n \nB.  RE\u0010DIMIE\u0010TOS SUJETOS A RETE\u0010CIÓ\u0010 \n \nB1.CUOTA1 \n \n** Calculo de la cuota 1. Función ESCALA (BASE ...): Consiste en la aplicación de la \nTABLA 2. \n \nEjemplo: \nPara una base de 24.000,00: \n \nHasta 20.200,00: 4.326,50 \n \nResto: 24.000,00 – 20.200,00 = 3.800,00: 3.800,00* 0,3050 = 1.159,00 \n \nCUOTA 1=  4.326,50 + 1.159, 00 = 5.485,50 \n \n         TABLA 2 - ESCALA DE RETENCIÓN  \n \nBASE hasta \nCuota \nResto BASE \nhasta \nPorcentaje \n0,00 \n0,00 \n12.450,00 \n20,00 \n12.450,00 \n2.490,00 \n7.750,00 \n25,00 \n20.200,00 \n4.427,50 \n13.800,00 \n31,00 \n34.000,00 \n8.705,50 \n26.000,00 \n39,00 \n60.000,00 \n18.845,50 \nEn adelante \n47,00 \n \n \nBASE hasta \nCuota \nResto BASE \nhasta \nPorcentaje \n0,00 \n0,00 \n12.450,00 \n19,50 \n12.450,00 \n2.427,75 \n7.750,00 \n24,50 \n20.200,00 \n4.326,50 \n13.800,00 \n30,50 \n34.000,00 \n8.535,50 \n26.000,00 \n38,00 \n60.000,00 \n18.415,50 \nEn adelante \n46,00 \n1 \n",
++    "renderSha256": "1e48e543799aafcbfc06d62480b643993ce723956c1393a5b218374081a2e0e5",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "1e48e543799aafcbfc06d62480b643993ce723956c1393a5b218374081a2e0e5.png"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 34,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 33 \n \n \n \n \nREGULARIZACIÓ\u0010 \n \n \n \nCAUSA DE REGULARIZACIÓ\u0010 \nVBLE. \nCircunstancias que determinan variaciones en la base para calcular el tipo de \nretención \nCAUSA1 \nCircunstancias que determinan variaciones en el importe del mínimo personal y \nfamiliar para calcular el tipo de retención \nCAUSA2 \nQuedar obligado judicialmente el perceptor a satisfacer pensión compensatoria \nal cónyuge \nCAUSA3 \nQuedar obligado judicialmente el perceptor a satisfacer anualidades a favor de \nlos hijos \nCAUSA4 \nCambio de la situación familiar “2” a la situación familiar “3” \nCAUSA5 \nPérdida de la condición de residente en Ceuta o Melilla \nCAUSA6 \nAdquisición de la condición de residente en Ceuta o Melilla \nCAUSA7 \nComenzar a realizar trabajos fuera de Ceuta o Melilla por residentes en dichas ciudades \nCAUSA8 \nEl perceptor ha comunicado que realiza pagos por préstamos destinados a la \nadquisición o rehabilitación de su vivienda habitual \nCAUSA9 \nEl perceptor ha comunicado la improcedencia de reducción del tipo de retención \npor pagos por préstamos destinados a la adquisición o rehabilitación de su \nvivienda habitual \nCAUSA10 \nOtras causas \nCAUSA11 \n \n \n** Cálculo importe  para la determinación del tipo de retención a partir de la regularización.                                                \n \n \n \nSI REGULARIZACIÓN = S  \n \n \nSi [CEUMELI = S y  RENCEMEA = N  y  (CAUSA7  =  S  o  CAUSA11 = S)]: \n \n \n \n \nIMPORTEREG = PERCIBIDO *   CUOTA/RETRIB + (RETRIB – PERCIBIDO) * (CUOTA/2) /RETRIB \n \nFinsi. \n \n \n \nElse: Si [RESICEME = S y RENCEME = N y RENCEMEA = S  y  (CAUSA8  = S  o  CAUSA11 = S)]: \n \n \n IMPORTEREG = PERCIBIDO *  (CUOTA/2) /RETRIB + (RETRIB – PERCIBIDO) * CUOTA/RETRIB   \n \nFinsi \n \n \n \nElse: Si [CEUMELI=S y RENCEMEA = S]:   \n \n  \nIMPORTEREG = CUOTA/2 \n \n \nFinsi. \n \nElse: IMPORTEREG = CUOTA \n \nFinsi. \n \n   \n",
++    "renderSha256": "ceee84bc127b393f99bf14f88cf6103194e998a93cc0baf727abd0f27fac77a0",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "render anterior140dpi"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 35,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 34 \n \n \n \n** Tratamiento especial por minoración  por pagos de préstamos para la vivienda habitual \n \nSi [(CAUSA1=S o CAUSA2=S o CAUSA3=S o CAUSA4=S  o CAUSA5=S o CAUSA6=S o CAUSA7=S  o       \nCAUSA8 =S ): \nSi (MINORADO = S y PRESVIV =S y  RETRIB < 33.007,20): \n                           Si RETRIB>RETRIBA: MINOPAGO = MINOPAGOA+2,00%*(RETRIB-RETRIBA) \n                           Else: Si RETRIB<RETRIBA: MINOPAGO = MINOPAGOA−2,00%*(RETRIBA-RETRIB) \n                           Else: MINOPAGO = MINOPAGOA \n \n                Else: Si MINORADO = S y PRESVIV =N: \n                           MINOPAGO = MINOPAGOA \n  \n             Else: MINOPAGO= 0   \n \nElse: Si CAUSA9 = S  y  PRESVIV= S y  RETRIB < 33.007,20: \n                 Si MINORADO= S:  \nMINOPAGO =MINOPAGOA+ 2,00%*(RETRIB−PERCIBIDO) \n                 Else: MINOPAGO = 2,00%*(RETRIB−PERCIBIDO) \n         \nElse: Si CAUSA10 = S  y MINORADO = S y PRESVIV =N:  \n   MINOPAGO = MINOPAGOA−2%*(RETRIB−PERCIBIDO) \n \nElse: Si CAUSA11=S y PRESVIV =S y  RETRIB < 33.007,20: \n \nMINOPAGO = 2%  * (RETRIB – PERCIBIDO) \n \nElse: MINOPAGO= 0           \n      \nElse: Si CAUSA11=S: \nSi (MINORADO = S y PRESVIV =S y  RETRIB < 33.007,20): \n                           Si RETRIB>RETRIBA: MINOPAGO = MINOPAGOA+2,00%*(RETRIB-RETRIBA) \n                           Else: Si RETRIB<RETRIBA: MINOPAGO = MINOPAGOA−2,00%*(RETRIBA-RETRIB) \n                           Else: MINOPAGO = MINOPAGOA \n \n \n               Else: Si MINORADO = S y PRESVIV =N: \n                           MINOPAGO = MINOPAGOA \n \n \n         Else : Si MINORADO = N y PRESVIV =S y RETRIB < 33.007,20):  \n  \n \nMINOPAGO=2%*(RETRIB−PERCIBIDO) \n             \n           Else: MINOPAGO= 0   \n \n                                                                                                                                         \nElse: MINOPAGO = 0 \n \nFinsi. \n \n \n \n \n \n \n \n \n \n \n \n \n \n  \nSi (PRESVIV= S y MINOPAGO > 2,00%*33.007,20): MINOPAGO =2,00%*33.007,20 \n \nMINOPAGO = TRUNCAR (MINOPAGO) \n \n \n** Cálculo del tipo de retención a partir de la regularización \n \nTIPOREG = [(IMPORTEREG – RETENIDO  −MINOPAGO) / (RETRIB – PERCIBIDO )] * 100 \n \nSi TIPOREG < 0: TIPOREG = 0,00 \n \n      TIPOREG = TRUNCAR (TIPOREG) \n \nFinsi: \n \n \n \n",
++    "renderSha256": "90ff924f8a2230bfd7a4b8b87525718977f7495d2cff8dceb942e3385e6711d8",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "90ff924f8a2230bfd7a4b8b87525718977f7495d2cff8dceb942e3385e6711d8.png"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 36,
++    "bbox": [
++      0.0,
++      0.0,
++      595.0,
++      842.0
++    ],
++    "quote": " \nDepartamento de Informática Tributaria \n \nPágina 35 \n \n \n \n** Límites generales en la aplicación del tipo (máximo del 46,00 %  y mínimos del  15 % y 2 %) \n \nSi  CEUMELI = S  y   \n \n \n \nSi (RENCEMEA  = S    y  TIPOREG > 23,00): TIPOREG = 23,00: \n \n \n \nElse: Si TIPOREG > 46,00: TIPOREG =  46,00: \n \n \n \n \nElse: Si (CONTRATO = ESPECIAL y TIPOREG < 8,00):  \nTIPOREG = 8,00 \n \n \nElse: Si (CONTRATO = INFERIORAÑO y TIPOREG < 1,00): TIPOREG = 1,00 \n \nFinsi \n \nElse: Si TIPOREG > 46,00: TIPOREG = 46,00: \n \nElse: Si (CONTRATO = ESPECIAL y TIPOREG < 15,00):  \nTIPOREG = 15,00 \n \n \nElse: Si (CONTRATO = INFERIORAÑO y TIPOREG < 2,00):  TIPOREG = 2,00 \n \n  Finsi. \n \n \n** Cálculo del importe anual de la retención \n \nIMPORTE =  {[(RETRIB – PERCIBIDO) * TIPOREG] / 100 } + RETENIDO \n \nIMPORTE = REDONDEAR1 (IMPORTE) \n \n \n \n** Causas de regularización a las que no son aplicables los límites del art. 87.5 del RIRPF (R.D.439/2007). \n \n \nSi  [CAUSA5 = S o CAUSA6 = S o CAUSA8 = S o CAUSA9 = S o  CAUSA10 = S o CAUSA11 = S]: Fin. \nMostrar resultados. \n \nElse: continuar. \n \nFinsi. \n \n",
++    "renderSha256": "4b1d0b9dd8a402abce8a35c002f0c47198dd82a946b8592d3ffc99c11c33e55d",
++    "dpi": 100,
++    "renderer": "1.26.7",
++    "visualRead": true,
++    "visualArtifact": "4b1d0b9dd8a402abce8a35c002f0c47198dd82a946b8592d3ffc99c11c33e55d.png"
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/control-base.json
+@@ -0,0 +1,42 @@
++{
++  "base": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
++  "head": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
++  "diff": "",
++  "entries": 9391,
++  "missing": [],
++  "symlinks": [
++    {
++      "path": "AGENTS.md",
++      "target": "CLAUDE.md",
++      "resolves": true
++    },
++    {
++      "path": "docs/procedencia/revisiones/preservacion-v2/scratch/.cache/procedencia",
++      "target": "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v2/scratch",
++      "resolves": true
++    },
++    {
++      "path": "docs/procedencia/revisiones/preservacion-v2/scratch/alias",
++      "target": "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v2/scratch",
++      "resolves": true
++    }
++  ],
++  "antiSlopRules": {
++    "anti-slop/no-chained-type-assertions": "error",
++    "anti-slop/no-conditional-empty-object-spread": "error",
++    "anti-slop/no-known-value-widening": "error",
++    "anti-slop/no-module-mocking": "error",
++    "anti-slop/no-object-parameters": "error",
++    "anti-slop/no-reflect-apply": "error",
++    "anti-slop/no-reflect-get": "error",
++    "anti-slop/no-runtime-typeof": "error",
++    "anti-slop/no-unsafe-dictionary-type": "error",
++    "anti-slop/no-shape-in-symbol-names": "error",
++    "anti-slop/no-unknown-parameters": "error",
++    "anti-slop/no-unknown-returns": "error",
++    "anti-slop/no-unknown-type-aliases": "error",
++    "anti-slop/no-widen-then-assert": "error",
++    "anti-slop/require-safety-comment-for-type-assertion": "error",
++    "anti-slop-effect/no-service-constructor-imports": "error"
++  }
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/hallazgos.json
+@@ -0,0 +1,56 @@
++[
++  {
++    "id": "C1516-01",
++    "detail": "INFORME.md",
++    "decision": "candidato parcial sin aceptación",
++    "objecion": "No convertir comprobación parcial en cierre de versión.",
++    "respuesta": "Conservar límites de cada apartado del informe.",
++    "coste": "No habilitación",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "C1516-02",
++    "detail": "INFORME.md",
++    "decision": "candidato parcial sin aceptación",
++    "objecion": "No convertir comprobación parcial en cierre de versión.",
++    "respuesta": "Conservar límites de cada apartado del informe.",
++    "coste": "No habilitación",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "C1516-03",
++    "detail": "INFORME.md",
++    "decision": "candidato parcial sin aceptación",
++    "objecion": "No convertir comprobación parcial en cierre de versión.",
++    "respuesta": "Conservar límites de cada apartado del informe.",
++    "coste": "No habilitación",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "C1516-04",
++    "detail": "INFORME.md",
++    "decision": "candidato parcial sin aceptación",
++    "objecion": "No convertir comprobación parcial en cierre de versión.",
++    "respuesta": "Conservar límites de cada apartado del informe.",
++    "coste": "No habilitación",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "C1516-05",
++    "detail": "INFORME.md",
++    "decision": "candidato parcial sin aceptación",
++    "objecion": "No convertir comprobación parcial en cierre de versión.",
++    "respuesta": "Conservar límites de cada apartado del informe.",
++    "coste": "No habilitación",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "C1516-06",
++    "detail": "INFORME.md",
++    "decision": "candidato parcial sin aceptación",
++    "objecion": "No convertir comprobación parcial en cierre de versión.",
++    "respuesta": "Conservar límites de cada apartado del informe.",
++    "coste": "No habilitación",
++    "aceptacionFiscal": false
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/lint-tipos-final.log
+@@ -0,0 +1,2 @@
++All checks passed!
++Success: no issues found in 1 source file
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/lint-tipos.log
+@@ -0,0 +1,6 @@
++All checks passed!
++/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos.py:48: error: Incompatible types in assignment (expression has type "tuple[str, int, int]", variable has type "str")  [assignment]
++/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos.py:57: error: Non-overlapping equality check (left operand type: "tuple[str, int, int]", right operand type: "str")  [comparison-overlap]
++/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos.py:59: error: Incompatible types in assignment (expression has type "str", variable has type "Decimal")  [assignment]
++/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2015-2016-cierre/casos.py:64: error: Unsupported operand types for + ("str" and "Decimal")  [operator]
++Found 4 errors in 1 file (checked 1 source file)
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/mapa-paginas.json
+@@ -0,0 +1,982 @@
++[
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 1,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 2,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 3,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 4,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 5,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 6,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 7,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 8,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 9,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 10,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 11,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 12,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 13,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 14,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 15,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 16,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 17,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 18,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 19,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 20,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 21,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 22,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 23,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 24,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 25,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 26,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 27,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 28,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 29,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 30,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 31,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 32,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 33,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 34,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 35,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 36,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 37,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 38,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 39,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 40,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 41,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 42,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 43,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 44,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 45,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 46,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "page": 47,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 1,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 2,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 3,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 4,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 5,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 6,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 7,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 8,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 9,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 10,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 11,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 12,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 13,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 14,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 15,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 16,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 17,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 18,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 19,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 20,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 21,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 22,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 23,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 24,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 25,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 26,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 27,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 28,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 29,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 30,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 31,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 32,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 33,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 34,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 35,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 36,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 37,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 38,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 39,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 40,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 41,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 42,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 43,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 44,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 45,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 46,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "page": 47,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 1,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 2,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 3,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 4,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 5,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 6,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 7,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 8,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 9,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 10,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 11,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 12,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 13,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 14,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 15,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 16,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 17,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 18,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 19,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 20,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 21,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 22,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 23,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 24,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 25,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 26,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 27,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 28,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 29,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 30,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 31,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 32,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 33,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 34,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 35,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 36,
++    "visualPersonal": true,
++    "lecturaJuridicaIntegral": false,
++    "decision": "ver cita propia"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 37,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 38,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 39,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 40,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 41,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 42,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 43,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 44,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 45,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  },
++  {
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "page": 46,
++    "visualPersonal": false,
++    "lecturaJuridicaIntegral": false,
++    "decision": "pendiente: no inspeccionada personalmente"
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/matriz-60.json
+@@ -0,0 +1,842 @@
++[
++  {
++    "id": "2015-enero-revision:remuneracion",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Falta cerrar art83.2: previsión anual, variables, especie y jornal; no probados casos de normalización.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:irregularidad",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Falta cerrar cadena art18/DT11/DT12 y antiguos art17, límites y no recurrencia; caso DT12 parcial C1516-05.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:gastos",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "C1516-05: discrepancia de límite acreditada; falta eslabón histórico del caso y elegibilidad completa de incrementos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:reduccion-trabajo",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Fórmula y seis fronteras comprobadas; falta examen visual propio de julio p22 y cadena completa de elegibilidad.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:reducciones-personales",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Falta resolver acumulación pensionista/más de dos descendientes y probar todas sus combinaciones.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:minimos",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Faltan lectura visual integral, cadena histórica y casos por edad/renta/convivencia/adopción/prorrateo/discapacidad.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:escala",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "candidato-acotado",
++    "alcance": "Tabla y ejemplo24000 contrastados visualmente; aritmética por fronteras; no implica exactitud del procedimiento completo.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:exclusion",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Falta inspección visual completa de ocho celdas y validación de situación1 sin descendientes por versión.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:limite43",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "RD1003 p8 acredita22000/43%; faltan casos a ambos lados y cruce con todas las situaciones familiares.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:deduccion80bis",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "RD1003 p8 suprime85bis; falta mapa visual integral de todas las ramas eliminadas en los algoritmos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:tipo-minimo",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Falta cierre de excepciones de relaciones especiales; no basta dividir el15% por dos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:tipo-maximo",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "candidato-acotado",
++    "alcance": "C1516-01 cierra selector acotado; falta probar todas las mezclas territoriales y orden de mínimos/límites.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:redondeos",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Dos ejemplos aislados asertados; falta mapa de cada REDONDEAR1/TRUNCAR por rama.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:regularizacion",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Faltan casos completos87.5, vivienda y residencia; julio conserva discrepancia C1516-02.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:comunicacion",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Faltan modelos/hechos y cómputo de eficacia por causa, cinco días y opción trimestral.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:multiples-pagadores",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "No revisado procedimiento especial89.A ni todo el contrato por pagador.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:vivienda",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Falta cadena de derecho transitorio, comunicación y pruebas de causas9/10 y sucesivas.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:ceuta-melilla",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "Falta criterio primario discriminante de pérdida de residencia en julio y elegibilidad68.4 completa.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:validaciones",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "no-cerrado",
++    "alcance": "En2016 p6 validación35 rechaza divisor no positivo; faltan las demás validaciones y versiones.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-enero-revision:fecha-aplicacion",
++    "documentSha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "decision": "candidato-acotado",
++    "alcance": "C1516-01 selector acotado; portadas y fechas anunciadas no se equiparan. C1516-02/06 pendientes.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:remuneracion",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Falta cerrar art83.2: previsión anual, variables, especie y jornal; no probados casos de normalización.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:irregularidad",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Falta cerrar cadena art18/DT11/DT12 y antiguos art17, límites y no recurrencia; caso DT12 parcial C1516-05.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:gastos",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "C1516-05: discrepancia de límite acreditada; falta eslabón histórico del caso y elegibilidad completa de incrementos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:reduccion-trabajo",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Fórmula y seis fronteras comprobadas; falta examen visual propio de julio p22 y cadena completa de elegibilidad.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:reducciones-personales",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Falta resolver acumulación pensionista/más de dos descendientes y probar todas sus combinaciones.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:minimos",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Faltan lectura visual integral, cadena histórica y casos por edad/renta/convivencia/adopción/prorrateo/discapacidad.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:escala",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "candidato-acotado",
++    "alcance": "Tabla y ejemplo24000 contrastados visualmente; aritmética por fronteras; no implica exactitud del procedimiento completo.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:exclusion",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Falta inspección visual completa de ocho celdas y validación de situación1 sin descendientes por versión.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:limite43",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "RD1003 p8 acredita22000/43%; faltan casos a ambos lados y cruce con todas las situaciones familiares.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:deduccion80bis",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "RD1003 p8 suprime85bis; falta mapa visual integral de todas las ramas eliminadas en los algoritmos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:tipo-minimo",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Falta cierre de excepciones de relaciones especiales; no basta dividir el15% por dos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:tipo-maximo",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "candidato-acotado",
++    "alcance": "C1516-01 cierra selector acotado; falta probar todas las mezclas territoriales y orden de mínimos/límites.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:redondeos",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Dos ejemplos aislados asertados; falta mapa de cada REDONDEAR1/TRUNCAR por rama.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:regularizacion",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Faltan casos completos87.5, vivienda y residencia; julio conserva discrepancia C1516-02.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:comunicacion",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Faltan modelos/hechos y cómputo de eficacia por causa, cinco días y opción trimestral.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:multiples-pagadores",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "No revisado procedimiento especial89.A ni todo el contrato por pagador.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:vivienda",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Falta cadena de derecho transitorio, comunicación y pruebas de causas9/10 y sucesivas.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:ceuta-melilla",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "Falta criterio primario discriminante de pérdida de residencia en julio y elegibilidad68.4 completa.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:validaciones",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "no-cerrado",
++    "alcance": "En2016 p6 validación35 rechaza divisor no positivo; faltan las demás validaciones y versiones.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2015-julio-revision:fecha-aplicacion",
++    "documentSha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "decision": "candidato-acotado",
++    "alcance": "C1516-01 selector acotado; portadas y fechas anunciadas no se equiparan. C1516-02/06 pendientes.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:remuneracion",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Falta cerrar art83.2: previsión anual, variables, especie y jornal; no probados casos de normalización.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:irregularidad",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Falta cerrar cadena art18/DT11/DT12 y antiguos art17, límites y no recurrencia; caso DT12 parcial C1516-05.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:gastos",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "C1516-05: discrepancia de límite acreditada; falta eslabón histórico del caso y elegibilidad completa de incrementos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:reduccion-trabajo",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Fórmula y seis fronteras comprobadas; falta examen visual propio de julio p22 y cadena completa de elegibilidad.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:reducciones-personales",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Falta resolver acumulación pensionista/más de dos descendientes y probar todas sus combinaciones.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:minimos",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Faltan lectura visual integral, cadena histórica y casos por edad/renta/convivencia/adopción/prorrateo/discapacidad.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:escala",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "candidato-acotado",
++    "alcance": "Tabla y ejemplo24000 contrastados visualmente; aritmética por fronteras; no implica exactitud del procedimiento completo.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:exclusion",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Falta inspección visual completa de ocho celdas y validación de situación1 sin descendientes por versión.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:limite43",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "RD1003 p8 acredita22000/43%; faltan casos a ambos lados y cruce con todas las situaciones familiares.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:deduccion80bis",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "RD1003 p8 suprime85bis; falta mapa visual integral de todas las ramas eliminadas en los algoritmos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:tipo-minimo",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Falta cierre de excepciones de relaciones especiales; no basta dividir el15% por dos.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:tipo-maximo",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "candidato-acotado",
++    "alcance": "C1516-01 cierra selector acotado; falta probar todas las mezclas territoriales y orden de mínimos/límites.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:redondeos",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Dos ejemplos aislados asertados; falta mapa de cada REDONDEAR1/TRUNCAR por rama.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:regularizacion",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Faltan casos completos87.5, vivienda y residencia; julio conserva discrepancia C1516-02.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:comunicacion",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Faltan modelos/hechos y cómputo de eficacia por causa, cinco días y opción trimestral.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:multiples-pagadores",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "No revisado procedimiento especial89.A ni todo el contrato por pagador.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:vivienda",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Falta cadena de derecho transitorio, comunicación y pruebas de causas9/10 y sucesivas.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:ceuta-melilla",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "Falta criterio primario discriminante de pérdida de residencia en julio y elegibilidad68.4 completa.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:validaciones",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "no-cerrado",
++    "alcance": "En2016 p6 validación35 rechaza divisor no positivo; faltan las demás validaciones y versiones.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  },
++  {
++    "id": "2016-anual:fecha-aplicacion",
++    "documentSha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "decision": "candidato-acotado",
++    "alcance": "C1516-01 selector acotado; portadas y fechas anunciadas no se equiparan. C1516-02/06 pendientes.",
++    "objecionExperta": "Una decisión de grupo no acredita sus subramas ni sustituye lectura propia por página.",
++    "respuesta": "No heredar aceptación; limitar a las citas y pruebas explícitas de esta entrega.",
++    "coste": "Permanece inhabilitada la versión completa.",
++    "integridad": "original comprobado",
++    "autenticidad": "indeterminada",
++    "interpretacion": "parcial",
++    "exactitud": "solo casos-resultados.json; motor no ejecutado",
++    "aceptacionFiscal": false
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/revisiones/retenciones-2015-2016-cierre/originales-verificados.json
+@@ -0,0 +1,173 @@
++[
++  {
++    "sha256": "d1fc0fc2cb5b5c7078e826f213194d763865a255bed6775e44d706131d80ec45",
++    "sha512": "6c51a12e8461b383134483339810ca1835db9babd461b12ec9ba07a925a5be0ac3b36351ff3296ad9483cee1b1690bf4a962b3151b295a36dd63b564a307d4a6",
++    "size": 302489,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/d1fc0fc2cb5b5c7078e826f213194d763865a255bed6775e44d706131d80ec45",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
++    "sha512": "b54d15b72d0a3cb4bfbe39691838b0c0433e4a6fea9e185b900610afa33509e8398898ff89725b8fa63f74b73a94d69d75a4ffd4e22c5484a5f6d34bffbcc97b",
++    "size": 285643,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
++    "sha512": "4b7db9c0e5451adf6780e5d43c98546c8c11bac8881e6cc2f175acb39ac4023d60895197bf7159ec8ec3c9b8bad9d83a662b1266da021685331d7dd6ebf9562b",
++    "size": 415369,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
++    "sha512": "1b2c0ea31c6996c54c212c498098ea51263cf25abee82a5070ed1beaa796c3a84c0990ea4fabd5c08bf5726d7ae09a9ab622c994d89f545b925a5aa7abe18159",
++    "size": 409119,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
++    "sha512": "7664b6150f6ff6fe9ed0b16034de0c28f0a3e4f90a83faeff88c6240583faa66879ba05eb61a6cfa58ea95ba16c5bc82b8f836f1de8efcf8852f1a9dee4fbec0",
++    "size": 2394332,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "sha512": "c51253a7f7db870b38de1f167e82ef9093663b53c2ef4fe3befa6b13a0dce872bc737ef4f2e42c04ce5022d8131a85d7cd1ed64812d4e02b4b695a2ccad9c76c",
++    "size": 290881,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/218d9a988b286cba1b0fee0f40b32eb03eac44bf65b92620098b0edca51a0634",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "sha512": "a3a5ae0eb21d2af49ef27fc9b16832a339cce222733af6a322692f68cf9a25a51e49f8f58ad07dcd5bb69391b3abe88a90e074590bd581e0e15547714bd67ab1",
++    "size": 280858,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/32e6d445c02e7bee81523570269edd75cee3ec86a4d571501e4c5703e09d2c31",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2",
++    "sha512": "8a205b6d0221a8fb680fb04e41dd51d2ca77451c2aa46afcb52162363543e50653cb0237150a690188dabcef48aaef0ba4d420c74fea5757850b420001934225",
++    "size": 195791,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/c71f36655219a25572f28e4078fcbfc730d19c054efd09b38b396c56c907b2b2",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c",
++    "sha512": "32b564987b05d3597489ffce74a590f88d8edecf762bdc6fe2a9f91a8ec3984f219535039106fa5c3361001a083db478b0ede56a6a0801cd2bd7dd2b2dfd49bc",
++    "size": 264815,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/ee99aaa55951a940c9943a72fb2d9396bf12365df8dcae078269b17a1079120c",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71",
++    "sha512": "cee18f3f9ddfac87f43a63a62829bde43b666e4d2320457a9ab107b0c18d45e68974b999f66d6f64daa6f3cfe797c43b04dcffe075b70361c16a4102b959b7a7",
++    "size": 263563,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/32edd53758bf98b76b79837197185483b04001edf86dc10f1b1d4f1497a57e71",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "2c523d03df5211246e719596b8f9cef306390f6e03caa42cba10fe57f68bca3f",
++    "sha512": "bdd19ea28d2dd0fbdc06856c08720dabe816eca7a63f365a8c008840a0d343bb5f8d36cb36e68908db2a6fe016fce95abb0d793993035b8ce916ea8af2bc4146",
++    "size": 184293,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/2c523d03df5211246e719596b8f9cef306390f6e03caa42cba10fe57f68bca3f",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
++    "sha512": "4839d5a9619ce7067e389e84734ab8e79128b663bd935911e44a24e597209b3a7c52d66060e47dcd1a030fb1d949bc27c782e42edd8f958566dd9358820491cf",
++    "size": 235188,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "2f13846fcff22011478bd651cdfc80da8552c6605b081a63468bb7a4b6e4968f",
++    "sha512": "2246fe04e3a82acd052ee6964da6432a741fc633580f362f5c7c4427b21ce864655da45089efcee4b82d5b850e3c663ebdf3bb4b240d3897befdac5abd790d1e",
++    "size": 162406,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/2f13846fcff22011478bd651cdfc80da8552c6605b081a63468bb7a4b6e4968f",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "3a7380444aec698db9c5930a535d22cf2bbf4bbdf776b842d0b62c639d544271",
++    "sha512": "53da581241d0e946b5a9d7ae47b3c26b9694f25f1332c2cb16848a31f0fbda15176d4a6d86b9cabb01a454926432827d955ea61998ea1c03c3e29f0144050919",
++    "size": 472804,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/3a7380444aec698db9c5930a535d22cf2bbf4bbdf776b842d0b62c639d544271",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae",
++    "sha512": "731fb45d71ca8d00cc315dd8017cd871b703eda1efffc7879a6eec2be682a8bf543dd2496acd9af86801e5a6432cc4f96bec5265484a0826cacb960abed9c3f7",
++    "size": 190538,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/a2ba73e2018801908b3bf7890d9e7bb502e7ba4a7cde79b02958b8467d9bacae",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "sha512": "88d0409dacbdd865b8013954c395fb85bde701481dddf16a0131df5ad66fa1bd0d8fb2972407bfabf08b31f5dd45479f8d69bd7465bd2308b53c1a144dfafac8",
++    "size": 282945,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/e0f7f92d96c607544c1e009e131e4c758f8b4708c433a51aa3a53ef0af7479dc",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
++    "sha512": "0fe1cd90f64471cb172eb07d3ac6f266bc53fa0fc7a82ec517ecda362afb1115d591e50f0b8a96a841798de0ef94f9af45917432eead99b252cbec932dbb3c21",
++    "size": 1591684,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "8357df623a45cf1c609303a588c364482bc217645af1d7cee0c5867761dee4ea",
++    "sha512": "2ec776b243f622422eda754f7f254d334d22df294604677ccf8a3c8cb9347ccbd94754aeb8aa10432d4e59bcbb708194cfd2222918956962f6034abdb07b5c1f",
++    "size": 384913,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/8357df623a45cf1c609303a588c364482bc217645af1d7cee0c5867761dee4ea",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  },
++  {
++    "sha256": "df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299",
++    "sha512": "1479ab1fd750266d662f021914dd04998c34a4a3b7222ba80fd5d8c0bb2e528124eebcfdd4a4085d3d72def4bab5a02f5ae9cc1c2e7615c04df34f1871f06c31",
++    "size": 993588,
++    "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/retenciones-originales-2012-2016/sha256/df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299",
++    "integridad": true,
++    "autenticidad": "no revalidada",
++    "aceptacionFiscal": false
++  }
++]
