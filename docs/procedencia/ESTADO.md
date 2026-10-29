@@ -14,6 +14,8 @@ Pruebas: 553 correctas en el pase amplio y una expectativa canónica antigua cor
 
 Todos los originales nuevos están conservados fuera de los worktrees en la raíz. El paquete v2 todavía no los incluye. Crossa conserva v1 histórico, misma casa y propietario, distinto de v2; no es custodia independiente. Continúa la decisión de Elies: sin LFS y sin gasto. No hay PR, despliegue, modificación de main ni limpieza final. **El encargo exhaustivo sigue abierto.**
 
+Bloque respaldado en origin: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. Ronda 13 lanzada: siete revisiones independientes (publicación, inflación, conexión anual, evidencias estatales, autonómicas, algoritmos antiguos y TGSS mensual) y una implementación del contrato de derechos familiares. Registro en `delegaciones-ronda13.json`, modelo high/priority y worktrees aislados. Las finalizaciones reactivarán al padre para continuar con la coherencia de cuota/neto, integración, preservación y validación operativa; este intervalo no cierra la sesión.
+
 ## Encargo y límites
 
 Auditar todos los parámetros y pasos de IRPF, cotizaciones, retenciones e IPC de 2012–2026 contra fuentes primarias oficiales. Inventariar también las lagunas de cobertura territorial y material. Construir corpus por contenido, citas con coordenadas y facsímiles reproducibles, verificador, contratos de páginas y enlaces desde los rastros. Sin rediseño, despliegue, PR ni modificaciones de producción.

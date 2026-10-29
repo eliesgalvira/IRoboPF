@@ -1,0 +1,301 @@
+{
+  "version": 1,
+  "base": "5799bb03826719a4dd3500a962e2d6bb5124fdca",
+  "model": "gpt-6-astra",
+  "options": {
+    "reasoningEffort": "high",
+    "serviceTier": "priority"
+  },
+  "isolation": "worktree",
+  "commonInstructions": "Eres un hijo NUEVO del orquestador de IRoboPF. Haz el trabajo personalmente, sin subdelegar. Lee íntegros /home/elies/irobopf-contexto/BRIEF.md, AGENTS.md, docs/procedencia/{CONTRATO-AUDITORIA,COORDINACION,ESTADO,DECISIONES}.md y docs/procedencia/correcciones/integracion-ronda11/INFORME.md. Base esperada 5799bb03826719a4dd3500a962e2d6bb5124fdca; compruébala. Español claro, frases con espacios. Cada decisión explica objeción experta y coste. Integridad, autenticidad, interpretación, exactitud y aceptación son dimensiones distintas; nada se autoacepta fiscalmente.\nREGLA VCS: NUNCA jj git init dentro de un worktree Git T3. Ninguna operación VCS mutante: commit/init/reset/push/bookmarks/PR/deploy ni reparación de índices. Solo lecturas Git. No crear worktrees por shell. El padre integra por archivo, hash, base y cero borrados. No borrar contexto, Reactivity, originales, informes ajenos o worktrees.\nNix/uv, sin instalaciones globales. node_modules del padre /home/elies/Repos/IRoboPF puede enlazarse para lectura. No cambiar package/lockfiles/CI fuera de tu propiedad. Antes de escribir Effect: effect-solutions list/show y fuente local ~/.local/share/effect-solutions/effect; lanzador bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js dentro de nix shell nixpkgs#bun nixpkgs#nodejs. Todas las 16 reglas anti-slop a error; lint y typecheck pertinentes obligatorios, sin evadir reglas mediante extensiones.\nMáquina 11GB sin swap: pruebas, tipos, generación, lectura masiva y renders con flock /tmp/irobopf-validacion-pesada.lock y UN trabajador. No Next build ni suites legacy completas salvo autorización expresa de tu alcance. Bun/Node de Nix; añade nixpkgs#python3 cuando reconstruyas inventario/ejecutes evidencia. Python corpus: bash tools/procedencia/run.sh, Nix/uv fijados. Descargas acotadas, UA identificativo y metadatos saneados; originales por SHA256/512. Leer corpus raíz .cache/procedencia y fixtures permitido, no modificar originales. No LFS, gasto ni transferencias externas: Elies eligió dejar preparada la transferencia.\nLa copia Crossa es v1 histórico, misma casa/dueño, comunicada por coordinador; no llamarla remota/independiente ni nueva verificación propia. v1 está preservado fuera de T3 en /home/elies/Repos/IRoboPF/.cache/procedencia/preservados/manifest-2df6c208. v2 y restauración en .cache/orquestador-preservacion. No borrar ninguna.\nSolo propiedad asignada. No cambiar ESTADO, DECISIONES ni informes ajenos. Revisores escriben únicamente entrega en carpeta absoluta del padre; implementadores/investigadores escriben en su checkout y entregan para integración. Entrega INFORME.md, decisiones/hallazgos, reproducciones, rojos antes de fixes numéricos, comandos/resultados reales, límites, manifiesto por archivo (path/sha256/size/baseSha256), patch textual si cambia archivos. Binarios por archivo/hash. No reescribir oracles existentes para obtener verde. No promover registros ni atestaciones salvo autorización explícita (ninguna en esta ronda). Conservar datos personales fuera de metadatos publicables.\n\nLee también docs/procedencia/correcciones/redondeos-r11/INFORME.md y la entrega X. Scratch y copias de ejecución únicamente en .cache propia del checkout; NUNCA copiar fuentes/tsconfig/node_modules bajo la carpeta publicable de revisión. Oxlint usa --disable-nested-config; todas las reglas siguen a error. Si la entrega tiene logs >1 MB, resume diagnósticos en el informe y conserva el log íntegro comprimido con hash; no metas árbol de node_modules/cache en el manifiesto. No construir miles de copias bajo docs.\n\nRonda nueva: lee informe de integración completo y decisiones D043–D046. Base 5799bb03826719a4dd3500a962e2d6bb5124fdca, inventario ff58be7c8b497d2b38ad7019afb85e2e621296108eeae85163ad2319c9c9d397, artifact ae25e219e75593d7a0d408e325db872faca31261ded79a2115a563536073b3d0. Snapshot v2 actual efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6, v1 técnico 8787155f02f4d8712648028532d966ab95c13e193ea36474f2fe2545516790e3. No asumir que todas las fichas o todos los dominios están aceptados. Rojos de investigaciones anteriores no deben incorporarse a suite general como expectativas sin decisión de contrato.\nEvita creación automática de tools/procedencia/.venv en tu checkout: fija UV_PROJECT_ENVIRONMENT a una ruta ABSOLUTA de TU .cache antes del wrapper; Nix/uv y locks conservados. Renders/extracciones en tu scratch, sin sobreescribir citas originales. Usa rutas absolutas para rm/mv; preferible no borrar.\nUna entrega documental debe ser útil para cerrar pendientes: investiga el motivo, no repitas bloqueos ya resueltos ni aceptes por analogía. Conserva los informes históricos intactos. Nuevo autor/revisor con identidad real del hilo, no seudónimo que finja independencia. No esperar a otros hijos. No consultar ni modificar trabajo en curso ajeno.\n",
+  "delegates": [
+    {
+      "key": "revision-publicacion",
+      "title": "Contrarrevisión de publicación documental y rutas con cierre físico",
+      "role": "review",
+      "task": "Entrega exclusivamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/publicacion-evidencia-v1/. Scratch en tu .cache. Sin fixes. Lee implementación publicacion-evidencia, revisión evidencia-contenido-v1 (EC-01/04), correcciones del padre y los contratos de snapshot, almacén, HTTP y rutas.\n\nPrueba v1 histórico y v2 actual: sujeto exacto, IDs únicos, recibo ejecutado por el coordinador real, cierre físico de todas las dependencias, estados por sujeto, objetos ausentes y corruptos, mutaciones con hashes rehechos, auxiliares privados y rutas GET reales importadas sin servidor. Comprueba MIME, nosniff, caché, índice de búsqueda y ámbitos. La caché debe detectar cambios persistentes y limitar memoria. Mide consultas fría/caliente en proceso nuevo y secuencia de snapshots. No basta validar el schema ni prometer carga no medida.\n\nVerifica determinismo, alias, catálogo de 65 puntos y puerta de software actual. Revisa el test del padre que elige el v1 técnico aunque el alias apunte a v2. El publicador solo admite pending y objetos hasta 10 MB: explica qué contrato permitiría accepted-limited sin aceptación completa; no lo implementes. No repitas las 16 verificaciones completas salvo necesidad.\n\nReabre personalmente original y PNG de Madrid: payload 7e2a9cf3f953a6f3bf61c1d8af2be6e7d77e6775bbbfa0a85d4079d89cf9ecd1, sujeto inv-c24095c17f76bb198b34cf8b8d5a45ed, valor 53407.2. Si no hay bloqueo demostrado del payload, se autoriza emitir atestación CANDIDATA en tu entrega con identidad real, hashes exactos, inventario, snapshot, informe y alcance limitado. No tocar registro, confianza ni atestaciones previas. Autenticidad histórica indeterminada; regla completa false. Entrega decisiones EC-02/04 y nuevos defectos, reproducciones independientes, mediciones, logs y manifiesto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-publicacion",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-publicacion",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-publicacion>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r13-revision-publicacion:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-publicacion",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "revision-inflacion",
+      "title": "Contrarrevisión de inflación tabular y redondeo Python",
+      "role": "review",
+      "task": "Entrega exclusivamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/comparativa-inflacion-v1/. Scratch en tu .cache; sin fixes. Lee comparativa-tabular.ts, exportación en progresividad-frio.ts, aritmetica-tabular.ts, correcciones/redondeos-r11, implementación comparativa-inflacion y revisión redondeos-legacy-v1.\n\nReproduce las 69 diferencias anteriores K15/L53/J1 y verifica 16.770 celdas de COMPARATIVA_INFLACION/CONTROL mediante XML del Excel original o extracción independiente verificada. Nunca generar el expected desde el TS corregido. Contrasta las 330 fronteras, secuencia binaria, factor, orden de operaciones, np.arange y negativos/grandes dentro del contrato. Revisa RLV1-03: ±56294995342131.5 a tres decimales y contraejemplos propios de Python round frente a NumPy. Preserva APIs monetarias y fixtures antiguos. No repitas las 32 millones de celdas DAT salvo cambio que lo justifique.\n\nLee CX-07-B en correcciones-x-v1 y consumidores. Distingue reproducción tabular de coherencia entre cuota y neto anunciados: ese defecto sigue abierto y lo resolverá el padre. No convertirlo en verde por reproducir Excel. Mantén escenario 2026 y producto de tasas separados de observaciones e índices. Entrega decisiones individuales, casos independientes, hashes originales, comandos, resultados y manifiesto. Sin tolerancias de céntimos ni aceptación fiscal automática.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-inflacion",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-inflacion",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-inflacion>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r13-revision-inflacion:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-inflacion",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "revision-conexion-v2",
+      "title": "Revisión nueva de cuotas madrileñas y rastro anual corregidos",
+      "role": "review",
+      "task": "Entrega exclusivamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v2/. Scratch en tu .cache; sin fixes. Lee revisión conexion-anual-v1 completa, sus 84 casos, implementación y correcciones del padre.\n\nRevisa CAV1-01/02/03 y la expectativa canónica modificada en liquidacion-irpf-anual.test.ts. Reabre BOE-A-2024-5610, Ley 13/2023 p. 3, y manual AEAT 2025 p. 1128. Contrasta efectos y erratas; no extrapoles a fallecimientos u otros años. Pruebas independientes en umbrales ±0,01, cero, mínimos, brutos 25000.02/60000 y 30000 con BLG 26056: cuota general 5633.25536 → 5633.26. Verifica selección pública, componentes y mínimos, no solo helper. Repite los 84 casos anteriores conservando historia y derivando nuevas expectativas del primario.\n\nComprueba contexto 2025/Madrid/perfil, los 16 puntos nuevos de rastro, enlaces al v2 actual, EDS/trabajo y pagos separados. No retagging de históricos. Cota agregada: cien entradas de doce dígitos caben en catorce; límites, desbordamientos, pensión/trabajo y errores tipados sin Die. Revisa exposición de quince hojas MADRID_2025 y su territorio técnico sin inferir vigencia. Otro hijo prepara contrato familiar: no leerlo como terminado. Entrega dictamen por CAV, defectos nuevos, originales, casos, logs y manifiesto. El contrato anual sigue limitado; no certificar declaraciones completas.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-conexion-v2",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-conexion-v2",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-conexion-v2>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r13-revision-conexion-v2:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-conexion-v2",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "revision-estatales-v2",
+      "title": "Revisión jurídica de los bindings estatales actuales",
+      "role": "review",
+      "task": "Entrega exclusivamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-estatales-v2/. Scratch en tu .cache; sin fixes ni cambios a lotes, registro o atestaciones. Lee evidencias estatales v1/v2, revisión v1 y propuestas-r12/estatales con sus 78 payloads y correspondencias.\n\nComprueba 26 unidades corregidas en cabecera, 83 citas, 13 PNG, contexto compuesto p. 62–63 y 319 correspondencias históricas. Reextrae y coteja visualmente las celdas/cabeceras. Los 13 tipos necesitan conversión distinta; 190 alias de mínimos no adquieren vigencia por igualdad.\n\nDecide cada uno de los 78 payloads actuales por ID, año, tabla, fila y columna. Verifica archivo, símbolo, ruta, valor, unidad, SHA y dimensión estatal-comun. Reabre BOE-A-2010-19703 art. 62/p. 63, BOE-A-2011-20638 DA35/p. 53 y extensión 2014 BOE-A-2013-13616 pp. 75–76. Distingue escala general, ahorro y retenciones; investiga reformas/erratas necesarias. No repitas como bloqueo el territorio técnico ya resuelto.\n\nCuando una afirmación concreta esté acreditada, emite una decisión NUEVA en decisiones-canonicas.json: lista con id, status accepted/needs-evidence/rejected, engineLocations con path, symbol de celda exacta, sha256 actual y line admitido; motivos, año, condiciones, citas y completeRuleAcceptance:false. Valida la proyección legal-decision-scope y select_decision para accepted. No renombrar schemas ni ampliar decisiones antiguas para forzar verde. Entrega mapeo 78 IDs a decisión nueva o bloqueo preciso; el padre preparará después los payloads y pedirá revisión exacta. Conserva separadas las 319 correspondencias históricas y las 78 decisiones actuales. Informe, discriminantes, citas propias, logs y manifiesto; ninguna aceptación completa.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-estatales-v2",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-estatales-v2",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-estatales-v2>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r13-revision-estatales-v2:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-estatales-v2",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "revision-autonomicas-v2",
+      "title": "Revisión jurídica de cuotas autonómicas y enlaces canónicos actuales",
+      "role": "review",
+      "task": "Entrega exclusivamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/. Scratch en tu .cache; sin fixes, registros ni atestaciones. Lee evidencias autonómicas v1/v2, revisión v1, propuestas-r12/autonomicas, cadenas A/B/C y sus revisiones, código e inventario actual.\n\nVerifica EAV1-01/02: 28 localizadores estructurales de ceros y receta histórica fijada; 94 citas, nueve PNG, 186 celdas, 94 selecciones y 317 decisiones previas sin promoción. Reextrae e inspecciona visualmente celdas/cabeceras, no solo números iguales.\n\nDecide los 186 payloads por ID, año, territorio, fila y columna: Andalucía 48, Valencia 36, Catalunya 2020–21 28 y 2022–24 54, Madrid 10 y Murcia 10. Contrasta identidad y dimensiones técnicas con originales, efectos, erratas y retroactividad. Murcia conserva >60000 estricto: en 60000 sigue la cuarta fila (8625.8332); 8716.67 solo por encima. No impongas continuidad aritmética. Madrid 2022 no adquiere el ámbito de la tabla nueva de 2025. Delimita fallecimientos y condiciones temporales.\n\nSi se acredita una afirmación, emite decisión NUEVA en decisiones-canonicas.json: lista con id/status accepted|needs-evidence|rejected, engineLocations path/symbol de celda exacta/sha256 actual/line y explicación de año, territorio, condiciones, citas y completeRuleAcceptance:false. Valida proyección legal-decision-scope y select_decision. No renombrar currentLines ni ampliar decisiones antiguas. Investiga faltantes reales; no repetir bloqueo territorial ya resuelto ni aceptar por analogía. Entrega mapeo de 186 IDs a decisión nueva o bloqueo, informe, casos, citas, logs y manifiesto. Los payloads originales permanecen intactos.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-autonomicas-v2",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-autonomicas-v2",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-autonomicas-v2>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r13-revision-autonomicas-v2:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-autonomicas-v2",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "revision-retenciones-antiguas",
+      "title": "Contrarrevisión de algoritmos AEAT recuperados de 2012 a 2016",
+      "role": "review",
+      "task": "Entrega exclusivamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-originales-2012-2016/. Scratch en tu .cache; sin implementación ni atestaciones. Lee auditoría retenciones-originales-2012-2016 completa, sus 19 PDF, 191 citas/facsímiles, siete algoritmos y 140 celdas, además de auditoría/revisión retenciones-2012-2019.\n\nComprueba SHA-256/512, CDX SHA-1, URLs oficiales originales, captura, fechas, versión y metadatos saneados. Los originales están copiados en .cache/procedencia de la raíz según manifiesto; lectura permitida, nunca cambiarlos. Una captura de URL oficial no acredita por sí sola autenticidad histórica. Busca corroboración primaria AEAT/BOE de fechas y reformas.\n\nInspecciona tachados y colores: movilidad 2016 y tabla vieja de julio de 2015. Resuelve si es posible julio 2015 13/14 de julio y 2016 24 de noviembre/22 de diciembre. Conserva umbrales literales de 2012: 120000.20, 175000.20 y 300000.20. Decide por cada una de las 140 celdas, siete versiones y 19 originales.\n\nPrepara contrato candidato operativo de versión solo donde haya evidencia: vigencia, hechos, veinte pasos/tablas, rangos, regularización, divisor cero y redondeo. Casos Decimal independientes y fronteras. El motor actual rechaza 2012–2016: no fabricar un rojo contra un contrato deliberadamente no implementado. Entrega decisiones, matriz, casos, citas, comandos y manifiesto. Recuperar un PDF no equivale a cerrar la cadena jurídica.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-retenciones-antiguas",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-retenciones-antiguas",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-retenciones-antiguas>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r13-revision-retenciones-antiguas:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-retenciones-antiguas",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "contrato-familiar",
+      "title": "Implementar derechos y reparto de mínimos por descendientes",
+      "role": "implementation",
+      "task": "Implementa personalmente en TU worktree. Propiedad: nuevos contratos en lib/dominio/irpf/minimos/, cambios mínimos necesarios en caso-fiscal-anual.ts y liquidación para conectarlos, tests nuevos y docs/procedencia/implementaciones/minimos-derechos/. No editar comparativa/IPC, componentes UI, tablas de cuotas, retenciones, procedencia, snapshots, registro, inventario, package o CI. El padre integra y regenera.\n\nLee CX-06-A en correcciones-x-v1, MIN-002/003/004/005/006/009 de auditoría/revisión mínimos, D021, FamiliarFiscal y consumidores. La entrada edad/discapacidad no distingue un titular íntegro de varios con reparto. No dividir siempre por dos. Diseña e IMPLEMENTA un contrato explícito de derechos atribuibles para 2025, declaración individual y régimen común dentro del territorio acreditado. Otros años solo con primarios y revisión disponibles.\n\nIncluye los hechos necesarios: identificadores anónimos de sujetos/titulares, convivencia o dependencia, grado y orden, parentesco/adopción/acogimiento, edad/fecha de devengo, rentas no exentas y declaración propia, múltiples titulares, prioridad de grado y compatibilidad con alimentos según evidencia, discapacidad y aumento por menor de tres años. Un porcentaje manual no prueba derecho. Rechaza de forma tipada hechos insuficientes o casos no respaldados; no conviertas ausencia de hechos en cero ni inventes identidad personal.\n\nConecta la ruta canónica explícita al cálculo anual y mínimos estatal/autonómico, conservando el perfil legacy. Expresa el límite del contrato parcial antiguo y revisa consumidores necesarios; no alterar una entrada antigua como si ahora acreditara derechos. No afirmar automatización integral ni cierre de 2026. Primarios: Ley 35/2006 arts. 58/60/61 y manual oficial; Modelo 145 pertenece a retenciones y no sustituye la norma anual.\n\nPrimero rojos reales: dos progenitores con derecho a hijos de 8/5 → 2550 cada uno frente a titular íntegro 5100; edades, rentas 8000, declaración 1800 ±0,01, orden, reparto, hechos ausentes, menor de tres/adopción, duplicados, contadores enteros y conexión anual. Deriva esperados de primarios y conserva rojos antes del fix. Prueba errores recuperables sin Die, lint y tipos. Effect guides obligatorias. Entrega evidencia, contrato, límites, objeciones/costes, patch, manifiesto con base/hashes y cero borrados. El padre encargará revisión nueva; no autoaceptación.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-contrato-familiar",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-contrato-familiar",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-contrato-familiar>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r13-contrato-familiar:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-contrato-familiar",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "revision-tgss-mensual",
+      "title": "Contrarrevisión de reglas mensuales TGSS y etapas de redondeo",
+      "role": "review",
+      "task": "Entrega exclusivamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/. Scratch en tu .cache; sin fixes ni cambios al motor. Lee auditoría redondeo-tgss-mensual, doce reglas, siete hallazgos, 19 originales, 42 citas/facsímiles, 21 casos/cuatro empates, CX-01/02/03 y seguridad-social. CAS raíz .cache/redondeo-tgss-mensual/cas/sha256; recepción en correcciones/integracion-ronda11/recepcion-tgss.json. Usa hashes y CAS raíz, no dependas de la ruta absoluta histórica del autor.\n\nNo aceptar falta de evidencia por defecto: investiga instrucciones primarias TGSS/SLD/SILTRA, boletines RED, manuales de cálculo/recibos y norma euro 2001 para cerrar R05/R06/R10 si es posible. Distingue formato en céntimos de operación, conceptos de solidaridad 497–499 de tramos temporales, redondeo por concepto/pagador/trabajador/mes, empates, ajustes y AT/EP IT/IMS. Vigencia/erratas 2024–2026 sin extrapolar a 2012. No contactar terceros ni enviar consultas.\n\nReextrae las 42 citas y contrasta renders/cabeceras; inspección visual especial C001/C026/C035 y columnas de cálculo. Autenticidad NSS indeterminada no se convierte en confianza histórica. Recalcula independientemente 132500 con vector 8×11041.67+4×11041.66 frente a uniforme infinito: solidaridad 673.44/132.84 frente a 132.72 según orden; cuotas ordinarias, MEI, IT/IMS y meses variables. No confundir coincidencia aritmética con validez fiscal ni fabricar rojo contra API analítica.\n\nDecisión individual para siete hallazgos y doce reglas; contrato operativo condicionado y huecos concretos. Si acreditas una regla nueva, aporta primario y casos discriminantes, con rojo solo si la API afirma ejecutar ese contrato. Informe, citas, búsquedas, comandos, resultados y manifiesto; ninguna aceptación fiscal completa.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-tgss-mensual",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-tgss-mensual",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-tgss-mensual>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r13-revision-tgss-mensual:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r13-revision-tgss-mensual",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    }
+  ]
+}
