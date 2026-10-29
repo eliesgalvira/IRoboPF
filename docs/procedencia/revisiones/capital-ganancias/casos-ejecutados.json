@@ -1,0 +1,417 @@
+[
+  {
+    "id": "CG-01",
+    "nombre": "mixta",
+    "entrada": {
+      "anio": 2025,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          }
+        },
+        {
+          "importeGananciaCentimos": -400000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          }
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "6000"
+    },
+    "actual": {
+      "gananciaTotal": "6000",
+      "gananciaExenta": "-4000",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-01",
+    "nombre": "negativa",
+    "entrada": {
+      "anio": 2025,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": -400000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          }
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "-4000"
+    },
+    "actual": {
+      "gananciaTotal": "-4000",
+      "gananciaExenta": "-4000",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-02",
+    "nombre": "urbana-posterior",
+    "entrada": {
+      "anio": 2025,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          },
+          "fechaAdquisicion": "2012-06-01",
+          "fechaTransmision": "2025-07-01",
+          "exencionInmuebleUrbanoAdquirido2012": {
+            "inmuebleUrbano": true,
+            "tituloOneroso": true,
+            "fechaAdquisicion": "2012-06-01",
+            "operacionConPersonaOEntidadVinculada": false
+          }
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "5000",
+      "gananciaSujetaAhorro": "5000"
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-03",
+    "nombre": "vitalicia-2014",
+    "entrada": {
+      "anio": 2014,
+      "edadContribuyente": 70,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "ReinversionRentaVitaliciaMayores65",
+            "importeTransmisionCentimos": 2000000,
+            "importeReinvertidoRentaVitaliciaCentimos": 2000000,
+            "reinversionesPreviasRentaVitaliciaCentimos": 0
+          },
+          "fechaAdquisicion": "2010-01-01",
+          "fechaTransmision": "2014-06-01"
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "10000"
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "10000",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-04",
+    "nombre": "previas-cero",
+    "entrada": {
+      "anio": 2025,
+      "edadContribuyente": 70,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 10000000,
+          "tratamientoMayores65": {
+            "_tag": "ReinversionRentaVitaliciaMayores65",
+            "importeTransmisionCentimos": 20000000,
+            "importeReinvertidoRentaVitaliciaCentimos": 20000000,
+            "reinversionesPreviasRentaVitaliciaCentimos": 0
+          },
+          "fechaAdquisicion": "2010-01-01",
+          "fechaTransmision": "2025-02-01"
+        },
+        {
+          "importeGananciaCentimos": 10000000,
+          "tratamientoMayores65": {
+            "_tag": "ReinversionRentaVitaliciaMayores65",
+            "importeTransmisionCentimos": 20000000,
+            "importeReinvertidoRentaVitaliciaCentimos": 20000000,
+            "reinversionesPreviasRentaVitaliciaCentimos": 0
+          },
+          "fechaAdquisicion": "2010-01-01",
+          "fechaTransmision": "2025-08-01"
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "120000"
+    },
+    "actual": {
+      "gananciaTotal": "200000",
+      "gananciaExenta": "200000",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-06",
+    "nombre": "sin-fechas",
+    "entrada": {
+      "anio": 2014,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          }
+        }
+      ]
+    },
+    "expectativa": {
+      "requiereValidacion": true
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-04",
+    "nombre": "previas-actualizadas",
+    "entrada": {
+      "anio": 2025,
+      "edadContribuyente": 70,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 10000000,
+          "tratamientoMayores65": {
+            "_tag": "ReinversionRentaVitaliciaMayores65",
+            "importeTransmisionCentimos": 20000000,
+            "importeReinvertidoRentaVitaliciaCentimos": 20000000,
+            "reinversionesPreviasRentaVitaliciaCentimos": 0
+          },
+          "fechaAdquisicion": "2010-01-01",
+          "fechaTransmision": "2025-02-01"
+        },
+        {
+          "importeGananciaCentimos": 10000000,
+          "tratamientoMayores65": {
+            "_tag": "ReinversionRentaVitaliciaMayores65",
+            "importeTransmisionCentimos": 20000000,
+            "importeReinvertidoRentaVitaliciaCentimos": 20000000,
+            "reinversionesPreviasRentaVitaliciaCentimos": 20000000
+          },
+          "fechaAdquisicion": "2010-01-01",
+          "fechaTransmision": "2025-08-01"
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "120000"
+    },
+    "actual": {
+      "gananciaTotal": "200000",
+      "gananciaExenta": "120000",
+      "gananciaSujetaAhorro": "80000",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-02",
+    "nombre": "vinculada",
+    "entrada": {
+      "anio": 2025,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          },
+          "fechaAdquisicion": "2012-06-01",
+          "fechaTransmision": "2025-07-01",
+          "exencionInmuebleUrbanoAdquirido2012": {
+            "inmuebleUrbano": true,
+            "tituloOneroso": true,
+            "fechaAdquisicion": "2012-06-01",
+            "operacionConPersonaOEntidadVinculada": true
+          }
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "0"
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-02",
+    "nombre": "antes-ventana",
+    "entrada": {
+      "anio": 2025,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          },
+          "fechaAdquisicion": "2012-05-11",
+          "fechaTransmision": "2025-07-01",
+          "exencionInmuebleUrbanoAdquirido2012": {
+            "inmuebleUrbano": true,
+            "tituloOneroso": true,
+            "fechaAdquisicion": "2012-05-11",
+            "operacionConPersonaOEntidadVinculada": false
+          }
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "0"
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-03",
+    "nombre": "habitual-2014",
+    "entrada": {
+      "anio": 2014,
+      "edadContribuyente": 70,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "ViviendaHabitualMayores65"
+          }
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaExenta": "10000"
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "10000",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-07",
+    "nombre": "aniversario-0",
+    "entrada": {
+      "anio": 2013,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          },
+          "fechaAdquisicion": "2012-06-01",
+          "fechaTransmision": "2013-06-01"
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaSujetaGeneral": "10000"
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "10000"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-07",
+    "nombre": "aniversario-1",
+    "entrada": {
+      "anio": 2013,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          },
+          "fechaAdquisicion": "2012-06-01",
+          "fechaTransmision": "2013-06-02"
+        }
+      ]
+    },
+    "expectativa": {
+      "gananciaSujetaAhorro": "10000"
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    },
+    "ejecutado": true
+  },
+  {
+    "id": "CG-07",
+    "nombre": "bisiesto",
+    "entrada": {
+      "anio": 2013,
+      "edadContribuyente": 40,
+      "ganancias": [
+        {
+          "importeGananciaCentimos": 1000000,
+          "tratamientoMayores65": {
+            "_tag": "SinExencionMayores65"
+          },
+          "fechaAdquisicion": "2012-02-29",
+          "fechaTransmision": "2013-03-01"
+        }
+      ]
+    },
+    "expectativa": {
+      "pendienteCriterioCivil": true
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "10000"
+    },
+    "ejecutado": true
+  }
+]

@@ -19,7 +19,10 @@
     "lint:oxlint": "oxlint",
     "lint:eslint": "eslint .",
     "test:lint": "bun scripts/test-lint.mjs",
-    "test:ci": "vitest run tests/fronteras-arquitectura.test.ts tests/dinero.test.ts --maxWorkers=1"
+    "test:ci": "vitest run tests/fronteras-arquitectura.test.ts tests/dinero.test.ts --maxWorkers=1",
+    "inventario:generar": "bun scripts/procedencia/inventario-artefacto.mjs write",
+    "inventario:verificar": "bun scripts/procedencia/inventario-artefacto.mjs check",
+    "test:inventario": "vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

@@ -1,0 +1,80 @@
+[
+  {
+    "id": "excel-D32",
+    "verification": "executed",
+    "repro": "constructor(2012,30), columna D",
+    "current": 1.91,
+    "alternativeExpected": 1.9,
+    "productDecisionRequired": "Conservar promesa de equivalencia legacy"
+  },
+  {
+    "id": "excel-E12-W12",
+    "verification": "executed",
+    "repro": "constructor(2012,10), columnas E/W",
+    "current": 9.37,
+    "alternativeExpected": 9.36,
+    "productDecisionRequired": "Conservar promesa de equivalencia legacy"
+  },
+  {
+    "id": "mensual-negativo",
+    "verification": "executed",
+    "repro": "Math.round(-18/12)",
+    "current": -1,
+    "alternativeExpected": -2,
+    "productDecisionRequired": "Si producto adopta half-up y antisimetría"
+  },
+  {
+    "id": "doble-redondeo",
+    "verification": "derived",
+    "repro": "delta=0.059; mensual directo",
+    "current": 0.01,
+    "alternativeExpected": 0.0,
+    "productDecisionRequired": "Si producto adopta dividir antes de liquidar"
+  },
+  {
+    "id": "ipc-inverso",
+    "verification": "source-inspection",
+    "repro": "factor(2025,2024)",
+    "current": 1,
+    "alternativeExpected": "1/1.029 o error tipado",
+    "productDecisionRequired": "Elegir inversión automática o rechazo explícito"
+  },
+  {
+    "id": "ipc-ausente",
+    "verification": "source-inspection",
+    "repro": "tasa requerida undefined",
+    "current": 0,
+    "alternativeExpected": "error dato ausente",
+    "productDecisionRequired": "No confundir faltante con observación cero"
+  },
+  {
+    "id": "url-centimos",
+    "verification": "executed",
+    "repro": "normalizar rango [1500001,1500099]",
+    "current": [
+      1500000,
+      1500100
+    ],
+    "alternativeExpected": [
+      1500001,
+      1500099
+    ],
+    "productDecisionRequired": "Si URL debe preservar céntimos; si solo euros enteros, rechazar/normalizar explícitamente"
+  },
+  {
+    "id": "ipc-etapas",
+    "verification": "derived",
+    "repro": "1.005*1.5",
+    "current": 1.52,
+    "alternativeExpected": 1.51,
+    "productDecisionRequired": "Si producto adopta reexpresión antes de liquidación"
+  },
+  {
+    "id": "porcentaje-empate",
+    "verification": "derived",
+    "repro": "24.65 a una cifra",
+    "current": 24.7,
+    "alternativeExpected": 24.6,
+    "productDecisionRequired": "Solo si se mantiene contrato half-even tabular"
+  }
+]

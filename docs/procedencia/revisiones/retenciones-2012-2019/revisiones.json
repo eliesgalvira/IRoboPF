@@ -1,0 +1,1499 @@
+{
+  "domain": "retenciones-2012-2019",
+  "reviewer": "revisor independiente de esta ronda",
+  "date": "2026-10-29",
+  "verdict": "requires-changes",
+  "reviewSemantics": "accepted acepta la proposición en acceptanceScope, no todo el hallazgo ni ejercicio",
+  "reviews": [
+    {
+      "id": "RET1219-01",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "Reducción fija posterior; los casos 18000 reproducen diferencia en 2017 y 2019.",
+      "acceptanceScope": "Discrepancia 2017/2019 en casos.json; reducción transitoria 2018 según DA47. No se aceptan todos los valores 2012–2014.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "7",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        },
+        {
+          "documentId": "BOE-A-2014-12327",
+          "pagesOrArticles": "12",
+          "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+          "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf"
+        },
+        {
+          "documentId": "Ley6-2018",
+          "pagesOrArticles": "77,78,79",
+          "sha256": "aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+          "url": "https://www.boe.es/boe/dias/2018/07/04/pdfs/BOE-A-2018-9268.pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "22",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "2019-ALGORITMO_2019.pdf",
+          "pagesOrArticles": "22",
+          "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 234
+      },
+      "objections": [
+        "La base de retención no es la liquidación anual: la remisión reglamentaria calcula RNT sin descontar otros gastos. Objeción descartada en los casos acotados.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-02",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "No hay selección histórica de gastos ni prolongación de actividad; Ley26 introduce gasto general desde 2015.",
+      "acceptanceScope": "Ausencia de selección temporal y aplicación de gasto nuevo a años anteriores. No aceptación exhaustiva de las reducciones antiguas.",
+      "evidenceUsed": [
+        {
+          "documentId": "BOE-A-2014-12327",
+          "pagesOrArticles": "12,79",
+          "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+          "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf"
+        },
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "7,14",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 208
+      },
+      "objections": [
+        "La movilidad 2015 conserva opción transitoria de régimen previo; cambiar solo 2000 por cero no resuelve el procedimiento.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014
+      ]
+    },
+    {
+      "id": "RET1219-03",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "needs-evidence",
+      "severity": "P1",
+      "reason": "Las constantes actuales son las de la reforma 2015; falta cerrar todas las reformas anteriores de mínimos.",
+      "acceptanceScope": "Se confirma código sin año; no se autoriza sustituir todas las cuantías 2012–2014 por la lista candidata.",
+      "evidenceUsed": [
+        {
+          "documentId": "BOE-A-2014-12327",
+          "pagesOrArticles": "27,28,79",
+          "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+          "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "23",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 426
+      },
+      "objections": [
+        "Ley35 original de 2006 no acredita por sí sola la cuantía vigente en 2012. Falta cadena de actualización anterior a 2012.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "No elevar el candidato a aceptación fiscal",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014
+      ]
+    },
+    {
+      "id": "RET1219-04",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "Escala fija incompatible con las escalas originales y opciones temporales de 2012/2015.",
+      "acceptanceScope": "Defecto de selección y escalas publicadas en RDL20/2011, RD1788/2010, Ley22/2013 y RDL9/2015; no algoritmo anual completo.",
+      "evidenceUsed": [
+        {
+          "documentId": "REV-NUEVO-1",
+          "pagesOrArticles": "4",
+          "sha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
+          "url": "https://www.boe.es/eli/es/rd/2010/12/30/1788/dof/spa/pdf"
+        },
+        {
+          "documentId": "RDL20-2011",
+          "pagesOrArticles": "54",
+          "sha256": "89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
+          "url": "https://www.boe.es/boe/dias/2011/12/31/pdfs/BOE-A-2011-20638.pdf"
+        },
+        {
+          "documentId": "BOE-A-2013-13616",
+          "pagesOrArticles": "76",
+          "sha256": "75af079fc480334e8515781b39d610680c53942d75789098767e1fc9e5dbdd9d",
+          "url": "https://www.boe.es/boe/dias/2013/12/26/pdfs/BOE-A-2013-13616.pdf"
+        },
+        {
+          "documentId": "RDL9-2015",
+          "pagesOrArticles": "11",
+          "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+          "url": "https://www.boe.es/eli/es/rdl/2015/07/10/9/dof/spa/pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 455
+      },
+      "objections": [
+        "No sumar marginales ignorando cuotas fijas publicadas; enero 2012 depende también de correspondencia del rendimiento, y julio 2015 de opción del pagador.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015
+      ]
+    },
+    {
+      "id": "RET1219-05",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "El tramo 47% desde 300000 no existe en escala 2016–2019 examinada.",
+      "acceptanceScope": "Escala común y contrapruebas 2017/2019 de 400000; sin otras variantes ni regularización.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "8,13,14",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "30",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "2019-ALGORITMO_2019.pdf",
+          "pagesOrArticles": "31",
+          "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 455
+      },
+      "objections": [
+        "Cotización cero es entrada sintética de aislamiento; no certifica una nómina real de ese bruto.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-06",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "El motor aplica 43% hasta 35200; art85.3 y algoritmos lo limitan a 22000.",
+      "acceptanceScope": "Discrepancia acreditada 2017/2019 con situación2, dos hijos, bruto23000; no rango de todos los años por extrapolación.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "8",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "31",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "2019-ALGORITMO_2019.pdf",
+          "pagesOrArticles": "32,33",
+          "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 548
+      },
+      "objections": [
+        "Control sin hijos coincide por no activar el tope; no refuta el defecto de condición.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-07",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "No existen deducción85bis ni importe previo en la función.",
+      "acceptanceScope": "Carencia estructural del procedimiento anterior a 2015, no aceptación de cuantía400 en todos los casos.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD2004-2009",
+          "pagesOrArticles": "4",
+          "sha256": "0abb5d0eda31e6125f3a4bbc2d0235b3ace824e8894da9a7e0e9361e09ec29c2",
+          "url": "https://www.boe.es/eli/es/rd/2009/12/23/2004/dof/spa/pdf"
+        },
+        {
+          "documentId": "REV-NUEVO-1",
+          "pagesOrArticles": "4",
+          "sha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
+          "url": "https://www.boe.es/eli/es/rd/2010/12/30/1788/dof/spa/pdf"
+        },
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "7,8",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 672
+      },
+      "objections": [
+        "La deducción posterior ligada al SMI no sustituye la antigua. Corrección2009 no cambia esta conclusión.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014
+      ]
+    },
+    {
+      "id": "RET1219-08",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "Solo se trunca el tipo final actual; falta el tipo previo redondeado al entero.",
+      "acceptanceScope": "Orden de operaciones histórico acreditado; no afirmar que el tipo final antiguo deba ser entero.",
+      "evidenceUsed": [
+        {
+          "documentId": "REV-NUEVO-1",
+          "pagesOrArticles": "4",
+          "sha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
+          "url": "https://www.boe.es/eli/es/rd/2010/12/30/1788/dof/spa/pdf"
+        },
+        {
+          "documentId": "REV-NUEVO-2",
+          "pagesOrArticles": "15",
+          "sha256": "8357df623a45cf1c609303a588c364482bc217645af1d7cee0c5867761dee4ea",
+          "url": "https://www.boe.es/eli/es/rd/2013/12/05/960/dof/spa/pdf"
+        },
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "8,9",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 600
+      },
+      "objections": [
+        "Objeción al redondeo entero de todo tipo final aceptada: esa lectura del candidato sería incorrecta.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014
+      ]
+    },
+    {
+      "id": "RET1219-09",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "La interfaz no recibe fecha de pago/devengo ni opción transitoria; los helpers no la reciben del procedimiento.",
+      "acceptanceScope": "Ausencia comprobada en todos los años del ámbito; transiciones 2012/2015/2018 requieren contrato adicional.",
+      "evidenceUsed": [
+        {
+          "documentId": "RDL20-2011",
+          "pagesOrArticles": "54",
+          "sha256": "89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
+          "url": "https://www.boe.es/boe/dias/2011/12/31/pdfs/BOE-A-2011-20638.pdf"
+        },
+        {
+          "documentId": "RDL9-2015",
+          "pagesOrArticles": "11",
+          "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+          "url": "https://www.boe.es/eli/es/rdl/2015/07/10/9/dof/spa/pdf"
+        },
+        {
+          "documentId": "Ley6-2018",
+          "pagesOrArticles": "78,79",
+          "sha256": "aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+          "url": "https://www.boe.es/boe/dias/2018/07/04/pdfs/BOE-A-2018-9268.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 19
+      },
+      "objections": [
+        "No usar fecha de fallecimiento de la liquidación anual. Una tabla fechada no prueba selección efectiva.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-10",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "No hay acumulados ni ramas de regularización.",
+      "acceptanceScope": "Carencia de capacidad en la interfaz y servicio; no algoritmo de regularización propuesto como validado.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "9",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "35",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "RD1461-2018",
+          "pagesOrArticles": "11",
+          "sha256": "87e933d45bd8b5a57d04892bf2c6e62e385a9481f960ae497185c4c083e954a6",
+          "url": "https://www.boe.es/boe/dias/2018/12/22/pdfs/BOE-A-2018-17601.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 19
+      },
+      "objections": [
+        "Declarar cálculo inicial es admisible; no presentarlo como nómina completa. Casos con percibido=total requieren rechazo o contrato específico.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-11",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "El factor0.4 se aplica también a 2017, cuyo algoritmo aplica cuota/2.",
+      "acceptanceScope": "Discrepancia de tratamiento inicial 2017; cambio2018 necesita fecha y causas, no efecto anual retrospectivo.",
+      "evidenceUsed": [
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "32,33",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "Ley6-2018",
+          "pagesOrArticles": "79",
+          "sha256": "aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+          "url": "https://www.boe.es/boe/dias/2018/07/04/pdfs/BOE-A-2018-9268.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 586
+      },
+      "objections": [
+        "No deducir vigencia de pagos a cuenta del efecto anual de la deducción en cuota de Ceuta/Melilla.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ]
+    },
+    {
+      "id": "RET1219-12",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "Casos ejecutados2017 devuelven6/0.8 frente8/1; RD1461 cambia los mínimos desde1enero2019.",
+      "acceptanceScope": "Mínimos especiales comunes Ceuta/Melilla 2017 y cambio reglamentario2019; no excepciones penados/discapacidad.",
+      "evidenceUsed": [
+        {
+          "documentId": "RIRPF-original",
+          "pagesOrArticles": "40",
+          "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+          "url": "https://www.boe.es/boe/dias/2007/03/31/pdfs/A14097-14149.pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "32,33",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "RD1461-2018",
+          "pagesOrArticles": "10,11,13",
+          "sha256": "87e933d45bd8b5a57d04892bf2c6e62e385a9481f960ae497185c4c083e954a6",
+          "url": "https://www.boe.es/boe/dias/2018/12/22/pdfs/BOE-A-2018-17601.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 615
+      },
+      "objections": [
+        "7.5 no es alternativa correcta: el mínimo histórico8 es expreso. No anticipar6/0.8 a julio2018 por simple producto.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2017,
+        2018
+      ]
+    },
+    {
+      "id": "RET1219-13",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "1980 fijo contradice incremento1600 de la escala complementaria2012–2013.",
+      "acceptanceScope": "Defecto retrospectivo demostrado; no validación global del tratamiento de anualidades.",
+      "evidenceUsed": [
+        {
+          "documentId": "RDL20-2011",
+          "pagesOrArticles": "54",
+          "sha256": "89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
+          "url": "https://www.boe.es/boe/dias/2011/12/31/pdfs/BOE-A-2011-20638.pdf"
+        },
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "8",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 470
+      },
+      "objections": [
+        "Debe comprobarse también la cuota ordinaria y no solo el complemento antes de implementar.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014
+      ]
+    },
+    {
+      "id": "RET1219-14",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "No se identifica beneficiario de anualidades ni incompatibilidad con mínimo por ese mismo hijo.",
+      "acceptanceScope": "Carencia contractual; no prohibición global de combinar mínimos por otros hijos y anualidades.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "8",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 470
+      },
+      "objections": [
+        "Rechazar toda combinación sería excesivo. Deben distinguirse hijos beneficiarios y título judicial.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-15",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "La validación actual comprueba formas básicas, no edades, signos ni denominador convivencia.",
+      "acceptanceScope": "Carencia de validación o precondiciones explícitas; no inferencia automática de requisitos fiscales desde arrays.",
+      "evidenceUsed": [
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "4,5,23",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "BOE-A-2014-12327",
+          "pagesOrArticles": "27,28",
+          "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+          "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 154
+      },
+      "objections": [
+        "Una lista ya filtrada por un adaptador puede ser válida; el servicio no documenta ni garantiza ese filtro. No exigir datos identificativos al cálculo puro.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-16",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "La remuneración y reducciones llegan agregadas; no se forman dentro del servicio.",
+      "acceptanceScope": "Frontera funcional, no error inevitable de toda entrada agregada.",
+      "evidenceUsed": [
+        {
+          "documentId": "RIRPF-original",
+          "pagesOrArticles": "38,39",
+          "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+          "url": "https://www.boe.es/boe/dias/2007/03/31/pdfs/A14097-14149.pdf"
+        },
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "7",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 19
+      },
+      "objections": [
+        "Preprocesamiento externo puede satisfacer la obligación. Debe quedar trazado sin llamarlo implementación interna.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-17",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "No hay fecha de comunicación ni petición de tipo superior.",
+      "acceptanceScope": "Ausencia de capacidad de comunicación/eficacia; puede vivir fuera del motor puro.",
+      "evidenceUsed": [
+        {
+          "documentId": "REV-NUEVO-1",
+          "pagesOrArticles": "5",
+          "sha256": "bc36ac7820d464054a684791f87e6ef875ace5992dcb5648f1b758102dda17ae",
+          "url": "https://www.boe.es/eli/es/rd/2010/12/30/1788/dof/spa/pdf"
+        },
+        {
+          "documentId": "RIRPF-original",
+          "pagesOrArticles": "43,44",
+          "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+          "url": "https://www.boe.es/boe/dias/2007/03/31/pdfs/A14097-14149.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 19
+      },
+      "objections": [
+        "No se exige NIF ni almacenamiento de formularios en esta función; sí contrato de datos y eficacia.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-18",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "El caso no representa pagadores ni procedimiento especial de pensiones.",
+      "acceptanceScope": "No soporte específico art89A dentro de este servicio.",
+      "evidenceUsed": [
+        {
+          "documentId": "RIRPF-original",
+          "pagesOrArticles": "44,45,46",
+          "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+          "url": "https://www.boe.es/boe/dias/2007/03/31/pdfs/A14097-14149.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 19
+      },
+      "objections": [
+        "Se puede invocar por pagador; no afirmar que toda invocación agregada corresponda a varios pagadores.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-19",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "No existe selección de régimen foral en el servicio examinado.",
+      "acceptanceScope": "Solo límite de cobertura del contrato, ninguna norma foral aceptada.",
+      "evidenceUsed": [
+        {
+          "documentId": "codigo",
+          "pagesOrArticles": "",
+          "sha256": null,
+          "url": null
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 19
+      },
+      "objections": [
+        "No sostener que todo residente en Navarra queda necesariamente sujeto a la misma conexión; reglas forales no revisadas.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-20",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "La fuente del rastro permanece fijada a2026.",
+      "acceptanceScope": "Defecto documental del procedimiento2012–2019 actual.",
+      "evidenceUsed": [
+        {
+          "documentId": "codigo",
+          "pagesOrArticles": "",
+          "sha256": null,
+          "url": null
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 110
+      },
+      "objections": [
+        "La corrección del texto autonómico del padre no modificó esta constante distinta.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-21",
+      "previousAuthorStatus": "match",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "needs-evidence",
+      "severity": "P2",
+      "reason": "Coincide con pseudocódigo AEAT2017, pero art83.3.c limita gastos descontando también las reducciones de letra a; el código y PDF solo restan cotizaciones.",
+      "acceptanceScope": "No aceptación jurídica de fórmula general. Coincidencia textual acotada sin irregularidad; transición movilidad2015 también pendiente.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "7,14",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "21",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 208
+      },
+      "objections": [
+        "No resolver divergencia norma/algoritmo con autotest. En casos de base final cero puede no alterar importe, pero no valida el subpaso.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "No elevar el candidato a aceptación fiscal",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-22",
+      "previousAuthorStatus": "match",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P3",
+      "reason": "AEAT2017 y2019 contienen pension600, hijos600 y desempleo1200 separadamente.",
+      "acceptanceScope": "Coincidencia del pseudocódigo2017/2019 sobre entradas elegibles; no certificación de acumulación2012/2013 ni resolución de la disyunción reglamentaria.",
+      "evidenceUsed": [
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "22",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "2019-ALGORITMO_2019.pdf",
+          "pagesOrArticles": "22",
+          "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 496
+      },
+      "objections": [
+        "El texto reglamentario pensionista o más de dos hijos también persiste en2015; no basta su literal para probar doble reducción indebida solo en años antiguos.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Conservar alcance limitado al documentar coincidencia.",
+      "yearsClaimedByAuthor": [
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-23",
+      "previousAuthorStatus": "match",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P3",
+      "reason": "Truncamiento final a2 decimales y half-up de importe coinciden en casos iniciales contrastados.",
+      "acceptanceScope": "Operaciones finales2017/2019; no cuantías intermedias, límites ni tipos previos antiguos.",
+      "evidenceUsed": [
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "33",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "2019-ALGORITMO_2019.pdf",
+          "pagesOrArticles": "22,34,35",
+          "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 600
+      },
+      "objections": [
+        "Coincidencia de redondeo no valida base/cuota que reciben esas operaciones.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Conservar alcance limitado al documentar coincidencia.",
+      "yearsClaimedByAuthor": [
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-24",
+      "previousAuthorStatus": "match",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P3",
+      "reason": "Condición estricta33007.20 y minoración inicial aparecen en originales modernos.",
+      "acceptanceScope": "Subpaso inicial2017/2019 con derecho transitorio comunicado, sin regularización ni contrato mínimo activo.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "9",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "32",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "2019-ALGORITMO_2019.pdf",
+          "pagesOrArticles": "33,34",
+          "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 570
+      },
+      "objections": [
+        "No validar2012 ni derecho a deducción por booleano. Orden con mínimos contractuales y fracciones de céntimo requiere casos adicionales.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Conservar alcance limitado al documentar coincidencia.",
+      "yearsClaimedByAuthor": [
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-25",
+      "previousAuthorStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "needs-evidence",
+      "severity": "P2",
+      "reason": "Constantes2015 coinciden; no basta para aceptar elegibilidad ni fronteras de edad.",
+      "acceptanceScope": "Importes publicados identificados, fórmula completa no aceptada.",
+      "evidenceUsed": [
+        {
+          "documentId": "BOE-A-2014-12327",
+          "pagesOrArticles": "27,28",
+          "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+          "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "23",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 426
+      },
+      "objections": [
+        "Ley usa edad superior a65 y el algoritmo años de nacimiento; delimitar interpretación antes de corregir comparaciones.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "No elevar el candidato a aceptación fiscal",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-26",
+      "previousAuthorStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "Lectura de ambas suites confirma expectativas locales y escasos casos integrales históricos.",
+      "acceptanceScope": "Insuficiencia de cobertura, no afirmación de que todos los tests sean inútiles.",
+      "evidenceUsed": [
+        {
+          "documentId": "tests",
+          "pagesOrArticles": "",
+          "sha256": null,
+          "url": null
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 883
+      },
+      "objections": [
+        "Las10 ejecuciones nuevas cubren defectos concretos; no hacen exhaustivas las pruebas de160 celdas.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-27",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "No se han recuperado algoritmos oficiales2012–2016 completos; nuevas rutas migradas ensayadas devuelven404.",
+      "acceptanceScope": "Laguna documental de esta entrega. Se amplió cadena BOE; no afirmación de inexistencia pública universal.",
+      "evidenceUsed": [
+        {
+          "documentId": "adquisicion",
+          "pagesOrArticles": "",
+          "sha256": null,
+          "url": null
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 110
+      },
+      "objections": [
+        "Copias secundarias no sustituyen adquisición oficial; no se relajó TLS.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016
+      ]
+    },
+    {
+      "id": "RET1219-28",
+      "previousAuthorStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P1",
+      "reason": "Helper ignora situación laboral: devuelve12643 tanto para activo como pensionista2018julio. Ley y algoritmo publican tabla separada.",
+      "acceptanceScope": "Ocho celdas especiales desde5julio2018, con opción de regularización diferida; se conserva suma600/1200 según caso.",
+      "evidenceUsed": [
+        {
+          "documentId": "Ley6-2018",
+          "pagesOrArticles": "78,79",
+          "sha256": "aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+          "url": "https://www.boe.es/boe/dias/2018/07/04/pdfs/BOE-A-2018-9268.pdf"
+        },
+        {
+          "documentId": "2018-ALGORITMO_2018_a_partir_LGPE_2018.pdf",
+          "pagesOrArticles": "29,30,33",
+          "sha256": "b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018_a_partir_LGPE_2018.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+        "line": 231
+      },
+      "objections": [
+        "No corregir solo el incremento ni borrar tabla general. No trasladar tabla especial tachada de2019 como vigente allí.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2018
+      ]
+    },
+    {
+      "id": "RET1219-29",
+      "previousAuthorStatus": "match",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "needs-evidence",
+      "severity": "P2",
+      "reason": "Los vectores modernos se ven en originales;2012–2016 no tienen cadena completa por cada celda.",
+      "acceptanceScope": "Concordancia documental2017/2018/2019 limitada; no aceptación del conjunto89 comparaciones ni de vigencia2012–2019.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "6",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        },
+        {
+          "documentId": "Ley6-2018",
+          "pagesOrArticles": "78",
+          "sha256": "aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+          "url": "https://www.boe.es/boe/dias/2018/07/04/pdfs/BOE-A-2018-9268.pdf"
+        },
+        {
+          "documentId": "RD1461-2018",
+          "pagesOrArticles": "10",
+          "sha256": "87e933d45bd8b5a57d04892bf2c6e62e385a9481f960ae497185c4c083e954a6",
+          "url": "https://www.boe.es/boe/dias/2018/12/22/pdfs/BOE-A-2018-17601.pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "28",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+        "line": 32
+      },
+      "objections": [
+        "La casilla inexistente no es una cuantía cero; selección temporal y pensionistas se revisan por separado.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "No elevar el candidato a aceptación fiscal",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-30",
+      "previousAuthorStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "Inspección visual personal páginas22,29,30,31,32,33 confirma texto tachado coexistiendo con vigente.",
+      "acceptanceScope": "Riesgo real de interpretación del original; no se acusa corrupción del hash ni contradicción normativa por dos textos planos.",
+      "evidenceUsed": [
+        {
+          "documentId": "2019-ALGORITMO_2019.pdf",
+          "pagesOrArticles": "22,29,30,31,32,33",
+          "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 110
+      },
+      "objections": [
+        "La igualdad de2292 extracciones solo prueba extracción; ninguna detecta por sí sola el significado del tachado.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-31",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "manuales no tiene rama que reciba jornal ni multiplique por100.",
+      "acceptanceScope": "Formación de remuneración ausente; puede aportarse total ya normalizado externamente.",
+      "evidenceUsed": [
+        {
+          "documentId": "RIRPF-original",
+          "pagesOrArticles": "38,39",
+          "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+          "url": "https://www.boe.es/boe/dias/2007/03/31/pdfs/A14097-14149.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 19
+      },
+      "objections": [
+        "No aplicar100 a una remuneración ya anualizada. Falta unidad de entrada y responsabilidad de normalización.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-32",
+      "previousAuthorStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "Fecha ausente o fuera de períodos retorna tabla de cierre.",
+      "acceptanceScope": "Convención técnica comprobada, no ilegalidad de una API que se declare de cierre. Inadecuada para pagos históricos sin declaración.",
+      "evidenceUsed": [
+        {
+          "documentId": "codigo",
+          "pagesOrArticles": "",
+          "sha256": null,
+          "url": null
+        },
+        {
+          "documentId": "RDL9-2015",
+          "pagesOrArticles": "11",
+          "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+          "url": "https://www.boe.es/eli/es/rdl/2015/07/10/9/dof/spa/pdf"
+        },
+        {
+          "documentId": "Ley6-2018",
+          "pagesOrArticles": "78,79",
+          "sha256": "aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+          "url": "https://www.boe.es/boe/dias/2018/07/04/pdfs/BOE-A-2018-9268.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+        "line": 195
+      },
+      "objections": [
+        "No se observa llamada a fechaFallecimiento; descartada mezcla directa, pendiente contrato de fechaPago.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-33",
+      "previousAuthorStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "severity": "P2",
+      "reason": "Contrato especial impone mínimo sin discriminar las excepciones reglamentarias.",
+      "acceptanceScope": "Carencia contractual en casos exceptuados; discapacidad general no identifica relación laboral especial.",
+      "evidenceUsed": [
+        {
+          "documentId": "RIRPF-original",
+          "pagesOrArticles": "40",
+          "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+          "url": "https://www.boe.es/boe/dias/2007/03/31/pdfs/A14097-14149.pdf"
+        },
+        {
+          "documentId": "RD1461-2018",
+          "pagesOrArticles": "10,11",
+          "sha256": "87e933d45bd8b5a57d04892bf2c6e62e385a9481f960ae497185c4c083e954a6",
+          "url": "https://www.boe.es/boe/dias/2018/12/22/pdfs/BOE-A-2018-17601.pdf"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 615
+      },
+      "objections": [
+        "No eliminar mínimo de todos los trabajadores con discapacidad; exigir tipo de relación.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "Aceptación solo del alcance expresado; estado candidato original conservado sin edición",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "id": "RET1219-34",
+      "previousAuthorStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "needs-evidence",
+      "severity": "P2",
+      "reason": "Texto histórico contiene disyunción; mismo texto persiste en RD1003/2014 mientras AEAT2017 suma ambos.",
+      "acceptanceScope": "Se conserva ambigüedad; no demostrado error de600 adicional2012/2013.",
+      "evidenceUsed": [
+        {
+          "documentId": "RD1003-2014",
+          "pagesOrArticles": "7",
+          "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+          "url": "https://www.boe.es/eli/es/rd/2014/12/05/1003/dof/spa/pdf"
+        },
+        {
+          "documentId": "2017-ALGORITMO2017.pdf",
+          "pagesOrArticles": "22",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf"
+        },
+        {
+          "documentId": "RIRPF-historico-20111220",
+          "pagesOrArticles": "83",
+          "sha256": "573935380ce21d4beb5b0f5659f47c6921a5bfd55d03542e713b3dbeed3499f8",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-6820&p=20111220&tn=1"
+        }
+      ],
+      "engineLocation": {
+        "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "line": 496
+      },
+      "objections": [
+        "Rechazada inferencia de defecto basada únicamente en la palabra o. Falta algoritmo antiguo o criterio interpretativo primario.",
+        "No confundir igualdad de constantes con implementación completa ni usar un año posterior para acreditar vigencia anterior."
+      ],
+      "reclassification": "No elevar el candidato a aceptación fiscal",
+      "requiredAction": "Añadir contrato histórico y prueba independiente del alcance indicado antes de modificar el motor.",
+      "yearsClaimedByAuthor": [
+        2012,
+        2013
+      ]
+    }
+  ]
+}

@@ -106,6 +106,16 @@ La revisión de autonómicas 2017–2021 cubre los 95 IDs y 582 filas con extrac
 
 Después de ambos cambios: 80 pruebas de comunidades y liquidación correctas; lint global y typecheck correctos. Informe y registro reproducible en `correcciones/madrid-2020.md`. Sigue pendiente el enlace a snapshot, cita y facsímil definitivos del nuevo corpus. Corrección respaldada en origin en `fe876680`; recepción documental anterior en `4109c4fe`.
 
+## Inventario corregido y nueva recepción
+
+Se incorporan las fuentes del extractor después de cotejar sus hashes contra la entrega, sin copiar metadatos VCS ni las páginas antiguas. Se corrigen los cuatro bloqueos técnicos: reconstrucción contra fuentes actuales, IDs de ocurrencias versionadas, recorrido de valores explícito y clasificación estructural. Cuatro pruebas fallaron antes del cambio. La suite final tiene 14 pruebas correctas, incluido un artefacto adulterado con todos sus hashes recalculados que la reconstrucción rechaza. JSON Schema, reconstrucción completa, lint, typecheck y Ruff pasan. Falta una nueva contrarrevisión de la corrección; no es cierre de semántica fiscal.
+
+Nuevo inventario: 47.794 ocurrencias técnicas con solapamientos, 351 fichas y 288 sondeos; todas pendientes de interpretación. El manifiesto `inventario.json` fija un artefacto gzip de 8,21 MB que conserva 341 archivos JSON. Índice mínimo ID/página, generación en temporal exclusivo y comparación de conjuntos completos. No se reutilizan los IDs de la entrega inicial como conceptos fiscales estables. Véase `INVENTARIO.md` y D013 para límites, comandos y costes.
+
+Recibidas las diez contrarrevisiones de la ronda 3. Se conservan sus decisiones individuales, pero el orquestador aún debe leer e integrar sus conclusiones y contratos antes de aplicar más cambios fiscales. Las aceptaciones acotadas no se sumarán como reglas completas ni se propagarán a toda una escala o deducción.
+
+Recibidas también Seguridad Social (108 candidatos), cadena autonómica A (33) y cadena B (9). Se preparan revisiones nuevas de esos tres ámbitos. Los candidatos incluyen la doble base máxima de 2018, reparto de solidaridad por pagador, vigencias territoriales y reforma extremeña de 2026; no se modifica cálculo por esta recepción. `recepciones-ronda4.json` documenta el control mecánico de archivos y fuentes, separado de aceptación fiscal.
+
 ## Bootstrap anti-slop completado
 
 Runtime v0.1.2 verificado, incorporado con licencia y hashes, 16 reglas a error y oxlint 1.78.0 junto a ESLint. CI nueva con límite de 15 minutos y ejecución secuencial, sin build ni suite legacy pesada. Typecheck, humo del plugin y 5 pruebas seleccionadas pasan; ESLint pasa. Lint global falla con 96 errores preexistentes en 25 archivos, registrados en [LINT.md](LINT.md) y `lint/`. No se modificó el motor ni se validó cifra fiscal alguna. Auditoría documental desbloqueada; corrección de deuda pendiente de reparto por archivo. Integración y respaldo corresponden al orquestador. No se borró contexto ni Reactivity.

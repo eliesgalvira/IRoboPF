@@ -1,0 +1,514 @@
+{
+  "metaschemas": 14,
+  "checks": [
+    {
+      "id": "root-Parameter",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Formula",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Step",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Derivation",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Rule",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Document",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Citation",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Facsimile",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Snapshot",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Package",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-BindingIndex",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-Trace",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "root-PageEnvelope",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "trace-unknown",
+      "root": "Trace",
+      "schemaAccepts": false,
+      "requiredSemanticOutcome": "accept",
+      "reason": "Resultado desconocido no debe obligar a inventar decimal",
+      "fixture": {
+        "schemaVersion": 2,
+        "corpusSnapshotSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "engineAlgorithmVersion": "x",
+        "engineDataRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explanationVersion": "x",
+        "mode": "canonico",
+        "scenarioId": "x",
+        "scenarioRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "context": {
+          "years": [
+            2012
+          ],
+          "territories": [
+            "ES"
+          ],
+          "regime": "comun",
+          "validFrom": "2020-01-01",
+          "validToExclusive": "2020-01-01",
+          "timeBasis": "devengo",
+          "conditionEs": "x",
+          "conditionRefs": [],
+          "inheritance": {
+            "kind": "direct"
+          }
+        },
+        "steps": [
+          {
+            "instanceId": "x",
+            "binding": {
+              "siteId": "x",
+              "subjectRef": {
+                "id": "x",
+                "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "ruleRefs": [],
+              "citationRefs": [],
+              "evidenceStatus": "pendiente",
+              "reasonEs": "x",
+              "context": {
+                "years": [
+                  2012
+                ],
+                "territories": [
+                  "ES"
+                ],
+                "regime": "comun",
+                "validFrom": "2020-01-01",
+                "validToExclusive": "2020-01-01",
+                "timeBasis": "devengo",
+                "conditionEs": "x",
+                "conditionRefs": [],
+                "inheritance": {
+                  "kind": "direct"
+                }
+              }
+            },
+            "lines": [
+              {
+                "instanceId": "x",
+                "binding": {
+                  "siteId": "x",
+                  "subjectRef": {
+                    "id": "x",
+                    "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                  },
+                  "ruleRefs": [],
+                  "citationRefs": [],
+                  "evidenceStatus": "pendiente",
+                  "reasonEs": "x",
+                  "context": {
+                    "years": [
+                      2012
+                    ],
+                    "territories": [
+                      "ES"
+                    ],
+                    "regime": "comun",
+                    "validFrom": "2020-01-01",
+                    "validToExclusive": "2020-01-01",
+                    "timeBasis": "devengo",
+                    "conditionEs": "x",
+                    "conditionRefs": [],
+                    "inheritance": {
+                      "kind": "direct"
+                    }
+                  }
+                },
+                "formulaRef": {
+                  "id": "x",
+                  "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                },
+                "parameterRefs": [],
+                "unit": "x",
+                "roundingRef": {
+                  "id": "x",
+                  "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                },
+                "disposition": "no-soportada"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "public-path",
+      "root": "Document",
+      "schemaAccepts": true,
+      "requiredSemanticOutcome": "reject-public",
+      "reason": "Documento público no debe contener ruta local; al eliminarla cambia revision",
+      "fixture": {
+        "schemaVersion": 1,
+        "kind": "document",
+        "id": "x",
+        "titleEs": "x",
+        "original": {
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "sha512": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "size": 1,
+          "mimeType": "x",
+          "path": "sha256/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "canonicalUrl": "https://example.org/document",
+        "finalUrl": "https://example.org/document",
+        "retrievedAt": "2020-01-01T00:00:00Z",
+        "httpStatus": 200,
+        "headers": {
+          "etag": "x",
+          "lastModified": "x",
+          "contentType": "x"
+        },
+        "identifier": "x",
+        "publication": "2020-01-01",
+        "version": "x",
+        "authenticityChecks": [
+          {
+            "method": "https-origin",
+            "status": "no-evaluada",
+            "scopeEs": "x"
+          }
+        ],
+        "review": {
+          "status": "pendiente",
+          "authorId": "x"
+        },
+        "localPath": "/private/synthetic/persona.pdf"
+      }
+    },
+    {
+      "id": "csv",
+      "root": "Citation",
+      "schemaAccepts": false,
+      "requiredSemanticOutcome": "accept-with-designed-selector",
+      "reason": "Falta selector para CSV sin bbox ficticia",
+      "fixture": {
+        "schemaVersion": 1,
+        "kind": "citation",
+        "id": "x",
+        "documentRef": {
+          "id": "x",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "documentSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "locator": {
+          "type": "csv",
+          "row": 2,
+          "column": "valor",
+          "quote": {
+            "exact": "1",
+            "prefix": "",
+            "suffix": ""
+          }
+        },
+        "purpose": "valor",
+        "supports": [
+          "x"
+        ],
+        "review": {
+          "status": "pendiente",
+          "authorId": "x"
+        }
+      }
+    },
+    {
+      "id": "reverse-interval",
+      "root": "Parameter",
+      "schemaAccepts": true,
+      "requiredSemanticOutcome": "reject",
+      "reason": "Intervalo invertido requiere verificador semántico",
+      "fixture": {
+        "schemaVersion": 1,
+        "id": "x",
+        "titleEs": "x",
+        "scope": {
+          "years": [
+            2012
+          ],
+          "territories": [
+            "ES"
+          ],
+          "regime": "comun",
+          "validFrom": "2020-12-31",
+          "validToExclusive": "2020-01-01",
+          "timeBasis": "devengo",
+          "conditionEs": "x",
+          "conditionRefs": [],
+          "inheritance": {
+            "kind": "direct"
+          }
+        },
+        "knowledge": "sin-evidencia",
+        "review": {
+          "status": "pendiente",
+          "authorId": "x"
+        },
+        "page": {
+          "locale": "es",
+          "summaryEs": "x",
+          "formula": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "derivation": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "legalBasis": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "capture": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "edges": [
+            {
+              "id": "x",
+              "conditionEs": "x",
+              "expectedEs": "x",
+              "testId": "x"
+            }
+          ]
+        },
+        "kind": "parameter",
+        "classification": "regla-legal",
+        "value": {
+          "type": "decimal",
+          "decimal": "1"
+        },
+        "unit": "x",
+        "ruleRefs": [],
+        "citationRefs": [],
+        "derivationRefs": [],
+        "engineLocations": [],
+        "execution": "catalogado"
+      }
+    },
+    {
+      "id": "dangling",
+      "root": "Parameter",
+      "schemaAccepts": true,
+      "requiredSemanticOutcome": "reject",
+      "reason": "No hay objeto resoluble en snapshot fixture",
+      "fixture": {
+        "schemaVersion": 1,
+        "id": "x",
+        "titleEs": "x",
+        "scope": {
+          "years": [
+            2012
+          ],
+          "territories": [
+            "ES"
+          ],
+          "regime": "comun",
+          "validFrom": "2020-01-01",
+          "validToExclusive": "2020-01-01",
+          "timeBasis": "devengo",
+          "conditionEs": "x",
+          "conditionRefs": [],
+          "inheritance": {
+            "kind": "direct"
+          }
+        },
+        "knowledge": "sin-evidencia",
+        "review": {
+          "status": "pendiente",
+          "authorId": "x"
+        },
+        "page": {
+          "locale": "es",
+          "summaryEs": "x",
+          "formula": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "derivation": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "legalBasis": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "capture": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "edges": [
+            {
+              "id": "x",
+              "conditionEs": "x",
+              "expectedEs": "x",
+              "testId": "x"
+            }
+          ]
+        },
+        "kind": "parameter",
+        "classification": "regla-legal",
+        "value": {
+          "type": "decimal",
+          "decimal": "1"
+        },
+        "unit": "x",
+        "ruleRefs": [
+          {
+            "id": "ausente",
+            "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          }
+        ],
+        "citationRefs": [],
+        "derivationRefs": [],
+        "engineLocations": [],
+        "execution": "catalogado"
+      }
+    },
+    {
+      "id": "self-review",
+      "root": "Parameter",
+      "schemaAccepts": true,
+      "requiredSemanticOutcome": "reject",
+      "reason": "Schema no vincula identidad ni contenido revisado",
+      "fixture": {
+        "schemaVersion": 1,
+        "id": "x",
+        "titleEs": "x",
+        "scope": {
+          "years": [
+            2012
+          ],
+          "territories": [
+            "ES"
+          ],
+          "regime": "comun",
+          "validFrom": "2020-01-01",
+          "validToExclusive": "2020-01-01",
+          "timeBasis": "devengo",
+          "conditionEs": "x",
+          "conditionRefs": [],
+          "inheritance": {
+            "kind": "direct"
+          }
+        },
+        "knowledge": "sin-evidencia",
+        "review": {
+          "status": "aceptada",
+          "authorId": "autor",
+          "reviewerId": "autor",
+          "reportRef": {
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sha512": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "size": 1,
+            "mimeType": "x",
+            "path": "sha256/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "examined": [
+            {
+              "id": "otro",
+              "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+            }
+          ],
+          "reasonEs": "x"
+        },
+        "page": {
+          "locale": "es",
+          "summaryEs": "x",
+          "formula": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "derivation": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "legalBasis": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "capture": {
+            "status": "disponible",
+            "textEs": "x",
+            "refs": []
+          },
+          "edges": [
+            {
+              "id": "x",
+              "conditionEs": "x",
+              "expectedEs": "x",
+              "testId": "x"
+            }
+          ]
+        },
+        "kind": "parameter",
+        "classification": "regla-legal",
+        "value": {
+          "type": "decimal",
+          "decimal": "1"
+        },
+        "unit": "x",
+        "ruleRefs": [],
+        "citationRefs": [],
+        "derivationRefs": [],
+        "engineLocations": [],
+        "execution": "catalogado"
+      }
+    }
+  ]
+}

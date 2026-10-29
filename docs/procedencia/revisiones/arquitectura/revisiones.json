@@ -1,0 +1,252 @@
+{
+  "reviewer": "revision-arquitectura-independiente",
+  "date": "2026-10-29",
+  "verdict": "requires-changes",
+  "fiscalAcceptance": false,
+  "reviews": [
+    {
+      "id": "ARQ-01",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "reason": "LineaCalculo carece de ID y referencias versionadas por línea.",
+      "acceptanceScope": "Solo carencia del contrato, no ausencia de toda explicación ni incorrección aritmética.",
+      "severity": "P2",
+      "evidence": [
+        {
+          "path": "lib/dominio/explicacion/paso-explicacion.ts",
+          "line": 11,
+          "sha256": "de20289cc9d79b2e22fd83f3b41338f923b489e7a1687622b096093c603c4293",
+          "candidateSha256": "de20289cc9d79b2e22fd83f3b41338f923b489e7a1687622b096093c603c4293",
+          "candidateHashStillCurrent": true
+        }
+      ],
+      "objections": [
+        "El paso sí tiene fuentes; no sustituyen referencias por línea."
+      ],
+      "reclassification": "No se modifica hallazgo del autor; decisión independiente de alcance limitado."
+    },
+    {
+      "id": "ARQ-02",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "reason": "RastroCalculo solo declara título y pasos.",
+      "acceptanceScope": "Falta de versiones en este sobre; no certifica imposibilidad de reproducir por otros medios.",
+      "severity": "P2",
+      "evidence": [
+        {
+          "path": "lib/dominio/explicacion/rastro-calculo.ts",
+          "line": 3,
+          "sha256": "8a7e4b2615487d3453ad549fd8c13c46820c2a21dd768ccecb711aa361346ec9",
+          "candidateSha256": "8a7e4b2615487d3453ad549fd8c13c46820c2a21dd768ccecb711aa361346ec9",
+          "candidateHashStillCurrent": true
+        }
+      ],
+      "objections": [
+        "Versionar el repositorio ayuda, pero el rastro no fija ese commit."
+      ],
+      "reclassification": "No se modifica hallazgo del autor; decisión independiente de alcance limitado."
+    },
+    {
+      "id": "ARQ-03",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "reason": "El parámetro ejecutable no incluye ámbito ni revisión propios.",
+      "acceptanceScope": "Carencia intrínseca de metadatos; los repositorios externos sí pueden seleccionar por ejercicio.",
+      "severity": "P2",
+      "evidence": [
+        {
+          "path": "lib/dominio/normativa/repositorio-parametros.ts",
+          "line": 3,
+          "sha256": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
+          "candidateSha256": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
+          "candidateHashStillCurrent": true
+        }
+      ],
+      "objections": [
+        "No confundir metadatos ausentes con selección anual incorrecta."
+      ],
+      "reclassification": "No se modifica hallazgo del autor; decisión independiente de alcance limitado."
+    },
+    {
+      "id": "ARQ-04",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "reason": "FuenteNormativaNormalizada guarda título, referencia y nota, sin identidad de bytes.",
+      "acceptanceScope": "Ausencia de hash, selector y comprobación documental en este tipo.",
+      "severity": "P2",
+      "evidence": [
+        {
+          "path": "lib/dominio/normativa/fuente-normativa.ts",
+          "line": 1,
+          "sha256": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289",
+          "candidateSha256": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289",
+          "candidateHashStillCurrent": true
+        }
+      ],
+      "objections": [
+        "Una URL oficial no fija edición; la nota ya advierte límites de transcripción."
+      ],
+      "reclassification": "No se modifica hallazgo del autor; decisión independiente de alcance limitado."
+    },
+    {
+      "id": "ARQ-05",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "reason": "Persisten Manual 2025 en referencias y fuentes vacías en cuota diferencial.",
+      "acceptanceScope": "Carencia de procedencia precisa; no invalida automáticamente el cálculo de otros ejercicios.",
+      "severity": "P2",
+      "evidence": [
+        {
+          "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "line": 737,
+          "sha256": "79f210e7d7cf4cd0463ab1170b55dbc8c1df10a67b4929a1389f42576d91c06c",
+          "candidateSha256": "aed7b7c5a8d7aba05873f5a211284b34c0667e3df90fa3bd1fa305b4ce818078",
+          "candidateHashStillCurrent": false
+        }
+      ],
+      "objections": [
+        "La corrección del año de explicación comunitaria no elimina estos enlaces generales."
+      ],
+      "reclassification": "No se modifica hallazgo del autor; decisión independiente de alcance limitado."
+    },
+    {
+      "id": "ARQ-06",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "accepted",
+      "reason": "FuenteManualDeduccionAutonomica tiene documento nominal y páginas sin hash ni selector.",
+      "acceptanceScope": "Carencia documental del catálogo 2025; no validación de requisitos o importes.",
+      "severity": "P2",
+      "evidence": [
+        {
+          "path": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts",
+          "line": 47,
+          "sha256": "574bfe8a4e9729a98ca28410f3aa3c49fd0cf9944e83b8dd07b437f8e760143a",
+          "candidateSha256": "574bfe8a4e9729a98ca28410f3aa3c49fd0cf9944e83b8dd07b437f8e760143a",
+          "candidateHashStillCurrent": true
+        }
+      ],
+      "objections": [
+        "El campo estado sí distingue catálogo e implementación, pero no revisión de norma."
+      ],
+      "reclassification": "No se modifica hallazgo del autor; decisión independiente de alcance limitado."
+    },
+    {
+      "id": "ARQ-07",
+      "previousStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente"
+      },
+      "decision": "needs-evidence",
+      "reason": "Analytics sigue montado globalmente; falta ejecución que determine solicitudes y logs del flujo de fichas.",
+      "acceptanceScope": "Aceptada presencia y necesidad de prueba; privacidad efectiva y fuga permanecen indeterminadas.",
+      "severity": "P2",
+      "evidence": [
+        {
+          "path": "app/layout.tsx",
+          "line": 116,
+          "sha256": "f1561da4fd61ffd5ce818fe4abc54ccd95bc4fc98cc489b8f998b91feb335e2d",
+          "candidateSha256": "9a520b31ff1d3e01cacdc0b3d4a2121c3a7ba7fc2b6cc53b11e34ee268b05510",
+          "candidateHashStillCurrent": false
+        }
+      ],
+      "objections": [
+        "El SDK genera pageview con path/route; eso no demuestra que salga salario ni que el servidor reciba el evento."
+      ],
+      "reclassification": "No se modifica hallazgo del autor; decisión independiente de alcance limitado."
+    }
+  ],
+  "contractFindings": [
+    {
+      "id": "ARQ-R01",
+      "severity": "P1",
+      "path": "docs/procedencia/auditorias/arquitectura/schemas/model.schema.json",
+      "line": 206,
+      "title": "Review no vincula inequívocamente el contenido aceptado",
+      "repro": "No hay acceptanceScope estructurado ni digest del contenido fiscal invariable entre candidato examinado y entidad con review aceptada. Cambiar valor y conservar examined/reporte no encuentra una regla explícita de igualdad.",
+      "requestedChange": "Sacar atestación a índice separado que apunte al hash completo, o definir digest de payload excluyendo solo revisión y exigir igualdad exacta con candidato. Registrar proposición, ejercicio/territorio/intervalo, fuentes y estados separados.",
+      "caseId": "self-review"
+    },
+    {
+      "id": "ARQ-R02",
+      "severity": "P2",
+      "path": "docs/procedencia/auditorias/arquitectura/schemas/model.schema.json",
+      "line": 1978,
+      "title": "Trace obliga a inventar resultado para no-soportada",
+      "repro": "Eliminar result de línea no-soportada falla esquema; cero sí sería estructuralmente admisible.",
+      "requestedChange": "Unión discriminada: aplicada exige decimal/unidad; no-soportada exige motivo y prohíbe resultado numérico; definir no-aplica por separado y conservar diagnóstico.",
+      "caseId": "trace-unknown"
+    },
+    {
+      "id": "ARQ-R03",
+      "severity": "P2",
+      "path": "docs/procedencia/auditorias/arquitectura/schemas/model.schema.json",
+      "line": 1229,
+      "title": "Identidad pública y localPath incompatibles si se sanea después del hash",
+      "repro": "Document admite localPath; quitarlo para publicación cambia bytes y revision. Location.path también es string libre.",
+      "requestedChange": "Separar registro privado de adquisición de Document público; sanear antes de hash. Paths de código relativos al repositorio; prohibir absolutos, traversal y secretos. Allowlist de metadatos en todas las exportaciones.",
+      "caseId": "public-path"
+    },
+    {
+      "id": "ARQ-R04",
+      "severity": "P2",
+      "path": "docs/procedencia/auditorias/arquitectura/schemas/model.schema.json",
+      "line": 1450,
+      "title": "Citation no representa CSV ni texto plano",
+      "repro": "oneOf solo PdfLocator/HtmlLocator; el RFC textual propio y datos tabulares no HTML quedan sin selector fiel.",
+      "requestedChange": "Añadir Text/CSV con encoding, dialecto, cabecera, fila/columna y offsets sobre original fijado; nunca simular HTML/PDF.",
+      "caseId": "csv"
+    },
+    {
+      "id": "ARQ-R05",
+      "severity": "P2",
+      "path": "docs/procedencia/auditorias/arquitectura/schemas/model.schema.json",
+      "line": 1675,
+      "title": "Contrato de cierre y selección aún no ejecutable",
+      "repro": "No existe validador de snapshot aquí. Intervalos invertidos, referencias ausentes y autor=revisor pasan forma según diseño anunciado. Falta completar tipo por cada arista, binding contra inventario y pertenencia exacta.",
+      "requestedChange": "Especificar y probar cierre de Ref y Blob, reportes de autenticidad, versiones, inventario confiable, identidad semántica y selección por contexto sin fallback. Separar DAG CAS de relaciones inversas por ID.",
+      "caseId": "dangling"
+    }
+  ],
+  "coverage": {
+    "expectedIds": [
+      "ARQ-01",
+      "ARQ-02",
+      "ARQ-03",
+      "ARQ-04",
+      "ARQ-05",
+      "ARQ-06",
+      "ARQ-07"
+    ],
+    "reviewedIds": [
+      "ARQ-01",
+      "ARQ-02",
+      "ARQ-03",
+      "ARQ-04",
+      "ARQ-05",
+      "ARQ-06",
+      "ARQ-07"
+    ],
+    "omittedIds": [],
+    "accepted": 6,
+    "needsEvidence": 1,
+    "rejected": 0
+  }
+}

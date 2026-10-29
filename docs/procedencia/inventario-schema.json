@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:irobopf:inventario:v2",
+  "title": "Elemento inventariado pendiente de auditoría",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "expression": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "applicability": {
+      "type": "string"
+    },
+    "resolution": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^inv-[0-9a-f]{32}$"
+    },
+    "layer": {
+      "enum": [
+        "syntactic",
+        "effective",
+        "selected"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "Parameter",
+        "Formula",
+        "Step",
+        "Condition",
+        "Rounding"
+      ]
+    },
+    "value": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "years": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 2012,
+        "maximum": 2026
+      },
+      "uniqueItems": true
+    },
+    "territories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "regimes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "status": {
+      "const": "pending"
+    },
+    "evidence": {
+      "const": "pending"
+    },
+    "independentReview": {
+      "const": "pending"
+    },
+    "relations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemIds",
+        "ruleIds",
+        "citationIds",
+        "findingIds"
+      ],
+      "properties": {
+        "itemIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "citationIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "findingIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "description": "IDs opacos de norma/cita/hallazgo del corpus externo. No replica sus modelos. Vacíos hasta enlace independiente."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "sha256",
+        "line",
+        "column",
+        "offsetEncoding"
+      ],
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "offsetEncoding": {
+          "enum": [
+            "utf16",
+            "utf8-column"
+          ]
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "endLine": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "endColumn": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "domain",
+    "symbol",
+    "path",
+    "expression",
+    "unit",
+    "applicability",
+    "id",
+    "layer",
+    "kind",
+    "value",
+    "years",
+    "territories",
+    "regimes",
+    "status",
+    "evidence",
+    "independentReview",
+    "relations",
+    "source"
+  ]
+}

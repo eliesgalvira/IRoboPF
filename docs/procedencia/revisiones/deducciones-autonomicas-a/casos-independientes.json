@@ -1,0 +1,77 @@
+[
+  {
+    "id": "REV-AND-GEMELOS",
+    "profile": {
+      "exercise": 2025,
+      "territory": "andalucia",
+      "newborns": 2,
+      "multipleBirth": true,
+      "eligibleTaxpayers": 1,
+      "depopulation": false
+    },
+    "inputs": {
+      "andaluciaHijosNacimientoAdopcion": 2
+    },
+    "expected": 800,
+    "actual": 400,
+    "executed": true,
+    "limitation": "Perfil documentado; el helper no recibe todas sus dimensiones."
+  },
+  {
+    "id": "REV-CAN-DISCAPACIDAD",
+    "profile": {
+      "exercise": 2025,
+      "territory": "canarias",
+      "totalOrder": 3,
+      "disabilityOrder": 1,
+      "degree": 65,
+      "eligibleTaxpayers": 1,
+      "continuousCohabitation": true
+    },
+    "inputs": {
+      "canariasOrdenHijoNacimientoAdopcion": "tercero",
+      "canariasHijosNacimientoAdopcion": 1,
+      "canariasHijosNacimientoAdopcionDiscapacidad65": 1,
+      "canariasNacimientoCumpleLimites": true
+    },
+    "expected": 1130,
+    "actual": 1630,
+    "executed": true,
+    "limitation": "Perfil documentado; el helper no recibe todas sus dimensiones."
+  },
+  {
+    "id": "REV-CAT-TEMPORAL",
+    "profile": {
+      "exercise": 2025,
+      "territory": "catalunya",
+      "memberType": "temporal",
+      "capitalPaid": 1000
+    },
+    "inputs": {
+      "catalunyaAportacionesCooperativas": 1000
+    },
+    "expected": 0,
+    "actual": 200,
+    "executed": true,
+    "limitation": "Perfil documentado; el helper no recibe todas sus dimensiones."
+  },
+  {
+    "id": "REV-CAT-BASE",
+    "profile": {
+      "exercise": 2025,
+      "territory": "catalunya",
+      "baseLessPersonalFamilyMinimum": 30000.01,
+      "victimAccredited": true,
+      "rentPaid": 1000
+    },
+    "inputs": {
+      "catalunyaAlquilerVictima": 1000,
+      "catalunyaVictimaViolenciaMachista": true,
+      "baseImponibleMenosMinimo": 30000.01
+    },
+    "expected": 0,
+    "actual": 200,
+    "executed": true,
+    "limitation": "Perfil documentado; el helper no recibe todas sus dimensiones."
+  }
+]

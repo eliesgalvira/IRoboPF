@@ -1,0 +1,2033 @@
+{
+  "cutoff": "2026-10-29",
+  "reviewer": "revisor-independiente-capital-ganancias",
+  "reviews": [
+    {
+      "id": "CG-01",
+      "previousStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "mismatch",
+      "severity": "P1",
+      "reason": "Se elimina cada pérdida antes de integrar: 10000 y -4000 producen 10000 sujetos y -4000 exentos.",
+      "acceptanceScope": "Pérdidas computables del mismo componente y ejercicio, sin exención: saldo 6000 y exención cero. Una pérdida aislada debe conservar saldo -4000, aunque la base final sea cero.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularGananciaPatrimonialPorTransmision",
+            "lines": [
+              49,
+              78
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          },
+          {
+            "path": "lib/dominio/irpf/integracion/base-imponible-ahorro.ts",
+            "symbol": "calcularBaseImponibleAhorro",
+            "lines": [
+              5
+            ],
+            "sha256": "f809267bb9c76979360b5165316df7088d982705bdfa493f7bdf75a6b8feffdf"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              27
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              24,
+              25
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [
+          "mixta",
+          "negativa"
+        ],
+        "decisionCitations": [
+          "CG-01-reforma2014-p25"
+        ],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No se puede exigir que el llamador compense previamente: la API admite un array de operaciones. No ampliar a pérdidas excluidas por art.33.5."
+        }
+      ],
+      "action": "Conservar signo antes de la integración. Coordinar con ahorro: una sola corrección de CG-01; CG-21 requiere contrato de bolsas distinto.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-02",
+      "previousStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "mismatch",
+      "severity": "P1",
+      "reason": "El guard anio===2012 excluye ventas posteriores. La Ley 8/2012 DF3 reproduce DA37 sin plazo de venta.",
+      "acceptanceScope": "Condición temporal de adquisición y defecto del guard; caso de venta 2025 con todos los hechos declarados: 5000 exentos sobre 10000 de ganancia. No certifica concurrencia con otras exenciones.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularGananciaExentaInmuebleUrbanoAdquirido2012",
+            "lines": [
+              97,
+              116
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "exencion2012",
+            "pages": [
+              8
+            ],
+            "sha256": "73e5f7ae8b2c28c61a8862b846b8ff4b119afa6252ccb9b647f31e2106151430"
+          },
+          {
+            "documentId": "lirpf-actual",
+            "pages": [],
+            "sha256": "0abcd2ef5da969858a17d088738927017c0911fbc75d335e9dd7f2437f9e2550"
+          }
+        ],
+        "additionalCitations": [
+          "ley8-2012-p11",
+          "ley8-2012-p12"
+        ],
+        "executedCases": [
+          "urbana-posterior",
+          "vinculada",
+          "antes-ventana"
+        ],
+        "decisionCitations": [
+          "CG-02-exencion2012-p8",
+          "CG-02-ley8-2012-p11",
+          "CG-02-ley8-2012-p12"
+        ],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Se descarta que 2012 sea fecha límite de transmisión: ambos originales dicen adquiridos. Vinculación comprende compra y venta."
+        }
+      ],
+      "action": "Eliminar la restricción al año de venta tras prueba roja; conservar ventana 12-05/31-12 y exclusiones. Ley 8/2012 pp11–12 cierra el eslabón posterior al RDL18/2012.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-03",
+      "previousStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "mismatch",
+      "severity": "P1",
+      "reason": "La función de mayores65 no recibe el año. Ley26/2014 art.1.24 y DF6 crean art.38.3 desde 2015.",
+      "acceptanceScope": "En 2014 la reinversión en vitalicia del caso no exime la ganancia 10000.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularGananciaExentaMayores65",
+            "lines": [
+              90,
+              187
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              22,
+              79
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [
+          "vitalicia-2014",
+          "habitual-2014"
+        ],
+        "decisionCitations": [
+          "CG-03-reforma2014-p22",
+          "CG-03-reforma2014-p79"
+        ],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No confundir con vivienda habitual: la contraprueba mantiene su exención en 2014."
+        }
+      ],
+      "action": "Pasar ejercicio y limitar solo la rama vitalicia. Prueba roja 2014 y control 2015.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-04",
+      "previousStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "ambiguous",
+      "severity": "P1",
+      "reason": "Dos reinversiones previas cero dan 200000 exentos; con segunda previa 200000 da 120000. RD633/2015 art.42.4 exige considerar anteriores.",
+      "acceptanceScope": "Falta de contrato/validación de coherencia entre operaciones. La cuenta 100000 + 100000*(40000/200000)=120000 solo corresponde a hechos completos del caso.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularGananciasPatrimonialesPorTransmision",
+            "lines": [
+              36
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          },
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularExencionPorReinversionEnRentaVitalicia",
+            "lines": [
+              212,
+              226
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              22
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [
+          "rd633-2015-p8",
+          "rd633-2015-p9"
+        ],
+        "executedCases": [
+          "previas-cero",
+          "previas-actualizadas"
+        ],
+        "decisionCitations": [
+          "CG-04-rd633-2015-p9"
+        ],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "El llamador puede estar obligado a proporcionar acumulado actualizado en cada operación.",
+          "review": "Se confirma objeción del autor: el llamador sí puede proporcionar acumulado correcto. No declarar defectuosa la fórmula por operación ni sumar dos veces."
+        }
+      ],
+      "action": "Definir si previas es saldo inicial del año o acumulado por operación; validar cronología y rechazar incoherencia. No parche aritmético ciego.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-05",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "El tipo vitalicia solo expresa tres importes. RD633/2015 pp8–9 desarrolla plazo, aseguradora, periodicidad y comunicación.",
+      "acceptanceScope": "Ausencia de comprobación de elegibilidad y regularización; no aceptación de todo el régimen 2015–2026.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "TratamientoGananciaPatrimonialMayores65",
+            "lines": [
+              73,
+              85
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          },
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularGananciaExentaMayores65",
+            "lines": [
+              90,
+              187
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              22
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          },
+          {
+            "documentId": "aeat2015",
+            "pages": [
+              444,
+              445,
+              446
+            ],
+            "sha256": "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a"
+          }
+        ],
+        "additionalCitations": [
+          "rd633-2015-p8",
+          "rd633-2015-p9"
+        ],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "La etiqueta puede ser una atestación externa, pero no prueba cumplimiento; la excepción de retenciones impide un plazo universal de seis meses."
+        }
+      ],
+      "action": "Documentar cálculo condicionado o añadir hechos y estados de incumplimiento. Completar reformas reglamentarias posteriores antes de implementación completa.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-06",
+      "previousStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "ambiguous",
+      "severity": "P1",
+      "reason": "Las fechas opcionales terminan explícitamente en ahorro en 2013/2014. Sin antigüedad no se distingue permanencia superior al año.",
+      "acceptanceScope": "Insuficiencia del contrato y clasificación silenciosa, no obligación de clasificar siempre en general.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+            "symbol": "clasificarGananciaPatrimonialHasta2014",
+            "lines": [
+              256
+            ],
+            "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2012",
+            "pages": [
+              10
+            ],
+            "sha256": "df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [
+          "sin-fechas"
+        ],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Puede haber prevalidación externa pero la API no la exige ni recibe categoría alternativa."
+        }
+      ],
+      "action": "Rechazar dato insuficiente o exigir clasificación acreditada en 2013/2014; conservar el resto de ejercicios.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-07",
+      "previousStatus": "match",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "needs-evidence",
+      "classification": "ambiguous",
+      "severity": "P2",
+      "reason": "Aniversario ordinario y día siguiente funcionan. Compra 29-02-2012/venta 01-03-2013 devuelve general; no aceptar todas las fechas válidas por esos dos ejemplos.",
+      "acceptanceScope": "Solo coincidencia mecánica de los dos aniversarios ordinarios ensayados; regla fiscal completa no aceptada.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "clasificarBaseGanancia",
+            "lines": [
+              112,
+              167
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          },
+          {
+            "path": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+            "symbol": "clasificarGananciaPatrimonialHasta2014",
+            "lines": [
+              256
+            ],
+            "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              27
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "reforma2012",
+            "pages": [
+              10
+            ],
+            "sha256": "df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              24,
+              79
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [
+          "aniversario-0",
+          "aniversario-1",
+          "bisiesto"
+        ],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Se descarta aceptación global basada en ejemplos positivos; falta cerrar cómputo civil de años sin día equivalente."
+        }
+      ],
+      "action": "Añadir criterio primario de cómputo civil y caso bisiesto antes de aceptar el match general.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": {
+        "from": "match",
+        "to": "ambiguous"
+      }
+    },
+    {
+      "id": "CG-08",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "El campo se denomina importeIntegroCentimos y la función asigna neto=integro.",
+      "acceptanceScope": "Carencia de cálculo neto por inmueble, no error de resta en una funcionalidad implementada.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          },
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "RendimientoCapitalInmobiliario",
+            "lines": [
+              69,
+              100
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              17
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              129,
+              132
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              273,
+              274
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Introducir neto como íntegro falsea contrato; la simplificación sí está explicada en el código y rastro."
+        }
+      ],
+      "action": "Ampliación de contrato y cálculo por inmueble; no modificar porcentaje global.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-09",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "No hay gastos ni pendientes por inmueble. Art.23.1.a.1 y RIRPF13 distinguen límite y arrastre.",
+      "acceptanceScope": "Carencia de financiación/reparación y seguimiento de exceso. Ejemplo algebraico condicionado: neto -500 y pendiente 2000.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              17
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              129,
+              130
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              273
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          }
+        ],
+        "additionalCitations": [
+          "rd439-2007-p17"
+        ],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Otros gastos no comparten este límite; no compensar íntegros de dos inmuebles para ampliar el tope."
+        }
+      ],
+      "action": "Añadir bolsas de gastos por inmueble y ejercicio; verificar prioridad y antigüedad antes de activar.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-10",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "RIRPF13 enumera tributos, servicios, defensa, seguros y suministros; no hay campos de entrada.",
+      "acceptanceScope": "Carencia de desglose de gastos necesarios, sin certificar deducibilidad de facturas concretas.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              130
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              273,
+              274
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          }
+        ],
+        "additionalCitations": [
+          "rd439-2007-p17",
+          "rd439-2007-p18"
+        ],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Principal no es interés; mejora no es reparación; IVA deducible requiere tratamiento separado."
+        }
+      ],
+      "action": "Modelar naturaleza y vinculación al ingreso, sin imponer el límite de intereses a todos los gastos.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-11",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Art.23 y RIRPF14 contienen depreciación y derechos; motor carece de coste, suelo y titularidad.",
+      "acceptanceScope": "Carencia de amortización; no aceptación del ejemplo de muebles 10% ni de vigencia completa por años.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              17
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              130,
+              131
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              277,
+              278
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          }
+        ],
+        "additionalCitations": [
+          "rd439-2007-p18"
+        ],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "El 3% no habilita amortizar suelo ni exceder depreciación acumulada. Falta tabla primaria de muebles y cadena de reformas."
+        }
+      ],
+      "action": "Separar inmueble, muebles y derechos; fechar tablas, prorrata y máximo acumulado.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-12",
+      "previousStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "needs-evidence",
+      "classification": "ambiguous",
+      "severity": "P2",
+      "reason": "La diferencia entre manuales no fecha un cambio legal. Se localiza identificación STS1130/2021, recurso5664/2019, ECLI:ES:TS:2021:3483, pero no original judicial autenticado.",
+      "acceptanceScope": "No se acepta regla temporal ni cifra para adquisiciones gratuitas.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              131
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              275,
+              276,
+              277
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "La jurisprudencia interpreta la norma y puede aplicarse a hechos anteriores a la sentencia.",
+          "review": "La sentencia interpreta hechos anteriores; no partir automáticamente la serie en 2021."
+        }
+      ],
+      "action": "Obtener CENDOJ y examinar alcance de doctrina, firmeza/prescripción; no usar copia de tercero como norma.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-13",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "RIRPF13.e exige más de seis meses desde primera gestión de cobro hasta cierre; RDL35/2020 art15 lo reduce en 2020/2021.",
+      "acceptanceScope": "Carencia de exigibilidad, saldo dudoso y recuperación.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              130
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              274
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          },
+          {
+            "documentId": "aeat2020",
+            "pages": [
+              233
+            ],
+            "sha256": "2916a4ee52ec0cf6d5c68600fdc1de8604d2eda19db4a8aa3232e23ff34ef8ab"
+          },
+          {
+            "documentId": "aeat2021",
+            "pages": [
+              224
+            ],
+            "sha256": "76949adf843e46b4c552923cd268249c954d8761c983bac449479543533164e0"
+          },
+          {
+            "documentId": "covid2020",
+            "pages": [
+              22,
+              23
+            ],
+            "sha256": "9defcf6903a0b7fda357dd26b7e9afa394f7b25b261a1f9b10b0d3ce9e36e2e3"
+          }
+        ],
+        "additionalCitations": [
+          "rd439-2007-p18"
+        ],
+        "executedCases": [],
+        "decisionCitations": [
+          "CG-13-rd439-2007-p18"
+        ],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No confundir art14 RDL35 (deterioro empresarial) con art15 (alquiler); igualdad al plazo no es más de."
+        }
+      ],
+      "action": "Modelar fechas de gestión, concurso, renovación y recuperación, manteniendo excepciones por ejercicio.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-14",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Ley39/2010 art69 modifica 60/100 y DT19; no hay contrato ni edad de inquilino en API.",
+      "acceptanceScope": "Carencia de reducción histórica; no liquidación universal de alquileres 2012–2014.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              132,
+              133
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "reforma2010",
+            "pages": [
+              71
+            ],
+            "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4"
+          },
+          {
+            "documentId": "lirpf-historica2012",
+            "pages": [],
+            "sha256": "9671a37a65f805dc7008d74eae2b50e3331a726ac75fb14ea1987bbc0aad6d33"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Neto negativo y positivo joven tienen reglas diferentes; no arrastrar límite de 30 años a transición anterior2011."
+        }
+      ],
+      "action": "Separar regla general, juventud y transición; comprobar IPREM y reparto por inquilinos.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-15",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Ley26/2014 restringe a neto positivo y Ley11/2021 cambia autoliquidación/comprobación.",
+      "acceptanceScope": "Carencia de reducción y de fechas normativas, sin certificar todos los litigios de regularización.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              12,
+              13,
+              79
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          },
+          {
+            "documentId": "vivienda2023",
+            "pages": [
+              49,
+              50,
+              61
+            ],
+            "sha256": "0a93194ef3d3f1c28cbd2eddc98f49e9ea5138fe235138d6d0d3612b787d4bcd"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              284
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          },
+          {
+            "documentId": "reforma2021",
+            "pages": [
+              32
+            ],
+            "sha256": "0921c1ae747b86221d9d89fc3805a48eeed94717da8eadc50aa10d7cfa195a1a"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No extrapolar condiciones de 2021 a hechos anteriores ni reducir pérdidas desde2015."
+        }
+      ],
+      "action": "Fechar ambas redacciones; completar jurisprudencia antes de regularizaciones.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-16",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Ley12/2023 DF2 y DF9 separan fecha contractual y efecto fiscal2024; no hay hechos habilitantes en motor.",
+      "acceptanceScope": "Ausencia de selección por contrato/requisitos. No se aceptan cuatro porcentajes como opciones libres.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "vivienda2023",
+            "pages": [
+              49,
+              50,
+              61
+            ],
+            "sha256": "0a93194ef3d3f1c28cbd2eddc98f49e9ea5138fe235138d6d0d3612b787d4bcd"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              281,
+              282,
+              283,
+              285
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          },
+          {
+            "documentId": "aeat2025",
+            "pages": [
+              287
+            ],
+            "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Exactamente 5% de rebaja no cumple más de 5%; zona tensionada exige resolución aplicable."
+        }
+      ],
+      "action": "Contrato, rehabilitación, destino social, edad y resolución territorial necesarios; las cuatro expectativas del autor son aritmética condicional.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-17",
+      "previousStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "needs-evidence",
+      "classification": "ambiguous",
+      "severity": "P1",
+      "reason": "PDF original, sumario y ficha BOE coinciden en RDL29/2026 publicado07-10, entrada08-10. No aparece resolución primaria de convalidación en consultas realizadas.",
+      "acceptanceScope": "Aceptada únicamente identidad/publicación y presencia de texto; no cierre normativo de 2026 ni aplicación presente de condiciones de diciembre.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "lirpf-actual",
+            "pages": [],
+            "sha256": "0abcd2ef5da969858a17d088738927017c0911fbc75d335e9dd7f2437f9e2550"
+          },
+          {
+            "documentId": "reforma2026",
+            "pages": [
+              47,
+              48,
+              49,
+              50,
+              62,
+              63,
+              98
+            ],
+            "sha256": "112a5699b406a12a448a0e090d9fefa2b23461606074ffa8653126591d2ef182"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [
+          "CG-17-reforma2026-p63"
+        ],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No rechazar por parecer futuro: publicación anterior al corte sí comprobada. Tampoco confundir vigencia provisional con convalidación."
+        }
+      ],
+      "action": "Mantener seguimiento parlamentario; separar art6.Primero, Segundo y DT38. Diciembre2026 es futuro al corte29-10; no activar prórroga80% antes del supuesto temporal.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-18",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Ninguna entrada expresa irregularidad o contrato de renta antigua; Ley26/2014 art1.13 cambia art23.3.",
+      "acceptanceScope": "Carencia de estas dos reglas distintas. No validar conjunto completo de transiciones.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              131,
+              133,
+              134
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              12,
+              13
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              286,
+              287
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No aplicar irregularidad antes de decidir neto/reducción de vivienda; renta antigua no es otro porcentaje de vivienda."
+        }
+      ],
+      "action": "Obtener original de régimen de renta antigua y transición completa de fraccionamientos antes de ampliar.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-19",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "No hay inmuebles disponibles, parentesco, catastro ni días. Art24/85 requieren esos hechos.",
+      "acceptanceScope": "Ausencia de imputación/mínimo de parentesco, sin aceptar cadena catastral2012–2026.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "RendimientosCasoFiscal",
+            "lines": [
+              98,
+              113
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          },
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          },
+          {
+            "path": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+            "symbol": "calcularBaseImponibleGeneral",
+            "lines": [
+              6
+            ],
+            "sha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              17,
+              38,
+              39
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              134
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              277,
+              287,
+              288
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              36
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "La escala publicada para2027 no puede corregir2026. El alquiler efectivo y días vacíos exigen separación."
+        }
+      ],
+      "action": "Completar extensiones2023–2025 y mantener futuro2027 fuera; no deducir tasa solo por comunidad.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-20",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "General suma directamente rendimientos y ganancia; no tiene bolsas por origen ni vencimiento. Leyes16/2012 y26/2014 cambian límites/transiciones.",
+      "acceptanceScope": "Ausencia de integración/arrastre; 30 expectativas de bolsas son escenarios condicionados, no cobertura ejecutada.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+            "symbol": "calcularBaseImponibleGeneral",
+            "lines": [
+              6
+            ],
+            "sha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82"
+          },
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "RendimientosCasoFiscal",
+            "lines": [
+              98,
+              113
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              27
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "reforma2012",
+            "pages": [
+              10
+            ],
+            "sha256": "df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              24,
+              57,
+              58
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No convertir toda pérdida en reducción ilimitada de salario. Origen2013–14 puede cambiar destino desde2015."
+        }
+      ],
+      "action": "Contrato por componente, año de origen y saldo; máximo anual y caducidad, coordinado con CG01/21.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-21",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Ahorro solo recibe ganancias y hace max(0,saldo). No hay capital mobiliario ni arrastres. DA12 Ley26/2014 contiene10/15/20.",
+      "acceptanceScope": "Carencia de dos componentes y arrastres. No aceptación de vigencia anual completa hasta2026.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/integracion/base-imponible-ahorro.ts",
+            "symbol": "calcularBaseImponibleAhorro",
+            "lines": [
+              5
+            ],
+            "sha256": "f809267bb9c76979360b5165316df7088d982705bdfa493f7bdf75a6b8feffdf"
+          },
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "RendimientosCasoFiscal",
+            "lines": [
+              98,
+              113
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              27
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              25,
+              50,
+              57,
+              58
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Rechazar siempre 25%; también rechazar siempre cero antes2015 sin excepción de preferentes."
+        }
+      ],
+      "action": "Compartir contrato con auditor ahorro; no duplicar fixCG01 ni mezclar mínimos CG29.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-22",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Ley18/2014 art122.Dos, pp122–123, contiene DA39 y excepción especial de2014; API no tiene procedencia.",
+      "acceptanceScope": "Carencia de bolsa preferentes y corrección de referencia del candidato: ADICIONAL39, no TRANSITORIA39.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/integracion/base-imponible-ahorro.ts",
+            "symbol": "calcularBaseImponibleAhorro",
+            "lines": [
+              5
+            ],
+            "sha256": "f809267bb9c76979360b5165316df7088d982705bdfa493f7bdf75a6b8feffdf"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "aeat2014",
+            "pages": [
+              413,
+              414,
+              415
+            ],
+            "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea"
+          }
+        ],
+        "additionalCitations": [
+          "ley18-2014-p122",
+          "ley18-2014-p123"
+        ],
+        "executedCases": [],
+        "decisionCitations": [
+          "CG-22-ley18-2014-p123"
+        ],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No todos los rendimientos negativos son preferentes. El plazo de cuatro años no se reinicia por cambiar de componente."
+        }
+      ],
+      "action": "Completar antecedente RDL8/2014 y trazabilidad de saldos. No usar esta excepción como cruzada general de2014.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-23",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Solo se recibe importeGananciaCentimos; arts34–36 calculan valores, mejoras, tributos y amortización.",
+      "acceptanceScope": "Cálculo de ganancia externo al motor, no importe aritmético erróneo demostrado.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "GananciaPatrimonialTransmision",
+            "lines": [
+              83,
+              101
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          },
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularGananciaPatrimonialPorTransmision",
+            "lines": [
+              49,
+              78
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              23
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              20,
+              21
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Dato precalculado puede ser válido: aquí la objeción del autor se conserva, no se presume incorrección de todas las entradas."
+        }
+      ],
+      "action": "Documentar precondición y futura calculadora de valores; coeficientes2012–14 necesitan originales propios.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-24",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "API sin lotes, fechas de recompra, causa de pérdida ni transmisiones acumuladas. Arts33.5/37 y DT9 contienen tratamientos distintos.",
+      "acceptanceScope": "Ausencia de validación de pérdidas, FIFO y abatimiento.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "GananciaPatrimonialTransmision",
+            "lines": [
+              83,
+              101
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              22,
+              23
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              58,
+              59
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No toda pérdida debe deducirse tras CG01: primero debe ser computable; 400000 es transmisión acumulada, no ganancia."
+        }
+      ],
+      "action": "Separar elegibilidad del signo y conservar lotes/bolsas; no bloquear indiscriminadamente pérdidas válidas.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-25",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Solo etiquetas SinExencion, ViviendaHabitualMayores65 y Vitalicia; no hay dependencia como alternativa ni reinversión ordinaria vivienda.",
+      "acceptanceScope": "Carencia de esos tratamientos y condiciones; no certificación de etiqueta vivienda habitual.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "TratamientoGananciaPatrimonialMayores65",
+            "lines": [
+              73,
+              85
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          },
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularGananciaExentaMayores65",
+            "lines": [
+              90,
+              187
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              22,
+              25
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "aeat2024-correcto",
+            "pages": [
+              1082,
+              1083
+            ],
+            "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No eliminar exención vivienda habitual anterior2015 al corregirCG03."
+        }
+      ],
+      "action": "Añadir hechos verificables/atestación y régimen histórico de habitualidad. Examinar además reforma reglamentaria2026 antes de ampliar ese año.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-26",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "Base liquidable general=imponible y reducciones:never[]. Art50 prevé reducciones y negativos.",
+      "acceptanceScope": "Carencia para casos con reducciones o saldos previos; igualdad válida solo en escenario restringido.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "symbol": "liquidarTrabajoIndividualSimple",
+            "lines": [
+              166,
+              223,
+              224
+            ],
+            "sha256": "79f210e7d7cf4cd0463ab1170b55dbc8c1df10a67b4929a1389f42576d91c06c"
+          },
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "CasoFiscalAnual",
+            "lines": [
+              108
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              25
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          },
+          {
+            "documentId": "aeat2015",
+            "pages": [
+              479
+            ],
+            "sha256": "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No acusar de error todos los casos sin reducciones."
+        }
+      ],
+      "action": "Ampliación separada; no restar aportaciones sin límites y orden legal.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-27",
+      "previousStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "mismatch",
+      "severity": "P1",
+      "reason": "Llamada y firma de reducción ignoran otras rentas. Ley26/2014 p12 impone umbral en2015.",
+      "acceptanceScope": "Defecto de conexión para2015 con otras rentas no exentas>6500; no aceptar fórmula única para2012–2026.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "symbol": "liquidarTrabajoIndividualSimple",
+            "lines": [
+              166,
+              223,
+              224
+            ],
+            "sha256": "79f210e7d7cf4cd0463ab1170b55dbc8c1df10a67b4929a1389f42576d91c06c"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              12
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Hasta2014 otras rentas altas no anulan toda reducción: el régimen anterior tiene cuantía residual."
+        }
+      ],
+      "action": "Coordinar trabajo: incorporar rentas fiscalmente computables y reglas por ejercicio; evitar duplicar corrección.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-28",
+      "previousStatus": "mismatch",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "mismatch",
+      "severity": "P2",
+      "reason": "Rastro general omite sumando de ganancia y descripción de ahorro es incondicional. Código suma ganancia general correctamente cuando clasificada.",
+      "acceptanceScope": "Defecto explicativo actual en liquidar-irpf-anual.ts; no defecto del selector de tablas por este motivo.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "symbol": "liquidarTrabajoIndividualSimple",
+            "lines": [
+              166,
+              223,
+              224
+            ],
+            "sha256": "79f210e7d7cf4cd0463ab1170b55dbc8c1df10a67b4929a1389f42576d91c06c"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2012",
+            "pages": [
+              10
+            ],
+            "sha256": "df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "La explicación de comunidad ya corregida por el padre es otro texto: no reabrir aquel hallazgo."
+        }
+      ],
+      "action": "Mostrar sumando y base de integración por ejercicio/operación.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-29",
+      "previousStatus": "ambiguous",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "needs-evidence",
+      "classification": "ambiguous",
+      "severity": "P1",
+      "reason": "Se usa max de mínimos estatal/autonómico antes de tarifa conjunta, confirmado en líneas471–485.",
+      "acceptanceScope": "Sospecha técnica confirmada; corrección fiscal remitida a ahorro/mínimos con tarifa y ejercicio concretos.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+            "symbol": "liquidarTrabajoIndividualSimple",
+            "lines": [
+              166,
+              223,
+              224
+            ],
+            "sha256": "79f210e7d7cf4cd0463ab1170b55dbc8c1df10a67b4929a1389f42576d91c06c"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              32,
+              36
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "La igualdad accidental de mínimos oculta el problema pero no demuestra cuota errónea en todo caso."
+        }
+      ],
+      "action": "Exigir contraprueba anual donde difieran; no cambiar dos dominios de forma independiente.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-30",
+      "previousStatus": "match",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "match",
+      "severity": "P3",
+      "reason": "Suma de céntimos y ubicación del capital inmobiliario en general coinciden con arts45/48.",
+      "acceptanceScope": "Solo suma y ubicación ordinarias; no neto, exenciones, imputación ni compensación.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "sumarRendimientosCapitalInmobiliario",
+            "lines": [
+              11
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          },
+          {
+            "path": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+            "symbol": "calcularBaseImponibleGeneral",
+            "lines": [
+              6
+            ],
+            "sha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "ley-original",
+            "pages": [
+              27
+            ],
+            "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525"
+          },
+          {
+            "documentId": "reforma2014",
+            "pages": [
+              24
+            ],
+            "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "Suma correcta no valida que el importe sea fiscalmente neto."
+        }
+      ],
+      "action": "Mantener match estrictamente acotado.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-31",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "accepted",
+      "classification": "missing",
+      "severity": "P2",
+      "reason": "RDL35/2020 art13 crea DA49 para mensualidadesenero–marzo2021; API carece de local, actividad, acuerdo y rebaja.",
+      "acceptanceScope": "Carencia de gasto extraordinario condicionado; no se acepta deducción900 sin hechos completos.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+            "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+            "lines": [
+              32
+            ],
+            "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "aeat2021",
+            "pages": [
+              225,
+              226
+            ],
+            "sha256": "76949adf843e46b4c552923cd268249c954d8761c983bac449479543533164e0"
+          },
+          {
+            "documentId": "covid2020",
+            "pages": [
+              22,
+              23
+            ],
+            "sha256": "9defcf6903a0b7fda357dd26b7e9afa394f7b25b261a1f9b10b0d3ce9e36e2e3"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No basta ser pequeño arrendador: actividad tasada, vinculación y compensación posterior importan."
+        }
+      ],
+      "action": "Añadir contrato/condiciones solo con evidencia; separar menor ingreso de gasto adicional.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    },
+    {
+      "id": "CG-32",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pendiente",
+        "reviewer": null
+      },
+      "decision": "needs-evidence",
+      "classification": "missing",
+      "severity": "P1",
+      "reason": "DA65 figura en original2026 pp59–60; hay exención directa y reinversión complementaria con requisitos diferentes.",
+      "acceptanceScope": "Presencia documental y ausencia técnica verificadas; no habilitar cifra/regla operativa general al corte.",
+      "evidenceUsed": {
+        "code": [
+          {
+            "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+            "symbol": "GananciaPatrimonialTransmision",
+            "lines": [
+              83,
+              101
+            ],
+            "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+          },
+          {
+            "path": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+            "symbol": "calcularGananciaPatrimonialPorTransmision",
+            "lines": [
+              49,
+              78
+            ],
+            "sha256": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287"
+          }
+        ],
+        "primaryAndContextCandidates": [
+          {
+            "documentId": "reforma2026",
+            "pages": [
+              59,
+              60,
+              61,
+              62,
+              98,
+              99
+            ],
+            "sha256": "112a5699b406a12a448a0e090d9fefa2b23461606074ffa8653126591d2ef182"
+          }
+        ],
+        "additionalCitations": [],
+        "executedCases": [],
+        "decisionCitations": [],
+        "primaryAndContextCandidatesScope": "Referencias del candidato contrastadas por original/hash; los manuales aportan contexto y no aceptan cifras por sí solos. Las citas decisorias seleccionadas se señalan aparte."
+      },
+      "objections": [
+        {
+          "author": "Un dato precalculado podría incorporar el tratamiento fiscal fuera del motor.",
+          "review": "No condicionar toda la exención directa a la orden de la cuenta: la espera de treinta días y orden afecta reinversión complementaria."
+        }
+      ],
+      "action": "Cerrar situación parlamentaria y distinguir venta directa desde08-10 de desarrollo de cuenta; ningún cierre2026 certificado.",
+      "limits": "Régimen común. No certifica fiscalidad de toda la serie ni autenticidad PAdES/CSV. Las carencias aceptadas no aceptan todas las cifras de officialValue.",
+      "reclassification": null
+    }
+  ]
+}

@@ -1,0 +1,535 @@
+{
+  "ids": [
+    "ARQ-01",
+    "ARQ-02",
+    "ARQ-03",
+    "ARQ-04",
+    "ARQ-05",
+    "ARQ-06",
+    "ARQ-07"
+  ],
+  "schemas": [
+    {
+      "file": "BindingIndex.schema.json",
+      "review": "Inventario confiable más mapa siteId; coincidencia de versiones insuficiente.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Citation.schema.json",
+      "review": "ARQ-R04; backlinks supports no acreditan todas las variantes.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Derivation.schema.json",
+      "review": "Entradas y fórmula no deben depender del parámetro derivado.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Document.schema.json",
+      "review": "ARQ-R03 y resumen de autenticidad sin sello global.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Facsimile.schema.json",
+      "review": "Alinear coordenadas con corpus y fijar receta real reproducible.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Formula.schema.json",
+      "review": "Tipar aristas de inputs/rounding; expresión documental no ejecutable.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Package.schema.json",
+      "review": "Validar entryCount externo y unicidad por id/revision; dependencias están en Snapshot.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "PageEnvelope.schema.json",
+      "review": "entityKind debe ser enum y concordar con sujeto; no transportar localPath.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Parameter.schema.json",
+      "review": "Aceptación parcial y unidad/celda; derivación no puede autorreferenciar resultado.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Rule.schema.json",
+      "review": "Cadena amends/supersedes, publicación y vigencia con fuentes distintas.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Snapshot.schema.json",
+      "review": "ARQ-R01/R05; incluir cierre de blobs auxiliares, inventario y schemas.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Step.schema.json",
+      "review": "dependsOn DAG semántico y no orden UI.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "Trace.schema.json",
+      "review": "ARQ-R02; escenario privado debe permanecer local, definición/reconstrucción todavía pendiente.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    },
+    {
+      "file": "model.schema.json",
+      "review": "Biblioteca $defs, no usar raíz sin $ref como validador de entidad.",
+      "metaschema": "passed",
+      "semanticAcceptance": false
+    }
+  ],
+  "tests": [
+    {
+      "id": "C01",
+      "positive": "Validar cada raíz con Draft202012 y format checker",
+      "negative": "Campo desconocido, versión errónea, referencia mal formada: rechazar",
+      "decision": "accepted-with-refinement",
+      "review": "Estructura: 14 metaschemas y 13 raíces comprobados; no equivale a cierre.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C02",
+      "positive": "Decimal `0.075` con unidad `fraccion`",
+      "negative": "Número JSON 0.075, `NaN`, coma decimal: rechazar",
+      "decision": "accepted-with-refinement",
+      "review": "Patrón decimal leído; añadir -0 y unidad vacía/incorrecta; sin aceptación fiscal.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C03",
+      "positive": "Tabla con límites/porcentajes y clave de fila",
+      "negative": "Duplicar clave o unidad equivocada: error semántico",
+      "decision": "accepted-with-refinement",
+      "review": "Duplicados por clave y columna requieren índice semántico, uniqueItems compara objetos completos.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C04",
+      "positive": "Grafo con Rule→Citation→Document",
+      "negative": "Referencia rota, tipo erróneo, ciclo por hash: rechazar publicación",
+      "decision": "accepted-with-refinement",
+      "review": "DAG por hash; probar también self-ref en Page.formula/derivation y dependencia transitiva.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C05",
+      "positive": "Snapshot resuelve misma revisión por dos paquetes",
+      "negative": "Bytes distintos o tamaño/hash incorrectos: rechazar",
+      "decision": "accepted-with-refinement",
+      "review": "Dedupe entre paquetes permitido solo con bytes, tipo e ID idénticos.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C06",
+      "positive": "Publicación y vigencia retroactiva documentadas",
+      "negative": "Resolver por fecha de descarga en lugar de devengo: test falla",
+      "decision": "accepted-with-refinement",
+      "review": "Retroactividad no debe rechazarse; fecha de publicación debe tener fuente real.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C07",
+      "positive": "Dos variantes intranuales, frontera `[a,b)`",
+      "negative": "Día b en primera variante o dos reglas simultáneas sin discriminante: rechazar",
+      "decision": "accepted-with-refinement",
+      "review": "Dos intervalos adyacentes con frontera exclusiva; variantes simultáneas deben discriminarse.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C08",
+      "positive": "Fallecimiento antes/después del cambio normativo",
+      "negative": "Sustituir por 31/12 automáticamente: test falla",
+      "decision": "accepted-with-refinement",
+      "review": "Fecha privada se resuelve localmente; URL solo lleva variante pública.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C09",
+      "positive": "Continuidad de un año mediante Rule",
+      "negative": "Copiar valor anterior sin regla de continuidad: rechazar sello revisado",
+      "decision": "accepted-with-refinement",
+      "review": "Continuidad debe enlazar norma y cadena de reformas; igualdad numérica insuficiente.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C10",
+      "positive": "Regla estatal y autonómica distintas",
+      "negative": "Aplicar `simulada-estatal` a comunidad real o foral por fallback: rechazar",
+      "decision": "accepted-with-refinement",
+      "review": "Mapa explícito territorial; foral y simulada-estatal sin fallback.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C11",
+      "positive": "Estados independientes",
+      "negative": "Firma válida marca review aceptada automáticamente: test falla",
+      "decision": "accepted-with-refinement",
+      "review": "Firma/autenticidad, integridad, revisión semántica e implementación son ejes separados.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C12",
+      "positive": "Revisor nuevo con informe y hashes",
+      "negative": "Mismo authorId/reviewerId, reporte sin original: rechazar aceptación",
+      "decision": "accepted-with-refinement",
+      "review": "ARQ-R01: informe verificable ligado a payload, no nombres distintos únicamente.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C13",
+      "positive": "Cita PDF página 1 y cajas reales",
+      "negative": "Página 0, cajas invertidas/fuera de página, quote alterada: rechazar",
+      "decision": "accepted-with-refinement",
+      "review": "Reextraer quote y cajas; comprobar documento completo y hash.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C14",
+      "positive": "PDF rotado 90°, CropBox desplazado",
+      "negative": "Interpretar origen inferior izquierdo o MediaBox: captura no coincide, test falla",
+      "decision": "accepted-with-refinement",
+      "review": "Contrato de geometría debe armonizar con corpus: CropBox, rotación y tamaño sin redondeo implícito.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C15",
+      "positive": "Fila de tabla con encabezado y dos páginas",
+      "negative": "Capturar número de fila vecina: rechazar correspondencia de valor",
+      "decision": "accepted-with-refinement",
+      "review": "Cabeceras/celda deben relacionarse semánticamente; conservar tachados/contexto.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C16",
+      "positive": "Cita HTML selector+quote contra bytes guardados",
+      "negative": "HTML modificado en origen no actualiza cita antigua; si bytes locales cambian, falla hash",
+      "decision": "accepted-with-refinement",
+      "review": "Algoritmo HTML fijado y original inerte; ampliar CSV/texto ARQ-R04.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C17",
+      "positive": "OCR marcado y revisión humana pendiente",
+      "negative": "Cambiar extraction a text-layer sin respaldo: verificador falla",
+      "decision": "accepted-with-refinement",
+      "review": "OCR requiere revisión humana y no se transforma en text-layer por enum.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C18",
+      "positive": "Recorte reproducido con entorno fijado",
+      "negative": "Cambiar encoder/DPI sin nueva revisión: hash falla",
+      "decision": "accepted-with-refinement",
+      "review": "Entorno/encoder fijados; hash no garantiza que entorno sea reconstruible.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C19",
+      "positive": "Derivación anual explicita 12×importe mensual",
+      "negative": "Comparar directamente mensual con anual o aplicar 14 pagas: falla comparación",
+      "decision": "accepted-with-refinement",
+      "review": "Derivation con unidades y regla de conversión; no número buscado en texto.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C20",
+      "positive": "Cada rama del rastro tiene siteId y refs",
+      "negative": "Una línea sin binding, binding por etiqueta traducida o manual de otro año: falla cobertura",
+      "decision": "accepted-with-refinement",
+      "review": "Inventario de puntos de emisión y ramas; no inferir binding por etiquetas.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C21",
+      "positive": "Repeticiones tienen instanceId único",
+      "negative": "Reusar ID en dos tramos o usar posición como identidad estable: falla semántica",
+      "decision": "accepted-with-refinement",
+      "review": "Unicidad global instanceId; siteId identifica semántica, no índice de array.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C22",
+      "positive": "Calcular con red deshabilitada",
+      "negative": "Resolver parámetros desde PDF remoto en ejecución: falla frontera",
+      "decision": "accepted-with-refinement",
+      "review": "Cálculo privado independiente de disponibilidad CAS; degradación explícita de procedencia.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C23",
+      "positive": "Solicitar ficha solo con IDs públicos",
+      "negative": "Salario/resultados/fecha personal en URL, request o log: falla privacidad",
+      "decision": "accepted-with-refinement",
+      "review": "Faltan pruebas reales; SDK instalado conserva path; incluir query, referrer, errores y reportes.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C24",
+      "positive": "Rastro v1 produce aviso pendiente",
+      "negative": "Migración inventa cita o acepta legado como norma: falla",
+      "decision": "accepted-with-refinement",
+      "review": "ARQ-R02: v1 incompleto no permite inventar resultado ni fórmula.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C25",
+      "positive": "Código N con snapshot compatible",
+      "negative": "Algoritmo/datos/explicación N−1 sin rechazo explícito: falla",
+      "decision": "accepted-with-refinement",
+      "review": "Snapshot fija inventario y motor actual; rechazar BindingIndex manipulado aunque versiones coincidan.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C26",
+      "positive": "Publicar objetos antes del manifiesto/alias",
+      "negative": "Interrumpir publicación entre fases: alias previo sigue utilizable",
+      "decision": "accepted-with-refinement",
+      "review": "Publicación local con fallos inyectados antes/después del alias; no requiere producción.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C27",
+      "positive": "Cache hit devuelve mismos bytes del paquete",
+      "negative": "Respuesta truncada, MIME HTML por error, hash distinto o zip bomb: rechazo y no cachear como éxito",
+      "decision": "accepted-with-refinement",
+      "review": "Limitar bytes decodificados, profundidad JSON y número de entradas además de MIME/hash.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C28",
+      "positive": "URL desconocida da 404 sin guardar ficha",
+      "negative": "Hash presente en índice pero caído: 503, no 404 persistente",
+      "decision": "accepted-with-refinement",
+      "review": "503 de hash conocido ausente; desconocido 404 sin crear caché ilimitada.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C29",
+      "positive": "HTML/RSC respetan Vary en host real",
+      "negative": "Servir RSC a navegación HTML o mezclar despliegues: falla",
+      "decision": "accepted-with-refinement",
+      "review": "Verificar localmente integración y luego host autorizado; no requisito para aceptar decisión ADR.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C30",
+      "positive": "Alias revalidado y snapshot antiguo retenido",
+      "negative": "Alias stale actualiza mitad de referencias: falla",
+      "decision": "accepted-with-refinement",
+      "review": "Alias no participa en resolución de rastro ya fijado; retener snapshot anterior.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C31",
+      "positive": "Página sin JS conserva fórmula/norma/bordes",
+      "negative": "Evidencia solo canvas/imagen, foco inaccesible o color como único estado: falla accesibilidad",
+      "decision": "accepted-with-refinement",
+      "review": "Revisión manual de navegación teclado/transcripción; no certificada por JSON.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C32",
+      "positive": "Restauración desde segunda copia sin caché web",
+      "negative": "Manifest sin blob recuperable: no publicar como preservado",
+      "decision": "accepted-with-refinement",
+      "review": "Restauración desde copia independiente aislada; incluir schemas, reportes, inventario y recetas.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C33",
+      "positive": "Document headers ausentes son null explícito",
+      "negative": "Inventar ETag/publicación/CSV a partir del nombre: rechazar ingreso",
+      "decision": "accepted-with-refinement",
+      "review": "Solo allowlist de cabeceras; no conservar sesiones ni registros completos publicables.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C34",
+      "positive": "Firma con revisión posterior identificada",
+      "negative": "Reporte PAdES dice válida sin alcance de bytes/revocación: no acreditar autenticidad completa",
+      "decision": "accepted-with-refinement",
+      "review": "ByteRange, revisiones posteriores, cadena y revocación; no booleano trusted inferido.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C35",
+      "positive": "Datos remotos tratados como datos",
+      "negative": "HTML activo same-origin, eval de fórmula, URL arbitraria del cliente: falla frontera",
+      "decision": "accepted-with-refinement",
+      "review": "No render HTML original activo; manifiesto raíz confiable y hashes allowlisted.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    },
+    {
+      "id": "C36",
+      "positive": "Medición con paquetes representativos",
+      "negative": "RSS/build/bundle sobre presupuesto: ajustar partición/prerender antes de publicar",
+      "decision": "accepted-with-refinement",
+      "review": "Medir después con permiso para build; presupuestos actuales son hipótesis, no bloquean ADR de diseño.",
+      "execution": "No ejecutada como prueba de aplicación; ver resultados.json para ensayos estructurales independientes."
+    }
+  ],
+  "authorAreas": [
+    {
+      "area": "Parameter",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Formula",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Step",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Derivation",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Rule",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Document",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Citation PDF/HTML",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Facsimile",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Snapshot",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Package",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "BindingIndex",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Trace",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "PageEnvelope",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "vigencia intranual",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "herencia anual",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "regímenes y forales",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "estados independientes",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "CAS y DAG",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "integridad y autenticidad",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "prerender Next",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "paquetes remotos",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "caché e invalidación",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "404/503/versiones",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "preservación y restauración",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "privacidad de rastro",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "accesibilidad",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Rivet",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "Durable Objects",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    },
+    {
+      "area": "plan de pruebas",
+      "reviewed": true,
+      "limit": "Revisión de diseño, no implementación ni aceptación fiscal"
+    }
+  ],
+  "omissions": []
+}
