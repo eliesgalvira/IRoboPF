@@ -1,0 +1,26 @@
+{
+  "scope": "docs/procedencia/revisiones/flujo-retenciones-ss-r26-sol/",
+  "typecheck": {
+    "command": "node /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc -p docs/procedencia/revisiones/flujo-retenciones-ss-r26-sol/tsconfig.json",
+    "diagnostics": 0,
+    "log": "tipos.log",
+    "limits": "checkJs de instrumentos; no compilación completa del motor"
+  },
+  "lint": {
+    "command": "oxlint --threads=1 --disable-nested-config --config docs/procedencia/revisiones/flujo-retenciones-ss-r26-sol/oxlint.json docs/procedencia/revisiones/flujo-retenciones-ss-r26-sol/",
+    "diagnostics": 0,
+    "rulesAtError": 16,
+    "log": "lint-final.log"
+  },
+  "tests": {
+    "newGreen": 19,
+    "preservedRed": 3,
+    "authorGreen": 28
+  },
+  "validatorMutations": {
+    "accepted": 5,
+    "claim": "Límite observado, no analizador semántico general"
+  },
+  "vcsMutations": false,
+  "legalAcceptance": false
+}

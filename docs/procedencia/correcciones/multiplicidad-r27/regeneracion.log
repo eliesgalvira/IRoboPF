@@ -1,0 +1,16 @@
+13 | const datos = resolve(root, 'docs/procedencia/implementaciones/contenidos/datos')
+14 | const registroPath = resolve(root, 'docs/procedencia/enlaces/registro.json')
+15 | const revisoresPath = resolve(root, 'docs/procedencia/enlaces/revisores.json')
+16 | const registroBytes = readFileSync(registroPath)
+17 | const revisoresBytes = readFileSync(revisoresPath)
+18 | assert.equal(JSON.parse(readFileSync(resolve(out, 'despues-url/comprobacion-propia.json'))).enlaces, 264)
+                             ^
+ENOENT: no such file or directory, open '/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/multiplicidad-r27/despues-url/comprobacion-propia.json'
+    path: "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/multiplicidad-r27/despues-url/comprobacion-propia.json",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at /home/elies/Repos/IRoboPF/docs/procedencia/correcciones/multiplicidad-r27/regenerar.mjs:18:25
+
+Bun v1.3.13 (Linux x64)

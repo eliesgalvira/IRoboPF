@@ -130,7 +130,7 @@ describe("Publicación de evidencia v2", { timeout: 30_000 }, () => {
       createElement(Ficha, {
         entidad,
         snapshot: id,
-        evidencia: e,
+        evidencias: [e],
         enlaces: enlacesDocumentales(id, entidad, scratch),
       })
     )

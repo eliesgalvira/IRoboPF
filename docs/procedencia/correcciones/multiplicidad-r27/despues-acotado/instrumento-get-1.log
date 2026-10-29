@@ -1,0 +1,20 @@
+24 |  const expected=snapshot.evidencias.filter((e)=>e.sujeto.id===sujeto.id)
+25 |  for(const e of expected){
+26 |   assert.ok(html.includes(e.payload))
+27 |   assert.ok(html.includes(`/evidencia.${e.payload}.rule/`))
+28 |  }
+29 |  assert.equal((html.match(/Aceptación fiscal completa/g)??[]).length,expected.length)
+             ^
+AssertionError: Expected values to be strictly equal:
+
+2 !== 1
+
+ generatedMessage: true,
+     actual: 2,
+   expected: 1,
+   operator: "strictEqual",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/docs/procedencia/correcciones/multiplicidad-r27/comprobar-get.mjs:29:9
+
+Bun v1.3.13 (Linux x64)

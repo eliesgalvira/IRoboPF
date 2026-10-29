@@ -1,0 +1,2728 @@
+[
+  {
+    "id": "A.soportadas",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 28798,
+      "end": 29060,
+      "offsetEncoding": "utf16",
+      "text": "cuotaDiferencialCentimos = calcularCuotaDiferencialCentimos({\n    cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,\n    pagosACuentaCentimos: pagosACuentaAplicadosCentimos,\n    retencionesSoportadasCentimos: caso.retencionesSoportadasCentimos,\n  })"
+    },
+    "formula": "caso.retencionesSoportadasCentimos / 100; entrada declarada, independiente de estimación",
+    "inputs": [
+      "entrada:caso.retencionesSoportadasCentimos"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "A.cuenta",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 28697,
+      "end": 28789,
+      "offsetEncoding": "utf16",
+      "text": "pagosACuentaAplicadosCentimos =\n    caso.pagosACuentaCentimos + retencionTrabajoAeatCentimos"
+    },
+    "formula": "caso.pagosACuentaCentimos + (retencionTrabajoAeat?.importeRetencionAnualCentimos ?? 0)",
+    "inputs": [
+      "entrada:caso.pagosACuentaCentimos",
+      "R.importe"
+    ],
+    "bindings": [],
+    "observation": "RSS26-03: convertir a EUR en sitio",
+    "legalAcceptance": false
+  },
+  {
+    "id": "A.bruto",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 12090,
+      "end": 12264,
+      "offsetEncoding": "utf16",
+      "text": "rendimientoIntegroTrabajo = medirAuditoriaSync(\n    \"liquidacion.rendimientosTrabajo.sumar\",\n    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)\n  )"
+    },
+    "formula": "sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)",
+    "inputs": [
+      "frontera:sumarRendimientosTrabajo.return"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "A.modo",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 9979,
+      "end": 10029,
+      "offsetEncoding": "utf16",
+      "text": "cotizacionesSociales = yield* CotizacionesSociales"
+    },
+    "formula": "canonico ? perfilUniforme({anio:caso.anio,salarioBrutoAnual:rendimientoIntegroTrabajo}) : legacy(mismos argumentos)",
+    "inputs": [
+      "A.bruto",
+      "entrada:caso.anio",
+      "entrada:contexto.modo"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "A.coste",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 25450,
+      "end": 28126,
+      "offsetEncoding": "utf16",
+      "text": "importesLiquidacion = medirAuditoriaSync(\n    \"liquidacion.importesLiquidacion.redondeos\",\n    () => ({\n      rendimientoIntegroTrabajoCentimos: liquidarCentimos(\n        rendimientoTrabajo.rendimientoIntegro\n      ),\n      rendimientoNetoTrabajoCentimos: liquidarCentimos(\n        rendimientoTrabajo.rendimientoNeto\n      ),\n      rendimientoNetoCapitalInmobiliarioCentimos: liquidarCentimos(\n        rendimientoCapitalInmobiliario.rendimientoNeto\n      ),\n      gastosDeduciblesTrabajoCentimos: liquidarCentimos(\n        rendimientoTrabajo.gastosDeducibles\n      ),\n      reduccionRendimientosTrabajoCentimos: liquidarCentimos(\n        reduccionRendimientosTrabajo\n      ),\n      totalGastosYDeduccionesTrabajoCentimos: liquidarCentimos(\n        rendimientoTrabajo.cotizacionTrabajador\n          .plus(rendimientoTrabajo.gastosDeducibles)\n          .plus(reduccionRendimientosTrabajo)\n      ),\n      baseImponibleGeneralCentimos: liquidarCentimos(baseImponibleGeneral),\n      baseLiquidableGeneralCentimos: liquidarCentimos(baseLiquidableGeneral),\n      gananciaPatrimonialTotalCentimos: liquidarCentimos(\n        gananciasPatrimoniales.gananciaTotal\n      ),\n      gananciaPatrimonialExentaCentimos: liquidarCentimos(\n        gananciasPatrimoniales.gananciaExenta\n      ),\n      baseLiquidableAhorroCentimos: liquidarCentimos(baseLiquidableAhorro),\n      cotizacionEmpresarialCentimos: liquidarCentimos(\n        cotizacionesSociales.cotizacionEmpresarial\n      ),\n      cotizacionTrabajadorCentimos: liquidarCentimos(\n        cotizacionesSociales.cotizacionTrabajador\n      ),\n      costeLaboralCentimos: liquidarCentimos(\n        rendimientoIntegroTrabajo.plus(\n          cotizacionesSociales.cotizacionEmpresarial\n        )\n      ),\n      meiEmpresarialCentimos: liquidarCentimos(\n        cotizacionesSociales.meiEmpresarial\n      ),\n      meiTrabajadorCentimos: liquidarCentimos(\n        cotizacionesSociales.meiTrabajador\n      ),\n      solidaridadEmpresarialCentimos: liquidarCentimos(\n        cotizacionesSociales.solidaridadEmpresarial\n      ),\n      solidaridadTrabajadorCentimos: liquidarCentimos(\n        cotizacionesSociales.solidaridadTrabajador\n      ),\n      cuotaIntegraGeneralCentimos: liquidarCentimos(cuotaIntegraGeneral),\n      cuotaIntegraAhorroCentimos: liquidarCentimos(cuotaIntegraAhorro),\n      cuotaMinimoPersonalCentimos: liquidarCentimos(cuotaMinimoPersonal),\n      cuotaMinimoPersonalAhorroCentimos: liquidarCentimos(\n        cuotaMinimoPersonalAhorro\n      ),\n      deduccionesAutonomicasAplicadasCentimos: liquidarCentimos(\n        deduccionesAutonomicasAplicadas\n      ),\n      cuotaLiquidaCentimos: liquidarCentimos(cuotaLiquida),\n    })\n  )"
+    },
+    "formula": "eurosACentimos(rendimientoIntegroTrabajo.plus(cotizacionesSociales.cotizacionEmpresarial)); rastro vuelve a euros",
+    "inputs": [
+      "A.bruto",
+      "S.empresa",
+      "M.redondeo",
+      "M.conversion",
+      "M.toCentimos"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.dominio",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 5526,
+      "end": 7159,
+      "offsetEncoding": "utf16",
+      "text": "esCasoCalculable = (\n  caso: CasoRetencionTrabajo\n): caso is CasoRetencionTrabajo & {\n  readonly cotizacionesCentimos: number\n  readonly situacionFamiliar: \"situacion1\" | \"situacion2\" | \"situacion3\"\n  readonly situacionLaboral: SituacionLaboralRetencion\n  readonly contrato: ContratoRetencion\n  readonly descendientes: ReadonlyArray<DescendienteRetencion>\n  readonly ascendientes: ReadonlyArray<AscendienteRetencion>\n} =>\n  (caso.edad === undefined ||\n    (Number.isSafeInteger(caso.edad) && caso.edad >= 0)) &&\n  Match.number(caso.cotizacionesCentimos) &&\n  Number.isSafeInteger(caso.retribucionAnualCentimos) &&\n  caso.retribucionAnualCentimos >= 0 &&\n  Number.isSafeInteger(caso.cotizacionesCentimos) &&\n  caso.cotizacionesCentimos >= 0 &&\n  [\n    caso.irregular1Centimos,\n    caso.irregular2Centimos,\n    caso.pensionCompensatoriaConyugeCentimos,\n    caso.anualidadesAlimentosHijosCentimos,\n  ].every(\n    (importe) =>\n      importe === undefined || (Number.isSafeInteger(importe) && importe >= 0)\n  ) &&\n  caso.situacionFamiliar !== \"general\" &&\n  Match.string(caso.situacionLaboral) &&\n  Match.string(caso.contrato) &&\n  Array.isArray(caso.descendientes) &&\n  Array.isArray(caso.ascendientes) &&\n  caso.descendientes.every(\n    (descendiente) =>\n      Number.isSafeInteger(descendiente.edad) && descendiente.edad >= 0\n  ) &&\n  caso.ascendientes.every(\n    (ascendiente) =>\n      Number.isSafeInteger(ascendiente.edad) &&\n      ascendiente.edad >= 0 &&\n      Number.isSafeInteger(ascendiente.convivencia) &&\n      ascendiente.convivencia > 0\n  ) &&\n  !(caso.situacionFamiliar === \"situacion1\" && caso.descendientes.length === 0)"
+    },
+    "formula": "Enteros seguros no negativos; edad opcional; cotizaciones obligatorias; importes opcionales; arrays familiares; convivencia > 0; situación1 requiere hijos",
+    "inputs": [
+      "entrada:caso"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 30208,
+          "end": 30230,
+          "offsetEncoding": "utf16",
+          "text": "esCasoCalculable(caso)"
+        },
+        "arguments": [
+          "caso"
+        ],
+        "condition": "Validación de dominio; no afirma requisitos jurídicos familiares."
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.version",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/versiones/catalogo.ts",
+      "sha256": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
+      "start": 6382,
+      "end": 7218,
+      "offsetEncoding": "utf16",
+      "text": "seleccionarVersionRetencion = (\n  entrada: SeleccionRetencion\n): VersionRetencion | undefined => {\n  const versiones = VERSIONES_RETENCION.filter((v) => v.anio === entrada.anio)\n  if (entrada.fechaPago !== undefined) {\n    if (\n      entrada.perfilTemporal !== undefined ||\n      !esFechaCivilDelAnio(entrada.fechaPago, entrada.anio)\n    )\n      return undefined\n    return versiones.find(\n      (v) =>\n        entrada.fechaPago !== undefined &&\n        entrada.fechaPago >= v.desde &&\n        entrada.fechaPago <= v.hasta\n    )\n  }\n  if (entrada.perfilTemporal === \"cierre\")\n    return versiones.find((v) => v.hasta === `${entrada.anio}-12-31`)\n  if (\n    versiones.length === 1 &&\n    versiones[0].desde === `${entrada.anio}-01-01` &&\n    versiones[0].hasta === `${entrada.anio}-12-31`\n  )\n    return versiones[0]\n  return undefined\n}"
+    },
+    "formula": "Filtra VERSIONES_RETENCION por anio; fecha civil válida y única modalidad; intervalo inclusivo. cierre exige hasta=31/12. Sin fecha exige una única versión anual completa.",
+    "inputs": [
+      "entrada:caso.anio",
+      "entrada:caso.fechaPago",
+      "entrada:caso.perfilTemporal",
+      "R.catalogo",
+      "R.calendario"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 30909,
+          "end": 30942,
+          "offsetEncoding": "utf16",
+          "text": "seleccionarVersionRetencion(caso)"
+        },
+        "arguments": [
+          "caso"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.catalogo",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/versiones/catalogo.ts",
+      "sha256": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
+      "start": 534,
+      "end": 6231,
+      "offsetEncoding": "utf16",
+      "text": "VERSIONES_RETENCION: ReadonlyArray<VersionRetencion> = [\n  {\n    id: \"aeat-2017-01-01\",\n    anio: 2017,\n    desde: \"2017-01-01\",\n    hasta: \"2017-12-31\",\n    reduccion: \"antigua\",\n    sha256: \"139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf\",\n  },\n  {\n    id: \"aeat-2018-01-01\",\n    anio: 2018,\n    desde: \"2018-01-01\",\n    hasta: \"2018-07-04\",\n    reduccion: \"antigua\",\n    sha256: \"9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018.pdf\",\n  },\n  {\n    id: \"aeat-2018-07-05\",\n    anio: 2018,\n    desde: \"2018-07-05\",\n    hasta: \"2018-12-31\",\n    reduccion: \"media2018\",\n    sha256: \"b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018_a_partir_LGPE_2018.pdf\",\n  },\n  {\n    id: \"aeat-2019-01-01\",\n    anio: 2019,\n    desde: \"2019-01-01\",\n    hasta: \"2019-12-31\",\n    reduccion: \"2019\",\n    sha256: \"bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf\",\n  },\n  {\n    id: \"aeat-2020-01-01\",\n    anio: 2020,\n    desde: \"2020-01-01\",\n    hasta: \"2020-12-31\",\n    reduccion: \"2019\",\n    sha256: \"645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2020/ALGORITMO_RETENCIONES_2020.pdf\",\n  },\n  {\n    id: \"aeat-2021-01-01\",\n    anio: 2021,\n    desde: \"2021-01-01\",\n    hasta: \"2021-10-20\",\n    reduccion: \"2019\",\n    sha256: \"8d435c1b9ffc4c46b8878e79736408518d88c0f99e48bdc24922bfe5bdf607b8\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2021/ALGORITMO_2021_LPGE.pdf\",\n  },\n  {\n    id: \"aeat-2021-10-21\",\n    anio: 2021,\n    desde: \"2021-10-21\",\n    hasta: \"2021-12-31\",\n    reduccion: \"2019\",\n    sha256: \"f433d785bb13c5f0cbd019586a93dcba0bc0a0ff61c750b463ed1d6d41508b13\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2021/ALGORITMO_2021_LPGE_v2.pdf\",\n  },\n  {\n    id: \"aeat-2022-01-01\",\n    anio: 2022,\n    desde: \"2022-01-01\",\n    hasta: \"2022-12-31\",\n    reduccion: \"2019\",\n    sha256: \"a4bb4dc6ddd019f9625cf05576d46c5a9a8cd25807270a45d5762c770af6945b\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2022/ALGORITMO_RETENCIONES_2022.pdf\",\n  },\n  {\n    id: \"aeat-2023-01-01\",\n    anio: 2023,\n    desde: \"2023-01-01\",\n    hasta: \"2023-01-31\",\n    reduccion: \"2019\",\n    sha256: \"cc2697a37b3f6389e0b407cf9df1aaa886ffe5cb5da31fd995de3785ea4ddc22\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2023/ALGORITMO_RETENCIONES_2023_1_a_31_de_enero.pdf\",\n  },\n  {\n    id: \"aeat-2023-02-01\",\n    anio: 2023,\n    desde: \"2023-02-01\",\n    hasta: \"2023-12-31\",\n    reduccion: \"2023\",\n    sha256: \"244fa7f987b8a03f8e67e3402cd7b9bc796f35e2fba89a26b69dc5b3197868de\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2023/ALGORITMO_RETENCIONES_2023_desde_1_de_febrero.pdf\",\n  },\n  {\n    id: \"aeat-2024-01-01\",\n    anio: 2024,\n    desde: \"2024-01-01\",\n    hasta: \"2024-02-07\",\n    reduccion: \"2023\",\n    sha256: \"d28bef4252956fa7fc6881bdf9e3cf3359ff75ed6ff538f96d0c38c482460042\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-1-enero-7-febrero.pdf\",\n  },\n  {\n    id: \"aeat-2024-02-08\",\n    anio: 2024,\n    desde: \"2024-02-08\",\n    hasta: \"2024-06-27\",\n    reduccion: \"2024\",\n    sha256: \"c4d53e76b59ee367c50c7c5bd666982e7ba5fd3a9d3eddc505abf0606e1b5fd0\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-8-feb-27-junio.pdf\",\n  },\n  {\n    id: \"aeat-2024-06-28\",\n    anio: 2024,\n    desde: \"2024-06-28\",\n    hasta: \"2024-12-31\",\n    reduccion: \"2024\",\n    sha256: \"349c093fe191b2e9ff645a18da3fa3140100701d6c7ae8f10ae5432a3b1706ba\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-28-Junio.pdf\",\n  },\n  {\n    id: \"aeat-2025-01-01\",\n    anio: 2025,\n    desde: \"2025-01-01\",\n    hasta: \"2025-11-26\",\n    reduccion: \"2024\",\n    sha256: \"3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf\",\n  },\n  {\n    id: \"aeat-2025-11-27\",\n    anio: 2025,\n    desde: \"2025-11-27\",\n    hasta: \"2025-12-31\",\n    reduccion: \"2024\",\n    sha256: \"329fc013487a93c4d74c27c332ec5302de5a8b1371b61901cfe2e4fc75054355\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025__27-nov.pdf\",\n  },\n  {\n    id: \"aeat-2026-09-10\",\n    anio: 2026,\n    desde: \"2026-09-10\",\n    hasta: \"2026-10-29\",\n    reduccion: \"2024\",\n    sha256: \"b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3\",\n    referencia:\n      \"https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/Algoritmo%20Retenciones-2026_10sept.pdf\",\n  },\n]"
+    },
+    "formula": "Filas fechadas con id/anio/desde/hasta/reduccion/hash/referencia; tabla declarada, no prueba de vigencia",
+    "inputs": [
+      "literal:VERSIONES_RETENCION"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.calendario",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 8882,
+      "end": 9345,
+      "offsetEncoding": "utf16",
+      "text": "esFechaCivilDelAnio = (fecha: string, anio: number): boolean => {\n  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(fecha) || !fecha.startsWith(`${anio}-`))\n    return false\n  const mes = Number(fecha.slice(5, 7))\n  const dia = Number(fecha.slice(8, 10))\n  const bisiesto = anio % 4 === 0 && (anio % 100 !== 0 || anio % 400 === 0)\n  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n  return mes >= 1 && mes <= 12 && dia >= 1 && dia <= dias[mes - 1]\n}"
+    },
+    "formula": "YYYY-MM-DD, coincide ejercicio, mes 1..12, día 1..dias[mes-1], febrero gregoriano 4/100/400",
+    "inputs": [
+      "formal:esFechaCivilDelAnio.fecha",
+      "formal:esFechaCivilDelAnio.anio",
+      "literal:calendario"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+          "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+          "start": 6011,
+          "end": 6043,
+          "offsetEncoding": "utf16",
+          "text": "esFechaCivilDelAnio(fecha, anio)"
+        },
+        "arguments": [
+          "fecha",
+          "anio"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/versiones/catalogo.ts",
+          "sha256": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
+          "start": 6663,
+          "end": 6715,
+          "offsetEncoding": "utf16",
+          "text": "esFechaCivilDelAnio(entrada.fechaPago, entrada.anio)"
+        },
+        "arguments": [
+          "entrada.fechaPago",
+          "entrada.anio"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.guardas",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 29907,
+      "end": 32074,
+      "offsetEncoding": "utf16",
+      "text": "calcularRetencionTrabajoAeatImpl = Effect.fn(\n  \"RetencionTrabajoAeat.calcular\"\n)(function* (caso: CasoRetencionTrabajo, contexto: ContextoRetencionTrabajo) {\n  yield* Effect.annotateCurrentSpan(\"retencion.anio\", caso.anio)\n  yield* Effect.annotateCurrentSpan(\"retencion.modo\", contexto.modo)\n\n  if (!esCasoCalculable(caso))\n    return yield* Effect.fail(resultadoNoSoportadoRetencion(caso))\n  if (caso.procedimiento === \"regularizacion\")\n    return yield* Effect.fail(\n      resultadoNoSoportadoRetencion(\n        caso,\n        \"Regularización no implementada: no se sustituye por cálculo inicial\"\n      )\n    )\n  if (contexto.modo === \"compatible-legacy\") {\n    if (caso.fechaPago !== undefined || caso.perfilTemporal !== undefined) {\n      return yield* Effect.fail(\n        resultadoNoSoportadoRetencion(\n          caso,\n          \"Compatible-legacy no aplica selección temporal; use modo canónico\"\n        )\n      )\n    }\n    return calcularRetencionTrabajo(caso, undefined)\n  }\n  const version = seleccionarVersionRetencion(caso)\n  if (version === undefined)\n    return yield* Effect.fail(\n      resultadoNoSoportadoRetencion(\n        caso,\n        \"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre\"\n      )\n    )\n  const irregular = caso.irregular1Centimos ?? 0\n  if (\n    irregular > 9000000 ||\n    new Decimal(irregular).gt(\n      new Decimal(caso.retribucionAnualCentimos).mul(0.3)\n    )\n  )\n    return yield* Effect.fail(\n      resultadoNoSoportadoRetencion(\n        caso,\n        \"IRREGULAR1 supera 90.000 euros o el 30% de la retribución\"\n      )\n    )\n  if (caso.contrato === \"manuales\")\n    return yield* Effect.fail(\n      resultadoNoSoportadoRetencion(\n        caso,\n        \"Jornales requieren contrato específico; no se inventa anualización\"\n      )\n    )\n  const descendientes = caso.descendientes.filter(\n    (d) => d.edad < 25 || d.discapacidad !== \"sin-discapacidad\"\n  )\n  if (caso.situacionFamiliar === \"situacion1\" && descendientes.length === 0)\n    return yield* Effect.fail(resultadoNoSoportadoRetencion(caso))\n  return calcularRetencionTrabajo({ ...caso, descendientes }, version)\n})"
+    },
+    "formula": "Dominio → rechaza regularizacion → legacy sin fecha/perfil → canónico selecciona versión, irregular1<=9000000 cent y <=30%, rechaza manuales, filtra edad<25 o discapacidad, revalida situación1",
+    "inputs": [
+      "R.dominio",
+      "R.version",
+      "entrada:contexto.modo",
+      "entrada:caso"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.R",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 23643,
+      "end": 23702,
+      "offsetEncoding": "utf16",
+      "text": "retribucion = centimosAEuros(caso.retribucionAnualCentimos)"
+    },
+    "formula": "centimosAEuros(caso.retribucionAnualCentimos)",
+    "inputs": [
+      "entrada:caso.retencionTrabajoAeat.retribucionAnualCentimos",
+      "M.conversion"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.C",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 23711,
+      "end": 23767,
+      "offsetEncoding": "utf16",
+      "text": "cotizaciones = centimosAEuros(caso.cotizacionesCentimos)"
+    },
+    "formula": "centimosAEuros(caso.cotizacionesCentimos)",
+    "inputs": [
+      "entrada:caso.retencionTrabajoAeat.cotizacionesCentimos",
+      "M.conversion"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.opcional",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 7167,
+      "end": 7259,
+      "offsetEncoding": "utf16",
+      "text": "importeOpcional = (centimos: number | undefined): Decimal =>\n  centimosAEuros(centimos ?? 0)"
+    },
+    "formula": "centimosAEuros(centimos ?? 0)",
+    "inputs": [
+      "formal:importeOpcional.centimos",
+      "M.conversion"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 23789,
+          "end": 23829,
+          "offsetEncoding": "utf16",
+          "text": "importeOpcional(caso.irregular1Centimos)"
+        },
+        "arguments": [
+          "caso.irregular1Centimos"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 23851,
+          "end": 23891,
+          "offsetEncoding": "utf16",
+          "text": "importeOpcional(caso.irregular2Centimos)"
+        },
+        "arguments": [
+          "caso.irregular2Centimos"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 23914,
+          "end": 23969,
+          "offsetEncoding": "utf16",
+          "text": "importeOpcional(caso.anualidadesAlimentosHijosCentimos)"
+        },
+        "arguments": [
+          "caso.anualidadesAlimentosHijosCentimos"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 24001,
+          "end": 24066,
+          "offsetEncoding": "utf16",
+          "text": "importeOpcional(\n    caso.pensionCompensatoriaConyugeCentimos\n  )"
+        },
+        "arguments": [
+          "caso.pensionCompensatoriaConyugeCentimos"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.rnt",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 24197,
+      "end": 24312,
+      "offsetEncoding": "utf16",
+      "text": "rendimientoNetoTrabajo = max(\n    CERO,\n    retribucion.minus(irregular1).minus(irregular2).minus(cotizaciones)\n  )"
+    },
+    "formula": "max(0,R-irregular1-irregular2-C)",
+    "inputs": [
+      "R.R",
+      "R.C",
+      "R.irregular1",
+      "R.irregular2"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.movilidad",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 7483,
+      "end": 7677,
+      "offsetEncoding": "utf16",
+      "text": "incrementoMovilidadGeografica = (caso: CasoRetencionTrabajo) =>\n  Match.value(caso).pipe(\n    Match.when({ movilidadGeografica: true }, () => new Decimal(2000)),\n    Match.orElse(() => CERO)\n  )"
+    },
+    "formula": "movilidadGeografica true ? 2000 : 0",
+    "inputs": [
+      "entrada:caso.movilidadGeografica",
+      "literal:2000"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 8491,
+          "end": 8526,
+          "offsetEncoding": "utf16",
+          "text": "incrementoMovilidadGeografica(caso)"
+        },
+        "arguments": [
+          "caso"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.discGasto",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 7685,
+      "end": 8229,
+      "offsetEncoding": "utf16",
+      "text": "incrementoGastosDiscapacidadTrabajador = (caso: CasoRetencionTrabajo) =>\n  Match.value(caso).pipe(\n    Match.when(\n      { situacionLaboral: \"activo\", discapacidad: \"desde65\" },\n      () => new Decimal(7750)\n    ),\n    Match.when(\n      {\n        situacionLaboral: \"activo\",\n        discapacidad: \"de33a65\",\n        movilidadReducidaPerceptor: true,\n      },\n      () => new Decimal(7750)\n    ),\n    Match.when(\n      { situacionLaboral: \"activo\", discapacidad: \"de33a65\" },\n      () => new Decimal(3500)\n    ),\n    Match.orElse(() => CERO)\n  )"
+    },
+    "formula": "activo y desde65 → 7750; activo/de33a65/movilidadReducida →7750; activo/de33a65 →3500; resto0",
+    "inputs": [
+      "entrada:caso.situacionLaboral,discapacidad,movilidadReducidaPerceptor",
+      "literal:7750,3500"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 8560,
+          "end": 8604,
+          "offsetEncoding": "utf16",
+          "text": "incrementoGastosDiscapacidadTrabajador(caso)"
+        },
+        "arguments": [
+          "caso"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.gastos",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 8237,
+      "end": 8917,
+      "offsetEncoding": "utf16",
+      "text": "calcularOtrosGastos = ({\n  caso,\n  retribucion,\n  cotizaciones,\n}: {\n  readonly caso: CasoRetencionTrabajo\n  readonly retribucion: Decimal\n  readonly cotizaciones: Decimal\n}) => {\n  const gastosGenerales = new Decimal(2000)\n  const incrementoMovilidad = incrementoMovilidadGeografica(caso)\n  const incrementoDiscapacidad = incrementoGastosDiscapacidadTrabajador(caso)\n  const otrosGastos = gastosGenerales\n    .plus(incrementoMovilidad)\n    .plus(incrementoDiscapacidad)\n  const maximo = retribucion.minus(cotizaciones)\n\n  return Match.value(maximo).pipe(\n    Match.when(\n      (valor) => valor.lt(0),\n      () => CERO\n    ),\n    Match.orElse(() => min(otrosGastos, maximo))\n  )\n}"
+    },
+    "formula": "R-C<0 ? 0 : min(2000+movilidad+discapacidad,R-C); no usa irregular1/2 para el techo",
+    "inputs": [
+      "R.R",
+      "R.C",
+      "R.movilidad",
+      "R.discGasto",
+      "literal:2000"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 24132,
+          "end": 24188,
+          "offsetEncoding": "utf16",
+          "text": "calcularOtrosGastos({ caso, retribucion, cotizaciones })"
+        },
+        "arguments": [
+          "{ caso, retribucion, cotizaciones }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.lineal",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 9597,
+      "end": 9789,
+      "offsetEncoding": "utf16",
+      "text": "reduccionLineal = (\n  rnt: Decimal,\n  maximo: number,\n  inicio: number,\n  pendiente: number\n) =>\n  max(\n    CERO,\n    new Decimal(maximo).minus(max(CERO, rnt.minus(inicio)).mul(pendiente))\n  )"
+    },
+    "formula": "max(0,maximo-max(0,rnt-inicio)*pendiente)",
+    "inputs": [
+      "R.rnt",
+      "formal:reduccionLineal.maximo,inicio,pendiente"
+    ],
+    "bindings": [
+      {
+        "caller": "calcularReduccionTrabajo",
+        "arguments": [
+          "rnt",
+          "3700",
+          "11250",
+          "1.15625"
+        ],
+        "condition": "antigua o componente antigua media2018"
+      },
+      {
+        "caller": "calcularReduccionTrabajo",
+        "arguments": [
+          "rnt",
+          "5565",
+          "13115",
+          "1.5"
+        ],
+        "condition": "2019 o componente nueva media2018"
+      },
+      {
+        "caller": "calcularReduccionTrabajo",
+        "arguments": [
+          "rnt",
+          "6498",
+          "14047.5",
+          "1.14"
+        ],
+        "condition": "2023"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.actual",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 8925,
+      "end": 9589,
+      "offsetEncoding": "utf16",
+      "text": "calcularReduccionActual = (rendimientoNetoTrabajo: Decimal) =>\n  Match.value(rendimientoNetoTrabajo).pipe(\n    Match.when(\n      (valor) => valor.lte(14_852),\n      () => redondear1(new Decimal(7302))\n    ),\n    Match.when(\n      (valor) => valor.lte(17_673.52),\n      () =>\n        redondear1(\n          new Decimal(7302).minus(\n            rendimientoNetoTrabajo.minus(14_852).mul(1.75)\n          )\n        )\n    ),\n    Match.when(\n      (valor) => valor.lt(19_747.5),\n      () =>\n        redondear1(\n          new Decimal(2364.34).minus(\n            rendimientoNetoTrabajo.minus(17_673.52).mul(1.14)\n          )\n        )\n    ),\n    Match.orElse(() => CERO)\n  )"
+    },
+    "formula": "rnt<=14852:7302; <=17673.52:7302-(rnt-14852)*1.75; <19747.5:2364.34-(rnt-17673.52)*1.14; resto0; cada rama redondeada",
+    "inputs": [
+      "R.rnt",
+      "literal:tramos-reduccion",
+      "M.redondeo"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 10322,
+          "end": 10350,
+          "offsetEncoding": "utf16",
+          "text": "calcularReduccionActual(rnt)"
+        },
+        "arguments": [
+          "rnt"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.reduccion",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 9797,
+      "end": 10356,
+      "offsetEncoding": "utf16",
+      "text": "calcularReduccionTrabajo = (\n  rnt: Decimal,\n  version: VersionRetencion | undefined\n) => {\n  const antigua = reduccionLineal(rnt, 3700, 11250, 1.15625)\n  const nueva = reduccionLineal(rnt, 5565, 13115, 1.5)\n  switch (version?.reduccion) {\n    case \"antigua\":\n      return redondear1(antigua)\n    case \"media2018\":\n      return redondear1(antigua.plus(nueva).div(2))\n    case \"2019\":\n      return redondear1(nueva)\n    case \"2023\":\n      return redondear1(reduccionLineal(rnt, 6498, 14047.5, 1.14))\n    default:\n      return calcularReduccionActual(rnt)\n  }\n}"
+    },
+    "formula": "antigua lineal(3700,11250,1.15625); media2018 media de antigua y lineal(5565,13115,1.5); 2019 nueva; 2023 lineal(6498,14047.5,1.14); default actual",
+    "inputs": [
+      "R.lineal",
+      "R.actual",
+      "R.version",
+      "M.redondeo"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 24352,
+          "end": 24421,
+          "offsetEncoding": "utf16",
+          "text": "calcularReduccionTrabajo(\n    rendimientoNetoTrabajo,\n    version\n  )"
+        },
+        "arguments": [
+          "rendimientoNetoTrabajo",
+          "version"
+        ],
+        "condition": "Legacy version undefined usa actual, aunque calcula antigua/nueva sin consumirlas; canónico según version.reduccion."
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.rnr",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 24430,
+      "end": 24570,
+      "offsetEncoding": "utf16",
+      "text": "rendimientoNetoReducido = max(\n    CERO,\n    rendimientoNetoTrabajo\n      .minus(otrosGastos)\n      .minus(reduccionRendimientosTrabajo)\n  )"
+    },
+    "formula": "max(0,rnt-otrosGastos-reduccion)",
+    "inputs": [
+      "R.rnt",
+      "R.gastos",
+      "R.reduccion"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.laboral",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 17808,
+      "end": 18536,
+      "offsetEncoding": "utf16",
+      "text": "reduccionPorSituacionLaboral = ({\n  descendientes,\n  situacionLaboral,\n}: {\n  readonly descendientes: ReadonlyArray<DescendienteRetencion>\n  readonly situacionLaboral: SituacionLaboralRetencion\n}) => {\n  const pensionista = Match.value(situacionLaboral).pipe(\n    Match.when(\"pensionista\", () => new Decimal(600)),\n    Match.orElse(() => CERO)\n  )\n  const hijos = Match.value(descendientes.length).pipe(\n    Match.when(\n      (numero) => numero > 2,\n      () => new Decimal(600)\n    ),\n    Match.orElse(() => CERO)\n  )\n  const desempleado = Match.value(situacionLaboral).pipe(\n    Match.when(\"desempleado\", () => new Decimal(1200)),\n    Match.orElse(() => CERO)\n  )\n\n  return {\n    desempleado,\n    hijos,\n    pensionista,\n  }\n}"
+    },
+    "formula": "{pensionista:600 si pensionista; desempleado:1200 si desempleado; hijos:600 si length>2, resto0}",
+    "inputs": [
+      "R.laboralP",
+      "R.laboralD",
+      "R.laboralH"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 24598,
+          "end": 24697,
+          "offsetEncoding": "utf16",
+          "text": "reduccionPorSituacionLaboral({\n    descendientes,\n    situacionLaboral: caso.situacionLaboral,\n  })"
+        },
+        "arguments": [
+          "{\n    descendientes,\n    situacionLaboral: caso.situacionLaboral,\n  }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.base",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 24863,
+      "end": 24932,
+      "offsetEncoding": "utf16",
+      "text": "baseRetencion = max(CERO, rendimientoNetoReducido.minus(reducciones))"
+    },
+    "formula": "max(0,rnr-pensionista-hijos-desempleado-pensionCompensatoria)",
+    "inputs": [
+      "R.rnr",
+      "R.laboralP",
+      "R.laboralD",
+      "R.laboralH",
+      "R.pension"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.multiplicador",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 7267,
+      "end": 7475,
+      "offsetEncoding": "utf16",
+      "text": "multiplicadorDescendiente = (descendiente: DescendienteRetencion) =>\n  Match.value(descendiente.computoPorEntero).pipe(\n    Match.when(true, () => new Decimal(1)),\n    Match.orElse(() => new Decimal(0.5))\n  )"
+    },
+    "formula": "computoPorEntero true ? 1 : 0.5",
+    "inputs": [
+      "formal:multiplicadorDescendiente.descendiente.computoPorEntero",
+      "literal:1,0.5"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 11262,
+          "end": 11301,
+          "offsetEncoding": "utf16",
+          "text": "multiplicadorDescendiente(descendiente)"
+        },
+        "arguments": [
+          "descendiente"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 11649,
+          "end": 11688,
+          "offsetEncoding": "utf16",
+          "text": "multiplicadorDescendiente(descendiente)"
+        },
+        "arguments": [
+          "descendiente"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 14125,
+          "end": 14164,
+          "offsetEncoding": "utf16",
+          "text": "multiplicadorDescendiente(descendiente)"
+        },
+        "arguments": [
+          "descendiente"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 14454,
+          "end": 14493,
+          "offsetEncoding": "utf16",
+          "text": "multiplicadorDescendiente(descendiente)"
+        },
+        "arguments": [
+          "descendiente"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.ordenHijos",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 10364,
+      "end": 10617,
+      "offsetEncoding": "utf16",
+      "text": "cuantiaMinimoDescendiente = (indice: number) =>\n  Match.value(indice).pipe(\n    Match.when(0, () => new Decimal(2400)),\n    Match.when(1, () => new Decimal(2700)),\n    Match.when(2, () => new Decimal(4000)),\n    Match.orElse(() => new Decimal(4500))\n  )"
+    },
+    "formula": "índice0:2400;1:2700;2:4000;resto4500",
+    "inputs": [
+      "formal:cuantiaMinimoDescendiente.indice",
+      "literal:2400,2700,4000,4500"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 11200,
+          "end": 11233,
+          "offsetEncoding": "utf16",
+          "text": "cuantiaMinimoDescendiente(indice)"
+        },
+        "arguments": [
+          "indice"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.menor3",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 10625,
+      "end": 10891,
+      "offsetEncoding": "utf16",
+      "text": "esDescendienteMenorTres = (descendiente: DescendienteRetencion) =>\n  Match.value(descendiente).pipe(\n    Match.when({ edad: (edad) => edad < 3 }, () => true),\n    Match.when({ adopcionOAcogimientoMenosTresAnios: true }, () => true),\n    Match.orElse(() => false)\n  )"
+    },
+    "formula": "edad<3 || adopcionOAcogimientoMenosTresAnios",
+    "inputs": [
+      "formal:esDescendienteMenorTres.descendiente.edad,adopcionOAcogimientoMenosTresAnios",
+      "literal:3"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 11481,
+          "end": 11518,
+          "offsetEncoding": "utf16",
+          "text": "esDescendienteMenorTres(descendiente)"
+        },
+        "arguments": [
+          "descendiente"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.minHijos",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 10899,
+      "end": 11807,
+      "offsetEncoding": "utf16",
+      "text": "calcularMinimoDescendientes = (\n  descendientes: ReadonlyArray<DescendienteRetencion>\n) => {\n  const descendientesOrdenados = [...descendientes].sort(\n    (a, b) => b.edad - a.edad\n  )\n  const minimoGeneral = descendientesOrdenados.reduce(\n    (total, descendiente, indice) => {\n      const cuantia = cuantiaMinimoDescendiente(indice)\n      const multiplicador = multiplicadorDescendiente(descendiente)\n\n      return total.plus(cuantia.mul(multiplicador))\n    },\n    CERO\n  )\n  const minimoMenoresTres = descendientesOrdenados.reduce(\n    (total, descendiente) =>\n      Match.value(esDescendienteMenorTres(descendiente)).pipe(\n        Match.when(false, () => total),\n        Match.orElse(() =>\n          total.plus(\n            new Decimal(2800).mul(multiplicadorDescendiente(descendiente))\n          )\n        )\n      ),\n    CERO\n  )\n\n  return redondear1(minimoGeneral).plus(redondear1(minimoMenoresTres))\n}"
+    },
+    "formula": "ordena por edad descendente; suma cuantia(indice)*multiplicador; suma 2800*multiplicador si menor3; redondea separadamente ambas sumas y las suma",
+    "inputs": [
+      "R.ordenHijos",
+      "R.multiplicador",
+      "R.menor3",
+      "entrada:descendientes",
+      "M.redondeo",
+      "literal:2800"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 15944,
+          "end": 15986,
+          "offsetEncoding": "utf16",
+          "text": "calcularMinimoDescendientes(descendientes)"
+        },
+        "arguments": [
+          "descendientes"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.minAsc",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 11815,
+      "end": 12794,
+      "offsetEncoding": "utf16",
+      "text": "calcularMinimoAscendientes = (\n  ascendientes: ReadonlyArray<AscendienteRetencion>\n) => {\n  const minimo65 = ascendientes.reduce((total, ascendiente) => {\n    const computaPorEdad = ascendiente.edad >= 65\n    const computaPorDiscapacidad =\n      ascendiente.discapacidad !== \"sin-discapacidad\"\n\n    return Match.value({ computaPorDiscapacidad, computaPorEdad }).pipe(\n      Match.when(\n        { computaPorDiscapacidad: false, computaPorEdad: false },\n        () => total\n      ),\n      Match.orElse(() =>\n        total.plus(new Decimal(1150).div(ascendiente.convivencia))\n      )\n    )\n  }, CERO)\n  const minimo75 = ascendientes.reduce(\n    (total, ascendiente) =>\n      Match.value(ascendiente.edad).pipe(\n        Match.when(\n          (edad) => edad < 75,\n          () => total\n        ),\n        Match.orElse(() =>\n          total.plus(new Decimal(1400).div(ascendiente.convivencia))\n        )\n      ),\n    CERO\n  )\n\n  return redondear1(minimo65).plus(redondear1(minimo75))\n}"
+    },
+    "formula": "suma1150/convivencia si edad>=65 o discapacidad; suma1400/convivencia si edad>=75; redondeo separado de ambos grupos",
+    "inputs": [
+      "entrada:ascendientes.edad,discapacidad,convivencia",
+      "literal:1150,1400,65,75",
+      "M.redondeo"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 15998,
+          "end": 16038,
+          "offsetEncoding": "utf16",
+          "text": "calcularMinimoAscendientes(ascendientes)"
+        },
+        "arguments": [
+          "ascendientes"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.discapacidad",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 12802,
+      "end": 13034,
+      "offsetEncoding": "utf16",
+      "text": "minimoDiscapacidad = (discapacidad: DiscapacidadRetencion) =>\n  Match.value(discapacidad).pipe(\n    Match.when(\"desde65\", () => new Decimal(9000)),\n    Match.when(\"de33a65\", () => new Decimal(3000)),\n    Match.orElse(() => CERO)\n  )"
+    },
+    "formula": "desde65→9000;de33a65→3000;resto0",
+    "inputs": [
+      "formal:minimoDiscapacidad.discapacidad",
+      "literal:9000,3000"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 13757,
+          "end": 13794,
+          "offsetEncoding": "utf16",
+          "text": "minimoDiscapacidad(caso.discapacidad)"
+        },
+        "arguments": [
+          "caso.discapacidad"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 14064,
+          "end": 14109,
+          "offsetEncoding": "utf16",
+          "text": "minimoDiscapacidad(descendiente.discapacidad)"
+        },
+        "arguments": [
+          "descendiente.discapacidad"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 14627,
+          "end": 14671,
+          "offsetEncoding": "utf16",
+          "text": "minimoDiscapacidad(ascendiente.discapacidad)"
+        },
+        "arguments": [
+          "ascendiente.discapacidad"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.asistencia",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 13042,
+      "end": 13469,
+      "offsetEncoding": "utf16",
+      "text": "minimoAsistencia = ({\n  discapacidad,\n  movilidadReducida,\n}: {\n  readonly discapacidad: DiscapacidadRetencion\n  readonly movilidadReducida: boolean\n}) =>\n  Match.value({ discapacidad, movilidadReducida }).pipe(\n    Match.when({ discapacidad: \"desde65\" }, () => new Decimal(3000)),\n    Match.when(\n      { discapacidad: \"de33a65\", movilidadReducida: true },\n      () => new Decimal(3000)\n    ),\n    Match.orElse(() => CERO)\n  )"
+    },
+    "formula": "desde65 o de33a65 con movilidadReducida→3000;resto0",
+    "inputs": [
+      "formal:minimoAsistencia.discapacidad,movilidadReducida",
+      "literal:3000"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 13825,
+          "end": 13950,
+          "offsetEncoding": "utf16",
+          "text": "minimoAsistencia({\n    discapacidad: caso.discapacidad,\n    movilidadReducida: caso.movilidadReducidaPerceptor === true,\n  })"
+        },
+        "arguments": [
+          "{\n    discapacidad: caso.discapacidad,\n    movilidadReducida: caso.movilidadReducidaPerceptor === true,\n  }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 14308,
+          "end": 14449,
+          "offsetEncoding": "utf16",
+          "text": "minimoAsistencia({\n          discapacidad: descendiente.discapacidad,\n          movilidadReducida: descendiente.movilidadReducida,\n        })"
+        },
+        "arguments": [
+          "{\n          discapacidad: descendiente.discapacidad,\n          movilidadReducida: descendiente.movilidadReducida,\n        }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 14851,
+          "end": 14990,
+          "offsetEncoding": "utf16",
+          "text": "minimoAsistencia({\n          discapacidad: ascendiente.discapacidad,\n          movilidadReducida: ascendiente.movilidadReducida,\n        })"
+        },
+        "arguments": [
+          "{\n          discapacidad: ascendiente.discapacidad,\n          movilidadReducida: ascendiente.movilidadReducida,\n        }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.minDisc",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 13477,
+      "end": 15296,
+      "offsetEncoding": "utf16",
+      "text": "calcularMinimoDiscapacidad = ({\n  caso,\n  descendientes,\n  ascendientes,\n}: {\n  readonly caso: CasoRetencionTrabajo\n  readonly descendientes: ReadonlyArray<DescendienteRetencion>\n  readonly ascendientes: ReadonlyArray<AscendienteRetencion>\n}) => {\n  const discapacidadPerceptor = minimoDiscapacidad(caso.discapacidad)\n  const asistenciaPerceptor = minimoAsistencia({\n    discapacidad: caso.discapacidad,\n    movilidadReducida: caso.movilidadReducidaPerceptor === true,\n  })\n  const discapacidadDescendientes = descendientes.reduce(\n    (total, descendiente) =>\n      total.plus(\n        minimoDiscapacidad(descendiente.discapacidad).mul(\n          multiplicadorDescendiente(descendiente)\n        )\n      ),\n    CERO\n  )\n  const asistenciaDescendientes = descendientes.reduce(\n    (total, descendiente) =>\n      total.plus(\n        minimoAsistencia({\n          discapacidad: descendiente.discapacidad,\n          movilidadReducida: descendiente.movilidadReducida,\n        }).mul(multiplicadorDescendiente(descendiente))\n      ),\n    CERO\n  )\n  const discapacidadAscendientes = ascendientes.reduce(\n    (total, ascendiente) =>\n      total.plus(\n        minimoDiscapacidad(ascendiente.discapacidad).div(\n          ascendiente.convivencia\n        )\n      ),\n    CERO\n  )\n  const asistenciaAscendientes = ascendientes.reduce(\n    (total, ascendiente) =>\n      total.plus(\n        minimoAsistencia({\n          discapacidad: ascendiente.discapacidad,\n          movilidadReducida: ascendiente.movilidadReducida,\n        }).div(ascendiente.convivencia)\n      ),\n    CERO\n  )\n\n  return discapacidadPerceptor\n    .plus(asistenciaPerceptor)\n    .plus(redondear1(discapacidadDescendientes))\n    .plus(redondear1(asistenciaDescendientes))\n    .plus(redondear1(discapacidadAscendientes))\n    .plus(redondear1(asistenciaAscendientes))\n}"
+    },
+    "formula": "perceptor D+A; hijos suma D*m y A*m redondeadas separadas; ascendientes suma D/convivencia y A/convivencia redondeadas separadas",
+    "inputs": [
+      "R.discapacidad",
+      "R.asistencia",
+      "R.multiplicador",
+      "entrada:caso.discapacidad,movilidadReducidaPerceptor",
+      "entrada:descendientes",
+      "entrada:ascendientes",
+      "M.redondeo"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 16050,
+          "end": 16115,
+          "offsetEncoding": "utf16",
+          "text": "calcularMinimoDiscapacidad({ caso, descendientes, ascendientes })"
+        },
+        "arguments": [
+          "{ caso, descendientes, ascendientes }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.minimo",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 15304,
+      "end": 16118,
+      "offsetEncoding": "utf16",
+      "text": "calcularMinimoPersonalFamiliar = ({\n  caso,\n  descendientes,\n  ascendientes,\n}: {\n  readonly caso: CasoRetencionTrabajo\n  readonly descendientes: ReadonlyArray<DescendienteRetencion>\n  readonly ascendientes: ReadonlyArray<AscendienteRetencion>\n}) => {\n  const edad = caso.edad ?? 40\n  const incrementoEdad = Match.value(edad).pipe(\n    Match.when(\n      (valor) => valor >= 75,\n      () => new Decimal(2550)\n    ),\n    Match.when(\n      (valor) => valor >= 65,\n      () => new Decimal(1150)\n    ),\n    Match.orElse(() => CERO)\n  )\n  const minimoContribuyente = new Decimal(5550).plus(incrementoEdad)\n\n  return minimoContribuyente\n    .plus(calcularMinimoDescendientes(descendientes))\n    .plus(calcularMinimoAscendientes(ascendientes))\n    .plus(calcularMinimoDiscapacidad({ caso, descendientes, ascendientes }))\n}"
+    },
+    "formula": "edad=caso.edad??40;5550+(edad>=75?2550:edad>=65?1150:0)+minHijos+minAsc+minDisc",
+    "inputs": [
+      "entrada:caso.edad",
+      "R.minHijos",
+      "R.minAsc",
+      "R.minDisc",
+      "literal:5550,2550,1150,40"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 24966,
+          "end": 25069,
+          "offsetEncoding": "utf16",
+          "text": "calcularMinimoPersonalFamiliar({\n    caso,\n    descendientes,\n    ascendientes: caso.ascendientes,\n  })"
+        },
+        "arguments": [
+          "{\n    caso,\n    descendientes,\n    ascendientes: caso.ascendientes,\n  }"
+        ],
+        "condition": "No recibe comunidadAutonoma, derechosMinimos ni mínimos de liquidación. Familia comunicada, no validación jurídica de elegibilidad."
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.escala",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 16126,
+      "end": 16945,
+      "offsetEncoding": "utf16",
+      "text": "calcularCuotaEscala = (\n  base: Decimal,\n  version: VersionRetencion | undefined\n) => {\n  if (version !== undefined && version.anio <= 2020 && base.gte(60000))\n    return new Decimal(17901.5).plus(base.minus(60000).mul(0.45))\n  const tramos = [\n    { desde: 0, cuota: 0, resto: 12_450, tipo: 0.19 },\n    { desde: 12_450, cuota: 2365.5, resto: 7_750, tipo: 0.24 },\n    { desde: 20_200, cuota: 4225.5, resto: 15_000, tipo: 0.3 },\n    { desde: 35_200, cuota: 8725.5, resto: 24_800, tipo: 0.37 },\n    { desde: 60_000, cuota: 17_901.5, resto: 240_000, tipo: 0.45 },\n    { desde: 300_000, cuota: 125_901.5, resto: Infinity, tipo: 0.47 },\n  ] as const\n  const tramo =\n    [...tramos].reverse().find(({ desde }) => base.gte(desde)) ?? tramos[0]\n\n  return new Decimal(tramo.cuota).plus(base.minus(tramo.desde).mul(tramo.tipo))\n}"
+    },
+    "formula": "version.anio<=2020 y base>=60000 →17901.5+(base-60000)*.45; resto elige último desde<=base y devuelve cuota+(base-desde)*tipo",
+    "inputs": [
+      "formal:calcularCuotaEscala.base",
+      "R.version",
+      "literal:tramos"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 17380,
+          "end": 17433,
+          "offsetEncoding": "utf16",
+          "text": "calcularCuotaEscala(base.minus(anualidades), version)"
+        },
+        "arguments": [
+          "base.minus(anualidades)",
+          "version"
+        ],
+        "condition": "Tabla: [0,0,.19],[12450,2365.5,.24],[20200,4225.5,.30],[35200,8725.5,.37],[60000,17901.5,.45],[300000,125901.5,.47]. resto no se consume; Infinity cohabita, no afecta elección."
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 17448,
+          "end": 17489,
+          "offsetEncoding": "utf16",
+          "text": "calcularCuotaEscala(anualidades, version)"
+        },
+        "arguments": [
+          "anualidades",
+          "version"
+        ],
+        "condition": "Tabla: [0,0,.19],[12450,2365.5,.24],[20200,4225.5,.30],[35200,8725.5,.37],[60000,17901.5,.45],[300000,125901.5,.47]. resto no se consume; Infinity cohabita, no afecta elección."
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 17513,
+          "end": 17576,
+          "offsetEncoding": "utf16",
+          "text": "calcularCuotaEscala(minimoPersonalFamiliar.plus(1980), version)"
+        },
+        "arguments": [
+          "minimoPersonalFamiliar.plus(1980)",
+          "version"
+        ],
+        "condition": "Tabla: [0,0,.19],[12450,2365.5,.24],[20200,4225.5,.30],[35200,8725.5,.37],[60000,17901.5,.45],[300000,125901.5,.47]. resto no se consume; Infinity cohabita, no afecta elección."
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 17627,
+          "end": 17661,
+          "offsetEncoding": "utf16",
+          "text": "calcularCuotaEscala(base, version)"
+        },
+        "arguments": [
+          "base",
+          "version"
+        ],
+        "condition": "Tabla: [0,0,.19],[12450,2365.5,.24],[20200,4225.5,.30],[35200,8725.5,.37],[60000,17901.5,.45],[300000,125901.5,.47]. resto no se consume; Infinity cohabita, no afecta elección."
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 17677,
+          "end": 17729,
+          "offsetEncoding": "utf16",
+          "text": "calcularCuotaEscala(minimoPersonalFamiliar, version)"
+        },
+        "arguments": [
+          "minimoPersonalFamiliar",
+          "version"
+        ],
+        "condition": "Tabla: [0,0,.19],[12450,2365.5,.24],[20200,4225.5,.30],[35200,8725.5,.37],[60000,17901.5,.45],[300000,125901.5,.47]. resto no se consume; Infinity cohabita, no afecta elección."
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.cuotaEscala",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 16953,
+      "end": 17800,
+      "offsetEncoding": "utf16",
+      "text": "calcularCuotaRetencion = ({\n  version,\n  anualidades,\n  base,\n  minimoPersonalFamiliar,\n}: {\n  readonly version: VersionRetencion | undefined\n  readonly anualidades: Decimal\n  readonly base: Decimal\n  readonly minimoPersonalFamiliar: Decimal\n}) => {\n  const aplicaAnualidades = anualidades.gt(0) && base.minus(anualidades).gt(0)\n  const cuotas = Match.value(aplicaAnualidades).pipe(\n    Match.when(true, () => ({\n      cuota1: calcularCuotaEscala(base.minus(anualidades), version).plus(\n        calcularCuotaEscala(anualidades, version)\n      ),\n      cuota2: calcularCuotaEscala(minimoPersonalFamiliar.plus(1980), version),\n    })),\n    Match.orElse(() => ({\n      cuota1: calcularCuotaEscala(base, version),\n      cuota2: calcularCuotaEscala(minimoPersonalFamiliar, version),\n    }))\n  )\n\n  return max(CERO, cuotas.cuota1.minus(cuotas.cuota2))\n}"
+    },
+    "formula": "si anualidades>0 y base-anualidades>0: max(0,E(base-anualidades)+E(anualidades)-E(minimo+1980)); resto max(0,E(base)-E(minimo))",
+    "inputs": [
+      "R.base",
+      "R.anualidades",
+      "R.minimo",
+      "R.escala",
+      "literal:1980"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 18937,
+          "end": 19069,
+          "offsetEncoding": "utf16",
+          "text": "calcularCuotaRetencion({\n        version,\n        anualidades,\n        base: baseRetencion,\n        minimoPersonalFamiliar,\n      })"
+        },
+        "arguments": [
+          "{\n        version,\n        anualidades,\n        base: baseRetencion,\n        minimoPersonalFamiliar,\n      }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.tablaCierre",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 5473,
+      "end": 5662,
+      "offsetEncoding": "utf16",
+      "text": "tablaVigenteAlCierreDelAnio = (\n  anio: AnioFiscal\n): TablaUmbralesRetencion => {\n  const periodos = UMBRALES_RETENCION_NOMINA_POR_ANIO[anio]\n\n  return periodos[periodos.length - 1].tabla\n}"
+    },
+    "formula": "UMBRALES_RETENCION_NOMINA_POR_ANIO[anio].at(-1).tabla; implementación usa índice length-1",
+    "inputs": [
+      "formal:tablaVigenteAlCierreDelAnio.anio",
+      "R.tablas"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+          "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+          "start": 5965,
+          "end": 5998,
+          "offsetEncoding": "utf16",
+          "text": "tablaVigenteAlCierreDelAnio(anio)"
+        },
+        "arguments": [
+          "anio"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.tablas",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 3862,
+      "end": 5465,
+      "offsetEncoding": "utf16",
+      "text": "UMBRALES_RETENCION_NOMINA_POR_ANIO = {\n  2012: [{ desde: \"2012-01-01\", tabla: UMBRALES_RETENCION_2012_2014 }],\n  2013: [{ desde: \"2013-01-01\", tabla: UMBRALES_RETENCION_2012_2014 }],\n  2014: [{ desde: \"2014-01-01\", tabla: UMBRALES_RETENCION_2012_2014 }],\n\n  2015: [{ desde: \"2015-01-01\", tabla: UMBRALES_RETENCION_2015_2017 }],\n  2016: [{ desde: \"2016-01-01\", tabla: UMBRALES_RETENCION_2015_2017 }],\n  2017: [{ desde: \"2017-01-01\", tabla: UMBRALES_RETENCION_2015_2017 }],\n\n  2018: [\n    {\n      desde: \"2018-01-01\",\n      hasta: \"2018-07-04\",\n      tabla: UMBRALES_RETENCION_2015_2017,\n    },\n    { desde: \"2018-07-05\", tabla: UMBRALES_RETENCION_2018_DESDE_5_JULIO },\n  ],\n\n  2019: [{ desde: \"2019-01-01\", tabla: UMBRALES_RETENCION_2019_2022 }],\n  2020: [{ desde: \"2020-01-01\", tabla: UMBRALES_RETENCION_2019_2022 }],\n  2021: [{ desde: \"2021-01-01\", tabla: UMBRALES_RETENCION_2019_2022 }],\n  2022: [{ desde: \"2022-01-01\", tabla: UMBRALES_RETENCION_2019_2022 }],\n\n  2023: [\n    {\n      desde: \"2023-01-01\",\n      hasta: \"2023-01-31\",\n      tabla: UMBRALES_RETENCION_2019_2022,\n    },\n    { desde: \"2023-02-01\", tabla: UMBRALES_RETENCION_2023_DESDE_FEBRERO },\n  ],\n\n  2024: [\n    {\n      desde: \"2024-01-01\",\n      hasta: \"2024-02-07\",\n      tabla: UMBRALES_RETENCION_2023_DESDE_FEBRERO,\n    },\n    { desde: \"2024-02-08\", tabla: UMBRALES_RETENCION_2024_2026 },\n  ],\n\n  2025: [{ desde: \"2025-01-01\", tabla: UMBRALES_RETENCION_2024_2026 }],\n  2026: [{ desde: \"2026-01-01\", tabla: UMBRALES_RETENCION_2024_2026 }],\n} as const satisfies Readonly<\n  Record<AnioFiscal, ReadonlyArray<PeriodoUmbralesRetencion>>\n>"
+    },
+    "formula": "2012–14:2012_2014;2015–17:2015_2017;2018 cambia05jul;2019–22:2019_2022;2023 cambia01feb;2024 cambia08feb;2025–26:2024_2026",
+    "inputs": [
+      "tabla:UMBRALES_RETENCION_2012_2014",
+      "tabla:UMBRALES_RETENCION_2015_2017",
+      "tabla:UMBRALES_RETENCION_2018_DESDE_5_JULIO",
+      "tabla:UMBRALES_RETENCION_2018_PENSIONES",
+      "tabla:UMBRALES_RETENCION_2019_2022",
+      "tabla:UMBRALES_RETENCION_2023_DESDE_FEBRERO",
+      "tabla:UMBRALES_RETENCION_2024_2026"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.tabla",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 5677,
+      "end": 6633,
+      "offsetEncoding": "utf16",
+      "text": "tablaUmbralesRetencionTrabajo = ({\n  anio,\n  fecha,\n  situacionLaboral,\n}: {\n  readonly anio: AnioFiscal\n  readonly fecha?: string | undefined\n  readonly situacionLaboral?: SituacionLaboralRetencionTabla | undefined\n}): TablaUmbralesRetencion => {\n  if (fecha === undefined) {\n    return tablaVigenteAlCierreDelAnio(anio)\n  }\n\n  if (!esFechaCivilDelAnio(fecha, anio))\n    throw new Error(\"Fecha civil inválida o ajena al ejercicio\")\n  if (\n    anio === 2018 &&\n    fecha >= \"2018-07-05\" &&\n    (situacionLaboral === \"pensionista\" || situacionLaboral === \"desempleado\")\n  )\n    return UMBRALES_RETENCION_2018_PENSIONES\n  const periodos: ReadonlyArray<PeriodoUmbralesRetencion> =\n    UMBRALES_RETENCION_NOMINA_POR_ANIO[anio]\n  const periodo = periodos.find(\n    ({ desde, hasta }) =>\n      fecha >= desde && (hasta === undefined || fecha <= hasta)\n  )\n\n  if (periodo === undefined) throw new Error(\"Sin tabla para la fecha indicada\")\n  return periodo.tabla\n}"
+    },
+    "formula": "fecha undefined→cierre; fecha inválida throw;2018 desde05jul pensionista/desempleado tabla PENSIONES; resto find desde<=fecha<=hasta",
+    "inputs": [
+      "R.tablaCierre",
+      "R.tablas",
+      "R.calendario",
+      "formal:tablaUmbralesRetencionTrabajo.anio,fecha,situacionLaboral"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+          "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+          "start": 7394,
+          "end": 7433,
+          "offsetEncoding": "utf16",
+          "text": "tablaUmbralesRetencionTrabajo({ anio })"
+        },
+        "arguments": [
+          "{ anio }"
+        ],
+        "condition": "En canónico fecha=version.desde, no fechaFallecimiento; legacy fecha undefined ignora situación laboral para tabla especial2018."
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+          "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+          "start": 7442,
+          "end": 7506,
+          "offsetEncoding": "utf16",
+          "text": "tablaUmbralesRetencionTrabajo({ anio, fecha, situacionLaboral })"
+        },
+        "arguments": [
+          "{ anio, fecha, situacionLaboral }"
+        ],
+        "condition": "En canónico fecha=version.desde, no fechaFallecimiento; legacy fecha undefined ignora situación laboral para tabla especial2018."
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+          "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+          "start": 8193,
+          "end": 8232,
+          "offsetEncoding": "utf16",
+          "text": "tablaUmbralesRetencionTrabajo({ anio })"
+        },
+        "arguments": [
+          "{ anio }"
+        ],
+        "condition": "En canónico fecha=version.desde, no fechaFallecimiento; legacy fecha undefined ignora situación laboral para tabla especial2018."
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+          "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+          "start": 8241,
+          "end": 8305,
+          "offsetEncoding": "utf16",
+          "text": "tablaUmbralesRetencionTrabajo({ anio, fecha, situacionLaboral })"
+        },
+        "arguments": [
+          "{ anio, fecha, situacionLaboral }"
+        ],
+        "condition": "En canónico fecha=version.desde, no fechaFallecimiento; legacy fecha undefined ignora situación laboral para tabla especial2018."
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.columna",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 6641,
+      "end": 6949,
+      "offsetEncoding": "utf16",
+      "text": "umbralPorDescendientes = (\n  umbrales: UmbralRetencionSituacion,\n  numeroDescendientes: number\n): number | null => {\n  if (numeroDescendientes <= 0) {\n    return umbrales.sinDescendientes\n  }\n\n  if (numeroDescendientes === 1) {\n    return umbrales.unDescendiente\n  }\n\n  return umbrales.dosOMasDescendientes\n}"
+    },
+    "formula": "numero<=0→sinDescendientes;===1→unDescendiente;resto dosOMas",
+    "inputs": [
+      "formal:umbralPorDescendientes.numeroDescendientes",
+      "formal:umbralPorDescendientes.umbrales"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+          "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+          "start": 7517,
+          "end": 7586,
+          "offsetEncoding": "utf16",
+          "text": "umbralPorDescendientes(tabla[situacionFamiliar], numeroDescendientes)"
+        },
+        "arguments": [
+          "tabla[situacionFamiliar]",
+          "numeroDescendientes"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.umbral",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 7603,
+      "end": 7894,
+      "offsetEncoding": "utf16",
+      "text": "umbralRetencionTrabajoRequeridoEuros = (\n  entrada: Parameters<typeof umbralRetencionTrabajoEuros>[0]\n): number => {\n  const umbral = umbralRetencionTrabajoEuros(entrada)\n\n  if (umbral === null) {\n    throw new Error(\"La situacion 1 sin descendientes no tiene umbral\")\n  }\n\n  return umbral\n}"
+    },
+    "formula": "tabla[situacionFamiliar] → columna(length hijos filtrados) → null throw",
+    "inputs": [
+      "R.umbralEuros"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 25104,
+          "end": 25346,
+          "offsetEncoding": "utf16",
+          "text": "umbralRetencionTrabajoRequeridoEuros({\n      anio: caso.anio,\n      fecha: version?.desde,\n      situacionFamiliar: caso.situacionFamiliar,\n      situacionLaboral: caso.situacionLaboral,\n      numeroDescendientes: descendientes.length,\n    })"
+        },
+        "arguments": [
+          "{\n      anio: caso.anio,\n      fecha: version?.desde,\n      situacionFamiliar: caso.situacionFamiliar,\n      situacionLaboral: caso.situacionLaboral,\n      numeroDescendientes: descendientes.length,\n    }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.umbralMax",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 7909,
+      "end": 8775,
+      "offsetEncoding": "utf16",
+      "text": "maximoUmbralRetencionTrabajoEuros = ({\n  anio,\n  fecha,\n  situacionLaboral,\n}: {\n  readonly anio: AnioFiscal\n  readonly fecha?: string | undefined\n  readonly situacionLaboral?: SituacionLaboralRetencionTabla | undefined\n}): number => {\n  const tabla =\n    fecha === undefined\n      ? tablaUmbralesRetencionTrabajo({ anio })\n      : tablaUmbralesRetencionTrabajo({ anio, fecha, situacionLaboral })\n  const umbrales = [\n    tabla.situacion1.sinDescendientes,\n    tabla.situacion1.unDescendiente,\n    tabla.situacion1.dosOMasDescendientes,\n    tabla.situacion2.sinDescendientes,\n    tabla.situacion2.unDescendiente,\n    tabla.situacion2.dosOMasDescendientes,\n    tabla.situacion3.sinDescendientes,\n    tabla.situacion3.unDescendiente,\n    tabla.situacion3.dosOMasDescendientes,\n  ].filter((umbral): umbral is number => umbral !== null)\n\n  return Math.max(...umbrales)\n}"
+    },
+    "formula": "Math.max de las nueve celdas de tabla quitando null",
+    "inputs": [
+      "R.tabla",
+      "primitiva:Math.max"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 25391,
+          "end": 25532,
+          "offsetEncoding": "utf16",
+          "text": "maximoUmbralRetencionTrabajoEuros({\n      anio: caso.anio,\n      fecha: version?.desde,\n      situacionLaboral: caso.situacionLaboral,\n    })"
+        },
+        "arguments": [
+          "{\n      anio: caso.anio,\n      fecha: version?.desde,\n      situacionLaboral: caso.situacionLaboral,\n    }"
+        ],
+        "condition": "No depende de columna familiar elegida; puede depender de celdas de otras situaciones por ser máximo."
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.exento",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 25793,
+      "end": 25894,
+      "offsetEncoding": "utf16",
+      "text": "exento =\n    retribucion.lte(umbralMaximoConReducciones) &&\n    retribucion.lte(umbralConReducciones)"
+    },
+    "formula": "R<=umbralMax+pensionista+desempleado && R<=umbral+pensionista+desempleado",
+    "inputs": [
+      "R.R",
+      "R.umbral",
+      "R.umbralMax",
+      "R.laboralP",
+      "R.laboralD"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.inicial",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 18544,
+      "end": 19079,
+      "offsetEncoding": "utf16",
+      "text": "cuotaRetencionInicial = ({\n  version,\n  anualidades,\n  baseRetencion,\n  exento,\n  minimoPersonalFamiliar,\n}: {\n  readonly version: VersionRetencion | undefined\n  readonly anualidades: Decimal\n  readonly baseRetencion: Decimal\n  readonly exento: boolean\n  readonly minimoPersonalFamiliar: Decimal\n}) =>\n  Match.value(exento).pipe(\n    Match.when(true, () => CERO),\n    Match.orElse(() =>\n      calcularCuotaRetencion({\n        version,\n        anualidades,\n        base: baseRetencion,\n        minimoPersonalFamiliar,\n      })\n    )\n  )"
+    },
+    "formula": "exento ? 0 : calcularCuotaRetencion(...)",
+    "inputs": [
+      "R.exento",
+      "R.cuotaEscala"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 25918,
+          "end": 26035,
+          "offsetEncoding": "utf16",
+          "text": "cuotaRetencionInicial({\n    version,\n    anualidades,\n    baseRetencion,\n    exento,\n    minimoPersonalFamiliar,\n  })"
+        },
+        "arguments": [
+          "{\n    version,\n    anualidades,\n    baseRetencion,\n    exento,\n    minimoPersonalFamiliar,\n  }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.limite",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 19087,
+      "end": 19855,
+      "offsetEncoding": "utf16",
+      "text": "calcularLimite43 = ({\n  version,\n  cuotaInicial,\n  exento,\n  retribucion,\n  umbralConReducciones,\n}: {\n  readonly version: VersionRetencion | undefined\n  readonly cuotaInicial: Decimal\n  readonly exento: boolean\n  readonly retribucion: Decimal\n  readonly umbralConReducciones: Decimal\n}) =>\n  Match.value({ exento, retribucion }).pipe(\n    Match.when({ exento: true }, () => cuotaInicial),\n    Match.when(\n      {\n        retribucion: (valor) =>\n          valor.gt(\n            version !== undefined &&\n              (version.anio < 2023 || version.reduccion === \"2019\")\n              ? 22000\n              : 35200\n          ),\n      },\n      () => cuotaInicial\n    ),\n    Match.orElse(() =>\n      max(CERO, retribucion.minus(umbralConReducciones).mul(0.43))\n    )\n  )"
+    },
+    "formula": "exento o R>techo→cuotaInicial; resto max(0,(R-umbralConReducciones)*.43); techo22000 si version y (anio<2023 o reduccion2019), resto35200",
+    "inputs": [
+      "R.inicial",
+      "R.exento",
+      "R.R",
+      "R.umbral",
+      "R.laboralP",
+      "R.laboralD",
+      "R.version",
+      "literal:.43,22000,35200"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 26055,
+          "end": 26164,
+          "offsetEncoding": "utf16",
+          "text": "calcularLimite43({\n    version,\n    cuotaInicial,\n    exento,\n    retribucion,\n    umbralConReducciones,\n  })"
+        },
+        "arguments": [
+          "{\n    version,\n    cuotaInicial,\n    exento,\n    retribucion,\n    umbralConReducciones,\n  }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.cuota",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 26173,
+      "end": 26217,
+      "offsetEncoding": "utf16",
+      "text": "cuotaRetencion = min(cuotaInicial, limite43)"
+    },
+    "formula": "min(cuotaInicial,limite43)",
+    "inputs": [
+      "R.inicial",
+      "R.limite"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.ceuta",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 26226,
+      "end": 26327,
+      "offsetEncoding": "utf16",
+      "text": "ceutaMelilla =\n    caso.residenciaCeutaMelilla === true &&\n    caso.rendimientosCeutaMelilla === true"
+    },
+    "formula": "residenciaCeutaMelilla===true && rendimientosCeutaMelilla===true",
+    "inputs": [
+      "entrada:caso.residenciaCeutaMelilla,rendimientosCeutaMelilla"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.vivienda",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 19863,
+      "end": 20274,
+      "offsetEncoding": "utf16",
+      "text": "calcularMinoracionVivienda = ({\n  caso,\n  retribucion,\n}: {\n  readonly caso: CasoRetencionTrabajo\n  readonly retribucion: Decimal\n}) =>\n  Match.value({\n    aplica: caso.pagosViviendaHabitual === true,\n    retribucion,\n  }).pipe(\n    Match.when({ aplica: false }, () => CERO),\n    Match.when({ retribucion: (valor) => valor.gte(33_007.2) }, () => CERO),\n    Match.orElse(() => truncar(retribucion.mul(0.02)))\n  )"
+    },
+    "formula": "pagosViviendaHabitual && R<33007.2 ? trunc(R*.02,2) : 0",
+    "inputs": [
+      "R.R",
+      "entrada:caso.pagosViviendaHabitual",
+      "literal:33007.2,.02",
+      "M.truncar"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 26347,
+          "end": 26396,
+          "offsetEncoding": "utf16",
+          "text": "calcularMinoracionVivienda({ caso, retribucion })"
+        },
+        "arguments": [
+          "{ caso, retribucion }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.diferencia",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 20282,
+      "end": 20927,
+      "offsetEncoding": "utf16",
+      "text": "calcularDiferenciaPositiva = ({\n  version,\n  ceutaMelilla,\n  cuotaRetencion,\n  minopago,\n}: {\n  readonly ceutaMelilla: boolean\n  readonly version: VersionRetencion | undefined\n  readonly cuotaRetencion: Decimal\n  readonly minopago: Decimal\n}) =>\n  Match.value(ceutaMelilla).pipe(\n    Match.when(true, () =>\n      max(\n        CERO,\n        cuotaRetencion\n          .mul(\n            version !== undefined &&\n              (version.anio === 2017 || version.id === \"aeat-2018-01-01\")\n              ? 0.5\n              : 0.4\n          )\n          .minus(minopago)\n      )\n    ),\n    Match.orElse(() => max(CERO, cuotaRetencion.minus(minopago)))\n  )"
+    },
+    "formula": "max(0,cuota*(ceuta?(version2017 o id2018enero?.5:.4):1)-vivienda)",
+    "inputs": [
+      "R.cuota",
+      "R.ceuta",
+      "R.version",
+      "R.vivienda"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 26426,
+          "end": 26524,
+          "offsetEncoding": "utf16",
+          "text": "calcularDiferenciaPositiva({\n    version,\n    ceutaMelilla,\n    cuotaRetencion,\n    minopago,\n  })"
+        },
+        "arguments": [
+          "{\n    version,\n    ceutaMelilla,\n    cuotaRetencion,\n    minopago,\n  }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.tipoCalc",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 20935,
+      "end": 21264,
+      "offsetEncoding": "utf16",
+      "text": "calcularTipoInicial = ({\n  diferenciaPositiva,\n  retribucion,\n}: {\n  readonly diferenciaPositiva: Decimal\n  readonly retribucion: Decimal\n}) =>\n  Match.value(retribucion).pipe(\n    Match.when(\n      (valor) => valor.lte(0),\n      () => CERO\n    ),\n    Match.orElse(() => truncar(diferenciaPositiva.div(retribucion).mul(100)))\n  )"
+    },
+    "formula": "R<=0?0:trunc(diferencia/R*100,2)",
+    "inputs": [
+      "R.diferencia",
+      "R.R",
+      "M.truncar",
+      "literal:100"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 26549,
+          "end": 26605,
+          "offsetEncoding": "utf16",
+          "text": "calcularTipoInicial({ diferenciaPositiva, retribucion })"
+        },
+        "arguments": [
+          "{ diferenciaPositiva, retribucion }"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.tipo",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 21272,
+      "end": 22547,
+      "offsetEncoding": "utf16",
+      "text": "aplicarMinimoContrato = ({\n  version,\n  ceutaMelilla,\n  contrato,\n  tipoCalculado,\n}: {\n  readonly ceutaMelilla: boolean\n  readonly contrato: ContratoRetencion\n  readonly version: VersionRetencion | undefined\n  readonly tipoCalculado: Decimal\n}) =>\n  Match.value({ ceutaMelilla, contrato, tipoCalculado }).pipe(\n    Match.when(\n      {\n        ceutaMelilla: true,\n        contrato: \"especial\",\n        tipoCalculado: (tipo) =>\n          tipo.lt(version !== undefined && version.anio < 2019 ? 8 : 6),\n      },\n      () => new Decimal(version !== undefined && version.anio < 2019 ? 8 : 6)\n    ),\n    Match.when(\n      {\n        ceutaMelilla: true,\n        contrato: \"inferior-anio\",\n        tipoCalculado: (tipo) =>\n          tipo.lt(version !== undefined && version.anio < 2019 ? 1 : 0.8),\n      },\n      () => new Decimal(version !== undefined && version.anio < 2019 ? 1 : 0.8)\n    ),\n    Match.when(\n      {\n        ceutaMelilla: false,\n        contrato: \"especial\",\n        tipoCalculado: (tipo) => tipo.lt(15),\n      },\n      () => new Decimal(15)\n    ),\n    Match.when(\n      {\n        ceutaMelilla: false,\n        contrato: \"inferior-anio\",\n        tipoCalculado: (tipo) => tipo.lt(2),\n      },\n      () => new Decimal(2)\n    ),\n    Match.orElse(() => tipoCalculado)\n  )"
+    },
+    "formula": "Ceuta especial mínimo8 antes2019/6 resto; Ceuta inferior-anio mínimo1/.8; noCeuta especial15/inferior2; general/manuales preservan calculado",
+    "inputs": [
+      "R.tipoCalc",
+      "R.ceuta",
+      "R.version",
+      "entrada:caso.contrato",
+      "literal:8,6,1,.8,15,2"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 26630,
+          "end": 26737,
+          "offsetEncoding": "utf16",
+          "text": "aplicarMinimoContrato({\n    version,\n    ceutaMelilla,\n    contrato: caso.contrato,\n    tipoCalculado,\n  })"
+        },
+        "arguments": [
+          "{\n    version,\n    ceutaMelilla,\n    contrato: caso.contrato,\n    tipoCalculado,\n  }"
+        ],
+        "condition": "manuales solo alcanzable legacy; canónico rechaza antes. No implica derecho al mínimo ni procedimiento completo aceptado."
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.importe",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 26746,
+      "end": 26817,
+      "offsetEncoding": "utf16",
+      "text": "importeRetencion = redondear1(retribucion.mul(tipoRetencion).div(CIEN))"
+    },
+    "formula": "redondear1(R*tipo/100) → aCentimos; rastro anual convierte esos céntimos a euros",
+    "inputs": [
+      "R.R",
+      "R.tipo",
+      "M.redondeo",
+      "M.conversion",
+      "M.toCentimos"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "M.conversion",
+    "source": {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "start": 561,
+      "end": 660,
+      "offsetEncoding": "utf16",
+      "text": "centimosAEuros = (centimos: number): ImporteMonetario =>\n  crearImporteMonetario(centimos).div(100)"
+    },
+    "formula": "new Decimal(centimos)/100; eurosACentimos redondea2, multiplica100,toNumber",
+    "inputs": [
+      "entrada:importe",
+      "literal:100",
+      "primitiva:Decimal"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 7230,
+          "end": 7259,
+          "offsetEncoding": "utf16",
+          "text": "centimosAEuros(centimos ?? 0)"
+        },
+        "arguments": [
+          "centimos ?? 0"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 23657,
+          "end": 23702,
+          "offsetEncoding": "utf16",
+          "text": "centimosAEuros(caso.retribucionAnualCentimos)"
+        },
+        "arguments": [
+          "caso.retribucionAnualCentimos"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 23726,
+          "end": 23767,
+          "offsetEncoding": "utf16",
+          "text": "centimosAEuros(caso.cotizacionesCentimos)"
+        },
+        "arguments": [
+          "caso.cotizacionesCentimos"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "M.redondeo",
+    "source": {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "sha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "start": 47,
+      "end": 170,
+      "offsetEncoding": "utf16",
+      "text": "redondearHalfUp = (valor: Decimal, decimales: number): Decimal =>\n  valor.toDecimalPlaces(decimales, Decimal.ROUND_HALF_UP)"
+    },
+    "formula": "valor.toDecimalPlaces(decimales,Decimal.ROUND_HALF_UP); llamadas monetarias decimales=2",
+    "inputs": [
+      "primitiva:Decimal.ROUND_HALF_UP",
+      "literal:2"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "M.truncar",
+    "source": {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "sha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "start": 185,
+      "end": 304,
+      "offsetEncoding": "utf16",
+      "text": "truncarDecimal = (valor: Decimal, decimales: number): Decimal =>\n  valor.toDecimalPlaces(decimales, Decimal.ROUND_DOWN)"
+    },
+    "formula": "valor.toDecimalPlaces(decimales,Decimal.ROUND_DOWN); tipo y vivienda decimales=2",
+    "inputs": [
+      "primitiva:Decimal.ROUND_DOWN",
+      "literal:2"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.max",
+    "source": {
+      "file": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+      "sha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80",
+      "start": 134,
+      "end": 875,
+      "offsetEncoding": "utf16",
+      "text": "BASE_MAXIMA_COTIZACION_LEGACY: Readonly<\n  Record<AnioFiscal, ReturnType<typeof crearImporteMonetario>>\n> = {\n  2012: crearImporteMonetario(\"39150.0\"),\n  2013: crearImporteMonetario(\"41108.4\"),\n  2014: crearImporteMonetario(\"43164.0\"),\n  2015: crearImporteMonetario(\"43272.0\"),\n  2016: crearImporteMonetario(\"43704.0\"),\n  2017: crearImporteMonetario(\"45014.4\"),\n  2018: crearImporteMonetario(\"45014.4\"),\n  2019: crearImporteMonetario(\"48841.2\"),\n  2020: crearImporteMonetario(\"48841.2\"),\n  2021: crearImporteMonetario(\"48841.2\"),\n  2022: crearImporteMonetario(\"49672.8\"),\n  2023: crearImporteMonetario(\"53946.0\"),\n  2024: crearImporteMonetario(\"56646.0\"),\n  2025: crearImporteMonetario(\"58914.0\"),\n  2026: crearImporteMonetario(\"61214.4\"),\n}"
+    },
+    "formula": "tabla[anio], máximo anual heredado, selector efectivo por año",
+    "inputs": [
+      "entrada:caso.anio",
+      "literal:BASE_MAXIMA_COTIZACION_LEGACY"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.tipos",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "start": 1887,
+      "end": 2516,
+      "offsetEncoding": "utf16",
+      "text": "TIPOS_SEGURIDAD_SOCIAL_LEGACY = {\n  comunes: {\n    empresarial: crearImporteMonetario(\"0.236\"),\n    trabajador: crearImporteMonetario(\"0.047\"),\n  },\n  desempleo: {\n    empresarial: crearImporteMonetario(\"0.055\"),\n    trabajador: crearImporteMonetario(\"0.0155\"),\n  },\n  fogasa: {\n    empresarial: crearImporteMonetario(\"0.002\"),\n    trabajador: IMPORTE_CERO,\n  },\n  fp: {\n    empresarial: crearImporteMonetario(\"0.006\"),\n    trabajador: crearImporteMonetario(\"0.001\"),\n  },\n  atep: {\n    empresarial: crearImporteMonetario(\"0.015\"),\n    trabajador: IMPORTE_CERO,\n  },\n} satisfies ParametrosCotizacionLegacy[\"tiposSeguridadSocial\"]"
+    },
+    "formula": "comunes .236/.047;desempleo .055/.0155;fogasa .002/0;fp .006/.001;atep .015/0; suma por lado",
+    "inputs": [
+      "literal:TIPOS_SEGURIDAD_SOCIAL_LEGACY"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.meiTipos",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "start": 3420,
+      "end": 4213,
+      "offsetEncoding": "utf16",
+      "text": "obtenerTiposMei = (anio: AnioFiscal): TiposCotizacion =>\n  Match.value(anio).pipe(\n    Match.when(2023, () => ({\n      empresarial: crearImporteMonetario(\"0.005\"),\n      trabajador: crearImporteMonetario(\"0.001\"),\n    })),\n    Match.when(2024, () => ({\n      empresarial: crearImporteMonetario(\"0.0058\"),\n      trabajador: crearImporteMonetario(\"0.0012\"),\n    })),\n    Match.when(2025, () => ({\n      empresarial: crearImporteMonetario(\"0.0067\"),\n      trabajador: crearImporteMonetario(\"0.0013\"),\n    })),\n    Match.when(\n      (anio) => anio >= 2026,\n      () => ({\n        empresarial: crearImporteMonetario(\"0.0075\"),\n        trabajador: crearImporteMonetario(\"0.0015\"),\n      })\n    ),\n    Match.orElse(() => ({\n      empresarial: IMPORTE_CERO,\n      trabajador: IMPORTE_CERO,\n    }))\n  )"
+    },
+    "formula": "2023 .005/.001;2024 .0058/.0012;2025 .0067/.0013;>=2026 .0075/.0015;resto0/0",
+    "inputs": [
+      "entrada:caso.anio",
+      "literal:MEI"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "start": 5164,
+          "end": 5185,
+          "offsetEncoding": "utf16",
+          "text": "obtenerTiposMei(anio)"
+        },
+        "arguments": [
+          "anio"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.politica",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "start": 4221,
+      "end": 4943,
+      "offsetEncoding": "utf16",
+      "text": "obtenerPoliticaSolidaridad = (anio: AnioFiscal): PoliticaSolidaridad =>\n  Match.value(anio).pipe(\n    Match.withReturnType<PoliticaSolidaridad>(),\n    Match.when(2025, () => ({\n      _tag: \"ConSolidaridad\",\n      tipoPrimerExceso: crearImporteMonetario(\"0.0092\"),\n      tipoSegundoExceso: crearImporteMonetario(\"0.0100\"),\n      tipoExcesoRestante: crearImporteMonetario(\"0.0117\"),\n    })),\n    Match.when(\n      (anio) => anio >= 2026,\n      () => ({\n        _tag: \"ConSolidaridad\",\n        tipoPrimerExceso: crearImporteMonetario(\"0.0115\"),\n        tipoSegundoExceso: crearImporteMonetario(\"0.0125\"),\n        tipoExcesoRestante: crearImporteMonetario(\"0.0146\"),\n      })\n    ),\n    Match.orElse(() => SIN_SOLIDARIDAD)\n  )"
+    },
+    "formula": "2025 .0092/.0100/.0117;>=2026 .0115/.0125/.0146;resto SinSolidaridad",
+    "inputs": [
+      "entrada:caso.anio",
+      "literal:solidaridad-legacy"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "start": 5202,
+          "end": 5234,
+          "offsetEncoding": "utf16",
+          "text": "obtenerPoliticaSolidaridad(anio)"
+        },
+        "arguments": [
+          "anio"
+        ],
+        "condition": "Inicial parcial; sin aceptación fiscal"
+      }
+    ],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.LB",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "start": 5246,
+      "end": 5481,
+      "offsetEncoding": "utf16",
+      "text": "baseCotizacionPara = (\n  bruto: Decimal,\n  parametros: ParametrosCotizacionLegacy\n): BaseCotizacion => ({\n  baseOrdinaria: minimo(bruto, parametros.baseMaxima),\n  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),\n})"
+    },
+    "formula": "baseOrdinaria=min(S,max);excesoBase=max(0,S-max)",
+    "inputs": [
+      "A.bruto",
+      "S.max"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "start": 8008,
+          "end": 8057,
+          "offsetEncoding": "utf16",
+          "text": "baseCotizacionPara(salarioBrutoAnual, parametros)"
+        },
+        "arguments": [
+          "salarioBrutoAnual",
+          "parametros"
+        ],
+        "condition": "legacy; no se eleva salario al mínimo"
+      }
+    ],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.Ltramos",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "start": 5489,
+      "end": 6792,
+      "offsetEncoding": "utf16",
+      "text": "calcularTotalSolidaridad = (\n  baseCotizacion: BaseCotizacion,\n  parametros: ParametrosCotizacionLegacy\n) =>\n  Match.valueTags(parametros.solidaridad, {\n    SinSolidaridad: () => IMPORTE_CERO,\n    ConSolidaridad: (politica) =>\n      Match.value(baseCotizacion.excesoBase).pipe(\n        Match.when(\n          (excesoBase) => excesoBase.lte(0),\n          () => IMPORTE_CERO\n        ),\n        Match.orElse(() => {\n          const limitePrimerTramo = parametros.baseMaxima.mul(\"0.10\")\n          const limiteSegundoTramo = parametros.baseMaxima.mul(\"0.50\")\n          const excesoPrimerTramo = minimo(\n            baseCotizacion.excesoBase,\n            limitePrimerTramo\n          )\n          const excesoSegundoTramo = minimo(\n            maximo(\n              IMPORTE_CERO,\n              baseCotizacion.excesoBase.minus(limitePrimerTramo)\n            ),\n            limiteSegundoTramo.minus(limitePrimerTramo)\n          )\n          const excesoRestante = maximo(\n            IMPORTE_CERO,\n            baseCotizacion.excesoBase.minus(limiteSegundoTramo)\n          )\n\n          return excesoPrimerTramo\n            .mul(politica.tipoPrimerExceso)\n            .plus(excesoSegundoTramo.mul(politica.tipoSegundoExceso))\n            .plus(excesoRestante.mul(politica.tipoExcesoRestante))\n        })\n      ),\n  })"
+    },
+    "formula": "SinSolidaridad o exceso<=0→0; resto min(X,.10M)*t1 + min(max(0,X-.10M),.40M)*t2 + max(0,X-.50M)*t3",
+    "inputs": [
+      "S.LB",
+      "S.max",
+      "S.politica"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "start": 8650,
+          "end": 8702,
+          "offsetEncoding": "utf16",
+          "text": "calcularTotalSolidaridad(baseCotizacion, parametros)"
+        },
+        "arguments": [
+          "baseCotizacion",
+          "parametros"
+        ],
+        "condition": "legacy; M=parametros.baseMaxima"
+      }
+    ],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.LrepartoE",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "start": 6800,
+      "end": 7007,
+      "offsetEncoding": "utf16",
+      "text": "repartirCotizacionSolidaridad = (\n  totalSolidaridad: Decimal\n): TotalesCotizacionesSociales => ({\n  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),\n  cotizacionTrabajador: totalSolidaridad.div(6),\n})"
+    },
+    "formula": "totalSolidaridad*5/6",
+    "inputs": [
+      "S.Ltramos",
+      "literal:5,6"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "start": 8615,
+          "end": 8706,
+          "offsetEncoding": "utf16",
+          "text": "repartirCotizacionSolidaridad(\n    calcularTotalSolidaridad(baseCotizacion, parametros)\n  )"
+        },
+        "arguments": [
+          "calcularTotalSolidaridad(baseCotizacion, parametros)"
+        ],
+        "condition": "solo legacy"
+      }
+    ],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.LrepartoT",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "start": 6800,
+      "end": 7007,
+      "offsetEncoding": "utf16",
+      "text": "repartirCotizacionSolidaridad = (\n  totalSolidaridad: Decimal\n): TotalesCotizacionesSociales => ({\n  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),\n  cotizacionTrabajador: totalSolidaridad.div(6),\n})"
+    },
+    "formula": "totalSolidaridad/6",
+    "inputs": [
+      "S.Ltramos",
+      "literal:6"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "start": 8615,
+          "end": 8706,
+          "offsetEncoding": "utf16",
+          "text": "repartirCotizacionSolidaridad(\n    calcularTotalSolidaridad(baseCotizacion, parametros)\n  )"
+        },
+        "arguments": [
+          "calcularTotalSolidaridad(baseCotizacion, parametros)"
+        ],
+        "condition": "solo legacy"
+      }
+    ],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.B",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 2333,
+      "end": 2676,
+      "offsetEncoding": "utf16",
+      "text": "baseOrdinaria =\n    anio === 2018\n      ? Decimal.min(salarioBrutoAnual, crearImporteMonetario(\"3751.20\").mul(12))\n          .mul(7)\n          .plus(\n            Decimal.min(\n              salarioBrutoAnual,\n              crearImporteMonetario(\"3803.70\").mul(12)\n            ).mul(5)\n          )\n          .div(12)\n      : legacy.baseOrdinaria"
+    },
+    "formula": "canónico2018: (min(S,3751.20*12)*7+min(S,3803.70*12)*5)/12; resto legacy.baseOrdinaria",
+    "inputs": [
+      "A.bruto",
+      "S.max",
+      "S.LB",
+      "entrada:caso.anio",
+      "literal:3751.20,3803.70,12,7,5"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.X",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 2685,
+      "end": 2752,
+      "offsetEncoding": "utf16",
+      "text": "excesoBase = Decimal.max(0, salarioBrutoAnual.minus(baseOrdinaria))"
+    },
+    "formula": "canónico max(0,S-B); legacy max(0,S-M)",
+    "inputs": [
+      "A.bruto",
+      "S.B",
+      "S.LB"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.tiposSolid",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 505,
+      "end": 752,
+      "offsetEncoding": "utf16",
+      "text": "tiposSolidaridad = {\n  2025: {\n    empresa: [\"0.0077\", \"0.0083\", \"0.0098\"],\n    trabajador: [\"0.0015\", \"0.0017\", \"0.0019\"],\n  },\n  2026: {\n    empresa: [\"0.0096\", \"0.0104\", \"0.0122\"],\n    trabajador: [\"0.0019\", \"0.0021\", \"0.0024\"],\n  },\n} as const"
+    },
+    "formula": "2025 empresa .0077/.0083/.0098 trabajador .0015/.0017/.0019;2026 empresa .0096/.0104/.0122 trabajador .0019/.0021/.0024;otros ceros",
+    "inputs": [
+      "entrada:caso.anio",
+      "literal:tiposSolidaridad"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.tramos",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 760,
+      "end": 1270,
+      "offsetEncoding": "utf16",
+      "text": "cuotaSolidaridad = (\n  exceso: Decimal,\n  baseMaxima: Decimal,\n  tipos: readonly [string, string, string]\n): Decimal => {\n  const primerExceso = Decimal.min(exceso, baseMaxima.mul(\"0.1\"))\n  const segundoExceso = Decimal.min(\n    Decimal.max(0, exceso.minus(baseMaxima.mul(\"0.1\"))),\n    baseMaxima.mul(\"0.4\")\n  )\n  const excesoRestante = Decimal.max(0, exceso.minus(baseMaxima.mul(\"0.5\")))\n  return primerExceso\n    .mul(tipos[0])\n    .plus(segundoExceso.mul(tipos[1]))\n    .plus(excesoRestante.mul(tipos[2]))\n}"
+    },
+    "formula": "min(X,.1M)*tipos[0] + min(max(0,X-.1M),.4M)*tipos[1] + max(0,X-.5M)*tipos[2]",
+    "inputs": [
+      "S.X",
+      "S.max",
+      "S.tiposSolid"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "start": 3045,
+          "end": 3133,
+          "offsetEncoding": "utf16",
+          "text": "cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.empresa\n  )"
+        },
+        "arguments": [
+          "excesoBase",
+          "parametros.baseMaxima",
+          "solidaridad.empresa"
+        ],
+        "condition": "canónico: llamada por lado con solidaridad.empresa o trabajador. M sigue heredado, B2018 no lo sustituye."
+      },
+      {
+        "callerSource": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "start": 3166,
+          "end": 3257,
+          "offsetEncoding": "utf16",
+          "text": "cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.trabajador\n  )"
+        },
+        "arguments": [
+          "excesoBase",
+          "parametros.baseMaxima",
+          "solidaridad.trabajador"
+        ],
+        "condition": "canónico: llamada por lado con solidaridad.empresa o trabajador. M sigue heredado, B2018 no lo sustituye."
+      }
+    ],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.ordinariaE",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 3266,
+      "end": 3378,
+      "offsetEncoding": "utf16",
+      "text": "cotizacionEmpresarialOrdinaria = baseOrdinaria.mul(\n    sumarTipoCotizacionLegacy(parametros, \"empresarial\")\n  )"
+    },
+    "formula": "B * suma tipos.empresarial",
+    "inputs": [
+      "S.B",
+      "S.tipos"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.meiE",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 3506,
+      "end": 3568,
+      "offsetEncoding": "utf16",
+      "text": "meiEmpresarial = baseOrdinaria.mul(parametros.mei.empresarial)"
+    },
+    "formula": "B * mei.empresarial",
+    "inputs": [
+      "S.B",
+      "S.meiTipos"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.solE",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 3020,
+      "end": 3133,
+      "offsetEncoding": "utf16",
+      "text": "solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.empresa\n  )"
+    },
+    "formula": "canónico cuotaSolidaridad(X,M,tipos lado); legacy reparto de total",
+    "inputs": [
+      "S.tramos",
+      "S.LrepartoE"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.empresa",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 1797,
+      "end": 4183,
+      "offsetEncoding": "utf16",
+      "text": "calcularDesgloseCotizacionesPerfilUniforme = ({\n  anio,\n  salarioBrutoAnual,\n}: EntradaCotizacionesSocialesLegacy): CotizacionesPerfilUniforme => {\n  const parametros = obtenerParametrosCotizacionLegacy(anio)\n  const legacy = calcularDesgloseCotizacionesSocialesLegacy({\n    anio,\n    salarioBrutoAnual,\n  })\n  // ESS/55/2018 art. 2 y Ley 6/2018 art. 130 + DF 46: agosto, no julio.\n  // Forma algebraica de 7 min(S/12,3751.20) + 5 min(S/12,3803.70),\n  // con una sola división para evitar redondear S/12 antes de aplicar topes.\n  const baseOrdinaria =\n    anio === 2018\n      ? Decimal.min(salarioBrutoAnual, crearImporteMonetario(\"3751.20\").mul(12))\n          .mul(7)\n          .plus(\n            Decimal.min(\n              salarioBrutoAnual,\n              crearImporteMonetario(\"3803.70\").mul(12)\n            ).mul(5)\n          )\n          .div(12)\n      : legacy.baseOrdinaria\n  const excesoBase = Decimal.max(0, salarioBrutoAnual.minus(baseOrdinaria))\n  const solidaridad = Match.value(anio).pipe(\n    Match.when(2025, () => tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.empresa\n  )\n  const solidaridadTrabajador = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.trabajador\n  )\n  const cotizacionEmpresarialOrdinaria = baseOrdinaria.mul(\n    sumarTipoCotizacionLegacy(parametros, \"empresarial\")\n  )\n  const cotizacionTrabajadorOrdinaria = baseOrdinaria.mul(\n    sumarTipoCotizacionLegacy(parametros, \"trabajador\")\n  )\n  const meiEmpresarial = baseOrdinaria.mul(parametros.mei.empresarial)\n  const meiTrabajador = baseOrdinaria.mul(parametros.mei.trabajador)\n\n  return {\n    alcance: \"analitico-doce-mensualidades-uniformes\",\n    redondeoTgss: \"pendiente\",\n    baseOrdinaria,\n    excesoBase,\n    cotizacionEmpresarialOrdinaria,\n    cotizacionTrabajadorOrdinaria,\n    meiEmpresarial,\n    meiTrabajador,\n    solidaridadEmpresarial,\n    solidaridadTrabajador,\n    cotizacionEmpresarial: cotizacionEmpresarialOrdinaria\n      .plus(meiEmpresarial)\n      .plus(solidaridadEmpresarial),\n    cotizacionTrabajador: cotizacionTrabajadorOrdinaria\n      .plus(meiTrabajador)\n      .plus(solidaridadTrabajador),\n  }\n}"
+    },
+    "formula": "ordinaria+mei+solidaridad del mismo lado",
+    "inputs": [
+      "S.ordinariaE",
+      "S.meiE",
+      "S.solE"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.ordinariaT",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 3387,
+      "end": 3497,
+      "offsetEncoding": "utf16",
+      "text": "cotizacionTrabajadorOrdinaria = baseOrdinaria.mul(\n    sumarTipoCotizacionLegacy(parametros, \"trabajador\")\n  )"
+    },
+    "formula": "B * suma tipos.trabajador",
+    "inputs": [
+      "S.B",
+      "S.tipos"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.meiT",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 3577,
+      "end": 3637,
+      "offsetEncoding": "utf16",
+      "text": "meiTrabajador = baseOrdinaria.mul(parametros.mei.trabajador)"
+    },
+    "formula": "B * mei.trabajador",
+    "inputs": [
+      "S.B",
+      "S.meiTipos"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.solT",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 3142,
+      "end": 3257,
+      "offsetEncoding": "utf16",
+      "text": "solidaridadTrabajador = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.trabajador\n  )"
+    },
+    "formula": "canónico cuotaSolidaridad(X,M,tipos lado); legacy reparto de total",
+    "inputs": [
+      "S.tramos",
+      "S.LrepartoT"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "S.trabajador",
+    "source": {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 1797,
+      "end": 4183,
+      "offsetEncoding": "utf16",
+      "text": "calcularDesgloseCotizacionesPerfilUniforme = ({\n  anio,\n  salarioBrutoAnual,\n}: EntradaCotizacionesSocialesLegacy): CotizacionesPerfilUniforme => {\n  const parametros = obtenerParametrosCotizacionLegacy(anio)\n  const legacy = calcularDesgloseCotizacionesSocialesLegacy({\n    anio,\n    salarioBrutoAnual,\n  })\n  // ESS/55/2018 art. 2 y Ley 6/2018 art. 130 + DF 46: agosto, no julio.\n  // Forma algebraica de 7 min(S/12,3751.20) + 5 min(S/12,3803.70),\n  // con una sola división para evitar redondear S/12 antes de aplicar topes.\n  const baseOrdinaria =\n    anio === 2018\n      ? Decimal.min(salarioBrutoAnual, crearImporteMonetario(\"3751.20\").mul(12))\n          .mul(7)\n          .plus(\n            Decimal.min(\n              salarioBrutoAnual,\n              crearImporteMonetario(\"3803.70\").mul(12)\n            ).mul(5)\n          )\n          .div(12)\n      : legacy.baseOrdinaria\n  const excesoBase = Decimal.max(0, salarioBrutoAnual.minus(baseOrdinaria))\n  const solidaridad = Match.value(anio).pipe(\n    Match.when(2025, () => tiposSolidaridad[2025]),\n    Match.when(2026, () => tiposSolidaridad[2026]),\n    Match.orElse(\n      () => ({ empresa: [\"0\", \"0\", \"0\"], trabajador: [\"0\", \"0\", \"0\"] }) as const\n    )\n  )\n  const solidaridadEmpresarial = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.empresa\n  )\n  const solidaridadTrabajador = cuotaSolidaridad(\n    excesoBase,\n    parametros.baseMaxima,\n    solidaridad.trabajador\n  )\n  const cotizacionEmpresarialOrdinaria = baseOrdinaria.mul(\n    sumarTipoCotizacionLegacy(parametros, \"empresarial\")\n  )\n  const cotizacionTrabajadorOrdinaria = baseOrdinaria.mul(\n    sumarTipoCotizacionLegacy(parametros, \"trabajador\")\n  )\n  const meiEmpresarial = baseOrdinaria.mul(parametros.mei.empresarial)\n  const meiTrabajador = baseOrdinaria.mul(parametros.mei.trabajador)\n\n  return {\n    alcance: \"analitico-doce-mensualidades-uniformes\",\n    redondeoTgss: \"pendiente\",\n    baseOrdinaria,\n    excesoBase,\n    cotizacionEmpresarialOrdinaria,\n    cotizacionTrabajadorOrdinaria,\n    meiEmpresarial,\n    meiTrabajador,\n    solidaridadEmpresarial,\n    solidaridadTrabajador,\n    cotizacionEmpresarial: cotizacionEmpresarialOrdinaria\n      .plus(meiEmpresarial)\n      .plus(solidaridadEmpresarial),\n    cotizacionTrabajador: cotizacionTrabajadorOrdinaria\n      .plus(meiTrabajador)\n      .plus(solidaridadTrabajador),\n  }\n}"
+    },
+    "formula": "ordinaria+mei+solidaridad del mismo lado",
+    "inputs": [
+      "S.ordinariaT",
+      "S.meiT",
+      "S.solT"
+    ],
+    "bindings": [],
+    "observation": "Comprobar por lado/modo: RSS26-01/04",
+    "legalAcceptance": false
+  },
+  {
+    "id": "tabla:UMBRALES_RETENCION_2012_2014",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 760,
+      "end": 1173,
+      "offsetEncoding": "utf16",
+      "text": "UMBRALES_RETENCION_2012_2014 = {\n  situacion1: {\n    sinDescendientes: null,\n    unDescendiente: 13_662,\n    dosOMasDescendientes: 15_617,\n  },\n  situacion2: {\n    sinDescendientes: 13_335,\n    unDescendiente: 14_774,\n    dosOMasDescendientes: 16_952,\n  },\n  situacion3: {\n    sinDescendientes: 11_162,\n    unDescendiente: 11_888,\n    dosOMasDescendientes: 12_519,\n  },\n} as const satisfies TablaUmbralesRetencion"
+    },
+    "formula": "Valores literales de tabla; columna se resuelve en R.columna. Cada token mantiene ubicación individual en literales.json.",
+    "inputs": [
+      "literal:UMBRALES_RETENCION_2012_2014"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "tabla:UMBRALES_RETENCION_2015_2017",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 1188,
+      "end": 1601,
+      "offsetEncoding": "utf16",
+      "text": "UMBRALES_RETENCION_2015_2017 = {\n  situacion1: {\n    sinDescendientes: null,\n    unDescendiente: 14_266,\n    dosOMasDescendientes: 15_803,\n  },\n  situacion2: {\n    sinDescendientes: 13_696,\n    unDescendiente: 14_985,\n    dosOMasDescendientes: 17_138,\n  },\n  situacion3: {\n    sinDescendientes: 12_000,\n    unDescendiente: 12_607,\n    dosOMasDescendientes: 13_275,\n  },\n} as const satisfies TablaUmbralesRetencion"
+    },
+    "formula": "Valores literales de tabla; columna se resuelve en R.columna. Cada token mantiene ubicación individual en literales.json.",
+    "inputs": [
+      "literal:UMBRALES_RETENCION_2015_2017"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "tabla:UMBRALES_RETENCION_2018_DESDE_5_JULIO",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 1616,
+      "end": 2038,
+      "offsetEncoding": "utf16",
+      "text": "UMBRALES_RETENCION_2018_DESDE_5_JULIO = {\n  situacion1: {\n    sinDescendientes: null,\n    unDescendiente: 15_168,\n    dosOMasDescendientes: 16_730,\n  },\n  situacion2: {\n    sinDescendientes: 14_641,\n    unDescendiente: 15_845,\n    dosOMasDescendientes: 17_492,\n  },\n  situacion3: {\n    sinDescendientes: 12_643,\n    unDescendiente: 13_455,\n    dosOMasDescendientes: 14_251,\n  },\n} as const satisfies TablaUmbralesRetencion"
+    },
+    "formula": "Valores literales de tabla; columna se resuelve en R.columna. Cada token mantiene ubicación individual en literales.json.",
+    "inputs": [
+      "literal:UMBRALES_RETENCION_2018_DESDE_5_JULIO"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "tabla:UMBRALES_RETENCION_2018_PENSIONES",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 2138,
+      "end": 2554,
+      "offsetEncoding": "utf16",
+      "text": "UMBRALES_RETENCION_2018_PENSIONES = {\n  situacion1: {\n    sinDescendientes: null,\n    unDescendiente: 15106.5,\n    dosOMasDescendientes: 16451.5,\n  },\n  situacion2: {\n    sinDescendientes: 14576,\n    unDescendiente: 15733,\n    dosOMasDescendientes: 17386,\n  },\n  situacion3: {\n    sinDescendientes: 13000,\n    unDescendiente: 13561.5,\n    dosOMasDescendientes: 14184,\n  },\n} as const satisfies TablaUmbralesRetencion"
+    },
+    "formula": "Valores literales de tabla; columna se resuelve en R.columna. Cada token mantiene ubicación individual en literales.json.",
+    "inputs": [
+      "literal:UMBRALES_RETENCION_2018_PENSIONES"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "tabla:UMBRALES_RETENCION_2019_2022",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 2569,
+      "end": 2982,
+      "offsetEncoding": "utf16",
+      "text": "UMBRALES_RETENCION_2019_2022 = {\n  situacion1: {\n    sinDescendientes: null,\n    unDescendiente: 15_947,\n    dosOMasDescendientes: 17_100,\n  },\n  situacion2: {\n    sinDescendientes: 15_456,\n    unDescendiente: 16_481,\n    dosOMasDescendientes: 17_634,\n  },\n  situacion3: {\n    sinDescendientes: 14_000,\n    unDescendiente: 14_516,\n    dosOMasDescendientes: 15_093,\n  },\n} as const satisfies TablaUmbralesRetencion"
+    },
+    "formula": "Valores literales de tabla; columna se resuelve en R.columna. Cada token mantiene ubicación individual en literales.json.",
+    "inputs": [
+      "literal:UMBRALES_RETENCION_2019_2022"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "tabla:UMBRALES_RETENCION_2023_DESDE_FEBRERO",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 2997,
+      "end": 3419,
+      "offsetEncoding": "utf16",
+      "text": "UMBRALES_RETENCION_2023_DESDE_FEBRERO = {\n  situacion1: {\n    sinDescendientes: null,\n    unDescendiente: 17_270,\n    dosOMasDescendientes: 18_617,\n  },\n  situacion2: {\n    sinDescendientes: 16_696,\n    unDescendiente: 17_894,\n    dosOMasDescendientes: 19_241,\n  },\n  situacion3: {\n    sinDescendientes: 15_000,\n    unDescendiente: 15_599,\n    dosOMasDescendientes: 16_272,\n  },\n} as const satisfies TablaUmbralesRetencion"
+    },
+    "formula": "Valores literales de tabla; columna se resuelve en R.columna. Cada token mantiene ubicación individual en literales.json.",
+    "inputs": [
+      "literal:UMBRALES_RETENCION_2023_DESDE_FEBRERO"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "tabla:UMBRALES_RETENCION_2024_2026",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 3434,
+      "end": 3847,
+      "offsetEncoding": "utf16",
+      "text": "UMBRALES_RETENCION_2024_2026 = {\n  situacion1: {\n    sinDescendientes: null,\n    unDescendiente: 17_644,\n    dosOMasDescendientes: 18_694,\n  },\n  situacion2: {\n    sinDescendientes: 17_197,\n    unDescendiente: 18_130,\n    dosOMasDescendientes: 19_262,\n  },\n  situacion3: {\n    sinDescendientes: 15_876,\n    unDescendiente: 16_342,\n    dosOMasDescendientes: 16_867,\n  },\n} as const satisfies TablaUmbralesRetencion"
+    },
+    "formula": "Valores literales de tabla; columna se resuelve en R.columna. Cada token mantiene ubicación individual en literales.json.",
+    "inputs": [
+      "literal:UMBRALES_RETENCION_2024_2026"
+    ],
+    "bindings": [],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.umbralEuros",
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "start": 6964,
+      "end": 7588,
+      "offsetEncoding": "utf16",
+      "text": "umbralRetencionTrabajoEuros = ({\n  anio,\n  fecha,\n  numeroDescendientes,\n  situacionFamiliar,\n  situacionLaboral,\n}: {\n  readonly anio: AnioFiscal\n  readonly fecha?: string | undefined\n  readonly numeroDescendientes: number\n  readonly situacionFamiliar: SituacionFamiliarRetencionTabla\n  readonly situacionLaboral?: SituacionLaboralRetencionTabla | undefined\n}): number | null => {\n  const tabla =\n    fecha === undefined\n      ? tablaUmbralesRetencionTrabajo({ anio })\n      : tablaUmbralesRetencionTrabajo({ anio, fecha, situacionLaboral })\n\n  return umbralPorDescendientes(tabla[situacionFamiliar], numeroDescendientes)\n}"
+    },
+    "formula": "fecha undefined llama tablaUmbralesRetencionTrabajo({anio}); definida llama con anio,fecha,situacionLaboral. Después tabla[situacionFamiliar] y umbralPorDescendientes(...,numeroDescendientes).",
+    "inputs": [
+      "R.tabla",
+      "R.columna",
+      "formal:umbralRetencionTrabajoEuros.situacionFamiliar,numeroDescendientes"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+          "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+          "start": 7737,
+          "end": 7773,
+          "offsetEncoding": "utf16",
+          "text": "umbralRetencionTrabajoEuros(entrada)"
+        },
+        "arguments": [
+          "entrada"
+        ],
+        "condition": "Argumentos efectivos: anio subcaso, fecha version?.desde, situación del subcaso, length de descendientes filtrados según modo."
+      }
+    ],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "M.toCentimos",
+    "source": {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "start": 794,
+      "end": 902,
+      "offsetEncoding": "utf16",
+      "text": "eurosACentimos = (euros: ImporteMonetario): number =>\n  redondearImporteLiquidado(euros).mul(100).toNumber()"
+    },
+    "formula": "redondearImporteLiquidado(euros).mul(100).toNumber(); redondearImporteLiquidado llama redondearHalfUp(euros,2)",
+    "inputs": [
+      "M.redondeo",
+      "primitiva:Decimal.mul,toNumber",
+      "literal:100"
+    ],
+    "bindings": [
+      {
+        "callerSource": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "start": 4315,
+          "end": 4336,
+          "offsetEncoding": "utf16",
+          "text": "eurosACentimos(euros)"
+        },
+        "arguments": [
+          "euros"
+        ],
+        "condition": "No política mensual TGSS; rastro vuelve a convertir según sitio."
+      }
+    ],
+    "observation": "Frontera anual explícita",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.irregular1",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 23776,
+      "end": 23829,
+      "offsetEncoding": "utf16",
+      "text": "irregular1 = importeOpcional(caso.irregular1Centimos)"
+    },
+    "formula": "importeOpcional(caso.irregular1Centimos) = centimosAEuros(caso.irregular1Centimos ?? 0)",
+    "inputs": [
+      "entrada:caso.retencionTrabajoAeat.irregular1Centimos",
+      "M.conversion"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.irregular2",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 23838,
+      "end": 23891,
+      "offsetEncoding": "utf16",
+      "text": "irregular2 = importeOpcional(caso.irregular2Centimos)"
+    },
+    "formula": "importeOpcional(caso.irregular2Centimos) = centimosAEuros(caso.irregular2Centimos ?? 0)",
+    "inputs": [
+      "entrada:caso.retencionTrabajoAeat.irregular2Centimos",
+      "M.conversion"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.pension",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 23978,
+      "end": 24066,
+      "offsetEncoding": "utf16",
+      "text": "pensionCompensatoria = importeOpcional(\n    caso.pensionCompensatoriaConyugeCentimos\n  )"
+    },
+    "formula": "importeOpcional(caso.pensionCompensatoriaConyugeCentimos) = centimosAEuros(caso.pensionCompensatoriaConyugeCentimos ?? 0)",
+    "inputs": [
+      "entrada:caso.retencionTrabajoAeat.pensionCompensatoriaConyugeCentimos",
+      "M.conversion"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.anualidades",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 23900,
+      "end": 23969,
+      "offsetEncoding": "utf16",
+      "text": "anualidades = importeOpcional(caso.anualidadesAlimentosHijosCentimos)"
+    },
+    "formula": "importeOpcional(caso.anualidadesAlimentosHijosCentimos) = centimosAEuros(caso.anualidadesAlimentosHijosCentimos ?? 0)",
+    "inputs": [
+      "entrada:caso.retencionTrabajoAeat.anualidadesAlimentosHijosCentimos",
+      "M.conversion"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.laboralP",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 18018,
+      "end": 18155,
+      "offsetEncoding": "utf16",
+      "text": "pensionista = Match.value(situacionLaboral).pipe(\n    Match.when(\"pensionista\", () => new Decimal(600)),\n    Match.orElse(() => CERO)\n  )"
+    },
+    "formula": "situacionLaboral===pensionista ? 600 : 0",
+    "inputs": [
+      "entrada:caso.retencionTrabajoAeat.situacionLaboral",
+      "literal:600"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.laboralD",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 18335,
+      "end": 18473,
+      "offsetEncoding": "utf16",
+      "text": "desempleado = Match.value(situacionLaboral).pipe(\n    Match.when(\"desempleado\", () => new Decimal(1200)),\n    Match.orElse(() => CERO)\n  )"
+    },
+    "formula": "situacionLaboral===desempleado ? 1200 : 0",
+    "inputs": [
+      "entrada:caso.retencionTrabajoAeat.situacionLaboral",
+      "literal:1200"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  },
+  {
+    "id": "R.laboralH",
+    "source": {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "start": 18164,
+      "end": 18326,
+      "offsetEncoding": "utf16",
+      "text": "hijos = Match.value(descendientes.length).pipe(\n    Match.when(\n      (numero) => numero > 2,\n      () => new Decimal(600)\n    ),\n    Match.orElse(() => CERO)\n  )"
+    },
+    "formula": "descendientes.length > 2 ? 600 : 0",
+    "inputs": [
+      "entrada:descendientes.length-filtrado-segun-modo",
+      "literal:2,600"
+    ],
+    "bindings": [],
+    "observation": "Descripción compatible con TS; formales y entradas requieren contrato del subcaso",
+    "legalAcceptance": false
+  }
+]

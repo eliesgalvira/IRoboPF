@@ -1,0 +1,24 @@
+control par omitido
+control par duplicado
+control sin aprobación exacta
+control atestación cruzada
+control informe movido y hashes coherentes sin cambiar aprobación
+control dependencia ausente docs/procedencia/revisiones/bindings-estatales-r19-sol/INFORME.md
+control dependencia ausente lib/dominio/irpf/cuotas/escalas-publicadas.ts
+22 |  if(seen.has(p.itemId)) collisions.push({itemId:p.itemId,first:seen.get(p.itemId),next:entry.payload,scope:p.scope})
+23 |  else seen.set(p.itemId,entry.payload)
+24 | }
+25 | function reject(label,fn){
+26 |  console.log("control",label)
+27 |  assert.throws(fn,label)
+             ^
+AssertionError: Missing expected exception: dependencia ausente lib/dominio/irpf/cuotas/escalas-publicadas.ts
+ generatedMessage: false,
+     actual: undefined,
+   expected: undefined,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at reject (/home/elies/.t3/worktrees/IRoboPF/t3-7930e436/docs/procedencia/revisiones/registro-exacto-r25-sol/cierre-consumidor.mjs:27:9)
+
+Bun v1.3.13 (Linux x64)

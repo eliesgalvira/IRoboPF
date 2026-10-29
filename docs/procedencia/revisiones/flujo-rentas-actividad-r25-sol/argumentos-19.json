@@ -1,0 +1,515 @@
+[
+  {
+    "index": 0,
+    "root": "a.asset.quota",
+    "instance": "a.id",
+    "regla": "\"AE25-04\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 8274,
+      "end": 8279,
+      "offsetEncoding": "utf16",
+      "text": "cuota",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 10064,
+      "end": 10069,
+      "text": "cuota",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "defecto-FA25-01",
+    "property": "min(base−acumulada,base×coeficiente)",
+    "annualReachable": false,
+    "limitation": "Solo submotor; anual rechaza activos"
+  },
+  {
+    "index": 1,
+    "root": "a.saldo",
+    "instance": "`${a.id}:saldo`",
+    "regla": "\"AE25-04\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 10206,
+      "end": 10224,
+      "offsetEncoding": "utf16",
+      "text": "saldo.minus(cuota)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 10206,
+      "end": 10224,
+      "text": "saldo.minus(cuota)",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "base−acumulada−cuota",
+    "annualReachable": false,
+    "limitation": "Solo submotor; anual rechaza activos"
+  },
+  {
+    "index": 2,
+    "root": "a.item.income",
+    "instance": "`ingreso:${i.id}`",
+    "regla": "\"AE25-02\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12267,
+      "end": 12280,
+      "offsetEncoding": "utf16",
+      "text": "new D(i.base)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12267,
+      "end": 12280,
+      "text": "new D(i.base)",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "caso.ingresos[*].base",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 3,
+    "root": "a.item.expense",
+    "instance": "`gasto:${g.id}`",
+    "regla": "\"AE25-16\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12461,
+      "end": 12474,
+      "offsetEncoding": "utf16",
+      "text": "new D(g.base)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12461,
+      "end": 12474,
+      "text": "new D(g.base)",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "caso.gastos[*].base",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 4,
+    "root": "a.item.reta",
+    "instance": "`reta:${r.id}`",
+    "regla": "\"AE25-03\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 10861,
+      "end": 10877,
+      "offsetEncoding": "utf16",
+      "text": "new D(r.importe)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12637,
+      "end": 12653,
+      "text": "new D(r.importe)",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "defecto-FA25-01",
+    "property": "caso.reta[*].importe",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 5,
+    "root": "a.income",
+    "instance": "\"ingresos\"",
+    "regla": "\"AE25-02\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12797,
+      "end": 12835,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.ingresos.map((i) => i.base))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12797,
+      "end": 12835,
+      "text": "suma(caso.ingresos.map((i) => i.base))",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "Σcaso.ingresos[*].base; no IVA ni retenciones",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 6,
+    "root": "a.ordinary",
+    "instance": "\"gastos\"",
+    "regla": "\"AE25-02\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12971,
+      "end": 13007,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.gastos.map((g) => g.base))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 12971,
+      "end": 13007,
+      "text": "suma(caso.gastos.map((g) => g.base))",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "Σcaso.gastos[*].base",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 7,
+    "root": "a.reta",
+    "instance": "\"reta\"",
+    "regla": "\"AE25-03\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13139,
+      "end": 13176,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.reta.map((r) => r.importe))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13139,
+      "end": 13176,
+      "text": "suma(caso.reta.map((r) => r.importe))",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "Σcaso.reta[*].importe; cuotas reales; no estimación salarial",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 8,
+    "root": "a.amort",
+    "instance": "\"amortizacion\"",
+    "regla": "\"AE25-04\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 8437,
+      "end": 8449,
+      "offsetEncoding": "utf16",
+      "text": "amortizacion",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13288,
+      "end": 13300,
+      "text": "amortizacion",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "defecto-FA25-01",
+    "property": "acumulador0; por a: base=coste+puestaMarcha−residual; saldo=base−acumulada; cuota=min(saldo,base×coeficiente); amortizacion+=cuota. Activos rechazados en conexión anual",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 9,
+    "root": "a.P",
+    "instance": "\"P\"",
+    "regla": "\"AE25-02\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13486,
+      "end": 13508,
+      "offsetEncoding": "utf16",
+      "text": "ingresos.minus(gastos)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 13486,
+      "end": 13508,
+      "text": "ingresos.minus(gastos)",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "ingresos−gastos",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 10,
+    "root": "a.G",
+    "instance": "\"G\"",
+    "regla": "\"AE25-05\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14306,
+      "end": 14401,
+      "offsetEncoding": "utf16",
+      "text": "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14306,
+      "end": 14401,
+      "text": "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "opcion cliente-unico→0; otra→min(2000,max(P,0)×0.05)",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 11,
+    "root": "a.RN",
+    "instance": "\"RN\"",
+    "regla": "\"AE25-06\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14461,
+      "end": 14471,
+      "offsetEncoding": "utf16",
+      "text": "P.minus(G)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14461,
+      "end": 14471,
+      "text": "P.minus(G)",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "P−G, con signo",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 12,
+    "root": "a.additional",
+    "instance": "\"adicional\"",
+    "regla": "\"AE25-09\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14551,
+      "end": 14560,
+      "offsetEncoding": "utf16",
+      "text": "adicional",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 15032,
+      "end": 15041,
+      "text": "adicional",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "defecto-FA25-01",
+    "property": "RN<=14047.5→6498; resto max(0,6498−1.14×(RN−14047.5)); solo cliente-unico",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 13,
+    "root": "a.dis",
+    "instance": "\"discapacidad\"",
+    "regla": "\"AE25-10\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 14682,
+      "end": 14692,
+      "offsetEncoding": "utf16",
+      "text": "incremento",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 15177,
+      "end": 15187,
+      "text": "incremento",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "defecto-FA25-01",
+    "property": "ejercicioEfectivo && grado>=33 → (grado>=65 || ayuda ?7750:3500); otro0. Anual grado0→0",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 14,
+    "root": "a.reduction",
+    "instance": "\"reduccion32_2\"",
+    "regla": "caso.opcion === \"cliente-unico\" ? \"AE25-08\" : \"AE25-11\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 1040,
+      "end": 1049,
+      "offsetEncoding": "utf16",
+      "text": "reduccion",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 15573,
+      "end": 15582,
+      "text": "reduccion",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "defecto-FA25-01",
+    "property": "cliente-unico→min(max(RN,0),adicional+incremento+2000); otra opción solo si !elegible && aplicarRentasBajas→a.low; resto0",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 15,
+    "root": "a.start",
+    "instance": "\"reduccionInicio\"",
+    "regla": "\"AE25-12\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16311,
+      "end": 16430,
+      "offsetEncoding": "utf16",
+      "text": "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16311,
+      "end": 16430,
+      "text": "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "aplicarInicio && inicioElegible ? min(100000,max(0,RN−reduccion))×0.2 :0",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 16,
+    "root": "a.contribution",
+    "instance": "\"aporteBIG\"",
+    "regla": "\"AE25-14\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16553,
+      "end": 16595,
+      "offsetEncoding": "utf16",
+      "text": "RN.minus(reduccion).minus(reduccionInicio)",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16553,
+      "end": 16595,
+      "text": "RN.minus(reduccion).minus(reduccionInicio)",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "RN−reduccion−reduccionInicio; con signo",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 17,
+    "root": "a.withholding",
+    "instance": "\"retenciones\"",
+    "regla": "\"AE25-15\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16734,
+      "end": 16778,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.retenciones.map((r) => r.importe))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16734,
+      "end": 16778,
+      "text": "suma(caso.retenciones.map((r) => r.importe))",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "Σcaso.retenciones[*].importe; separado de ingreso/rendimiento",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  },
+  {
+    "index": 18,
+    "root": "a.payments",
+    "instance": "\"pagos\"",
+    "regla": "\"AE25-15\"",
+    "declared": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16938,
+      "end": 16988,
+      "offsetEncoding": "utf16",
+      "text": "suma(caso.pagosFraccionados.map((p) => p.importe))",
+      "rangeRole": "expression-or-declaration; never presumed literal"
+    },
+    "actual": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "start": 16938,
+      "end": 16988,
+      "text": "suma(caso.pagosFraccionados.map((p) => p.importe))",
+      "offsetEncoding": "utf16"
+    },
+    "decision": "concordancia-locativa",
+    "property": "Σcaso.pagosFraccionados[*].importe; separado de gastos",
+    "annualReachable": true,
+    "limitation": "Sujeto a admisión y rama; no identidad permanente por índice"
+  }
+]

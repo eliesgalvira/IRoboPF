@@ -2,7 +2,23 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 21:26 CET
+## Situación más reciente, ronda 27 del 29 de octubre
+
+Recibidas por manifiesto las tres entregas R25 y la revisión de retenciones/SS R26: 197 archivos, 19.114.837 bytes. Cotejo físico completo de tres bases de 15.175 entradas y una de 15.456, cero diferencias o borrados. Informe y cola en correcciones/recepcion-r25-r26-r27; los informes y rojos históricos se conservan intactos.
+
+El padre reproduce RX25-01 con el coordinador real: los 264 enlaces comparten 102 sujetos. Corrige el adaptador para conservar una ocurrencia y todas sus proposiciones, estados por sujeto/revisión/payload, cobertura exacta y recibo versión 2; los recibos históricos versión 1 siguen verificando. GET muestra todos los estados separados y deduplica solo los bytes públicos por hash/tamaño/MIME. El siguiente fallo, URL BORM con identificador público, se corrige con una excepción estructural estricta y doce adversos; no se admiten queries libres.
+
+El lote completo alcanza después otro bloqueo real: BOE-A-2010-19703 mide 42.900.459 bytes y respalda 36 enlaces. Se conserva el original y el fallo; no se sube el límite genérico ni se incorpora el PDF a Git. Se prepara una implementación Sol del CAS local externo. El ensayo separado de los otros 228 enlaces/90 sujetos pasa publicación, verificador, GET de todas las fichas, dieciocho objetos PDF/PNG por bytes y hash y cuatro contrapruebas de cobertura. Sus 36 exclusiones están enumeradas. No es cierre de los 264 ni promoción de confianza. Informe, comandos y rectificaciones del instrumento propio en correcciones/multiplicidad-r27.
+
+Verificados los 36 snapshots históricos y conservados dos nuevos: V1 `4e64f896ee2daf9d8d4e4e6d3d2b73c404b70e97a002e39e37bdb83326b636d5`, V2 `0bde6df52abc5563cc710ad5fccd8ff6289deb02d076dfbd8bd1e17edbc398df`. Total 38, cierre activo de 719 objetos. Inventario 52.461 ocurrencias, algoritmo/datos y payload Madrid intactos. Madrid sigue pending, registro de revisores vacío y aceptación completa false. La primera regeneración se detuvo por falta de python3 en el entorno externo tras verificar históricos; se reanudó con Nix y exigencia de entrada idéntica, sin alterar el fallo conservado.
+
+Tipos principal/vendor, lint, Ruff y mypy del alcance correctos; quince pruebas focalizadas pasan. Lint conserva cuatro avisos históricos de variables sin uso y cero errores. Pasan las 43 regresiones de cinco archivos y las veinte pruebas de contenido. Las quince focalizadas forman parte de las 43, sin sumar cobertura dos veces. No se ejecutó build ni suites legacy masivas para este cambio documental.
+
+Las revisiones de rentas/actividad y retenciones/SS exigen rectificar localizadores, transporte, condiciones, modo, controles y conversión antes de componer grafos. No se conectan todavía. Madrid2020 v2 queda recibido como candidato bloqueado, con identidad real y discordancia documental visible; se prepara revisión nueva. Las revisiones R26 de escalas/preservación y la preservación candidata v5 siguen en curso, sin sondeos ni lectura de entregas parciales.
+
+V4 conserva su corte R21; Crossa conserva v1 desfasado, copia local del mismo dueño y casa, sin custodia independiente. Sin LFS, gasto, transferencia externa, PR, cambios a main, despliegue ni limpieza. El encargo global permanece abierto.
+
+## Situación anterior, 29 de octubre, 21:26 CET
 
 Recibidas cuatro entregas: revisión de preservación R23, flujos de escalas/mínimos y retenciones/cotizaciones, y revisión v4. Son 261 archivos y 15.696.286 bytes cotejados, con las bases físicas completas de 14.957/15.029 entradas intactas y cero borrados. Recibo en correcciones/recepcion-r23-r24-r26. La revisión R23 corrobora sus tres fixes previos y distingue schema de consumidor; los informes históricos no se reescriben.
 

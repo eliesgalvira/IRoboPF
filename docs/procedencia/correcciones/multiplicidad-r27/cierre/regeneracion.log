@@ -1,0 +1,27 @@
+236 |       encoding: "utf8",
+237 |       maxBuffer: 4 * 1024 * 1024,
+238 |     }
+239 |   )
+240 |   if (child.status !== 0)
+241 |     throw new Error(child.stderr || "Falló generación en proceso aislado")
+                    ^
+error: 466 |   const python = spawnSync(
+467 |     "python3",
+468 |     [`${root}/scripts/procedencia/inventario-python.py`, pythonPath],
+469 |     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+470 |   )
+471 |   if (python.status !== 0) throw new Error(python.stderr || "Falló AST Python")
+                                           ^
+error: Falló AST Python
+      at generateInProcess (/home/elies/Repos/IRoboPF/scripts/procedencia/inventario.mjs:471:38)
+
+Bun v1.3.13 (Linux x64)
+
+      at generate (/home/elies/Repos/IRoboPF/scripts/procedencia/inventario.mjs:241:15)
+      at buildArtifact (/home/elies/Repos/IRoboPF/scripts/procedencia/inventario-artefacto.mjs:93:27)
+      at verifyLinks (/home/elies/Repos/IRoboPF/scripts/procedencia/verificar-enlaces.mjs:50:9)
+      at generarEvidencia (/home/elies/Repos/IRoboPF/scripts/procedencia/evidencia-contenido.mjs:150:27)
+      at publicar (/home/elies/Repos/IRoboPF/scripts/procedencia/contenido-publicar.mjs:47:26)
+      at /home/elies/Repos/IRoboPF/docs/procedencia/correcciones/multiplicidad-r27/regenerar.mjs:30:25
+
+Bun v1.3.13 (Linux x64)

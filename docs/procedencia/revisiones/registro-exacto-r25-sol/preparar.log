@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-7930e436/docs/procedencia/revisiones/registro-exacto-r25-sol/preparar.py", line 148, in <module>
+    main()
+    ~~~~^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-7930e436/docs/procedencia/revisiones/registro-exacto-r25-sol/preparar.py", line 139, in main
+    (TREE / 'docs/procedencia/enlaces/registro.json').write_text(json.dumps({'schemaVersion': 1, 'entries': entries}))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 555, in write_text
+    return PathBase.write_text(self, data, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 651, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/elies/.t3/worktrees/IRoboPF/t3-7930e436/.cache/registro-exacto-r25-sol/ensayo/docs/procedencia/enlaces/registro.json'

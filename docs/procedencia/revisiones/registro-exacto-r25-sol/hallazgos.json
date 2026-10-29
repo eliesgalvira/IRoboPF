@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "candidateOnly": true,
+  "findings": [
+    {
+      "id": "RX25-01",
+      "severity": "P2",
+      "status": "promotion-blocked",
+      "claim": "El adaptador de evidencia no admite el lote real de 264 bindings con sujetos repetidos entre ejercicios.",
+      "sources": [
+        {"path": "scripts/procedencia/evidencia-contenido.mjs", "line": 171},
+        {"path": "scripts/procedencia/evidencia-contenido.mjs", "line": 287},
+        {"path": "scripts/procedencia/contenido-verificar.mjs", "line": 79}
+      ],
+      "reproduction": "recorrido.mjs",
+      "result": "recorrido.json",
+      "scopeControls": "controles.json",
+      "pairs": 264,
+      "uniqueSubjects": 102,
+      "completeRuleAcceptance": false,
+      "objection": "Podría publicarse solo una selección sin IDs repetidos.",
+      "response": "Eso eludiría el conjunto exacto encargado y perdería relaciones de ejercicios y ámbitos.",
+      "cost": "Corrección del padre, revisión nueva y repetición integral antes de promover."
+    }
+  ],
+  "jointContract": "No promover: la proyección exacta es candidata coherente, pero no se completa evidencia-publicación-verificación-rutas con este lote.",
+  "newAttestations": 0,
+  "trustMutation": false,
+  "globalAuditComplete": false
+}

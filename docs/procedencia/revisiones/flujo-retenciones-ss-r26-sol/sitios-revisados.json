@@ -1,0 +1,402 @@
+[
+  {
+    "siteId": "anual.pagos.retenciones",
+    "subject": {
+      "id": "paso.anual.pagos.retenciones",
+      "revision": "7737d62c61ea4e0752baba8a3cc4f80e9fc4bbdad4dd107b9cc6d16fdf41db2a"
+    },
+    "root": "A.soportadas",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 58617,
+        "end": 58944,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.pagos.retenciones\",\n              instancia: 0,\n              importe: centimosAEuros(caso.retencionesSoportadasCentimos),\n              unidad: \"EUR\",\n              etiqueta: \"Retenciones soportadas\",\n              formula: \"Importe declarado en el caso fiscal\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.pagos.cuenta",
+    "subject": {
+      "id": "paso.anual.pagos.cuenta",
+      "revision": "3f646270756b5509ba3aa15e74d9915fb0f2b67cbeab1b4c0df96dc7ff57a775"
+    },
+    "root": "A.cuenta",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 58958,
+        "end": 59412,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.pagos.cuenta\",\n              instancia: 0,\n              importe: centimosAEuros(pagosACuentaAplicadosCentimos),\n              unidad: \"EUR\",\n              etiqueta: \"Pagos a cuenta\",\n              formula:\n                retencionTrabajoAeat !== undefined\n                  ? \"Importe declarado más retención de trabajo estimada\"\n                  : \"Importe declarado en el caso fiscal\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-03"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.retencion.base",
+    "subject": {
+      "id": "paso.anual.retencion.base",
+      "revision": "1c0307fb3528f3497a09d092d37072d23b3f67b59b1baa81b1a3e1e3eb303746"
+    },
+    "root": "R.base",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64282,
+        "end": 64562,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n      siteId: \"anual.retencion.base\",\n      instancia: 0,\n      importe: centimosAEuros(retencion.baseRetencionCentimos),\n      unidad: \"EUR\",\n      etiqueta: \"Base de retención\",\n      formula: \"Rendimiento neto reducido menos reducciones comunicadas\",\n    })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-02"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.retencion.cuota",
+    "subject": {
+      "id": "paso.anual.retencion.cuota",
+      "revision": "399b0c8d6a0ee8e3566f3ea995dee6bcec159d224b974084d58164f248b25241"
+    },
+    "root": "R.cuota",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64568,
+        "end": 64852,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n      siteId: \"anual.retencion.cuota\",\n      instancia: 0,\n      importe: centimosAEuros(retencion.cuotaRetencionCentimos),\n      unidad: \"EUR\",\n      etiqueta: \"Cuota de retención\",\n      formula: \"Escala de retención sobre base menos escala sobre mínimo\",\n    })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-02"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.retencion.tipo",
+    "subject": {
+      "id": "paso.anual.retencion.tipo",
+      "revision": "8f2d64df31c8e996c2be73cec6624d86a5e6ae7c3391ea9e6d1ed7ab1ffc8bae"
+    },
+    "root": "R.tipo",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64858,
+        "end": 65115,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n      siteId: \"anual.retencion.tipo\",\n      instancia: 0,\n      importe: new Decimal(retencion.tipoRetencionPorcentaje),\n      unidad: \"percent\",\n      etiqueta: \"Tipo de retención\",\n      formula: \"Tipo truncado a dos decimales\",\n    })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-02"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.retencion.anual",
+    "subject": {
+      "id": "paso.anual.retencion.anual",
+      "revision": "b58c749843cec327f5392f1fa92b3ad9282cc0601568c33093b250e2b90d7528"
+    },
+    "root": "R.importe",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 65121,
+        "end": 65386,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n      siteId: \"anual.retencion.anual\",\n      instancia: 0,\n      importe: centimosAEuros(retencion.importeRetencionAnualCentimos),\n      unidad: \"EUR\",\n      etiqueta: \"Retención anual\",\n      formula: \"Retribuciones x tipo de retención\",\n    })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-02"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.base",
+    "subject": {
+      "id": "paso.anual.ss.base",
+      "revision": "0fd7f3744c4cb3c32088a976f02de0b1624a038ef1e35ca63e6dc4f48f2483c3"
+    },
+    "root": "S.B",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 35604,
+        "end": 36107,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.base\",\n              instancia: 0,\n              importe: cotizacionesSociales.baseOrdinaria,\n              unidad: \"EUR\",\n              etiqueta: \"Base ordinaria de cotización\",\n              formula:\n                contexto.modo === \"canonico\"\n                  ? \"Suma de doce bases mensuales uniformes, limitadas por el tope vigente en cada mes\"\n                  : \"min(rendimiento íntegro del trabajo, base máxima anual legacy)\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.exceso",
+    "subject": {
+      "id": "paso.anual.ss.exceso",
+      "revision": "f9f9836b348a61187ca93f73993b51852134fc68c2640ec579cd93432299502c"
+    },
+    "root": "S.X",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 36121,
+        "end": 36469,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.exceso\",\n              instancia: 0,\n              importe: cotizacionesSociales.excesoBase,\n              unidad: \"EUR\",\n              etiqueta: \"Exceso sobre base máxima\",\n              formula:\n                \"max(0, rendimiento íntegro del trabajo - base ordinaria aplicada)\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.empresarial-ordinaria",
+    "subject": {
+      "id": "paso.anual.ss.empresarial-ordinaria",
+      "revision": "843410cfdc2971908814eda736bf31ddeeef0f7ec495764596a5bd719565a914"
+    },
+    "root": "S.ordinariaE",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 36483,
+        "end": 36868,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.empresarial-ordinaria\",\n              instancia: 0,\n              importe: cotizacionesSociales.cotizacionEmpresarialOrdinaria,\n              unidad: \"EUR\",\n              etiqueta: \"Cotización empresarial ordinaria\",\n              formula:\n                \"Base ordinaria x tipos empresariales sin MEI ni solidaridad\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.trabajador-ordinaria",
+    "subject": {
+      "id": "paso.anual.ss.trabajador-ordinaria",
+      "revision": "6b3772c8bd9d95c1a6361579c85be186e7537a881df2ad62f75d9a69bc50affd"
+    },
+    "root": "S.ordinariaT",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 36882,
+        "end": 37269,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.trabajador-ordinaria\",\n              instancia: 0,\n              importe: cotizacionesSociales.cotizacionTrabajadorOrdinaria,\n              unidad: \"EUR\",\n              etiqueta: \"Cotización del trabajador ordinaria\",\n              formula:\n                \"Base ordinaria x tipos del trabajador sin MEI ni solidaridad\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.mei-empresarial",
+    "subject": {
+      "id": "paso.anual.ss.mei-empresarial",
+      "revision": "390f8ebeb9dbf912daa45745f1d41deec0e1de000d7fe17402464cb8a19377dd"
+    },
+    "root": "S.meiE",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 37283,
+        "end": 37595,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.mei-empresarial\",\n              instancia: 0,\n              importe: cotizacionesSociales.meiEmpresarial,\n              unidad: \"EUR\",\n              etiqueta: \"MEI empresarial\",\n              formula: \"Base ordinaria x tipo empresarial del MEI\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.mei-trabajador",
+    "subject": {
+      "id": "paso.anual.ss.mei-trabajador",
+      "revision": "5830ed9d518fcc7405f14dbc70df1ae38521cff270d429d003999d20245c8cfd"
+    },
+    "root": "S.meiT",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 37609,
+        "end": 37925,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.mei-trabajador\",\n              instancia: 0,\n              importe: cotizacionesSociales.meiTrabajador,\n              unidad: \"EUR\",\n              etiqueta: \"MEI del trabajador\",\n              formula: \"Base ordinaria x tipo del trabajador del MEI\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.solidaridad-empresarial",
+    "subject": {
+      "id": "paso.anual.ss.solidaridad-empresarial",
+      "revision": "bb6769122dd582d6a26a3ae721f33043ba969e25f5a79f37c4b136d0cf000c6c"
+    },
+    "root": "S.solE",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 37939,
+        "end": 38430,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.solidaridad-empresarial\",\n              instancia: 0,\n              importe: cotizacionesSociales.solidaridadEmpresarial,\n              unidad: \"EUR\",\n              etiqueta: \"Solidaridad empresarial\",\n              formula:\n                contexto.modo === \"canonico\"\n                  ? \"Suma de excesos por los tipos empresariales publicados de cada tramo\"\n                  : \"5/6 de la cuota adicional de solidaridad\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.solidaridad-trabajador",
+    "subject": {
+      "id": "paso.anual.ss.solidaridad-trabajador",
+      "revision": "a0e1ee597ff1230aa664e689674ae3e4d860f1d16cf0ae0a2861928d67bd961c"
+    },
+    "root": "S.solT",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 38444,
+        "end": 38937,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.solidaridad-trabajador\",\n              instancia: 0,\n              importe: cotizacionesSociales.solidaridadTrabajador,\n              unidad: \"EUR\",\n              etiqueta: \"Solidaridad del trabajador\",\n              formula:\n                contexto.modo === \"canonico\"\n                  ? \"Suma de excesos por los tipos del trabajador publicados de cada tramo\"\n                  : \"1/6 de la cuota adicional de solidaridad\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.empresarial-total",
+    "subject": {
+      "id": "paso.anual.ss.empresarial-total",
+      "revision": "02eb45f3814292656f3226f0860484a9c319f9b471a08452d7915712897307a5"
+    },
+    "root": "S.empresa",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 38951,
+        "end": 39325,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.empresarial-total\",\n              instancia: 0,\n              importe: cotizacionesSociales.cotizacionEmpresarial,\n              unidad: \"EUR\",\n              etiqueta: \"Cotización empresarial total\",\n              formula:\n                \"Ordinaria empresarial + MEI empresarial + solidaridad empresarial\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.trabajador-total",
+    "subject": {
+      "id": "paso.anual.ss.trabajador-total",
+      "revision": "7a1e75e31e9dd7591b00f2e7bdaad340e4fd13d0be32e19beb36456ec2e9b1e5"
+    },
+    "root": "S.trabajador",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 39339,
+        "end": 39711,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.trabajador-total\",\n              instancia: 0,\n              importe: cotizacionesSociales.cotizacionTrabajador,\n              unidad: \"EUR\",\n              etiqueta: \"Cotización total del trabajador\",\n              formula:\n                \"Ordinaria trabajador + MEI trabajador + solidaridad trabajador\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  },
+  {
+    "siteId": "anual.ss.coste-laboral",
+    "subject": {
+      "id": "paso.anual.ss.coste-laboral",
+      "revision": "924f484677f1263ed405331cce14f146cc77aed50387125cc1a3b89ab22eb4d8"
+    },
+    "root": "A.coste",
+    "currentSource": [
+      {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 39725,
+        "end": 40135,
+        "offsetEncoding": "utf16",
+        "text": "crearLineaCalculo({\n              siteId: \"anual.ss.coste-laboral\",\n              instancia: 0,\n              importe: rendimientoIntegroTrabajo.plus(\n                cotizacionesSociales.cotizacionEmpresarial\n              ),\n              unidad: \"EUR\",\n              etiqueta: \"Coste laboral\",\n              formula:\n                \"Rendimiento íntegro del trabajo + cotización empresarial\",\n            })"
+      }
+    ],
+    "review": "Revisión R26 técnica limitada, ver INFORME; no composición automática",
+    "findings": [
+      "RSS26-01",
+      "RSS26-04"
+    ],
+    "legalAcceptance": false
+  }
+]

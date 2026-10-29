@@ -1,0 +1,15 @@
+78 |       timeout: 180_000,
+79 |     }
+80 |   )
+81 |   if (run.error) throw run.error
+82 |   if (run.status !== 0)
+83 |     throw new Error(run.stderr || "Verificación documental fallida")
+                   ^
+error: error:
+       … while fetching the input 'path:/home/elies/.t3/worktrees/IRoboPF/t3-64d9ef62/.cache/madrid-v2-r25-sol/ensayo/tools/procedencia'
+
+       error: path '//home/elies/.t3/worktrees/IRoboPF/t3-64d9ef62/.cache/madrid-v2-r25-sol/ensayo/tools' is a symlink
+
+      at verifyLinks (/home/elies/.t3/worktrees/IRoboPF/t3-64d9ef62/scripts/procedencia/verificar-enlaces.mjs:83:15)
+
+Bun v1.3.13 (Linux x64)

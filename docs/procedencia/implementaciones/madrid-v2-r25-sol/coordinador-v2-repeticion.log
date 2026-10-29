@@ -1,0 +1,20 @@
+78 |       timeout: 180_000,
+79 |     }
+80 |   )
+81 |   if (run.error) throw run.error
+82 |   if (run.status !== 0)
+83 |     throw new Error(run.stderr || "Verificación documental fallida")
+                   ^
+error: Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-64d9ef62/.cache/madrid-v2-r25-sol/ensayo/tools/procedencia/enlaces.py", line 376, in <module>
+    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()), cas_roots=args.cas_root)
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-64d9ef62/.cache/madrid-v2-r25-sol/ensayo/tools/procedencia/enlaces.py", line 356, in verify_evidence
+    verify_executable_scope(reader, payload, item)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-64d9ef62/.cache/madrid-v2-r25-sol/ensayo/tools/procedencia/enlaces.py", line 178, in verify_executable_scope
+    raise ValueError('Condiciones editoriales omitidas o alteradas')
+ValueError: Condiciones editoriales omitidas o alteradas
+
+      at verifyLinks (/home/elies/.t3/worktrees/IRoboPF/t3-64d9ef62/scripts/procedencia/verificar-enlaces.mjs:83:15)
+
+Bun v1.3.13 (Linux x64)

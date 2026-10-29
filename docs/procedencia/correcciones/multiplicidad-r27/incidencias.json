@@ -1,0 +1,47 @@
+{
+  "redInicial": "antes/recorrido.json",
+  "bloqueoPosterior": "despues/recorrido.json",
+  "pruebaFocalizadaPrevia": {
+    "ejecutada": false,
+    "motivo": "Cancelada mientras esperaba flock, sin proceso hijo ni log; el rojo previo de URL es el recorrido completo real.",
+    "exitCode": 143
+  },
+  "errorDeSeleccionVitest": {
+    "log": "ficha-tests.log",
+    "motivo": "La configuración global incluye .test.ts; el archivo nuevo se renombró con ruta absoluta desde .test.tsx porque usa createElement y no JSX.",
+    "cobertura": false
+  },
+  "bloqueoOriginalGrande": {
+    "log": "despues-url/recorrido.json",
+    "documentoSha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+    "bytes": 42900459,
+    "payloads": 36,
+    "resuelto": false
+  },
+  "instrumentosGet": [
+    {
+      "log": "despues-acotado/recorrido.json",
+      "fallo": "Exigía prosa de proposición en la ocurrencia compartida; publicación y verificador habían pasado.",
+      "fuenteConservada": "recorrido-inicial.mjs"
+    },
+    {
+      "log": "despues-acotado/instrumento-get-1.log",
+      "fallo": "Contaba una frase explicativa además de filas dt/dd; no es fallo del publicador.",
+      "fuenteConservada": "comprobar-get-inicial.mjs"
+    }
+  ],
+  "continuacionGet": "despues-acotado/comprobacion-get.json",
+  "coberturaAcotada": "despues-acotado/alcance-publicacion.json",
+  "primeraValidacionFinal": {
+    "log": "regeneracion.log",
+    "motivo": "Puerta detenida antes de regenerar por ausencia del comprobante positivo. Tipos, lint, Ruff y mypy previos pasaron.",
+    "regenero": false
+  },
+  "entornoRegeneracion": {
+    "log": "cierre/regeneracion.log",
+    "historicosVerificados": 36,
+    "snapshotNuevoAntesDelFallo": 1,
+    "motivo": "Faltaba python3 en el nix shell externo; el AST Python del coordinador no llegó a ejecutarse.",
+    "accion": "Reanudar publicación con python3 de Nix y exigir entrada de dependencias idéntica."
+  }
+}

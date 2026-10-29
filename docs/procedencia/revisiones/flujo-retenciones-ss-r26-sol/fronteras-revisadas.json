@@ -1,0 +1,165 @@
+{
+  "rentas": {
+    "own": {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+      "symbol": "sumarRendimientosTrabajo",
+      "actualArguments": [
+        "caso.rendimientos.trabajo",
+        "centimosAEuros"
+      ],
+      "outputProperty": "return Decimal EUR → rendimientoIntegroTrabajo",
+      "consumerProperties": [
+        "salarioBrutoAnual",
+        "costeLaboralCentimos"
+      ],
+      "owner": "lote rentas",
+      "pending": "Composición por este contrato y hash fuente de fronteras.json. No consume gastos ni neto de ese lote.",
+      "sourceSha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54"
+    },
+    "received": {
+      "id": "g.I",
+      "kind": "derived",
+      "symbol": "sumarRendimientosTrabajo",
+      "property": "return",
+      "formula": "Σ caso.rendimientos.trabajo[*].importeIntegroCentimos /100; reduce empieza 0",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+        "start": 1443,
+        "end": 1727,
+        "offsetEncoding": "utf16",
+        "text": "sumarRendimientosTrabajo = (\n  rendimientos: ReadonlyArray<RendimientoTrabajo>,\n  crearImporte: (centimos: number) => Decimal\n): Decimal =>\n  EffectArray.reduce(rendimientos, crearImporte(0), (total, rendimiento) =>\n    total.plus(crearImporte(rendimiento.importeIntegroCentimos))\n  )",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "scope": "General: ejercicio y territorio admitidos por caso/contexto. Explícito: individual Madrid 2025, sin otras rentas/familiares/discapacidad, perfil exclusivo. Submotor EDS: común individual 2025, contrato admitido; no supone admisión anual."
+    },
+    "hashAgrees": true,
+    "quantity": "Decimal EUR íntegro, no neto",
+    "state": "composición pendiente"
+  },
+  "escalas": [
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+      "source": {
+        "symbol": "calcularDesgloseCotizacionesPerfilUniforme",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "offsetEncoding": "utf16",
+          "start": 1797,
+          "end": 4183
+        },
+        "rangeKind": "declaration-not-literal"
+      },
+      "arguments": {
+        "anio": "caso.anio",
+        "salarioBrutoAnual": "rendimientoIntegroTrabajo",
+        "branch": "contexto.modo===canonico"
+      },
+      "outputs": [
+        "cotizacionTrabajador"
+      ],
+      "call": {
+        "symbol": "cotizacionesSociales",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16",
+          "start": 12683,
+          "end": 13022
+        },
+        "expression": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )",
+        "rangeKind": "declaration-not-literal"
+      },
+      "consumers": [
+        "anual.base.general-imponible"
+      ],
+      "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+      "review": "pending"
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+      "source": {
+        "symbol": "calcularDesgloseCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "offsetEncoding": "utf16",
+          "start": 7772,
+          "end": 9547
+        },
+        "rangeKind": "declaration-not-literal"
+      },
+      "arguments": {
+        "anio": "caso.anio",
+        "salarioBrutoAnual": "rendimientoIntegroTrabajo",
+        "branch": "contexto.modo!==canonico"
+      },
+      "outputs": [
+        "cotizacionTrabajador"
+      ],
+      "call": {
+        "symbol": "cotizacionesSociales",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16",
+          "start": 12683,
+          "end": 13022
+        },
+        "expression": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )",
+        "rangeKind": "declaration-not-literal"
+      },
+      "consumers": [
+        "anual.base.general-imponible"
+      ],
+      "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+      "review": "pending"
+    },
+    {
+      "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts#RetencionTrabajoAeat",
+      "source": {
+        "symbol": "RetencionTrabajoAeat",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16",
+          "start": 32076,
+          "end": 32402
+        },
+        "rangeKind": "declaration-not-literal"
+      },
+      "arguments": {
+        "entrada": "caso.retencionTrabajoAeat",
+        "contexto": "contexto",
+        "branch": "entrada!==undefined; anio coherente"
+      },
+      "outputs": [
+        "calcular.return.importeRetencionAnualCentimos"
+      ],
+      "call": {
+        "symbol": "retencionTrabajoAeat",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16",
+          "start": 28188,
+          "end": 28397
+        },
+        "expression": "retencionTrabajoAeat =\n    caso.retencionTrabajoAeat !== undefined\n      ? yield* dependencias.retencionTrabajoAeat.calcular(\n          caso.retencionTrabajoAeat,\n          contexto\n        )\n      : undefined",
+        "rangeKind": "declaration-not-literal"
+      },
+      "consumers": [
+        "anual.cuota.diferencial"
+      ],
+      "interpretation": "Contrato externo de salida exacta; no se replica implementación ni se acepta su composición.",
+      "review": "pending"
+    }
+  ],
+  "discrepancies": [
+    "Formas y direcciones distintas; no concatenar grafos",
+    "Modo no tiene transporte gráfico hasta S.B en este lote",
+    "No heredar mínimos/cotizaciones anuales al subcaso retención"
+  ],
+  "composition": false
+}

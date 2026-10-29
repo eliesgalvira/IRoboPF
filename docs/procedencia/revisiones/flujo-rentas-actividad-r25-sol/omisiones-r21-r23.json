@@ -1,0 +1,1061 @@
+[
+  {
+    "siteId": "anual.trabajo.integro",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.trabajo.integro",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.trabajo.integro",
+      "root": "g.I",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#g.I"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.trabajo.cotizacion",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Ruta legacy conservada como nodo SS.legacy; falta desagregar su tránsito por cada propiedad y registrar selección de hojas efectivas anuales como aristas finales.",
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.trabajo.cotizacion",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.trabajo.cotizacion",
+      "root": "g.C",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#g.C"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "frontera-exacta",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.trabajo.previo-neto",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Ruta legacy conservada como nodo SS.legacy; falta desagregar su tránsito por cada propiedad y registrar selección de hojas efectivas anuales como aristas finales.",
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.trabajo.previo-neto",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.trabajo.previo-neto",
+      "root": "g.P",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#g.P"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "frontera-exacta",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.trabajo.gastos",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.trabajo.gastos",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.trabajo.gastos",
+      "root": "g.F",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#g.F"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.trabajo.neto",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Ruta legacy conservada como nodo SS.legacy; falta desagregar su tránsito por cada propiedad y registrar selección de hojas efectivas anuales como aristas finales.",
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.trabajo.neto",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.trabajo.neto",
+      "root": "g.N",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#g.N"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "frontera-exacta",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.trabajo.reduccion",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Ruta legacy conservada como nodo SS.legacy; falta desagregar su tránsito por cada propiedad y registrar selección de hojas efectivas anuales como aristas finales.",
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.trabajo.reduccion",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.trabajo.reduccion",
+      "root": "g.R",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#g.R"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "frontera-exacta",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.integro",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.trabajo.integro",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.trabajo.integro",
+      "root": "w.I",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#w.I"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.gastos-a-e",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.trabajo.gastos-a-e",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.trabajo.gastos-a-e",
+      "root": "w.AE",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#w.AE"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.gasto-f",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.trabajo.gasto-f",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.trabajo.gasto-f",
+      "root": "w.F",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#w.F"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.art19",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.trabajo.art19",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.trabajo.art19",
+      "root": "w.adapter.N",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#w.adapter.N"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.trabajo.art20",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.trabajo.art20",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.trabajo.art20",
+      "root": "x.R",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#x.R"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.da61",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Escalas y mínimos son terminales de llamada del loteA; no se examina el trabajo activo del otro autor ni se afirma cierre de sus hojas.",
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.da61",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.da61",
+      "root": "x.deduction",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#x.deduction"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "frontera-exacta",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.retenciones",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.retenciones",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.retenciones",
+      "root": "x.ret",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#x.ret"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.pagos",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.pagos",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.pagos",
+      "root": "x.pay",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#x.pay"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.diferencial",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Escalas y mínimos son terminales de llamada del loteA; no se examina el trabajo activo del otro autor ni se afirma cierre de sus hojas.",
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.diferencial",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.diferencial",
+      "root": "x.diff",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#x.diff"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "frontera-exacta",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.inmobiliario.integro",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.inmobiliario.integro",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.inmobiliario.integro",
+      "root": "i.I",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#i.I"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.inmobiliario.neto",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.inmobiliario.neto",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.inmobiliario.neto",
+      "root": "i.N",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#i.N"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.ganancias.total",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.ganancias.total",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.ganancias.total",
+      "root": "h.total",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#h.total"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.ganancias.exenta",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.ganancias.exenta",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.ganancias.exenta",
+      "root": "h.exempt",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#h.exempt"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "no-aplicable",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        },
+        {
+          "omission": "Admisión por derechos familiares del llamador público",
+          "status": "frontera-exacta",
+          "evidence": "minimum.validation.validarDerechosMinimos/ hayAlimentosPropiosSinMinimo/ validarRentasAnualesDerechos; propiedades de retorno y argumentos en grafo; control de existencia, no cuantía"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Candidatos terminales no aceptados por pertenencia a nodo",
+      "Composición externa y fiscalidad no aceptadas"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  },
+  {
+    "siteId": "anual.explicito.actividad.etapa",
+    "originalR21": {
+      "technical": "partial-explicit",
+      "omissions": [
+        "Cada llamada etapa se cataloga aparte; falta resolver alias por instancia y conectar automáticamente catálogo con grafo del sitio.",
+        "Aristas terminales hacia las325 ocurrencias se mantienen en anexo con clasificación individual; no se promueve una asociación por módulo a dependencia definitiva."
+      ],
+      "legalAcceptance": false
+    },
+    "declaredR23": {
+      "siteId": "anual.explicito.actividad.etapa",
+      "sourceR21": "docs/procedencia/editorial/flujo-rentas-r21-sol/flujo.json#anual.explicito.actividad.etapa",
+      "root": "a.adapter",
+      "decisions": [
+        {
+          "omission": "Cadena interna por propiedad",
+          "status": "resuelta-candidata",
+          "evidence": "grafo.json#a.adapter"
+        },
+        {
+          "omission": "Hojas/controles R21 y selector",
+          "status": "resuelta-candidata",
+          "evidence": "ocurrencias.json; targets son propiedades, no unión de archivo"
+        },
+        {
+          "omission": "SS legacy/canónica",
+          "status": "no-aplicable",
+          "evidence": "ss.canonical/ss.legacy: return.cotizacionTrabajador({anio,salarioBrutoAnual}); contexto.modo"
+        },
+        {
+          "omission": "Escalas/mínimos",
+          "status": "no-aplicable",
+          "evidence": "scale.parameters/scale.published/minimum.state/scale.integrate: propiedades/argumentos en nodos"
+        },
+        {
+          "omission": "Instancias dinámicas",
+          "status": "resuelta-candidata",
+          "evidence": "instancias.json: cuarto argumento individual y retorno/adaptador"
+        }
+      ],
+      "review": "pendiente de contraste de nuevas aristas y composición",
+      "legalAcceptance": false
+    },
+    "decision": "No transformar resuelta-candidata en cierre",
+    "stillOpen": [
+      "Argument4 fuera de llamada en varias instancias",
+      "Transporte etapas frente aporte",
+      "Ramas y alcanzabilidad aislado/anual",
+      "Clasificación terminal por propiedad aún necesita contraste"
+    ],
+    "scopeR21OutsideR23": "Retenciones y cotizaciones internas permanecen fuera de esta revisión; no se cierran por renombrar el lote."
+  }
+]
