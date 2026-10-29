@@ -429,3 +429,7 @@ El grafo histórico R30 ocupa 11.243.790 bytes comprimidos, hash b091d72b1c2cbd2
 ## D096 — Preparar el lote documental tras corroborar el CAS
 
 La revisión independiente y el contraste del padre corroboran el recorrido local de 264 pares/102 sujetos. Se prepara su incorporación revisable con identidades reales, condiciones y aceptaciones limitadas por celda. Objeción experta: un pase técnico no autoriza a cambiar confianza ni aceptar una norma completa. Respuesta: artefactos candidatos exactos, trazabilidad hacia las revisiones ya recibidas y revisión de la incorporación antes de activar; Madrid2020 nominal permanece aparte. Coste: mantener registros candidatos y estados separados; Linux serial, recursos, autenticidad histórica y custodia conservan sus límites. Sin LFS, gasto ni transferencia externa.
+
+## D097 — Revisar la suficiencia del fragmento antes de aceptar sus cierres
+
+Se integra el candidato R32 de retenciones/pagos conservando su declaración de cierre de valor/selección y la admisión pendiente. Objeción experta: reconstruir exactamente una receta y rechazar fuentes distintas no demuestra que la receta incluya todas las dependencias. Respuesta: el padre no acepta todavía esos cierres; un revisor nuevo contrasta campos, instancias de escala, celdas, callbacks y conversiones con el software fijado. Coste: revisión semántica adicional y ausencia de wiring hasta resolverla, sin imponer un compilador universal ni convertir siete rojos de un esqueleto vacío en errores fiscales.

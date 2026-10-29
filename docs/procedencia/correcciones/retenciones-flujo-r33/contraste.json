@@ -1,0 +1,141 @@
+{
+  "generatedMatchesReceived": true,
+  "sourceFiles": 6,
+  "ports": 133,
+  "edges": 257,
+  "contracts": 51,
+  "sites": [
+    {
+      "siteId": "anual.retencion.base",
+      "port": "A.base",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64282,
+        "end": 64562,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false,
+      "admissionRequirement": "anual-publico-r32",
+      "closureScope": "public-concrete-layer; successful-supported-inputs; legacy-distinct"
+    },
+    {
+      "siteId": "anual.retencion.cuota",
+      "port": "A.cuota",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64568,
+        "end": 64852,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false,
+      "admissionRequirement": "anual-publico-r32",
+      "closureScope": "public-concrete-layer; successful-supported-inputs; legacy-distinct"
+    },
+    {
+      "siteId": "anual.retencion.tipo",
+      "port": "A.tipo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64858,
+        "end": 65115,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "percent",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false,
+      "admissionRequirement": "anual-publico-r32",
+      "closureScope": "public-concrete-layer; successful-supported-inputs; legacy-distinct"
+    },
+    {
+      "siteId": "anual.retencion.anual",
+      "port": "A.anual",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 65121,
+        "end": 65386,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false,
+      "admissionRequirement": "anual-publico-r32",
+      "closureScope": "public-concrete-layer; successful-supported-inputs; legacy-distinct"
+    },
+    {
+      "siteId": "anual.pagos.retenciones",
+      "port": "A.soportadas",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 58617,
+        "end": 58944,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false,
+      "admissionRequirement": "anual-publico-r32",
+      "closureScope": "public-concrete-layer; successful-supported-inputs; legacy-distinct"
+    },
+    {
+      "siteId": "anual.pagos.cuenta",
+      "port": "A.cuenta",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 58958,
+        "end": 59412,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false,
+      "admissionRequirement": "anual-publico-r32",
+      "closureScope": "public-concrete-layer; successful-supported-inputs; legacy-distinct"
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "admission",
+      "scope": "all-six-sites",
+      "requirement": "Componer contrato anual-publico-r32 antes de siteClosed o wiring."
+    },
+    {
+      "id": "injected-service",
+      "scope": "annual-injected only",
+      "requirement": "No hereda los cierres de la capa pública concreta; exige contrato independiente de la implementación proporcionada."
+    }
+  ],
+  "parentAcceptsValueClosure": false,
+  "parentAcceptsSelectionClosure": false,
+  "reason": "El cierre declarado por el candidato necesita contraste independiente semántico; igualdad con la receta no demuestra exhaustividad de dependencias.",
+  "reviewQuestions": [
+    "Correspondencia entre fórmulas redactadas y cuerpos, ramas, literales y propiedades ejecutados.",
+    "Alcance del terminal compuesto A.subcaso y ausencia de obligaciones por campo ocultas.",
+    "Instanciación de las tres llamadas a la escala y sus tramos por celda.",
+    "Resolved/valueClosed/selectionClosed frente a listados de llamadas, callbacks y condiciones en texto.",
+    "Unidades y conversiones explícitas al componer con los otros fragmentos.",
+    "Diferencia entre rechazar una fuente por pin externo y verificar la semántica de un mutante."
+  ],
+  "completeRuleAcceptance": false
+}
