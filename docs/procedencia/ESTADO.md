@@ -12,7 +12,7 @@ Preservación: schema cerrado, clasificación secundaria, URLs examinadas y dura
 
 Editorial: versiones candidatas corregidas,17 citas/recortes nuevos y metadatos del apéndice recuperados. El cierre de dependencias por cada sitio sigue pendiente antes de publicar. Retenciones2015–2016: el padre inspecciona ≤64 y reproduce los tres recortes idénticos; rectifica12 entradas contractuales sobre signo y alimentos87.5. No habilita versiones; julio y doble600 mantienen reservas. La revisión nueva2012–2014 debe contrastar sus propios signos y condiciones.
 
-Se preparan revisiones nuevas Sol High y análisis de flujo editorial, además de ampliación local del paquete. No hay subagentes nuevos lanzados todavía en este bloque. Sin cambios de cálculo, LFS, gasto, transferencia externa, PR, despliegue ni limpieza. El encargo continúa.
+Ronda21 lanzada: revisión del contrato documental, revisión del consumidor de preservación, ampliación localv4, contraste2012–2014, rectificaciones2015–2016 y dos análisis de flujo editorial (28 y37sitios). Los siete lanzadores confirman gpt-6.1-sol, reasoningEffort high y serviceTier priority, en worktrees T3 separados; registro completo en delegaciones-ronda21.json. Las completaciones reactivarán al orquestador; no se sondean ejecuciones activas. El bloque está respaldado en origin como960773f909d4ecff290edfa3d7a7b2699a8445d3:707archivos y35.204.055bytes cotejados contra blobs del commit, cero borrados. Sin cambios de cálculo, LFS, gasto, transferencia externa, PR, despliegue ni limpieza. El encargo continúa.
 
 ## Situación anterior, 29 de octubre, 19:14 CET
 
