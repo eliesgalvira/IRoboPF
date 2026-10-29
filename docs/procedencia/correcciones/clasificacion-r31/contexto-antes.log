@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_observation_keeps_the_origin_used_to_classify (__main__.OriginTests.test_observation_keeps_the_origin_used_to_classify)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 94, in test_observation_keeps_the_origin_used_to_classify
+    self.assertEqual(observation["context"].get("source"), "fichas.json")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'fichas.json'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 30 del 29 de octubre
+## Situación más reciente, ronda 31 del 30 de octubre
+
+Recibida por manifiesto la revisión Sol de clasificación R30: 42 archivos con sobres, 1.883.116 bytes. El padre coteja las 16.486 entradas físicas de su base, sin cambios ni borrados. CL01 puntual queda corroborado; no se repite su revisión. Los dos hallazgos nuevos se contrastan con productores, referencias editoriales reales y las 22 sondas originales, conservando sus esperados y tres rojos.
+
+El padre corrige origen/documento/facsímil en el recolector actual. sourceSha256 requiere contexto de origen; no hereda software por nombre ni oficialidad por URL. Rutas explícitas prevalecen sobre destino, y conflictos o formas no admitidas quedan desconocidos. El campo documental precede al ancestro del recorte, conservando el contrato del hash genérico. Se retiene el contexto saneado usado para la clasificación. La política es v5-r26-clasificacion-r31, no una taxonomía general aprobada.
+
+Quince pruebas nuevas pasan después de trece fallos previos en dos ejecuciones; las 22 sondas recibidas pasan, junto con diez regresiones R30 y 28 de preservación. Ruff y mypy del alcance Python correctos. Se cotejan ambos hashes/tamaño del manifiesto y recolector v5 congelados; no se reexporta ni repite restauración masiva. Informe, decisiones por hallazgo y controles en correcciones/clasificacion-r31. La corrección necesita revisión independiente nueva.
+
+Motor, inventario, 42 snapshots y confianza activa permanecen intactos. No se consultan las entregas parciales de los demás encargos Sol R30. Crossa sigue en v1 desfasado, copia local fuera de Victus, mismo dueño y casa. Sin LFS, gasto, transferencia externa, main, PR, despliegue o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 30 del 29 de octubre
 
 Recibidos CAS externo R27, revisión v5 R28, composición parcial R28 y contrato nominal R29: 303 archivos y 28.277.076 bytes con sobres de transporte. Cuatro cotejos físicos completos contra sus bases, cero borrados y solo trece modificaciones declaradas. El instrumento preempaque.txt no manifestado se conserva en el hijo y se excluye expresamente; ninguna copia ocurrió antes de resolver esa discrepancia. Recibos e informe en correcciones/recepcion-r27-r28-r30.
 

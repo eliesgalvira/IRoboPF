@@ -1,0 +1,365 @@
+{
+  "cases": [
+    {
+      "id": "seleccion-url",
+      "key": "selectionSha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "previous": "original-oficial",
+      "actual": "seleccion-cita",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "cita-url",
+      "key": "citationHash",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "previous": "original-oficial",
+      "actual": "seleccion-cita",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "selector-sin-url",
+      "key": "selectorSha256",
+      "pointer": "/citations/0",
+      "row": {},
+      "name": "datos.json",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "previous": "desconocido",
+      "actual": "seleccion-cita",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "seleccion-normalizada",
+      "key": "SELECTION_SHA256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "previous": "original-oficial",
+      "actual": "seleccion-cita",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "texto-url",
+      "key": "quoteSha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "texto-extraido"
+      ],
+      "previous": "original-oficial",
+      "actual": "texto-extraido",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "texto-extraido",
+      "key": "extractedTextHash",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "texto-extraido"
+      ],
+      "previous": "original-oficial",
+      "actual": "texto-extraido",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "software-url",
+      "key": "softwareHash",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "fuente-software"
+      ],
+      "previous": "original-oficial",
+      "actual": "fuente-software",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "codigo-real",
+      "key": "sourceSha256",
+      "pointer": "/sources/0",
+      "row": {
+        "path": "lib/rentas.ts"
+      },
+      "name": "datos.json",
+      "expected": [
+        "fuente-software"
+      ],
+      "previous": "fuente-software",
+      "actual": "fuente-software",
+      "pass": true,
+      "reason": "La ruta identifica código; source por sí solo no basta"
+    },
+    {
+      "id": "documento-url",
+      "key": "documentSha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "original-oficial"
+      ],
+      "previous": "original-oficial",
+      "actual": "original-oficial",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "adquisicion",
+      "key": "sha256",
+      "pointer": "/acquisitions/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "original-oficial"
+      ],
+      "previous": "original-oficial",
+      "actual": "original-oficial",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "captura-secundaria",
+      "key": "sha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://web.archive.org/web/20150101000000id_/http://www.agenciatributaria.es/static_files/AEAT/algoritmo.pdf"
+      },
+      "name": "datos.json",
+      "expected": [
+        "captura-secundaria-URL-oficial"
+      ],
+      "previous": "captura-secundaria-URL-oficial",
+      "actual": "captura-secundaria-URL-oficial",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "facsímil",
+      "key": "cropSha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "facsimil-receta"
+      ],
+      "previous": "facsimil-receta",
+      "actual": "facsimil-receta",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "fixture",
+      "key": "documentSha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "fixtures/datos.json",
+      "expected": [
+        "fixture-sintetico"
+      ],
+      "previous": "fixture-sintetico",
+      "actual": "fixture-sintetico",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "desconocido-url",
+      "key": "unknownSha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "desconocido"
+      ],
+      "previous": "original-oficial",
+      "actual": "desconocido",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "documento-sin-url",
+      "key": "documentSha256",
+      "pointer": "/citations/0",
+      "row": {},
+      "name": "datos.json",
+      "expected": [
+        "desconocido-documental"
+      ],
+      "previous": "desconocido-documental",
+      "actual": "desconocido-documental",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "seleccion-en-original",
+      "key": "selectionSha256",
+      "pointer": "/original/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "previous": "original-oficial",
+      "actual": "seleccion-cita",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "texto-en-receta",
+      "key": "textSha256",
+      "pointer": "/recetas/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "texto-extraido"
+      ],
+      "previous": "facsimil-receta",
+      "actual": "texto-extraido",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "documento-en-facsimil",
+      "key": "documentSha256",
+      "pointer": "/facsimiles/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "original-oficial",
+        "desconocido-documental",
+        "desconocido"
+      ],
+      "previous": "facsimil-receta",
+      "actual": "facsimil-receta",
+      "pass": false,
+      "reason": "Campo explícito refiere documento del recorte; ancestro no debe reasignar sus bytes al PNG"
+    },
+    {
+      "id": "origen-documental",
+      "key": "sourceSha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764",
+        "mimeType": "application/pdf",
+        "path": "fuentes/original.pdf"
+      },
+      "name": "datos.json",
+      "expected": [
+        "desconocido-documental",
+        "original-oficial",
+        "desconocido",
+        "metadatos-adquisicion"
+      ],
+      "previous": "original-oficial",
+      "actual": "fuente-software",
+      "pass": false,
+      "reason": "Origen documental explícito; no fuente de código"
+    },
+    {
+      "id": "origen-indeterminado",
+      "key": "sourceSha256",
+      "pointer": "/citations/0",
+      "row": {},
+      "name": "datos.json",
+      "expected": [
+        "desconocido",
+        "desconocido-documental",
+        "metadatos-adquisicion"
+      ],
+      "previous": "fuente-software",
+      "actual": "fuente-software",
+      "pass": false,
+      "reason": "Sin tipo/path no hay evidencia para afirmar software"
+    },
+    {
+      "id": "texto-en-fixture",
+      "key": "textSha256",
+      "pointer": "/citations/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "fixtures/texto.json",
+      "expected": [
+        "fixture-sintetico"
+      ],
+      "previous": "fixture-sintetico",
+      "actual": "fixture-sintetico",
+      "pass": true,
+      "reason": "contrato tipado"
+    },
+    {
+      "id": "seleccion-en-receta",
+      "key": "selectionHash",
+      "pointer": "/recetas/0",
+      "row": {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+      },
+      "name": "datos.json",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "previous": "facsimil-receta",
+      "actual": "seleccion-cita",
+      "pass": true,
+      "reason": "contrato tipado"
+    }
+  ],
+  "failures": [
+    "documento-en-facsimil",
+    "origen-documental",
+    "origen-indeterminado"
+  ],
+  "acceptanceFiscal": false
+}

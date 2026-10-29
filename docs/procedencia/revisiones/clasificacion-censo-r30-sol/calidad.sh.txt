@@ -1,0 +1,13 @@
+set -eu
+out=docs/procedencia/revisiones/clasificacion-censo-r30-sol
+export PYTHONDONTWRITEBYTECODE=1
+export RUFF_CACHE_DIR="$PWD/.cache/revision-clasificacion-r30/ruff"
+ruff check "$out" --fix
+ruff format "$out"
+ruff check "$out"
+mypy --follow-imports=skip --ignore-missing-imports --check-untyped-defs --cache-dir "$PWD/.cache/revision-clasificacion-r30/mypy" "$out"/*.py
+bun /home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --threads 1 --disable-nested-config --config /home/elies/Repos/IRoboPF/.oxlintrc.json lib/formato.ts
+ruff --version
+mypy --version
+ruff check docs/procedencia/preservacion-v5-sol/recolector.py tests/test_censo_clasificacion.py
+mypy --follow-imports=skip --ignore-missing-imports --check-untyped-defs --cache-dir "$PWD/.cache/revision-clasificacion-r30/mypy-producto" docs/procedencia/preservacion-v5-sol/recolector.py tests/test_censo_clasificacion.py

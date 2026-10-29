@@ -1,0 +1,198 @@
+F.FFFF.FFFFFFF
+======================================================================
+FAIL: test_code_path_and_pdf_type_are_ambiguous (__main__.OriginTests.test_code_path_and_pdf_type_are_ambiguous)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 57, in test_code_path_and_pdf_type_are_ambiguous
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        self.classify("sourceSha256", {"path": "lib/rentas.ts", "mimeType": "application/pdf"}),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "desconocido",
+        ^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'fuente-software' != 'desconocido'
+- fuente-software
++ desconocido
+
+
+======================================================================
+FAIL: test_conflicting_origin_paths_are_unknown (__main__.OriginTests.test_conflicting_origin_paths_are_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 51, in test_conflicting_origin_paths_are_unknown
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        self.classify("sourceSha256", {"source": "lib/uno.ts", "sourcePath": "original.pdf"}),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "desconocido",
+        ^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'fuente-software' != 'desconocido'
+- fuente-software
++ desconocido
+
+
+======================================================================
+FAIL: test_document_inside_crop_is_not_the_crop (__main__.OriginTests.test_document_inside_crop_is_not_the_crop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 15, in test_document_inside_crop_is_not_the_crop
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        self.classify("documentSha256", {"url": URL}, "/facsimiles/0"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "original-oficial",
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'facsimil-receta' != 'original-oficial'
+- facsimil-receta
++ original-oficial
+
+
+======================================================================
+FAIL: test_documentary_origin_field_is_not_a_source_code_substring (__main__.OriginTests.test_documentary_origin_field_is_not_a_source_code_substring)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 83, in test_documentary_origin_field_is_not_a_source_code_substring
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        self.classify("sourceDocumentSha256", {"url": URL}, "/facsimiles/0"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "desconocido-documental",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'fuente-software' != 'desconocido-documental'
+- fuente-software
++ desconocido-documental
+
+
+======================================================================
+FAIL: test_explicit_origin_precedes_destination (__main__.OriginTests.test_explicit_origin_precedes_destination)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 45, in test_explicit_origin_precedes_destination
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        self.classify("sourceSha256", {"source": "fichas.json", "path": "lib/salida.ts"}),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "desconocido",
+        ^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'fuente-software' != 'desconocido'
+- fuente-software
++ desconocido
+
+
+======================================================================
+FAIL: test_invalid_explicit_origin_does_not_fall_back_to_destination (__main__.OriginTests.test_invalid_explicit_origin_does_not_fall_back_to_destination)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 63, in test_invalid_explicit_origin_does_not_fall_back_to_destination
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        self.classify("sourceSha256", {"source": None, "path": "lib/salida.ts"}),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "desconocido",
+        ^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'fuente-software' != 'desconocido'
+- fuente-software
++ desconocido
+
+
+======================================================================
+FAIL: test_origin_key_normalization (__main__.OriginTests.test_origin_key_normalization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 69, in test_origin_key_normalization
+    self.assertEqual(self.classify("SOURCE_SHA256", {}), "desconocido")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fuente-software' != 'desconocido'
+- fuente-software
++ desconocido
+
+
+======================================================================
+FAIL: test_origin_without_context_is_unknown (__main__.OriginTests.test_origin_without_context_is_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 36, in test_origin_without_context_is_unknown
+    self.assertEqual(self.classify("sourceSha256", {}), "desconocido")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fuente-software' != 'desconocido'
+- fuente-software
++ desconocido
+
+
+======================================================================
+FAIL: test_pdf_origin_is_not_software_or_authenticated_by_its_url (__main__.OriginTests.test_pdf_origin_is_not_software_or_authenticated_by_its_url)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 27, in test_pdf_origin_is_not_software_or_authenticated_by_its_url
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        self.classify(
+        ^^^^^^^^^^^^^^
+    ...<3 lines>...
+        "desconocido-documental",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'fuente-software' != 'desconocido-documental'
+- fuente-software
++ desconocido-documental
+
+
+======================================================================
+FAIL: test_real_editorial_origins_are_not_programs (__main__.OriginTests.test_real_editorial_origins_are_not_programs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 77, in test_real_editorial_origins_are_not_programs
+    self.assertEqual(self.classify("sourceSha256", row, "/editions/0"), "desconocido")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fuente-software' != 'desconocido'
+- fuente-software
++ desconocido
+
+
+======================================================================
+FAIL: test_resource_is_not_a_software_contract (__main__.OriginTests.test_resource_is_not_a_software_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 89, in test_resource_is_not_a_software_contract
+    self.assertEqual(self.classify("resourceSha256", {"url": URL}), "desconocido")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fuente-software' != 'desconocido'
+- fuente-software
++ desconocido
+
+
+======================================================================
+FAIL: test_unlocated_document_inside_crop_remains_documentary (__main__.OriginTests.test_unlocated_document_inside_crop_remains_documentary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/test_censo_origen.py", line 21, in test_unlocated_document_inside_crop_remains_documentary
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        self.classify("documentSha256", {}, "/facsimiles/0"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "desconocido-documental",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'facsimil-receta' != 'desconocido-documental'
+- facsimil-receta
++ desconocido-documental
+
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.005s
+
+FAILED (failures=12)

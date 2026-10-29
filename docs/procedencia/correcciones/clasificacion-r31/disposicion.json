@@ -1,0 +1,58 @@
+{
+  "findings": [
+    {
+      "id": "CL01",
+      "disposition": "corroboracion puntual recibida; sin nuevo fix ni revisión recursiva"
+    },
+    {
+      "id": "RC30-01",
+      "disposition": "confirmado y corregido como candidato; revisión nueva pendiente"
+    },
+    {
+      "id": "RC30-02",
+      "disposition": "confirmado en dominio sintético y corregido como candidato; revisión nueva pendiente"
+    }
+  ],
+  "reviewCases": 22,
+  "previousReviewFailures": 3,
+  "currentReviewFailures": 0,
+  "newTests": 15,
+  "previousFailures": 13,
+  "regressions": [
+    10,
+    28
+  ],
+  "checks": [
+    {
+      "path": "antes.log",
+      "sha256": "8af8c906cf1e338f397ea3c9e62408eb1cfc910a084f6031e648f248c9ff7303"
+    },
+    {
+      "path": "contexto-antes.log",
+      "sha256": "d6eb419975b63bf1ca8ee6cf942ba29edc933442db799156c74953abbf6f0218"
+    },
+    {
+      "path": "despues.log",
+      "sha256": "c39c88100a3b6b5a07400fd4f9264af9dcb67d8bf0752a29fda6fee19edc8cbc"
+    },
+    {
+      "path": "regresiones-r30.log",
+      "sha256": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068"
+    },
+    {
+      "path": "regresiones-preservacion.log",
+      "sha256": "bfe5aed95e590ccfd0ace45e7062a455032a565fcbc758457c7565a70c63eca0"
+    },
+    {
+      "path": "ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "mypy.log",
+      "sha256": "71144743c83babea384888a735db0c4daba3d4d7b7942b6839984bd5c21b52bb"
+    }
+  ],
+  "frozenPackageChanged": false,
+  "fiscalCodeChanged": false,
+  "completeRuleAcceptance": false
+}

@@ -1,0 +1,110 @@
+test_adjacent_hashes_yield_two_distinct_observations (test_antes.ClassificationTests.test_adjacent_hashes_yield_two_distinct_observations) ... FAIL
+test_crop_and_unlocated_document_keep_their_contract (test_antes.ClassificationTests.test_crop_and_unlocated_document_keep_their_contract) ... ok
+test_fixture_is_not_promoted (test_antes.ClassificationTests.test_fixture_is_not_promoted) ... ok
+test_generic_acquisition_contract_is_preserved (test_antes.ClassificationTests.test_generic_acquisition_contract_is_preserved) ... ok
+test_key_spelling_is_normalized (test_antes.ClassificationTests.test_key_spelling_is_normalized) ... FAIL
+test_selection_is_not_the_adjacent_document (test_antes.ClassificationTests.test_selection_is_not_the_adjacent_document) ... FAIL
+test_selection_without_url_has_same_class (test_antes.ClassificationTests.test_selection_without_url_has_same_class) ... FAIL
+test_software_digest_is_not_original (test_antes.ClassificationTests.test_software_digest_is_not_original) ... FAIL
+test_text_digest_is_not_original (test_antes.ClassificationTests.test_text_digest_is_not_original) ... FAIL
+test_unknown_field_does_not_inherit_officiality (test_antes.ClassificationTests.test_unknown_field_does_not_inherit_officiality) ... FAIL
+
+======================================================================
+FAIL: test_adjacent_hashes_yield_two_distinct_observations (test_antes.ClassificationTests.test_adjacent_hashes_yield_two_distinct_observations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5a19a93f/tests/test_censo_clasificacion.py", line 72, in test_adjacent_hashes_yield_two_distinct_observations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        found,
+        ^^^^^^
+    ...<3 lines>...
+        },
+        ^^
+    )
+    ^
+AssertionError: {'/ci[35 chars]l-oficial', '/citations/0/selectionSha256': 'original-oficial'} != {'/ci[35 chars]l-oficial', '/citations/0/selectionSha256': 'seleccion-cita'}
+  {'/citations/0/documentSha256': 'original-oficial',
+-  '/citations/0/selectionSha256': 'original-oficial'}
+?                                   ^^^^^^^ ^^^^   -
+
++  '/citations/0/selectionSha256': 'seleccion-cita'}
+?                                   ^^ ^^  ++++++
+
+
+======================================================================
+FAIL: test_key_spelling_is_normalized (test_antes.ClassificationTests.test_key_spelling_is_normalized)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5a19a93f/tests/test_censo_clasificacion.py", line 32, in test_key_spelling_is_normalized
+    self.assertEqual(self.classify("SELECTION_SHA256"), "seleccion-cita")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'seleccion-cita'
+- original-oficial
++ seleccion-cita
+
+
+======================================================================
+FAIL: test_selection_is_not_the_adjacent_document (test_antes.ClassificationTests.test_selection_is_not_the_adjacent_document)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5a19a93f/tests/test_censo_clasificacion.py", line 25, in test_selection_is_not_the_adjacent_document
+    self.assertEqual(self.classify("selectionSha256"), "seleccion-cita")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'seleccion-cita'
+- original-oficial
++ seleccion-cita
+
+
+======================================================================
+FAIL: test_selection_without_url_has_same_class (test_antes.ClassificationTests.test_selection_without_url_has_same_class)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5a19a93f/tests/test_censo_clasificacion.py", line 29, in test_selection_without_url_has_same_class
+    self.assertEqual(self.classify("selectionSha256", url=""), "seleccion-cita")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'desconocido' != 'seleccion-cita'
+- desconocido
++ seleccion-cita
+
+
+======================================================================
+FAIL: test_software_digest_is_not_original (test_antes.ClassificationTests.test_software_digest_is_not_original)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5a19a93f/tests/test_censo_clasificacion.py", line 38, in test_software_digest_is_not_original
+    self.assertEqual(self.classify("softwareHash"), "fuente-software")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'fuente-software'
+- original-oficial
++ fuente-software
+
+
+======================================================================
+FAIL: test_text_digest_is_not_original (test_antes.ClassificationTests.test_text_digest_is_not_original)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5a19a93f/tests/test_censo_clasificacion.py", line 35, in test_text_digest_is_not_original
+    self.assertEqual(self.classify("quoteSha256"), "texto-extraido")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'texto-extraido'
+- original-oficial
++ texto-extraido
+
+
+======================================================================
+FAIL: test_unknown_field_does_not_inherit_officiality (test_antes.ClassificationTests.test_unknown_field_does_not_inherit_officiality)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5a19a93f/tests/test_censo_clasificacion.py", line 42, in test_unknown_field_does_not_inherit_officiality
+    self.assertEqual(self.classify("unclassifiedSha256"), "desconocido")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'original-oficial' != 'desconocido'
+- original-oficial
++ desconocido
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.003s
+
+FAILED (failures=7)

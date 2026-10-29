@@ -1,0 +1,205 @@
+{
+  "cases": [
+    {
+      "id": "seleccion-url",
+      "actual": "seleccion-cita",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "pass": true
+    },
+    {
+      "id": "cita-url",
+      "actual": "seleccion-cita",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "pass": true
+    },
+    {
+      "id": "selector-sin-url",
+      "actual": "seleccion-cita",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "pass": true
+    },
+    {
+      "id": "seleccion-normalizada",
+      "actual": "seleccion-cita",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "pass": true
+    },
+    {
+      "id": "texto-url",
+      "actual": "texto-extraido",
+      "expected": [
+        "texto-extraido"
+      ],
+      "pass": true
+    },
+    {
+      "id": "texto-extraido",
+      "actual": "texto-extraido",
+      "expected": [
+        "texto-extraido"
+      ],
+      "pass": true
+    },
+    {
+      "id": "software-url",
+      "actual": "fuente-software",
+      "expected": [
+        "fuente-software"
+      ],
+      "pass": true
+    },
+    {
+      "id": "codigo-real",
+      "actual": "fuente-software",
+      "expected": [
+        "fuente-software"
+      ],
+      "pass": true
+    },
+    {
+      "id": "documento-url",
+      "actual": "original-oficial",
+      "expected": [
+        "original-oficial"
+      ],
+      "pass": true
+    },
+    {
+      "id": "adquisicion",
+      "actual": "original-oficial",
+      "expected": [
+        "original-oficial"
+      ],
+      "pass": true
+    },
+    {
+      "id": "captura-secundaria",
+      "actual": "captura-secundaria-URL-oficial",
+      "expected": [
+        "captura-secundaria-URL-oficial"
+      ],
+      "pass": true
+    },
+    {
+      "id": "facsímil",
+      "actual": "facsimil-receta",
+      "expected": [
+        "facsimil-receta"
+      ],
+      "pass": true
+    },
+    {
+      "id": "fixture",
+      "actual": "fixture-sintetico",
+      "expected": [
+        "fixture-sintetico"
+      ],
+      "pass": true
+    },
+    {
+      "id": "desconocido-url",
+      "actual": "desconocido",
+      "expected": [
+        "desconocido"
+      ],
+      "pass": true
+    },
+    {
+      "id": "documento-sin-url",
+      "actual": "desconocido-documental",
+      "expected": [
+        "desconocido-documental"
+      ],
+      "pass": true
+    },
+    {
+      "id": "seleccion-en-original",
+      "actual": "seleccion-cita",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "pass": true
+    },
+    {
+      "id": "texto-en-receta",
+      "actual": "texto-extraido",
+      "expected": [
+        "texto-extraido"
+      ],
+      "pass": true
+    },
+    {
+      "id": "documento-en-facsimil",
+      "actual": "facsimil-receta",
+      "expected": [
+        "original-oficial",
+        "desconocido-documental",
+        "desconocido"
+      ],
+      "pass": false
+    },
+    {
+      "id": "origen-documental",
+      "actual": "fuente-software",
+      "expected": [
+        "desconocido-documental",
+        "original-oficial",
+        "desconocido",
+        "metadatos-adquisicion"
+      ],
+      "pass": false
+    },
+    {
+      "id": "origen-indeterminado",
+      "actual": "fuente-software",
+      "expected": [
+        "desconocido",
+        "desconocido-documental",
+        "metadatos-adquisicion"
+      ],
+      "pass": false
+    },
+    {
+      "id": "texto-en-fixture",
+      "actual": "fixture-sintetico",
+      "expected": [
+        "fixture-sintetico"
+      ],
+      "pass": true
+    },
+    {
+      "id": "seleccion-en-receta",
+      "actual": "seleccion-cita",
+      "expected": [
+        "seleccion-cita"
+      ],
+      "pass": true
+    }
+  ],
+  "failed": [
+    "documento-en-facsimil",
+    "origen-documental",
+    "origen-indeterminado"
+  ],
+  "policy": {
+    "version": "v5-r26-clasificacion-r30",
+    "unit": "campo hash tipado y contexto estructural, no expresión regular global",
+    "privacy": "clean v4 R26 policy2; originales intactos; no certificación universal",
+    "unknown": "formas ambiguas no acreditan exhaustividad documental",
+    "excluded": [
+      "R25 no recibido",
+      "entrega v5 y posterior",
+      "contenido X salvo clasificación",
+      "fixture sintético sin valor fiscal"
+    ]
+  },
+  "completeRuleAcceptance": false
+}

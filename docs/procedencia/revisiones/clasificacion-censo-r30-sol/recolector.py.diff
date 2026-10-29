@@ -1,0 +1,71 @@
+--- anterior/docs/procedencia/preservacion-v5-sol/recolector.py
++++ actual/docs/procedencia/preservacion-v5-sol/recolector.py
+@@ -19,7 +19,7 @@
+ )
+ HASH = re.compile("[0-9a-f]{64}")
+ POLICY = {
+-    "version": "v5-r26-1",
++    "version": "v5-r26-clasificacion-r30",
+     "unit": "campo hash tipado y contexto estructural, no expresión regular global",
+     "privacy": "clean v4 R26 policy2; originales intactos; no certificación universal",
+     "unknown": "formas ambiguas no acreditan exhaustividad documental",
+@@ -52,17 +52,57 @@
+             "contenido-publico-X",
+             "ámbito público X; se excluye payload, no se infiere oficialidad",
+         )
++    # El tipo del campo prevalece sobre la URL de otro objeto en la misma fila.
++    field = key.replace("_", "").replace("-", "").casefold()
++    if field in {
++        "selectionsha256",
++        "selectionhash",
++        "selectorsha256",
++        "selectorhash",
++        "citationsha256",
++        "citationhash",
++    }:
++        return "seleccion-cita", "huella de selección/cita; no bytes del original"
++    if field in {
++        "quotesha256",
++        "quotehash",
++        "textsha256",
++        "texthash",
++        "extractedtextsha256",
++        "extractedtexthash",
++    }:
++        return "texto-extraido", "huella textual derivada; no bytes del original"
++    if any(
++        x in field
++        for x in (
++            "source",
++            "software",
++            "code",
++            "schema",
++            "base",
++            "inventory",
++            "artifact",
++        )
++    ) or field in {"filesha256", "filehash"}:
++        return "fuente-software", "identidad técnica declarada por campo"
+     if any(x in key.lower() for x in ("facsim", "crop")) or any(
+         x in pointer.lower() for x in ("facsim", "receta")
+     ):
+         return "facsimil-receta", "campo/ancestro de facsímil o receta"
+-    if c.url(url):
++    if c.url(url) and field in {
++        "sha256",
++        "hash",
++        "documentsha256",
++        "documenthash",
++        "originalsha256",
++        "originalhash",
++    }:
+         return (
+             "captura-secundaria-URL-oficial"
+             if "web.archive.org" in str(url)
+             or "web.archive.org" in str(row.get("finalUrl"))
+             else "original-oficial"
+-        ), "URL admitida junto al campo; no autenticidad jurídica"
++        ), "campo documental/adquisición y URL admitida; no autenticidad jurídica"
+     if any(x in key.lower() for x in ("document", "original")) or any(
+         x in pointer.lower().split("/") for x in ("original", "document", "documento")
+     ):
