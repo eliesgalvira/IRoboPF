@@ -16,7 +16,7 @@
     "test:legacy-completo": "IROBOPF_VALIDACION_LEGACY_COMPLETA=1 vitest run tests/auditoria-excel-pesada.test.ts",
     "test:watch": "vitest",
     "prepare": "effect-language-service patch",
-    "lint:oxlint": "oxlint",
+    "lint:oxlint": "oxlint --disable-nested-config",
     "lint:eslint": "eslint .",
     "test:lint": "bun scripts/test-lint.mjs",
     "test:ci": "vitest run tests/fronteras-arquitectura.test.ts tests/dinero.test.ts --maxWorkers=1",

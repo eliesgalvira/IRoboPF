@@ -1,0 +1,53 @@
+Busco en X solo con las herramientas de búsqueda: la conversación del tuit y las respuestas de @tzautxi a @eliesgalvira. No descargo ni abro imágenes.La búsqueda por `conversation_id` del tuit no devolvió nada: ese ID no es la raíz. Sigo con respuestas directas, fotos y el hilo para localizar las cinco y las anidadas.Hay cuatro tuits con foto de @tzautxi en el hilo. Compruebo a cuál responden y si falta una quinta foto o respuestas anidadas.Hay **4 respuestas con foto** de @tzautxi a ese tuit, no 5. El hilo del padre marca **6 respuestas**. De @tzautxi salen **5 directas**: cuatro con foto (5 archivos en total) y una solo de texto. La sexta respuesta directa no apareció en la búsqueda.
+
+## URLs con foto (padre confirmado: `2051956145145712916`)
+
+1. https://x.com/tzautxi/status/2053073034500587689 — 9 may 2026, 11:22 UTC. 1 foto. «¿Si las bases liquidables son "iguales" el cálculo de IRPF es 200€ menor?»
+2. https://x.com/tzautxi/status/2052783973697282073 — 8 may 2026, 16:13 UTC. 1 foto. «#IRPF , investigue!»
+3. https://x.com/tzautxi/status/2052755365448618457 — 8 may 2026, 14:19 UTC. 1 foto. Escala estatal = autonómica; cuota íntegra general par.
+4. https://x.com/tzautxi/status/2052721834596942280 — 8 may 2026, 12:06 UTC. **2 fotos**. Situación 2 con 2 hijos (8 y 5 años); «IRPF mal calculado.»
+
+Esas cuatro son hijas directas del tuit. Citas: 0. Respuestas a ellas: 0.
+
+## Quinta respuesta de @tzautxi al mismo tuit, sin foto en la API
+
+5. https://x.com/tzautxi/status/2052650251916288170 — 8 may 2026, 07:22 UTC. Texto sobre cotización mensual frente a anual y deducción por SMI. El hilo no trae campo `Media`.
+
+No hay un quinto ID con foto. No lo invento.
+
+## Respuestas anidadas (no cuelgan de ese tuit)
+
+- https://x.com/tzautxi/status/2052377541227262214 responde al raíz `2051953980767367299` (sin foto).
+- https://x.com/eliesgalvira/status/2052381438239027697 responde a esa.
+- https://x.com/tzautxi/status/2052419389853417823 responde a Elies (sin foto).
+- https://x.com/eliesgalvira/status/2052443783833198849 cierra esa rama.
+
+## Citas
+
+`quoted_tweet_id:2051956145145712916` → **0**.
+
+Citas del raíz `2051953980767367299` (otra pieza, no de este estado):
+
+- https://x.com/eliesgalvira/status/2106845980499083634
+- https://x.com/ManuDelUni/status/2052353915161620723
+- https://x.com/eliesgalvira/status/2051972355837079680
+- https://x.com/gnomepises/status/2051970471999189234
+- https://x.com/josasis/status/2051969469350580637
+- https://x.com/XMihura/status/2051960417065271729
+
+Dentro de la conversación, https://x.com/eliesgalvira/status/2052268905674965015 cita `2051972355837079680`.
+
+## Consultas y límites
+
+| Consulta | Resultado |
+|---|---|
+| `conversation_id:2051956145145712916` | 0. Ese ID no es la raíz. La raíz es `2051953980767367299`. |
+| `from:tzautxi to:eliesgalvira` (Latest, tope 10) | 7 posts. Paginación con `max_id:2052377541227262214` no añadió más. |
+| `conversation_id:2051953980767367299 from:tzautxi` | Los mismos 7. |
+| `filter:images` y `filter:media` (misma pareja y la conversación) | Las mismas 4 con foto. |
+| `from:tzautxi filter:images since:2026-05-06 until:2026-05-12` | Esas 4, más fotos de otra conversación (`2050975933646123517`). |
+| `in_reply_to_tweet_id:2051956145145712916` | Error de dependencia de X, dos veces. |
+| `quoted_tweet_id:2051956145145712916` | 0. |
+| `from:tzautxi to:tzautxi` en la conversación | 0. |
+
+El tope de la herramienta es 10 por llamada. Al pedir el hilo del padre solo devuelve una hija; la filiación se comprobó abriendo cada hija. No abrí ni descargué imágenes. La respuesta 6 que cuenta el padre no salió en estas búsquedas.

@@ -1,0 +1,20 @@
+1 | import { strict as assert } from 'node:assert'
+2 | import { redondearPython } from '/home/elies/.t3/worktrees/IRoboPF/t3-dc46a039/lib/dominio/compatibilidad-legacy/aritmetica-tabular.ts'
+3 | assert.equal(redondearPython(56294995342131.5, 3), 56294995342131.5)
+           ^
+AssertionError: Expected values to be strictly equal:
++ actual - expected
+
++ 56294995342131.51
+- 56294995342131.5
+                  ^
+
+ generatedMessage: true,
+     actual: 56294995342131.51,
+   expected: 56294995342131.5,
+   operator: "strictEqual",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/redondeos-legacy-v1/rojo-fuera-rango.mjs:3:8
+
+Bun v1.3.13 (Linux x64)

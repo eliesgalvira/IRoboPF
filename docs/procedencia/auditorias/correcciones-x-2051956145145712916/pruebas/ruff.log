@@ -1,0 +1,148 @@
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:6:24
+  |
+4 | from decimal import Decimal as D, ROUND_HALF_UP
+5 | import pymupdf
+6 | root=pathlib.Path.cwd(); out=root/'docs/procedencia/auditorias/correcciones-x-2051956145145712916'; cas=pathlib.Path('/home/elies/Repos…
+  |                        ^
+7 | rows=[]
+8 | for h,pages,url in [('918a1c126ddf1427506c151390f2326d7eaeaaeae174b1463ed1e87bf03c11d6',[2,3,16,17],'https://www.boe.es/boe/dias/2025/0…
+  |
+
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:6:99
+  |
+4 | from decimal import Decimal as D, ROUND_HALF_UP
+5 | import pymupdf
+6 | root=pathlib.Path.cwd(); out=root/'docs/procedencia/auditorias/correcciones-x-2051956145145712916'; cas=pathlib.Path('/home/elies/Repos…
+  |                                                                                                   ^
+7 | rows=[]
+8 | for h,pages,url in [('918a1c126ddf1427506c151390f2326d7eaeaaeae174b1463ed1e87bf03c11d6',[2,3,16,17],'https://www.boe.es/boe/dias/2025/0…
+  |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:9:24
+   |
+ 7 | rows=[]
+ 8 | for h,pages,url in [('918a1c126ddf1427506c151390f2326d7eaeaaeae174b1463ed1e87bf03c11d6',[2,3,16,17],'https://www.boe.es/boe/dias/2025/…
+ 9 |  b=(cas/h).read_bytes();assert hashlib.sha256(b).hexdigest()==h
+   |                        ^
+10 |  with pymupdf.open(cas/h) as pdf:
+11 |   for n in pages:
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:12:14
+   |
+10 |  with pymupdf.open(cas/h) as pdf:
+11 |   for n in pages:
+12 |    p=pdf[n-1];png=p.get_pixmap(dpi=110,alpha=False).tobytes('png'); ph=hashlib.sha256(png).hexdigest();dest=out/'facsímiles'/f'{ph}.pn…
+   |              ^
+13 |    rows.append({'documentSha256':h,'documentSha512':hashlib.sha512(b).hexdigest(),'url':url,'page':n,'bbox':list(p.rect),'quote':p.get…
+14 | (out/'citas-candidatas.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:12:67
+   |
+10 |  with pymupdf.open(cas/h) as pdf:
+11 |   for n in pages:
+12 |    p=pdf[n-1];png=p.get_pixmap(dpi=110,alpha=False).tobytes('png'); ph=hashlib.sha256(png).hexdigest();dest=out/'facsímiles'/f'{ph}.pn…
+   |                                                                   ^
+13 |    rows.append({'documentSha256':h,'documentSha512':hashlib.sha512(b).hexdigest(),'url':url,'page':n,'bbox':list(p.rect),'quote':p.get…
+14 | (out/'citas-candidatas.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:12:103
+   |
+10 |  with pymupdf.open(cas/h) as pdf:
+11 |   for n in pages:
+12 |    p=pdf[n-1];png=p.get_pixmap(dpi=110,alpha=False).tobytes('png'); ph=hashlib.sha256(png).hexdigest();dest=out/'facsímiles'/f'{ph}.pn…
+   |                                                                                                       ^
+13 |    rows.append({'documentSha256':h,'documentSha512':hashlib.sha512(b).hexdigest(),'url':url,'page':n,'bbox':list(p.rect),'quote':p.get…
+14 | (out/'citas-candidatas.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:12:137
+   |
+10 | …
+11 | …
+12 | …=hashlib.sha256(png).hexdigest();dest=out/'facsímiles'/f'{ph}.png';dest.parent.mkdir(exist_ok=True);dest.write_bytes(png)
+   |                                                                    ^
+13 | …hexdigest(),'url':url,'page':n,'bbox':list(p.rect),'quote':p.get_text(),'facsimile':str(dest.relative_to(root)),'facsimileSha256':ph,…
+14 | …False,indent=2)+'\n')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:12:170
+   |
+10 | …
+11 | …
+12 | …dest=out/'facsímiles'/f'{ph}.png';dest.parent.mkdir(exist_ok=True);dest.write_bytes(png)
+   |                                                                    ^
+13 | …box':list(p.rect),'quote':p.get_text(),'facsimile':str(dest.relative_to(root)),'facsimileSha256':ph,'dpi':110,'renderer':pymupdf.Vers…
+14 | …
+   |
+
+E731 Do not assign a `lambda` expression, use a `def`
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:15:1
+   |
+13 |    rows.append({'documentSha256':h,'documentSha512':hashlib.sha512(b).hexdigest(),'url':url,'page':n,'bbox':list(p.rect),'quote':p.get…
+14 | (out/'citas-candidatas.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
+15 | q=lambda x:x.quantize(D('.01'),rounding=ROUND_HALF_UP)
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+16 | bases=list(map(D,['5891.40','23565.60','44129.00']));r={}
+17 | for name,ts in [('empresa',['.0077','.0083','.0098']),('trabajador',['.0015','.0017','.0019'])]:
+   |
+help: Rewrite `q` as a `def`
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:16:53
+   |
+14 | (out/'citas-candidatas.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
+15 | q=lambda x:x.quantize(D('.01'),rounding=ROUND_HALF_UP)
+16 | bases=list(map(D,['5891.40','23565.60','44129.00']));r={}
+   |                                                     ^
+17 | for name,ts in [('empresa',['.0077','.0083','.0098']),('trabajador',['.0015','.0017','.0019'])]:
+18 |  annual=[b*D(t) for b,t in zip(bases,ts)];monthly=[q(b/12*D(t))*12 for b,t in zip(bases,ts)]
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:18:42
+   |
+16 | bases=list(map(D,['5891.40','23565.60','44129.00']));r={}
+17 | for name,ts in [('empresa',['.0077','.0083','.0098']),('trabajador',['.0015','.0017','.0019'])]:
+18 |  annual=[b*D(t) for b,t in zip(bases,ts)];monthly=[q(b/12*D(t))*12 for b,t in zip(bases,ts)]
+   |                                          ^
+19 |  r[name]={'sinRedondeo':[str(x) for x in annual],'sumaSinRedondeo':str(sum(annual)),'hipotesisRedondeoMensualPorTramo':[str(x) for x i…
+20 | r['cuotaImagen']={'exceso':'66548.01','producto45':str(D('66548.01')*D('.45')),'totalUnico':str(q(D('17901.50')+D('66548.01')*D('.45')…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:21:69
+   |
+19 |  r[name]={'sinRedondeo':[str(x) for x in annual],'sumaSinRedondeo':str(sum(annual)),'hipotesisRedondeoMensualPorTramo':[str(x) for x i…
+20 | r['cuotaImagen']={'exceso':'66548.01','producto45':str(D('66548.01')*D('.45')),'totalUnico':str(q(D('17901.50')+D('66548.01')*D('.45')…
+21 | (out/'pruebas/decimal.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r))
+   |                                                                     ^
+   |
+
+Found 13 errors (1 fixed, 12 remaining).
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+1 file reformatted
+E731 Do not assign a `lambda` expression, use a `def`
+  --> docs/procedencia/auditorias/correcciones-x-2051956145145712916/reproducir.py:52:1
+   |
+50 |     json.dumps(rows, ensure_ascii=False, indent=2) + "\n"
+51 | )
+52 | q = lambda x: x.quantize(D(".01"), rounding=ROUND_HALF_UP)
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+53 | bases = list(map(D, ["5891.40", "23565.60", "44129.00"]))
+54 | r = {}
+   |
+help: Rewrite `q` as a `def`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

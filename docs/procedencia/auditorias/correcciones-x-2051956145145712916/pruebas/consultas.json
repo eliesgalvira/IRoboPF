@@ -1,0 +1,31 @@
+{
+  "discoveryOnly": true,
+  "cli": "/run/current-system/sw/bin/grok -p <prompt> --output-format plain",
+  "rootRequested": "2051956145145712916",
+  "conversationDiscoveredAndAncestryChecked": "2051953980767367299",
+  "queries": [
+    "conversation_id:2051956145145712916",
+    "conversation_id:2051953980767367299",
+    "from:tzautxi to:eliesgalvira",
+    "from:tzautxi conversation_id:2051953980767367299",
+    "from:tzautxi conversation_id:2051956145145712916",
+    "quoted_tweet_id:2051956145145712916",
+    "url:x.com/eliesgalvira/status/2051956145145712916",
+    "in_reply_to_tweet_id:2051956145145712916",
+    "from:tzautxi to:eliesgalvira filter:images",
+    "conversation_id:2051953980767367299 filter:images",
+    "from:tzautxi filter:images (#IRPF OR #Irpf OR IRPF) since:2026-05-01 until:2026-06-01",
+    "from:tzautxi \"bases liquidables\"",
+    "from:tzautxi \"cuota íntegra general\"",
+    "from:tzautxi \"deducción por SMI\"",
+    "from:tzautxi \"eliminando la progresividad\""
+  ],
+  "expansion": "Consultar quoted_tweet_id e in_reply_to_tweet_id para los siete IDs relevantes; consultas de parentesco fallan por DependencyError según Grok, verificar relaciones por script.",
+  "pagination": "Latest/Top, max_id y since_id documentados por Grok en grok-02.txt; sin cursor, máximo diez resultados por búsqueda según descubridor.",
+  "candidatesNotExpanded": [
+    {"id":"1468598337930678274","reason":"Descubrimiento por frase, año2021 sin nexo IRoboPF según Grok; no verificado ni usado como afirmación."},
+    {"id":"2048434901678973198","reason":"Descubrimiento por frase sin nexo IRoboPF según Grok; no verificado ni usado como afirmación."},
+    {"id":"2044070750361882778","reason":"Descubrimiento por frase sin nexo IRoboPF según Grok; no verificado ni usado como afirmación."}
+  ],
+  "exhaustive": false
+}

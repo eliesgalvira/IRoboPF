@@ -116,5 +116,15 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", ".cache", "tools/oxlint/anti-slop"]
+  "exclude": [
+    "node_modules",
+    ".cache",
+    "tools/oxlint/anti-slop",
+    "docs/procedencia/revisiones/*/scratch/**",
+    "docs/procedencia/revisiones/*/tmp/**",
+    "docs/procedencia/revisiones/*/validacion/**",
+    "docs/procedencia/revisiones/*/checkout-validacion/**",
+    "docs/procedencia/revisiones/*/lint-input/**",
+    "docs/procedencia/revisiones/*/mypy-cache/**"
+  ]
 }

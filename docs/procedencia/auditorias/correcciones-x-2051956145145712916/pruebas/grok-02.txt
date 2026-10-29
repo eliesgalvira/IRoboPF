@@ -1,0 +1,130 @@
+Busco solo posts reales en X con esas consultas y devuelvo las URLs que salgan, sin completar IDs ni atribuir cifras. Empiezo por las búsquedas y los hilos que indicaste.La primera página devolvió 7 posts y el hilo de la cita está incompleto. Pagino con `max_id` y busco respuestas e imágenes en esos subhilos.La cita no tiene resultados y la búsqueda por `conversation_id` de ese estado tampoco. Sigo el hilo raíz y las respuestas con imagen para no dejar posts fuera del tope de 10.La búsqueda `from:tzautxi conversation_id:2051956145145712916` y las citas de ese estado devolvieron cero posts. Las imágenes de cálculo de @tzautxi en mayo de 2026 que cuelgan de ese estado están indexadas con `conversation_id:2051953980767367299`. No hay cursor: el tope es 10 por llamada y la paginación se hizo con `max_id` / `since_id`.
+
+## Límites
+
+| Herramienta | Tope | Paginación |
+|---|---|---|
+| `x_keyword_search` | 10 posts por llamada | Sin cursor. Página siguiente: `max_id:{id_más_antiguo − 1}`. Nada más nuevo: `since_id:{id_más_nuevo}` |
+| `x_thread_fetch` | 1 id por llamada | Devuelve un tramo de ancestros y algunos hijos, no el índice completo de respuestas |
+| `in_reply_to_tweet_id:2051956145145712916` | — | Falló: `DependencyError` en `search_by_raw_query`. No es un resultado vacío |
+
+## Consultas pedidas
+
+**`from:tzautxi to:eliesgalvira`** — Latest, límite 10: 7 posts. `max_id:2052377541227262213`: 0. `since_id:2053073034500587689`: 0. Top, límite 10: los mismos 7.
+
+**`from:tzautxi conversation_id:2051953980767367299`** — Latest, límite 10: los mismos 7. `max_id:2052377541227262213`: 0.
+
+**`from:tzautxi conversation_id:2051956145145712916`** — Latest, límite 10: 0. La misma consulta sin `from:tzautxi`: 0.
+
+**Citas de `2051956145145712916`** — `quoted_tweet_id:2051956145145712916` en Latest y en Top: 0. `url:x.com/eliesgalvira/status/2051956145145712916`: 0. `quoted_tweet_id:2051956145145712916 OR url:status/2051956145145712916`: 0. El post trae `Quotes=0`.
+
+Esos 7 posts de @tzautxi:
+
+- https://x.com/tzautxi/status/2053073034500587689 — https://pbs.twimg.com/media/HH36zkkXkAErR6H.jpg
+- https://x.com/tzautxi/status/2052783973697282073 — https://pbs.twimg.com/media/HHzyshBWEAgaE6w.jpg
+- https://x.com/tzautxi/status/2052755365448618457 — https://pbs.twimg.com/media/HHzW3HZWkAEDTPF.jpg
+- https://x.com/tzautxi/status/2052721834596942280 — https://pbs.twimg.com/media/HHyCL1mWIAMbXeN.jpg y https://pbs.twimg.com/media/HHy7m6DWkAIiG5j.png
+- https://x.com/tzautxi/status/2052650251916288170 — sin media
+- https://x.com/tzautxi/status/2052419389853417823 — sin media
+- https://x.com/tzautxi/status/2052377541227262214 — sin media
+
+`from:tzautxi to:eliesgalvira filter:images` devolvió solo los cuatro primeros.
+
+## Subhilo de 2051956145145712916
+
+`x_thread_fetch` coloca estos seis como respuestas directas. El post declara `Replies=6`. Su `conversation_id` en búsqueda es `2051953980767367299`, por eso la consulta con el id del padre no los encuentra.
+
+Con imagen:
+
+- https://x.com/tzautxi/status/2053073034500587689
+- https://x.com/tzautxi/status/2052783973697282073
+- https://x.com/tzautxi/status/2052755365448618457
+- https://x.com/tzautxi/status/2052721834596942280
+- https://x.com/eliesgalvira/status/2051958135284232358 — https://pbs.twimg.com/media/HHoEkW4WoAA0qX3.jpg
+
+Sin imagen:
+
+- https://x.com/tzautxi/status/2052650251916288170
+
+El propio estado, con una imagen:
+
+- https://x.com/eliesgalvira/status/2051956145145712916 — https://pbs.twimg.com/media/HHoC_HpXsAUmAB2.jpg
+
+El texto de `2053073034500587689` dice «200€». El resto de cifras de esas capturas no está en el texto recuperado.
+
+## Imágenes en la conversación 2051953980767367299
+
+`conversation_id:2051953980767367299 filter:images`, Latest, límite 10: 7 posts. `max_id:2051956145145712915`: 0.
+
+Esos 7 son los cuatro de @tzautxi, el de @eliesgalvira `2051958135284232358`, `2051956145145712916`, y:
+
+- https://x.com/ggonmar/status/2052039536595628528 — https://pbs.twimg.com/media/HHpOwP4XgAQ7woV.png
+
+El raíz no salió en esa búsqueda ni en ninguna página de `conversation_id:2051953980767367299`. Salió por `x_thread_fetch`, con cuatro imágenes:
+
+- https://x.com/eliesgalvira/status/2051953980767367299
+- https://pbs.twimg.com/media/HHoAWyyWgAEzwDX.png
+- https://pbs.twimg.com/media/HHoAgJKWIAE1lP7.png
+- https://pbs.twimg.com/media/HHoAqFRXwAEyB_A.png
+- https://pbs.twimg.com/media/HHoA07-WgAYdS47.png
+
+`x_thread_fetch` de ese raíz declara `Replies=9` y `Quotes=5`. Solo se recuperó el padre de cinco respuestas directas: `2051954311018541064`, `2052072886160998643`, `2052039536595628528`, `2052377541227262214`, `2053052857998245948`. No completo los otros cuatro padres.
+
+Paginación de `conversation_id:2051953980767367299` (Latest, límite 10): página 1 hasta `2052381438239027697`; `max_id:2052381438239027696` hasta `2052072886160998643` (9); `max_id:2052072886160998642` hasta `2051954311018541064` (10); `max_id:2051954311018541063`: 0.
+
+URLs de estado adicionales de esa paginación y de los hilos:
+
+- https://x.com/btc_remnant/status/2053053128790999409
+- https://x.com/btc_remnant/status/2053052857998245948 — incluye https://ktecho.com/CuantosImpuestos/
+- https://x.com/eliesgalvira/status/2052443783833198849
+- https://x.com/eliesgalvira/status/2052381438239027697
+- https://x.com/eliesgalvira/status/2052268905674965015 — cita a https://x.com/eliesgalvira/status/2051972355837079680 (otra cita; no es cita de `2051956145145712916`)
+- https://x.com/eliesgalvira/status/2052259380993691905 — incluye https://github.com/eliesgalvira/IRoboPF
+- https://x.com/ggonmar/status/2052163551565840677
+- https://x.com/eliesgalvira/status/2052118438529708469
+- https://x.com/nachoiz/status/2052114234155180326
+- https://x.com/eliesgalvira/status/2052095066609471668
+- https://x.com/eliesgalvira/status/2052094033342681172
+- https://x.com/DemarquiaCiu/status/2052072886160998643
+- https://x.com/LatamAnalyses/status/2052050393065042321
+- https://x.com/ggonmar/status/2052039591771648276
+- https://x.com/eliesgalvira/status/2052012315289985229
+- https://x.com/Freedombe4Peace/status/2051994315509924103
+- https://x.com/eliesgalvira/status/2051954837579800679 — incluye https://github.com/eliesgalvira/IRoboPF
+- https://x.com/eliesgalvira/status/2051954501121151263
+- https://x.com/eliesgalvira/status/2051954311018541064
+
+En el texto del raíz: https://www.irobopf.com/
+
+## Otras imágenes IRPF de @tzautxi en mayo de 2026
+
+Consulta auxiliar, no pedida con `conversation_id`: `from:tzautxi filter:images (#IRPF OR #Irpf OR IRPF) since:2026-05-01 until:2026-06-01`.
+
+Tres páginas Latest, límite 10: 10, luego `max_id:2052362505716928559` con 10, luego `max_id:2051657402097803440` con 8. La tercera tiene menos de 10, así que esa consulta queda cerrada. El padre inmediato no vino en el payload: solo el `conversation_id`. No fabrico la URL con usuario del raíz cuando el autor del raíz no se recuperó.
+
+Dentro de `2051953980767367299` se repiten los cuatro ya listados. El resto:
+
+- https://x.com/tzautxi/status/2057527177441136687 — conv `2057407627173204231` — https://pbs.twimg.com/media/HI3MMPSXcAAq7Vo.png
+- https://x.com/tzautxi/status/2057424802185453886 — conv `2057153131142643875` — https://pbs.twimg.com/media/HI1wyKKWsAAipza.png
+- https://x.com/tzautxi/status/2056769300585763001 — conv igual al post — https://pbs.twimg.com/media/HIsZkMUWMAAYpXE.png
+- https://x.com/tzautxi/status/2056741118687973799 — conv igual al post — https://pbs.twimg.com/media/HIrjI3FXwAEuZNc.jpg
+- https://x.com/tzautxi/status/2056659145269379256 — conv igual al post — https://pbs.twimg.com/media/HIqwDzkWcAAjXsT.jpg
+- https://x.com/tzautxi/status/2052362505716928560 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHt0soGW8Ao7cvv.jpg
+- https://x.com/tzautxi/status/2052341040816775401 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHte6wDWsAAGiyk.png
+- https://x.com/tzautxi/status/2052336978352275714 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHtdQMoWwAMA2Kb.png
+- https://x.com/tzautxi/status/2052334401304875035 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHta3X5W4AMSTKJ.png
+- https://x.com/tzautxi/status/2052331660469772654 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHtYTYIWcAEPfVr.png
+- https://x.com/tzautxi/status/2052286769710723515 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHsvYuYWgAQV1w8.png
+- https://x.com/tzautxi/status/2052091462691483654 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHpwtWKXYAMI3q1.png
+- https://x.com/tzautxi/status/2051930625351762234 — conv igual al post — https://pbs.twimg.com/media/HHnltDAXEAYwZdb.png
+- https://x.com/tzautxi/status/2051698239322108281 — conv `2051370909106069573` — https://pbs.twimg.com/media/HHkYpgpXQAURdNg.jpg
+- https://x.com/tzautxi/status/2051658507959640476 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHjz5xxXUAEzi2s.png
+- https://x.com/tzautxi/status/2051657402097803441 — conv `2050975933646123517` — https://pbs.twimg.com/media/HHjybzMWMAcWDAo.png
+- https://x.com/tzautxi/status/2051359315252961312 — conv `2050635884437914032` — https://pbs.twimg.com/media/HHfkKNnWcAAm-Yb.jpg
+- https://x.com/tzautxi/status/2051009214009479201 — conv igual al post — https://pbs.twimg.com/media/HHaeXmsXMAEp_WP.jpg
+- https://x.com/tzautxi/status/2050882480798900639 — conv `2049564980622537207` — https://pbs.twimg.com/media/HHYsyvaacAA7JeR.png
+- https://x.com/tzautxi/status/2050521371575292174 — conv `2047051777237733551` — https://pbs.twimg.com/media/HHToWMRW8AA2pMf.png
+- https://x.com/tzautxi/status/2050269955942199586 — conv igual al post — https://pbs.twimg.com/media/HHP3RqOXwAAvpTX.png
+- https://x.com/tzautxi/status/2050151900629041628 — conv `2049749775596028046` — https://pbs.twimg.com/media/HHOYeVNWEAACRHZ.jpg
+- https://x.com/tzautxi/status/2050149038830264682 — conv `2049776096141357501` — https://pbs.twimg.com/media/HHOV4MUXMAA4UgP.jpg
+- https://x.com/tzautxi/status/2050137134267269493 — conv `2047709931881578719` — https://pbs.twimg.com/media/HHOFBW7WMAAKHWK.jpg

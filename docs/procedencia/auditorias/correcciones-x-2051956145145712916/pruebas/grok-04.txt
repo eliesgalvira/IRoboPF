@@ -1,0 +1,24 @@
+Busco solo en X las citas y respuestas de esos siete IDs, y las cuatro frases literales de @tzautxi. Me quedo con URLs nuevas ligadas a IRoboPF y anoto las consultas que queden vacías.Las citas salen vacías. Compruebo el nexo IRoboPF de los dos posts extra de «deducción por SMI» y si hay respuestas que el hilo no haya mostrado.Solo hay dos URLs nuevas de IRoboPF, ambas respuestas en el hilo `2051953980767367299`. Ninguno de los siete IDs tiene citas.
+
+**URLs nuevas**
+- https://x.com/eliesgalvira/status/2052381438239027697 — respuesta a `2052377541227262214`. Menciona IRoboPF y el IPC. Su única respuesta es el ID ya pedido `2052419389853417823`.
+- https://x.com/eliesgalvira/status/2052443783833198849 — respuesta a `2052419389853417823`. Cierra la cadena (`Replies=0`): apartado en la página principal sobre deflactar el IRPF.
+
+**Consultas**
+
+| Consulta | Resultado |
+|---|---|
+| `quoted_tweet_id:` los 7 IDs | 0 en las siete |
+| Hilo de `2053073034500587689`, `2052783973697282073`, `2052755365448618457`, `2052721834596942280`, `2052650251916288170` | `Quotes=0`, `Replies=0` |
+| Hilo de `2052377541227262214` | 1 respuesta: `2052381438239027697` |
+| Hilo de `2052419389853417823` | 1 respuesta: `2052443783833198849` |
+| `from:tzautxi "bases liquidables"` | Solo `2053073034500587689` |
+| `from:tzautxi "cuota íntegra general"` | `2052755365448618457` y un post de 2021 sin nexo IRoboPF (`1468598337930678274`) |
+| `from:tzautxi "deducción por SMI"` | `2052650251916288170` y dos posts sin nexo: `2048434901678973198` (hilo propio de cuota de solidaridad, conv. `2047638381501313508`) y `2044070750361882778` (respuesta a @QuijoteFinanzas) |
+| `from:tzautxi "eliminando la progresividad"` | Solo `2052419389853417823` |
+
+**Huecos**
+- Citas: vacío. Los siete posts marcan `Quotes=0` y las siete búsquedas `quoted_tweet_id` no devolvieron nada.
+- Respuestas anidadas: cinco IDs sin respuestas. La cadena del 7 de mayo termina en `2052443783833198849`.
+- Frases: ningún post nuevo de @tzautxi con esas cuatro frases dentro de IRoboPF. Los otros tres aciertos son fiscales y no enlazan con IRoboPF.
+- `in_reply_to_tweet_id:` de los siete IDs, y de `2052381438239027697` y `2052443783833198849`, falló por error de dependencia de X. El recuento de respuestas sale del hilo, no de esa consulta.

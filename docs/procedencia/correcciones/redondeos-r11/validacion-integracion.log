@@ -1,0 +1,12 @@
+$ bun scripts/run-lint.mjs
+$ oxlint
+Failed to parse oxlint configuration file.
+
+  x Failed to load JS plugin: ./tools/oxlint/anti-slop/effect/index.ts
+  |   Error: Plugin name 'anti-slop-effect' is already registered. Use a different name or an alias in `jsPlugins`.
+  |     at registerPlugin (file:///home/elies/Repos/IRoboPF/node_modules/oxlint/dist/lint.js:17835:174)
+  |     at loadPlugin (file:///home/elies/Repos/IRoboPF/node_modules/oxlint/dist/lint.js:17815:51)
+
+error: script "lint:oxlint" exited with code 1
+$ eslint .
+error: script "lint" exited with code 1

@@ -1,0 +1,53 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  3 passed (3)
+      Tests  18 passed (18)
+   Start at  15:29:49
+   Duration  1.67s (transform 349ms, setup 0ms, import 961ms, tests 325ms, environment 0ms)
+
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/auditoria-fixture-canonico.test.ts (2 tests | 1 failed) 43064ms
+     × coteja las 18 hojas contra el XML original sin tolerancia de céntimo 43060ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/auditoria-fixture-canonico.test.ts > hashes del Excel extraídos independientemente > coteja las 18 hojas contra el XML original sin tolerancia de céntimo
+AssertionError: expected { schemaVersion: 1, …(3) } to deeply equal { schemaVersion: 1, …(3) }
+
+- Expected
++ Received
+
+@@ -2,11 +2,11 @@
+    "canonicalization": "tipo+valor-tabular-normalizado-a-2-decimales-v1",
+    "schemaVersion": 1,
+    "sheets": [
+      {
+        "columns": 13,
+-       "dataHash": "627cf1cc27c738fea611b47fb83c7e8060f4507761de4e402f571f146535b788",
++       "dataHash": "6f6c00742449f5a0f1057235b0fc8c3fd6f6a4e84976dc0db6235894e4b0606b",
+        "dataRows": 1290,
+        "headerHash": "807c9e6f82c9c88f24cf0fc6783925eb37e5aab9567fcce381003817b75bfe14",
+        "name": "COMPARATIVA_INFLACION",
+      },
+      {
+
+ ❯ tests/auditoria-fixture-canonico.test.ts:105:20
+    103|     }
+    104|
+    105|     expect(actual).toEqual(esperado)
+       |                    ^
+    106|   }, 120_000)
+    107| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  15:29:51
+   Duration  43.45s (transform 93ms, setup 0ms, import 281ms, tests 43.06s, environment 0ms)
+

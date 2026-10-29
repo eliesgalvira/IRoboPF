@@ -1,0 +1,15 @@
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+$ bun scripts/test-lint.mjs
+16 reglas a error; ambos plugins cargan y rechazan el fixture.
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  2 passed (2)
+      Tests  10 passed (10)
+   Start at  15:37:59
+   Duration  609ms (transform 50ms, setup 0ms, import 395ms, tests 15ms, environment 0ms)
+

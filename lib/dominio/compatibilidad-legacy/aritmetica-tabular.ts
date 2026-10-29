@@ -34,7 +34,8 @@ export const redondearPython = (valor: number, decimales = 2): number => {
     (restoDoble === denominador && entero % 2n !== 0n)
       ? entero + 1n
       : entero
-  return (Math.sign(valor) * Number(ajustado)) / 10 ** decimales
+  // Parsear la magnitud decimal completa evita redondear antes de dividir.
+  return Number(`${valor < 0 ? "-" : ""}${ajustado}e-${decimales}`)
 }
 
 // Mantiene la presentación histórica de la API de céntimos (empate hacia +∞).
