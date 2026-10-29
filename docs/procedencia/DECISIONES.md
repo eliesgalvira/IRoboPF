@@ -28,6 +28,12 @@ La instrucción inicial del orquestador de permitir `jj git init --colocate` en 
 
 Objeción experta: ni un índice ni un commit aislado bastan para acreditar una entrega si se ha mezclado el control del checkout. Se comprobarán árbol base, árbol entregado, índice y presencia real de archivos; no se aceptarán borrados no autorizados. Coste: integración selectiva y comprobación adicional por entrega, sin perder el trabajo en disco ni restaurarlo destructivamente.
 
+## D007. Investigar actividades económicas antes de comprometer su implementación
+
+La primera revisión de capacidades propone una vertical de estimación directa simplificada de 2025, distinta del salario. Se encarga investigación oficial de reglas, entradas, derivaciones y exclusiones de ese ámbito; la decisión de implementarlo dependerá de evidencia, revisión independiente y pruebas. No se presenta como cobertura actual ni se extienden sus parámetros a otros ejercicios.
+
+Objeción experta: presentar facturación como salario, reducir RETA a una cotización empresarial o ignorar amortizaciones y regímenes produciría una falsa cobertura de autónomos. Se rechazan esos atajos. Coste aceptado: investigación adicional y alcance inicial estrecho, manteniendo visibles los regímenes y años no implementados. Los requisitos de producto detectados no se convierten automáticamente en reglas fiscales aceptadas.
+
 ## D004. Oxlint anti-slop junto a ESLint de Next
 
 Se mantienen los presets core-web-vitals y typescript de eslint-config-next 16.1.7 y se añade oxlint 1.78.0 con @oxlint/plugins de la misma versión exacta. El runtime anti-slop v0.1.2 queda incorporado con licencia y hashes. Las 15 reglas generales y la regla Effect están a error. El script lint ejecuta ambos analizadores y falla si cualquiera falla.
