@@ -9,6 +9,9 @@ import {
   ParametrosNormativosIrpf,
 } from "../lib/dominio/irpf/comunidades/comunidad-autonoma"
 import type { ComunidadAutonoma } from "../lib/dominio/irpf/caso-fiscal-anual"
+import { calcularCuotaPorEscala } from "../lib/dominio/irpf/cuotas/escalas-gravamen"
+import { redondearImporteLiquidado } from "../lib/dominio/dinero/importe-monetario"
+import { ESCALAS_AUTONOMICAS_IRPF_2020 } from "../lib/dominio/normativa/datos/irpf-autonomico-2020"
 import { obtenerMinimosAutonomicosIrpf2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
 import { obtenerMinimosAutonomicosIrpf2024 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2024"
 import { obtenerMinimosAutonomicosIrpf2023 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2023"
@@ -48,6 +51,18 @@ const fechaUtc = (fechaIso: string) =>
   DateTime.toDateUtc(DateTime.makeUnsafe(fechaIso))
 
 describe("comunidad autónoma", () => {
+  it("respeta el límite legal de Madrid 2020 aunque el manual AEAT contenga una errata", () => {
+    // BOCM-20181228-1, PDF p. 4, art. único.Dos; revisión AUT1721-MADRID-2020-LIMITE.
+    // Cuota publicada: 7.395,81 + (53.407,29 − 53.407,20) × 21% = 7.395,8289.
+    // Este caso discrimina el límite; no valida toda la política de cuotas fijas.
+    const cuota = calcularCuotaPorEscala({
+      base: new Decimal("53407.29"),
+      tramos: ESCALAS_AUTONOMICAS_IRPF_2020.madrid.tramos,
+    })
+
+    expect(redondearImporteLiquidado(cuota).toFixed(2)).toBe("7395.83")
+  })
+
   it.effect(
     "expone los parámetros normativos del IRPF como servicio Effect",
     () =>

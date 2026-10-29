@@ -52,6 +52,12 @@ La revisión adversarial demuestra que una cita puede repetir un valor y declara
 
 Objeción experta: una igualdad entre dos campos suministrados por la misma cita no verifica el valor ejecutable ni la independencia de la revisión. Motivo: impedir una certificación circular y conservar el trabajo útil de adquisición y facsímiles. Coste aceptado: mayor integración y pruebas adversariales; mientras falte ese puente, la salida solo acredita las comprobaciones técnicas que realmente ejecuta, sin aceptación fiscal global. Los ocho hallazgos y reproducciones se conservan en `revisiones/corpus/`.
 
+## D012. Corregir el límite madrileño con la norma, conservando la discrepancia del manual
+
+La segunda lectura independiente identifica 53.407,20 euros en la Ley 6/2018 y acredita su continuidad en 2020; el manual AEAT 2020 publica 53.407,29. Se corrige el límite y su referencia después de una prueba realmente fallida. Se conservan ambos originales y el razonamiento de vigencia. No se reescriben el manual ni el oracle para hacerlos coincidir.
+
+Objeción experta: un cambio de límite no resuelve la diferencia entre integrar tipos y usar cuotas acumuladas publicadas. Motivo: la prueba elegida discrimina este error con la política monetaria actual sin exigir una decisión global aún pendiente. Coste aceptado: aceptación limitada al límite y al caso, con el resto de la política de cuotas abierto; ninguna certificación de una declaración completa. La explicación de ejercicio se corrige separadamente como defecto documental acreditado.
+
 ## D004. Oxlint anti-slop junto a ESLint de Next
 
 Se mantienen los presets core-web-vitals y typescript de eslint-config-next 16.1.7 y se añade oxlint 1.78.0 con @oxlint/plugins de la misma versión exacta. El runtime anti-slop v0.1.2 queda incorporado con licencia y hashes. Las 15 reglas generales y la regla Effect están a error. El script lint ejecuta ambos analizadores y falla si cualquiera falla.

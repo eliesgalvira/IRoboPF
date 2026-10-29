@@ -1789,6 +1789,33 @@ describe("liquidarIrpfAnual", () => {
       })
   )
 
+  it("explica el ejercicio realmente seleccionado para la comunidad autónoma", () => {
+    const caso = {
+      anio: 2020,
+      comunidadAutonoma: "madrid",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: 40,
+        descendientes: [],
+        ascendientes: [],
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [{ importeIntegroCentimos: 30_000_00 }],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: 0,
+      pagosACuentaCentimos: 0,
+    } satisfies CasoFiscalAnual
+
+    const resultado = liquidarCasoCanonico(caso)
+    const paso = resultado.rastro.pasos.find(
+      (paso) => paso.titulo === "Comunidad autónoma"
+    )
+    expect(paso?.descripcion).toContain("escala autonómica general de 2020")
+  })
+
   it("liquida una comunidad real con su escala autonómica de 2025", () => {
     const caso = {
       anio: 2025,
