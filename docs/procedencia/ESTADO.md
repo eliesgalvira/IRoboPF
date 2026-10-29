@@ -2,7 +2,19 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 27 del 29 de octubre
+## Situación más reciente, ronda 28 del 29 de octubre
+
+Recibidas las tres entregas R26: revisión de preservación, revisión de escalas/mínimos y candidato v5 r2. Son 145 archivos y 19.357.067 bytes; cotejo físico de 15.456 entradas en cada checkout, sin diferencias de base ni borrados. Los manifiestos y los informes históricos permanecen intactos. La corroboración acotada de preservación R26 no abre una revisión recursiva; el nuevo consumidor y censo v5 sí necesitan revisión independiente.
+
+V5 r2 conserva el corte R26 y el pin externo `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88`. El padre verifica las copias del autor, conserva un paquete fuera de T3 y realiza una restauración nueva. Las cuatro copias coinciden: 18.146 archivos y 2.169.593.524 bytes por copia, sin hardlinks; fsync confirmado en las nuevas. Los 165 fragmentos del censo y las dependencias de su entrada anterior son recuperables. Ubicación: `.cache/orquestador-preservacion/v5-r2-2b15925970d4/`. No se presenta como censo exhaustivo, corte actual ni custodia independiente. Crossa mantiene v1 desfasado. Recibos en correcciones/recepcion-r26-r28.
+
+El padre prepara una edición separada de los grafos: seis argumentos corregidos en sus dos representaciones, referencia monetaria pertinente, cuatro propiedades constantes, ocho descripciones de rama y controles de familia/modo. El localizador de selección SS distingue la obtención del servicio de la declaración homónima que selecciona el cálculo. Los originales y rojos siguen intactos. Puertos, condiciones, lados, conversiones y cierres incompletos impiden componer o publicar automáticamente; los candidatos no cambian cifras fiscales.
+
+La primera reproducción del instrumento falló porque Bun resolvió el módulo hacia una declaración de tipos. Fallo y validación sin artefacto conservados; no cuentan como rojos fiscales o gráficos. Se ejecuta con Node y recibo de casos exigido. Con Node, 54 comprobaciones reproducen 28 fallos en los originales y pasan con las 28 sustituciones candidatas en cuatro artefactos. Pasan tres schemas, transporte exacto, tipos, oxlint, Ruff y mypy del alcance. Recuentos solapados; no son 28 errores fiscales independientes. Revisión nueva pendiente antes de composición/publicación.
+
+Se preparan dos revisiones nuevas y una implementación sustantiva del contrato común de puertos y composición de los 65 sitios. Cada nueva delegación usará explícitamente gpt-6.1-sol, high y priority. Ha terminado la revisión Madrid2020 v2 y se ha leído su mensaje final: comunica discordancia visible entre ley y manual y mantiene el payload bloqueado por su decisión histórica. Queda en cola de recepción física por manifiesto; no se promueve nada por ese mensaje. Las dos tareas R27 de multiplicidad y CAS externo continúan, sin sondeos ni lectura parcial. Inventario, motor, 38 snapshots y confianza activa permanecen intactos. Sin LFS, gasto, transferencia externa, PR, main, despliegue o limpieza. El encargo global sigue abierto.
+
+## Situación anterior, ronda 27 del 29 de octubre
 
 Recibidas por manifiesto las tres entregas R25 y la revisión de retenciones/SS R26: 197 archivos, 19.114.837 bytes. Cotejo físico completo de tres bases de 15.175 entradas y una de 15.456, cero diferencias o borrados. Informe y cola en correcciones/recepcion-r25-r26-r27; los informes y rojos históricos se conservan intactos.
 

@@ -1,0 +1,11 @@
+11432 |      * @param transformers An array of `TransformerFactory` callbacks used to process the transformation.
+11433 |      * @param compilerOptions Optional compiler options.
+11434 |      */
+11435 |     function transform<T extends Node>(source: T | T[], transformers: TransformerFactory<T>[], compilerOptions?: CompilerOptions): TransformationResult<T>;
+11436 | }
+11437 | export = ts;
+                 ^
+ReferenceError: ts is not defined
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.d.ts:11437:10)
+
+Bun v1.3.13 (Linux x64)

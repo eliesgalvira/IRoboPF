@@ -1,0 +1,144 @@
+E702 Multiple statements on one line (semicolon)
+   --> docs/procedencia/preservacion-v5-sol/recolector.py:124:42
+    |
+122 |                         value = c.p.strict_json(stream.read())
+123 |                     for obs in observations(value,name):
+124 |                         sha=obs['sha256']; classes[obs['kind']]+=1
+    |                                          ^
+125 |                         refs.setdefault(sha,set()).add(name)
+126 |                         obs['resolvedInV4']=sha in objects or sha in remap
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> docs/procedencia/preservacion-v5-sol/recolector.py:145:36
+    |
+143 |     missing = c.p.strict_json((ROOT/'docs/procedencia/correcciones/preservacion-v4-r26/faltantes-localizados.json').read_bytes())
+144 |     for row in missing:
+145 |         path=Path(row['localPath']); c.p.check(path,row); sha=row['sha256']
+    |                                    ^
+146 |         locations[sha]=path
+147 |         # El registro fuente se transporta íntegro salvo política de metadatos; no inventar fecha/HTTP.
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> docs/procedencia/preservacion-v5-sol/recolector.py:145:57
+    |
+143 |     missing = c.p.strict_json((ROOT/'docs/procedencia/correcciones/preservacion-v4-r26/faltantes-localizados.json').read_bytes())
+144 |     for row in missing:
+145 |         path=Path(row['localPath']); c.p.check(path,row); sha=row['sha256']
+    |                                                         ^
+146 |         locations[sha]=path
+147 |         # El registro fuente se transporta íntegro salvo política de metadatos; no inventar fecha/HTTP.
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> docs/procedencia/preservacion-v5-sol/recolector.py:157:45
+    |
+155 |                 candidate=c.PARENT/'.cache/procedencia'/area/sha
+156 |                 if candidate.is_file() and not candidate.is_symlink() and c.p.fingerprint(candidate)['sha256']==sha:
+157 |                     locations[sha]=candidate; break
+    |                                             ^
+158 |     # Nuevos bytes sin clasificación oficial acreditada se conservan como auxiliares, nunca se promueven a PDF.
+159 |     for sha,path in locations.items():
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> docs/procedencia/preservacion-v5-sol/recolector.py:161:41
+    |
+159 |     for sha,path in locations.items():
+160 |         if sha in objects:
+161 |             c.p.check(path,objects[sha]); c.put(path,stage/'sha256'/sha)
+    |                                         ^
+162 |         elif sha in refs:
+163 |             dep(path,'residuos-por-identidad/'+sha)
+    |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:16:23
+   |
+14 |     deps={d['path']:d for d in m['dependencies']}
+15 |     def data(name):
+16 |         row=deps[name]; path=package/'dependencies'/row['sha256']; c.p.check(path,row)
+   |                       ^
+17 |         raw=path.read_bytes()
+18 |         return c.p.strict_json(gzip.decompress(raw) if name.endswith('.gz') else raw)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:16:66
+   |
+14 |     deps={d['path']:d for d in m['dependencies']}
+15 |     def data(name):
+16 |         row=deps[name]; path=package/'dependencies'/row['sha256']; c.p.check(path,row)
+   |                                                                  ^
+17 |         raw=path.read_bytes()
+18 |         return c.p.strict_json(gzip.decompress(raw) if name.endswith('.gz') else raw)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:29:50
+   |
+27 |         row=data('docs/procedencia/correcciones/editorial-r21/citas/'+name+'.json')
+28 |         with fitz.open(blob(row['original']['sha256'])) as doc:
+29 |             sel,rec=row['selector'],row['receta']; page=doc[sel['pagina']-1]
+   |                                                  ^
+30 |             text=page.get_textbox(fitz.Rect(sel['caja']))
+31 |             png=page.get_pixmap(matrix=fitz.Matrix(*rec['matrix']),clip=fitz.Rect(rec['clip']),alpha=rec['alpha']).tobytes('png')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:38:33
+   |
+36 |     missing=data('docs/procedencia/correcciones/preservacion-v4-r26/faltantes-localizados.json')
+37 |     for row in missing:
+38 |         path=blob(row['sha256']); c.p.check(path,row)
+   |                                 ^
+39 |         result={'sha256':row['sha256'],'verified':True}
+40 |         if path.read_bytes()[:4]==b'%PDF':
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:59:35
+   |
+57 |         results['missingRecovered'].append(result)
+58 |     large=deps['docs/procedencia/auditorias/retenciones-2020-2026/citas-candidatas.json']
+59 |     large_data=data(large['path']); results['largeIndex']={'dependency':large,'parsedRoot':type(large_data).__name__}
+   |                                   ^
+60 |     historical=next(d for d in m['dependencies'] if d['path']=='herencia-v4/heredado/manifest.json')
+61 |     results['historical']={'dependency':historical,'root':list(data(historical['path']).keys())}
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:66:42
+   |
+64 |     for folder,rows in [('sha256',m['objects']),('dependencies',m['dependencies'])]:
+65 |         for row in {r['sha256']:r for r in rows}.values():
+66 |             a=export/folder/row['sha256']; b=package/folder/row['sha256']
+   |                                          ^
+67 |             c.p.check(a,row); c.p.check(b,row)
+68 |             assert a.stat().st_ino!=b.stat().st_ino and a.stat().st_nlink==b.stat().st_nlink==1
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:67:29
+   |
+65 |         for row in {r['sha256']:r for r in rows}.values():
+66 |             a=export/folder/row['sha256']; b=package/folder/row['sha256']
+67 |             c.p.check(a,row); c.p.check(b,row)
+   |                             ^
+68 |             assert a.stat().st_ino!=b.stat().st_ino and a.stat().st_nlink==b.stat().st_nlink==1
+69 |             results['physical']['files']+=1;results['physical']['bytes']+=row['size']
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:69:44
+   |
+67 |             c.p.check(a,row); c.p.check(b,row)
+68 |             assert a.stat().st_ino!=b.stat().st_ino and a.stat().st_nlink==b.stat().st_nlink==1
+69 |             results['physical']['files']+=1;results['physical']['bytes']+=row['size']
+   |                                            ^
+70 |     (c.HERE/'recuperacion.json').write_bytes(c.p.encoded(results))
+71 |     print('Recuperación sin fallback: cuatro originales, tres textos/PNG exactos, índice grande e histórico; sin hardlinks')
+   |
+
+Found 17 errors (4 fixed, 13 remaining).

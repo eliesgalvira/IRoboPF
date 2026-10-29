@@ -373,3 +373,15 @@ La segunda ejecución del lote supera la colisión y rechaza la URL BORM que inc
 ## D082 — Mantener el original grande y separar su almacenamiento
 
 El lote completo llega al publicador y falla por el BOE-A-2010-19703 de 42.900.459 bytes, utilizado por 36 enlaces. Objeción: elevar el límite genérico permitiría incorporar originales grandes al repositorio y no resolvería su custodia ni transporte. Respuesta: conservar los bytes y el fallo, mantener la puerta de diez millones para el almacén versionado y preparar un contrato explícito de CAS local externo con resolución por hash. Coste: nueva implementación y revisión de publicación/restauración; el lote de 264 continúa bloqueado. El ensayo de los otros 228 se identifica como subconjunto con exclusiones enumeradas, nunca como cierre global. No se autoriza LFS, gasto, alojamiento ni transferencia externa.
+
+## D083 — Preservar v5 r2 con su entrada exacta y sin ampliar el corte
+
+Se designa el pin final r2 y se conserva fuera de T3 junto al manifiesto anterior que usa su receta. Objeción: la recuperación de un paquete no prueba que su censo sea exhaustivo ni que la colección inicial sea determinista. Respuesta: separar restauración por hash, revisión mecánica r2 y selección candidata R26; mantener las referencias no resueltas y los límites de gramática. Coste: dos copias locales adicionales, entrada histórica y revisión nueva del consumidor/censo. No se presenta la errata «cuatro» como número de herramientas: la lista efectiva contiene cinco. Crossa v1 continúa desfasado y no se actualiza implícitamente.
+
+## D084 — Corregir la identidad del consumo antes de componer
+
+Los rangos de argumento se fijan por llamada AST, las cuatro propiedades constantes pierden una dependencia territorial falsa y las ramas se describen por su condición real. Objeción: un texto coincidente en otro lugar puede referir a otro productor o guardar una relación distinta. Respuesta: conservar separadamente declaración, argumento y propiedad, con hash y rango exactos; la referencia monetaria y la selección de modo se anclan al código que efectivamente las implementa. Coste: una edición candidata separada y revisión independiente de las sustituciones; no modificar la autoría histórica ni afirmar cierre por esos controles.
+
+## D085 — Construir un contrato común de puertos para las páginas
+
+La siguiente implementación compone los 65 sitios mediante propiedades, llamadas, unidades y condiciones, con direcciones explícitas entre lotes. Objeción: pedir un analizador general de causalidad sería una promesa no sustentada, pero unir aristas por nombre generaría relaciones falsas. Respuesta: un subconjunto AST declarado, fronteras y decisiones editoriales revisables, rechazo de referencias incoherentes y cierre por sitio únicamente cuando llega a terminales admitidos. Los desconocidos bloquean ese cierre; valor, selección y admisión se conservan separados. Coste: adaptadores y pruebas discriminantes adicionales antes del wiring, sin modificar el motor fiscal ni heredar aceptación jurídica de la estructura. Las rectificaciones R28 siguen candidatas mientras se revisan en paralelo.

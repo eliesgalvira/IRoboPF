@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/docs/procedencia/preservacion-v5-sol/materializar.py", line 33, in <module>
+    main()
+    ~~~~^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/docs/procedencia/preservacion-v5-sol/materializar.py", line 28, in main
+    c.p.check(root / name, row)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/tools/procedencia/preservacion.py", line 265, in check
+    if fingerprint(path) != {k: blob[k] for k in ('sha256', 'sha512', 'size')}:
+       ~~~~~~~~~~~^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/tools/procedencia/preservacion.py", line 39, in fingerprint
+    raise ValueError('Se requiere archivo regular sin enlace')
+ValueError: Se requiere archivo regular sin enlace

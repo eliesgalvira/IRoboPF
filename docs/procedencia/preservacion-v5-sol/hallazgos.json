@@ -1,0 +1,17 @@
+{
+  "base": "6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9",
+  "packageManifestSha256": "2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88",
+  "review": "pendiente de contraste independiente nuevo",
+  "fiscalAcceptance": false,
+  "cases": [
+    {"id":"V5-C01","status":"corregido-candidato","claim":"Array de hashes documentales omitido por la primera gramática","before":"antes.log: 0 observaciones frente a 1 esperada","after":"regresiones.log: esperado intacto, pasa","limit":"No acredita exhaustividad de otras gramáticas"},
+    {"id":"V5-C02","status":"recuperado-candidato","claim":"Cuatro originales PV24-01 presentes con ambas huellas y tamaño","evidence":"r2/recuperacion.json","limit":"Integridad y recuperación, no autenticidad jurídica"},
+    {"id":"V5-C03","status":"corregido-candidato","claim":"Software fijado sin dependencia transportada en el primer pin v5","before":"cierre-software-antes.log y recuperacion.log","after":"recuperacion-r2.log: 21 fuentes sin ausencias ni transformaciones","limit":"No se autoaprueba el consumidor general"},
+    {"id":"V5-C04","status":"reproducido","claim":"Tres textos y PNG exactos desde restauración","evidence":"r2/recuperacion.json","limit":"Tres dominios fiscales, no tres hosts ni reglas aceptadas"},
+    {"id":"V5-C05","status":"reproducido","claim":"Dos selectores existentes INE recuperan el valor original","evidence":"r2/selectores-ine.json","limit":"Sin cita PDF o PNG inventado"},
+    {"id":"V5-C06","status":"reproducido","claim":"Índice grande derivado regenerado byte a byte y HTML a84 histórico reproducido","evidence":"r2/suplemento.json","limit":"No recupera por hash los campos saneados ni reinstala Nix desde cero"},
+    {"id":"V5-C07","status":"verificado","claim":"Conjunto exacto, hashes dobles, tamaño, fsync y ausencia de hardlinks entre copias","evidence":"r2/exportacion.json, r2/restauracion.json, r2/recuperacion.json","limit":"Mismo disco; sin custodia independiente, apagado o escritor hostil simulado"},
+    {"id":"V5-C08","status":"limite-abierto","claim":"Referencias por IDs/URLs sin hash, claves hash y SHA512 solo no se resuelven semánticamente","evidence":"censo-resumen.json, CENSO-EXTERNO.json","limit":"No certificar exhaustividad ni convertir 14197 identidades no resueltas en PDFs"},
+    {"id":"V5-C09","status":"corregido-en-revision-mecanica","claim":"Primera colección depende de resultados propios y gzip con hora; r2 usa input fijo y selección explícita","evidence":"recolector2.py y r2/PIN-final.json","limit":"La primera colección completa conserva su límite; reconstruir r2 requiere también el input anterior fijado"}
+  ]
+}

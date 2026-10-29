@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import {Decimal as D} from '/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs'
+import ts from '/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js'
+const root=process.cwd(), out='docs/procedencia/revisiones/flujo-escalas-r26-sol'
+const {calcularCuotaPorEscala:F,calcularDesgloseCuotaPorEscala:rows}=await import(`${root}/lib/dominio/irpf/cuotas/escalas-gravamen.ts`)
+const pub=await import(`${root}/lib/dominio/irpf/cuotas/escalas-publicadas.ts`)
+const {obtenerParametrosComunidadAutonoma:select}=await import(`${root}/lib/dominio/irpf/comunidades/comunidad-autonoma.ts`)
+const {calcularAhorroConMinimos:save,calcularCuotaPorEscalaAhorro:combined}=await import(`${root}/lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts`)
+const results=[]
+function test(id,run){try{results.push({id,status:'pass',observed:run()})}catch(error){results.push({id,status:'red',error:String(error)})}}
+const tarifa=(base,table)=>F({base:new D(base),tramos:[],escalasPublicadas:[table]}).toFixed()
+const row=(l,q,t)=>({baseInferior:new D(l),cuota:new D(q),tipo:new D(t)})
+test('Q-L-t-upper',()=>{const a=[row(0,0,'.1'),row(100,7,'.2'),row(200,99,'.8')];const before=tarifa(150,a);assert.equal(before,'17');a[2].baseInferior=new D(300);assert.equal(tarifa(150,a),before);a[1].cuota=new D(8);assert.equal(tarifa(150,a),'18');return {before,upperChangedInvariant:true,Qchanged:'18'}})
+test('last-eligible-array-order',()=>{const a=[row(0,0,'.1'),row(100,7,'.2'),row(50,9,'.3')];assert.equal(tarifa(150,a),'39');return 'findLast en orden del array; no máximo numérico independiente del orden'})
+test('undefined-vacio',()=>{const a={base:new D(100),tramos:[[new D(Infinity),new D('.1')]]};assert.equal(F(a).toFixed(),'10');assert.equal(F({...a,escalasPublicadas:[]}).toFixed(),'0');return ['10','0']})
+test('murcia-60000',()=>{const values=['60000','60000.01'].map(b=>rows({base:new D(b),tramos:[],escalasPublicadas:[pub.MURCIA_2022]})[0].limiteInferior.toFixed());assert.notEqual(values[0],values[1]);return values})
+for(const [year,community,cut,property] of [[2015,'illes-balears','2015-12-31','escala'],[2022,'comunitat-valenciana','2022-10-28','escala'],[2023,'extremadura','2023-09-15','escala'],[2023,'illes-balears','2023-11-26','segundo']])test(`corte-${year}-${community}`,()=>{const at=Date.parse(`${cut}T00:00:00Z`);const vals=[at-1,at,at+1].map(t=>select({anio:year,comunidadAutonoma:community,fechaFallecimiento:new Date(t)}));const pick=r=>property==='segundo'?r.minimosAutonomicos.descendientes.segundo:r.escalaAutonomica;assert.notEqual(pick(vals[0]),pick(vals[1]));assert.equal(pick(vals[1]),pick(vals[2]));if(property==='segundo')assert(vals.every(r=>r.minimosAutonomicos.contribuyente.general.eq(5550)));return {cut,property,changesAtCut:true}})
+for(const year of [2020,2021])test(`catalunya-${year}`,()=>{const vals=['-1','12450','12450.01','999999'].map(b=>select({anio:year,comunidadAutonoma:'catalunya',baseLiquidableGeneral:new D(b)}).minimosAutonomicos);assert(vals.every(m=>m===vals[0]));return 'Mismo objeto mínimo; no conclusión normativa'})
+for(const year of [2014,2015])test(`galicia-${year}`,()=>{const vals=['17707.20','17707.21'].map(b=>select({anio:year,comunidadAutonoma:'galicia',baseLiquidableGeneral:new D(b)}).escalaAutonomica);assert.notEqual(vals[0],vals[1]);return 'Cambio de tarifa; no mínimo catalán'})
+test('simulada-2015-2016',()=>{const v=[2015,2016].map(anio=>select({anio,comunidadAutonoma:'simulada-estatal'}).escalaAutonomicaIgualEstatal);assert.deepEqual(v,[false,true]);return v})
+test('264-tablas',()=>{const cells=JSON.parse(fs.readFileSync('docs/procedencia/correcciones/editorial-r21/escalas-celdas.json','utf8'));for(const c of cells){const s=c.selector;const tables=s.territorio==='estatal-comun'?[pub.ESTATAL_ORDINARIA_2012_2014,pub.ESTATAL_COMPLEMENTARIA_2012_2014]:[pub.obtenerEscalaAutonomicaPublicada({anio:s.ejercicio,comunidadAutonoma:s.territorio})];assert(tables.includes(pub[s.simbolo]),c.id)}return '264 identidades comprobadas, ninguna promoción'})
+test('ahorro-regimen',()=>{const v=[2014,2015].map(anio=>{const p={anio,base:new D(10000),baseGeneral:new D(0),minimoEstatal:new D(8000),minimoAutonomico:new D(5550)};const r=save(p);return {anio,conjunta:combined(p).toFixed(),estatal:r.estatal.despuesMinimo.toFixed(),autonomico:r.autonomico.despuesMinimo.toFixed(),minoracion:r.estatal.minoracion.plus(r.autonomico.minoracion).toFixed()}});assert.notEqual(v[0].estatal,v[1].estatal);return v})
+test('AST-familia-y-diferencial',()=>{const files=['lib/dominio/irpf/minimos/derechos.ts','lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts'];const facts=[];for(const file of files){const text=fs.readFileSync(file,'utf8'),sf=ts.createSourceFile(file,text,ts.ScriptTarget.Latest,true);function visit(n){if(ts.isCallExpression(n)&&['calcularCuotaDiferencialCentimos','validarRentasAnualesDerechos'].includes(n.expression.getText(sf)))facts.push({file,start:n.getStart(sf),end:n.end,text:n.getText(sf)});ts.forEachChild(n,visit)}visit(sf)}assert(facts.some(f=>f.text.includes('retencionesSoportadasCentimos')));return facts})
+fs.writeFileSync(`${out}/casos-resultados.json`,JSON.stringify(results,null,2)+'\n')
+console.log(JSON.stringify(results));if(results.some(r=>r.status==='red'))process.exitCode=1

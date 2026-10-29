@@ -1,0 +1,202 @@
+Using CPython 3.13.15 interpreter at: /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3
+Creating virtual environment at: .cache/preservacion-v4-r26-sol/venv
+Installed 6 packages in 4ms
+test_r24_conjunto_exacto (rojos.Rojos.test_r24_conjunto_exacto) ... FAIL
+test_r24_dep_identidad_coherente (rojos.Rojos.test_r24_dep_identidad_coherente) ... FAIL
+test_r24_hash512_fin_absoluto (rojos.Rojos.test_r24_hash512_fin_absoluto) ... FAIL
+test_r24_no_resueltas_unicas (rojos.Rojos.test_r24_no_resueltas_unicas) ... FAIL
+test_r24_referencias_unicas (rojos.Rojos.test_r24_referencias_unicas) ... FAIL
+
+======================================================================
+FAIL: test_r24_conjunto_exacto (rojos.Rojos.test_r24_conjunto_exacto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 22, in test_r24_conjunto_exacto
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r24_dep_identidad_coherente (rojos.Rojos.test_r24_dep_identidad_coherente)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 35, in test_r24_dep_identidad_coherente
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r24_hash512_fin_absoluto (rojos.Rojos.test_r24_hash512_fin_absoluto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 28, in test_r24_hash512_fin_absoluto
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r24_no_resueltas_unicas (rojos.Rojos.test_r24_no_resueltas_unicas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 17, in test_r24_no_resueltas_unicas
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r24_referencias_unicas (rojos.Rojos.test_r24_referencias_unicas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 11, in test_r24_referencias_unicas
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.024s
+
+FAILED (failures=5)
+test_r26_adquisicion_repetida_fuera_del_pin_historico (controles.Adicionales.test_r26_adquisicion_repetida_fuera_del_pin_historico) ... FAIL
+test_r26_clean_idempotente_y_query_documental (controles.Adicionales.test_r26_clean_idempotente_y_query_documental) ... ok
+test_r26_exclusiones_son_observaciones (controles.Adicionales.test_r26_exclusiones_son_observaciones) ... ok
+test_r26_extra_vacio_en_carpeta_cas (controles.Adicionales.test_r26_extra_vacio_en_carpeta_cas) ... FAIL
+test_r26_historico_no_saneado_no_se_reescribe (controles.Adicionales.test_r26_historico_no_saneado_no_se_reescribe) ... ok
+test_r26_no_transformado_exige_tres_identidades (controles.Adicionales.test_r26_no_transformado_exige_tres_identidades) ... FAIL
+test_r26_observaciones_distintas_admitidas (controles.Adicionales.test_r26_observaciones_distintas_admitidas) ... ok
+test_r26_origenes_no_resueltos_unicos (controles.Adicionales.test_r26_origenes_no_resueltos_unicos) ... FAIL
+test_r26_prefijos_de_dependencias (controles.Adicionales.test_r26_prefijos_de_dependencias) ... FAIL
+test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) ... 
+  test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='https://example.invalid/d?token=SENTINELA') ... FAIL
+  test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='https://example.invalid/d?ToKeN=SENTINELA') ... FAIL
+  test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='https://example.invalid/d?%74oken=SENTINELA') ... FAIL
+  test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='https://SENTINELA@example.invalid/d') ... FAIL
+  test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='/tmp/SENTINELA') ... FAIL
+  test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='/var/tmp/SENTINELA') ... FAIL
+  test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='file:///tmp/SENTINELA') ... FAIL
+
+======================================================================
+FAIL: test_r26_adquisicion_repetida_fuera_del_pin_historico (controles.Adicionales.test_r26_adquisicion_repetida_fuera_del_pin_historico)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 31, in test_r26_adquisicion_repetida_fuera_del_pin_historico
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r26_extra_vacio_en_carpeta_cas (controles.Adicionales.test_r26_extra_vacio_en_carpeta_cas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 56, in test_r26_extra_vacio_en_carpeta_cas
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r26_no_transformado_exige_tres_identidades (controles.Adicionales.test_r26_no_transformado_exige_tres_identidades)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 79, in test_r26_no_transformado_exige_tres_identidades
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r26_origenes_no_resueltos_unicos (controles.Adicionales.test_r26_origenes_no_resueltos_unicos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 45, in test_r26_origenes_no_resueltos_unicos
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r26_prefijos_de_dependencias (controles.Adicionales.test_r26_prefijos_de_dependencias)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 51, in test_r26_prefijos_de_dependencias
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='https://example.invalid/d?token=SENTINELA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 66, in test_r26_privacidad_url_y_localizador
+    self.assertNotIn('SENTINELA', str(e.clean({'nested': {'value': value}})))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'SENTINELA' unexpectedly found in "{'nested': {'value': 'https://example.invalid/d?token=SENTINELA'}}"
+
+======================================================================
+FAIL: test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='https://example.invalid/d?ToKeN=SENTINELA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 66, in test_r26_privacidad_url_y_localizador
+    self.assertNotIn('SENTINELA', str(e.clean({'nested': {'value': value}})))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'SENTINELA' unexpectedly found in "{'nested': {'value': 'https://example.invalid/d?ToKeN=SENTINELA'}}"
+
+======================================================================
+FAIL: test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='https://example.invalid/d?%74oken=SENTINELA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 66, in test_r26_privacidad_url_y_localizador
+    self.assertNotIn('SENTINELA', str(e.clean({'nested': {'value': value}})))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'SENTINELA' unexpectedly found in "{'nested': {'value': 'https://example.invalid/d?%74oken=SENTINELA'}}"
+
+======================================================================
+FAIL: test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='https://SENTINELA@example.invalid/d')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 66, in test_r26_privacidad_url_y_localizador
+    self.assertNotIn('SENTINELA', str(e.clean({'nested': {'value': value}})))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'SENTINELA' unexpectedly found in "{'nested': {'value': 'https://SENTINELA@example.invalid/d'}}"
+
+======================================================================
+FAIL: test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='/tmp/SENTINELA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 66, in test_r26_privacidad_url_y_localizador
+    self.assertNotIn('SENTINELA', str(e.clean({'nested': {'value': value}})))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'SENTINELA' unexpectedly found in "{'nested': {'value': '/tmp/SENTINELA'}}"
+
+======================================================================
+FAIL: test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='/var/tmp/SENTINELA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 66, in test_r26_privacidad_url_y_localizador
+    self.assertNotIn('SENTINELA', str(e.clean({'nested': {'value': value}})))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'SENTINELA' unexpectedly found in "{'nested': {'value': '/var/tmp/SENTINELA'}}"
+
+======================================================================
+FAIL: test_r26_privacidad_url_y_localizador (controles.Adicionales.test_r26_privacidad_url_y_localizador) (value='file:///tmp/SENTINELA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec07d28b/docs/procedencia/correcciones/preservacion-v4-r26/controles.py", line 66, in test_r26_privacidad_url_y_localizador
+    self.assertNotIn('SENTINELA', str(e.clean({'nested': {'value': value}})))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'SENTINELA' unexpectedly found in "{'nested': {'value': 'file:///tmp/SENTINELA'}}"
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.046s
+
+FAILED (failures=12)
+test_duplicate_index_and_untrusted_acquisition (adversos.EditionTests.test_duplicate_index_and_untrusted_acquisition) ... ok
+test_durability_recovery (adversos.EditionTests.test_durability_recovery) ... ok
+test_missing_and_corrupt (adversos.EditionTests.test_missing_and_corrupt) ... ok
+test_pin_and_marker (adversos.EditionTests.test_pin_and_marker) ... ok
+test_recursive_privacy_and_paths (adversos.EditionTests.test_recursive_privacy_and_paths) ... ok
+test_roundtrip_exclusive_and_no_hardlinks (adversos.EditionTests.test_roundtrip_exclusive_and_no_hardlinks) ... ok
+test_sanitized_source_has_distinct_identity (adversos.EditionTests.test_sanitized_source_has_distinct_identity) ... ok
+test_secondary_identity_and_dates (adversos.EditionTests.test_secondary_identity_and_dates) ... ok
+test_symlinks (adversos.EditionTests.test_symlinks) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.153s
+
+OK

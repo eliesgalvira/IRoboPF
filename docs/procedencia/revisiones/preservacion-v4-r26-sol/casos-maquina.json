@@ -1,0 +1,162 @@
+[
+  {
+    "case": "extra-vacio-raiz",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "extra-vacio-sha256",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "extra-vacio-dependencies",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "cas-symlink-sha256",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "cas-symlink-dependencies",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "objeto-directorio",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "objeto-symlink",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "identidad-sourceSha256-historical-False",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "identidad-sourceSha256-historical-True",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "origen-transformado-no-reconstruible-sourceSha256",
+    "expected": "admitido",
+    "outcome": "admitido"
+  },
+  {
+    "case": "identidad-sourceSha512-historical-False",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "identidad-sourceSha512-historical-True",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "origen-transformado-no-reconstruible-sourceSha512",
+    "expected": "admitido",
+    "outcome": "admitido"
+  },
+  {
+    "case": "identidad-sourceSize-historical-False",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "identidad-sourceSize-historical-True",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "origen-transformado-no-reconstruible-sourceSize",
+    "expected": "admitido",
+    "outcome": "admitido"
+  },
+  {
+    "case": "duplicado-con-edicion-y-base-historicas",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "pin-historico-no-admite-otros-bytes",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "adquisicion-distinta-retrievedAt",
+    "expected": "admitido",
+    "outcome": "admitido"
+  },
+  {
+    "case": "adquisicion-distinta-finalUrl",
+    "expected": "admitido",
+    "outcome": "admitido"
+  },
+  {
+    "case": "expresion-real-collect",
+    "identicalCollapsed": true,
+    "distinctRetained": true
+  },
+  {
+    "case": "prefijo-antes-de-escribir-a/b/c",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "prefijo-antes-de-escribir-a",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "prefijo-lexico-no-es-ancestro",
+    "expected": "admitido",
+    "outcome": "admitido"
+  },
+  {
+    "case": "diagnostico-schema-saneado",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "diagnostico-schema-saneado",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "limites-de-politica",
+    "proseAndLeadingSpaceAndUppercaseFileRemain": true,
+    "actualSecretExposed": false
+  },
+  {
+    "case": "schema-admite-duplicado-load-rechaza",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "load-sin-leer-cas",
+    "expected": "admitido",
+    "outcome": "admitido"
+  },
+  {
+    "case": "verify-lee-cas",
+    "expected": "rechazado",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "16-patrones-python",
+    "valid": true,
+    "suffixesRejected": [
+      "LF",
+      "CR",
+      "CRLF",
+      "NUL"
+    ]
+  }
+]
