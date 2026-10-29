@@ -1,0 +1,5 @@
+import {composeRetencionesR32} from '../../scripts/procedencia/flujo-retenciones-r32.mjs';
+import {writeFileSync} from 'node:fs';
+const g=composeRetencionesR32();
+const cases=[['seis-sitios',g.sites.length===6],['servicio-concreto',g.ports.some(p=>p.id==='R.resultado')],['selector-temporal',g.ports.some(p=>p.id==='R.version')],['filtro-familiar',g.ports.some(p=>p.id==='R.descendientes')],['divisor-convivencia',g.ports.some(p=>p.id==='R.minAsc')],['conversiones',g.ports.some(p=>p.id==='A.cuenta')],['productores-distintos',g.ports.some(p=>p.id==='A.soportadas')]];
+writeFileSync('docs/procedencia/implementaciones/flujo-retenciones-r32-sol/rojo.json',JSON.stringify(cases,null,2));console.log(cases);if(cases.some(c=>!c[1]))process.exitCode=1;

@@ -1,0 +1,13 @@
+import {execFileSync,spawn} from 'node:child_process';
+import {lstatSync,readFileSync,readlinkSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+const base='846f25e183ba07414065d4e6bdf9e98311b98a17';
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const tree=execFileSync('git',['ls-tree','-rz',base],{maxBuffer:16*1024*1024}).toString().split('\0').filter(Boolean);
+if(tree.length!==16855||execFileSync('git',['rev-parse','HEAD']).toString().trim()!==base)throw Error('base');
+const cp=spawn('git',['cat-file','--batch']);const it=cp.stdout[Symbol.asyncIterator]();let pending=Buffer.alloc(0);
+async function take(n){while(pending.length<n){const x=await it.next();if(x.done)throw Error('EOF');pending=Buffer.concat([pending,x.value]);}const b=pending.subarray(0,n);pending=pending.subarray(n);return b;}
+async function line(){while(!pending.includes(10)){const x=await it.next();if(x.done)throw Error('EOF');pending=Buffer.concat([pending,x.value]);}return (await take(pending.indexOf(10)+1)).toString().trim();}
+const entries=[],changes=[];
+for(const row of tree){const [meta,path]=row.split('\t');const [mode,,oid]=meta.split(' ');cp.stdin.write(oid+'\n');const header=await line();const bytes=await take(Number(header.split(' ')[2]));await take(1);let actual,stat;try{stat=lstatSync(path);actual=stat.isSymbolicLink()?Buffer.from(readlinkSync(path)):readFileSync(path);}catch(e){changes.push({path,error:e.code});continue;}const entry={path,mode,baseSha256:sha(bytes),size:bytes.length};entries.push(entry);if(!actual.equals(bytes)||(mode==='120000')!==stat.isSymbolicLink()||((mode==='100755')!==Boolean(stat.mode&0o111)&&!stat.isSymbolicLink()))changes.push({...entry,sha256:sha(actual),actualSize:actual.length});}
+cp.stdin.end();const result={base,entries:entries.length,changes,deletions:changes.filter(x=>x.error),diff:execFileSync('git',['diff','--stat',base]).toString(),physical:entries};writeFileSync(process.argv[2],JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({entries:entries.length,changes,deletions:result.deletions}));if(changes.length&&process.argv[2].includes('inicial'))process.exitCode=1;

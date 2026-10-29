@@ -1,0 +1,30 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {composeRetencionesR32,verifyRetencionesR32,generateRetencionesR32} from '../../scripts/procedencia/flujo-retenciones-r32.mjs';
+const out='docs/procedencia/implementaciones/flujo-retenciones-r32-sol/';const graph=generateRetencionesR32();assert(verifyRetencionesR32(graph));
+const checks=[];
+for(const [id,mutate] of [
+ ['edge-eliminada',g=>g.edges.splice(0,1)],
+ ['campo-eliminado',g=>delete g.sites[0].admissionRequirement],
+ ['cierre-falso',g=>g.sites[0].siteClosed=true],
+ ['productor-confundido',g=>g.sites[4].port='A.cuenta'],
+ ['fuente-autodeclarada',g=>g.sources[0].sha256='0'.repeat(64)],
+ ['sin-error',g=>g.admissionInterface.errors.pop()],
+ ['sin-callback',g=>g.contracts.find(c=>c.collections.length).collections=[]],
+ ['sin-parametro',g=>g.instances[0].bindings.pop()],
+ ['celda-eliminada',g=>g.ports.splice(g.ports.findIndex(p=>p.id.startsWith('T.')),1)]
+ ]){const g=structuredClone(graph);mutate(g);assert.throws(()=>verifyRetencionesR32(g));checks.push({id,rejected:true,kind:'graph-reconstruction'});}
+const scratch=path.resolve('.cache/flujo-retenciones-r32/mutantes');fs.mkdirSync(scratch,{recursive:true});for(const s of graph.sources){const target=path.join(scratch,s.file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(s.file,target);}
+const retention='lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts',annual='lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts',catalog='lib/dominio/irpf/retenciones/versiones/catalogo.ts',tables='lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts';
+for(const [id,file,before,after] of [
+ ['divisor',retention,'new Decimal(1150).div(ascendiente.convivencia)','new Decimal(1150).mul(ascendiente.convivencia)'],
+ ['filtro',retention,'d.edad < 25','d.edad <= 25'],
+ ['conversion',retention,'retribucion.mul(tipoRetencion).div(CIEN)','retribucion.mul(tipoRetencion).mul(CIEN)'],
+ ['campo-retorno',retention,'baseRetencionCentimos: aCentimos(baseRetencion),',''],
+ ['ventana',catalog,'hasta: "2026-10-29"','hasta: "2026-12-31"'],
+ ['version',catalog,'reduccion: "media2018"','reduccion: "antigua"'],
+ ['clave',tables,'tabla[situacionFamiliar]','tabla.situacion2'],
+ ['productor',annual,'caso.pagosACuentaCentimos + retencionTrabajoAeatCentimos','caso.retencionesSoportadasCentimos + retencionTrabajoAeatCentimos'],
+ ]){const target=path.join(scratch,file),original=fs.readFileSync(file,'utf8');assert(original.includes(before),id);fs.writeFileSync(target,original.replace(before,after));assert.throws(()=>composeRetencionesR32(scratch),/Contrato de fuente/);fs.writeFileSync(target,original);checks.push({id,rejected:true,kind:'external-source-pin',limit:'Rechazo por fuente fijada; no es prueba numérica del mutante.'});}
+assert(verifyRetencionesR32(graph,scratch));fs.writeFileSync(out+'casos-grafo.json',JSON.stringify(checks,null,2)+'\n');console.log(JSON.stringify({sites:graph.sites.length,contracts:graph.contracts.length,ports:graph.ports.length,checks,completeRuleAcceptance:false}));
