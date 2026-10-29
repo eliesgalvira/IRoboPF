@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import {createRequire} from 'node:module';
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json');
+const ts=require('typescript');
+const original=fs.readFileSync('tests/flujo-admision-r32-runtime.test.ts','utf8');
+const sf=ts.createSourceFile('fixtures.ts',original,ts.ScriptTarget.Latest,true);
+const names=['familiar','base','ret','hijo','derechos'];
+const selected=sf.statements.filter(s=>ts.isVariableStatement(s)&&s.declarationList.declarations.some(d=>names.includes(d.name.text))).map(s=>s.getText(sf));
+const out=ts.transpileModule(selected.join('\n')+'\nexport {base,ret,hijo,derechos};',{compilerOptions:{target:ts.ScriptTarget.ESNext,module:ts.ModuleKind.ESNext}}).outputText;
+fs.writeFileSync('docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs',out);

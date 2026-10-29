@@ -1,0 +1,29 @@
+[
+  {
+    "name": "contrapruebas",
+    "command": [
+      "bun",
+      "x",
+      "vitest",
+      "run",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r35/vitest.config.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/admision-r35/casos.json"
+    ],
+    "exitCode": 1,
+    "expectedExitCode": 1,
+    "elapsedIncludingLockSeconds": 2.168
+  },
+  {
+    "name": "lint",
+    "command": [
+      "bun",
+      "run",
+      "lint"
+    ],
+    "exitCode": 0,
+    "expectedExitCode": 0,
+    "elapsedIncludingLockSeconds": 9.39
+  }
+]

@@ -1,0 +1,119 @@
+[
+  {
+    "id": "RA34-01",
+    "status": "missing",
+    "kind": "semantic-composition",
+    "severity": "blocking",
+    "summary": "El anual comun depende de cuerpos TS y operaciones editoriales no resueltas por propiedad.",
+    "sites": [
+      "anual.ss.base",
+      "anual.ss.exceso",
+      "anual.ss.empresarial-ordinaria",
+      "anual.ss.trabajador-ordinaria",
+      "anual.ss.mei-empresarial",
+      "anual.ss.mei-trabajador",
+      "anual.ss.solidaridad-empresarial",
+      "anual.ss.solidaridad-trabajador",
+      "anual.ss.empresarial-total",
+      "anual.ss.trabajador-total",
+      "anual.ss.coste-laboral",
+      "anual.retencion.base",
+      "anual.retencion.cuota",
+      "anual.retencion.tipo",
+      "anual.retencion.anual",
+      "anual.pagos.retenciones",
+      "anual.pagos.cuenta"
+    ],
+    "tests": [
+      "RA34-01",
+      "RA34-02",
+      "RA34-03"
+    ],
+    "fiscalDefect": false,
+    "review": "requiere-contraste-del-padre",
+    "objection": "Una carencia tecnica o entrada fuera de TS no prueba una cuota fiscal incorrecta.",
+    "response": "Conservar conducta y dominio sin inventar norma ni esperado.",
+    "cost": "Decision de producto/evidencia y composicion posteriores.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "RA34-02",
+    "status": "mismatch",
+    "kind": "description-and-transport",
+    "summary": "Option.none de primera deduccion nullish permite continuar; agregado separado carece de puerto explicito.",
+    "tests": [
+      "R34-03",
+      "R34-04"
+    ],
+    "domain": "nullish lista fuera de TS; agregado opcional dentro de TS",
+    "fiscalDefect": false,
+    "review": "requiere-contraste-del-padre",
+    "objection": "Una carencia tecnica o entrada fuera de TS no prueba una cuota fiscal incorrecta.",
+    "response": "Conservar conducta y dominio sin inventar norma ni esperado.",
+    "cost": "Decision de producto/evidencia y composicion posteriores.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "RA34-03",
+    "status": "mismatch",
+    "kind": "runtime-boundary",
+    "summary": "fechaPago null rechaza version en fuente y provoca throw en duplicado.",
+    "tests": [
+      "R34-14"
+    ],
+    "domain": "JS fuera del contrato string; no refuta equivalencia tipada",
+    "fiscalDefect": false,
+    "review": "requiere-contraste-del-padre",
+    "objection": "Una carencia tecnica o entrada fuera de TS no prueba una cuota fiscal incorrecta.",
+    "response": "Conservar conducta y dominio sin inventar norma ni esperado.",
+    "cost": "Decision de producto/evidencia y composicion posteriores.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "RA34-04",
+    "status": "missing",
+    "kind": "schema-representation",
+    "summary": "Schema obliga true y sin pendientes, internos libres; verificador sigue exigiendo reconstruccion, no bypass operativo.",
+    "tests": [
+      "R34-15"
+    ],
+    "fiscalDefect": false,
+    "review": "requiere-contraste-del-padre",
+    "objection": "Una carencia tecnica o entrada fuera de TS no prueba una cuota fiscal incorrecta.",
+    "response": "Conservar conducta y dominio sin inventar norma ni esperado.",
+    "cost": "Decision de producto/evidencia y composicion posteriores.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "A32-P01",
+    "status": "ambiguous",
+    "kind": "validation-or-adjustment-contract",
+    "summary": "Numeros negativos llegan al anual y total; falta decidir contrato de ajustes con evidencia fiscal.",
+    "tests": [
+      "R34-07"
+    ],
+    "reachable": "wrapper y servicio anual tipados; adaptador fija ceros",
+    "fiscalDefect": false,
+    "review": "requiere-contraste-del-padre",
+    "objection": "Una carencia tecnica o entrada fuera de TS no prueba una cuota fiscal incorrecta.",
+    "response": "Conservar conducta y dominio sin inventar norma ni esperado.",
+    "cost": "Decision de producto/evidencia y composicion posteriores.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "A32-P02",
+    "status": "ambiguous",
+    "kind": "js-enum-boundary",
+    "summary": "Strings ajenos a enums alcanzan 17 sitios; faltan contrato confiable o validacion runtime.",
+    "tests": [
+      "R34-08"
+    ],
+    "reachable": "wrapper anual JS con subcaso; no demostrado endpoint HTTP",
+    "fiscalDefect": false,
+    "review": "requiere-contraste-del-padre",
+    "objection": "Una carencia tecnica o entrada fuera de TS no prueba una cuota fiscal incorrecta.",
+    "response": "Conservar conducta y dominio sin inventar norma ni esperado.",
+    "cost": "Decision de producto/evidencia y composicion posteriores.",
+    "completeRuleAcceptance": false
+  }
+]

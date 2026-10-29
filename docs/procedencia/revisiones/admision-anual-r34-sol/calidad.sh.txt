@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set +e
+root=/home/elies/.t3/worktrees/IRoboPF/t3-a3d3da1e
+cd "$root" || exit 1
+flock /tmp/irobopf-validacion-pesada.lock /home/elies/Repos/IRoboPF/node_modules/.bin/tsc --noEmit -p .cache/revision-admision-r34/tsconfig.json > .cache/revision-admision-r34/tipos.log 2>&1
+printf '%s\n' "$?" > .cache/revision-admision-r34/tipos.exit
+flock /tmp/irobopf-validacion-pesada.lock /home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --threads=1 --disable-nested-config -c .oxlintrc.json docs/procedencia/revisiones/admision-anual-r34-sol/*.mjs > .cache/revision-admision-r34/lint.log 2>&1
+printf '%s\n' "$?" > .cache/revision-admision-r34/lint.exit
