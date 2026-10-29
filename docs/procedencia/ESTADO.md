@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 19:50 CET
+## Situación más reciente, 29 de octubre, 20:25 CET
+
+Recibida la revisión Sol de rectificaciones2015–2016:41 archivos y2.199.202 bytes, con14.537 entradas de base comprobadas físicamente y cero borrados. C01 queda corroborada en el alcance visual≤64; la revisión identifica pérdida de guarda, precedencia ambigua y falta de receta del fragmentoHTML. Los informes y rojos históricos permanecen intactos.
+
+El padre reproduce el rojo y prepara una edición separada R22: techo min(candidato,anterior), sustitución expresa del párrafo conflictivo, evento alimentario único y concurrencias excluidas del alcance, mínimos compatibles y receta exacta para ambos HTML. Doce fallos numéricos reproducidos contraR21; tres métodos correctos contraR22, Ruff y mypy correctos. Son comprobaciones de contrato documental, no del motor ni de nóminas completas. Informe en correcciones/retenciones-2015-2016-r22/INFORME.md. Se prepara revisión independiente nueva Sol High con prioridad antes de aceptar la precisión.
+
+Las otras seis tareasR21 siguen pendientes de entrega: contrato documental, preservación, paquetev4, contraste2012–2014 y los dos análisis de flujo editorial. No se sondean sus ejecuciones. Inventario, snapshots, payloadMadrid,264 bindings y registros de confianza intactos. Julio, doble600, concurrencias y cierre fiscal permanecen abiertos. Crossa conserva v1 desfasado; sinLFS, gasto, transferencia externa, PR, main, despliegue ni limpieza. El encargo continúa.
+
+## Situación anterior, 29 de octubre, 19:50 CET
 
 Recibidas las siete revisiones R19: 581 archivos,29.829.914 bytes y13.422 entradas de base comprobadas en cada checkout, sin borrados. Informes históricos intactos. Las264 atestaciones son candidatas limitadas, sin promoción; la identidad autonómica usa la clave de comando T3 y se cotejará contra el identificador canónico antes de registrarla.
 

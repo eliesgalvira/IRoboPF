@@ -1,0 +1,127 @@
+test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) ... 
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-enero-revision:87.5-no-aumento', candidate='0') ... FAIL
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-enero-revision:87.5-no-aumento', candidate='6') ... FAIL
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-enero-revision:87.5-no-aumento', candidate='11.99') ... FAIL
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-julio-revision:87.5-no-aumento', candidate='0') ... FAIL
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-julio-revision:87.5-no-aumento', candidate='6') ... FAIL
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-julio-revision:87.5-no-aumento', candidate='11.99') ... FAIL
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2016-anual:87.5-no-aumento', candidate='0') ... FAIL
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2016-anual:87.5-no-aumento', candidate='6') ... FAIL
+  test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2016-anual:87.5-no-aumento', candidate='11.99') ... FAIL
+test_minimo_satisfecho_se_conserva_en_el_dominio_acotado (__main__.Contraste.test_minimo_satisfecho_se_conserva_en_el_dominio_acotado) ... 
+  test_minimo_satisfecho_se_conserva_en_el_dominio_acotado (__main__.Contraste.test_minimo_satisfecho_se_conserva_en_el_dominio_acotado) (id='2015-enero-revision:87.5-no-aumento', floor='2', candidate='6') ... FAIL
+  test_minimo_satisfecho_se_conserva_en_el_dominio_acotado (__main__.Contraste.test_minimo_satisfecho_se_conserva_en_el_dominio_acotado) (id='2015-julio-revision:87.5-no-aumento', floor='2', candidate='6') ... FAIL
+  test_minimo_satisfecho_se_conserva_en_el_dominio_acotado (__main__.Contraste.test_minimo_satisfecho_se_conserva_en_el_dominio_acotado) (id='2016-anual:87.5-no-aumento', floor='2', candidate='6') ... FAIL
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-enero-revision:87.5-no-aumento', candidate='0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('0')
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-enero-revision:87.5-no-aumento', candidate='6')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('6')
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-enero-revision:87.5-no-aumento', candidate='11.99')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('11.99')
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-julio-revision:87.5-no-aumento', candidate='0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('0')
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-julio-revision:87.5-no-aumento', candidate='6')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('6')
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2015-julio-revision:87.5-no-aumento', candidate='11.99')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('11.99')
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2016-anual:87.5-no-aumento', candidate='0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('0')
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2016-anual:87.5-no-aumento', candidate='6')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('6')
+
+======================================================================
+FAIL: test_techo_no_eleva_un_tipo_inferior (__main__.Contraste.test_techo_no_eleva_un_tipo_inferior) (id='2016-anual:87.5-no-aumento', candidate='11.99')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 67, in test_techo_no_eleva_un_tipo_inferior
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('11.99')
+
+======================================================================
+FAIL: test_minimo_satisfecho_se_conserva_en_el_dominio_acotado (__main__.Contraste.test_minimo_satisfecho_se_conserva_en_el_dominio_acotado) (id='2015-enero-revision:87.5-no-aumento', floor='2', candidate='6')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 82, in test_minimo_satisfecho_se_conserva_en_el_dominio_acotado
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('6')
+
+======================================================================
+FAIL: test_minimo_satisfecho_se_conserva_en_el_dominio_acotado (__main__.Contraste.test_minimo_satisfecho_se_conserva_en_el_dominio_acotado) (id='2015-julio-revision:87.5-no-aumento', floor='2', candidate='6')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 82, in test_minimo_satisfecho_se_conserva_en_el_dominio_acotado
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('6')
+
+======================================================================
+FAIL: test_minimo_satisfecho_se_conserva_en_el_dominio_acotado (__main__.Contraste.test_minimo_satisfecho_se_conserva_en_el_dominio_acotado) (id='2016-anual:87.5-no-aumento', floor='2', candidate='6')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-2015-2016-r22/contraste.py", line 82, in test_minimo_satisfecho_se_conserva_en_el_dominio_acotado
+    self.assertEqual(result, Decimal(expected))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Decimal('12') != Decimal('6')
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=12)
