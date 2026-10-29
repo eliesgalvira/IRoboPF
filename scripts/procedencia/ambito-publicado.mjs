@@ -96,7 +96,7 @@ export function verificarAceptacionLimitada(
   if (
     !atestacion.report.path.startsWith(reviewer.reportDirectory + "/") ||
     porRuta.get(atestacion.report.path) !== atestacion.report.sha256 ||
-    leer(atestacion.report.sha256).length === 0
+    leer(atestacion.report.sha256).toString("utf8").trim().length === 0
   )
     throw new Error("Informe ausente o ajeno")
   for (const key of ["inventory", "scope"])
@@ -116,9 +116,11 @@ export function verificarAceptacionLimitada(
   const elegidas = decisiones.filter(
     (d) => d.id === payload.legalReview.decisionId
   )
-  if (elegidas.length !== 1 || elegidas[0].status !== "accepted")
-    throw new Error("Decisión ausente o ambigua")
+  if (elegidas.length !== 1) throw new Error("Decisión ausente o ambigua")
   const decision = elegidas[0]
+  const discriminantes = ["status", "decision"].filter((k) => k in decision)
+  if (discriminantes.length !== 1 || decision[discriminantes[0]] !== "accepted")
+    throw new Error("Decisión ausente o ambigua")
   const scopeKeys = [
     "schemaVersion",
     "decision",

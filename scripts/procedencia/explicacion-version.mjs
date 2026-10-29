@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs"
 import { resolve } from "node:path"
+import ts from "typescript"
 import { hash } from "../../lib/procedencia/verificador.ts"
 
 // Orden canónico de las fuentes que definen la explicación y su comprobación.
@@ -40,4 +41,75 @@ export function verificarSoftwareExplicacion(snapshot, root) {
     fuentesSoftware.some((h) => !snapshot.auxiliares.includes(h))
   )
     throw new Error("Software de explicación distinto del snapshot actual")
+}
+
+// Lee la lista literal del helper conservado, sin ejecutar código histórico.
+function fuentesHistoricas(bytes) {
+  const fuente = ts.createSourceFile(
+    "explicacion-version.mjs",
+    bytes.toString("utf8"),
+    ts.ScriptTarget.Latest,
+    false,
+    ts.ScriptKind.JS
+  )
+  const declaraciones = fuente.statements
+    .filter(ts.isVariableStatement)
+    .filter((s) =>
+      s.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)
+    )
+    .flatMap((s) => [...s.declarationList.declarations])
+    .filter(
+      (d) => ts.isIdentifier(d.name) && d.name.text === "FUENTES_EXPLICACION"
+    )
+  if (fuente.parseDiagnostics.length !== 0 || declaraciones.length !== 1)
+    throw new Error("Lista histórica de software ausente o ambigua")
+  const lista = declaraciones[0].initializer
+  if (
+    !lista ||
+    !ts.isArrayLiteralExpression(lista) ||
+    !lista.elements.every(ts.isStringLiteral)
+  )
+    throw new Error("Lista histórica de software no literal")
+  const rutas = lista.elements.map((e) => e.text)
+  if (
+    rutas.length === 0 ||
+    new Set(rutas).size !== rutas.length ||
+    !rutas.includes("scripts/procedencia/explicacion-version.mjs") ||
+    rutas.some(
+      (p) =>
+        !/^[A-Za-z0-9_./\[\]-]+$/.test(p) ||
+        p.startsWith("/") ||
+        p.split("/").some((s) => ["", ".", ".."].includes(s))
+    )
+  )
+    throw new Error("Rutas históricas de software ambiguas")
+  return rutas
+}
+
+export function verificarSoftwareRecibo(snapshot, dependencias, leer) {
+  const porRuta = new Map()
+  for (const d of dependencias) {
+    if (porRuta.has(d.path))
+      throw new Error("Dependencia de software duplicada")
+    porRuta.set(d.path, d.sha256)
+  }
+  const conservar = (ruta) => {
+    const h = porRuta.get(ruta)
+    if (!h || !snapshot.auxiliares.includes(h))
+      throw new Error("Fuente de software ausente del recibo")
+    const bytes = leer(h)
+    if (hash(bytes) !== h) throw new Error("Fuente de software corrupta")
+    return { hash: h, bytes }
+  }
+  const generador = conservar("scripts/procedencia/contenido-generar.mjs").hash
+  const helper = conservar("scripts/procedencia/explicacion-version.mjs")
+  const fuentesSoftware = fuentesHistoricas(helper.bytes).map(
+    (ruta) => conservar(ruta).hash
+  )
+  if (
+    generador !== snapshot.generador ||
+    hash(JSON.stringify({ generador, fuentesSoftware })) !==
+      snapshot.versiones.explicacion
+  )
+    throw new Error("Software del recibo distinto de la explicación conservada")
 }

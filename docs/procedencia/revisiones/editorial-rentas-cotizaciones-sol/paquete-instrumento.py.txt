@@ -1,0 +1,32 @@
+import pathlib,json,gzip,hashlib,subprocess,stat,difflib
+R=pathlib.Path.cwd();O=R/'docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol';C=R/'.cache/revision-editorial-sol'
+for src,dst in [('inspeccion.log','inspeccion.log.gz'),('resumen.log','resumen.log.gz')]:
+ (O/dst).write_bytes(gzip.compress((C/src).read_bytes(),mtime=0))
+(O/'inspeccion-instrumento-original.py.txt').write_bytes((C/'inspeccionar.py').read_bytes())
+# Instrumentos scratch originales son evidencia conservada, no código de producto.
+for src,dst in [('cerrar.py','cierre-instrumento.py.txt'),('paquete.py','paquete-instrumento.py.txt'),('validar.sh','validacion-inicial.sh.txt'),('final-check.sh','validacion-final.sh.txt'),('lint-cierre.sh','lint-cierre.sh.txt')]:
+ (O/dst).write_bytes((C/src).read_bytes())
+checks=[]
+for row in json.loads(gzip.decompress((O/'arbol-head.json.gz').read_bytes())):
+ p=R/row['path'];s=p.lstat();data=str(p.readlink()).encode() if stat.S_ISLNK(s.st_mode) else p.read_bytes();assert hashlib.sha256(data).hexdigest()==row['sha256'],str(p);checks.append(row['path'])
+assert subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()=='7668bdad60a79a8b3ad8e1e1b911f3d6c223692a'
+assert not subprocess.check_output(['git','diff','--name-only','HEAD'])
+(O/'cierre-final.json').write_text(json.dumps({'head':'7668bdad60a79a8b3ad8e1e1b911f3d6c223692a','entradasFisicas':len(checks),'borrados':[],'cambiosBase':[],'aceptacionFiscalCompleta':False},indent=2)+'\n')
+# Un objeto por hash y rutas lógicas explícitas.
+binary=[];(O/'binarios').mkdir(exist_ok=True)
+for p in sorted(O.glob('*.gz')):
+ if p.name=='entrega.patch.gz':continue
+ data=p.read_bytes();sha=hashlib.sha256(data).hexdigest();obj=O/'binarios'/sha;obj.write_bytes(data);binary.append({'path':str(p.relative_to(R)),'sha256':sha,'size':len(data),'objeto':str(obj.relative_to(R))})
+(O/'binarios.json').write_text(json.dumps(binary,indent=2)+'\n')
+patch=[]
+for p in sorted(O.rglob('*')):
+ if not p.is_file() or p.suffix=='.gz' or p.parent.name=='binarios' or p.name in ['manifiesto.json','entrega.patch.gz']:continue
+ data=p.read_text();path=str(p.relative_to(R));patch.extend(difflib.unified_diff([],data.splitlines(True),fromfile='/dev/null',tofile='b/'+path))
+(O/'entrega.patch.gz').write_bytes(gzip.compress(''.join(patch).encode(),mtime=0))
+files=[]
+for p in sorted(O.rglob('*')):
+ if not p.is_file() or p.name=='manifiesto.json':continue
+ data=p.read_bytes();files.append({'path':str(p.relative_to(R)),'absolutePath':str(p),'sha256':hashlib.sha256(data).hexdigest(),'size':len(data),'baseSha256':None})
+(O/'manifiesto.json').write_text(json.dumps({'head':'7668bdad60a79a8b3ad8e1e1b911f3d6c223692a','baseAutor':'1196269d4e73742beeed35cc05011b70c21a0b69','files':files,'deleted':[],'excludesSelf':True},ensure_ascii=False,indent=2)+'\n')
+assert all(hashlib.sha256((R/x['path']).read_bytes()).hexdigest()==x['sha256'] for x in files)
+print(json.dumps({'archivosManifiesto':len(files),'bytes':sum(x['size'] for x in files),'objetosBinarios':len(binary),'headEntradasFisicas':len(checks),'borrados':0}))

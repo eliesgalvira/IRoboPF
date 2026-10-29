@@ -2,6 +2,7 @@ import {
   verificarAceptacionLimitada,
   estadoAutenticidad,
 } from "./ambito-publicado.mjs"
+import { verificarSoftwareRecibo } from "./explicacion-version.mjs"
 import { readFileSync } from "node:fs"
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -99,6 +100,9 @@ function coberturaEvidencias(snapshot, entradas, raiz) {
       )
     )
       throw new Error("Cobertura de evidencia distinta del recibo")
+    verificarSoftwareRecibo(snapshot, recibo.entrada.dependencias, (h) =>
+      objeto(raiz, h)
+    )
     for (const e of recibo.entradas)
       documentados.add(claveSujeto({ id: e.entidad.id, revision: e.revision }))
     recibos.set(h, recibo)

@@ -1,0 +1,1038 @@
+[
+  {
+    "id": "paso.anual.base.ahorro",
+    "siteId": "anual.base.ahorro",
+    "derivacionCompartida": "bases",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "El recorte del saldo a cero corresponde al helper; distingue pérdidas de exención y declara que no integra mobiliario ni arrastres.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "BA=max(0, gananciaSujetaAhorro). Entrada y salida en EUR anuales.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "El recorte del saldo a cero corresponde al helper; distingue pérdidas de exención y declara que no integra mobiliario ni arrastres."
+      },
+      "derivacion": {
+        "textoRevisado": "Separar ganancias de transmisión sujetas de exentas; conservar el saldo con pérdidas en el cálculo previo; esta salida recorta a cero el saldo del ahorro. No integra capital mobiliario ni compensación cruzada ni arrastres. Ejemplo: saldo −200 produce 0; saldo 10000 produce 10000.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "El recorte del saldo a cero corresponde al helper; distingue pérdidas de exención y declara que no integra mobiliario ni arrastres."
+      },
+      "norma": {
+        "textoRevisado": "Arts.46,49 y50 LIRPF. La operación parcial no implementa toda su integración.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "El recorte del saldo a cero corresponde al helper; distingue pérdidas de exención y declara que no integra mobiliario ni arrastres."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "El recorte del saldo a cero corresponde al helper; distingue pérdidas de exención y declara que no integra mobiliario ni arrastres."
+      },
+      "bordes": {
+        "textoRevisado": "Una pérdida no es exención; cero no significa que no exista saldo pendiente.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "El recorte del saldo a cero corresponde al helper; distingue pérdidas de exención y declara que no integra mobiliario ni arrastres."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "El recorte del saldo a cero corresponde al helper; distingue pérdidas de exención y declara que no integra mobiliario ni arrastres.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.base.general-imponible",
+    "siteId": "anual.base.general-imponible",
+    "derivacionCompartida": "bases",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "La reducción solo limita el subtotal trabajo. La pérdida inmobiliaria sobrevive; no se inventa una BIG positiva.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "BIG=max(0,netoTrabajo−reduccionTrabajo)+netoInmobiliario+gananciaGeneral, en EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La reducción solo limita el subtotal trabajo. La pérdida inmobiliaria sobrevive; no se inventa una BIG positiva."
+      },
+      "derivacion": {
+        "textoRevisado": "Restar art.20 solo al trabajo y limitar ese subtotal a cero; sumar después los otros dos saldos con signo. Ejemplo: trabajo 1000, reducción 1500, alquiler −200 y ganancia 50: 0−200+50=−150. No recortar otra vez el total.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La reducción solo limita el subtotal trabajo. La pérdida inmobiliaria sobrevive; no se inventa una BIG positiva."
+      },
+      "norma": {
+        "textoRevisado": "Arts.45,48 y50 LIRPF; el helper simplifica integración y compensación legal.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La reducción solo limita el subtotal trabajo. La pérdida inmobiliaria sobrevive; no se inventa una BIG positiva."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "La reducción solo limita el subtotal trabajo. La pérdida inmobiliaria sobrevive; no se inventa una BIG positiva."
+      },
+      "bordes": {
+        "textoRevisado": "No representa todas las rentas generales ni límites de compensación; alquiler usa su contrato simplificado.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La reducción solo limita el subtotal trabajo. La pérdida inmobiliaria sobrevive; no se inventa una BIG positiva."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "La reducción solo limita el subtotal trabajo. La pérdida inmobiliaria sobrevive; no se inventa una BIG positiva.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.base.general-liquidable",
+    "siteId": "anual.base.general-liquidable",
+    "derivacionCompartida": "bases",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "BLG=BIG es asignación en esta ruta; el texto declara las reducciones ausentes y no resta el mínimo nominal.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "BLG=BIG, en EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "BLG=BIG es asignación en esta ruta; el texto declara las reducciones ausentes y no resta el mínimo nominal."
+      },
+      "derivacion": {
+        "textoRevisado": "Asignación directa en liquidarTrabajoIndividualSimple. Si BIG=26056, BLG=26056. Se omiten por contrato aportaciones a previsión social y otras reducciones de base; igualdad técnica no prueba ausencia real de reducciones.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "BLG=BIG es asignación en esta ruta; el texto declara las reducciones ausentes y no resta el mínimo nominal."
+      },
+      "norma": {
+        "textoRevisado": "Art.50 LIRPF distingue las dos bases.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "BLG=BIG es asignación en esta ruta; el texto declara las reducciones ausentes y no resta el mínimo nominal."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "BLG=BIG es asignación en esta ruta; el texto declara las reducciones ausentes y no resta el mínimo nominal."
+      },
+      "bordes": {
+        "textoRevisado": "No convertir el mínimo familiar en resta de base ni anunciar liquidación completa.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "BLG=BIG es asignación en esta ruta; el texto declara las reducciones ausentes y no resta el mínimo nominal."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "BLG=BIG es asignación en esta ruta; el texto declara las reducciones ausentes y no resta el mínimo nominal.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.ahorro-componente-postminimo",
+    "siteId": "anual.cuota.ahorro-componente-postminimo",
+    "derivacionCompartida": "ahorro",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Dos remanentes y dos funciones; diferencia F(B-r) antes de 2015 de F(B)-F(r) después. El 2015 no permite mitades.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "rC=min(max(MC−max(BG,0),0),max(BA,0)); hasta2014 PC=FC(max(0,BA−rC)); desde2015 PC=max(0,FC(BA)−FC(rC)).",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Dos remanentes y dos funciones; diferencia F(B-r) antes de 2015 de F(B)-F(r) después. El 2015 no permite mitades."
+      },
+      "derivacion": {
+        "textoRevisado": "Calcular dos remanentes independientes. Con BG0,BA10000,ME5550,MA5956,65 en2025: estatal990−527,25=462,75; autonómico990−565,88175=424,11825. Suma886,86825→886,87.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Dos remanentes y dos funciones; diferencia F(B-r) antes de 2015 de F(B)-F(r) después. El 2015 no permite mitades."
+      },
+      "norma": {
+        "textoRevisado": "Arts.66/76: Ley39/2010 y reforma Ley26/2014; reparto2015 RDL9/2015.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Dos remanentes y dos funciones; diferencia F(B-r) antes de 2015 de F(B)-F(r) después. El 2015 no permite mitades."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Dos remanentes y dos funciones; diferencia F(B-r) antes de 2015 de F(B)-F(r) después. El 2015 no permite mitades."
+      },
+      "bordes": {
+        "textoRevisado": "Cambiar el orden F(B−r) frente F(B)−F(r) cambia resultados: no trasladar fórmula posterior a2012–2014. El mínimo recibido no demuestra derecho.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Dos remanentes y dos funciones; diferencia F(B-r) antes de 2015 de F(B)-F(r) después. El 2015 no permite mitades."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Dos remanentes y dos funciones; diferencia F(B-r) antes de 2015 de F(B)-F(r) después. El 2015 no permite mitades.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.ahorro-total",
+    "siteId": "anual.cuota.ahorro-total",
+    "derivacionCompartida": "ahorro",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Cuota conjunta bruta del helper marginal; distingue expresamente su papel de las cuotas por componente.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "QA=Σ tramos conjuntos antes de mínimo.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Cuota conjunta bruta del helper marginal; distingue expresamente su papel de las cuotas por componente."
+      },
+      "derivacion": {
+        "textoRevisado": "Sumar el desglose bruto: con10000 en2025 produce1980. La minoración se calcula después por componentes; esta variable no valida clasificación ni compensación de la base.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Cuota conjunta bruta del helper marginal; distingue expresamente su papel de las cuotas por componente."
+      },
+      "norma": {
+        "textoRevisado": "Arts.66/76 LIRPF y reformas2021,2023,2025.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Cuota conjunta bruta del helper marginal; distingue expresamente su papel de las cuotas por componente."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Cuota conjunta bruta del helper marginal; distingue expresamente su papel de las cuotas por componente."
+      },
+      "bordes": {
+        "textoRevisado": "La herencia del dato2025 en2026 es hipótesis técnica, sin cierre normativo. No confundir total bruto y postmínimo.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Cuota conjunta bruta del helper marginal; distingue expresamente su papel de las cuotas por componente."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Cuota conjunta bruta del helper marginal; distingue expresamente su papel de las cuotas por componente.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.ahorro-tramo",
+    "siteId": "anual.cuota.ahorro-tramo",
+    "derivacionCompartida": "ahorro",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Identifica el helper conjunto distinto del cálculo publicado por componentes, y la unidad EUR por proporción.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "q=min(max(BA−L,0),U−L)t conjunto; EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Identifica el helper conjunto distinto del cálculo publicado por componentes, y la unidad EUR por proporción."
+      },
+      "derivacion": {
+        "textoRevisado": "Este site usa calcularDesgloseCuotaPorEscalaAhorro y conserva integración conjunta de tramos; no es el desglose de las filas por componente de calcularAhorroConMinimos. A10000 en2025:6000×0,19+4000×0,21=1980.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Identifica el helper conjunto distinto del cálculo publicado por componentes, y la unidad EUR por proporción."
+      },
+      "norma": {
+        "textoRevisado": "Arts.66 y76 y transitorias; el desglose no prueba distribución estatal/autonómica.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Identifica el helper conjunto distinto del cálculo publicado por componentes, y la unidad EUR por proporción."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Identifica el helper conjunto distinto del cálculo publicado por componentes, y la unidad EUR por proporción."
+      },
+      "bordes": {
+        "textoRevisado": "2015 no permite dividir la cuota conjunta por dos; recargo2012–2014 solo estatal.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Identifica el helper conjunto distinto del cálculo publicado por componentes, y la unidad EUR por proporción."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Identifica el helper conjunto distinto del cálculo publicado por componentes, y la unidad EUR por proporción.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.diferencial",
+    "siteId": "anual.cuota.diferencial",
+    "derivacionCompartida": "deducciones",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "La resta se hace en céntimos tras convertir QL; no se mezcla con el diferencial decimal de la conexión explícita.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "CDc=QLc−retencionesc−pagosc; exposición EUR=CDc/100.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La resta se hace en céntimos tras convertir QL; no se mezcla con el diferencial decimal de la conexión explícita."
+      },
+      "derivacion": {
+        "textoRevisado": "Convertir cuota líquida a céntimos con política vigente y restar enteros una vez. QL786,87,retenciones100,pagos50:636,87. Las retenciones estimadas se incorporan a pagos según contrato; no duplicarlas como soportadas.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La resta se hace en céntimos tras convertir QL; no se mezcla con el diferencial decimal de la conexión explícita."
+      },
+      "norma": {
+        "textoRevisado": "Art.79 LIRPF y reglas de pagos a cuenta; carácter estimativo del perfil.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La resta se hace en céntimos tras convertir QL; no se mezcla con el diferencial decimal de la conexión explícita."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "La resta se hace en céntimos tras convertir QL; no se mezcla con el diferencial decimal de la conexión explícita."
+      },
+      "bordes": {
+        "textoRevisado": "Negativa indica devolución aritmética del perfil, no derecho administrativo acreditado; retención y liquidación deben tener mismo ejercicio.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La resta se hace en céntimos tras convertir QL; no se mezcla con el diferencial decimal de la conexión explícita."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "La resta se hace en céntimos tras convertir QL; no se mezcla con el diferencial decimal de la conexión explícita.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.general-autonomica-tramo",
+    "siteId": "anual.cuota.general-autonomica-tramo",
+    "derivacionCompartida": "escalas",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Describe selector anual/territorial y Murcia estricto. Debe conservar la excepción al mapear ámbitos; los ejemplos no aceptan vigencia.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "q=Q+(B−L)t si existe tabla seleccionada; en otro caso integra anchos.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Describe selector anual/territorial y Murcia estricto. Debe conservar la excepción al mapear ámbitos; los ejemplos no aceptan vigencia."
+      },
+      "derivacion": {
+        "textoRevisado": "Usar año, territorio y fallecimiento del selector. Murcia2022 a60000 sigue fila4:4142,62+(60000−35394)×0,1822=8625,8332; a60000,01 entra fila5 exclusiva:8716,67+0,01×0,227=8716,67227. El salto no se suaviza.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Describe selector anual/territorial y Murcia estricto. Debe conservar la excepción al mapear ámbitos; los ejemplos no aceptan vigencia."
+      },
+      "norma": {
+        "textoRevisado": "Art.74 LIRPF y normas autonómicas originales de cada celda; BORM4846 pp3–4 para Murcia.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Describe selector anual/territorial y Murcia estricto. Debe conservar la excepción al mapear ámbitos; los ejemplos no aceptan vigencia."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Describe selector anual/territorial y Murcia estricto. Debe conservar la excepción al mapear ámbitos; los ejemplos no aceptan vigencia."
+      },
+      "bordes": {
+        "textoRevisado": "Que no se seleccione cuota publicada no acepta la integración anterior; 2026 requiere norma propia y forales no se convierten en comunes.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Describe selector anual/territorial y Murcia estricto. Debe conservar la excepción al mapear ámbitos; los ejemplos no aceptan vigencia."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Describe selector anual/territorial y Murcia estricto. Debe conservar la excepción al mapear ámbitos; los ejemplos no aceptan vigencia.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.general-estatal-tramo",
+    "siteId": "anual.cuota.general-estatal-tramo",
+    "derivacionCompartida": "escalas",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Distingue filas publicadas de anchos marginales, suma dos escalas de 2012–2014 y separa simulada-estatal.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "Publicada: q=Q+(B−L)t; integración: q=min(max(B−L,0),U−L)t. EUR×proporción=EUR.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Distingue filas publicadas de anchos marginales, suma dos escalas de 2012–2014 y separa simulada-estatal."
+      },
+      "derivacion": {
+        "textoRevisado": "En publicada elegir última fila aplicable con B>0; cada escala devuelve una fila, no todos los tramos. Estado2012–2014 suma ordinaria y complementaria. A17707,21:2124,86+0,01×0,14+132,80+0,01×0,02=2257,6616→2257,66. Integrar desde cero produce2257,6696→2257,67.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Distingue filas publicadas de anchos marginales, suma dos escalas de 2012–2014 y separa simulada-estatal."
+      },
+      "norma": {
+        "textoRevisado": "Art.63 y DA35 LIRPF; Ley39/2010 art.62, RDL20/2011 y prórroga Ley22/2013.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Distingue filas publicadas de anchos marginales, suma dos escalas de 2012–2014 y separa simulada-estatal."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Distingue filas publicadas de anchos marginales, suma dos escalas de 2012–2014 y separa simulada-estatal."
+      },
+      "bordes": {
+        "textoRevisado": "simulada-estatal conserva escala conjunta legacy; no es componente estatal legal. Tabla publicada no se reconstruye de marginales.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Distingue filas publicadas de anchos marginales, suma dos escalas de 2012–2014 y separa simulada-estatal."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Distingue filas publicadas de anchos marginales, suma dos escalas de 2012–2014 y separa simulada-estatal.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.general-total",
+    "siteId": "anual.cuota.general-total",
+    "derivacionCompartida": "escalas",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Suma dos componentes calculados; la salvedad de simulada-estatal evita duplicar cuota conjunta.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "QG=QGE+QGA; EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma dos componentes calculados; la salvedad de simulada-estatal evita duplicar cuota conjunta."
+      },
+      "derivacion": {
+        "textoRevisado": "Sumar cuotas de componentes ya calculadas, sin duplicar tabla complementaria. Con1000 estatal y900 autonómica:1900. En simulada-estatal la segunda es0 y la primera ya conjunta legacy.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma dos componentes calculados; la salvedad de simulada-estatal evita duplicar cuota conjunta."
+      },
+      "norma": {
+        "textoRevisado": "Arts.62,63 y74 LIRPF; suma técnica condicionada a selección de régimen.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma dos componentes calculados; la salvedad de simulada-estatal evita duplicar cuota conjunta."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Suma dos componentes calculados; la salvedad de simulada-estatal evita duplicar cuota conjunta."
+      },
+      "bordes": {
+        "textoRevisado": "No es aún cuota líquida ni deuda; redondear cada línea antes de sumar puede variar un céntimo respecto del total exacto.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma dos componentes calculados; la salvedad de simulada-estatal evita duplicar cuota conjunta."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Suma dos componentes calculados; la salvedad de simulada-estatal evita duplicar cuota conjunta.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.liquida",
+    "siteId": "anual.cuota.liquida",
+    "derivacionCompartida": "deducciones",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Orden correcto: cuotas menos mínimos, deducción limitada a componente autonómico y piso cero. Alcance parcial declarado.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "QL=max(0,QG−mG)+max(0,QA−mA)−Dap; salida limitada a cero.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Orden correcto: cuotas menos mínimos, deducción limitada a componente autonómico y piso cero. Alcance parcial declarado."
+      },
+      "derivacion": {
+        "textoRevisado": "Primero minorar cuotas generales y ahorro; aplicar después consignación limitada a cuota autonómica. Caso ahorro10000 y deducción100:886,86825−100=786,86825→786,87.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Orden correcto: cuotas menos mínimos, deducción limitada a componente autonómico y piso cero. Alcance parcial declarado."
+      },
+      "norma": {
+        "textoRevisado": "Arts.67 y77 LIRPF, dentro del perfil parcial que omite otras deducciones estatales.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Orden correcto: cuotas menos mínimos, deducción limitada a componente autonómico y piso cero. Alcance parcial declarado."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Orden correcto: cuotas menos mínimos, deducción limitada a componente autonómico y piso cero. Alcance parcial declarado."
+      },
+      "bordes": {
+        "textoRevisado": "No equivale a cuota líquida universal ni cuota diferencial; faltan otros beneficios y hechos.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Orden correcto: cuotas menos mínimos, deducción limitada a componente autonómico y piso cero. Alcance parcial declarado."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Orden correcto: cuotas menos mínimos, deducción limitada a componente autonómico y piso cero. Alcance parcial declarado.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.minimo-ahorro-total",
+    "siteId": "anual.cuota.minimo-ahorro-total",
+    "derivacionCompartida": "ahorro",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Minoración es bruta menos posterior; antes de 2015 no se presenta como F(r). No se mezclan remanentes.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "mA=Σ [FC(BA)−PC], en EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Minoración es bruta menos posterior; antes de 2015 no se presenta como F(r). No se mezclan remanentes."
+      },
+      "derivacion": {
+        "textoRevisado": "Restar a cada bruta su cuota posterior. Caso2025 anterior:1980−886,86825=1093,13175→1093,13. En2012–2014 es diferencia F(B)−F(B−r), no necesariamente F(r).",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Minoración es bruta menos posterior; antes de 2015 no se presenta como F(r). No se mezclan remanentes."
+      },
+      "norma": {
+        "textoRevisado": "Arts.66/76 en sus redacciones temporales; DA35 recargo estatal.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Minoración es bruta menos posterior; antes de 2015 no se presenta como F(r). No se mezclan remanentes."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Minoración es bruta menos posterior; antes de 2015 no se presenta como F(r). No se mezclan remanentes."
+      },
+      "bordes": {
+        "textoRevisado": "Con base insuficiente r se agota en BA, nunca crea cuota negativa. Invertir mínimos invierte componentes sin imponer mitades.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Minoración es bruta menos posterior; antes de 2015 no se presenta como F(r). No se mezclan remanentes."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Minoración es bruta menos posterior; antes de 2015 no se presenta como F(r). No se mezclan remanentes.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.minimo-autonomico-tramo",
+    "siteId": "anual.cuota.minimo-autonomico-tramo",
+    "derivacionCompartida": "escalas",
+    "dictamen": "aprovechable con ajuste obligatorio",
+    "razon": "La fórmula implementada usa mínimo propio autonómico limitado a BG. Falta pasaje primario de 5956,65 y tabla Madrid 2025: SEM-01.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "qA=FA(min(MA,BG)); EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La fórmula implementada usa mínimo propio autonómico limitado a BG. Falta pasaje primario de 5956,65 y tabla Madrid 2025: SEM-01."
+      },
+      "derivacion": {
+        "textoRevisado": "Elegir mínimo y escala del componente autonómico. Madrid2025, BG10000 yMA5956,65:5956,65×0,085=506,31525; mínimo estatal no sustituye esa base.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La fórmula implementada usa mínimo propio autonómico limitado a BG. Falta pasaje primario de 5956,65 y tabla Madrid 2025: SEM-01."
+      },
+      "norma": {
+        "textoRevisado": "Art.74.1.2 LIRPF y norma madrileña aplicable al mínimo y escala.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La fórmula implementada usa mínimo propio autonómico limitado a BG. Falta pasaje primario de 5956,65 y tabla Madrid 2025: SEM-01."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "La fórmula implementada usa mínimo propio autonómico limitado a BG. Falta pasaje primario de 5956,65 y tabla Madrid 2025: SEM-01."
+      },
+      "bordes": {
+        "textoRevisado": "Un mínimo de otro componente no es intercambiable; la identidad de tabla y derecho siguen condicionados.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La fórmula implementada usa mínimo propio autonómico limitado a BG. Falta pasaje primario de 5956,65 y tabla Madrid 2025: SEM-01."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "La fórmula implementada usa mínimo propio autonómico limitado a BG. Falta pasaje primario de 5956,65 y tabla Madrid 2025: SEM-01.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.minimo-estatal-tramo",
+    "siteId": "anual.cuota.minimo-estatal-tramo",
+    "derivacionCompartida": "escalas",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Usa la misma representación que cuota general estatal y mínimo limitado. Negativos producen cero por helper, no por alterar la base con signo.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "qE=FE(min(ME,BG)); EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Usa la misma representación que cuota general estatal y mínimo limitado. Negativos producen cero por helper, no por alterar la base con signo."
+      },
+      "derivacion": {
+        "textoRevisado": "Limitar mínimo a base y usar exactamente la misma representación de escala estatal que para la base. Con BG10000 yME5550, primer tipo9,5%:527,25. Con BG1000:95, no527,25.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Usa la misma representación que cuota general estatal y mínimo limitado. Negativos producen cero por helper, no por alterar la base con signo."
+      },
+      "norma": {
+        "textoRevisado": "Art.63.1.2 LIRPF y DA35 para2012–2014.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Usa la misma representación que cuota general estatal y mínimo limitado. Negativos producen cero por helper, no por alterar la base con signo."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Usa la misma representación que cuota general estatal y mínimo limitado. Negativos producen cero por helper, no por alterar la base con signo."
+      },
+      "bordes": {
+        "textoRevisado": "El remanente no desaparece: se traslada a ahorro mediante su contrato temporal. No restar5550 euros a la cuota.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Usa la misma representación que cuota general estatal y mínimo limitado. Negativos producen cero por helper, no por alterar la base con signo."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Usa la misma representación que cuota general estatal y mínimo limitado. Negativos producen cero por helper, no por alterar la base con signo.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.cuota.minimo-general-total",
+    "siteId": "anual.cuota.minimo-general-total",
+    "derivacionCompartida": "escalas",
+    "dictamen": "aprovechable con ajuste obligatorio",
+    "razon": "Suma cuotas minoradoras, no nominales. El ejemplo depende de las cuantías madrileñas sin evidencia específica: SEM-01.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "mG=FE(min(ME,BG))+FA(min(MA,BG)); EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma cuotas minoradoras, no nominales. El ejemplo depende de las cuantías madrileñas sin evidencia específica: SEM-01."
+      },
+      "derivacion": {
+        "textoRevisado": "Sumar importes de cuota, no mínimos nominales. En Madrid2025 con base suficiente:527,25+506,31525=1033,56525→1033,57. Las líneas presentadas527,25+506,32 también suman1033,57 en este caso, pero no es garantía universal.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma cuotas minoradoras, no nominales. El ejemplo depende de las cuantías madrileñas sin evidencia específica: SEM-01."
+      },
+      "norma": {
+        "textoRevisado": "Arts.63 y74, adecuación del art.56 LIRPF.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma cuotas minoradoras, no nominales. El ejemplo depende de las cuantías madrileñas sin evidencia específica: SEM-01."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Suma cuotas minoradoras, no nominales. El ejemplo depende de las cuantías madrileñas sin evidencia específica: SEM-01."
+      },
+      "bordes": {
+        "textoRevisado": "No aplicar una tarifa conjunta al mayor de los mínimos. Con familias grandes las cuotas publicadas también importan.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma cuotas minoradoras, no nominales. El ejemplo depende de las cuantías madrileñas sin evidencia específica: SEM-01."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Suma cuotas minoradoras, no nominales. El ejemplo depende de las cuantías madrileñas sin evidencia específica: SEM-01.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.deducciones.autonomicas",
+    "siteId": "anual.deducciones.autonomicas",
+    "derivacionCompartida": "deducciones",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Explica entrada consignada en céntimos, cap general más ahorro autonómico y conservación estatal; catálogo no equivale a evaluadores.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "Dap=min(Ddeclarada,QAGpost+QAApost) en territorio real; importe agregado en céntimos convertido a EUR.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica entrada consignada en céntimos, cap general más ahorro autonómico y conservación estatal; catálogo no equivale a evaluadores."
+      },
+      "derivacion": {
+        "textoRevisado": "El límite combina general y ahorro del componente autonómico. Con BG0 y ahorro10000 enMadrid2025 queda424,11825 de cuota autonómica: declarar100 consume100; declarar10000 consume424,11825 y preserva462,75 estatales.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica entrada consignada en céntimos, cap general más ahorro autonómico y conservación estatal; catálogo no equivale a evaluadores."
+      },
+      "norma": {
+        "textoRevisado": "Art.77 y normas específicas de deducciones; aquí solo contrato de consignación y límite general, no reglas individuales.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica entrada consignada en céntimos, cap general más ahorro autonómico y conservación estatal; catálogo no equivale a evaluadores."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Explica entrada consignada en céntimos, cap general más ahorro autonómico y conservación estatal; catálogo no equivale a evaluadores."
+      },
+      "bordes": {
+        "textoRevisado": "Las351 entradas de catálogo no son351 evaluadores. La lista deducciones solicitada falla como no soportada; un agregado no acredita requisitos, compatibilidad ni límites especiales. No prometer automatización.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica entrada consignada en céntimos, cap general más ahorro autonómico y conservación estatal; catálogo no equivale a evaluadores."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Explica entrada consignada en céntimos, cap general más ahorro autonómico y conservación estatal; catálogo no equivale a evaluadores.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.explicito.big",
+    "siteId": "anual.explicito.big",
+    "derivacionCompartida": "explicito",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Conserva neto con signo; gastos y art20 solo una vez. Su ruta excluye otras rentas, familia y discapacidad por schema.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "BIG=neto reducido conciliado, EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Conserva neto con signo; gastos y art20 solo una vez. Su ruta excluye otras rentas, familia y discapacidad por schema."
+      },
+      "derivacion": {
+        "textoRevisado": "Trabajo resta gastos efectivos y art.20 una vez; actividad toma aporte EDS ya neto sin volver a cotizar. La pérdida −1000 se conserva como BIG−1000 aunque base usada en escala sea0.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Conserva neto con signo; gastos y art20 solo una vez. Su ruta excluye otras rentas, familia y discapacidad por schema."
+      },
+      "norma": {
+        "textoRevisado": "Arts.45/48; perfil individualMadrid2025 sin otras rentas.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Conserva neto con signo; gastos y art20 solo una vez. Su ruta excluye otras rentas, familia y discapacidad por schema."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Conserva neto con signo; gastos y art20 solo una vez. Su ruta excluye otras rentas, familia y discapacidad por schema."
+      },
+      "bordes": {
+        "textoRevisado": "No usar recorte de base.ahorro ni reconstruir desde salario legacy; pensión y empleo no se mezclan sin atribución de gastos.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Conserva neto con signo; gastos y art20 solo una vez. Su ruta excluye otras rentas, familia y discapacidad por schema."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Conserva neto con signo; gastos y art20 solo una vez. Su ruta excluye otras rentas, familia y discapacidad por schema.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.explicito.blg",
+    "siteId": "anual.explicito.blg",
+    "derivacionCompartida": "explicito",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Conserva signo en BLG=BIG, tarifa sobre base positiva. No promete reducciones de base inexistentes en el contrato.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "BLG=BIG por ausencia declarada de reducciones de base y compensaciones anteriores.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Conserva signo en BLG=BIG, tarifa sobre base positiva. No promete reducciones de base inexistentes en el contrato."
+      },
+      "derivacion": {
+        "textoRevisado": "Con neto−1000 quedaBLG−1000 y se aplica tarifa amax(neto,0)=0. Con26056 ambas bases son26056. No borrar el saldo negativo en el rastro.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Conserva signo en BLG=BIG, tarifa sobre base positiva. No promete reducciones de base inexistentes en el contrato."
+      },
+      "norma": {
+        "textoRevisado": "Art.50 LIRPF; igualdad solo dentro del contrato conciliado.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Conserva signo en BLG=BIG, tarifa sobre base positiva. No promete reducciones de base inexistentes en el contrato."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Conserva signo en BLG=BIG, tarifa sobre base positiva. No promete reducciones de base inexistentes en el contrato."
+      },
+      "bordes": {
+        "textoRevisado": "Fuera del perfil hay reducciones y compensaciones; no extrapolarMadrid2025 a2026.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Conserva signo en BLG=BIG, tarifa sobre base positiva. No promete reducciones de base inexistentes en el contrato."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Conserva signo en BLG=BIG, tarifa sobre base positiva. No promete reducciones de base inexistentes en el contrato.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.explicito.cuota.autonomica",
+    "siteId": "anual.explicito.cuota.autonomica",
+    "derivacionCompartida": "explicito",
+    "dictamen": "aprovechable con ajuste obligatorio",
+    "razon": "La operación y el ejemplo se reconstruyen; 5956,65 y MADRID_2025 carecen aquí de los pasajes autonómicos invocados: SEM-01.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "QA=max(0,FA(max(neto,0))−FA(min(max(neto,0),5956,65))).",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La operación y el ejemplo se reconstruyen; 5956,65 y MADRID_2025 carecen aquí de los pasajes autonómicos invocados: SEM-01."
+      },
+      "derivacion": {
+        "textoRevisado": "En base10000:850−506,31525=343,68475. FA usa filasMADRID_2025 publicadas; las cuotas fijas se conservan.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La operación y el ejemplo se reconstruyen; 5956,65 y MADRID_2025 carecen aquí de los pasajes autonómicos invocados: SEM-01."
+      },
+      "norma": {
+        "textoRevisado": "Art.74 y Ley13/2023, tabla madrileña; ámbito2025 ordinario sin fallecimiento.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La operación y el ejemplo se reconstruyen; 5956,65 y MADRID_2025 carecen aquí de los pasajes autonómicos invocados: SEM-01."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "La operación y el ejemplo se reconstruyen; 5956,65 y MADRID_2025 carecen aquí de los pasajes autonómicos invocados: SEM-01."
+      },
+      "bordes": {
+        "textoRevisado": "No heredar la tablaMADRID_2022 ni extender aceptación de sus10 celdas aMADRID_2025.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "La operación y el ejemplo se reconstruyen; 5956,65 y MADRID_2025 carecen aquí de los pasajes autonómicos invocados: SEM-01."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "La operación y el ejemplo se reconstruyen; 5956,65 y MADRID_2025 carecen aquí de los pasajes autonómicos invocados: SEM-01.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.explicito.cuota.estatal",
+    "siteId": "anual.explicito.cuota.estatal",
+    "derivacionCompartida": "explicito",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "5550 fijo es correcto para la ruta 18–64 sin familiares; el código integra marginales estatales. No confundir con ruta de derechos.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "QE=max(0,FE(max(neto,0))−FE(min(max(neto,0),5550))).",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "5550 fijo es correcto para la ruta 18–64 sin familiares; el código integra marginales estatales. No confundir con ruta de derechos."
+      },
+      "derivacion": {
+        "textoRevisado": "En base10000:950−527,25=422,75; el mínimo queda limitado a la base y no genera devolución por sí mismo. La escala estatal de esta ruta integra marginales.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "5550 fijo es correcto para la ruta 18–64 sin familiares; el código integra marginales estatales. No confundir con ruta de derechos."
+      },
+      "norma": {
+        "textoRevisado": "Arts.63/67; Madrid2025 individual18–64 sin familiares ni discapacidad.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "5550 fijo es correcto para la ruta 18–64 sin familiares; el código integra marginales estatales. No confundir con ruta de derechos."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "5550 fijo es correcto para la ruta 18–64 sin familiares; el código integra marginales estatales. No confundir con ruta de derechos."
+      },
+      "bordes": {
+        "textoRevisado": "Sin ahorro ni anualidades ni otros mínimos; no trasladar resultado a la API familiar por similitud de cifra.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "5550 fijo es correcto para la ruta 18–64 sin familiares; el código integra marginales estatales. No confundir con ruta de derechos."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "5550 fijo es correcto para la ruta 18–64 sin familiares; el código integra marginales estatales. No confundir con ruta de derechos.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.explicito.cuota.liquida-legal",
+    "siteId": "anual.explicito.cuota.liquida-legal",
+    "derivacionCompartida": "explicito",
+    "dictamen": "aprovechable con ajuste obligatorio",
+    "razon": "Suma antes de DA61, art80 sin importe por contrato. La composición es explicada, aunque hereda la falta de evidencia Madrid: SEM-01.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "QLlegal=QE+QA; EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma antes de DA61, art80 sin importe por contrato. La composición es explicada, aunque hereda la falta de evidencia Madrid: SEM-01."
+      },
+      "derivacion": {
+        "textoRevisado": "Base10000 del caso aritmético anterior:422,75+343,68475=766,43475. No descuenta aún DA61; art.80 no tiene importe al excluir rentas extranjeras.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma antes de DA61, art80 sin importe por contrato. La composición es explicada, aunque hereda la falta de evidencia Madrid: SEM-01."
+      },
+      "norma": {
+        "textoRevisado": "Arts.67,77 y80 LIRPF bajo exclusiones del contrato.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma antes de DA61, art80 sin importe por contrato. La composición es explicada, aunque hereda la falta de evidencia Madrid: SEM-01."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Suma antes de DA61, art80 sin importe por contrato. La composición es explicada, aunque hereda la falta de evidencia Madrid: SEM-01."
+      },
+      "bordes": {
+        "textoRevisado": "El nombre del campo no certifica legalidad; no comparar directamente con cuotaPosterior sin explicar la deducción.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma antes de DA61, art80 sin importe por contrato. La composición es explicada, aunque hereda la falta de evidencia Madrid: SEM-01."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Suma antes de DA61, art80 sin importe por contrato. La composición es explicada, aunque hereda la falta de evidencia Madrid: SEM-01.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.explicito.cuota.posterior",
+    "siteId": "anual.explicito.cuota.posterior",
+    "derivacionCompartida": "explicito",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Explica resta única y caso algebraico condicionado. La página90 sí reproduce DA61; la compilación no cierra la reforma original por asociación.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "Qposterior=QLlegal−DA61aplicable, EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica resta única y caso algebraico condicionado. La página90 sí reproduce DA61; la compilación no cierra la reforma original por asociación."
+      },
+      "derivacion": {
+        "textoRevisado": "Recibir DA61 calculada una sola vez después del art.80; solo servicios laborales/estatutarios, sin incluir pensión ni EDS. Ejemplo algebraico condicionado:QLlegal766,43475 y deducción admisible100 da666,43475; no es prueba de elegibilidad de esos100.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica resta única y caso algebraico condicionado. La página90 sí reproduce DA61; la compilación no cierra la reforma original por asociación."
+      },
+      "norma": {
+        "textoRevisado": "DA61 LIRPF en2025 y orden declarado por contrato; evidencia específica de elegibilidad no cubierta por este ejemplo.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica resta única y caso algebraico condicionado. La página90 sí reproduce DA61; la compilación no cierra la reforma original por asociación."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Explica resta única y caso algebraico condicionado. La página90 sí reproduce DA61; la compilación no cierra la reforma original por asociación."
+      },
+      "bordes": {
+        "textoRevisado": "No volver a restar DA61 al obtener diferencial. Esta ficha documenta composición; no acepta la regla de trabajo completa.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica resta única y caso algebraico condicionado. La página90 sí reproduce DA61; la compilación no cierra la reforma original por asociación."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Explica resta única y caso algebraico condicionado. La página90 sí reproduce DA61; la compilación no cierra la reforma original por asociación.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.minimo.ascendientes",
+    "siteId": "anual.minimo.ascendientes",
+    "derivacionCompartida": "minimos",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Explica incremento acumulativo y filtro edad/discapacidad del helper; renta/convivencia no se comprueban aquí. No amplía derechos de descendientes.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "Σ [I(edad>=65 o discapacidad)Pasc+I(edad>=75)A75], EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica incremento acumulativo y filtro edad/discapacidad del helper; renta/convivencia no se comprueban aquí. No amplía derechos de descendientes."
+      },
+      "derivacion": {
+        "textoRevisado": "El helper suma por familiar; para75 sin discapacidad y juego estatal2015:1150+1400=2550. Una persona64 sin discapacidad aporta0. La renta y convivencia necesarias no están en este helper.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica incremento acumulativo y filtro edad/discapacidad del helper; renta/convivencia no se comprueban aquí. No amplía derechos de descendientes."
+      },
+      "norma": {
+        "textoRevisado": "Arts.59 y61 LIRPF; no confundir con mínimo propio del art.57.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica incremento acumulativo y filtro edad/discapacidad del helper; renta/convivencia no se comprueban aquí. No amplía derechos de descendientes."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Explica incremento acumulativo y filtro edad/discapacidad del helper; renta/convivencia no se comprueban aquí. No amplía derechos de descendientes."
+      },
+      "bordes": {
+        "textoRevisado": "El perfil de derechos Madrid2025 solo abre descendientes; no extiende derechos explícitos a ascendientes. No aceptar estos importes como requisitos comprobados.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica incremento acumulativo y filtro edad/discapacidad del helper; renta/convivencia no se comprueban aquí. No amplía derechos de descendientes."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Explica incremento acumulativo y filtro edad/discapacidad del helper; renta/convivencia no se comprueban aquí. No amplía derechos de descendientes.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.minimo.autonomico",
+    "siteId": "anual.minimo.autonomico",
+    "derivacionCompartida": "minimos",
+    "dictamen": "aprovechable con ajuste obligatorio",
+    "razon": "Recalcula tabla territorial sin escalar total estatal; cifras de Madrid sin fuente específica en su conjunto enlazado: SEM-01.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "MA=Σ mínimos del juego territorial; EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Recalcula tabla territorial sin escalar total estatal; cifras de Madrid sin fuente específica en su conjunto enlazado: SEM-01."
+      },
+      "derivacion": {
+        "textoRevisado": "Recalcular con mínimos autonómicos, o derechos explícitos y esa tabla; no escalar el total estatal ni usar max(ME,MA). En Madrid2025 sin familiares menor65:5956,65 frente5550 estatal; con primer hijo:8532,50 frente7950.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Recalcula tabla territorial sin escalar total estatal; cifras de Madrid sin fuente específica en su conjunto enlazado: SEM-01."
+      },
+      "norma": {
+        "textoRevisado": "Art.56.3 y competencias art.46 Ley22/2009; cada variación autonómica requiere su norma propia.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Recalcula tabla territorial sin escalar total estatal; cifras de Madrid sin fuente específica en su conjunto enlazado: SEM-01."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Recalcula tabla territorial sin escalar total estatal; cifras de Madrid sin fuente específica en su conjunto enlazado: SEM-01."
+      },
+      "bordes": {
+        "textoRevisado": "Mínimos catalanes tienen condiciones y nulidad específicas: no elegir por nombre del territorio. Residencia real no está acreditada por el enum. Cuantías2026 heredadas no prueban vigencia.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Recalcula tabla territorial sin escalar total estatal; cifras de Madrid sin fuente específica en su conjunto enlazado: SEM-01."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Recalcula tabla territorial sin escalar total estatal; cifras de Madrid sin fuente específica en su conjunto enlazado: SEM-01.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.minimo.contribuyente",
+    "siteId": "anual.minimo.contribuyente",
+    "derivacionCompartida": "minimos",
+    "dictamen": "aprovechable con ajuste obligatorio",
+    "razon": "Explica suma de incrementos y separación de juegos; las cifras 2012–2014 no aparecen en los pasajes enlazados: SEM-02.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "M=P+I(edad>=65)A65+I(edad>=75)A75; EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica suma de incrementos y separación de juegos; las cifras 2012–2014 no aparecen en los pasajes enlazados: SEM-02."
+      },
+      "derivacion": {
+        "textoRevisado": "Seleccionar primero el juego anual; sumar ambos incrementos acumulativos. Estado 2012–2014: 5151/918/1122; desde 2015 el juego reutilizado es 5550/1150/1400. A los 75: 5550+1150+1400=8100. No se divide este mínimo propio por titulares de descendientes.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica suma de incrementos y separación de juegos; las cifras 2012–2014 no aparecen en los pasajes enlazados: SEM-02."
+      },
+      "norma": {
+        "textoRevisado": "Arts.56 y57; Ley39/2010 art.61 y Ley26/2014 reforma de art.57.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica suma de incrementos y separación de juegos; las cifras 2012–2014 no aparecen en los pasajes enlazados: SEM-02."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Explica suma de incrementos y separación de juegos; las cifras 2012–2014 no aparecen en los pasajes enlazados: SEM-02."
+      },
+      "bordes": {
+        "textoRevisado": "MIN007: el código usa >=65 y >=75; el literal legal dice superior/mayor y la lectura administrativa por años cumplidos es distinta de citar literalmente >=. Continuidad anual no queda acreditada por un import.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica suma de incrementos y separación de juegos; las cifras 2012–2014 no aparecen en los pasajes enlazados: SEM-02."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Explica suma de incrementos y separación de juegos; las cifras 2012–2014 no aparecen en los pasajes enlazados: SEM-02.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.minimo.descendientes",
+    "siteId": "anual.minimo.descendientes",
+    "derivacionCompartida": "minimos",
+    "dictamen": "aprovechable con ajuste obligatorio",
+    "razon": "Filtro previo al orden y reparto descritos; falta explicar excepción de renta de titulares próximos que invierte el grado beneficiario: SEM-03.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "Mdesc=Σ (importePorOrden+incrementoMenorTres)×participacion, EUR/año; la participación solo existe en derechos explícitos.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Filtro previo al orden y reparto descritos; falta explicar excepción de renta de titulares próximos que invierte el grado beneficiario: SEM-03."
+      },
+      "derivacion": {
+        "textoRevisado": "El helper antiguo filtra edad<25 o discapacidad antes de ordenar de mayor a menor; asigna 2400,2700,4000,4500 sucesivos desde 2015. Edades 40/30/25/24/10 sin discapacidad: sobreviven 24 y10 y suman5100. El contrato explícito primero acredita elegibilidad, grado preferente y titulares y después ordena y reparte cada derecho; dos hijos a partes iguales: (2400+2700)/2=2550 por titular.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Filtro previo al orden y reparto descritos; falta explicar excepción de renta de titulares próximos que invierte el grado beneficiario: SEM-03."
+      },
+      "norma": {
+        "textoRevisado": "Arts.58 y61: renta anual no exenta <=8000; declaración individual con rentas >1800 excluye; convivencia/dependencia y reglas de concurrencia no se deducen de edad.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Filtro previo al orden y reparto descritos; falta explicar excepción de renta de titulares próximos que invierte el grado beneficiario: SEM-03."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Filtro previo al orden y reparto descritos; falta explicar excepción de renta de titulares próximos que invierte el grado beneficiario: SEM-03."
+      },
+      "bordes": {
+        "textoRevisado": "El helper no prueba esas rentas ni convivencia ni prorrateo. Adopción/acogimiento exige fechas separadas y no reinicia tres años; MDV2-P01 excluye de la ruta anual alimentos propios sin derecho al mínimo, sin resolver jurídicamente la especialidad.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Filtro previo al orden y reparto descritos; falta explicar excepción de renta de titulares próximos que invierte el grado beneficiario: SEM-03."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Filtro previo al orden y reparto descritos; falta explicar excepción de renta de titulares próximos que invierte el grado beneficiario: SEM-03.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.minimo.discapacidad",
+    "siteId": "anual.minimo.discapacidad",
+    "derivacionCompartida": "minimos",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Explica importes separados por rol, asistencia y elegibilidad previa de derechos; cifras antiguas y vigencia no quedan acreditadas por compilación actual.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "Mdis=Mcontribuyente+ΣMdesc+ΣMasc; EUR/año.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica importes separados por rol, asistencia y elegibilidad previa de derechos; cifras antiguas y vigencia no quedan acreditadas por compilación actual."
+      },
+      "derivacion": {
+        "textoRevisado": "SinDiscapacidad aporta0; grado33a64 aporta3000 y añade3000 si ayuda/movilidad; grado65OMas aporta9000+3000=12000 con juego2015. Se aplican tablas distintas a cada rol. No confundir gasto laboral por discapacidad activa con mínimo de cuota.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica importes separados por rol, asistencia y elegibilidad previa de derechos; cifras antiguas y vigencia no quedan acreditadas por compilación actual."
+      },
+      "norma": {
+        "textoRevisado": "Art.60 y condiciones art.61 LIRPF; cuantías2012–2014 son otro juego (2316,7038,asistencia2316).",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica importes separados por rol, asistencia y elegibilidad previa de derechos; cifras antiguas y vigencia no quedan acreditadas por compilación actual."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Explica importes separados por rol, asistencia y elegibilidad previa de derechos; cifras antiguas y vigencia no quedan acreditadas por compilación actual."
+      },
+      "bordes": {
+        "textoRevisado": "La etiqueta no prueba acreditación; sumar familiares del helper no demuestra derecho a los arts.58/59. En derechos explícitos la selección es previa.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Explica importes separados por rol, asistencia y elegibilidad previa de derechos; cifras antiguas y vigencia no quedan acreditadas por compilación actual."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Explica importes separados por rol, asistencia y elegibilidad previa de derechos; cifras antiguas y vigencia no quedan acreditadas por compilación actual.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  },
+  {
+    "id": "paso.anual.minimo.estatal",
+    "siteId": "anual.minimo.estatal",
+    "derivacionCompartida": "minimos",
+    "dictamen": "aprovechable en alcance de operación implementada",
+    "razon": "Suma componentes nominales sin repetir asistencia y reserva remanente para ahorro. Se debe mantener vínculo a derechos y sus reservas.",
+    "secciones": {
+      "formula": {
+        "textoRevisado": "ME=Mpropio+Mdesc+Masc+Mdis; EUR/año, aún no cuota.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma componentes nominales sin repetir asistencia y reserva remanente para ahorro. Se debe mantener vínculo a derechos y sus reservas."
+      },
+      "derivacion": {
+        "textoRevisado": "Obtener cuatro magnitudes del mismo juego estatal y sumar sin repetir asistencia. Un contribuyente menor65 con primer hijo sin incremento:5550+2400=7950. Aplicar después la escala estatal a min(ME,BG); el exceso va al ahorro por separado.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma componentes nominales sin repetir asistencia y reserva remanente para ahorro. Se debe mantener vínculo a derechos y sus reservas."
+      },
+      "norma": {
+        "textoRevisado": "Arts.56–61 y63/66 LIRPF.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma componentes nominales sin repetir asistencia y reserva remanente para ahorro. Se debe mantener vínculo a derechos y sus reservas."
+      },
+      "evidencia": {
+        "textoRevisado": "Las referencias fuentesPrimarias resuelven original por ambos hashes, página física1-based, caja y transcripción literal. Cada cita nueva tiene PNG y receta. Las citas históricas conservan su facsímil original por hash. Reextracción técnica no acepta interpretación ni residencia.",
+        "dictamen": "evidencia geométrica; suficiencia limitada por afirmación",
+        "reserva": "Suma componentes nominales sin repetir asistencia y reserva remanente para ahorro. Se debe mantener vínculo a derechos y sus reservas."
+      },
+      "bordes": {
+        "textoRevisado": "Total nominal no es deducción directa ni rebaja de base. No traslada condiciones de una celda a toda la familia.",
+        "dictamen": "explicación sustantiva con reservas señaladas",
+        "reserva": "Suma componentes nominales sin repetir asistencia y reserva remanente para ahorro. Se debe mantener vínculo a derechos y sus reservas."
+      }
+    },
+    "objecion": "El mejor experto exigiría condiciones reconstruibles, soporte exacto y dependencias del valor; pasar schemas o coincidir en cifras no basta.",
+    "respuesta": "Suma componentes nominales sin repetir asistencia y reserva remanente para ahorro. Se debe mantener vínculo a derechos y sus reservas.",
+    "coste": "Conservar candidato y completar ajustes antes de adaptar al publicador; no promocionar aceptación fiscal ni identidades históricas."
+  }
+]

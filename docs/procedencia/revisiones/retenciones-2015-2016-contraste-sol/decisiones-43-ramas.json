@@ -1,0 +1,647 @@
+[
+  {
+    "id": "2015-enero-revision:admisibilidad",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "0<PERCIBIDO<RETRIB, causa admisible y estado previo suficiente;11 incompatible con1..10;6/7/8 excluyentes;9/10 excluyentes.",
+    "contratoViable": "Validar códigos, presencia de estado previo y0<percibido<total antes de operar.",
+    "contraejemplo": "{6,11} rechaza;{11} sola distingue versión.",
+    "objecionExperta": "Una división válida no basta para admisión.",
+    "respuesta": "Validar los errores4..8 delPDF de cada hash.",
+    "coste": "No ejecuta servicio remoto.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:objetivo-general",
+    "dictamenPropio": "confirmacion-subpaso",
+    "formulaAutor": "IMPORTEREG=CUOTA",
+    "contratoViable": "Objetivo=cuota legítimamente calculada cuando no hay especialidad territorial.",
+    "contraejemplo": "Cuota6000 no acredita cálculo fiscal inicial.",
+    "objecionExperta": "Un objetivo suministrado no es deuda comprobada.",
+    "respuesta": "Etiquetar como subpaso y exigir derivación inicial para operar.",
+    "coste": "Sin casos fiscales completos de todas ramas.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:objetivo-altaCM",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "PERCIBIDO*CUOTA/RETRIB+(RETRIB-PERCIBIDO)*CUOTA/(2*RETRIB)",
+    "contratoViable": "Percibido*cuota/total+pendiente*cuota/(2total), previa noCM, nuevaCM,causa7.",
+    "contraejemplo": "15000+15000,total30000,cuota6000→4500.",
+    "objecionExperta": "No basta residencia sin rendimiento beneficiado.",
+    "respuesta": "Exigir ambos hechos y período, sin redondear mitades antes.",
+    "coste": "No acredita residencia.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:objetivo-trabajo-fuera",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "PERCIBIDO*CUOTA/(2*RETRIB)+(RETRIB-PERCIBIDO)*CUOTA/RETRIB",
+    "contratoViable": "Percibido*cuota/(2total)+pendiente*cuota/total,causa8 y hechos de trabajo fuera.",
+    "contraejemplo": "Caso simétrico4500; no trasladar a causa6.",
+    "objecionExperta": "Pérdida residencia y cambio de trabajo son distintos.",
+    "respuesta": "Preservar condiciones hash por hash.",
+    "coste": "No resuelve julio11.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:objetivo-totalCM",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "CUOTA/2",
+    "contratoViable": "Cuota/2 con totalidad anterior y actual beneficiada.",
+    "contraejemplo": "6000→3000; máximo reducido no es mitad matemática de47/45.",
+    "objecionExperta": "Residencia sola no cubre totalidad.",
+    "respuesta": "Hechos fiscales completos y residencia cuando proceda.",
+    "coste": "No certifica derecho real.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:vivienda1a8",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "MINOPAGOA+0,02*(RETRIB-RETRIBA); sin derecho actual conserva previa; sin previa0",
+    "contratoViable": "Con derecho/previa, sumar2%variación; si cesa derecho conserva previa según bloque;sin previa0.",
+    "contraejemplo": "400 con±1000 da420/380; el test solo comprueba subpaso.",
+    "objecionExperta": "No puede inferirse MINOPAGOA del tipo actual.",
+    "respuesta": "Conciliar salario previo y minoración acumulada.",
+    "coste": "Rechazo de historia insuficiente.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:vivienda9",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "Si previa:MINOPAGOA+0,02*pendiente;si no:0,02*pendiente",
+    "contratoViable": "Previa+2%pendiente o nueva2%pendiente con derecho y umbral.",
+    "contraejemplo": "Previa200,pendiente15000→500;sinprevia300.",
+    "objecionExperta": "Cambio salarial simultáneo exige dos operaciones.",
+    "respuesta": "Aplicar orden validaciones76/77 julio/2016,78/79 enero.",
+    "coste": "Estado intermedio adicional.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:vivienda10",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "MINOPAGOA-0,02*pendiente",
+    "contratoViable": "Previa−2%pendiente, comunicación improcedencia yPRESVIV=N; conciliación de la historia.",
+    "contraejemplo": "400−300=100; no generaliza a cualquier previa.",
+    "objecionExperta": "Un saldo negativo no se sana silenciosamente a0.",
+    "respuesta": "Rechazar estado fuera del contrato y conservar fórmula/cita sin corregir original.",
+    "coste": "No resolver aquí todos los historiales de vivienda.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:vivienda11",
+    "dictamenPropio": "por-version",
+    "formulaAutor": "Enero/2016:0,02*pendiente si derecho; julio:ajuste previa por variación o nueva sobrependiente según bloqueazul",
+    "contratoViable": "Enero/2016 receta pendiente; julio bloque azul de ajustes/previa, con datos anteriores admitidos por tachados.",
+    "contraejemplo": "Copiar bloque julio a2016 usa datos allí prohibidos.",
+    "objecionExperta": "La semejanza anual no prueba continuidad editorial.",
+    "respuesta": "Usar hash exacto y su validación, manteniendo reserva editorial.",
+    "coste": "No repararPDF ni completar historia desconocida.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:tipo-acumulado",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "trunc2(max(0,(objetivo-retenido-minoracion)*100/pendiente));topes/minimos;importe=retenido+pendiente*tipo/100",
+    "contratoViable": "Suelo0,trunc2,topes/mínimos eimporte retenido+pendiente*tipo/100.",
+    "contraejemplo": "Objetivo1000 retenido1500:tipo0 antes de mínimos; no devolución porpagador.",
+    "objecionExperta": "El resultado puede requerir mínimo contractual.",
+    "respuesta": "Aplicar86.2 y documentar cada etapa.",
+    "coste": "Solo subpasos admisibles.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:87.5-excepciones",
+    "dictamenPropio": "confirmacion-documental",
+    "formulaAutor": "No aplica restricciones especiales; sigue máximo general",
+    "contratoViable": "CódigosPDF5/6/8/9/10/11 salen de restricciones especiales, conservando topesgenerales.",
+    "contraejemplo": "Causa7 no está en la exclusión; no confundir con87.2.7 alimentos.",
+    "objecionExperta": "Números iguales designan hechos distintos.",
+    "respuesta": "Mapear descripciones, no enteros.",
+    "coste": "No prueba todos los eventos mixtos.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:87.5-no-aumento",
+    "dictamenPropio": "requiere-ampliacion-C02",
+    "formulaAutor": "TIPOREG=TIPOA;reaplicar mínimos,recalcular importe",
+    "contratoViable": "Conservar condición de disminución exclusiva y añadir alternativa de obligación judicial alimentos85.2.",
+    "contraejemplo": "Diferencia aumenta1000 no excluye guardia poralimentos.",
+    "objecionExperta": "El signo no representa toda la disyunción normativa.",
+    "respuesta": "Añadir guardia o excluir caso hasta integración porpadre.",
+    "coste": "No declarar43 ramas exhaustivas jurídicamente.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:87.5-aumento",
+    "dictamenPropio": "condicionado-C02",
+    "formulaAutor": "Techoimporte=IMPORTEA+incrementodiferencia;tipo de pendiente,truncado,revisar mínimos,recalcular",
+    "contratoViable": "Techo importe anterior+incrementodiferencia solo con aumento exclusivo y sin guardia prioritaria de alimentos.",
+    "contraejemplo": "2000+1000=3000; reobtener tipo de pendiente y reaplicar mínimos.",
+    "objecionExperta": "Circunstancias mixtas no se clasifican solo por delta.",
+    "respuesta": "Calificación de evento y guardias precedentes.",
+    "coste": "Puede rechazar casos legales fuera delperfil.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-enero-revision:eficacia",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "87.4:1..4 desdevariación;5..11 desdecomunicación>=5días;opción1abril/julio/octubre;88subidas10días",
+    "contratoViable": "Aplicar87.4 por números legales1..4 variación y5..11 comunicación, no por códigosPDF.",
+    "contraejemplo": "PDFcausa1 no corresponde solo87.2.1.",
+    "objecionExperta": "Texto numérico abreviado puede reutilizarse mal.",
+    "respuesta": "Mapeo por hecho y fechas explícitas.",
+    "coste": "No acredita recepción de145.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-enero-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:admisibilidad",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "0<PERCIBIDO<RETRIB, causa admisible y estado previo suficiente;11 incompatible con1..10;6/7/8 excluyentes;9/10 excluyentes.",
+    "contratoViable": "Validar códigos, presencia de estado previo y0<percibido<total antes de operar.",
+    "contraejemplo": "{6,11} rechaza;{11} sola distingue versión.",
+    "objecionExperta": "Una división válida no basta para admisión.",
+    "respuesta": "Validar los errores4..8 delPDF de cada hash.",
+    "coste": "No ejecuta servicio remoto.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-general",
+    "dictamenPropio": "confirmacion-subpaso",
+    "formulaAutor": "IMPORTEREG=CUOTA",
+    "contratoViable": "Objetivo=cuota legítimamente calculada cuando no hay especialidad territorial.",
+    "contraejemplo": "Cuota6000 no acredita cálculo fiscal inicial.",
+    "objecionExperta": "Un objetivo suministrado no es deuda comprobada.",
+    "respuesta": "Etiquetar como subpaso y exigir derivación inicial para operar.",
+    "coste": "Sin casos fiscales completos de todas ramas.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-altaCM",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "PERCIBIDO*CUOTA/RETRIB+(RETRIB-PERCIBIDO)*CUOTA/(2*RETRIB)",
+    "contratoViable": "Percibido*cuota/total+pendiente*cuota/(2total), previa noCM, nuevaCM,causa7.",
+    "contraejemplo": "15000+15000,total30000,cuota6000→4500.",
+    "objecionExperta": "No basta residencia sin rendimiento beneficiado.",
+    "respuesta": "Exigir ambos hechos y período, sin redondear mitades antes.",
+    "coste": "No acredita residencia.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-trabajo-fuera",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "PERCIBIDO*CUOTA/(2*RETRIB)+(RETRIB-PERCIBIDO)*CUOTA/RETRIB",
+    "contratoViable": "Percibido*cuota/(2total)+pendiente*cuota/total,causa8 y hechos de trabajo fuera.",
+    "contraejemplo": "Caso simétrico4500; no trasladar a causa6.",
+    "objecionExperta": "Pérdida residencia y cambio de trabajo son distintos.",
+    "respuesta": "Preservar condiciones hash por hash.",
+    "coste": "No resuelve julio11.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-totalCM",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "CUOTA/2",
+    "contratoViable": "Cuota/2 con totalidad anterior y actual beneficiada.",
+    "contraejemplo": "6000→3000; máximo reducido no es mitad matemática de47/45.",
+    "objecionExperta": "Residencia sola no cubre totalidad.",
+    "respuesta": "Hechos fiscales completos y residencia cuando proceda.",
+    "coste": "No certifica derecho real.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-julio11-perdida-residencia",
+    "dictamenPropio": "bloqueo-especifico",
+    "formulaAutor": "Literal no entra en condiciónRESICEME=S;6000 frente4500hipotético",
+    "contratoViable": "No atribuir esperado fiscal a rama que no alcanza mezcla conRESICEME=N.",
+    "contraejemplo": "30literal frente20hipótesis, solo11 admisible.",
+    "objecionExperta": "Azul no significa tachado.",
+    "respuesta": "Conservar ambas hipótesis hasta primaria discriminante.",
+    "coste": "Rama no operable.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:vivienda1a8",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "MINOPAGOA+0,02*(RETRIB-RETRIBA); sin derecho actual conserva previa; sin previa0",
+    "contratoViable": "Con derecho/previa, sumar2%variación; si cesa derecho conserva previa según bloque;sin previa0.",
+    "contraejemplo": "400 con±1000 da420/380; el test solo comprueba subpaso.",
+    "objecionExperta": "No puede inferirse MINOPAGOA del tipo actual.",
+    "respuesta": "Conciliar salario previo y minoración acumulada.",
+    "coste": "Rechazo de historia insuficiente.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:vivienda9",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "Si previa:MINOPAGOA+0,02*pendiente;si no:0,02*pendiente",
+    "contratoViable": "Previa+2%pendiente o nueva2%pendiente con derecho y umbral.",
+    "contraejemplo": "Previa200,pendiente15000→500;sinprevia300.",
+    "objecionExperta": "Cambio salarial simultáneo exige dos operaciones.",
+    "respuesta": "Aplicar orden validaciones76/77 julio/2016,78/79 enero.",
+    "coste": "Estado intermedio adicional.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:vivienda10",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "MINOPAGOA-0,02*pendiente",
+    "contratoViable": "Previa−2%pendiente, comunicación improcedencia yPRESVIV=N; conciliación de la historia.",
+    "contraejemplo": "400−300=100; no generaliza a cualquier previa.",
+    "objecionExperta": "Un saldo negativo no se sana silenciosamente a0.",
+    "respuesta": "Rechazar estado fuera del contrato y conservar fórmula/cita sin corregir original.",
+    "coste": "No resolver aquí todos los historiales de vivienda.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:vivienda11",
+    "dictamenPropio": "por-version",
+    "formulaAutor": "Enero/2016:0,02*pendiente si derecho; julio:ajuste previa por variación o nueva sobrependiente según bloqueazul",
+    "contratoViable": "Enero/2016 receta pendiente; julio bloque azul de ajustes/previa, con datos anteriores admitidos por tachados.",
+    "contraejemplo": "Copiar bloque julio a2016 usa datos allí prohibidos.",
+    "objecionExperta": "La semejanza anual no prueba continuidad editorial.",
+    "respuesta": "Usar hash exacto y su validación, manteniendo reserva editorial.",
+    "coste": "No repararPDF ni completar historia desconocida.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:tipo-acumulado",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "trunc2(max(0,(objetivo-retenido-minoracion)*100/pendiente));topes/minimos;importe=retenido+pendiente*tipo/100",
+    "contratoViable": "Suelo0,trunc2,topes/mínimos eimporte retenido+pendiente*tipo/100.",
+    "contraejemplo": "Objetivo1000 retenido1500:tipo0 antes de mínimos; no devolución porpagador.",
+    "objecionExperta": "El resultado puede requerir mínimo contractual.",
+    "respuesta": "Aplicar86.2 y documentar cada etapa.",
+    "coste": "Solo subpasos admisibles.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:87.5-excepciones",
+    "dictamenPropio": "confirmacion-documental",
+    "formulaAutor": "No aplica restricciones especiales; sigue máximo general",
+    "contratoViable": "CódigosPDF5/6/8/9/10/11 salen de restricciones especiales, conservando topesgenerales.",
+    "contraejemplo": "Causa7 no está en la exclusión; no confundir con87.2.7 alimentos.",
+    "objecionExperta": "Números iguales designan hechos distintos.",
+    "respuesta": "Mapear descripciones, no enteros.",
+    "coste": "No prueba todos los eventos mixtos.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:87.5-no-aumento",
+    "dictamenPropio": "requiere-ampliacion-C02",
+    "formulaAutor": "TIPOREG=TIPOA;reaplicar mínimos,recalcular importe",
+    "contratoViable": "Conservar condición de disminución exclusiva y añadir alternativa de obligación judicial alimentos85.2.",
+    "contraejemplo": "Diferencia aumenta1000 no excluye guardia poralimentos.",
+    "objecionExperta": "El signo no representa toda la disyunción normativa.",
+    "respuesta": "Añadir guardia o excluir caso hasta integración porpadre.",
+    "coste": "No declarar43 ramas exhaustivas jurídicamente.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:87.5-aumento",
+    "dictamenPropio": "condicionado-C02",
+    "formulaAutor": "Techoimporte=IMPORTEA+incrementodiferencia;tipo de pendiente,truncado,revisar mínimos,recalcular",
+    "contratoViable": "Techo importe anterior+incrementodiferencia solo con aumento exclusivo y sin guardia prioritaria de alimentos.",
+    "contraejemplo": "2000+1000=3000; reobtener tipo de pendiente y reaplicar mínimos.",
+    "objecionExperta": "Circunstancias mixtas no se clasifican solo por delta.",
+    "respuesta": "Calificación de evento y guardias precedentes.",
+    "coste": "Puede rechazar casos legales fuera delperfil.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2015-julio-revision:eficacia",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "87.4:1..4 desdevariación;5..11 desdecomunicación>=5días;opción1abril/julio/octubre;88subidas10días",
+    "contratoViable": "Aplicar87.4 por números legales1..4 variación y5..11 comunicación, no por códigosPDF.",
+    "contraejemplo": "PDFcausa1 no corresponde solo87.2.1.",
+    "objecionExperta": "Texto numérico abreviado puede reutilizarse mal.",
+    "respuesta": "Mapeo por hecho y fechas explícitas.",
+    "coste": "No acredita recepción de145.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2015-julio-revision"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:admisibilidad",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "0<PERCIBIDO<RETRIB, causa admisible y estado previo suficiente;11 incompatible con1..10;6/7/8 excluyentes;9/10 excluyentes.",
+    "contratoViable": "Validar códigos, presencia de estado previo y0<percibido<total antes de operar.",
+    "contraejemplo": "{6,11} rechaza;{11} sola distingue versión.",
+    "objecionExperta": "Una división válida no basta para admisión.",
+    "respuesta": "Validar los errores4..8 delPDF de cada hash.",
+    "coste": "No ejecuta servicio remoto.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:objetivo-general",
+    "dictamenPropio": "confirmacion-subpaso",
+    "formulaAutor": "IMPORTEREG=CUOTA",
+    "contratoViable": "Objetivo=cuota legítimamente calculada cuando no hay especialidad territorial.",
+    "contraejemplo": "Cuota6000 no acredita cálculo fiscal inicial.",
+    "objecionExperta": "Un objetivo suministrado no es deuda comprobada.",
+    "respuesta": "Etiquetar como subpaso y exigir derivación inicial para operar.",
+    "coste": "Sin casos fiscales completos de todas ramas.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:objetivo-altaCM",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "PERCIBIDO*CUOTA/RETRIB+(RETRIB-PERCIBIDO)*CUOTA/(2*RETRIB)",
+    "contratoViable": "Percibido*cuota/total+pendiente*cuota/(2total), previa noCM, nuevaCM,causa7.",
+    "contraejemplo": "15000+15000,total30000,cuota6000→4500.",
+    "objecionExperta": "No basta residencia sin rendimiento beneficiado.",
+    "respuesta": "Exigir ambos hechos y período, sin redondear mitades antes.",
+    "coste": "No acredita residencia.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:objetivo-trabajo-fuera",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "PERCIBIDO*CUOTA/(2*RETRIB)+(RETRIB-PERCIBIDO)*CUOTA/RETRIB",
+    "contratoViable": "Percibido*cuota/(2total)+pendiente*cuota/total,causa8 y hechos de trabajo fuera.",
+    "contraejemplo": "Caso simétrico4500; no trasladar a causa6.",
+    "objecionExperta": "Pérdida residencia y cambio de trabajo son distintos.",
+    "respuesta": "Preservar condiciones hash por hash.",
+    "coste": "No resuelve julio11.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:objetivo-totalCM",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "CUOTA/2",
+    "contratoViable": "Cuota/2 con totalidad anterior y actual beneficiada.",
+    "contraejemplo": "6000→3000; máximo reducido no es mitad matemática de47/45.",
+    "objecionExperta": "Residencia sola no cubre totalidad.",
+    "respuesta": "Hechos fiscales completos y residencia cuando proceda.",
+    "coste": "No certifica derecho real.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:vivienda1a8",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "MINOPAGOA+0,02*(RETRIB-RETRIBA); sin derecho actual conserva previa; sin previa0",
+    "contratoViable": "Con derecho/previa, sumar2%variación; si cesa derecho conserva previa según bloque;sin previa0.",
+    "contraejemplo": "400 con±1000 da420/380; el test solo comprueba subpaso.",
+    "objecionExperta": "No puede inferirse MINOPAGOA del tipo actual.",
+    "respuesta": "Conciliar salario previo y minoración acumulada.",
+    "coste": "Rechazo de historia insuficiente.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:vivienda9",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "Si previa:MINOPAGOA+0,02*pendiente;si no:0,02*pendiente",
+    "contratoViable": "Previa+2%pendiente o nueva2%pendiente con derecho y umbral.",
+    "contraejemplo": "Previa200,pendiente15000→500;sinprevia300.",
+    "objecionExperta": "Cambio salarial simultáneo exige dos operaciones.",
+    "respuesta": "Aplicar orden validaciones76/77 julio/2016,78/79 enero.",
+    "coste": "Estado intermedio adicional.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:vivienda10",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "MINOPAGOA-0,02*pendiente",
+    "contratoViable": "Previa−2%pendiente, comunicación improcedencia yPRESVIV=N; conciliación de la historia.",
+    "contraejemplo": "400−300=100; no generaliza a cualquier previa.",
+    "objecionExperta": "Un saldo negativo no se sana silenciosamente a0.",
+    "respuesta": "Rechazar estado fuera del contrato y conservar fórmula/cita sin corregir original.",
+    "coste": "No resolver aquí todos los historiales de vivienda.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:vivienda11",
+    "dictamenPropio": "por-version",
+    "formulaAutor": "Enero/2016:0,02*pendiente si derecho; julio:ajuste previa por variación o nueva sobrependiente según bloqueazul",
+    "contratoViable": "Enero/2016 receta pendiente; julio bloque azul de ajustes/previa, con datos anteriores admitidos por tachados.",
+    "contraejemplo": "Copiar bloque julio a2016 usa datos allí prohibidos.",
+    "objecionExperta": "La semejanza anual no prueba continuidad editorial.",
+    "respuesta": "Usar hash exacto y su validación, manteniendo reserva editorial.",
+    "coste": "No repararPDF ni completar historia desconocida.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:tipo-acumulado",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "trunc2(max(0,(objetivo-retenido-minoracion)*100/pendiente));topes/minimos;importe=retenido+pendiente*tipo/100",
+    "contratoViable": "Suelo0,trunc2,topes/mínimos eimporte retenido+pendiente*tipo/100.",
+    "contraejemplo": "Objetivo1000 retenido1500:tipo0 antes de mínimos; no devolución porpagador.",
+    "objecionExperta": "El resultado puede requerir mínimo contractual.",
+    "respuesta": "Aplicar86.2 y documentar cada etapa.",
+    "coste": "Solo subpasos admisibles.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:87.5-excepciones",
+    "dictamenPropio": "confirmacion-documental",
+    "formulaAutor": "No aplica restricciones especiales; sigue máximo general",
+    "contratoViable": "CódigosPDF5/6/8/9/10/11 salen de restricciones especiales, conservando topesgenerales.",
+    "contraejemplo": "Causa7 no está en la exclusión; no confundir con87.2.7 alimentos.",
+    "objecionExperta": "Números iguales designan hechos distintos.",
+    "respuesta": "Mapear descripciones, no enteros.",
+    "coste": "No prueba todos los eventos mixtos.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:87.5-no-aumento",
+    "dictamenPropio": "requiere-ampliacion-C02",
+    "formulaAutor": "TIPOREG=TIPOA;reaplicar mínimos,recalcular importe",
+    "contratoViable": "Conservar condición de disminución exclusiva y añadir alternativa de obligación judicial alimentos85.2.",
+    "contraejemplo": "Diferencia aumenta1000 no excluye guardia poralimentos.",
+    "objecionExperta": "El signo no representa toda la disyunción normativa.",
+    "respuesta": "Añadir guardia o excluir caso hasta integración porpadre.",
+    "coste": "No declarar43 ramas exhaustivas jurídicamente.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:87.5-aumento",
+    "dictamenPropio": "condicionado-C02",
+    "formulaAutor": "Techoimporte=IMPORTEA+incrementodiferencia;tipo de pendiente,truncado,revisar mínimos,recalcular",
+    "contratoViable": "Techo importe anterior+incrementodiferencia solo con aumento exclusivo y sin guardia prioritaria de alimentos.",
+    "contraejemplo": "2000+1000=3000; reobtener tipo de pendiente y reaplicar mínimos.",
+    "objecionExperta": "Circunstancias mixtas no se clasifican solo por delta.",
+    "respuesta": "Calificación de evento y guardias precedentes.",
+    "coste": "Puede rechazar casos legales fuera delperfil.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  },
+  {
+    "id": "2016-anual:eficacia",
+    "dictamenPropio": "condicionado",
+    "formulaAutor": "87.4:1..4 desdevariación;5..11 desdecomunicación>=5días;opción1abril/julio/octubre;88subidas10días",
+    "contratoViable": "Aplicar87.4 por números legales1..4 variación y5..11 comunicación, no por códigosPDF.",
+    "contraejemplo": "PDFcausa1 no corresponde solo87.2.1.",
+    "objecionExperta": "Texto numérico abreviado puede reutilizarse mal.",
+    "respuesta": "Mapeo por hecho y fechas explícitas.",
+    "coste": "No acredita recepción de145.",
+    "fuentes": [
+      "RIRPF87-88 original preservado",
+      "algoritmo:2016-anual"
+    ],
+    "aceptacionFiscalCompleta": false
+  }
+]
