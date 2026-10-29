@@ -12,6 +12,8 @@ El flujo nuevo de rentas y actividad aporta 20 sitios y 19 instancias con argume
 
 Ha llegado y se ha leído la revisión de preservación v4: restauración y tres facsímiles reproducidos, cinco rojos de validación y cuatro fuentes oficiales adicionales fuera del paquete. Su recepción física y el contraste de los hallazgos quedan para el siguiente bloque; v4 no se declara aprobado. La revisión de preservación R23 sigue pendiente. Crossa conserva v1 desfasado, copia local del mismo dueño y casa; sin LFS, gasto, transferencia externa, PR, despliegue o limpieza. El encargo continúa.
 
+Bloque integrado y respaldado en origin como `1f8067b8dd01d0d1377e639776c356c98cae4a05`: 146 archivos y 13.113.418 bytes cotejados contra los blobs del commit, cero borrados; nueva base de 15.175 entradas. Lanzadas tres tareas en worktrees T3: revisión del registro exacto y publicación de los 264 pares, revisión del flujo por propiedad de rentas/actividad y preparación del enlace Madrid2020 v2. Cada resultado del lanzador confirma `gpt-6.1-sol`, esfuerzo `high` y prioridad. Encargos íntegros en delegaciones-ronda25.json. Las finalizaciones reactivarán al orquestador; no se sondean. La siguiente recepción pendiente del padre es preservación v4, seguida del contraste y corrección de los hallazgos confirmados. El encargo global continúa abierto.
+
 ## Situación anterior, 29 de octubre, 20:58 CET
 
 Recibida la entrega candidata v4: 62 archivos y 9.906.088 bytes cotejados, con las 14.537 entradas de su base R21 intactas y cero borrados. Pin externo definitivo del JSON: `938f230888d2f71a999d5083c3b484e37687ebad03c4b1ca887535710c6071f2`. Los pins intermedios permanecen identificados como ensayos, sin cambiar el corte.
