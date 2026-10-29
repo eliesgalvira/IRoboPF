@@ -1,0 +1,5246 @@
+{
+  "sources": [
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86"
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f"
+    },
+    {
+      "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+      "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745"
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5"
+    }
+  ],
+  "instances": [
+    {
+      "index": 0,
+      "instance": "a.id",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 10064,
+        "end": 10069,
+        "offsetEncoding": "utf16",
+        "text": "cuota",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8274,
+        "end": 8279,
+        "offsetEncoding": "utf16",
+        "text": "cuota",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": true,
+      "producerBindings": [
+        {
+          "name": "cuota",
+          "declarations": [
+            {
+              "start": 9840,
+              "end": 9878,
+              "text": "cuota = D.min(saldo, base.times(coef))"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "for-of",
+          "expression": "caso.activos"
+        },
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 1,
+      "instance": "`${a.id}:saldo`",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 10206,
+        "end": 10224,
+        "offsetEncoding": "utf16",
+        "text": "saldo.minus(cuota)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 10206,
+        "end": 10224,
+        "offsetEncoding": "utf16",
+        "text": "saldo.minus(cuota)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "saldo",
+          "declarations": [
+            {
+              "start": 8576,
+              "end": 8607,
+              "text": "saldo = base.minus(a.acumulada)"
+            }
+          ]
+        },
+        {
+          "name": "minus",
+          "declarations": []
+        },
+        {
+          "name": "cuota",
+          "declarations": [
+            {
+              "start": 9840,
+              "end": 9878,
+              "text": "cuota = D.min(saldo, base.times(coef))"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "for-of",
+          "expression": "caso.activos"
+        },
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 2,
+      "instance": "`ingreso:${i.id}`",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12267,
+        "end": 12280,
+        "offsetEncoding": "utf16",
+        "text": "new D(i.base)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12267,
+        "end": 12280,
+        "offsetEncoding": "utf16",
+        "text": "new D(i.base)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        },
+        {
+          "name": "i",
+          "declarations": [
+            {
+              "start": 12122,
+              "end": 12123,
+              "text": "i"
+            }
+          ]
+        },
+        {
+          "name": "base",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "for-of",
+          "expression": "caso.ingresos"
+        },
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 3,
+      "instance": "`gasto:${g.id}`",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12461,
+        "end": 12474,
+        "offsetEncoding": "utf16",
+        "text": "new D(g.base)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12461,
+        "end": 12474,
+        "offsetEncoding": "utf16",
+        "text": "new D(g.base)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        },
+        {
+          "name": "g",
+          "declarations": [
+            {
+              "start": 12314,
+              "end": 12315,
+              "text": "g"
+            }
+          ]
+        },
+        {
+          "name": "base",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "for-of",
+          "expression": "caso.gastos"
+        },
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 4,
+      "instance": "`reta:${r.id}`",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12637,
+        "end": 12653,
+        "offsetEncoding": "utf16",
+        "text": "new D(r.importe)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 10861,
+        "end": 10877,
+        "offsetEncoding": "utf16",
+        "text": "new D(r.importe)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": true,
+      "producerBindings": [
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        },
+        {
+          "name": "r",
+          "declarations": [
+            {
+              "start": 12508,
+              "end": 12509,
+              "text": "r"
+            }
+          ]
+        },
+        {
+          "name": "importe",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "for-of",
+          "expression": "caso.reta"
+        },
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 5,
+      "instance": "\"ingresos\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12797,
+        "end": 12835,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.ingresos.map((i) => i.base))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12797,
+        "end": 12835,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.ingresos.map((i) => i.base))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "suma",
+          "declarations": [
+            {
+              "start": 461,
+              "end": 547,
+              "text": "suma = (valores: readonly string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))"
+            }
+          ]
+        },
+        {
+          "name": "caso",
+          "declarations": [
+            {
+              "start": 1331,
+              "end": 1354,
+              "text": "caso: CasoActividad2025"
+            }
+          ]
+        },
+        {
+          "name": "ingresos",
+          "declarations": []
+        },
+        {
+          "name": "map",
+          "declarations": []
+        },
+        {
+          "name": "i",
+          "declarations": [
+            {
+              "start": 12821,
+              "end": 12822,
+              "text": "i"
+            }
+          ]
+        },
+        {
+          "name": "i",
+          "declarations": [
+            {
+              "start": 12821,
+              "end": 12822,
+              "text": "i"
+            }
+          ]
+        },
+        {
+          "name": "base",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "ingresos"
+    },
+    {
+      "index": 6,
+      "instance": "\"gastos\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12971,
+        "end": 13007,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.gastos.map((g) => g.base))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 12971,
+        "end": 13007,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.gastos.map((g) => g.base))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "suma",
+          "declarations": [
+            {
+              "start": 461,
+              "end": 547,
+              "text": "suma = (valores: readonly string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))"
+            }
+          ]
+        },
+        {
+          "name": "caso",
+          "declarations": [
+            {
+              "start": 1331,
+              "end": 1354,
+              "text": "caso: CasoActividad2025"
+            }
+          ]
+        },
+        {
+          "name": "gastos",
+          "declarations": []
+        },
+        {
+          "name": "map",
+          "declarations": []
+        },
+        {
+          "name": "g",
+          "declarations": [
+            {
+              "start": 12993,
+              "end": 12994,
+              "text": "g"
+            }
+          ]
+        },
+        {
+          "name": "g",
+          "declarations": [
+            {
+              "start": 12993,
+              "end": 12994,
+              "text": "g"
+            }
+          ]
+        },
+        {
+          "name": "base",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "ordinarios"
+    },
+    {
+      "index": 7,
+      "instance": "\"reta\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 13139,
+        "end": 13176,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.reta.map((r) => r.importe))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 13139,
+        "end": 13176,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.reta.map((r) => r.importe))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "suma",
+          "declarations": [
+            {
+              "start": 461,
+              "end": 547,
+              "text": "suma = (valores: readonly string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))"
+            }
+          ]
+        },
+        {
+          "name": "caso",
+          "declarations": [
+            {
+              "start": 1331,
+              "end": 1354,
+              "text": "caso: CasoActividad2025"
+            }
+          ]
+        },
+        {
+          "name": "reta",
+          "declarations": []
+        },
+        {
+          "name": "map",
+          "declarations": []
+        },
+        {
+          "name": "r",
+          "declarations": [
+            {
+              "start": 13159,
+              "end": 13160,
+              "text": "r"
+            }
+          ]
+        },
+        {
+          "name": "r",
+          "declarations": [
+            {
+              "start": 13159,
+              "end": 13160,
+              "text": "r"
+            }
+          ]
+        },
+        {
+          "name": "importe",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "reta"
+    },
+    {
+      "index": 8,
+      "instance": "\"amortizacion\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 13288,
+        "end": 13300,
+        "offsetEncoding": "utf16",
+        "text": "amortizacion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 8437,
+        "end": 8449,
+        "offsetEncoding": "utf16",
+        "text": "amortizacion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": true,
+      "producerBindings": [
+        {
+          "name": "amortizacion",
+          "declarations": [
+            {
+              "start": 8437,
+              "end": 8460,
+              "text": "amortizacion = new D(0)"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 9,
+      "instance": "\"P\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 13486,
+        "end": 13508,
+        "offsetEncoding": "utf16",
+        "text": "ingresos.minus(gastos)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 13486,
+        "end": 13508,
+        "offsetEncoding": "utf16",
+        "text": "ingresos.minus(gastos)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "ingresos",
+          "declarations": [
+            {
+              "start": 12682,
+              "end": 12875,
+              "text": "ingresos = etapa(\n    \"AE25-02\",\n    \"ingresos\",\n    \"sum(base antes de retención; IVA recuperable excluido)\",\n    suma(caso.ingresos.map((i) => i.base)),\n    caso.ingresos.map((i) => i.id)\n  )"
+            }
+          ]
+        },
+        {
+          "name": "minus",
+          "declarations": []
+        },
+        {
+          "name": "gastos",
+          "declarations": [
+            {
+              "start": 13348,
+              "end": 13397,
+              "text": "gastos = ordinarios.plus(reta).plus(amortizacion)"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "P"
+    },
+    {
+      "index": 10,
+      "instance": "\"G\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14306,
+        "end": 14401,
+        "offsetEncoding": "utf16",
+        "text": "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14306,
+        "end": 14401,
+        "offsetEncoding": "utf16",
+        "text": "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "caso",
+          "declarations": [
+            {
+              "start": 1331,
+              "end": 1354,
+              "text": "caso: CasoActividad2025"
+            }
+          ]
+        },
+        {
+          "name": "opcion",
+          "declarations": []
+        },
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        },
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        },
+        {
+          "name": "min",
+          "declarations": []
+        },
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        },
+        {
+          "name": "max",
+          "declarations": []
+        },
+        {
+          "name": "P",
+          "declarations": [
+            {
+              "start": 13406,
+              "end": 13512,
+              "text": "P = etapa(\n    \"AE25-02\",\n    \"P\",\n    \"ingresos-gastos-RETA-amortizacion\",\n    ingresos.minus(gastos)\n  )"
+            }
+          ]
+        },
+        {
+          "name": "times",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "G"
+    },
+    {
+      "index": 11,
+      "instance": "\"RN\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14461,
+        "end": 14471,
+        "offsetEncoding": "utf16",
+        "text": "P.minus(G)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14461,
+        "end": 14471,
+        "offsetEncoding": "utf16",
+        "text": "P.minus(G)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "P",
+          "declarations": [
+            {
+              "start": 13406,
+              "end": 13512,
+              "text": "P = etapa(\n    \"AE25-02\",\n    \"P\",\n    \"ingresos-gastos-RETA-amortizacion\",\n    ingresos.minus(gastos)\n  )"
+            }
+          ]
+        },
+        {
+          "name": "minus",
+          "declarations": []
+        },
+        {
+          "name": "G",
+          "declarations": [
+            {
+              "start": 14208,
+              "end": 14405,
+              "text": "G = etapa(\n    \"AE25-05\",\n    \"G\",\n    \"opcion cliente único ? 0 : min(2000, 0.05*max(P,0))\",\n    caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))\n  )"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "RN"
+    },
+    {
+      "index": 12,
+      "instance": "\"adicional\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15032,
+        "end": 15041,
+        "offsetEncoding": "utf16",
+        "text": "adicional",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14551,
+        "end": 14560,
+        "offsetEncoding": "utf16",
+        "text": "adicional",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": true,
+      "producerBindings": [
+        {
+          "name": "adicional",
+          "declarations": [
+            {
+              "start": 14551,
+              "end": 14671,
+              "text": "adicional = RN.lte(\"14047.5\")\n      ? new D(6498)\n      : D.max(0, new D(6498).minus(RN.minus(\"14047.5\").times(\"1.14\")))"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "if",
+          "expression": "caso.opcion === \"cliente-unico\""
+        },
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 13,
+      "instance": "\"discapacidad\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15177,
+        "end": 15187,
+        "offsetEncoding": "utf16",
+        "text": "incremento",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 14682,
+        "end": 14692,
+        "offsetEncoding": "utf16",
+        "text": "incremento",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": true,
+      "producerBindings": [
+        {
+          "name": "incremento",
+          "declarations": [
+            {
+              "start": 14682,
+              "end": 14918,
+              "text": "incremento =\n      discapacidad.ejercicioEfectivo && discapacidad.grado >= 33\n        ? new D(\n            discapacidad.grado >= 65 || discapacidad.ayudaOMovilidad\n              ? 7750\n              : 3500\n          )\n        : new D(0)"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "if",
+          "expression": "caso.opcion === \"cliente-unico\""
+        },
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 14,
+      "instance": "\"reduccion32_2\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 15573,
+        "end": 15582,
+        "offsetEncoding": "utf16",
+        "text": "reduccion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1040,
+        "end": 1049,
+        "offsetEncoding": "utf16",
+        "text": "reduccion",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": true,
+      "producerBindings": [
+        {
+          "name": "reduccion",
+          "declarations": [
+            {
+              "start": 14479,
+              "end": 14499,
+              "text": "reduccion = new D(0)"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retorno descartado; etapa registrada"
+    },
+    {
+      "index": 15,
+      "instance": "\"reduccionInicio\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 16311,
+        "end": 16430,
+        "offsetEncoding": "utf16",
+        "text": "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 16311,
+        "end": 16430,
+        "offsetEncoding": "utf16",
+        "text": "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "caso",
+          "declarations": [
+            {
+              "start": 1331,
+              "end": 1354,
+              "text": "caso: CasoActividad2025"
+            }
+          ]
+        },
+        {
+          "name": "aplicarInicio",
+          "declarations": []
+        },
+        {
+          "name": "inicioElegible",
+          "declarations": [
+            {
+              "start": 16047,
+              "end": 16173,
+              "text": "inicioElegible =\n    inicio >= 2013 &&\n    primerPositivo !== null &&\n    2025 <= primerPositivo + 1 &&\n    !excluidoEmpleador"
+            }
+          ]
+        },
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        },
+        {
+          "name": "min",
+          "declarations": []
+        },
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        },
+        {
+          "name": "max",
+          "declarations": []
+        },
+        {
+          "name": "RN",
+          "declarations": [
+            {
+              "start": 14414,
+              "end": 14472,
+              "text": "RN = etapa(\"AE25-06\", \"RN\", \"P-G (con signo)\", P.minus(G))"
+            }
+          ]
+        },
+        {
+          "name": "minus",
+          "declarations": []
+        },
+        {
+          "name": "reduccion",
+          "declarations": [
+            {
+              "start": 14479,
+              "end": 14499,
+              "text": "reduccion = new D(0)"
+            }
+          ]
+        },
+        {
+          "name": "times",
+          "declarations": []
+        },
+        {
+          "name": "D",
+          "declarations": [
+            {
+              "start": 418,
+              "end": 454,
+              "text": "D = Decimal.clone({ precision: 80 })"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "reduccionInicio"
+    },
+    {
+      "index": 16,
+      "instance": "\"aporteBIG\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 16553,
+        "end": 16595,
+        "offsetEncoding": "utf16",
+        "text": "RN.minus(reduccion).minus(reduccionInicio)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 16553,
+        "end": 16595,
+        "offsetEncoding": "utf16",
+        "text": "RN.minus(reduccion).minus(reduccionInicio)",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "RN",
+          "declarations": [
+            {
+              "start": 14414,
+              "end": 14472,
+              "text": "RN = etapa(\"AE25-06\", \"RN\", \"P-G (con signo)\", P.minus(G))"
+            }
+          ]
+        },
+        {
+          "name": "minus",
+          "declarations": []
+        },
+        {
+          "name": "reduccion",
+          "declarations": [
+            {
+              "start": 14479,
+              "end": 14499,
+              "text": "reduccion = new D(0)"
+            }
+          ]
+        },
+        {
+          "name": "minus",
+          "declarations": []
+        },
+        {
+          "name": "reduccionInicio",
+          "declarations": [
+            {
+              "start": 16182,
+              "end": 16434,
+              "text": "reduccionInicio = etapa(\n    \"AE25-12\",\n    \"reduccionInicio\",\n    \"si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))\",\n    caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)\n  )"
+            }
+          ]
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "aporte"
+    },
+    {
+      "index": 17,
+      "instance": "\"retenciones\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 16734,
+        "end": 16778,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.retenciones.map((r) => r.importe))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 16734,
+        "end": 16778,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.retenciones.map((r) => r.importe))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "suma",
+          "declarations": [
+            {
+              "start": 461,
+              "end": 547,
+              "text": "suma = (valores: readonly string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))"
+            }
+          ]
+        },
+        {
+          "name": "caso",
+          "declarations": [
+            {
+              "start": 1331,
+              "end": 1354,
+              "text": "caso: CasoActividad2025"
+            }
+          ]
+        },
+        {
+          "name": "retenciones",
+          "declarations": []
+        },
+        {
+          "name": "map",
+          "declarations": []
+        },
+        {
+          "name": "r",
+          "declarations": [
+            {
+              "start": 16761,
+              "end": 16762,
+              "text": "r"
+            }
+          ]
+        },
+        {
+          "name": "r",
+          "declarations": [
+            {
+              "start": 16761,
+              "end": 16762,
+              "text": "r"
+            }
+          ]
+        },
+        {
+          "name": "importe",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "retenciones"
+    },
+    {
+      "index": 18,
+      "instance": "\"pagos\"",
+      "argument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 16938,
+        "end": 16988,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.pagosFraccionados.map((p) => p.importe))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "oldArgument4": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 16938,
+        "end": 16988,
+        "offsetEncoding": "utf16",
+        "text": "suma(caso.pagosFraccionados.map((p) => p.importe))",
+        "rangeRole": "expression-or-declaration; never presumed literal"
+      },
+      "changed": false,
+      "producerBindings": [
+        {
+          "name": "suma",
+          "declarations": [
+            {
+              "start": 461,
+              "end": 547,
+              "text": "suma = (valores: readonly string[]) =>\n  valores.reduce((a, b) => a.plus(b), new D(0))"
+            }
+          ]
+        },
+        {
+          "name": "caso",
+          "declarations": [
+            {
+              "start": 1331,
+              "end": 1354,
+              "text": "caso: CasoActividad2025"
+            }
+          ]
+        },
+        {
+          "name": "pagosFraccionados",
+          "declarations": []
+        },
+        {
+          "name": "map",
+          "declarations": []
+        },
+        {
+          "name": "p",
+          "declarations": [
+            {
+              "start": 16971,
+              "end": 16972,
+              "text": "p"
+            }
+          ]
+        },
+        {
+          "name": "p",
+          "declarations": [
+            {
+              "start": 16971,
+              "end": 16972,
+              "text": "p"
+            }
+          ]
+        },
+        {
+          "name": "importe",
+          "declarations": []
+        }
+      ],
+      "lexicalScope": [
+        {
+          "kind": "function",
+          "name": "calcularActividad2025"
+        }
+      ],
+      "consumer": {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+        "start": 1957,
+        "end": 2323,
+        "offsetEncoding": "utf16",
+        "text": "etapa = (\n    reglaId: string,\n    id: string,\n    formula: string,\n    valor: Decimal,\n    documentos: readonly string[] = []\n  ) => {\n    etapas.push({\n      reglaId,\n      id,\n      formula,\n      importe: valor.toFixed(),\n      fuentes:\n        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],\n      documentos,\n    })\n    return valor\n  }"
+      },
+      "returnBinding": "pagos"
+    }
+  ],
+  "flagCases": [
+    {
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 5690,
+        "end": 5725,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: false"
+      }
+    },
+    {
+      "year": 2012,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 5690,
+        "end": 5725,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: false"
+      }
+    },
+    {
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 6322,
+        "end": 6357,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: false"
+      }
+    },
+    {
+      "year": 2013,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 6322,
+        "end": 6357,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: false"
+      }
+    },
+    {
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 7058,
+        "end": 7093,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: false"
+      }
+    },
+    {
+      "year": 2014,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 7058,
+        "end": 7093,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: false"
+      }
+    },
+    {
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 7883,
+        "end": 7918,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: false"
+      }
+    },
+    {
+      "year": 2015,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 7883,
+        "end": 7918,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: false"
+      }
+    },
+    {
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 8585,
+        "end": 8655,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2016,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 8585,
+        "end": 8655,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2017,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 9252,
+        "end": 9322,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2017,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 9252,
+        "end": 9322,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2018,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 9919,
+        "end": 9989,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2018,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 9919,
+        "end": 9989,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2019,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 10586,
+        "end": 10656,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2019,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 10586,
+        "end": 10656,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2020,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 11253,
+        "end": 11323,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2020,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 11253,
+        "end": 11323,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2021,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 11920,
+        "end": 11990,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2021,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 11920,
+        "end": 11990,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2022,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 14220,
+        "end": 14290,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2022,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 14220,
+        "end": 14290,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2023,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 13383,
+        "end": 13453,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2023,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 13383,
+        "end": 13453,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2024,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 12587,
+        "end": 12657,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2024,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 12587,
+        "end": 12657,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "flag": true,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 14928,
+        "end": 14998,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    },
+    {
+      "year": 2025,
+      "territory": "madrid",
+      "flag": false,
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "start": 14928,
+        "end": 14998,
+        "offsetEncoding": "utf16",
+        "text": "escalaAutonomicaIgualEstatal: comunidadAutonoma === \"simulada-estatal\""
+      }
+    }
+  ],
+  "formulaCases": [
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2012,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2012,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2013,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2013,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2014,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2014,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2015,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2015,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-cuota",
+          "base": "1000"
+        }
+      ],
+      "result": "legacy-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-cuota",
+          "base": "1000"
+        }
+      ],
+      "result": "legacy-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2016,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2016,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-cuota",
+          "base": "1000"
+        }
+      ],
+      "result": "legacy-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-cuota",
+          "base": "1000"
+        }
+      ],
+      "result": "legacy-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2025,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralEstatal",
+      "year": 2025,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2012,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2012,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2013,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2013,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2014,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2014,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2015,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2015,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [],
+      "result": "0"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [],
+      "result": "0"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2016,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2016,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [],
+      "result": "0"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [],
+      "result": "0"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2025,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaIntegraGeneralAutonomica",
+      "year": 2025,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2012,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2012,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2013,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2013,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2014,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2014,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2015,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2015,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-desglose",
+          "base": "1000"
+        }
+      ],
+      "result": "legacy-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-desglose",
+          "base": "1000"
+        }
+      ],
+      "result": "legacy-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2016,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2016,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-desglose",
+          "base": "1000"
+        }
+      ],
+      "result": "legacy-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-desglose",
+          "base": "1000"
+        }
+      ],
+      "result": "legacy-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2025,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralEstatal",
+      "year": 2025,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2012,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2012,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2013,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2013,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2014,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2014,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2015,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2015,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [],
+      "result": ""
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [],
+      "result": ""
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2016,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2016,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [],
+      "result": ""
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [],
+      "result": ""
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2025,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaIntegraGeneralAutonomica",
+      "year": 2025,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "1000",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2012,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2012,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2013,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2013,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2014,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2014,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2015,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2015,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-cuota",
+          "base": "110"
+        }
+      ],
+      "result": "legacy-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-cuota",
+          "base": "110"
+        }
+      ],
+      "result": "legacy-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2016,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2016,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-cuota",
+          "base": "110"
+        }
+      ],
+      "result": "legacy-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-cuota",
+          "base": "110"
+        }
+      ],
+      "result": "legacy-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2025,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalEstatal",
+      "year": 2025,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2012,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2012,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2013,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2013,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2014,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2014,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2015,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2015,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [],
+      "result": "0"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [],
+      "result": "0"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2016,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2016,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [],
+      "result": "0"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [],
+      "result": "0"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2025,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "cuotaMinimoPersonalAutonomica",
+      "year": 2025,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-cuota",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-cuota"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2012,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2012,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2013,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2013,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2014,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2014,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2015,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2015,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-desglose",
+          "base": "110"
+        }
+      ],
+      "result": "legacy-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-desglose",
+          "base": "110"
+        }
+      ],
+      "result": "legacy-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2016,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2016,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-desglose",
+          "base": "110"
+        }
+      ],
+      "result": "legacy-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [
+        {
+          "label": "legacy-desglose",
+          "base": "110"
+        }
+      ],
+      "result": "legacy-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2025,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalEstatal",
+      "year": 2025,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "110",
+          "tramos": [
+            "estatal"
+          ],
+          "escalasPublicadas": [
+            "publicada-estatal"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2012,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2012,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2012,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2013,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2013,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2013,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2014,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2014,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2014,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2015,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2015,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2015,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [],
+      "result": ""
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2016,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [],
+      "result": ""
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2016,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2016,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": false,
+      "flag": true,
+      "calls": [],
+      "result": ""
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2025,
+      "territory": "simulada-estatal",
+      "published": true,
+      "flag": true,
+      "calls": [],
+      "result": ""
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2025,
+      "territory": "madrid",
+      "published": false,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    },
+    {
+      "formula": "desgloseCuotaMinimoPersonalAutonomica",
+      "year": 2025,
+      "territory": "madrid",
+      "published": true,
+      "flag": false,
+      "calls": [
+        {
+          "label": "componente-desglose",
+          "base": "220",
+          "tramos": [
+            "autonomica"
+          ],
+          "escalasPublicadas": [
+            "publicada-autonomica"
+          ]
+        }
+      ],
+      "result": "componente-desglose"
+    }
+  ],
+  "modeCases": [
+    {
+      "modo": "canonico",
+      "selected": "perfil",
+      "anio": 2025,
+      "salarioBrutoAnual": "12345"
+    },
+    {
+      "modo": "compatible-legacy",
+      "selected": "legacy",
+      "anio": 2025,
+      "salarioBrutoAnual": "12345"
+    }
+  ],
+  "controls": [
+    {
+      "from": "entrada:contexto.modo",
+      "to": "A.modo",
+      "property": "return",
+      "relation": "control-seleccion",
+      "reason": "canonico ? perfilUniforme({anio:caso.anio,salarioBrutoAnual:rendimientoIntegroTrabajo}) : legacy(mismos argumentos)",
+      "conditions": "Inicial parcial; sin aceptación fiscal",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 12683,
+        "end": 13022,
+        "offsetEncoding": "utf16",
+        "text": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )"
+      }
+    },
+    {
+      "from": "R.menor3",
+      "to": "R.minHijos",
+      "property": "return",
+      "relation": "control-seleccion",
+      "reason": "ordena por edad descendente; suma cuantia(indice)*multiplicador; suma 2800*multiplicador si menor3; redondea separadamente ambas sumas y las suma",
+      "conditions": "Inicial parcial; sin aceptación fiscal",
+      "source": {
+        "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+        "start": 10899,
+        "end": 11807,
+        "offsetEncoding": "utf16",
+        "text": "calcularMinimoDescendientes = (\n  descendientes: ReadonlyArray<DescendienteRetencion>\n) => {\n  const descendientesOrdenados = [...descendientes].sort(\n    (a, b) => b.edad - a.edad\n  )\n  const minimoGeneral = descendientesOrdenados.reduce(\n    (total, descendiente, indice) => {\n      const cuantia = cuantiaMinimoDescendiente(indice)\n      const multiplicador = multiplicadorDescendiente(descendiente)\n\n      return total.plus(cuantia.mul(multiplicador))\n    },\n    CERO\n  )\n  const minimoMenoresTres = descendientesOrdenados.reduce(\n    (total, descendiente) =>\n      Match.value(esDescendienteMenorTres(descendiente)).pipe(\n        Match.when(false, () => total),\n        Match.orElse(() =>\n          total.plus(\n            new Decimal(2800).mul(multiplicadorDescendiente(descendiente))\n          )\n        )\n      ),\n    CERO\n  )\n\n  return redondear1(minimoGeneral).plus(redondear1(minimoMenoresTres))\n}"
+      }
+    }
+  ],
+  "negatives": [
+    {
+      "id": "token-homonimo-productor-no-es-consumidor",
+      "rejected": true
+    },
+    {
+      "id": "modo-servicio-no-es-seleccion",
+      "rejected": true
+    },
+    {
+      "id": "simulada-2012-no-implica-legacy",
+      "rejected": true
+    },
+    {
+      "id": "2016-simulada-no-implica-dos-componentes",
+      "rejected": true
+    },
+    {
+      "id": "condicion-textual-sin-AST",
+      "rejected": true
+    },
+    {
+      "id": "modo-invertido-runtime",
+      "rejected": true
+    },
+    {
+      "id": "flag-invertido-runtime",
+      "rejected": true
+    },
+    {
+      "id": "token-identico-otro-binding-UTF16",
+      "rejected": true
+    }
+  ],
+  "stageIdentityPreserved": true,
+  "originalChecks": {
+    "total": 54,
+    "beforeFailures": 28,
+    "afterFailures": 0,
+    "decomposition": "38 argumentos (19 duplicados),4 flags,8 descripciones,1 intervalo,2 relaciones,1 fuente de arista modo; nodo modo fuera de evaluate"
+  },
+  "completeClosure": false,
+  "wiringAllowed": false,
+  "completeRuleAcceptance": false
+}

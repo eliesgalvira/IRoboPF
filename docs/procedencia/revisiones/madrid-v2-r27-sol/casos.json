@@ -1,0 +1,235 @@
+{
+  "schema": "valid",
+  "gate": "Condiciones editoriales omitidas o alteradas",
+  "cases": [
+    {
+      "id": "ordinario",
+      "context": {
+        "year": 2020,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-31",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "La cuantía nominal no respalda selección de período",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "anterior",
+      "context": {
+        "year": 2019,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-31",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Contexto fuera de ámbito: year",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "posterior",
+      "context": {
+        "year": 2021,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-31",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Contexto fuera de ámbito: year",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "falsa-identidad-2022",
+      "context": {
+        "year": 2022,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-31",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Contexto fuera de ámbito: year",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "territorio",
+      "context": {
+        "year": 2020,
+        "territory": "murcia",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-31",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Contexto fuera de ámbito: territory",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "estatal",
+      "context": {
+        "year": 2020,
+        "territory": "madrid",
+        "component": "estatal",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-31",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Contexto fuera de ámbito: component",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "ahorro",
+      "context": {
+        "year": 2020,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "ahorro",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-31",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Contexto fuera de ámbito: taxBase",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "antes-cierre",
+      "context": {
+        "year": 2020,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-30",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Devengo ordinario contradictorio",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "despues-cierre",
+      "context": {
+        "year": 2020,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2021-01-01",
+        "death": null,
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Fecha de otro ejercicio",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "fallecido",
+      "context": {
+        "year": 2020,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-06-15",
+        "death": "2020-06-15",
+        "externalConditions": [
+          "residence-unverified",
+          "eligibility-unverified"
+        ]
+      },
+      "result": "rejected",
+      "diagnostic": "Fallecimiento fuera del ámbito respaldado",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "residencia-no-probada",
+      "context": {
+        "year": 2020,
+        "territory": "madrid",
+        "component": "autonomico",
+        "taxBase": "general",
+        "periodStart": "2020-01-01",
+        "accrual": "2020-12-31",
+        "death": null,
+        "externalConditions": []
+      },
+      "result": "rejected",
+      "diagnostic": "Contexto fuera de ámbito: externalConditions",
+      "applicability": "not-established",
+      "completeRuleAcceptance": false
+    }
+  ],
+  "readSet": [
+    {
+      "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/ambito.json",
+      "sha256": "48a10afb7bf6a5dd82332573e4a9c6af30904f5ea9005a0e034b97c8dad72e5d"
+    },
+    {
+      "path": "docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json",
+      "sha256": "9fa6fd22257a7fd803b71af1a393d1890b69509bc179dd67e206a70eb128b5ae"
+    }
+  ],
+  "attestation": null,
+  "completeRuleAcceptance": false
+}

@@ -1,0 +1,23 @@
+{
+  "scope": "Rectificaciones flujos R28 exclusivamente; contraste del padre pendiente",
+  "base": "5e69c68077ffd18be20457160595adb3f0ff52e4",
+  "fiscalAcceptance": false,
+  "completeClosure": false,
+  "wiringAllowed": false,
+  "completeRuleAcceptance": false,
+  "findings": [
+    {"id":"FR28-01","references":["FA25-01"],"conclusion":"Seis rangos consumidores corregidos en dos representaciones; trece llamadas ya coincidían", "evidence":"casos.json#/instances", "limit":"No prueba todas las condiciones o transporte aporte/etapas"},
+    {"id":"FR28-02","references":["FA25-03"],"conclusion":"Intervalo de declaraciones monetarias pertinente, UTF16 y hash exactos; descrito sin atribuirle literal individual", "evidence":"revisar.mjs", "limit":"No cierra todas las conversiones céntimos/EUR"},
+    {"id":"FR28-03","references":["R26-01","R26-02"],"conclusion":"Cuatro flags literales false y ocho descripciones compatibles con las ramas TypeScript actuales", "evidence":"casos.json#/formulaCases", "limit":"Runtime de selección con dependencias discriminantes, sin aceptación numérica ni normativa"},
+    {"id":"FR28-04","references":["RSS26-02"],"conclusion":"menor3 y modo son controles; A.modo corresponde a selección del cálculo y no a obtención del servicio homónimo", "evidence":"casos.json#/modeCases", "limit":"No cierra modo hasta cada componente, lado o instancia"},
+    {"id":"FR28-05","references":["54 comprobaciones"],"conclusion":"Conjunto fijo con duplicación de 19 argumentos; nodo modo fuera de evaluate comprobado por revisión propia", "evidence":"casos.json#/originalChecks", "limit":"No es analizador causal universal ni cobertura de 54 reglas fiscales"}
+  ],
+  "open": ["R26-03","R26-04","R26-05","FA25-02","FA25-04","FA25-05","FA25-06","RSS26-01","RSS26-03","RSS26-04"],
+  "composition": {"candidateElsewhere":"No leído ni integrado", "required":"Puertos, direcciones, condiciones, unidades, lados, propagación de modo y cierre por sitio; conservar estado pendiente de inputs", "publicationBlocked":true},
+  "decisions": [
+    {"decision":"Dictamen limitado a sustituciones", "expertObjection":"El grafo sigue parcial", "response":"Pendientes explícitos y no wiring", "cost":"Composición y revisión sustantiva adicionales"},
+    {"decision":"AST propio y runtime de selección", "expertObjection":"Espías no prueban cálculo fiscal", "response":"Solo llamadas, bases y fallbacks; sin aceptación fiscal", "cost":"Revisión end-to-end aún necesaria"},
+    {"decision":"Conservar originales y rojos", "expertObjection":"Reproducción puede sobrescribir evidencia", "response":"Adaptación solo en scratch con diff", "cost":"Copias y trazabilidad adicional"},
+    {"decision":"Sin promoción de confianza o atestación", "expertObjection":"Pase técnico podría parecer aprobación", "response":"Tres permisos false y contraste del padre", "cost":"Recepción y contraste posterior"}
+  ]
+}

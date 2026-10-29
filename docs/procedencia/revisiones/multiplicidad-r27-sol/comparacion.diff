@@ -1,0 +1,478 @@
+diff --git a/lib/procedencia/almacen.ts b/lib/procedencia/almacen.ts
+index e1c2fea..7d82867 100644
+--- a/lib/procedencia/almacen.ts
++++ b/lib/procedencia/almacen.ts
+@@ -184,7 +184,12 @@ export function enlacesDocumentales(
+     const e = pendientes[i]
+     if (e === undefined || vistos.has(e.id)) continue
+     vistos.add(e.id)
+-    if (vistos.size > 32) throw new Error("Recorrido documental excedido")
++    // Cuatro entidades documentales por enlace y una ocurrencia compartida.
++    const limite = Math.min(
++      snapshot.cantidad,
++      1 + 4 * snapshot.evidencias.length
++    )
++    if (vistos.size > limite) throw new Error("Recorrido documental excedido")
+     const blob =
+       e.tipo === "Document"
+         ? e.original
+diff --git a/lib/procedencia/ficha.tsx b/lib/procedencia/ficha.tsx
+index 6824144..e82ac57 100644
+--- a/lib/procedencia/ficha.tsx
++++ b/lib/procedencia/ficha.tsx
+@@ -3,13 +3,13 @@ import type { Entidad, EstadoEvidencia } from "./modelo"
+ export function Ficha({
+   entidad,
+   snapshot,
+-  evidencia,
++  evidencias = [],
+   enlaces = [],
+ }: {
+   entidad: Entidad
+   snapshot: string
+   enlaces?: ReadonlyArray<{ titulo: string; href: string }>
+-  evidencia?: typeof EstadoEvidencia.Type | undefined
++  evidencias?: ReadonlyArray<typeof EstadoEvidencia.Type>
+ }) {
+   return (
+     <main>
+@@ -19,24 +19,29 @@ export function Ficha({
+           ? "Ocurrencia técnica versionada; no es una regla fiscal aceptada."
+           : "Concepto editorial pendiente de enlace y revisión."}
+       </p>
+-      {evidencia !== undefined ? (
+-        <dl>
+-          <dt>Integridad</dt>
+-          <dd>{evidencia.integridad}</dd>
+-          <dt>Exactitud numérica del sujeto</dt>
+-          <dd>{evidencia.exactitudNumerica}</dd>
+-          <dt>Autenticidad según manifiesto</dt>
+-          <dd>
+-            {evidencia.autenticidad.estado}. Evaluación:{" "}
+-            {evidencia.autenticidad.fecha}. {evidencia.autenticidad.limites}
+-          </dd>
+-          <dt>Interpretación</dt>
+-          <dd>candidata</dd>
+-          <dt>Revisión del binding</dt>
+-          <dd>pendiente</dd>
+-          <dt>Aceptación fiscal completa</dt>
+-          <dd>false</dd>
+-        </dl>
++      {evidencias.length > 0 ? (
++        evidencias.map((evidencia) => (
++          <section key={evidencia.payload}>
++            <h2>Enlace documental: {evidencia.payload}</h2>
++            <dl>
++              <dt>Integridad</dt>
++              <dd>{evidencia.integridad}</dd>
++              <dt>Exactitud numérica del enlace</dt>
++              <dd>{evidencia.exactitudNumerica}</dd>
++              <dt>Autenticidad según manifiesto</dt>
++              <dd>
++                {evidencia.autenticidad.estado}. Evaluación:{" "}
++                {evidencia.autenticidad.fecha}. {evidencia.autenticidad.limites}
++              </dd>
++              <dt>Interpretación</dt>
++              <dd>candidata</dd>
++              <dt>Revisión del binding</dt>
++              <dd>{evidencia.revisionBinding}</dd>
++              <dt>Aceptación fiscal completa</dt>
++              <dd>false</dd>
++            </dl>
++          </section>
++        ))
+       ) : (
+         <p>Interpretación, autenticidad y contrarrevisión: pendientes.</p>
+       )}
+diff --git a/lib/procedencia/verificador.ts b/lib/procedencia/verificador.ts
+index 5a12f93..7785b3b 100644
+--- a/lib/procedencia/verificador.ts
++++ b/lib/procedencia/verificador.ts
+@@ -31,11 +31,17 @@ export function verificarPublico(entidad: Entidad) {
+     throw new Error("Payload privado rechazado")
+   if (entidad.tipo === "Document") {
+     const url = new URL(entidad.url)
++    // BORM identifica el PDF con un id público. No se admiten queries libres,
++    // parámetros adicionales ni grafías alternativas del endpoint.
++    const identificadorBorm =
++      /^https:\/\/www\.borm\.es\/services\/anuncio\/ano\/[12]\d{3}\/numero\/[1-9]\d{0,8}\/pdf\?id=[1-9]\d{0,11}(?![\s\S])/.test(
++        entidad.url
++      )
+     if (
+       url.protocol !== "https:" ||
+       url.username.length > 0 ||
+       url.password.length > 0 ||
+-      url.search.length > 0 ||
++      (url.search.length > 0 && !identificadorBorm) ||
+       url.hash.length > 0
+     )
+       throw new Error("URL pública inválida")
+diff --git a/scripts/procedencia/contenido-publicar.mjs b/scripts/procedencia/contenido-publicar.mjs
+index 1a94c1c..21e9e36 100644
+--- a/scripts/procedencia/contenido-publicar.mjs
++++ b/scripts/procedencia/contenido-publicar.mjs
+@@ -140,25 +140,36 @@ export async function publicar(
+       aceptacionFiscalCompleta: false,
+     }
+   })
+-  const publicos = generado.informe.entradas.flatMap(({ entidad: e }) =>
+-    e.tipo === "Document"
+-      ? [
+-          {
+-            hash: e.original,
+-            bytes: objetos.get(e.original).length,
+-            mime: e.mime,
+-          },
+-        ]
+-      : e.tipo === "Facsimile"
++  const candidatosPublicos = generado.informe.entradas.flatMap(
++    ({ entidad: e }) =>
++      e.tipo === "Document"
+         ? [
+             {
+-              hash: e.imagen,
+-              bytes: objetos.get(e.imagen).length,
+-              mime: "image/png",
++              hash: e.original,
++              bytes: objetos.get(e.original).length,
++              mime: e.mime,
+             },
+           ]
+-        : []
++        : e.tipo === "Facsimile"
++          ? [
++              {
++                hash: e.imagen,
++                bytes: objetos.get(e.imagen).length,
++                mime: "image/png",
++              },
++            ]
++          : []
+   )
++  // El mismo original puede respaldar ámbitos distintos: sus nodos se
++  // conservan, pero los bytes públicos tienen una sola identidad por hash.
++  const porHashPublico = new Map()
++  for (const blob of candidatosPublicos) {
++    const previo = porHashPublico.get(blob.hash)
++    if (previo && (previo.bytes !== blob.bytes || previo.mime !== blob.mime))
++      throw new Error("Metadatos públicos incompatibles")
++    porHashPublico.set(blob.hash, blob)
++  }
++  const publicos = [...porHashPublico.values()]
+   const generador = guardar(
+     readFileSync(resolve(root, "scripts/procedencia/contenido-generar.mjs"))
+   )
+diff --git a/scripts/procedencia/contenido-verificar.mjs b/scripts/procedencia/contenido-verificar.mjs
+index 22c4405..a52e032 100644
+--- a/scripts/procedencia/contenido-verificar.mjs
++++ b/scripts/procedencia/contenido-verificar.mjs
+@@ -63,17 +63,32 @@ function claveSujeto(sujeto) {
+   return JSON.stringify([sujeto.id, sujeto.revision])
+ }
+ 
++function claveEnlace(sujeto, payload) {
++  return JSON.stringify([sujeto.id, sujeto.revision, payload])
++}
++
+ function coberturaEvidencias(snapshot, entradas, raiz) {
+   const sujetos = entradas.filter(
+     ({ entidad }) =>
+       entidad.identidad === "ocurrencia" &&
+       entidad.aristas.some((a) => a.relacion === "norma")
+   )
+-  const esperados = new Set(
+-    sujetos.map((e) => claveSujeto({ id: e.entidad.id, revision: e.revision }))
+-  )
++  const esperados = new Set()
++  for (const e of sujetos) {
++    const sujeto = { id: e.entidad.id, revision: e.revision }
++    for (const arista of e.entidad.aristas.filter(
++      (a) => a.relacion === "norma"
++    )) {
++      const match = /^evidencia\.([a-f0-9]{64})\.rule$/.exec(arista.destino.id)
++      if (!match) throw new Error("Cobertura de evidencia sin enlace exacto")
++      const clave = claveEnlace(sujeto, match[1])
++      if (esperados.has(clave))
++        throw new Error("Cobertura de evidencia duplicada")
++      esperados.add(clave)
++    }
++  }
+   const declarados = new Set(
+-    snapshot.evidencias.map((e) => claveSujeto(e.sujeto))
++    snapshot.evidencias.map((e) => claveEnlace(e.sujeto, e.payload))
+   )
+   if (
+     declarados.size !== snapshot.evidencias.length ||
+@@ -84,27 +99,46 @@ function coberturaEvidencias(snapshot, entradas, raiz) {
+ 
+   const recibos = new Map()
+   const documentados = new Set()
++  const porReferencia = new Map(
++    entradas.map((e) => [
++      claveSujeto({ id: e.entidad.id, revision: e.revision }),
++      e,
++    ])
++  )
+   for (const h of new Set(snapshot.evidencias.map((e) => e.recibo))) {
+     const recibo = JSON.parse(objeto(raiz, h).toString())
+     const estados = snapshot.evidencias.filter((e) => e.recibo === h)
+     if (
+-      recibo.version !== 1 ||
++      ![1, 2].includes(recibo.version) ||
+       !Array.isArray(recibo.estados) ||
+       !Array.isArray(recibo.entradas) ||
+       recibo.estados.length !== estados.length ||
+-      new Set(recibo.estados.map((e) => claveSujeto(e.sujeto))).size !==
+-        estados.length ||
++      new Set(
++        recibo.estados.map((e) => claveEnlace(e.sujeto, e.payload.sha256))
++      ).size !== estados.length ||
++      (recibo.version === 1 &&
++        new Set(recibo.estados.map((e) => claveSujeto(e.sujeto))).size !==
++          estados.length) ||
+       recibo.estados.some(
+         (e) =>
+-          !estados.some((s) => claveSujeto(s.sujeto) === claveSujeto(e.sujeto))
++          !estados.some(
++            (s) =>
++              claveEnlace(s.sujeto, s.payload) ===
++              claveEnlace(e.sujeto, e.payload.sha256)
++          )
+       )
+     )
+       throw new Error("Cobertura de evidencia distinta del recibo")
+     verificarSoftwareRecibo(snapshot, recibo.entrada.dependencias, (h) =>
+       objeto(raiz, h)
+     )
+-    for (const e of recibo.entradas)
+-      documentados.add(claveSujeto({ id: e.entidad.id, revision: e.revision }))
++    for (const e of recibo.entradas) {
++      const clave = claveSujeto({ id: e.entidad.id, revision: e.revision })
++      const actual = porReferencia.get(clave)
++      if (!actual || bytesEntidad(actual.entidad) !== bytesEntidad(e.entidad))
++        throw new Error("Grafo distinto del recibo")
++      documentados.add(clave)
++    }
+     recibos.set(h, recibo)
+   }
+   for (const e of entradas)
+@@ -237,7 +271,8 @@ export function verificarContenido(snapshot, raiz) {
+       const recibo = recibos.get(e.recibo)
+       const estado = recibo.estados.find(
+         (s) =>
+-          s.sujeto.id === e.sujeto.id && s.sujeto.revision === e.sujeto.revision
++          claveEnlace(s.sujeto, s.payload.sha256) ===
++          claveEnlace(e.sujeto, e.payload)
+       )
+       if (
+         !estado ||
+@@ -256,16 +291,6 @@ export function verificarContenido(snapshot, raiz) {
+         )
+       )
+         throw new Error("Sujeto ausente")
+-      for (const historica of recibo.entradas) {
+-        if (
+-          !entradas.some(
+-            (actual) =>
+-              actual.revision === historica.revision &&
+-              bytesEntidad(actual.entidad) === bytesEntidad(historica.entidad)
+-          )
+-        )
+-          throw new Error("Grafo distinto del recibo")
+-      }
+       for (const d of recibo.entrada.dependencias)
+         if (!cierre.has(d.sha256))
+           throw new Error("Dependencia del recibo ausente")
+diff --git a/scripts/procedencia/evidencia-contenido.mjs b/scripts/procedencia/evidencia-contenido.mjs
+index 0a76ed2..6ddb01a 100644
+--- a/scripts/procedencia/evidencia-contenido.mjs
++++ b/scripts/procedencia/evidencia-contenido.mjs
+@@ -174,7 +174,8 @@ export async function generarEvidencia(root, entrada) {
+     entradas.push({ revision, entidad })
+     return { id: entidad.id, revision }
+   }
+-  const estados = []
++  const sujetos = new Map()
++  const estadosPendientes = []
+   for (const entry of json(leer(root, registro)).entries) {
+     const payload = json(leer(root, entry.payload.path))
+     const citation = json(leer(root, payload.citation.path))
+@@ -284,7 +285,7 @@ export async function generarEvidencia(root, entrada) {
+         { relacion: "captura", destino: crop },
+       ],
+     })
+-    const sujeto = agregar({
++    const fichaSujeto = {
+       ...base(item.id, item.name),
+       identidad: "ocurrencia",
+       tipo: item.kind,
+@@ -306,9 +307,12 @@ export async function generarEvidencia(root, entrada) {
+         },
+       ],
+       aristas: [{ relacion: "norma", destino: rule }],
+-    })
+-    estados.push({
+-      sujeto,
++    }
++    const existente = sujetos.get(item.id)
++    if (existente) existente.aristas.push(...fichaSujeto.aristas)
++    else sujetos.set(item.id, fichaSujeto)
++    estadosPendientes.push({
++      itemId: item.id,
+       payload: entry.payload,
+       snapshotOrigen: entrada.snapshot,
+       integridad: result.integrity,
+@@ -323,11 +327,41 @@ export async function generarEvidencia(root, entrada) {
+       aceptacionFiscalCompleta: false,
+     })
+   }
++  const referenciasSujetos = new Map()
++  for (const ficha of sujetos.values()) {
++    if (ficha.aristas.length > 1) {
++      // Cada Rule conserva su ámbito y estados. Ninguno se generaliza al sujeto.
++      ficha.aristas.sort((a, b) => a.destino.id.localeCompare(b.destino.id))
++      ficha.secciones = {
++        ...baseFicha(ficha.id, ficha.titulo, "ocurrencia").secciones,
++        norma: {
++          estado: "candidata",
++          texto:
++            "Varias proposiciones documentales enlazadas; cada una conserva su ejercicio y condiciones.",
++        },
++        evidencia: {
++          estado: "candidata",
++          texto:
++            "Las citas y facsímiles se conservan por enlace exacto, sin extender su alcance a otros ejercicios.",
++        },
++        bordes: {
++          estado: "candidata",
++          texto:
++            "Consultar cada proposición y su revisión. Compartir una ocurrencia técnica no acredita aplicabilidad ni aceptación fiscal completa.",
++        },
++      }
++    }
++    referenciasSujetos.set(ficha.id, agregar(ficha))
++  }
++  const estados = estadosPendientes.map(({ itemId, ...estado }) => ({
++    sujeto: referenciasSujetos.get(itemId),
++    ...estado,
++  }))
+   verificarGrafo(entradas, new Set(objetos.keys()))
+   comprobarEntrada(root, entrada)
+   for (const dependency of entrada.dependencias)
+     guardar(leer(root, dependency.path))
+-  const informe = { version: 1, entrada, estados, entradas }
++  const informe = { version: 2, entrada, estados, entradas }
+   const revision = guardar(JSON.stringify(informe))
+   return { revision, informe, objetos }
+ }
+diff --git a/tests/evidencia-multiplicidad.test.ts b/tests/evidencia-multiplicidad.test.ts
+new file mode 100644
+index 0000000..cea1906
+--- /dev/null
++++ b/tests/evidencia-multiplicidad.test.ts
+@@ -0,0 +1,105 @@
++import { describe, expect, it } from "vitest"
++import { createElement } from "react"
++import { renderToStaticMarkup } from "react-dom/server"
++import { Schema } from "effect"
++import { Entidad, type EstadoEvidencia } from "../lib/procedencia/modelo"
++import { Ficha } from "../lib/procedencia/ficha"
++import { bytesEntidad } from "../lib/procedencia/verificador"
++import { baseFicha } from "../scripts/procedencia/contenido-generar.mjs"
++
++const entidad = Schema.decodeUnknownSync(Entidad)({
++  ...baseFicha("inv-prueba", "Celda compartida", "ocurrencia"),
++  tipo: "Parameter",
++  expresion: "1",
++  valorObservado: "1",
++  unidadCandidata: "EUR",
++  ejerciciosCandidatos: [2012, 2013],
++  territoriosCandidatos: [],
++  claseInventario: "Parameter",
++})
++const pendiente: typeof EstadoEvidencia.Type = {
++  sujeto: { id: entidad.id, revision: "c".repeat(64) },
++  recibo: "d".repeat(64),
++  payload: "a".repeat(64),
++  manifiesto: "e".repeat(64),
++  integridad: "verified",
++  exactitudNumerica: "verified",
++  autenticidad: {
++    estado: "trust-indeterminate",
++    fecha: "2026-10-29",
++    limites: "Sin autenticación histórica",
++  },
++  interpretacion: "candidata",
++  revisionBinding: "pending",
++  aceptacionFiscalCompleta: false,
++}
++
++describe("Estados documentales por enlace exacto", () => {
++  it("muestra ambos enlaces sin extender la aceptación de uno al otro", () => {
++    const html = renderToStaticMarkup(
++      createElement(Ficha, {
++        entidad,
++        snapshot: "f".repeat(64),
++        evidencias: [
++          pendiente,
++          {
++            ...pendiente,
++            payload: "b".repeat(64),
++            revisionBinding: "accepted-limited",
++            autenticidad: { ...pendiente.autenticidad, estado: "unsigned" },
++          },
++        ],
++      })
++    )
++    expect(html).toContain("a".repeat(64))
++    expect(html).toContain("b".repeat(64))
++    expect(html).toContain("pending")
++    expect(html).toContain("accepted-limited")
++    expect(html).toContain("trust-indeterminate")
++    expect(html).toContain("unsigned")
++    expect(html.match(/Aceptación fiscal completa/g)).toHaveLength(2)
++    expect(html.match(/<dd>false<\/dd>/g)).toHaveLength(2)
++  })
++  it("sin enlaces conserva estados pendientes", () => {
++    const html = renderToStaticMarkup(
++      createElement(Ficha, { entidad, snapshot: "f".repeat(64) })
++    )
++    expect(html).toContain(
++      "Interpretación, autenticidad y contrarrevisión: pendientes."
++    )
++    expect(html).not.toContain("accepted-limited")
++  })
++})
++
++const borm =
++  "https://www.borm.es/services/anuncio/ano/2022/numero/4846/pdf?id=811060"
++function documento(url: string) {
++  return Schema.decodeUnknownSync(Entidad)({
++    ...baseFicha("documento.prueba", "Documento", "concepto"),
++    tipo: "Document",
++    original: "a".repeat(64),
++    mime: "application/pdf",
++    url,
++  })
++}
++describe("Identificador público del anuncio BORM", () => {
++  it("conserva la URL exacta del original usado por los bindings", () => {
++    expect(bytesEntidad(documento(borm))).toContain(borm)
++  })
++  it.each([
++    borm + "&token=privado",
++    borm + "&id=2",
++    borm + "#oculto",
++    borm + "\n",
++    borm.replace("www.borm.es", "www.borm.es.invalid"),
++    borm.replace("www.borm.es", "usuario:clave@www.borm.es"),
++    borm.replace("id=", "%69d="),
++    borm.replace("811060", "dato-privado"),
++    borm.replace("811060", "0"),
++    borm.replace("811060", "1234567890123"),
++    borm.replace("https:", "http:"),
++    borm.replace("/pdf?", "/otro?"),
++  ])("rechaza cambios fuera del contrato %s", (url) => {
++    expect(() => bytesEntidad(documento(url))).toThrow("URL pública inválida")
++  })
++})

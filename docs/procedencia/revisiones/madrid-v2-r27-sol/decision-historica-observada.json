@@ -1,0 +1,24 @@
+{
+  "id": "AUT1721-MADRID-2020-LIMITE",
+  "status": "accepted",
+  "acceptanceScope": "legal rule",
+  "legalStatus": "accepted-limited",
+  "severity": "P2",
+  "sources": [
+    "sources.json",
+    "refined-citations.json"
+  ],
+  "objections": [
+    "Descartado ancho 20200: original dice 20400.",
+    "Corrección 2019 solo cambia fecha de firma; reforma 2021 efectiva desde 2022.",
+    "La cuota no difiere 0.09: ese es el límite; prueba diferencia liquidada 0.01.",
+    "Cambiar el límite no resuelve por sí solo el debate general sobre cuotas acumuladas."
+  ],
+  "engineLocations": [
+    {
+      "path": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025.madrid"
+    }
+  ],
+  "reason": "BOCM original p4: 53407.20 y ancho 20400.00; art.1 vigente en 2020. Regresión real reproducida a base 53407.29."
+}

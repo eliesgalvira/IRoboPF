@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "id": "RS27-01",
+      "status": "corroborado-limitadamente",
+      "claim": "RX25-01 reproducido; multiplicidad corregida conserva 228 enlaces admitidos/90 sujetos y revisiones finales.",
+      "evidence": [
+        "antes/recorrido.json",
+        "casos-228.json",
+        "despues-acotado/comprobacion-propia.json"
+      ],
+      "taxAcceptance": false
+    },
+    {
+      "id": "RS27-02",
+      "status": "corroborado-limitadamente",
+      "claim": "BORM exacto admitido; 29 grafías adversas rechazadas. No acredita existencia del id ni autenticidad.",
+      "evidence": [
+        "adversos.json"
+      ]
+    },
+    {
+      "id": "RS27-H03",
+      "status": "hipotesis-de-bypass-no-demostrada",
+      "claim": "Reconstrucción coherente de proposición/cita pasa verificador directo; mismo límite de proposición con consumidor anterior. IDs nuevos no se cargan sin registro y bytes alterados bajo pin se rechazan.",
+      "redPreserved": true,
+      "regressionAttributedToR27": false,
+      "evidence": [
+        "reconstruidos.json",
+        "reconstruidos-historico.json",
+        "frontera-reconstruidos.json"
+      ]
+    },
+    {
+      "id": "RS27-L04",
+      "status": "limite-conocido",
+      "claim": "36 enlaces excluidos por original BOE de 42.900.459 bytes; lote completo bloqueado por CAS. No se revisa ni modifica la tarea paralela."
+    }
+  ],
+  "requiresParentContrast": true
+}

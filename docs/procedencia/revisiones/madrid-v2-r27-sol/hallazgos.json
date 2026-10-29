@@ -1,0 +1,34 @@
+{
+  "findings": [
+    {
+      "id": "MR27-01",
+      "severity": "blocking",
+      "kind": "contract-incompatibility-not-product-defect",
+      "diagnostic": "Condiciones editoriales omitidas o alteradas",
+      "preserveRejection": true
+    },
+    {
+      "id": "MR27-02",
+      "severity": "blocking",
+      "kind": "subsequent-static-contract-restrictions",
+      "requirements": [
+        "tablePath.length===2",
+        "year2022/MADRID_2022",
+        "period madrid-2022"
+      ],
+      "runtimeReached": false
+    },
+    {
+      "id": "MR27-03",
+      "severity": "scope-limit",
+      "kind": "temporal-and-historical-authenticity-not-established"
+    }
+  ],
+  "refutedHypotheses": [
+    {
+      "claim": "La discordancia ,29 solo es extracción",
+      "verdict": "refutada por inspección personal de imagen"
+    }
+  ],
+  "completeRuleAcceptance": false
+}
