@@ -2,6 +2,12 @@
 
 Anti-slop está activo. Los auditores documentales leen el motor sin modificarlo; los editores de código trabajan en checkouts aislados preparados por T3. Solo el orquestador integra, mueve `procedencia-documental` y respalda en origin.
 
+## Modelo obligatorio de los subagentes (corrección urgente de Elies)
+
+Desde la orden del 29 de octubre, todos los hijos usan explícitamente **gpt-6.1-sol con esfuerzo high**. Astra queda reservado a la orquestación. Esta instrucción del usuario prevalece sobre cualquier configuración anterior del BRIEF o de los registros históricos. En `spawn_agent`, especificar `model: "gpt-6.1-sol"`, `reasoning_effort: "high"` y `fork_turns: "none"`. En delegaciones T3 con checkout separado o ejecución en segundo plano, especificar `target.model: "gpt-6.1-sol"` y `target.options.reasoningEffort: "high"`; no heredar el modelo. Conservar prioridad cuando esté disponible.
+
+La regla incluye reintentos, revisiones independientes y trabajo sobre X. No lanzar un hijo Astra sin autorización previa y específica de Elies. No enviar más trabajo a los Astra anteriores: recoger los archivos, cancelar cualquier ejecución activa y continuar lo pendiente mediante un hijo Sol nuevo. Si Sol no está disponible, informar; no sustituirlo silenciosamente por Astra. Confirmar en cada entrega de coordinación el modelo efectivo de los nuevos hijos.
+
 ## Regla obligatoria de control de versiones (corrección de Elies)
 
 Ningún hijo ejecutará `jj git init` dentro de un checkout/worktree Git creado por T3. Esta regla revoca la instrucción inicial que autorizaba inicializar JJ en esos directorios y debe incluirse expresamente en **cada nueva delegación**. No mezclar escrituras de dos sistemas en un mismo checkout. Los hijos de esta ronda continúan editando y probando, pero entregan archivos al orquestador sin operaciones VCS mutantes.

@@ -263,3 +263,7 @@ La constitución del vínculo actual tiene fecha propia, distinta de la inscripc
 ## D056 — Los hechos de alimentos prevalecen sobre el flag de cálculo
 
 La conexión anual rechaza al pagador judicial sin custodia hasta representar cuantía y especialidad. Objeción: permitir false como renuncia voluntaria omite un procedimiento que los hechos requieren. Coste: menos entradas liquidables, sin inventar una cuota alternativa. La situación de otro titular pagador no bloquea al custodio: se conserva la atribución del mínimo y se comprueban los hechos de cada rol. Los tres fixes requieren revisión independiente nueva.
+
+## D057 — Sol 6.1 High para todos los hijos
+
+La corrección expresa de Elies sustituye la elección anterior de Astra High: cada nueva delegación fija gpt-6.1-sol y esfuerzo high, también reintentos y contrarrevisiones. Astra solo orquesta. Objeción: heredar el modelo del padre vuelve a consumir la cuota que el usuario quiere reservar. Respuesta: argumentos explícitos y comprobación del modelo efectivo devuelto por el lanzador; ninguna excepción sin autorización previa. Coste: cancelar y retomar una revisión familiar recién iniciada, conservando sus avances. Las seis tareas de ronda 15 ya habían terminado cuando se comprobó su estado; sus entregas se preservan sin repetir trabajo por el solo cambio de modelo.
