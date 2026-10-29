@@ -1,0 +1,2880 @@
+[
+  {
+    "id": "ordinario-2020",
+    "input": {
+      "anio": 2020,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 171900,
+    "scope": "Versión de cierre, cotización suministrada sintética constante; no cálculo SS",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2020,
+        "rendimientoNetoTrabajoCentimos": 1685700,
+        "reduccionRendimientosTrabajoCentimos": 379325,
+        "rendimientoNetoReducidoCentimos": 1106375,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 1106375,
+        "cuotaRetencionCentimos": 104761,
+        "limite43Centimos": 172000,
+        "tipoRetencionPorcentaje": "5.82",
+        "importeRetencionAnualCentimos": 104760,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2020",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "18000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "16857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "3793.25 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "11063.75 euros - 0.00 euros",
+                  "resultado": "11063.75 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 1720.00 euros)",
+                  "resultado": "1047.61 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "1047.61 euros / 18000.00 euros x 100",
+                  "resultado": "5.82%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "18000.00 euros x 5.82%",
+                  "resultado": "1047.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": false
+  },
+  {
+    "id": "ordinario-2021",
+    "input": {
+      "anio": 2021,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 171900,
+    "scope": "Versión de cierre, cotización suministrada sintética constante; no cálculo SS",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2021,
+        "rendimientoNetoTrabajoCentimos": 1685700,
+        "reduccionRendimientosTrabajoCentimos": 379325,
+        "rendimientoNetoReducidoCentimos": 1106375,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 1106375,
+        "cuotaRetencionCentimos": 104761,
+        "limite43Centimos": 172000,
+        "tipoRetencionPorcentaje": "5.82",
+        "importeRetencionAnualCentimos": 104760,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2021",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "18000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "16857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "3793.25 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "11063.75 euros - 0.00 euros",
+                  "resultado": "11063.75 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 1720.00 euros)",
+                  "resultado": "1047.61 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "1047.61 euros / 18000.00 euros x 100",
+                  "resultado": "5.82%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "18000.00 euros x 5.82%",
+                  "resultado": "1047.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": false
+  },
+  {
+    "id": "ordinario-2022",
+    "input": {
+      "anio": 2022,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 171900,
+    "scope": "Versión de cierre, cotización suministrada sintética constante; no cálculo SS",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2022,
+        "rendimientoNetoTrabajoCentimos": 1685700,
+        "reduccionRendimientosTrabajoCentimos": 379325,
+        "rendimientoNetoReducidoCentimos": 1106375,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 1106375,
+        "cuotaRetencionCentimos": 104761,
+        "limite43Centimos": 172000,
+        "tipoRetencionPorcentaje": "5.82",
+        "importeRetencionAnualCentimos": 104760,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2022",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "18000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "16857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "3793.25 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "11063.75 euros - 0.00 euros",
+                  "resultado": "11063.75 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 1720.00 euros)",
+                  "resultado": "1047.61 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "1047.61 euros / 18000.00 euros x 100",
+                  "resultado": "5.82%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "18000.00 euros x 5.82%",
+                  "resultado": "1047.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": false
+  },
+  {
+    "id": "ordinario-2023",
+    "input": {
+      "anio": 2023,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 114120,
+    "scope": "Versión de cierre, cotización suministrada sintética constante; no cálculo SS",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2023,
+        "rendimientoNetoTrabajoCentimos": 1685700,
+        "reduccionRendimientosTrabajoCentimos": 379325,
+        "rendimientoNetoReducidoCentimos": 1106375,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 1106375,
+        "cuotaRetencionCentimos": 104761,
+        "limite43Centimos": 129000,
+        "tipoRetencionPorcentaje": "5.82",
+        "importeRetencionAnualCentimos": 104760,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2023",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "18000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "16857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "3793.25 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "11063.75 euros - 0.00 euros",
+                  "resultado": "11063.75 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 1290.00 euros)",
+                  "resultado": "1047.61 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "1047.61 euros / 18000.00 euros x 100",
+                  "resultado": "5.82%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "18000.00 euros x 5.82%",
+                  "resultado": "1047.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": false
+  },
+  {
+    "id": "ordinario-2024",
+    "input": {
+      "anio": 2024,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 91260,
+    "scope": "Versión de cierre, cotización suministrada sintética constante; no cálculo SS",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2024,
+        "rendimientoNetoTrabajoCentimos": 1685700,
+        "reduccionRendimientosTrabajoCentimos": 379325,
+        "rendimientoNetoReducidoCentimos": 1106375,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 1106375,
+        "cuotaRetencionCentimos": 91332,
+        "limite43Centimos": 91332,
+        "tipoRetencionPorcentaje": "5.07",
+        "importeRetencionAnualCentimos": 91260,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2024",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "18000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "16857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "3793.25 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "11063.75 euros - 0.00 euros",
+                  "resultado": "11063.75 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 913.32 euros)",
+                  "resultado": "913.32 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "913.32 euros / 18000.00 euros x 100",
+                  "resultado": "5.07%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "18000.00 euros x 5.07%",
+                  "resultado": "912.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": true
+  },
+  {
+    "id": "ordinario-2025",
+    "input": {
+      "anio": 2025,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 91260,
+    "scope": "Versión de cierre, cotización suministrada sintética constante; no cálculo SS",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2025,
+        "rendimientoNetoTrabajoCentimos": 1685700,
+        "reduccionRendimientosTrabajoCentimos": 379325,
+        "rendimientoNetoReducidoCentimos": 1106375,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 1106375,
+        "cuotaRetencionCentimos": 91332,
+        "limite43Centimos": 91332,
+        "tipoRetencionPorcentaje": "5.07",
+        "importeRetencionAnualCentimos": 91260,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2025",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "18000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "16857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "3793.25 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "11063.75 euros - 0.00 euros",
+                  "resultado": "11063.75 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 913.32 euros)",
+                  "resultado": "913.32 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "913.32 euros / 18000.00 euros x 100",
+                  "resultado": "5.07%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "18000.00 euros x 5.07%",
+                  "resultado": "912.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": true
+  },
+  {
+    "id": "ordinario-2026",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 91260,
+    "scope": "Versión de cierre, cotización suministrada sintética constante; no cálculo SS",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 1685700,
+        "reduccionRendimientosTrabajoCentimos": 379325,
+        "rendimientoNetoReducidoCentimos": 1106375,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 1106375,
+        "cuotaRetencionCentimos": 91332,
+        "limite43Centimos": 91332,
+        "tipoRetencionPorcentaje": "5.07",
+        "importeRetencionAnualCentimos": 91260,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "18000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "16857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "3793.25 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "11063.75 euros - 0.00 euros",
+                  "resultado": "11063.75 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 913.32 euros)",
+                  "resultado": "913.32 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "913.32 euros / 18000.00 euros x 100",
+                  "resultado": "5.07%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "18000.00 euros x 5.07%",
+                  "resultado": "912.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": true
+  },
+  {
+    "id": "alto-2020",
+    "input": {
+      "anio": 2020,
+      "edad": 40,
+      "retribucionAnualCentimos": 40000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 16892000,
+    "scope": "Aislamiento escala, cotización cero sintética",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2020,
+        "rendimientoNetoTrabajoCentimos": 40000000,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 39800000,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 39800000,
+        "cuotaRetencionCentimos": 17090700,
+        "limite43Centimos": 17090700,
+        "tipoRetencionPorcentaje": "42.72",
+        "importeRetencionAnualCentimos": 17088000,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2020",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "400000.00 euros - 0.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "400000.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "398000.00 euros - 0.00 euros",
+                  "resultado": "398000.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 170907.00 euros)",
+                  "resultado": "170907.00 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "170907.00 euros / 400000.00 euros x 100",
+                  "resultado": "42.72%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "400000.00 euros x 42.72%",
+                  "resultado": "170880.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": false
+  },
+  {
+    "id": "alto-2021",
+    "input": {
+      "anio": 2021,
+      "edad": 40,
+      "retribucionAnualCentimos": 40000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 17088000,
+    "scope": "Aislamiento escala, cotización cero sintética",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2021,
+        "rendimientoNetoTrabajoCentimos": 40000000,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 39800000,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 39800000,
+        "cuotaRetencionCentimos": 17090700,
+        "limite43Centimos": 17090700,
+        "tipoRetencionPorcentaje": "42.72",
+        "importeRetencionAnualCentimos": 17088000,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2021",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "400000.00 euros - 0.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "400000.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "398000.00 euros - 0.00 euros",
+                  "resultado": "398000.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 170907.00 euros)",
+                  "resultado": "170907.00 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "170907.00 euros / 400000.00 euros x 100",
+                  "resultado": "42.72%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "400000.00 euros x 42.72%",
+                  "resultado": "170880.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": true
+  },
+  {
+    "id": "corte-2199999",
+    "input": {
+      "anio": 2020,
+      "edad": 40,
+      "retribucionAnualCentimos": 2199999,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion2",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [
+        {
+          "edad": 10,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        },
+        {
+          "edad": 12,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Dos hijos elegibles por mitad; cónyuge elegible; RED20 cero",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2020,
+        "rendimientoNetoTrabajoCentimos": 2199999,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 1999999,
+        "minimoPersonalFamiliarCentimos": 810000,
+        "baseRetencionCentimos": 1999999,
+        "cuotaRetencionCentimos": 187738,
+        "limite43Centimos": 187738,
+        "tipoRetencionPorcentaje": "8.53",
+        "importeRetencionAnualCentimos": 187660,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2020",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "21999.99 euros - 0.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "21999.99 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "19999.99 euros - 0.00 euros",
+                  "resultado": "19999.99 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "8100.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 1877.38 euros)",
+                  "resultado": "1877.38 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "1877.38 euros / 21999.99 euros x 100",
+                  "resultado": "8.53%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "21999.99 euros x 8.53%",
+                  "resultado": "1876.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "corte-2200000",
+    "input": {
+      "anio": 2020,
+      "edad": 40,
+      "retribucionAnualCentimos": 2200000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion2",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [
+        {
+          "edad": 10,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        },
+        {
+          "edad": 12,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Dos hijos elegibles por mitad; cónyuge elegible; RED20 cero",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2020,
+        "rendimientoNetoTrabajoCentimos": 2200000,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 2000000,
+        "minimoPersonalFamiliarCentimos": 810000,
+        "baseRetencionCentimos": 2000000,
+        "cuotaRetencionCentimos": 187738,
+        "limite43Centimos": 187738,
+        "tipoRetencionPorcentaje": "8.53",
+        "importeRetencionAnualCentimos": 187660,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2020",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "22000.00 euros - 0.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "22000.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "20000.00 euros - 0.00 euros",
+                  "resultado": "20000.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "8100.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 1877.38 euros)",
+                  "resultado": "1877.38 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "1877.38 euros / 22000.00 euros x 100",
+                  "resultado": "8.53%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "22000.00 euros x 8.53%",
+                  "resultado": "1876.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "corte-2200001",
+    "input": {
+      "anio": 2020,
+      "edad": 40,
+      "retribucionAnualCentimos": 2200001,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion2",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [
+        {
+          "edad": 10,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        },
+        {
+          "edad": 12,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "expectedImporte": 263780,
+    "scope": "Dos hijos elegibles por mitad; cónyuge elegible; RED20 cero",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2020,
+        "rendimientoNetoTrabajoCentimos": 2200001,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 2000001,
+        "minimoPersonalFamiliarCentimos": 810000,
+        "baseRetencionCentimos": 2000001,
+        "cuotaRetencionCentimos": 187738,
+        "limite43Centimos": 187738,
+        "tipoRetencionPorcentaje": "8.53",
+        "importeRetencionAnualCentimos": 187660,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2020",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "22000.01 euros - 0.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "22000.01 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "20000.01 euros - 0.00 euros",
+                  "resultado": "20000.01 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "8100.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 1877.38 euros)",
+                  "resultado": "1877.38 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "1877.38 euros / 22000.01 euros x 100",
+                  "resultado": "8.53%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "22000.01 euros x 8.53%",
+                  "resultado": "1876.60 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": false
+  },
+  {
+    "id": "corte-3520000",
+    "input": {
+      "anio": 2020,
+      "edad": 40,
+      "retribucionAnualCentimos": 3520000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion2",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [
+        {
+          "edad": 10,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        },
+        {
+          "edad": 12,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Dos hijos elegibles por mitad; cónyuge elegible; RED20 cero",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2020,
+        "rendimientoNetoTrabajoCentimos": 3520000,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 3320000,
+        "minimoPersonalFamiliarCentimos": 810000,
+        "baseRetencionCentimos": 3320000,
+        "cuotaRetencionCentimos": 658650,
+        "limite43Centimos": 755338,
+        "tipoRetencionPorcentaje": "18.71",
+        "importeRetencionAnualCentimos": 658592,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2020",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "35200.00 euros - 0.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "35200.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "33200.00 euros - 0.00 euros",
+                  "resultado": "33200.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "8100.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 7553.38 euros)",
+                  "resultado": "6586.50 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "6586.50 euros / 35200.00 euros x 100",
+                  "resultado": "18.71%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "35200.00 euros x 18.71%",
+                  "resultado": "6585.92 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "corte-3520001",
+    "input": {
+      "anio": 2020,
+      "edad": 40,
+      "retribucionAnualCentimos": 3520001,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion2",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [
+        {
+          "edad": 10,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        },
+        {
+          "edad": 12,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Dos hijos elegibles por mitad; cónyuge elegible; RED20 cero",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2020,
+        "rendimientoNetoTrabajoCentimos": 3520001,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 3320001,
+        "minimoPersonalFamiliarCentimos": 810000,
+        "baseRetencionCentimos": 3320001,
+        "cuotaRetencionCentimos": 658650,
+        "limite43Centimos": 658650,
+        "tipoRetencionPorcentaje": "18.71",
+        "importeRetencionAnualCentimos": 658592,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2020",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "35200.01 euros - 0.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "35200.01 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "33200.01 euros - 0.00 euros",
+                  "resultado": "33200.01 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "8100.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 6586.50 euros)",
+                  "resultado": "6586.50 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "6586.50 euros / 35200.01 euros x 100",
+                  "resultado": "18.71%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "35200.01 euros x 18.71%",
+                  "resultado": "6585.92 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "hijo-24",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 3000000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [
+        {
+          "edad": 24,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Edad 25 sin discapacidad: debería excluirse o rechazarse",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 2885700,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 2685700,
+        "minimoPersonalFamiliarCentimos": 675000,
+        "baseRetencionCentimos": 2685700,
+        "cuotaRetencionCentimos": 494010,
+        "limite43Centimos": 587294,
+        "tipoRetencionPorcentaje": "16.46",
+        "importeRetencionAnualCentimos": 493800,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "30000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "28857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "26857.00 euros - 0.00 euros",
+                  "resultado": "26857.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "6750.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 5872.94 euros)",
+                  "resultado": "4940.10 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "4940.10 euros / 30000.00 euros x 100",
+                  "resultado": "16.46%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "30000.00 euros x 16.46%",
+                  "resultado": "4938.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "hijo-25",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 3000000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [
+        {
+          "edad": 25,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Edad 25 sin discapacidad: debería excluirse o rechazarse",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 2885700,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 2685700,
+        "minimoPersonalFamiliarCentimos": 675000,
+        "baseRetencionCentimos": 2685700,
+        "cuotaRetencionCentimos": 494010,
+        "limite43Centimos": 587294,
+        "tipoRetencionPorcentaje": "16.46",
+        "importeRetencionAnualCentimos": 493800,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "30000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "28857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "26857.00 euros - 0.00 euros",
+                  "resultado": "26857.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "6750.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 5872.94 euros)",
+                  "resultado": "4940.10 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "4940.10 euros / 30000.00 euros x 100",
+                  "resultado": "16.46%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "30000.00 euros x 16.46%",
+                  "resultado": "4938.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "divisor-1",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 3000000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [
+        {
+          "edad": 70,
+          "convivencia": 1,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false
+        }
+      ],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Cero debe rechazarse, uno control",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 2885700,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 2685700,
+        "minimoPersonalFamiliarCentimos": 670000,
+        "baseRetencionCentimos": 2685700,
+        "cuotaRetencionCentimos": 494960,
+        "limite43Centimos": 607332,
+        "tipoRetencionPorcentaje": "16.49",
+        "importeRetencionAnualCentimos": 494700,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "30000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "28857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "26857.00 euros - 0.00 euros",
+                  "resultado": "26857.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "6700.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 6073.32 euros)",
+                  "resultado": "4949.60 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "4949.60 euros / 30000.00 euros x 100",
+                  "resultado": "16.49%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "30000.00 euros x 16.49%",
+                  "resultado": "4947.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "divisor-0",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 3000000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [
+        {
+          "edad": 70,
+          "convivencia": 0,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false
+        }
+      ],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Cero debe rechazarse, uno control",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 2885700,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 2685700,
+        "minimoPersonalFamiliarCentimos": null,
+        "baseRetencionCentimos": 2685700,
+        "cuotaRetencionCentimos": null,
+        "limite43Centimos": 607332,
+        "tipoRetencionPorcentaje": "NaN",
+        "importeRetencionAnualCentimos": null,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "30000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "28857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "26857.00 euros - 0.00 euros",
+                  "resultado": "26857.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "NaN euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 6073.32 euros)",
+                  "resultado": "NaN euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "NaN euros / 30000.00 euros x 100",
+                  "resultado": "NaN%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "30000.00 euros x NaN%",
+                  "resultado": "NaN euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [
+      {
+        "key": "minimoPersonalFamiliarCentimos",
+        "value": "NaN"
+      },
+      {
+        "key": "cuotaRetencionCentimos",
+        "value": "NaN"
+      },
+      {
+        "key": "importeRetencionAnualCentimos",
+        "value": "NaN"
+      }
+    ],
+    "matchesExpected": null
+  },
+  {
+    "id": "irregular-9000000",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 30000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 9000000,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Límite reducción comunicada 90000 y 30% retribución",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 21000000,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 20800000,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 20800000,
+        "cuotaRetencionCentimos": 8344700,
+        "limite43Centimos": 8344700,
+        "tipoRetencionPorcentaje": "27.81",
+        "importeRetencionAnualCentimos": 8343000,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "300000.00 euros - 90000.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "210000.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "208000.00 euros - 0.00 euros",
+                  "resultado": "208000.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 83447.00 euros)",
+                  "resultado": "83447.00 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "83447.00 euros / 300000.00 euros x 100",
+                  "resultado": "27.81%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "300000.00 euros x 27.81%",
+                  "resultado": "83430.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "irregular-9000001",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 30000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 9000001,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Límite reducción comunicada 90000 y 30% retribución",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 20999999,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 20799999,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 20799999,
+        "cuotaRetencionCentimos": 8344700,
+        "limite43Centimos": 8344700,
+        "tipoRetencionPorcentaje": "27.81",
+        "importeRetencionAnualCentimos": 8343000,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "300000.00 euros - 90000.01 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "209999.99 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "207999.99 euros - 0.00 euros",
+                  "resultado": "207999.99 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 83447.00 euros)",
+                  "resultado": "83447.00 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "83447.00 euros / 300000.00 euros x 100",
+                  "resultado": "27.81%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "300000.00 euros x 27.81%",
+                  "resultado": "83430.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "irregular-15000000",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 30000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 15000000,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Límite reducción comunicada 90000 y 30% retribución",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 15000000,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 14800000,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 14800000,
+        "cuotaRetencionCentimos": 5644700,
+        "limite43Centimos": 5644700,
+        "tipoRetencionPorcentaje": "18.81",
+        "importeRetencionAnualCentimos": 5643000,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "300000.00 euros - 150000.00 euros - 0.00 euros - 0.00 euros",
+                  "resultado": "150000.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "148000.00 euros - 0.00 euros",
+                  "resultado": "148000.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 56447.00 euros)",
+                  "resultado": "56447.00 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "56447.00 euros / 300000.00 euros x 100",
+                  "resultado": "18.81%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "300000.00 euros x 18.81%",
+                  "resultado": "56430.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "irregular-30",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 10000000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 3000001,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Supera 30% aunque no 90000",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 6885699,
+        "reduccionRendimientosTrabajoCentimos": 0,
+        "rendimientoNetoReducidoCentimos": 6685699,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 6685699,
+        "cuotaRetencionCentimos": 1993265,
+        "limite43Centimos": 1993265,
+        "tipoRetencionPorcentaje": "19.93",
+        "importeRetencionAnualCentimos": 1993000,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "100000.00 euros - 30000.01 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "68856.99 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "66856.99 euros - 0.00 euros",
+                  "resultado": "66856.99 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "min(cuota escala, limite 43% 19932.65 euros)",
+                  "resultado": "19932.65 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "19932.65 euros / 100000.00 euros x 100",
+                  "resultado": "19.93%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "100000.00 euros x 19.93%",
+                  "resultado": "19930.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "minimo-general",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 1000000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Control mínimo de contrato; no decide clasificación artistas",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 885700,
+        "reduccionRendimientosTrabajoCentimos": 730200,
+        "rendimientoNetoReducidoCentimos": 0,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 0,
+        "cuotaRetencionCentimos": 0,
+        "limite43Centimos": 0,
+        "tipoRetencionPorcentaje": "0.00",
+        "importeRetencionAnualCentimos": 0,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "10000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "8857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "7302.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "0.00 euros - 0.00 euros",
+                  "resultado": "0.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "Rendimientos exentos segun tabla 1",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "0.00 euros / 10000.00 euros x 100",
+                  "resultado": "0.00%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "10000.00 euros x 0.00%",
+                  "resultado": "0.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "minimo-inferior-anio",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 1000000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "inferior-anio",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Control mínimo de contrato; no decide clasificación artistas",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 885700,
+        "reduccionRendimientosTrabajoCentimos": 730200,
+        "rendimientoNetoReducidoCentimos": 0,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 0,
+        "cuotaRetencionCentimos": 0,
+        "limite43Centimos": 0,
+        "tipoRetencionPorcentaje": "2.00",
+        "importeRetencionAnualCentimos": 20000,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "10000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "8857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "7302.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "0.00 euros - 0.00 euros",
+                  "resultado": "0.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "Rendimientos exentos segun tabla 1",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "0.00 euros / 10000.00 euros x 100",
+                  "resultado": "2.00%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "10000.00 euros x 2.00%",
+                  "resultado": "200.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  },
+  {
+    "id": "minimo-especial",
+    "input": {
+      "anio": 2026,
+      "edad": 40,
+      "retribucionAnualCentimos": 1000000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "especial",
+      "descendientes": [],
+      "ascendientes": [],
+      "discapacidad": "sin-discapacidad",
+      "movilidadGeografica": false,
+      "movilidadReducidaPerceptor": false,
+      "irregular1Centimos": 0,
+      "irregular2Centimos": 0,
+      "pensionCompensatoriaConyugeCentimos": 0,
+      "anualidadesAlimentosHijosCentimos": 0,
+      "residenciaCeutaMelilla": false,
+      "rendimientosCeutaMelilla": false,
+      "pagosViviendaHabitual": false
+    },
+    "scope": "Control mínimo de contrato; no decide clasificación artistas",
+    "exit": {
+      "_id": "Exit",
+      "_tag": "Success",
+      "value": {
+        "_tag": "RetencionTrabajoCalculada",
+        "anio": 2026,
+        "rendimientoNetoTrabajoCentimos": 885700,
+        "reduccionRendimientosTrabajoCentimos": 730200,
+        "rendimientoNetoReducidoCentimos": 0,
+        "minimoPersonalFamiliarCentimos": 555000,
+        "baseRetencionCentimos": 0,
+        "cuotaRetencionCentimos": 0,
+        "limite43Centimos": 0,
+        "tipoRetencionPorcentaje": "15.00",
+        "importeRetencionAnualCentimos": 150000,
+        "rastro": {
+          "titulo": "Procedimiento de retención de trabajo 2026",
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Base de retención",
+              "descripcion": "Se calcula el rendimiento neto reducido y se restan las reducciones personales comunicadas.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Rendimiento neto del trabajo",
+                  "formula": "10000.00 euros - 0.00 euros - 0.00 euros - 1143.00 euros",
+                  "resultado": "8857.00 euros"
+                },
+                {
+                  "etiqueta": "Reducción por rendimientos del trabajo",
+                  "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                  "resultado": "7302.00 euros"
+                },
+                {
+                  "etiqueta": "Base para calcular el tipo",
+                  "formula": "0.00 euros - 0.00 euros",
+                  "resultado": "0.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Cuota y tipo de retención",
+              "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Mínimo personal y familiar",
+                  "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                  "resultado": "5550.00 euros"
+                },
+                {
+                  "etiqueta": "Cuota de retención",
+                  "formula": "Rendimientos exentos segun tabla 1",
+                  "resultado": "0.00 euros"
+                },
+                {
+                  "etiqueta": "Tipo de retención",
+                  "formula": "0.00 euros / 10000.00 euros x 100",
+                  "resultado": "15.00%"
+                },
+                {
+                  "etiqueta": "Importe anual",
+                  "formula": "10000.00 euros x 15.00%",
+                  "resultado": "1500.00 euros"
+                }
+              ],
+              "fuentes": [
+                {
+                  "titulo": "Algoritmo de retenciones 2026",
+                  "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "nonFinite": [],
+    "matchesExpected": null
+  }
+]

@@ -1,0 +1,220 @@
+$ vitest run tests/escalas-publicadas.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-824eedb6
+
+ ❯ tests/escalas-publicadas.test.ts (15 tests | 15 failed) 16ms
+     × Estado 2012 conserva ordinaria y complemento 6ms
+     × Estado 2013 conserva ordinaria y complemento 1ms
+     × Estado 2014 conserva ordinaria y complemento 1ms
+     × 2012 andalucia base 60000 1ms
+     × 2015 andalucia base 120000 1ms
+     × 2014 comunitat-valenciana base 120000.20 1ms
+     × 2016 comunitat-valenciana base 175000.20 1ms
+     × 2020 catalunya base 90000 1ms
+     × 2022 catalunya base 21000 1ms
+     × 2024 catalunya base 90000 1ms
+     × 2022 madrid base 55596.90 0ms
+     × 2022 murcia base 59999.99 0ms
+     × 2022 murcia base 60000 0ms
+     × 2022 murcia base 60000.01 0ms
+     × 2022 murcia base 100000 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > Estado 2012 conserva ordinaria y complemento
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > Estado 2013 conserva ordinaria y complemento
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > Estado 2014 conserva ordinaria y complemento
+AssertionError: expected '2257.67' to be '2257.66' // Object.is equality
+
+Expected: "2257.66"
+Received: "2257.67"
+
+ ❯ tests/escalas-publicadas.test.ts:18:195
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2012 andalucia base 60000
+AssertionError: expected '9458.32' to be '9458.31' // Object.is equality
+
+Expected: "9458.31"
+Received: "9458.32"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2015 andalucia base 120000
+AssertionError: expected '23558.32' to be '23558.31' // Object.is equality
+
+Expected: "23558.31"
+Received: "23558.32"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2014 comunitat-valenciana base 120000.20
+AssertionError: expected '22304.89' to be '22304.90' // Object.is equality
+
+Expected: "22304.90"
+Received: "22304.89"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2016 comunitat-valenciana base 175000.20
+AssertionError: expected '34668.89' to be '34668.90' // Object.is equality
+
+Expected: "34668.90"
+Received: "34668.89"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2020 catalunya base 90000
+AssertionError: expected '15908.32' to be '15908.31' // Object.is equality
+
+Expected: "15908.31"
+Received: "15908.32"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 catalunya base 21000
+AssertionError: expected '2399.11' to be '2399.10' // Object.is equality
+
+Expected: "2399.10"
+Received: "2399.11"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2024 catalunya base 90000
+AssertionError: expected '15902.84' to be '15902.83' // Object.is equality
+
+Expected: "15902.83"
+Received: "15902.84"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 madrid base 55596.90
+AssertionError: expected '7421.05' to be '7421.04' // Object.is equality
+
+Expected: "7421.04"
+Received: "7421.05"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 murcia base 59999.99
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 murcia base 60000
+AssertionError: expected '8625.84' to be '8625.83' // Object.is equality
+
+Expected: "8625.83"
+Received: "8625.84"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 murcia base 60000.01
+AssertionError: expected '8625.84' to be '8716.67' // Object.is equality
+
+Expected: "8716.67"
+Received: "8625.84"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/15]⎯
+
+ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 murcia base 100000
+AssertionError: expected '17705.84' to be '17796.67' // Object.is equality
+
+Expected: "17796.67"
+Received: "17705.84"
+
+ ❯ tests/escalas-publicadas.test.ts:27:118
+     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
+     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
+     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
+       |                                                                                                                      ^
+     28| })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/15]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  15 failed (15)
+   Start at  12:26:04
+   Duration  724ms (transform 275ms, setup 0ms, import 547ms, tests 16ms, environment 0ms)
+
+error: script "test" exited with code 1

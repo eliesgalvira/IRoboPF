@@ -107,3 +107,21 @@ Se añade un contrato separado para doce mensualidades uniformes: topes mensuale
 El puente reconstruye el inventario desde fuentes actuales, verifica original/recorte y compara el valor efectivo con Decimal. La revisión del binding vive fuera de la cita y fija payload, snapshot y alcance exactos, con tarea e informe registrados por el orquestador. Objeción experta: dos nombres o hashes autodeclarados no acreditan independencia ni vigencia. Motivo: separar integridad, valor actual, decisión jurídica y revisión del enlace. Coste: el primer caso queda candidato hasta contrarrevisión nueva, cada cambio de payload invalida la atestación y la raíz de confianza sigue siendo el repositorio editorial, no una firma de identidad. Ninguna salida certifica una regla completa. Detalle y límites en ENLACES-VERIFICABLES.md.
 
 La reproducción IT3-01 muestra signos menos super/subíndice fuera del binding. El orquestador añade tres fallos antes del fix (dos glifos y un signo separado por espacio), exige dígitos ASCII y rechaza vecinos matemáticos, guiones y marcas Unicode. Objeción: una lista finita de signos deja variantes fuera; se usan categorías Unicode y se conserva la cita literal. Coste: rechazo conservador de expresiones ambiguas; no se normalizan ni se convierten en valores aceptados. La comprobación separada de signos no cruza filas de tabla; la semántica y el contexto del facsímil siguen requiriendo revisión.
+
+## D020. Integrar por contenido comprobado y conservar versiones documentales
+
+Las cuatro entregas se comparan contra d9ff49c7 y contra la raíz antes de copiar. Se verifican archivos nuevos y los 841 de base; no hay borrados. Objeción: un diff Git vacío no muestra archivos nuevos y un índice dañado puede fingir borrados. Motivo: usar árboles, presencia y hashes, no confiar solo en el índice. Coste: manifiestos y comprobaciones adicionales. Se conservan los informes de limitaciones de cada autor y se exige revisión nueva del código integrado.
+
+El verificador de fichas pasa a leer el inventario correspondiente a cada snapshot y se conserva su artefacto comprimido por hash. Objeción: conservar solo el manifiesto no permite reconstruir datos retirados ni cotejar versiones antiguas tras editar el motor. Motivo: enlaces históricos verificables y sin sustitución por la versión actual. Coste: copias locales de artefactos y más objetos; Git deduplica bytes idénticos aunque figuren bajo dos rutas. No se afirma todavía réplica completa ni restauración externa del corpus oficial.
+
+## D021. Edad cumplida y orden después de elegibilidad acotada
+
+Se corrigen MIN-001/007 y la API que ignoraba 2012–2014, después de siete pruebas rojas. Objeción: edad y discapacidad no agotan el derecho al mínimo. Motivo: corregir solo las condiciones expresadas y contrastadas; no inventar renta, convivencia o reparto. Coste: contrato familiar parcial explícito y futuras entradas. Asturias y protección histórica catalana siguen pendientes. Las cotizaciones canónicas se conectan al anual con supuestos uniformes explícitos, manteniendo el modo compatible-legacy y una misma cotización en desglose y rendimiento.
+
+## D022. Rechazar entradas que permiten NaN en retenciones
+
+RET20-008 demuestra Success con divisor cero. Se rechazan divisores no enteros positivos e importes no seguros/no finitos después de cinco pruebas rojas. Objeción: validez numérica no valida requisitos legales ni deducciones irregulares. Motivo: impedir resultados no numéricos utilizables sin fingir elegibilidad. Coste: entradas antes toleradas pasan a ResultadoNoSoportado; los demás defectos históricos siguen abiertos.
+
+## D023. Cierre de dependencias y saneamiento previo al hash
+
+ENV1-01/02/03 se reproducen y corrigen personalmente: marcas combinantes, edición persistente de payloads y cabeceras privadas en bytes públicos. Objeción: comprobar fuentes al final sin comprobar documentos deja un verde obsoleto; sanear una copia en memoria no limpia el artefacto publicado. Motivo: registrar/releer todas las dependencias y exigir manifiesto ya saneado. Coste: IO adicional, rechazo conservador de texto ambiguo y revisión nueva; no se afirma atomicidad frente a ABA. El payload madrileño anterior conserva su aceptación candidata exacta, sin traslado automático al snapshot actual.

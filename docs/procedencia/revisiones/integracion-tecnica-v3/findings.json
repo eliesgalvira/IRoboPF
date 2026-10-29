@@ -1,0 +1,17 @@
+[
+  {
+    "id": "IT3-01",
+    "severity": "P2",
+    "prior": "COR-04",
+    "status": "requires-change",
+    "file": "tools/procedencia/corpus.py",
+    "line": 187,
+    "title": "Signos U+207B y U+208B omitibles por binding",
+    "observed": "Cita y verificación de PDF sintético conservan el signo en quote pero admiten binding positivo 8.50",
+    "expected": "Rechazar token de signo no soportado sin normalización implícita",
+    "fiscalAcceptance": "pending; no bypass de accepted",
+    "reproduction": "sign-pdf.py y sign-pdf.json",
+    "limits": "No se afirma presencia del token en originales oficiales ni cuantía fiscal incorrecta actual",
+    "cost": "Frontera Unicode conservadora y regresiones; más rechazos explícitos de citas ambiguas"
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "base": "4fe783c09e89fbd91252a9bb7e20b54ecc169839",
+  "reviewTaskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3A2a7d466e-9b54-4081-8dc3-c3b74dd7ea39",
+  "findings": [
+    {
+      "id": "ENV1-01",
+      "severity": "P2",
+      "status": "candidate",
+      "file": "tools/procedencia/corpus.py",
+      "line": 200,
+      "title": "Una marca combinante oculta un signo separado",
+      "reproduction": "adversarial.py: PDF mark.pdf contiene U+2212 U+0301 SPACE 8,50 euros. verify_binding y cite/verify admiten +8.50. Véase adversarial.log y mark.png.",
+      "impact": "No se rechaza una selección numérica ambigua con menos visible; IT3-01 queda parcialmente abierto. No demuestra aceptación fiscal ni un defecto en el PDF madrileño.",
+      "proposal": "Rechazo conservador de marcas y formatos ambiguos junto al signo separado, preservando saltos de fila y texto literal. Añadir regresión PDF.",
+      "discardedObjections": [
+        "Los super/subíndices sin marca y el signo con espacio simple sí se rechazan.",
+        "Thin/em space se normalizan a espacio en estos PDFs: no se presentan como evasión.",
+        "No se interpreta jurídicamente un glifo sintético: se demuestra la falta del rechazo conservador."
+      ]
+    },
+    {
+      "id": "ENV1-02",
+      "severity": "P2",
+      "status": "candidate",
+      "file": "scripts/procedencia/verificar-enlaces.mjs",
+      "line": 77,
+      "title": "No se vuelven a comprobar las dependencias documentales leídas",
+      "reproduction": "adversarial.py instrumenta enlaces.verify para cambiar persistentemente el payload tras su lectura. verify_evidence devuelve accepted-limited aunque el archivo ya no coincide con payloadSha256. La revisión de ensureInputs confirma que Node solo vuelve a comprobar fuentes/extractores del inventario, manifiesto y registro, no payload/cita/documento/informe/revisores.",
+      "impact": "Una edición concurrente puede dejar un verde referido a bytes anteriores sin detectar el cambio observable al terminar. No requiere restauración ABA ni reescritura de toda la raíz editorial.",
+      "proposal": "Capturar y recomprobar al final todas las dependencias y blobs usados, o verificar un snapshot documental inmutable.",
+      "limits": "La reproducción dinámica es del auxiliar con instrumentación determinista, no una carrera cronometrada del coordinador Node. La ausencia de comprobación final Node se establece por lectura. CI estable reduce exposición; no es autenticación contra mantenedor malicioso."
+    },
+    {
+      "id": "ENV1-03",
+      "severity": "P2",
+      "status": "candidate",
+      "file": "tools/procedencia/corpus.py",
+      "line": 228,
+      "title": "El puente acepta un manifiesto publicable con cabecera privada",
+      "reproduction": "adversarial.py añade set-cookie=SYNTHETIC-NOT-A-SECRET al manifiesto del fixture scratch y actualiza referencias. verify_evidence devuelve integrity=verified.",
+      "impact": "Se valida public_document(record), pero el archivo referenciado sigue conservando la cabecera. El verde no garantiza saneamiento del artefacto público. No se usaron secretos reales y la salida no imprime la cabecera.",
+      "proposal": "En el puente exigir que el manifiesto ya sea público/saneado antes de fijar su hash; conservar saneamiento tolerante en ingestión si procede.",
+      "discardedObjections": [
+        "La allowlist sí elimina cabeceras en la copia en memoria; eso no elimina ni rechaza los bytes publicados."
+      ]
+    }
+  ],
+  "newFiscalFindingsAccepted": false
+}

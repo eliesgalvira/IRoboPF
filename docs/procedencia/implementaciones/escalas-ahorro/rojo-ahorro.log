@@ -1,0 +1,79 @@
+$ vitest run tests/ahorro-regimen-historico.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-824eedb6
+
+ ❯ tests/ahorro-regimen-historico.test.ts (5 tests | 5 failed) 25ms
+     × 2012 resta remanente antes de tarifa 15ms
+     × 2013 resta remanente antes de tarifa 3ms
+     × 2014 resta remanente antes de tarifa 2ms
+     × 2025 conserva los mínimos suministrados distintos 2ms
+     × consignación agregada dispone también de cuota autonómica de ahorro 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > 2012 resta remanente antes de tarifa
+ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > 2013 resta remanente antes de tarifa
+ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > 2014 resta remanente antes de tarifa
+AssertionError: expected 117829 to be 101829 // Object.is equality
+
+- Expected
++ Received
+
+- 101829
++ 117829
+
+ ❯ tests/ahorro-regimen-historico.test.ts:15:96
+     13| describe("ahorro anual separado", () => {
+     14|  it.each([2012,2013,2014] as const)("%i resta remanente antes de tarif…
+     15|  expect(Effect.runSync(liquidarIrpfAnual(caso(anio), {modo:"canonico"}…
+       |                                                                                                ^
+     16|  })
+     17|  it("2025 conserva los mínimos suministrados distintos", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > 2025 conserva los mínimos suministrados distintos
+AssertionError: expected 84824 to be 88687 // Object.is equality
+
+- Expected
++ Received
+
+- 88687
++ 84824
+
+ ❯ tests/ahorro-regimen-historico.test.ts:18:96
+     16|  })
+     17|  it("2025 conserva los mínimos suministrados distintos", () => {
+     18|  expect(Effect.runSync(liquidarIrpfAnual(caso(2025), {modo:"canonico"}…
+       |                                                                                                ^
+     19|  })
+     20|  it("consignación agregada dispone también de cuota autonómica de ahor…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > consignación agregada dispone también de cuota autonómica de ahorro
+AssertionError: expected +0 to be 10000 // Object.is equality
+
+- Expected
++ Received
+
+- 10000
++ 0
+
+ ❯ tests/ahorro-regimen-historico.test.ts:22:43
+     20|  it("consignación agregada dispone también de cuota autonómica de ahor…
+     21|  const r = Effect.runSync(liquidarIrpfAnual(caso(2025, 10000), {modo:"…
+     22|  expect(r.deduccionesAutonomicasCentimos).toBe(10000)
+       |                                           ^
+     23|  expect(r.cuotaLiquidaCentimos).toBe(78687)
+     24|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed (5)
+   Start at  12:26:43
+   Duration  1.03s (transform 497ms, setup 0ms, import 859ms, tests 25ms, environment 0ms)
+
+error: script "test" exited with code 1

@@ -66,6 +66,14 @@ class EvidenceTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             corpus.verify_binding(text, binding)
 
+    def test_combining_mark_cannot_hide_separated_sign(self):
+        text = '−\u0301 8,50 euros'
+        binding = {'number': {'start': 3, 'end': 7, 'literal': '8,50'},
+                   'numberFormat': 'es-ES', 'value': '8.50',
+                   'unit': {'start': 8, 'end': 13, 'literal': 'euros'}, 'unitCode': 'EUR'}
+        with self.assertRaises(ValueError):
+            corpus.verify_binding(text, binding)
+
     def test_api_rejects_unknown_document_field(self):
         record = dict(self.record, unexpected=True)
         with self.assertRaises(ValidationError):

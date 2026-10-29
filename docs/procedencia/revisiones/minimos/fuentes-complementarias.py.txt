@@ -1,0 +1,93 @@
+import json
+import hashlib
+import html
+import re
+from pathlib import Path
+import pymupdf as f
+
+out = Path("docs/procedencia/revisiones/minimos")
+extras = []
+
+
+def walk(o):
+    if isinstance(o, dict):
+        if "localPath" in o and "2015-7765" in str(o.get("canonicalUrl", "")):
+            extras.append(o)
+        for v in o.values():
+            walk(v)
+    elif isinstance(o, list):
+        for v in o:
+            walk(v)
+
+
+walk(
+    json.load(
+        open("docs/procedencia/auditorias/escalas-estatales-ahorro/documentos.json")
+    )
+)
+lgt = [
+    d
+    for d in json.load(
+        open("docs/procedencia/revisiones/cadena-autonomica-a/fuentes-adicionales.json")
+    )
+    if "2003-23186" in d["canonicalUrl"]
+]
+extras += lgt
+proof = []
+citas = []
+for d in extras:
+    b = Path(d["localPath"]).read_bytes()
+    assert hashlib.sha256(b).hexdigest() == d["sha256"]
+    proof.append({k: d[k] for k in ["canonicalUrl", "sha256", "localPath"]})
+    if b.startswith(b"%PDF"):
+        pdf = f.open(d["localPath"])
+        for n in [9, 10]:
+            page = pdf[n - 1]
+            tp = page.get_textpage()
+            for block in tp.extractBLOCKS():
+                citas.append(
+                    dict(
+                        sha256=d["sha256"],
+                        page=n,
+                        box=list(block[:4]),
+                        quote=tp.extractTextbox(f.Rect(block[:4])),
+                    )
+                )
+    else:
+        text = " ".join(html.unescape(re.sub("<[^>]*>", " ", b.decode())).split())
+        i = text.find("Salvo que se disponga")
+        citas.append(
+            dict(
+                sha256=d["sha256"],
+                quote=text[i : i + 663],
+                selector="TextQuoteSelector, HTML normalizado",
+            )
+        )
+out.joinpath("fuentes-complementarias.json").write_text(
+    json.dumps(dict(documents=proof, citations=citas), ensure_ascii=False, indent=2)
+)
+r = json.load(open(out / "revisiones.json"))
+for item in r:
+    if item["id"] in ["MIN-010", "MIN-033"]:
+        item["originalsReread"].append(
+            dict(
+                url=extras[0]["canonicalUrl"],
+                sha256=extras[0]["sha256"],
+                pages=[9, 10],
+                reread=True,
+                scope="Control2015: DA31 letrasc/e, original reextraído en fuentes-complementarias.json",
+            )
+        )
+    if item["id"] == "MIN-017":
+        item["originalsReread"].append(
+            dict(
+                url=lgt[0]["canonicalUrl"],
+                sha256=lgt[0]["sha256"],
+                pages=[],
+                reread=True,
+                scope="LGT10.2 originalHTML; cita y hash independientes en fuentes-complementarias.json",
+            )
+        )
+    if item["id"] == "MIN-018":
+        item["originalsReread"] = [x for x in item["originalsReread"] if x["pages"]]
+out.joinpath("revisiones.json").write_text(json.dumps(r, ensure_ascii=False, indent=2))

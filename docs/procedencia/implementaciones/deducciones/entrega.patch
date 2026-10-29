@@ -1,0 +1,1322 @@
+--- a/components/liquidacion-irpf.tsx
++++ b/components/liquidacion-irpf.tsx
+@@ -599,7 +599,8 @@
+       comunidadAutonoma === "simulada-estatal"
+         ? 0
+         : calcularDeduccionesAutonomicasAplicadas(
+-            entradasDeduccionesAutonomicas
++            entradasDeduccionesAutonomicas,
++            { ejercicio: 2025, territorio: comunidadAutonoma }
+           ),
+     [comunidadAutonoma, entradasDeduccionesAutonomicas]
+   )
+@@ -814,7 +815,13 @@
+             fijarCatalogoDeduccionesAbierto={fijarCatalogoDeduccionesAbierto}
+             fijarAscendientes={fijarAscendientes}
+             fijarCapitalInmobiliarioEuros={fijarCapitalInmobiliarioEuros}
+-            fijarComunidadAutonoma={fijarComunidadAutonoma}
++            fijarComunidadAutonoma={(territorio) => {
++              fijarComunidadAutonoma(territorio)
++              fijarDeduccionAutonomicaManualEuros(0)
++              fijarEntradasDeduccionesAutonomicas(
++                ENTRADAS_DEDUCCIONES_INICIALES
++              )
++            }}
+             fijarDescendientes={fijarDescendientes}
+             fijarDescendientesConAsistencia={fijarDescendientesConAsistencia}
+             fijarDescendientesConDiscapacidad={
+@@ -1129,7 +1136,8 @@
+                     Deducciones autonómicas
+                   </p>
+                   <Dialog.Title className="mt-1 text-xl font-bold">
+-                    {catalogoDeducciones?.comunidad ?? comunidadAutonoma}
++                    {catalogoDeducciones?.comunidad ?? comunidadAutonoma} —
++                    2025: consignación y cálculo parcial
+                   </Dialog.Title>
+                 </div>
+                 <Dialog.Close className="border border-[var(--rule)] bg-[var(--paper-2)] px-3 py-1 text-sm font-bold hover:bg-[var(--paper)]">
+@@ -1960,7 +1968,7 @@
+                 euros: true,
+                 paso: 100,
+               })
+-            : campoNumero(claveImporte, "Importe calculado", {
++            : campoNumero(claveImporte, "Importe consignado externamente", {
+                 euros: true,
+                 paso: 100,
+               })}
+--- a/lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts
++++ b/lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts
+@@ -1,3 +1,7 @@
++import {
++  filtrarEntradasPorAmbito,
++  type AmbitoDeducciones,
++} from "./deducciones/ambito"
+ import { Array as EffectArray, Match, Option } from "effect"
+ 
+ import {
+@@ -856,9 +860,9 @@
+         Match.when({ cumple: false }, () => 0),
+         Match.orElse(() => {
+           const base = numeroDeduccion(entradas, `${deduccion.codigo}:base`)
+-          const unidades = Math.max(
+-            1,
+-            numeroDeduccion(entradas, `${deduccion.codigo}:unidades`)
++          const unidades = numeroDeduccion(
++            entradas,
++            `${deduccion.codigo}:unidades`
+           )
+ 
+           return Match.value(deduccion.cuantia).pipe(
+@@ -880,8 +884,10 @@
+ }
+ 
+ export const calcularDeduccionesAutonomicasAplicadas = (
+-  entradas: EntradasDeduccionesAutonomicas
++  entradasOriginales: EntradasDeduccionesAutonomicas,
++  ambito: AmbitoDeducciones
+ ): number => {
++  const entradas = filtrarEntradasPorAmbito(entradasOriginales, ambito)
+   const andaluciaNacimiento =
+     (numeroDeduccion(entradas, "andaluciaHijosNacimientoAdopcion") +
+       numeroDeduccion(entradas, "andaluciaMenoresAcogidos")) *
+--- /dev/null
++++ b/lib/dominio/irpf/deducciones/ambito.ts
+@@ -0,0 +1,59 @@
++import { DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD } from "../../normativa/datos/deducciones-autonomicas-2025"
++import type { EntradasDeduccionesAutonomicas } from "../deducciones-autonomicas-aplicadas"
++
++export type AmbitoDeducciones = {
++  readonly ejercicio: number
++  readonly territorio: string
++}
++
++export function territorioDeCodigo(codigo: string): string {
++  for (const [territorio, fichas] of Object.entries(
++    DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD
++  )) {
++    if (fichas.some((ficha) => ficha.codigo === codigo)) return territorio
++  }
++  return "sin-catalogo"
++}
++
++function prefijoEspecifico(territorio: string): string {
++  switch (territorio) {
++    case "castilla-la-mancha":
++      return "clm"
++    case "castilla-y-leon":
++      return "cyl"
++    default:
++      return territorio
++  }
++}
++
++/** Adaptador de aritmética parcial heredada; no evalúa requisitos fiscales. */
++export function filtrarEntradasPorAmbito(
++  entradas: EntradasDeduccionesAutonomicas,
++  ambito: AmbitoDeducciones
++): EntradasDeduccionesAutonomicas {
++  if (ambito.ejercicio !== 2025)
++    throw new RangeError("Catálogo no soportado para este ejercicio")
++  if (
++    !Object.keys(DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD).includes(
++      ambito.territorio
++    )
++  )
++    throw new RangeError("Territorio sin catálogo soportado")
++  return Object.fromEntries(
++    Object.entries(entradas).filter(([clave, valor]) => {
++      const codigo = clave.split(":")[0]
++      const pertenece = clave.includes(":")
++        ? territorioDeCodigo(codigo) === ambito.territorio
++        : clave.startsWith(prefijoEspecifico(ambito.territorio))
++      if (!pertenece) return false
++      if (Number.isNaN(valor) || valor === Infinity || valor === -Infinity)
++        throw new RangeError("Importe no finito")
++      if (
++        clave.endsWith(":unidades") &&
++        (!Number.isInteger(valor) || Number(valor) < 0)
++      )
++        throw new RangeError("Personas deben ser enteras y no negativas")
++      return true
++    })
++  )
++}
+--- /dev/null
++++ b/lib/dominio/irpf/deducciones/contratos-2025.ts
+@@ -0,0 +1,589 @@
++import Decimal from "decimal.js"
++import type { AmbitoDeducciones } from "./ambito"
++
++export type ContextoDeduccion = AmbitoDeducciones & {
++  readonly contribuyente: string
++  readonly modalidad: "individual" | "conjunta"
++}
++export type ResultadoDeduccion =
++  | { readonly estado: "no_soportado" | "excluida"; readonly motivo: string }
++  | {
++      readonly estado:
++        | "evaluacion_automatica"
++        | "calculo_parcial"
++        | "importe_externo"
++      readonly importe: number
++      readonly motivo: string
++      readonly aceptacionFiscal: "pendiente"
++    }
++export type EleccionDeduccion = {
++  readonly contribuyente: string
++  readonly codigo: string
++}
++
++function importe(
++  estado: "evaluacion_automatica" | "calculo_parcial" | "importe_externo",
++  euros: Decimal.Value,
++  motivo: string
++): ResultadoDeduccion {
++  return {
++    estado,
++    importe: new Decimal(euros).toDecimalPlaces(2).toNumber(),
++    motivo,
++    aceptacionFiscal: "pendiente",
++  }
++}
++function noSoportado(motivo: string): ResultadoDeduccion {
++  return { estado: "no_soportado", motivo }
++}
++function excluida(motivo: string): ResultadoDeduccion {
++  return { estado: "excluida", motivo }
++}
++function identidadesValidas(ids: readonly string[]): boolean {
++  return (
++    ids.length > 0 &&
++    ids.every((id) => id.trim().length > 0) &&
++    new Set(ids).size === ids.length
++  )
++}
++function ambitoValido(
++  contexto: ContextoDeduccion,
++  territorio: string
++): boolean {
++  return (
++    contexto.ejercicio === 2025 &&
++    contexto.territorio === territorio &&
++    contexto.contribuyente.trim().length > 0
++  )
++}
++export type ConsignacionProfesional = ContextoDeduccion & {
++  readonly codigo: string
++  readonly importe: number
++  readonly soporte: string
++}
++export function evaluarConsignacion(
++  contexto: ContextoDeduccion,
++  entrada: Omit<ConsignacionProfesional, "modalidad">
++): ResultadoDeduccion {
++  if (
++    entrada.ejercicio !== contexto.ejercicio ||
++    entrada.territorio !== contexto.territorio ||
++    entrada.contribuyente !== contexto.contribuyente
++  )
++    return excluida("Consignación de otro ámbito o titular")
++  if (
++    !Number.isFinite(entrada.importe) ||
++    entrada.importe < 0 ||
++    entrada.soporte.trim() === "" ||
++    entrada.codigo.trim() === ""
++  )
++    return noSoportado("Importe o soporte profesional inválido")
++  return importe(
++    "importe_externo",
++    entrada.importe,
++    "Consignación profesional: no acredita cálculo ni requisitos fiscales"
++  )
++}
++export type EventoAndaluz = {
++  readonly id: string
++  readonly ejercicio: number
++  readonly tipo: "nacimiento" | "adopcion" | "acogimiento"
++  readonly hijos: readonly string[]
++  readonly titulares: readonly string[]
++  readonly municipio: "ordinario" | "despoblacion" | "desconocido"
++  readonly diasAcogimiento: number
++  readonly ayudaAcogimiento: number
++}
++/** Núcleo ordinario del art. 11 reformado por Ley 8/2025; sin bases suprimidas. */
++export function evaluarNacimientoAndaluz(
++  contexto: ContextoDeduccion,
++  eventos: readonly EventoAndaluz[],
++  elecciones: readonly EleccionDeduccion[]
++): ResultadoDeduccion {
++  if (!ambitoValido(contexto, "andalucia"))
++    return noSoportado("Solo Andalucía, ejercicio 2025")
++  if (contexto.modalidad !== "individual")
++    return noSoportado("Pendiente composición y reparto en conjunta")
++  if (
++    elecciones.some(
++      (e) =>
++        e.contribuyente === contexto.contribuyente &&
++        [
++          "andalucia_familia_numerosa",
++          "andalucia_adopcion_internacional",
++        ].includes(e.codigo)
++    )
++  )
++    return noSoportado(
++      "Debe resolver elección incompatible; no se suma ni se elige automáticamente"
++    )
++  if (eventos.length === 0)
++    return importe("evaluacion_automatica", 0, "Sin eventos")
++  if (
++    !identidadesValidas(eventos.map((e) => e.id)) ||
++    !identidadesValidas(eventos.flatMap((e) => e.hijos))
++  )
++    return noSoportado(
++      "Identidades vacías o duplicadas: posible doble cómputo de acogimiento/adopción"
++    )
++  let total = new Decimal(0)
++  for (const evento of eventos) {
++    if (!Number.isInteger(evento.ejercicio))
++      return noSoportado("Ejercicio de evento inválido")
++    if (
++      !identidadesValidas(evento.titulares) ||
++      evento.titulares.length > 2 ||
++      !identidadesValidas(evento.hijos)
++    )
++      return noSoportado("Titulares o beneficiarios inválidos")
++    if (evento.municipio !== "ordinario")
++      return noSoportado(
++        "Falta acreditar clasificación municipal del artículo 8"
++      )
++    if (
++      evento.ejercicio !== 2025 ||
++      !evento.titulares.includes(contexto.contribuyente)
++    )
++      continue
++    if (evento.tipo === "acogimiento") {
++      if (
++        !Number.isInteger(evento.diasAcogimiento) ||
++        evento.diasAcogimiento < 0 ||
++        evento.diasAcogimiento > 365 ||
++        !Number.isFinite(evento.ayudaAcogimiento) ||
++        evento.ayudaAcogimiento < 0
++      )
++        return noSoportado("Hechos de acogimiento inválidos")
++      if (evento.diasAcogimiento < 90 || evento.ayudaAcogimiento > 0) continue
++    }
++    total = total.plus(
++      new Decimal(evento.hijos.length)
++        .times(evento.hijos.length > 1 ? 400 : 200)
++        .div(evento.titulares.length)
++    )
++  }
++  return importe(
++    "evaluacion_automatica",
++    total,
++    "Ámbito ordinario individual; titulares identificados; interpretación candidata pendiente de revisión"
++  )
++}
++export type HijoCanario = {
++  readonly id: string
++  readonly orden: number
++  readonly ordenDiscapacidad: number
++}
++export function calcularNacimientoCanarioParcial(
++  hijos: readonly HijoCanario[],
++  titulares: readonly string[],
++  contribuyente: string
++): ResultadoDeduccion {
++  if (!identidadesValidas(titulares) || !titulares.includes(contribuyente))
++    return noSoportado("Titulares inválidos")
++  if (hijos.length > 0 && !identidadesValidas(hijos.map((h) => h.id)))
++    return noSoportado("Beneficiarios duplicados")
++  let total = new Decimal(0)
++  for (const hijo of hijos) {
++    if (
++      !Number.isInteger(hijo.orden) ||
++      hijo.orden < 1 ||
++      !Number.isInteger(hijo.ordenDiscapacidad) ||
++      hijo.ordenDiscapacidad < 0 ||
++      hijo.ordenDiscapacidad > hijo.orden
++    )
++      return noSoportado("Órdenes inválidos")
++    const base =
++      hijo.orden <= 2
++        ? 265
++        : hijo.orden === 3
++          ? 530
++          : hijo.orden === 4
++            ? 796
++            : 928
++    const suplemento =
++      hijo.ordenDiscapacidad === 0
++        ? 0
++        : hijo.ordenDiscapacidad <= 2
++          ? 600
++          : 1100
++    total = total.plus(base + suplemento)
++  }
++  return importe(
++    "calculo_parcial",
++    total.div(titulares.length),
++    "Solo cuantía y reparto individual: faltan cadena de rentas, convivencia, supervivencia e historial para aplicación"
++  )
++}
++export type BasesMadrid = {
++  readonly ejercicio: number
++  readonly general: number
++  readonly ahorro: number
++  readonly basesUnidadFamiliar: readonly number[]
++}
++export type EventoMadrid = {
++  readonly ejercicio: number
++  readonly hijos: readonly string[]
++  readonly progenitoresConvivientes: readonly string[]
++}
++export function evaluarNacimientoMadrid(
++  contexto: ContextoDeduccion,
++  evento: EventoMadrid,
++  historia: readonly BasesMadrid[]
++): ResultadoDeduccion {
++  if (!ambitoValido(contexto, "madrid"))
++    return noSoportado("Solo Madrid, ejercicio 2025")
++  if (
++    !identidadesValidas(evento.hijos) ||
++    !identidadesValidas(evento.progenitoresConvivientes) ||
++    evento.progenitoresConvivientes.length > 2
++  )
++    return noSoportado("Beneficiarios o progenitores inválidos")
++  if (
++    evento.ejercicio > 2025 ||
++    evento.ejercicio < 2023 ||
++    !evento.progenitoresConvivientes.includes(contexto.contribuyente)
++  )
++    return excluida("Fuera de ventana temporal o sin convivencia")
++  for (let ejercicio = evento.ejercicio; ejercicio <= 2025; ejercicio++) {
++    const registros = historia.filter((h) => h.ejercicio === ejercicio)
++    if (registros.length !== 1)
++      return noSoportado("Falta historial único de bases desde el evento")
++    const bases = registros[0]
++    if (
++      ![bases.general, bases.ahorro, ...bases.basesUnidadFamiliar].every(
++        Number.isFinite
++      ) ||
++      bases.basesUnidadFamiliar.length === 0
++    )
++      return noSoportado("Bases incompletas o no finitas")
++    const limite = contexto.modalidad === "individual" ? 30930 : 37322.2
++    if (
++      bases.general + bases.ahorro > limite ||
++      bases.basesUnidadFamiliar.reduce((a, b) => a + b, 0) > 61860
++    )
++      return excluida("Límite de base imponible personal o familiar excedido")
++  }
++  const multiple = evento.hijos.length > 1 && evento.ejercicio === 2025 ? 2 : 1
++  const divisor =
++    contexto.modalidad === "individual"
++      ? evento.progenitoresConvivientes.length
++      : 1
++  return importe(
++    "calculo_parcial",
++    new Decimal("721.70")
++      .times(evento.hijos.length)
++      .times(multiple)
++      .div(divisor),
++    "Historial y cuantía calculados; falta acreditar unidad familiar y modalidad histórica por período"
++  )
++}
++export type GastoGuarderia = {
++  readonly hijo: string
++  readonly titulares: readonly string[]
++  readonly custodia: number
++  readonly alimentacion: number
++  readonly vestuarioEscolar: number
++  readonly ayudas: number
++}
++export function calcularGuarderiaMurciaParcial(
++  contexto: ContextoDeduccion,
++  gastos: readonly GastoGuarderia[],
++  baseImponible: number
++): ResultadoDeduccion {
++  if (!ambitoValido(contexto, "murcia") || !Number.isFinite(baseImponible))
++    return noSoportado("Ámbito o base inválidos")
++  if (baseImponible > (contexto.modalidad === "individual" ? 30000 : 50000))
++    return excluida("Base imponible excedida")
++  if (gastos.length > 0 && !identidadesValidas(gastos.map((g) => g.hijo)))
++    return noSoportado("Hijo duplicado")
++  let total = new Decimal(0)
++  for (const gasto of gastos) {
++    if (
++      !identidadesValidas(gasto.titulares) ||
++      !gasto.titulares.includes(contexto.contribuyente) ||
++      ![
++        gasto.custodia,
++        gasto.alimentacion,
++        gasto.vestuarioEscolar,
++        gasto.ayudas,
++      ].every((v) => Number.isFinite(v) && v >= 0)
++    )
++      return noSoportado("Titulares o gastos inválidos")
++    const base = Decimal.max(
++      0,
++      new Decimal(gasto.custodia)
++        .plus(gasto.alimentacion)
++        .plus(gasto.vestuarioEscolar)
++        .minus(gasto.ayudas)
++    )
++    const divisor =
++      contexto.modalidad === "individual" ? gasto.titulares.length : 1
++    total = total.plus(Decimal.min(1000, base.times("0.2")).div(divisor))
++  }
++  return importe(
++    "calculo_parcial",
++    total,
++    "Gastos comunes y tope por hijo repartidos; pendientes centro, etapa, mínimo, convivencia, pagadores y facturas"
++  )
++}
++export function excluirAlquilerCatalan(
++  baseMenosMinimo: number
++): ResultadoDeduccion {
++  if (!Number.isFinite(baseMenosMinimo)) return noSoportado("Base desconocida")
++  return baseMenosMinimo > 30000
++    ? excluida("Base menos mínimo superior a 30.000")
++    : noSoportado("Faltan acreditación, vivienda, pagos y duración del derecho")
++}
++export function excluirCooperativaCatalana(
++  claseSocio: "temporal" | "permanente" | "desconocida"
++): ResultadoDeduccion {
++  return claseSocio === "temporal"
++    ? excluida("Socio temporal excluido")
++    : noSoportado(
++        "Faltan votos, registro, destino, certificación, mantenimiento y arrastre"
++      )
++}
++export function comprobarIncompatibilidadExtremena(
++  elecciones: readonly EleccionDeduccion[]
++): ResultadoDeduccion {
++  const viudos = elecciones.filter(
++    (e) => e.codigo === "extremadura_contribuyentes_viudos"
++  )
++  return viudos.some((v) =>
++    elecciones.some(
++      (e) =>
++        e.contribuyente === v.contribuyente &&
++        e.codigo === "extremadura_trabajo_dependiente"
++    )
++  )
++    ? noSoportado(
++        "Viudedad y trabajo incompatibles por contribuyente: requiere elección"
++      )
++    : noSoportado(
++        "Sin conflicto detectado; falta evaluar requisitos individuales"
++      )
++}
++export type PersonaCeliacaRioja = {
++  readonly id: string
++  readonly relacion:
++    | "contribuyente"
++    | "conyuge"
++    | "ascendiente"
++    | "descendiente"
++  readonly titularesDelMinimo: readonly string[]
++  readonly titularesDeduccion: readonly string[]
++  readonly certificado: {
++    readonly referencia: string
++    readonly medico: string
++    readonly colegiado: string
++    readonly especialidad: string
++    readonly fechaEmision: string
++    readonly fechaDiagnostico: string
++    readonly diagnostico: "definitivo" | "provisional"
++    readonly ejercicioMedico: "activo" | "desconocido"
++  } | null
++}
++/** Ley 9/2025 art. 1.4 y DF única.2: efectos expresos desde 1/1/2025. */
++export function evaluarCeliaquiaRioja(
++  contexto: ContextoDeduccion,
++  personas: readonly PersonaCeliacaRioja[]
++): ResultadoDeduccion {
++  if (!ambitoValido(contexto, "la-rioja"))
++    return noSoportado("Solo La Rioja 2025; no heredar a otros ejercicios")
++  if (personas.length > 0 && !identidadesValidas(personas.map((p) => p.id)))
++    return noSoportado("Personas duplicadas o sin identidad")
++  let total = new Decimal(0)
++  for (const persona of personas) {
++    if (!identidadesValidas(persona.titularesDeduccion))
++      return noSoportado("Titularidad desconocida")
++    if (!persona.titularesDeduccion.includes(contexto.contribuyente)) continue
++    if (
++      (persona.relacion === "ascendiente" ||
++        persona.relacion === "descendiente") &&
++      !persona.titularesDelMinimo.includes(contexto.contribuyente)
++    )
++      return excluida("Sin derecho al mínimo por esta persona")
++    if (
++      persona.relacion === "contribuyente" &&
++      persona.id !== contexto.contribuyente
++    )
++      return noSoportado("Identidad del contribuyente contradictoria")
++    const certificado = persona.certificado
++    if (
++      certificado === null ||
++      certificado.diagnostico !== "definitivo" ||
++      certificado.ejercicioMedico !== "activo" ||
++      [
++        certificado.referencia,
++        certificado.medico,
++        certificado.colegiado,
++        certificado.especialidad,
++      ].some((s) => s.trim() === "")
++    )
++      return noSoportado(
++        "Falta certificado con diagnóstico definitivo e identificación del médico activo"
++      )
++    if (
++      !/^\d{4}-\d{2}-\d{2}$/.test(certificado.fechaDiagnostico) ||
++      !Number.isFinite(Date.parse(certificado.fechaDiagnostico)) ||
++      !Number.isFinite(Date.parse(certificado.fechaEmision))
++    )
++      return noSoportado("Fechas del certificado inválidas")
++    if (certificado.fechaDiagnostico > "2025-12-31")
++      return excluida("Diagnóstico posterior al ejercicio")
++    total = total.plus(new Decimal(250).div(persona.titularesDeduccion.length))
++  }
++  return importe(
++    "calculo_parcial",
++    total,
++    "Cuantía y reparto 2025; derecho al mínimo y vínculo conyugal aportados externamente, no evaluados aquí"
++  )
++}
++
++export type SolicitudDeduccion =
++  | {
++      readonly tipo: "andalucia_nacimiento"
++      readonly contexto: ContextoDeduccion
++      readonly eventos: readonly EventoAndaluz[]
++      readonly elecciones: readonly EleccionDeduccion[]
++    }
++  | {
++      readonly tipo: "madrid_nacimiento"
++      readonly contexto: ContextoDeduccion
++      readonly evento: EventoMadrid
++      readonly historia: readonly BasesMadrid[]
++    }
++  | {
++      readonly tipo: "canarias_nacimiento"
++      readonly contexto: ContextoDeduccion
++      readonly hijos: readonly HijoCanario[]
++      readonly titulares: readonly string[]
++    }
++  | {
++      readonly tipo: "murcia_guarderia"
++      readonly contexto: ContextoDeduccion
++      readonly gastos: readonly GastoGuarderia[]
++      readonly baseImponible: number
++    }
++  | {
++      readonly tipo: "rioja_celiaquia"
++      readonly contexto: ContextoDeduccion
++      readonly personas: readonly PersonaCeliacaRioja[]
++    }
++  | {
++      readonly tipo: "consignacion"
++      readonly contexto: ContextoDeduccion
++      readonly entrada: ConsignacionProfesional
++    }
++
++export function evaluarDeduccion(
++  solicitud: SolicitudDeduccion
++): ResultadoDeduccion {
++  switch (solicitud.tipo) {
++    case "andalucia_nacimiento":
++      return evaluarNacimientoAndaluz(
++        solicitud.contexto,
++        solicitud.eventos,
++        solicitud.elecciones
++      )
++    case "madrid_nacimiento":
++      return evaluarNacimientoMadrid(
++        solicitud.contexto,
++        solicitud.evento,
++        solicitud.historia
++      )
++    case "canarias_nacimiento":
++      if (
++        !ambitoValido(solicitud.contexto, "canarias") ||
++        solicitud.contexto.modalidad !== "individual"
++      )
++        return noSoportado(
++          "Canarias 2025 individual: otros ámbitos no soportados"
++        )
++      return calcularNacimientoCanarioParcial(
++        solicitud.hijos,
++        solicitud.titulares,
++        solicitud.contexto.contribuyente
++      )
++    case "murcia_guarderia":
++      return calcularGuarderiaMurciaParcial(
++        solicitud.contexto,
++        solicitud.gastos,
++        solicitud.baseImponible
++      )
++    case "rioja_celiaquia":
++      return evaluarCeliaquiaRioja(solicitud.contexto, solicitud.personas)
++    case "consignacion":
++      return evaluarConsignacion(solicitud.contexto, solicitud.entrada)
++  }
++}
++
++/** No convertir un cálculo parcial o desconocido en un cero sumable. No limita por cuota. */
++export function totalDeduccionesEvaluadas(
++  ambito: ContextoDeduccion,
++  solicitudes: readonly SolicitudDeduccion[]
++): ResultadoDeduccion {
++  let total = new Decimal(0)
++  let externo = false
++  const claves = solicitudes.map((s) =>
++    s.tipo === "consignacion" ? s.entrada.codigo : s.tipo
++  )
++  if (new Set(claves).size !== claves.length)
++    return noSoportado(
++      "Solicitud duplicada: agrupar beneficiarios antes de sumar"
++    )
++  const elecciones = solicitudes.flatMap((s) =>
++    s.tipo === "consignacion"
++      ? [{ contribuyente: s.entrada.contribuyente, codigo: s.entrada.codigo }]
++      : []
++  )
++  if (
++    elecciones.some(
++      (e) =>
++        e.codigo === "extremadura_contribuyentes_viudos" &&
++        elecciones.some(
++          (otra) =>
++            otra.contribuyente === e.contribuyente &&
++            otra.codigo === "extremadura_trabajo_dependiente"
++        )
++    )
++  )
++    return noSoportado("Elección extremeña incompatible por contribuyente")
++  if (
++    solicitudes.some((s) => s.tipo === "andalucia_nacimiento") &&
++    elecciones.some(
++      (e) =>
++        e.contribuyente === ambito.contribuyente &&
++        [
++          "andalucia_familia_numerosa",
++          "andalucia_adopcion_internacional",
++          "andalucia_nacimiento_adopcion_acogimiento_menores",
++        ].includes(e.codigo)
++    )
++  )
++    return noSoportado(
++      "Consignación incompatible o duplicada con nacimiento andaluz"
++    )
++  for (const solicitud of solicitudes) {
++    const contexto = solicitud.contexto
++    if (
++      contexto.ejercicio !== ambito.ejercicio ||
++      contexto.territorio !== ambito.territorio ||
++      contexto.contribuyente !== ambito.contribuyente ||
++      contexto.modalidad !== ambito.modalidad
++    )
++      return noSoportado("Solicitud ajena al ámbito del agregado")
++    const resultado = evaluarDeduccion(solicitud)
++    if (resultado.estado === "no_soportado") return resultado
++    if (resultado.estado === "calculo_parcial")
++      return noSoportado(resultado.motivo)
++    if (resultado.estado === "excluida") continue
++    if ("importe" in resultado) total = total.plus(resultado.importe)
++    if (resultado.estado === "importe_externo") externo = true
++  }
++  return importe(
++    externo ? "importe_externo" : "evaluacion_automatica",
++    total,
++    "Importe generado antes de cuota; aceptación fiscal pendiente"
++  )
++}
+--- a/tests/deducciones-autonomicas-aplicadas.test.ts
++++ b/tests/deducciones-autonomicas-aplicadas.test.ts
+@@ -1,3 +1,4 @@
++import { territorioDeCodigo } from "../lib/dominio/irpf/deducciones/ambito"
+ import { Effect, Option } from "effect"
+ import { describe, expect, it } from "@effect/vitest"
+ 
+@@ -55,7 +56,11 @@
+             const control = Option.getOrThrow(controlOption)
+ 
+             const importeCalculado = calcularDeduccionesAutonomicasAplicadas(
+-              control.entradasPrueba
++              control.entradasPrueba,
++              {
++                ejercicio: 2025,
++                territorio: territorioDeCodigo(control.codigo),
++              }
+             )
+ 
+             expect(importeCalculado, control.codigo).toBeCloseTo(
+@@ -86,7 +91,8 @@
+     })
+     expect(
+       calcularDeduccionesAutonomicasAplicadas(
+-        Option.getOrThrow(control).entradasPrueba
++        Option.getOrThrow(control).entradasPrueba,
++        { ejercicio: 2025, territorio: "andalucia" }
+       )
+     ).toBe(200)
+   })
+--- /dev/null
++++ b/tests/deducciones-ambito.test.ts
+@@ -0,0 +1,65 @@
++import { expect, it } from "vitest"
++import { calcularDeduccionesAutonomicasAplicadas } from "../lib/dominio/irpf/deducciones-autonomicas-aplicadas"
++
++it("aísla A → B → A antes de sumar", () => {
++  const entradas = { andaluciaHijosNacimientoAdopcion: 1 }
++  expect(
++    calcularDeduccionesAutonomicasAplicadas(entradas, {
++      ejercicio: 2025,
++      territorio: "andalucia",
++    })
++  ).toBe(200)
++  expect(
++    calcularDeduccionesAutonomicasAplicadas(entradas, {
++      ejercicio: 2025,
++      territorio: "madrid",
++    })
++  ).toBe(0)
++  expect(
++    calcularDeduccionesAutonomicasAplicadas(entradas, {
++      ejercicio: 2025,
++      territorio: "andalucia",
++    })
++  ).toBe(200)
++})
++it.each([2024, 2026])("no hereda catálogo en %s", (ejercicio) => {
++  expect(() =>
++    calcularDeduccionesAutonomicasAplicadas(
++      { madridHijosNacimientoAdopcion: 1 },
++      { ejercicio, territorio: "madrid" }
++    )
++  ).toThrow()
++})
++
++it("Madrid → Murcia → Madrid tampoco contamina", () => {
++  const entradas = { madridHijosNacimientoAdopcion: 1 }
++  expect(
++    calcularDeduccionesAutonomicasAplicadas(entradas, {
++      ejercicio: 2025,
++      territorio: "madrid",
++    })
++  ).toBe(721.7)
++  expect(
++    calcularDeduccionesAutonomicasAplicadas(entradas, {
++      ejercicio: 2025,
++      territorio: "murcia",
++    })
++  ).toBe(0)
++  expect(
++    calcularDeduccionesAutonomicasAplicadas(entradas, {
++      ejercicio: 2025,
++      territorio: "madrid",
++    })
++  ).toBe(721.7)
++})
++it.each([0.5, -1])(
++  "no usa personas fraccionarias ni negativas: %s",
++  (unidades) => {
++    expect(() =>
++      calcularDeduccionesAutonomicasAplicadas(
++        { "rioja_enfermedad_celiaca:unidades": unidades },
++        { ejercicio: 2025, territorio: "la-rioja" }
++      )
++    ).toThrow()
++  }
++)
+--- /dev/null
++++ b/tests/deducciones-contratos.test.ts
+@@ -0,0 +1,264 @@
++import {
++  evaluarCeliaquiaRioja,
++  evaluarNacimientoMadrid,
++  calcularGuarderiaMurciaParcial,
++  excluirAlquilerCatalan,
++  excluirCooperativaCatalana,
++  comprobarIncompatibilidadExtremena,
++  totalDeduccionesEvaluadas,
++} from "../lib/dominio/irpf/deducciones/contratos-2025"
++import { expect, it } from "vitest"
++import {
++  evaluarNacimientoAndaluz,
++  calcularNacimientoCanarioParcial,
++  evaluarConsignacion,
++} from "../lib/dominio/irpf/deducciones/contratos-2025"
++
++const contexto = {
++  ejercicio: 2025,
++  territorio: "andalucia",
++  contribuyente: "madre",
++  modalidad: "individual" as const,
++}
++const evento = {
++  id: "parto",
++  ejercicio: 2025,
++  tipo: "nacimiento" as const,
++  hijos: ["a", "b"],
++  titulares: ["madre"],
++  municipio: "ordinario" as const,
++  diasAcogimiento: 0,
++  ayudaAcogimiento: 0,
++}
++it("gemelos andaluces con hechos y titulares", () => {
++  expect(evaluarNacimientoAndaluz(contexto, [evento], [])).toMatchObject({
++    estado: "evaluacion_automatica",
++    importe: 800,
++  })
++})
++it("reparte sin personas fraccionarias", () => {
++  expect(
++    evaluarNacimientoAndaluz(
++      contexto,
++      [{ ...evento, hijos: ["a"], titulares: ["madre", "padre"] }],
++      []
++    )
++  ).toMatchObject({ importe: 100 })
++})
++it("no acumula familia numerosa", () => {
++  expect(
++    evaluarNacimientoAndaluz(
++      contexto,
++      [evento],
++      [{ contribuyente: "madre", codigo: "andalucia_familia_numerosa" }]
++    )
++  ).toMatchObject({ estado: "no_soportado" })
++})
++it("canarias distingue orden general y de discapacidad", () => {
++  expect(
++    calcularNacimientoCanarioParcial(
++      [{ id: "a", orden: 3, ordenDiscapacidad: 1 }],
++      ["madre"],
++      "madre"
++    )
++  ).toMatchObject({ estado: "calculo_parcial", importe: 1130 })
++  expect(
++    calcularNacimientoCanarioParcial(
++      [
++        { id: "a", orden: 3, ordenDiscapacidad: 0 },
++        { id: "b", orden: 4, ordenDiscapacidad: 0 },
++      ],
++      ["madre"],
++      "madre"
++    )
++  ).toMatchObject({ importe: 1326 })
++})
++it("consignación ajena no se aplica", () => {
++  expect(
++    evaluarConsignacion(contexto, {
++      ejercicio: 2025,
++      territorio: "galicia",
++      contribuyente: "madre",
++      codigo: "galicia_familias_dos_hijos",
++      importe: 999999,
++      soporte: "expediente-profesional",
++    })
++  ).toMatchObject({ estado: "excluida" })
++})
++
++it("cero beneficiarios no genera una persona", () => {
++  expect(
++    evaluarCeliaquiaRioja({ ...contexto, territorio: "la-rioja" }, [])
++  ).toMatchObject({ importe: 0 })
++})
++it("Madrid excluye un céntimo sobre base y exige historia", () => {
++  const ctx = { ...contexto, territorio: "madrid" }
++  const eventoMadrid = {
++    ejercicio: 2025,
++    hijos: ["a", "b"],
++    progenitoresConvivientes: ["madre"],
++  }
++  expect(
++    evaluarNacimientoMadrid(ctx, eventoMadrid, [
++      {
++        ejercicio: 2025,
++        general: 30930,
++        ahorro: 0,
++        basesUnidadFamiliar: [30930],
++      },
++    ])
++  ).toMatchObject({ importe: 2886.8 })
++  expect(
++    evaluarNacimientoMadrid(ctx, eventoMadrid, [
++      {
++        ejercicio: 2025,
++        general: 30930.01,
++        ahorro: 0,
++        basesUnidadFamiliar: [30930.01],
++      },
++    ])
++  ).toMatchObject({ estado: "excluida" })
++  expect(
++    evaluarNacimientoMadrid(ctx, { ...eventoMadrid, ejercicio: 2024 }, [])
++  ).toMatchObject({ estado: "no_soportado" })
++})
++it("Murcia reparte el tope por hijo después de calcular gastos comunes", () => {
++  const gasto = {
++    hijo: "a",
++    titulares: ["madre"],
++    custodia: 5000,
++    alimentacion: 0,
++    vestuarioEscolar: 0,
++    ayudas: 0,
++  }
++  expect(
++    calcularGuarderiaMurciaParcial(
++      { ...contexto, territorio: "murcia" },
++      [gasto, { ...gasto, hijo: "b" }],
++      30000
++    )
++  ).toMatchObject({ importe: 2000 })
++  expect(
++    calcularGuarderiaMurciaParcial(
++      { ...contexto, territorio: "murcia" },
++      [{ ...gasto, custodia: 10000, titulares: ["madre", "padre"] }],
++      30000
++    )
++  ).toMatchObject({ importe: 500 })
++})
++it("Andalucía pierde derecho al acogimiento sin 90 días", () => {
++  expect(
++    evaluarNacimientoAndaluz(
++      contexto,
++      [{ ...evento, hijos: ["a"], tipo: "acogimiento", diasAcogimiento: 89 }],
++      []
++    )
++  ).toMatchObject({ importe: 0 })
++  expect(
++    evaluarNacimientoAndaluz(
++      contexto,
++      [{ ...evento, hijos: ["a"], tipo: "acogimiento", diasAcogimiento: 90 }],
++      []
++    )
++  ).toMatchObject({ importe: 200 })
++})
++
++it("exclusiones catalanas no confunden base admisible con cobertura completa", () => {
++  expect(excluirAlquilerCatalan(30000.01)).toMatchObject({ estado: "excluida" })
++  expect(excluirAlquilerCatalan(30000)).toMatchObject({
++    estado: "no_soportado",
++  })
++  expect(excluirCooperativaCatalana("temporal")).toMatchObject({
++    estado: "excluida",
++  })
++})
++it("incompatibilidad extremeña refiere al mismo contribuyente", () => {
++  expect(
++    comprobarIncompatibilidadExtremena([
++      { contribuyente: "a", codigo: "extremadura_contribuyentes_viudos" },
++      { contribuyente: "a", codigo: "extremadura_trabajo_dependiente" },
++    ])
++  ).toMatchObject({ motivo: expect.stringContaining("incompatibles") })
++  expect(
++    comprobarIncompatibilidadExtremena([
++      { contribuyente: "a", codigo: "extremadura_contribuyentes_viudos" },
++      { contribuyente: "b", codigo: "extremadura_trabajo_dependiente" },
++    ])
++  ).toMatchObject({ motivo: expect.stringContaining("Sin conflicto") })
++})
++it("el agregado rechaza parcial y duplicado, sin cero ficticio", () => {
++  expect(
++    totalDeduccionesEvaluadas({ ...contexto, territorio: "canarias" }, [
++      {
++        tipo: "canarias_nacimiento",
++        contexto: { ...contexto, territorio: "canarias" },
++        hijos: [{ id: "a", orden: 3, ordenDiscapacidad: 1 }],
++        titulares: ["madre"],
++      },
++    ])
++  ).toMatchObject({ estado: "no_soportado" })
++  const solicitud = {
++    tipo: "andalucia_nacimiento" as const,
++    contexto,
++    eventos: [evento],
++    elecciones: [],
++  }
++  expect(
++    totalDeduccionesEvaluadas(contexto, [solicitud, solicitud])
++  ).toMatchObject({ estado: "no_soportado" })
++})
++it.each([2024, 2026])("contrato nuevo no hereda %s", (ejercicio) => {
++  expect(
++    evaluarNacimientoAndaluz({ ...contexto, ejercicio }, [evento], [])
++  ).toMatchObject({ estado: "no_soportado" })
++})
++
++it("Rioja reparte 250 entre dos titulares de una persona diagnosticada", () => {
++  const persona = {
++    id: "hijo",
++    relacion: "descendiente" as const,
++    titularesDelMinimo: ["madre", "padre"],
++    titularesDeduccion: ["madre", "padre"],
++    certificado: {
++      referencia: "cert-1",
++      medico: "medico-1",
++      colegiado: "col-1",
++      especialidad: "digestivo",
++      fechaEmision: "2025-10-10",
++      fechaDiagnostico: "2025-10-01",
++      diagnostico: "definitivo" as const,
++      ejercicioMedico: "activo" as const,
++    },
++  }
++  expect(
++    evaluarCeliaquiaRioja({ ...contexto, territorio: "la-rioja" }, [persona])
++  ).toMatchObject({ importe: 125 })
++  expect(
++    evaluarCeliaquiaRioja({ ...contexto, territorio: "la-rioja" }, [
++      { ...persona, certificado: null },
++    ])
++  ).toMatchObject({ estado: "no_soportado" })
++})
++it("consignación gallega conserva su naturaleza y su importe", () => {
++  const ctx = { ...contexto, territorio: "galicia" }
++  expect(
++    evaluarConsignacion(ctx, {
++      ...ctx,
++      codigo: "galicia_familias_dos_hijos",
++      importe: 999999,
++      soporte: "expediente-1",
++    })
++  ).toMatchObject({ estado: "importe_externo", importe: 999999 })
++})
++it.each([0.5, -1, Number.NaN])(
++  "rechaza órdenes canarios inválidos: %s",
++  (orden) => {
++    expect(
++      calcularNacimientoCanarioParcial(
++        [{ id: "a", orden, ordenDiscapacidad: 0 }],
++        ["madre"],
++        "madre"
++      )
++    ).toMatchObject({ estado: "no_soportado" })
++  }
++)
+--- /dev/null
++++ b/docs/procedencia/implementaciones/deducciones/fuentes.json
+@@ -0,0 +1,86 @@
++[
++  {
++    "url": "https://www.boe.es/boe/dias/2024/03/21/pdfs/BOE-A-2024-5610.pdf",
++    "sha256": "502aa027788673d8f653c2cd8ce87038630a7dab13b63d625c5905bd1a5ce8de",
++    "bytes": 285507,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/boe/dias/2025/05/24/pdfs/BOE-A-2025-10270.pdf",
++    "sha256": "fe1d0970921ff93d6204d00f219939d9de2df46183cd91fe26b9b130d0db61b6",
++    "bytes": 432279,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2025-10270",
++    "sha256": "579d67ca91fa7e17f2132af9fe151dec166aae9f8e2ac93aeb9c926c67d18c8a",
++    "bytes": 163789,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/ccaa/boc/2025/256/j54506-54723.pdf",
++    "sha256": "3ea74a298695e89eacad2e809b5b08bd23af98db7df203db93493b9788d2e2ac",
++    "bytes": 1561464,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2025-3303",
++    "sha256": "548de00041e0faa13f6a2f211b9569ab9645341a6758601bd8bbe1026a2c7ce5",
++    "bytes": 59969,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/boe/dias/2025/02/20/pdfs/BOE-A-2025-3303.pdf",
++    "sha256": "9d8e41d0f45efba344b524882e33d1ad6955db11e59b2d26237518a76b543952",
++    "bytes": 248325,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2019-2039",
++    "sha256": "dc88fc5c573510f9204dbd8c43e800982d031428ea6340a10f594482b5587c25",
++    "bytes": 635148,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/boe/dias/2019/02/15/pdfs/BOE-A-2019-2039.pdf",
++    "sha256": "f606cb6f705357905ecfe0abe2e68338b416c0d29ee68c6d4fd5a72caf34faa4",
++    "bytes": 3285644,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2024-5610",
++    "sha256": "c54d2a31db80b6be1d0142dbc2a91048ef9836be49f46210463ec2339c46188b",
++    "bytes": 81499,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-991",
++    "sha256": "0cb4bb5cfa976b97d334207259ce97e86952e13a04c09d985fd314bf8bc0d3e7",
++    "bytes": 138086,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/boe/dias/2026/01/17/pdfs/BOE-A-2026-991.pdf",
++    "sha256": "0222ef9b2d9b6d65cc524d5feed50596a6ff0e36ca57e1681af101284d822da4",
++    "bytes": 399905,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  },
++  {
++    "url": "https://www.boe.es/boe/dias/2026/01/16/pdfs/BOE-A-2026-945.pdf",
++    "sha256": "9b297f5a66697ed8eb20f70163bab659a4b99dc9c8afc5ad3c9c1e462fa2d616",
++    "bytes": 963793,
++    "autenticidad": "no-validada",
++    "aceptacionFiscal": "pendiente"
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/implementaciones/deducciones/rojas-contratos.txt
+@@ -0,0 +1,26 @@
++$ vitest run tests/deducciones-contratos.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-8aa280a2
++
++ ❯ tests/deducciones-contratos.test.ts (0 test)
++
++⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/deducciones-contratos.test.ts [ tests/deducciones-contratos.test.ts ]
++Error: Cannot find module '../lib/dominio/irpf/deducciones/contratos-2025' imported from /home/elies/.t3/worktrees/IRoboPF/t3-8aa280a2/tests/deducciones-contratos.test.ts
++ ❯ tests/deducciones-contratos.test.ts:2:1
++      1| import { expect, it } from "vitest"
++      2| import { evaluarNacimientoAndaluz, calcularNacimientoCanarioParcial, e…
++       | ^
++      3|
++      4| const contexto = { ejercicio: 2025, territorio: "andalucia", contribuy…
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  no tests
++   Start at  12:26:00
++   Duration  161ms (transform 20ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
++
++error: script "test" exited with code 1
+--- /dev/null
++++ b/docs/procedencia/implementaciones/deducciones/rojas.txt
+@@ -0,0 +1,50 @@
++$ vitest run tests/deducciones-ambito.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-8aa280a2
++
++ ❯ tests/deducciones-ambito.test.ts (3 tests | 3 failed) 12ms
++   × aísla A → B → A antes de sumar 8ms
++   × no hereda catálogo en 2024 2ms
++   × no hereda catálogo en 2026 1ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/deducciones-ambito.test.ts > aísla A → B → A antes de sumar
++AssertionError: expected 200 to be +0 // Object.is equality
++
++- Expected
+++ Received
++
++- 0
+++ 200
++
++ ❯ tests/deducciones-ambito.test.ts:7:104
++      5|   const entradas = { andaluciaHijosNacimientoAdopcion: 1 }
++      6|   expect(calcularDeduccionesAutonomicasAplicadas(entradas, { ejercicio…
++      7|   expect(calcularDeduccionesAutonomicasAplicadas(entradas, { ejercicio…
++       |                                                                                                        ^
++      8|   expect(calcularDeduccionesAutonomicasAplicadas(entradas, { ejercicio…
++      9| })
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
++
++ FAIL  tests/deducciones-ambito.test.ts > no hereda catálogo en 2024
++ FAIL  tests/deducciones-ambito.test.ts > no hereda catálogo en 2026
++AssertionError: expected [Function] to throw an error
++ ❯ tests/deducciones-ambito.test.ts:11:132
++      9| })
++     10| it.each([2024, 2026])("no hereda catálogo en %s", (ejercicio) => {
++     11|   expect(() => calcularDeduccionesAutonomicasAplicadas({ madridHijosNa…
++       |                                                                                                                                    ^
++     12| })
++     13|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  3 failed (3)
++   Start at  12:25:04
++   Duration  512ms (transform 160ms, setup 0ms, import 381ms, tests 12ms, environment 0ms)
++
++error: script "test" exited with code 1
+--- /dev/null
++++ b/docs/procedencia/implementaciones/deducciones/INFORME.md
+@@ -0,0 +1,48 @@
++# Contratos autonómicos 2025: entrega candidata
++
++Base indicada por el padre: d9ff49c7. Entrega por archivos, sin mutaciones VCS, sin subdelegación, sin regenerar inventario. Las fuentes cambiadas dejan obsoleto el artefacto: corresponde al integrador reconstruirlo una sola vez.
++
++## Resultado y frontera de integración
++
++Se exige ejercicio y territorio en el helper heredado. Se filtra antes de sumar, también cuando un diccionario conserva entradas de otras comunidades. El catálogo 2025 rechaza 2024/2026 y territorios desconocidos. La pantalla de liquidación, que ya era de 2025, declara ese ámbito y limpia entradas y consignación agregada al cambiar territorio. No hay rediseño ni cambios de liquidación de cuotas.
++
++El módulo `contratos-2025.ts` añade un contrato por solicitud con ejercicio, territorio, contribuyente y modalidad. Distingue `evaluacion_automatica`, `calculo_parcial`, `importe_externo`, `excluida` y `no_soportado`. Toda interpretación conserva `aceptacionFiscal: pendiente`. El agregado nuevo rechaza parciales, desconocidos, ámbitos ajenos y solicitudes repetidas; no los convierte en cero. No es el límite de cuota ni una certificación fiscal.
++
++**Limitación material:** los perfiles nuevos no están conectados a los controles antiguos de la pantalla. Estos conservan aritmética parcial, ahora identificada como tal; el filtro territorial sí está conectado. El helper numérico antiguo no adquiere validación fiscal por recibir un ámbito. El padre no debe presentar esta entrega como sustitución completa de todas las rutas antiguas ni como siete contratos jurídicos íntegros. La conexión de perfiles exige nuevas entradas; aquí se respeta la propiedad limitada del componente a ámbito/estado. No se han eliminado silenciosamente todas las capacidades existentes.
++
++## Cobertura nueva
++
++- Andalucía: evaluación ordinaria individual, hijos/eventos/titulares identificados, 200 por hijo y otros 200 por múltiple; mitad entre dos titulares; incompatibilidad exige elección; acogimiento requiere 90 días y ausencia de ayuda. No admite doble identidad acogimiento/adopción ni añade bases suprimidas. Despoblación y conjunta devuelven no soportado: clasificación municipal y composición pendientes. La lista de titulares con derecho es un hecho suministrado, no una investigación de residencia de terceros.
++- Madrid: bases general/ahorro y familiar por período, ventana evento y dos siguientes, incremento de múltiple únicamente en el período del evento, reparto por progenitores convivientes. Resultado parcial: faltan composición y modalidad histórica por ejercicio; no se declara derecho adquirido por verificar números.
++- Canarias: cálculo parcial por hijo con orden general y orden de discapacidad separados. Los órdenes son datos suministrados; no se deducen de historia familiar. Faltan rentas/remisiones, supervivencia y convivencia. El agregado impide aplicarlo automáticamente.
++- Murcia: cálculo parcial de gastos comunes por hijo, minorados por ayudas; 20%, límite 1000 por hijo, dividido entre titulares en individual. No admite introducir gastos ya divididos y volver a repartirlos: la entrada documenta gastos comunes. Base 30000/50000; faltan centro, etapa, derecho al mínimo, pagadores, convivencia y facturas.
++- Rioja: personas identificadas, certificado y diagnóstico, reparto 250/n y cero real para colección vacía. Efectos 1/1/2025 expresos en Ley 9/2025, DF única.2. Resultado parcial: mínimo y vínculo conyugal suministrados externamente. No se inventa un requisito de renta.
++- Catalunya: exclusiones de base >30000 y socio temporal; en los demás casos se devuelve no soportado con requisitos pendientes. No se implementan arrastres ni se atribuye cobertura integral por pasar una exclusión.
++- Extremadura: detección de incompatibilidad viudedad/trabajo por contribuyente. Distintas personas no se confunden; falta evaluación completa de ambos derechos. El agregado nuevo comprueba también dos consignaciones incompatibles del mismo titular.
++- Consignación profesional: ámbito, titular, código, importe y referencia de soporte. Mantiene un importe gallego externo sin corregirlo arbitrariamente a 250. La referencia no prueba que exista el expediente. Valenciana no recibe la regla candidata de 98,50.
++
++## Evidencia
++
++Se consultaron los informes A/B y sus revisiones, contratos prioritarios y casos; se conservan intactos todos los resultados históricos (191 y 196 decisiones, con aceptaciones de carencia distintas de aceptación de regla).
++
++`fuentes.json` registra 12 originales consultados con hash y tamaño comprobados contra CAS. Se reextrajo texto con pdftotext, no OCR. Andalucía: BOE-A-2026-945 pp. 79 y 93. Canarias: BOC 256/2025 pp. 153–154. Catalunya: BOE-A-2025-10270 pp. 18–19. Madrid: BOE-A-2024-5610 art. 4 y 18, y BOE-A-2025-3303. Murcia: BOE-A-2019-2039 art. 56.Uno. Rioja: BOE-A-2026-991 art. 1.4 y DF única.2. Se reutilizaron originales locales autorizados: no hubo nuevas adquisiciones.
++
++Las citas detalladas siguen en las carpetas de revisión, sin copiar selectores ni cambiar su estado. No se generaron facsímiles nuevos, no se validaron firmas/CSV y no se cerraron todas las cadenas modificadoras. Hash correcto = integridad; fórmula correcta en un caso = exactitud aritmética; alcance legal = interpretación; aceptación fiscal = revisión independiente pendiente. Ninguno implica automáticamente el siguiente.
++
++## Pruebas
++
++`rojas.txt`: tres fallos reales del helper anterior: contaminación andaluza y herencia 2024/2026. Después del filtro pasan. `rojas-contratos.txt` registra fallo de importación antes de crear la API nueva: es prueba de ausencia de implementación, **no** reproducción de una fórmula fiscal incorrecta. Las reproducciones fiscales históricas siguen en los informes de auditores; no se afirma haber vuelto rojas esas fórmulas mediante una interfaz que antes no existía.
++
++Pruebas mantenidas: A→B→A andaluz y madrileño; rechazo de personas fraccionarias/negativas; gemelos y reparto andaluces; pérdida por 89 días y frontera 90; incompatibilidad; orden canario separado; Madrid frontera de base e historial ausente; Murcia tope por hijo y por titular; Rioja cero/reparto/certificado ausente; exclusiones catalanas; incompatibilidad extremeña por persona; consignación gallega; rechazo de parciales/duplicados en agregado. No se hizo montaje React ni navegación de navegador: el cambio de estado se revisó por código.
++
++Comandos desde la raíz, Nix bun/nodejs: `bun run lint`; `flock /tmp/irobopf-validacion-pesada.lock bun run typecheck`; `bun run test tests/deducciones-ambito.test.ts tests/deducciones-contratos.test.ts tests/deducciones-autonomicas-aplicadas.test.ts tests/deducciones-autonomicas-2025.test.ts --maxWorkers=1`. Sin build ni legacy pesado. node_modules es un enlace de lectura; no se instaló ni mutó.
++
++## Decisiones, objeciones y costes
++
++1. Exigir ámbito en helper existente. Objeción: rompe llamadas de un argumento. Motivo: no inferir jurisdicción de entradas residuales. Coste: actualizar consumidor y tests; llamadas externas deberán pasar ámbito.
++2. Limpiar estado al cambiar comunidad y filtrar también en dominio. Objeción: se pierden entradas al volver. Motivo: la consignación agregada carecía de identidad territorial. Coste: reintroducirlas; una futura colección por ámbito podría preservarlas. La prueba de dominio demuestra que el filtro funciona aunque no se limpien.
++3. Mantener aritmética antigua como parcial. Objeción: aún puede transmitir cuantías incompletas a liquidación. Motivo: no hay hechos en los controles antiguos para sustituirla por evaluación integral y el componente tiene propiedad limitada. Coste: deuda explícita de conexión y revisión antes de anunciar cálculo automático; no es cierre del defecto fiscal de cada fórmula antigua.
++4. No sumar parciales en API nueva. Objeción: menor cobertura aparente. Motivo: no convertir desconocimiento en un derecho ni en un cero. Coste: consignación explícita profesional mientras falten hechos/cadena.
++5. Andalucía restringida a ordinaria individual. Objeción: quedan fuera supuestos frecuentes. Motivo: no certificar municipio ni conjunta desde una casilla. Coste: no soporte explícito y conservación de consignación.
++6. Decimal en contratos nuevos. Objeción: no prueba política legal de redondeo. Motivo: evitar errores binarios evitables y redondear resultado a céntimos. Coste: política candidata de resultado, no aceptada para toda liquidación; no cambiar globalmente redondeos históricos.
++7. No reinterpretar aceptaciones de carencia. Objeción: se pide ampliación sustantiva y queda trabajo. Motivo: 111/183 carencias aceptadas no validan los derechos. Coste: contratos parciales y revisión jurídica adicional; entrega incompleta respecto de automatización integral de siete territorios.

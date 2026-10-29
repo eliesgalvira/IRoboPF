@@ -74,9 +74,22 @@ export async function verifyLinks(root = process.cwd()) {
   if (run.error) throw run.error
   if (run.status !== 0)
     throw new Error(run.stderr || "Verificación documental fallida")
+  const result = JSON.parse(run.stdout)
+  for (const dependency of result.documentaryDependencies) {
+    if (
+      hash(readFileSync(resolve(root, dependency.path))) !== dependency.sha256
+    )
+      throw new Error(
+        `Documento cambió durante la verificación: ${dependency.path}`
+      )
+  }
   ensureInputs()
   compareFiles(artifact.files, readArtifact(root).files)
-  return { inventory: "rebuilt-from-current-code", ...JSON.parse(run.stdout) }
+  return {
+    inventory: "rebuilt-from-current-code",
+    documentaryFilesVerified: result.documentaryDependencies.length,
+    evidence: result.evidence,
+  }
 }
 
 if (

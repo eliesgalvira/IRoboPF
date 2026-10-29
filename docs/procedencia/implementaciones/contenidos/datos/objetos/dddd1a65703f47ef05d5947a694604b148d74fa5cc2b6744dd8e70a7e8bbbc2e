@@ -1,0 +1,218 @@
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs"
+import { resolve } from "node:path"
+import { fileURLToPath } from "node:url"
+import { gzipSync } from "node:zlib"
+import { Schema } from "effect"
+import { readArtifact } from "./inventario-artefacto.mjs"
+import { Entidad, Snapshot } from "../../lib/procedencia/modelo.ts"
+import {
+  hash,
+  bytesEntidad,
+  verificarGrafo,
+} from "../../lib/procedencia/verificador.ts"
+
+const pendiente = (texto) => ({ estado: "pendiente", texto })
+export function baseFicha(id, titulo, identidad) {
+  return {
+    version: 1,
+    id,
+    titulo,
+    identidad,
+    ambito: {
+      estado: "desconocido",
+      motivo:
+        "Ámbito fiscal pendiente de revisión; las dimensiones del inventario son candidatas.",
+    },
+    fuentes: [],
+    aristas: [],
+    estados: {
+      integridad: "por-comprobar",
+      autenticidad: "pendiente",
+      interpretacion: "pendiente",
+      contrarrevision: "pendiente",
+      ejecucion: "catalogada",
+    },
+    secciones: {
+      formula: pendiente(
+        "Expresión técnica disponible; formulación jurídica pendiente."
+      ),
+      derivacion: pendiente(
+        "No se ha acreditado la derivación ni sus unidades."
+      ),
+      norma: pendiente("Sin vínculo normativo revisado para esta ocurrencia."),
+      evidencia: pendiente("Sin cita ni facsímil enlazados y verificados."),
+      bordes: pendiente(
+        "Condiciones, exclusiones y fronteras pendientes de revisión."
+      ),
+    },
+  }
+}
+export function generar(
+  root = process.cwd(),
+  destino = resolve(root, "docs/procedencia/implementaciones/contenidos/datos")
+) {
+  const { files, manifest } = readArtifact(root)
+  const paquetes = new Map()
+  const ids = new Set()
+  function agregar(entidad) {
+    const bytes = bytesEntidad(entidad)
+    const revision = hash(bytes)
+    if (ids.has(entidad.id)) throw new Error("ID duplicado")
+    ids.add(entidad.id)
+    const prefijo = hash(entidad.id).slice(0, 2)
+    const grupo = paquetes.get(prefijo) ?? []
+    grupo.push({ revision, entidad: JSON.parse(bytes) })
+    paquetes.set(prefijo, grupo)
+  }
+  let ocurrencias = 0
+  for (const [archivo, bytes] of files) {
+    if (!/^inventario-pagina-\d+\.json$/.test(archivo)) continue
+    for (const item of JSON.parse(bytes)) {
+      const tipo = ["Parameter", "Formula", "Step", "Derivation"].includes(
+        item.kind
+      )
+        ? item.kind
+        : "Step"
+      agregar({
+        ...baseFicha(item.id, item.name, "ocurrencia"),
+        tipo,
+        fuentes: [
+          {
+            archivo: item.source.file,
+            sha256: item.source.sha256,
+            localizador: JSON.stringify({
+              symbol: item.symbol,
+              path: item.path,
+              ...item.source,
+            }),
+          },
+        ],
+        expresion: item.expression,
+        valorObservado: item.value,
+        unidadCandidata: item.unit,
+        ejerciciosCandidatos: item.years,
+        territoriosCandidatos: item.territories,
+        claseInventario: item.kind,
+      })
+      ocurrencias++
+    }
+  }
+  const editorial = JSON.parse(
+    readFileSync(
+      resolve(
+        root,
+        "docs/procedencia/implementaciones/contenidos/conceptos.json"
+      ),
+      "utf8"
+    )
+  )
+  for (const c of editorial) {
+    const bytes = readFileSync(resolve(root, c.informe))
+    agregar({
+      ...baseFicha(c.id, c.titulo, "concepto"),
+      tipo: "Rule",
+      proposicion: c.proposicion,
+      fuentes: [
+        { archivo: c.informe, sha256: hash(bytes), localizador: c.localizador },
+      ],
+      secciones: {
+        ...baseFicha(c.id, c.titulo, "concepto").secciones,
+        norma: { estado: "candidata", texto: c.proposicion },
+      },
+    })
+  }
+  mkdirSync(resolve(destino, "objetos"), { recursive: true })
+  function guardar(bytes) {
+    if (bytes.length >= 10_000_000)
+      throw new Error("Presupuesto de archivo excedido")
+    const revision = hash(bytes)
+    const ruta = resolve(destino, "objetos", revision)
+    if (existsSync(ruta) && hash(readFileSync(ruta)) !== revision)
+      throw new Error("Objeto existente corrupto")
+    if (!existsSync(ruta)) writeFileSync(ruta, bytes, { flag: "wx" })
+    return revision
+  }
+  const contratoBytes = Buffer.from(
+    JSON.stringify(Schema.toJsonSchemaDocument(Entidad))
+  )
+  writeFileSync(
+    resolve(root, "schemas/procedencia/contenido/entidad.schema.json"),
+    contratoBytes
+  )
+  const contrato = guardar(contratoBytes)
+  const generador = guardar(readFileSync(fileURLToPath(import.meta.url)))
+  const fuentesSoftware = [
+    "lib/procedencia/modelo.ts",
+    "lib/procedencia/verificador.ts",
+    "lib/procedencia/almacen.ts",
+    "lib/procedencia/io.mjs",
+    "lib/procedencia/revision.ts",
+    "lib/procedencia/rastro.ts",
+  ].map((archivo) => guardar(readFileSync(resolve(root, archivo))))
+  const inventario = guardar(
+    readFileSync(resolve(root, "docs/procedencia/inventario.json"))
+  )
+  const entradas = [...paquetes.values()].flat()
+  verificarGrafo(entradas)
+  const registros = [...paquetes]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([prefijo, grupo]) => {
+      grupo.sort((a, b) => a.entidad.id.localeCompare(b.entidad.id))
+      const bytes = gzipSync(Buffer.from(JSON.stringify(grupo)), { level: 9 })
+      const indice = guardar(
+        Buffer.from(
+          JSON.stringify(
+            grupo.map((e) => ({ id: e.entidad.id, revision: e.revision }))
+          )
+        )
+      )
+      return {
+        prefijo,
+        hash: guardar(bytes),
+        indice,
+        bytes: bytes.length,
+        cantidad: grupo.length,
+      }
+    })
+  const snapshot = Schema.decodeUnknownSync(Snapshot)({
+    version: 1,
+    inventario,
+    contrato,
+    generador,
+    politica: "candidata",
+    versiones: {
+      algoritmo: hash(JSON.stringify(manifest.generationInputs)),
+      datos: manifest.artifact.sha256,
+      explicacion: "contenido-1",
+    },
+    paquetes: registros,
+    auxiliares: [contrato, generador, inventario, ...fuentesSoftware],
+    cantidad: ids.size,
+  })
+  const snapshotId = guardar(Buffer.from(JSON.stringify(snapshot)))
+  // Registro final: no se sustituyen objetos existentes ni se elimina una versión anterior.
+  const ruta = resolve(destino, "snapshots.json")
+  const anteriores = existsSync(ruta)
+    ? JSON.parse(readFileSync(ruta, "utf8"))
+    : []
+  writeFileSync(
+    ruta,
+    JSON.stringify([...new Set([...anteriores, snapshotId])].sort()) + "\n"
+  )
+  const metricas = {
+    snapshot: snapshotId,
+    ocurrencias,
+    conceptos: editorial.length,
+    paquetes: registros.length,
+    bytesComprimidos: registros.reduce((n, p) => n + p.bytes, 0),
+    maximoPaquete: Math.max(...registros.map((p) => p.bytes)),
+    rss: process.memoryUsage().rss,
+    aceptacionFiscal: "pendiente",
+  }
+  return metricas
+}
+if (
+  process.argv[1] &&
+  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+)
+  process.stdout.write(JSON.stringify(generar()) + "\n")

@@ -1,0 +1,26 @@
+import './casos.mjs';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {obtenerMinimoDescendientes} from '../../../lib/dominio/irpf/minimos/minimo-descendientes.ts';
+import {obtenerMinimoAscendientes} from '../../../lib/dominio/irpf/minimos/minimo-ascendientes.ts';
+import {obtenerMinimoContribuyente} from '../../../lib/dominio/irpf/minimos/minimo-contribuyente.ts';
+const results=[];
+function check(id,actual,expected){results.push({id,actual,expected,pass:actual===expected});}
+const f=edad=>({edad,discapacidad:{_tag:'SinDiscapacidad'}});
+check('MIN-001-25',String(obtenerMinimoDescendientes([f(25)])),'0');
+check('MIN-001-orden',String(obtenerMinimoDescendientes([f(30),f(10)])),'2400');
+check('control-MIN-001',String(obtenerMinimoDescendientes([f(24)])),'2400');
+check('MIN-007-asc65',String(obtenerMinimoAscendientes([f(65)])),'1150');
+check('MIN-007-asc75',String(obtenerMinimoAscendientes([f(75)])),'2550');
+check('MIN-007-con75',String(obtenerMinimoContribuyente({anio:2025,edad:75})),'8100');
+check('control-MIN-007',String(obtenerMinimoContribuyente({anio:2025,edad:76})),'8100');
+check('API-anio-sin-tabla',String(obtenerMinimoContribuyente({anio:2012,edad:40})),'5151');
+const runtime=JSON.parse(readFileSync('docs/procedencia/revisiones/minimos/casos-ejecutados.json','utf8'));
+for(const r of runtime.annual){
+ const y=r.input.anio,ter=r.input.comunidadAutonoma,gain=r.input.rendimientos.gananciasPatrimoniales[0].importeGananciaCentimos;
+ let expected=0;
+ if(gain===1000000) expected=y<2015?101829:y===2015?94775:ter==='aragon'?92550:y===2022?90388:88687;
+ check('ANUAL-'+y+'-'+ter+'-'+gain,r.result.cuotaLiquidaCentimos,expected);
+}
+writeFileSync('docs/procedencia/revisiones/minimos/pruebas-rojas.json',JSON.stringify(results,null,2));
+console.log('Comprobaciones:',results.length,'fallos esperados:',results.filter(r=>!r.pass).length);
+process.exitCode=results.some(r=>!r.pass)?1:0;

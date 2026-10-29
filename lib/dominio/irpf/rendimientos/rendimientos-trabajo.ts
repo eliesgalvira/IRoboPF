@@ -17,22 +17,24 @@ export interface RendimientoNetoTrabajo {
 export const calcularRendimientoNetoTrabajo = ({
   anio,
   rendimientoIntegro,
+  cotizacionTrabajador,
 }: {
   readonly anio: AnioFiscal
   readonly rendimientoIntegro: Decimal
+  readonly cotizacionTrabajador?: Decimal
 }): RendimientoNetoTrabajo => {
-  const cotizaciones = calcularCotizacionesSocialesLegacy({
-    anio,
-    salarioBrutoAnual: rendimientoIntegro,
-  })
-  const rendimientoPrevioNeto = rendimientoIntegro.minus(
-    cotizaciones.cotizacionTrabajador
-  )
+  const cotizacionAplicada =
+    cotizacionTrabajador ??
+    calcularCotizacionesSocialesLegacy({
+      anio,
+      salarioBrutoAnual: rendimientoIntegro,
+    }).cotizacionTrabajador
+  const rendimientoPrevioNeto = rendimientoIntegro.minus(cotizacionAplicada)
   const gastosDeducibles = GASTOS_FIJOS_IRPF_LEGACY[anio]
 
   return {
     rendimientoIntegro,
-    cotizacionTrabajador: cotizaciones.cotizacionTrabajador,
+    cotizacionTrabajador: cotizacionAplicada,
     rendimientoPrevioNeto,
     gastosDeducibles,
     rendimientoNeto: Decimal.max(

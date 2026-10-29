@@ -1,0 +1,303 @@
+import json
+import hashlib
+from pathlib import Path
+
+p = Path("docs/procedencia/revisiones/minimos")
+hs = json.load(open("docs/procedencia/auditorias/minimos/hallazgos.json"))
+ds = json.load(open("docs/procedencia/auditorias/minimos/documentos.json"))
+# Decisiones personales, sin heredar review/status del autor.
+dec = {
+    1: (
+        "accepted",
+        "Defecto de elegibilidad por edad y desplazamiento del orden: [30,10] sin discapacidad da 5100 en vez de 2400; [30 discapacitado,10] da 5100 como control.",
+        "Una lista prefiltrada podría evitarlo, pero la API pública ni lo exige ni valida la edad que ya recibe.",
+        "Filtrar quienes generan derecho antes de ordenar; añadir prueba roja integrada y contrato familiar.",
+        "reforma:27;pre2015:62",
+    ),
+    2: (
+        "accepted",
+        "Carencia de rentas no exentas y declaración del familiar en FamiliarFiscal; límites 8000 y 1800 no representables.",
+        "Renta fiscal no es ingreso bruto; no basta añadir un campo ingresos.",
+        "Definir magnitud fiscal y umbrales inclusivos; no ejecutar casos ficticios con campos que el tipo no admite.",
+        "reforma:27,29;pre2015:62",
+    ),
+    3: (
+        "accepted",
+        "Carencia de convivencia, dependencia, parentesco y duración; excepción de centro especializado y medio período para ascendientes.",
+        "La asimilación de dependencia de 2015 no debe extenderse retrospectivamente como norma idéntica.",
+        "Versionar requisitos antes y después de reforma; documentar precondiciones.",
+        "reforma:27,28,29;pre2015:62",
+    ),
+    4: (
+        "accepted",
+        "Carencia de cotitulares y parentesco relativo: no se puede repartir el mínimo ni el de discapacidad.",
+        "No todo hijo equivale a 50%: prioridad de grado y declaración del familiar alteran el derecho.",
+        "Añadir contrato de derecho y reparto, con dos titulares y prioridad por grado.",
+        "reforma:29",
+    ),
+    5: (
+        "accepted",
+        "Adopción/acogimiento con independencia de edad por tres períodos no representados; el código solo incrementa edad<3.",
+        "No todas las modalidades actuales de guarda se equiparan y cambiar acogimiento por adopción no debe reiniciar el plazo.",
+        "Modelar hecho, fecha y modalidad por ejercicio; probar inscripción y dos años siguientes.",
+        "reforma:27;pre2015:62",
+    ),
+    6: (
+        "accepted",
+        "Fallecimiento de familiar no representable; cambio de 2015 añade ascendiente fallecido y fija 2400/1150.",
+        "La cuantía especial no equivale al prorrateo por días ni a conservar el orden ordinario.",
+        "Separar fallecidos del orden; preservar regla anterior solo para descendientes y adicionales acreditados.",
+        "reforma:29;pre2015:63;manual2014:451",
+    ),
+    7: (
+        "accepted",
+        "Con años cumplidos a devengo, ascendiente65 produce0; contribuyente75 produce6700 y ascendiente75 produce1150. Aceptación limitada a fronteras de edad del régimen común descritas por AEAT, no conjunta ni determinación de fecha natal.",
+        "La ley dice superior/mayor; el literal aislado no decide cómo representar años cumplidos. Los manuales aclaran igual o superior para incrementos del contribuyente y la página AEAT para ascendiente65. La traslación de75 al ascendiente es interpretación coherente, no cita literal de esa página.",
+        "Fijar contrato de años cumplidos; revisar >=65 y >=75 con controles64/66/74/76. Exigir revisión adicional de cumpleaños exacto si el API pasa a recibir fechas.",
+        "manual2014:447;manual2025:1069;reforma:27,28",
+    ),
+    8: (
+        "accepted",
+        "Aritmética de discapacidad ya acreditada: 0/3000/6000/12000 ejecutados; texto antiguo2316/7038/+2316 releído.",
+        "La coincidencia de ramas no acredita certificados ni elegibilidad de familiares.",
+        "Conservar ramas; separar clasificación fiscal y acreditación del dato de entrada.",
+        "reforma:28;pre2015:62,63",
+    ),
+    9: (
+        "accepted",
+        "La suma de discapacidad de familiares no exige el derecho a mínimo por ascendiente/descendiente.",
+        "El tag fiscal puede ser una preclasificación legítima; falta hacer explícito su contrato, no exigir solo certificados numéricos.",
+        "Vincular elegibilidad y mínimo por discapacidad; mantener equivalencias legales.",
+        "reforma:28",
+    ),
+    10: (
+        "accepted",
+        "Defecto de combinación de remanentes desde2015: Madrid2022 BG0 BA10000 liquida88227 céntimos; separado90388. Madrid2025 84824 frente88687.",
+        "Una tarifa conjunta sobre máximo solo coincide cuando remanentes iguales; en2015 los tipos estatal y autonómico tampoco son mitades iguales.",
+        "Corregir junto a EEA-MINIMOS-DISTINTOS, sin duplicar fix; conservar controles Aragón y2015.",
+        "reforma:30,31,34;madrid2022:3;manual2014:467",
+    ),
+    11: (
+        "accepted",
+        "Solo estructura leída: min(M,BG) independiente en Estado/comunidad y remanentes max(0,M-BG).",
+        "No valida escalas con cuotas acumuladas ni la mezcla posterior de ahorro.",
+        "Conservar estructura y probar BG entre ambos mínimos antes de ampliar aceptación.",
+        "reforma:29,30,34;pre2015:64",
+    ),
+    12: (
+        "accepted",
+        "Importes estatales publicados por Ley39/2010 arts61 y62, con efectos2011 y vigencia indefinida; corroboración histórica Hacienda2013 p91, no tabla2025 retrospectiva.",
+        "No demuestra ausencia universal de reformas indirectas ni excepciones de cada declaración.",
+        "Usar original y compilación histórica; mantener pendiente continuidad territorial2012–2013.",
+        "pre2015:61,62,63",
+    ),
+    13: (
+        "accepted",
+        "Importes de la reforma estatal aplicable desde2015; aceptación del texto publicado, no de todos los alias anuales ni condiciones.",
+        "Que una constante se llame2025 no demuestra cada año heredado.",
+        "Enlazar cada versión anual a norma y cambios, sin considerar todas las hojas certificadas.",
+        "reforma:27,28,29,79",
+    ),
+    14: (
+        "accepted",
+        "Madrid2022: cuantías publicadas en BOCM y mínimo básico5777.55 usado en prueba anual.",
+        "Concordancia de tabla no acredita cada condición familiar ni total anual.",
+        "Conservar cifras y enlazar cláusula temporal BOCM p4; corregir consumo en ahorro.",
+        "madrid2022:3,4",
+    ),
+    15: (
+        "accepted",
+        "Selector Valencia2022 cambia en28octubre en sondeo con fechas UTC a mediodía; fuente DOGV art3 y DF4.",
+        "El tipo Date representa instantes; no certifica fechas civiles con offset ni todas las liquidaciones por fallecimiento.",
+        "Fijar contrato fecha civil y añadir pruebas con offset antes de cerrar selector.",
+        "@476e3303:5,6,16",
+    ),
+    16: (
+        "accepted",
+        "Selector Balears2023 distingue25/26noviembre para componentes reformados.",
+        "La retroactividad de otros artículos de Ley11/2023 no se extiende a art1. No se acepta cualquier representación horaria.",
+        "Conservar versiones y añadir controles civiles de fecha.",
+        "balears2023:4",
+    ),
+    17: (
+        "needs-evidence",
+        "Confirmados mínimo6105 invariable y entrada3diciembre; no aceptada como certeza la obligación de5550 para todo fallecido anterior.",
+        "Preámbulo8 pretende aplicación2025; LGT10.2 usa inicio del período para tributos periódicos. Ni el preámbulo crea sin más retroactividad total, ni la DF aislada resuelve el alcance de esa intención.",
+        "Solicitar criterio primario sobre fallecidos o validaciones oficiales2025; preservar hipótesis02/03diciembre y bloquear fix automático.",
+        "asturias2025pdf:2,3,6;@54501fc5:2,3,4",
+    ),
+    18: (
+        "accepted",
+        "Defecto del contrato de reconstrucción histórica: un canon5550 incondicional no reproduce obligaciones2020 protegidas por STC186/2021 FJ3D. No se propone aplicar norma anulada hoy universalmente.",
+        "Nulidad no permite borrar obligaciones devengadas protegidas; protección tampoco habilita cualquier nueva pretensión fuera del fallo.",
+        "Separar reconstrucción histórica de interpretación actual; seleccionar6105 cuando contrato y sumaBLG+BLA<=12450 correspondan.",
+        "catalunyaTC:13;manual2020:",
+    ),
+    19: (
+        "accepted",
+        "1820 balear es derivación:5550+1820=6105+1265=7370, no literal legal de incremento.",
+        "Igualdad de total para edad elegible no valida la trazabilidad de cada sumando ni cumpleaños.",
+        "Publicar derivación; no cambiar aritmética por sustituir solo1820 por1265.",
+        "balears2015:62",
+    ),
+    20: (
+        "accepted",
+        "Ausencia técnica:17 territorios reales rechazados2026; simulada-estatal es supuesto; tipos no incluyen forales.",
+        "Ausencia no es error de tabla ni autorización para extrapolar2025.",
+        "Mantener explícita exclusión foral y conjunta;2026 no certificado.",
+        "",
+    ),
+    21: (
+        "accepted",
+        "Solo cifras de descendientes Madrid Ley5/2010 DAúnica:1836/2040/4039.20/4600.20/+2244.",
+        "No cierra por sí sola continuidad de2012–2014.",
+        "Completar cadena territorial sin extrapolar por igualdad.",
+        "madrid2010:3,5",
+    ),
+    22: (
+        "accepted",
+        "Solo cifras de descendientes Madrid Ley4/2014:2400/2700/4400/4950/+2800.",
+        "No acepta todos los ejercicios heredados ni condiciones omitidas.",
+        "Conservar cuantías; completar continuidad y requisitos.",
+        "madrid2015:8,33",
+    ),
+    23: (
+        "accepted",
+        "Cuantías de Madrid Ley13/2023 y efectos a períodos iniciados1enero2023, no fecha BOE2024 como inicio.",
+        "No valida requisitos familiares ni continuidad hasta cierre2026.",
+        "Enlazar original y cláusula temporal; conservar desigualdad estatal/autonómica.",
+        "madrid2023:3,4,14",
+    ),
+    24: (
+        "needs-evidence",
+        "Releídos descendientes y ascendiente970 de Cantabria2014 p27; falta revisar íntegramente continuación p28 y derogación posterior para aceptar toda tabla.",
+        "Aceptar por números del candidato repetiría su transcripción; lectura parcial no es regla completa.",
+        "Releer continuación y vigencia; no aceptar tabla completa por este expediente.",
+        "cantabria2014:27",
+    ),
+    25: (
+        "accepted",
+        "CLM DTsegunda Ley9/2014 aplica a2014:1927.80/2142/3855.60/4391.10/+2356.20; no2244.",
+        "Publicación BOE2015 no es el comienzo de efectos: DT y publicación regional mandan.",
+        "Conservar regla transitoria2014 y separar del régimen2015.",
+        "clm2014:4,7",
+    ),
+    26: (
+        "accepted",
+        "Andalucía art23bis DL7/2022 importes publicados y efectos1enero2022 DF2.",
+        "Una coincidencia no acredita todos los supuestos de familiares ni años posteriores.",
+        "Conservar cifras; completar cadena de persistencia.",
+        "andalucia2022:6,10",
+    ),
+    27: (
+        "accepted",
+        "Galicia Ley7/2022 art2 p18 cuantías y DF4 p125 efectos1enero2022.",
+        "Fecha2023 del BOE no desplaza efectos expresos2022.",
+        "Enlazar ambos pasajes; no extrapolar2026.",
+        "galicia2022pdf:18,125",
+    ),
+    28: (
+        "accepted",
+        "La Rioja discapacidad descendientes3300/9900 y asistencia3000 expresamente no modificada.",
+        "No trasladar incremento a ascendientes ni al contribuyente.",
+        "Conservar ramas diferenciadas, requisitos arts60/61 y continuidad pendiente.",
+        "rioja2018:4,5",
+    ),
+    29: (
+        "needs-evidence",
+        "Canarias fuente oficial de reproducción: releído básico5606 e incrementos1162/1414 y descendientes; no cerrado cotejo integral de DFdécima y publicación firmada regional.",
+        "Una reproducción oficial íntegra no es facsímil firmado; no se puede aceptar toda continuidad por unos importes.",
+        "Completar pasajes de discapacidad y efectos2024 con boletín y cadenaA.",
+        "canarias2024:157",
+    ),
+    30: (
+        "accepted",
+        "Balears Ley13/2014 DF2.3 incrementa10% componentes específicos;7370/8910 son totales derivados para edad elegible.",
+        "No es incremento uniforme de todo mínimo ni prueba de cumpleaños o de cualquier devengo2015.",
+        "Conservar derivación y versionar condiciones temporales con cadenaA.",
+        "balears2015:62,76",
+    ),
+    31: (
+        "accepted",
+        "Balears Ley11/2023 art1 incorpora segundo descendiente y ascendientes al10%; sondeo reproduce corte.",
+        "No propagar retroactividad de otros artículos al art1.",
+        "Conservar modificación acotada y completar contrato de fecha civil.",
+        "balears2023:4",
+    ),
+    32: (
+        "accepted",
+        "El HTML solicitado conp=20140101 contiene5550 y no5151; evidencia técnica de versión incorrecta para sostener2014.",
+        "No prueba que todas las consultas BOE históricas fallen ni corrupción del original.",
+        "Descartar esa respuesta como versión2014; usar disposición original identificada y contenido comprobado.",
+        "ley2014:",
+    ),
+    33: (
+        "accepted",
+        "Error de operación2012–2014: seis liquidaciones completas BG0 BA10000 dan117829 céntimos frente101829; controles BA0/4000 y2015 no fallan.",
+        "Igualdad en primer tramo oculta diferencia; no resolver usando máximo de remanentes ni trasladar fórmula2015 atrás.",
+        "Coordinar fix único con EEA-MINIMO-AHORRO-2012-14 y pruebas discriminantes antes de editar.",
+        "pre2015:64;manual2014:467;reforma:30,31,34",
+    ),
+}
+revs = []
+for h in hs:
+    n = int(h["id"].split("-")[1])
+    status, scope, obj, action, refs = dec[n]
+    originals = []
+    for ref in refs.split(";"):
+        if not ref:
+            continue
+        name, pages = ref.split(":")
+        matches = [
+            d
+            for d in ds
+            if (
+                d["sha256"].startswith(name[1:])
+                if name.startswith("@")
+                else d.get("auditName") == name
+            )
+        ]
+        for d in matches:
+            originals.append(
+                dict(
+                    url=d["canonicalUrl"],
+                    sha256=d["sha256"],
+                    pages=[int(x) for x in pages.split(",") if x],
+                    reread=True,
+                    scope="Pasajes indicados; no lectura completa del documento ni firma validada",
+                )
+            )
+    revs.append(
+        dict(
+            id=h["id"],
+            previousStatus=h["status"],
+            status=status,
+            acceptanceScope=scope,
+            originalsReread=originals,
+            objection=obj,
+            reason=scope,
+            action=action,
+            cost="Aceptación acotada: trabajo de continuidad, condiciones y facsímil permanece pendiente; no corrección automática ni certificación del ejercicio.",
+            execution="casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+            engineLocations=h["engineLocations"],
+        )
+    )
+p.joinpath("revisiones.json").write_text(json.dumps(revs, ensure_ascii=False, indent=2))
+sources = sorted({loc["path"] for h in hs for loc in h["engineLocations"]})
+p.joinpath("huellas-motor.json").write_text(
+    json.dumps(
+        [
+            dict(path=s, sha256=hashlib.sha256(Path(s).read_bytes()).hexdigest())
+            for s in sources
+        ],
+        indent=2,
+    )
+)
+print(
+    "decisiones",
+    len(revs),
+    {
+        s: sum(r["status"] == s for r in revs)
+        for s in ["accepted", "needs-evidence", "rejected"]
+    },
+)

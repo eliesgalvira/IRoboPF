@@ -1,0 +1,26 @@
+$ vitest run tests/deducciones-contratos.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-8aa280a2
+
+ ❯ tests/deducciones-contratos.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/deducciones-contratos.test.ts [ tests/deducciones-contratos.test.ts ]
+Error: Cannot find module '../lib/dominio/irpf/deducciones/contratos-2025' imported from /home/elies/.t3/worktrees/IRoboPF/t3-8aa280a2/tests/deducciones-contratos.test.ts
+ ❯ tests/deducciones-contratos.test.ts:2:1
+      1| import { expect, it } from "vitest"
+      2| import { evaluarNacimientoAndaluz, calcularNacimientoCanarioParcial, e…
+       | ^
+      3|
+      4| const contexto = { ejercicio: 2025, territorio: "andalucia", contribuy…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  12:26:00
+   Duration  161ms (transform 20ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+error: script "test" exited with code 1

@@ -1,0 +1,1677 @@
+--- /dev/null
++++ b/lib/dominio/irpf/cuotas/escalas-publicadas.ts
+@@ -0,0 +1,187 @@
++import Decimal from "decimal.js"
++import type { AnioFiscal } from "../../normativa/anio-fiscal"
++import type { ComunidadAutonoma } from "../caso-fiscal-anual"
++
++/** Euros y tipo en fracción. La cuota se transcribe: nunca se integra. */
++export interface FilaEscalaPublicada {
++  readonly baseInferior: Decimal
++  readonly cuota: Decimal
++  readonly tipo: Decimal
++  readonly inferiorExclusivo?: boolean
++}
++export type EscalaPublicada = ReadonlyArray<FilaEscalaPublicada>
++const filas = (
++  datos: ReadonlyArray<readonly [string, string, string]>
++): EscalaPublicada =>
++  datos.map(([baseInferior, cuota, tipo]) => ({
++    baseInferior: new Decimal(baseInferior),
++    cuota: new Decimal(cuota),
++    tipo: new Decimal(tipo),
++  }))
++
++// EEA-CUOTAS-FIJAS: Ley 39/2010 p63 y RDL 20/2011 p53; prórroga Ley 22/2013.
++export const ESTATAL_ORDINARIA_2012_2014 = filas([
++  ["0", "0", ".12"],
++  ["17707.20", "2124.86", ".14"],
++  ["33007.20", "4266.86", ".185"],
++  ["53407.20", "8040.86", ".215"],
++  ["120000.20", "22358.36", ".225"],
++  ["175000.20", "34733.36", ".235"],
++])
++export const ESTATAL_COMPLEMENTARIA_2012_2014 = filas([
++  ["0", "0", ".0075"],
++  ["17707.20", "132.80", ".02"],
++  ["33007.20", "438.80", ".03"],
++  ["53407.20", "1050.80", ".04"],
++  ["120000.20", "3714.52", ".05"],
++  ["175000.20", "6464.52", ".06"],
++  ["300000.20", "13964.52", ".07"],
++])
++// Aceptaciones limitadas a representación de cuota, no a declaración completa.
++const ANDALUCIA_2012_2015 = filas([
++  ["0", "0", ".12"],
++  ["17707.20", "2124.86", ".14"],
++  ["33007.20", "4266.86", ".185"],
++  ["53407.20", "8040.86", ".215"],
++  ["60000", "9458.31", ".235"],
++  ["120000", "23558.31", ".255"],
++])
++const VALENCIA_2014_2016 = filas([
++  ["0", "0", ".119"],
++  ["17707.20", "2107.16", ".1392"],
++  ["33007.20", "4236.92", ".1845"],
++  ["53407.20", "8000.72", ".2148"],
++  ["120000.20", "22304.90", ".2248"],
++  ["175000.20", "34668.90", ".2348"],
++])
++const CATALUNYA_2020_2021 = filas([
++  ["0", "0", ".12"],
++  ["17707.20", "2124.86", ".14"],
++  ["33007.20", "4266.86", ".185"],
++  ["53407.20", "8040.86", ".215"],
++  ["90000", "15908.31", ".235"],
++  ["120000", "22958.31", ".245"],
++  ["175000", "36433.31", ".255"],
++])
++const CATALUNYA_2022_2024 = filas([
++  ["0", "0", ".105"],
++  ["12450", "1307.25", ".12"],
++  ["17707.20", "1938.11", ".14"],
++  ["21000", "2399.10", ".15"],
++  ["33007.20", "4200.18", ".188"],
++  ["53407.20", "8035.38", ".215"],
++  ["90000", "15902.83", ".235"],
++  ["120000", "22952.83", ".245"],
++  ["175000", "36427.83", ".255"],
++])
++const MADRID_2022 = filas([
++  ["0", "0", ".085"],
++  ["12960.45", "1101.64", ".107"],
++  ["18433.20", "1687.22", ".128"],
++  ["34360.50", "3725.91", ".174"],
++  ["55596.90", "7421.04", ".205"],
++])
++const MURCIA_2022: EscalaPublicada = [
++  ...filas([
++    ["0", "0", ".096"],
++    ["12960.45", "1244.20", ".1146"],
++    ["21028.20", "2168.76", ".1374"],
++    ["35394", "4142.62", ".1822"],
++  ]),
++  {
++    baseInferior: new Decimal(60000),
++    cuota: new Decimal("8716.67"),
++    tipo: new Decimal(".227"),
++    inferiorExclusivo: true,
++  },
++]
++
++/** undefined conserva el algoritmo previo: NO significa aceptación fiscal. */
++export const obtenerEscalaAutonomicaPublicada = ({
++  anio,
++  comunidadAutonoma,
++  fechaFallecimiento,
++}: {
++  readonly anio: AnioFiscal
++  readonly comunidadAutonoma: ComunidadAutonoma
++  readonly fechaFallecimiento?: Date | undefined
++}): EscalaPublicada | undefined => {
++  if (comunidadAutonoma === "andalucia" && anio >= 2012 && anio <= 2015)
++    return ANDALUCIA_2012_2015
++  if (
++    comunidadAutonoma === "comunitat-valenciana" &&
++    anio >= 2014 &&
++    anio <= 2016
++  )
++    return VALENCIA_2014_2016
++  if (comunidadAutonoma === "catalunya" && anio >= 2020 && anio <= 2021)
++    return CATALUNYA_2020_2021
++  if (comunidadAutonoma === "catalunya" && anio >= 2022 && anio <= 2024)
++    return CATALUNYA_2022_2024
++  if (comunidadAutonoma === "madrid" && anio === 2022) return MADRID_2022
++  // No extender el cierre ordinario a fallecimientos cuyo régimen sigue pendiente.
++  if (
++    comunidadAutonoma === "murcia" &&
++    anio === 2022 &&
++    fechaFallecimiento === undefined
++  )
++    return MURCIA_2022
++  return undefined
++}
++
++const AHORRO_ORDINARIO_2012_2014 = filas([
++  ["0", "0", ".095"],
++  ["6000", "570", ".105"],
++])
++const AHORRO_COMPLEMENTARIO_2012_2014 = filas([
++  ["0", "0", ".02"],
++  ["6000", "120", ".04"],
++  ["24000", "840", ".06"],
++])
++const AHORRO_2016_2020 = filas([
++  ["0", "0", ".095"],
++  ["6000", "570", ".105"],
++  ["50000", "5190", ".115"],
++])
++const AHORRO_AUTONOMICO_2015 = filas([
++  ["0", "0", ".10"],
++  ["6000", "600", ".11"],
++  ["50000", "5440", ".12"],
++])
++const AHORRO_2021_2022 = [
++  ...AHORRO_2016_2020,
++  ...filas([["200000", "22440", ".13"]]),
++]
++const AHORRO_2023_2024 = [
++  ...AHORRO_2016_2020,
++  ...filas([
++    ["200000", "22440", ".135"],
++    ["300000", "35940", ".14"],
++  ]),
++]
++const AHORRO_2025 = [
++  ...AHORRO_2016_2020,
++  ...filas([
++    ["200000", "22440", ".135"],
++    ["300000", "35940", ".15"],
++  ]),
++]
++
++/** 2026 conserva la hipótesis previa de continuidad; no acepta cierre normativo. */
++export const obtenerEscalasAhorroPublicadas = (
++  anio: AnioFiscal,
++  componente: "estatal" | "autonomico"
++): ReadonlyArray<EscalaPublicada> => {
++  if (anio <= 2014)
++    return componente === "estatal"
++      ? [AHORRO_ORDINARIO_2012_2014, AHORRO_COMPLEMENTARIO_2012_2014]
++      : [AHORRO_ORDINARIO_2012_2014]
++  if (anio === 2015)
++    return [
++      componente === "estatal" ? AHORRO_2016_2020 : AHORRO_AUTONOMICO_2015,
++    ]
++  if (anio <= 2020) return [AHORRO_2016_2020]
++  if (anio <= 2022) return [AHORRO_2021_2022]
++  if (anio <= 2024) return [AHORRO_2023_2024]
++  return [AHORRO_2025]
++}
+--- a/lib/dominio/irpf/cuotas/escalas-gravamen.ts
++++ b/lib/dominio/irpf/cuotas/escalas-gravamen.ts
+@@ -1,5 +1,5 @@
+ import Decimal from "decimal.js"
+-import { Array as EffectArray, Match } from "effect"
++import { Array as EffectArray, Match, Option } from "effect"
+ 
+ import type { AnioFiscal } from "../../normativa/anio-fiscal"
+ import {
+@@ -7,7 +7,10 @@
+   type TramosIrpf,
+ } from "../../normativa/datos/irpf-estatal-2012-2026"
+ 
++import type { EscalaPublicada } from "./escalas-publicadas"
++
+ export interface TramoCuotaCalculado {
++  readonly cuotaFija?: Decimal
+   readonly limiteInferior: Decimal
+   readonly limiteSuperior: Decimal
+   readonly baseAplicada: Decimal
+@@ -48,12 +51,14 @@
+ export const calcularCuotaPorEscala = ({
+   base,
+   tramos,
++  escalasPublicadas,
+ }: {
+   readonly base: Decimal
+   readonly tramos: TramosIrpf
++  readonly escalasPublicadas?: ReadonlyArray<EscalaPublicada> | undefined
+ }): Decimal =>
+   EffectArray.reduce(
+-    calcularDesgloseCuotaPorEscala({ base, tramos }),
++    calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
+     base.mul(0),
+     (total, tramo) => total.plus(tramo.cuota)
+   )
+@@ -61,49 +66,87 @@
+ export const calcularDesgloseCuotaPorEscala = ({
+   base,
+   tramos,
++  escalasPublicadas,
+ }: {
+   readonly base: Decimal
+   readonly tramos: TramosIrpf
++  readonly escalasPublicadas?: ReadonlyArray<EscalaPublicada> | undefined
+ }): ReadonlyArray<TramoCuotaCalculado> =>
+-  Match.value(base).pipe(
+-    Match.when(
+-      (base) => base.lte(0),
+-      () => []
+-    ),
+-    Match.orElse(
+-      (base) =>
+-        EffectArray.reduce(
+-          tramos,
++  escalasPublicadas !== undefined
++    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
++        Option.match(
++          EffectArray.findLast(
++            filas,
++            (fila) =>
++              base.gt(0) &&
++              (fila.inferiorExclusivo === true
++                ? base.gt(fila.baseInferior)
++                : base.gte(fila.baseInferior))
++          ),
+           {
+-            limiteAnterior: base.mul(0),
+-            tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
+-          },
+-          (estado, [limite, tipo]) => {
+-            const baseRestante = Decimal.max(
+-              0,
+-              base.minus(estado.limiteAnterior)
+-            )
+-            const anchoTramo = limite.minus(estado.limiteAnterior)
+-            const importeEnTramo = Decimal.min(baseRestante, anchoTramo)
+-            const tramo = {
+-              limiteInferior: estado.limiteAnterior,
+-              limiteSuperior: limite,
+-              baseAplicada: importeEnTramo,
+-              tipo,
+-              cuota: importeEnTramo.mul(tipo),
+-            }
++            onNone: () => [],
++            onSome: (fila) => [
++              {
++                limiteInferior: fila.baseInferior,
++                limiteSuperior: Option.match(
++                  EffectArray.findFirst(filas, (otra) =>
++                    otra.baseInferior.gt(fila.baseInferior)
++                  ),
++                  {
++                    onNone: () => new Decimal(Infinity),
++                    onSome: (otra) => otra.baseInferior,
++                  }
++                ),
++                baseAplicada: base.minus(fila.baseInferior),
++                tipo: fila.tipo,
++                cuotaFija: fila.cuota,
++                cuota: fila.cuota.plus(
++                  base.minus(fila.baseInferior).mul(fila.tipo)
++                ),
++              },
++            ],
++          }
++        )
++      )
++    : Match.value(base).pipe(
++        Match.when(
++          (base) => base.lte(0),
++          () => []
++        ),
++        Match.orElse(
++          (base) =>
++            EffectArray.reduce(
++              tramos,
++              {
++                limiteAnterior: base.mul(0),
++                tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
++              },
++              (estado, [limite, tipo]) => {
++                const baseRestante = Decimal.max(
++                  0,
++                  base.minus(estado.limiteAnterior)
++                )
++                const anchoTramo = limite.minus(estado.limiteAnterior)
++                const importeEnTramo = Decimal.min(baseRestante, anchoTramo)
++                const tramo = {
++                  limiteInferior: estado.limiteAnterior,
++                  limiteSuperior: limite,
++                  baseAplicada: importeEnTramo,
++                  tipo,
++                  cuota: importeEnTramo.mul(tipo),
++                }
+ 
+-            return {
+-              limiteAnterior: limite,
+-              tramos: Match.value(importeEnTramo).pipe(
+-                Match.when(
+-                  (importeEnTramo) => importeEnTramo.gt(0),
+-                  () => [...estado.tramos, tramo]
+-                ),
+-                Match.orElse(() => estado.tramos)
+-              ),
+-            }
+-          }
+-        ).tramos
+-    )
+-  )
++                return {
++                  limiteAnterior: limite,
++                  tramos: Match.value(importeEnTramo).pipe(
++                    Match.when(
++                      (importeEnTramo) => importeEnTramo.gt(0),
++                      () => [...estado.tramos, tramo]
++                    ),
++                    Match.orElse(() => estado.tramos)
++                  ),
++                }
++              }
++            ).tramos
++        )
++      )
+--- a/lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts
++++ b/lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts
+@@ -1,4 +1,4 @@
+-import type Decimal from "decimal.js"
++import Decimal from "decimal.js"
+ 
+ import {
+   calcularCuotaPorEscala,
+@@ -7,6 +7,8 @@
+ } from "./escalas-gravamen"
+ import type { AnioFiscal } from "../../normativa/anio-fiscal"
+ import { obtenerTramosIrpfAhorro } from "../../normativa/datos/irpf-estatal-2012-2026"
++
++import { obtenerEscalasAhorroPublicadas } from "./escalas-publicadas"
+ 
+ export type TramoCuotaAhorroCalculado = TramoCuotaCalculado
+ 
+@@ -33,3 +35,75 @@
+     base,
+     tramos: obtenerTramosIrpfAhorro(anio),
+   })
++
++export type ComponenteAhorro = "estatal" | "autonomico"
++
++/** Reparto común: el recargo 2012–2014 es solo estatal; 2015 no son mitades. */
++export const calcularCuotaComponenteAhorro = ({
++  anio,
++  base,
++  componente,
++}: {
++  readonly anio: AnioFiscal
++  readonly base: Decimal
++  readonly componente: ComponenteAhorro
++}): Decimal =>
++  calcularCuotaPorEscala({
++    base,
++    tramos: [],
++    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
++  })
++
++/** Cuantías suministradas: esta operación no acredita el derecho al mínimo. */
++export const calcularAhorroConMinimos = ({
++  anio,
++  base,
++  baseGeneral,
++  minimoEstatal,
++  minimoAutonomico,
++}: {
++  readonly anio: AnioFiscal
++  readonly base: Decimal
++  readonly baseGeneral: Decimal
++  readonly minimoEstatal: Decimal
++  readonly minimoAutonomico: Decimal
++}) => {
++  const componente = (nombre: ComponenteAhorro, minimo: Decimal) => {
++    const remanente = Decimal.min(
++      Decimal.max(0, minimo.minus(Decimal.max(0, baseGeneral))),
++      Decimal.max(0, base)
++    )
++    const bruta = calcularCuotaComponenteAhorro({
++      anio,
++      base,
++      componente: nombre,
++    })
++    const despuesMinimo =
++      anio <= 2014
++        ? calcularCuotaComponenteAhorro({
++            anio,
++            base: Decimal.max(0, base.minus(remanente)),
++            componente: nombre,
++          })
++        : Decimal.max(
++            0,
++            bruta.minus(
++              calcularCuotaComponenteAhorro({
++                anio,
++                base: remanente,
++                componente: nombre,
++              })
++            )
++          )
++    return {
++      bruta,
++      remanente,
++      despuesMinimo,
++      minoracion: bruta.minus(despuesMinimo),
++    }
++  }
++  return {
++    estatal: componente("estatal", minimoEstatal),
++    autonomico: componente("autonomico", minimoAutonomico),
++  }
++}
+--- a/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
++++ b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
+@@ -26,9 +26,15 @@
+   ParametrosNormativosIrpf,
+   type ServicioParametrosNormativosIrpf,
+ } from "../comunidades/comunidad-autonoma"
++import {
++  obtenerEscalaAutonomicaPublicada,
++  ESTATAL_ORDINARIA_2012_2014,
++  ESTATAL_COMPLEMENTARIA_2012_2014,
++} from "../cuotas/escalas-publicadas"
+ import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
+ import {
+   calcularCuotaPorEscalaAhorro,
++  calcularAhorroConMinimos,
+   calcularDesgloseCuotaPorEscalaAhorro,
+ } from "../cuotas/cuota-integra-ahorro"
+ import {
+@@ -356,6 +362,15 @@
+     tiempoAuditoriaMs() - inicioParametrosComunidadMatch
+   )
+   const inicioCuotasIntegras = tiempoAuditoriaMs()
++  const escalasPublicadasEstatales =
++    caso.anio <= 2014 && caso.comunidadAutonoma !== "simulada-estatal"
++      ? [ESTATAL_ORDINARIA_2012_2014, ESTATAL_COMPLEMENTARIA_2012_2014]
++      : undefined
++  const escalaPublicadaAutonomica = obtenerEscalaAutonomicaPublicada(caso)
++  const escalasPublicadasAutonomicas =
++    escalaPublicadaAutonomica === undefined
++      ? undefined
++      : [escalaPublicadaAutonomica]
+   const tramosIrpfEstatalGeneral = parametrosComunidad.escalaEstatalGeneral
+   const usaEscalaAutonomicaReal =
+     !parametrosComunidad.escalaAutonomicaIgualEstatal
+@@ -363,6 +378,7 @@
+     ? calcularCuotaPorEscala({
+         base: baseLiquidableGeneral,
+         tramos: tramosIrpfEstatalGeneral,
++        escalasPublicadas: escalasPublicadasEstatales,
+       })
+     : calcularCuotaPorEscalaGeneral({
+         anio: caso.anio,
+@@ -372,6 +388,7 @@
+     ? calcularCuotaPorEscala({
+         base: baseLiquidableGeneral,
+         tramos: parametrosComunidad.escalaAutonomica.tramos,
++        escalasPublicadas: escalasPublicadasAutonomicas,
+       })
+     : baseLiquidableGeneral.mul(0)
+   const cuotaIntegraGeneral = cuotaIntegraGeneralEstatal.plus(
+@@ -385,6 +402,7 @@
+     ? calcularDesgloseCuotaPorEscala({
+         base: baseLiquidableGeneral,
+         tramos: tramosIrpfEstatalGeneral,
++        escalasPublicadas: escalasPublicadasEstatales,
+       })
+     : calcularDesgloseCuotaPorEscalaGeneral({
+         anio: caso.anio,
+@@ -394,6 +412,7 @@
+     ? calcularDesgloseCuotaPorEscala({
+         base: baseLiquidableGeneral,
+         tramos: parametrosComunidad.escalaAutonomica.tramos,
++        escalasPublicadas: escalasPublicadasAutonomicas,
+       })
+     : []
+   const desgloseCuotaIntegraAhorro = calcularDesgloseCuotaPorEscalaAhorro({
+@@ -451,6 +470,7 @@
+     ? calcularCuotaPorEscala({
+         base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
+         tramos: tramosIrpfEstatalGeneral,
++        escalasPublicadas: escalasPublicadasEstatales,
+       })
+     : calcularCuotaPorEscalaGeneral({
+         anio: caso.anio,
+@@ -463,33 +483,27 @@
+           baseLiquidableGeneral
+         ),
+         tramos: parametrosComunidad.escalaAutonomica.tramos,
++        escalasPublicadas: escalasPublicadasAutonomicas,
+       })
+     : minimoPersonalYFamiliar.mul(0)
+   const cuotaMinimoPersonal = cuotaMinimoPersonalEstatal.plus(
+     cuotaMinimoPersonalAutonomica
+   )
+-  const remanenteMinimoPersonalParaAhorro = Decimal.max(
+-    0,
+-    minimoPersonalYFamiliar.minus(baseLiquidableGeneral)
+-  )
+-  const remanenteMinimoPersonalAutonomicoParaAhorro = Decimal.max(
+-    0,
+-    minimoPersonalYFamiliarAutonomico.minus(baseLiquidableGeneral)
+-  )
+-  const cuotaMinimoPersonalAhorro = calcularCuotaPorEscalaAhorro({
++  const ahorroConMinimos = calcularAhorroConMinimos({
+     anio: caso.anio,
+-    base: Decimal.min(
+-      Decimal.max(
+-        remanenteMinimoPersonalParaAhorro,
+-        remanenteMinimoPersonalAutonomicoParaAhorro
+-      ),
+-      baseLiquidableAhorro
+-    ),
++    base: baseLiquidableAhorro,
++    baseGeneral: baseLiquidableGeneral,
++    minimoEstatal: minimoPersonalYFamiliar,
++    minimoAutonomico: minimoPersonalYFamiliarAutonomico,
+   })
++  const cuotaMinimoPersonalAhorro = ahorroConMinimos.estatal.minoracion.plus(
++    ahorroConMinimos.autonomico.minoracion
++  )
+   const desgloseCuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
+     ? calcularDesgloseCuotaPorEscala({
+         base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
+         tramos: tramosIrpfEstatalGeneral,
++        escalasPublicadas: escalasPublicadasEstatales,
+       })
+     : calcularDesgloseCuotaPorEscalaGeneral({
+         anio: caso.anio,
+@@ -502,6 +516,7 @@
+           baseLiquidableGeneral
+         ),
+         tramos: parametrosComunidad.escalaAutonomica.tramos,
++        escalasPublicadas: escalasPublicadasAutonomicas,
+       })
+     : []
+   registrarTiempoAgregadoAuditoria(
+@@ -527,7 +542,9 @@
+   const deduccionesAutonomicasAplicadas = usaEscalaAutonomicaReal
+     ? Decimal.min(
+         deduccionesAutonomicasDeclaradas,
+-        cuotaAutonomicaGeneralDespuesMinimo
++        cuotaAutonomicaGeneralDespuesMinimo.plus(
++          ahorroConMinimos.autonomico.despuesMinimo
++        )
+       )
+     : deduccionesAutonomicasDeclaradas
+   const cuotaLiquida = Decimal.max(
+@@ -979,19 +996,19 @@
+           _tag: "PasoExplicacion",
+           titulo: "Cuota íntegra general",
+           descripcion: usaEscalaAutonomicaReal
+-            ? "Aplicación separada de la escala estatal y la escala autonómica de la comunidad a la base liquidable general."
++            ? `Aplicación separada de las escalas estatal y autonómica. ${escalaPublicadaAutonomica === undefined ? "La escala autonómica conserva la integración previa de tipos; su política de cuotas publicadas no está cerrada para este supuesto." : "La escala autonómica usa cuota publicada más exceso; la aceptación se limita a esa representación y no certifica la liquidación completa."}`
+             : "Aplicación de la escala general a la base liquidable general.",
+           lineasCalculo: [
+             ...desgloseCuotaIntegraGeneralEstatal.map((tramo) => ({
+               etiqueta: usaEscalaAutonomicaReal
+                 ? `Tramo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
+                 : `Tramo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+-              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
++              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+               resultado: euros(tramo.cuota),
+             })),
+             ...desgloseCuotaIntegraGeneralAutonomica.map((tramo) => ({
+               etiqueta: `Tramo autonomico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+-              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
++              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+               resultado: euros(tramo.cuota),
+             })),
+             {
+@@ -1021,12 +1038,12 @@
+               etiqueta: usaEscalaAutonomicaReal
+                 ? `Tramo mínimo estatal ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`
+                 : `Tramo mínimo ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+-              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
++              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+               resultado: euros(tramo.cuota),
+             })),
+             ...desgloseCuotaMinimoPersonalAutonomica.map((tramo) => ({
+               etiqueta: `Tramo mínimo autonómico ${parametrosComunidad.escalaAutonomica.nombre} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+-              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
++              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+               resultado: euros(tramo.cuota),
+             })),
+             {
+@@ -1046,12 +1063,11 @@
+         {
+           _tag: "PasoExplicacion",
+           titulo: "Cuota íntegra del ahorro",
+-          descripcion:
+-            "Aplicación de la escala del ahorro a la base liquidable del ahorro.",
++          descripcion: `Escalas estatal y autonómica del ahorro de ${caso.anio}. ${caso.anio <= 2014 ? "El remanente reduce la base antes de aplicar cada tarifa." : "Cada cuota se minora aplicando su tarifa a su propio remanente."} Las cuantías de los mínimos se reciben del selector; esta fórmula no valida su procedencia.`,
+           lineasCalculo: [
+             ...desgloseCuotaIntegraAhorro.map((tramo) => ({
+               etiqueta: `Tramo ahorro ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+-              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
++              formula: `${tramo.cuotaFija === undefined ? "" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+               resultado: euros(tramo.cuota),
+             })),
+             {
+@@ -1059,17 +1075,34 @@
+               formula: "Suma de cuotas por tramo",
+               resultado: euros(cuotaIntegraAhorro),
+             },
+-            {
+-              etiqueta: "Cuota del remanente del mínimo personal",
+-              formula:
+-                "Parte del mínimo personal y familiar no absorbida por la base general",
++            ...(
++              [
++                ["estatal", ahorroConMinimos.estatal],
++                ["autonómico", ahorroConMinimos.autonomico],
++              ] as const
++            ).map(([nombre, componente]) => ({
++              etiqueta: `Ahorro ${nombre} después del mínimo`,
++              formula:
++                caso.anio <= 2014
++                  ? `F ${nombre}(${euros(baseLiquidableAhorro)} − ${euros(componente.remanente)})`
++                  : `F ${nombre}(${euros(baseLiquidableAhorro)}) − F ${nombre}(${euros(componente.remanente)})`,
++              resultado: euros(componente.despuesMinimo),
++            })),
++            {
++              etiqueta: "Minoración total por mínimos en el ahorro",
++              formula:
++                caso.anio <= 2014
++                  ? "Suma por componente de F(base) − F(base − remanente)"
++                  : "F estatal(remanente estatal) + F autonómica(remanente autonómico)",
+               resultado: euros(cuotaMinimoPersonalAhorro),
+             },
+           ],
+           fuentes: [
+             {
+-              titulo: "Manual Renta 2025 Parte 1",
+-              referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
++              titulo:
++                "Escalas y mínimos del ahorro: alcance de la implementación",
++              referencia:
++                "docs/procedencia/implementaciones/escalas-ahorro/INFORME.md",
+             },
+           ],
+         },
+@@ -1092,7 +1125,7 @@
+             {
+               etiqueta: "Deducciones autonómicas aplicadas",
+               formula: usaEscalaAutonomicaReal
+-                ? `${deduccionesAutonomicasDescripcion(caso)}; límite por cuota autonómica general disponible ${euros(cuotaAutonomicaGeneralDespuesMinimo)}`
++                ? `${deduccionesAutonomicasDescripcion(caso)}; límite por cuota autonómica general más ahorro disponible ${euros(cuotaAutonomicaGeneralDespuesMinimo.plus(ahorroConMinimos.autonomico.despuesMinimo))}`
+                 : deduccionesAutonomicasDescripcion(caso),
+               resultado: euros(deduccionesAutonomicasAplicadas),
+             },
+--- /dev/null
++++ b/tests/escalas-publicadas.test.ts
+@@ -0,0 +1,112 @@
++import Decimal from "decimal.js"
++import { describe, expect, it } from "vitest"
++import { calcularCuotaPorEscala } from "../lib/dominio/irpf/cuotas/escalas-gravamen"
++import {
++  obtenerEscalaAutonomicaPublicada,
++  ESTATAL_ORDINARIA_2012_2014,
++  ESTATAL_COMPLEMENTARIA_2012_2014,
++} from "../lib/dominio/irpf/cuotas/escalas-publicadas"
++import { obtenerParametrosComunidadAutonoma } from "../lib/dominio/irpf/comunidades/comunidad-autonoma"
++import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
++import type { ComunidadAutonoma } from "../lib/dominio/irpf/caso-fiscal-anual"
++
++const cuota = (
++  anio: AnioFiscal,
++  comunidadAutonoma: ComunidadAutonoma,
++  base: string
++) => {
++  const parametros = obtenerParametrosComunidadAutonoma({
++    anio,
++    comunidadAutonoma,
++    baseLiquidableGeneral: new Decimal(base),
++  })
++  if (parametros._tag !== "ParametrosComunidadAutonoma")
++    throw new Error("Territorio no soportado")
++  const publicada = obtenerEscalaAutonomicaPublicada({
++    anio,
++    comunidadAutonoma,
++  })
++  if (publicada === undefined)
++    throw new Error("Falta escala publicada para el caso")
++  return calcularCuotaPorEscala({
++    base: new Decimal(base),
++    tramos: parametros.escalaAutonomica.tramos,
++    escalasPublicadas: [publicada],
++  })
++}
++describe("cuotas publicadas, aceptación acotada", () => {
++  it.each([2012, 2013, 2014] as const)(
++    "Estado %i conserva ordinaria y complemento",
++    (anio) => {
++      const p = obtenerParametrosComunidadAutonoma({
++        anio,
++        comunidadAutonoma: "madrid",
++        baseLiquidableGeneral: new Decimal("17707.21"),
++      })
++      if (p._tag !== "ParametrosComunidadAutonoma")
++        throw new Error("No soportado")
++      expect(
++        calcularCuotaPorEscala({
++          base: new Decimal("17707.21"),
++          tramos: p.escalaEstatalGeneral,
++          escalasPublicadas: [
++            ESTATAL_ORDINARIA_2012_2014,
++            ESTATAL_COMPLEMENTARIA_2012_2014,
++          ],
++        }).toFixed(2)
++      ).toBe("2257.66")
++    }
++  )
++  it.each([
++    [2012, "andalucia", "60000", "9458.31"],
++    [2015, "andalucia", "120000", "23558.31"],
++    [2014, "comunitat-valenciana", "120000.20", "22304.90"],
++    [2016, "comunitat-valenciana", "175000.20", "34668.90"],
++    [2020, "catalunya", "90000", "15908.31"],
++    [2022, "catalunya", "21000", "2399.10"],
++    [2024, "catalunya", "90000", "15902.83"],
++    [2022, "madrid", "55596.90", "7421.04"],
++    [2022, "murcia", "59999.99", "8625.83"],
++    [2022, "murcia", "60000", "8625.83"],
++    [2022, "murcia", "60000.01", "8716.67"],
++    [2022, "murcia", "100000", "17796.67"],
++  ] as const)("%i %s base %s", (anio, territorio, base, esperado) =>
++    expect(cuota(anio, territorio, base).toFixed(2)).toBe(esperado)
++  )
++})
++
++it("Murcia conserva el salto exacto y el exceso sin redondear", () => {
++  expect(cuota(2022, "murcia", "59999.99").toString()).toBe("8625.831378")
++  expect(cuota(2022, "murcia", "60000").toString()).toBe("8625.8332")
++  expect(cuota(2022, "murcia", "60000.01").toString()).toBe("8716.67227")
++})
++it("mínimo y base cero usan la misma fila publicada", () => {
++  expect(cuota(2012, "andalucia", "0").toString()).toBe("0")
++  expect(cuota(2012, "andalucia", "-1").toString()).toBe("0")
++  expect(cuota(2012, "andalucia", "5151").toString()).toBe("618.12")
++  expect(cuota(2022, "catalunya", "5550").toString()).toBe("582.75")
++})
++it("no extiende una aceptación a otro año o a fallecimientos pendientes", () => {
++  expect(
++    obtenerEscalaAutonomicaPublicada({
++      anio: 2025,
++      comunidadAutonoma: "asturias",
++    })
++  ).toBeUndefined()
++  expect(
++    obtenerEscalaAutonomicaPublicada({
++      anio: 2026,
++      comunidadAutonoma: "madrid",
++    })
++  ).toBeUndefined()
++})
++it.each([
++  [2012, "andalucia", "59999.99", "9458.30985"],
++  [2012, "andalucia", "60000.01", "9458.31235"],
++  [2014, "comunitat-valenciana", "120000.19", "22304.894252"],
++  [2014, "comunitat-valenciana", "120000.21", "22304.902248"],
++  [2020, "catalunya", "90000.01", "15908.31235"],
++  [2022, "madrid", "55596.91", "7421.04205"],
++] as const)("vecino %i %s %s", (anio, territorio, base, esperado) =>
++  expect(cuota(anio, territorio, base).toString()).toBe(esperado)
++)
+--- /dev/null
++++ b/tests/ahorro-regimen-historico.test.ts
+@@ -0,0 +1,176 @@
++import { Effect } from "effect"
++import { describe, expect, it } from "vitest"
++import {
++  liquidarIrpfAnual,
++  type CasoFiscalAnual,
++} from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
++import { sinDiscapacidad } from "../lib/dominio/irpf/caso-fiscal-anual"
++import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
++
++const caso = (anio: AnioFiscal, deduccion = 0): CasoFiscalAnual => ({
++  anio,
++  comunidadAutonoma: "madrid",
++  situacionFamiliar: {
++    tipo: "individual",
++    edad: 40,
++    descendientes: [],
++    ascendientes: [],
++    discapacidad: sinDiscapacidad,
++  },
++  rendimientos: {
++    trabajo: [],
++    gananciasPatrimoniales: [
++      {
++        importeGananciaCentimos: 1000000,
++        tratamientoMayores65: { _tag: "SinExencionMayores65" },
++        fechaAdquisicion: "2010-01-01",
++        fechaTransmision: `${anio}-06-01`,
++      },
++    ],
++  },
++  reducciones: [],
++  deducciones: [],
++  deduccionAutonomicaAgregadaCentimos: deduccion,
++  retencionesSoportadasCentimos: 0,
++  pagosACuentaCentimos: 0,
++})
++describe("ahorro anual separado", () => {
++  it.each([2012, 2013, 2014] as const)(
++    "%i resta remanente antes de tarifa",
++    (anio) => {
++      expect(
++        Effect.runSync(liquidarIrpfAnual(caso(anio), { modo: "canonico" }))
++          .cuotaLiquidaCentimos
++      ).toBe(101829)
++    }
++  )
++  it("2025 conserva los mínimos suministrados distintos", () => {
++    expect(
++      Effect.runSync(liquidarIrpfAnual(caso(2025), { modo: "canonico" }))
++        .cuotaLiquidaCentimos
++    ).toBe(88687)
++  })
++  it("consignación agregada dispone también de cuota autonómica de ahorro", () => {
++    const r = Effect.runSync(
++      liquidarIrpfAnual(caso(2025, 10000), { modo: "canonico" })
++    )
++    expect(r.deduccionesAutonomicasCentimos).toBe(10000)
++    expect(r.cuotaLiquidaCentimos).toBe(78687)
++  })
++})
++
++import Decimal from "decimal.js"
++import {
++  calcularAhorroConMinimos,
++  calcularCuotaComponenteAhorro,
++} from "../lib/dominio/irpf/cuotas/cuota-integra-ahorro"
++
++const ahorro = (
++  anio: AnioFiscal,
++  base: number,
++  estatal: number,
++  autonomico: number,
++  general = 0
++) =>
++  calcularAhorroConMinimos({
++    anio,
++    base: new Decimal(base),
++    baseGeneral: new Decimal(general),
++    minimoEstatal: new Decimal(estatal),
++    minimoAutonomico: new Decimal(autonomico),
++  })
++it("mínimos invertidos se aplican a su componente", () => {
++  const r = ahorro(2025, 10000, 5956.65, 5550)
++  expect(r.estatal.despuesMinimo.toString()).toBe("424.11825")
++  expect(r.autonomico.despuesMinimo.toString()).toBe("462.75")
++})
++it.each([2012, 2015, 2025] as const)(
++  "%i base insuficiente y remanentes independientes",
++  (anio) => {
++    const r = ahorro(anio, 3000, 5550, 2000)
++    expect(r.estatal.despuesMinimo.toString()).toBe("0")
++    expect(r.autonomico.despuesMinimo.toString()).toBe(
++      anio === 2015 ? "100" : "95"
++    )
++    const s = ahorro(anio, 3000, 5550, 2000, 6000)
++    expect(s.estatal.minoracion.toString()).toBe("0")
++    expect(s.autonomico.minoracion.toString()).toBe("0")
++  }
++)
++it("2015 no divide el total por dos", () => {
++  expect(
++    calcularCuotaComponenteAhorro({
++      anio: 2015,
++      base: new Decimal(50000),
++      componente: "estatal",
++    }).toString()
++  ).toBe("5190")
++  expect(
++    calcularCuotaComponenteAhorro({
++      anio: 2015,
++      base: new Decimal(50000),
++      componente: "autonomico",
++    }).toString()
++  ).toBe("5440")
++  const r = ahorro(2015, 10000, 5550, 6000)
++  expect(r.estatal.despuesMinimo.toString()).toBe("462.75")
++  expect(r.autonomico.despuesMinimo.toString()).toBe("440")
++  const s = ahorro(2015, 10000, 6000, 5550)
++  expect(s.estatal.despuesMinimo.toString()).toBe("420")
++  expect(s.autonomico.despuesMinimo.toString()).toBe("485")
++})
++it("2012 el recargo es exclusivamente estatal", () => {
++  const r = ahorro(2012, 10000, 5151, 5151)
++  expect(r.estatal.despuesMinimo.toString()).toBe("557.635")
++  expect(r.autonomico.despuesMinimo.toString()).toBe("460.655")
++  expect(
++    r.estatal.despuesMinimo.plus(r.autonomico.despuesMinimo).toString()
++  ).toBe("1018.29")
++})
++it("la consignación no consume la cuota estatal", () => {
++  const r = Effect.runSync(
++    liquidarIrpfAnual(caso(2025, 1000000), { modo: "canonico" })
++  )
++  expect(r.deduccionesAutonomicasCentimos).toBe(42412)
++  expect(r.cuotaLiquidaCentimos).toBe(46275)
++})
++
++it("liquidación general integra cuotas publicadas y mínimos sin alterar ganancias", () => {
++  const inicial = caso(2013)
++  const r = Effect.runSync(
++    liquidarIrpfAnual(
++      {
++        ...inicial,
++        comunidadAutonoma: "andalucia",
++        rendimientos: {
++          trabajo: [],
++          gananciasPatrimoniales: [
++            {
++              importeGananciaCentimos: 6000000,
++              tratamientoMayores65: { _tag: "SinExencionMayores65" },
++              fechaAdquisicion: "2013-01-01",
++              fechaTransmision: "2013-06-01",
++            },
++          ],
++        },
++      },
++      { modo: "canonico" }
++    )
++  )
++  expect(r.baseLiquidableGeneralCentimos).toBe(6000000)
++  expect(r.cuotaIntegraGeneralCentimos).toBe(2023113)
++  expect(r.cuotaMinimoPersonalCentimos).toBe(127487)
++  expect(r.cuotaLiquidaCentimos).toBe(1895626)
++})
++
++it.each([
++  [2012, 50000, "7590", "5190"],
++  [2015, 50000, "5190", "5440"],
++  [2021, 200001, "22440.13", "22440.13"],
++  [2023, 300001, "35940.14", "35940.14"],
++  [2025, 300001, "35940.15", "35940.15"],
++] as const)("componentes a base alta %i", (anio, base, estatal, autonomico) => {
++  const r = ahorro(anio, base, 0, 0)
++  expect(r.estatal.bruta.toString()).toBe(estatal)
++  expect(r.autonomico.bruta.toString()).toBe(autonomico)
++})
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/INFORME.md
+@@ -0,0 +1,53 @@
++# Implementación de cuotas publicadas y ahorro por componente
++
++Base de integración: `d9ff49c7`. Entrega por archivos, sin operaciones VCS mutantes. No se han modificado ganancias, mínimos cuantitativos, deducciones catalogadas, retenciones, Seguridad Social, caso-fiscal-anual, package.json, CI ni el oracle. El inventario queda obsoleto por el cambio de fuentes y debe reconstruirlo el padre una sola vez tras integrar.
++
++## Resultado y contrato
++
++La fila nueva contiene base inferior, cuota publicada y tipo Decimal. Se selecciona la fila aplicable y se calcula **cuota publicada + (base − base inferior) × tipo**. La cuota fija nunca se reconstruye integrando anchuras. En 2012–2014 se ejecutan separadamente la escala estatal ordinaria y la complementaria. A 17.707,21 euros producen 2.257,6616, liquidado 2.257,66; el integrador anterior daba 2.257,6696, liquidado 2.257,67.
++
++La función existente admite opcionalmente escalas publicadas. Sin ellas conserva el algoritmo anterior y sus desgloses. La liquidación selecciona filas para Estado 2012–2014 y los supuestos territoriales acotados siguientes. Los mismos datos se aplican al mínimo general. El desglose identifica cuota fija además del exceso; el rastro muestra la suma, sin presentar el resultado como mera multiplicación del exceso.
++
++- Andalucía 2012–2015: Ley 3/2012, art.2.Dos, PDF p4; decisión `autonomicas-2012-2016-cuotas-andalucia`.
++- Comunitat Valenciana 2014–2016: Ley 7/2014, art45 y DF4.b, PDF pp58/127; decisiones `autonomicas-2012-2016-cuotas-valencia` y `CAD-C-comunitat-valenciana-2014/2015/2016`.
++- Catalunya 2020–2021: Ley 5/2020, art87, p62; `cadena-b-cat-cuotas-2020`.
++- Catalunya 2022–2024: Ley 2/2021, art41, pp46–47, y refundición DL1/2024 art611-1, DOGC p6; `cadena-b-cat-cuotas-2022`.
++- Madrid 2022: Ley 8/2022, art.único.Dos p3 y DF p5; `CAD-C-madrid-2022`. No se vuelve a modificar el límite Madrid2020.
++- Murcia 2022 ordinario, sin fecha de fallecimiento: DL4/2022, artículo único, BORM4846 pp3–4; `CAD-C-murcia-2022` y `AUT22-26-2022-murcia-general`. A 59.999,99: 8.625,831378; a 60.000 exactos: 8.625,8332; a 60.000,01: 8.716,67227. La cláusula superior es estricta. La diferencia liquidada con el integrador anterior por encima del corte es 90,83; no se suaviza la discontinuidad.
++
++Estas decisiones aceptan discrepancias de representación de cuota bruta. No se cambian los estados históricos de las auditorías ni se promueven las demás filas cotejadas a reglas aceptadas. Se transcriben tablas suficientes para calcular los casos y sus mínimos; eso no constituye una nueva aceptación independiente de todas las filas o declaraciones.
++
++## Ahorro y consignación autonómica
++
++`calcularAhorroConMinimos` recibe las cuantías de ambos mínimos y devuelve, por componente, cuota bruta, remanente, cuota después del mínimo y minoración. El remanente se limita a la base del ahorro disponible. Antes de 2015 aplica F(base−remanente); desde 2015, F(base)−F(remanente). No se toma el mayor mínimo ni se divide una cuota conjunta por dos.
++
++Los datos de ahorro son filas publicadas explícitas. En 2012–2014, la escala ordinaria común y el recargo estatal se conservan separados; en 2015, la estatal es 9,5/10,5/11,5 y la autonómica 10/11/12. Desde 2016 se representan expresamente las tablas comunes, incluidas sus reformas de 2021, 2023 y 2025. La herencia técnica 2026 conserva la hipótesis previa, sin aceptar cierre normativo ni abrir territorios reales no soportados.
++
++Casos discriminantes: BG=0, ahorro=10.000 y mínimos=5.151 da 1.018,29 en 2012–2014. En 2025, con mínimos suministrados 5.550/5.956,65 da 886,86825, liquidado 886,87, frente a 848,24 anterior. Se prueban inversión de mínimos, agotamiento de base, absorción por base general, reparto desigual de 2015 y bases altas. Ninguna prueba de fórmula acredita el derecho ni las cuantías legales de esos mínimos.
++
++El límite general de la consignación autonómica agregada usa cuota autonómica general después del mínimo **más cuota autonómica del ahorro después de su mínimo**. Se conserva el campo agregado existente. Con el caso Madrid2025 anterior, una consignación de 100 euros reduce a 786,87; una consignación superior a la cuota disponible solo consume 424,11825 y deja 462,75 estatales. No se valida elegibilidad, requisitos ni reglas especiales de deducciones: el evaluador externo debe seguir haciéndolo.
++
++## Decisiones, objeciones y costes
++
++1. **Mantener aritmética exacta hasta la frontera existente.** Objeción: redondear cada casilla o cada componente podría alterar céntimos. Motivo: las revisiones no aceptan una regla universal distinta. Coste: se mantienen Decimal y `eurosACentimos` al exportar importes de liquidación; sumar campos ya redondeados puede diferir de redondear la suma exacta. No se altera política monetaria general. Los discriminantes de cuotas y los totales históricos no dependen de decidir un empate de medio céntimo.
++2. **Separar cuota publicada de integración legacy.** Objeción: sustituir globalmente el integrador rompería un contrato observable. Motivo: ADR0001–0004 y legacy-scope-gap preservan el perfil salarial simulado y el oracle. Coste: dos representaciones explícitas. Las funciones legacy sin filas conservan comportamiento; la selección estatal nueva excluye `simulada-estatal`. Se ejecuta la suite salarial rápida, sin regenerar fixture ni ejecutar la suite completa pesada. No se afirma equivalencia de todo el libro a partir de estos controles.
++3. **Limitar la selección territorial.** Objeción: una tabla reextraída puede tener vigencia pendiente. Motivo: solo las proposiciones individuales suficientemente revisadas permiten corregir esta representación. Coste: territorios no seleccionados conservan integración previa, con limitación expresa en el rastro. Murcia con fallecimiento se mantiene fuera de esta selección; no se infiere retroactividad desde publicación. No se tocan los selectores condicionales de Galicia, Canarias o mínimos catalanes.
++4. **Asturias no se promociona.** La revisión A reproduce 1.875,8614 frente a 1.875,8654 a base17.707,21 en2015, pero `CAA-CAD-014` sigue `needs-evidence` y las únicas aceptaciones de esa revisión son ancho2013–2014 y ausencia2026. Objeción: implementar ese dato como aceptado contradiría la decisión individual. Motivo: respetar el cierre externo requerido. Coste: cuota asturiana pendiente; no se convierte el ejemplo accionable en aceptación fiscal. El padre puede ampliar esta selección cuando cierre esa proposición.
++5. **Separar prueba, evidencia e interpretación.** Objeción: un test verde puede repetir una transcripción incorrecta. Motivo: se releyeron originales PDF locales por hash y páginas precisas, con Poppler, además de auditorías y contrarrevisiones. Coste: las nuevas filas aún requieren revisión independiente de implementación y binding al nuevo inventario. No se validaron firmas, CSV, facsímiles ni autenticidad archivística. El corpus de integridad y su puerta `--accepted` permanecen intactos.
++
++## Evidencia y reproducción
++
++`fuentes.json` identifica los 15 originales reabiertos, SHA-256, páginas físicas 1-based, huella de la extracción y proposiciones. Los originales siguen en el CAS del padre. No se publican rutas privadas ni cabeceras. Las citas geométricas y decisiones externas siguen en `revisiones/escalas-estatales-ahorro`, `revisiones/autonomicas-2012-2016`, `revisiones/autonomicas-2017-2021`, `revisiones/autonomicas-2022-2026` y `revisiones/cadena-autonomica-{a,b,c}`. Los informes previos se conservan sin reescritura.
++
++`rojo-escalas.log`: 15 fallos ejecutados antes de añadir soporte de filas al integrador. `rojo-ahorro.log`: cinco fallos ejecutados antes de corregir la liquidación y el límite agregado. Los demás ensayos amplían controles; no se presentan retrospectivamente como pruebas rojas. `typecheck.log` conserva el primer diagnóstico de booleano opcional, corregido con comparación explícita, sin desactivar reglas.
++
++Validación final: consultar `validacion-final.log`, `oxlint-final.log` y `eslint-final.log`. Comandos con Nix, node_modules del padre solo lectura, sin instalación ni cambios globales:
++
++```sh
++nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun run typecheck
++nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun run test tests/escalas-publicadas.test.ts tests/ahorro-regimen-historico.test.ts tests/comunidades-autonomas.test.ts tests/liquidacion-irpf-anual.test.ts tests/calculo-salario-legacy.test.ts --maxWorkers=1
++```
++
++No Next build, render pesado, suite legacy completa ni reconstrucción de inventario. Se consultaron Effect Solutions list/show basics/testing y Array/Effect de fuente local v4. La ejecución lenta intermedia coincidió con presión de recursos compartidos; no se atribuye a una diferencia fiscal.
++
++El manifiesto y el diff de entrega comparan bytes contra `d9ff49c7`, incluidos archivos nuevos. La comprobación de presencia de todos los archivos del árbol base permite detectar borrados fuera del diff de rutas asignadas. No se usa el índice como prueba del contenido ni se repara.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/fuentes.json
+@@ -0,0 +1,283 @@
++[
++  {
++    "documento": "BOE-A-2010-19703",
++    "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
++    "paginas": [
++      {
++        "paginaFisica1Based": 63,
++        "sha256TextoPoppler": "fcb3f71d2397cc46883391d1ebbb0daf110fa0ed062f72529c942457e78010cc"
++      },
++      {
++        "paginaFisica1Based": 64,
++        "sha256TextoPoppler": "17808be6674eb907494d6e40514c5ff32011ad7fb7dde5101b12f9cd5d0a329d"
++      }
++    ],
++    "proposicion": "EEA-CUOTAS-FIJAS; EEA-MINIMO-AHORRO-2012-14",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf"
++  },
++  {
++    "documento": "BOE-A-2011-20638",
++    "sha256": "89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
++    "paginas": [
++      {
++        "paginaFisica1Based": 53,
++        "sha256TextoPoppler": "4cee0e70ef04004ea5486cb09301e46ccf626b17ebeeec2b920e8892d5452dbb"
++      }
++    ],
++    "proposicion": "EEA-CUOTAS-FIJAS; EEA-MINIMO-AHORRO-2012-14",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2011/12/31/pdfs/BOE-A-2011-20638.pdf"
++  },
++  {
++    "documento": "BOE-A-2013-13616",
++    "sha256": "75af079fc480334e8515781b39d610680c53942d75789098767e1fc9e5dbdd9d",
++    "paginas": [
++      {
++        "paginaFisica1Based": 75,
++        "sha256TextoPoppler": "eda36ec674a808101efb665ac4ff211130712298401cebd948c6bab85ac2d375"
++      },
++      {
++        "paginaFisica1Based": 76,
++        "sha256TextoPoppler": "446406a949191bd484c0fa877054e50f152ceba4919d2cea791107410c0f5f28"
++      }
++    ],
++    "proposicion": "EEA-CUOTAS-FIJAS; prórroga 2014",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2013/12/26/pdfs/BOE-A-2013-13616.pdf"
++  },
++  {
++    "documento": "BOE-A-2014-12327",
++    "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
++    "paginas": [
++      {
++        "paginaFisica1Based": 30,
++        "sha256TextoPoppler": "f5560718bd2d20b69784d8084cb27581c94411ada65534dcaafed2cbf34efeff"
++      },
++      {
++        "paginaFisica1Based": 31,
++        "sha256TextoPoppler": "3df54f3b0e0a9a344192f3d5d44c5036c7432460392af6a9af32c081d927e971"
++      },
++      {
++        "paginaFisica1Based": 34,
++        "sha256TextoPoppler": "f153443dcf57ae6c07e9a202a09d44d855e90e6d2afff582b0dc3056714ac73f"
++      }
++    ],
++    "proposicion": "EEA-MINIMOS-DISTINTOS; arts66/76/77",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf"
++  },
++  {
++    "documento": "BOE-A-2015-7765",
++    "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
++    "paginas": [
++      {
++        "paginaFisica1Based": 9,
++        "sha256TextoPoppler": "d369ed2ecd91bb5960a53b9e876f91ad5c651b17fb6301139abff6d1206151db"
++      },
++      {
++        "paginaFisica1Based": 10,
++        "sha256TextoPoppler": "708ef187699084e89bc556e51555475b95a7cb3308bacf8d1791b1283e9c63c5"
++      }
++    ],
++    "proposicion": "EEA-MINIMOS-DISTINTOS; reparto 2015",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2015/07/11/pdfs/BOE-A-2015-7765.pdf"
++  },
++  {
++    "documento": "BOE-A-2020-17339",
++    "sha256": "4f50c949a20ed2759f18fd8ce534aef8a5672a75c17e56f9d33d2072c47d943c",
++    "paginas": [
++      {
++        "paginaFisica1Based": 82,
++        "sha256TextoPoppler": "1ed1783423295e04febfef87d36ff61fefd1b8953a7fb9a6671b887ce232f1d2"
++      },
++      {
++        "paginaFisica1Based": 83,
++        "sha256TextoPoppler": "2fc93d0c1090036bc50c85a2a5c03ac0c8a64e328f36f6de5412e555c3b15515"
++      }
++    ],
++    "proposicion": "EEA-AHORRO-2021/2022; solo tablas",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2020/12/31/pdfs/BOE-A-2020-17339.pdf"
++  },
++  {
++    "documento": "BOE-A-2022-22128",
++    "sha256": "758a2d02ef82389f8d655ef560471461c22373008165a131b495b8c9634e72b3",
++    "paginas": [
++      {
++        "paginaFisica1Based": 88,
++        "sha256TextoPoppler": "67635815ad4f0c67c2bdbdc84d4244e3aed1221cadedc264c3a737b11373cc5b"
++      },
++      {
++        "paginaFisica1Based": 89,
++        "sha256TextoPoppler": "483df5a184b7ce211080df6155e80c4681a08743a3f534733059066dd068a6a3"
++      },
++      {
++        "paginaFisica1Based": 90,
++        "sha256TextoPoppler": "787363e27f33582c5675175432d0a368a6b3c8d9acd08f0b84f738ec738e36c5"
++      }
++    ],
++    "proposicion": "EEA-AHORRO-2023/2024; solo tablas",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2022/12/24/pdfs/BOE-A-2022-22128.pdf"
++  },
++  {
++    "documento": "BOE-A-2024-26694",
++    "sha256": "f53d6ebcc82e76b21db269185389a390d2c6abc37d93d4884d94294ee4bc3e72",
++    "paginas": [
++      {
++        "paginaFisica1Based": 110,
++        "sha256TextoPoppler": "a92ddf276e6331311825dcf01109f85a1020c841165d9b06c7e0a3dc64cae1ff"
++      },
++      {
++        "paginaFisica1Based": 111,
++        "sha256TextoPoppler": "5403ae3898d9ad79637bd922c491002de2504b70cc760935d30c85adbb4fa419"
++      },
++      {
++        "paginaFisica1Based": 112,
++        "sha256TextoPoppler": "297f8122be96effa871f2d2c981d71d486a14e7d9eb859dfe75aad3ea58aa9cc"
++      }
++    ],
++    "proposicion": "EEA-AHORRO-2025; no cierre 2026",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2024/12/21/pdfs/BOE-A-2024-26694.pdf"
++  },
++  {
++    "documento": "BOE-A-2012-13126",
++    "sha256": "09f01627f64790629169c728da9292d81e46a99392641597d1cc93b1b1799154",
++    "paginas": [
++      {
++        "paginaFisica1Based": 4,
++        "sha256TextoPoppler": "83d27bdbefa4b333d47813270f83318aa77db6d7f62222b9468d38adf2dc5a82"
++      }
++    ],
++    "proposicion": "autonomicas-2012-2016-cuotas-andalucia",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2012/10/23/pdfs/BOE-A-2012-13126.pdf"
++  },
++  {
++    "documento": "BOE-A-2015-1236",
++    "sha256": "0ed3161792ae3a79877c8d9a533447a3f04db4cd31078be29f0b2c2fefd4c70d",
++    "paginas": [
++      {
++        "paginaFisica1Based": 58,
++        "sha256TextoPoppler": "fe2130bd4a1a1ac92c467dcff16ba7de1d36503d6c23ff311344431192fadced"
++      },
++      {
++        "paginaFisica1Based": 127,
++        "sha256TextoPoppler": "b264c6b4c89089c5e09b93d7f003998b7343a3418190c246fcc3de432dfad283"
++      }
++    ],
++    "proposicion": "autonomicas-2012-2016-cuotas-valencia; CAD-C-comunitat-valenciana-2014/2015/2016",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/eli/es-vc/l/2014/12/22/7/dof/spa/pdf"
++  },
++  {
++    "documento": "BOE-A-2020-5569",
++    "sha256": "adb7645ce524963d3768e6dfff8547c1fa3076d18e9b64c76f3af93978b214ef",
++    "paginas": [
++      {
++        "paginaFisica1Based": 62,
++        "sha256TextoPoppler": "3420132ba478086c685a025d74da45afef18f577df28766d6e0eabf628f1e2b6"
++      }
++    ],
++    "proposicion": "cadena-b-cat-cuotas-2020",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/boe/dias/2020/06/02/pdfs/BOE-A-2020-5569.pdf"
++  },
++  {
++    "documento": "BOE-A-2022-953",
++    "sha256": "60e424f977fd690377672d08d817ed3bb5e8e187d741efe25b82cec796118d14",
++    "paginas": [
++      {
++        "paginaFisica1Based": 46,
++        "sha256TextoPoppler": "51ec195ee42db28fdbbd32d61277adc1bacf08865d7079a26beba1dfd1bc66e9"
++      },
++      {
++        "paginaFisica1Based": 47,
++        "sha256TextoPoppler": "5cb68d0cf43fc88abe4391379fa307349b495b7cbca5d0681e90896eeb4ebcd2"
++      }
++    ],
++    "proposicion": "cadena-b-cat-cuotas-2022",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/eli/es-ct/l/2021/12/29/2/dof/spa/pdf"
++  },
++  {
++    "documento": "DOGC-9122",
++    "sha256": "a9fdd78daf3f2055da93c89cf2833d81598768cfb75e64f91b5f0e194165eed6",
++    "paginas": [
++      {
++        "paginaFisica1Based": 6,
++        "sha256TextoPoppler": "6fc978a6977e3188d43775ea56c93c86a8ae062eb7e170bc47d722f73f9ee104"
++      }
++    ],
++    "proposicion": "cadena-b-cat-cuotas-2022; refundición 2024",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/ccaa/dogc/2024/9122/f00001-00059.pdf"
++  },
++  {
++    "documento": "BOE-A-2023-7340",
++    "sha256": "7a302c1d77124747d65ad2b7181b899f023baceb96d88638d37c44a05e7ad49b",
++    "paginas": [
++      {
++        "paginaFisica1Based": 3,
++        "sha256TextoPoppler": "f7d54210e8246f1144fe1008e6232b32d6fa5faafc1a37df1d4147bace4bf13b"
++      },
++      {
++        "paginaFisica1Based": 5,
++        "sha256TextoPoppler": "05be9436ddb64831c083991b4b837d4cf2f7441a71dff140208db959f6bc452d"
++      }
++    ],
++    "proposicion": "CAD-C-madrid-2022",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.boe.es/eli/es-md/l/2022/11/16/8/dof/spa/pdf"
++  },
++  {
++    "documento": "BORM-2022-4846",
++    "sha256": "962a88eff2128d036bf8745c31faadb050c45abc0e93e712c3b3d50c72906bf4",
++    "paginas": [
++      {
++        "paginaFisica1Based": 3,
++        "sha256TextoPoppler": "e79fad67f0d434808b28dee6b87b218b36ad93038ad41261ea66d2b07588ad4c"
++      },
++      {
++        "paginaFisica1Based": 4,
++        "sha256TextoPoppler": "207170551602553914da4418a0847e4035069351da5a25583a550000941b4e60"
++      }
++    ],
++    "proposicion": "CAD-C-murcia-2022; AUT22-26-2022-murcia-general",
++    "integridad": "sha256 comprobado contra original local",
++    "lectura": "texto extraído del original PDF; no es facsímil ni autenticación",
++    "aceptacion": "remisión a revisiones independientes preexistentes, alcance limitado; no aceptación propia",
++    "urlOficial": "https://www.borm.es/services/anuncio/ano/2022/numero/4846/pdf?id=811060"
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/pruebas-final.log
+@@ -0,0 +1,10 @@
++$ vitest run tests/escalas-publicadas.test.ts tests/ahorro-regimen-historico.test.ts tests/comunidades-autonomas.test.ts tests/liquidacion-irpf-anual.test.ts tests/calculo-salario-legacy.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-824eedb6
++
++
++ Test Files  5 passed (5)
++      Tests  124 passed | 1 skipped (125)
++   Start at  12:35:58
++   Duration  3.17s (transform 439ms, setup 0ms, import 1.78s, tests 837ms, environment 0ms)
++
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/pruebas.log
+@@ -0,0 +1,10 @@
++$ vitest run tests/escalas-publicadas.test.ts tests/ahorro-regimen-historico.test.ts tests/comunidades-autonomas.test.ts tests/liquidacion-irpf-anual.test.ts tests/calculo-salario-legacy.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-824eedb6
++
++
++ Test Files  5 passed (5)
++      Tests  123 passed | 1 skipped (124)
++   Start at  12:35:18
++   Duration  3.66s (transform 544ms, setup 0ms, import 2.11s, tests 937ms, environment 1ms)
++
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/rojo-ahorro.log
+@@ -0,0 +1,79 @@
++$ vitest run tests/ahorro-regimen-historico.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-824eedb6
++
++ ❯ tests/ahorro-regimen-historico.test.ts (5 tests | 5 failed) 25ms
++     × 2012 resta remanente antes de tarifa 15ms
++     × 2013 resta remanente antes de tarifa 3ms
++     × 2014 resta remanente antes de tarifa 2ms
++     × 2025 conserva los mínimos suministrados distintos 2ms
++     × consignación agregada dispone también de cuota autonómica de ahorro 2ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > 2012 resta remanente antes de tarifa
++ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > 2013 resta remanente antes de tarifa
++ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > 2014 resta remanente antes de tarifa
++AssertionError: expected 117829 to be 101829 // Object.is equality
++
++- Expected
+++ Received
++
++- 101829
+++ 117829
++
++ ❯ tests/ahorro-regimen-historico.test.ts:15:96
++     13| describe("ahorro anual separado", () => {
++     14|  it.each([2012,2013,2014] as const)("%i resta remanente antes de tarif…
++     15|  expect(Effect.runSync(liquidarIrpfAnual(caso(anio), {modo:"canonico"}…
++       |                                                                                                ^
++     16|  })
++     17|  it("2025 conserva los mínimos suministrados distintos", () => {
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
++
++ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > 2025 conserva los mínimos suministrados distintos
++AssertionError: expected 84824 to be 88687 // Object.is equality
++
++- Expected
+++ Received
++
++- 88687
+++ 84824
++
++ ❯ tests/ahorro-regimen-historico.test.ts:18:96
++     16|  })
++     17|  it("2025 conserva los mínimos suministrados distintos", () => {
++     18|  expect(Effect.runSync(liquidarIrpfAnual(caso(2025), {modo:"canonico"}…
++       |                                                                                                ^
++     19|  })
++     20|  it("consignación agregada dispone también de cuota autonómica de ahor…
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
++
++ FAIL  tests/ahorro-regimen-historico.test.ts > ahorro anual separado > consignación agregada dispone también de cuota autonómica de ahorro
++AssertionError: expected +0 to be 10000 // Object.is equality
++
++- Expected
+++ Received
++
++- 10000
+++ 0
++
++ ❯ tests/ahorro-regimen-historico.test.ts:22:43
++     20|  it("consignación agregada dispone también de cuota autonómica de ahor…
++     21|  const r = Effect.runSync(liquidarIrpfAnual(caso(2025, 10000), {modo:"…
++     22|  expect(r.deduccionesAutonomicasCentimos).toBe(10000)
++       |                                           ^
++     23|  expect(r.cuotaLiquidaCentimos).toBe(78687)
++     24|  })
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  5 failed (5)
++   Start at  12:26:43
++   Duration  1.03s (transform 497ms, setup 0ms, import 859ms, tests 25ms, environment 0ms)
++
++error: script "test" exited with code 1
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/rojo-escalas.log
+@@ -0,0 +1,220 @@
++$ vitest run tests/escalas-publicadas.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-824eedb6
++
++ ❯ tests/escalas-publicadas.test.ts (15 tests | 15 failed) 16ms
++     × Estado 2012 conserva ordinaria y complemento 6ms
++     × Estado 2013 conserva ordinaria y complemento 1ms
++     × Estado 2014 conserva ordinaria y complemento 1ms
++     × 2012 andalucia base 60000 1ms
++     × 2015 andalucia base 120000 1ms
++     × 2014 comunitat-valenciana base 120000.20 1ms
++     × 2016 comunitat-valenciana base 175000.20 1ms
++     × 2020 catalunya base 90000 1ms
++     × 2022 catalunya base 21000 1ms
++     × 2024 catalunya base 90000 1ms
++     × 2022 madrid base 55596.90 0ms
++     × 2022 murcia base 59999.99 0ms
++     × 2022 murcia base 60000 0ms
++     × 2022 murcia base 60000.01 0ms
++     × 2022 murcia base 100000 0ms
++
++⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > Estado 2012 conserva ordinaria y complemento
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > Estado 2013 conserva ordinaria y complemento
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > Estado 2014 conserva ordinaria y complemento
++AssertionError: expected '2257.67' to be '2257.66' // Object.is equality
++
++Expected: "2257.66"
++Received: "2257.67"
++
++ ❯ tests/escalas-publicadas.test.ts:18:195
++
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2012 andalucia base 60000
++AssertionError: expected '9458.32' to be '9458.31' // Object.is equality
++
++Expected: "9458.31"
++Received: "9458.32"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2015 andalucia base 120000
++AssertionError: expected '23558.32' to be '23558.31' // Object.is equality
++
++Expected: "23558.31"
++Received: "23558.32"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2014 comunitat-valenciana base 120000.20
++AssertionError: expected '22304.89' to be '22304.90' // Object.is equality
++
++Expected: "22304.90"
++Received: "22304.89"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2016 comunitat-valenciana base 175000.20
++AssertionError: expected '34668.89' to be '34668.90' // Object.is equality
++
++Expected: "34668.90"
++Received: "34668.89"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2020 catalunya base 90000
++AssertionError: expected '15908.32' to be '15908.31' // Object.is equality
++
++Expected: "15908.31"
++Received: "15908.32"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 catalunya base 21000
++AssertionError: expected '2399.11' to be '2399.10' // Object.is equality
++
++Expected: "2399.10"
++Received: "2399.11"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2024 catalunya base 90000
++AssertionError: expected '15902.84' to be '15902.83' // Object.is equality
++
++Expected: "15902.83"
++Received: "15902.84"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 madrid base 55596.90
++AssertionError: expected '7421.05' to be '7421.04' // Object.is equality
++
++Expected: "7421.04"
++Received: "7421.05"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 murcia base 59999.99
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 murcia base 60000
++AssertionError: expected '8625.84' to be '8625.83' // Object.is equality
++
++Expected: "8625.83"
++Received: "8625.84"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 murcia base 60000.01
++AssertionError: expected '8625.84' to be '8716.67' // Object.is equality
++
++Expected: "8716.67"
++Received: "8625.84"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/15]⎯
++
++ FAIL  tests/escalas-publicadas.test.ts > cuotas publicadas, aceptación acotada > 2022 murcia base 100000
++AssertionError: expected '17705.84' to be '17796.67' // Object.is equality
++
++Expected: "17796.67"
++Received: "17705.84"
++
++ ❯ tests/escalas-publicadas.test.ts:27:118
++     25|  [2022,"murcia","59999.99","8625.83"], [2022,"murcia","60000","8625.83…
++     26|  [2022,"murcia","60000.01","8716.67"], [2022,"murcia","100000","17796.…
++     27|  ] as const)("%i %s base %s", (anio, territorio, base, esperado) => ex…
++       |                                                                                                                      ^
++     28| })
++     29|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/15]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  15 failed (15)
++   Start at  12:26:04
++   Duration  724ms (transform 275ms, setup 0ms, import 547ms, tests 16ms, environment 0ms)
++
++error: script "test" exited with code 1
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/typecheck-final.log
+@@ -0,0 +1 @@
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/typecheck.log
+@@ -0,0 +1,2 @@
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++lib/dominio/irpf/cuotas/escalas-gravamen.ts(82,16): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+--- /dev/null
++++ b/docs/procedencia/implementaciones/escalas-ahorro/validacion-final.log
+@@ -0,0 +1,11 @@
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++$ vitest run tests/escalas-publicadas.test.ts tests/ahorro-regimen-historico.test.ts tests/comunidades-autonomas.test.ts tests/liquidacion-irpf-anual.test.ts tests/calculo-salario-legacy.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-824eedb6
++
++
++ Test Files  5 passed (5)
++      Tests  129 passed | 1 skipped (130)
++   Start at  12:37:06
++   Duration  3.18s (transform 439ms, setup 0ms, import 1.76s, tests 871ms, environment 0ms)
++

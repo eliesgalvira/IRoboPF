@@ -19,15 +19,19 @@ const maxBytes = 128 * 1024 * 1024
 
 export function readArtifact(root = process.cwd()) {
   const folder = resolve(root, "docs/procedencia")
-  const manifest = JSON.parse(
-    readFileSync(resolve(folder, "inventario.json"), "utf8")
+  return readArtifactBytes(
+    readFileSync(resolve(folder, "inventario.json")),
+    readFileSync(resolve(folder, archiveName))
   )
+}
+
+export function readArtifactBytes(manifestBytes, raw) {
+  const manifest = JSON.parse(manifestBytes.toString("utf8"))
   if (
     manifest.artifact?.file !== archiveName ||
     manifest.artifact?.format !== "gzip-json-files-v1"
   )
     throw new Error("Formato de artefacto no soportado")
-  const raw = readFileSync(resolve(folder, archiveName))
   if (
     raw.length !== manifest.artifact.size ||
     hash(raw) !== manifest.artifact.sha256

@@ -1,0 +1,4835 @@
+{
+  "version": 2,
+  "status": "pending",
+  "identity": "Ocurrencias versionadas por fuente y valor efectivo; no IDs permanentes de conceptos fiscales",
+  "dimensionStatus": "Inferencia técnica por nombre/ruta; no aceptación de unidades ni vigencia",
+  "generationInputs": [
+    {
+      "file": "Calculo_Salario_IRPF.py",
+      "sha256": "16deef52f91a3aee30da6f8ec76df941cd4c4449c5bd20d1807caee1b52bdc6e"
+    },
+    {
+      "file": "bun.lock",
+      "sha256": "e7972a35bad5a90fe31ea3e71511e538f17d1679e69df7425bae306042446d34"
+    },
+    {
+      "file": "docs/procedencia/inventario-schema.json",
+      "sha256": "b7426d623036112b7e3381f92b23b6fe47e15c4558c2d00d1a32917394d92b85"
+    },
+    {
+      "file": "lib/animacion.ts",
+      "sha256": "d04fccfa35b0c2165b58778a7a52c858572b79dea7639da3ab7b9bd6fe24c5e0"
+    },
+    {
+      "file": "lib/auditoria-graficos.ts",
+      "sha256": "92007330706a412c72bc4576411dd219d41655d9c4c4dd881618863d4ded9f2b"
+    },
+    {
+      "file": "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+      "sha256": "af39b563dd2119e148ee1c7258ea12176ae3fdeda4cf111ab34a328288e9f3ad"
+    },
+    {
+      "file": "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+      "sha256": "dee4c7d7c18d32e2d89ce7127355f839dcd9ed4d988fbf9151f641b2d8962add"
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+      "sha256": "f3706abf27f982f551bf5d7240edf6e8a17065116d87c583c3df8b2045c228a3"
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy.ts",
+      "sha256": "6ea4a527aaae913066a5a7f2d87ab2ea0a661435a4b05d06e55474032fb82c6c"
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+      "sha256": "176ad06d179d8dc357eb2b2443097ebcadabcb439e90aa0fb85b492ce251e2eb"
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5"
+    },
+    {
+      "file": "lib/dominio/dinero/porcentaje.ts",
+      "sha256": "e9a837f38fa9426edbf8c924bc518b58a884b17a3d507e1cb35b5ad3c10ccf12"
+    },
+    {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "sha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e"
+    },
+    {
+      "file": "lib/dominio/explicacion/fuente-explicacion.ts",
+      "sha256": "0cd2770bc98027038b00f6bf9a8751592aae70e51e6eb11cd59cb094e4ca73a8"
+    },
+    {
+      "file": "lib/dominio/explicacion/paso-explicacion.ts",
+      "sha256": "de20289cc9d79b2e22fd83f3b41338f923b489e7a1687622b096093c603c4293"
+    },
+    {
+      "file": "lib/dominio/explicacion/rastro-calculo.ts",
+      "sha256": "8a7e4b2615487d3453ad549fd8c13c46820c2a21dd768ccecb711aa361346ec9"
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+      "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5"
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "5a29cd277a2af9580c5410e5a83be5fd56bfb653b5344cd99f0342dfd878c069"
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/contrato.ts",
+      "sha256": "5cec27fe57a1999bc4776c32b15798d1a9873cb9a591dbc7753340b324079df6"
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/fuentes.ts",
+      "sha256": "5e16062ad74e1207a6babca731891aef8c4d527a02b27f37b556ff7d90137ab3"
+    },
+    {
+      "file": "lib/dominio/irpf/caso-fiscal-anual.ts",
+      "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+    },
+    {
+      "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+      "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745"
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
+      "sha256": "f4ddb6d465ecd2449a463464b8dc478ce3ffa2cc172e8ac33956f6c46536d244"
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts",
+      "sha256": "ce5b9963990b43ce994b103e2eba481ffda8bdf3c209dd4ae37a86a33948a8ad"
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+      "sha256": "e199aa7dab1a4e4e4dcf5dd99ef0c4ea81daa69e0c11261b47b0568d5afadb19"
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+      "sha256": "ab92e488894ca95dd2eb685ea297595a1bd27424a2970af5f70d13bcb225082e"
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+      "sha256": "cd85ba5bf5e43ec2e353ecbfa8983933adce1a9ce1e26663ca761f8826ae32e1"
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones/ambito.ts",
+      "sha256": "ecddeae21c0b091fa83597f4e547a0fe054c1b6004e6ea046d1ed29a45294c70"
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones/contratos-2025.ts",
+      "sha256": "ee48951043c737b1e3290af104fcb74f50b3f8aa2656e9fac0fc67b3c10dbed2"
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-ahorro.ts",
+      "sha256": "f809267bb9c76979360b5165316df7088d982705bdfa493f7bdf75a6b8feffdf"
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+      "sha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82"
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+      "sha256": "39be2f6a00aaee1f629aa764eba3d9d4f5abb66b3c48bdfe4842d6143b1209f4"
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "42893ebf093067dcc1d97e7afcda52badaa3840e9db70a0dfbb661e2e2cf4fa9"
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-ascendientes.ts",
+      "sha256": "f51da59f85dce23231acb8396d50e58c2ce2b27202a590b863e4045226a62fca"
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-contribuyente.ts",
+      "sha256": "10a48cc57a9e5c97fd641805c69a67c22f30f8dd3f9f6822809f4cd10927291b"
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+      "sha256": "21112fb07f3c815be7ca1a0f48e3f3daceafa4e05e0526d47623566cd2431e5d"
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+      "sha256": "b57ea494e04b9d7c0c8c8464f3806359762dd4948675628503c403848207c557"
+    },
+    {
+      "file": "lib/dominio/irpf/perfil-calculo.ts",
+      "sha256": "1bd29f55e900440b10256624f8f0f8854ee77b7021c1adfc4707b51aefcb04f1"
+    },
+    {
+      "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+      "sha256": "13562c2b892cefba2de552d8573ed8915741dfb42c84536eb0a55ac12f2d0db3"
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+      "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4"
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+      "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8"
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+      "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54"
+    },
+    {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "ba38419e1cb99f434fd5102bb93df28bd40a7573d0aa2a0567dd088ea3db4bc0"
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18"
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1"
+    },
+    {
+      "file": "lib/dominio/normativa/anio-fiscal.ts",
+      "sha256": "49205de6f07e08bb00f7ff2960d0c13b99870714de70446f86779d42eadeb4cb"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/compatibilidad-historica.ts",
+      "sha256": "2a1eee7042cab84eabb0255a2bc6d19581fdf7688606b1c7a15cc1b925975a49"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025.ts",
+      "sha256": "6d1d508288afa948cd430d159f2d1e096b34c8c70937b3ba843778514c789af9"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts",
+      "sha256": "577ca9eca73e340d989b41fa9e5eeefae31c7cb360c4fa966ca41ba6ffe25536"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+      "sha256": "ea794acad94a5a1371509dd5108c8168c0f2fc2bcdc1614eff48ff01239caeb4"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts",
+      "sha256": "6029ac9c7112e93ef841c6b91f6142111ab3258f3d6fe216a7022549f5d201f8"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/canarias.ts",
+      "sha256": "d982b7aaed1e2df2697ebf16c37bcd0adaad8545339d36b95a77ef4512354b15"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/cantabria.ts",
+      "sha256": "d766afc4483dcd5d75e52c86941a7c37fc6ec82adadb991690a1ff94c210f43a"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-la-mancha.ts",
+      "sha256": "3aa429d96d81c7e0945fdd922f7b638c5409b58887871b319840e6d27c17f717"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-y-leon.ts",
+      "sha256": "bf45d75750d4a37f9bc50920d1a343d0966bdfcf35b62d54a1a8072e4fa579db"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "sha256": "fb40a68f65595ba332071a3220f8010e6c5555840ca33cda7f71f0aa2f3ce5ea"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/ceuta.ts",
+      "sha256": "36323df1d11836f783d6159cadc0559a4b242358641454e496e617c7e4439035"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts",
+      "sha256": "03f863a2834e9e21fd4a115a51f33d267e76cef32f7daa5cb70397e0fb3f520e"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/extremadura.ts",
+      "sha256": "1ffc1c1a7b9a8b6b94eed292f8b6d54eacfb64c505620d41b4efcf5a31262a9a"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/galicia.ts",
+      "sha256": "a86eb94d32f5777e9ce1559c7f71da8fbd220280afd78f17f3d55f9ed1cd6e0b"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/illes-balears.ts",
+      "sha256": "c64e1a4580686a4b60633eed67c22d8dcd000aa853aaf79b175b94224b3e5643"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/la-rioja.ts",
+      "sha256": "dc33462bbe1ba5cb42ed3c1defec17432a7359040dc0d9b8db7934d4258d7854"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/madrid.ts",
+      "sha256": "4aaadd0db911efacc5d4e3f38849ae5f1a380650e2173d8de6062ce416ccf56c"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/melilla.ts",
+      "sha256": "17209c632446ffbbb011614d84778cc056f46ef4c608b029cfc20af48efdb893"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/murcia.ts",
+      "sha256": "d14f761a9926b6a2a6ef361b13055d05735d1343bc3f381d88a7064ec319017b"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts",
+      "sha256": "5b65317d5b6f7ba6c1666151cc584920bdfb2722e20bf94f6eeb01b3eafa8caf"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+      "sha256": "7f9192a87929e704806a361d3f36c0dad86018e085c3632a119318ce597790b9"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts",
+      "sha256": "574bfe8a4e9729a98ca28410f3aa3c49fd0cf9944e83b8dd07b437f8e760143a"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/ipc-2012-2026.ts",
+      "sha256": "4f9881cc833179b83ef1d2875b7dac738c822eaa9c21cb372403a5bd2d608a0d"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+      "sha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+      "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+      "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+      "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+      "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2017.ts",
+      "sha256": "2e68eb054e044f3f18c2931bbb8fd491115f6b3b498afb1b8f3a712504715cdf"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2018.ts",
+      "sha256": "4a7bcbf0ce27ef02d519b2597d93ff48b32b484f01bee50241c903fdc5c5f0bf"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2019.ts",
+      "sha256": "f1cd332b94523cc0d5b89afa7a375d753db9fc1b106745758f59dc521962efb9"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2021.ts",
+      "sha256": "3a36528508f461d59a91059ad66b19902d4be98f96dd96a6a67f7de4cebe3f65"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2022.ts",
+      "sha256": "12e1286393169deaf7f7be2909e30b8540a4626cfd5add976a60ba9a18d6fed7"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2023.ts",
+      "sha256": "792e4515cbc83f597ba3009f54ab2b4323b288d6c91780fc8eeabb72fb50ff23"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2024.ts",
+      "sha256": "9549a3f6bd9b742d9ede3e60505a5ab214445a0a57e08983655cfa2d7ba556ca"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2025.ts",
+      "sha256": "6ac04eb3025d80ac269df77fba30b523cf62cf695bd70627396fa5673bff51b0"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+      "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-obligacion-declarar.ts",
+      "sha256": "3def393c0b4a9b3f56c96a061093e3d277342411d7a2e323fadcd4434c12d203"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-2026.ts",
+      "sha256": "cc6f00621fdf2050d993f6e6cc9882b51ae1a6b8c68803279fbc4ebc4fcc9110"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "317ff3550f2ff8725d092e79a5aef9682ffbe8b72de71b18006d9a2ba6f06ba4"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2012.ts",
+      "sha256": "31af9984461634f5cdb661b644651f5dbb48c8663a12083f991e333f15b252cd"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2013.ts",
+      "sha256": "690b7bd3f9f606ec94d373bfec94f55a111482b665467de8b47edf395f2ea269"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+      "sha256": "f93790837f23337f5f59be935670a7be9f01136dbaca63a28bf12dcd989dc5b1"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2015.ts",
+      "sha256": "4484fdf822369a6342a69364e6fc7f59803111ab3c8d16a138b4f19c9520cd5c"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2016.ts",
+      "sha256": "28c9e6fae0aaa064f0c1ea069c5efa3808310435564533b80fba52b41f6c6ce1"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2017.ts",
+      "sha256": "6e15929ce03cac49dccbf28cc5509e6ce0782e32d7a3213823f42f5bf3ef355b"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2018.ts",
+      "sha256": "93f9334dafb495e19f172c79b606372ac7a571b355f7a1c0a5f122774a64dd4e"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2019.ts",
+      "sha256": "f2406060317d5b131cdae7d5eccd062d01e2e332b53a0f139efcc206e838316d"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2020.ts",
+      "sha256": "6f1da95f4f69482913c9a0f187f1e8b9c7eb3ec28687cc95a6036f7d0bce3170"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2021.ts",
+      "sha256": "83f23600ce9e13edf0d2e4ee10db6c00978423c415cbe33f2064fe25799d7a49"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+      "sha256": "68d1e7b37117df007e4ccd05d5759ee77fd53ad7422a527850bd2084a3da10d7"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+      "sha256": "32a8e8c97a1d3773b65ab22804320d32eb3f81b735cb9cbedf6c69ca9bc4ee07"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2024.ts",
+      "sha256": "d7dbc0ac8eb862172aaccae40cb9e539a18111a445eced846cc715e13ec54dbe"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+      "sha256": "076a58f62806baa1fe9c62174c1eb1c54c474c9022db02a06063555a07b82023"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+      "sha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80"
+    },
+    {
+      "file": "lib/dominio/normativa/fuente-normativa.ts",
+      "sha256": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289"
+    },
+    {
+      "file": "lib/dominio/normativa/medida-normativa.ts",
+      "sha256": "d0842c01d707abd6d06e870f692862ad860a084cbd2a8e41facf3f35a8c5db7a"
+    },
+    {
+      "file": "lib/dominio/normativa/repositorio-parametros.ts",
+      "sha256": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981"
+    },
+    {
+      "file": "lib/export/auditoria-excel.ts",
+      "sha256": "b9fdd803e8cebadc27beb3708963a620910b3537a5024a3f0d5b4272f71ba54a"
+    },
+    {
+      "file": "lib/formato.ts",
+      "sha256": "2045ee494c449346c684f69f1aabd1331b883f6f5a8f3a0b250f63975d91031f"
+    },
+    {
+      "file": "lib/observabilidad/auditoria-rendimiento.ts",
+      "sha256": "88e1c0d3f2bc7c44f0652979e89eb5dadde6fb96aaed804e8becd3de32e0ab1d"
+    },
+    {
+      "file": "lib/utils.ts",
+      "sha256": "7c8c3dfc0cdd370d44932828eb067ef771c8fe7996693221d5d4b90af6d54f2d"
+    },
+    {
+      "file": "package.json",
+      "sha256": "0b8944ace7d1f83b1b7067661945f103e619b1f2998ab26a419095cd8972db17"
+    },
+    {
+      "file": "scripts/procedencia/inventario-artefacto.mjs",
+      "sha256": "0f2370ad1aad1d467bb410d5a613b9e7c62b04be162f57bed609cd10925e7b03"
+    },
+    {
+      "file": "scripts/procedencia/inventario-ast.mjs",
+      "sha256": "b8e00ef52a0ee34bdedd7b967e4689c072528cbafdb79c4a29685b1788c6c88f"
+    },
+    {
+      "file": "scripts/procedencia/inventario-bindings.mjs",
+      "sha256": "12b3d35fb3b014bba2cfaa7a56536555cdc80d2addf87b5347eea98a43662c1c"
+    },
+    {
+      "file": "scripts/procedencia/inventario-python.py",
+      "sha256": "11e7e98a10731ea0e7671654c4bdf058df656cc590cd3b033db7212eb9e674c3"
+    },
+    {
+      "file": "scripts/procedencia/inventario-validar.py",
+      "sha256": "8a1a3d6471ba99e36ef2ce9ca0d87d421e714e18c669808615f1299d8345d0da"
+    },
+    {
+      "file": "scripts/procedencia/inventario-vitest.mjs",
+      "sha256": "d256a1193e7ed29b339719946369044b1689bf4a714a63fed704403c21c897d4"
+    },
+    {
+      "file": "scripts/procedencia/inventario.mjs",
+      "sha256": "3452768044c9bd7875d2128457410f18e1594469ef46753567451d076241b4d2"
+    }
+  ],
+  "sourceScope": "lib/**/*.ts(x) excepto lib/procedencia; Calculo_Salario_IRPF.py",
+  "counts": {
+    "filesTs": 106,
+    "filesPython": 1,
+    "syntactic": 22056,
+    "effective": 16100,
+    "selected": 11727,
+    "pendingUnits": 27260,
+    "catalog": 351,
+    "audited": 0
+  },
+  "syntaxCoverage": [
+    {
+      "file": "lib/animacion.ts",
+      "sha256": "d04fccfa35b0c2165b58778a7a52c858572b79dea7639da3ab7b9bd6fe24c5e0",
+      "items": 38,
+      "numeric": 7,
+      "decimalStrings": 0,
+      "functions": 4,
+      "conditions": 4
+    },
+    {
+      "file": "lib/auditoria-graficos.ts",
+      "sha256": "92007330706a412c72bc4576411dd219d41655d9c4c4dd881618863d4ded9f2b",
+      "items": 45,
+      "numeric": 12,
+      "decimalStrings": 0,
+      "functions": 2,
+      "conditions": 8
+    },
+    {
+      "file": "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+      "sha256": "af39b563dd2119e148ee1c7258ea12176ae3fdeda4cf111ab34a328288e9f3ad",
+      "items": 755,
+      "numeric": 54,
+      "decimalStrings": 0,
+      "functions": 176,
+      "conditions": 37
+    },
+    {
+      "file": "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+      "sha256": "dee4c7d7c18d32e2d89ce7127355f839dcd9ed4d988fbf9151f641b2d8962add",
+      "items": 428,
+      "numeric": 29,
+      "decimalStrings": 0,
+      "functions": 88,
+      "conditions": 24
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+      "sha256": "f3706abf27f982f551bf5d7240edf6e8a17065116d87c583c3df8b2045c228a3",
+      "items": 119,
+      "numeric": 10,
+      "decimalStrings": 0,
+      "functions": 21,
+      "conditions": 11
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy.ts",
+      "sha256": "6ea4a527aaae913066a5a7f2d87ab2ea0a661435a4b05d06e55474032fb82c6c",
+      "items": 25,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 5,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+      "sha256": "176ad06d179d8dc357eb2b2443097ebcadabcb439e90aa0fb85b492ce251e2eb",
+      "items": 793,
+      "numeric": 100,
+      "decimalStrings": 13,
+      "functions": 164,
+      "conditions": 26
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "items": 40,
+      "numeric": 5,
+      "decimalStrings": 0,
+      "functions": 9,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/dinero/porcentaje.ts",
+      "sha256": "e9a837f38fa9426edbf8c924bc518b58a884b17a3d507e1cb35b5ad3c10ccf12",
+      "items": 6,
+      "numeric": 1,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "sha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "items": 4,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 2,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/explicacion/fuente-explicacion.ts",
+      "sha256": "0cd2770bc98027038b00f6bf9a8751592aae70e51e6eb11cd59cb094e4ca73a8",
+      "items": 0,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/explicacion/paso-explicacion.ts",
+      "sha256": "de20289cc9d79b2e22fd83f3b41338f923b489e7a1687622b096093c603c4293",
+      "items": 0,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/explicacion/rastro-calculo.ts",
+      "sha256": "8a7e4b2615487d3453ad549fd8c13c46820c2a21dd768ccecb711aa361346ec9",
+      "items": 0,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+      "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+      "items": 5,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 2
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "5a29cd277a2af9580c5410e5a83be5fd56bfb653b5344cd99f0342dfd878c069",
+      "items": 669,
+      "numeric": 106,
+      "decimalStrings": 13,
+      "functions": 29,
+      "conditions": 235
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/contrato.ts",
+      "sha256": "5cec27fe57a1999bc4776c32b15798d1a9873cb9a591dbc7753340b324079df6",
+      "items": 69,
+      "numeric": 0,
+      "decimalStrings": 1,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/fuentes.ts",
+      "sha256": "5e16062ad74e1207a6babca731891aef8c4d527a02b27f37b556ff7d90137ab3",
+      "items": 111,
+      "numeric": 62,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/irpf/caso-fiscal-anual.ts",
+      "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f",
+      "items": 5,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+      "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+      "items": 230,
+      "numeric": 31,
+      "decimalStrings": 0,
+      "functions": 43,
+      "conditions": 24
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
+      "sha256": "f4ddb6d465ecd2449a463464b8dc478ce3ffa2cc172e8ac33956f6c46536d244",
+      "items": 3,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts",
+      "sha256": "ce5b9963990b43ce994b103e2eba481ffda8bdf3c209dd4ae37a86a33948a8ad",
+      "items": 43,
+      "numeric": 6,
+      "decimalStrings": 0,
+      "functions": 5,
+      "conditions": 2
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+      "sha256": "e199aa7dab1a4e4e4dcf5dd99ef0c4ea81daa69e0c11261b47b0568d5afadb19",
+      "items": 89,
+      "numeric": 7,
+      "decimalStrings": 0,
+      "functions": 20,
+      "conditions": 5
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+      "sha256": "ab92e488894ca95dd2eb685ea297595a1bd27424a2970af5f70d13bcb225082e",
+      "items": 384,
+      "numeric": 16,
+      "decimalStrings": 200,
+      "functions": 4,
+      "conditions": 48
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+      "sha256": "cd85ba5bf5e43ec2e353ecbfa8983933adce1a9ce1e26663ca761f8826ae32e1",
+      "items": 886,
+      "numeric": 147,
+      "decimalStrings": 0,
+      "functions": 61,
+      "conditions": 23
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones/ambito.ts",
+      "sha256": "ecddeae21c0b091fa83597f4e547a0fe054c1b6004e6ea046d1ed29a45294c70",
+      "items": 55,
+      "numeric": 3,
+      "decimalStrings": 0,
+      "functions": 5,
+      "conditions": 21
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones/contratos-2025.ts",
+      "sha256": "ee48951043c737b1e3290af104fcb74f50b3f8aa2656e9fac0fc67b3c10dbed2",
+      "items": 528,
+      "numeric": 64,
+      "decimalStrings": 2,
+      "functions": 36,
+      "conditions": 211
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-ahorro.ts",
+      "sha256": "f809267bb9c76979360b5165316df7088d982705bdfa493f7bdf75a6b8feffdf",
+      "items": 3,
+      "numeric": 1,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+      "sha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82",
+      "items": 12,
+      "numeric": 4,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 3
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+      "sha256": "39be2f6a00aaee1f629aa764eba3d9d4f5abb66b3c48bdfe4842d6143b1209f4",
+      "items": 85,
+      "numeric": 6,
+      "decimalStrings": 0,
+      "functions": 14,
+      "conditions": 2
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "42893ebf093067dcc1d97e7afcda52badaa3840e9db70a0dfbb661e2e2cf4fa9",
+      "items": 661,
+      "numeric": 27,
+      "decimalStrings": 0,
+      "functions": 58,
+      "conditions": 59
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-ascendientes.ts",
+      "sha256": "f51da59f85dce23231acb8396d50e58c2ce2b27202a590b863e4045226a62fca",
+      "items": 13,
+      "numeric": 2,
+      "decimalStrings": 0,
+      "functions": 2,
+      "conditions": 6
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-contribuyente.ts",
+      "sha256": "10a48cc57a9e5c97fd641805c69a67c22f30f8dd3f9f6822809f4cd10927291b",
+      "items": 36,
+      "numeric": 5,
+      "decimalStrings": 0,
+      "functions": 12,
+      "conditions": 2
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+      "sha256": "21112fb07f3c815be7ca1a0f48e3f3daceafa4e05e0526d47623566cd2431e5d",
+      "items": 32,
+      "numeric": 5,
+      "decimalStrings": 0,
+      "functions": 9,
+      "conditions": 5
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+      "sha256": "b57ea494e04b9d7c0c8c8464f3806359762dd4948675628503c403848207c557",
+      "items": 21,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 9,
+      "conditions": 1
+    },
+    {
+      "file": "lib/dominio/irpf/perfil-calculo.ts",
+      "sha256": "1bd29f55e900440b10256624f8f0f8854ee77b7021c1adfc4707b51aefcb04f1",
+      "items": 0,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+      "sha256": "13562c2b892cefba2de552d8573ed8915741dfb42c84536eb0a55ac12f2d0db3",
+      "items": 225,
+      "numeric": 31,
+      "decimalStrings": 15,
+      "functions": 53,
+      "conditions": 4
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+      "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+      "items": 114,
+      "numeric": 10,
+      "decimalStrings": 0,
+      "functions": 24,
+      "conditions": 14
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+      "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+      "items": 9,
+      "numeric": 1,
+      "decimalStrings": 0,
+      "functions": 3,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+      "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+      "items": 16,
+      "numeric": 2,
+      "decimalStrings": 0,
+      "functions": 3,
+      "conditions": 1
+    },
+    {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "ba38419e1cb99f434fd5102bb93df28bd40a7573d0aa2a0567dd088ea3db4bc0",
+      "items": 720,
+      "numeric": 99,
+      "decimalStrings": 0,
+      "functions": 129,
+      "conditions": 41
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "items": 107,
+      "numeric": 18,
+      "decimalStrings": 24,
+      "functions": 5,
+      "conditions": 2
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "items": 203,
+      "numeric": 10,
+      "decimalStrings": 24,
+      "functions": 37,
+      "conditions": 2
+    },
+    {
+      "file": "lib/dominio/normativa/anio-fiscal.ts",
+      "sha256": "49205de6f07e08bb00f7ff2960d0c13b99870714de70446f86779d42eadeb4cb",
+      "items": 31,
+      "numeric": 30,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/compatibilidad-historica.ts",
+      "sha256": "2a1eee7042cab84eabb0255a2bc6d19581fdf7688606b1c7a15cc1b925975a49",
+      "items": 101,
+      "numeric": 14,
+      "decimalStrings": 4,
+      "functions": 25,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025.ts",
+      "sha256": "6d1d508288afa948cd430d159f2d1e096b34c8c70937b3ba843778514c789af9",
+      "items": 0,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts",
+      "sha256": "577ca9eca73e340d989b41fa9e5eeefae31c7cb360c4fa966ca41ba6ffe25536",
+      "items": 198,
+      "numeric": 31,
+      "decimalStrings": 16,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+      "sha256": "ea794acad94a5a1371509dd5108c8168c0f2fc2bcdc1614eff48ff01239caeb4",
+      "items": 201,
+      "numeric": 43,
+      "decimalStrings": 13,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts",
+      "sha256": "6029ac9c7112e93ef841c6b91f6142111ab3258f3d6fe216a7022549f5d201f8",
+      "items": 268,
+      "numeric": 63,
+      "decimalStrings": 22,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/canarias.ts",
+      "sha256": "d982b7aaed1e2df2697ebf16c37bcd0adaad8545339d36b95a77ef4512354b15",
+      "items": 302,
+      "numeric": 53,
+      "decimalStrings": 1,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/cantabria.ts",
+      "sha256": "d766afc4483dcd5d75e52c86941a7c37fc6ec82adadb991690a1ff94c210f43a",
+      "items": 225,
+      "numeric": 42,
+      "decimalStrings": 4,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-la-mancha.ts",
+      "sha256": "3aa429d96d81c7e0945fdd922f7b638c5409b58887871b319840e6d27c17f717",
+      "items": 305,
+      "numeric": 53,
+      "decimalStrings": 3,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-y-leon.ts",
+      "sha256": "bf45d75750d4a37f9bc50920d1a343d0966bdfcf35b62d54a1a8072e4fa579db",
+      "items": 177,
+      "numeric": 34,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "sha256": "fb40a68f65595ba332071a3220f8010e6c5555840ca33cda7f71f0aa2f3ce5ea",
+      "items": 146,
+      "numeric": 26,
+      "decimalStrings": 5,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/ceuta.ts",
+      "sha256": "36323df1d11836f783d6159cadc0559a4b242358641454e496e617c7e4439035",
+      "items": 1,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts",
+      "sha256": "03f863a2834e9e21fd4a115a51f33d267e76cef32f7daa5cb70397e0fb3f520e",
+      "items": 180,
+      "numeric": 85,
+      "decimalStrings": 1,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/extremadura.ts",
+      "sha256": "1ffc1c1a7b9a8b6b94eed292f8b6d54eacfb64c505620d41b4efcf5a31262a9a",
+      "items": 201,
+      "numeric": 39,
+      "decimalStrings": 1,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/galicia.ts",
+      "sha256": "a86eb94d32f5777e9ce1559c7f71da8fbd220280afd78f17f3d55f9ed1cd6e0b",
+      "items": 111,
+      "numeric": 50,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/illes-balears.ts",
+      "sha256": "c64e1a4580686a4b60633eed67c22d8dcd000aa853aaf79b175b94224b3e5643",
+      "items": 254,
+      "numeric": 50,
+      "decimalStrings": 2,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/la-rioja.ts",
+      "sha256": "dc33462bbe1ba5cb42ed3c1defec17432a7359040dc0d9b8db7934d4258d7854",
+      "items": 107,
+      "numeric": 47,
+      "decimalStrings": 1,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/madrid.ts",
+      "sha256": "4aaadd0db911efacc5d4e3f38849ae5f1a380650e2173d8de6062ce416ccf56c",
+      "items": 112,
+      "numeric": 47,
+      "decimalStrings": 3,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/melilla.ts",
+      "sha256": "17209c632446ffbbb011614d84778cc056f46ef4c608b029cfc20af48efdb893",
+      "items": 1,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/murcia.ts",
+      "sha256": "d14f761a9926b6a2a6ef361b13055d05735d1343bc3f381d88a7064ec319017b",
+      "items": 128,
+      "numeric": 55,
+      "decimalStrings": 6,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts",
+      "sha256": "5b65317d5b6f7ba6c1666151cc584920bdfb2722e20bf94f6eeb01b3eafa8caf",
+      "items": 230,
+      "numeric": 20,
+      "decimalStrings": 19,
+      "functions": 48,
+      "conditions": 23
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+      "sha256": "7f9192a87929e704806a361d3f36c0dad86018e085c3632a119318ce597790b9",
+      "items": 44,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 7,
+      "conditions": 2
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts",
+      "sha256": "574bfe8a4e9729a98ca28410f3aa3c49fd0cf9944e83b8dd07b437f8e760143a",
+      "items": 0,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/ipc-2012-2026.ts",
+      "sha256": "4f9881cc833179b83ef1d2875b7dac738c822eaa9c21cb372403a5bd2d608a0d",
+      "items": 44,
+      "numeric": 15,
+      "decimalStrings": 14,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+      "sha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1",
+      "items": 471,
+      "numeric": 1,
+      "decimalStrings": 150,
+      "functions": 3,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+      "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe",
+      "items": 486,
+      "numeric": 1,
+      "decimalStrings": 156,
+      "functions": 3,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+      "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7",
+      "items": 557,
+      "numeric": 6,
+      "decimalStrings": 167,
+      "functions": 10,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+      "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab",
+      "items": 631,
+      "numeric": 87,
+      "decimalStrings": 104,
+      "functions": 18,
+      "conditions": 1
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+      "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e",
+      "items": 577,
+      "numeric": 89,
+      "decimalStrings": 103,
+      "functions": 4,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2017.ts",
+      "sha256": "2e68eb054e044f3f18c2931bbb8fd491115f6b3b498afb1b8f3a712504715cdf",
+      "items": 587,
+      "numeric": 91,
+      "decimalStrings": 105,
+      "functions": 4,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2018.ts",
+      "sha256": "4a7bcbf0ce27ef02d519b2597d93ff48b32b484f01bee50241c903fdc5c5f0bf",
+      "items": 587,
+      "numeric": 91,
+      "decimalStrings": 105,
+      "functions": 4,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2019.ts",
+      "sha256": "f1cd332b94523cc0d5b89afa7a375d753db9fc1b106745758f59dc521962efb9",
+      "items": 601,
+      "numeric": 91,
+      "decimalStrings": 105,
+      "functions": 4,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "items": 611,
+      "numeric": 93,
+      "decimalStrings": 107,
+      "functions": 4,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2021.ts",
+      "sha256": "3a36528508f461d59a91059ad66b19902d4be98f96dd96a6a67f7de4cebe3f65",
+      "items": 593,
+      "numeric": 91,
+      "decimalStrings": 104,
+      "functions": 4,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2022.ts",
+      "sha256": "12e1286393169deaf7f7be2909e30b8540a4626cfd5add976a60ba9a18d6fed7",
+      "items": 582,
+      "numeric": 88,
+      "decimalStrings": 98,
+      "functions": 10,
+      "conditions": 1
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2023.ts",
+      "sha256": "792e4515cbc83f597ba3009f54ab2b4323b288d6c91780fc8eeabb72fb50ff23",
+      "items": 352,
+      "numeric": 50,
+      "decimalStrings": 56,
+      "functions": 9,
+      "conditions": 1
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2024.ts",
+      "sha256": "9549a3f6bd9b742d9ede3e60505a5ab214445a0a57e08983655cfa2d7ba556ca",
+      "items": 160,
+      "numeric": 22,
+      "decimalStrings": 24,
+      "functions": 4,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2025.ts",
+      "sha256": "6ac04eb3025d80ac269df77fba30b523cf62cf695bd70627396fa5673bff51b0",
+      "items": 668,
+      "numeric": 104,
+      "decimalStrings": 121,
+      "functions": 3,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+      "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479",
+      "items": 578,
+      "numeric": 220,
+      "decimalStrings": 53,
+      "functions": 24,
+      "conditions": 9
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-obligacion-declarar.ts",
+      "sha256": "3def393c0b4a9b3f56c96a061093e3d277342411d7a2e323fadcd4434c12d203",
+      "items": 3,
+      "numeric": 1,
+      "decimalStrings": 1,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-2026.ts",
+      "sha256": "cc6f00621fdf2050d993f6e6cc9882b51ae1a6b8c68803279fbc4ebc4fcc9110",
+      "items": 4,
+      "numeric": 0,
+      "decimalStrings": 1,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "317ff3550f2ff8725d092e79a5aef9682ffbe8b72de71b18006d9a2ba6f06ba4",
+      "items": 170,
+      "numeric": 67,
+      "decimalStrings": 0,
+      "functions": 8,
+      "conditions": 19
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2012.ts",
+      "sha256": "31af9984461634f5cdb661b644651f5dbb48c8663a12083f991e333f15b252cd",
+      "items": 55,
+      "numeric": 0,
+      "decimalStrings": 18,
+      "functions": 3,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2013.ts",
+      "sha256": "690b7bd3f9f606ec94d373bfec94f55a111482b665467de8b47edf395f2ea269",
+      "items": 55,
+      "numeric": 0,
+      "decimalStrings": 18,
+      "functions": 3,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+      "sha256": "f93790837f23337f5f59be935670a7be9f01136dbaca63a28bf12dcd989dc5b1",
+      "items": 88,
+      "numeric": 0,
+      "decimalStrings": 33,
+      "functions": 3,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2015.ts",
+      "sha256": "4484fdf822369a6342a69364e6fc7f59803111ab3c8d16a138b4f19c9520cd5c",
+      "items": 54,
+      "numeric": 0,
+      "decimalStrings": 22,
+      "functions": 2,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2016.ts",
+      "sha256": "28c9e6fae0aaa064f0c1ea069c5efa3808310435564533b80fba52b41f6c6ce1",
+      "items": 54,
+      "numeric": 0,
+      "decimalStrings": 22,
+      "functions": 2,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2017.ts",
+      "sha256": "6e15929ce03cac49dccbf28cc5509e6ce0782e32d7a3213823f42f5bf3ef355b",
+      "items": 54,
+      "numeric": 0,
+      "decimalStrings": 22,
+      "functions": 2,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2018.ts",
+      "sha256": "93f9334dafb495e19f172c79b606372ac7a571b355f7a1c0a5f122774a64dd4e",
+      "items": 60,
+      "numeric": 0,
+      "decimalStrings": 25,
+      "functions": 2,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2019.ts",
+      "sha256": "f2406060317d5b131cdae7d5eccd062d01e2e332b53a0f139efcc206e838316d",
+      "items": 60,
+      "numeric": 0,
+      "decimalStrings": 25,
+      "functions": 2,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2020.ts",
+      "sha256": "6f1da95f4f69482913c9a0f187f1e8b9c7eb3ec28687cc95a6036f7d0bce3170",
+      "items": 60,
+      "numeric": 0,
+      "decimalStrings": 25,
+      "functions": 2,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2021.ts",
+      "sha256": "83f23600ce9e13edf0d2e4ee10db6c00978423c415cbe33f2064fe25799d7a49",
+      "items": 40,
+      "numeric": 0,
+      "decimalStrings": 15,
+      "functions": 1,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+      "sha256": "68d1e7b37117df007e4ccd05d5759ee77fd53ad7422a527850bd2084a3da10d7",
+      "items": 109,
+      "numeric": 3,
+      "decimalStrings": 31,
+      "functions": 7,
+      "conditions": 1
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+      "sha256": "32a8e8c97a1d3773b65ab22804320d32eb3f81b735cb9cbedf6c69ca9bc4ee07",
+      "items": 41,
+      "numeric": 0,
+      "decimalStrings": 7,
+      "functions": 6,
+      "conditions": 1
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2024.ts",
+      "sha256": "d7dbc0ac8eb862172aaccae40cb9e539a18111a445eced846cc715e13ec54dbe",
+      "items": 4,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+      "sha256": "076a58f62806baa1fe9c62174c1eb1c54c474c9022db02a06063555a07b82023",
+      "items": 255,
+      "numeric": 0,
+      "decimalStrings": 107,
+      "functions": 4,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+      "sha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80",
+      "items": 46,
+      "numeric": 15,
+      "decimalStrings": 15,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/fuente-normativa.ts",
+      "sha256": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289",
+      "items": 17,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/medida-normativa.ts",
+      "sha256": "d0842c01d707abd6d06e870f692862ad860a084cbd2a8e41facf3f35a8c5db7a",
+      "items": 1,
+      "numeric": 1,
+      "decimalStrings": 0,
+      "functions": 0,
+      "conditions": 0
+    },
+    {
+      "file": "lib/dominio/normativa/repositorio-parametros.ts",
+      "sha256": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
+      "items": 2,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 0
+    },
+    {
+      "file": "lib/export/auditoria-excel.ts",
+      "sha256": "b9fdd803e8cebadc27beb3708963a620910b3537a5024a3f0d5b4272f71ba54a",
+      "items": 726,
+      "numeric": 175,
+      "decimalStrings": 0,
+      "functions": 72,
+      "conditions": 37
+    },
+    {
+      "file": "lib/formato.ts",
+      "sha256": "2045ee494c449346c684f69f1aabd1331b883f6f5a8f3a0b250f63975d91031f",
+      "items": 75,
+      "numeric": 38,
+      "decimalStrings": 0,
+      "functions": 9,
+      "conditions": 1
+    },
+    {
+      "file": "lib/observabilidad/auditoria-rendimiento.ts",
+      "sha256": "88e1c0d3f2bc7c44f0652979e89eb5dadde6fb96aaed804e8becd3de32e0ab1d",
+      "items": 136,
+      "numeric": 10,
+      "decimalStrings": 2,
+      "functions": 18,
+      "conditions": 14
+    },
+    {
+      "file": "lib/utils.ts",
+      "sha256": "7c8c3dfc0cdd370d44932828eb067ef771c8fe7996693221d5d4b90af6d54f2d",
+      "items": 3,
+      "numeric": 0,
+      "decimalStrings": 0,
+      "functions": 1,
+      "conditions": 0
+    }
+  ],
+  "modules": [
+    {
+      "file": "lib/dominio/normativa/datos/compatibilidad-historica.ts",
+      "sha256": "2a1eee7042cab84eabb0255a2bc6d19581fdf7688606b1c7a15cc1b925975a49",
+      "effectiveNumericLeaves": 3
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025.ts",
+      "sha256": "6d1d508288afa948cd430d159f2d1e096b34c8c70937b3ba843778514c789af9",
+      "effectiveNumericLeaves": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts",
+      "sha256": "577ca9eca73e340d989b41fa9e5eeefae31c7cb360c4fa966ca41ba6ffe25536",
+      "effectiveNumericLeaves": 94
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+      "sha256": "ea794acad94a5a1371509dd5108c8168c0f2fc2bcdc1614eff48ff01239caeb4",
+      "effectiveNumericLeaves": 112
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts",
+      "sha256": "6029ac9c7112e93ef841c6b91f6142111ab3258f3d6fe216a7022549f5d201f8",
+      "effectiveNumericLeaves": 170
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/canarias.ts",
+      "sha256": "d982b7aaed1e2df2697ebf16c37bcd0adaad8545339d36b95a77ef4512354b15",
+      "effectiveNumericLeaves": 108
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/cantabria.ts",
+      "sha256": "d766afc4483dcd5d75e52c86941a7c37fc6ec82adadb991690a1ff94c210f43a",
+      "effectiveNumericLeaves": 92
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-la-mancha.ts",
+      "sha256": "3aa429d96d81c7e0945fdd922f7b638c5409b58887871b319840e6d27c17f717",
+      "effectiveNumericLeaves": 112
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-y-leon.ts",
+      "sha256": "bf45d75750d4a37f9bc50920d1a343d0966bdfcf35b62d54a1a8072e4fa579db",
+      "effectiveNumericLeaves": 68
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "sha256": "fb40a68f65595ba332071a3220f8010e6c5555840ca33cda7f71f0aa2f3ce5ea",
+      "effectiveNumericLeaves": 62
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/ceuta.ts",
+      "sha256": "36323df1d11836f783d6159cadc0559a4b242358641454e496e617c7e4439035",
+      "effectiveNumericLeaves": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts",
+      "sha256": "03f863a2834e9e21fd4a115a51f33d267e76cef32f7daa5cb70397e0fb3f520e",
+      "effectiveNumericLeaves": 172
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/extremadura.ts",
+      "sha256": "1ffc1c1a7b9a8b6b94eed292f8b6d54eacfb64c505620d41b4efcf5a31262a9a",
+      "effectiveNumericLeaves": 80
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/galicia.ts",
+      "sha256": "a86eb94d32f5777e9ce1559c7f71da8fbd220280afd78f17f3d55f9ed1cd6e0b",
+      "effectiveNumericLeaves": 100
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/illes-balears.ts",
+      "sha256": "c64e1a4580686a4b60633eed67c22d8dcd000aa853aaf79b175b94224b3e5643",
+      "effectiveNumericLeaves": 104
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/la-rioja.ts",
+      "sha256": "dc33462bbe1ba5cb42ed3c1defec17432a7359040dc0d9b8db7934d4258d7854",
+      "effectiveNumericLeaves": 96
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/madrid.ts",
+      "sha256": "4aaadd0db911efacc5d4e3f38849ae5f1a380650e2173d8de6062ce416ccf56c",
+      "effectiveNumericLeaves": 100
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/melilla.ts",
+      "sha256": "17209c632446ffbbb011614d84778cc056f46ef4c608b029cfc20af48efdb893",
+      "effectiveNumericLeaves": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/murcia.ts",
+      "sha256": "d14f761a9926b6a2a6ef361b13055d05735d1343bc3f381d88a7064ec319017b",
+      "effectiveNumericLeaves": 122
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts",
+      "sha256": "5b65317d5b6f7ba6c1666151cc584920bdfb2722e20bf94f6eeb01b3eafa8caf",
+      "effectiveNumericLeaves": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+      "sha256": "7f9192a87929e704806a361d3f36c0dad86018e085c3632a119318ce597790b9",
+      "effectiveNumericLeaves": 3184
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts",
+      "sha256": "574bfe8a4e9729a98ca28410f3aa3c49fd0cf9944e83b8dd07b437f8e760143a",
+      "effectiveNumericLeaves": 0
+    },
+    {
+      "file": "lib/dominio/normativa/datos/ipc-2012-2026.ts",
+      "sha256": "4f9881cc833179b83ef1d2875b7dac738c822eaa9c21cb372403a5bd2d608a0d",
+      "effectiveNumericLeaves": 14
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+      "sha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1",
+      "effectiveNumericLeaves": 228
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+      "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe",
+      "effectiveNumericLeaves": 234
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+      "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7",
+      "effectiveNumericLeaves": 244
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+      "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab",
+      "effectiveNumericLeaves": 448
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+      "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e",
+      "effectiveNumericLeaves": 452
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2017.ts",
+      "sha256": "2e68eb054e044f3f18c2931bbb8fd491115f6b3b498afb1b8f3a712504715cdf",
+      "effectiveNumericLeaves": 460
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2018.ts",
+      "sha256": "4a7bcbf0ce27ef02d519b2597d93ff48b32b484f01bee50241c903fdc5c5f0bf",
+      "effectiveNumericLeaves": 460
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2019.ts",
+      "sha256": "f1cd332b94523cc0d5b89afa7a375d753db9fc1b106745758f59dc521962efb9",
+      "effectiveNumericLeaves": 460
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "effectiveNumericLeaves": 468
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2021.ts",
+      "sha256": "3a36528508f461d59a91059ad66b19902d4be98f96dd96a6a67f7de4cebe3f65",
+      "effectiveNumericLeaves": 470
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2022.ts",
+      "sha256": "12e1286393169deaf7f7be2909e30b8540a4626cfd5add976a60ba9a18d6fed7",
+      "effectiveNumericLeaves": 448
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2023.ts",
+      "sha256": "792e4515cbc83f597ba3009f54ab2b4323b288d6c91780fc8eeabb72fb50ff23",
+      "effectiveNumericLeaves": 368
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2024.ts",
+      "sha256": "9549a3f6bd9b742d9ede3e60505a5ab214445a0a57e08983655cfa2d7ba556ca",
+      "effectiveNumericLeaves": 304
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2025.ts",
+      "sha256": "6ac04eb3025d80ac269df77fba30b523cf62cf695bd70627396fa5673bff51b0",
+      "effectiveNumericLeaves": 254
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+      "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479",
+      "effectiveNumericLeaves": 251
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-obligacion-declarar.ts",
+      "sha256": "3def393c0b4a9b3f56c96a061093e3d277342411d7a2e323fadcd4434c12d203",
+      "effectiveNumericLeaves": 2
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-2026.ts",
+      "sha256": "cc6f00621fdf2050d993f6e6cc9882b51ae1a6b8c68803279fbc4ebc4fcc9110",
+      "effectiveNumericLeaves": 1
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "317ff3550f2ff8725d092e79a5aef9682ffbe8b72de71b18006d9a2ba6f06ba4",
+      "effectiveNumericLeaves": 192
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2012.ts",
+      "sha256": "31af9984461634f5cdb661b644651f5dbb48c8663a12083f991e333f15b252cd",
+      "effectiveNumericLeaves": 380
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2013.ts",
+      "sha256": "690b7bd3f9f606ec94d373bfec94f55a111482b665467de8b47edf395f2ea269",
+      "effectiveNumericLeaves": 380
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+      "sha256": "f93790837f23337f5f59be935670a7be9f01136dbaca63a28bf12dcd989dc5b1",
+      "effectiveNumericLeaves": 418
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2015.ts",
+      "sha256": "4484fdf822369a6342a69364e6fc7f59803111ab3c8d16a138b4f19c9520cd5c",
+      "effectiveNumericLeaves": 399
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2016.ts",
+      "sha256": "28c9e6fae0aaa064f0c1ea069c5efa3808310435564533b80fba52b41f6c6ce1",
+      "effectiveNumericLeaves": 399
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2017.ts",
+      "sha256": "6e15929ce03cac49dccbf28cc5509e6ce0782e32d7a3213823f42f5bf3ef355b",
+      "effectiveNumericLeaves": 399
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2018.ts",
+      "sha256": "93f9334dafb495e19f172c79b606372ac7a571b355f7a1c0a5f122774a64dd4e",
+      "effectiveNumericLeaves": 418
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2019.ts",
+      "sha256": "f2406060317d5b131cdae7d5eccd062d01e2e332b53a0f139efcc206e838316d",
+      "effectiveNumericLeaves": 418
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2020.ts",
+      "sha256": "6f1da95f4f69482913c9a0f187f1e8b9c7eb3ec28687cc95a6036f7d0bce3170",
+      "effectiveNumericLeaves": 437
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2021.ts",
+      "sha256": "83f23600ce9e13edf0d2e4ee10db6c00978423c415cbe33f2064fe25799d7a49",
+      "effectiveNumericLeaves": 399
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+      "sha256": "68d1e7b37117df007e4ccd05d5759ee77fd53ad7422a527850bd2084a3da10d7",
+      "effectiveNumericLeaves": 399
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+      "sha256": "32a8e8c97a1d3773b65ab22804320d32eb3f81b735cb9cbedf6c69ca9bc4ee07",
+      "effectiveNumericLeaves": 380
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2024.ts",
+      "sha256": "d7dbc0ac8eb862172aaccae40cb9e539a18111a445eced846cc715e13ec54dbe",
+      "effectiveNumericLeaves": 361
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+      "sha256": "076a58f62806baa1fe9c62174c1eb1c54c474c9022db02a06063555a07b82023",
+      "effectiveNumericLeaves": 361
+    },
+    {
+      "file": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+      "sha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80",
+      "effectiveNumericLeaves": 15
+    }
+  ],
+  "pages": [
+    {
+      "file": "inventario-pagina-0000.json",
+      "count": 200,
+      "sha256": "caf2246f1155dddb49d2fd9fd1164d211a7629b67c5815bfe8ad37cb6982ef49"
+    },
+    {
+      "file": "inventario-pagina-0001.json",
+      "count": 200,
+      "sha256": "4cf01e8e9a5df3d13cb94d962881e22c44fb1216b62a63162ed04332ae10981a"
+    },
+    {
+      "file": "inventario-pagina-0002.json",
+      "count": 200,
+      "sha256": "e4e566cf710ed0319181fc1b03acb457c0e09b4f2a7443ef1ce6e045928bfced"
+    },
+    {
+      "file": "inventario-pagina-0003.json",
+      "count": 200,
+      "sha256": "11957db5f488e89d34b6ade96eba372c58f9a679f747d741a423e9a3b7ea2cce"
+    },
+    {
+      "file": "inventario-pagina-0004.json",
+      "count": 200,
+      "sha256": "3148cc28d6971c77428fcc98b58be162d05d346afdb1804087f587be0cbd69ad"
+    },
+    {
+      "file": "inventario-pagina-0005.json",
+      "count": 200,
+      "sha256": "8200433d26a219d5cb8e4604a839873b3e52d3fe43efad6f6ae3e2db7dd2b6dd"
+    },
+    {
+      "file": "inventario-pagina-0006.json",
+      "count": 200,
+      "sha256": "6059683c34a035b781b1a8053a34e1606514ed2a7b2112cf8fb6adcf1c94f28c"
+    },
+    {
+      "file": "inventario-pagina-0007.json",
+      "count": 200,
+      "sha256": "67b1573a5dc9ee9bfea5226ed1842156517c0cd466c2e9163ff9474e0edbc12d"
+    },
+    {
+      "file": "inventario-pagina-0008.json",
+      "count": 200,
+      "sha256": "ee80a1269ea08fe59ffcd5119bbf258864b510297693b8e3d0b06ea9204c93a7"
+    },
+    {
+      "file": "inventario-pagina-0009.json",
+      "count": 200,
+      "sha256": "c5f3fe0afae2073e0c1d42cb1a41ddcb9aca8b40f13a87350a8e0de78d117931"
+    },
+    {
+      "file": "inventario-pagina-0010.json",
+      "count": 200,
+      "sha256": "395b919055ffc93415a527ade2f7d24561fb7cc2ad75f9c58ec136cc3c42e57a"
+    },
+    {
+      "file": "inventario-pagina-0011.json",
+      "count": 200,
+      "sha256": "89bcb90ec6d089f8e1bad0d4ca268d2678afbba4376177b7c675f99a43a033cf"
+    },
+    {
+      "file": "inventario-pagina-0012.json",
+      "count": 200,
+      "sha256": "02f8ee62787f143b39c18679fd1032f72998568f711777a11f9e209c8d48bd0e"
+    },
+    {
+      "file": "inventario-pagina-0013.json",
+      "count": 200,
+      "sha256": "b32ba8f6f749826e22c065593625001607097389b6c612742d35a6517ba7c338"
+    },
+    {
+      "file": "inventario-pagina-0014.json",
+      "count": 200,
+      "sha256": "0443b1a45d014c442db86ed228ca96adb562ccbf65379cb269160923fac94407"
+    },
+    {
+      "file": "inventario-pagina-0015.json",
+      "count": 200,
+      "sha256": "a45de649c5855eb5cdcf9b9c59ff9f4142a0785f382210c400f59c6c3c966094"
+    },
+    {
+      "file": "inventario-pagina-0016.json",
+      "count": 200,
+      "sha256": "7716a078c4a66fb4d69b6a883ccbd5633d59c3de95066c625cec937c270d0a90"
+    },
+    {
+      "file": "inventario-pagina-0017.json",
+      "count": 200,
+      "sha256": "1fe1ab1ee6ede8375219a88e25050e86a01f5e1c970f963026a8b749657ba682"
+    },
+    {
+      "file": "inventario-pagina-0018.json",
+      "count": 200,
+      "sha256": "7134bb7071e74fd115d3156d4d9ee046e9acfba918efef3ea80841dcee1477a7"
+    },
+    {
+      "file": "inventario-pagina-0019.json",
+      "count": 200,
+      "sha256": "a2b5b20abf67e4ba682dc9b5f3000559352950f9c2aad5437ed954dfbc6d0357"
+    },
+    {
+      "file": "inventario-pagina-0020.json",
+      "count": 200,
+      "sha256": "ca67bd9fe64584516c1df310af115ecc8a024a749879928d691689f39fcf08b7"
+    },
+    {
+      "file": "inventario-pagina-0021.json",
+      "count": 200,
+      "sha256": "2aaee0c6ab9d2fa4830af231ded7067f11fbd9296107873d912e3222ec0a7077"
+    },
+    {
+      "file": "inventario-pagina-0022.json",
+      "count": 200,
+      "sha256": "cc3aa2e7b0a37b64efb9fdc24d26534140c0b246424fb174524242609d61cef3"
+    },
+    {
+      "file": "inventario-pagina-0023.json",
+      "count": 200,
+      "sha256": "1b11da3fadb7831ec60bc007d42f723453cd7c3db2d2b1f955400aa382a21d31"
+    },
+    {
+      "file": "inventario-pagina-0024.json",
+      "count": 200,
+      "sha256": "04d33264785dc8e0d684b3cb1f15ecd030e059767631eace04da05ca7219ad9a"
+    },
+    {
+      "file": "inventario-pagina-0025.json",
+      "count": 200,
+      "sha256": "94b78ce219ec69522a0a87a455accecf47ec4124126bc4459de26e2b12bb0ff5"
+    },
+    {
+      "file": "inventario-pagina-0026.json",
+      "count": 200,
+      "sha256": "ee05635d884692086c11c7feceda795556e5e2b49d6c0ea81aa1a03369833783"
+    },
+    {
+      "file": "inventario-pagina-0027.json",
+      "count": 200,
+      "sha256": "14d921ba371e110d54ec4aecb7713c80cb7c019cf5a789aceb3d75d4fba9142e"
+    },
+    {
+      "file": "inventario-pagina-0028.json",
+      "count": 200,
+      "sha256": "d77875ffeeb06e6e8dcbdac1f85776bb3bf366e39afd6edf13b59fdf0f91e2d6"
+    },
+    {
+      "file": "inventario-pagina-0029.json",
+      "count": 200,
+      "sha256": "dca632dec16f78a2c5e451a8ed8fb409e6368057edac4019f221fdd4bf955c40"
+    },
+    {
+      "file": "inventario-pagina-0030.json",
+      "count": 200,
+      "sha256": "284a68a4222f14675ed400e0282f830edc6715fb972f2d95e6a0dfe5529ea0a6"
+    },
+    {
+      "file": "inventario-pagina-0031.json",
+      "count": 200,
+      "sha256": "0849b40709b96a04d9441fad442ea213233d66fbf7a6825f285d620a3f46279a"
+    },
+    {
+      "file": "inventario-pagina-0032.json",
+      "count": 200,
+      "sha256": "ddd651b709ec8e08b6b34d0ba6c3bb8188bc32a906cc80f051669701f5bc0206"
+    },
+    {
+      "file": "inventario-pagina-0033.json",
+      "count": 200,
+      "sha256": "3592863e02303362eeb9f4b233ec46e602a747277dc0aa4570fbd9de1bcc47c3"
+    },
+    {
+      "file": "inventario-pagina-0034.json",
+      "count": 200,
+      "sha256": "5ac29308d847a8f687fb4cb9286678b3f306eabceaa6b7f68be72a6c51a18673"
+    },
+    {
+      "file": "inventario-pagina-0035.json",
+      "count": 200,
+      "sha256": "dc424f579e5e226d3a43ad97b1794a53301cdd3aab3a5b812767d4bf01dbeebe"
+    },
+    {
+      "file": "inventario-pagina-0036.json",
+      "count": 200,
+      "sha256": "d39edfb454b0c3625fbf1489e0b2d1b8ad2d4d787bc29bb1a08e8604e6971ab4"
+    },
+    {
+      "file": "inventario-pagina-0037.json",
+      "count": 200,
+      "sha256": "6bd6d57cf5227791cc8855a38a5ddb174fc701a687a7d16f6aa58554ad0224ee"
+    },
+    {
+      "file": "inventario-pagina-0038.json",
+      "count": 200,
+      "sha256": "05627efb09e6a450ba2378d344b348dd1e95c7e85168d644ea58c949c64b711e"
+    },
+    {
+      "file": "inventario-pagina-0039.json",
+      "count": 200,
+      "sha256": "1617eeb6c34b4c1f835a40f4d7c23bbb936682373936ec5c2584966b2e84d7ba"
+    },
+    {
+      "file": "inventario-pagina-0040.json",
+      "count": 200,
+      "sha256": "adfaa519ca43bb06fb77337878b72bb1a1ecfd59c229fb124cda3bf275277431"
+    },
+    {
+      "file": "inventario-pagina-0041.json",
+      "count": 200,
+      "sha256": "225bad27ef397c0a44fed362c840bf12f3c58337bfa107ec97b83559434aafff"
+    },
+    {
+      "file": "inventario-pagina-0042.json",
+      "count": 200,
+      "sha256": "f67423d1e7f83052a4a523a68235d338434ba740b47181cb1ecf88539fa20a8d"
+    },
+    {
+      "file": "inventario-pagina-0043.json",
+      "count": 200,
+      "sha256": "1202768293b97274cdf1258c6d46730ce6c0a4af6a23f4ea6fa6263f8acbc5d6"
+    },
+    {
+      "file": "inventario-pagina-0044.json",
+      "count": 200,
+      "sha256": "3154915e06cc34358c5d06843cb8ec15819954a9e9429cb62ef55b48b9dfbcc7"
+    },
+    {
+      "file": "inventario-pagina-0045.json",
+      "count": 200,
+      "sha256": "86b3c22e5b98e70c2fba14027c3c73b033b4c7b76a4454f4944d6195c1c22c03"
+    },
+    {
+      "file": "inventario-pagina-0046.json",
+      "count": 200,
+      "sha256": "acaef85779d928e95adc2347f1edc9f3e404ab1df1712cd2130e1f3da7c860e6"
+    },
+    {
+      "file": "inventario-pagina-0047.json",
+      "count": 200,
+      "sha256": "55156a69de5200717ac364c42b15a771982b7975e1d06a42e2a17c51df2f405d"
+    },
+    {
+      "file": "inventario-pagina-0048.json",
+      "count": 200,
+      "sha256": "9403e5d9d5b22e9729679e49c6a49a1191c0d56f8c7a0b45214d36f7dc782334"
+    },
+    {
+      "file": "inventario-pagina-0049.json",
+      "count": 200,
+      "sha256": "6325af098c8373c19e76721f7193523b88a95460d131cfbf8087a866b16552af"
+    },
+    {
+      "file": "inventario-pagina-0050.json",
+      "count": 200,
+      "sha256": "ee220bfef5f0e7c3ecbc074b1e312aaa8ac3077374796783adc42ad7dd82d69f"
+    },
+    {
+      "file": "inventario-pagina-0051.json",
+      "count": 200,
+      "sha256": "379d9823437b46194b3ff6ff357c95d4e3d97095aeb84069c95d9260fccb5117"
+    },
+    {
+      "file": "inventario-pagina-0052.json",
+      "count": 200,
+      "sha256": "b95a20a55e8001175dce69d44af3b00c4d3e5c0c77d15a048f673f845310d9a8"
+    },
+    {
+      "file": "inventario-pagina-0053.json",
+      "count": 200,
+      "sha256": "4d68f4816e0e3f681de8815ffe1eb6888c8a2bef1e060e428f46f29e51707ff5"
+    },
+    {
+      "file": "inventario-pagina-0054.json",
+      "count": 200,
+      "sha256": "e953bcde4147cf02c7fe794f5b21e42aa19112a6ab8aaccf3b72bebf37e8e1a6"
+    },
+    {
+      "file": "inventario-pagina-0055.json",
+      "count": 200,
+      "sha256": "71807417a8a7e5939a191c1a6f9f3ce65bb4288bf89ac8f3e8f9358d9db128a2"
+    },
+    {
+      "file": "inventario-pagina-0056.json",
+      "count": 200,
+      "sha256": "82454218e77bc56b5ce2cbc2c691720aa5b0d146db7e0e7401d1bc0bfc94f370"
+    },
+    {
+      "file": "inventario-pagina-0057.json",
+      "count": 200,
+      "sha256": "4933f04a35a871b0d1e4ca90b38c32f18ab50c657c4785ab3a892b229f7e4307"
+    },
+    {
+      "file": "inventario-pagina-0058.json",
+      "count": 200,
+      "sha256": "b4145f10e9c8e100a5d334563bb394db15b5757f991752aca997f56e9e1a6ce1"
+    },
+    {
+      "file": "inventario-pagina-0059.json",
+      "count": 200,
+      "sha256": "510d412547569092c395eeaf4e1412a1576824ec2afd11f658d150aefd7d037b"
+    },
+    {
+      "file": "inventario-pagina-0060.json",
+      "count": 200,
+      "sha256": "22947c3a2a9ccfb46483571f414ac9c2ea6c3430da0baceab573f5b2d9314723"
+    },
+    {
+      "file": "inventario-pagina-0061.json",
+      "count": 200,
+      "sha256": "bcf4945a5673c68534980e923d699492a69bfef307aaf5775bbdff53d6f26c8f"
+    },
+    {
+      "file": "inventario-pagina-0062.json",
+      "count": 200,
+      "sha256": "528c48fd51c42456611c44f9e391d1f1a734ac4e2e5c33148379647bfc406d66"
+    },
+    {
+      "file": "inventario-pagina-0063.json",
+      "count": 200,
+      "sha256": "6bd605da601c7de6f32a76fc1f4cf395b0b797c2563b191ce4b21b62261cc25d"
+    },
+    {
+      "file": "inventario-pagina-0064.json",
+      "count": 200,
+      "sha256": "466967653e62fb0344bdb24401f6d7497bbf99b1532fb24df1320ac245295686"
+    },
+    {
+      "file": "inventario-pagina-0065.json",
+      "count": 200,
+      "sha256": "99e0f9ef64136f5f466aaa0a3b50e12f1aa30138553fbb727c67f0ddb0f7c05b"
+    },
+    {
+      "file": "inventario-pagina-0066.json",
+      "count": 200,
+      "sha256": "609d54e79ce1bb74a404ffbe2ce8b7876b4ba725739b90787283ca2df7c5ea5e"
+    },
+    {
+      "file": "inventario-pagina-0067.json",
+      "count": 200,
+      "sha256": "866aedcd17f01ac5019896901255c83d029675e6f75c87f32c6d7eb04b2f0408"
+    },
+    {
+      "file": "inventario-pagina-0068.json",
+      "count": 200,
+      "sha256": "1caedf7a8c30f05c647283cd86073fe45c71c33bfa25b519253cc4a16f56f074"
+    },
+    {
+      "file": "inventario-pagina-0069.json",
+      "count": 200,
+      "sha256": "1f369d84e776e24b9961e37b3c06398db06c7eb62aded15e0105174080aaebf3"
+    },
+    {
+      "file": "inventario-pagina-0070.json",
+      "count": 200,
+      "sha256": "e0802c99cc9265ee0ab8b1af5e1e84023076e5c1de59420e43b981f2d4043a99"
+    },
+    {
+      "file": "inventario-pagina-0071.json",
+      "count": 200,
+      "sha256": "f33ebf432e0f254ba02a63e3dc412784ee673ced1c2ec00309fb164fce2f8484"
+    },
+    {
+      "file": "inventario-pagina-0072.json",
+      "count": 200,
+      "sha256": "f85d722cd84c73b4abb9d4c531cbe41efd13f11147b1d902659e470065601c9e"
+    },
+    {
+      "file": "inventario-pagina-0073.json",
+      "count": 200,
+      "sha256": "50390f2862d71679e3211f988a63993cc5b68c620fe0c88144da9388bba012a4"
+    },
+    {
+      "file": "inventario-pagina-0074.json",
+      "count": 200,
+      "sha256": "a07b598d8ab74924c295eb56cbcc1429005cf48c86b3d83c748242fdc3c44688"
+    },
+    {
+      "file": "inventario-pagina-0075.json",
+      "count": 200,
+      "sha256": "6cdeab10e98d4eb06b68966b1b96c6aef756d19a70a89edf42e8ac81d3456c42"
+    },
+    {
+      "file": "inventario-pagina-0076.json",
+      "count": 200,
+      "sha256": "e42439d87b36b556efb52e5247a8c6f25b37be10f590f8338d6513862f5ee36d"
+    },
+    {
+      "file": "inventario-pagina-0077.json",
+      "count": 200,
+      "sha256": "214780179dac32067152dff628512716c8e611aa612cd652a17addb4b3589232"
+    },
+    {
+      "file": "inventario-pagina-0078.json",
+      "count": 200,
+      "sha256": "4b07370d10d0572ffb0e299c8a9770fcd9cd181350734671651cc4befa2ae5ab"
+    },
+    {
+      "file": "inventario-pagina-0079.json",
+      "count": 200,
+      "sha256": "8c48d2a68c91c4a726d47f1561f622821521c2faad4f2067c93de29dd74d5ac7"
+    },
+    {
+      "file": "inventario-pagina-0080.json",
+      "count": 200,
+      "sha256": "f91c59e216d7e5dfdaa333547e45ce2396b4d712935081fd8b29b3c00313b54a"
+    },
+    {
+      "file": "inventario-pagina-0081.json",
+      "count": 200,
+      "sha256": "d62add4f1249805ce6011191307e959b38580de8834e068e5e8a0728e80a7229"
+    },
+    {
+      "file": "inventario-pagina-0082.json",
+      "count": 200,
+      "sha256": "7390592abbe36507bc5f3e87571adf7db8c4ec4903b1e4e0b32ce2c521656693"
+    },
+    {
+      "file": "inventario-pagina-0083.json",
+      "count": 200,
+      "sha256": "1ddf103b13b8d03e1f672f1dd03f804e59db5eed25ba6606786db1ea764241db"
+    },
+    {
+      "file": "inventario-pagina-0084.json",
+      "count": 200,
+      "sha256": "623400ff0c8bfca488b4c2658f0db74e0699930bc1861c425a6466c908894566"
+    },
+    {
+      "file": "inventario-pagina-0085.json",
+      "count": 200,
+      "sha256": "9cc60aeac19e53b6cb083ca19798ba7ca5f97e8e65527d92434c9f736c2a2bd6"
+    },
+    {
+      "file": "inventario-pagina-0086.json",
+      "count": 200,
+      "sha256": "0868b3fbf734844c16f5781a7217449e974fb98451cb14718ad96e59b34b8e36"
+    },
+    {
+      "file": "inventario-pagina-0087.json",
+      "count": 200,
+      "sha256": "a78d46db39327d18c32c5d26eb22b9fd72e30a9d9e176682dc85d827318971a8"
+    },
+    {
+      "file": "inventario-pagina-0088.json",
+      "count": 200,
+      "sha256": "719a45018b81a0a597c4cf5bbfc95b9d78a52e4916d68ec3fd55cf12d8cb46c0"
+    },
+    {
+      "file": "inventario-pagina-0089.json",
+      "count": 200,
+      "sha256": "3194b10bfd48522d7b9e093778be8633dc1aa9f15c54e94d994fdfc8a2228a8e"
+    },
+    {
+      "file": "inventario-pagina-0090.json",
+      "count": 200,
+      "sha256": "6aecdad69b3f653a360e3d3027d028c0abe95f49204e911763d56cf21701d75f"
+    },
+    {
+      "file": "inventario-pagina-0091.json",
+      "count": 200,
+      "sha256": "723845060b932e45db02ac8f0a5e086c0680911b80d66552deab2d4e2e0f4a10"
+    },
+    {
+      "file": "inventario-pagina-0092.json",
+      "count": 200,
+      "sha256": "0f3840be133c35a3b0bfbe6e96316bea24ca8ccd66f54ce2e76b951e77506774"
+    },
+    {
+      "file": "inventario-pagina-0093.json",
+      "count": 200,
+      "sha256": "3184457751a2c98316763b0e940b9ef061bc36a2f28ba1073e83552babf7baa8"
+    },
+    {
+      "file": "inventario-pagina-0094.json",
+      "count": 200,
+      "sha256": "66af5cf624a5a26b3207d7be4f173112bee4325e38eb1ca499cd46314aca991d"
+    },
+    {
+      "file": "inventario-pagina-0095.json",
+      "count": 200,
+      "sha256": "b5fe8df1434c20cd8ffe72564e2c140403d9ad61726743f997dad306f1aab96c"
+    },
+    {
+      "file": "inventario-pagina-0096.json",
+      "count": 200,
+      "sha256": "320e5e79c33fc4f0b99ca17406342d34958cbba840e37bcd8e8dd701ca96452b"
+    },
+    {
+      "file": "inventario-pagina-0097.json",
+      "count": 200,
+      "sha256": "7404e5163e6288c212b98f65e2804615d18a688a35b59f36d6a078a0c6a22c8e"
+    },
+    {
+      "file": "inventario-pagina-0098.json",
+      "count": 200,
+      "sha256": "d574e9046fe8fc3609ffe702d6d6b93ac9ce8aa4e6d1f2982bf97111a9efb482"
+    },
+    {
+      "file": "inventario-pagina-0099.json",
+      "count": 200,
+      "sha256": "daba1ba267a1a72dbe04037124e594eabf08a402081cc93d1f0c9c897c26f119"
+    },
+    {
+      "file": "inventario-pagina-0100.json",
+      "count": 200,
+      "sha256": "2b8967e612224d50baab996989b8cf1084ec55f683b110196bb46a449df79ee2"
+    },
+    {
+      "file": "inventario-pagina-0101.json",
+      "count": 200,
+      "sha256": "7188b232f84798fe36eb4cd4f688be021ad771247cfd3446047619aa7f7c0bda"
+    },
+    {
+      "file": "inventario-pagina-0102.json",
+      "count": 200,
+      "sha256": "89a34ce22a4d9cbe944f5d4966a512b490c5f6208c4883463c0813ef79f4a280"
+    },
+    {
+      "file": "inventario-pagina-0103.json",
+      "count": 200,
+      "sha256": "54ae6df6f55291817d665a0d8f3c1643c34ad0ca453a2ea32e9bb18109961932"
+    },
+    {
+      "file": "inventario-pagina-0104.json",
+      "count": 200,
+      "sha256": "8ef4ac3671b035edc5170554439e813b01d29fa7c8af950013d0f552310ee5da"
+    },
+    {
+      "file": "inventario-pagina-0105.json",
+      "count": 200,
+      "sha256": "1d289271ff4a2b75621259d358704f341a0ae4f3feab282f9c9a1b1755f495a2"
+    },
+    {
+      "file": "inventario-pagina-0106.json",
+      "count": 200,
+      "sha256": "15567972afbbc3fbc9be2669c04a68fdcfde1c0f9c147719d48c385c971ba50a"
+    },
+    {
+      "file": "inventario-pagina-0107.json",
+      "count": 200,
+      "sha256": "7714507bf64483f1d1d1aebbb491b6c361ff1b74a43b16d64fc0440566bb3af2"
+    },
+    {
+      "file": "inventario-pagina-0108.json",
+      "count": 200,
+      "sha256": "bbed5843daa47e5983a56fb8efe393fe434776a833af38de38757c5b8caddb9e"
+    },
+    {
+      "file": "inventario-pagina-0109.json",
+      "count": 200,
+      "sha256": "6fa4962c07200cbcefc042091f05afc1f2499e8be1f8f781b9f954e004ba98da"
+    },
+    {
+      "file": "inventario-pagina-0110.json",
+      "count": 200,
+      "sha256": "dc7badc402873c151d2fdb3bfe057f254d7ee7de708b2997a28a6be86dd15dd6"
+    },
+    {
+      "file": "inventario-pagina-0111.json",
+      "count": 200,
+      "sha256": "47d377044dd078fa8802e087a43007474b1080d9c02d6804d11e09af1b2a4702"
+    },
+    {
+      "file": "inventario-pagina-0112.json",
+      "count": 200,
+      "sha256": "24c82b6e1a2aa893c1782d0bd7dfbaea6a175ec9d36ad84b710d083ffbcdceaf"
+    },
+    {
+      "file": "inventario-pagina-0113.json",
+      "count": 200,
+      "sha256": "e54baeaffb71b89c30bb361c31f7d3c9a4a7894777f2a361ff7ca013cbbdc5d1"
+    },
+    {
+      "file": "inventario-pagina-0114.json",
+      "count": 200,
+      "sha256": "a67c507b5af596506adaa713ca4a4c948582a9be6ad6fc7d52fc2542f8b439b6"
+    },
+    {
+      "file": "inventario-pagina-0115.json",
+      "count": 200,
+      "sha256": "82a566d53c2bdec575db691725b745ed15f812098244940aa37c4b57eb0813a3"
+    },
+    {
+      "file": "inventario-pagina-0116.json",
+      "count": 200,
+      "sha256": "e6fbbbea17d32ef48c7e60581d8f680dfb772734a7fc61291ec64d02eba98e37"
+    },
+    {
+      "file": "inventario-pagina-0117.json",
+      "count": 200,
+      "sha256": "c203d86238830160d3f0c7b2d34b1737336a823c2fb3e2ab0143e8f6d5ade9f6"
+    },
+    {
+      "file": "inventario-pagina-0118.json",
+      "count": 200,
+      "sha256": "ca92429b4c1131c9f236bcd2b07d22ec53aad7740223101e72615250e4a0ff73"
+    },
+    {
+      "file": "inventario-pagina-0119.json",
+      "count": 200,
+      "sha256": "9639acf6f7f9eddc7f9c9d22e87baba391233aab62618a0a51d66954021240d3"
+    },
+    {
+      "file": "inventario-pagina-0120.json",
+      "count": 200,
+      "sha256": "69eec8bfd331483bce24b25048d50f539b8163b2a16b4bcbd0c28d6e564ad74d"
+    },
+    {
+      "file": "inventario-pagina-0121.json",
+      "count": 200,
+      "sha256": "a1623e052bdf2e5b53852067d2c865de689beb6959a73f3abf48cfc3a8547bfa"
+    },
+    {
+      "file": "inventario-pagina-0122.json",
+      "count": 200,
+      "sha256": "976add4932440d3eed2eea626cca99f7c7f92e2ad2547691172f9d3a88807039"
+    },
+    {
+      "file": "inventario-pagina-0123.json",
+      "count": 200,
+      "sha256": "d8ee6d89cbe612d235329b2aa7eb9d767bbabd52eb4c5809ffa8ce004339ee77"
+    },
+    {
+      "file": "inventario-pagina-0124.json",
+      "count": 200,
+      "sha256": "0aca6d673c6ca846b777da87182f6acb0323b8b1429a1493b4f2af8906ec0863"
+    },
+    {
+      "file": "inventario-pagina-0125.json",
+      "count": 200,
+      "sha256": "320cbd90ca33267b1b060f3ba0143efaa35cf9196b8e861e41db85e39c656371"
+    },
+    {
+      "file": "inventario-pagina-0126.json",
+      "count": 200,
+      "sha256": "f0163048997eeae2b408ee851b747c6af39702e5c960bc477d48f09bccea4a7a"
+    },
+    {
+      "file": "inventario-pagina-0127.json",
+      "count": 200,
+      "sha256": "10740e9d67941de46659158e630349581718ffa9240c975f7ff66080582a47e8"
+    },
+    {
+      "file": "inventario-pagina-0128.json",
+      "count": 200,
+      "sha256": "853b41b2314a3c41851c077de0bd0065b02e106c03c01d53da9cadf2acdf48d2"
+    },
+    {
+      "file": "inventario-pagina-0129.json",
+      "count": 200,
+      "sha256": "87eef3e7fdef3f5073b4e55160e6b353cf348eb91c2fc65f94e66f0d90bc0721"
+    },
+    {
+      "file": "inventario-pagina-0130.json",
+      "count": 200,
+      "sha256": "9eecdb643d28cf6fffb61fa4f660e65c3075ba5b235e8b2b445831ce602696c6"
+    },
+    {
+      "file": "inventario-pagina-0131.json",
+      "count": 200,
+      "sha256": "8a8e8bfd68c6acad9c97a380438c54eda868832617117ef0865a96bc772780b9"
+    },
+    {
+      "file": "inventario-pagina-0132.json",
+      "count": 200,
+      "sha256": "bc574fd4d3183c6b475d208e3c610379df62a1d1d7788a97d671e6b0e8664a78"
+    },
+    {
+      "file": "inventario-pagina-0133.json",
+      "count": 200,
+      "sha256": "c8f2d3a9193d04a2c207624aba50bea8335ff88346340d14f057233ebe949d0c"
+    },
+    {
+      "file": "inventario-pagina-0134.json",
+      "count": 200,
+      "sha256": "2595b745d8d3b314d58bca8b274fa76f4302def5ca2e99dc6fb24e487422977a"
+    },
+    {
+      "file": "inventario-pagina-0135.json",
+      "count": 200,
+      "sha256": "f33c0ab425e0f666d36998f5e1949018626f721ba58a495b32f576888cfbf4f9"
+    },
+    {
+      "file": "inventario-pagina-0136.json",
+      "count": 200,
+      "sha256": "f920bd7bb5f7ac6074624b623127f0cddb80841a4f8660f1774ee8094e2b6235"
+    },
+    {
+      "file": "inventario-pagina-0137.json",
+      "count": 200,
+      "sha256": "6c12231af68ba0fa8a7ff74776baeffc56632142285b8a4ac9cdddb06d683a40"
+    },
+    {
+      "file": "inventario-pagina-0138.json",
+      "count": 200,
+      "sha256": "a87b3d70348753d1a08bdd642ce3f70f573afb0c16ba4bb5a10ae4f32e73f621"
+    },
+    {
+      "file": "inventario-pagina-0139.json",
+      "count": 200,
+      "sha256": "86f6996be152490b5c8a1a88b9d5fdfc4fc84fcb6497f7a93248531c1887f98b"
+    },
+    {
+      "file": "inventario-pagina-0140.json",
+      "count": 200,
+      "sha256": "20599541033c7352f8ebc2ff26cce955c7ea385e0caea00e240e5ccc4a98295f"
+    },
+    {
+      "file": "inventario-pagina-0141.json",
+      "count": 200,
+      "sha256": "449f01e60d07760a86c1ac35ee6d41e4a2633f72d00944bad2aed5c793c3604c"
+    },
+    {
+      "file": "inventario-pagina-0142.json",
+      "count": 200,
+      "sha256": "81794b3d36fe3f4ad7456799fba5f93f77caebb7edded48564067e0d64ac4da4"
+    },
+    {
+      "file": "inventario-pagina-0143.json",
+      "count": 200,
+      "sha256": "04fab82a813d85c91cd0b2645e511618b305bcf0f843926d3232201f7735029f"
+    },
+    {
+      "file": "inventario-pagina-0144.json",
+      "count": 200,
+      "sha256": "8454fa17293eb3d1587ef822c7f75217e93cc1102da73e363dac53ac41787611"
+    },
+    {
+      "file": "inventario-pagina-0145.json",
+      "count": 200,
+      "sha256": "f67b95d6a0f8480bba3493632bc3c9cde963ef8284932afa3cfd8a78c219964f"
+    },
+    {
+      "file": "inventario-pagina-0146.json",
+      "count": 200,
+      "sha256": "42191029f8a7b8c9b90a1812d52dcf73efe3f9b312bb27885e96180d96b12f74"
+    },
+    {
+      "file": "inventario-pagina-0147.json",
+      "count": 200,
+      "sha256": "4d115e71be292515499ac0a2671169f0e415f38f0a9104603129ecafed2f43df"
+    },
+    {
+      "file": "inventario-pagina-0148.json",
+      "count": 200,
+      "sha256": "66087bec42759de2d0132cce2aad90deb966eed9004bf4f0c769617a990f27f5"
+    },
+    {
+      "file": "inventario-pagina-0149.json",
+      "count": 200,
+      "sha256": "2eebfed6391b50dc151918d201ed22d2813fd029dc6d4f8b0aa7050c90ec1559"
+    },
+    {
+      "file": "inventario-pagina-0150.json",
+      "count": 200,
+      "sha256": "803f6671355ca167edb7b9ed02d5edaada43dde3a30bcf35dff3714eb7b2d531"
+    },
+    {
+      "file": "inventario-pagina-0151.json",
+      "count": 200,
+      "sha256": "b21358094a89773982c706ae9005352e286b707b53a118985142051d9a329475"
+    },
+    {
+      "file": "inventario-pagina-0152.json",
+      "count": 200,
+      "sha256": "a88e31a016738dd2a2fdc778e10f7a326009c4c3d95fc08a0f6bc12859a7a6d4"
+    },
+    {
+      "file": "inventario-pagina-0153.json",
+      "count": 200,
+      "sha256": "8300d85202ba75fedf62bff331830b6809ae1a4e8389bfac4fac5b2cb4be5bbd"
+    },
+    {
+      "file": "inventario-pagina-0154.json",
+      "count": 200,
+      "sha256": "7228288f9e3569fe088762c1726b9888acda57ae5c8e0d3bf51fc3ce86c024d0"
+    },
+    {
+      "file": "inventario-pagina-0155.json",
+      "count": 200,
+      "sha256": "fb5cd6d5e4561a9832b86cd2413348c0c49c2c88124036667b601a60db9ba92e"
+    },
+    {
+      "file": "inventario-pagina-0156.json",
+      "count": 200,
+      "sha256": "5dab8cf9061f79515627033c51aa2d7ed66ba49a9f9b442503e79b263c3124ad"
+    },
+    {
+      "file": "inventario-pagina-0157.json",
+      "count": 200,
+      "sha256": "6349121730212c65743167af1afbc1ba5f5711fac0f49a571f1b734d98da9e29"
+    },
+    {
+      "file": "inventario-pagina-0158.json",
+      "count": 200,
+      "sha256": "c09e7bf326f7796ca9e17aac79768ee31ac688408dedf8b10eddbaa0599857e3"
+    },
+    {
+      "file": "inventario-pagina-0159.json",
+      "count": 200,
+      "sha256": "259e89e19329b15e8d8c658b857d10fbf7786c592762c723753bbbc40f7e304e"
+    },
+    {
+      "file": "inventario-pagina-0160.json",
+      "count": 200,
+      "sha256": "11085cfe351b5f0c5f346cdb5523c7ce7e71e44f367bee70f64aed4b19ed2d30"
+    },
+    {
+      "file": "inventario-pagina-0161.json",
+      "count": 200,
+      "sha256": "ec0bba09708f4fe28bf8751e489fc8e3e072fd1cd19003865ebebb28194c86cb"
+    },
+    {
+      "file": "inventario-pagina-0162.json",
+      "count": 200,
+      "sha256": "458f172140d1d3401de9d715d7ceab23d7e5574e26e15155d485527e8cce7650"
+    },
+    {
+      "file": "inventario-pagina-0163.json",
+      "count": 200,
+      "sha256": "65ad8282b21927b906ded3b2d5c370b2a3aa0497dea509c55228182c36888677"
+    },
+    {
+      "file": "inventario-pagina-0164.json",
+      "count": 200,
+      "sha256": "cad455f50fef14c3dc5f8ae6bddc4bfd93a0dbfa113ed9a3cb7fbab4a2c49149"
+    },
+    {
+      "file": "inventario-pagina-0165.json",
+      "count": 200,
+      "sha256": "e1b8bbd24324ba95c6888dcabed16fa90ad81fe6d293dd1e84fdbb5b8c12b381"
+    },
+    {
+      "file": "inventario-pagina-0166.json",
+      "count": 200,
+      "sha256": "8169f61675af4eedbfb93f970ee0ba3f62d19628a0f5721c8d86763e8ef18552"
+    },
+    {
+      "file": "inventario-pagina-0167.json",
+      "count": 200,
+      "sha256": "dd6cc25b0cf47892b46dc8d5bf938fce281d67e13bc66e604bf8cd7f68ac0760"
+    },
+    {
+      "file": "inventario-pagina-0168.json",
+      "count": 200,
+      "sha256": "d18a28ea8adfff767da36c51832f1b13174f8605426d6686e4fd593e4b0fe52b"
+    },
+    {
+      "file": "inventario-pagina-0169.json",
+      "count": 200,
+      "sha256": "03a1bf6a0de9ff31eed53c004cd8ef8a9128176f532c855c417a736f7148b3fe"
+    },
+    {
+      "file": "inventario-pagina-0170.json",
+      "count": 200,
+      "sha256": "10154a6f7a944c6165a8a272bf957f6e392d74ae26435330725347551ea30002"
+    },
+    {
+      "file": "inventario-pagina-0171.json",
+      "count": 200,
+      "sha256": "21688b4f37dd8357a93e7fad1fcec0463134c3059e2562ff87d0ae1c726bd662"
+    },
+    {
+      "file": "inventario-pagina-0172.json",
+      "count": 200,
+      "sha256": "eb9216d3f640e0db1409d51a67d38d0094df04bcf4910a36d1862d9d4648f9fb"
+    },
+    {
+      "file": "inventario-pagina-0173.json",
+      "count": 200,
+      "sha256": "8ce16f03ecf809a98f131245041397ba4b41e59e5cf00bd60dd08296fc60c943"
+    },
+    {
+      "file": "inventario-pagina-0174.json",
+      "count": 200,
+      "sha256": "2498641e4f1221ef917e6c4e591f4a0dd7c8748c31b97df093910fe7304d51c2"
+    },
+    {
+      "file": "inventario-pagina-0175.json",
+      "count": 200,
+      "sha256": "da832dd46a12c3b936a7a14c8a14d7487fa715683e3361a605c25f017ca1a799"
+    },
+    {
+      "file": "inventario-pagina-0176.json",
+      "count": 200,
+      "sha256": "0eca9dc1ce9c2c57b6c71998b413c4a2d215b9e70d55ab152f537c64000c6fcc"
+    },
+    {
+      "file": "inventario-pagina-0177.json",
+      "count": 200,
+      "sha256": "843f1a44e165cf2718803743ca4dddce8fb461e4fdaf1de10a57e1de3d0efff4"
+    },
+    {
+      "file": "inventario-pagina-0178.json",
+      "count": 200,
+      "sha256": "a0fcd44d3366352bd3cc6bd7035d39ab83d871ddcea0985fbb0e26c6f8dba4ab"
+    },
+    {
+      "file": "inventario-pagina-0179.json",
+      "count": 200,
+      "sha256": "3c436abade5068a86fe421560fd9cb145d1813a45f581a00442e98a3c644e699"
+    },
+    {
+      "file": "inventario-pagina-0180.json",
+      "count": 200,
+      "sha256": "857febd306c456dfdcf3e0b1ed09487c312ae17ab20e50adc9bc2b9c99367243"
+    },
+    {
+      "file": "inventario-pagina-0181.json",
+      "count": 200,
+      "sha256": "c0eb21c4aa797014e4ebf007efcdd02e76ab461d397c08965387f572dc70da85"
+    },
+    {
+      "file": "inventario-pagina-0182.json",
+      "count": 200,
+      "sha256": "5a1ccf5e6939f9f2dd276fdf86e7a574fe4bfcabc68111ba103c1ee05519d2e3"
+    },
+    {
+      "file": "inventario-pagina-0183.json",
+      "count": 200,
+      "sha256": "fb0198fc1239ba56e36d56b6b162f97d5b8bb2665cb2500f43f38b38db48dcc1"
+    },
+    {
+      "file": "inventario-pagina-0184.json",
+      "count": 200,
+      "sha256": "688454491681e00116b7ed4bc1753950319d6512e5ee3c96ed519db7551ac1da"
+    },
+    {
+      "file": "inventario-pagina-0185.json",
+      "count": 200,
+      "sha256": "46721144d1dee4d6acc7c325d658554dd74026969f0ae73bda29ea9baf5de809"
+    },
+    {
+      "file": "inventario-pagina-0186.json",
+      "count": 200,
+      "sha256": "b59a56bddbe8359653d1a125adb366f4ee9de7985ecf13543a2bc88475cf2e0c"
+    },
+    {
+      "file": "inventario-pagina-0187.json",
+      "count": 200,
+      "sha256": "922d3ba404c0e4b0aa0b0df7e592519454e9577e97302aa63ace46588a3d4721"
+    },
+    {
+      "file": "inventario-pagina-0188.json",
+      "count": 200,
+      "sha256": "b857560807afe08c80f9ed6605094057712e964d5032b97b5d8e207e73ddf592"
+    },
+    {
+      "file": "inventario-pagina-0189.json",
+      "count": 200,
+      "sha256": "9c099839694fd9316a55f1520f59b5f81f496c6f3c87d3f9c504b835229a1339"
+    },
+    {
+      "file": "inventario-pagina-0190.json",
+      "count": 200,
+      "sha256": "b890604589bc744aadf8b7543907e3755ead06b1ff046d9aeedf15f6516c1f50"
+    },
+    {
+      "file": "inventario-pagina-0191.json",
+      "count": 200,
+      "sha256": "9eec3f5b9dfffbf48fd74856428e52a7d8f262d7b007f9d3fb93fbf0f0fb2645"
+    },
+    {
+      "file": "inventario-pagina-0192.json",
+      "count": 200,
+      "sha256": "bff240e6b5fa12d5b85ec737f3fbf1e29b2cfa7ba7899789cd0e32eab4aa4370"
+    },
+    {
+      "file": "inventario-pagina-0193.json",
+      "count": 200,
+      "sha256": "c3b9270c06835c24d2adf720990863d25f37f6042654201c650ea64808d2f6b1"
+    },
+    {
+      "file": "inventario-pagina-0194.json",
+      "count": 200,
+      "sha256": "c762414fa2e4f867bae689018d1b8b25b0ec110dd917a1ae552a45ba7d1a584e"
+    },
+    {
+      "file": "inventario-pagina-0195.json",
+      "count": 200,
+      "sha256": "1633ce8b0f24ec1e3ee338faef00cd4e0edbe9ac65960f6ec772ef994e985a4a"
+    },
+    {
+      "file": "inventario-pagina-0196.json",
+      "count": 200,
+      "sha256": "9d7c75fa44331004a78925ad739e6417967aef64ed9bbbd55b57b14baf5a4d8d"
+    },
+    {
+      "file": "inventario-pagina-0197.json",
+      "count": 200,
+      "sha256": "6072381d9b1dd311a8826e2b54820bfa5e2adfb93665d3b6cd892bc2f8624e9d"
+    },
+    {
+      "file": "inventario-pagina-0198.json",
+      "count": 200,
+      "sha256": "6fc979afcbe30dd1f7861a1722105f0b11b198c22d5fee4f14db744f19f47752"
+    },
+    {
+      "file": "inventario-pagina-0199.json",
+      "count": 200,
+      "sha256": "488f7f3af5c42c8c5dcd323652665e5c95a5eea6a85c2bd61e609b4432a6e7f7"
+    },
+    {
+      "file": "inventario-pagina-0200.json",
+      "count": 200,
+      "sha256": "aa698f94b3ec8a2ef35721ab9beb32a734edee6b461b5b822817ee59b8cb2576"
+    },
+    {
+      "file": "inventario-pagina-0201.json",
+      "count": 200,
+      "sha256": "f16b791fcb5b407fd4e7c82832552381d61b22c9d810c0facaa0630fc1290e7e"
+    },
+    {
+      "file": "inventario-pagina-0202.json",
+      "count": 200,
+      "sha256": "7408a6943501ab0ba49befcffa7ffa37798586400bf313686db094f61c6e03fa"
+    },
+    {
+      "file": "inventario-pagina-0203.json",
+      "count": 200,
+      "sha256": "946daa2f33f53ffdbbd0da2908a0c9b619fb6929edd1fd89eaa404fe292ce10a"
+    },
+    {
+      "file": "inventario-pagina-0204.json",
+      "count": 200,
+      "sha256": "a6ee9b93282590aa03157eeab8f71026c28138986f35c671bf64b64f98632b6c"
+    },
+    {
+      "file": "inventario-pagina-0205.json",
+      "count": 200,
+      "sha256": "f1a01bc7d9f9c82994a5bf3cc71d2182b82f8131c61dba4a2a1e15be3b05e97a"
+    },
+    {
+      "file": "inventario-pagina-0206.json",
+      "count": 200,
+      "sha256": "1a4737e3ca2a6e5cbf59d26715b8c9073de3ac52d603805a972ae1046c167b6b"
+    },
+    {
+      "file": "inventario-pagina-0207.json",
+      "count": 200,
+      "sha256": "151ddd7159acfad5e75488517f5c90d4935c3ccc5be9b8ce624ab2445ddc5feb"
+    },
+    {
+      "file": "inventario-pagina-0208.json",
+      "count": 200,
+      "sha256": "8fb3796012041456b54438177158ead83e5f1493bd645556071b6f25c3849529"
+    },
+    {
+      "file": "inventario-pagina-0209.json",
+      "count": 200,
+      "sha256": "f310404e734e6cb41734348f14a13575a46e7a5bb3c4c3c03a43c7e26a331f8c"
+    },
+    {
+      "file": "inventario-pagina-0210.json",
+      "count": 200,
+      "sha256": "926b706646e188961b76da515e005f0ba52aa2e79a81b2501b29e061313da891"
+    },
+    {
+      "file": "inventario-pagina-0211.json",
+      "count": 200,
+      "sha256": "e7d9e91345fa9fa710d8f1bb13dcdce36e1648211be39b45af747705ff3a3ade"
+    },
+    {
+      "file": "inventario-pagina-0212.json",
+      "count": 200,
+      "sha256": "a59552df5a09bfb55eef481fd760b0075157b7da6de301b6475623a7d9839e8f"
+    },
+    {
+      "file": "inventario-pagina-0213.json",
+      "count": 200,
+      "sha256": "c71a0477b53f42c8988081d61e52dfc76bc4d65addc461201330dc1d8ae2b8e2"
+    },
+    {
+      "file": "inventario-pagina-0214.json",
+      "count": 200,
+      "sha256": "4843ff42a6b1e7d1c7a1aa9e5129510ee01d8dc523a5e796c6d4552025296661"
+    },
+    {
+      "file": "inventario-pagina-0215.json",
+      "count": 200,
+      "sha256": "59dc3af70bb25e74a1c88708b5c3b0fe2177d3e58c072589a9f5306ff9ed7f0a"
+    },
+    {
+      "file": "inventario-pagina-0216.json",
+      "count": 200,
+      "sha256": "820ac00004ba243e89fabf79a1e03cc4564dff5948bb479cb5f567a6b940d5b5"
+    },
+    {
+      "file": "inventario-pagina-0217.json",
+      "count": 200,
+      "sha256": "4884acf2f9fdc93aa7eb6b1b8d6dcfc6d87849381ff15303217ed1eeecfdad42"
+    },
+    {
+      "file": "inventario-pagina-0218.json",
+      "count": 200,
+      "sha256": "48bfff556b5c5eadf4750cc37a58fb5068d90df13b6823cf642da03687576e56"
+    },
+    {
+      "file": "inventario-pagina-0219.json",
+      "count": 200,
+      "sha256": "47ea0c67d9148a81f62b617ac90ba39e5238d005436b58aa571adb7d9634af06"
+    },
+    {
+      "file": "inventario-pagina-0220.json",
+      "count": 200,
+      "sha256": "d6e62e99495d25593b82e09c02bc0d0341672a9a3509dbd11ad0e6927f3a3c68"
+    },
+    {
+      "file": "inventario-pagina-0221.json",
+      "count": 200,
+      "sha256": "5b46f5ca8ec6d316907827e5fef777e07c927ab109d776c5927adcb92ca062f2"
+    },
+    {
+      "file": "inventario-pagina-0222.json",
+      "count": 200,
+      "sha256": "b583da3e0b996f3a85240ce941902ae50a2efd674f7f7fbb1549e68723f9bd54"
+    },
+    {
+      "file": "inventario-pagina-0223.json",
+      "count": 200,
+      "sha256": "3c687e344adc27e4751811dddc37da686e54170cf4b752bbcee5d614405b2079"
+    },
+    {
+      "file": "inventario-pagina-0224.json",
+      "count": 200,
+      "sha256": "a78799a3c654c90f8c7a67b30477bb2125eb93da09f07fdb1f5c093d3e19a4be"
+    },
+    {
+      "file": "inventario-pagina-0225.json",
+      "count": 200,
+      "sha256": "ffa5b12641084f56a65e5af4c9e44f00c745732ff98aa5955da68d3cd422b5ef"
+    },
+    {
+      "file": "inventario-pagina-0226.json",
+      "count": 200,
+      "sha256": "8e814600d21d5b757427ab85e6cbe9b18e28719a405bbb4c31d5327e8b2b8a33"
+    },
+    {
+      "file": "inventario-pagina-0227.json",
+      "count": 200,
+      "sha256": "524b2409ec0f11a04b645fe167523ea6713769672641a7abf9e48a4d3184ad4a"
+    },
+    {
+      "file": "inventario-pagina-0228.json",
+      "count": 200,
+      "sha256": "d1e36e9949af9ccf9dafa273515b6d941be4239b748630ed9de35dd5bfddc47f"
+    },
+    {
+      "file": "inventario-pagina-0229.json",
+      "count": 200,
+      "sha256": "a4747aa509c258efec039974281ef456a7e7b93c4ab1a9b49e20bd2ccacac6d7"
+    },
+    {
+      "file": "inventario-pagina-0230.json",
+      "count": 200,
+      "sha256": "1c30b6716fa5a6b2cbf8a260c5b9efc442b45e461f0356af3ab0a37c6a0fabf9"
+    },
+    {
+      "file": "inventario-pagina-0231.json",
+      "count": 200,
+      "sha256": "36c273d21e76f353cc59d4e83e4796c041dfd38f84a81c45191979255656d03b"
+    },
+    {
+      "file": "inventario-pagina-0232.json",
+      "count": 200,
+      "sha256": "ec2e9db8a38f2d7c65679a029cf1e35096a15edb2f0f976bb55a3fa50f98b618"
+    },
+    {
+      "file": "inventario-pagina-0233.json",
+      "count": 200,
+      "sha256": "8ddc16bbaf8fb3a2ed377035dca8b4a0cb81924118d7f8777fb56b11dff6d6ab"
+    },
+    {
+      "file": "inventario-pagina-0234.json",
+      "count": 200,
+      "sha256": "102447ddefd2a09014f7a0c2d9daef9e3a1c47045e9b06273110588d1c7944d8"
+    },
+    {
+      "file": "inventario-pagina-0235.json",
+      "count": 200,
+      "sha256": "edda1e2661ad03e48ef9defab3b945689ff827c7767d3e6b6a2b3c356a9ce437"
+    },
+    {
+      "file": "inventario-pagina-0236.json",
+      "count": 200,
+      "sha256": "15daf193137ccab934e7e40e2748ee0f768316f81bfec45763d697245d4728b2"
+    },
+    {
+      "file": "inventario-pagina-0237.json",
+      "count": 200,
+      "sha256": "5e02e11166f919cd45caae5f22ac47fd6dd3a7ced68f0fe392ac601e8e77dc66"
+    },
+    {
+      "file": "inventario-pagina-0238.json",
+      "count": 200,
+      "sha256": "03c1bba14c4b46ebc7a3dc5565476b0c23c543371ae6b5b4ed19b40509e6e21f"
+    },
+    {
+      "file": "inventario-pagina-0239.json",
+      "count": 200,
+      "sha256": "0e9c16bd5ff792787eadeb5ed259dbc2b07449bdfbf6fe89478829f5a11454fb"
+    },
+    {
+      "file": "inventario-pagina-0240.json",
+      "count": 200,
+      "sha256": "94a59b1ab35d794f271dacf6a258a696f6d12b831fdda81b6d62ff3cae58ccbb"
+    },
+    {
+      "file": "inventario-pagina-0241.json",
+      "count": 200,
+      "sha256": "80ebe2332aff4fdbddf535cc49a276e2032e38ecec4995758f0009420b39d69c"
+    },
+    {
+      "file": "inventario-pagina-0242.json",
+      "count": 200,
+      "sha256": "0426f2ee85b658f54d5248023fa19d8f02d66d1d3b0b3fb9ed2129fb63a19d39"
+    },
+    {
+      "file": "inventario-pagina-0243.json",
+      "count": 200,
+      "sha256": "e657586bcaee362cea1461a306146179a13d9ed309ebdd74e13eff9b2af65da5"
+    },
+    {
+      "file": "inventario-pagina-0244.json",
+      "count": 200,
+      "sha256": "bb84c290cda610a2d3dbc09eb0cd883f2740bd68ab31bde3b2a0c8732d60d19e"
+    },
+    {
+      "file": "inventario-pagina-0245.json",
+      "count": 200,
+      "sha256": "fa985b410e99ebf6ea0c789aeb03a455549c3ee82528ca2ccc80eeb3fb60b8cb"
+    },
+    {
+      "file": "inventario-pagina-0246.json",
+      "count": 200,
+      "sha256": "07df62581597147ff248780b02367b7866ebc8e0136b539c8c5040adecf98858"
+    },
+    {
+      "file": "inventario-pagina-0247.json",
+      "count": 200,
+      "sha256": "7fe8211758274a5e8d330e7501ced1e677206fbcf60190229480e51d2b47fbc5"
+    },
+    {
+      "file": "inventario-pagina-0248.json",
+      "count": 200,
+      "sha256": "6c57f6c56a7187c37f690fd2ce445802dc25f0781fb36a3a01c79ba4affa37fe"
+    },
+    {
+      "file": "inventario-pagina-0249.json",
+      "count": 83,
+      "sha256": "f18cb709102988ecb7f2668dec950893da0b0445c8ed8e229f36b9697310c65b"
+    }
+  ],
+  "interpretationGaps": [
+    "No se acredita vigencia fiscal ni revisión independiente.",
+    "Años del nombre y claves son dimensiones del dato; no prueba de selección del motor.",
+    "Sin expansión automática a 2026 de escalas o mínimos 2025.",
+    "Sin análisis de flujo interprocedimental, intervalos intranuales ni unidades derivadas.",
+    "Python: cobertura AST; valores efectivos/herencias pendientes.",
+    "No se extraen parámetros de prosa; texto fuera de contenedores/catalogo puede no persistir."
+  ],
+  "gaps": [
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025.ts",
+      "reason": "Exports indirectos o funciones declaradas sin evaluación efectiva",
+      "symbols": [
+        "ANDALUCIA_ADOPCION_INTERNACIONAL_2025",
+        "ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025",
+        "ANDALUCIA_ASISTENCIA_PERSONAS_DISCAPACIDAD_2025",
+        "ANDALUCIA_AYUDA_DOMESTICA_2025",
+        "ANDALUCIA_CONTRIBUYENTE_DISCAPACIDAD_2025",
+        "ANDALUCIA_CONYUGE_PAREJA_DISCAPACIDAD_2025",
+        "ANDALUCIA_DEDUCCIONES_AUTONOMICAS_2025",
+        "ANDALUCIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025",
+        "ANDALUCIA_FAMILIA_NUMEROSA_2025",
+        "ANDALUCIA_INVERSION_ACCIONES_PARTICIPACIONES_2025",
+        "ANDALUCIA_INVERSION_VIVIENDA_HABITUAL_PROTEGIDA_JOVENES_2025",
+        "ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025",
+        "ARAGON_CUIDADO_PERSONAS_DEPENDIENTES_2025",
+        "ARAGON_DEDUCCIONES_AUTONOMICAS_2025",
+        "ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "ARAGON_GUARDERIA_MENORES_3_2025",
+        "ARAGON_MAYORES_70_2025",
+        "ARAGON_NACIMIENTO_ADOPCION_TERCER_HIJO_SUCESIVOS_2025",
+        "ASTURIAS_ACOGIMIENTO_MAYORES_65_2025",
+        "ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "ASTURIAS_CENTROS_CERO_TRES_2025",
+        "ASTURIAS_DEDUCCIONES_AUTONOMICAS_2025",
+        "ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "ASTURIAS_FAMILIAS_NUMEROSAS_2025",
+        "BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "BALEARS_DEDUCCIONES_AUTONOMICAS_2025",
+        "BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025",
+        "BALEARS_LIBROS_TEXTO_2025",
+        "BALEARS_NACIMIENTO_2025",
+        "CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025",
+        "CANARIAS_CONTRIBUYENTES_DESEMPLEADOS_2025",
+        "CANARIAS_DEDUCCIONES_AUTONOMICAS_2025",
+        "CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CANARIAS_DISCAPACIDAD_MAYORES_65_2025",
+        "CANARIAS_FAMILIA_NUMEROSA_2025",
+        "CANARIAS_GASTO_ENFERMEDAD_2025",
+        "CANARIAS_NACIMIENTO_ADOPCION_2025",
+        "CANTABRIA_ARRENDAMIENTO_JOVENES_MAYORES_DISCAPACIDAD_2025",
+        "CANTABRIA_CUIDADO_FAMILIARES_2025",
+        "CANTABRIA_DEDUCCIONES_AUTONOMICAS_2025",
+        "CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025",
+        "CATALOGOS_DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD",
+        "CATALOGO_DEDUCCIONES_AUTONOMICAS_2025",
+        "CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025",
+        "CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025",
+        "CATALUNYA_DEDUCCIONES_AUTONOMICAS_2025",
+        "CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CATALUNYA_INTERESES_PRESTAMOS_MASTER_DOCTORADO_2025",
+        "CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025",
+        "CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025",
+        "CATALUNYA_OBLIGACION_DECLARAR_MAS_DE_UN_PAGADOR_2025",
+        "CATALUNYA_REHABILITACION_VIVIENDA_HABITUAL_2025",
+        "CATALUNYA_VIUDEDAD_2025",
+        "CEUTA_DEDUCCIONES_AUTONOMICAS_2025",
+        "CLM_DEDUCCIONES_AUTONOMICAS_2025",
+        "CLM_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CLM_DISCAPACIDAD_ASCENDIENTES_DESCENDIENTES_2025",
+        "CLM_DISCAPACIDAD_CONTRIBUYENTE_2025",
+        "CLM_FAMILIA_NUMEROSA_2025",
+        "CLM_MAYORES_75_2025",
+        "CLM_NACIMIENTO_ADOPCION_2025",
+        "CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025",
+        "CYL_DEDUCCIONES_AUTONOMICAS_2025",
+        "CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CYL_FAMILIA_NUMEROSA_2025",
+        "CYL_NACIMIENTO_ADOPCION_HIJOS_2025",
+        "DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA",
+        "DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS",
+        "DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD",
+        "EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025",
+        "EXTREMADURA_DEDUCCIONES_AUTONOMICAS_2025",
+        "EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "EXTREMADURA_TRABAJO_DEPENDIENTE_2025",
+        "GALICIA_ALQUILER_VIVIENDA_HABITUAL_2025",
+        "GALICIA_DEDUCCIONES_AUTONOMICAS_2025",
+        "GALICIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "GALICIA_FAMILIA_NUMEROSA_2025",
+        "GALICIA_NACIMIENTO_ADOPCION_HIJOS_2025",
+        "MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "MADRID_DEDUCCIONES_AUTONOMICAS_2025",
+        "MADRID_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "MADRID_GASTOS_EDUCATIVOS_2025",
+        "MADRID_NACIMIENTO_ADOPCION_2025",
+        "MELILLA_DEDUCCIONES_AUTONOMICAS_2025",
+        "MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "MURCIA_DEDUCCIONES_AUTONOMICAS_2025",
+        "MURCIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "MURCIA_GASTOS_GUARDERIA_2025",
+        "MURCIA_GASTOS_VETERINARIOS_2025",
+        "RIOJA_ARRENDAMIENTO_MENORES_36_2025",
+        "RIOJA_DEDUCCIONES_AUTONOMICAS_2025",
+        "RIOJA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "RIOJA_ENFERMEDAD_CELIACA_2025",
+        "RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025",
+        "VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025",
+        "VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025",
+        "VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025",
+        "VALENCIANA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025",
+        "VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025",
+        "obtenerDeduccionAutonomicaCatalogada"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+      "reason": "Exports indirectos o funciones declaradas sin evaluación efectiva",
+      "symbols": [
+        "ANDALUCIA_ADOPCION_INTERNACIONAL_2025",
+        "ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025",
+        "ANDALUCIA_ASISTENCIA_PERSONAS_DISCAPACIDAD_2025",
+        "ANDALUCIA_AYUDA_DOMESTICA_2025",
+        "ANDALUCIA_CONTRIBUYENTE_DISCAPACIDAD_2025",
+        "ANDALUCIA_CONYUGE_PAREJA_DISCAPACIDAD_2025",
+        "ANDALUCIA_DEDUCCIONES_AUTONOMICAS_2025",
+        "ANDALUCIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "ANDALUCIA_FAMILIA_MONOPARENTAL_ASCENDIENTES_MAYORES_75_2025",
+        "ANDALUCIA_FAMILIA_NUMEROSA_2025",
+        "ANDALUCIA_INVERSION_ACCIONES_PARTICIPACIONES_2025",
+        "ANDALUCIA_INVERSION_VIVIENDA_HABITUAL_PROTEGIDA_JOVENES_2025",
+        "ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025",
+        "ARAGON_CUIDADO_PERSONAS_DEPENDIENTES_2025",
+        "ARAGON_DEDUCCIONES_AUTONOMICAS_2025",
+        "ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "ARAGON_GUARDERIA_MENORES_3_2025",
+        "ARAGON_MAYORES_70_2025",
+        "ARAGON_NACIMIENTO_ADOPCION_TERCER_HIJO_SUCESIVOS_2025",
+        "ASTURIAS_ACOGIMIENTO_MAYORES_65_2025",
+        "ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "ASTURIAS_CENTROS_CERO_TRES_2025",
+        "ASTURIAS_DEDUCCIONES_AUTONOMICAS_2025",
+        "ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "ASTURIAS_FAMILIAS_NUMEROSAS_2025",
+        "BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "BALEARS_DEDUCCIONES_AUTONOMICAS_2025",
+        "BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025",
+        "BALEARS_LIBROS_TEXTO_2025",
+        "BALEARS_NACIMIENTO_2025",
+        "CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025",
+        "CANARIAS_CONTRIBUYENTES_DESEMPLEADOS_2025",
+        "CANARIAS_DEDUCCIONES_AUTONOMICAS_2025",
+        "CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CANARIAS_DISCAPACIDAD_MAYORES_65_2025",
+        "CANARIAS_FAMILIA_NUMEROSA_2025",
+        "CANARIAS_GASTO_ENFERMEDAD_2025",
+        "CANARIAS_NACIMIENTO_ADOPCION_2025",
+        "CANTABRIA_ARRENDAMIENTO_JOVENES_MAYORES_DISCAPACIDAD_2025",
+        "CANTABRIA_CUIDADO_FAMILIARES_2025",
+        "CANTABRIA_DEDUCCIONES_AUTONOMICAS_2025",
+        "CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025",
+        "CATALUNYA_ALQUILER_VICTIMAS_VIOLENCIA_MACHISTA_2025",
+        "CATALUNYA_ALQUILER_VIVIENDA_HABITUAL_2025",
+        "CATALUNYA_DEDUCCIONES_AUTONOMICAS_2025",
+        "CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CATALUNYA_INTERESES_PRESTAMOS_MASTER_DOCTORADO_2025",
+        "CATALUNYA_INVERSION_COOPERATIVAS_AGRARIAS_VIVIENDA_2025",
+        "CATALUNYA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025",
+        "CATALUNYA_OBLIGACION_DECLARAR_MAS_DE_UN_PAGADOR_2025",
+        "CATALUNYA_REHABILITACION_VIVIENDA_HABITUAL_2025",
+        "CATALUNYA_VIUDEDAD_2025",
+        "CEUTA_DEDUCCIONES_AUTONOMICAS_2025",
+        "CLM_DEDUCCIONES_AUTONOMICAS_2025",
+        "CLM_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CLM_DISCAPACIDAD_ASCENDIENTES_DESCENDIENTES_2025",
+        "CLM_DISCAPACIDAD_CONTRIBUYENTE_2025",
+        "CLM_FAMILIA_NUMEROSA_2025",
+        "CLM_MAYORES_75_2025",
+        "CLM_NACIMIENTO_ADOPCION_2025",
+        "CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025",
+        "CYL_DEDUCCIONES_AUTONOMICAS_2025",
+        "CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "CYL_FAMILIA_NUMEROSA_2025",
+        "CYL_NACIMIENTO_ADOPCION_HIJOS_2025",
+        "DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA",
+        "EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025",
+        "EXTREMADURA_DEDUCCIONES_AUTONOMICAS_2025",
+        "EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "EXTREMADURA_TRABAJO_DEPENDIENTE_2025",
+        "GALICIA_ALQUILER_VIVIENDA_HABITUAL_2025",
+        "GALICIA_DEDUCCIONES_AUTONOMICAS_2025",
+        "GALICIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "GALICIA_FAMILIA_NUMEROSA_2025",
+        "GALICIA_NACIMIENTO_ADOPCION_HIJOS_2025",
+        "MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "MADRID_DEDUCCIONES_AUTONOMICAS_2025",
+        "MADRID_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "MADRID_GASTOS_EDUCATIVOS_2025",
+        "MADRID_NACIMIENTO_ADOPCION_2025",
+        "MELILLA_DEDUCCIONES_AUTONOMICAS_2025",
+        "MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025",
+        "MURCIA_DEDUCCIONES_AUTONOMICAS_2025",
+        "MURCIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "MURCIA_GASTOS_GUARDERIA_2025",
+        "MURCIA_GASTOS_VETERINARIOS_2025",
+        "RIOJA_ARRENDAMIENTO_MENORES_36_2025",
+        "RIOJA_DEDUCCIONES_AUTONOMICAS_2025",
+        "RIOJA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "RIOJA_ENFERMEDAD_CELIACA_2025",
+        "RIOJA_NACIMIENTO_ADOPCION_HIJOS_2025",
+        "VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025",
+        "VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025",
+        "VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025",
+        "VALENCIANA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025",
+        "VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025",
+        "VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025"
+      ]
+    },
+    {
+      "file": "lib/animacion.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "[mostrado, fijarMostrado]",
+        "anterior",
+        "inicio",
+        "fin",
+        "instanteInicial",
+        "raf",
+        "animar",
+        "progreso",
+        "suavizado",
+        "siguiente"
+      ]
+    },
+    {
+      "file": "lib/auditoria-graficos.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "pasosSalarioEuros",
+        "maximoEtiquetasSalario",
+        "minimo",
+        "maximo",
+        "amplitud",
+        "paso",
+        "primerTick",
+        "ultimoTick",
+        "ticksIntermedios",
+        "primerTick",
+        "ticks",
+        "salario"
+      ]
+    },
+    {
+      "file": "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "varianteAuditoriaPorDefecto",
+        "escenarioAuditoriaPorDefecto",
+        "limitesRangoSalarialAuditoria",
+        "rangoSalarialAuditoriaPorDefecto",
+        "aniosGraficoTipoEfectivoIrpfPorDefecto",
+        "aniosGraficoDiferenciaTipoIrpfPorDefecto",
+        "anioGraficoCunaFiscalPorDefecto",
+        "anioGraficoTipoMarginalIrpfPorDefecto",
+        "modoDiferenciaGraficoAuditoriaPorDefecto",
+        "modoTipoEfectivoGraficoAuditoriaPorDefecto",
+        "modoCunaFiscalGraficoAuditoriaPorDefecto",
+        "seleccionGraficoAuditoriaPorDefecto",
+        "escenarioPermiteReferenciaTecnica2026",
+        "comunidades",
+        "normalizarAnioComparado",
+        "normalizarEscenarioAuditoriaNormativa",
+        "comunidadNormalizada",
+        "anioReferencia",
+        "perfilesAuditoriaNormativa",
+        "perfilAuditoriaNormativaPermiteReferenciaTecnica2026",
+        "perfilAuditoriaNormativaParaRetencionPersonalizada",
+        "detalle",
+        "detallePerfilAuditoriaNormativa",
+        "detalle",
+        "umbralRetencionPerfilAuditoriaEuros",
+        "perfilRetencionPersonalizada",
+        "detallePerfil",
+        "estrategiasAuditoriaNormativa",
+        "magnitudesAuditoriaNormativa",
+        "comunidadesAuditoriaNormativa",
+        "describirPerfilAuditoriaNormativa",
+        "describirEstrategiaAuditoriaNormativa",
+        "describirMagnitudAuditoriaNormativa",
+        "describirComunidadAutonomaAuditoria",
+        "decodificarPerfilAuditoriaNormativa",
+        "decodificarEstrategiaProyeccionSalarial",
+        "decodificarMagnitudAuditada",
+        "decodificarComunidadAutonomaAuditoria",
+        "decodificarGraficoAuditoriaNormativa",
+        "decodificarModoUnidadGraficoAuditoria",
+        "decodificarAnioFiscal",
+        "leerValorUrl",
+        "centimosAEurosUrl",
+        "eurosUrlACentimos",
+        "salarioRangoAuditoriaEurosSchema",
+        "rangoSalarialAuditoriaUrlSchema",
+        "decodificarRangoSalarialAuditoriaUrl",
+        "leerRangoSalarialAuditoriaDesdeUrl",
+        "ordenarRangoSalarialAuditoria",
+        "codificarRangoSalarialAuditoriaUrl",
+        "normalizarRangoSalarialAuditoria",
+        "serializarRangoSalarialAuditoriaUrl",
+        "codificarAniosGraficoAuditoriaUrl",
+        "decodificarAniosGraficoAuditoriaUrl",
+        "anios",
+        "anio",
+        "aniosUnicos",
+        "decodificarParAniosGraficoAuditoriaUrl",
+        "leerAnioGraficoCunaFiscalDesdeUrl",
+        "anioDirecto",
+        "leerSeleccionGraficoAuditoriaDesdeUrl",
+        "grafica",
+        "construirContratoSeleccionGraficoAuditoriaV2",
+        "leerAnioComparadoDesdePeriodo",
+        "decodificarPeriodoAuditoriaUrl",
+        "[comparado, referencia]",
+        "anioComparado",
+        "anioReferencia",
+        "leerPeriodoAuditoriaDesdeUrl",
+        "leerEscenarioAuditoriaNormativaDesdeUrl",
+        "comunidadAutonoma",
+        "periodo",
+        "construirContratoUrlAuditoriaNormativaV1",
+        "contrato",
+        "serializarContratoUrlAuditoriaNormativaV1",
+        "parametros",
+        "construirContratoUrlAuditoriaNormativaV2",
+        "contrato",
+        "serializarContratoUrlAuditoriaNormativaV2",
+        "parametros",
+        "serializarEscenarioAuditoriaNormativa",
+        "impactoDesdePerspectivaCiudadano"
+      ]
+    },
+    {
+      "file": "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "CERO",
+        "UNO",
+        "CONCURRENCIA_AUDITORIA_RANGO",
+        "TAMANO_LOTE_AUDITORIA_RANGO",
+        "rangoNumerico",
+        "ipcAnualConocido",
+        "factorIpc",
+        "escalarCentimos",
+        "escalarDecimalTexto",
+        "ajustarDesglose",
+        "ajustado",
+        "compararAjustadoPorIpcConLiquidacion",
+        "factor",
+        "salarioBrutoNominalAnualCentimos",
+        "inicioReferencia",
+        "referencia",
+        "inicioComparado",
+        "comparadoNominal",
+        "comparadoAjustado",
+        "proporcionSegura",
+        "tipoCarga",
+        "tipoEfectivoIrpf",
+        "tipoCunaLaboral",
+        "rangoSalarioBrutoAnualCentimos",
+        "rangoRegular",
+        "puntosNormativos",
+        "salarioReferenciaDesdeNominal",
+        "puntosDeduccionSmiNominalesCentimos",
+        "puntosNormativosReferenciaEnRango",
+        "anios",
+        "puntosNominales",
+        "partirEnLotes",
+        "esHallazgoAuditoria",
+        "construirPuntoAuditoriaConLiquidacion",
+        "inicioComparacion",
+        "comparacion",
+        "construirPuntoAuditoriaAnioAjustadoConLiquidacion",
+        "salarioBrutoNominalAnualCentimos",
+        "inicioLiquidacion",
+        "desgloseNominal",
+        "desgloseAjustado",
+        "comparacion",
+        "construirPuntosAuditoriaAnioAjustadoImpl",
+        "salarios",
+        "lotes",
+        "factor",
+        "compatibilidadSalarioLegacy",
+        "puntosPorLote",
+        "puntos",
+        "construirHallazgos",
+        "masAfectado",
+        "mayorBrechaCarga",
+        "primerIrpfReferencia",
+        "hallazgos",
+        "auditarRangoSalarialConLiquidacionIrpf",
+        "salarios",
+        "lotes",
+        "compatibilidadSalarioLegacy",
+        "puntosPorLote",
+        "puntos",
+        "auditoria",
+        "auditarProgresividadFrioImpl",
+        "auditoriaEffect",
+        "auditoria",
+        "auditarProgresividadFrioDesdeServicio",
+        "auditoria",
+        "auditarProgresividadFrio",
+        "construirPuntosAuditoriaAnioAjustado"
+      ]
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "construirCalcularSalarioLegacy",
+        "calcularSalarioLegacyConLiquidacionIrpfAnual",
+        "casoFiscal",
+        "inicioLiquidacion",
+        "liquidacion",
+        "conciliacion",
+        "salarioBrutoAnual",
+        "cotizaciones",
+        "salarioNetoAnualCentimos",
+        "descendientesFiscalesPerfil",
+        "descendientesRetencionPerfil",
+        "casoRetencionTrabajoPerfil",
+        "detallePerfil",
+        "casoFiscalLegacy",
+        "perfil",
+        "retencionTrabajoAeat",
+        "caso",
+        "liquidacionIrpf",
+        "calcularSalarioLegacyDesdeServicio",
+        "compatibilidad",
+        "calcularSalarioLegacy"
+      ]
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "construirCalcularSalarioNetoEIrpf",
+        "desglose",
+        "compatibilidadSalarioLegacy",
+        "calcularSalarioNetoEIrpfDesdeServicio",
+        "perfil",
+        "calcularSalarioNetoEIrpf"
+      ]
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "anotarImportesIrpfAuxiliares",
+        "anotarIrpfConObligacionDeclarar",
+        "configuracionExportacionCompatibleLegacy",
+        "configuracionControlSalario",
+        "configuracionRangoAuditoria",
+        "decimal",
+        "CERO",
+        "UNO",
+        "rangoComparativaInflacionLegacy",
+        "rangoDetalleAnualLegacy",
+        "dineroCompatible",
+        "min",
+        "max",
+        "ipcAnualConocido",
+        "rangoNumerico",
+        "factorIpc",
+        "anios",
+        "reduccionTrabajoHasta2014",
+        "reduccionTrabajo2015A2017",
+        "reduccionTrabajo2019A2022",
+        "reduccionTrabajo2018",
+        "reduccionPreTransitoria",
+        "reduccionPostTransitoria",
+        "reduccionTrabajo2023",
+        "reduccionTrabajoDesde2024",
+        "obtenerReduccionTrabajo",
+        "obtenerParametros",
+        "especificacionCompatibilidad",
+        "importeBaseEnTramo",
+        "baseImponibleRestante",
+        "anchoTramo",
+        "sumarCuotaTramo",
+        "[limite, tipo]",
+        "importeBase",
+        "calcularCuotaIrpf",
+        "primerTipoIrpf",
+        "calcularIrpf",
+        "rendimientoPrevioNeto",
+        "reduccionTrabajo",
+        "rendimientoNeto",
+        "baseImponible",
+        "cuotaIntegra",
+        "cuotaMinimoPersonal",
+        "cuotaTeorica",
+        "deduccionSmi",
+        "cuotaTrasSmi",
+        "limiteRetencion",
+        "irpfFinal",
+        "irpfConObligacionDeclarar",
+        "calcularDesgloseEuros",
+        "parametros",
+        "cotizaciones",
+        "irpf",
+        "salarioNetoAnual",
+        "centimosLiquidados",
+        "liquidar",
+        "ajustarDesglose",
+        "escalarDesglose",
+        "diferenciaAnualCentimos",
+        "diferenciaMensualCentimos",
+        "construirComparacionAjustadaPorIpc",
+        "salarioBrutoReferencia",
+        "factor",
+        "salarioBrutoNominalComparado",
+        "referenciaSinLiquidar",
+        "comparadoSinLiquidar",
+        "diferenciaAnual",
+        "compararAjustadoPorIpc",
+        "construirComparacionPasadaAjustadaPorIpc",
+        "salarioBrutoReferencia",
+        "factor",
+        "factorAjustePasado",
+        "salarioBrutoNominalComparado",
+        "referenciaSinLiquidar",
+        "comparadoSinLiquidar",
+        "diferenciaAnual",
+        "compararPasadoAjustadoPorIpc",
+        "calcularPerdidaAcumulada",
+        "puntos",
+        "comparacion",
+        "proporcionSegura",
+        "tipoCarga",
+        "tipoEfectivoIrpf",
+        "tipoCunaLaboral",
+        "ordenarPorDiferenciaAbsoluta",
+        "ordenarPorBrechaCarga",
+        "primero",
+        "hallazgoMasAfectado",
+        "hallazgoBrechaCarga",
+        "hallazgoPrimerIrpfActual",
+        "estaPresente",
+        "construirHallazgos",
+        "masAfectado",
+        "mayorBrechaCarga",
+        "primerIrpfActual",
+        "rangoSalarioBrutoAnualCentimos",
+        "rangoRegular",
+        "puntosNormativos",
+        "salarioReferenciaPrimerEuroObligadoDeclararCentimos",
+        "primerEuroSobreUmbral",
+        "puntosUmbralDeclaracionEnRango",
+        "construirPuntoAuditoria",
+        "comparacion",
+        "auditarRangoSalarial",
+        "puntos",
+        "rangoSalarialEuros",
+        "numeroSalariosDelRango",
+        "salariosDelRango",
+        "formatearNumeroPorcentajeLegacy",
+        "porcentajeRedondeado",
+        "textoPorcentajeLegacy",
+        "cabeceraTramoIrpf",
+        "[, tipo]",
+        "valorLimiteTramo",
+        "calcularCuotasPorTramo",
+        "limiteAnterior",
+        "cabecerasDetalleAnualCompatible",
+        "construirFilaDetalleAnualCompatible",
+        "bruto",
+        "parametros",
+        "cotizaciones",
+        "irpf",
+        "cuotasPorTramo",
+        "salarioNeto",
+        "construirTablaControlGeneralCompatible",
+        "parametros",
+        "parametrosCotizacion",
+        "articulo20",
+        "construirTablaControlTramosIrpfCompatible",
+        "construirTablaComparativaInflacionCompatible",
+        "rango",
+        "salarioReferencia",
+        "comparacion",
+        "factor",
+        "construirTablaDetalleAnualCompatible",
+        "rango"
+      ]
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "crearImporteMonetario",
+        "IMPORTE_CERO",
+        "IMPORTE_UNO",
+        "centimosAEuros",
+        "redondearImporteLiquidado",
+        "eurosACentimos",
+        "truncarImporteMonetario"
+      ]
+    },
+    {
+      "file": "lib/dominio/dinero/porcentaje.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "porcentajeCompatibleLegacy"
+      ]
+    },
+    {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "redondearHalfUp",
+        "truncarDecimal"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "resultado"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "D",
+        "suma",
+        "[y = 0, m = 0, d = 0]",
+        "bisiesto",
+        "dias",
+        "motivos",
+        "rechazar",
+        "etapas",
+        "etapa",
+        "inicio",
+        "anios",
+        "dias",
+        "[, mes = 0, dia = 0]",
+        "previos",
+        "ids",
+        "documentos",
+        "facturas",
+        "clientes",
+        "periodosReta",
+        "amortizacion",
+        "base",
+        "saldo",
+        "coef",
+        "cuota",
+        "operaciones",
+        "retenidos",
+        "periodosPago",
+        "ingreso",
+        "cierre",
+        "discapacidad",
+        "ingresos",
+        "ordinarios",
+        "reta",
+        "gastos",
+        "P",
+        "sujetos",
+        "unico",
+        "elegible",
+        "G",
+        "RN",
+        "reduccion",
+        "adicional",
+        "incremento",
+        "anteriores",
+        "primerPositivo",
+        "excluidoEmpleador",
+        "inicioElegible",
+        "reduccionInicio",
+        "aporte",
+        "retenciones",
+        "pagos"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/contrato.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "Texto",
+        "Importe",
+        "Neto",
+        "Fecha",
+        "Documento",
+        "Asiento",
+        "CasoActividad2025"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/fuentes.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "fuentesActividad2025"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/caso-fiscal-anual.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "sinDiscapacidad",
+        "discapacidad33a64",
+        "discapacidad65OMas"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "resolverParametrosComunidadAutonoma2012",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2013",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2014",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2015",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2016",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2017",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2018",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2019",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2020",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2021",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2024",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2023",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2022",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2025",
+        "minimosAutonomicos",
+        "resolverParametrosComunidadAutonoma2026",
+        "obtenerParametrosComunidadAutonoma",
+        "deduccionesImplementadasPorComunidad",
+        "codigosCatalogados"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "calcularCuotaDiferencialCentimos"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "calcularCuotaPorEscalaAhorro",
+        "calcularDesgloseCuotaPorEscalaAhorro",
+        "calcularCuotaComponenteAhorro",
+        "calcularAhorroConMinimos",
+        "componente",
+        "remanente",
+        "bruta",
+        "despuesMinimo"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "calcularCuotaPorEscalaGeneral",
+        "calcularDesgloseCuotaPorEscalaGeneral",
+        "calcularCuotaPorEscala",
+        "calcularDesgloseCuotaPorEscala",
+        "baseRestante",
+        "anchoTramo",
+        "importeEnTramo",
+        "tramo"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "filas",
+        "ESTATAL_ORDINARIA_2012_2014",
+        "ESTATAL_COMPLEMENTARIA_2012_2014",
+        "ANDALUCIA_2012_2015",
+        "VALENCIA_2014_2016",
+        "CATALUNYA_2020_2021",
+        "CATALUNYA_2022_2024",
+        "MADRID_2022",
+        "MURCIA_2022",
+        "obtenerEscalaAutonomicaPublicada",
+        "AHORRO_ORDINARIO_2012_2014",
+        "AHORRO_COMPLEMENTARIO_2012_2014",
+        "AHORRO_2016_2020",
+        "AHORRO_AUTONOMICO_2015",
+        "AHORRO_2021_2022",
+        "AHORRO_2023_2024",
+        "AHORRO_2025",
+        "obtenerEscalasAhorroPublicadas"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "ENTRADAS_DEDUCCIONES_INICIALES",
+        "numeroDeduccion",
+        "valor",
+        "booleanoDeduccion",
+        "textoDeduccion",
+        "valor",
+        "importeSi",
+        "numeroSi",
+        "limitarImporteMaximo",
+        "deduccionEspecificaControl",
+        "deduccionEspecificaManual",
+        "ANDALUCIA_DEDUCCIONES_ESPECIFICAS_2025",
+        "ARAGON_DEDUCCIONES_ESPECIFICAS_2025",
+        "ASTURIAS_DEDUCCIONES_ESPECIFICAS_2025",
+        "BALEARS_DEDUCCIONES_ESPECIFICAS_2025",
+        "CANARIAS_DEDUCCIONES_ESPECIFICAS_2025",
+        "CANTABRIA_DEDUCCIONES_ESPECIFICAS_2025",
+        "CLM_DEDUCCIONES_ESPECIFICAS_2025",
+        "CYL_DEDUCCIONES_ESPECIFICAS_2025",
+        "CATALUNYA_DEDUCCIONES_ESPECIFICAS_2025",
+        "EXTREMADURA_DEDUCCIONES_ESPECIFICAS_2025",
+        "GALICIA_DEDUCCIONES_ESPECIFICAS_2025",
+        "MADRID_DEDUCCIONES_ESPECIFICAS_2025",
+        "MURCIA_DEDUCCIONES_ESPECIFICAS_2025",
+        "RIOJA_DEDUCCIONES_ESPECIFICAS_2025",
+        "VALENCIANA_DEDUCCIONES_ESPECIFICAS_2025",
+        "CEUTA_DEDUCCIONES_ESPECIFICAS_2025",
+        "MELILLA_DEDUCCIONES_ESPECIFICAS_2025",
+        "DEDUCCIONES_ESPECIFICAS_AUTONOMICAS_2025",
+        "deduccionesEspecificasAutonomicas",
+        "deduccionesEspecificasAutonomicasPorCodigo",
+        "CONTROLES_DEDUCCIONES_ESPECIFICAS",
+        "IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS",
+        "calcularDeduccionEspecificaAutonomica",
+        "CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO",
+        "entradasCon",
+        "entradasGenericasPara",
+        "importeEsperadoGenericoPara",
+        "importe",
+        "calcularDeduccionGenerica",
+        "deduccionFinal",
+        "base",
+        "unidades",
+        "importe",
+        "calcularDeduccionesAutonomicasAplicadas",
+        "entradas",
+        "andaluciaNacimiento",
+        "andaluciaMonoparental",
+        "andaluciaAdopcionInternacional",
+        "andaluciaFamiliaNumerosa",
+        "andaluciaContribuyenteDiscapacidad",
+        "andaluciaConyugeParejaDiscapacidad",
+        "andaluciaAsistenciaDiscapacidad",
+        "andaluciaAyudaDomestica",
+        "andaluciaInversionAcciones",
+        "aragonTercerHijo",
+        "aragonDependientes",
+        "aragonMayores70",
+        "canariasNacimientoPorHijo",
+        "canariasNacimiento",
+        "canariasDiscapacidadMayores",
+        "canariasFamiliaNumerosa",
+        "canariasDesempleados",
+        "clmNacimiento",
+        "clmFamiliaNumerosa",
+        "clmDiscapacidadContribuyente",
+        "clmDiscapacidadAscDesc",
+        "catalunyaViudedad",
+        "catalunyaRehabilitacion",
+        "catalunyaInteresesMasterDoctorado",
+        "deduccionesGenericas",
+        "madridNacimiento",
+        "catalunyaAlquiler",
+        "catalunyaCooperativas",
+        "obtenerControlDeduccionAutonomica",
+        "entradasEspecificas",
+        "entradasPrueba",
+        "entradasPrueba"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones/ambito.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "codigo",
+        "pertenece"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones/contratos-2025.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "total",
+        "total",
+        "base",
+        "suplemento",
+        "ejercicio",
+        "registros",
+        "bases",
+        "limite",
+        "multiple",
+        "divisor",
+        "total",
+        "base",
+        "divisor",
+        "viudos",
+        "total",
+        "certificado",
+        "total",
+        "externo",
+        "claves",
+        "elecciones",
+        "contexto",
+        "resultado"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-ahorro.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "calcularBaseImponibleAhorro"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "calcularBaseImponibleGeneral"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "importe",
+        "CERO",
+        "max",
+        "min",
+        "primerTipo",
+        "calcularIrpfFinalSimuladorLegacyHasta2014",
+        "cotizaciones",
+        "rendimientoPrevioNeto",
+        "reduccionTrabajo",
+        "baseImponible",
+        "cuotaIntegra",
+        "cuotaMinimoPersonal",
+        "cuotaTrasDeduccionSmi",
+        "limiteRetencionNomina",
+        "calcularConciliacionSimuladorLegacy",
+        "especificacion",
+        "bruto",
+        "cuotaLiquidadaAnual",
+        "deduccionSmi",
+        "cuotaTrasDeduccionSmi",
+        "limiteRetencionNomina",
+        "irpfFinalSimulador",
+        "irpfFinalSimuladorCentimos"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "construirLiquidarIrpfAnual",
+        "inicioDeteccion",
+        "resultadoNoSoportado",
+        "cotizacionesSociales",
+        "parametrosNormativos",
+        "politicaMonetaria",
+        "retencionTrabajoAeat",
+        "liquidarIrpfAnualDesdeServicio",
+        "liquidacion",
+        "liquidarIrpfAnual",
+        "liquidarTrabajoIndividualSimple",
+        "inicioLiquidacionSimple",
+        "liquidarCentimos",
+        "rendimientoIntegroTrabajo",
+        "minimosEstatales",
+        "cotizacionesSociales",
+        "rendimientoTrabajo",
+        "rendimientoIntegroCapitalInmobiliario",
+        "rendimientoCapitalInmobiliario",
+        "reduccionRendimientosTrabajo",
+        "gananciasPatrimoniales",
+        "baseImponibleGeneral",
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "resultadoParametrosComunidad",
+        "inicioParametrosComunidadMatch",
+        "parametrosComunidad",
+        "inicioCuotasIntegras",
+        "escalasPublicadasEstatales",
+        "escalaPublicadaAutonomica",
+        "escalasPublicadasAutonomicas",
+        "tramosIrpfEstatalGeneral",
+        "usaEscalaAutonomicaReal",
+        "cuotaIntegraGeneralEstatal",
+        "cuotaIntegraGeneralAutonomica",
+        "cuotaIntegraGeneral",
+        "cuotaIntegraAhorro",
+        "desgloseCuotaIntegraGeneralEstatal",
+        "desgloseCuotaIntegraGeneralAutonomica",
+        "desgloseCuotaIntegraAhorro",
+        "inicioMinimos",
+        "minimoContribuyente",
+        "minimoAscendientes",
+        "minimoDescendientes",
+        "minimoDiscapacidadContribuyente",
+        "minimoDiscapacidadFamiliares",
+        "minimoPersonalYFamiliar",
+        "minimoPersonalYFamiliarAutonomico",
+        "inicioCuotasMinimo",
+        "cuotaMinimoPersonalEstatal",
+        "cuotaMinimoPersonalAutonomica",
+        "cuotaMinimoPersonal",
+        "ahorroConMinimos",
+        "cuotaMinimoPersonalAhorro",
+        "desgloseCuotaMinimoPersonalEstatal",
+        "desgloseCuotaMinimoPersonalAutonomica",
+        "inicioCuotaLiquida",
+        "cuotaGeneralDespuesMinimo",
+        "cuotaAutonomicaGeneralDespuesMinimo",
+        "cuotaAhorroDespuesMinimo",
+        "deduccionesAutonomicasDeclaradas",
+        "deduccionesAutonomicasAplicadas",
+        "cuotaLiquida",
+        "importesLiquidacion",
+        "inicioRetencionTrabajo",
+        "retencionTrabajoAeat",
+        "inicioCuotaDiferencial",
+        "retencionTrabajoAeatCentimos",
+        "pagosACuentaAplicadosCentimos",
+        "cuotaDiferencialCentimos",
+        "inicioSalida",
+        "resultado",
+        "detectarCasoNoSoportado",
+        "catalogada",
+        "resultadoNoSoportado",
+        "calcularMinimoPersonalYFamiliar",
+        "minimoContribuyente",
+        "minimoAscendientes",
+        "minimoDescendientes",
+        "minimoDiscapacidadContribuyente",
+        "minimoDiscapacidadFamiliares",
+        "euros",
+        "porcentaje",
+        "pasoRetencionTrabajoAeat",
+        "sumarDeduccionesAutonomicasCentimos",
+        "deduccionesAutonomicasDescripcion",
+        "rastroResultadoNoSoportado"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-ascendientes.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "obtenerMinimoAscendientes",
+        "minimoPorEdad",
+        "incrementoMayor75"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-contribuyente.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "minimosEstatalesDelAnio",
+        "obtenerMinimoContribuyente",
+        "minimoBase",
+        "incrementoMayor65",
+        "incrementoMayor75"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "minimoPorOrden",
+        "obtenerMinimoDescendientes",
+        "incrementoMenorTres"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "obtenerMinimoPorDiscapacidad",
+        "obtenerMinimoDiscapacidadContribuyente",
+        "obtenerMinimoDiscapacidadFamiliares",
+        "obtenerMinimoDiscapacidadAscendientes"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "maximo",
+        "calcularReduccionRendimientosTrabajo",
+        "reduccionTrabajoHasta2014",
+        "reduccionTrabajo2015A2017",
+        "reduccionTrabajo2019A2022",
+        "FECHA_CORTE_REDUCCION_TRABAJO_2018",
+        "fechaCivilIsoUtc",
+        "fallecidoAntesDeFechaCivil",
+        "reduccionTrabajo2018",
+        "reduccionAnterior",
+        "reduccionNueva",
+        "reduccionTrabajo2023",
+        "reduccionTrabajoDesde2024"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "LIMITE_REINVERSION_RENTA_VITALICIA_MAYORES_65",
+        "calcularGananciasPatrimonialesPorTransmision",
+        "calcularGananciaPatrimonialPorTransmision",
+        "gananciaTotal",
+        "gananciaExentaMayores65",
+        "gananciaExentaInmueble2012",
+        "gananciaExenta",
+        "calcularGananciaExentaInmuebleUrbanoAdquirido2012",
+        "parametro",
+        "cumpleRangoFecha",
+        "clasificarBaseGanancia",
+        "calcularGananciaExentaMayores65",
+        "calcularExencionPorReinversionEnRentaVitalicia",
+        "margenReinversion",
+        "reinversionComputable",
+        "proporcionExenta"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "sumarRendimientosCapitalInmobiliario",
+        "calcularRendimientoNetoCapitalInmobiliarioSimplificado"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "calcularRendimientoNetoTrabajo",
+        "cotizacionAplicada",
+        "rendimientoPrevioNeto",
+        "gastosDeducibles",
+        "sumarRendimientosTrabajo"
+      ]
+    },
+    {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "FUENTE_RETENCIONES_AEAT",
+        "CERO",
+        "CIEN",
+        "redondear1",
+        "truncar",
+        "aCentimos",
+        "euros",
+        "porcentaje",
+        "max",
+        "min",
+        "resultadoNoSoportadoRetencion",
+        "esCasoCalculable",
+        "importeOpcional",
+        "multiplicadorDescendiente",
+        "incrementoMovilidadGeografica",
+        "incrementoGastosDiscapacidadTrabajador",
+        "calcularOtrosGastos",
+        "gastosGenerales",
+        "incrementoMovilidad",
+        "incrementoDiscapacidad",
+        "otrosGastos",
+        "maximo",
+        "calcularReduccionTrabajo",
+        "cuantiaMinimoDescendiente",
+        "esDescendienteMenorTres",
+        "calcularMinimoDescendientes",
+        "descendientesOrdenados",
+        "minimoGeneral",
+        "cuantia",
+        "multiplicador",
+        "minimoMenoresTres",
+        "calcularMinimoAscendientes",
+        "minimo65",
+        "computaPorEdad",
+        "computaPorDiscapacidad",
+        "minimo75",
+        "minimoDiscapacidad",
+        "minimoAsistencia",
+        "calcularMinimoDiscapacidad",
+        "discapacidadPerceptor",
+        "asistenciaPerceptor",
+        "discapacidadDescendientes",
+        "asistenciaDescendientes",
+        "discapacidadAscendientes",
+        "asistenciaAscendientes",
+        "calcularMinimoPersonalFamiliar",
+        "edad",
+        "incrementoEdad",
+        "minimoContribuyente",
+        "calcularCuotaEscala",
+        "tramos",
+        "tramo",
+        "calcularCuotaRetencion",
+        "aplicaAnualidades",
+        "cuotas",
+        "reduccionPorSituacionLaboral",
+        "pensionista",
+        "hijos",
+        "desempleado",
+        "cuotaRetencionInicial",
+        "calcularLimite43",
+        "calcularMinoracionVivienda",
+        "calcularDiferenciaPositiva",
+        "calcularTipoInicial",
+        "aplicarMinimoContrato",
+        "formulaCuotaRetencion",
+        "calcularRetencionTrabajo",
+        "retribucion",
+        "cotizaciones",
+        "irregular1",
+        "irregular2",
+        "anualidades",
+        "pensionCompensatoria",
+        "descendientes",
+        "otrosGastos",
+        "rendimientoNetoTrabajo",
+        "reduccionRendimientosTrabajo",
+        "rendimientoNetoReducido",
+        "reduccionLaboral",
+        "reducciones",
+        "baseRetencion",
+        "minimoPersonalFamiliar",
+        "umbral",
+        "umbralMaximo",
+        "umbralConReducciones",
+        "umbralMaximoConReducciones",
+        "exento",
+        "cuotaInicial",
+        "limite43",
+        "cuotaRetencion",
+        "ceutaMelilla",
+        "minopago",
+        "diferenciaPositiva",
+        "tipoCalculado",
+        "tipoRetencion",
+        "importeRetencion",
+        "calcularRetencionTrabajoAeatImpl",
+        "calcularRetencionTrabajoAeatDesdeServicio",
+        "retencion",
+        "calcularRetencionTrabajoAeat"
+      ]
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tiposSolidaridad",
+        "cuotaSolidaridad",
+        "primerExceso",
+        "segundoExceso",
+        "excesoRestante",
+        "calcularDesgloseCotizacionesPerfilUniforme",
+        "parametros",
+        "legacy",
+        "baseOrdinaria",
+        "excesoBase",
+        "solidaridad",
+        "solidaridadEmpresarial",
+        "solidaridadTrabajador",
+        "cotizacionEmpresarialOrdinaria",
+        "cotizacionTrabajadorOrdinaria",
+        "meiEmpresarial",
+        "meiTrabajador"
+      ]
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "TIPOS_SEGURIDAD_SOCIAL_LEGACY",
+        "SIN_SOLIDARIDAD",
+        "minimo",
+        "maximo",
+        "tipoCotizacionPorLado",
+        "sumarTipoCotizacionLegacy",
+        "obtenerTiposMei",
+        "obtenerPoliticaSolidaridad",
+        "obtenerParametrosCotizacionLegacy",
+        "baseCotizacionPara",
+        "calcularTotalSolidaridad",
+        "limitePrimerTramo",
+        "limiteSegundoTramo",
+        "excesoPrimerTramo",
+        "excesoSegundoTramo",
+        "excesoRestante",
+        "repartirCotizacionSolidaridad",
+        "sumarCotizacionesSociales",
+        "calcularCotizacionesSocialesLegacy",
+        "desglose",
+        "calcularDesgloseCotizacionesSocialesLegacy",
+        "parametros",
+        "baseCotizacion",
+        "cotizacionesOrdinarias",
+        "cotizacionesMei",
+        "cotizacionesSolidaridad",
+        "cotizacionesTotales"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/anio-fiscal.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "aniosFiscalesLegacy"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/compatibilidad-historica.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "maximo",
+        "sinDeduccionObtencionRendimientosTrabajo",
+        "deduccionObtencionRendimientosTrabajo2025",
+        "deduccionObtencionRendimientosTrabajo2026",
+        "obtenerMedidaDeduccionObtencionRendimientosTrabajo",
+        "obtenerDeduccionObtencionRendimientosTrabajoCompatibilidadHistorica",
+        "obtenerEspecificacionCompatibilidadHistorica"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "comunidadDesdeCodigo",
+        "categoriaCatalogadaDesdeCodigo",
+        "nombreCatalogadoDesdeCodigo",
+        "fichaImplementadaBasica",
+        "fichaImplementada",
+        "fichaImplementadaFormula"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "construirCatalogoDeduccionesAutonomicas2025",
+        "obtenerDeduccionAutonomicaCatalogada"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2012",
+        "obtenerEscalaAutonomicaIrpf2012"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2013",
+        "obtenerEscalaAutonomicaIrpf2013"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2014",
+        "obtenerEscalaAutonomicaIrpf2014"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2015",
+        "reutilizarEscala2025ConFuente2015",
+        "fechaCivilIsoUtc",
+        "fallecidoAntesDeFechaCivil",
+        "obtenerEscalaAutonomicaIrpf2015"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2016",
+        "reutilizarEscala2025ConFuente2016",
+        "obtenerEscalaAutonomicaIrpf2016"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2017.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2017",
+        "reutilizarEscala2025ConFuente2017",
+        "obtenerEscalaAutonomicaIrpf2017"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2018.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2018",
+        "reutilizarEscala2025ConFuente2018",
+        "obtenerEscalaAutonomicaIrpf2018"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2019.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2019",
+        "reutilizarEscala2025ConFuente2019",
+        "obtenerEscalaAutonomicaIrpf2019"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2020",
+        "reutilizarEscala2025ConFuente2020",
+        "obtenerEscalaAutonomicaIrpf2020"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2021.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2021",
+        "reutilizarEscala2025ConFuente2021",
+        "obtenerEscalaAutonomicaIrpf2021"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2022.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2022",
+        "reutilizarEscala2025ConFuente2022",
+        "fechaCivilIsoUtc",
+        "fallecidoAntesDeFechaCivil",
+        "obtenerEscalaAutonomicaIrpf2022"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2023.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2023",
+        "reutilizarEscala2025ConFuente2023",
+        "fallecidoAntesDe",
+        "obtenerEscalaAutonomicaIrpf2023"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2024.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala2024",
+        "reutilizarEscala2025ConFuente2024",
+        "obtenerEscalaAutonomicaIrpf2024"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2025.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tipo",
+        "escala",
+        "obtenerEscalaAutonomicaIrpf2025"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "sumarUnAnioFechaCivilIso",
+        "clasificarGananciaPatrimonialHasta2014",
+        "obtenerTramosIrpfLegacy",
+        "obtenerTramosIrpfAhorro"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "tablaVigenteAlCierreDelAnio",
+        "tablaUmbralesRetencionTrabajo",
+        "umbralPorDescendientes",
+        "umbralRetencionTrabajoEuros",
+        "umbralRetencionTrabajoRequeridoEuros",
+        "maximoUmbralRetencionTrabajoEuros"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2012.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "discapacidadComun",
+        "obtenerMinimosAutonomicosIrpf2012"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2013.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "discapacidadComun",
+        "obtenerMinimosAutonomicosIrpf2013"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "discapacidadComun",
+        "obtenerMinimosAutonomicosIrpf2014"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2015.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2015"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2016.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2016"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2017.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2017"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2018.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2018"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2019.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2019"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2020.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2020"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2021.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "obtenerMinimosAutonomicosIrpf2021"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "fechaCivilIsoUtc",
+        "fallecidoAntesDeFechaCivil",
+        "obtenerMinimosAutonomicosIrpf2022"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "fallecidoAntesDe",
+        "obtenerMinimosAutonomicosIrpf2023"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2024.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "obtenerMinimosAutonomicosIrpf2024"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "discapacidad",
+        "mismaDiscapacidadParaTodos",
+        "minimos",
+        "obtenerMinimosAutonomicosIrpf2025"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/fuente-normativa.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "fuenteAeatManualRenta2025Parte1",
+        "fuenteAeatManualRenta2024Parte1",
+        "fuenteAeatManualRenta2023Parte1",
+        "fuenteAeatManualRenta2022Parte1",
+        "fuenteAeatManualRenta2021Parte1",
+        "fuenteAeatManualRenta2020Parte1",
+        "fuenteAeatManualRenta2019Parte1",
+        "fuenteAeatManualRenta2018Parte1",
+        "fuenteAeatManualRenta2017Parte1",
+        "fuenteAeatManualRenta2016Parte1",
+        "fuenteAeatManualRenta2015Parte1",
+        "fuenteAeatManualRenta2014Parte1",
+        "fuenteAeatManualRenta2013Parte1",
+        "fuenteAeatManualRenta2012Parte1",
+        "fuenteAeatDeduccionesAutonomicas2025",
+        "fuenteAeatMayores65Renta2025",
+        "fuenteAeatRetenciones2026"
+      ]
+    },
+    {
+      "file": "lib/dominio/normativa/repositorio-parametros.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "parametroNormativo"
+      ]
+    },
+    {
+      "file": "lib/export/auditoria-excel.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "centimosAEuros",
+        "porcentaje",
+        "crearLibro",
+        "libro",
+        "descargarLibro",
+        "contenido",
+        "textoCabecera",
+        "aplicarEstiloCabecera",
+        "anadirTabla",
+        "hoja",
+        "rangoSalarialEuros",
+        "contarFilasRango",
+        "crearPlanCompatible",
+        "tablaControlGeneral",
+        "tablaControlTramos",
+        "filasComparativa",
+        "filasDetalle",
+        "emitirProgreso",
+        "ahoraMillis",
+        "construirProgreso",
+        "anadirTablaIncremental",
+        "tabla",
+        "hoja",
+        "filasHoja",
+        "anadirHojaManual",
+        "hoja",
+        "filaHallazgo",
+        "anadirHojaHallazgos",
+        "hoja",
+        "filaExploracionEducativa",
+        "anadirHojaExploracion",
+        "hoja",
+        "construirLibroAuditoriaEducativa",
+        "libro",
+        "exportarAuditoriaEducativaExcel",
+        "construirLibroAuditoriaCompatible",
+        "libro",
+        "construirLibroAuditoriaCompatibleConProgreso",
+        "libro",
+        "inicioMillis",
+        "planes",
+        "hojasTotales",
+        "filasTotales",
+        "filasPorBloque",
+        "filasProcesadas",
+        "filasHoja",
+        "exportarAuditoriaCompatibleExcel",
+        "tipoMimeXlsx",
+        "codificadorTexto",
+        "tablaCrc32",
+        "tabla",
+        "indice",
+        "valor",
+        "bit",
+        "actualizarCrc32",
+        "siguiente",
+        "escribirUint16",
+        "escribirUint32",
+        "bufferZip",
+        "buffer",
+        "fechaZip",
+        "fecha",
+        "hora",
+        "dia",
+        "entrada",
+        "nombreCodificado",
+        "{ hora, dia }",
+        "offsetEntrada",
+        "entrada",
+        "datos",
+        "crcFinal",
+        "inicioDirectorio",
+        "{ hora, dia }",
+        "nombreCodificado",
+        "tamanioDirectorio",
+        "escaparXml",
+        "atributoEspacio",
+        "columnaExcel",
+        "restante",
+        "columna",
+        "modulo",
+        "celdaXml",
+        "referencia",
+        "atributoEstilo",
+        "libroXml",
+        "relacionesLibroXml",
+        "tiposContenidoXml",
+        "descargarBlob",
+        "url",
+        "enlace",
+        "construirBlobXlsxCompatibleConProgreso",
+        "planes",
+        "filasTotales",
+        "hojasTotales",
+        "filasPorBloque",
+        "instanteCreacion",
+        "zip",
+        "filasProcesadas",
+        "tabla",
+        "entrada",
+        "columnas",
+        "ancho",
+        "filasHoja",
+        "indiceFila",
+        "fragmentoFilas",
+        "exportarAuditoriaCompatibleExcelConProgreso",
+        "inicioMillis",
+        "filasTotales",
+        "archivo"
+      ]
+    },
+    {
+      "file": "lib/formato.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "dinero",
+        "dineroEntero",
+        "redondearPorcentajeHalfUp",
+        "redondeado",
+        "formatearDecimalEspanol",
+        "formatearPorcentaje",
+        "formatearPuntosPorcentuales",
+        "porcentaje",
+        "centimosAEuros",
+        "eurosACentimos",
+        "formatearCentimos",
+        "formatearCentimosEnteros",
+        "limitar",
+        "ANIOS_COMPARABLES"
+      ]
+    },
+    {
+      "file": "lib/observabilidad/auditoria-rendimiento.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "diagnosticoRendimientoAuditoriaActivo",
+        "metricaDuracionCalculoAuditoria",
+        "metricaDuracionSeriesAuditoria",
+        "metricaDuracionFilasGraficosAuditoria",
+        "ahora",
+        "tiempoAuditoriaMs",
+        "redondearMilisegundos",
+        "resumenMetrica",
+        "tiemposAgregados",
+        "reiniciarTiemposAgregadosAuditoria",
+        "registrarTiempoAgregadoAuditoria",
+        "actual",
+        "medirAuditoriaSync",
+        "inicio",
+        "resumenTiemposAgregadosAuditoria",
+        "registrarResumenTiemposAuditoria",
+        "registrarMarcaAuditoria",
+        "instrumentarEffectAuditoria",
+        "inicio",
+        "exit",
+        "duracionMs",
+        "estadoMetrica",
+        "resumen"
+      ]
+    }
+  ],
+  "artifact": {
+    "file": "inventario-datos.json.gz",
+    "format": "gzip-json-files-v1",
+    "sha256": "a4fb9d8d6109aae6f15d4be1bd9e69158357663910557dd6da87cd46dda0ff1d",
+    "size": 8742546
+  }
+}
