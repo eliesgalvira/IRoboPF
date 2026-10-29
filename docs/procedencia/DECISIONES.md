@@ -249,3 +249,17 @@ Las 78 decisiones estatales y 186 autonómicas aceptan solo celdas y ejercicios 
 ## D053 — Preservar originales nuevos sin cargar el respaldo de código
 
 El CAS de la nueva revisión estatal se conserva fuera de T3 por ambos hashes y queda fuera de Git ordinario; manifiestos, citas y recetas permanecen versionados. Objeción: dejarlo solo en el checkout perdería los bytes al limpiar, mientras subirlo automáticamente eludiría la decisión de almacenamiento. Coste: ampliar y restaurar un paquete local nuevo, con dependencias explícitas para los revisores. Crossa seguirá siendo v1 histórico y desfasado; no se presenta una copia local como custodia independiente. No se autoriza gasto ni transferencia.
+
+## D054 — Conciliar renta propia antes de decidir prioridad de grado
+
+La entrada anual exige declarar que sus rentas y gastos caben en el perfil parcial y compara la renta propia con el saldo neto que este representa, antes de reducciones y compensaciones. Objeción: bruto, base liquidable y repetición del mismo dato no prueban la renta del artículo 61; el perfil tampoco representa todas las categorías fiscales. Coste: rechazar contradicciones y hechos no conciliados, conservar las limitaciones del perfil y no afirmar exhaustividad fiscal. La representación en céntimos no puede cambiar de lado el límite de 8.000; si lo haría, se rechaza en lugar de adjudicar el derecho con una cifra redondeada.
+
+## D055 — Fechas civiles del evento y fronteras pendientes
+
+La edad al evento se compara con la fecha completa del cumpleaños, después de validar las fechas. Objeción: restar años rechaza a menores que cumplen 18 más tarde en el ejercicio; normalizar fechas inexistentes con Date también inventaría un criterio. Coste: pruebas antes/en/después del cumpleaños y rechazo expreso de la frontera bisiesta cuya interpretación específica no se ha cerrado. Se mantiene la exclusión de adopciones adultas y no se amplía la ley personal o capacidad civil soportada.
+
+La constitución del vínculo actual tiene fecha propia, distinta de la inscripción o primer hecho habilitante del incremento. Objeción: usar esta última para determinar minoría de edad mezcla constitución civil y comienzo del plazo fiscal. Coste: exigir otro hecho explícito y rechazar su ausencia; no se supone que ambas fechas coincidan ni se reinicia el plazo por un acogimiento seguido de adopción. Rojo adicional y nueva revisión pendientes de aceptación.
+
+## D056 — Los hechos de alimentos prevalecen sobre el flag de cálculo
+
+La conexión anual rechaza al pagador judicial sin custodia hasta representar cuantía y especialidad. Objeción: permitir false como renuncia voluntaria omite un procedimiento que los hechos requieren. Coste: menos entradas liquidables, sin inventar una cuota alternativa. La situación de otro titular pagador no bloquea al custodio: se conserva la atribución del mínimo y se comprueban los hechos de cada rol. Los tres fixes requieren revisión independiente nueva.

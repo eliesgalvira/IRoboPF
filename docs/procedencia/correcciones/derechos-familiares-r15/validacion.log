@@ -1,0 +1,41 @@
+lib/dominio/irpf/minimos/derechos-contrato.ts 188ms (unchanged)
+lib/dominio/irpf/minimos/derechos.ts 56ms
+tests/minimos-derechos-integracion.test.ts 34ms
+tests/minimos-derechos.test.ts 31ms (unchanged)
+$ vitest run tests/minimos-derechos-integracion.test.ts tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/minimos-derechos-integracion.test.ts (15 tests | 2 failed) 61ms
+   × alimentos de otro titular no bloquean al custodio: flag false 7ms
+   × alimentos de otro titular no bloquean al custodio: flag true 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/minimos-derechos-integracion.test.ts > alimentos de otro titular no bloquean al custodio: flag false
+ FAIL  tests/minimos-derechos-integracion.test.ts > alimentos de otro titular no bloquean al custodio: flag true
+AssertionError: expected 148051 to be 148050 // Object.is equality
+
+- Expected
++ Received
+
+- 148050
++ 148051
+
+ ❯ tests/minimos-derechos-integracion.test.ts:206:43
+    204|     const r = Effect.runSync(anual(hechos(hijo([custodio, pagador]))))
+    205|     // Mínimo descendiente íntegro, no dividido con el pagador sin cus…
+    206|     expect(r.cuotaMinimoPersonalCentimos).toBe(148050)
+       |                                           ^
+    207|   }
+    208| )
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  2 failed | 111 passed (113)
+   Start at  17:14:52
+   Duration  2.18s (transform 432ms, setup 0ms, import 1.49s, tests 255ms, environment 0ms)
+
+error: script "test" exited with code 1

@@ -1,0 +1,149 @@
+$ vitest run --config .cache/revision-derechos/vitest.config.mjs
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4
+
+ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts (31 tests | 3 failed) 107ms
+   × rentas 800001 y orden del superviviente elegible 8ms
+   × MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual 6ms
+   × MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > rentas 800001 y orden del superviviente elegible
+AssertionError: expected 125704 to be 125654 // Object.is equality
+
+- Expected
++ Received
+
+- 125654
++ 125704
+
+ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:47:50
+     45|  const h=hechos([{...hijo(),rentasNoExentasCentimos:renta},hijo("s-4",…
+     46|  expect(calcular(h).descendientes.toNumber()).toBe(renta>800000?1200:2…
+     47|  expect(liquidar(h).cuotaMinimoPersonalCentimos).toBe(renta>800000?125…
+       |                                                  ^
+     48| })
+     49| it.each([179999,180000,180001])("declaración %s", renta=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ rechaza ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:34:30
+     32| const rechaza = (h: DerechosMinimos2025) => {
+     33|  const r=Effect.runSync(Effect.result(liquidarIrpfAnualConDerechos(anu…
+     34|  expect(Result.isFailure(r)).toBe(true)
+       |                              ^
+     35|  if(Result.isFailure(r)) expect(r.failure._tag).toBe("ResultadoNoSopor…
+     36| }
+ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:132:2
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance
+{
+  motivo: 'Adopción o acogimiento en mayoría de edad pendiente de soporte',
+  _tag: 'DerechosMinimosNoSoportados',
+  message: '',
+  stack: 'DerechosMinimosNoSoportados: \n' +
+    '    at rechazar (/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts:17:15)\n' +
+    '    at /home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts:127:25\n' +
+    '    at Generator.next (<anonymous>)\n' +
+    '    at Object.~effect/Effect/successCont (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:868:26)\n' +
+    '    at Object.~effect/Effect/evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/core.js:312:30)\n' +
+    '    at FiberImpl.runLoop (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:444:107)\n' +
+    '    at FiberImpl.evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:412:23)\n' +
+    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2110:9\n' +
+    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2188:19\n' +
+    '    at Module.<anonymous> (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2201:18)',
+  name: 'DerechosMinimosNoSoportados',
+  stacks: [
+    {
+      method: 'rechazar',
+      file: '/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts',
+      line: 17,
+      column: 15
+    },
+    {
+      method: '',
+      file: '/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts',
+      line: 127,
+      column: 25
+    },
+    {
+      line: 1276,
+      column: 25,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'next'
+    },
+    {
+      line: 531,
+      column: 30,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/core.ts',
+      method: 'Object.~effect/Effect/evaluate'
+    },
+    {
+      line: 633,
+      column: 39,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'FiberImpl.runLoop'
+    },
+    {
+      line: 593,
+      column: 22,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'runLoop'
+    },
+    {
+      line: 5142,
+      column: 8,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'evaluate'
+    },
+    {
+      line: 5261,
+      column: 18,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'runFork'
+    },
+    {
+      line: 5276,
+      column: 17,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'runSyncExit'
+    }
+  ]
+}
+ ❯ rechazar lib/dominio/irpf/minimos/derechos.ts:17:15
+     15|
+     16| const rechazar = (motivo: string) =>
+     17|   Effect.fail(new DerechosMinimosNoSoportados({ motivo }))
+       |               ^
+     18| const fechaValida = (fecha: string) => {
+     19|   const anio = Number(fecha.slice(0, 4))
+ ❯ lib/dominio/irpf/minimos/derechos.ts:127:25
+ ❯ next ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5261:18
+ ❯ runSyncExit ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5276:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 28 passed (31)
+   Start at  17:02:14
+   Duration  937ms (transform 399ms, setup 0ms, import 692ms, tests 107ms, environment 0ms)
+
+error: script "test" exited with code 1

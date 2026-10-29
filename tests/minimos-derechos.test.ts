@@ -25,7 +25,8 @@ const titular = (titularId: string): TitularDescendiente => ({
   alimentosJudiciales: false,
   aplicaEspecialidadAlimentos: false,
   residenteIrpf: true,
-  rentasNoExentasCentimos: 3000000,
+  // Perfil anual: 30000 - 1944 de cotización uniforme - 2000 de gastos.
+  rentasNoExentasCentimos: 2605600,
 })
 const hijo = (
   sujetoId: string,
@@ -56,6 +57,10 @@ const hechos = (
   ascendientes: "ninguno",
   fallecimientosEnElEjercicio: "ninguno",
   descendientesCompletos: true,
+  conciliacionRentasContribuyente: {
+    perfil: "caso-anual-parcial",
+    otrasRentasOGastosNoRepresentados: "ninguno",
+  },
   descendientes,
 })
 const calcular = (entrada: DerechosMinimos2025) =>
@@ -157,6 +162,7 @@ it.each([
     vinculo: {
       clase: "adopcion",
       fechaInicioIncremento: anio + "-05-10",
+      fechaConstitucionVinculo: anio + "-05-10",
       fundamento: "inscripcion-registro-civil",
       historialCompleto: true,
     },
@@ -307,6 +313,7 @@ it("rechaza falta de hechos, incompatibilidad anual y fechas especiales", () => 
           vinculo: {
             clase: "adopcion",
             fechaInicioIncremento: "2026-01-01",
+            fechaConstitucionVinculo: "2026-01-01",
             fundamento: "inscripcion-registro-civil",
             historialCompleto: true,
           },

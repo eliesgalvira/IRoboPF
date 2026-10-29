@@ -1,0 +1,1381 @@
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/INFORME.md
+@@ -0,0 +1,108 @@
++# Revisión de mínimos por derechos v1
++
++**Requiere cambios.** Se conservan tres defectos reproducidos sin fixes: renta propia no conciliada, edad de adopción calculada solo por años y entrada anual que permite omitir la especialidad de alimentos. El reparto básico de CX-06-A funciona en la ruta nueva, pero eso no permite aceptar toda la elegibilidad ni cerrar el contrato anual.
++
++Revisor: agente Codex de esta sesión, checkout T3 t3-cdbbbec4, revisión personal el 29-10-2026. Sin subdelegación ni operaciones VCS mutantes. HEAD y base son 65cff4fd8eb8c6269c2ce97b88e770aa711bff7f. Se comprobaron las 9.391 entradas de base mediante lstat y readlink para enlaces: cero ausentes y cero cambios de bytes frente a blobs de base. Diff versionado vacío. El detalle comprimido está en base.json.gz. node_modules es exclusivamente el enlace de lectura autorizado.
++
++Se leyeron BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES, integración-ronda13, implementación minimos-derechos, auditoría y revisión anteriores de mínimos y correcciones-x-v1. La revisión publicacion-cuota-v2 contextualiza el cierre técnico de ronda14; no se repite ni se hereda su aceptación. Se examinaron derechos-contrato.ts, derechos.ts, caso-fiscal-anual.ts, liquidar-irpf-anual.ts, las tablas utilizadas y sus pruebas. Solo se entrega esta carpeta; no se cambia código, oracle, informes ajenos, registro, confianza ni atestaciones.
++
++## MDV1-01 — Alta: renta propia duplicada sin conciliación
++
++Localización: liquidar-irpf-anual.ts, validación de derechos desde línea 191; derechos.ts, titularesConDerecho y datosTitulares.
++
++El contribuyente s-1 declara renta no exenta cero en su relación con el hijo. El mismo caso anual tiene exclusivamente trabajo bruto de 30.000 euros, sin pérdidas ni exenciones. La API calcula rendimiento neto muy superior a 8.000 y aun así da Success. La renta cero provoca que el mínimo pase al abuelo de grado 2. datosTitulares solo compara repeticiones dentro del censo familiar; nunca compara con el rendimiento del propio caso. No se trata de verificar documentos externos: son dos afirmaciones contradictorias dentro de la misma entrada.
++
++La renta normativa no es bruto ni base liquidable. Debe conciliarse el saldo algebraico de categorías netas no exentas antes de integración/compensación y reducciones, con la salvedad del trabajo explicada por AEAT. El contraejemplo no tiene categorías ausentes que puedan justificar un saldo cero. Fuente: art.61.1 y Manual 2025, requisitos c), precisión de renta.
++
++Acción: derivar el dato del contribuyente desde los hechos anuales conciliados, o rechazar la contradicción; si el contrato anual no puede acreditar exhaustividad, rechazar esa concurrencia o explicitar una entrada conciliada antes de calcularla. No validar la mera repetición de la cifra.
++
++Objeción experta: el motor anual sigue siendo parcial y tampoco debe identificar renta con base liquidable. Respuesta: el rojo exige rechazo de una contradicción patente, no una fórmula universal basada en esa base. Coste: definir semántica y precisión monetaria de la conciliación y adaptar consumidores; no basta comparar bruto con renta declarada.
++
++## MDV1-02 — Media: menor al adoptar rechazado por resta de años
++
++Localización: derechos.ts:121–128. Nacimiento 31-12-2007, adopción/inscripción 02-01-2025, devengo 31-12-2025. Tenía 17 años al adoptar y cumple 18 al devengo. La condición 2025−2007>=18 lo rechaza como adopción en mayoría de edad.
++
++El autor excluye deliberadamente adopciones realizadas en mayoría de edad; este caso no pertenece a esa exclusión. No se pide ampliar ese alcance. Es un error de la frontera temporal, con error tipado pero clasificación falsa. Art.58.2 y Manual 2025, cuantías B: primer período y dos siguientes a partir del evento habilitante. El esperado estatal es 2.400+2.800=5.200 euros para un titular. En la API anual, el mínimo estatal total es 10.750; Madrid 5.956,65+2.575,85+3.005,16=11.537,66. Minoración general de control: 10.750×9,5%+11.537,66×8,5%=2.001,9511, presentada como 2.001,95.
++
++Acción: comparar fecha civil completa al evento, conservando el rechazo de adopciones realmente adultas y las validaciones de fecha.
++
++Objeción experta: cumplir 18 en el ejercicio no equivale a ser adulto al constituirse la adopción. Respuesta: se conservan ambos momentos y un control anual; no se elude la exclusión declarada. Coste: comparación civil y regresiones antes/en/después del cumpleaños.
++
++El primer rojo se produjo contra el helper; el pase final lo reproduce primero mediante liquidarIrpfAnualConDerechos. No se exige solo un helper verde.
++
++## MDV1-03 — Alta: la frontera anual admite alimentos excluidos
++
++Localización: derechos.ts:30–34 y 134–139; liquidar-irpf-anual.ts:191 y ruta explícita.
++
++Contribuyente con dependencia económica, sin custodia, alimentos judiciales true y aplicaEspecialidadAlimentos false. El otro progenitor tiene custodia exclusiva. Se excluye correctamente al pagador del mínimo, pero la API anual devuelve liquidación calculada sin representar la cuantía de alimentos ni aplicar/rechazar la especialidad. El flag falso permite atravesar una exclusión que el informe presenta como fuera de alcance.
++
++Fuente: art.58 en conexión con arts.64/75; Manual 2025 requisitos, apartado b), criterios 2 y advertencia TEAC. La especialidad no es una elección libre del pagador sin custodia. Su cálculo depende además de importe y base. Al no tener importe, esta ruta no puede decidir que no produce efecto.
++
++Acción: rechazar en la frontera anual esos hechos del contribuyente hasta disponer de contrato para alimentos. Que otro titular sea pagador no debe impedir calcular la declaración del progenitor custodio. El helper puede seguir determinando correctamente quién tiene mínimo: el defecto está en presentar una liquidación anual de quien necesita la capacidad ausente.
++
++Objeción experta: falta de soporte no prueba por sí sola una cifra incorrecta. Respuesta: el hallazgo es aceptación indebida de un caso fuera de alcance, no una cuota fiscal alternativa inventada. Coste: reducción de entradas aceptadas y futura integración de alimentos; no hay autorización para implementarla en esta revisión.
++
++## Decisiones acotadas y controles
++
++1. **Reparto y orden.** Dos padres con hijos de 8/5 dan 2.550 cada uno; uno solo 5.100. Ensayo propio con 1/2/3/4 titulares mediante helper y API anual. Se ordenan elegibles por nacimiento; un hijo excluido por 8.000,01 no ocupa primer lugar. Objeción: contar titulares no acredita parentescos reales. Respuesta: resultados condicionados al censo aportado y jurídicamente válido. Coste: no certificar hechos ni convertir cuatro titulares sintéticos en afirmación de viabilidad de cuatro progenitores de primer grado.
++2. **Rentas, declaración y discapacidad.** Controles propios ±0,01 en 8.000 y 1.800; cumpleaños 25; adulto con discapacidad y exclusión posterior por renta. Art.60 vincula discapacidad familiar al derecho al mínimo. Objeción: tags y dos cifras fiscales no son certificados ni verifican la declaración externa. Respuesta: la preclasificación sigue siendo responsabilidad de entrada; MDV1-01 trata una contradicción interna distinta. Coste: revisión documental pendiente, no aceptación automática por Schema.
++3. **Grado y capacidades excluidas.** Prioridad próxima y subida al siguiente a 7.999,99/8.000/8.000,01 pasan. Rentas mixtas y tres grados se rechazan por canal recuperable. Objeción: el derecho material puede existir aunque el motor rechace. Respuesta: capacidad pendiente, no error numérico ni mínimo cero. Coste: estos casos siguen sin liquidación automatizada.
++4. **Adopción/acogimiento.** Primer evento 2022 no aumenta en 2025; 2023–2025 sí. El incremento por edad/adopción se suma una sola vez. Temporal, urgencia y guarda judicial aumentan solo por menor de tres en los controles. El primer evento es un hecho declarado: historialCompleto=true no reconstruye acogimientos anteriores. Objeción: una fecha omitida puede reiniciar falsamente el plazo. Respuesta: no se certifica la historia; exigir documentos externos para acreditar esa afirmación. Coste: capacidad probatoria pendiente, además del defecto civil MDV1-02.
++5. **Censos, IDs y errores.** Duplicados exactos de sujetos/titulares, fecha imposible, devengo no ordinario, censo incompleto e ID con nombre se rechazan en la API anual como ResultadoNoSoportado. Effect.result no atraparía Die; los controles terminaron sin defectos. Objeción: IDs distintos pueden representar a la misma persona y una lista marcada completa puede omitirla. Respuesta: no hay autenticación ni deduplicación personal externa. Coste: declarar la frontera de responsabilidad. No se propone publicar DNI o datos personales.
++6. **Legacy.** Rechaza derechos nuevos; su rastro dice que el perfil parcial no acredita derecho ni reparto. CX-06-A se resuelve para el contraejemplo en la ruta nueva, no mediante dividir universalmente el helper antiguo. Objeción: podrían existir consumidores no examinados que eliminen la advertencia. Respuesta: se prueba API y rastro; no se certifica toda la UI. Coste: coexistencia de contratos y revisión de consumidores futuros.
++7. **Alcance excluido.** Conjunta, ascendientes, fallecimientos, tutela/curatela no representadas, grafos sujeto/titular, más de dos grados, grados próximos con rentas mixtas y empate natal con divisores distintos continúan pendientes. Las exclusiones expresas no se clasifican como errores aritméticos. Objeción: una lista de exclusiones escrita no garantiza rechazo. Respuesta: se ensayan fronteras representativas y MDV1-03 documenta precisamente la que se atraviesa. Coste: no anunciar elegibilidad completa Madrid 2025 para toda familia.
++
++## Componentes y ahorro
++
++Para dos hijos y dos titulares: Estado 5.550+2.550=8.100; Madrid 5.956,65+(2.575,85+2.897,83)/2=8.693,49. Con base general suficiente, minoración 769,50+738,94665=1.508,44665, presentada 1.508,45. Son componentes separados; no se divide el conjunto por dos.
++
++Caso propio con trabajo cero, ganancia sujeta al ahorro 20.000 y renta propia declarada 20.000: la API produce BG=0 y BA=20.000. Remanentes 8.100 y 8.693,49; cuotas de mínimo en ahorro 570+2.100×10,5%=790,50 y 570+2.693,49×10,5%=852,81645. Minoración total 1.643,32 y cuota restante 2.436,68 sobre cuota previa 4.080. Pasa por la liquidación real y su rastro, no solo calcularAhorroConMinimos. Se verifica divisor 2, valor autonómico y ausencia del ID del hijo en el rastro.
++
++Objeción experta: estos números no acreditan todo redondeo por casillas ni la calificación de cualquier ganancia. Respuesta: control discriminante de conexión y separación de remanentes sobre hechos simples. Coste: aceptación limitada a las operaciones comprobadas; no revalidación fiscal del motor anual ni de las 98 pruebas citadas por el autor.
++
++## Fuentes, vigencia y erratas
++
++Fuentes primarias leídas personalmente:
++
++- [Ley 35/2006 en compilación oficial AEAT 2025](https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf), páginas físicas 36–38, arts.58/60/61 y contexto 56/64. Reextracción Poppler en ley-58-61.txt; original ya versionado en correcciones-x-v1, SHA256 95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94. Ambos hashes y tamaño recalculados en original-ley.json. Se cita «su importe se prorrateará entre ellos por partes iguales» (art.61.1). No se inventan coordenadas o facsímiles nuevos.
++- [Ley 26/2014, BOE-A-2014-12327](https://www.boe.es/buscar/doc.php?id=BOE-A-2014-12327), art.primero.34/36/37 y DF6: reforma de esos artículos efectiva desde 1-1-2015. Las excepciones de DF6 no desplazan esos apartados. La ficha de análisis consultada no lista corrección de errores de esos preceptos. Esto no demuestra exhaustividad de toda errata histórica. La compilación 2025 corrobora el texto vigente utilizado.
++- [Manual 2025: requisitos](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/concepto-requisitos-descendientes.html), apartados a–d y criterio de alimentos. Selector: «sin que en este supuesto tenga la posibilidad de optar». Distingue renta neta de bruto y de base compensada. La referencia a TEAC de 29-5-2023 se ha leído en el manual; no se afirma haber reabierto ambos expedientes TEAC.
++- [Manual 2025: cuantías](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/cuantias-aplicables.html), A orden; B incremento y tabla de acogimientos. Selector: «hasta agotar el plazo máximo de tres años». Explica equivalencia desde 18-8-2015 entre acogimiento preadoptivo y guarda preadoptiva. No se usa Modelo145 como norma anual.
++- [Manual 2025: condiciones](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/condiciones-aplicacion-minimo-descendientes.html), puntos1/2, fecha de devengo y excepción de grado. Selector: «a los del siguiente grado».
++- [Hacienda, Tributación Autonómica 2025, capítulo IV](https://www.hacienda.gob.es/SGFAL/FinanciacionTerritorial/Autonomica/Capitulo-IV-Tributacion-Autonomica-2025.pdf), p.141, mínimos madrileños y referencia a Ley13/2023; [Manual Renta2025](https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/ManualRenta2025Parte1_es_es.pdf), capítulo14, p.912. Contraste de cantidades utilizadas, no revisión completa nueva de todos los artículos autonómicos.
++
++La nota116 de la compilación AEAT p.36 dice artículo52 al comentar la reforma de57; el original Ley26/2014.33 identifica57. Es una errata editorial detectada en contexto; no se utiliza para cambiar cuantías ni se oculta. El intento de consolidado BOE p=20251231 falló por timeout: no se presenta como leído. Las consultas web complementan los originales conservados.
++
++Los tres HTML del manual se readquirieron con el wrapper del corpus, UA identificativo, metadatos saneados y SHA256/512, en primarios. No hay OCR ni facsímil nuevo, validación PAdES/CSV o sello de tiempo. Integridad local verificada; adquisición oficial HTTPS sin autenticidad histórica validada; interpretación acotada argumentada; exactitud limitada a casos; aceptación completa false. No hay promoción ni atestación.
++
++## Comprobaciones y reproducción
++
++Se ejecutaron 41 pruebas existentes de mínimos/derechos: correctas. Suite propia final: 32 pruebas, 29 controles correctos y tres rojos conservados MDV1-01/02/03. No se suman esos recuentos como reglas fiscales aceptadas. No se ejecutaron Next build ni suites legacy completas.
++
++Primer pase propio: error del revisor en esperado 125654 frente a 125704. Se corrige solo este test nuevo, con derivación (5.550+1.200)×9,5%+(5.956,65+1.287,925)×8,5%=1.257,038875. El log inicial se conserva; no es defecto del motor. Ningún oracle previo cambia.
++
++Tipos del proyecto con --incremental false correctos; tipos propios finales correctos. Oxlint del alcance y entrega con --disable-nested-config y 16 reglas a error, ESLint de entrega correctos. Primer ESLint desde checkout ignoró la ruta externa; no cuenta. Se repitió desde raíz del padre únicamente sobre la entrega. Primer tipo propio falló por comentario @ts-expect-error desplazado al formatear; se corrigió solo su posición y se conserva el log.
++
++Receta desde el checkout fijado, siempre bajo flock /tmp/irobopf-validacion-pesada.lock y nix shell nixpkgs#bun nixpkgs#nodejs:
++
++    node_modules/.bin/vitest run --config .cache/revision-derechos/vitest.config.mjs
++    node_modules/.bin/tsc -p .cache/revision-derechos/tsconfig.json --noEmit --incremental false
++    node_modules/.bin/vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts --maxWorkers=1
++    node_modules/.bin/tsc --noEmit --incremental false
++
++La configuración scratch de Vitest incluye la ruta absoluta de casos.test.ts de esta carpeta y maxWorkers:1; cacheDir está en la .cache propia. La configuración scratch de tipos extiende ../../tsconfig.json e incluye solo ese test absoluto, con exclude:[] e incremental:false. No se copian configuraciones ni fuentes a docs. Los imports del test fijan el motor de este checkout; al relocalizarlo hay que registrar los nuevos hashes.
++
++Lint final desde /home/elies/Repos/IRoboPF, con el mismo lock y Nix:
++
++    node_modules/.bin/oxlint --disable-nested-config docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts
++    node_modules/.bin/eslint docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts
++
++Descargas: UV_PROJECT_ENVIRONMENT=/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/.cache/revision-derechos/venv antes de bash tools/procedencia/run.sh tools/procedencia/descargar.py URL --root /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/primarios. Extracción: nix shell nixpkgs#poppler-utils -c pdftotext -f36 -l38 -layout ORIGINAL DESTINO. Todo serializado. No se reconstruye inventario.
++
++## Entrega y límites
++
++manifiesto.json fija path/sha256/size/baseSha256 por archivo. entrega.patch contiene solo altas textuales de la revisión; binarios y originales se integran por hash, nunca por parche. base.json.gz conserva comprobación de entradas y enlaces. No hay borrados. Logs menores de 1MB; el control masivo va comprimido. Ningún árbol de ejecución, copia de motor, tsconfig o node_modules forma parte de la entrega.
++
++Decisión de conservar tres rojos sin fixes: objeción experta, una revisión que corrige su objeto pierde separación entre hallazgo y cambio. Respuesta: entregar reproducciones y acción concreta al padre. Coste: la ruta continúa con esos defectos y debe contrarrevisarse tras corregirlos. No se hereda aceptación de rondas previas.
++
++Se conservan inventario 4f00b24bfa37baa3521d54af1448d99a2ef6d1eee3e08bcf8b4d16ec97af7314, artifact b5450d431eefa13765ec0009a6be579e15848524799f2a467a46b5746caf087f y 52.377 ocurrencias, no reglas aceptadas. v1/v2 y payload Madrid permanecen sin cambio ni atestación. Crossa sigue siendo v1 histórico comunicado por coordinador, misma casa/dueño; sin comprobación propia ni custodia independiente. No se tocan preservados, contexto, Reactivity, originales o worktrees; sin LFS, gasto, transferencia externa, PR o despliegue.
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/MDV1-01.json
+@@ -0,0 +1,17 @@
++{
++  "id": "MDV1-01",
++  "prioridad": "alta",
++  "titulo": "renta propia no conciliada",
++  "localizacion": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:191",
++  "observado": "Contribuyente con 30000 EUR de trabajo y renta censal cero cede mínimo a grado 2; Success",
++  "accion": "Rechazar contradicción o derivar renta conciliada",
++  "objecion": "La renta no equivale a bruto ni base liquidable",
++  "respuesta": "Caso simple sin pérdidas ni exenciones; rechazo no requiere fórmula universal",
++  "coste": "Contrato de conciliación y precisión monetaria",
++  "fuente": "art.61.1; Manual2025 requisitos c)",
++  "estado": "reproducido-sin-fix",
++  "aceptacionCompleta": false,
++  "base": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
++  "prueba": "casos.test.ts",
++  "log": "cierre.log"
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/MDV1-02.json
+@@ -0,0 +1,17 @@
++{
++  "id": "MDV1-02",
++  "prioridad": "media",
++  "titulo": "edad de adopción por años",
++  "localizacion": "lib/dominio/irpf/minimos/derechos.ts:121",
++  "observado": "Nacimiento2007-12-31 y adopción2025-01-02: rechazo de adulto aunque tenía17",
++  "accion": "Comparar fecha civil completa; conservar exclusión realmente adulta",
++  "objecion": "Adultos están fuera de alcance",
++  "respuesta": "Este caso era menor en el evento; anual también reproduce rechazo",
++  "coste": "Regresiones antes/en/después del cumpleaños",
++  "fuente": "art.58.2; Manual2025 cuantías B",
++  "estado": "reproducido-sin-fix",
++  "aceptacionCompleta": false,
++  "base": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
++  "prueba": "casos.test.ts",
++  "log": "cierre.log"
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/MDV1-03.json
+@@ -0,0 +1,17 @@
++{
++  "id": "MDV1-03",
++  "prioridad": "alta",
++  "titulo": "alimentos omitidos en frontera anual",
++  "localizacion": "lib/dominio/irpf/minimos/derechos.ts:134",
++  "observado": "Pagador judicial sin custodia, flag especialidad false: Success anual sin importe ni especialidad",
++  "accion": "Rechazar hechos propios que requieren capacidad excluida",
++  "objecion": "Falta de soporte no demuestra cuota alternativa",
++  "respuesta": "Se denuncia admisión de caso incompleto, no importe inventado; helper puede ser correcto",
++  "coste": "Frontera anual más estricta y contrato futuro de alimentos",
++  "fuente": "arts.58/64/75; Manual2025 requisitos b)",
++  "estado": "reproducido-sin-fix",
++  "aceptacionCompleta": false,
++  "base": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
++  "prueba": "casos.test.ts",
++  "log": "cierre.log"
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/adquisicion-adicional.log
+@@ -0,0 +1,84 @@
++{
++  "schemaVersion": 2,
++  "canonicalUrl": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/cuantias-aplicables.html",
++  "finalUrl": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/cuantias-aplicables.html",
++  "retrievedAt": "2026-10-29T16:04:16.057443+00:00",
++  "httpStatus": 200,
++  "headers": {
++    "date": "Thu, 29 Oct 2026 16:04:16 GMT",
++    "last-modified": "Tue, 17 Mar 2026 18:58:35 GMT",
++    "accept-ranges": "bytes",
++    "content-length": "15163",
++    "content-type": "text/html"
++  },
++  "redirects": [],
++  "sha256": "7f06478ecac0d71fef79a78ac319c9bf8631ffd6ee8ccdb322068dce6834e859",
++  "sha512": "9258fca6f3b73cf02e7a8786a73a52f95e1023a12c97f8e4393cd4b90e6ef17480b95c46f32cea54a5d2175cddfa332b22c196ca00afa78396b777475540af22",
++  "size": 15163,
++  "mimeType": "text/html",
++  "localPath": "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/primarios/sha256/7f06478ecac0d71fef79a78ac319c9bf8631ffd6ee8ccdb322068dce6834e859",
++  "officialIdentifier": {
++    "value": null,
++    "status": "pending"
++  },
++  "publication": {
++    "status": "pending"
++  },
++  "consolidation": {
++    "status": "pending"
++  },
++  "eli": {
++    "status": "pending"
++  },
++  "csv": {
++    "status": "pending"
++  },
++  "authenticity": {
++    "status": "not-validated"
++  },
++  "sourcePolicy": {
++    "status": "allowlisted"
++  }
++}
++{
++  "schemaVersion": 2,
++  "canonicalUrl": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/condiciones-aplicacion-minimo-descendientes.html",
++  "finalUrl": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/condiciones-aplicacion-minimo-descendientes.html",
++  "retrievedAt": "2026-10-29T16:04:18.419949+00:00",
++  "httpStatus": 200,
++  "headers": {
++    "date": "Thu, 29 Oct 2026 16:04:18 GMT",
++    "last-modified": "Tue, 17 Mar 2026 19:46:24 GMT",
++    "accept-ranges": "bytes",
++    "content-length": "9556",
++    "content-type": "text/html"
++  },
++  "redirects": [],
++  "sha256": "048341f898ba6b5017f09e5be2cd2b3c250886dcf5fb2a5b144498391fe5c658",
++  "sha512": "7151e2ac62d8e8885fd11c67c03e2a8c49db9d684f39eabe5b5d3bb5e329006077dc3c0a37fb326be114a217a0e35cc8d9474a8fad78cf96b4d78072ce5ba93f",
++  "size": 9556,
++  "mimeType": "text/html",
++  "localPath": "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/primarios/sha256/048341f898ba6b5017f09e5be2cd2b3c250886dcf5fb2a5b144498391fe5c658",
++  "officialIdentifier": {
++    "value": null,
++    "status": "pending"
++  },
++  "publication": {
++    "status": "pending"
++  },
++  "consolidation": {
++    "status": "pending"
++  },
++  "eli": {
++    "status": "pending"
++  },
++  "csv": {
++    "status": "pending"
++  },
++  "authenticity": {
++    "status": "not-validated"
++  },
++  "sourcePolicy": {
++    "status": "allowlisted"
++  }
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/adquisicion.log
+@@ -0,0 +1,45 @@
++Using CPython 3.13.15 interpreter at: /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3
++Creating virtual environment at: .cache/revision-derechos/venv
++Installed 6 packages in 6ms
++{
++  "schemaVersion": 2,
++  "canonicalUrl": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/concepto-requisitos-descendientes.html",
++  "finalUrl": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/concepto-requisitos-descendientes.html",
++  "retrievedAt": "2026-10-29T16:03:16.230282+00:00",
++  "httpStatus": 200,
++  "headers": {
++    "date": "Thu, 29 Oct 2026 16:03:16 GMT",
++    "last-modified": "Tue, 17 Mar 2026 19:10:45 GMT",
++    "accept-ranges": "bytes",
++    "content-length": "24157",
++    "content-type": "text/html"
++  },
++  "redirects": [],
++  "sha256": "6cc6241a03bbef2d1a28f0f009e992b8907b9cc4de0c741e378ce634ccc1184f",
++  "sha512": "c3d5300c84ee02f2a5315635468234e02e76fd33e64df1db6aeb354d78c782c2fd366c82be7ca0f187cb7123c366e6c20693706fa352a807090e97e14e9ad7d8",
++  "size": 24157,
++  "mimeType": "text/html",
++  "localPath": "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/primarios/sha256/6cc6241a03bbef2d1a28f0f009e992b8907b9cc4de0c741e378ce634ccc1184f",
++  "officialIdentifier": {
++    "value": null,
++    "status": "pending"
++  },
++  "publication": {
++    "status": "pending"
++  },
++  "consolidation": {
++    "status": "pending"
++  },
++  "eli": {
++    "status": "pending"
++  },
++  "csv": {
++    "status": "pending"
++  },
++  "authenticity": {
++    "status": "not-validated"
++  },
++  "sourcePolicy": {
++    "status": "allowlisted"
++  }
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts
+@@ -0,0 +1,358 @@
++import { expect, it } from "vitest"
++import { Effect, Result } from "effect"
++import type {
++  DerechosMinimos2025,
++  DescendienteDerechos,
++  TitularDescendiente,
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos-contrato"
++import { calcularDerechosMinimos } from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos"
++import { MINIMOS_ESTATALES_2025 } from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/normativa/datos/minimos-autonomicos-2025"
++import {
++  liquidarIrpfAnualConDerechos,
++  liquidarIrpfAnual,
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
++import {
++  sinDiscapacidad,
++  type CasoFiscalAnual,
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/caso-fiscal-anual"
++
++const titular = (
++  titularId = "s-1",
++  renta = 2605000,
++  grado = 1
++): TitularDescendiente => ({
++  titularId,
++  grado,
++  rentasNoExentasCentimos: renta,
++  residenteIrpf: true,
++  vinculo: { clase: "consanguinidad" },
++  relacion: "convivencia",
++  custodia: "no-procede",
++  alimentosJudiciales: false,
++  aplicaEspecialidadAlimentos: false,
++})
++const hijo = (
++  sujetoId = "s-3",
++  fechaNacimiento = "2017-12-31",
++  titulares = [titular(), titular("s-2")]
++): DescendienteDerechos => ({
++  sujetoId,
++  fechaNacimiento,
++  edadDevengo: 2025 - Number(fechaNacimiento.slice(0, 4)),
++  vivoAlDevengo: true,
++  rentasNoExentasCentimos: 0,
++  declaracion: { modalidad: "no-presenta" },
++  discapacidad: sinDiscapacidad,
++  titulares,
++  titularesCompletos: true,
++})
++const hechos = (
++  descendientes = [hijo(), hijo("s-4", "2020-12-31")]
++): DerechosMinimos2025 => ({
++  ejercicio: 2025,
++  territorio: "madrid",
++  regimen: "comun",
++  modalidad: "individual",
++  devengo: "2025-12-31",
++  contribuyenteId: "s-1",
++  edadContribuyenteDevengo: 40,
++  discapacidadContribuyente: sinDiscapacidad,
++  ascendientes: "ninguno",
++  fallecimientosEnElEjercicio: "ninguno",
++  descendientesCompletos: true,
++  descendientes,
++})
++const anual = (
++  derechosMinimos: DerechosMinimos2025,
++  bruto = 3000000,
++  ahorro = 0
++): CasoFiscalAnual & { derechosMinimos: DerechosMinimos2025 } => ({
++  anio: 2025,
++  comunidadAutonoma: "madrid",
++  derechosMinimos,
++  situacionFamiliar: {
++    tipo: "individual",
++    edad: 40,
++    discapacidad: sinDiscapacidad,
++    descendientes: [],
++    ascendientes: [],
++  },
++  rendimientos: {
++    trabajo: [{ importeIntegroCentimos: bruto }],
++    gananciasPatrimoniales: [
++      {
++        importeGananciaCentimos: ahorro,
++        tratamientoMayores65: { _tag: "SinExencionMayores65" },
++      },
++    ],
++  },
++  reducciones: [],
++  deducciones: [],
++  retencionesSoportadasCentimos: 0,
++  pagosACuentaCentimos: 0,
++})
++const calcular = (h: DerechosMinimos2025) =>
++  Effect.runSync(calcularDerechosMinimos(h, MINIMOS_ESTATALES_2025))
++const liquidar = (h: DerechosMinimos2025, bruto = 3000000, ahorro = 0) =>
++  Effect.runSync(liquidarIrpfAnualConDerechos(anual(h, bruto, ahorro)))
++const rechaza = (h: DerechosMinimos2025) => {
++  const r = Effect.runSync(
++    Effect.result(liquidarIrpfAnualConDerechos(anual(h)))
++  )
++  expect(Result.isFailure(r)).toBe(true)
++  if (Result.isFailure(r)) expect(r.failure._tag).toBe("ResultadoNoSoportado")
++}
++
++it.each([1, 2, 3, 4])("reparto %s titulares en helper y API anual", (n) => {
++  const ts = Array.from({ length: n }, (_, i) => titular("s-" + (i + 1)))
++  const h = hechos([
++    hijo("s-10", "2017-12-31", ts),
++    hijo("s-11", "2020-12-31", ts),
++  ])
++  expect(calcular(h).descendientes.toNumber()).toBe(5100 / n)
++  expect(liquidar(h).cuotaMinimoPersonalCentimos).toBe(
++    Math.round(
++      ((5550 + 5100 / n) * 0.095 + (5956.65 + 5473.68 / n) * 0.085) * 100
++    )
++  )
++})
++it.each([799999, 800000, 800001])(
++  "rentas %s y orden del superviviente elegible",
++  (renta) => {
++    const h = hechos([
++      { ...hijo(), rentasNoExentasCentimos: renta },
++      hijo("s-4", "2020-12-31"),
++    ])
++    expect(calcular(h).descendientes.toNumber()).toBe(
++      renta > 800000 ? 1200 : 2550
++    )
++    expect(liquidar(h).cuotaMinimoPersonalCentimos).toBe(
++      renta > 800000 ? 125704 : 150845
++    )
++  }
++)
++it.each([179999, 180000, 180001])("declaración %s", (renta) => {
++  const h = hechos([
++    {
++      ...hijo(),
++      rentasNoExentasCentimos: renta,
++      declaracion: { modalidad: "individual", rentasCentimos: renta },
++    },
++  ])
++  expect(calcular(h).descendientes.toNumber()).toBe(renta > 180000 ? 0 : 1200)
++  liquidar(h)
++})
++it.each(["2000-12-31", "2001-01-01"])("cumpleaños edad 25 en %s", (fecha) => {
++  const h = hechos([hijo("s-3", fecha)])
++  expect(calcular(h).descendientes.toNumber()).toBe(
++    fecha.startsWith("2000") ? 0 : 1200
++  )
++  liquidar(h)
++})
++it("discapacidad de adulto y renta excluyente", () => {
++  const d = {
++    ...hijo("s-3", "1990-12-31"),
++    discapacidad: { _tag: "Discapacidad65OMas" },
++  } satisfies DescendienteDerechos
++  expect(calcular(hechos([d])).discapacidadFamiliares.toNumber()).toBe(6000)
++  expect(
++    calcular(
++      hechos([{ ...d, rentasNoExentasCentimos: 800001 }])
++    ).total.toNumber()
++  ).toBe(5550)
++  liquidar(hechos([d]))
++})
++it.each([799999, 800000, 800001])(
++  "prioridad por renta del próximo %s",
++  (renta) => {
++    const h = hechos([
++      hijo("s-3", "2017-12-31", [
++        titular("s-1", 2605000, 2),
++        titular("s-2", renta),
++      ]),
++    ])
++    expect(calcular(h).descendientes.toNumber()).toBe(renta > 800000 ? 0 : 2400)
++    liquidar(h)
++  }
++)
++it.each([2022, 2023, 2024, 2025])("primer evento en %s", (year) => {
++  const t = {
++    ...titular(),
++    vinculo: {
++      clase: "adopcion",
++      fechaInicioIncremento: year + "-12-31",
++      fundamento: "inscripcion-registro-civil",
++      historialCompleto: true,
++    },
++  } satisfies TitularDescendiente
++  expect(
++    calcular(hechos([hijo("s-3", "2017-12-31", [t])])).descendientes.toNumber()
++  ).toBe(year < 2023 ? 2400 : 5200)
++  liquidar(hechos([hijo("s-3", "2017-12-31", [t])]))
++})
++it("menor tres y adopción no duplican incremento", () => {
++  const t = {
++    ...titular(),
++    vinculo: {
++      clase: "adopcion",
++      fechaInicioIncremento: "2025-01-01",
++      fundamento: "inscripcion-registro-civil",
++      historialCompleto: true,
++    },
++  } satisfies TitularDescendiente
++  expect(
++    calcular(hechos([hijo("s-3", "2023-01-01", [t])])).descendientes.toNumber()
++  ).toBe(5200)
++})
++it.each([
++  "acogimiento-temporal",
++  "acogimiento-urgencia",
++  "guarda-judicial",
++] as const)("vínculo %s sin incremento por fecha", (clase) => {
++  const t = { ...titular(), vinculo: { clase } }
++  expect(
++    calcular(hechos([hijo("s-3", "2017-01-01", [t])])).descendientes.toNumber()
++  ).toBe(2400)
++  expect(
++    calcular(hechos([hijo("s-3", "2023-12-31", [t])])).descendientes.toNumber()
++  ).toBe(5200)
++})
++it("convivencia dependencia custodia y alimentos", () => {
++  const t = {
++    ...titular("s-2"),
++    relacion: "dependencia-economica",
++    custodia: "sin-custodia",
++  } satisfies TitularDescendiente
++  expect(
++    calcular(
++      hechos([hijo("s-3", "2017-01-01", [titular(), t])])
++    ).descendientes.toNumber()
++  ).toBe(1200)
++  expect(
++    calcular(
++      hechos([
++        hijo("s-3", "2017-01-01", [
++          titular(),
++          { ...t, alimentosJudiciales: true },
++        ]),
++      ])
++    ).descendientes.toNumber()
++  ).toBe(2400)
++  expect(
++    calcular(
++      hechos([
++        hijo("s-3", "2017-01-01", [{ ...titular(), relacion: "ninguna" }]),
++      ])
++    ).descendientes.toNumber()
++  ).toBe(0)
++  rechaza(
++    hechos([
++      hijo("s-3", "2017-01-01", [
++        { ...titular(), aplicaEspecialidadAlimentos: true },
++      ]),
++    ])
++  )
++})
++it("censos duplicados IDs fechas y ámbito: errores tipados", () => {
++  rechaza(hechos([hijo(), hijo()]))
++  rechaza(hechos([hijo("s-3", "2017-12-31", [titular(), titular()])]))
++  rechaza({ ...hechos(), contribuyenteId: "nombre-personal" })
++  rechaza(hechos([{ ...hijo(), fechaNacimiento: "2017-02-29" }]))
++  // @ts-expect-error frontera incompleta deliberada
++  rechaza({ ...hechos(), descendientesCompletos: false })
++  // @ts-expect-error devengo fuera de alcance deliberado
++  rechaza({ ...hechos(), devengo: "2025-12-30" })
++})
++it("grados mixtos y tres grados son capacidad pendiente tipada", () => {
++  rechaza(
++    hechos([
++      hijo("s-8", "2017-01-01", [
++        titular(),
++        titular("s-2", 0),
++        titular("s-9", 0, 2),
++      ]),
++    ])
++  )
++  rechaza(
++    hechos([
++      hijo("s-8", "2017-01-01", [
++        titular(),
++        titular("s-2", 0, 2),
++        titular("s-9", 0, 3),
++      ]),
++    ])
++  )
++})
++it("remanentes separados a ahorro y rastro público", () => {
++  const h = hechos([
++    hijo("s-3", "2017-12-31", [titular("s-1", 2000000), titular("s-2")]),
++    hijo("s-4", "2020-12-31", [titular("s-1", 2000000), titular("s-2")]),
++  ])
++  const r = liquidar(h, 0, 2000000)
++  expect(r.baseLiquidableGeneralCentimos).toBe(0)
++  expect(r.baseLiquidableAhorroCentimos).toBe(2000000)
++  // estatal: 570+2100*.105=790.50; Madrid: 570+2693.49*.105=852.81645
++  expect(r.cuotaMinimoPersonalAhorroCentimos).toBe(164332)
++  expect(r.cuotaIntegraAhorroCentimos).toBe(408000)
++  expect(r.cuotaLiquidaCentimos).toBe(243668)
++  expect(JSON.stringify(r.rastro)).toContain("divisor 2")
++  expect(JSON.stringify(r.rastro)).toContain("8693.49")
++  expect(JSON.stringify(r.rastro)).not.toContain('"s-3"')
++})
++it("legacy rechaza derechos y describe perfil parcial", () => {
++  const r = Effect.runSync(
++    Effect.result(
++      liquidarIrpfAnual(anual(hechos()), { modo: "compatible-legacy" })
++    )
++  )
++  expect(Result.isFailure(r)).toBe(true)
++  const c = anual(hechos())
++  const antiguo = { ...c, derechosMinimos: undefined }
++  const l = Effect.runSync(
++    // @ts-expect-error omisión runtime explícita
++    liquidarIrpfAnual(antiguo, { modo: "compatible-legacy" })
++  )
++  expect(JSON.stringify(l.rastro)).toContain("sin acreditar derecho ni reparto")
++})
++it("MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual", () => {
++  const h = hechos([
++    hijo("s-3", "2017-12-31", [titular("s-1", 0), titular("s-2", 3000000, 2)]),
++  ])
++  const r = liquidar(h)
++  expect(r.rendimientoNetoTrabajoCentimos).toBeGreaterThan(800000)
++  // El mismo contribuyente declara renta cero para ceder el mínimo al abuelo.
++  rechaza(h)
++})
++it("MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance", () => {
++  const t = {
++    ...titular(),
++    vinculo: {
++      clase: "adopcion",
++      fechaInicioIncremento: "2025-01-02",
++      fundamento: "inscripcion-registro-civil",
++      historialCompleto: true,
++    },
++  } satisfies TitularDescendiente
++  const h = hechos([hijo("s-3", "2007-12-31", [t])])
++  // Tenía 17 al adoptar; cumple 18 al devengo. Mínimo 2400+2800.
++  const r = liquidar(h)
++  expect(r.cuotaMinimoPersonalCentimos).toBe(200195)
++  expect(calcular(h).descendientes.toNumber()).toBe(5200)
++})
++it("MDV1-03 ROJO: anual no debe liquidar pagador judicial sin custodia omitiendo especialidad obligatoria", () => {
++  const t = {
++    ...titular(),
++    relacion: "dependencia-economica",
++    custodia: "sin-custodia",
++    alimentosJudiciales: true,
++  } satisfies TitularDescendiente
++  // La especialidad se deriva de los hechos, no de marcar voluntariamente su flag.
++  rechaza(
++    hechos([
++      hijo("s-3", "2017-01-01", [
++        t,
++        { ...titular("s-2"), custodia: "exclusiva" },
++      ]),
++    ])
++  )
++})
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/cierre.log
+@@ -0,0 +1,70 @@
++tipos-exit:0
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4
++
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts (32 tests | 3 failed) 109ms
++   × MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual 9ms
++   × MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance 0ms
++   × MDV1-03 ROJO: anual no debe liquidar pagador judicial sin custodia omitiendo especialidad obligatoria 3ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual
++AssertionError: expected false to be true // Object.is equality
++
++- Expected
+++ Received
++
++- true
+++ false
++
++ ❯ rechaza ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:102:31
++    100|     Effect.result(liquidarIrpfAnualConDerechos(anual(h)))
++    101|   )
++    102|   expect(Result.isFailure(r)).toBe(true)
++       |                               ^
++    103|   if (Result.isFailure(r)) expect(r.failure._tag).toBe("ResultadoNoSop…
++    104| }
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:324:3
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance
++{
++  _tag: 'ResultadoNoSoportado',
++  motivo: 'Adopción o acogimiento en mayoría de edad pendiente de soporte',
++  fuenteReconocida: 'docs/procedencia/implementaciones/minimos-derechos/INFORME.md',
++  rastro: { titulo: 'Derechos a mínimos no soportados', pasos: [] },
++  stacks: []
++}
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-03 ROJO: anual no debe liquidar pagador judicial sin custodia omitiendo especialidad obligatoria
++AssertionError: expected false to be true // Object.is equality
++
++- Expected
+++ Received
++
++- true
+++ false
++
++ ❯ rechaza ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:102:31
++    100|     Effect.result(liquidarIrpfAnualConDerechos(anual(h)))
++    101|   )
++    102|   expect(Result.isFailure(r)).toBe(true)
++       |                               ^
++    103|   if (Result.isFailure(r)) expect(r.failure._tag).toBe("ResultadoNoSop…
++    104| }
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:350:3
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  3 failed | 29 passed (32)
++   Start at  17:04:40
++   Duration  955ms (transform 379ms, setup 0ms, import 662ms, tests 109ms, environment 0ms)
++
++pruebas-exit:1
++oxlint-exit:0
++eslint-exit:0
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/controles-cierre.json
+@@ -0,0 +1,56 @@
++{
++  "base": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
++  "head": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
++  "diff": "",
++  "reglas": {
++    "anti-slop/no-chained-type-assertions": "error",
++    "anti-slop/no-conditional-empty-object-spread": "error",
++    "anti-slop/no-known-value-widening": "error",
++    "anti-slop/no-module-mocking": "error",
++    "anti-slop/no-object-parameters": "error",
++    "anti-slop/no-reflect-apply": "error",
++    "anti-slop/no-reflect-get": "error",
++    "anti-slop/no-runtime-typeof": "error",
++    "anti-slop/no-unsafe-dictionary-type": "error",
++    "anti-slop/no-shape-in-symbol-names": "error",
++    "anti-slop/no-unknown-parameters": "error",
++    "anti-slop/no-unknown-returns": "error",
++    "anti-slop/no-unknown-type-aliases": "error",
++    "anti-slop/no-widen-then-assert": "error",
++    "anti-slop/require-safety-comment-for-type-assertion": "error",
++    "anti-slop-effect/no-service-constructor-imports": "error"
++  },
++  "originalesRecalculados": [
++    {
++      "path": "primarios/sha256/048341f898ba6b5017f09e5be2cd2b3c250886dcf5fb2a5b144498391fe5c658",
++      "sha256": "048341f898ba6b5017f09e5be2cd2b3c250886dcf5fb2a5b144498391fe5c658",
++      "sha512": "7151e2ac62d8e8885fd11c67c03e2a8c49db9d684f39eabe5b5d3bb5e329006077dc3c0a37fb326be114a217a0e35cc8d9474a8fad78cf96b4d78072ce5ba93f",
++      "size": 9556
++    },
++    {
++      "path": "primarios/sha256/6cc6241a03bbef2d1a28f0f009e992b8907b9cc4de0c741e378ce634ccc1184f",
++      "sha256": "6cc6241a03bbef2d1a28f0f009e992b8907b9cc4de0c741e378ce634ccc1184f",
++      "sha512": "c3d5300c84ee02f2a5315635468234e02e76fd33e64df1db6aeb354d78c782c2fd366c82be7ca0f187cb7123c366e6c20693706fa352a807090e97e14e9ad7d8",
++      "size": 24157
++    },
++    {
++      "path": "primarios/sha256/7f06478ecac0d71fef79a78ac319c9bf8631ffd6ee8ccdb322068dce6834e859",
++      "sha256": "7f06478ecac0d71fef79a78ac319c9bf8631ffd6ee8ccdb322068dce6834e859",
++      "sha512": "9258fca6f3b73cf02e7a8786a73a52f95e1023a12c97f8e4393cd4b90e6ef17480b95c46f32cea54a5d2175cddfa332b22c196ca00afa78396b777475540af22",
++      "size": 15163
++    }
++  ],
++  "suitePropia": {
++    "total": 32,
++    "controlesVerdes": 29,
++    "rojos": [
++      "MDV1-01",
++      "MDV1-02",
++      "MDV1-03"
++    ]
++  },
++  "regresionesExistentes": 41,
++  "tipos": 0,
++  "oxlint": 0,
++  "eslint": 0
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/ley-58-61.txt
+@@ -0,0 +1,236 @@
++Apéndice normativo. Ley 35/2006
++
++
++
++
++disposición y la finalización del plazo reglamentario de      2. Cuando la base liquidable general sea superior al im-
++declaración correspondiente al período impositivo en          porte del mínimo personal y familiar, éste formará parte
++que se realice dicha disposición.                             de la base liquidable general.
++En los casos en que la aportación se hubiera realiza-         Cuando la base liquidable general sea inferior al importe
++do al patrimonio protegido de los parientes, cónyuges         del mínimo personal y familiar, éste formará parte de la
++o personas a cargo de los trabajadores en régimen de          base liquidable general por el importe de esta última y
++tutela o acogimiento, a que se refiere el apartado 1 de       de la base liquidable del ahorro por el resto.
++este artículo, por un sujeto pasivo del Impuesto sobre        Cuando no exista base liquidable general, el mínimo
++Sociedades, la obligación descrita en el párrafo anterior     personal y familiar formará parte de la base liquidable
++deberá ser cumplida por dicho trabajador.                     del ahorro.
++c) A los efectos de lo dispuesto en el apartado 5 del artí-   3. (115) El mínimo personal y familiar será el resultado
++culo 43 del texto refundido de la Ley del Impuesto sobre      de sumar el mínimo del contribuyente y los mínimos
++Sociedades, el trabajador titular del patrimonio prote-       por descendientes, ascendientes y discapacidad a que
++gido deberá comunicar al empleador que efectuó las            se refieren los artículos 57, 58, 59 y 60 de esta Ley
++aportaciones, las disposiciones que se hayan realizado        incrementados o disminuidos a efectos del cálculo del
++en el período impositivo.                                     gravamen autonómico en los importes que, de acuer-
++En los casos en que la disposición se hubiera efectuado       do con lo establecido en el Ley 22/2009, por la que se
++en el patrimonio protegido de los parientes, cónyuges         regula el sistema de financiación de las Comunidades
++o personas a cargo de los trabajadores en régimen de          Autónomas de régimen común y Ciudades con Estatuto
++tutela o acogimiento, la comunicación a que se refie-         de Autonomía, hayan sido aprobados por la Comunidad
++re el párrafo anterior también deberá efectuarla dicho        Autónoma.
++trabajador.
++                                                              Artículo 57. Mínimo del contribuyente. (116)
++La falta de comunicación o la realización de comunica-
++ciones falsas, incorrectas o inexactas constituirá infrac-    1. El mínimo del contribuyente será, con carácter gene-
++ción tributaria leve. Esta infracción se sancionará con       ral, de 5.550 euros anuales.
++multa pecuniaria fija de 400 euros.                           2. Cuando el contribuyente tenga una edad superior a
++La sanción impuesta de acuerdo con lo previsto en             65 años, el mínimo se aumentará en 1.150 euros anua-
++este apartado se reducirá conforme a lo dispuesto en el       les. Si la edad es superior a 75 años, el mínimo se au-
++apartado 3 del artículo 188 de la Ley 58/2003, de 17 de       mentará adicionalmente en 1.400 euros anuales.
++diciembre, General Tributaria.                                Artículo 58. Mínimo por descendientes. (117)
++A los efectos previstos en este apartado, tratándose de
++                                                              1. El mínimo por descendientes será, por cada uno de
++bienes o derechos homogéneos se entenderá que fue-
++                                                              ellos menor de veinticinco años o con discapacidad
++ron dispuestos los aportados en primer lugar.
++                                                              cualquiera que sea su edad, siempre que conviva con
++No se aplicará lo dispuesto en este apartado en caso          el contribuyente y no tenga rentas anuales, excluidas las
++de fallecimiento del titular del patrimonio protegido, del    exentas, superiores a 8.000 euros, de:
++aportante o de los trabajadores a los que se refiere el       2.400 euros anuales por el primero.
++apartado 2 del artículo 43 del texto refundido de la Ley
++del Impuesto sobre Sociedades.                                2.700 euros anuales por el segundo.
++                                                              4.000 euros anuales por el tercero.
++                      CAPÍTULO II                             4.500 euros anuales por el cuarto y siguientes.
++                                                              A estos efectos, se asimilarán a los descendientes
++       Reducción por pensiones compensatorias                 aquellas personas vinculadas al contribuyente por razón
++                                                              de tutela y acogimiento, en los términos previstos en la
++Artículo 55. Reducciones por pensiones compensa-              legislación civil aplicable.
++torias.
++                                                              Asimismo, se asimilará a la convivencia con el contri-
++Las pensiones compensatorias a favor del cónyuge y las        buyente, la dependencia respecto de este último salvo
++anualidades por alimentos, con excepción de las fijadas
++en favor de los hijos del contribuyente, satisfechas am-      (115) Apartado 3 del artículo 56 redactado, con efectos desde 1
++bas por decisión judicial, podrán ser objeto de reduc-        de enero de 2010, por la Ley 22/2009, de 18 de diciembre (BOE
++                                                              del 19).
++ción en la base imponible.
++                                                              (116) Artículo 52 modificado, con efectos 1 de enero de 2015, por
++                                                              el artículo Primero.Treinta y tres de la Ley 26/2014, de 27 de no-
++                        TÍTULO V                              viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-
++                                                              bre, del Impuesto sobre la Renta de las Personas Físicas, el texto
++                                                              refundido de la Ley del Impuesto sobre la Renta de no Residentes,
++Adecuación del impuesto a las circunstancias personales       aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y
++            y familiares del contribuyente                    otras normas tributarias (BOE del 28).
++                                                              (117) Artículo 58 modificado, con efectos 1 de enero de 2015, por
++Artículo 56. Mínimo personal y familiar.                      el artículo Primero.Treinta y cuatro de la Ley 26/2014, de 27 de no-
++                                                              viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-
++1. El mínimo personal y familiar constituye la parte de       bre, del Impuesto sobre la Renta de las Personas Físicas, el texto
++la base liquidable que, por destinarse a satisfacer las       refundido de la Ley del Impuesto sobre la Renta de no Residentes,
++necesidades básicas personales y familiares del contri-       aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y
++buyente, no se somete a tributación por este Impuesto.        otras normas tributarias (BOE del 28).
++
++
++36
+++                                                                                               Apéndice normativo. Ley 35/2006
++
++
++
++
++cuando resulte de aplicación lo dispuesto en los artícu-              acrediten un grado de discapacidad igual o superior al
++los 64 y 75 de esta Ley.                                              65 por ciento.
++2. Cuando el descendiente sea menor de tres años, el                  Dicho mínimo se aumentará, en concepto de gastos
++mínimo a que se refiere el apartado 1 anterior se au-                 de asistencia, en 3.000 euros anuales por cada ascen-
++mentará en 2.800 euros anuales.                                       diente o descendiente que acredite necesitar ayuda de
++                                                                      terceras personas o movilidad reducida, o un grado de
++En los supuestos de adopción o acogimiento, tanto
++                                                                      minusvalía igual o superior al 65 por ciento.
++preadoptivo como permanente, dicho aumento se pro-
++ducirá, con independencia de la edad del menor, en el                 3. A los efectos de este Impuesto, tendrán la con-
++período impositivo en que se inscriba en el Registro Ci-              sideración de personas con discapacidad los con-
++vil y en los dos siguientes. Cuando la inscripción no sea             tribuyentes que acrediten, en las condiciones que
++necesaria, el aumento se podrá practicar en el período                reglamentariamente se establezcan, un grado de
++impositivo en que se produzca la resolución judicial o                discapacidad igual o superior al 33 por ciento.
++administrativa correspondiente y en los dos siguientes.               En particular, se considerará acreditado un grado de
++                                                                      discapacidad igual o superior al 33 por ciento en el caso
++Artículo 59. Mínimo por ascendientes. (118)                           de los pensionistas de la Seguridad Social que tengan
++1. El mínimo por ascendientes será de 1.150 euros                     reconocida una pensión de incapacidad permanente
++anuales, por cada uno de ellos mayor de 65 años o con                 total, absoluta o gran invalidez y en el caso de los pen-
++discapacidad cualquiera que sea su edad que conviva                   sionistas de clases pasivas que tengan reconocida una
++con el contribuyente y no tenga rentas anuales, exclui-               pensión de jubilación o retiro por incapacidad perma-
++das las exentas, superiores a 8.000 euros.                            nente para el servicio o inutilidad.
++Entre otros casos, se considerará que conviven con el                 Igualmente, se considerará acreditado un grado de
++contribuyente los ascendientes con discapacidad que,                  discapacidad igual o superior al 65 por ciento, cuando
++dependiendo del mismo, sean internados en centros                     se trate de personas cuya incapacidad sea declarada
++especializados.                                                       judicialmente, aunque no alcance dicho grado.
++2. Cuando el ascendiente sea mayor de 75 años, el mí-                 Artículo 61. Normas comunes para la aplicación del
++nimo a que se refiere el apartado 1 anterior se aumenta-              mínimo del contribuyente y por descendientes, ascen-
++rá en 1.400 euros anuales.                                            dientes y discapacidad. (120)
++Artículo 60. Mínimo por discapacidad. (119)                           Para la determinación del importe de los mínimos a que
++                                                                      se refieren los artículos 57, 58, 59 y 60 de esta Ley, se
++El mínimo por discapacidad será la suma del mínimo                    tendrán en cuenta las siguientes normas:
++por discapacidad del contribuyente y del mínimo por
++                                                                      1.ª Cuando dos o más contribuyentes tengan derecho a
++discapacidad de ascendientes y descendientes.
++                                                                      la aplicación del mínimo por descendientes, ascendien-
++1. El mínimo por discapacidad del contribuyente será                  tes o discapacidad, respecto de los mismos ascendien-
++de 3.000 euros anuales cuando sea una persona con                     tes o descendientes, su importe se prorrateará entre
++discapacidad y 9.000 euros anuales cuando sea una                     ellos por partes iguales.
++persona con discapacidad y acredite un grado de                       No obstante, cuando los contribuyentes tengan distin-
++discapacidad igual o superior al 65 por ciento.                       to grado de parentesco con el ascendiente o descen-
++Dicho mínimo se aumentará, en concepto de gastos                      diente, la aplicación del mínimo corresponderá a los de
++de asistencia, en 3.000 euros anuales cuando acredite                 grado más cercano, salvo que éstos no tengan rentas
++necesitar ayuda de terceras personas o movilidad redu-                anuales, excluidas las exentas, superiores a 8.000
++cida, o un grado de discapacidad igual o superior al 65               euros, en cuyo caso corresponderá a los del siguiente
++por ciento.                                                           grado.
++2. El mínimo por discapacidad de ascendientes o des-                  2.ª No procederá la aplicación del mínimo por descen-
++cendientes será de 3.000 euros anuales por cada uno                   dientes, ascendientes o discapacidad, cuando los as-
++de los descendientes o ascendientes que generen de-                   cendientes o descendientes que generen el derecho a
++recho a la aplicación del mínimo a que se refieren los                los mismos presenten declaración por este Impuesto
++artículos 58 y 59 de esta Ley, que sean personas con                  con rentas superiores a 1.800 euros.
++discapacidad, cualquiera que sea su edad. El mínimo                   3.ª La determinación de las circunstancias personales y
++será de 9.000 euros anuales, por cada uno de ellos que                familiares que deban tenerse en cuenta a efectos de lo
++                                                                      establecido en los artículos 57, 58, 59 y 60 de esta ley,
++(118) Artículo 59 modificado, con efectos 1 de enero de 2015, por     se realizará atendiendo a la situación existente en la fe-
++el artículo Primero.Treinta y cinco de la Ley 26/2014, de 27 de no-   cha de devengo del Impuesto.
++viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-
++bre, del Impuesto sobre la Renta de las Personas Físicas, el texto    4.ª No obstante lo dispuesto en el apartado anterior, en
++refundido de la Ley del Impuesto sobre la Renta de no Residentes,     caso de fallecimiento de un descendiente o ascendien-
++aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y     tes que genere el derecho al mínimo por descendientes
++otras normas tributarias (BOE del 28).
++(119) Artículo 60 modificado, con efectos 1 de enero de 2015, por     (120) Artículo 61 modificado, con efectos 1 de enero de 2015, por
++el artículo Primero.Treinta y seis de la Ley 26/2014, de 27 de no-    el artículo Primero.Treinta y siete de la Ley 26/2014, de 27 de no-
++viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-     viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-
++bre, del Impuesto sobre la Renta de las Personas Físicas, el texto    bre, del Impuesto sobre la Renta de las Personas Físicas, el texto
++refundido de la Ley del Impuesto sobre la Renta de no Residentes,     refundido de la Ley del Impuesto sobre la Renta de no Residentes,
++aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y     aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y
++otras normas tributarias (BOE del 28).                                otras normas tributarias (BOE del 28).
++
++
++                                                                                                                                     37
+++Apéndice normativo. Ley 35/2006
++
++
++
++
++o ascendientes, la cuantía será de 2.400 euros anuales                2. Se entenderá por tipo medio de gravamen general
++o 1.150 euros anuales por ese descendiente o ascen-                   estatal el derivado de multiplicar por 100 el cociente re-
++diente, respectivamente.                                              sultante de dividir la cuota obtenida por la aplicación de
++                                                                      lo previsto en el apartado anterior por la base liquidable
++5.ª Para la aplicación del mínimo por ascendientes, será              general. El tipo medio de gravamen general estatal se
++necesario que éstos convivan con el contribuyente, al                 expresará con dos decimales.
++menos, la mitad del período impositivo o, en el caso de
++fallecimiento del ascendiente antes de la finalización de             Artículo 64. Especialidades aplicables en los supues-
++este, la mitad del período transcurrido entre el inicio del           tos de anualidades por alimentos a favor de los hijos.
++período impositivo y la fecha de fallecimiento.                       (123)
++                                                                      Los contribuyentes que satisfagan anualidades por ali-
++Artículo 61 bis. Suprimido (121)                                      mentos a sus hijos por decisión judicial sin derecho a
++                                                                      la aplicación por estos últimos del mínimo por descen-
++                                                                      dientes previsto en el artículo 58 de esta Ley, cuando
++                           TÍTULO VI                                  el importe de aquéllas sea inferior a la base liquidable
++                                                                      general, aplicarán la escala prevista en el número 1.º del
++                  Cálculo del impuesto estatal                        apartado 1 del artículo 63 de esta Ley separadamente
++                                                                      al importe de las anualidades por alimentos y al resto de
++                                                                      la base liquidable general. La cuantía total resultante se
++                          CAPÍTULO I                                  minorará en el importe derivado de aplicar la escala pre-
++                                                                      vista en el número 1.º del apartado 1 del artículo 63 de
++         Determinación de la cuota íntegra estatal                    esta Ley, a la parte de la base liquidable general corres-
++                                                                      pondiente al mínimo personal y familiar incrementado en
++Artículo 62. Cuota íntegra estatal.                                   1.980 euros anuales, sin que pueda resultar negativa
++                                                                      como consecuencia de tal minoración.
++La cuota íntegra estatal será la suma de las cantidades
++resultantes de aplicar los tipos de gravamen, a los que               Artículo 65. Escala aplicable a los residentes en el
++se refieren los artículos 63 y 66 de esta Ley, a las bases            extranjero. (124)
++liquidables general y del ahorro, respectivamente.
++                                                                      En el caso de los contribuyentes que tuviesen su resi-
++Artículo 63. Escala general del Impuesto.                             dencia habitual en el extranjero por concurrir alguna de
++                                                                      las circunstancias a las que se refieren el apartado 2 del
++1. (122) La parte de la base liquidable general que ex-               artículo 8 y el apartado 1 del artículo 10 de esta Ley, las
++ceda del importe del mínimo personal y familiar a que                 escalas aplicables serán la establecida en el apartado 1
++se refiere el artículo 56 de esta Ley será gravada de la              del artículo 63 y la siguiente:
++siguiente forma:
++                                                                             Base            Cuota        Resto base         Tipo
++1.º A la base liquidable general se le aplicarán los tipos                liquidable        íntegra                        aplicable
++que se indican en la siguiente escala:                                                                     liquidable
++                                                                               –               –                               –
++                                                                         Hasta euros         Euros        Hasta euros      Porcentaje
++       Base            Cuota        Resto base          Tipo
++    liquidable        íntegra                         aplicable                  0,00            0,00       12.450,00             9,50
++                                     liquidable
++         –               –                                –                 12.450,00        1.182,75        7.750,00            12,00
++   Hasta euros         Euros        Hasta euros      Porcentaje             20.200,00        2.112,75       15.000,00            15,00
++           0,00             0,00      12.450,00             9,50            35.200,00        4.362,75       24.800,00            18,50
++      12.450,00         1.182,75       7.750,00            12,00            60.000,00        8.950,75      En adelante           22,50
++      20.200,00         2.112,75      15.000,00            15,00
++      35.200,00         4.362,75      24.800,00            18,50
++                                                                      Artículo 66. Tipos de gravamen del ahorro. (125)
++      60.000,00         8.950,75     240.000,00            22,50      1. La parte de base liquidable del ahorro que exceda,
++     300.000,00        62.950,75     En adelante           24,50      en su caso, del importe del mínimo personal y familiar a
++
++2.º La cuantía resultante se minorará en el importe deri-             (123) Artículo 64 modificado por el artículo Primero.Cuarenta de la
++                                                                      Ley 26/2014, de 27 de noviembre, por la que se modifican la Ley
++vado de aplicar a la parte de la base liquidable general              35/2006, de 28 de noviembre, del Impuesto sobre la Renta de las
++correspondiente al mínimo personal y familiar la escala               Personas Físicas, el texto refundido de la Ley del Impuesto sobre
++prevista en el número 1.º anterior.                                   la Renta de no Residentes, aprobado por el Real Decreto Legislati-
++                                                                      vo 5/2004, de 5 de marzo, y otras normas tributarias (BOE del 28).
++(121) Artículo 61 bis suprimido por el artículo Primero.Treinta y     (124) Artículo 65 modificado por el artículo Primero.Cuarenta y
++ocho de la Ley 26/2014, de 27 de noviembre, por la que se mo-         uno de la Ley 26/2014, de 27 de noviembre, por la que se modi-
++difican la Ley 35/2006, de 28 de noviembre, del Impuesto sobre la     fican la Ley 35/2006, de 28 de noviembre, del Impuesto sobre la
++Renta de las Personas Físicas, el texto refundido de la Ley del Im-   Renta de las Personas Físicas, el texto refundido de la Ley del Im-
++puesto sobre la Renta de no Residentes, aprobado por el Real De-      puesto sobre la Renta de no Residentes, aprobado por el Real De-
++creto Legislativo 5/2004, de 5 de marzo, y otras normas tributarias   creto Legislativo 5/2004, de 5 de marzo, y otras normas tributarias
++(BOE del 28).                                                         (BOE del 28).
++(122) Apartado 1 del artículo 63 modificado, con efectos 1 de         (125) Artículo 66 modificado, con efectos 1 de enero de 2025,
++enero de 2021, por el artículo 58 de la Ley 11/2020, de 30 de di-     por la disposición final 7.1 de la Ley 7/2024, de 20 de diciem-
++ciembre, de Presupuestos Generales del Estado para el año 2021        bre, por la que se establecen un Impuesto Complementario
++(BOE del 31).                                                         para garantizar un nivel mínimo global de imposición para los
++
++
++38
++--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/lint-tipos-cierre.log
+@@ -0,0 +1,3 @@
++tipos-propios-exit:0
++eslint-propio-exit:0
++oxlint-propio-exit:0
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/original-ley.json
+@@ -0,0 +1,7 @@
++{
++  "path": "docs/procedencia/revisiones/correcciones-x-v1/95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
++  "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
++  "sha512": "02be6848ae06452d1ffaa21031f9299c51d9668e5ee6f4f2265409212fc3be623d45167135dc4ff576b3b6a9633aa8c3393f03a51a4bd7914639735a452f5eed",
++  "size": 1291090,
++  "authenticity": "no revalidada"
++}--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/pruebas-propias.log
+@@ -0,0 +1,149 @@
++$ vitest run --config .cache/revision-derechos/vitest.config.mjs
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4
++
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts (31 tests | 3 failed) 107ms
++   × rentas 800001 y orden del superviviente elegible 8ms
++   × MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual 6ms
++   × MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance 1ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > rentas 800001 y orden del superviviente elegible
++AssertionError: expected 125704 to be 125654 // Object.is equality
++
++- Expected
+++ Received
++
++- 125654
+++ 125704
++
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:47:50
++     45|  const h=hechos([{...hijo(),rentasNoExentasCentimos:renta},hijo("s-4",…
++     46|  expect(calcular(h).descendientes.toNumber()).toBe(renta>800000?1200:2…
++     47|  expect(liquidar(h).cuotaMinimoPersonalCentimos).toBe(renta>800000?125…
++       |                                                  ^
++     48| })
++     49| it.each([179999,180000,180001])("declaración %s", renta=>{
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual
++AssertionError: expected false to be true // Object.is equality
++
++- Expected
+++ Received
++
++- true
+++ false
++
++ ❯ rechaza ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:34:30
++     32| const rechaza = (h: DerechosMinimos2025) => {
++     33|  const r=Effect.runSync(Effect.result(liquidarIrpfAnualConDerechos(anu…
++     34|  expect(Result.isFailure(r)).toBe(true)
++       |                              ^
++     35|  if(Result.isFailure(r)) expect(r.failure._tag).toBe("ResultadoNoSopor…
++     36| }
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:132:2
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance
++{
++  motivo: 'Adopción o acogimiento en mayoría de edad pendiente de soporte',
++  _tag: 'DerechosMinimosNoSoportados',
++  message: '',
++  stack: 'DerechosMinimosNoSoportados: \n' +
++    '    at rechazar (/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts:17:15)\n' +
++    '    at /home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts:127:25\n' +
++    '    at Generator.next (<anonymous>)\n' +
++    '    at Object.~effect/Effect/successCont (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:868:26)\n' +
++    '    at Object.~effect/Effect/evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/core.js:312:30)\n' +
++    '    at FiberImpl.runLoop (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:444:107)\n' +
++    '    at FiberImpl.evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:412:23)\n' +
++    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2110:9\n' +
++    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2188:19\n' +
++    '    at Module.<anonymous> (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2201:18)',
++  name: 'DerechosMinimosNoSoportados',
++  stacks: [
++    {
++      method: 'rechazar',
++      file: '/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts',
++      line: 17,
++      column: 15
++    },
++    {
++      method: '',
++      file: '/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts',
++      line: 127,
++      column: 25
++    },
++    {
++      line: 1276,
++      column: 25,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'next'
++    },
++    {
++      line: 531,
++      column: 30,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/core.ts',
++      method: 'Object.~effect/Effect/evaluate'
++    },
++    {
++      line: 633,
++      column: 39,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'FiberImpl.runLoop'
++    },
++    {
++      line: 593,
++      column: 22,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runLoop'
++    },
++    {
++      line: 5142,
++      column: 8,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'evaluate'
++    },
++    {
++      line: 5261,
++      column: 18,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runFork'
++    },
++    {
++      line: 5276,
++      column: 17,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runSyncExit'
++    }
++  ]
++}
++ ❯ rechazar lib/dominio/irpf/minimos/derechos.ts:17:15
++     15|
++     16| const rechazar = (motivo: string) =>
++     17|   Effect.fail(new DerechosMinimosNoSoportados({ motivo }))
++       |               ^
++     18| const fechaValida = (fecha: string) => {
++     19|   const anio = Number(fecha.slice(0, 4))
++ ❯ lib/dominio/irpf/minimos/derechos.ts:127:25
++ ❯ next ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
++ ❯ Object.~effect/Effect/evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
++ ❯ FiberImpl.runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
++ ❯ runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:593:22
++ ❯ evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5142:8
++ ❯ runFork ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5261:18
++ ❯ runSyncExit ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5276:17
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  3 failed | 28 passed (31)
++   Start at  17:02:14
++   Duration  937ms (transform 399ms, setup 0ms, import 692ms, tests 107ms, environment 0ms)
++
++error: script "test" exited with code 1
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/validacion-final.log
+@@ -0,0 +1,163 @@
++../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts 166ms
++oxlint-exit:0
++
++/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts
++  0:0  warning  File ignored because outside of base path
++
++✖ 1 problem (0 errors, 1 warning)
++
++eslint-exit:0
++../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts(311,3): error TS2578: Unused '@ts-expect-error' directive.
++../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts(313,23): error TS2379: Argument of type '{ derechosMinimos: undefined; anio: AnioFiscal; comunidadAutonoma: ComunidadAutonoma; fechaFallecimiento?: Date | undefined; ... 7 more ...; retencionTrabajoAeat?: CasoRetencionTrabajo; }' is not assignable to parameter of type 'CasoFiscalAnual' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
++  Types of property 'derechosMinimos' are incompatible.
++    Type 'undefined' is not assignable to type '{ readonly modalidad: "individual"; readonly ejercicio: 2025; readonly territorio: "madrid"; readonly regimen: "comun"; readonly devengo: "2025-12-31"; readonly ascendientes: "ninguno"; ... 5 more ...; readonly descendientes: readonly { ...; }[]; }'.
++tipos-propios-exit:2
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4
++
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts (32 tests | 3 failed) 107ms
++   × MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual 9ms
++   × MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance 1ms
++   × MDV1-03 ROJO: anual no debe liquidar pagador judicial sin custodia omitiendo especialidad obligatoria 3ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-01 ROJO: renta propia falsa cambia prioridad sin conciliar caso anual
++AssertionError: expected false to be true // Object.is equality
++
++- Expected
+++ Received
++
++- true
+++ false
++
++ ❯ rechaza ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:102:31
++    100|     Effect.result(liquidarIrpfAnualConDerechos(anual(h)))
++    101|   )
++    102|   expect(Result.isFailure(r)).toBe(true)
++       |                               ^
++    103|   if (Result.isFailure(r)) expect(r.failure._tag).toBe("ResultadoNoSop…
++    104| }
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:324:3
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-02 ROJO: adoptado a 17 años, cumpleaños posterior, sigue dentro de alcance
++{
++  motivo: 'Adopción o acogimiento en mayoría de edad pendiente de soporte',
++  _tag: 'DerechosMinimosNoSoportados',
++  message: '',
++  stack: 'DerechosMinimosNoSoportados: \n' +
++    '    at rechazar (/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts:17:15)\n' +
++    '    at /home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts:127:25\n' +
++    '    at Generator.next (<anonymous>)\n' +
++    '    at Object.~effect/Effect/successCont (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:868:26)\n' +
++    '    at Object.~effect/Effect/evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/core.js:312:30)\n' +
++    '    at FiberImpl.runLoop (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:444:107)\n' +
++    '    at FiberImpl.evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:412:23)\n' +
++    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2110:9\n' +
++    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2188:19\n' +
++    '    at Module.<anonymous> (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2201:18)',
++  name: 'DerechosMinimosNoSoportados',
++  stacks: [
++    {
++      method: 'rechazar',
++      file: '/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts',
++      line: 17,
++      column: 15
++    },
++    {
++      method: '',
++      file: '/home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4/lib/dominio/irpf/minimos/derechos.ts',
++      line: 127,
++      column: 25
++    },
++    {
++      line: 1276,
++      column: 25,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'next'
++    },
++    {
++      line: 531,
++      column: 30,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/core.ts',
++      method: 'Object.~effect/Effect/evaluate'
++    },
++    {
++      line: 633,
++      column: 39,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'FiberImpl.runLoop'
++    },
++    {
++      line: 593,
++      column: 22,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runLoop'
++    },
++    {
++      line: 5142,
++      column: 8,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'evaluate'
++    },
++    {
++      line: 5261,
++      column: 18,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runFork'
++    },
++    {
++      line: 5276,
++      column: 17,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runSyncExit'
++    }
++  ]
++}
++ ❯ rechazar lib/dominio/irpf/minimos/derechos.ts:17:15
++     15|
++     16| const rechazar = (motivo: string) =>
++     17|   Effect.fail(new DerechosMinimosNoSoportados({ motivo }))
++       |               ^
++     18| const fechaValida = (fecha: string) => {
++     19|   const anio = Number(fecha.slice(0, 4))
++ ❯ lib/dominio/irpf/minimos/derechos.ts:127:25
++ ❯ next ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
++ ❯ Object.~effect/Effect/evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
++ ❯ FiberImpl.runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
++ ❯ runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:593:22
++ ❯ evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5142:8
++ ❯ runFork ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5261:18
++ ❯ runSyncExit ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5276:17
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
++
++ FAIL  ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts > MDV1-03 ROJO: anual no debe liquidar pagador judicial sin custodia omitiendo especialidad obligatoria
++AssertionError: expected false to be true // Object.is equality
++
++- Expected
+++ Received
++
++- true
+++ false
++
++ ❯ rechaza ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:102:31
++    100|     Effect.result(liquidarIrpfAnualConDerechos(anual(h)))
++    101|   )
++    102|   expect(Result.isFailure(r)).toBe(true)
++       |                               ^
++    103|   if (Result.isFailure(r)) expect(r.failure._tag).toBe("ResultadoNoSop…
++    104| }
++ ❯ ../../../../Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/casos.test.ts:349:3
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  3 failed | 29 passed (32)
++   Start at  17:03:14
++   Duration  960ms (transform 368ms, setup 0ms, import 654ms, tests 107ms, environment 0ms)
++
++pruebas-propias-exit:1
+--- /dev/null
++++ b/docs/procedencia/revisiones/minimos-derechos-v1/validacion.log
+@@ -0,0 +1,10 @@
++$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-cdbbbec4
++
++
++ Test Files  2 passed (2)
++      Tests  41 passed (41)
++   Start at  17:02:17
++   Duration  1.12s (transform 387ms, setup 0ms, import 865ms, tests 50ms, environment 0ms)
++

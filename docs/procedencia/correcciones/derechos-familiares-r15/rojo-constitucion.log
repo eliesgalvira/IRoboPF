@@ -1,0 +1,35 @@
+$ vitest run tests/minimos-derechos-integracion.test.ts -t "no deduce edad" "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/minimos-derechos-integracion.test.ts (16 tests | 1 failed | 15 skipped) 21ms
+   × MDV1-02: no deduce edad al adoptar de la fecha de inscripción o de un acogimiento previo 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/minimos-derechos-integracion.test.ts > MDV1-02: no deduce edad al adoptar de la fecha de inscripción o de un acogimiento previo
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/minimos-derechos-integracion.test.ts:100:31
+     98|   }
+     99|   const r = Effect.runSync(Effect.result(anual(hechos(hijo([t], "2007-…
+    100|   expect(Result.isFailure(r)).toBe(true)
+       |                               ^
+    101|   if (Result.isFailure(r)) expect(r.failure.motivo).toContain("constit…
+    102| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 15 skipped (16)
+   Start at  17:23:46
+   Duration  813ms (transform 389ms, setup 0ms, import 680ms, tests 21ms, environment 0ms)
+
+error: script "test" exited with code 1

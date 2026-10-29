@@ -2,7 +2,19 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 16:55 CET
+## Situación más reciente, 29 de octubre, 17:28 CET
+
+La revisión familiar independiente encontró tres defectos reales: renta propia contradictoria, edad de adopción calculada solo por años y alimentos judiciales omitidos en la frontera anual. El padre conserva tres rojos previos y aplica fixes en `correcciones/derechos-familiares-r15/INFORME.md`. La conexión exige conciliación explícita con el perfil parcial, compara netos antes de reducciones/compensaciones y rechaza si los céntimos cambiarían el lado del límite de 8.000. Exige fecha de constitución del vínculo separada de la fecha de inicio del incremento; compara fechas civiles completas y rechaza al pagador judicial sin custodia; no bloquea al custodio por alimentos de otro titular. No se implementa todavía la especialidad de alimentos ni una liquidación familiar universal.
+
+Pasan 18 regresiones nuevas y las 98 pruebas previas del ámbito en sus pases documentados, lint global y tipos principal/vendor. Se corrige un esperado nuevo del padre mediante derivación explícita; no se modifican oracles legacy. Cuatro originales HTML cotejados por ambos hashes. Sigue pendiente una contrarrevisión nueva de estos cambios y sus límites.
+
+El pase final tras separar fechas obtiene 46 pruebas de derechos/integración y 13 de rastro/publicación correctas; recuentos solapados. No se repite build ni se modifica el empaquetado en este bloque.
+
+Inventario **52.455 ocurrencias**, 29.589 unidades pendientes y 65 puntos de rastro. V1 `d452f38ec6018458d6a500b9df141c802fd9e74aa96ac5f3f83eef635d3d214b`; v2 `5f8043815f095d8bad3bb1ea2656e9669e42cb13386f42104e5587a6bdc26964`, con 715 objetos. Payload Madrid `5128cec8db668a8716ae4ac60d220b28b053cef17a1d6c3ef3bf08b28337d5b1`, binding pendiente; las atestaciones anteriores no se trasladan. Se conservan 26 snapshots. El número de fichas no representa aceptación fiscal.
+
+Las otras seis tareas de ronda 15 continúan: ámbito jurídico ejecutable, preservación ampliada, retenciones por períodos, etapas TGSS y cobertura global. La revisión de los fixes familiares se delegará desde el commit exacto nuevo. El paquete ampliado deberá identificar su corte y cotejar los documentos familiares recién recibidos. Crossa conserva v1 histórico y desfasado. Sin gasto, LFS, transferencia externa, despliegue ni limpieza final; el encargo sigue abierto.
+
+## Situación anterior, 29 de octubre, 16:55 CET
 
 Integradas siete entregas de ronda 13 y la revisión técnica nueva de ronda 14, cotejadas por manifiesto, base y ausencia de borrados. Informe: `correcciones/integracion-ronda13/INFORME.md`. El contrato familiar candidato distingue derechos y titulares para Madrid 2025; **98 pruebas, lint y tipos pasan**, pendiente revisión independiente nueva. No se aplica un reparto por dos por defecto ni se certifican los hechos declarados.
 

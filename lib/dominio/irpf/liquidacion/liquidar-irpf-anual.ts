@@ -1,6 +1,7 @@
 import {
   calcularDerechosMinimos,
   validarDerechosMinimos,
+  validarRentasAnualesDerechos,
 } from "../minimos/derechos"
 import { crearLineaCalculo } from "../../explicacion/linea-calculo"
 import { enlazarRastroAnualActual } from "../../../procedencia/rastro-anual"
@@ -194,6 +195,22 @@ const construirLiquidarIrpfAnual = (
       )
       const familiar = caso.situacionFamiliar
       if (
+        derechos.descendientes.some((d) =>
+          d.titulares.some(
+            (t) =>
+              t.titularId === derechos.contribuyenteId &&
+              t.alimentosJudiciales &&
+              t.custodia === "sin-custodia"
+          )
+        )
+      )
+        return yield* Effect.fail(
+          errorDerechosMinimos({
+            motivo:
+              "El contribuyente necesita resolver la especialidad de alimentos judiciales, fuera del alcance anual actual",
+          })
+        )
+      if (
         contexto.modo !== "canonico" ||
         caso.anio !== derechos.ejercicio ||
         caso.comunidadAutonoma !== derechos.territorio ||
@@ -383,6 +400,11 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   const otrasRentasNoExentas = rendimientoCapitalInmobiliario.rendimientoNeto
     .plus(gananciasPatrimoniales.gananciaSujetaGeneral)
     .plus(gananciasPatrimoniales.gananciaSujetaAhorro)
+  if (caso.derechosMinimos !== undefined)
+    yield* validarRentasAnualesDerechos(
+      caso.derechosMinimos,
+      rendimientoTrabajo.rendimientoNeto.plus(otrasRentasNoExentas)
+    ).pipe(Effect.mapError(errorDerechosMinimos))
   const reduccionRendimientosTrabajo = medirAuditoriaSync(
     "liquidacion.reduccionRendimientosTrabajo",
     () =>
@@ -1102,7 +1124,8 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
                         (a) =>
                           `orden ${a.orden}, divisor ${a.divisor}, incremento ${a.incremento ? "sí" : "no"}`
                       )
-                      .join("; "),
+                      .join("; ") +
+                    "; renta propia conciliada internamente con el perfil parcial, sin acreditar hechos externos",
             }),
             crearLineaCalculo({
               siteId: "anual.minimo.estatal",

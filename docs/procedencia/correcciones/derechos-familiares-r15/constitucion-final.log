@@ -1,0 +1,21 @@
+lib/dominio/irpf/minimos/derechos.ts 223ms (unchanged)
+lib/dominio/irpf/minimos/derechos-contrato.ts 19ms (unchanged)
+tests/minimos-derechos.test.ts 43ms (unchanged)
+tests/minimos-derechos-integracion.test.ts 32ms
+$ vitest run tests/minimos-derechos-integracion.test.ts tests/minimos-derechos.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  2 passed (2)
+      Tests  46 passed (46)
+   Start at  17:24:21
+   Duration  1.29s (transform 399ms, setup 0ms, import 971ms, tests 103ms, environment 0ms)
+
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+$ bun scripts/procedencia/inventario-artefacto.mjs write
+{"mode":"write","counts":{"filesTs":120,"filesPython":1,"syntactic":24377,"effective":16351,"selected":11727,"pendingUnits":29589,"catalog":351,"audited":0}}
+{"snapshot":"d452f38ec6018458d6a500b9df141c802fd9e74aa96ac5f3f83eef635d3d214b","ocurrencias":52455,"conceptos":4,"puntosRastro":65,"paquetes":256,"bytesComprimidos":12460192,"maximoPaquete":60922,"rss":1492717568,"aceptacionFiscal":"pendiente"}
