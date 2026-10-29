@@ -1,0 +1,4 @@
+process.env.IROBOPF_DEPENDENCIES_PACKAGE="/home/local/Repos/IRoboPF/package.json";
+import { createRequire } from 'node:module';
+const require = createRequire('/home/local/Repos/IRoboPF/package.json');
+export default {resolve:{alias:{'@':process.cwd()},plugins:[]},plugins:[{name:'dependencias-recibidas',enforce:'pre',resolveId(id){if(!id.startsWith('.')&&!id.startsWith('/')&&!id.startsWith('node:')&&!id.startsWith('@/')){try{return id==='vitest'?'/home/local/Repos/IRoboPF/node_modules/vitest/dist/index.js':require.resolve(id)}catch{return null}}}}],test:{include:['tests/flujo-admision-r32*.test.ts','docs/procedencia/revisiones/admision-anual-r34-sol/*.test.mjs'],maxWorkers:1,testTimeout:60000}};

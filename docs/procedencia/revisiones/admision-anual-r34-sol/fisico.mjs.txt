@@ -1,0 +1,10 @@
+import fs from 'node:fs';import cp from 'node:child_process';import crypto from 'node:crypto';import zlib from 'node:zlib';
+const root=process.cwd();const rows=[];const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+for(const ent of cp.execFileSync('git',['ls-tree','-rz','--full-tree','HEAD'],{maxBuffer:10e6}).toString().split('\0').filter(Boolean)){
+ const [meta,path]=ent.split('\t');const [mode,,oid]=meta.split(' ');const base=cp.execFileSync('git',['cat-file','blob',oid],{maxBuffer:150e6});
+ try{const s=fs.lstatSync(path);const bytes=s.isSymbolicLink()?Buffer.from(fs.readlinkSync(path)):fs.readFileSync(path);rows.push({path,mode,baseSha256:sha(base),sha256:sha(bytes),size:bytes.length,match:bytes.equals(base)&&(mode==='120000'?s.isSymbolicLink():s.isFile()&&!!(s.mode&0o111)===(mode==='100755'))})}catch(e){rows.push({path,match:false,error:String(e)})}
+}
+const tracked=new Set(rows.map(r=>r.path));const extras=[];
+function walk(p=''){for(const e of fs.readdirSync(p||'.',{withFileTypes:true})){const n=p?p+'/'+e.name:e.name;if(n==='.git')continue;if(e.isDirectory())walk(n);else if(!tracked.has(n))extras.push(n)}}walk();
+const summary={head:cp.execFileSync('git',['rev-parse','HEAD']).toString().trim(),baseEntries:rows.length,differences:rows.filter(r=>!r.match),extraOutsideScope:extras.filter(p=>!p.startsWith('docs/procedencia/revisiones/admision-anual-r34-sol/')&&!p.startsWith('.cache/revision-admision-r34/')),extraCount:extras.length,diff:cp.execFileSync('git',['diff','HEAD','--binary'],{maxBuffer:10e6}).toString(),deletions:rows.filter(r=>r.error)};
+fs.writeFileSync('.cache/revision-admision-r34/fisico-final.json.gz',zlib.gzipSync(JSON.stringify({...summary,entries:rows,extras})));fs.writeFileSync('docs/procedencia/revisiones/admision-anual-r34-sol/COTEJO-FINAL.json',JSON.stringify(summary,null,2)+'\n');console.log(summary);if(rows.length!==17248||summary.differences.length||summary.extraOutsideScope.length||summary.diff)process.exitCode=1;
