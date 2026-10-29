@@ -71,3 +71,7 @@ La ejecución de módulos locales confía en el checkout y sus dependencias; no 
 El índice se reduce a ID y página. El archivo comprimido permite respaldar el inventario completo sin incorporar cientos de páginas repetidas al árbol de documentación. Coste: inspección mediante lector/descompresión, diffs binarios y crecimiento del historial al regenerar. Es una solución de esta entrega; el almacenamiento documental definitivo y los conceptos editoriales requieren el ADR y el corpus. El manifiesto sigue siendo legible y el contenido es regenerable sin contratar un servicio.
 
 La entrega inicial de 47.713 elementos y sus limitaciones se conserva en `entregas/inventario-correccion.patch.gz` y su manifiesto. No se han promovido sus IDs anteriores ni sus cifras como validación fiscal.
+
+## Corrección posterior a la segunda contrarrevisión
+
+INV2-R01/R02/R03 motivan proceso Bun nuevo en cada llamada a generate, selección relativa a lib/procedencia y rechazo explícito de prototipos personalizados y NaN. Los objetos de otro contexto JavaScript no forman parte del contrato; fallan, no se omiten. Infinity permanece como centinela de límite abierto. Dieciséis pruebas pasan, incluida caché de imports sobre copia scratch y nombre de directorio con procedencia. El proceso nuevo evita reutilización de módulos entre generaciones; no demuestra exhaustividad semántica. La revisión original y scripts exactos, conservados como texto con hashes, están en revisiones/inventario-v2. El manifiesto actual es la autoridad para conteos después de cambios del motor.

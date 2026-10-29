@@ -1,8 +1,15 @@
 import { describe, it, expect } from "vitest"
-import { runInNewContext } from "node:vm"
+import { runInThisContext } from "node:vm"
 import { spawnSync } from "node:child_process"
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs"
-import { resolve } from "node:path"
+import {
+  mkdtempSync,
+  mkdirSync,
+  writeFileSync,
+  rmSync,
+  copyFileSync,
+  symlinkSync,
+} from "node:fs"
+import { resolve, dirname } from "node:path"
 import { gzipSync } from "node:zlib"
 import ts from "typescript"
 import Decimal from "decimal.js"
@@ -10,6 +17,7 @@ import { extractTs, hash } from "../scripts/procedencia/inventario-ast.mjs"
 import {
   dimensions,
   flatten,
+  sourcePaths,
   validate,
 } from "../scripts/procedencia/inventario.mjs"
 import {
@@ -18,6 +26,47 @@ import {
 } from "../scripts/procedencia/inventario-artefacto.mjs"
 
 describe("inventario sintáctico y efectivo", () => {
+  it("la API reconstruye valores nuevos aunque el llamador haya importado una dependencia", () => {
+    const scratch = resolve(".cache/procedencia/inventario-pruebas")
+    mkdirSync(scratch, { recursive: true })
+    const root = mkdtempSync(resolve(scratch, "cache-"))
+    try {
+      for (const { file } of readArtifact().manifest.generationInputs) {
+        const target = resolve(root, file)
+        mkdirSync(dirname(target), { recursive: true })
+        copyFileSync(resolve(file), target)
+      }
+      symlinkSync(resolve("node_modules"), resolve(root, "node_modules"), "dir")
+      writeFileSync(
+        resolve(root, "cache.mjs"),
+        `
+import { readFileSync, writeFileSync } from "node:fs";
+import { generate } from "./scripts/procedencia/inventario.mjs";
+import { MINIMOS_ESTATALES_2024 } from "./lib/dominio/normativa/datos/minimos-autonomicos-2024.ts";
+if (MINIMOS_ESTATALES_2024.contribuyente.general.toString() !== "5550") throw new Error("Fixture cambiado");
+const file = "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts";
+const old = readFileSync(file, "utf8");
+if (!old.includes('"5550"')) throw new Error("Literal de fixture ausente");
+writeFileSync(file, old.replace('"5550"', '"5551"'));
+const result = await generate(process.cwd(), process.cwd() + "/generated");
+const items = result.pages.flatMap(page => JSON.parse(readFileSync("generated/" + page.file, "utf8")));
+const item = items.find(item => item.layer === "effective" && item.symbol === "MINIMOS_ESTATALES_2024" && item.path === '["contribuyente","general"]');
+if (item?.value !== "5551") throw new Error("Valor cacheado: " + item?.value);
+console.log("5551");
+`
+      )
+      const result = spawnSync("bun", ["cache.mjs"], {
+        cwd: root,
+        encoding: "utf8",
+        timeout: 60000,
+        maxBuffer: 1024 * 1024,
+      })
+      expect(result.status, result.stderr).toBe(0)
+      expect(result.stdout.trim()).toBe("5551")
+    } finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  }, 60000)
   it("rechaza un valor adulterado aunque todos sus hashes hayan sido recalculados", () => {
     const command = ["scripts/procedencia/inventario-artefacto.mjs", "check"]
     const options = { encoding: "utf8", timeout: 60000, maxBuffer: 1024 * 1024 }
@@ -74,6 +123,26 @@ describe("inventario sintáctico y efectivo", () => {
     const ciclo = {}
     ciclo.self = ciclo
     expect(() => flatten(ciclo)).toThrow("Ciclo")
+    const proto = Object.assign(Object.create(null), { amount: 123 })
+    expect(() => flatten(Object.create(proto))).toThrow("Objeto no soportado")
+    expect(() => flatten(NaN)).toThrow("NaN")
+    expect(() => flatten(new Decimal(NaN))).toThrow("NaN")
+  })
+  it("selecciona fuentes con independencia del nombre del checkout", () => {
+    const scratch = resolve(".cache/procedencia/inventario-pruebas")
+    mkdirSync(scratch, { recursive: true })
+    const root = mkdtempSync(resolve(scratch, "procedencia-"))
+    try {
+      mkdirSync(resolve(root, "lib/procedencia"), { recursive: true })
+      writeFileSync(resolve(root, "lib/valor.ts"), "export const x = 42")
+      writeFileSync(
+        resolve(root, "lib/procedencia/artefacto.ts"),
+        "export const x = 1"
+      )
+      expect(sourcePaths(root)).toEqual([resolve(root, "lib/valor.ts")])
+    } finally {
+      rmSync(root, { recursive: true, force: true })
+    }
   })
   it("clasifica operadores por estructura y no por fragmentos del nombre", () => {
     const source = extractTs(
@@ -138,9 +207,11 @@ describe("inventario sintáctico y efectivo", () => {
   })
   it("expande herencia, spread, binding y decimal sin perder aliases compartidos", () => {
     const fixture = `const base = { tramo: [new Decimal('1234.56'), new Decimal('9.5').div(100)] }; const alias = base; const anterior = { madrid: alias, aragon: base }; const actual = {...anterior, madrid: {...alias, minimo: new Decimal('5550')}}; result.tabla = {2024: anterior, 2025: actual};`
-    const context = { result: {}, Decimal }
-    runInNewContext(ts.transpile(fixture), context, { timeout: 1000 })
-    const leaves = flatten(context.result.tabla)
+    const execute = runInThisContext(
+      `(Decimal) => { const result = {}; ${ts.transpile(fixture)}; return result.tabla }`,
+      { timeout: 1000 }
+    )
+    const leaves = flatten(execute(Decimal))
     expect(
       leaves.find((l) => l.path.join("/") === "2025/madrid/tramo/1")?.value
     ).toBe("0.095")

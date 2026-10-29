@@ -33,3 +33,10 @@ jobs:
         run: bun run inventario:verificar
       - if: ${{ !cancelled() }}
         run: bun run test:inventario
+  corpus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@d9186cbdca7adedf113a159fa91f725a27866771 # v31
+      - run: bash tools/procedencia/run.sh tests/procedencia-corpus_test.py

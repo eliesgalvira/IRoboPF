@@ -1,0 +1,359 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "documentSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "page": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "bbox": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "geometry": {
+      "type": "object",
+      "properties": {
+        "mediaBox": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "cropBox": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "rotation": {
+          "enum": [
+            0,
+            90,
+            180,
+            270
+          ]
+        },
+        "coordinateSystem": {
+          "const": "pymupdf-unrotated-top-left-points"
+        }
+      },
+      "required": [
+        "mediaBox",
+        "cropBox",
+        "rotation",
+        "coordinateSystem"
+      ],
+      "additionalProperties": false
+    },
+    "quote": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalization": {
+      "const": "identity"
+    },
+    "extraction": {
+      "const": "text-layer"
+    },
+    "selectors": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "TextQuoteSelector"
+            },
+            "exact": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "exact"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "FragmentSelector"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^page=[1-9][0-9]*$"
+            },
+            "conformsTo": {
+              "const": "https://www.rfc-editor.org/rfc/rfc8118"
+            }
+          },
+          "required": [
+            "type",
+            "value",
+            "conformsTo"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "IRoboPFPdfRectSelector"
+            },
+            "coordinateSystem": {
+              "const": "pymupdf-unrotated-top-left-points"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            }
+          },
+          "required": [
+            "type",
+            "coordinateSystem",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "items": false
+    },
+    "facsimile": {
+      "type": "object",
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "engine": {
+              "const": "MuPDF"
+            },
+            "pymupdf": {
+              "type": "string"
+            },
+            "mupdf": {
+              "type": "string"
+            },
+            "dpi": {
+              "const": 144
+            },
+            "colorspace": {
+              "const": "RGB"
+            },
+            "alpha": {
+              "const": false
+            },
+            "annots": {
+              "const": false
+            },
+            "format": {
+              "const": "png"
+            },
+            "rotation": {
+              "const": "original"
+            },
+            "textFlags": {
+              "const": 0
+            },
+            "sort": {
+              "const": false
+            }
+          },
+          "required": [
+            "engine",
+            "pymupdf",
+            "mupdf",
+            "dpi",
+            "colorspace",
+            "alpha",
+            "annots",
+            "format",
+            "rotation",
+            "textFlags",
+            "sort"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "sha256",
+        "parameters"
+      ],
+      "additionalProperties": false
+    },
+    "engineBinding": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "number": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "literal": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "start",
+                "end",
+                "literal"
+              ],
+              "additionalProperties": false
+            },
+            "numberFormat": {
+              "enum": [
+                "es-ES",
+                "decimal"
+              ]
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[+-]?\\d+(\\.\\d+)?$"
+            },
+            "unit": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "literal": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "start",
+                "end",
+                "literal"
+              ],
+              "additionalProperties": false
+            },
+            "unitCode": {
+              "enum": [
+                "EUR",
+                "percent",
+                "year"
+              ]
+            }
+          },
+          "required": [
+            "number",
+            "numberFormat",
+            "value",
+            "unit",
+            "unitCode"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "table": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "row": {
+              "type": "string",
+              "minLength": 1
+            },
+            "column": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "row",
+            "column"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "semanticValidation": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "pending"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "independentReview": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "pending"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "documentSha256",
+    "page",
+    "bbox",
+    "geometry",
+    "quote",
+    "normalization",
+    "extraction",
+    "selectors",
+    "facsimile",
+    "engineBinding",
+    "table",
+    "semanticValidation",
+    "independentReview"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

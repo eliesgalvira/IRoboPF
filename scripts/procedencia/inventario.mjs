@@ -6,7 +6,7 @@ import {
   existsSync,
 } from "node:fs"
 import { resolve, relative } from "node:path"
-import { pathToFileURL } from "node:url"
+import { pathToFileURL, fileURLToPath } from "node:url"
 import { spawnSync } from "node:child_process"
 import { baseItem, extractTs, hash, idFor } from "./inventario-ast.mjs"
 import { bindingGraph } from "./inventario-bindings.mjs"
@@ -48,6 +48,8 @@ export function filesUnder(root) {
 }
 export function flatten(value, path = [], seen = new Set()) {
   if (Predicate.isNullish(value)) return []
+  if (Predicate.isNumber(value) && Number.isNaN(value))
+    throw new Error(`NaN no inventariable: ${JSON.stringify(path)}`)
   if (
     Predicate.isString(value) ||
     Predicate.isNumber(value) ||
@@ -58,6 +60,8 @@ export function flatten(value, path = [], seen = new Set()) {
   if (Decimal.isDecimal(value)) {
     if (!(value instanceof Decimal))
       throw new Error(`Decimal ajeno o imitado: ${JSON.stringify(path)}`)
+    if (value.isNaN())
+      throw new Error(`NaN no inventariable: ${JSON.stringify(path)}`)
     return [{ path, value: Decimal.prototype.toString.call(value) }]
   }
   if (!Predicate.isObjectOrArray(value))
@@ -67,9 +71,9 @@ export function flatten(value, path = [], seen = new Set()) {
     throw new Error(`Propiedad símbolo no soportada: ${JSON.stringify(path)}`)
   const proto = Object.getPrototypeOf(value)
   if (
-    !Array.isArray(value) &&
-    proto !== null &&
-    Object.getPrototypeOf(proto) !== null
+    Array.isArray(value)
+      ? proto !== Array.prototype
+      : proto !== null && proto !== Object.prototype
   )
     throw new Error(`Objeto no soportado: ${JSON.stringify(path)}`)
   for (const [key, descriptor] of Object.entries(
@@ -159,12 +163,33 @@ export async function generate(
   root = process.cwd(),
   output = `${root}/.cache/procedencia/inventario`
 ) {
+  const child = spawnSync(
+    "bun",
+    [fileURLToPath(import.meta.url), resolve(root), resolve(output)],
+    {
+      cwd: root,
+      encoding: "utf8",
+      maxBuffer: 4 * 1024 * 1024,
+    }
+  )
+  if (child.status !== 0)
+    throw new Error(child.stderr || "Falló generación en proceso aislado")
+  return JSON.parse(readFileSync(`${output}/inventario.json`, "utf8"))
+}
+
+export function sourcePaths(root) {
+  return filesUnder(`${root}/lib`).filter(
+    (path) =>
+      /\.tsx?$/.test(path) &&
+      !relative(root, path).startsWith("lib/procedencia/")
+  )
+}
+
+async function generateInProcess(root, output) {
   if (existsSync(output) && readdirSync(output).length)
     throw new Error(`El destino debe estar vacío: ${output}`)
   mkdirSync(output, { recursive: true })
-  const paths = filesUnder(`${root}/lib`).filter(
-    (p) => /\.tsx?$/.test(p) && !p.includes("/procedencia/")
-  )
+  const paths = sourcePaths(root)
   const extracted = paths.map((p) =>
     extractTs(relative(root, p), readFileSync(p, "utf8"))
   )
@@ -507,6 +532,10 @@ if (
   process.argv[1] &&
   resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname)
 ) {
-  const result = await generate()
+  const root = process.argv[2] ?? process.cwd()
+  const result = await generateInProcess(
+    root,
+    process.argv[3] ?? `${root}/.cache/procedencia/inventario`
+  )
   process.stdout.write(JSON.stringify(result.counts) + "\n")
 }
