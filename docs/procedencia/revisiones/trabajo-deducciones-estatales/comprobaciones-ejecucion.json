@@ -1,0 +1,26 @@
+{
+  "scope": "Solo código propio de revisión; no comprobación global ni aceptación fiscal",
+  "oxlint": "passed",
+  "eslint": "passed",
+  "typecheck": "passed; tsconfig propio, incremental false, serializado con flock",
+  "runtime": "144 casos anuales,100 sondeos,3 fechas; ejecución repetida tras ajustes de runner",
+  "expectedComparisons": {
+    "red": 28,
+    "green": 4
+  },
+  "historicalValidationFailures": [
+    "Typecheck inicial rechazó fs y new Date",
+    "Typecheck siguiente rechazó console.log",
+    "Madrid2026 rechazado por motor como no soportado; perfil técnico explícito en resultados finales"
+  ],
+  "notRun": [
+    "Next build",
+    "suites legacy",
+    "inventario",
+    "firmas PAdES/CSV",
+    "evaluador obligación de declarar inexistente",
+    "casos de gastos efectivos sin contrato",
+    "DA61 mixto empleo/pensión y límite proporcional mixto"
+  ],
+  "sourceHashesStillMatch": true
+}
