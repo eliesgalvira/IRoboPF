@@ -2,7 +2,19 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 16:41 CET
+## Situación más reciente, 29 de octubre, 16:55 CET
+
+Integradas siete entregas de ronda 13 y la revisión técnica nueva de ronda 14, cotejadas por manifiesto, base y ausencia de borrados. Informe: `correcciones/integracion-ronda13/INFORME.md`. El contrato familiar candidato distingue derechos y titulares para Madrid 2025; **98 pruebas, lint y tipos pasan**, pendiente revisión independiente nueva. No se aplica un reparto por dos por defecto ni se certifican los hechos declarados.
+
+La revisión independiente considera corregidos PE-01/02/03 y CX-07-B en su alcance técnico. Probó GET compilados, escape, respuestas de error, cierre documental y coherencia comparable. Su paquete requirió retraza por node_modules enlazado; esa limitación y la diferencia de tamaño están documentadas. Sin despliegue ni nueva atestación de Madrid.
+
+Las revisiones jurídicas añaden **264 decisiones limitadas a celdas y ejercicios**, no reglas fiscales completas. Continúa bloqueada su promoción hasta ejecutar las condiciones temporales y revisar payloads exactos. La revisión antigua de retenciones fue selectiva: quedan por completar lectura jurídica y visual, especialmente julio de 2015. TGSS mantiene R05/R06/R10 parcialmente pendientes; el ejemplo oficial de suma de cuotas no acredita todos los redondeos.
+
+Inventario **52.377 ocurrencias**, 65 puntos de rastro. V1 `2d4c3dcdcc45fc4811d9ac65146cf991fd077908b5467a9118795c566acb8f93`; v2 `98c315e18130d88b18a4c85aa62ec2b1dd1d18a62d9f5cf61fd57711399e7e1a`, 715 objetos de publicación. Pasan 13 pruebas de rastro/publicación y 20 de contenido en el árbol integrado. Payload Madrid `bd905a560b037ae7ab8ddfe6bcfb6790e3c5d85c3ddc0d1e1ec31f1e1471d7fc`: binding pendiente, autenticidad histórica indeterminada, aceptación completa false. Las atestaciones anteriores no se migran.
+
+Los 21 objetos estatales nuevos están preservados fuera de T3 por ambos hashes, sin subir su CAS a Git. Se preparará una ampliación del paquete local con los nuevos originales y su restauración. Crossa conserva v1 histórico, desfasado respecto de v2 y la próxima ampliación; no es custodia independiente. Sin LFS, gasto ni transferencia externa. Sigue abierto el encargo exhaustivo; no se inicia limpieza final.
+
+## Situación anterior, 29 de octubre, 16:41 CET
 
 La revisión de publicación encontró tres defectos reales. Dos procedían de una omisión del padre al seleccionar rutas con corchetes en JJ: el árbol comprometido no contenía el código probado en disco. Se integra con rutas literales y se comprobarán los bytes del commit. El tercero permitía omitir estados de evidencia: ya se exige cobertura por sujeto y recibo. Veinte pruebas de contenido con GET reales pasan; publicación determinista y seis pruebas de cierre físico pasan. Lint, tipos principal/vendor y las dieciséis reglas a error correctos. Informe en `correcciones/publicacion-r13/INFORME.md`.
 

@@ -1,0 +1,15 @@
+lib/dominio/irpf/minimos/derechos.ts 147ms
+tests/minimos-derechos.test.ts 39ms
+$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
+
+
+ Test Files  3 passed (3)
+      Tests  97 passed (97)
+   Start at  16:17:31
+   Duration  1.68s (transform 411ms, setup 0ms, import 1.17s, tests 179ms, environment 0ms)
+
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/minimos-derechos.test.ts(339,3): error TS2578: Unused '@ts-expect-error' directive.
+tests/minimos-derechos.test.ts(342,5): error TS2322: Type 'undefined' is not assignable to type '{ readonly ejercicio: 2025; readonly territorio: "madrid"; readonly regimen: "comun"; readonly modalidad: "individual"; readonly devengo: "2025-12-31"; readonly ascendientes: "ninguno"; ... 5 more ...; readonly descendientes: readonly { ...; }[]; }'.

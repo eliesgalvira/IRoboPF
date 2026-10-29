@@ -237,3 +237,15 @@ El primer build real rechaza `react-dom/server` en la ruta de ficha. Se sustituy
 ## D050 — Dependencias documentales en el paquete de Next
 
 El build verde no incluía ningún archivo del almacén en las trazas de las rutas. Se añaden únicamente snapshots.json y objetos por hash a las rutas /procedencia. La configuración forma parte de la versión de explicación. Objeción: probar el GET dentro del repositorio permite leer archivos que un despliegue nunca copiaría. Coste: incluir también los snapshots históricos, medir el paquete y ejecutar el GET en una copia formada exclusivamente por las trazas. El volumen local crece con la historia; no se afirma compatibilidad con un límite concreto de hosting ni se despliega. Se preserva la decisión de no contratar almacenamiento. Referencia: [inclusiones de Output File Tracing](https://nextjs.org/docs/15/app/api-reference/config/next-config-js/output).
+
+## D051 — Derechos familiares declarados y reparto explícito
+
+Se añade una entrada canónica optativa de derechos por descendientes para Madrid 2025, con titulares, hechos de elegibilidad, prioridad de grado y reparto. Objeción: dividir por dos por defecto o inferir derechos de edad/discapacidad atribuye un beneficio sin hechos suficientes. Coste: contrato más exigente, rechazo de familias fuera del alcance y conservación del perfil antiguo como simplificación distinta. Los hechos declarados no se verifican administrativamente. La implementación candidata pasa 98 pruebas y requiere una revisión independiente nueva antes de aceptar su corrección fiscal acotada.
+
+## D052 — Las condiciones editoriales deben ser comprobables
+
+Las 78 decisiones estatales y 186 autonómicas aceptan solo celdas y ejercicios bajo condiciones expresas. No se registran como bindings aceptados mientras el selector solo proyecte estado y localización. Objeción: una condición escrita sobre fallecimientos, componente o vigencia puede perderse al reutilizar el número. Coste: contrato de ámbito ejecutable, payloads nuevos y revisión exacta; preservación de las versiones anteriores. No se sustituye una condición jurídica por una lista arbitraria de strings ni se acepta el resto de la regla por asociación.
+
+## D053 — Preservar originales nuevos sin cargar el respaldo de código
+
+El CAS de la nueva revisión estatal se conserva fuera de T3 por ambos hashes y queda fuera de Git ordinario; manifiestos, citas y recetas permanecen versionados. Objeción: dejarlo solo en el checkout perdería los bytes al limpiar, mientras subirlo automáticamente eludiría la decisión de almacenamiento. Coste: ampliar y restaurar un paquete local nuevo, con dependencias explícitas para los revisores. Crossa seguirá siendo v1 histórico y desfasado; no se presenta una copia local como custodia independiente. No se autoriza gasto ni transferencia.

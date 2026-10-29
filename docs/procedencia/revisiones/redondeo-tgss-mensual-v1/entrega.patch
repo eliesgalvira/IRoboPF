@@ -1,0 +1,2319 @@
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/BUSQUEDAS.md
+@@ -0,0 +1,20 @@
++# Búsquedas primarias realizadas
++
++29/10/2026. Motor web para descubrimiento; original CAS y render para las afirmaciones nuevas. Las primeras consultas usaron `site.seg-social.es` como texto y devolvieron ruido; se corrigieron a `site:seg-social.es`. No se usaron resultados IVA, pensiones o terceros para inferir cuotas RG.
++
++Consultas: `redondeo cuotas sistema liquidación directa decimales IT IMS`; `redondeo céntimo cuotas`; `solidaridad corrección 2025 2026 boletin`; con filtro `site:seg-social.es`: `redondeo cuotas`, `cálculo IT e IMS cuotas`, `solidaridad 07/2024 corrección`, `Fe de erratas 07/2024 pdf`, `redondeos Liquidación`, `cuotas tercer decimal`, `solidaridad redondeo`, `2026 solidaridad aclaraciones`. Con `site:boe.es`: `PJC/297/2026 Corrección`, `PJC/178/2025 Corrección`.
++
++Resultados examinados y uso:
++
++- [Índice técnico SLD](https://www.seg-social.es/wps/portal/wss/internet/InformacionUtil/5300/2837/2838/2841). Localizador; fecha de índice no sustituye portada del PDF CAS.
++- [RED euro 2001](https://www.seg-social.es/descarga/es/168749). Adquirido, ambos hashes, p.1 renderizada: BNR 2001/4, 6 de junio de 2001. Empate de pago, sin algoritmo SLD.
++- [Fe de septiembre 2024](https://www.seg-social.es/descarga/fr/Fe%20de%20erratas%20BNR%20072024). PDF en castellano pese al segmento fr; cabecera 13/09/2024 comprobada. Adquirido y renderizado.
++- [BNR 10/2024](https://www.seg-social.es/descarga/es/BNR%2010). Adquirido; portada 31/10/2024 y erratas p.2. No afecta a solidaridad.
++- [Avisos 2024](https://www.seg-social.es/wps/portal/wss/internet/InformacionUtil/5300/3827/5f54225d-9e3a-4010-a583-f5ba3b45be7b). Permite localizar las dos erratas, no acredita por sí solo el contenido.
++- [Corrección 2025](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-7292). Art.38.3, mínimo horario; no modifica art.17.
++- [Análisis 2025](https://boe.es/buscar/act.php?id=BOE-A-2025-3780&p=20250226&tn=6). Referencias posteriores a corrección y resolución de mutuas. No altera por analogía la interpretación de redondeo.
++- [Índice 2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7296). Texto inicial 31/03/2026; entrada 01/04/2026, efectos enero. Remisión AT/EP a DA61 LGSS, no tarifa de 2025 asumida atemporalmente.
++
++La apertura exploratoria de la ruta terminada en `/27428` dio Internal Error; no se interpreta como ausencia de documentación. Las búsquedas también devolvieron ejemplos agrarios históricos y normas IVA: descartados para cerrar el contrato RG/SLD por su distinto ámbito. Las búsquedas sin un resultado específico de empate de producto no prueban que no exista tal instrucción.
++
++Búsqueda local: extracción de todos los PDF de las 19 adquisiciones, términos `redonde`, `trunc`, `decimal`, `acumul`, `IMS`, `497`; scratch conserva texto completo y pasajes, sin modificar originales. Se revisaron citas, contextos y páginas de cálculo. El nuevo discriminante 206,75/206,76 procede de lectura visual de columnas, no de interpretar la mera presencia de un término.
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/COMANDOS.md
+@@ -0,0 +1,21 @@
++# Comandos y resultados reales
++
++Checkout de ejecución `/home/elies/.t3/worktrees/IRoboPF/t3-2333efc2`. Salvo lecturas pequeñas, trabajos bajo `flock /tmp/irobopf-validacion-pesada.lock`; un trabajador. Base: `git rev-parse HEAD`, resultado 5799bb03826719a4dd3500a962e2d6bb5124fdca. Solo operaciones Git de lectura.
++
++- `UV_PROJECT_ENVIRONMENT=/home/elies/.t3/worktrees/IRoboPF/t3-2333efc2/.cache/revision-tgss/venv flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh .cache/revision-tgss/verificar.py`: segundo pase exit 0, `19 42 True`. Primer pase KeyError sha256 por registro histórico fallido; se filtran solo entradas adquiridas. No se cambió el original ni la cita para obtener coincidencia.
++- Mismo prefijo y wrapper con `adquirir.py`: exit 0, tres originales, límite 8 MiB por petición, helper descargar con UA y saneamiento, hashes en adquisicion.log. La copia íntegra seleccionada está en originales/; el padre puede preservarla sin depender del scratch.
++- Mismo prefijo y wrapper con `ampliar.py`: exit 0, ocho páginas de evidencia adicional con coordenadas, texto y receta en citas-ampliadas.json. Render a 120 DPI PyMuPDF 1.26.7, RGB sin alpha.
++- `flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#python3 -c python /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/recalcular.py docs/procedencia/auditorias/redondeo-tgss-mensual/casos/resultados.json /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/aritmetica.json`: exit 0, 21 escenarios y cuatro empates coinciden. Fracciones racionales exactas, no import de lógica del autor; las entradas se toman de su JSON. No confundir 21 casos con 21 reglas fiscales verificadas.
++- Enlace node_modules del padre solo para lectura. `flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#ruff nixpkgs#mypy -c bash -c 'set -e; bun docs/procedencia/auditorias/redondeo-tgss-mensual/pruebas/api.mjs; bun run lint; bun run typecheck; bun run test:lint; ruff check /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/recalcular.py; mypy --follow-imports=silent --check-untyped-defs --cache-dir .cache/revision-tgss/mypy /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/recalcular.py'`: exit 0. Log completo validacion.log. API real 673.42246/132.74372 y redondeoTgss pendiente; lint global con oxlint --disable-nested-config y ESLint, tipos principal/vendor, 16 reglas a error con fixture rechazado, Ruff y mypy correctos. No se escribió Effect ni se hizo build.
++
++## Receta independiente de reextracción
++
++Cargar `docs/procedencia/auditorias/redondeo-tgss-mensual/citas-candidatas.json`. Por cada cita, abrir `/home/elies/Repos/IRoboPF/.cache/redondeo-tgss-mensual/cas/sha256/` + sha256 con PyMuPDF del wrapper fijado. Comprobar previamente ambos hashes y tamaño contra fuentes/documentos.json de la auditoría (las rutas históricas no se usan). Seleccionar `doc[page-1]`, caja `pymupdf.Rect(bbox)` y comparar `page.get_textbox(caja)` literalmente con quote. Generar en scratch `page.get_pixmap(dpi=120,clip=caja,alpha=False).save(destino)`; comparar SHA-256 con cropSha256 y con el PNG entregado por el autor. La receta completa se ejecutó sin normalización textual. verificacion.json conserva resultado individual y texto de las 42 citas.
++
++Para citas-ampliadas.json aplicar la misma receta de página/caja/DPI; los tres originales nuevos se resuelven en originales/ por sha256 y los anteriores en CAS raíz. No sobrescribir archivos existentes de otras entregas.
++
++## Límites de las comprobaciones
++
++No suite legacy completa, generación de inventario ni nueva validación PAdES. Los scripts transitorios de adquisición/extracción permanecen en scratch y no se presentan como fuentes mantenidas bajo lint. El script entregado recalcular.py sí pasa Ruff/mypy. Ningún log entregado supera 1 MB. No se necesitan comprimir diagnósticos ni incluir árboles de node_modules o cache en el manifiesto. Los manifiestos y el patch se excluyen a sí mismos para evitar ciclos.
++
++Control de presencia final: el primer recorrido usó is_file y clasificó erróneamente dos enlaces simbólicos históricos a directorios como ausencias. Se corrigió a existencia de entrada (exists o is_symlink), conservando los enlaces sin seguirlos ni repararlos. Se verifican 8.456 entradas de base presentes y cero ausencias; no se han solicitado borrados. Este control no certifica el contenido de árboles scratch ajenos.
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/INFORME.md
+@@ -0,0 +1,86 @@
++# Contrarrevisión del redondeo mensual TGSS
++
++Revisor: agente Codex de este hilo, rol recibido «review sub-agent», checkout T3 `t3-2333efc2`; no se inventa una identidad humana ni una custodia independiente. Revisión personal, sin subdelegación. Base comprobada `5799bb03826719a4dd3500a962e2d6bb5124fdca`. Entrega exclusivamente en esta carpeta del padre; scratch en `.cache/revision-tgss` del checkout. Ningún cambio al motor, oracle, registro, atestación ni VCS.
++
++## Dictamen
++
++La entrega es aprovechable como investigación y como especificación de límites, pero no habilita una liquidación mensual ingresable. Se confirman sus discriminantes aritméticos y se precisan tres pendientes: las dos erratas localizadas del BNR 07/2024 no afectan a solidaridad; la instrucción RED de 2001 aporta el empate al alza en el ámbito del pago; el manual SLD acredita identidades y destinos de acumulación de IT/IMS, sin establecer por ello la cuantización de cada producto. No hay fundamento para sustituir el resultado analítico del motor por la cifra manuscrita de X.
++
++Integridad, autenticidad, interpretación, exactitud y aceptación se evalúan separadamente. Los 19 originales se resuelven por hash en el CAS de la raíz, sin usar rutas del autor. SHA-256, SHA-512 y tamaños coinciden. Las 42 citas se reextraen literalmente y sus 42 PNG se regeneran con hash idéntico; los PNG entregados también coinciden. Esto verifica integridad y receta, no autoridad jurídica. No se valida confianza histórica PAdES/CSV. El diagnóstico NSS previo sigue indeterminado; no se transforma en confianza por repetir un hash.
++
++## Decisión individual: siete hallazgos
++
++| ID | Decisión de revisión y alcance | Objeción experta y coste |
++|---|---|---|
++| RTM01 | Confirmado como carencia de cobertura mensual, no defecto de la API analítica explícita. Lectura del helper actual y reproducción conservada. | Exigir meses variables a una entrada anual uniforme fabricaría un rojo. Coste: contrato mensual separado antes de ampliar cobertura. |
++| RTM02 | Confirmado aritméticamente: ocho meses de 11.041,67 y cuatro de 11.041,66 suman 132.500; doce de 11.041,67 suman 132.500,04. | No son hechos acreditados de nómina. Coste: conservar vector declarado y no deducir distribución real de una captura. |
++| RTM03 | Confirmado como ambigüedad interpretativa, con reproducción numérica independiente. | Coincidir con 673,44/132,84 no distingue todos los algoritmos posibles ni prueba empates. Coste: separar escenario y cuota legal. |
++| RTM04 | Confirmado con alcance BNR 07/2024 p.3, aclarado por BNR 09/2024 y 01/2025. 497–499 se comunican en el primer tramo temporal. Erratas septiembre/octubre examinadas, sin modificación de este pasaje. | «No repartir por tramos temporales» no dispensa de derivar bien las retribuciones y los días del mes. Coste: conservar ambas dimensiones y las complementarias. |
++| RTM05 | Confirmado como carencia de tarifa/hechos y de política monetaria; separación IT/IMS respaldada documentalmente. | 1,5 % agregado no reconstruye los dos conceptos; 0,8/0,7 no se adjudica a todo trabajador. Coste: tarifa y elegibilidad por fecha, más trazabilidad de ambos componentes. |
++| RTM06 | Confirmado parcialmente y precisado: falta el algoritmo SLD; no falta toda evidencia primaria sobre empates de pago. RED 2001 explicita empate superior. | Transferir una instrucción de transición al euro a cada multiplicación SLD es un salto no probado. Coste: regla de pago separada, etapas y ajustes todavía pendientes. |
++| RTM07 | Confirmado como contrato de formato TipoDato C, no precisión de devengo ni operación jurídica. | Un string de céntimos no acredita cómo se calculó su valor. Coste: separar dato transmitido de derivación de base y residuo. |
++
++## Decisión individual: doce reglas
++
++| Regla | Resultado y evidencia | Objeción experta y coste |
++|---|---|---|
++| R01 | Documentada para formato C: C035, Bases 2.0.2 p.31. | No redondear toda prorrata por inferencia del formato. Coste: política de construcción de base aparte. |
++| R02 | Procedimiento corroborado: C026/C027 y página completa; importes por concepto y tipos de cada pagador. Erratas examinadas no lo alteran. | El ejemplo usa expresamente máximo 2024 para ilustrar 2025. Coste: seleccionar máximo legal por ejercicio, no copiar el ejemplo. |
++| R03 | Campos separados corroborados en C040/C041 y consulta de cálculos p.24. Rechazo de 5/6 se funda además en tipos publicados, no solo en el schema. | Tener tres campos no prueba cuál es residual. Coste: no resolver la cuota empresarial por diferencia sin instrucción. |
++| R04 | Corroborada con alcance pago/conversión; ampliación RED 2001 p.1 explicita el empate superior para importes abonados. | La orden conserva referencia a conversión y art.11 de Ley 46/1998; el boletín no redefine cada producto intermedio. Coste: no extender HALF_UP universalmente. |
++| R05 | Sigue incompleta tras buscar en instrucciones, manuales, RED y norma euro. Se acredita producto por concepto en solidaridad, no ubicación exacta de cuantización, empate de producto o signo negativo. | Dos algoritmos que coinciden en una captura no quedan identificados. Coste: salida mensual no ingresable y casos discriminantes conservados. |
++| R06 | Parcialmente cerrada en estructura: tabla SLD pp.90–91 indica tramo/liquidación y destinos de acumulación; 701/702/703 alimentan 700. | «Acumula» no dice precisión interna ni impone cuadrar total por diferencia. Coste: conservar árbol de conceptos; ajuste residual pendiente. |
++| R07 | Corroborada prorrata de conceptos de devengo superior al mensual: C002/C036. | Dividir extras por doce no ordena repartir todo salario anual en ocho y cuatro pagos. Coste: hechos de devengo y remuneración mensual explícitos. |
++| R08 | Tipos 2025 y máximo corroborados en original PJC/178/2025 pp.4,16–17. Errata BOE-A-2025-7292 trata art.38.3, no estos tipos. | Validez de los tipos no acepta cálculo completo ni régimen especial. Coste: mantener ámbito RG e hipótesis. |
++| R09 | Tipos 2026 y máximo corroborados en PJC/297/2026. Publicada 31/03/2026, efectos enero; índice BOE consultado ofrece texto inicial. | Fecha de adquisición o portada no prueba continuidad de todas las instrucciones. Coste: no extrapolar a 2012–2024 ni afirmar búsqueda exhaustiva de reformas. |
++| R10 | Identidades IT 601 e IMS 611 corroboradas, incluidos destinos de situaciones especiales. Se cierra la separación estructural; quedan tarifa elegible y redondeo. | En 2026 la orden remite a DA61 LGSS introducida por RDL3/2026; no basta repetir DA4 Ley42/2006 como fundamento atemporal. Coste: versionar tarifa y ámbito, sin cambiar motor. |
++| R11 | Tipos MEI separados corroborados en órdenes 2025/2026; cálculo monetario incompleto. | El importe mostrado de MEI no acredita dónde se redondea. Coste: mantener concepto separado de ordinarias y solidaridad. |
++| R12 | Identidades CC/desempleo/FOGASA/FP/IT/IMS corroboradas; acumulaciones del manual precisadas. | Sumar tipos y redondear una vez no equivale a sumar cuotas redondeadas. Coste: no aceptar 6,35 % agregado como algoritmo mensual. |
++
++Todas son decisiones de revisión acotadas; ninguna constituye aceptación fiscal completa ni una promoción del registro.
++
++## Investigación primaria adicional y vigencia
++
++Se consultaron búsquedas dirigidas sobre redondeo, tercer decimal, IT/IMS, solidaridad y erratas. Los términos y resultados están en BUSQUEDAS.md. No se acepta la ausencia de resultados como inexistencia de instrucción.
++
++Dos documentos resuelven el pendiente concreto de erratas del BNR 07/2024: la fe del 13/09/2024 cambia fracción de cuota 01 por 07 en Copa América; BNR 10/2024 p.2 corrige fechas de Copa América y Ceuta/Melilla. No corrigen 497–499. Los tres nuevos PDF adquiridos están preservados en `originales/`, con metadatos saneados y ambos hashes en `nuevos-originales.json`. La fecha de portada no se reemplaza por fecha de indexación del buscador.
++
++La instrucción RED sobre euro, endpoint 168749, p.1, permite precisar R04/RTM06. La norma de 2001 sigue siendo el fundamento jurídico leído en C001; el documento administrativo describe la transición. No se presenta el boleto histórico como especificación de SLD vigente desde 2012. El texto tampoco identifica el punto donde habría que redondear las tres cuotas de solidaridad de 2025.
++
++La consulta BOE de la errata 2025 confirma un mínimo horario del art.38.3. El índice 2026 y el preámbulo corroboran publicación/efectos y cambio de remisión de la tarifa AT/EP. Estas consultas web son evidencia de búsqueda; no se finge una nueva adquisición CAS de esas páginas. Los originales de las órdenes ya están en los 19 comprobados. La revisión no completa una cadena exhaustiva de toda norma 2012–2026.
++
++## Citas, cabeceras y columnas
++
++Se inspeccionaron visualmente las páginas completas correspondientes a C001, C026, C035, C040, C041 y C042, además de las páginas ampliadas de cálculos y acumulación. C001 es la columna derecha del BOE 25/05/2001, art.2; no confundirla con el régimen de órdenes de pago del art.1. C026 está bajo instrucciones numeradas de solidaridad y su ejemplo declara base 2024. C035 corresponde a la fila TipoDato C del elemento Valor, no al elemento Código que precede. C040/C041 distinguen ValorBase, ValorCuotaTrabajador, Empresarial y Total, con signo negativo admitido; esa admisión no define cómo redondear negativos. C042 es el nodo de tramo, sin algoritmo monetario.
++
++La reextracción de 42 cajas y regeneración de 42 PNG es completa. La inspección visual contextual es una selección declarada, no una afirmación de lectura visual individual de las 42 imágenes. C016/C017, que solo contienen códigos, siguen necesitando contexto. Las páginas ampliadas añaden cabecera y columnas a la receta, sin sobrescribir originales ni citas del autor.
++
++## Aritmética y contrato operativo condicionado
++
++`recalcular.py` usa fracciones racionales y división entera, sin importar el cálculo Decimal del autor. Reutiliza exclusivamente las entradas de sus 21 escenarios para contrastar seis variantes de solidaridad y sus resultados exactos; también contrasta los cuatro empates positivos. Son discriminantes aritméticos, no oracles fiscales.
++
++El vector 8×11.041,67 + 4×11.041,66 y el uniforme infinito 132.500/12 producen la misma solidaridad analítica 673,42246/132,74372: ambos están en el tercer intervalo y allí la función es afín. Esa igualdad no permite sustituir bases comunicadas por una fracción infinita. HALF_UP por concepto/pagador/mes da 673,44/132,84; sumar productos mensuales antes de redondear da 673,44/132,72. Redondear solo el anual analítico daría 673,42/132,74, otro contrato.
++
++Con base mensual 4.909,50, ordinaria por concepto y AT agregado hipotético da 18.498,96/3.741,12; el agregado trabajador 6,35 % por mes da 3.741,00. Separar IT 0,8 % e IMS 0,7 % da 18.499,08 para empresa. MEI separado por pagador/mes da 394,68/76,56. Son hipótesis, sin asignar tarifa ni hechos a X. Seis meses de 3.000, cuatro de 19.083,33 y dos de 19.083,34 conservan 132.500 y dan solidaridad analítica 809,56123/158,04686. La base ordinaria también cambia: no es un mero residuo de céntimos.
++
++Contrato propuesto: exigir mes, relación laboral, días/modalidad, tramos temporales, devengo y bases comunicadas, tipos por concepto/pagador, tarifa IT/IMS y situaciones especiales. Calcular magnitudes exactas y separar comunicación, cálculo, nómina e ingreso. Devolver solo análisis etiquetado mientras falten etapas de cuantización, tratamiento de empate/signo y conciliación total/componentes. Al cerrar una etapa, exigir original, selector y caso que discrimine alternativas; un rojo solo contra una API que prometa esa etapa. No se crean pruebas rojas normativas ni fixes en esta revisión.
++
++Objeción experta: mantener el rechazo no satisface una nómina completa. Coste explícito: ampliar todavía evidencia y contrato; escoger HALF_UP para reproducir X ocultaría la incertidumbre. La implementación analítica existente conserva su significado y el oracle permanece intacto.
++
++## Controles y límites operativos
++
++Base exacta verificada por lectura Git. Inventario esperado `ff58be7c8b497d2b38ad7019afb85e2e621296108eeae85163ad2319c9c9d397`, artefacto esperado `ae25e219e75593d7a0d408e325db872faca31261ded79a2115a563536073b3d0`; snapshots v2 `efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6` y v1 técnico `8787155f02f4d8712648028532d966ab95c13e193ea36474f2fe2545516790e3`. Son referencias de la base, no una regeneración ni aceptación de sus fichas.
++
++Comandos/resultados en COMANDOS.md y logs. El primer checker encontró una entrada de adquisición fallida sin sha256; se corrigió el recorrido para verificar las 19 adquisiciones exitosas, preservando el fallo histórico. No era corrupción del CAS. Nix y wrapper uv fijado con UV_PROJECT_ENVIRONMENT absoluto propio; trabajos pesados serializados mediante flock y un trabajador. No Next build ni suites legacy completas. No se escribió Effect nuevo.
++
++Crossa es copia local v1 histórica comunicada por el coordinador, misma casa/dueño, sin comprobación propia nueva. v1/v2/restauración y originales conservados. Sin transferencias, LFS, gasto ni contacto con terceros. No se consultaron entregas en curso para derivar conclusiones fiscales. La entrega no declara todas las fichas ni todo Seguridad Social aceptados.
++
++## Discriminante adicional encontrado en las columnas de cálculo
++
++La captura de consulta de cálculos, p.24 (original de octubre de 2018), muestra base 2.600,71; desempleo total 183,35; FOGASA 5,20; formación profesional 18,20; líquido de otras cotizaciones 206,75. Su suma es 206,75. Aplicar directamente el tipo total 7,95 % a la base da 206,756445, cuyo redondeo al céntimo más próximo es 206,76. Por tanto, **el ejemplo publicado discrimina acumulación de cuotas ya expresadas en céntimos frente a suma de productos exactos con un único redondeo final**. IT 29,91 e IMS 28,61 aparecen separados; suman 58,52, que aquí también coincide con redondear el tipo combinado: ese ejemplo concreto no discrimina las dos políticas de AT/EP.
++
++Esto refina R06 y RTM06: hay evidencia primaria de un resultado de acumulación que el informe del autor no explotó, aunque no una especificación universal. R05 sigue sin determinar empate porque ninguno de estos productos es un empate; HALF_UP y HALF_EVEN coinciden en estas filas. No extrapolar el ejemplo de 2017 mostrado en manual 2018 a solidaridad 2025, ni convertir una pantalla ilustrativa en norma general. Objeción experta: los ejemplos pueden contener erratas y no expresan todas las ramas del algoritmo. Coste: conservar el caso discriminante como evidencia candidata explícita, pendiente de contrato, sin añadir un rojo a la API anual. Esta es una decisión adicional, no una aceptación fiscal completa.
++
++La transcripción propia se limita a cifras y etiquetas de cálculo. No se trasladan nombres ni identificadores de demostración de las pantallas a metadatos publicables; los facsímiles reproducen el documento oficial sin manipularlo.
++
++Cierre de validación: lint global, typecheck principal/vendor, ensayo de las 16 reglas anti-slop y Ruff/mypy del script entregado terminan correctamente. La llamada real conserva el alcance analítico. Los 21 escenarios y cuatro empates coinciden en el contraste racional. El control final comprueba 8.456 entradas presentes, incluidos enlaces simbólicos históricos, sin borrados. No se atribuye al motor un rojo normativo que no se ha demostrado.
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/adquisicion.log
+@@ -0,0 +1,3 @@
++red-euro-2001 40c670386497bf16282d7e837d8afd14e5124b3349efaff94dca51ee001e28da
++errata-septiembre 3e762492e9bd491d765e51f8a038d9fdd2d8721ff6c8f41bf1654cee12d1e844
++errata-octubre 38d90f75b7cb60fc191705569c7e8615f403e48456a47631c4653c32e1f93228
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/ampliar.log
+@@ -0,0 +1 @@
++[('red-euro-2001-1', ' ASPECTOS MAS IMPORTANTES DE LA ORDEN DE 23 DE MAYO DE 2001 SOBRE APLICACION \nDEL EURO EN '), ('errata-septiembre-1', ' \n \n  \nPágina 1 de 1 \n \n \n \n \n \nFe de erratas BNR 07/2024, de 12 de septiembre            '), ('errata-octubre-1', ' \n \nBNR 10/2024 \nPágina 1 de 2 \n \nNOTICIAS RED \nR e m i s i ó n  E l e c t r ó n i c a  d '), ('errata-octubre-2', ' \n \nBNR 10/2024 \nPágina 2 de 2 \n \nASIGNACIÓN DE NÚMERO DE LA SEGURIDAD SOCIAL. PLAZO PARA '), ('sld-especificaciones-90', ' \nManual de Usuario – Sistema Liquidación Directa \n \n \n90  \n \nTESORERÍA GENERAL \nDE LA SEG'), ('sld-especificaciones-91', ' \nManual de Usuario – Sistema Liquidación Directa \n \n \n91  \n \nTESORERÍA GENERAL \nDE LA SEG'), ('consulta-calculos-19', ' \n \n \n \n \n \n19  \nSistema de Liquidación Directa –  \nServicio de Consulta de Cálculos \n \nSu'), ('consulta-calculos-24', ' \n \n \n \n \n \n24  \nSistema de Liquidación Directa –  \nServicio de Consulta de Cálculos \n \n \n')]
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/aritmetica.json
+@@ -0,0 +1,1072 @@
++{
++  "metodo": "Fraction exacto, sin Decimal ni import del autor",
++  "casos": [
++    {
++      "id": "uniforme_11041_67",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "16836/25",
++            "3321/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "16836/25",
++            "3318/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "16836/25",
++            "3321/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "16836/25",
++            "3318/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "3366/5",
++            "3312/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "16833/25",
++            "3318/25"
++          ]
++        }
++      },
++      "analitica": [
++        "168355713/250000",
++        "33185949/250000"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "reparto_132500",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "16836/25",
++            "3321/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "16836/25",
++            "3318/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "16836/25",
++            "3321/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "16836/25",
++            "3318/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "3366/5",
++            "3312/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "16833/25",
++            "3318/25"
++          ]
++        }
++      },
++      "analitica": [
++        "33671123/50000",
++        "3318593/25000"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "variables_132500",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "40479/50",
++            "1581/10"
++          ],
++          "suma_tramos_por_pagador": [
++            "40479/50",
++            "3951/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "40479/50",
++            "1581/10"
++          ],
++          "suma_tramos_por_pagador": [
++            "40479/50",
++            "3951/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "40473/50",
++            "3948/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "20238/25",
++            "3951/25"
++          ]
++        }
++      },
++      "analitica": [
++        "80956123/100000",
++        "7902343/50000"
++      ],
++      "ordinaria": [
++        "372537/25",
++        "75339/25"
++      ],
++      "mei": [
++        "15897/50",
++        "1542/25"
++      ],
++      "IT_IMS": "7119/10"
++    },
++    {
++      "id": "limite_2025_1_-.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        }
++      },
++      "analitica": [
++        "0",
++        "0"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2025_1_0",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        }
++      },
++      "analitica": [
++        "0",
++        "0"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2025_1_.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        }
++      },
++      "analitica": [
++        "231/250000",
++        "9/50000"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2025_1.1_-.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "222/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "222/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "222/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "222/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "219/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "219/25"
++          ]
++        }
++      },
++      "analitica": [
++        "5670357/125000",
++        "220923/25000"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2025_1.1_0",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "222/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "222/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "222/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "222/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "219/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "219/25"
++          ]
++        }
++      },
++      "analitica": [
++        "2268189/50000",
++        "88371/10000"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2025_1.1_.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "222/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "222/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "222/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "222/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "1134/25",
++            "219/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1134/25",
++            "219/25"
++          ]
++        }
++      },
++      "analitica": [
++        "5670597/125000",
++        "1104663/125000"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2025_1.5_-.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "6024/25",
++            "1224/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6024/25",
++            "1221/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "6024/25",
++            "1224/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6024/25",
++            "1221/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "6021/25",
++            "1218/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6021/25",
++            "1221/25"
++          ]
++        }
++      },
++      "analitica": [
++        "15059829/62500",
++        "3056151/62500"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2025_1.5_0",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "6024/25",
++            "1224/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6024/25",
++            "1221/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "6024/25",
++            "1224/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6024/25",
++            "1221/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "6021/25",
++            "1218/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6021/25",
++            "1221/25"
++          ]
++        }
++      },
++      "analitica": [
++        "12047913/50000",
++        "2444931/50000"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2025_1.5_.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "6024/25",
++            "1224/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6024/25",
++            "1221/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "6024/25",
++            "1224/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6024/25",
++            "1221/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "6021/25",
++            "1218/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "6021/25",
++            "1221/25"
++          ]
++        }
++      },
++      "analitica": [
++        "60239859/250000",
++        "1528089/31250"
++      ],
++      "ordinaria": [
++        "462474/25",
++        "93528/25"
++      ],
++      "mei": [
++        "9867/25",
++        "1914/25"
++      ],
++      "IT_IMS": "4419/5"
++    },
++    {
++      "id": "limite_2026_1_-.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        }
++      },
++      "analitica": [
++        "0",
++        "0"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    },
++    {
++      "id": "limite_2026_1_0",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        }
++      },
++      "analitica": [
++        "0",
++        "0"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    },
++    {
++      "id": "limite_2026_1_.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "0",
++            "0"
++          ],
++          "suma_tramos_por_pagador": [
++            "0",
++            "0"
++          ]
++        }
++      },
++      "analitica": [
++        "18/15625",
++        "57/250000"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    },
++    {
++      "id": "limite_2026_1.1_-.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "294/5",
++            "291/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "294/5",
++            "291/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "294/5",
++            "291/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "294/5",
++            "291/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "1467/25",
++            "288/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1467/25",
++            "288/25"
++          ]
++        }
++      },
++      "analitica": [
++        "918198/15625",
++        "2907627/250000"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    },
++    {
++      "id": "limite_2026_1.1_0",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "294/5",
++            "291/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "294/5",
++            "291/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "294/5",
++            "291/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "294/5",
++            "291/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "1467/25",
++            "288/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1467/25",
++            "288/25"
++          ]
++        }
++      },
++      "analitica": [
++        "918216/15625",
++        "726921/62500"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    },
++    {
++      "id": "limite_2026_1.1_.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "294/5",
++            "291/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "294/5",
++            "291/25"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "294/5",
++            "291/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "294/5",
++            "291/25"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "1467/25",
++            "288/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "1467/25",
++            "288/25"
++          ]
++        }
++      },
++      "analitica": [
++        "1836471/31250",
++        "2907747/250000"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    },
++    {
++      "id": "limite_2026_1.5_-.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "7836/25",
++            "63"
++          ],
++          "suma_tramos_por_pagador": [
++            "7836/25",
++            "63"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "7836/25",
++            "63"
++          ],
++          "suma_tramos_por_pagador": [
++            "7836/25",
++            "63"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "7833/25",
++            "1572/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "7833/25",
++            "63"
++          ]
++        }
++      },
++      "analitica": [
++        "1958853/6250",
++        "3152529/50000"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    },
++    {
++      "id": "limite_2026_1.5_0",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "7836/25",
++            "1578/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "7836/25",
++            "63"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "7836/25",
++            "1578/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "7836/25",
++            "63"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "7833/25",
++            "1572/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "7833/25",
++            "63"
++          ]
++        }
++      },
++      "analitica": [
++        "4897152/15625",
++        "3940677/62500"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    },
++    {
++      "id": "limite_2026_1.5_.01",
++      "coincide": true,
++      "solidaridad": {
++        "ROUND_HALF_UP": {
++          "por_tramo_y_pagador": [
++            "7836/25",
++            "1578/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "7836/25",
++            "63"
++          ]
++        },
++        "ROUND_HALF_EVEN": {
++          "por_tramo_y_pagador": [
++            "7836/25",
++            "1578/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "7836/25",
++            "63"
++          ]
++        },
++        "ROUND_DOWN": {
++          "por_tramo_y_pagador": [
++            "7833/25",
++            "1572/25"
++          ],
++          "suma_tramos_por_pagador": [
++            "7833/25",
++            "63"
++          ]
++        }
++      },
++      "analitica": [
++        "39177399/125000",
++        "788139/12500"
++      ],
++      "ordinaria": [
++        "480534/25",
++        "97179/25"
++      ],
++      "mei": [
++        "11478/25",
++        "459/5"
++      ],
++      "IT_IMS": "22956/25"
++    }
++  ],
++  "empates": [
++    {
++      "entrada": "0.005",
++      "valores": [
++        "1/100",
++        "0",
++        "0"
++      ],
++      "coincide": true
++    },
++    {
++      "entrada": "1.005",
++      "valores": [
++        "101/100",
++        "1",
++        "1"
++      ],
++      "coincide": true
++    },
++    {
++      "entrada": "1.015",
++      "valores": [
++        "51/50",
++        "51/50",
++        "101/100"
++      ],
++      "coincide": true
++    },
++    {
++      "entrada": "4.905",
++      "valores": [
++        "491/100",
++        "49/10",
++        "49/10"
++      ],
++      "coincide": true
++    }
++  ]
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/citas-ampliadas.json
+@@ -0,0 +1,130 @@
++[
++  {
++    "id": "red-euro-2001-1",
++    "sha256": "40c670386497bf16282d7e837d8afd14e5124b3349efaff94dca51ee001e28da",
++    "page": 1,
++    "bbox": [
++      0.0,
++      0.0,
++      595.219970703125,
++      842.0
++    ],
++    "quote": " ASPECTOS MAS IMPORTANTES DE LA ORDEN DE 23 DE MAYO DE 2001 SOBRE APLICACION \nDEL EURO EN LOS COBROS Y PAGOS DE LA SEGURIDAD SOCIAL \n \n \nCon el objeto de facilitar la adecuación de las empresas a la moneda euro, durante el último trimestre del año 2001, se abre un período de \ncoexistencia de ambas monedas, pesetas y euros.  \nLa Orden establece la posibilidad de utilizar con carácter facultativo la unidad de cuenta euro en las liquidaciones y pagos de cuotas y \nconceptos de recaudación conjunta, durante el último trimestre del año 2001.  \nPara ello, introduce la posibilidad de domiciliar los pagos de cuotas a la Seguridad Social y conceptos de recaudación conjunta, para las \nEmpresas adheridas al Sistema RED , inscritas en el Régimen General de la Seguridad Social, o en los Regímenes Especiales de los \nTrabajadores del Mar y Minería del Carbón, siempre que lo soliciten mensualmente a través de dicho Sistema, dentro de los quince \nprimeros días del plazo reglamentario de ingreso y comprenda la totalidad de las cuotas.  \nA partir del 1 de enero de 2002, únicamente podrá utilizarse la unidad de cuenta euro, aún cuando correspondan a conceptos devengados \nen ejercicios anteriores.  \nEn relación con la normalización, se suprime el ajuste a múltiplos de 100 (para la base de cotización diaria), y de 3.000 (para la base de \ncotización mensual), en las liquidaciones y pagos que se efectúen a partir de Octubre de 2001, con independencia del periodo de \nliquidación al que se refieran y tanto si emplean la unidad de cuenta pesetas, como la unidad de cuenta euro.  \nLos importes monetarios que se abonen en euros se redondearán por exceso o por defecto, al céntimo de euro más próximo. Si la última \ncifra fuera exactamente la mitad de un céntimo de euro, el redondeo se efectuará a la cifra superior. \nORDEN 23 DE MAYO DE 2001 SOBRE APLICACIÓN DEL EURO EN LOS COBROS Y PAGOS DE LA SEGURIDAD SOCIAL  \n PRESENTACION DE DOCUMENTOS EN EUROS A TRAVES DEL SISTEMA RED\n \n \n \nPeríodo transitorio de utilización del euro en el Sistema RED   \nA partir del 1 de octubre de 2001, y hasta el 31 de diciembre, se abre un período transitorio de adaptación al euro, durante el cual las \nempresas adheridas al Sistema RED podrán presentar sus documentos TC2 optativamente, en pesetas o en euros.  \nDurante este período transitorio, las liquidaciones que se expresen en euros deberán contener una marca a nivel de documento en el \nfichero FAN (\"E\"), que distinguirá si dicho documento se presenta en una u otra moneda.  \nHasta el 31 de diciembre de 2001 sólo se admitirá las presentaciones de TC2 en euros que cumplan las siguientes condiciones:  \nDeberá realizarse la solicitud del pago de cuotas a la Seguridad Social a través del Sistema de Domiciliación en Cuenta y \nsiempre que éste comprenda la totalidad de las cuotas. \nSólo podrán efectuarla las empresas incluidas en el Sistema RED, excepto las inscritas en el Sistema Especial de Manipulado \ny Empaquetado de Tomate Fresco, (0134) y en el Régimen Especial de Artistas (0112).  \nSe admitirán, únicamente, liquidaciones normales presentadas en plazo reglamentario y devengadas a partir de septiembre de \n2001.  \nPor tanto, aquellas empresas que no realicen el pago a través de este sistema, y continúen presentando los boletines de cotización \nR e m i s i ó n  E l e c t r ó n i c a  d e  D o c u m e n t o s  \n \n \n \n \n \n \n \nNOTICIAS RED \n \n \nBoletín 2001/4 \n6 de junio de 2001\nMINISTERIO\nDE TRABAJO\nY  A SU N T O S   S O C I A L E S\nGOBIERNO\nDE ESPAÑA\nTESORERÍA GENERAL\nDE LA SEGURIDAD SOCIAL\n(documentos de la serie TC1) en las entidades financieras, deberán confeccionar documentos TC2 y TC1 en pesetas, y efectuar el \npago en esta moneda.  \nPeríodo obligatorio de utilización del euro  \nA partir del 1 de enero del 2002 la única unidad de cuenta admisible es el euro. Por tanto, a partir de esta fecha todos los \ndocumentos de cotización TC2 y TC1 sea cual sea la vía de presentación o ingreso, se efectuarán exclusivamente en euros, aún \ncuando correspondan a ejercicios anteriores.  \nEsto implica que todas las presentaciones de documentos que se efectúen a partir del 1 de enero de 2002, deberán consignarse en \neuros, ya sean liquidaciones normales, o liquidaciones complementarias de períodos anteriores.  ",
++    "dpi": 120,
++    "renderer": "1.26.7",
++    "png": "red-euro-2001-1.png",
++    "pngSha256": "4ae716fcef7247325cf0b077eb3484ed09dcba1cf8932d2971d1251577b0379e"
++  },
++  {
++    "id": "errata-septiembre-1",
++    "sha256": "3e762492e9bd491d765e51f8a038d9fdd2d8721ff6c8f41bf1654cee12d1e844",
++    "page": 1,
++    "bbox": [
++      0.0,
++      0.0,
++      595.3200073242188,
++      841.9199829101562
++    ],
++    "quote": " \n \n  \nPágina 1 de 1 \n \n \n \n \n \nFe de erratas BNR 07/2024, de 12 de septiembre                                                                                                            \n \n \nRD 712/2024: COPA DEL AMÉRICA. BONIFICACIÓN DE CUOTAS \nSe ha detectado un error en el apartado “Identificación de la bonificación en los ámbitos de afiliación y \ncotización”.  \n \nDonde dice FRACCIÓN DE CUOTA 01, debe decir FRACCIÓN DE CUOTA 07 \n \n \nFE DE ERRATAS \n \n \n \n \n \n \n \n \nR e m i s i ó n  E l e c t r ó n i c a  d e  D o c u m e n t o s  \n \n \n \n                                                         13 de septiembre de 2024 ",
++    "dpi": 120,
++    "renderer": "1.26.7",
++    "png": "errata-septiembre-1.png",
++    "pngSha256": "f6ddb6d4528d305c155f23399e384cff817489235f9d43b04f10e34ed10f0841"
++  },
++  {
++    "id": "errata-octubre-1",
++    "sha256": "38d90f75b7cb60fc191705569c7e8615f403e48456a47631c4653c32e1f93228",
++    "page": 1,
++    "bbox": [
++      0.0,
++      0.0,
++      595.3200073242188,
++      841.9199829101562
++    ],
++    "quote": " \n \nBNR 10/2024 \nPágina 1 de 2 \n \nNOTICIAS RED \nR e m i s i ó n  E l e c t r ó n i c a  d e  D o c u m e n t o s  \n \nBoletín 10/2024 \n                                31 de octubre de 2024 \n \nRDL 1/2023. IMPLANTACIÓN DE LO DISPUESTO EN EL BNR 09/2024 EN RELACIÓN CON LAS MEDIDAS \nDE LOS ARTÍCULOS 17 y 18. ..................................................................................................................... 1 \nASIGNACIÓN DE NÚMERO DE LA SEGURIDAD SOCIAL. PLAZO PARA LA COMUNICACIÓN DE LA PRIMERA \nALTA ........................................................................................................................................................ 2 \nRETA. INFORME SOBRE ACTIVIDADES POR CUENTA PROPIA .................................................................. 2 \nFE DE ERRATAS BNR 07/2024. ................................................................................................................. 2 \n \nRDL 1/2023. IMPLANTACIÓN DE LO DISPUESTO EN EL BNR 09/2024 EN RELACIÓN CON LAS \nMEDIDAS DE LOS ARTÍCULOS 17 y 18. \nSe informa de que el próximo 4 de noviembre por la tarde se procederá a la implantación de las nuevas CAUSAS \nDE SUSTITUCIÓN 10, 11, 12 y 13 informadas en el BNR 09/2024 -para la aplicación de la bonificación del artículo \n17 del RDL1/2023, por razón de sustitución de personas trabajadoras que estén percibiendo las prestaciones \neconómicas de nacimiento y cuidado del menor, riesgo durante el embarazo o riesgo durante la lactancia natural, \nsegún se especifica en el citado BNR-, en sustitución de la actual CAUSA DE SUSTITUCIÓN 02.  \nA partir de dicho momento dejarán de resultar admisibles las altas con contrato x10 y CAUSA DE SUSTITUCIÓN \n02 con independencia de la FECHA REAL DE ALTA -FRA- debiendo informarse en su lugar los valores 10, 11, 12 \no 13, según proceda.  \nComo consecuencia de lo anterior, aquellas altas previas, con TIPO CONTRATO x10 y CAUSA DE SUSTITUCIÓN \n02, presentadas hasta el próximo día 4 de noviembre:  \n• \nCuya FECHA REAL ALTA sea igual a 05/11/2024, serán rechazadas en el momento de su consolidación. \nSe recuerda que las altas se podrán corregir a través de la funcionalidad de “movimientos previos” para \nanotar la nueva causa de sustitución que proceda, siendo consolidadas al día siguiente de la corrección \nsin alterar la FECHA REAL ALTA ni su fecha de presentación. \n \n• \nCuya FECHA REAL ALTA sea posterior a 05/11/2024 podrán ser corregidas, a partir de dicha fecha, a \ntravés de la funcionalidad “Modificación de movimientos previos” para evitar el rechace del movimiento \nen el momento de su consolidación.  \n \nEn el caso de que se alcance la fecha de la consolidación del alta previa sin realizarse la corrección de \nla causa de sustitución y, por lo tanto, se produzca el rechace del movimiento, se mantiene la opción \nindicada en el punto anterior, así como la posibilidad de comunicación online, pero, en este caso, se \nconsiderará como fecha de presentación la de la fecha de la corrección.  \nAsimismo, también resultarán rechazados los movimientos de alta enviados por remesas por la tarde del día \n04/11/2024, debiendo ser necesaria la corrección del movimiento a partir del día siguiente, a través de la \nfuncionalidad de “Corrección de errores”. Dicha corrección mantendrá la FECHA REAL ALTA y la fecha de \npresentación. \n   ",
++    "dpi": 120,
++    "renderer": "1.26.7",
++    "png": "errata-octubre-1.png",
++    "pngSha256": "9c1c8fd03e823a60b570ff923a0e39150ca46cb182db4a93ceda411aed0cc921"
++  },
++  {
++    "id": "errata-octubre-2",
++    "sha256": "38d90f75b7cb60fc191705569c7e8615f403e48456a47631c4653c32e1f93228",
++    "page": 2,
++    "bbox": [
++      0.0,
++      0.0,
++      595.3200073242188,
++      841.9199829101562
++    ],
++    "quote": " \n \nBNR 10/2024 \nPágina 2 de 2 \n \nASIGNACIÓN DE NÚMERO DE LA SEGURIDAD SOCIAL. PLAZO PARA LA COMUNICACIÓN DE LA \nPRIMERA ALTA \nEl plazo para solicitar la primera alta de una persona trabajadora, tras la asignación del número de la Seguridad \nSocial –NSS- a través del Sistema RED, es de 5 días naturales inmediatamente siguientes a la asignación de \ndichos NSS. La FECHA REAL ALTA de dicha alta no podrá ser anterior a la fecha de asignación del NSS ni posterior \nen más de 5 días a dicha fecha de asignación del NSS \n \nRETA. INFORME SOBRE ACTIVIDADES POR CUENTA PROPIA \nSe ha implementado un nuevo servicio de Informe de actividades en el Sistema RED que permite generar \nun informe con indicación y detalle de la actividad o de las distintas actividades que, simultáneamente, realice \nel trabajador autónomo por cuenta propia en el momento en el que se solicite el informe, conforme a la \ninformación disponible en dicho momento en la Tesorería General de la Seguridad Social. \n \nFE DE ERRATAS BNR 07/2024. \nSe han detectado errores en las fechas de los siguientes apartados que se reproducen íntegros con las fechas \ncorrectas: \nRD 712/2024: COPA DEL AMÉRICA. BONIFICACIONES DE CUOTAS: \nEl 24 de julio se publicó, con vigencia desde el día 25 de julio, el RD 712/2024, de 23 de julio, por el \nque se desarrollan las bonificaciones de cuotas aplicables a las actividades relacionadas con la \norganización y celebración de la XXXVII edición de la Copa América en la ciudad de Barcelona, \ncontenidas en la disposición final trigésima cuarta de la Ley 31/2022, de 23 de diciembre, de \nPresupuestos Generales del Estado para el año 2023. \nRDL 1/2023. BONIFICACIONES. CEUTA Y MELILLA Y PLAN DE IGUALDAD. \nb. DA 11ª.2, con efectos desde el 23-05-2024, sobre el requisito de inscripción de un plan de igualdad \npara la aplicación de reducciones de cuotas: \n«2. A las reducciones de cuotas les resultará de aplicación lo establecido en los artículos 8, con excepción \nde lo previsto en la letra e), 36, 37.2, 38.3, 38.4 y 39”. \n \n \n \n \n \n \n \n \n \n \n \n \n \n ",
++    "dpi": 120,
++    "renderer": "1.26.7",
++    "png": "errata-octubre-2.png",
++    "pngSha256": "187e7952fbd4c87e42db45795a4bcb73ea0c45e82476274b84f8ce389f0e8974"
++  },
++  {
++    "id": "sld-especificaciones-90",
++    "sha256": "a3f503782fad17062d00cccc5938403f78052321e8eb868afc620e49127b6816",
++    "page": 90,
++    "bbox": [
++      0.0,
++      0.0,
++      595.3200073242188,
++      841.9199829101562
++    ],
++    "quote": " \nManual de Usuario – Sistema Liquidación Directa \n \n \n90  \n \nTESORERÍA GENERAL \nDE LA SEGURIDAD SOCIAL \n \nDirección General \n \n \nCentro de Desarrollo \nGERENCIA DE INFORMÁTICA \nDE LA SEGURIDAD SOCIAL \nFICHERO DE CÁLCULOS: CONCEPTOS ECONÓMICOS DE COTIZACIÓN \n  \nFICHERO DE CÁLCULOS: TABLA DE CONCEPTOS ECONOMICOS DE COTIZACIÓN  \n \nCODIGO  \nCALCULADO \n POR EL SISTEMA \nDESCRIPCIÓN  \nAPLICACIÓN \nA \nLIQUIDACIÓN \nY/O  \nTRAMO (1) \n \nCONCEPTOS QUE SE \nACUMULAN A NIVEL DE \nLIQUIDACIÓN \n \n200 \nX \nCOT.EMPR. CUOTA DE OTRAS COTIZACIONES \nL \nCuotas acumuladas de los \nconceptos: 705, 706, 707, \n708, 709, 710, 711, 712, \n713, \n \n300 \nX \nPERCEPCIONES \nT \nNo figura en la liquidación \n \n301 \n \nBASE COTIZ. SIN APORT. PLAN PENSIONES. \nT \nNo figura en la liquidación \n \n497 \nX \n1º TRAMO COTIZACION ADIC. SOLIDARIDAD \nA \n \n \n498 \nX \n2º TRAMO COTIZACION ADIC. SOLIDARIDAD \nA \n \n \n499 \nX \n3º TRAMO COTIZACION ADIC. SOLIDARIDAD \nA \n \n \n500 \nX \nCONTINGENCIAS COMUNES \nA \n \n \n501 \nX \nHORAS EXTRAS FUERZA MAYOR \nA \n \n \n502 \nX \nOTRAS HORAS EXTRAS \nA \n \n \n503 \nX \nAPORTACION SERVICIOS COMUNES \nA \n \n \n509 \nX \nCONTING.COM.COTIZ.EMPRESARIAL \nA \n \n \n524 \nX \nASISTENCIA SANITARIA CONCERTADA \nA \n \n \n528 \nX \nO.I.COTIZACION ADICIONAL EX-MUNPAL \nA \n \n \n531 \nX \nINCREMENTO COTI.CONTRATO TEMP.MENOR 7 DI \nA \n \n \n535 \nX \nCONT. COM. MATERNIDAD T. PARCIAL \nT \nAcumula cuotas en el 509 \n \n536 \nX \nCONT. COM. EXP. REG. EMPLEO T. PARCIAL \nT \nAcumula cuotas en el 509 \n \n537 \nX \nHORAS COMPLEMENTARIAS \nT \nNo figura en la liquidación \n \n549 \nX \nREDUCCIÓN DE PRÁCTICAS FORMATIVAS \nA \n \n \n551 \nX \nDEDUCCION CONTINGENCIAS EXCLUIDAS \nA \n \n \n552 \nX \nDEDUCCION COLABORACION VOLUNTARIA \nA \n \n \n555 \nX \nMECANISMO EQUIDAD INTERGENERACIONAL \nA \n \n \n557 \nX \nMEI COTIZACION EMPRESARIAL \nA \n \n \n563 \nX \nCOMPENSACION IT ENFERMEDAD COMUN \nA \n \n \n569 \nX \nAJUSTE COMPENSACIÓN IT ENFERMEDAD COMUN \nA \n \n \n571 \nX \nREDUCCIONES A CARGO DE LA TGSS \nA \n \n \n580 \nX \nREDUCCION REGISTRO CANARIO \nA \n \n \n586 \nX \nREDUCCIONES SEA A CARGO TGSS \nA \n \n \n587 \nX \nCOTIZACION ADICIONALCOEF. RED. EDAD JUBIL.  \nA \n \n \n588 \nX \nCOT.ADIC.COEF.REDU.EDAD JUBIL.MATERN.TP \nT \nAcumula cuotas en el 587 \n \n589 \nX \nCOT.ADIC.COEF.REDU.EDAD JUBIL.REG.EMPLEO TP \nT \nAcumula cuotas en el 587 \n \n592 \nX \nREDUCCION APORTACIÓN PLAN PENSIONES. \nA \n \n \n594  \nX \nCOTIZACION ESPECIAL SOLIDARIDAD \nA \n \n \n595  \nX \nCOTI.ESPECIAL SOLIDARIDAD MATERNIDAD TP \nT \nAcumula cuotas en el 594 ",
++    "dpi": 120,
++    "renderer": "1.26.7",
++    "png": "sld-especificaciones-90.png",
++    "pngSha256": "1814353ca3605d21539d573c08ac1bdd75ea3661bc4588306c1dd2d48627d5e2"
++  },
++  {
++    "id": "sld-especificaciones-91",
++    "sha256": "a3f503782fad17062d00cccc5938403f78052321e8eb868afc620e49127b6816",
++    "page": 91,
++    "bbox": [
++      0.0,
++      0.0,
++      595.3200073242188,
++      841.9199829101562
++    ],
++    "quote": " \nManual de Usuario – Sistema Liquidación Directa \n \n \n91  \n \nTESORERÍA GENERAL \nDE LA SEGURIDAD SOCIAL \n \nDirección General \n \n \nCentro de Desarrollo \nGERENCIA DE INFORMÁTICA \nDE LA SEGURIDAD SOCIAL \n  \nFICHERO DE CÁLCULOS: TABLA DE CONCEPTOS ECONOMICOS DE COTIZACIÓN  \n \nCODIGO  \nCALCULADO \n POR EL SISTEMA \nDESCRIPCIÓN  \nAPLICACIÓN \nA \nLIQUIDACIÓN \nY/O  \nTRAMO (1) \n \nCONCEPTOS QUE SE \nACUMULAN A NIVEL DE \nLIQUIDACIÓN \n \n596  \nX \nCOTIZACION ESPECIAL SOLIDARIDAD ERE TP \nT \nAcumula cuotas en el 594 \n \n598 \nX \nLIQUIDO CONTINGENCIAS COMUNES \nA \n \n \n601 \nX \nIT DE ACCIDENTES DE TRABAJO \nA \n \n \n603 \nX \nCUOTA IT DE AT Y EP DE SITUACIONES ESPEC \nT \nAcumula cuotas en el 601 \n \n611 \nX \nIMS DE ACCIDENTES DE TRABAJO \nA \n \n \n613 \nX \nCUOTA IMS DE AT Y EP DE SITUACIONES ESPE \nT \nAcumula cuotas en el 611 \n \n634 \nX \nIMS DE AT MATERNIDAD PARCIAL \nT \nAcumula cuotas en el 611 \n \n635 \nX \nIT DE AT MATERNIDAD PARCIAL \nT \nAcumula cuotas en el 601 \n \n636 \nX \nIT DE AT REGULACION DE EMPLEO PARCIAL \nT \nAcumula cuotas en el 601 \n \n637 \nX \nIMS DE AT REGULACION DE EMPLEO PARCIAL \nT \nAcumula cuotas en el 611 \n \n663 \nX \nCOMP.IT POR ACCIDENTE DE TRABAJO \nA \n \n \n669 \nX \nAJUSTE COMPENSACION IT ACCIDENTE DE TRABAJO \nA \n \n \n698 \nX \nLIQUIDO DE ACCIDENTES DE TRABAJO \nA \n \n \n670 \nX \nEXCESO DE TOPE \nT \nNo figura en la liquidación \n \n700 \nX \nOTRAS COTIZACIONES \nL \nCuotas acumuladas del 701, \n702 y 703 \n \n701 \nX \nCUOTAS POR DESEMPLEO \nT \nAcumula en el 700 \n \n702 \nX \nCUOTAS POR FOGASA \nT \nAcumula en el 700 \n \n703 \nX \nCUOTAS POR FORMACION PROFESIONAL \nT \nAcumula en el 700 \n \n705 \nX \nCUOTA DESEMPLEO COTIZACION EMPRESARIAL \nT \nAcumula en el 200 \n \n706 \nX \nCUOTA FOGASA COTIZACION EMPRESARIAL \nT \nAcumula en el 200 \n \n707 \nX \nCUOTA FORMACION PROFESIONAL COTIZ.EMPRES \nT \nAcumula en el 200 \n \n708 \nX \nDESEMPLEO MATERNIDAD TIEMPO PARCIAL \nT \nAcumula en el 200 \n \n709 \nX \nFOGASA MATERNIDAD TIEMPO PARCIAL \nT \nAcumula en el 200 \n \n710 \nX \nFORM. PROFES. MATERNIDAD TIEMPO PARCIAL \nT \nAcumula en el 200 \n \n711 \nX \nDESEMPLEO ERE TIEMPO PARCIAL \nT \nAcumula en el 200 \n \n712 \nX \nFOGASA ERE TIEMPO PARCIAL \nT \nAcumula en el 200 \n \n713 \nX \nFORM. PROFES. ERE TIEMPO PARCIAL \nT \nAcumula en el 200 \n \n735 \nX \nFORMACION TEORICA PRESENCIAL \nT \nAcumula el importe en el 760 \n \n736 \nX \nFORMACION TEORICA A DISTANCIA \nT \nAcumula el importe en el 760 \n \n737 \nX \nBONIFICACION TUTORIA \nT \nAcumula el importe en el 760 \n \n760 \nX \nBONIF.Y SUBVENC.CON CARGO AL INEM \nA \n \n \n763 \nX \nBONIFICACION FORMACION CONTINUA \nL \n \n \n765 \nX \nREDUCCIONES SEA EN IT A CARGO DEL SPEE   \nA \n \n \n766 \nX \nBONIF.GARANTIA JUVENIL \nA \n \n \n767 \nX \nBONIF.GARANTIA JUVENIL-EXCEDENTE TRABAJ \nL \n ",
++    "dpi": 120,
++    "renderer": "1.26.7",
++    "png": "sld-especificaciones-91.png",
++    "pngSha256": "784932d97d8b05a7e071734ae3c3ac5ca8feec0e076d9c403acbb230159ae395"
++  },
++  {
++    "id": "consulta-calculos-19",
++    "sha256": "8a0b3be187572a7ac3032655b158c15f63be2c7ba12d48f09ee2a885a356fa36",
++    "page": 19,
++    "bbox": [
++      0.0,
++      0.0,
++      595.3200073242188,
++      841.9199829101562
++    ],
++    "quote": " \n \n \n \n \n \n19  \nSistema de Liquidación Directa –  \nServicio de Consulta de Cálculos \n \nSuperadas las validaciones: \nSi el usuario ha optado por la consulta individualizada: Se accederá a la pantalla de cálculos globales del \ntrabajador  seleccionado. \n      Si el usuario ha optado por pulsar el botón “Consulta masiva”: Se le mostrará la pantalla siguiente, \ngenerándose en diferido un fichero que se recibirá a través de la aplicación Siltr@: \n \n              \n \n \n \n \n \nCálculos globales del trabajador \nTanto en liquidaciones de menos de 25 trabajadores como de más de 25 trabajadores, una vez que se ha \noptado por la selección de consulta individualizada de un NAF y superado las validaciones correspondientes \nse pasará a la siguiente pantalla. Esta pantalla muestra los cálculos acumulados para ese trabajador en la \nliquidación y  en ella se visualizan la descripción de los conceptos, la base de cotización, y el importe de las \ncuotas empresarial, a cargo del trabajador y total. \n \n \n \n \n \n \n \n \n ",
++    "dpi": 120,
++    "renderer": "1.26.7",
++    "png": "consulta-calculos-19.png",
++    "pngSha256": "f79cba84df4fb755fee816286233e21605e0ec1cc6f3c317ab38c41dae87880b"
++  },
++  {
++    "id": "consulta-calculos-24",
++    "sha256": "8a0b3be187572a7ac3032655b158c15f63be2c7ba12d48f09ee2a885a356fa36",
++    "page": 24,
++    "bbox": [
++      0.0,
++      0.0,
++      595.3200073242188,
++      841.9199829101562
++    ],
++    "quote": " \n \n \n \n \n \n24  \nSistema de Liquidación Directa –  \nServicio de Consulta de Cálculos \n \n \n \n \nCálculos del Tramo:  \nAl pulsar desde la pantalla de selección de tramos  el botón “Cálculos del Tramo” se accede a la \nconsulta de los cálculos realizados para el trabajador en el tramo seleccionado.  \n \nLa pantalla mostrará el siguiente aspecto: \n \n \n \n \nEn esta pantalla se visualizan la descripción de los conceptos, la base de cotización, el tipo de \ncotización sobre el cual se realiza el cálculo correspondiente a las cuotas empresarial, a cargo del \ntrabajador  y  total. \n \nAdemás de los datos indicados,  se visualizarán el detalle del cálculo de Bonificaciones y Reducciones y \nde las peculiaridades  de cotización que en su caso procedan. \n \n \n \n \n \n ",
++    "dpi": 120,
++    "renderer": "1.26.7",
++    "png": "consulta-calculos-24.png",
++    "pngSha256": "fe9f7a14fa38ea583cc8f9c5f36a1d4add1a00a5fc81f77c399d5470c0d0ffef"
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/control-base.json
+@@ -0,0 +1,23 @@
++{
++  "base": "5799bb03826719a4dd3500a962e2d6bb5124fdca",
++  "head": "5799bb03826719a4dd3500a962e2d6bb5124fdca",
++  "presentes": 8456,
++  "ausentes": [],
++  "fuentes": [
++    {
++      "path": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
++      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
++      "coincideBase": true
++    },
++    {
++      "path": "docs/procedencia/inventario.json",
++      "sha256": "ff58be7c8b497d2b38ad7019afb85e2e621296108eeae85163ad2319c9c9d397",
++      "coincideBase": true
++    },
++    {
++      "path": "docs/procedencia/correcciones/integracion-ronda11/recepcion-tgss.json",
++      "sha256": "ae07b95bb5c1f0ea8fc837fdb665898557308469693743a73729fec5c70fcad3",
++      "coincideBase": true
++    }
++  ]
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/decisiones.json
+@@ -0,0 +1,118 @@
++[
++  {
++    "id": "RTM01",
++    "decision": "Confirmado como carencia de cobertura mensual, no defecto de la API analítica explícita. Lectura del helper actual y reproducción conservada.",
++    "objecionCoste": "Exigir meses variables a una entrada anual uniforme fabricaría un rojo. Coste: contrato mensual separado antes de ampliar cobertura.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "RTM02",
++    "decision": "Confirmado aritméticamente: ocho meses de 11.041,67 y cuatro de 11.041,66 suman 132.500; doce de 11.041,67 suman 132.500,04.",
++    "objecionCoste": "No son hechos acreditados de nómina. Coste: conservar vector declarado y no deducir distribución real de una captura.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "RTM03",
++    "decision": "Confirmado como ambigüedad interpretativa, con reproducción numérica independiente.",
++    "objecionCoste": "Coincidir con 673,44/132,84 no distingue todos los algoritmos posibles ni prueba empates. Coste: separar escenario y cuota legal.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "RTM04",
++    "decision": "Confirmado con alcance BNR 07/2024 p.3, aclarado por BNR 09/2024 y 01/2025. 497–499 se comunican en el primer tramo temporal. Erratas septiembre/octubre examinadas, sin modificación de este pasaje.",
++    "objecionCoste": "«No repartir por tramos temporales» no dispensa de derivar bien las retribuciones y los días del mes. Coste: conservar ambas dimensiones y las complementarias.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "RTM05",
++    "decision": "Confirmado como carencia de tarifa/hechos y de política monetaria; separación IT/IMS respaldada documentalmente.",
++    "objecionCoste": "1,5 % agregado no reconstruye los dos conceptos; 0,8/0,7 no se adjudica a todo trabajador. Coste: tarifa y elegibilidad por fecha, más trazabilidad de ambos componentes.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "RTM06",
++    "decision": "Confirmado parcialmente y precisado: falta el algoritmo SLD; no falta toda evidencia primaria sobre empates de pago. RED 2001 explicita empate superior.",
++    "objecionCoste": "Transferir una instrucción de transición al euro a cada multiplicación SLD es un salto no probado. Coste: regla de pago separada, etapas y ajustes todavía pendientes.",
++    "fiscalAcceptance": false,
++    "ampliacion": "Consulta cálculos p.24: 183.35+5.20+18.20=206.75, frente a round(2600.71*.0795)=206.76. Discrimina acumulación del ejemplo; no regla universal SLD ni solidaridad."
++  },
++  {
++    "id": "RTM07",
++    "decision": "Confirmado como contrato de formato TipoDato C, no precisión de devengo ni operación jurídica.",
++    "objecionCoste": "Un string de céntimos no acredita cómo se calculó su valor. Coste: separar dato transmitido de derivación de base y residuo.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R01",
++    "decision": "Documentada para formato C: C035, Bases 2.0.2 p.31.",
++    "objecionCoste": "No redondear toda prorrata por inferencia del formato. Coste: política de construcción de base aparte.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R02",
++    "decision": "Procedimiento corroborado: C026/C027 y página completa; importes por concepto y tipos de cada pagador. Erratas examinadas no lo alteran.",
++    "objecionCoste": "El ejemplo usa expresamente máximo 2024 para ilustrar 2025. Coste: seleccionar máximo legal por ejercicio, no copiar el ejemplo.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R03",
++    "decision": "Campos separados corroborados en C040/C041 y consulta de cálculos p.24. Rechazo de 5/6 se funda además en tipos publicados, no solo en el schema.",
++    "objecionCoste": "Tener tres campos no prueba cuál es residual. Coste: no resolver la cuota empresarial por diferencia sin instrucción.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R04",
++    "decision": "Corroborada con alcance pago/conversión; ampliación RED 2001 p.1 explicita el empate superior para importes abonados.",
++    "objecionCoste": "La orden conserva referencia a conversión y art.11 de Ley 46/1998; el boletín no redefine cada producto intermedio. Coste: no extender HALF_UP universalmente.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R05",
++    "decision": "Sigue incompleta tras buscar en instrucciones, manuales, RED y norma euro. Se acredita producto por concepto en solidaridad, no ubicación exacta de cuantización, empate de producto o signo negativo.",
++    "objecionCoste": "Dos algoritmos que coinciden en una captura no quedan identificados. Coste: salida mensual no ingresable y casos discriminantes conservados.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R06",
++    "decision": "Parcialmente cerrada en estructura: tabla SLD pp.90–91 indica tramo/liquidación y destinos de acumulación; 701/702/703 alimentan 700.",
++    "objecionCoste": "«Acumula» no dice precisión interna ni impone cuadrar total por diferencia. Coste: conservar árbol de conceptos; ajuste residual pendiente.",
++    "fiscalAcceptance": false,
++    "ampliacion": "Consulta cálculos p.24: 183.35+5.20+18.20=206.75, frente a round(2600.71*.0795)=206.76. Discrimina acumulación del ejemplo; no regla universal SLD ni solidaridad."
++  },
++  {
++    "id": "R07",
++    "decision": "Corroborada prorrata de conceptos de devengo superior al mensual: C002/C036.",
++    "objecionCoste": "Dividir extras por doce no ordena repartir todo salario anual en ocho y cuatro pagos. Coste: hechos de devengo y remuneración mensual explícitos.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R08",
++    "decision": "Tipos 2025 y máximo corroborados en original PJC/178/2025 pp.4,16–17. Errata BOE-A-2025-7292 trata art.38.3, no estos tipos.",
++    "objecionCoste": "Validez de los tipos no acepta cálculo completo ni régimen especial. Coste: mantener ámbito RG e hipótesis.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R09",
++    "decision": "Tipos 2026 y máximo corroborados en PJC/297/2026. Publicada 31/03/2026, efectos enero; índice BOE consultado ofrece texto inicial.",
++    "objecionCoste": "Fecha de adquisición o portada no prueba continuidad de todas las instrucciones. Coste: no extrapolar a 2012–2024 ni afirmar búsqueda exhaustiva de reformas.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R10",
++    "decision": "Identidades IT 601 e IMS 611 corroboradas, incluidos destinos de situaciones especiales. Se cierra la separación estructural; quedan tarifa elegible y redondeo.",
++    "objecionCoste": "En 2026 la orden remite a DA61 LGSS introducida por RDL3/2026; no basta repetir DA4 Ley42/2006 como fundamento atemporal. Coste: versionar tarifa y ámbito, sin cambiar motor.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R11",
++    "decision": "Tipos MEI separados corroborados en órdenes 2025/2026; cálculo monetario incompleto.",
++    "objecionCoste": "El importe mostrado de MEI no acredita dónde se redondea. Coste: mantener concepto separado de ordinarias y solidaridad.",
++    "fiscalAcceptance": false
++  },
++  {
++    "id": "R12",
++    "decision": "Identidades CC/desempleo/FOGASA/FP/IT/IMS corroboradas; acumulaciones del manual precisadas.",
++    "objecionCoste": "Sumar tipos y redondear una vez no equivale a sumar cuotas redondeadas. Coste: no aceptar 6,35 % agregado como algoritmo mensual.",
++    "fiscalAcceptance": false
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/discriminante-columnas.json
+@@ -0,0 +1,24 @@
++{
++  "original": "consulta-calculos",
++  "pagina": 24,
++  "base": "2600.71",
++  "tipos": [
++    ".0705",
++    ".002",
++    ".007"
++  ],
++  "productosRacionales": [
++    "36670011/200000",
++    "260071/50000",
++    "1820497/100000"
++  ],
++  "cuotasVisibles": [
++    "183.35",
++    "5.20",
++    "18.20"
++  ],
++  "sumaVisible": "206.75",
++  "productoAgregadoExacto": "206.756445",
++  "redondeoFinalAgregado": "206.76",
++  "fiscalAcceptance": false
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/nuevos-originales.json
+@@ -0,0 +1,173 @@
++[
++  {
++    "schemaVersion": 2,
++    "canonicalUrl": "https://www.seg-social.es/descarga/es/168749",
++    "finalUrl": "https://www.seg-social.es/wps/wcm/connect/wss/2dd44ef5-f15d-4a84-815f-fe02adee0eed/2001-4.pdf?MOD=AJPERES",
++    "retrievedAt": "2026-10-29T15:12:45.351381+00:00",
++    "httpStatus": 200,
++    "headers": {
++      "accept-ranges": "bytes",
++      "etag": "\"-640358555\"",
++      "content-length": "1056075",
++      "content-type": "application/pdf",
++      "cache-control": "public, max-age=14400, post-check=300, pre-check=600",
++      "expires": "Thu, 29 Oct 2026 19:12:45 GMT",
++      "date": "Thu, 29 Oct 2026 15:12:45 GMT"
++    },
++    "redirects": [
++      {
++        "from": "https://www.seg-social.es/descarga/es/168749",
++        "to": "https://www.seg-social.es/wps/wcm/connect/wss/2dd44ef5-f15d-4a84-815f-fe02adee0eed/2001-4.pdf?MOD=AJPERES",
++        "status": 302,
++        "headers": {
++          "content-disposition": "attachment; filename=\"Archivo\"",
++          "content-length": "0",
++          "content-type": "application/octet-stream",
++          "date": "Thu, 29 Oct 2026 15:12:43 GMT"
++        }
++      }
++    ],
++    "sha256": "40c670386497bf16282d7e837d8afd14e5124b3349efaff94dca51ee001e28da",
++    "sha512": "ac7f32e7dcd10acb95bbbe46ba41ecb17cf93704c0de60ddb079d5628ec8853bb412326e35c85badf977dd3af049ac401e7b1a9504ddb20e24bfd94fff12cbd4",
++    "size": 1056075,
++    "mimeType": "application/pdf",
++    "localPath": "/home/elies/.t3/worktrees/IRoboPF/t3-2333efc2/.cache/revision-tgss/cas/sha256/40c670386497bf16282d7e837d8afd14e5124b3349efaff94dca51ee001e28da",
++    "officialIdentifier": {
++      "value": null,
++      "status": "pending"
++    },
++    "publication": {
++      "status": "pending"
++    },
++    "consolidation": {
++      "status": "pending"
++    },
++    "eli": {
++      "status": "pending"
++    },
++    "csv": {
++      "status": "pending"
++    },
++    "authenticity": {
++      "status": "not-validated"
++    },
++    "sourcePolicy": {
++      "status": "allowlisted"
++    },
++    "id": "red-euro-2001"
++  },
++  {
++    "schemaVersion": 2,
++    "canonicalUrl": "https://www.seg-social.es/descarga/fr/Fe%20de%20erratas%20BNR%20072024",
++    "finalUrl": "https://www.seg-social.es/wps/wcm/connect/wss/1ef7a07d-a2d6-46d2-bbe1-c95e50957406/Fe+de+erratas+del+Bolet%C3%ADn+de+Noticias+RED+072024+de+12+de+septiembre+de+2024.pdf?MOD=AJPERES",
++    "retrievedAt": "2026-10-29T15:12:49.777033+00:00",
++    "httpStatus": 200,
++    "headers": {
++      "accept-ranges": "bytes",
++      "etag": "\"78216329\"",
++      "content-length": "84033",
++      "content-type": "application/pdf",
++      "cache-control": "public, max-age=14400, post-check=300, pre-check=600",
++      "expires": "Thu, 29 Oct 2026 19:12:49 GMT",
++      "date": "Thu, 29 Oct 2026 15:12:49 GMT"
++    },
++    "redirects": [
++      {
++        "from": "https://www.seg-social.es/descarga/fr/Fe%20de%20erratas%20BNR%20072024",
++        "to": "https://www.seg-social.es/wps/wcm/connect/wss/1ef7a07d-a2d6-46d2-bbe1-c95e50957406/Fe+de+erratas+del+Bolet%C3%ADn+de+Noticias+RED+072024+de+12+de+septiembre+de+2024.pdf?MOD=AJPERES",
++        "status": 302,
++        "headers": {
++          "content-disposition": "attachment; filename=\"Archivo\"",
++          "content-length": "0",
++          "content-type": "application/octet-stream",
++          "date": "Thu, 29 Oct 2026 15:12:47 GMT"
++        }
++      }
++    ],
++    "sha256": "3e762492e9bd491d765e51f8a038d9fdd2d8721ff6c8f41bf1654cee12d1e844",
++    "sha512": "c3732a8f35ca991a7d77401596e4d5d706fe9bd04f2f72a65923ad5d0dedf57b507b421983453e868c070d139deaa595fa5ff5bc5f06293404824420d951d899",
++    "size": 84033,
++    "mimeType": "application/pdf",
++    "localPath": "/home/elies/.t3/worktrees/IRoboPF/t3-2333efc2/.cache/revision-tgss/cas/sha256/3e762492e9bd491d765e51f8a038d9fdd2d8721ff6c8f41bf1654cee12d1e844",
++    "officialIdentifier": {
++      "value": null,
++      "status": "pending"
++    },
++    "publication": {
++      "status": "pending"
++    },
++    "consolidation": {
++      "status": "pending"
++    },
++    "eli": {
++      "status": "pending"
++    },
++    "csv": {
++      "status": "pending"
++    },
++    "authenticity": {
++      "status": "not-validated"
++    },
++    "sourcePolicy": {
++      "status": "allowlisted"
++    },
++    "id": "errata-septiembre"
++  },
++  {
++    "schemaVersion": 2,
++    "canonicalUrl": "https://www.seg-social.es/descarga/es/BNR%2010",
++    "finalUrl": "https://www.seg-social.es/wps/wcm/connect/wss/c286a7ca-85c3-4bad-983f-6f8e32ca1fc8/BNR+10-2024.pdf?MOD=AJPERES",
++    "retrievedAt": "2026-10-29T15:12:54.137708+00:00",
++    "httpStatus": 200,
++    "headers": {
++      "accept-ranges": "bytes",
++      "etag": "\"98588605\"",
++      "content-length": "179720",
++      "content-type": "application/pdf",
++      "cache-control": "public, max-age=14151, post-check=300, pre-check=600",
++      "expires": "Thu, 29 Oct 2026 19:08:45 GMT",
++      "date": "Thu, 29 Oct 2026 15:12:54 GMT"
++    },
++    "redirects": [
++      {
++        "from": "https://www.seg-social.es/descarga/es/BNR%2010",
++        "to": "https://www.seg-social.es/wps/wcm/connect/wss/c286a7ca-85c3-4bad-983f-6f8e32ca1fc8/BNR+10-2024.pdf?MOD=AJPERES",
++        "status": 302,
++        "headers": {
++          "content-disposition": "attachment; filename=\"Archivo\"",
++          "content-length": "0",
++          "content-type": "application/octet-stream",
++          "date": "Thu, 29 Oct 2026 15:12:52 GMT"
++        }
++      }
++    ],
++    "sha256": "38d90f75b7cb60fc191705569c7e8615f403e48456a47631c4653c32e1f93228",
++    "sha512": "4828aef3d6148283018755d9bb90a058dd0dadadf19761384a9774b1aa7d0df5f115cb905cefcf1da68c704bc390d5795f881159b30f308f3fba56c1532c4959",
++    "size": 179720,
++    "mimeType": "application/pdf",
++    "localPath": "/home/elies/.t3/worktrees/IRoboPF/t3-2333efc2/.cache/revision-tgss/cas/sha256/38d90f75b7cb60fc191705569c7e8615f403e48456a47631c4653c32e1f93228",
++    "officialIdentifier": {
++      "value": null,
++      "status": "pending"
++    },
++    "publication": {
++      "status": "pending"
++    },
++    "consolidation": {
++      "status": "pending"
++    },
++    "eli": {
++      "status": "pending"
++    },
++    "csv": {
++      "status": "pending"
++    },
++    "authenticity": {
++      "status": "not-validated"
++    },
++    "sourcePolicy": {
++      "status": "allowlisted"
++    },
++    "id": "errata-octubre"
++  }
++]
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/recalcular.py
+@@ -0,0 +1,66 @@
++"""Contraste racional exacto; los escenarios no son cuotas fiscales aceptadas."""
++import json
++import sys
++from fractions import Fraction as F
++from pathlib import Path
++
++
++def cents(x: F, mode: str) -> F:
++    """Redondeo positivo implementado con cociente y resto enteros."""
++    q, r = divmod(x.numerator * 100, x.denominator)
++    if mode == 'ROUND_HALF_UP':
++        q += 2 * r >= x.denominator
++    elif mode == 'ROUND_HALF_EVEN':
++        q += 2 * r > x.denominator or (2 * r == x.denominator and q % 2 == 1)
++    return F(q, 100)
++
++
++def main() -> None:
++    source = Path(sys.argv[1])
++    output = Path(sys.argv[2])
++    data = json.loads(source.read_text())
++    results = []
++    rates = {2025: ('4909.50', ['.0077', '.0083', '.0098'], ['.0015', '.0017', '.0019']),
++             2026: ('5101.20', ['.0096', '.0104', '.0122'], ['.0019', '.0021', '.0024'])}
++    for case in data['casos']:
++        cap, er, wr = rates[case['anio']]
++        totals = {}
++        exact = [F(0), F(0)]
++        for mode in ['ROUND_HALF_UP', 'ROUND_HALF_EVEN', 'ROUND_DOWN']:
++            totals[mode] = {'por_tramo_y_pagador': [F(0), F(0)], 'suma_tramos_por_pagador': [F(0), F(0)]}
++        ordinary = [F(0), F(0)]
++        mei = [F(0), F(0)]
++        itims = F(0)
++        for month in case['meses_enero_diciembre']:
++            income = F(month['remuneracion'])
++            b = F(cap)
++            intervals = [(b, b * F('1.1')), (b * F('1.1'), b * F('1.5')), (b * F('1.5'), max(income, b * F('1.5')))]
++            widths = [max(F(0), min(income, hi) - lo) for lo, hi in intervals]
++            for payer, rr in enumerate([er, wr]):
++                products = [w * F(rate) for w, rate in zip(widths, rr, strict=True)]
++                exact[payer] += sum(products)
++                for mode, variants in totals.items():
++                    variants['por_tramo_y_pagador'][payer] += sum(cents(p, mode) for p in products)
++                    variants['suma_tramos_por_pagador'][payer] += cents(sum(products, F(0)), mode)
++            base = min(income, b)
++            for payer, rr in enumerate([['.236', '.055', '.002', '.006', '.015'], ['.047', '.0155', '.001']]):
++                ordinary[payer] += sum(cents(base * F(rate), 'ROUND_HALF_UP') for rate in rr)
++            for payer, rate in enumerate(['.0067', '.0013'] if case['anio'] == 2025 else ['.0075', '.0015']):
++                mei[payer] += cents(base * F(rate), 'ROUND_HALF_UP')
++            itims += cents(base * F('.008'), 'ROUND_HALF_UP') + cents(base * F('.007'), 'ROUND_HALF_UP')
++        ok = exact == [F(x) for x in case['solidaridad_anual_analitica']]
++        for mode, variants in totals.items():
++            for variant, values in variants.items():
++                ok = ok and values == [F(x) for x in case['solidaridad_anual_variantes'][mode][variant]]
++        results.append({'id': case['id'], 'coincide': ok, 'solidaridad': totals, 'analitica': exact, 'ordinaria': ordinary, 'mei': mei, 'IT_IMS': itims})
++    ties = []
++    for row in data['empates_positivos']:
++        values = [cents(F(row['entrada']), mode) for mode in ['ROUND_HALF_UP', 'ROUND_HALF_EVEN', 'ROUND_DOWN']]
++        ties.append({'entrada': row['entrada'], 'valores': values, 'coincide': values == [F(row[k]) for k in ['half_up', 'half_even', 'truncamiento']]})
++    output.write_text(json.dumps({'metodo': 'Fraction exacto, sin Decimal ni import del autor', 'casos': results, 'empates': ties}, default=str, indent=2) + '\n')
++    assert all(r['coincide'] for r in results + ties)
++    print('21 escenarios y 4 empates coinciden con aritmética racional independiente')
++
++
++if __name__ == '__main__':
++    main()
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/validacion.log
+@@ -0,0 +1,22 @@
++{
++  "alcance": "analitico-doce-mensualidades-uniformes",
++  "redondeoTgss": "pendiente",
++  "baseOrdinaria": "58914",
++  "excesoBase": "73586",
++  "cotizacionEmpresarialOrdinaria": "18498.996",
++  "cotizacionTrabajadorOrdinaria": "3741.039",
++  "meiEmpresarial": "394.7238",
++  "meiTrabajador": "76.5882",
++  "solidaridadEmpresarial": "673.42246",
++  "solidaridadTrabajador": "132.74372",
++  "cotizacionEmpresarial": "19567.14226",
++  "cotizacionTrabajador": "3950.37092"
++}
++$ bun scripts/run-lint.mjs
++$ oxlint --disable-nested-config
++$ eslint .
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++$ bun scripts/test-lint.mjs
++16 reglas a error; ambos plugins cargan y rechazan el fixture.
++All checks passed!
++Success: no issues found in 1 source file
+--- /dev/null
++++ b/docs/procedencia/revisiones/redondeo-tgss-mensual-v1/verificacion.json
+@@ -0,0 +1,518 @@
++{
++  "renderer": "1.26.7",
++  "originales": [
++    {
++      "id": "euro-2001",
++      "sha256": "91ba19154e7fda5bab17e9dac14304d0c86841bbcefb607db7aaae9d42bd550e",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "orden-2025",
++      "sha256": "918a1c126ddf1427506c151390f2326d7eaeaaeae174b1463ed1e87bf03c11d6",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "orden-2026",
++      "sha256": "88fdae5f080f54c1b39d1fd86c27a8f469881068963b763a732ce69361ee10dd",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "sld-especificaciones",
++      "sha256": "a3f503782fad17062d00cccc5938403f78052321e8eb868afc620e49127b6816",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "indice-manuales",
++      "sha256": "8ba5a1b027df8c88b9513e862b251a80b2a69774cc6eb33516089f5bb9fdaf66",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "procedimiento",
++      "sha256": "03fdf9e039bba134095b7adeb923ee4af32fc2312caf7e793ae55ab5965c4287",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "ajuste-bases",
++      "sha256": "9ad0b3d064a05d60978a6fa8298b4a50e25e7cf797e08227258eb5138d41c98d",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "consulta-calculos",
++      "sha256": "8a0b3be187572a7ac3032655b158c15f63be2c7ba12d48f09ee2a885a356fa36",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "cuota-trabajador",
++      "sha256": "c9aa287eb1d2b8418c509a25fe4f2b19d31647a7e9785f5fbeade5576eea4c34",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "datos-L00",
++      "sha256": "875a759bdce9da042be060d3821cf751769b89c89b53309d615fb16ee3722b8b",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "bnr-09-2024",
++      "sha256": "422fdd21034fa2d75227e078f5f6a12cbbeb91dccebfdbde1bc6be45b650e28e",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "bnr-07-2024",
++      "sha256": "c11652001a1e0bd5e67f710348d8c50204afc25830aabbcf5108788418d98874",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "bnr-01-2025",
++      "sha256": "5e46f5ff22c453565a6f2b9370a54c3ad326ff6fb7a6388bf8ac1f17369b42f6",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "rcb-2011",
++      "sha256": "b01c2dedcac564a6c1e38a14db5d6caad61e7a4e3a17c84a55043fe8a28dc9d0",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "sld-calculos-detalle",
++      "sha256": "086f72a7abdbbff6637323631cdda3ba72764083eb20802db6bb8e964400073e",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "bases-v2024",
++      "sha256": "61636e7f7f661faccf39492d03641f688ba7f757b6cafc1af9a839e1012c7614",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "calculos-v2021",
++      "sha256": "f5e22887ee94801b315e8c2a9cc4f235567a5dd826b53cdb1a4adbb7ea65a386",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "esquemas-v2024",
++      "sha256": "81bded3235b3683eb21807f7768a86aaa96a46c0721bee4749e65a56427a3b5b",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    },
++    {
++      "id": "indice-tecnico",
++      "sha256": "d0c06d4b9115889c2f1a8e01bea56e3dcc74d2fea54f56d9cdedc19611902312",
++      "sha256Ok": true,
++      "sha512Ok": true,
++      "sizeOk": true
++    }
++  ],
++  "citas": [
++    {
++      "id": "C001",
++      "document": "euro-2001",
++      "page": 1,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "Las liquidaciones y pagos de cuotas de la Seguridad\nSocial y conceptos de recaudación conjunta con las mis-\nmas devengados a partir del mes de septiembre de\n2001, tanto si emplean la unidad de cuenta peseta como\nla unidad de cuenta euro, no serán objeto de ajuste\na múltiplos de 100 en la determinación de la base de\ncotización diaria o de 3.000 en la determinación de la\nbase de cotización mensual.\nNo obstante, los importes monetarios que se abonen\nen euros serán objeto de redondeo, por exceso o por\ndefecto, al céntimo de euro más próximo. Si al aplicar\nel tipo de conversión se obtuviera una cantidad cuya\núltima cifra sea exactamente la mitad de un céntimo\nde euro, el redondeo se efectuará a la cifra superior,\ncon aplicación, en todo caso, de los límites establecidos\nen el artículo 11 de la Ley 46/1998, de 17 de diciembre,\nsobre Introducción del Euro."
++    },
++    {
++      "id": "C002",
++      "document": "orden-2025",
++      "page": 3,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "cotización.\nSegunda. A la remuneración computada conforme a la norma anterior se añadirá la \nparte proporcional de las gratificaciones extraordinarias establecidas y de aquellos otros \nconceptos retributivos que tengan una periodicidad en su devengo superior a la mensual \no que no tengan carácter periódico y se satisfagan dentro del ejercicio económico del \naño. A tal efecto, el importe anual estimado de dichas gratificaciones extraordinarias y \ndemás conceptos retributivos se dividirá por 365 y el cociente que resulte se multiplicará \npor el número de días que comprenda el período de cotización de cada mes. En el caso \nde que la remuneración que corresponda a la persona trabajadora tenga carácter \nmensual, el indicado importe anual se dividirá por 12.\nTercera. Si la base de cotización que resulte de acuerdo con las normas anteriores "
++    },
++    {
++      "id": "C003",
++      "document": "orden-2025",
++      "page": 4,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "1. El tope máximo de la base de cotización al Régimen General de la Seguridad \nSocial será, desde el 1 de enero de 2025, de 4.909,50 euros mensuales, de conformidad \ncon lo dispuesto en el artículo 66 del Real Decreto-ley 1/2025, de 28 de enero, por el que \nse aprueban medidas urgentes en materia económica, de transporte, de Seguridad \nSocial, y para hacer frente a situaciones de vulnerabilidad.\n2. Desde el 1 de enero de 2025, el tope mínimo de cotización para las "
++    },
++    {
++      "id": "C004",
++      "document": "orden-2025",
++      "page": 4,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "1.929,00\n4.909,50"
++    },
++    {
++      "id": "C005",
++      "document": "orden-2025",
++      "page": 4,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "2\nIngenieros Técnicos, Peritos y Ayudantes Titulados.\n1.599,60\n4.909,50"
++    },
++    {
++      "id": "C006",
++      "document": "orden-2025",
++      "page": 4,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "3\nJefes Administrativos y de Taller.\n1.391,70\n4.909,50"
++    },
++    {
++      "id": "C007",
++      "document": "orden-2025",
++      "page": 4,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "4\nAyudantes no Titulados.\n1.381,20\n4.909,50"
++    },
++    {
++      "id": "C008",
++      "document": "orden-2025",
++      "page": 4,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "5\nOficiales Administrativos.\n1.381,20\n4.909,50"
++    },
++    {
++      "id": "C009",
++      "document": "orden-2025",
++      "page": 4,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "6\nSubalternos.\n1.381,20\n4.909,50"
++    },
++    {
++      "id": "C010",
++      "document": "orden-2025",
++      "page": 4,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "7\nAuxiliares Administrativos.\n1.381,20\n4.909,50"
++    },
++    {
++      "id": "C011",
++      "document": "orden-2025",
++      "page": 16,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "Desde el 1 de enero de 2025, la cotización adicional correspondiente al mecanismo \nde equidad intergeneracional en el Régimen General de la Seguridad Social se \ndeterminará aplicando el tipo del 0,80 por ciento sobre la base de cotización por \ncontingencias comunes, del que el 0,67 por ciento será a cargo del empleador y el 0,13 \npor ciento, a cargo de la persona trabajadora.\nEn el Sistema Especial para Trabajadores por Cuenta Ajena Agrarios establecido en "
++    },
++    {
++      "id": "C012",
++      "document": "orden-2025",
++      "page": 16,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "a) El 0,92 por ciento a la parte de la retribución comprendida entre 4.909,51 euros \ny 5.400,45 euros, siendo el 0,77 por ciento a cargo de la empresa y el 0,15 por ciento a \ncargo de la persona trabajadora."
++    },
++    {
++      "id": "C013",
++      "document": "orden-2025",
++      "page": 17,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "cargo de la persona trabajadora.\nc) El 1,17 por ciento a la parte de la retribución que supere los 7.364,25 euros, \nsiendo el 0,98 por ciento a cargo de la empresa y el 0,19 por ciento a cargo de la \npersona trabajadora."
++    },
++    {
++      "id": "C014",
++      "document": "orden-2026",
++      "page": 16,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "a) El 1,15 por ciento a la parte de la retribución comprendida entre 5.101,21 euros \ny 5.611,32 euros, siendo el 0,96 por ciento a cargo de la empresa y el 0,19 por ciento a \ncargo de la persona trabajadora.\nb) El 1,25 por ciento a la parte de la retribución comprendida entre 5.611,33 euros "
++    },
++    {
++      "id": "C015",
++      "document": "orden-2026",
++      "page": 16,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "cargo de la persona trabajadora.\nc) El 1,46 por ciento a la parte de la retribución que supere los 7.651,80 euros, \nsiendo el 1,22 por ciento a cargo de la empresa y el 0,24 por ciento a cargo de la \npersona trabajadora."
++    },
++    {
++      "id": "C016",
++      "document": "sld-especificaciones",
++      "page": 88,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "497 \nX "
++    },
++    {
++      "id": "C017",
++      "document": "sld-especificaciones",
++      "page": 88,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "498 \nX "
++    },
++    {
++      "id": "C018",
++      "document": "sld-especificaciones",
++      "page": 88,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \nmáxima. DT 42 TRLGSS \n \n499 \nX \nCotización Solidaridad 19 bis. Exceso retribución a \npartir del 50% base máxima. DT 42 TRLGSS \n3º TRAMO COTIZACION ADIC. SOLIDARIDAD "
++    },
++    {
++      "id": "C019",
++      "document": "sld-especificaciones",
++      "page": 90,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \n497 \nX \n1º TRAMO COTIZACION ADIC. SOLIDARIDAD \nA \n "
++    },
++    {
++      "id": "C020",
++      "document": "sld-especificaciones",
++      "page": 90,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \n498 \nX \n2º TRAMO COTIZACION ADIC. SOLIDARIDAD \nA \n "
++    },
++    {
++      "id": "C021",
++      "document": "sld-especificaciones",
++      "page": 90,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \n499 \nX \n3º TRAMO COTIZACION ADIC. SOLIDARIDAD \nA \n "
++    },
++    {
++      "id": "C022",
++      "document": "sld-especificaciones",
++      "page": 91,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "700 \nX \nOTRAS COTIZACIONES \nL \nCuotas acumuladas del 701, \n702 y 703 "
++    },
++    {
++      "id": "C023",
++      "document": "consulta-calculos",
++      "page": 19,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "Tanto en liquidaciones de menos de 25 trabajadores como de más de 25 trabajadores, una vez que se ha \noptado por la selección de consulta individualizada de un NAF y superado las validaciones correspondientes \nse pasará a la siguiente pantalla. Esta pantalla muestra los cálculos acumulados para ese trabajador en la \nliquidación y  en ella se visualizan la descripción de los conceptos, la base de cotización, y el importe de las \ncuotas empresarial, a cargo del trabajador y total. \n \n \n \n \n \n \n \n \n "
++    },
++    {
++      "id": "C024",
++      "document": "consulta-calculos",
++      "page": 24,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \n \n \nEn esta pantalla se visualizan la descripción de los conceptos, la base de cotización, el tipo de \ncotización sobre el cual se realiza el cálculo correspondiente a las cuotas empresarial, a cargo del \ntrabajador  y  total. \n \nAdemás de los datos indicados,  se visualizarán el detalle del cálculo de Bonificaciones y Reducciones y \nde las peculiaridades  de cotización que en su caso procedan. \n \n \n \n \n \n "
++    },
++    {
++      "id": "C025",
++      "document": "bnr-09-2024",
++      "page": 2,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "Personas trabajadoras por cuenta ajena con modalidad de cotización mensual: procede ingresar la \ncotización adicional de solidaridad cuando el importe de las retribuciones exceda del importe de la \nbase de cotización máxima mensual, en proporción al número de días en alta con obligación de \ncotizar. \n \nB) \nPersonas trabajadoras por cuenta ajena con Bases de Cotización y/o cuotas fijas: la base de \ncotización máxima que debe tenerse en cuenta para aplicar la cotización adicional de solidaridad \nes, siempre, el tope máximo de cotización establecido con carácter general, y no el importe de la \nbase de cotización fija establecido para cada colectivo al que resulte de aplicación estas bases de \ncotización fijas.  \n \nC) \nRégimen Especial de la Minería del Carbón: las personas trabajadoras por cuenta ajena incluidas \nen el campo de aplicación del Régimen Especial de la Minería del Carbón quedan excluidas de la \naplicación de la cotización adicional de solidaridad establecida en el artículo 19 bis TRLGSS. \n \nD) Situaciones de pluriempleo: la aplicación de la cotización adicional de solidaridad viene \ndeterminada por las retribuciones que excedan del tope máximo de cotización establecido en cada "
++    },
++    {
++      "id": "C026",
++      "document": "bnr-07-2024",
++      "page": 3,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "al 50% de la base máxima)  \n  \nLa TGSS calculará las cuotas correspondientes aplicando al importe consignado en cada Concepto \nEconómico el tipo de cotización a cargo de empresa y trabajador que proceda. El importe de cada \nconcepto se trasladará al Recibo de Liquidación de Cotizaciones. Estos importes no figurarán en la \nRelación Nominal de Trabajadores.  \n \n2. \nEstos Conceptos Económicos deberán consignarse siempre en el primer tramo, independientemente de \nlas condiciones de este. En el caso de que estos conceptos económicos figuren en más de un tramo o \nen otro tramo distinto al primero, se dará error y el trabajador quedará sin conciliar.  \n  "
++    },
++    {
++      "id": "C027",
++      "document": "bnr-07-2024",
++      "page": 3,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "en otro tramo distinto al primero, se dará error y el trabajador quedará sin conciliar.  \n  \n3. \nSobre estos Conceptos Económicos se aplicará siempre el tipo de cotización a cargo de la empresa y del \ntrabajador, independientemente que en el primer tramo, donde deben consignarse los mismos, el \ntrabajador se encuentre en alguna situación en la que solo exista cotización a cargo de la empresa \n(situaciones especiales de pago directo o situaciones de alta sin percibo de retribución). \n  \n4. \nEstos Conceptos Económicos se admitirán en todos los tipos de liquidación. \n \nPara retribuciones percibidas con efectos retroactivos (liquidaciones complementarias L03, L90, V03, \nV90 o Cxx), si el trabajador ya hubiese alcanzado la base máxima en liquidaciones anteriores, \núnicamente deberán incluir los conceptos económicos que correspondan por la cotización adicional de \nsolidaridad. En caso de que el trabajador no haya alcanzado la base máxima, las liquidaciones \ncomplementarias contendrán los Conceptos Económicos correspondientes a las bases de cotización de \ncontingencias comunes y/o accidentes de trabajo y los Conceptos Económicos correspondientes a la \ncotización adicional por solidaridad, en su caso.  \n  \n  "
++    },
++    {
++      "id": "C028",
++      "document": "bnr-01-2025",
++      "page": 7,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "• \nLiquidaciones Complementarias: "
++    },
++    {
++      "id": "C029",
++      "document": "bnr-01-2025",
++      "page": 7,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \n• \nEl fichero CRA no sufre modificaciones. En dicho fichero CRA deberá remitirse el importe de las \nretribuciones abonadas en los mismos conceptos retributivos que figuran en la actualidad.  \nCuando el importe de las retribuciones abonadas supere la base máxima es cuando procede \nenviar en el fichero de bases los nuevos conceptos económicos (497,498 y 499). \n \n• \nNo se recuperarán las bases de cotización informadas en el mes anterior cuando se hayan \nconsignado los conceptos 497, 498 o 499. \n "
++    },
++    {
++      "id": "C030",
++      "document": "rcb-2011",
++      "page": 10,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \n  \n \n540 \nElemento de datos \n \nEste segmento consta de cinco elementos o campos: \n \nEl tipo de elemento determina la naturaleza, del dato de tipo BA y CD y elementos de cálculo (CA) o \nde totales (TT) de TC-1. \n \nLa clave determina una Base, Percepción, Cálculo o Total concreto. \n \nEl calificador de clave aporta información adicional sobre la clave. \n \nBase que sometida al cálculo por un tipo, determine una cuota o importe. \n \nEl tipo expresado en porcentaje es elemento de cálculo para pasar de base a tipo en donde fuera \nnecesario. \n \nLa cuota o importe. Los importes se expresarán en céntimos de euro, sin caracteres separadores de \ncéntimos. \n  \n \n550 \nTipo de elemento de datos \n \nLos elementos de datos pueden ser Bases, Compensaciones y Deducciones, Calculados y \nTotales. Los dos últimos contienen cálculos intermedios y finales que corresponden al \ndocumento TC1. (Ver capítulo Tabla T-30 \n  \n \n560 \nClave \n \nDetermina la naturaleza de la información que sigue. (Ver capítulo Tabla T-31 y T-32) \n \n "
++    },
++    {
++      "id": "C031",
++      "document": "rcb-2011",
++      "page": 10,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \n  \n \n620 \nImporte o cuota \n \nLos importes se expresarán en céntimos de euro, sin caracteres separadores de céntimos. \n \n "
++    },
++    {
++      "id": "C032",
++      "document": "sld-calculos-detalle",
++      "page": 30,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "Descripción \nImporte se expresarán en céntimos de euro. \nSi se trata de un importe negativo, el signo vendrá informado en la posición más a la \nizquierda, sin necesidad de que venga ajustado a la longitud máxima.  \n "
++    },
++    {
++      "id": "C033",
++      "document": "sld-calculos-detalle",
++      "page": 32,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "Descripción \nImporte calculado asociado al concepto de cotización, se expresará en céntimos de \neuro. "
++    },
++    {
++      "id": "C034",
++      "document": "sld-calculos-detalle",
++      "page": 38,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "Descripción \nImporte se expresarán en céntimos de euro. "
++    },
++    {
++      "id": "C035",
++      "document": "bases-v2024",
++      "page": 31,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "TipoDato \nValor \nC \nImporte expresado en céntimos de euro \nH \nNúmero entero de horas \nI \nClave alfanumérica asociada al indicador \n \n "
++    },
++    {
++      "id": "C036",
++      "document": "orden-2025",
++      "page": 3,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "Esta orden se adecua a los principios de buena regulación a los que se refiere el \nartículo 129 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común \nde las Administraciones Públicas. Así, la norma es respetuosa con los principios de \nnecesidad, eficacia y proporcionalidad, en tanto que con ella se consigue el fin \nperseguido para el establecimiento del tope máximo y mínimo y de las bases máximas y \nmínimas de cotización a los distintos regímenes del sistema de la Seguridad Social, así \ncomo el desarrollo de las normas de cotización para el ejercicio 2025, no tratándose de \nuna norma restrictiva de derechos o que imponga obligaciones a los interesados.\nAsimismo, la iniciativa es coherente con el resto del ordenamiento jurídico tanto \nnacional como de la Unión Europea y no impone nuevas cargas administrativas, \ncumpliendo así los principios de seguridad jurídica y eficiencia.\nFinalmente, en aplicación del principio de transparencia, sus objetivos se encuentran \nclaramente definidos en la parte expositiva. Además, de conformidad con lo dispuesto en el \nartículo 26.6 de la Ley 50/1997, de 27 de noviembre, del Gobierno, esta orden se ha sometido \nal trámite de audiencia e información pública a través de su publicación en el portal de internet \ndel Ministerio de Inclusión, Seguridad Social y Migraciones y a través de la audiencia directa a \nlos agentes sociales y a la Asociación de Mutuas de Accidentes de Trabajo (AMAT).\nEsta orden se dicta en uso de las atribuciones conferidas a la persona titular del \nMinisterio de la Presidencia, Justicia y Relaciones con las Cortes en el artículo 24.1.f) de la \nLey 50/1997, de 27 de noviembre, a propuesta de las personas titulares del Ministerio de \nInclusión, Seguridad Social y Migraciones y del Ministerio de Trabajo y Economía Social, en \nrelación con el artículo 122 de la Ley 31/2022, de 23 de diciembre, el artículo 5.2.b) del texto \nrefundido de la Ley General de la Seguridad Social, la disposición final octava del Real \nDecreto-ley 1/2025, de 28 de enero, y la disposición final única del Reglamento General \nsobre Cotización y Liquidación de otros Derechos de la Seguridad Social, y al amparo de lo \ndispuesto en el artículo 149.1.17.ª de la Constitución Española, que atribuye al Estado la \ncompetencia exclusiva en materia de régimen económico de la Seguridad Social.\nEn su virtud, a propuesta de la Ministra de Inclusión, Seguridad Social y Migraciones \ny de la Ministra de Trabajo y Economía Social, de acuerdo con el Consejo de \nEstado, dispongo:\nCAPÍTULO I\nCotización a la Seguridad Social\nSección 1.ª Régimen General de la Seguridad Social\nArtículo 1. Determinación de la base de cotización.\n1. Para determinar la base de cotización correspondiente a cada mes por las \ncontingencias comunes en el Régimen General de la Seguridad Social, se aplicarán las \nsiguientes normas:\nPrimera. Se computará la remuneración devengada en el mes a que se refiere la \ncotización.\nSegunda. A la remuneración computada conforme a la norma anterior se añadirá la \nparte proporcional de las gratificaciones extraordinarias establecidas y de aquellos otros \nconceptos retributivos que tengan una periodicidad en su devengo superior a la mensual \no que no tengan carácter periódico y se satisfagan dentro del ejercicio económico del \naño. A tal efecto, el importe anual estimado de dichas gratificaciones extraordinarias y \ndemás conceptos retributivos se dividirá por 365 y el cociente que resulte se multiplicará \npor el número de días que comprenda el período de cotización de cada mes. En el caso \nde que la remuneración que corresponda a la persona trabajadora tenga carácter \nmensual, el indicado importe anual se dividirá por 12.\nTercera. Si la base de cotización que resulte de acuerdo con las normas anteriores \nno estuviese comprendida entre la cuantía de la base mínima y de la máxima \nBOLETÍN OFICIAL DEL ESTADO\nNúm. 49\nMiércoles 26 de febrero de 2025\nSec. I.   Pág. 26345\ncve: BOE-A-2025-3780\nVerificable en https://www.boe.es"
++    },
++    {
++      "id": "C037",
++      "document": "orden-2025",
++      "page": 16,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "que los empleadores puedan probar, a través de cualquier medio admitido en derecho, \nque la retribución se ha pactado por horas.\n3. Desde el 1 de enero de 2025, el tipo de cotización por contingencias comunes, \nsobre la base de cotización que corresponda según lo indicado en el apartado 1, será \nel 28,30 por ciento, siendo el 23,60 por ciento a cargo del empleador y el 4,70 por ciento \na cargo del empleado.\n4. Para la cotización por contingencias profesionales, sobre la base de cotización \nque corresponda según el apartado 1, se aplicará el tipo de cotización previsto en la \ntarifa de primas aprobada por la disposición adicional cuarta de la Ley 42/2006, de 28 de \ndiciembre, siendo la cuota resultante a cargo exclusivo del empleador.\n5. Desde el 1 de enero de 2025 será aplicable una reducción del 20 por ciento en la \naportación empresarial a la cotización a la Seguridad Social por contingencias comunes \nen este sistema especial.\nAsimismo, tendrán una bonificación del 80 por ciento en las aportaciones \nempresariales a la cotización por desempleo y al Fondo de Garantía Salarial en este \nsistema especial.\n6. La bonificación del 45 por ciento por la contratación de cuidadores en familias \nnumerosas, a que se refiere el artículo 122.cuatro.6 de la Ley 31/2022, de 23 de \ndiciembre, queda referida a las contrataciones realizadas o que se realicen antes de la \nfecha en que entre en vigor el desarrollo reglamentario a que alude el apartado cuatro.5 \nde dicho artículo. Esta bonificación será incompatible con la reducción en la cotización \npor contingencias comunes establecida en el apartado 5, primer párrafo, de este artículo.\n7. Las bonificaciones por la contratación de empleados del hogar en familias \nnumerosas que se estuvieran aplicando, en los términos previstos en el artículo 9 de la \nLey 40/2003, de 18 de noviembre, de Protección a las Familias Numerosas, antes de la \nfecha en que entre en vigor el desarrollo reglamentario a que alude el \nartículo 122.cuatro.5 de la Ley 31/2022, de 23 de diciembre, mantendrán su vigencia \nhasta la fecha de efectos de la baja de los cuidadores que den derecho a las mismas en \nel Régimen General de la Seguridad Social.\nArtículo \n16. Cotización \nadicional \ncorrespondiente \nal \nmecanismo \nde \nequidad \nintergeneracional.\nDesde el 1 de enero de 2025, la cotización adicional correspondiente al mecanismo \nde equidad intergeneracional en el Régimen General de la Seguridad Social se \ndeterminará aplicando el tipo del 0,80 por ciento sobre la base de cotización por \ncontingencias comunes, del que el 0,67 por ciento será a cargo del empleador y el 0,13 \npor ciento, a cargo de la persona trabajadora.\nEn el Sistema Especial para Trabajadores por Cuenta Ajena Agrarios establecido en \nel Régimen General de la Seguridad Social, dicha cotización adicional se aplicará tanto a \nlos períodos de actividad, con la distribución entre empleador y persona trabajadora \nantes indicada, como a los períodos de inactividad, en los que esta cotización correrá a \ncargo exclusivo de la persona trabajadora.\nArtículo 17. Cotización adicional de solidaridad.\n1. Desde el 1 de enero de 2025, la cotización adicional de solidaridad en el \nRégimen General de la Seguridad Social se determinará, respecto a las retribuciones a \nque se refiere el artículo 19 bis del texto refundido de la Ley General de la Seguridad \nSocial y conforme a lo dispuesto en el artículo 72 bis del Reglamento General sobre \nCotización y Liquidación de otros Derechos de la Seguridad Social, aplicando los \nsiguientes tipos de cotización:\na) El 0,92 por ciento a la parte de la retribución comprendida entre 4.909,51 euros \ny 5.400,45 euros, siendo el 0,77 por ciento a cargo de la empresa y el 0,15 por ciento a \ncargo de la persona trabajadora.\nBOLETÍN OFICIAL DEL ESTADO\nNúm. 49\nMiércoles 26 de febrero de 2025\nSec. I.   Pág. 26358\ncve: BOE-A-2025-3780\nVerificable en https://www.boe.es"
++    },
++    {
++      "id": "C038",
++      "document": "orden-2025",
++      "page": 17,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "b) El 1 por ciento a la parte de la retribución comprendida entre 5.400,46 euros \ny 7.364,25 euros, siendo el 0,83 por ciento a cargo de la empresa y el 0,17 por ciento a \ncargo de la persona trabajadora.\nc) El 1,17 por ciento a la parte de la retribución que supere los 7.364,25 euros, \nsiendo el 0,98 por ciento a cargo de la empresa y el 0,19 por ciento a cargo de la \npersona trabajadora.\n2. En el caso de personas trabajadoras con modalidad de cotización diaria, \nprocederá ingresar esta cotización adicional cuando el importe de sus retribuciones \nexceda del importe de la base máxima de cotización diaria multiplicado por el número de \ndías en alta con obligación de cotizar.\nEn el caso de personas trabajadoras con modalidad de cotización mensual, \nprocederá ingresar esta cotización adicional cuando el importe de sus retribuciones \nexceda del importe de la base máxima de cotización mensual, en proporción al número \nde días en alta con obligación de cotizar.\n3. Respecto a los artistas a los que se refiere el artículo 11, la cotización adicional \nde solidaridad deberá calcularse por las retribuciones que excedan del tope máximo de \ncotización establecido en cada momento, salvo que el importe de la base a cuenta sea \nsuperior a aquel, en cuyo caso se calcularía sobre las retribuciones que excedan de la \nbase de cotización a cuenta. Esta cotización adicional será definitiva para las empresas y \nprovisional para la persona trabajadora, regularizándose dicha cotización provisional al \nfinalizar el ejercicio económico, junto con la cotización por contingencias comunes y la \ncotización para desempleo.\n4. Respecto a los profesionales taurinos a los que se refiere el artículo 12, la \ncotización adicional de solidaridad deberá calcularse por las retribuciones indicadas para \nlos artistas en el apartado 3, sin perjuicio de su regularización posterior al finalizar el \nejercicio económico tanto para las empresas como para la persona trabajadora.\nSección 2.ª Régimen Especial de la Seguridad Social de los Trabajadores por Cuenta \nPropia o Autónomos\nArtículo 18. Bases y tipos de cotización.\nDesde el 1 de enero de 2025, las bases y los tipos de cotización por contingencias \ncomunes y profesionales en este régimen especial serán los siguientes:\n1. Bases de cotización aplicables:\nDesde el 1 de enero de 2025, con independencia de los rendimientos netos \nobtenidos por las personas trabajadoras por cuenta propia o autónomas, la base máxima \nde cotización será de 4.909,50 euros mensuales.\nDurante el año 2025, la tabla general y la tabla reducida y las bases máximas y \nmínimas aplicables a los diferentes tramos de rendimientos netos, serán las siguientes:\n \nTramos de rendimientos netos 2025\n–\nEuros/mes\nBase mínima\n–\nEuros/mes\nBase máxima\n–\nEuros/mes\nTabla reducida\nTramo 1\n≤ 670\n653,59\n718,94\nTramo 2\n> 670 y ≤ 900\n718,95\n900,00\nTramo 3\n> 900 y < 1.166,70\n849,67\n1.166,70\nBOLETÍN OFICIAL DEL ESTADO\nNúm. 49\nMiércoles 26 de febrero de 2025\nSec. I.   Pág. 26359\ncve: BOE-A-2025-3780\nVerificable en https://www.boe.es"
++    },
++    {
++      "id": "C039",
++      "document": "orden-2026",
++      "page": 16,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": "refundido de la Ley General de la Seguridad Social, siendo la cuota resultante a cargo \nexclusivo del empleador.\nArtículo \n16. Cotización \nadicional \ncorrespondiente \nal \nmecanismo \nde \nequidad \nintergeneracional.\nDesde el 1 de enero de 2026, la cotización adicional correspondiente al mecanismo \nde equidad intergeneracional en el Régimen General de la Seguridad Social se \ndeterminará aplicando el tipo del 0,90 por ciento sobre la base de cotización por \ncontingencias comunes, del que el 0,75 por ciento será a cargo del empleador y el 0,15 \npor ciento, a cargo de la persona trabajadora.\nEn el Sistema Especial para Trabajadores por Cuenta Ajena Agrarios establecido en \nel Régimen General de la Seguridad Social, dicha cotización adicional se aplicará tanto a \nlos períodos de actividad, con la distribución entre empleador y persona trabajadora \nantes indicada, como a los períodos de inactividad, en los que esta cotización correrá a \ncargo exclusivo de la persona trabajadora.\nArtículo 17. Cotización adicional de solidaridad.\n1. Desde el 1 de enero de 2026, la cotización adicional de solidaridad en el \nRégimen General de la Seguridad Social se determinará, respecto a las retribuciones a \nque se refiere el artículo 19 bis del texto refundido de la Ley General de la Seguridad \nSocial y conforme a lo dispuesto en el artículo 72 bis del Reglamento General sobre \nCotización y Liquidación de otros Derechos de la Seguridad Social, aplicando los \nsiguientes tipos de cotización:\na) El 1,15 por ciento a la parte de la retribución comprendida entre 5.101,21 euros \ny 5.611,32 euros, siendo el 0,96 por ciento a cargo de la empresa y el 0,19 por ciento a \ncargo de la persona trabajadora.\nb) El 1,25 por ciento a la parte de la retribución comprendida entre 5.611,33 euros \ny 7.651,80 euros, siendo el 1,04 por ciento a cargo de la empresa y el 0,21 por ciento a \ncargo de la persona trabajadora.\nc) El 1,46 por ciento a la parte de la retribución que supere los 7.651,80 euros, \nsiendo el 1,22 por ciento a cargo de la empresa y el 0,24 por ciento a cargo de la \npersona trabajadora.\n2. En el caso de personas trabajadoras con modalidad de cotización diaria, \nprocederá ingresar esta cotización adicional cuando el importe de sus retribuciones \nexceda del importe de la base máxima de cotización diaria multiplicado por el número de \ndías en alta con obligación de cotizar.\nEn el caso de personas trabajadoras con modalidad de cotización mensual, \nprocederá ingresar esta cotización adicional cuando el importe de sus retribuciones \nexceda del importe de la base máxima de cotización mensual, en proporción al número \nde días en alta con obligación de cotizar.\n3. Respecto a los artistas a los que se refiere el artículo 11, la cotización adicional \nde solidaridad deberá calcularse por las retribuciones que excedan del tope máximo de \ncotización establecido en cada momento, salvo que el importe de la base a cuenta sea \nsuperior a aquel, en cuyo caso se calcularía sobre las retribuciones que excedan de la \nbase de cotización a cuenta. Esta cotización adicional será definitiva para las empresas y \nprovisional para la persona trabajadora, regularizándose dicha cotización provisional al \nfinalizar el ejercicio económico, junto con la cotización por contingencias comunes y la \ncotización para desempleo.\n4. Respecto a los profesionales taurinos a los que se refiere el artículo 12, la \ncotización adicional de solidaridad deberá calcularse por las retribuciones indicadas para \nlos artistas en el apartado 3, sin perjuicio de su regularización posterior al finalizar el \nejercicio económico tanto para las empresas como para la persona trabajadora.\nBOLETÍN OFICIAL DEL ESTADO\nNúm. 79\nMartes 31 de marzo de 2026\nSec. I.   Pág. 47482\ncve: BOE-A-2026-7296\nVerificable en https://www.boe.es"
++    },
++    {
++      "id": "C040",
++      "document": "calculos-v2021",
++      "page": 22,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \nManual de Usuario – Sistema Liquidación Directa \n \n 22  \n \nTESORERÍA GENERAL \nDE LA SEGURIDAD SOCIAL \n \nDirección General \n \n \nCentro de Desarrollo \nGERENCIA DE INFORMÁTICA \nDE LA SEGURIDAD SOCIAL \nNivel 3.14.1.2 – Nodo ValorBase \n \nDiagrama \n \nNamespace http://www.seg-social.es/creta/esquemas/V120/Calculos \nDescripción Importe de la base de cotización. \nObligatorio Opcional \nTipo restriction of xs:string \nPropiedades \ncontent  simple \n \nUsado por \nelement  DatoCalculado \n \nRestricción \nminLength  1 \nmaxLength  11 \n \nFuente <xs:element name=\"ValorBase\"> \n    <xs:simpleType> \n        <xs:restriction base=\"xs:string\"> \n            <xs:minLength value=\"1\"/> \n            <xs:maxLength value=\"11\"/> \n        </xs:restriction> \n    </xs:simpleType> \n</xs:element> \n \nNivel 3.14.1.3 – Nodo ValorCuotaTrabajador \n \nDiagrama \n \nNamespace http://www.seg-social.es/creta/esquemas/V120/Calculos \nDescripción Importe de la cuota a cargo del trabajador correspondiente al concepto económico \nindicado en el nodo Codigo.  \nSi se trata de un importe negativo, el signo vendrá informado en la posición más a \nla izquierda, sin necesidad de que venga ajustado a la longitud máxima. \nObligatorio Opcional \nTipo restriction of xs:string \nPropiedades \ncontent  simple \n \nUsado por \nelement  DatoCalculado \n \nRestricción \nminLength  1 \nmaxLength  11 \n \nFuente <xs:element name=\"ValorCuotaTrabajador\"> \n    <xs:simpleType> \n        <xs:restriction base=\"xs:string\"> \n            <xs:minLength value=\"1\"/> \n            <xs:maxLength value=\"11\"/> \n        </xs:restriction> \n    </xs:simpleType> \n</xs:element> \n \n \n "
++    },
++    {
++      "id": "C041",
++      "document": "calculos-v2021",
++      "page": 23,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \nManual de Usuario – Sistema Liquidación Directa \n \n 23  \n \nTESORERÍA GENERAL \nDE LA SEGURIDAD SOCIAL \n \nDirección General \n \n \nCentro de Desarrollo \nGERENCIA DE INFORMÁTICA \nDE LA SEGURIDAD SOCIAL \nNivel 3.14.1.4 – Nodo ValorCuotaEmpresarial \n \nDiagrama \n \nNamespace http://www.seg-social.es/creta/esquemas/V120/Calculos \nDescripción Importe de la cuota empresarial correspondiente al concepto económico indicado \nen el nodo Codigo.  \nSi se trata de un importe negativo, el signo vendrá informado en la posición más a \nla izquierda, sin necesidad de que venga ajustado a la longitud máxima. \nObligatorio Opcional \nTipo restriction of xs:string \nPropiedades \ncontent  simple \n \nUsado por \nelement  DatoCalculado \n \nRestricción \nminLength  1 \nmaxLength  11 \n \nFuente <xs:element name=\"ValorCuotaEmpresarial\"> \n    <xs:simpleType> \n        <xs:restriction base=\"xs:string\"> \n            <xs:minLength value=\"1\"/> \n            <xs:maxLength value=\"11\"/> \n        </xs:restriction> \n    </xs:simpleType> \n</xs:element> \n \nNivel 3.14.1.5 – Nodo ValorCuotaTotal \n \nDiagrama \n \nNamespace http://www.seg-social.es/creta/esquemas/V120/Calculos \nDescripción Importe de la cuota total correspondiente al concepto económico indicado en el \nnodo Codigo.  \nSi se trata de un importe negativo, el signo vendrá informado en la posición más a \nla izquierda, sin necesidad de que venga ajustado a la longitud máxima. \nObligatorio Opcional \nTipo restriction of xs:string \nPropiedades \ncontent  simple \n \nUsado por \nelement  DatoCalculado \n \nRestricción \nminLength  1 \nmaxLength  11 \n \nFuente <xs:element name=\"ValorCuotaTotal\"> \n    <xs:simpleType> \n        <xs:restriction base=\"xs:string\"> \n            <xs:minLength value=\"1\"/> \n            <xs:maxLength value=\"11\"/> \n        </xs:restriction> \n    </xs:simpleType> \n</xs:element> \n \n \n "
++    },
++    {
++      "id": "C042",
++      "document": "calculos-v2021",
++      "page": 43,
++      "quoteOk": true,
++      "renderOk": true,
++      "originalCropOk": true,
++      "quote": " \nManual de Usuario – Sistema Liquidación Directa \n \n 43  \n \nTESORERÍA GENERAL \nDE LA SEGURIDAD SOCIAL \n \nDirección General \n \n \nCentro de Desarrollo \nGERENCIA DE INFORMÁTICA \nDE LA SEGURIDAD SOCIAL \nNivel 3.15.1.4.1.6 – Nodo CalculosTramo \n \nDiagrama \n \nNamespace http://www.seg-social.es/creta/esquemas/V120/Calculos \nDescripción Grupo de datos calculados a nivel de tramo. \nObligatorio Sí \nPropiedades \ncontent  complex  \n \nHijos DatoCalculado   \nUsado por \nelement  Tramo   \n \nFuente <xs:element name=\"CalculosTramo\"> \n    <xs:complexType> \n        <xs:sequence> \n            <xs:element ref=\"DatoCalculado\" maxOccurs=\"unbounded\"/> \n        </xs:sequence> \n    </xs:complexType> \n</xs:element> \n \nNivel 3.15.1.4.1.6.1 – Nodo DatoCalculado \n \nYa definido en el nivel 3.14.1 \n \n "
++    }
++  ]
++}

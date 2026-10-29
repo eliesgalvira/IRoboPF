@@ -1,0 +1,18 @@
+lib/dominio/irpf/minimos/derechos.ts 138ms
+tests/minimos-derechos.test.ts 39ms
+$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
+
+
+ Test Files  3 passed (3)
+      Tests  98 passed (98)
+   Start at  16:20:23
+   Duration  1.63s (transform 400ms, setup 0ms, import 1.14s, tests 174ms, environment 0ms)
+
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ bun scripts/test-lint.mjs
+16 reglas a error; ambos plugins cargan y rechazan el fixture.

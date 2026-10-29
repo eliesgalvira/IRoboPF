@@ -1,0 +1,17 @@
+$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  3 passed (3)
+      Tests  98 passed (98)
+   Start at  16:46:41
+   Duration  1.64s (transform 392ms, setup 0ms, import 1.14s, tests 178ms, environment 0ms)
+
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+$ bun scripts/procedencia/inventario-artefacto.mjs write
+{"mode":"write","counts":{"filesTs":120,"filesPython":1,"syntactic":24299,"effective":16351,"selected":11727,"pendingUnits":29511,"catalog":351,"audited":0}}
+{"snapshot":"2d4c3dcdcc45fc4811d9ac65146cf991fd077908b5467a9118795c566acb8f93","ocurrencias":52377,"conceptos":4,"puntosRastro":65,"paquetes":256,"bytesComprimidos":12429342,"maximoPaquete":60097,"rss":1504092160,"aceptacionFiscal":"pendiente"}

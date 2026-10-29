@@ -1,0 +1,136 @@
+E702 Multiple statements on one line (semicolon)
+ --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:7:39
+  |
+5 | from html.parser import HTMLParser
+6 | class Text(HTMLParser):
+7 |  def __init__(self):super().__init__();self.parts=[]
+  |                                       ^
+8 |  def handle_data(self,d):self.parts.append(d)
+9 | wanted=['BOE-A-2009-14964','BOE-A-2016-360','BOE-A-1998-8202','BOE-A-2017-1291','BOE-A-2010-12798','BOE-A-2020-5901','BOE-A-2020-6424'…
+  |
+
+E702 Multiple statements on one line (semicolon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:12:109
+   |
+10 | rows=[]
+11 | for group in 'abc':
+12 |  data=json.loads(Path(f'docs/procedencia/auditorias/cadena-autonomica-{group}/documentos.json').read_text()); data=list(data.values())…
+   |                                                                                                             ^
+13 |  for d in data:
+14 |   if d.get('mimeType', '')!='text/html' or not any(x in d['canonicalUrl'] for x in wanted):continue
+   |
+
+E701 Multiple statements on one line (colon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:14:91
+   |
+12 |  data=json.loads(Path(f'docs/procedencia/auditorias/cadena-autonomica-{group}/documentos.json').read_text()); data=list(data.values())…
+13 |  for d in data:
+14 |   if d.get('mimeType', '')!='text/html' or not any(x in d['canonicalUrl'] for x in wanted):continue
+   |                                                                                           ^
+15 |   raw=Path('/home/elies/Repos/IRoboPF/.cache/procedencia/sha256',d['sha256']).read_bytes();assert hashlib.sha256(raw).hexdigest()==d['…
+16 |   parser=Text();parser.feed(raw.decode());t=re.sub(r'\s+',' ',' '.join(parser.parts))
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:15:91
+   |
+13 |  for d in data:
+14 |   if d.get('mimeType', '')!='text/html' or not any(x in d['canonicalUrl'] for x in wanted):continue
+15 |   raw=Path('/home/elies/Repos/IRoboPF/.cache/procedencia/sha256',d['sha256']).read_bytes();assert hashlib.sha256(raw).hexdigest()==d['…
+   |                                                                                           ^
+16 |   parser=Text();parser.feed(raw.decode());t=re.sub(r'\s+',' ',' '.join(parser.parts))
+17 |   snippets=[]
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:16:16
+   |
+14 |   if d.get('mimeType', '')!='text/html' or not any(x in d['canonicalUrl'] for x in wanted):continue
+15 |   raw=Path('/home/elies/Repos/IRoboPF/.cache/procedencia/sha256',d['sha256']).read_bytes();assert hashlib.sha256(raw).hexdigest()==d['…
+16 |   parser=Text();parser.feed(raw.decode());t=re.sub(r'\s+',' ',' '.join(parser.parts))
+   |                ^
+17 |   snippets=[]
+18 |   for m in re.finditer(r'15 quáter|Artículo 2\. Escala|Artículo segundo\. Escala|Artículo único\. Escala|Artículo 11\.|Artículo 87\.|A…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:16:42
+   |
+14 |   if d.get('mimeType', '')!='text/html' or not any(x in d['canonicalUrl'] for x in wanted):continue
+15 |   raw=Path('/home/elies/Repos/IRoboPF/.cache/procedencia/sha256',d['sha256']).read_bytes();assert hashlib.sha256(raw).hexdigest()==d['…
+16 |   parser=Text();parser.feed(raw.decode());t=re.sub(r'\s+',' ',' '.join(parser.parts))
+   |                                          ^
+17 |   snippets=[]
+18 |   for m in re.finditer(r'15 quáter|Artículo 2\. Escala|Artículo segundo\. Escala|Artículo único\. Escala|Artículo 11\.|Artículo 87\.|A…
+   |
+
+E701 Multiple statements on one line (colon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:18:189
+   |
+16 | …
+17 | …
+18 | …ículo 87\.|Artículo 41\.|1 de enero de 2016|1 de enero de 2017',t): snippets.append(t[max(0,m.start()-100):m.start()+2500])
+   |                                                                    ^
+19 | …L'):t.find('Análisis ANÁLISIS')]]
+20 | …
+   |
+
+E701 Multiple statements on one line (colon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:19:89
+   |
+17 |   snippets=[]
+18 |   for m in re.finditer(r'15 quáter|Artículo 2\. Escala|Artículo segundo\. Escala|Artículo único\. Escala|Artículo 11\.|Artículo 87\.|A…
+19 |   if 'doc.php' in d['canonicalUrl'] and any(x in d['canonicalUrl'] for x in wanted[-5:]):snippets=[t[t.find('TEXTO ORIGINAL'):t.find('…
+   |                                                                                         ^
+20 |   rows.append({'url':d['canonicalUrl'],'sha256':d['sha256'],'snippets':snippets})
+21 | p=Path('/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.json');p.write_text(json.dumps(ro…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.py:21:108
+   |
+19 |   if 'doc.php' in d['canonicalUrl'] and any(x in d['canonicalUrl'] for x in wanted[-5:]):snippets=[t[t.find('TEXTO ORIGINAL'):t.find('…
+20 |   rows.append({'url':d['canonicalUrl'],'sha256':d['sha256'],'snippets':snippets})
+21 | p=Path('/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.json');p.write_text(json.dumps(ro…
+   |                                                                                                            ^
+22 | print(json.dumps(rows,ensure_ascii=False,indent=2))
+   |
+
+E702 Multiple statements on one line (semicolon)
+   --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/revisar.py:117:29
+    |
+115 |     assert sha(text.encode()) == s['sha256']
+116 |     assert p['scope']['year'] in i['years'] and p['scope']['territory'] in i['territories']
+117 |     check_ref(p['citation']); check_ref(p['document']); check_ref(p['legalReview']['decisions'])
+    |                             ^
+118 |     c = read(ROOT / p['citation']['path'])
+119 |     assert Decimal(c['engineBinding']['value']) == Decimal(i['value'])
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/revisar.py:117:55
+    |
+115 |     assert sha(text.encode()) == s['sha256']
+116 |     assert p['scope']['year'] in i['years'] and p['scope']['territory'] in i['territories']
+117 |     check_ref(p['citation']); check_ref(p['document']); check_ref(p['legalReview']['decisions'])
+    |                                                       ^
+118 |     c = read(ROOT / p['citation']['path'])
+119 |     assert Decimal(c['engineBinding']['value']) == Decimal(i['value'])
+    |
+
+E702 Multiple statements on one line (semicolon)
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/temporal.py:11:80
+   |
+ 9 | rows=[]
+10 | for h,ns in selected.items():
+11 |  raw=Path('/home/elies/Repos/IRoboPF/.cache/procedencia/sha256',h).read_bytes(); assert hashlib.sha256(raw).hexdigest()==h
+   |                                                                                ^
+12 |  pdf=corpus.mupdf().open(stream=raw,filetype='pdf')
+13 |  for n in ns:
+   |
+
+Found 14 errors (2 fixed, 12 remaining).
+4 files reformatted
+All checks passed!
+/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/revisar.py:219: error: Incompatible types in assignment (expression has type "Match[Any] | None", variable has type "Match[str]")  [assignment]
+Found 1 error in 1 file (checked 4 source files)

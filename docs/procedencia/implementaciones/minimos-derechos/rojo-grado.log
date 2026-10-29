@@ -1,0 +1,108 @@
+$ vitest run tests/minimos-derechos.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
+
+ ❯ tests/minimos-derechos.test.ts (28 tests | 1 failed) 51ms
+   × artículo 61: siguiente grado cuando el próximo no supera 8000 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/minimos-derechos.test.ts > artículo 61: siguiente grado cuando el próximo no supera 8000
+{
+  motivo: 'Concurrencia excepcional de grados sin rentas superiores a 8000: distribución pendiente de contrato revisado',
+  _tag: 'DerechosMinimosNoSoportados',
+  message: '',
+  stack: 'DerechosMinimosNoSoportados: \n' +
+    '    at rechazar (/home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42/lib/dominio/irpf/minimos/derechos.ts:17:15)\n' +
+    '    at /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42/lib/dominio/irpf/minimos/derechos.ts:159:23\n' +
+    '    at Generator.next (<anonymous>)\n' +
+    '    at Object.~effect/Effect/successCont (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:868:26)\n' +
+    '    at Object.~effect/Effect/evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/core.js:312:30)\n' +
+    '    at FiberImpl.runLoop (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:444:107)\n' +
+    '    at FiberImpl.evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:412:23)\n' +
+    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2110:9\n' +
+    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2188:19\n' +
+    '    at Module.<anonymous> (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2201:18)',
+  name: 'DerechosMinimosNoSoportados',
+  stacks: [
+    {
+      method: 'rechazar',
+      file: '/home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42/lib/dominio/irpf/minimos/derechos.ts',
+      line: 17,
+      column: 15
+    },
+    {
+      method: '',
+      file: '/home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42/lib/dominio/irpf/minimos/derechos.ts',
+      line: 159,
+      column: 23
+    },
+    {
+      line: 1276,
+      column: 25,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'next'
+    },
+    {
+      line: 531,
+      column: 30,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/core.ts',
+      method: 'Object.~effect/Effect/evaluate'
+    },
+    {
+      line: 633,
+      column: 39,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'FiberImpl.runLoop'
+    },
+    {
+      line: 593,
+      column: 22,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'runLoop'
+    },
+    {
+      line: 5142,
+      column: 8,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'evaluate'
+    },
+    {
+      line: 5261,
+      column: 18,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'runFork'
+    },
+    {
+      line: 5276,
+      column: 17,
+      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
+      method: 'runSyncExit'
+    }
+  ]
+}
+ ❯ rechazar lib/dominio/irpf/minimos/derechos.ts:17:15
+     15|
+     16| const rechazar = (motivo: string) =>
+     17|   Effect.fail(new DerechosMinimosNoSoportados({ motivo }))
+       |               ^
+     18| const fechaValida = (fecha: string) => {
+     19|   const anio = Number(fecha.slice(0, 4))
+ ❯ lib/dominio/irpf/minimos/derechos.ts:159:23
+ ❯ next ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5261:18
+ ❯ runSyncExit ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5276:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 27 passed (28)
+   Start at  16:19:52
+   Duration  916ms (transform 411ms, setup 0ms, import 725ms, tests 51ms, environment 0ms)
+
+error: script "test" exited with code 1

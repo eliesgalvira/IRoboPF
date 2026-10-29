@@ -1,0 +1,55 @@
+$ vitest run tests/minimos-derechos.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
+
+ ❯ tests/minimos-derechos.test.ts (23 tests | 2 failed) 41ms
+   × conexión anual aplica mínimos estatal y madrileño atribuidos 12ms
+   × legacy rechaza usar hechos nuevos y entrada anual incoherente falla sin Die 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/minimos-derechos.test.ts > conexión anual aplica mínimos estatal y madrileño atribuidos
+AssertionError: expected 103357 to be 150844 // Object.is equality
+
+- Expected
++ Received
+
+- 150844
++ 103357
+
+ ❯ tests/minimos-derechos.test.ts:96:41
+     94|   const r = Effect.runSync(liquidarIrpfAnual(anual(hechos()), { modo: …
+     95|   // Estado: (5550+2550)*9,5%; Madrid: (5956,65+2736,84)*8,5%.
+     96|   expect(r.cuotaMinimoPersonalCentimos).toBe(150844)
+       |                                         ^
+     97| })
+     98| it("legacy rechaza usar hechos nuevos y entrada anual incoherente fall…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/minimos-derechos.test.ts > legacy rechaza usar hechos nuevos y entrada anual incoherente falla sin Die
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/minimos-derechos.test.ts:100:31
+     98| it("legacy rechaza usar hechos nuevos y entrada anual incoherente fall…
+     99|   const r = Effect.runSync(Effect.result(liquidarIrpfAnual(anual(hecho…
+    100|   expect(Result.isFailure(r)).toBe(true)
+       |                               ^
+    101|   const s = Effect.runSync(Effect.result(liquidarIrpfAnual({ ...anual(…
+    102|   expect(Result.isFailure(s)).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 21 passed (23)
+   Start at  16:15:06
+   Duration  820ms (transform 385ms, setup 0ms, import 665ms, tests 41ms, environment 0ms)
+
+error: script "test" exited with code 1

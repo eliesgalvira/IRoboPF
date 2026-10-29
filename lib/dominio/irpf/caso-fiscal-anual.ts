@@ -1,3 +1,4 @@
+import type { DerechosMinimos2025 } from "./minimos/derechos-contrato"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import type { CasoRetencionTrabajo } from "./retenciones/retencion-trabajo-aeat"
 
@@ -49,6 +50,7 @@ export const discapacidad65OMas = {
   _tag: "Discapacidad65OMas",
 } as const satisfies DiscapacidadFiscal
 
+/** Perfil parcial histórico: edad/discapacidad no acreditan elegibilidad ni reparto. */
 export interface FamiliarFiscal {
   readonly edad: number
   readonly discapacidad: DiscapacidadFiscal
@@ -106,6 +108,8 @@ export interface DeduccionAutonomicaCatalogadaAplicada {
 }
 
 export interface CasoFiscalAnual {
+  /** Optativo y exclusivo del modo canónico; nunca inferido de FamiliarFiscal. */
+  readonly derechosMinimos?: DerechosMinimos2025
   readonly anio: AnioFiscal
   readonly comunidadAutonoma: ComunidadAutonoma
   readonly fechaFallecimiento?: Date | undefined

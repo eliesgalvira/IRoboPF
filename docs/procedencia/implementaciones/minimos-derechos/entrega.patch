@@ -1,0 +1,1624 @@
+--- /dev/null
++++ b/lib/dominio/irpf/minimos/derechos-contrato.ts
+@@ -0,0 +1,113 @@
++import { Schema } from "effect"
++
++const Entero = Schema.Number.check(
++  Schema.isInt(),
++  Schema.isBetween({ minimum: 0, maximum: 150 })
++)
++const Centimos = Schema.Number.check(
++  Schema.isInt(),
++  Schema.isBetween({ minimum: -1e12, maximum: 1e12 })
++)
++// IDs locales sin nombres, DNI ni identificadores de fuentes personales.
++const Id = Schema.String.check(Schema.isPattern(/^s-[0-9]{1,6}$/))
++const Fecha = Schema.String.check(
++  Schema.isPattern(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
++)
++export const DiscapacidadDerechos = Schema.Union([
++  Schema.TaggedStruct("SinDiscapacidad", {}),
++  Schema.TaggedStruct("Discapacidad33a64", {
++    necesitaAyudaOMovilidadReducida: Schema.Boolean,
++  }),
++  Schema.TaggedStruct("Discapacidad65OMas", {}),
++])
++const Declaracion = Schema.Union([
++  Schema.Struct({ modalidad: Schema.Literal("no-presenta") }),
++  Schema.Struct({
++    modalidad: Schema.Literal("individual"),
++    rentasCentimos: Centimos,
++  }),
++])
++const Vinculo = Schema.Union([
++  Schema.Struct({ clase: Schema.Literal("consanguinidad") }),
++  Schema.Struct({
++    clase: Schema.Literals([
++      "adopcion",
++      "acogimiento-permanente",
++      "guarda-preadoptiva",
++    ]),
++    // Primer hecho que abre el plazo, incluido acogimiento previo: no reiniciarlo.
++    fechaInicioIncremento: Fecha,
++    fundamento: Schema.Literals([
++      "inscripcion-registro-civil",
++      "resolucion-sin-inscripcion-necesaria",
++    ]),
++    historialCompleto: Schema.Literal(true),
++  }),
++  Schema.Struct({
++    clase: Schema.Literals([
++      "acogimiento-temporal",
++      "acogimiento-urgencia",
++      "guarda-judicial",
++    ]),
++  }),
++])
++export const TitularDescendiente = Schema.Struct({
++  titularId: Id,
++  grado: Entero.check(Schema.isGreaterThanOrEqualTo(1)),
++  vinculo: Vinculo,
++  relacion: Schema.Literals([
++    "convivencia",
++    "dependencia-economica",
++    "ninguna",
++  ]),
++  custodia: Schema.Literals([
++    "exclusiva",
++    "compartida",
++    "sin-custodia",
++    "no-procede",
++  ]),
++  alimentosJudiciales: Schema.Boolean,
++  aplicaEspecialidadAlimentos: Schema.Boolean,
++  residenteIrpf: Schema.Boolean,
++  rentasNoExentasCentimos: Centimos,
++})
++export const DescendienteDerechos = Schema.Struct({
++  sujetoId: Id,
++  fechaNacimiento: Fecha,
++  edadDevengo: Entero,
++  vivoAlDevengo: Schema.Literal(true),
++  rentasNoExentasCentimos: Centimos,
++  declaracion: Declaracion,
++  discapacidad: DiscapacidadDerechos,
++  titulares: Schema.Array(TitularDescendiente).check(
++    Schema.isMinLength(1),
++    Schema.isMaxLength(100)
++  ),
++  titularesCompletos: Schema.Literal(true),
++})
++export type DescendienteDerechos = typeof DescendienteDerechos.Type
++export type TitularDescendiente = typeof TitularDescendiente.Type
++
++/** Hechos declarados, nunca certificación de derecho ni porcentaje manual. */
++export const DerechosMinimos2025 = Schema.Struct({
++  ejercicio: Schema.Literal(2025),
++  territorio: Schema.Literal("madrid"),
++  regimen: Schema.Literal("comun"),
++  modalidad: Schema.Literal("individual"),
++  devengo: Schema.Literal("2025-12-31"),
++  contribuyenteId: Id,
++  edadContribuyenteDevengo: Entero.check(Schema.isGreaterThanOrEqualTo(18)),
++  discapacidadContribuyente: DiscapacidadDerechos,
++  ascendientes: Schema.Literal("ninguno"),
++  fallecimientosEnElEjercicio: Schema.Literal("ninguno"),
++  descendientesCompletos: Schema.Literal(true),
++  descendientes: Schema.Array(DescendienteDerechos).check(
++    Schema.isMaxLength(100)
++  ),
++})
++export type DerechosMinimos2025 = typeof DerechosMinimos2025.Type
++
++export class DerechosMinimosNoSoportados extends Schema.TaggedErrorClass<DerechosMinimosNoSoportados>()(
++  "DerechosMinimosNoSoportados",
++  { motivo: Schema.String }
++) {}
+--- /dev/null
++++ b/lib/dominio/irpf/minimos/derechos.ts
+@@ -0,0 +1,272 @@
++import Decimal from "decimal.js"
++import { Effect, Schema } from "effect"
++import {
++  DerechosMinimos2025,
++  DerechosMinimosNoSoportados,
++  type DescendienteDerechos,
++  type TitularDescendiente,
++} from "./derechos-contrato"
++import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
++import { obtenerMinimoContribuyente } from "./minimo-contribuyente"
++import {
++  obtenerMinimoDiscapacidadContribuyente,
++  obtenerMinimoDiscapacidadFamiliares,
++} from "./minimo-discapacidad"
++
++const rechazar = (motivo: string) =>
++  Effect.fail(new DerechosMinimosNoSoportados({ motivo }))
++const fechaValida = (fecha: string) => {
++  const anio = Number(fecha.slice(0, 4))
++  const mes = Number(fecha.slice(5, 7))
++  const dia = Number(fecha.slice(8, 10))
++  const bisiesto = anio % 4 === 0 && (anio % 100 !== 0 || anio % 400 === 0)
++  const dias =
++    mes === 2 ? (bisiesto ? 29 : 28) : [4, 6, 9, 11].includes(mes) ? 30 : 31
++  return anio >= 1875 && mes >= 1 && mes <= 12 && dia >= 1 && dia <= dias
++}
++const cumpleRentas = (d: DescendienteDerechos) =>
++  d.rentasNoExentasCentimos <= 800000 &&
++  (d.declaracion.modalidad === "no-presenta" ||
++    d.declaracion.rentasCentimos <= 180000)
++const tieneRelacion = (t: TitularDescendiente) =>
++  t.residenteIrpf &&
++  (t.relacion !== "ninguna" || t.custodia === "compartida") &&
++  !(t.alimentosJudiciales && t.custodia === "sin-custodia")
++
++const titularesConDerecho = (d: DescendienteDerechos) => {
++  if (
++    !cumpleRentas(d) ||
++    (d.edadDevengo >= 25 && d.discapacidad._tag === "SinDiscapacidad")
++  )
++    return []
++  const posibles = d.titulares.filter(tieneRelacion)
++  const grado = Math.min(...posibles.map((t) => t.grado))
++  const cercanos = posibles.filter((t) => t.grado === grado)
++  const siguientes = posibles.filter((t) => t.grado > grado)
++  return siguientes.length > 0 &&
++    cercanos.every((t) => t.rentasNoExentasCentimos <= 800000)
++    ? siguientes
++    : cercanos
++}
++
++/** Valida estructura y coherencia antes de cualquier operación monetaria. */
++export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
++  function* (entrada: DerechosMinimos2025) {
++    const caso = yield* Schema.decodeUnknownEffect(DerechosMinimos2025)(
++      entrada,
++      { onExcessProperty: "error" }
++    ).pipe(
++      Effect.mapError(
++        () =>
++          new DerechosMinimosNoSoportados({
++            motivo:
++              "Hechos incompletos o fuera del alcance Madrid 2025 individual sin fallecimientos ni ascendientes",
++          })
++      )
++    )
++    const datosTitulares = new Map<
++      string,
++      { readonly renta: number; readonly residente: boolean }
++    >()
++    const sujetos = new Set(caso.descendientes.map((d) => d.sujetoId))
++    if (
++      sujetos.size !== caso.descendientes.length ||
++      sujetos.has(caso.contribuyenteId)
++    )
++      return yield* rechazar(
++        "Sujeto duplicado o confundido con el contribuyente"
++      )
++    for (const d of caso.descendientes) {
++      if (
++        !fechaValida(d.fechaNacimiento) ||
++        d.fechaNacimiento > caso.devengo ||
++        2025 - Number(d.fechaNacimiento.slice(0, 4)) !== d.edadDevengo
++      )
++        return yield* rechazar("Nacimiento y edad al devengo incoherentes")
++      if (
++        new Set(d.titulares.map((t) => t.titularId)).size !==
++          d.titulares.length ||
++        !d.titulares.some((t) => t.titularId === caso.contribuyenteId)
++      )
++        return yield* rechazar(
++          "Titulares duplicados o contribuyente ausente del censo de relaciones"
++        )
++      if (
++        d.titulares.filter((t) => t.custodia === "exclusiva").length > 1 ||
++        (d.titulares.some((t) => t.custodia === "exclusiva") &&
++          d.titulares.some((t) => t.custodia === "compartida"))
++      )
++        return yield* rechazar("Hechos contradictorios de custodia")
++      for (const t of d.titulares) {
++        const anterior = datosTitulares.get(t.titularId)
++        if (
++          anterior !== undefined &&
++          (anterior.renta !== t.rentasNoExentasCentimos ||
++            anterior.residente !== t.residenteIrpf)
++        )
++          return yield* rechazar(
++            "Renta o residencia contradictorias para un mismo titular"
++          )
++        datosTitulares.set(t.titularId, {
++          renta: t.rentasNoExentasCentimos,
++          residente: t.residenteIrpf,
++        })
++        if (t.titularId === caso.contribuyenteId && !t.residenteIrpf)
++          return yield* rechazar(
++            "El contribuyente de esta ruta individual debe ser residente IRPF"
++          )
++
++        if (t.custodia === "exclusiva" && t.relacion !== "convivencia")
++          return yield* rechazar("Custodia exclusiva sin convivencia declarada")
++        if (
++          "fechaInicioIncremento" in t.vinculo &&
++          Number(t.vinculo.fechaInicioIncremento.slice(0, 4)) -
++            Number(d.fechaNacimiento.slice(0, 4)) >=
++            18
++        )
++          return yield* rechazar(
++            "Adopción o acogimiento en mayoría de edad pendiente de soporte"
++          )
++        if (sujetos.has(t.titularId))
++          return yield* rechazar(
++            "Grafos con un sujeto también titular pendientes de soporte"
++          )
++        if (
++          t.aplicaEspecialidadAlimentos ||
++          (t.alimentosJudiciales && t.custodia === "no-procede")
++        )
++          return yield* rechazar(
++            "Especialidad de alimentos incompatible o hechos de custodia insuficientes"
++          )
++        if (t.vinculo.clase !== "consanguinidad" && t.grado !== 1)
++          return yield* rechazar(
++            "Grados de vínculos asimilados o adoptivos superiores a uno pendientes de soporte"
++          )
++        if (
++          "fechaInicioIncremento" in t.vinculo &&
++          (!fechaValida(t.vinculo.fechaInicioIncremento) ||
++            t.vinculo.fechaInicioIncremento < d.fechaNacimiento ||
++            t.vinculo.fechaInicioIncremento > caso.devengo)
++        )
++          return yield* rechazar(
++            "Fecha de adopción/acogimiento incompatible con nacimiento o devengo"
++          )
++      }
++      const posibles = d.titulares.filter(tieneRelacion)
++      const grados = new Set(posibles.map((t) => t.grado))
++      const cercanos = posibles.filter(
++        (t) => t.grado === Math.min(...posibles.map((p) => p.grado))
++      )
++      if (
++        grados.size > 2 ||
++        (grados.size > 1 &&
++          cercanos.some((t) => t.rentasNoExentasCentimos <= 800000) &&
++          cercanos.some((t) => t.rentasNoExentasCentimos > 800000))
++      )
++        return yield* rechazar(
++          "Más de dos grados o rentas mixtas dentro del grado próximo: concurrencia pendiente de soporte"
++        )
++    }
++    return caso
++  }
++)
++
++export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
++  function* (
++    entrada: DerechosMinimos2025,
++    minimos: MinimosPersonalesFamiliaresIrpf
++  ) {
++    const caso = yield* validarDerechosMinimos(entrada)
++    const elegibles = caso.descendientes
++      .map((d) => ({ descendiente: d, titulares: titularesConDerecho(d) }))
++      .filter((d) =>
++        d.titulares.some((t) => t.titularId === caso.contribuyenteId)
++      )
++      .toSorted(
++        (a, b) =>
++          a.descendiente.fechaNacimiento.localeCompare(
++            b.descendiente.fechaNacimiento
++          ) || a.descendiente.sujetoId.localeCompare(b.descendiente.sujetoId)
++      )
++    // Si dos nacen el mismo día y tienen distinto divisor, no inventar un orden fiscal.
++    for (const a of elegibles)
++      for (const b of elegibles) {
++        if (
++          a.descendiente.sujetoId !== b.descendiente.sujetoId &&
++          a.descendiente.fechaNacimiento === b.descendiente.fechaNacimiento &&
++          a.titulares.length !== b.titulares.length
++        )
++          return yield* rechazar(
++            "Empate de nacimiento con reparto distinto requiere criterio de orden"
++          )
++      }
++    let descendientes = new Decimal(0)
++    let discapacidadFamiliares = new Decimal(0)
++    const atribuciones = elegibles.map(
++      ({ descendiente: d, titulares }, indice) => {
++        const titular = titulares.find(
++          (t) => t.titularId === caso.contribuyenteId
++        )
++        const inicio =
++          titular !== undefined && "fechaInicioIncremento" in titular.vinculo
++            ? Number(titular.vinculo.fechaInicioIncremento.slice(0, 4))
++            : 0
++        const incremento =
++          d.edadDevengo < 3 || (inicio >= 2023 && inicio <= 2025)
++        const porOrden =
++          indice === 0
++            ? minimos.descendientes.primero
++            : indice === 1
++              ? minimos.descendientes.segundo
++              : indice === 2
++                ? minimos.descendientes.tercero
++                : minimos.descendientes.cuartoYSiguientes
++        const minimo = porOrden
++          .plus(incremento ? minimos.descendientes.adicionalMenorTres : 0)
++          .div(titulares.length)
++        const discapacidad = obtenerMinimoDiscapacidadFamiliares(
++          [{ edad: d.edadDevengo, discapacidad: d.discapacidad }],
++          minimos
++        ).div(titulares.length)
++        descendientes = descendientes.plus(minimo)
++        discapacidadFamiliares = discapacidadFamiliares.plus(discapacidad)
++        return {
++          sujetoId: d.sujetoId,
++          orden: indice + 1,
++          titulares: titulares.map((t) => t.titularId),
++          divisor: titulares.length,
++          incremento,
++          minimo,
++          discapacidad,
++        }
++      }
++    )
++    const contribuyente = obtenerMinimoContribuyente({
++      anio: 2025,
++      edad: caso.edadContribuyenteDevengo,
++      minimos,
++    })
++    const discapacidadContribuyente = obtenerMinimoDiscapacidadContribuyente(
++      {
++        tipo: "individual",
++        edad: caso.edadContribuyenteDevengo,
++        discapacidad: caso.discapacidadContribuyente,
++        descendientes: [],
++        ascendientes: [],
++      },
++      minimos
++    )
++    return {
++      contribuyente,
++      descendientes,
++      ascendientes: new Decimal(0),
++      discapacidadContribuyente,
++      discapacidadFamiliares,
++      total: contribuyente
++        .plus(descendientes)
++        .plus(discapacidadContribuyente)
++        .plus(discapacidadFamiliares),
++      atribuciones,
++    }
++  }
++)
+--- a/lib/dominio/irpf/caso-fiscal-anual.ts
++++ b/lib/dominio/irpf/caso-fiscal-anual.ts
+@@ -1,3 +1,4 @@
++import type { DerechosMinimos2025 } from "./minimos/derechos-contrato"
+ import type { AnioFiscal } from "../normativa/anio-fiscal"
+ import type { CasoRetencionTrabajo } from "./retenciones/retencion-trabajo-aeat"
+ 
+@@ -49,6 +50,7 @@
+   _tag: "Discapacidad65OMas",
+ } as const satisfies DiscapacidadFiscal
+ 
++/** Perfil parcial histórico: edad/discapacidad no acreditan elegibilidad ni reparto. */
+ export interface FamiliarFiscal {
+   readonly edad: number
+   readonly discapacidad: DiscapacidadFiscal
+@@ -106,6 +108,8 @@
+ }
+ 
+ export interface CasoFiscalAnual {
++  /** Optativo y exclusivo del modo canónico; nunca inferido de FamiliarFiscal. */
++  readonly derechosMinimos?: DerechosMinimos2025
+   readonly anio: AnioFiscal
+   readonly comunidadAutonoma: ComunidadAutonoma
+   readonly fechaFallecimiento?: Date | undefined
+--- a/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
++++ b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts
+@@ -1,3 +1,7 @@
++import {
++  calcularDerechosMinimos,
++  validarDerechosMinimos,
++} from "../minimos/derechos"
+ import { crearLineaCalculo } from "../../explicacion/linea-calculo"
+ import { enlazarRastroAnualActual } from "../../../procedencia/rastro-anual"
+ import Decimal from "decimal.js"
+@@ -144,6 +148,18 @@
+   readonly retencionTrabajoAeat: ServicioRetencionTrabajoAeat
+ }
+ 
++const errorDerechosMinimos = ({
++  motivo,
++}: {
++  readonly motivo: string
++}): ResultadoNoSoportado => ({
++  _tag: "ResultadoNoSoportado",
++  motivo,
++  fuenteReconocida:
++    "docs/procedencia/implementaciones/minimos-derechos/INFORME.md",
++  rastro: { titulo: "Derechos a mínimos no soportados", pasos: [] },
++})
++
+ const construirLiquidarIrpfAnual = (
+   dependencias: DependenciasLiquidacionIrpfAnual
+ ) =>
+@@ -170,6 +186,35 @@
+           "docs/procedencia/correcciones/coherencia-ronda9/INFORME.md",
+         rastro: { titulo: "Coherencia del ejercicio", pasos: [] },
+       } satisfies ResultadoNoSoportado)
++    }
++
++    if (caso.derechosMinimos !== undefined) {
++      const derechos = yield* validarDerechosMinimos(caso.derechosMinimos).pipe(
++        Effect.mapError(errorDerechosMinimos)
++      )
++      const familiar = caso.situacionFamiliar
++      if (
++        contexto.modo !== "canonico" ||
++        caso.anio !== derechos.ejercicio ||
++        caso.comunidadAutonoma !== derechos.territorio ||
++        caso.fechaFallecimiento !== undefined ||
++        familiar.tipo !== "individual" ||
++        familiar.edad !== derechos.edadContribuyenteDevengo ||
++        familiar.descendientes.length !== 0 ||
++        familiar.ascendientes.length !== 0 ||
++        familiar.discapacidad._tag !==
++          derechos.discapacidadContribuyente._tag ||
++        (familiar.discapacidad._tag === "Discapacidad33a64" &&
++          derechos.discapacidadContribuyente._tag === "Discapacidad33a64" &&
++          familiar.discapacidad.necesitaAyudaOMovilidadReducida !==
++            derechos.discapacidadContribuyente.necesitaAyudaOMovilidadReducida)
++      )
++        return yield* Effect.fail(
++          errorDerechosMinimos({
++            motivo:
++              "Derechos incompatibles con el modo, ámbito o datos familiares parciales del caso anual",
++          })
++        )
+     }
+ 
+     const inicioDeteccion = tiempoAuditoriaMs()
+@@ -243,6 +288,20 @@
+   liquidarIrpfAnualDesdeServicio(caso, contexto).pipe(
+     Effect.provide(LiquidacionIrpfAnual.layer)
+   )
++
++/** Ruta explícita: exige hechos, sin reconstruirlos a partir del perfil histórico. */
++export const liquidarIrpfAnualConDerechos = Effect.fn(
++  "Liquidacion.conDerechos"
++)(function* (
++  caso: CasoFiscalAnual & {
++    readonly derechosMinimos: NonNullable<CasoFiscalAnual["derechosMinimos"]>
++  }
++) {
++  yield* validarDerechosMinimos(caso.derechosMinimos).pipe(
++    Effect.mapError(errorDerechosMinimos)
++  )
++  return yield* liquidarIrpfAnual(caso, { modo: "canonico" })
++})
+ 
+ const liquidarTrabajoIndividualSimple = Effect.fn(
+   "LiquidacionIrpfAnual.liquidarTrabajoIndividualSimple"
+@@ -453,43 +512,68 @@
+     tiempoAuditoriaMs() - inicioCuotasIntegras
+   )
+   const inicioMinimos = tiempoAuditoriaMs()
+-  const minimoContribuyente = obtenerMinimoContribuyente({
+-    anio: caso.anio,
+-    edad: caso.situacionFamiliar.edad,
+-    minimos: minimosEstatales,
+-  })
+-  const minimoAscendientes = obtenerMinimoAscendientes(
+-    caso.situacionFamiliar.ascendientes,
+-    minimosEstatales
+-  )
+-  const minimoDescendientes = obtenerMinimoDescendientes(
+-    caso.situacionFamiliar.descendientes,
+-    minimosEstatales
+-  )
++  const derechosEstatales =
++    caso.derechosMinimos === undefined
++      ? undefined
++      : yield* calcularDerechosMinimos(
++          caso.derechosMinimos,
++          minimosEstatales
++        ).pipe(Effect.mapError(errorDerechosMinimos))
++  const derechosAutonomicos =
++    caso.derechosMinimos === undefined
++      ? undefined
++      : yield* calcularDerechosMinimos(
++          caso.derechosMinimos,
++          parametrosComunidad.minimosAutonomicos
++        ).pipe(Effect.mapError(errorDerechosMinimos))
++  const minimoContribuyente =
++    derechosEstatales?.contribuyente ??
++    obtenerMinimoContribuyente({
++      anio: caso.anio,
++      edad: caso.situacionFamiliar.edad,
++      minimos: minimosEstatales,
++    })
++  const minimoAscendientes =
++    derechosEstatales?.ascendientes ??
++    obtenerMinimoAscendientes(
++      caso.situacionFamiliar.ascendientes,
++      minimosEstatales
++    )
++  const minimoDescendientes =
++    derechosEstatales?.descendientes ??
++    obtenerMinimoDescendientes(
++      caso.situacionFamiliar.descendientes,
++      minimosEstatales
++    )
+   const minimoDiscapacidadContribuyente =
++    derechosEstatales?.discapacidadContribuyente ??
+     obtenerMinimoDiscapacidadContribuyente(
+       caso.situacionFamiliar,
+       minimosEstatales
+     )
+-  const minimoDiscapacidadFamiliares = obtenerMinimoDiscapacidadFamiliares(
+-    caso.situacionFamiliar.descendientes,
+-    minimosEstatales
+-  ).plus(
+-    obtenerMinimoDiscapacidadAscendientes(
+-      caso.situacionFamiliar.ascendientes,
++  const minimoDiscapacidadFamiliares =
++    derechosEstatales?.discapacidadFamiliares ??
++    obtenerMinimoDiscapacidadFamiliares(
++      caso.situacionFamiliar.descendientes,
+       minimosEstatales
++    ).plus(
++      obtenerMinimoDiscapacidadAscendientes(
++        caso.situacionFamiliar.ascendientes,
++        minimosEstatales
++      )
+     )
+-  )
+   const minimoPersonalYFamiliar = minimoContribuyente
+     .plus(minimoDescendientes)
+     .plus(minimoAscendientes)
+     .plus(minimoDiscapacidadContribuyente)
+     .plus(minimoDiscapacidadFamiliares)
+-  const minimoPersonalYFamiliarAutonomico = calcularMinimoPersonalYFamiliar({
+-    situacionFamiliar: caso.situacionFamiliar,
+-    anio: caso.anio,
+-    minimos: parametrosComunidad.minimosAutonomicos,
+-  })
++  const minimoPersonalYFamiliarAutonomico =
++    derechosAutonomicos?.total ??
++    calcularMinimoPersonalYFamiliar({
++      situacionFamiliar: caso.situacionFamiliar,
++      anio: caso.anio,
++      minimos: parametrosComunidad.minimosAutonomicos,
++    })
+   registrarTiempoAgregadoAuditoria(
+     "liquidacion.minimosPersonalesFamiliares",
+     tiempoAuditoriaMs() - inicioMinimos
+@@ -1010,7 +1094,15 @@
+               importe: minimoDescendientes,
+               unidad: "EUR",
+               etiqueta: "Mínimo por descendientes",
+-              formula: `${caso.situacionFamiliar.descendientes.length} descendiente(s) declarados; se filtra edad y discapacidad antes de ordenar`,
++              formula:
++                derechosEstatales === undefined
++                  ? `${caso.situacionFamiliar.descendientes.length} descendiente(s); perfil parcial de edad/discapacidad sin acreditar derecho ni reparto`
++                  : derechosEstatales.atribuciones
++                      .map(
++                        (a) =>
++                          `orden ${a.orden}, divisor ${a.divisor}, incremento ${a.incremento ? "sí" : "no"}`
++                      )
++                      .join("; "),
+             }),
+             crearLineaCalculo({
+               siteId: "anual.minimo.estatal",
+--- /dev/null
++++ b/tests/minimos-derechos.test.ts
+@@ -0,0 +1,363 @@
++import { expect, it } from "vitest"
++import { Effect, Result } from "effect"
++import { calcularDerechosMinimos } from "../lib/dominio/irpf/minimos/derechos"
++import type {
++  DerechosMinimos2025,
++  DescendienteDerechos,
++  TitularDescendiente,
++} from "../lib/dominio/irpf/minimos/derechos-contrato"
++import { MINIMOS_ESTATALES_2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
++import {
++  liquidarIrpfAnual,
++  liquidarIrpfAnualConDerechos,
++} from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
++import {
++  sinDiscapacidad,
++  type CasoFiscalAnual,
++} from "../lib/dominio/irpf/caso-fiscal-anual"
++
++const titular = (titularId: string): TitularDescendiente => ({
++  titularId,
++  grado: 1,
++  vinculo: { clase: "consanguinidad" },
++  relacion: "convivencia",
++  custodia: "compartida",
++  alimentosJudiciales: false,
++  aplicaEspecialidadAlimentos: false,
++  residenteIrpf: true,
++  rentasNoExentasCentimos: 3000000,
++})
++const hijo = (
++  sujetoId: string,
++  edad: number,
++  titulares = [titular("s-1"), titular("s-2")]
++): DescendienteDerechos => ({
++  sujetoId,
++  edadDevengo: edad,
++  fechaNacimiento: 2025 - edad + "-01-01",
++  vivoAlDevengo: true,
++  rentasNoExentasCentimos: 0,
++  declaracion: { modalidad: "no-presenta" },
++  discapacidad: sinDiscapacidad,
++  titulares,
++  titularesCompletos: true,
++})
++const hechos = (
++  descendientes = [hijo("s-3", 8), hijo("s-4", 5)]
++): DerechosMinimos2025 => ({
++  ejercicio: 2025,
++  territorio: "madrid",
++  regimen: "comun",
++  modalidad: "individual",
++  devengo: "2025-12-31",
++  contribuyenteId: "s-1",
++  edadContribuyenteDevengo: 40,
++  discapacidadContribuyente: sinDiscapacidad,
++  ascendientes: "ninguno",
++  fallecimientosEnElEjercicio: "ninguno",
++  descendientesCompletos: true,
++  descendientes,
++})
++const calcular = (entrada: DerechosMinimos2025) =>
++  Effect.runSync(calcularDerechosMinimos(entrada, MINIMOS_ESTATALES_2025))
++const error = (entrada: DerechosMinimos2025) => {
++  const r = Effect.runSync(
++    Effect.result(calcularDerechosMinimos(entrada, MINIMOS_ESTATALES_2025))
++  )
++  expect(Result.isFailure(r)).toBe(true)
++  if (Result.isFailure(r))
++    expect(r.failure._tag).toBe("DerechosMinimosNoSoportados")
++}
++it("dos titulares 2550 cada uno; único titular 5100", () => {
++  expect(calcular(hechos()).descendientes.toNumber()).toBe(2550)
++  expect(
++    calcular({ ...hechos(), contribuyenteId: "s-2" }).descendientes.toNumber()
++  ).toBe(2550)
++  expect(
++    calcular(
++      hechos([
++        hijo("s-3", 8, [titular("s-1")]),
++        hijo("s-4", 5, [titular("s-1")]),
++      ])
++    ).descendientes.toNumber()
++  ).toBe(5100)
++})
++it.each([
++  [799999, 1200],
++  [800000, 1200],
++  [800001, 0],
++])("renta no exenta %s", (renta, esperado) => {
++  expect(
++    calcular(
++      hechos([{ ...hijo("s-3", 8), rentasNoExentasCentimos: renta }])
++    ).descendientes.toNumber()
++  ).toBe(esperado)
++})
++it.each([
++  [179999, 1200],
++  [180000, 1200],
++  [180001, 0],
++])("declaración propia %s", (renta, esperado) => {
++  expect(
++    calcular(
++      hechos([
++        {
++          ...hijo("s-3", 8),
++          rentasNoExentasCentimos: renta,
++          declaracion: { modalidad: "individual", rentasCentimos: renta },
++        },
++      ])
++    ).descendientes.toNumber()
++  ).toBe(esperado)
++})
++it.each([
++  [24, 1200],
++  [25, 0],
++  [26, 0],
++])("edad %s", (edad, esperado) => {
++  expect(calcular(hechos([hijo("s-3", edad)])).descendientes.toNumber()).toBe(
++    esperado
++  )
++})
++it("ordena elegibles, no la entrada; excluye mayores sin discapacidad antes de ordenar", () => {
++  const r = calcular(hechos([hijo("s-4", 5), hijo("s-3", 8), hijo("s-5", 30)]))
++  expect(r.atribuciones.map((a) => [a.sujetoId, a.orden])).toEqual([
++    ["s-3", 1],
++    ["s-4", 2],
++  ])
++})
++it("discapacidad exige derecho y comparte el divisor", () => {
++  const d = {
++    ...hijo("s-3", 30),
++    discapacidad: { _tag: "Discapacidad65OMas" },
++  } satisfies DescendienteDerechos
++  expect(calcular(hechos([d])).discapacidadFamiliares.toNumber()).toBe(6000)
++  expect(
++    calcular(
++      hechos([{ ...d, rentasNoExentasCentimos: 800001 }])
++    ).discapacidadFamiliares.toNumber()
++  ).toBe(0)
++})
++it.each([
++  [2, 2600],
++  [3, 1200],
++])("menor de tres, edad %s", (edad, esperado) => {
++  expect(calcular(hechos([hijo("s-3", edad)])).descendientes.toNumber()).toBe(
++    esperado
++  )
++})
++it.each([
++  [2022, 2400],
++  [2023, 5200],
++  [2024, 5200],
++  [2025, 5200],
++])("adopción desde %s sin reiniciar acogimiento previo", (anio, esperado) => {
++  const t: TitularDescendiente = {
++    ...titular("s-1"),
++    vinculo: {
++      clase: "adopcion",
++      fechaInicioIncremento: anio + "-05-10",
++      fundamento: "inscripcion-registro-civil",
++      historialCompleto: true,
++    },
++  }
++  expect(calcular(hechos([hijo("s-3", 8, [t])])).descendientes.toNumber()).toBe(
++    esperado
++  )
++})
++it("prioridad de grado próximo con rentas superiores a 8000", () => {
++  const abuelo = { ...titular("s-1"), grado: 2 }
++  expect(
++    calcular(
++      hechos([hijo("s-3", 8, [abuelo, titular("s-2")])])
++    ).descendientes.toNumber()
++  ).toBe(0)
++  expect(
++    calcular(
++      hechos([
++        hijo("s-3", 8, [
++          abuelo,
++          { ...titular("s-2"), rentasNoExentasCentimos: 800000 },
++        ]),
++      ])
++    ).descendientes.toNumber()
++  ).toBe(2400)
++})
++it("dependencia sin alimentos da derecho; pagador sin custodia no comparte mínimo", () => {
++  const t: TitularDescendiente = {
++    ...titular("s-2"),
++    custodia: "sin-custodia",
++    relacion: "dependencia-economica",
++  }
++  expect(
++    calcular(
++      hechos([hijo("s-3", 8, [titular("s-1"), t])])
++    ).descendientes.toNumber()
++  ).toBe(1200)
++  expect(
++    calcular(
++      hechos([
++        hijo("s-3", 8, [titular("s-1"), { ...t, alimentosJudiciales: true }]),
++      ])
++    ).descendientes.toNumber()
++  ).toBe(2400)
++  error(
++    hechos([
++      hijo("s-3", 8, [
++        { ...titular("s-1"), aplicaEspecialidadAlimentos: true },
++      ]),
++    ])
++  )
++})
++it("rechazos recuperables: ausencias, duplicados, fechas, contadores fraccionarios, exceso manual", () => {
++  // @ts-expect-error prueba de frontera JavaScript: faltan hechos.
++  error({})
++  error(hechos([hijo("s-3", 8), hijo("s-3", 5)]))
++  error(hechos([hijo("s-3", 8, [titular("s-1"), titular("s-1")])]))
++  error(hechos([hijo("s-3", 8.5)]))
++  error(hechos([hijo("s-3", 8, [{ ...titular("s-1"), grado: 1.5 }])]))
++  error(hechos([{ ...hijo("s-3", 8), fechaNacimiento: "2017-02-30" }]))
++  // @ts-expect-error un porcentaje manual no prueba derecho.
++  error({ ...hechos(), porcentaje: 50 })
++  // @ts-expect-error no hay vigencia acreditada para 2026.
++  error({ ...hechos(), ejercicio: 2026 })
++  // @ts-expect-error fallecimiento fuera de alcance, nunca silencio.
++  error({ ...hechos(), fallecimientosEnElEjercicio: "uno" })
++})
++const anual = (derechos: DerechosMinimos2025): CasoFiscalAnual => ({
++  anio: 2025,
++  comunidadAutonoma: "madrid",
++  derechosMinimos: derechos,
++  situacionFamiliar: {
++    tipo: "individual",
++    edad: 40,
++    discapacidad: sinDiscapacidad,
++    descendientes: [],
++    ascendientes: [],
++  },
++  rendimientos: { trabajo: [{ importeIntegroCentimos: 3000000 }] },
++  reducciones: [],
++  deducciones: [],
++  retencionesSoportadasCentimos: 0,
++  pagosACuentaCentimos: 0,
++})
++it("conexión anual aplica mínimos estatal y madrileño atribuidos", () => {
++  const r = Effect.runSync(
++    liquidarIrpfAnual(anual(hechos()), { modo: "canonico" })
++  )
++  // Estado: (5550+2550)*9,5%; Madrid: (5956,65+2736,84)*8,5%.
++  expect(r.cuotaMinimoPersonalCentimos).toBe(150845)
++})
++it("legacy rechaza usar hechos nuevos y entrada anual incoherente falla sin Die", () => {
++  const r = Effect.runSync(
++    Effect.result(
++      liquidarIrpfAnual(anual(hechos()), { modo: "compatible-legacy" })
++    )
++  )
++  expect(Result.isFailure(r)).toBe(true)
++  const s = Effect.runSync(
++    Effect.result(
++      liquidarIrpfAnual(
++        { ...anual(hechos()), anio: 2026 },
++        { modo: "canonico" }
++      )
++    )
++  )
++  expect(Result.isFailure(s)).toBe(true)
++})
++it("tres titulares no equivalen a mitad y cuarto/siguientes conservan orden", () => {
++  const ts = [titular("s-1"), titular("s-2"), titular("s-9")]
++  expect(calcular(hechos([hijo("s-3", 8, ts)])).descendientes.toNumber()).toBe(
++    800
++  )
++  const r = calcular(
++    hechos([
++      hijo("s-3", 14),
++      hijo("s-4", 12),
++      hijo("s-5", 10),
++      hijo("s-6", 8),
++      hijo("s-7", 6),
++    ])
++  )
++  expect(r.descendientes.toNumber()).toBe(9050)
++})
++it("rechaza falta de hechos, incompatibilidad anual y fechas especiales", () => {
++  // @ts-expect-error un dato parcial no completa los derechos.
++  error({ ...hechos(), descendientesCompletos: undefined })
++  error(
++    hechos([
++      hijo("s-3", 8, [
++        { ...titular("s-1"), custodia: "exclusiva", relacion: "ninguna" },
++      ]),
++    ])
++  )
++  error(
++    hechos([
++      hijo("s-3", 8, [
++        { ...titular("s-1"), custodia: "exclusiva" },
++        titular("s-2"),
++      ]),
++    ])
++  )
++  error(
++    hechos([
++      hijo("s-3", 8, [
++        {
++          ...titular("s-1"),
++          vinculo: {
++            clase: "adopcion",
++            fechaInicioIncremento: "2026-01-01",
++            fundamento: "inscripcion-registro-civil",
++            historialCompleto: true,
++          },
++        },
++      ]),
++    ])
++  )
++  const caso = anual(hechos())
++  const r = Effect.runSync(
++    Effect.result(
++      liquidarIrpfAnual(
++        {
++          ...caso,
++          situacionFamiliar: {
++            ...caso.situacionFamiliar,
++            descendientes: [{ edad: 8, discapacidad: sinDiscapacidad }],
++          },
++        },
++        { modo: "canonico" }
++      )
++    )
++  )
++  expect(Result.isFailure(r)).toBe(true)
++})
++
++it("ruta explícita exige hechos aunque JavaScript omita la propiedad", () => {
++  const caso = anual(hechos())
++  const r = Effect.runSync(
++    liquidarIrpfAnualConDerechos({ ...caso, derechosMinimos: hechos() })
++  )
++  expect(r.cuotaMinimoPersonalCentimos).toBe(150845)
++  const fallo = liquidarIrpfAnualConDerechos({
++    ...caso,
++    // @ts-expect-error frontera JavaScript deliberadamente incompleta.
++    derechosMinimos: undefined,
++  })
++  expect(Result.isFailure(Effect.runSync(Effect.result(fallo)))).toBe(true)
++})
++it("identidad anónima no admite rentas contradictorias ni residencia incompatible", () => {
++  error(
++    hechos([
++      hijo("s-3", 8),
++      hijo("s-4", 5, [{ ...titular("s-1"), rentasNoExentasCentimos: 0 }]),
++    ])
++  )
++  error(hechos([hijo("s-3", 8, [{ ...titular("s-1"), residenteIrpf: false }])]))
++})
++it("artículo 61: siguiente grado cuando el próximo no supera 8000", () => {
++  const d = hijo("s-3", 8, [
++    { ...titular("s-1"), grado: 2 },
++    { ...titular("s-2"), rentasNoExentasCentimos: 800000 },
++  ])
++  expect(calcular(hechos([d])).descendientes.toNumber()).toBe(2400)
++})
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/INFORME.md
+@@ -0,0 +1,78 @@
++# Derechos atribuibles a mínimos, entrega para revisión
++
++Autor: agente de implementación de este hilo, checkout T3 `t3-5ea7ff42`, identificado en la sesión como `/root`. Trabajo personal, sin subdelegación. Base comprobada mediante lectura Git: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. No se atribuye independencia al autor ni se acepta fiscalmente la implementación.
++
++Se implementa una ruta optativa de mínimos por descendientes para declaración individual, régimen común, Madrid y devengo 31 de diciembre de 2025. No amplía la vigencia a 2026 ni convierte el cálculo anual existente en una declaración íntegramente automatizada. Se conservan las APIs y expectativas históricas.
++
++## Contrato y conexión
++
++`DerechosMinimos2025` exige identificación anónima local de contribuyente, sujetos y posibles titulares; censo declarado completo; nacimiento y edad cumplida al devengo; supervivencia; rentas fiscales no exentas; declaración propia individual o ausencia explícita de declaración; discapacidad fiscal preclasificada; parentesco/grado; convivencia o dependencia; custodia; alimentos judiciales y especialidad; residencia y rentas de todos los posibles titulares. Los IDs solo admiten `s-` y dígitos: no son DNI ni identidades inventadas por el motor.
++
++Las rentas se expresan en céntimos enteros, con signo y límite técnico absoluto de 10^12 céntimos. Renta fiscal no significa salario bruto ni base liquidable: corresponde al saldo algebraico descrito en el manual, antes de integración, compensación y reducciones, con la excepción allí indicada para trabajo. Las rentas de la declaración propia se consignan separadamente. Esta API no audita los documentos de renta ni la preclasificación jurídica de discapacidad. Las listas están limitadas técnicamente a cien sujetos y cien titulares por sujeto; edades y grados son enteros acotados. Ningún porcentaje de reparto manual es admitido.
++
++La validación cerrada rechaza campos extra, ausencias, fechas imposibles, duplicados, identidad sujeto/titular no soportada, incoherencias de edad, renta/residencia contradictorias para un mismo titular y hechos incompatibles de custodia. El orden se deriva del nacimiento de quienes generan derecho al contribuyente; nunca de la posición de entrada. Empates de nacimiento con divisores diferentes se rechazan para no decidir un orden jurídico por ID.
++
++La renta de exactamente 8.000 euros no excluye; con declaración individual, exactamente 1.800 tampoco. El motor determina los titulares con relación habilitante, aplica prioridad del grado próximo (o del siguiente si todos los próximos no superan 8.000 euros) y divide por su número, que puede ser uno, dos o más. No cuenta renuncias a aplicar el mínimo como cesiones. La discapacidad familiar solo se suma si existe derecho al mínimo del descendiente, con el mismo divisor. El contribuyente conserva su mínimo propio íntegro.
++
++El incremento por edad inferior a tres no se acumula con el incremento por adopción. Para adopción, acogimiento permanente o guarda preadoptiva se exige el primer hecho habilitante y su fundamento (inscripción o resolución cuando aquella no es necesaria), junto con la declaración de historia completa. No se reinicia el plazo al cambiar acogimiento por adopción. Para acogimiento temporal, urgencia y guarda judicial, el incremento se limita a menores de tres. La entrada no automatiza la verificación de esa historia documental.
++
++`liquidarIrpfAnualConDerechos` exige los hechos y llama al modo canónico. También se admite `derechosMinimos` explícito en `CasoFiscalAnual`; el modo legacy lo rechaza. La liquidación valida año, territorio, modalidad, ausencia de fallecimiento y concordancia de edad/discapacidad del contribuyente. Las listas antiguas de familiares deben estar vacías cuando se usa la ruta nueva: dos fuentes de datos familiares no se concilian por conjetura.
++
++Los derechos se calculan por separado con las tablas estatal y madrileña, manteniendo el orden y divisor. Ambos resultados alimentan la cuota general y sus respectivos remanentes del ahorro. El rastro de descendientes muestra orden, divisor e incremento sin publicar IDs personales. Los errores del contrato son `DerechosMinimosNoSoportados`; la frontera anual los convierte a `ResultadoNoSoportado`, conservando el canal recuperable de Effect.
++
++Consumidores examinados: cuatro helpers de mínimos, liquidación, `calculo-salario-legacy.ts` y conexión anual de trabajo/EDS. El perfil salarial continúa usando `FamiliarFiscal`, ahora documentado como parcial, sin atribuirle derechos nuevos. La conexión trabajo/EDS anterior conserva su alcance sin familiares; no se modifica su contrato ni se reutiliza como entrada familiar. La nueva ruta amplía solo mínimos, no los demás supuestos simplificados de liquidación.
++
++## Evidencia y esperados
++
++Se consultaron CX-06-A, MIN-002/003/004/005/006/009, D021 y D043–D046. La compilación oficial anual de la Ley 35/2006 se reextrajo personalmente, páginas físicas 36–38, artículos 58, 60 y 61. Original ya conservado en la entrega X: SHA-256 `95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94`, SHA-512 y extracción en `evidencia-primaria.log`. [Original AEAT](https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf). No se modificó el original.
++
++Se consultaron directamente los apartados oficiales del Manual 2025: [requisitos](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/concepto-requisitos-descendientes.html), [cuantías y adopción](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/cuantias-aplicables.html) y [condiciones](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c14-adecuacion-impuesto-circunstancias-personales/minimo-descendientes/condiciones-aplicacion-minimo-descendientes.html). La consulta web al consolidado BOE fechado no respondió; no se presenta como fuente releída. Modelo 145 no se usa como norma anual.
++
++Derivaciones independientes del resultado del helper:
++
++- Dos hijos de 8/5 con ambos progenitores con derecho: (2.400 + 2.700) / 2 = 2.550 euros por progenitor. Un titular: 5.100.
++- Un descendiente con tres titulares: 2.400 / 3 = 800. Cinco con dos titulares: (2.400 + 2.700 + 4.000 + 4.500 + 4.500) / 2 = 9.050.
++- Menor de tres con dos titulares: (2.400 + 2.800) / 2 = 2.600.
++- Discapacidad de al menos 65% con derecho y dos titulares: (9.000 + 3.000) / 2 = 6.000 adicionales.
++- Conexión Madrid: mínimo estatal 8.100; autonómico 5.956,65 + (2.575,85 + 2.897,83) / 2 = 8.693,49. En el primer tramo, 8.100 × 0,095 + 8.693,49 × 0,085 = 1.508,44665; presentación existente a céntimos: 1.508,45. Se usan las tablas ya integradas, sin alterarlas ni aceptar de nuevo toda su vigencia.
++
++## Rojos y verificaciones reales
++
++`rojo-precontrato.log` conserva el fallo real antes de escribir la implementación: 5.100 frente a 2.550. La receta original está en `rojo-precontrato.ts.txt`, conservada como evidencia histórica, no como test de suite ni evasión de lint. Ese rojo denuncia colisión de hechos en el contrato antiguo; no exige dividir siempre su salida por dos.
++
++`rojo-conexion.log` conserva dos fallos antes de conectar la liquidación: se ignoraban los hechos y no se rechazaba su uso legacy. Su esperado inicial contenía una errata aritmética propia de un céntimo (150844). Se corrigió por la derivación anterior a 150845, sin cambiar ningún oracle existente. El recibido era 103357, de modo que la carencia de conexión no depende de aquella errata. No se presenta el esperado inicial erróneo como cifra normativa.
++
++El resto de la matriz nueva son regresiones del contrato, no rojos históricos inventados. No se ha satisfecho literalmente un rojo previo por cada nueva condición: se distingue este límite del trabajo. Las pruebas cubren fronteras de renta/declaración ±0,01, edad, orden, discapacidad, reparto, adopción, errores recuperables y conexión.
++
++Primer pase: 93 pruebas correctas y cuatro errores de tipos (TaggedStruct y uso de Date). Se corrigieron sin desactivar diagnósticos. Segundo: 95 pruebas, tipos principal/vendor, lint y ensayo de las 16 reglas correctos. Tras añadir controles de identidad y la ruta explícita: 97 pruebas correctas; un comentario @ts-expect-error quedó desplazado por formato y produjo dos diagnósticos. Solo se movió el comentario al campo deliberadamente inválido; repetición de tipos/lint en `tipos-lint-cierre.log`. Recuentos solapados; no sumarlos.
++
++Comandos reales, desde este checkout y con Bun/Node de Nix:
++
++    flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun run test tests/minimos-derechos.test.ts --maxWorkers=1
++    flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun run test tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts --maxWorkers=1
++    flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bash -c 'set -e; bun run typecheck; bun run lint; bun run test:lint'
++
++El rojo histórico puede reproducirse copiando su receta a un archivo temporal de test en scratch con configuración propia. No se debe sustituir la suite actual ni incorporar su expectativa al helper parcial.
++
++Las guías Effect list, data-modeling, error-handling y testing se consultaron con el lanzador Bun indicado, además de Schema.ts v4 local. Node_modules es enlace de lectura a la raíz del padre. Scratch solo en .cache/minimos-derechos. Ningún build Next, suite legacy completa, instalación global, cambio de paquetes/CI ni wrapper Python de corpus. La extracción usa Poppler de Nix; control de entrega usa Python de Nix bajo el lock.
++
++## Decisiones, objeciones y coste
++
++1. Ruta explícita optativa. Objeción: cambiar la interpretación de una lista de edades convertiría supuestos en derechos. Coste: dos contratos coexistentes y adaptación deliberada de nuevos consumidores. No se modifica la UI.
++2. Alcance Madrid 2025 y sin fallecimientos/ascendientes. Objeción: heredar importes no acredita otros ejercicios, conjunta, forales ni requisitos de ascendientes. Coste: rechazos tipados, cobertura parcial visible; MIN-006 no se da por implementado.
++3. Prioridad del grado próximo y paso al siguiente si todos los próximos no superan 8.000 euros, conforme al artículo 61. Objeción: mantener el rechazo provisional dejaría sin resolver una regla primaria disponible; mezclar grados sería incorrecto. Coste: se limita la concurrencia a dos grados y se rechaza el caso de rentas mixtas en el grupo próximo, pendiente de aclaración; nunca se convierte ese rechazo en cero. El rojo específico previo y la corrección se conservan en rojo-grado.log y validacion-grado.log.
++4. Alimentos: con custodia compartida puede existir mínimo; pagador judicial sin custodia no se cuenta. Cualquier especialidad de alimentos solicitada se rechaza en esta ruta. Objeción: eliminar el mínimo no implementa por sí solo los artículos 64/75. Coste: esos casos de cálculo anual requieren otra ruta; no se ofrece elección fiscal ficticia.
++5. Discapacidad preclasificada y censos declarados completos. Objeción: schemas no verifican certificados ni parentesco real. Coste: la aplicación queda condicionada a hechos aportados, y requiere revisión humana/documental; no se publica dato personal como evidencia.
++6. Reutilización de tablas y etapas monetarias existentes. Objeción: pasar tests no acredita el conjunto anual ni su redondeo por casillas. Coste: se entrega exactitud de operaciones discriminantes, con aceptación y revisión del binding pendientes.
++
++Tutela/curatela, adopción en mayoría de edad, cambios de convivencia durante el año, fallecimientos, declaraciones conjuntas de cualquier sujeto, grafos multigeneracionales donde un descendiente es también titular, empate de nacimiento con divisores distintos y concurrencias de grado indicadas quedan fuera. No son ausencia de derecho: son falta de soporte de esta ruta. Los datos de convivencia/custodia se declaran para el devengo; la API no reconstruye trayectorias temporales.
++
++## Integración y preservación
++
++El padre debe integrar por manifiesto, comprobar los hashes de base y regenerar inventario/rastro. No se han tocado inventario, snapshots, registro, atestaciones, ESTADO, DECISIONES ni informes ajenos. Integridad, autenticidad, interpretación, exactitud y aceptación son dimensiones distintas: hashes y tests no autentican históricamente los originales ni aceptan fiscalmente esta entrega.
++
++Sin operaciones VCS mutantes, PR, push, despliegue, transferencias ni borrados. v1/v2 permanecen intactos. Crossa sigue siendo la copia v1 histórica comunicada por el coordinador, misma casa y dueño; no se comprobó aquí ni se atribuye custodia independiente. La revisión nueva corresponde al padre.
++
++Cierre de prioridad: tras el rojo propio se implementa también el paso al siguiente grado. La matriz final y los controles obligatorios constan en validacion-grado.log. La propuesta inicial de rechazo de toda excepción queda superada; el log y los informes históricos ajenos permanecen intactos.
++
++Resultado final comprobado: 98 pruebas de tres archivos correctas (28 nuevas y 70 de regresión), tipos principal/vendor, lint global y ensayo anti-slop correctos. El inventario de base conserva exactamente SHA-256 ff58be7c8b497d2b38ad7019afb85e2e621296108eeae85163ad2319c9c9d397. No se ha regenerado con este cambio. El manifiesto excluye su propio hash por autorreferencia y no incluye node_modules ni scratch; el parche incluye código, pruebas y documentos entregados, sin borrados de archivos.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/control-base.json
+@@ -0,0 +1,9 @@
++{
++  "base": "5799bb03826719a4dd3500a962e2d6bb5124fdca",
++  "baseFiles": 8456,
++  "missing": [],
++  "deletions": 0,
++  "inventorySha256": "ff58be7c8b497d2b38ad7019afb85e2e621296108eeae85163ad2319c9c9d397",
++  "inventoryExpected": "ff58be7c8b497d2b38ad7019afb85e2e621296108eeae85163ad2319c9c9d397",
++  "vcsMutations": false
++}
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/evidencia-primaria.log
+@@ -0,0 +1,238 @@
++95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94  docs/procedencia/revisiones/correcciones-x-v1/95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94
++02be6848ae06452d1ffaa21031f9299c51d9668e5ee6f4f2265409212fc3be623d45167135dc4ff576b3b6a9633aa8c3393f03a51a4bd7914639735a452f5eed  docs/procedencia/revisiones/correcciones-x-v1/95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94
++Apéndice normativo. Ley 35/2006
++
++
++
++
++disposición y la finalización del plazo reglamentario de      2. Cuando la base liquidable general sea superior al im-
++declaración correspondiente al período impositivo en          porte del mínimo personal y familiar, éste formará parte
++que se realice dicha disposición.                             de la base liquidable general.
++En los casos en que la aportación se hubiera realiza-         Cuando la base liquidable general sea inferior al importe
++do al patrimonio protegido de los parientes, cónyuges         del mínimo personal y familiar, éste formará parte de la
++o personas a cargo de los trabajadores en régimen de          base liquidable general por el importe de esta última y
++tutela o acogimiento, a que se refiere el apartado 1 de       de la base liquidable del ahorro por el resto.
++este artículo, por un sujeto pasivo del Impuesto sobre        Cuando no exista base liquidable general, el mínimo
++Sociedades, la obligación descrita en el párrafo anterior     personal y familiar formará parte de la base liquidable
++deberá ser cumplida por dicho trabajador.                     del ahorro.
++c) A los efectos de lo dispuesto en el apartado 5 del artí-   3. (115) El mínimo personal y familiar será el resultado
++culo 43 del texto refundido de la Ley del Impuesto sobre      de sumar el mínimo del contribuyente y los mínimos
++Sociedades, el trabajador titular del patrimonio prote-       por descendientes, ascendientes y discapacidad a que
++gido deberá comunicar al empleador que efectuó las            se refieren los artículos 57, 58, 59 y 60 de esta Ley
++aportaciones, las disposiciones que se hayan realizado        incrementados o disminuidos a efectos del cálculo del
++en el período impositivo.                                     gravamen autonómico en los importes que, de acuer-
++En los casos en que la disposición se hubiera efectuado       do con lo establecido en el Ley 22/2009, por la que se
++en el patrimonio protegido de los parientes, cónyuges         regula el sistema de financiación de las Comunidades
++o personas a cargo de los trabajadores en régimen de          Autónomas de régimen común y Ciudades con Estatuto
++tutela o acogimiento, la comunicación a que se refie-         de Autonomía, hayan sido aprobados por la Comunidad
++re el párrafo anterior también deberá efectuarla dicho        Autónoma.
++trabajador.
++                                                              Artículo 57. Mínimo del contribuyente. (116)
++La falta de comunicación o la realización de comunica-
++ciones falsas, incorrectas o inexactas constituirá infrac-    1. El mínimo del contribuyente será, con carácter gene-
++ción tributaria leve. Esta infracción se sancionará con       ral, de 5.550 euros anuales.
++multa pecuniaria fija de 400 euros.                           2. Cuando el contribuyente tenga una edad superior a
++La sanción impuesta de acuerdo con lo previsto en             65 años, el mínimo se aumentará en 1.150 euros anua-
++este apartado se reducirá conforme a lo dispuesto en el       les. Si la edad es superior a 75 años, el mínimo se au-
++apartado 3 del artículo 188 de la Ley 58/2003, de 17 de       mentará adicionalmente en 1.400 euros anuales.
++diciembre, General Tributaria.                                Artículo 58. Mínimo por descendientes. (117)
++A los efectos previstos en este apartado, tratándose de
++                                                              1. El mínimo por descendientes será, por cada uno de
++bienes o derechos homogéneos se entenderá que fue-
++                                                              ellos menor de veinticinco años o con discapacidad
++ron dispuestos los aportados en primer lugar.
++                                                              cualquiera que sea su edad, siempre que conviva con
++No se aplicará lo dispuesto en este apartado en caso          el contribuyente y no tenga rentas anuales, excluidas las
++de fallecimiento del titular del patrimonio protegido, del    exentas, superiores a 8.000 euros, de:
++aportante o de los trabajadores a los que se refiere el       2.400 euros anuales por el primero.
++apartado 2 del artículo 43 del texto refundido de la Ley
++del Impuesto sobre Sociedades.                                2.700 euros anuales por el segundo.
++                                                              4.000 euros anuales por el tercero.
++                      CAPÍTULO II                             4.500 euros anuales por el cuarto y siguientes.
++                                                              A estos efectos, se asimilarán a los descendientes
++       Reducción por pensiones compensatorias                 aquellas personas vinculadas al contribuyente por razón
++                                                              de tutela y acogimiento, en los términos previstos en la
++Artículo 55. Reducciones por pensiones compensa-              legislación civil aplicable.
++torias.
++                                                              Asimismo, se asimilará a la convivencia con el contri-
++Las pensiones compensatorias a favor del cónyuge y las        buyente, la dependencia respecto de este último salvo
++anualidades por alimentos, con excepción de las fijadas
++en favor de los hijos del contribuyente, satisfechas am-      (115) Apartado 3 del artículo 56 redactado, con efectos desde 1
++bas por decisión judicial, podrán ser objeto de reduc-        de enero de 2010, por la Ley 22/2009, de 18 de diciembre (BOE
++                                                              del 19).
++ción en la base imponible.
++                                                              (116) Artículo 52 modificado, con efectos 1 de enero de 2015, por
++                                                              el artículo Primero.Treinta y tres de la Ley 26/2014, de 27 de no-
++                        TÍTULO V                              viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-
++                                                              bre, del Impuesto sobre la Renta de las Personas Físicas, el texto
++                                                              refundido de la Ley del Impuesto sobre la Renta de no Residentes,
++Adecuación del impuesto a las circunstancias personales       aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y
++            y familiares del contribuyente                    otras normas tributarias (BOE del 28).
++                                                              (117) Artículo 58 modificado, con efectos 1 de enero de 2015, por
++Artículo 56. Mínimo personal y familiar.                      el artículo Primero.Treinta y cuatro de la Ley 26/2014, de 27 de no-
++                                                              viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-
++1. El mínimo personal y familiar constituye la parte de       bre, del Impuesto sobre la Renta de las Personas Físicas, el texto
++la base liquidable que, por destinarse a satisfacer las       refundido de la Ley del Impuesto sobre la Renta de no Residentes,
++necesidades básicas personales y familiares del contri-       aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y
++buyente, no se somete a tributación por este Impuesto.        otras normas tributarias (BOE del 28).
++
++
++36
+++                                                                                               Apéndice normativo. Ley 35/2006
++
++
++
++
++cuando resulte de aplicación lo dispuesto en los artícu-              acrediten un grado de discapacidad igual o superior al
++los 64 y 75 de esta Ley.                                              65 por ciento.
++2. Cuando el descendiente sea menor de tres años, el                  Dicho mínimo se aumentará, en concepto de gastos
++mínimo a que se refiere el apartado 1 anterior se au-                 de asistencia, en 3.000 euros anuales por cada ascen-
++mentará en 2.800 euros anuales.                                       diente o descendiente que acredite necesitar ayuda de
++                                                                      terceras personas o movilidad reducida, o un grado de
++En los supuestos de adopción o acogimiento, tanto
++                                                                      minusvalía igual o superior al 65 por ciento.
++preadoptivo como permanente, dicho aumento se pro-
++ducirá, con independencia de la edad del menor, en el                 3. A los efectos de este Impuesto, tendrán la con-
++período impositivo en que se inscriba en el Registro Ci-              sideración de personas con discapacidad los con-
++vil y en los dos siguientes. Cuando la inscripción no sea             tribuyentes que acrediten, en las condiciones que
++necesaria, el aumento se podrá practicar en el período                reglamentariamente se establezcan, un grado de
++impositivo en que se produzca la resolución judicial o                discapacidad igual o superior al 33 por ciento.
++administrativa correspondiente y en los dos siguientes.               En particular, se considerará acreditado un grado de
++                                                                      discapacidad igual o superior al 33 por ciento en el caso
++Artículo 59. Mínimo por ascendientes. (118)                           de los pensionistas de la Seguridad Social que tengan
++1. El mínimo por ascendientes será de 1.150 euros                     reconocida una pensión de incapacidad permanente
++anuales, por cada uno de ellos mayor de 65 años o con                 total, absoluta o gran invalidez y en el caso de los pen-
++discapacidad cualquiera que sea su edad que conviva                   sionistas de clases pasivas que tengan reconocida una
++con el contribuyente y no tenga rentas anuales, exclui-               pensión de jubilación o retiro por incapacidad perma-
++das las exentas, superiores a 8.000 euros.                            nente para el servicio o inutilidad.
++Entre otros casos, se considerará que conviven con el                 Igualmente, se considerará acreditado un grado de
++contribuyente los ascendientes con discapacidad que,                  discapacidad igual o superior al 65 por ciento, cuando
++dependiendo del mismo, sean internados en centros                     se trate de personas cuya incapacidad sea declarada
++especializados.                                                       judicialmente, aunque no alcance dicho grado.
++2. Cuando el ascendiente sea mayor de 75 años, el mí-                 Artículo 61. Normas comunes para la aplicación del
++nimo a que se refiere el apartado 1 anterior se aumenta-              mínimo del contribuyente y por descendientes, ascen-
++rá en 1.400 euros anuales.                                            dientes y discapacidad. (120)
++Artículo 60. Mínimo por discapacidad. (119)                           Para la determinación del importe de los mínimos a que
++                                                                      se refieren los artículos 57, 58, 59 y 60 de esta Ley, se
++El mínimo por discapacidad será la suma del mínimo                    tendrán en cuenta las siguientes normas:
++por discapacidad del contribuyente y del mínimo por
++                                                                      1.ª Cuando dos o más contribuyentes tengan derecho a
++discapacidad de ascendientes y descendientes.
++                                                                      la aplicación del mínimo por descendientes, ascendien-
++1. El mínimo por discapacidad del contribuyente será                  tes o discapacidad, respecto de los mismos ascendien-
++de 3.000 euros anuales cuando sea una persona con                     tes o descendientes, su importe se prorrateará entre
++discapacidad y 9.000 euros anuales cuando sea una                     ellos por partes iguales.
++persona con discapacidad y acredite un grado de                       No obstante, cuando los contribuyentes tengan distin-
++discapacidad igual o superior al 65 por ciento.                       to grado de parentesco con el ascendiente o descen-
++Dicho mínimo se aumentará, en concepto de gastos                      diente, la aplicación del mínimo corresponderá a los de
++de asistencia, en 3.000 euros anuales cuando acredite                 grado más cercano, salvo que éstos no tengan rentas
++necesitar ayuda de terceras personas o movilidad redu-                anuales, excluidas las exentas, superiores a 8.000
++cida, o un grado de discapacidad igual o superior al 65               euros, en cuyo caso corresponderá a los del siguiente
++por ciento.                                                           grado.
++2. El mínimo por discapacidad de ascendientes o des-                  2.ª No procederá la aplicación del mínimo por descen-
++cendientes será de 3.000 euros anuales por cada uno                   dientes, ascendientes o discapacidad, cuando los as-
++de los descendientes o ascendientes que generen de-                   cendientes o descendientes que generen el derecho a
++recho a la aplicación del mínimo a que se refieren los                los mismos presenten declaración por este Impuesto
++artículos 58 y 59 de esta Ley, que sean personas con                  con rentas superiores a 1.800 euros.
++discapacidad, cualquiera que sea su edad. El mínimo                   3.ª La determinación de las circunstancias personales y
++será de 9.000 euros anuales, por cada uno de ellos que                familiares que deban tenerse en cuenta a efectos de lo
++                                                                      establecido en los artículos 57, 58, 59 y 60 de esta ley,
++(118) Artículo 59 modificado, con efectos 1 de enero de 2015, por     se realizará atendiendo a la situación existente en la fe-
++el artículo Primero.Treinta y cinco de la Ley 26/2014, de 27 de no-   cha de devengo del Impuesto.
++viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-
++bre, del Impuesto sobre la Renta de las Personas Físicas, el texto    4.ª No obstante lo dispuesto en el apartado anterior, en
++refundido de la Ley del Impuesto sobre la Renta de no Residentes,     caso de fallecimiento de un descendiente o ascendien-
++aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y     tes que genere el derecho al mínimo por descendientes
++otras normas tributarias (BOE del 28).
++(119) Artículo 60 modificado, con efectos 1 de enero de 2015, por     (120) Artículo 61 modificado, con efectos 1 de enero de 2015, por
++el artículo Primero.Treinta y seis de la Ley 26/2014, de 27 de no-    el artículo Primero.Treinta y siete de la Ley 26/2014, de 27 de no-
++viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-     viembre, por la que se modifican la Ley 35/2006, de 28 de noviem-
++bre, del Impuesto sobre la Renta de las Personas Físicas, el texto    bre, del Impuesto sobre la Renta de las Personas Físicas, el texto
++refundido de la Ley del Impuesto sobre la Renta de no Residentes,     refundido de la Ley del Impuesto sobre la Renta de no Residentes,
++aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y     aprobado por el Real Decreto Legislativo 5/2004, de 5 de marzo, y
++otras normas tributarias (BOE del 28).                                otras normas tributarias (BOE del 28).
++
++
++                                                                                                                                     37
+++Apéndice normativo. Ley 35/2006
++
++
++
++
++o ascendientes, la cuantía será de 2.400 euros anuales                2. Se entenderá por tipo medio de gravamen general
++o 1.150 euros anuales por ese descendiente o ascen-                   estatal el derivado de multiplicar por 100 el cociente re-
++diente, respectivamente.                                              sultante de dividir la cuota obtenida por la aplicación de
++                                                                      lo previsto en el apartado anterior por la base liquidable
++5.ª Para la aplicación del mínimo por ascendientes, será              general. El tipo medio de gravamen general estatal se
++necesario que éstos convivan con el contribuyente, al                 expresará con dos decimales.
++menos, la mitad del período impositivo o, en el caso de
++fallecimiento del ascendiente antes de la finalización de             Artículo 64. Especialidades aplicables en los supues-
++este, la mitad del período transcurrido entre el inicio del           tos de anualidades por alimentos a favor de los hijos.
++período impositivo y la fecha de fallecimiento.                       (123)
++                                                                      Los contribuyentes que satisfagan anualidades por ali-
++Artículo 61 bis. Suprimido (121)                                      mentos a sus hijos por decisión judicial sin derecho a
++                                                                      la aplicación por estos últimos del mínimo por descen-
++                                                                      dientes previsto en el artículo 58 de esta Ley, cuando
++                           TÍTULO VI                                  el importe de aquéllas sea inferior a la base liquidable
++                                                                      general, aplicarán la escala prevista en el número 1.º del
++                  Cálculo del impuesto estatal                        apartado 1 del artículo 63 de esta Ley separadamente
++                                                                      al importe de las anualidades por alimentos y al resto de
++                                                                      la base liquidable general. La cuantía total resultante se
++                          CAPÍTULO I                                  minorará en el importe derivado de aplicar la escala pre-
++                                                                      vista en el número 1.º del apartado 1 del artículo 63 de
++         Determinación de la cuota íntegra estatal                    esta Ley, a la parte de la base liquidable general corres-
++                                                                      pondiente al mínimo personal y familiar incrementado en
++Artículo 62. Cuota íntegra estatal.                                   1.980 euros anuales, sin que pueda resultar negativa
++                                                                      como consecuencia de tal minoración.
++La cuota íntegra estatal será la suma de las cantidades
++resultantes de aplicar los tipos de gravamen, a los que               Artículo 65. Escala aplicable a los residentes en el
++se refieren los artículos 63 y 66 de esta Ley, a las bases            extranjero. (124)
++liquidables general y del ahorro, respectivamente.
++                                                                      En el caso de los contribuyentes que tuviesen su resi-
++Artículo 63. Escala general del Impuesto.                             dencia habitual en el extranjero por concurrir alguna de
++                                                                      las circunstancias a las que se refieren el apartado 2 del
++1. (122) La parte de la base liquidable general que ex-               artículo 8 y el apartado 1 del artículo 10 de esta Ley, las
++ceda del importe del mínimo personal y familiar a que                 escalas aplicables serán la establecida en el apartado 1
++se refiere el artículo 56 de esta Ley será gravada de la              del artículo 63 y la siguiente:
++siguiente forma:
++                                                                             Base            Cuota        Resto base         Tipo
++1.º A la base liquidable general se le aplicarán los tipos                liquidable        íntegra                        aplicable
++que se indican en la siguiente escala:                                                                     liquidable
++                                                                               –               –                               –
++                                                                         Hasta euros         Euros        Hasta euros      Porcentaje
++       Base            Cuota        Resto base          Tipo
++    liquidable        íntegra                         aplicable                  0,00            0,00       12.450,00             9,50
++                                     liquidable
++         –               –                                –                 12.450,00        1.182,75        7.750,00            12,00
++   Hasta euros         Euros        Hasta euros      Porcentaje             20.200,00        2.112,75       15.000,00            15,00
++           0,00             0,00      12.450,00             9,50            35.200,00        4.362,75       24.800,00            18,50
++      12.450,00         1.182,75       7.750,00            12,00            60.000,00        8.950,75      En adelante           22,50
++      20.200,00         2.112,75      15.000,00            15,00
++      35.200,00         4.362,75      24.800,00            18,50
++                                                                      Artículo 66. Tipos de gravamen del ahorro. (125)
++      60.000,00         8.950,75     240.000,00            22,50      1. La parte de base liquidable del ahorro que exceda,
++     300.000,00        62.950,75     En adelante           24,50      en su caso, del importe del mínimo personal y familiar a
++
++2.º La cuantía resultante se minorará en el importe deri-             (123) Artículo 64 modificado por el artículo Primero.Cuarenta de la
++                                                                      Ley 26/2014, de 27 de noviembre, por la que se modifican la Ley
++vado de aplicar a la parte de la base liquidable general              35/2006, de 28 de noviembre, del Impuesto sobre la Renta de las
++correspondiente al mínimo personal y familiar la escala               Personas Físicas, el texto refundido de la Ley del Impuesto sobre
++prevista en el número 1.º anterior.                                   la Renta de no Residentes, aprobado por el Real Decreto Legislati-
++                                                                      vo 5/2004, de 5 de marzo, y otras normas tributarias (BOE del 28).
++(121) Artículo 61 bis suprimido por el artículo Primero.Treinta y     (124) Artículo 65 modificado por el artículo Primero.Cuarenta y
++ocho de la Ley 26/2014, de 27 de noviembre, por la que se mo-         uno de la Ley 26/2014, de 27 de noviembre, por la que se modi-
++difican la Ley 35/2006, de 28 de noviembre, del Impuesto sobre la     fican la Ley 35/2006, de 28 de noviembre, del Impuesto sobre la
++Renta de las Personas Físicas, el texto refundido de la Ley del Im-   Renta de las Personas Físicas, el texto refundido de la Ley del Im-
++puesto sobre la Renta de no Residentes, aprobado por el Real De-      puesto sobre la Renta de no Residentes, aprobado por el Real De-
++creto Legislativo 5/2004, de 5 de marzo, y otras normas tributarias   creto Legislativo 5/2004, de 5 de marzo, y otras normas tributarias
++(BOE del 28).                                                         (BOE del 28).
++(122) Apartado 1 del artículo 63 modificado, con efectos 1 de         (125) Artículo 66 modificado, con efectos 1 de enero de 2025,
++enero de 2021, por el artículo 58 de la Ley 11/2020, de 30 de di-     por la disposición final 7.1 de la Ley 7/2024, de 20 de diciem-
++ciembre, de Presupuestos Generales del Estado para el año 2021        bre, por la que se establecen un Impuesto Complementario
++(BOE del 31).                                                         para garantizar un nivel mínimo global de imposición para los
++
++
++38
++--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/rojo-conexion.log
+@@ -0,0 +1,55 @@
++$ vitest run tests/minimos-derechos.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
++
++ ❯ tests/minimos-derechos.test.ts (23 tests | 2 failed) 41ms
++   × conexión anual aplica mínimos estatal y madrileño atribuidos 12ms
++   × legacy rechaza usar hechos nuevos y entrada anual incoherente falla sin Die 3ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/minimos-derechos.test.ts > conexión anual aplica mínimos estatal y madrileño atribuidos
++AssertionError: expected 103357 to be 150844 // Object.is equality
++
++- Expected
+++ Received
++
++- 150844
+++ 103357
++
++ ❯ tests/minimos-derechos.test.ts:96:41
++     94|   const r = Effect.runSync(liquidarIrpfAnual(anual(hechos()), { modo: …
++     95|   // Estado: (5550+2550)*9,5%; Madrid: (5956,65+2736,84)*8,5%.
++     96|   expect(r.cuotaMinimoPersonalCentimos).toBe(150844)
++       |                                         ^
++     97| })
++     98| it("legacy rechaza usar hechos nuevos y entrada anual incoherente fall…
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
++
++ FAIL  tests/minimos-derechos.test.ts > legacy rechaza usar hechos nuevos y entrada anual incoherente falla sin Die
++AssertionError: expected false to be true // Object.is equality
++
++- Expected
+++ Received
++
++- true
+++ false
++
++ ❯ tests/minimos-derechos.test.ts:100:31
++     98| it("legacy rechaza usar hechos nuevos y entrada anual incoherente fall…
++     99|   const r = Effect.runSync(Effect.result(liquidarIrpfAnual(anual(hecho…
++    100|   expect(Result.isFailure(r)).toBe(true)
++       |                               ^
++    101|   const s = Effect.runSync(Effect.result(liquidarIrpfAnual({ ...anual(…
++    102|   expect(Result.isFailure(s)).toBe(true)
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  2 failed | 21 passed (23)
++   Start at  16:15:06
++   Duration  820ms (transform 385ms, setup 0ms, import 665ms, tests 41ms, environment 0ms)
++
++error: script "test" exited with code 1
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/rojo-grado.log
+@@ -0,0 +1,108 @@
++$ vitest run tests/minimos-derechos.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
++
++ ❯ tests/minimos-derechos.test.ts (28 tests | 1 failed) 51ms
++   × artículo 61: siguiente grado cuando el próximo no supera 8000 2ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/minimos-derechos.test.ts > artículo 61: siguiente grado cuando el próximo no supera 8000
++{
++  motivo: 'Concurrencia excepcional de grados sin rentas superiores a 8000: distribución pendiente de contrato revisado',
++  _tag: 'DerechosMinimosNoSoportados',
++  message: '',
++  stack: 'DerechosMinimosNoSoportados: \n' +
++    '    at rechazar (/home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42/lib/dominio/irpf/minimos/derechos.ts:17:15)\n' +
++    '    at /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42/lib/dominio/irpf/minimos/derechos.ts:159:23\n' +
++    '    at Generator.next (<anonymous>)\n' +
++    '    at Object.~effect/Effect/successCont (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:868:26)\n' +
++    '    at Object.~effect/Effect/evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/core.js:312:30)\n' +
++    '    at FiberImpl.runLoop (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:444:107)\n' +
++    '    at FiberImpl.evaluate (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:412:23)\n' +
++    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2110:9\n' +
++    '    at file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2188:19\n' +
++    '    at Module.<anonymous> (file:///home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2201:18)',
++  name: 'DerechosMinimosNoSoportados',
++  stacks: [
++    {
++      method: 'rechazar',
++      file: '/home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42/lib/dominio/irpf/minimos/derechos.ts',
++      line: 17,
++      column: 15
++    },
++    {
++      method: '',
++      file: '/home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42/lib/dominio/irpf/minimos/derechos.ts',
++      line: 159,
++      column: 23
++    },
++    {
++      line: 1276,
++      column: 25,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'next'
++    },
++    {
++      line: 531,
++      column: 30,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/core.ts',
++      method: 'Object.~effect/Effect/evaluate'
++    },
++    {
++      line: 633,
++      column: 39,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'FiberImpl.runLoop'
++    },
++    {
++      line: 593,
++      column: 22,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runLoop'
++    },
++    {
++      line: 5142,
++      column: 8,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'evaluate'
++    },
++    {
++      line: 5261,
++      column: 18,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runFork'
++    },
++    {
++      line: 5276,
++      column: 17,
++      file: '/home/elies/Repos/IRoboPF/node_modules/effect/src/internal/effect.ts',
++      method: 'runSyncExit'
++    }
++  ]
++}
++ ❯ rechazar lib/dominio/irpf/minimos/derechos.ts:17:15
++     15|
++     16| const rechazar = (motivo: string) =>
++     17|   Effect.fail(new DerechosMinimosNoSoportados({ motivo }))
++       |               ^
++     18| const fechaValida = (fecha: string) => {
++     19|   const anio = Number(fecha.slice(0, 4))
++ ❯ lib/dominio/irpf/minimos/derechos.ts:159:23
++ ❯ next ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
++ ❯ Object.~effect/Effect/evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
++ ❯ FiberImpl.runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
++ ❯ runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:593:22
++ ❯ evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5142:8
++ ❯ runFork ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5261:18
++ ❯ runSyncExit ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5276:17
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  1 failed | 27 passed (28)
++   Start at  16:19:52
++   Duration  916ms (transform 411ms, setup 0ms, import 725ms, tests 51ms, environment 0ms)
++
++error: script "test" exited with code 1
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/rojo-precontrato.log
+@@ -0,0 +1,35 @@
++$ vitest run tests/minimos-derechos.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
++
++ ❯ tests/minimos-derechos.test.ts (1 test | 1 failed) 7ms
++   × CX-06-A: dos progenitores con derecho, hijos 8/5, individual 6ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/minimos-derechos.test.ts > CX-06-A: dos progenitores con derecho, hijos 8/5, individual
++AssertionError: expected 5100 to be 2550 // Object.is equality
++
++- Expected
+++ Received
++
++- 2550
+++ 5100
++
++ ❯ tests/minimos-derechos.test.ts:9:29
++      7|     { edad: 5, discapacidad: sinDiscapacidad },
++      8|   ])
++      9|   expect(minimo.toNumber()).toBe(2550)
++       |                             ^
++     10| })
++     11|
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  1 failed (1)
++   Start at  16:11:41
++   Duration  350ms (transform 56ms, setup 0ms, import 232ms, tests 7ms, environment 0ms)
++
++error: script "test" exited with code 1
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/rojo-precontrato.ts.txt
+@@ -0,0 +1,10 @@
++import { expect, it } from "vitest"
++import { obtenerMinimoDescendientes } from "../lib/dominio/irpf/minimos/minimo-descendientes"
++import { sinDiscapacidad } from "../lib/dominio/irpf/caso-fiscal-anual"
++it("CX-06-A: dos progenitores con derecho, hijos 8/5, individual", () => {
++  const minimo = obtenerMinimoDescendientes([
++    { edad: 8, discapacidad: sinDiscapacidad },
++    { edad: 5, discapacidad: sinDiscapacidad },
++  ])
++  expect(minimo.toNumber()).toBe(2550)
++})
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/tipos-lint-cierre.log
+@@ -0,0 +1,6 @@
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++$ bun scripts/run-lint.mjs
++$ oxlint --disable-nested-config
++$ eslint .
++$ bun scripts/test-lint.mjs
++16 reglas a error; ambos plugins cargan y rechazan el fixture.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/validacion-cierre.log
+@@ -0,0 +1,15 @@
++lib/dominio/irpf/minimos/derechos.ts 147ms
++tests/minimos-derechos.test.ts 39ms
++$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
++
++
++ Test Files  3 passed (3)
++      Tests  97 passed (97)
++   Start at  16:17:31
++   Duration  1.68s (transform 411ms, setup 0ms, import 1.17s, tests 179ms, environment 0ms)
++
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++tests/minimos-derechos.test.ts(339,3): error TS2578: Unused '@ts-expect-error' directive.
++tests/minimos-derechos.test.ts(342,5): error TS2322: Type 'undefined' is not assignable to type '{ readonly ejercicio: 2025; readonly territorio: "madrid"; readonly regimen: "comun"; readonly modalidad: "individual"; readonly devengo: "2025-12-31"; readonly ascendientes: "ninguno"; ... 5 more ...; readonly descendientes: readonly { ...; }[]; }'.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/validacion-final.log
+@@ -0,0 +1,21 @@
++lib/dominio/irpf/minimos/derechos-contrato.ts 126ms
++lib/dominio/irpf/minimos/derechos.ts 46ms
++lib/dominio/irpf/caso-fiscal-anual.ts 10ms (unchanged)
++lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts 108ms
++tests/minimos-derechos.test.ts 23ms
++$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
++
++
++ Test Files  3 passed (3)
++      Tests  95 passed (95)
++   Start at  16:16:45
++   Duration  1.62s (transform 393ms, setup 0ms, import 1.13s, tests 171ms, environment 0ms)
++
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++$ bun scripts/run-lint.mjs
++$ oxlint --disable-nested-config
++$ eslint .
++$ bun scripts/test-lint.mjs
++16 reglas a error; ambos plugins cargan y rechazan el fixture.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/validacion-grado.log
+@@ -0,0 +1,18 @@
++lib/dominio/irpf/minimos/derechos.ts 138ms
++tests/minimos-derechos.test.ts 39ms
++$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
++
++
++ Test Files  3 passed (3)
++      Tests  98 passed (98)
++   Start at  16:20:23
++   Duration  1.63s (transform 400ms, setup 0ms, import 1.14s, tests 174ms, environment 0ms)
++
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++$ bun scripts/run-lint.mjs
++$ oxlint --disable-nested-config
++$ eslint .
++$ bun scripts/test-lint.mjs
++16 reglas a error; ambos plugins cargan y rechazan el fixture.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/minimos-derechos/validacion-inicial.log
+@@ -0,0 +1,20 @@
++$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
++
++
++ Test Files  3 passed (3)
++      Tests  93 passed (93)
++   Start at  16:15:53
++   Duration  1.69s (transform 389ms, setup 0ms, import 1.13s, tests 170ms, environment 0ms)
++
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++lib/dominio/irpf/minimos/derechos-contrato.ts(9,3): error TS34: This `Schema.Struct` includes a `_tag` field. `Schema.TaggedStruct` is the tagged-struct form for this pattern and makes the tag optional in the constructor.    effect(schemaStructWithTag)
++lib/dominio/irpf/minimos/derechos-contrato.ts(10,3): error TS34: This `Schema.Struct` includes a `_tag` field. `Schema.TaggedStruct` is the tagged-struct form for this pattern and makes the tag optional in the constructor.    effect(schemaStructWithTag)
++lib/dominio/irpf/minimos/derechos-contrato.ts(11,3): error TS34: This `Schema.Struct` includes a `_tag` field. `Schema.TaggedStruct` is the tagged-struct form for this pattern and makes the tag optional in the constructor.    effect(schemaStructWithTag)
++lib/dominio/irpf/minimos/derechos.ts(10,16): error TS59: This code constructs `new Date()`, date values are represented through `DateTime` from Effect.    effect(globalDate)
++$ bun scripts/run-lint.mjs
++$ oxlint --disable-nested-config
++$ eslint .
++$ bun scripts/test-lint.mjs
++16 reglas a error; ambos plugins cargan y rechazan el fixture.

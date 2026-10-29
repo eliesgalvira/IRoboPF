@@ -1,0 +1,20 @@
+$ vitest run tests/minimos-derechos.test.ts tests/minimos-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
+
+
+ Test Files  3 passed (3)
+      Tests  93 passed (93)
+   Start at  16:15:53
+   Duration  1.69s (transform 389ms, setup 0ms, import 1.13s, tests 170ms, environment 0ms)
+
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+lib/dominio/irpf/minimos/derechos-contrato.ts(9,3): error TS34: This `Schema.Struct` includes a `_tag` field. `Schema.TaggedStruct` is the tagged-struct form for this pattern and makes the tag optional in the constructor.    effect(schemaStructWithTag)
+lib/dominio/irpf/minimos/derechos-contrato.ts(10,3): error TS34: This `Schema.Struct` includes a `_tag` field. `Schema.TaggedStruct` is the tagged-struct form for this pattern and makes the tag optional in the constructor.    effect(schemaStructWithTag)
+lib/dominio/irpf/minimos/derechos-contrato.ts(11,3): error TS34: This `Schema.Struct` includes a `_tag` field. `Schema.TaggedStruct` is the tagged-struct form for this pattern and makes the tag optional in the constructor.    effect(schemaStructWithTag)
+lib/dominio/irpf/minimos/derechos.ts(10,16): error TS59: This code constructs `new Date()`, date values are represented through `DateTime` from Effect.    effect(globalDate)
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ bun scripts/test-lint.mjs
+16 reglas a error; ambos plugins cargan y rechazan el fixture.

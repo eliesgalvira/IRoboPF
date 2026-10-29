@@ -1,0 +1,35 @@
+$ vitest run tests/minimos-derechos.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5ea7ff42
+
+ ❯ tests/minimos-derechos.test.ts (1 test | 1 failed) 7ms
+   × CX-06-A: dos progenitores con derecho, hijos 8/5, individual 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/minimos-derechos.test.ts > CX-06-A: dos progenitores con derecho, hijos 8/5, individual
+AssertionError: expected 5100 to be 2550 // Object.is equality
+
+- Expected
++ Received
+
+- 2550
++ 5100
+
+ ❯ tests/minimos-derechos.test.ts:9:29
+      7|     { edad: 5, discapacidad: sinDiscapacidad },
+      8|   ])
+      9|   expect(minimo.toNumber()).toBe(2550)
+       |                             ^
+     10| })
+     11|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  16:11:41
+   Duration  350ms (transform 56ms, setup 0ms, import 232ms, tests 7ms, environment 0ms)
+
+error: script "test" exited with code 1

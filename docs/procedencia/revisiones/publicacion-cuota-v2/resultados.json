@@ -1,0 +1,118 @@
+{
+  "base": "6e210920a9063b7a7efd0730ae4ab1ac73a2141e",
+  "head": "6e210920a9063b7a7efd0730ae4ab1ac73a2141e",
+  "archivosBase": 8569,
+  "ausentes": [
+    "docs/procedencia/revisiones/preservacion-v2/scratch/.cache/procedencia",
+    "docs/procedencia/revisiones/preservacion-v2/scratch/alias"
+  ],
+  "diff": "",
+  "sources": [
+    {
+      "path": "app/procedencia/[snapshot]/[id]/[revision]/route.ts",
+      "size": 2543,
+      "sha256": "2dfa778e10ea13b09c4d9fd00f16f58db7f6bb89bd91683b1c2150703c836906",
+      "baseSha256": "2dfa778e10ea13b09c4d9fd00f16f58db7f6bb89bd91683b1c2150703c836906"
+    },
+    {
+      "path": "app/procedencia/[snapshot]/ambito/[territorio]/[ejercicio]/page.tsx",
+      "size": 1004,
+      "sha256": "9f958b2c4a588481f785387996c8ba8d050488cc2a70dd43331978226ec2c3c8",
+      "baseSha256": "9f958b2c4a588481f785387996c8ba8d050488cc2a70dd43331978226ec2c3c8"
+    },
+    {
+      "path": "app/procedencia/[snapshot]/objetos/[hash]/route.ts",
+      "size": 307,
+      "sha256": "cbdd50f08889b194bb661f51c20aa6e1744e131309dfdd3ba339cb424b182641",
+      "baseSha256": "cbdd50f08889b194bb661f51c20aa6e1744e131309dfdd3ba339cb424b182641"
+    },
+    {
+      "path": "app/procedencia/[snapshot]/page.tsx",
+      "size": 1050,
+      "sha256": "f1a0b780ecee478e94ad8fb8d17a8d34e445b598fa6d62ce2853b70b1ef53eab",
+      "baseSha256": "f1a0b780ecee478e94ad8fb8d17a8d34e445b598fa6d62ce2853b70b1ef53eab"
+    },
+    {
+      "path": "app/procedencia/page.tsx",
+      "size": 899,
+      "sha256": "eae2a8f35841c523818d3142d8e07c62851098e070ed352c6ca1078f9821b002",
+      "baseSha256": "eae2a8f35841c523818d3142d8e07c62851098e070ed352c6ca1078f9821b002"
+    },
+    {
+      "path": "components/auditoria.tsx",
+      "size": 241588,
+      "sha256": "c3e0a1d759da457b4744f344db6e0908518b7c363564f014fef6699c873450d6",
+      "baseSha256": "c3e0a1d759da457b4744f344db6e0908518b7c363564f014fef6699c873450d6"
+    },
+    {
+      "path": "lib/dominio/auditoria/importes-comparables.ts",
+      "size": 1117,
+      "sha256": "3556f5f2eda987276af92f7e0a3b03ab0cdd443b2c007a8797bad4d52493a3ac",
+      "baseSha256": "3556f5f2eda987276af92f7e0a3b03ab0cdd443b2c007a8797bad4d52493a3ac"
+    },
+    {
+      "path": "next.config.mjs",
+      "size": 490,
+      "sha256": "dc6fdbad0d6a8369a7dcc9c6dd3ae465ad0613a32e6f971af28ba7d19766e562",
+      "baseSha256": "dc6fdbad0d6a8369a7dcc9c6dd3ae465ad0613a32e6f971af28ba7d19766e562"
+    }
+  ],
+  "casos": [
+    {
+      "id": "54194f5a7ec34412ac9aa4aa27d8bcea053b1e3ca2bbda2e70ce211e4ee2d613",
+      "resultado": {
+        "integridad": "comprobada",
+        "aceptacionFiscal": "pendiente",
+        "cantidad": 51949
+      }
+    },
+    {
+      "id": "983a06755162fedd569a8bb6989714463e00903506a614659b94eed1d43dd1eb",
+      "resultado": {
+        "integridad": "comprobada",
+        "aceptacionFiscal": "pendiente",
+        "cantidad": 51953
+      }
+    },
+    {
+      "nombre": "omision-total",
+      "aceptado": false,
+      "error": "Cobertura de evidencia incompleta o duplicada"
+    },
+    {
+      "nombre": "duplicado",
+      "aceptado": false,
+      "error": "Cobertura de evidencia incompleta o duplicada"
+    },
+    {
+      "nombre": "sujeto-cambiado",
+      "aceptado": false,
+      "error": "Cobertura de evidencia incompleta o duplicada"
+    },
+    {
+      "nombre": "recibo-rehasheado-sin-estados",
+      "aceptado": false,
+      "error": "Cobertura de evidencia distinta del recibo"
+    },
+    {
+      "nombre": "recibo-rehasheado-sin-documentos",
+      "aceptado": false,
+      "error": "Cobertura de evidencia sin recibo para entidad documental"
+    },
+    {
+      "nombre": "recibo-rehasheado-grafo-falso",
+      "aceptado": false,
+      "error": "Cobertura de evidencia sin recibo para entidad documental"
+    },
+    {
+      "nombre": "ausencia-persistente-1",
+      "aceptado": false,
+      "error": "ENOENT: no such file or directory, open '/home/elies/.t3/worktrees/IRoboPF/t3-aa7336a1/.cache/publicacion-cuota-v2/cas/objetos/ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091'"
+    },
+    {
+      "nombre": "ausencia-persistente-2",
+      "aceptado": false,
+      "error": "ENOENT: no such file or directory, open '/home/elies/.t3/worktrees/IRoboPF/t3-aa7336a1/.cache/publicacion-cuota-v2/cas/objetos/ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091'"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/decidir.py", line 50, in <module>
+    'citations': [r['citation'], reference('citas-temporales.json'), reference('persistencia.json')],
+                                                                     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/decidir.py", line 25, in reference
+    'sha256': hashlib.sha256((OUT/name).read_bytes()).hexdigest()}
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v2/persistencia.json'
