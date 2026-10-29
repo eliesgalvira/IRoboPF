@@ -413,3 +413,19 @@ Seis mutaciones persistentes de módulos/schemas nominales pasan indebidamente e
 ## D092 — No equiparar origen y software ni documento y recorte
 
 La revisión R30 acredita que sourceSha256 puede identificar JSON editorial o documentos, y que un campo documental dentro de un facsímil no identifica el PNG. Objeción: sustituir una prioridad global por otra puede seguir atribuyendo una clase a bytes distintos o no recuperados. Respuesta: contrato estrecho para el origen explícito, desconocido ante falta de contexto o conflicto, y campo documental antes del ancestro de recorte; el hash genérico no hereda oficialidad por la URL vecina. Se conserva el contexto saneado usado para la inferencia. Coste: más observaciones pendientes y revisión nueva del cambio, sin una taxonomía universal, autenticación ni reclasificación del corte congelado. Los rojos anteriores y los dos límites de privacidad permanecen intactos.
+
+## D093 — Cerrar la forma nominal con el contrato externo
+
+Node rechazará campos adicionales en la referencia de ámbito y en la revisión jurídica aunque se recalculen coherentemente los sobres. Objeción experta: igualdad entre datos controlados por el mismo emisor no acredita su forma permitida. Respuesta: comparar con claves y decisión fijadas, manteniendo el schema cerrado y controles independientes del coordinador. Coste: comprobación explícita adicional, regresiones y nueva versión de explicación; ninguna ampliación de confianza ni selección civil. NR30-01 se conserva rojo antes del fix.
+
+## D094 — Separar cierres de valor, selección y admisión sin declarar terminado el conjunto
+
+R30 no cerró los diecisiete sitios. Se reparte la continuación en once de SS, seis de retenciones/pagos y admisión común anual. Objeción experta: fragmentos aislados pueden omitir condiciones o declarar terminal un servicio opaco. Respuesta: contratos finitos por cuerpo y argumento, fuentes exactas, mutaciones discriminantes e interfaz común; la composición exige todas las obligaciones y revisión independiente. Coste: tres entregas integrables y su composición posterior. No se acepta otro inventario de pendientes como cierre ni se exige un compilador general. Los otros 48 sitios y la explicación completa del inventario siguen en el alcance global.
+
+## D095 — Conservar una evidencia comprimida mayor que el umbral local de recepción
+
+El grafo histórico R30 ocupa 11.243.790 bytes comprimidos, hash b091d72b1c2cbd27358c2c8794897df8b33eef1ba655ab932898ba03068cc697. Se admite por ruta/hash con límite de snapshot de doce MiB exclusivamente para esta recepción. Objeción experta: descartar un artefacto que sustenta la entrega rompería la reproducción; aumentar indiscriminadamente los límites introduciría originales grandes en Git. Respuesta: excepción enumerada, sin cambiar el límite del CAS interno ni el de cien MB remoto. Coste: 10,72 MiB históricos; las nuevas composiciones deben normalizar referencias y evitar duplicar el grafo completo por sitio.
+
+## D096 — Preparar el lote documental tras corroborar el CAS
+
+La revisión independiente y el contraste del padre corroboran el recorrido local de 264 pares/102 sujetos. Se prepara su incorporación revisable con identidades reales, condiciones y aceptaciones limitadas por celda. Objeción experta: un pase técnico no autoriza a cambiar confianza ni aceptar una norma completa. Respuesta: artefactos candidatos exactos, trazabilidad hacia las revisiones ya recibidas y revisión de la incorporación antes de activar; Madrid2020 nominal permanece aparte. Coste: mantener registros candidatos y estados separados; Linux serial, recursos, autenticidad histórica y custodia conservan sus límites. Sin LFS, gasto ni transferencia externa.

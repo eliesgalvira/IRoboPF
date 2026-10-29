@@ -1,0 +1,57 @@
+{
+  "decisions": [
+    {
+      "id": "RC30-01",
+      "status": "corroborado-acotado",
+      "objection": "La ruta puede mentir sobre los bytes",
+      "response": "Clasificación contextual; cuatro orígenes JSON cotejados",
+      "cost": "Desconocidos requieren resolución posterior",
+      "parentContrastRequired": true
+    },
+    {
+      "id": "RC30-02",
+      "status": "corroborado-sintetico",
+      "objection": "URL primero confundiría recorte y original",
+      "response": "Campo documental prioritario; genérico conserva ancestro",
+      "cost": "Mantener contratos distintos",
+      "parentContrastRequired": true
+    },
+    {
+      "id": "contexto",
+      "status": "corroborado-con-reservas",
+      "objection": "Más campos no equivalen a privacidad",
+      "response": "Conservar contexto saneado y ambos residuales abiertos",
+      "cost": "Dato omitido no permite explicación íntegra",
+      "parentContrastRequired": true
+    },
+    {
+      "id": "mime-extension",
+      "status": "limite-deliberado",
+      "objection": "MIME resultado puede ocultar origen",
+      "response": "sourceMimeType explícito prevalece; contradicción desconocida",
+      "cost": "Cobertura automática estrecha",
+      "parentContrastRequired": true
+    },
+    {
+      "id": "pin-r2",
+      "status": "identidad-corroborada",
+      "objection": "Hash no demuestra exhaustividad",
+      "response": "Solo pin, receta y software, sin collect",
+      "cost": "Clasificación histórica sigue pendiente",
+      "parentContrastRequired": true
+    }
+  ],
+  "newProductFindings": [],
+  "discardedHypotheses": [
+    "Persistencia de los tres rojos en R31",
+    "Toda forma de MIME no admitida es un defecto",
+    "Una ruta/URL acredita tipo real, autenticidad o publicación"
+  ],
+  "openResiduals": [
+    "prosa",
+    "FILE://"
+  ],
+  "distributionAuthorized": false,
+  "fiscalAcceptance": false,
+  "globalTaskClosed": false
+}

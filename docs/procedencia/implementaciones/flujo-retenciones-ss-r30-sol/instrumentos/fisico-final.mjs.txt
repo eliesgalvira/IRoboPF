@@ -1,0 +1,17 @@
+import fs from 'node:fs';import cp from 'node:child_process';import crypto from 'node:crypto';import zlib from 'node:zlib';
+const base='376fb100512ca6a2f975c3c9500a20ee375dd431',out=process.argv[2];
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const git=(...a)=>cp.execFileSync('git',a,{maxBuffer:64*1024*1024});
+if(git('rev-parse','HEAD').toString().trim()!==base)throw Error('HEAD');
+const entries=git('ls-tree','-rz',base).toString().split('\0').filter(Boolean),known=new Set(),changes=[];
+if(entries.length!==16486)throw Error('censo');
+const child=cp.spawn('git',['cat-file','--batch'],{stdio:['pipe','pipe','inherit']}),it=child.stdout[Symbol.asyncIterator]();let buffer=Buffer.alloc(0);
+async function fill(n){while(buffer.length<n){const r=await it.next();if(r.done)throw Error('blob truncado');buffer=Buffer.concat([buffer,r.value])}}
+async function blob(oid){child.stdin.write(oid+'\n');while(buffer.indexOf(10)<0)await fill(buffer.length+1);const i=buffer.indexOf(10),header=buffer.subarray(0,i).toString().split(' '),size=Number(header[2]);buffer=buffer.subarray(i+1);if(header[1]!=='blob')throw Error('tipo');await fill(size+1);const result=Buffer.from(buffer.subarray(0,size));buffer=buffer.subarray(size+1);return result}
+function actual(path,expected=null){const st=fs.lstatSync(path),mode=st.isSymbolicLink()?'120000':st.isFile()?st.mode&0o111?'100755':'100644':'directory',b=st.isSymbolicLink()?fs.readlinkSync(path,{encoding:'buffer'}):st.isFile()?fs.readFileSync(path):Buffer.alloc(0);return {mode,bytes:b.length,sha256:hash(b),bytesEqual:expected===null?null:b.equals(expected)}}
+for(const row of entries){const [meta,path]=row.split('\t'),[mode,,oid]=meta.split(' ');known.add(path);const b=await blob(oid),baseSha256=hash(b);let a;try{a=actual(path,b)}catch{changes.push({path,deleted:true,baseSha256});continue}if(!a.bytesEqual||a.mode!==mode)changes.push({path,baseSha256,baseMode:mode,...a})}
+child.stdin.end();await new Promise((resolve,reject)=>{child.on('exit',code=>code===0?resolve():reject(Error('cat-file')))});
+const extras=[];function walk(dir=''){for(const name of fs.readdirSync(dir||'.')){const p=dir?dir+'/'+name:name;if(p==='.git'||p===out)continue;const st=fs.lstatSync(p);if(st.isDirectory())walk(p);else if(!known.has(p))extras.push({path:p,baseSha256:null,...actual(p)})}}walk();
+if(changes.some(c=>c.deleted))throw Error('Borrado');
+const report={base,entries:entries.length,method:'lstat/readlink/bytes/modo, cat-file --batch secuencial: una solicitud y un blob en memoria',changes,extras,excluded:['.git (metadatos VCS)',out+' (este recibo)'],diff:git('diff','--no-ext-diff',base).toString()};
+fs.writeFileSync(out,zlib.gzipSync(JSON.stringify(report,null,2)+'\n'));console.log(JSON.stringify({entries:entries.length,changes:changes.map(c=>c.path),extras:extras.length,deletions:0}));

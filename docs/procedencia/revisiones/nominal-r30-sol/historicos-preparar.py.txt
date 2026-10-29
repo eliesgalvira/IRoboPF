@@ -1,0 +1,15 @@
+import json,shutil
+from pathlib import Path
+R=Path.cwd();S=R/'.cache/revision-nominal-r30/ensayo';queue=['docs/procedencia/implementaciones/ambitos-juridicos/correspondencias.json'];seen=set()
+def visit(v):
+ if isinstance(v,list):
+  for x in v:visit(x)
+ elif isinstance(v,dict):
+  if isinstance(v.get('path'),str) and v['path'].startswith('docs/procedencia/') and (R/v['path']).is_file():queue.append(v['path'])
+  for x in v.values():visit(x)
+while queue:
+ name=queue.pop()
+ if name in seen:continue
+ seen.add(name);dst=S/name;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(R/name,dst)
+ if name.endswith('.json'):visit(json.loads((R/name).read_bytes()))
+print(json.dumps({'copiedReceivedHistoricalReferences':len(seen)}))

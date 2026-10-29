@@ -1,0 +1,14 @@
+from pathlib import Path
+import json, subprocess, difflib, hashlib
+root=Path.cwd(); out=root/'docs/procedencia/revisiones/origen-documental-r31-sol'; cache=root/'.cache/revision-origen-r31'
+base=json.loads((root/'docs/procedencia/correcciones/clasificacion-r31/archivos-precommit.json').read_bytes())['base']
+name='docs/procedencia/preservacion-v5-sol/recolector.py'
+a=subprocess.check_output(['git','cat-file','blob',f'{base}:{name}']); b=(root/name).read_bytes()
+(cache/'recolector-antes.py').write_bytes(a)
+(out/'recolector.diff').write_text(''.join(difflib.unified_diff(a.decode().splitlines(True),b.decode().splitlines(True),fromfile='antes/'+name,tofile='despues/'+name)))
+(out/'diff-revisado.json').write_text(json.dumps({'base':base,'path':name,'baseSha256':hashlib.sha256(a).hexdigest(),'sha256':hashlib.sha256(b).hexdigest()},indent=2)+'\n')
+# Adaptación solo de destinos del instrumento recibido; no ejecutar collect.
+p=root/'docs/procedencia/revisiones/clasificacion-censo-r30-sol/congelado.py'
+a=p.read_text(); b=a.replace('docs/procedencia/revisiones/clasificacion-censo-r30-sol','docs/procedencia/revisiones/origen-documental-r31-sol').replace('.cache/revision-clasificacion-r30','.cache/revision-origen-r31')
+(cache/'congelado.py').write_text(b)
+(out/'instrumento-congelado.diff').write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True),fromfile=str(p.relative_to(root)),tofile='.cache/revision-origen-r31/congelado.py')))

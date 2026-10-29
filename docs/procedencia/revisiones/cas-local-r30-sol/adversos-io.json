@@ -1,0 +1,43 @@
+{
+  "cases": [
+    {
+      "id": "IO01-mutacion-durante-lectura",
+      "status": "corroborado"
+    },
+    {
+      "id": "IO02-ancestro-sustituido-durante-lectura",
+      "status": "corroborado"
+    },
+    {
+      "id": "IO03-escritura-parcial-no-publica",
+      "status": "corroborado"
+    },
+    {
+      "id": "IO04-fsync-archivo-no-publica",
+      "status": "corroborado"
+    },
+    {
+      "id": "IO05-fsync-directorio-visible-no-durable",
+      "status": "corroborado"
+    },
+    {
+      "id": "IO06-publicacion-exclusiva-conflicto",
+      "status": "corroborado"
+    },
+    {
+      "id": "IO07-publicacion-repetida-identica",
+      "status": "corroborado"
+    },
+    {
+      "id": "IO08-100M-lectura-acotada-antes-reserva",
+      "status": "corroborado"
+    },
+    {
+      "id": "IO09-descriptores-hash-mime-tamano",
+      "status": "corroborado"
+    }
+  ],
+  "platform": "linux",
+  "realIoModule": true,
+  "injection": "node:fs syncBuiltinESMExports, sin editar producto"
+}

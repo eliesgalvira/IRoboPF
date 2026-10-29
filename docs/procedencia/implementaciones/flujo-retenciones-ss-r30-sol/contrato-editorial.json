@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "review": "pending-independent",
+  "completeRuleAcceptance": false,
+  "SS": {
+    "annualEntry": "liquidarTrabajoIndividualSimple(caso,dependencias,contexto)",
+    "gross": "sumarRendimientosTrabajo(caso.rendimientos.trabajo,centimosAEuros): Σ elemento.importeIntegroCentimos/100, semilla 0 EUR; vacío=0",
+    "selection": "contexto.modo === canonico selecciona calcularDesgloseCotizacionesPerfilUniforme; resto selecciona calcularDesgloseCotizacionesSocialesLegacy",
+    "canonical2018": "[7 min(S,3751.20×12)+5 min(S,3803.70×12)]/12; no min(S,promedio de topes)",
+    "legacy2018": "min(S,45014.4)",
+    "excess": "max(0,S-baseOrdinaria)",
+    "ordinary": {"empresa":"base×(0.236+0.055+0.002+0.006+0.015)","trabajador":"base×(0.047+0.0155+0+0.001+0)"},
+    "mei": {"through2022":["0","0"],"2023":["0.005","0.001"],"2024":["0.0058","0.0012"],"2025":["0.0067","0.0013"],"2026":["0.0075","0.0015"],"sideOrder":["empresa","trabajador"]},
+    "solidarityBands": ["min(exceso,0.1×M)","min(max(0,exceso-0.1×M),0.4×M)","max(0,exceso-0.5×M)"],
+    "canonicalSolidarity": {"2025":{"empresa":["0.0077","0.0083","0.0098"],"trabajador":["0.0015","0.0017","0.0019"]},"2026":{"empresa":["0.0096","0.0104","0.0122"],"trabajador":["0.0019","0.0021","0.0024"]},"otherYears":"0"},
+    "legacySolidarity": {"2025":["0.0092","0.0100","0.0117"],"2026":["0.0115","0.0125","0.0146"],"allocation":"total×5/6 empresa, total/6 trabajador"},
+    "totals":"ordinaria+MEI+solidaridad por lado; no redondeo mensual",
+    "cost":"salario íntegro + cotización empresarial; eurosACentimos en importesLiquidacion y centimosAEuros en el sitio",
+    "admission":"Las funciones SS puras no validan mínimos por grupo/jornada ni elegibilidad: son estimadores. Su invocación anual depende de todos los rechazos del servicio anual, no solo del modo.",
+    "legalLimit":"Perfil analítico, no exactitud TGSS mensual ni aceptación jurídica."
+  },
+  "retention": {
+    "entry":"El anual entrega caso.retencionTrabajoAeat y contexto; no sustituye cotizaciones, salario ni familia por los del anual.",
+    "coherence":"anio del subcaso igual al del anual; de lo contrario Effect.fail antes de obtener salidas.",
+    "generalAdmission":"esCasoCalculable exige cotizaciones y remuneración enteras seguras no negativas, familiares como arrays, edades enteras no negativas, convivencia de ascendientes entera >0; rechaza situacion general y situacion1 sin descendientes.",
+    "legacy":"Sin fechaPago ni perfilTemporal; version undefined. No equivale al algoritmo histórico seleccionado jurídicamente.",
+    "canonical":"seleccionarVersionRetencion(caso): fecha civil y ventana exacta; sin versión, rechazo. IRREGULAR1 ≤9000000 céntimos y ≤30% de remuneración; manuales se rechaza; filtra descendientes edad<25 o discapacidad; situacion1 sin elegibles se rechaza.",
+    "regularization":"Rechazada antes de seleccionar modo; no se sustituye por procedimiento inicial.",
+    "base":"max(0,max(0,max(0,R-irregular1-irregular2-SS)-otrosGastos-reduccionTrabajo)-reduccionesLaborales-pension)",
+    "quota":"min(cuotaInicial,limite43); alimentos solo 0<A<base, igualdad/exceso vuelven a rama ordinaria; Ceuta no modifica la propiedad cuota ya retornada.",
+    "rate":"diferenciaPositiva/retribucion×100 con guarda para remuneración no positiva; truncado y mínimo contractual posterior. No es cuota/base.",
+    "annual":"redondear1(retribucion×tipo/100), luego aCentimos; el sitio divide céntimos entre100.",
+    "familyLimit":"Los hechos familiares comunicados no acreditan renta, parentesco ni elegibilidad jurídica; las divisiones de convivencia requieren guarda, no se infiere de arrays válidos.",
+    "source":"Las referencias AST concretas y los cuerpos/calls/returns/branches/divisions se entregan en composicion.json.gz; este documento es editorial, no extracción ni evidencia normativa."
+  },
+  "payments": {
+    "retenciones":"caso.retencionesSoportadasCentimos/100",
+    "cuenta":"(caso.pagosACuentaCentimos+(retencionTrabajoAeat?.importeRetencionAnualCentimos??0))/100",
+    "distinct":"No deduplica soportadas e importe estimado por igualdad numérica. No suma soportadas a pagos.cuenta. Error de retención impide la salida anual."
+  }
+}

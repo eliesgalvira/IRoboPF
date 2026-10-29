@@ -1,0 +1,9 @@
+set -u
+export PYTHONDONTWRITEBYTECODE=1
+export UV_PROJECT_ENVIRONMENT="$PWD/.cache/revision-origen-r31/uv"
+out="$PWD/docs/procedencia/revisiones/origen-documental-r31-sol"
+for script in docs/procedencia/revisiones/origen-documental-r31-sol/revision.py tests/test_censo_clasificacion.py tests/test_censo_origen.py .cache/revision-origen-r31/congelado.py; do
+ label=$(basename "$script" .py)
+ bash tools/procedencia/run.sh "$script" > "$out/$label.log" 2>&1
+ printf '%s exit=%s\n' "$script" "$?"
+done

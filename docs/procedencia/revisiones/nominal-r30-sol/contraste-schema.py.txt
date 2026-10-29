@@ -1,0 +1,12 @@
+import json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path.cwd()/'tools/procedencia'))
+from corpus import validate_schema
+from jsonschema.exceptions import ValidationError
+rows=[]
+for name in ['executableScope','legalReview']:
+ p=json.loads((Path('.cache/revision-nominal-r30')/(name+'-mutante.json')).read_bytes())
+ try:validate_schema(p,'binding-payload')
+ except ValidationError as e:rows.append({'field':name,'rejected':True,'diagnostic':str(e)[:1200]})
+ else:rows.append({'field':name,'rejected':False})
+Path('docs/procedencia/revisiones/nominal-r30-sol/schema-python.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows));assert all(r['rejected'] for r in rows)

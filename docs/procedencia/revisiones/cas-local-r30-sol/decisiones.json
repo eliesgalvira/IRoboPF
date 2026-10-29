@@ -1,0 +1,32 @@
+{
+  "decisiones": [
+    {
+      "id": "D1",
+      "decision": "Recorrido actual una vez",
+      "objecion": "Receta heredada no da independencia por sí sola",
+      "respuesta": "Pins y contrapruebas propias",
+      "coste": "CPU/IO y copias ordinarias"
+    },
+    {
+      "id": "D2",
+      "decision": "Separar visible/durable",
+      "objecion": "Error posterior al enlace no revierte visibilidad",
+      "respuesta": "Inyección fsync archivo/directorio y alcance explícito",
+      "coste": "Recuperación y huérfanos posibles"
+    },
+    {
+      "id": "D3",
+      "decision": "Mantener candidato aislado",
+      "objecion": "Hashes y recuentos aparentan aceptación",
+      "respuesta": "No atestación ni registro activo",
+      "coste": "Contraste del padre y revisión fiscal pendientes"
+    },
+    {
+      "id": "D4",
+      "decision": "Linux/un trabajador",
+      "objecion": "Límite por objeto no acota concurrencia",
+      "respuesta": "Medición del recorrido, sin carga de producción",
+      "coste": "IO bloqueante y custodia local"
+    }
+  ]
+}

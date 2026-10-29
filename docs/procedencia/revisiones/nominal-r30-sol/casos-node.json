@@ -1,0 +1,508 @@
+{
+  "payloadSha256": "ed018d24b02b10d4633c541d8dd17645fc5e27fcd5935c3d76d24f40b6f234d6",
+  "cases": [
+    {
+      "id": "exact",
+      "expected": "pending",
+      "ok": true,
+      "result": {
+        "scope": {
+          "schemaVersion": 2,
+          "decision": {
+            "decisions": {
+              "path": "docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json",
+              "sha256": "49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5"
+            },
+            "decisionId": "MADRID-2020-NOMINAL-53407-20-R29"
+          },
+          "source": {
+            "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+            "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+            "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+            "tablePath": [
+              "madrid",
+              "tramos",
+              "3",
+              "0"
+            ]
+          },
+          "itemId": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+          "inventory": {
+            "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+            "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+          },
+          "year": 2020,
+          "territory": "madrid",
+          "unit": "EUR",
+          "value": "53407.2",
+          "component": "autonomico",
+          "taxBase": "general",
+          "period": "nominal-only",
+          "predicate": "nominal-cell",
+          "externalConditions": [
+            "residence-unverified",
+            "eligibility-unverified"
+          ],
+          "editorialConditions": [
+            "Componente autonómico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.",
+            "Proposición nominal de una sola celda: límite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona período, devengo ni fallecimiento.",
+            "La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaración oficial de errata de AEAT.",
+            "No se acredita búsqueda exhaustiva de reformas y correcciones intermedias, ni nueva validación de la corrección de firma de 2019. Autenticidad histórica y aplicabilidad permanecen indeterminadas.",
+            "No acepta cuotas, tipos, integración, tratamiento liquidatorio de fronteras, redondeos, mínimos, deducciones, deuda, retenciones, liquidación completa ni otros ejercicios.",
+            "La aceptación nominal no acepta el binding nuevo ni su consumidor. Ambos requieren revisión independiente de sus bytes exactos; no heredan atestaciones históricas."
+          ],
+          "completeRuleAcceptance": false,
+          "contract": "reviewed-nominal-v1",
+          "meaning": "Límite superior nominal del cuarto tramo autonómico sobre base liquidable general; quinta fila legal primera columna.",
+          "exclusions": [
+            "cuotas fijas",
+            "tipos",
+            "integración",
+            "redondeos",
+            "mínimos",
+            "deducciones",
+            "liquidación completa",
+            "residencia",
+            "elegibilidad",
+            "selector civil",
+            "otros años",
+            "autenticidad histórica"
+          ]
+        },
+        "bindingReview": "pending",
+        "authenticity": "trust-indeterminate",
+        "applicability": "not-established",
+        "completeRuleAcceptance": false
+      }
+    },
+    {
+      "id": "id-vecino",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "prefijo",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "fila-2",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "fila-4",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "columna-1",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "2022",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "decimal-manual",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "decimal-equivalente",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "unidad",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "componente",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "base",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "contexto-omitido",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "condiciones",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "exclusiones",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "contexto-civil",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "completa",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "extra-payload",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Payload nominal ambiguo"
+    },
+    {
+      "id": "extra-ambito",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Proposición nominal alterada"
+    },
+    {
+      "id": "extra-ref",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Referencia nominal cruzada"
+    },
+    {
+      "id": "omision",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Payload nominal ambiguo"
+    },
+    {
+      "id": "suplantar-padre",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Autoría nominal no independiente"
+    },
+    {
+      "id": "suplantar-revisor",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Autoría nominal no independiente"
+    },
+    {
+      "id": "pin-recalculado",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Ancla nominal no autorizada"
+    },
+    {
+      "id": "duplicado-JSON",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Clave JSON nominal duplicada"
+    },
+    {
+      "id": "duplicado-JSON",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Clave JSON nominal duplicada"
+    },
+    {
+      "id": "escapado-valido",
+      "expected": "pending",
+      "ok": true,
+      "result": {
+        "scope": {
+          "schemaVersion": 2,
+          "decision": {
+            "decisions": {
+              "path": "docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json",
+              "sha256": "49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5"
+            },
+            "decisionId": "MADRID-2020-NOMINAL-53407-20-R29"
+          },
+          "source": {
+            "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+            "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+            "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+            "tablePath": [
+              "madrid",
+              "tramos",
+              "3",
+              "0"
+            ]
+          },
+          "itemId": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+          "inventory": {
+            "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+            "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+          },
+          "year": 2020,
+          "territory": "madrid",
+          "unit": "EUR",
+          "value": "53407.2",
+          "component": "autonomico",
+          "taxBase": "general",
+          "period": "nominal-only",
+          "predicate": "nominal-cell",
+          "externalConditions": [
+            "residence-unverified",
+            "eligibility-unverified"
+          ],
+          "editorialConditions": [
+            "Componente autonómico del IRPF aplicado a la base liquidable general; celda de Madrid identificada como ejercicio 2020, sin acreditar residencia ni elegibilidad.",
+            "Proposición nominal de una sola celda: límite superior del cuarto tramo del motor, 53407.20 EUR; corresponde al inicio de la quinta fila legal, primera columna. No selecciona período, devengo ni fallecimiento.",
+            "La ley conservada imprime 53.407,20 y el Manual Renta 2020 imprime 53.407,29. La discordancia visible se conserva; no se acredita una declaración oficial de errata de AEAT.",
+            "No se acredita búsqueda exhaustiva de reformas y correcciones intermedias, ni nueva validación de la corrección de firma de 2019. Autenticidad histórica y aplicabilidad permanecen indeterminadas.",
+            "No acepta cuotas, tipos, integración, tratamiento liquidatorio de fronteras, redondeos, mínimos, deducciones, deuda, retenciones, liquidación completa ni otros ejercicios.",
+            "La aceptación nominal no acepta el binding nuevo ni su consumidor. Ambos requieren revisión independiente de sus bytes exactos; no heredan atestaciones históricas."
+          ],
+          "completeRuleAcceptance": false,
+          "contract": "reviewed-nominal-v1",
+          "meaning": "Límite superior nominal del cuarto tramo autonómico sobre base liquidable general; quinta fila legal primera columna.",
+          "exclusions": [
+            "cuotas fijas",
+            "tipos",
+            "integración",
+            "redondeos",
+            "mínimos",
+            "deducciones",
+            "liquidación completa",
+            "residencia",
+            "elegibilidad",
+            "selector civil",
+            "otros años",
+            "autenticidad histórica"
+          ]
+        },
+        "bindingReview": "pending",
+        "authenticity": "trust-indeterminate",
+        "applicability": "not-established",
+        "completeRuleAcceptance": false
+      }
+    },
+    {
+      "id": "herencia-atestacion",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Binding nominal requiere revisión pendiente"
+    },
+    {
+      "id": "civil-2019-null",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: La proposición nominal no selecciona ningún contexto civil"
+    },
+    {
+      "id": "civil-2019-2019-06-20",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: La proposición nominal no selecciona ningún contexto civil"
+    },
+    {
+      "id": "civil-2020-null",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: La proposición nominal no selecciona ningún contexto civil"
+    },
+    {
+      "id": "civil-2020-2020-06-20",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: La proposición nominal no selecciona ningún contexto civil"
+    },
+    {
+      "id": "civil-2021-null",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: La proposición nominal no selecciona ningún contexto civil"
+    },
+    {
+      "id": "civil-2021-2021-06-20",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: La proposición nominal no selecciona ningún contexto civil"
+    },
+    {
+      "id": "civil-2022-null",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: La proposición nominal no selecciona ningún contexto civil"
+    },
+    {
+      "id": "civil-2022-2022-06-20",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: La proposición nominal no selecciona ningún contexto civil"
+    },
+    {
+      "id": "lectura-final-337fbe2c075302b019d839dab6029bbc88ee6a90c91b710c70874d9f32db7d2c",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-147b417ed1b904eea488c810d8b755a08c9ad070a59c1f4c8c5680f4a147bb8b",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-795f21666ba26f2abe8809c576c6d1ee884bf4d547d946376c34ab69d1267f61",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-a94c9fd98a24efb39b7681c9a0cefa3cd91702be6bad25f77b41bd3e6a5ed724",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-9ddaab1ca3a55d960b27b0f471535103231eda90eb755fe513a3cd43b1fa5fa4",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-1b6105e74f297c81812718a89cb83dfa4e0e7287f1d3f8a43a857b0a08c8e304",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-5223ed700290d6fb313b03effc96485cc21ff8eea7223bb73542f32098e46b1f",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-70fd639425c3e0245943f3c7078feb9477cad1a75b1a67d77dbceaffa8a5da11",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-365f3255be265b61be8970d72286ee41d038e731d5c10fba0c6ca34486abe5ce",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-5d78e9441c6ee64cb41e1b6d9ff9d9f8bfd28947aef10aedb68cac9597f5c9ca",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-271d69be627e43f4b1a930ffceedcdf3106a505b4e33846dd72f856bd44e8d27",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-af1e03bd4bb2328c68a4534d8c0e404e93b21c40639c7fb202ac8a7d5df34cbe",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-17f0a08e34a02ac6b8740b5671aa997593d40f6ddd076b12227cd1f73e5a324d",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-1aee533890ad7049b8c1bd9a7714aff38c5a022bc4e570f9929e346f376dfa69",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-52e3cca0a231ffdbedc0fe49c4c56069079439fa1d1e717e8aae8e25ad138bf0",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-385edf60c082ef4bd964b00ac93e746bdef90dba7b95b3e7fbf8a3f9e9e957e8",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-3c77463134466991667720756641f3ada7ebd00412e14bfce4d19570ac1c3b24",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-a950ab476b52fc32f97c341895f29dc894e6ac96ca1f91767c3a499d96feaa93",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Bytes nominales alterados"
+    },
+    {
+      "id": "lectura-final-8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Original cambió durante la lectura"
+    },
+    {
+      "id": "lectura-final-2916a4ee52ec0cf6d5c68600fdc1de8604d2eda19db4a8aa3232e23ff34ef8ab",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Original cambió durante la lectura"
+    },
+    {
+      "id": "lectura-final-7784a1bc3fc8d602b9c2ffc334bc4b69e0e5bb24289134adff2396fbee093647",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Original cambió durante la lectura"
+    },
+    {
+      "id": "lectura-final-95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Original cambió durante la lectura"
+    },
+    {
+      "id": "lectura-final-bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "expected": "reject",
+      "ok": true,
+      "error": "Error: Fuente cambió durante la lectura"
+    }
+  ],
+  "failed": []
+}
