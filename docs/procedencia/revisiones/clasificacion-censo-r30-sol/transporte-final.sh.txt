@@ -1,0 +1,8 @@
+set -eu
+export PYTHONDONTWRITEBYTECODE=1
+export RUFF_CACHE_DIR="$PWD/.cache/revision-clasificacion-r30/ruff"
+out=docs/procedencia/revisiones/clasificacion-censo-r30-sol
+ruff check "$out/entrega.py"
+ruff format --check "$out/entrega.py"
+mypy --follow-imports=skip --ignore-missing-imports --check-untyped-defs --cache-dir "$PWD/.cache/revision-clasificacion-r30/mypy" "$out/entrega.py"
+python3 "$out/entrega.py"

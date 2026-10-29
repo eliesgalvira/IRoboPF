@@ -1,0 +1,16 @@
+{
+  "head":"376fb100512ca6a2f975c3c9500a20ee375dd431",
+  "reviewer":{"runtime":"T3 Code / Codex","model":"gpt-6.1-sol","reasoningEffort":"high","priorityRequested":true,"schedulerIndependentlyAttested":false},
+  "findings":[
+    {"id":"CL01","status":"correccion-puntual-corroborada-candidata","evidence":["caso-real.json","pruebas-padre-antes.json","pruebas-padre-actual.json"],"parentContrastRequired":true},
+    {"id":"RC30-01","severity":"P2","status":"mismatch-candidato","cases":["origen-documental","origen-indeterminado"],"reason":"sourceSha256 no identifica necesariamente código; el corpus conserva orígenes editoriales y previos al saneamiento","regression":"prioridad nueva delante de URL; inferencia sin URL ya era insuficiente","evidence":["casos.json","semantica-source.json","congelado.json"]},
+    {"id":"RC30-02","severity":"P2-acotado","status":"limite-previo-conservado","cases":["documento-en-facsimil"],"reason":"ancestro facsimiles domina incluso campo documentSha256; sonda sintética, no frecuencia ni defecto fiscal demostrado","regression":false,"evidence":["casos.json"]}
+  ],
+  "privacyResiduals":["localizador dentro de prosa","FILE:// en mayúsculas"],
+  "privacyClosed":false,
+  "distributionAuthorized":false,
+  "fiscalAcceptance":false,
+  "globalTaskClosed":false,
+  "productFixes":false,
+  "parentContrastRequired":true
+}

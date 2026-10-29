@@ -19,7 +19,7 @@ OLD = Path(
 )
 HASH = re.compile("[0-9a-f]{64}")
 POLICY = {
-    "version": "v5-r26-clasificacion-r30",
+    "version": "v5-r26-clasificacion-r31",
     "unit": "campo hash tipado y contexto estructural, no expresión regular global",
     "privacy": "clean v4 R26 policy2; originales intactos; no certificación universal",
     "unknown": "formas ambiguas no acreditan exhaustividad documental",
@@ -34,6 +34,47 @@ POLICY = {
 
 def write(path, value):
     path.write_bytes(c.p.encoded(value))
+
+
+def origin_kind(row):
+    """Contrato acotado de origen: la ruta de destino no sustituye a source."""
+    explicit = [row[k] for k in ("source", "sourcePath", "sourceFile") if k in row]
+    paths = explicit if explicit else [row.get("path")]
+    if any(not isinstance(p, str) or not p for p in paths):
+        return "desconocido"
+    if len(set(paths)) != 1:
+        return "desconocido"
+    path = Path(paths[0])
+    if path.is_absolute() or ".." in path.parts or "\\" in paths[0] or ":" in paths[0]:
+        return "desconocido"
+    suffix = path.suffix.casefold()
+    mime = row.get("sourceMimeType", row.get("mimeType", ""))
+    if not isinstance(mime, str):
+        return "desconocido"
+    mime = mime.partition(";")[0].strip().casefold()
+    if suffix == ".pdf" and mime in ("", "application/pdf"):
+        return "desconocido-documental"
+    if suffix in {
+        ".ts",
+        ".tsx",
+        ".js",
+        ".mjs",
+        ".cjs",
+        ".py",
+        ".rs",
+        ".sh",
+    } and mime in ("", "text/plain"):
+        return "fuente-software"
+    return "desconocido"
+
+
+def documentary_kind(url, row):
+    return (
+        "captura-secundaria-URL-oficial"
+        if "web.archive.org" in str(url)
+        or "web.archive.org" in str(row.get("finalUrl"))
+        else "original-oficial"
+    )
 
 
 def classify(name, pointer, row, key):
@@ -72,10 +113,13 @@ def classify(name, pointer, row, key):
         "extractedtexthash",
     }:
         return "texto-extraido", "huella textual derivada; no bytes del original"
+    if field in {"sourcesha256", "sourcehash"}:
+        return origin_kind(
+            row
+        ), "origen según ruta/tipo declarados; sin contexto suficiente, desconocido"
     if any(
         x in field
         for x in (
-            "source",
             "software",
             "code",
             "schema",
@@ -85,25 +129,30 @@ def classify(name, pointer, row, key):
         )
     ) or field in {"filesha256", "filehash"}:
         return "fuente-software", "identidad técnica declarada por campo"
+    # Un campo documental no pasa a identificar el recorte por su ancestro.
+    if any(x in field for x in ("document", "original")):
+        if c.url(url) and field in {
+            "documentsha256",
+            "documenthash",
+            "originalsha256",
+            "originalhash",
+        }:
+            return documentary_kind(
+                url, row
+            ), "campo documental y URL admitida; no autenticidad jurídica"
+        return (
+            "desconocido-documental",
+            "referencia documental; requiere resolver su contrato",
+        )
     if any(x in key.lower() for x in ("facsim", "crop")) or any(
         x in pointer.lower() for x in ("facsim", "receta")
     ):
         return "facsimil-receta", "campo/ancestro de facsímil o receta"
-    if c.url(url) and field in {
-        "sha256",
-        "hash",
-        "documentsha256",
-        "documenthash",
-        "originalsha256",
-        "originalhash",
-    }:
-        return (
-            "captura-secundaria-URL-oficial"
-            if "web.archive.org" in str(url)
-            or "web.archive.org" in str(row.get("finalUrl"))
-            else "original-oficial"
-        ), "campo documental/adquisición y URL admitida; no autenticidad jurídica"
-    if any(x in key.lower() for x in ("document", "original")) or any(
+    if c.url(url) and field in {"sha256", "hash"}:
+        return documentary_kind(
+            url, row
+        ), "campo de adquisición y URL admitida; no autenticidad jurídica"
+    if any(
         x in pointer.lower().split("/") for x in ("original", "document", "documento")
     ):
         return (
@@ -120,19 +169,6 @@ def classify(name, pointer, row, key):
         for x in ("attest", "atest", "snapshot", "/revisiones/", "/correcciones/")
     ):
         return "atestacion-caso-tecnico", "estructura técnica; no aceptación"
-    if any(
-        x in key.lower()
-        for x in (
-            "source",
-            "software",
-            "code",
-            "schema",
-            "base",
-            "inventory",
-            "artifact",
-        )
-    ):
-        return "fuente-software", "identidad técnica declarada por campo"
     return "desconocido", "campo hash sin semántica documental suficiente"
 
 
@@ -163,6 +199,10 @@ def observations(value, name, pointer=""):
                                 "canonicalUrl",
                                 "finalUrl",
                                 "mimeType",
+                                "sourceMimeType",
+                                "source",
+                                "sourcePath",
+                                "sourceFile",
                                 "page",
                                 "pagina",
                                 "path",
