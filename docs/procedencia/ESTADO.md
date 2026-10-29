@@ -54,6 +54,14 @@ Todavía no se ha eliminado ninguna copia temporal. La eliminación de `/home/el
 
 Elies avisó de 239 borrados en el índice Git de `t3-3d3cd9a7`. La inspección del orquestador confirma 239 archivos y 174.516 líneas marcados como borrados en el índice; el diff de commits contra la base `d4d708f6` está vacío. No se ha integrado ninguna entrega de código de esta ronda. Se ha enviado la corrección a los 18 delegados, con entrega confirmada por T3: no inicializar JJ dentro de checkouts Git de T3, no hacer commits con el índice anómalo y continuar editando sin mutaciones VCS. La regla queda en COORDINACION.md y en las instrucciones de futuras delegaciones. Se inspeccionará cada diff y cada borrado antes de integrar. No se ha ejecutado ningún reset ni borrado para reparar esta incidencia.
 
+Comprobación de disco: los tres checkouts conservan los 239 archivos de la base, sin ausencias. Los índices de `t3-5be43c93` y `t3-bddec546` contienen los 239 archivos y no tienen borrados preparados. Los tres árboles comprometidos siguen iguales a la base; sus ediciones aún en disco deberán compararse aparte al entregar. La corrección operativa y el registro de delegaciones quedaron respaldados en origin en `43b5ac34`.
+
+## Entrega de corrección de lint: pendiente de contrarrevisión
+
+El delegado entregó un parche de 29 archivos contra `d4d708f6`, sin commit. El orquestador cotejó los hashes de cada archivo original, entregado y actual del padre: 29 comprobaciones correctas, cero borrados y cero conflictos con cambios del padre. El parche y manifiesto se conservan en `entregas/` para no depender de `/tmp` ni del índice anómalo.
+
+Según la ejecución del delegado: lint sin diagnósticos, typecheck y ensayo anti-slop correctos; suite ampliada 177 pruebas correctas y una omitida; suite CI cinco correctas. Estos resultados aún requieren revisión e integración del orquestador. El parche no está aplicado al motor principal. Se encarga revisión independiente de preservación de comportamiento, contratos de entrada, esquema de fixtures y adaptadores de exportación/gráficos. La revisión fiscal continúa separadamente.
+
 ## Bootstrap anti-slop completado
 
 Runtime v0.1.2 verificado, incorporado con licencia y hashes, 16 reglas a error y oxlint 1.78.0 junto a ESLint. CI nueva con límite de 15 minutos y ejecución secuencial, sin build ni suite legacy pesada. Typecheck, humo del plugin y 5 pruebas seleccionadas pasan; ESLint pasa. Lint global falla con 96 errores preexistentes en 25 archivos, registrados en [LINT.md](LINT.md) y `lint/`. No se modificó el motor ni se validó cifra fiscal alguna. Auditoría documental desbloqueada; corrección de deuda pendiente de reparto por archivo. Integración y respaldo corresponden al orquestador. No se borró contexto ni Reactivity.
