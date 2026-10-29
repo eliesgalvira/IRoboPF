@@ -232,6 +232,8 @@ export function evaluarNacimientoMadrid(
 ): ResultadoDeduccion {
   if (!ambitoValido(contexto, "madrid"))
     return noSoportado("Solo Madrid, ejercicio 2025")
+  if (!Number.isInteger(evento.ejercicio))
+    return noSoportado("Año del evento no entero o no finito")
   if (
     !identidadesValidas(evento.hijos) ||
     !identidadesValidas(evento.progenitoresConvivientes) ||
@@ -402,7 +404,7 @@ export function evaluarCeliaquiaRioja(
         persona.relacion === "descendiente") &&
       !persona.titularesDelMinimo.includes(contexto.contribuyente)
     )
-      return excluida("Sin derecho al mínimo por esta persona")
+      continue
     if (
       persona.relacion === "contribuyente" &&
       persona.id !== contexto.contribuyente
@@ -429,8 +431,7 @@ export function evaluarCeliaquiaRioja(
       !Number.isFinite(Date.parse(certificado.fechaEmision))
     )
       return noSoportado("Fechas del certificado inválidas")
-    if (certificado.fechaDiagnostico > "2025-12-31")
-      return excluida("Diagnóstico posterior al ejercicio")
+    if (certificado.fechaDiagnostico > "2025-12-31") continue
     total = total.plus(new Decimal(250).div(persona.titularesDeduccion.length))
   }
   return importe(
@@ -581,6 +582,8 @@ export function totalDeduccionesEvaluadas(
     if ("importe" in resultado) total = total.plus(resultado.importe)
     if (resultado.estado === "importe_externo") externo = true
   }
+  if (!externo && ambito.ejercicio !== 2025)
+    return noSoportado("Sin evaluación automática fuera del catálogo 2025")
   return importe(
     externo ? "importe_externo" : "evaluacion_automatica",
     total,

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "AEI-01",
+    "priority": "P2",
+    "status": "mismatch",
+    "review": {
+      "status": "candidato-pendiente-decision-padre",
+      "reviewer": "revision-actividades-implementacion"
+    },
+    "title": "Justificante RETA fuera del control entre diarios",
+    "engineLocations": [
+      {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "line": 214
+      }
+    ],
+    "caseId": "RETA-gasto-mismo-justificante",
+    "expected": "no-soportado",
+    "observed": "soportado; aporte -600",
+    "proposal": "Rechazar contradicción o representar operación económica sin prohibir PDFs con varias operaciones.",
+    "years": [
+      2025
+    ],
+    "territories": [
+      "comun"
+    ],
+    "legacyComparison": "No procede oracle salarial",
+    "autofix": false
+  },
+  {
+    "id": "AEI-02",
+    "priority": "P2",
+    "status": "mismatch",
+    "review": {
+      "status": "candidato-pendiente-decision-padre",
+      "reviewer": "revision-actividades-implementacion"
+    },
+    "title": "Acumulada incompatible con historia lineal",
+    "engineLocations": [
+      {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "line": 297
+      }
+    ],
+    "caseId": "activo-historia-imposible",
+    "expected": "no-soportado",
+    "observed": "soportado; amortizacion 1",
+    "proposal": "Validar coherencia histórica mínima; no reconstruir silenciosamente un saldo fiscal.",
+    "years": [
+      2025
+    ],
+    "territories": [
+      "comun"
+    ],
+    "legacyComparison": "No procede oracle salarial",
+    "autofix": false
+  },
+  {
+    "id": "AEI-03",
+    "priority": "P3",
+    "status": "mismatch",
+    "review": {
+      "status": "candidato-pendiente-decision-padre",
+      "reviewer": "revision-actividades-implementacion"
+    },
+    "title": "Coeficientes iguales rechazados por escala decimal",
+    "engineLocations": [
+      {
+        "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+        "line": 289
+      }
+    ],
+    "caseId": "coef-igual-distinta-escala",
+    "expected": "soportado; amortizacion 260",
+    "observed": "no-soportado",
+    "proposal": "Comparación numérica con validación previa del coeficiente histórico.",
+    "years": [
+      2025
+    ],
+    "territories": [
+      "comun"
+    ],
+    "legacyComparison": "No procede oracle salarial",
+    "autofix": false
+  }
+]

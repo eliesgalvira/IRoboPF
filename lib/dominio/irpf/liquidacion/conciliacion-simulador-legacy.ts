@@ -13,6 +13,11 @@ import { calcularCuotaPorEscala } from "../cuotas/escalas-gravamen"
 import { calcularReduccionRendimientosTrabajo } from "../reducciones/reduccion-rendimientos-trabajo"
 
 export interface ConciliacionSimuladorLegacy {
+  readonly modoCuotaOrigen: "canonico" | "compatible-legacy"
+  readonly naturaleza:
+    | "reconstruccion-legacy-hasta-2014"
+    | "ajuste-salarial-de-cuota-suministrada"
+  readonly oraculoLegacyIndependiente: false
   readonly _tag: "ConciliacionSimuladorLegacy"
   readonly anio: AnioFiscal
   readonly cuotaLiquidadaAnualCentimos: number
@@ -94,6 +99,7 @@ const calcularIrpfFinalSimuladorLegacyHasta2014 = ({
 }
 
 export const calcularConciliacionSimuladorLegacy = ({
+  modoCuotaOrigen = "compatible-legacy",
   anio,
   rendimientoIntegroTrabajoCentimos,
   cuotaLiquida,
@@ -101,6 +107,7 @@ export const calcularConciliacionSimuladorLegacy = ({
   cuotaDiferencialCentimos,
   limiteRetencionNominaCentimos,
 }: {
+  readonly modoCuotaOrigen?: "canonico" | "compatible-legacy"
   readonly anio: AnioFiscal
   readonly rendimientoIntegroTrabajoCentimos: number
   readonly cuotaLiquida: Decimal
@@ -143,6 +150,12 @@ export const calcularConciliacionSimuladorLegacy = ({
       const irpfFinalSimuladorCentimos = eurosACentimos(irpfFinalSimulador)
 
       return {
+        modoCuotaOrigen,
+        naturaleza:
+          anio <= 2014
+            ? "reconstruccion-legacy-hasta-2014"
+            : "ajuste-salarial-de-cuota-suministrada",
+        oraculoLegacyIndependiente: false,
         _tag: "ConciliacionSimuladorLegacy",
         anio,
         cuotaLiquidadaAnualCentimos: cuotaLiquidaCentimos,

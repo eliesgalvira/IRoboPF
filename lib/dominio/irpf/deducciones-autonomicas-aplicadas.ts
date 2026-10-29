@@ -2,7 +2,8 @@ import {
   filtrarEntradasPorAmbito,
   type AmbitoDeducciones,
 } from "./deducciones/ambito"
-import { Array as EffectArray, Match, Option } from "effect"
+import { Array as EffectArray, Match, Option, Schema } from "effect"
+import Decimal from "decimal.js"
 
 import {
   DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS,
@@ -75,6 +76,28 @@ export const ENTRADAS_DEDUCCIONES_INICIALES = {
   catalunyaVictimaViolenciaMachista: false,
   catalunyaAlquilerIncrementado: false,
   catalunyaAportacionesCooperativas: 0,
+}
+
+/** Solo importes escritos expresamente. Las fórmulas parciales no se aplican. */
+export function calcularDeduccionesConsignadas(
+  originales: EntradasDeduccionesAutonomicas,
+  ambito: AmbitoDeducciones
+): number {
+  const entradas = filtrarEntradasPorAmbito(originales, ambito)
+  let total = new Decimal(0)
+  for (const [clave, valor] of Object.entries(entradas)) {
+    if (!clave.endsWith(":importe")) continue
+    const codigo = clave.slice(0, -":importe".length)
+    if (entradas[`${codigo}:cumple`] !== true) continue
+    if (
+      !Schema.is(Schema.Number)(valor) ||
+      !Number.isFinite(valor) ||
+      valor < 0
+    )
+      throw new RangeError("Consignación no finita, negativa o no numérica")
+    total = total.plus(valor)
+  }
+  return total.toDecimalPlaces(2).toNumber()
 }
 
 export const numeroDeduccion = (

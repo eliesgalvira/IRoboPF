@@ -1,0 +1,590 @@
+[
+  {
+    "siteId": "anual.trabajo.integro",
+    "unidad": "EUR",
+    "titulo": "Rendimiento íntegro del trabajo",
+    "expresion": "rendimientoTrabajo.rendimientoIntegro",
+    "formula": "\"Suma de importes declarados como trabajo\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":28597,\"fin\":28923,\"siteId\":\"anual.trabajo.integro\"}"
+    }
+  },
+  {
+    "siteId": "anual.trabajo.cotizacion",
+    "unidad": "EUR",
+    "titulo": "Cotización deducible del trabajador",
+    "expresion": "rendimientoTrabajo.cotizacionTrabajador",
+    "formula": "\"Cotizaciones sociales calculadas para el salario anual\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":28937,\"fin\":29286,\"siteId\":\"anual.trabajo.cotizacion\"}"
+    }
+  },
+  {
+    "siteId": "anual.trabajo.previo-neto",
+    "unidad": "EUR",
+    "titulo": "Rendimiento previo neto",
+    "expresion": "rendimientoTrabajo.rendimientoPrevioNeto",
+    "formula": "`${euros(rendimientoTrabajo.rendimientoIntegro)} - ${euros(rendimientoTrabajo.cotizacionTrabajador)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":29300,\"fin\":29684,\"siteId\":\"anual.trabajo.previo-neto\"}"
+    }
+  },
+  {
+    "siteId": "anual.trabajo.gastos",
+    "unidad": "EUR",
+    "titulo": "Gastos deducibles aplicados",
+    "expresion": "rendimientoTrabajo.gastosDeducibles",
+    "formula": "\"Gasto fijo del rendimiento del trabajo\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":29698,\"fin\":30015,\"siteId\":\"anual.trabajo.gastos\"}"
+    }
+  },
+  {
+    "siteId": "anual.trabajo.neto",
+    "unidad": "EUR",
+    "titulo": "Rendimiento neto del trabajo",
+    "expresion": "rendimientoTrabajo.rendimientoNeto",
+    "formula": "`max(0, ${euros(rendimientoTrabajo.rendimientoPrevioNeto)} - ${euros(rendimientoTrabajo.gastosDeducibles)})`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":30029,\"fin\":30412,\"siteId\":\"anual.trabajo.neto\"}"
+    }
+  },
+  {
+    "siteId": "anual.trabajo.reduccion",
+    "unidad": "EUR",
+    "titulo": "Reducción por rendimientos del trabajo",
+    "expresion": "reduccionRendimientosTrabajo",
+    "formula": "`Reducción estatal; otras rentas netas no exentas antes de compensaciones: ${euros(otrasRentasNoExentas)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":30426,\"fin\":30816,\"siteId\":\"anual.trabajo.reduccion\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.base",
+    "unidad": "EUR",
+    "titulo": "Base ordinaria de cotización",
+    "expresion": "cotizacionesSociales.baseOrdinaria",
+    "formula": "contexto.modo === \"canonico\"\n                  ? \"Suma de doce bases mensuales uniformes, limitadas por el tope vigente en cada mes\"\n                  : \"min(rendimiento íntegro del trabajo, base máxima anual legacy)\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":31566,\"fin\":32069,\"siteId\":\"anual.ss.base\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.exceso",
+    "unidad": "EUR",
+    "titulo": "Exceso sobre base máxima",
+    "expresion": "cotizacionesSociales.excesoBase",
+    "formula": "\"max(0, rendimiento íntegro del trabajo - base ordinaria aplicada)\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":32083,\"fin\":32431,\"siteId\":\"anual.ss.exceso\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.empresarial-ordinaria",
+    "unidad": "EUR",
+    "titulo": "Cotización empresarial ordinaria",
+    "expresion": "cotizacionesSociales.cotizacionEmpresarialOrdinaria",
+    "formula": "\"Base ordinaria x tipos empresariales sin MEI ni solidaridad\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":32445,\"fin\":32830,\"siteId\":\"anual.ss.empresarial-ordinaria\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.trabajador-ordinaria",
+    "unidad": "EUR",
+    "titulo": "Cotización del trabajador ordinaria",
+    "expresion": "cotizacionesSociales.cotizacionTrabajadorOrdinaria",
+    "formula": "\"Base ordinaria x tipos del trabajador sin MEI ni solidaridad\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":32844,\"fin\":33231,\"siteId\":\"anual.ss.trabajador-ordinaria\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.mei-empresarial",
+    "unidad": "EUR",
+    "titulo": "MEI empresarial",
+    "expresion": "cotizacionesSociales.meiEmpresarial",
+    "formula": "\"Base ordinaria x tipo empresarial del MEI\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":33245,\"fin\":33557,\"siteId\":\"anual.ss.mei-empresarial\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.mei-trabajador",
+    "unidad": "EUR",
+    "titulo": "MEI del trabajador",
+    "expresion": "cotizacionesSociales.meiTrabajador",
+    "formula": "\"Base ordinaria x tipo del trabajador del MEI\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":33571,\"fin\":33887,\"siteId\":\"anual.ss.mei-trabajador\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.solidaridad-empresarial",
+    "unidad": "EUR",
+    "titulo": "Solidaridad empresarial",
+    "expresion": "cotizacionesSociales.solidaridadEmpresarial",
+    "formula": "contexto.modo === \"canonico\"\n                  ? \"Suma de excesos por los tipos empresariales publicados de cada tramo\"\n                  : \"5/6 de la cuota adicional de solidaridad\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":33901,\"fin\":34392,\"siteId\":\"anual.ss.solidaridad-empresarial\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.solidaridad-trabajador",
+    "unidad": "EUR",
+    "titulo": "Solidaridad del trabajador",
+    "expresion": "cotizacionesSociales.solidaridadTrabajador",
+    "formula": "contexto.modo === \"canonico\"\n                  ? \"Suma de excesos por los tipos del trabajador publicados de cada tramo\"\n                  : \"1/6 de la cuota adicional de solidaridad\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":34406,\"fin\":34899,\"siteId\":\"anual.ss.solidaridad-trabajador\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.empresarial-total",
+    "unidad": "EUR",
+    "titulo": "Cotización empresarial total",
+    "expresion": "cotizacionesSociales.cotizacionEmpresarial",
+    "formula": "\"Ordinaria empresarial + MEI empresarial + solidaridad empresarial\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":34913,\"fin\":35287,\"siteId\":\"anual.ss.empresarial-total\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.trabajador-total",
+    "unidad": "EUR",
+    "titulo": "Cotización total del trabajador",
+    "expresion": "cotizacionesSociales.cotizacionTrabajador",
+    "formula": "\"Ordinaria trabajador + MEI trabajador + solidaridad trabajador\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":35301,\"fin\":35673,\"siteId\":\"anual.ss.trabajador-total\"}"
+    }
+  },
+  {
+    "siteId": "anual.ss.coste-laboral",
+    "unidad": "EUR",
+    "titulo": "Coste laboral",
+    "expresion": "rendimientoIntegroTrabajo.plus(\n                cotizacionesSociales.cotizacionEmpresarial\n              )",
+    "formula": "\"Rendimiento íntegro del trabajo + cotización empresarial\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":35687,\"fin\":36097,\"siteId\":\"anual.ss.coste-laboral\"}"
+    }
+  },
+  {
+    "siteId": "anual.inmobiliario.integro",
+    "unidad": "EUR",
+    "titulo": "Rendimiento íntegro de capital inmobiliario",
+    "expresion": "rendimientoCapitalInmobiliario.rendimientoIntegro",
+    "formula": "\"Suma de importes declarados en el formulario\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":36814,\"fin\":37173,\"siteId\":\"anual.inmobiliario.integro\"}"
+    }
+  },
+  {
+    "siteId": "anual.inmobiliario.neto",
+    "unidad": "EUR",
+    "titulo": "Rendimiento neto simplificado",
+    "expresion": "rendimientoCapitalInmobiliario.rendimientoNeto",
+    "formula": "\"Sin gastos, amortizaciones ni reducciones específicas todavía implementadas\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":37187,\"fin\":37573,\"siteId\":\"anual.inmobiliario.neto\"}"
+    }
+  },
+  {
+    "siteId": "anual.base.general-imponible",
+    "unidad": "EUR",
+    "titulo": "Base imponible general",
+    "expresion": "baseImponibleGeneral",
+    "formula": "`max(0, ${euros(rendimientoTrabajo.rendimientoNeto)} - ${euros(reduccionRendimientosTrabajo)}) + ${euros(rendimientoCapitalInmobiliario.rendimientoNeto)} + ${euros(gananciasPatrimoniales.gananciaSujetaGeneral)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":38152,\"fin\":38628,\"siteId\":\"anual.base.general-imponible\"}"
+    }
+  },
+  {
+    "siteId": "anual.base.general-liquidable",
+    "unidad": "EUR",
+    "titulo": "Base liquidable general",
+    "expresion": "baseLiquidableGeneral",
+    "formula": "\"Base imponible general sin reducciones de base aplicadas\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":38642,\"fin\":38984,\"siteId\":\"anual.base.general-liquidable\"}"
+    }
+  },
+  {
+    "siteId": "anual.minimo.contribuyente",
+    "unidad": "EUR",
+    "titulo": "Mínimo del contribuyente",
+    "expresion": "minimoContribuyente",
+    "formula": "`Edad del contribuyente: ${caso.situacionFamiliar.edad}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":38998,\"fin\":39318,\"siteId\":\"anual.minimo.contribuyente\"}"
+    }
+  },
+  {
+    "siteId": "anual.minimo.ascendientes",
+    "unidad": "EUR",
+    "titulo": "Mínimo por ascendientes",
+    "expresion": "minimoAscendientes",
+    "formula": "`${caso.situacionFamiliar.ascendientes.length} ascendiente(s) declarados; se aplican las condiciones de edad y discapacidad modeladas`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":39332,\"fin\":39727,\"siteId\":\"anual.minimo.ascendientes\"}"
+    }
+  },
+  {
+    "siteId": "anual.minimo.descendientes",
+    "unidad": "EUR",
+    "titulo": "Mínimo por descendientes",
+    "expresion": "minimoDescendientes",
+    "formula": "`${caso.situacionFamiliar.descendientes.length} descendiente(s) declarados; se filtra edad y discapacidad antes de ordenar`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":39741,\"fin\":40128,\"siteId\":\"anual.minimo.descendientes\"}"
+    }
+  },
+  {
+    "siteId": "anual.minimo.estatal",
+    "unidad": "EUR",
+    "titulo": "Mínimo personal y familiar",
+    "expresion": "minimoPersonalYFamiliar",
+    "formula": "`${euros(minimoContribuyente)} + ${euros(minimoDescendientes)} + ${euros(minimoAscendientes)} + ${euros(minimoDiscapacidadContribuyente)} + ${euros(minimoDiscapacidadFamiliares)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":40142,\"fin\":40585,\"siteId\":\"anual.minimo.estatal\"}"
+    }
+  },
+  {
+    "siteId": "anual.minimo.autonomico",
+    "unidad": "EUR",
+    "titulo": "Mínimo personal y familiar autonómico",
+    "expresion": "minimoPersonalYFamiliarAutonomico",
+    "formula": "parametrosComunidad.minimoAutonomicoIgualEstatal\n                ? \"Coincide con el mínimo estatal\"\n                : `Minimos autonomicos IRPF ${caso.anio} de ${parametrosComunidad.escalaAutonomica.nombre}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":40599,\"fin\":41094,\"siteId\":\"anual.minimo.autonomico\"}"
+    }
+  },
+  {
+    "siteId": "anual.minimo.discapacidad",
+    "unidad": "EUR",
+    "titulo": "Mínimo por discapacidad",
+    "expresion": "minimoDiscapacidadContribuyente.plus(\n                minimoDiscapacidadFamiliares\n              )",
+    "formula": "\"Contribuyente, descendientes y ascendientes con discapacidad computados\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":41108,\"fin\":41538,\"siteId\":\"anual.minimo.discapacidad\"}"
+    }
+  },
+  {
+    "siteId": "anual.ganancias.total",
+    "unidad": "EUR",
+    "titulo": "Ganancias patrimoniales declaradas",
+    "expresion": "gananciasPatrimoniales.gananciaTotal",
+    "formula": "\"Suma de ganancias por transmisión\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":42192,\"fin\":42513,\"siteId\":\"anual.ganancias.total\"}"
+    }
+  },
+  {
+    "siteId": "anual.ganancias.exenta",
+    "unidad": "EUR",
+    "titulo": "Ganancia patrimonial exenta",
+    "expresion": "gananciasPatrimoniales.gananciaExenta",
+    "formula": "\"Exenciones modeladas por mayores de 65 años y por inmuebles urbanos adquiridos en la ventana de 2012, con límites de concurrencia\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":42527,\"fin\":42955,\"siteId\":\"anual.ganancias.exenta\"}"
+    }
+  },
+  {
+    "siteId": "anual.base.ahorro",
+    "unidad": "EUR",
+    "titulo": "Base liquidable del ahorro",
+    "expresion": "baseLiquidableAhorro",
+    "formula": "`max(0, ganancias sujetas clasificadas como ahorro: ${euros(gananciasPatrimoniales.gananciaSujetaAhorro)})`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":42969,\"fin\":43334,\"siteId\":\"anual.base.ahorro\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.general-estatal-tramo",
+    "unidad": "EUR",
+    "titulo": "Paso del cálculo anual.cuota.general-estatal-tramo",
+    "expresion": "tramo.cuota",
+    "formula": "`${tramo.cuotaFija === undefined ? \"\" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":45542,\"fin\":46141,\"siteId\":\"anual.cuota.general-estatal-tramo\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.general-autonomica-tramo",
+    "unidad": "EUR",
+    "titulo": "Paso del cálculo anual.cuota.general-autonomica-tramo",
+    "expresion": "tramo.cuota",
+    "formula": "`${tramo.cuotaFija === undefined ? \"\" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":46247,\"fin\":46763,\"siteId\":\"anual.cuota.general-autonomica-tramo\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.general-total",
+    "unidad": "EUR",
+    "titulo": "Cuota íntegra general",
+    "expresion": "cuotaIntegraGeneral",
+    "formula": "usaEscalaAutonomicaReal\n                ? \"Suma de cuota estatal general y cuota autonómica general\"\n                : \"Suma de cuotas por tramo\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":46791,\"fin\":47196,\"siteId\":\"anual.cuota.general-total\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.minimo-estatal-tramo",
+    "unidad": "EUR",
+    "titulo": "Paso del cálculo anual.cuota.minimo-estatal-tramo",
+    "expresion": "tramo.cuota",
+    "formula": "`${tramo.cuotaFija === undefined ? \"\" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":47927,\"fin\":48539,\"siteId\":\"anual.cuota.minimo-estatal-tramo\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.minimo-autonomico-tramo",
+    "unidad": "EUR",
+    "titulo": "Paso del cálculo anual.cuota.minimo-autonomico-tramo",
+    "expresion": "tramo.cuota",
+    "formula": "`${tramo.cuotaFija === undefined ? \"\" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":48645,\"fin\":49167,\"siteId\":\"anual.cuota.minimo-autonomico-tramo\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.minimo-general-total",
+    "unidad": "EUR",
+    "titulo": "Cuota del mínimo personal y familiar",
+    "expresion": "cuotaMinimoPersonal",
+    "formula": "\"Suma de cuotas por tramo del mínimo\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":49195,\"fin\":49514,\"siteId\":\"anual.cuota.minimo-general-total\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.ahorro-tramo",
+    "unidad": "EUR",
+    "titulo": "Paso del cálculo anual.cuota.ahorro-tramo",
+    "expresion": "tramo.cuota",
+    "formula": "`${tramo.cuotaFija === undefined ? \"\" : `${euros(tramo.cuotaFija)} + `}${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":50284,\"fin\":50737,\"siteId\":\"anual.cuota.ahorro-tramo\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.ahorro-total",
+    "unidad": "EUR",
+    "titulo": "Cuota íntegra del ahorro",
+    "expresion": "cuotaIntegraAhorro",
+    "formula": "\"Suma de cuotas por tramo\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":50765,\"fin\":51052,\"siteId\":\"anual.cuota.ahorro-total\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.ahorro-componente-postminimo",
+    "unidad": "EUR",
+    "titulo": "Paso del cálculo anual.cuota.ahorro-componente-postminimo",
+    "expresion": "componente.despuesMinimo",
+    "formula": "caso.anio <= 2014\n                    ? `F ${nombre}(${euros(baseLiquidableAhorro)} − ${euros(componente.remanente)})`\n                    : `F ${nombre}(${euros(baseLiquidableAhorro)}) − F ${nombre}(${euros(componente.remanente)})`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":51294,\"fin\":51857,\"siteId\":\"anual.cuota.ahorro-componente-postminimo\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.minimo-ahorro-total",
+    "unidad": "EUR",
+    "titulo": "Minoración total por mínimos en el ahorro",
+    "expresion": "cuotaMinimoPersonalAhorro",
+    "formula": "caso.anio <= 2014\n                  ? \"Suma por componente de F(base) − F(base − remanente)\"\n                  : \"F estatal(remanente estatal) + F autonómica(remanente autonómico)\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":51885,\"fin\":52373,\"siteId\":\"anual.cuota.minimo-ahorro-total\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.liquida",
+    "unidad": "EUR",
+    "titulo": "Cuota líquida",
+    "expresion": "cuotaLiquida",
+    "formula": "`max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(deduccionesAutonomicasAplicadas)})`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":53129,\"fin\":53494,\"siteId\":\"anual.cuota.liquida\"}"
+    }
+  },
+  {
+    "siteId": "anual.deducciones.autonomicas",
+    "unidad": "EUR",
+    "titulo": "Deducciones autonómicas aplicadas",
+    "expresion": "deduccionesAutonomicasAplicadas",
+    "formula": "usaEscalaAutonomicaReal\n                ? `${deduccionesAutonomicasDescripcion(caso)}; límite por cuota autonómica general más ahorro disponible ${euros(cuotaAutonomicaGeneralDespuesMinimo.plus(ahorroConMinimos.autonomico.despuesMinimo))}`\n                : deduccionesAutonomicasDescripcion(caso)",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":53508,\"fin\":54093,\"siteId\":\"anual.deducciones.autonomicas\"}"
+    }
+  },
+  {
+    "siteId": "anual.pagos.retenciones",
+    "unidad": "EUR",
+    "titulo": "Retenciones soportadas",
+    "expresion": "centimosAEuros(caso.retencionesSoportadasCentimos)",
+    "formula": "\"Importe declarado en el caso fiscal\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":54107,\"fin\":54434,\"siteId\":\"anual.pagos.retenciones\"}"
+    }
+  },
+  {
+    "siteId": "anual.pagos.cuenta",
+    "unidad": "EUR",
+    "titulo": "Pagos a cuenta",
+    "expresion": "centimosAEuros(pagosACuentaAplicadosCentimos)",
+    "formula": "retencionTrabajoAeat !== undefined\n                  ? \"Importe declarado más retención de trabajo estimada\"\n                  : \"Importe declarado en el caso fiscal\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":54448,\"fin\":54902,\"siteId\":\"anual.pagos.cuenta\"}"
+    }
+  },
+  {
+    "siteId": "anual.cuota.diferencial",
+    "unidad": "EUR",
+    "titulo": "Cuota diferencial",
+    "expresion": "centimosAEuros(\n                calcularCuotaDiferencialCentimos({\n                  cuotaLiquidaCentimos:\n                    importesLiquidacion.cuotaLiquidaCentimos,\n                  pagosACuentaCentimos: pagosACuentaAplicadosCentimos,\n                  retencionesSoportadasCentimos:\n                    caso.retencionesSoportadasCentimos,\n                })\n              )",
+    "formula": "`${euros(cuotaLiquida)} - ${euros(centimosAEuros(caso.retencionesSoportadasCentimos))} - ${euros(centimosAEuros(pagosACuentaAplicadosCentimos))}`",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":54916,\"fin\":55675,\"siteId\":\"anual.cuota.diferencial\"}"
+    }
+  },
+  {
+    "siteId": "anual.retencion.base",
+    "unidad": "EUR",
+    "titulo": "Base de retención",
+    "expresion": "centimosAEuros(retencion.baseRetencionCentimos)",
+    "formula": "\"Rendimiento neto reducido menos reducciones comunicadas\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":59772,\"fin\":60052,\"siteId\":\"anual.retencion.base\"}"
+    }
+  },
+  {
+    "siteId": "anual.retencion.cuota",
+    "unidad": "EUR",
+    "titulo": "Cuota de retención",
+    "expresion": "centimosAEuros(retencion.cuotaRetencionCentimos)",
+    "formula": "\"Escala de retención sobre base menos escala sobre mínimo\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":60058,\"fin\":60342,\"siteId\":\"anual.retencion.cuota\"}"
+    }
+  },
+  {
+    "siteId": "anual.retencion.tipo",
+    "unidad": "percent",
+    "titulo": "Tipo de retención",
+    "expresion": "new Decimal(retencion.tipoRetencionPorcentaje)",
+    "formula": "\"Tipo truncado a dos decimales\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":60348,\"fin\":60605,\"siteId\":\"anual.retencion.tipo\"}"
+    }
+  },
+  {
+    "siteId": "anual.retencion.anual",
+    "unidad": "EUR",
+    "titulo": "Retención anual",
+    "expresion": "centimosAEuros(retencion.importeRetencionAnualCentimos)",
+    "formula": "\"Retribuciones x tipo de retención\"",
+    "fuente": {
+      "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "87e5c960122711e19b7835687bda08e5b1f164f65989c7fae4ac988c6fe00380",
+      "localizador": "{\"inicio\":60611,\"fin\":60876,\"siteId\":\"anual.retencion.anual\"}"
+    }
+  }
+]

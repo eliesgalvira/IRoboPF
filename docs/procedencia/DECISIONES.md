@@ -137,3 +137,20 @@ La API canónica de reducción requiere otras rentas algebraicas no exentas ante
 ## D026. Identidad del rastro en el punto de código
 
 Cada línea anual propia recibe siteId explícito, instanceId por ejecución y decimal anterior al formato. El generador inspecciona esos puntos y fija sus fichas, fuentes e inventario en un snapshot. Objeción: deducir identidades de etiquetas o sustituir el snapshot de un resultado histórico produciría enlaces plausibles pero falsos. Motivo: enlazar al crear el resultado y rechazar su retagging. Coste: catálogo generado, conservación de fuentes y verificación de cobertura; las líneas de motores aún no instrumentados quedan pendientes. La ficha describe la expresión técnica; el ámbito y los enlaces jurídicos siguen pendientes hasta su verificación individual. Solo se añade el enlace mínimo en el texto existente, sin rediseño.
+
+
+## D027 — Aplicación anual de deducciones incompletas
+
+La contrarrevisión mostró que el formulario seguía aplicando fórmulas parciales y que una exclusión individual riojana podía cancelar el estado parcial de toda una colección. El padre corrige la composición y separa consignaciones de estimaciones en la entrada anual. Objeción experta: una cifra calculable sin todos los hechos no acredita derecho a deducirla. Elección: únicamente importes expresamente consignados se trasladan desde los controles antiguos; los contratos automáticos nuevos necesitan hechos completos y conexión revisada. Coste: menor automatización provisional y mensaje visible, sin rediseño. No se rebautiza el catálogo como automatización fiscal completa. Detalles y rojos: correcciones/integracion-ronda7/INFORME.md.
+
+## D028 — Modo del perfil y comparación legacy
+
+El modo solicitado llega a la liquidación y al neto, con la misma variante de cotizaciones. La conciliación indica su cuota de origen y se declara ajuste salarial, no oracle independiente. Objeción: corregir el modo sin la segunda resta de cotizaciones produciría un híbrido inconsistente; llamar comparación independiente a un ajuste de la misma cuota encubriría discrepancias. Coste: conservar separados el procedimiento heredado y las expectativas del Excel, cuya reconciliación de redondeos sigue pendiente. No se modifica el oracle para obtener verde.
+
+## D029 — Integridad de la explicación actual e identidad de ficha
+
+La versión de explicación incluye sus fuentes y verificadores. La puerta actual las coteja contra los bytes presentes; la puerta histórica conserva sus propios bytes. La proyección técnica fija además nombre, tipo, clase, archivo y localizador. Objeción: el mismo número y hash de archivo no prueban una identidad de campo ni una ruta de explicación correcta. Coste: cambios de código de explicación generan nueva versión incluso si el texto visible no cambia; no se migran atestaciones. Un snapshot antiguo sigue siendo reproducible.
+
+## D030 — Originales fuera del equipo
+
+Se integra el manifiesto de 708 originales candidatos (974.801.535 bytes), exportación/restauración local y ensayo negativo. Se prefiere almacenamiento LFS por objeto en el remoto ya existente a introducir casi 1 GB de blobs en Git ordinario. Objeción: los punteros empujados por JJ no transfieren los objetos LFS, y una caché local no es respaldo externo. Faltan revisión, adaptador de transferencia, cuota disponible y recuperación desde destino vacío. La API no permitió comprobar cuota sin ampliar permisos; se pregunta a Elies por cuota o límite, continuando trabajo independiente. Sin respuesta no se infiere autorización de gasto. Dos copias en GitHub no constituyen dos custodias independientes. No se elimina el paquete local.

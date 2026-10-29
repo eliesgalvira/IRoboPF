@@ -12,6 +12,40 @@ import {
 import { resolver } from "../lib/procedencia/almacen"
 import { extraerPuntosTexto } from "../scripts/procedencia/rastro-extraer.mjs"
 import { verificarRastroGenerado } from "../scripts/procedencia/rastro-verificar.mjs"
+import {
+  cpSync,
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+  resolve,
+  tmpdir,
+} from "../lib/procedencia/io.mjs"
+
+it("RV3-01 rechaza software de explicación cambiado fuera del dominio", () => {
+  const scratch = mkdtempSync(resolve(tmpdir(), "irobopf-rastro-software-"))
+  for (const carpeta of ["lib", "scripts"])
+    cpSync(resolve(carpeta), resolve(scratch, carpeta), { recursive: true })
+  mkdirSync(resolve(scratch, "docs/procedencia"), { recursive: true })
+  cpSync(
+    resolve("docs/procedencia/inventario.json"),
+    resolve(scratch, "docs/procedencia/inventario.json")
+  )
+  expect(verificarRastroGenerado(scratch).puntos).toBe(49)
+  for (const file of [
+    "lib/procedencia/rastro-anual.ts",
+    "scripts/procedencia/contenido-generar.mjs",
+    "scripts/procedencia/rastro-verificar.mjs",
+  ]) {
+    const original = readFileSync(resolve(file), "utf8")
+    writeFileSync(
+      resolve(scratch, file),
+      original + "\n// mutación independiente\n"
+    )
+    expect(() => verificarRastroGenerado(scratch)).toThrow("Software")
+    writeFileSync(resolve(scratch, file), original)
+  }
+})
 
 const catalogo = Schema.decodeUnknownSync(CatalogoRastro)({
   version: 1,

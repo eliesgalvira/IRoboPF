@@ -1,5 +1,6 @@
 import { DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD } from "../../normativa/datos/deducciones-autonomicas-2025"
 import type { EntradasDeduccionesAutonomicas } from "../deducciones-autonomicas-aplicadas"
+import { Schema } from "effect"
 
 export type AmbitoDeducciones = {
   readonly ejercicio: number
@@ -26,6 +27,23 @@ function prefijoEspecifico(territorio: string): string {
   }
 }
 
+const contadores = new Set([
+  "andaluciaHijosNacimientoAdopcion",
+  "andaluciaMenoresAcogidos",
+  "andaluciaAscendientesMayores75",
+  "andaluciaHijosAdopcionInternacional",
+  "andaluciaPersonasDiscapacidadConMinimo",
+  "aragonTercerHijoSucesivos",
+  "aragonPersonasDependientes",
+  "canariasHijosNacimientoAdopcion",
+  "canariasHijosNacimientoAdopcionDiscapacidad65",
+  "clmPartosAdopcionesUnHijo",
+  "clmPartosAdopcionesDosHijos",
+  "clmPartosAdopcionesTresOMas",
+  "clmAscDescDiscapacidad65",
+  "madridHijosNacimientoAdopcion",
+])
+
 /** Adaptador de aritmética parcial heredada; no evalúa requisitos fiscales. */
 export function filtrarEntradasPorAmbito(
   entradas: EntradasDeduccionesAutonomicas,
@@ -49,8 +67,10 @@ export function filtrarEntradasPorAmbito(
       if (Number.isNaN(valor) || valor === Infinity || valor === -Infinity)
         throw new RangeError("Importe no finito")
       if (
-        clave.endsWith(":unidades") &&
-        (!Number.isInteger(valor) || Number(valor) < 0)
+        (clave.endsWith(":unidades") || contadores.has(clave)) &&
+        !Schema.is(
+          Schema.Number.check(Schema.isInt(), Schema.isGreaterThanOrEqualTo(0))
+        )(valor)
       )
         throw new RangeError("Personas deben ser enteras y no negativas")
       return true

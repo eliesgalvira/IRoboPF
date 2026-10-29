@@ -159,6 +159,7 @@ describe("liquidarIrpfAnual", () => {
           pagosACuentaCentimos: 0,
           retencionTrabajoAeat: {
             anio: 2025,
+            perfilTemporal: "cierre",
             edad: 40,
             retribucionAnualCentimos: 30_000_00,
             cotizacionesCentimos: 1_944_00,

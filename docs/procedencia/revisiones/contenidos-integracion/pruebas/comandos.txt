@@ -1,0 +1,7 @@
+Desde el checkout auditado, dependencias existentes enlazadas solo lectura. Sin instalar.
+TMPDIR="$PWD/.cache/procedencia/revision-contenidos-integracion/tmp" nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun run test --config scripts/procedencia/contenido-vitest.mjs --no-cache
+nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun scripts/procedencia/contenido-verificar.mjs
+nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun .cache/procedencia/revision-contenidos-integracion/repro.mjs
+nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun .cache/procedencia/revision-contenidos-integracion/route.mjs
+nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun .cache/procedencia/revision-contenidos-integracion/bordes.mjs
+Reproducciones originales preservadas byte a byte como pruebas/*.mjs.txt; copiar a un scratch propio a la misma profundidad antes de ejecutar. repro.mjs requiere un destino scratch nuevo, porque sus enlaces se crean de forma exclusiva. Ninguna prueba altera fuentes u objetos del producto.

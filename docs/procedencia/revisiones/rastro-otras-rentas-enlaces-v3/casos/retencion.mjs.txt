@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict'
+import { Effect } from 'effect'
+import { liquidarIrpfAnual } from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts'
+import { sinDiscapacidad } from '../../../lib/dominio/irpf/caso-fiscal-anual.ts'
+import cat from '../../../lib/procedencia/rastro-generado.json'
+const r=Effect.runSync(liquidarIrpfAnual({anio:2025,comunidadAutonoma:'madrid',situacionFamiliar:{tipo:'individual',edad:40,discapacidad:sinDiscapacidad,descendientes:[],ascendientes:[]},rendimientos:{trabajo:[{importeIntegroCentimos:3000000}],gananciasPatrimoniales:[{importeGananciaCentimos:800000,tratamientoMayores65:{_tag:'SinExencionMayores65'}}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0,retencionTrabajoAeat:{anio:2025,edad:40,retribucionAnualCentimos:3000000,cotizacionesCentimos:194400,situacionFamiliar:'situacion3',situacionLaboral:'activo',contrato:'general',discapacidad:'sin-discapacidad',movilidadGeografica:false,descendientes:[],ascendientes:[],irregular1Centimos:0,irregular2Centimos:0,pensionCompensatoriaConyugeCentimos:0,anualidadesAlimentosHijosCentimos:0,residenciaCeutaMelilla:false,rendimientosCeutaMelilla:false,pagosViviendaHabitual:false}},{modo:'canonico'}))
+const lines=r.rastro.pasos.flatMap(p=>p.lineasCalculo??[]), own=lines.filter(l=>l.origen), internal=lines.filter(l=>!l.origen)
+assert.equal(new Set(own.map(l=>l.origen.siteId)).size,49)
+assert.ok(internal.length>0);assert.ok(internal.every(l=>l.procedencia.estado==='pendiente'))
+assert.ok(cat.bindings.every(b=>own.some(l=>l.origen.siteId===b.siteId)))
+console.log(JSON.stringify({puntosEjecutados:49,instancias:own.length,internasPendientes:internal.length,contexto:r.rastro.contexto}))

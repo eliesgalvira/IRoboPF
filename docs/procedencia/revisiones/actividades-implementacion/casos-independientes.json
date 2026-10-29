@@ -1,0 +1,7036 @@
+[
+  {
+    "id": "perdida",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [
+        {
+          "id": "g",
+          "justificante": "g",
+          "fecha": "2025-07-01",
+          "base": "1234.56",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "alquiler-local",
+          "rectificativa": false,
+          "correlacion": true
+        }
+      ],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "aporteBIG": "-1234.56",
+        "G": "0",
+        "reduccion32_2": "0"
+      }
+    }
+  },
+  {
+    "id": "hecho-otrasActividades",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": true,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-otrasRentas",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": true,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-existencias",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": true,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-empleados",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": true,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-artistica",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": true,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-irregular",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": true,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-subvenciones",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": true,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-transmisiones",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": true,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-extranjero",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": true,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-mutualidad",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": true,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-especialidadesTerritoriales",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": true,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-saldosPendientes",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": true,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-serviciosGratuitos",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": true,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-autoconsumo",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": true,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-noFacturados",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": true,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-subvalorados",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": true,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-trade",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": true,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hecho-hechosDesconocidos",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": true
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "fecha-2025-02-29",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-02-29",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "fecha-2025-04-31",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-04-31",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "fecha-2024-12-31",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2024-12-31",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "fecha-2026-01-01",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2026-01-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "extra-anidado",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false,
+          "neto": "1"
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "extra-raiz",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": [],
+      "extra": true
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "importe-null",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": null,
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "NaN",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "NaN",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "historia-ausente",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2024-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "historia-cobros",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2024-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2024,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "cobros-pagos",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "historia-renuncia",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2024-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2024,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": true,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "umbral-igual",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2024-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2024,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "600000",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {}
+    }
+  },
+  {
+    "id": "umbral-exceso",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2024-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2024,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "600000.01",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "alta-ultimo-dia-2024",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2024-12-31",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2024,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "1639.34",
+      "diasActividad2024": 1,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {}
+    }
+  },
+  {
+    "id": "alta-ultimo-dia-exceso",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2024-12-31",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2024,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "1639.35",
+      "diasActividad2024": 1,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "duplicado-ID",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        },
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "duplicado-justificante",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        },
+        {
+          "id": "otra",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "duplicado-capitalizacion",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [
+        {
+          "id": "g",
+          "justificante": "compra",
+          "fecha": "2025-07-01",
+          "base": "1000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "alquiler-local",
+          "rectificativa": false,
+          "correlacion": true
+        }
+      ],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "reta-regularizacion",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [
+        {
+          "id": "r",
+          "justificante": "r",
+          "fecha": "2025-06-30",
+          "importe": "300",
+          "periodo": "2025-06",
+          "tipo": "regularizacion",
+          "propia": true,
+          "efectiva": true
+        }
+      ],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "reta-devolucion",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [
+        {
+          "id": "r",
+          "justificante": "r",
+          "fecha": "2025-06-30",
+          "importe": "300",
+          "periodo": "2025-06",
+          "tipo": "devolucion",
+          "propia": true,
+          "efectiva": true
+        }
+      ],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "reta-periodo-duplicado",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [
+        {
+          "id": "r",
+          "justificante": "r",
+          "fecha": "2025-06-30",
+          "importe": "300",
+          "periodo": "2025-06",
+          "tipo": "ordinaria",
+          "propia": true,
+          "efectiva": true
+        },
+        {
+          "id": "r2",
+          "justificante": "r2",
+          "fecha": "2025-06-30",
+          "importe": "300",
+          "periodo": "2025-06",
+          "tipo": "ordinaria",
+          "propia": true,
+          "efectiva": true
+        }
+      ],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "reta-antes-inicio",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-07-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [
+        {
+          "id": "r",
+          "justificante": "r",
+          "fecha": "2025-06-30",
+          "importe": "300",
+          "periodo": "2025-06",
+          "tipo": "ordinaria",
+          "propia": true,
+          "efectiva": true
+        }
+      ],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "RETA-gasto-mismo-justificante",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [
+        {
+          "id": "g",
+          "justificante": "r",
+          "fecha": "2025-07-01",
+          "base": "300",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "alquiler-local",
+          "rectificativa": false,
+          "correlacion": true
+        }
+      ],
+      "reta": [
+        {
+          "id": "r",
+          "justificante": "r",
+          "fecha": "2025-06-30",
+          "importe": "300",
+          "periodo": "2025-06",
+          "tipo": "ordinaria",
+          "propia": true,
+          "efectiva": true
+        }
+      ],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "hardware-residual",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1200",
+          "puestaMarcha": "100",
+          "residual": "300",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "amortizacion": "260"
+      }
+    }
+  },
+  {
+    "id": "mobiliario-minimo",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "mobiliario",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.05",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.05",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "amortizacion": "50"
+      }
+    }
+  },
+  {
+    "id": "mobiliario-maximo",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "mobiliario",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.10",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.10",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "amortizacion": "100"
+      }
+    }
+  },
+  {
+    "id": "coef-0.099999",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.099999",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.099999",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "coef-0.260001",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.260001",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.260001",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "activo-parcial",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2025-01-02",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "activo-saldo-negativo",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "1001",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "activo-amortizacion-antes-uso",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "1",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "activo-historia-imposible",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2024-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2024,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2024-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "999",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2024-01-01",
+          "fechaAdquisicion": "2024-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "activo-agotado",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2020-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2020,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        },
+        {
+          "ejercicio": 2021,
+          "documento": "h1",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        },
+        {
+          "ejercicio": 2022,
+          "documento": "h2",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        },
+        {
+          "ejercicio": 2023,
+          "documento": "h3",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        },
+        {
+          "ejercicio": 2024,
+          "documento": "h4",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "0"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2020-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "1000",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2020-01-01",
+          "fechaAdquisicion": "2020-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "amortizacion": "0"
+      }
+    }
+  },
+  {
+    "id": "coef-igual-distinta-escala",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.260",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "amortizacion": "260"
+      }
+    }
+  },
+  {
+    "id": "G-39999.99",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "39999.99",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "G": "1999.9995"
+      }
+    }
+  },
+  {
+    "id": "G-40000",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "40000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "G": "2000"
+      }
+    }
+  },
+  {
+    "id": "G-40000.01",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "40000.01",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "G": "2000"
+      }
+    }
+  },
+  {
+    "id": "elegible-opta-G",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "RN": "9500",
+        "reduccion32_2": "0"
+      }
+    }
+  },
+  {
+    "id": "no-elegible-renta-baja",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "RN": "9500",
+        "reduccion32_2": "1012.5",
+        "aporteBIG": "8487.5"
+      }
+    }
+  },
+  {
+    "id": "gastos-30-2740",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [
+        {
+          "id": "g",
+          "justificante": "g",
+          "fecha": "2025-07-01",
+          "base": "2740",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "alquiler-local",
+          "rectificativa": false,
+          "correlacion": true
+        }
+      ],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {}
+    }
+  },
+  {
+    "id": "gastos-30-2740.01",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [
+        {
+          "id": "g",
+          "justificante": "g",
+          "fecha": "2025-07-01",
+          "base": "2740.01",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "alquiler-local",
+          "rectificativa": false,
+          "correlacion": true
+        }
+      ],
+      "reta": [],
+      "activos": [
+        {
+          "id": "pc",
+          "justificante": "compra",
+          "fecha": "2025-01-01",
+          "grupo": "hardware",
+          "coste": "1000",
+          "puestaMarcha": "0",
+          "residual": "0",
+          "acumulada": "0",
+          "iva": "210",
+          "ivaRecuperable": "210",
+          "coeficiente": "0.26",
+          "fechaUso": "2025-01-01",
+          "fechaAdquisicion": "2025-01-01",
+          "usoHasta": "2025-12-31",
+          "nuevo": true,
+          "exclusivo": true,
+          "oneroso": true,
+          "mejoras": false,
+          "deterioros": false,
+          "subvencionado": false,
+          "leasing": false,
+          "incentivo": false,
+          "metodoHistorico": "lineal",
+          "coeficienteHistorico": "0.26",
+          "saldoDocumentado": "registro-activo"
+        }
+      ],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "retencion-70-7000",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "7000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        },
+        {
+          "id": "i2",
+          "justificante": "i2",
+          "fecha": "2025-07-01",
+          "base": "3000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {}
+    }
+  },
+  {
+    "id": "retencion-70-6999.99",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "6999.99",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        },
+        {
+          "id": "i2",
+          "justificante": "i2",
+          "fecha": "2025-07-01",
+          "base": "3000.01",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "adicional-14047.50",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "14047.50",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "adicional": "6498"
+      }
+    }
+  },
+  {
+    "id": "adicional-14047.51",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "14047.51",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "adicional": "6497.9886"
+      }
+    }
+  },
+  {
+    "id": "adicional-19747.49",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "19747.49",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "adicional": "0.0114"
+      }
+    }
+  },
+  {
+    "id": "adicional-19747.50",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "19747.50",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "adicional": "0"
+      }
+    }
+  },
+  {
+    "id": "discapacidad-32-false",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "30000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 32,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "discapacidad": "0"
+      }
+    }
+  },
+  {
+    "id": "discapacidad-33-false",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "30000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 33,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "discapacidad": "3500"
+      }
+    }
+  },
+  {
+    "id": "discapacidad-64-false",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "30000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 64,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "discapacidad": "3500"
+      }
+    }
+  },
+  {
+    "id": "discapacidad-33-true",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "30000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 33,
+        "ayudaOMovilidad": true,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "discapacidad": "7750"
+      }
+    }
+  },
+  {
+    "id": "discapacidad-65-false",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "30000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 65,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "cliente-unico",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "discapacidad": "7750"
+      }
+    }
+  },
+  {
+    "id": "inicio-tope",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "150000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": true,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "reduccionInicio": "20000",
+        "aporteBIG": "128000"
+      }
+    }
+  },
+  {
+    "id": "inicio-primero-previo-perdida-siguiente",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2023-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2023,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "100"
+        },
+        {
+          "ejercicio": 2024,
+          "documento": "h1",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "-50"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": true,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "reduccionInicio": "0"
+      }
+    }
+  },
+  {
+    "id": "inicio-positivo-despues-perdidas",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2023-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [
+        {
+          "ejercicio": 2023,
+          "documento": "h0",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "-50"
+        },
+        {
+          "ejercicio": 2024,
+          "documento": "h1",
+          "regimen": "eds",
+          "criterio": "devengo",
+          "renuncia": false,
+          "exclusion": false,
+          "netoAntesReducciones": "-50"
+        }
+      ],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 366,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": true,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "reduccionInicio": "1697.5"
+      }
+    }
+  },
+  {
+    "id": "antiguo-empleador-5000",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": true,
+          "documento": "contrato"
+        },
+        {
+          "id": "c2",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": true,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "5000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        },
+        {
+          "id": "i2",
+          "justificante": "i2",
+          "fecha": "2025-07-01",
+          "base": "5000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "c2",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": true,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "reduccionInicio": "1697.5"
+      }
+    }
+  },
+  {
+    "id": "antiguo-empleador-5000.01",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": true,
+          "documento": "contrato"
+        },
+        {
+          "id": "c2",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": true,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "5000.01",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        },
+        {
+          "id": "i2",
+          "justificante": "i2",
+          "fecha": "2025-07-01",
+          "base": "4999.99",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "c2",
+          "sujetoRetencion": false,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": true,
+      "retenciones": [],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "reduccionInicio": "0"
+      }
+    }
+  },
+  {
+    "id": "pagos-no-gastos",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [
+        {
+          "id": "rt",
+          "justificante": "cert",
+          "fecha": "2025-12-31",
+          "operacionId": "ort",
+          "ingresoId": "i",
+          "importe": "1500",
+          "efectiva": true
+        }
+      ],
+      "pagosFraccionados": [
+        {
+          "id": "p",
+          "justificante": "banco",
+          "fecha": "2026-01-20",
+          "operacionId": "op",
+          "periodo": "2025-4T",
+          "modelo": "130",
+          "importe": "2500",
+          "efectivo": true
+        }
+      ]
+    },
+    "esperado": {
+      "estado": "soportado",
+      "etapas": {
+        "aporteBIG": "9500",
+        "retenciones": "1500",
+        "pagos": "2500"
+      }
+    }
+  },
+  {
+    "id": "retencion-duplicada",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "i",
+          "justificante": "i",
+          "fecha": "2025-07-01",
+          "base": "10000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [
+        {
+          "id": "rt",
+          "justificante": "cert",
+          "fecha": "2025-12-31",
+          "operacionId": "ort",
+          "ingresoId": "i",
+          "importe": "1500",
+          "efectiva": true
+        },
+        {
+          "id": "rt2",
+          "justificante": "cert",
+          "fecha": "2025-12-31",
+          "operacionId": "ort2",
+          "ingresoId": "i",
+          "importe": "1500",
+          "efectiva": true
+        }
+      ],
+      "pagosFraccionados": []
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  },
+  {
+    "id": "pago-duplicado",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": true,
+      "aplicarInicio": false,
+      "retenciones": [],
+      "pagosFraccionados": [
+        {
+          "id": "p",
+          "justificante": "banco",
+          "fecha": "2026-01-20",
+          "operacionId": "op",
+          "periodo": "2025-4T",
+          "modelo": "130",
+          "importe": "2500",
+          "efectivo": true
+        },
+        {
+          "id": "p2",
+          "justificante": "banco",
+          "fecha": "2026-01-20",
+          "operacionId": "op2",
+          "periodo": "2025-4T",
+          "modelo": "130",
+          "importe": "2500",
+          "efectivo": true
+        }
+      ]
+    },
+    "esperado": {
+      "estado": "no-soportado"
+    }
+  }
+]

@@ -10,6 +10,7 @@ import {
 } from "../../lib/procedencia/almacen.ts"
 import { hash } from "../../lib/procedencia/verificador.ts"
 import { extraerPuntos } from "./rastro-extraer.mjs"
+import { verificarSoftwareExplicacion } from "./explicacion-version.mjs"
 
 export function verificarRastroGenerado(
   root = process.cwd(),
@@ -26,6 +27,7 @@ export function verificarRastroGenerado(
   const { versiones, catalogoSha256 } = catalogo.actual
   const snapshot = leerSnapshot(versiones.snapshot, raiz)
   if (snapshot === null) throw new Error("Snapshot del rastro desconocido")
+  verificarSoftwareExplicacion(snapshot, root)
   if (
     snapshot.versiones.algoritmo !== versiones.algoritmo ||
     snapshot.versiones.datos !== versiones.datos ||

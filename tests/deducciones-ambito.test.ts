@@ -1,5 +1,43 @@
 import { expect, it } from "vitest"
-import { calcularDeduccionesAutonomicasAplicadas } from "../lib/dominio/irpf/deducciones-autonomicas-aplicadas"
+import {
+  calcularDeduccionesAutonomicasAplicadas,
+  calcularDeduccionesConsignadas,
+} from "../lib/dominio/irpf/deducciones-autonomicas-aplicadas"
+
+it("DED-I-02 solo traslada consignaciones explícitas al anual", () => {
+  const entradas = {
+    andaluciaHijosNacimientoAdopcion: 2,
+    "galicia_familias_dos_hijos:importe": 250,
+    "galicia_familias_dos_hijos:cumple": true,
+  }
+  expect(
+    calcularDeduccionesConsignadas(entradas, {
+      ejercicio: 2025,
+      territorio: "andalucia",
+    })
+  ).toBe(0)
+  expect(
+    calcularDeduccionesConsignadas(entradas, {
+      ejercicio: 2025,
+      territorio: "galicia",
+    })
+  ).toBe(250)
+  expect(
+    calcularDeduccionesConsignadas(
+      { catalunyaAportacionesCooperativas: 1000 },
+      { ejercicio: 2025, territorio: "catalunya" }
+    )
+  ).toBe(0)
+})
+
+it.each([0.5, -1, "1"])("DED-I-03 contador específico inválido %s", (valor) => {
+  expect(() =>
+    calcularDeduccionesAutonomicasAplicadas(
+      { andaluciaHijosNacimientoAdopcion: valor },
+      { ejercicio: 2025, territorio: "andalucia" }
+    )
+  ).toThrow()
+})
 
 it("aísla A → B → A antes de sumar", () => {
   const entradas = { andaluciaHijosNacimientoAdopcion: 1 }

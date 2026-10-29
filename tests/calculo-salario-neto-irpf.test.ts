@@ -56,3 +56,19 @@ const entradaPerfilLegacy = (): EntradaCalculoSalarioNetoIrpf => ({
   anio: 2025,
   salarioBrutoAnualCentimos: 3_000_000,
 })
+
+it.effect("EMI-01 propaga el modo canónico hasta cotizaciones y neto", () =>
+  Effect.gen(function* () {
+    const r = yield* calcularSalarioNetoEIrpf(
+      {
+        perfil: "legacy-progresividad-frio",
+        anio: 2018,
+        salarioBrutoAnualCentimos: 6000000,
+      },
+      { modo: "canonico" }
+    )
+    expect(r.desglose.cotizacionTrabajadorCentimos).toBe(287508)
+    expect(r.desglose.irpfFinalCentimos).toBe(1504322)
+    expect(r.desglose.salarioNetoAnualCentimos).toBe(4208170)
+  })
+)
