@@ -1,0 +1,15 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "$id":"urn:irobopf:flujo-rentas-actividad-r23:1",
+ "type":"object",
+ "required":["version","base","inventory","sites","nodes","edges","instances","review"],
+ "properties":{
+  "version":{"const":1},"base":{"const":"07c07e6376a72f229be735a904ecf36517a1b571"},
+  "sites":{"type":"array","minItems":20,"maxItems":20,"items":{"type":"object","required":["siteId","subject","snapshot","source","root","legalAcceptance"],"properties":{"legalAcceptance":{"const":false}}}},
+  "nodes":{"type":"array","items":{"type":"object","required":["id","kind","property","source"],"properties":{"kind":{"enum":["derived","public-input","external-primitive","boundary","validation"]},"source":{"$ref":"#/$defs/source"}}}},
+  "edges":{"type":"array","items":{"type":"object","required":["from","to","kind","propertyPath","condition","reason","evidence"],"properties":{"kind":{"enum":["value","selection","domain-validation","cohabitation"]},"evidence":{"$ref":"#/$defs/source"}}}},
+  "instances":{"type":"array","minItems":19,"maxItems":19,"items":{"type":"object","required":["source","regla","instance","argument4","argument4Property","root","control","adapterChain"],"properties":{"argument4":{"$ref":"#/$defs/source"}}}},
+  "review":{"type":"string"}
+ },
+ "$defs":{"source":{"type":"object","required":["file","sha256","start","end","offsetEncoding"],"properties":{"file":{"type":"string"},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"start":{"type":"integer","minimum":0},"end":{"type":"integer","minimum":1},"offsetEncoding":{"const":"utf16"}}}}
+}
