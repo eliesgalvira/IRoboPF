@@ -1,0 +1,23 @@
+{
+  "id": "MDV1-03",
+  "status": "corregido-en-alcance-acotado",
+  "severity": "alta-historica",
+  "conclusion": "Hechos propios de pago judicial sin custodia rechazan el anual con ambos flags; otro pagador no bloquea al custodio elegible.",
+  "tests": [
+    "pagador propio false/true",
+    "hijo sin derecho por renta también rechazado al pagador sin custodia",
+    "otro titular false/true con custodio",
+    "flag incompatible con custodia",
+    "doble custodia"
+  ],
+  "locations": [
+    "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:201",
+    "lib/dominio/irpf/minimos/derechos.ts:128"
+  ],
+  "objection": "La corrección no implementa cuantía ni especialidad y no cubre toda causa de falta de derecho.",
+  "cost": "Menos casos liquidables; conservar análisis pendiente separado MDV2-P01.",
+  "scope": "Cierre del bypass histórico sin custodia y control de roles con derecho, no cuota de alimentos.",
+  "base": "1ec684b4e4408068282febf1319c12c6ac8a15c1",
+  "completeFiscalAcceptance": false,
+  "evidence": "casos.test.ts, pruebas-final.log y fuentes-verificadas.json"
+}

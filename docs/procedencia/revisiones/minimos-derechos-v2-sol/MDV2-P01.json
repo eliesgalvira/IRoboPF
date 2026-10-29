@@ -1,0 +1,23 @@
+{
+  "id": "MDV2-P01",
+  "status": "ambiguous-capacidad-juridica-pendiente",
+  "severity": "reserva-media-no-defecto-numerico-demostrado",
+  "conclusion": "El custodio que paga alimentos con flagfalse y cuyo hijo supera 8000 o declara más de1800 obtiene mínimo cero y Success anual. No se ha acreditado aquí que la liquidación sin especialidad sea jurídicamente correcta para esos casos.",
+  "tests": [
+    "custodio pagador pierde mínimo por otra condición 800001 y180001: caracterización sin cuota fiscal esperada"
+  ],
+  "locations": [
+    "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:201",
+    "lib/dominio/irpf/minimos/derechos.ts:128"
+  ],
+  "objection": "No basta extrapolar que todo custodio tiene derecho: arts58/61 lo condicionan. Tampoco basta inferir una cuota especial sin importe; el manual contiene formulaciones generales sobre convivencia que requieren concretar este cruce.",
+  "cost": "Cerrar el criterio con primario específico o excluir expresamente estos casos antes de prometer soporte; no exigir una API universal ni inventar expected.",
+  "scope": "Reserva nueva limitada al custodio pagador sin mínimo por otra condición. No invalida la corrección de MDV1-03 ni autoriza fijar alimentos.",
+  "sources": [
+    "Ley35/2006 arts58,61,64,75",
+    "Manual2025 requisitos y especialidad de anualidades a5c98d375357847cee81335056afb3c1e4277d0330f8cc0015c140cd51dfef22"
+  ],
+  "base": "1ec684b4e4408068282febf1319c12c6ac8a15c1",
+  "completeFiscalAcceptance": false,
+  "evidence": "casos.test.ts, pruebas-final.log y fuentes-verificadas.json"
+}
