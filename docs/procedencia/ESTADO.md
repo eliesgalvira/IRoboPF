@@ -12,6 +12,8 @@ Quince pruebas nuevas pasan después de trece fallos previos en dos ejecuciones;
 
 Motor, inventario, 42 snapshots y confianza activa permanecen intactos. No se consultan las entregas parciales de los demás encargos Sol R30. Crossa sigue en v1 desfasado, copia local fuera de Victus, mismo dueño y casa. Sin LFS, gasto, transferencia externa, main, PR, despliegue o limpieza. El encargo global permanece abierto.
 
+Bloque respaldado en origin: `d28705191c428ec226760413b152080f36226c10`, 63 archivos y 2.129.630 bytes cotejados contra los blobs, cero borrados; base de 16.548 entradas. Lanzada una revisión independiente nueva de origen/documento/facsímil, explícitamente gpt-6.1-sol, high y priority, confirmados por el lanzador. Encargo y resultado en delegaciones-ronda31.json. Su finalización reactivará al padre; no se sondea. Los tres encargos R30 restantes no se sustituyen ni reciben trabajo adicional.
+
 ## Situación anterior, ronda 30 del 29 de octubre
 
 Recibidos CAS externo R27, revisión v5 R28, composición parcial R28 y contrato nominal R29: 303 archivos y 28.277.076 bytes con sobres de transporte. Cuatro cotejos físicos completos contra sus bases, cero borrados y solo trece modificaciones declaradas. El instrumento preempaque.txt no manifestado se conserva en el hijo y se excluye expresamente; ninguna copia ocurrió antes de resolver esa discrepancia. Recibos e informe en correcciones/recepcion-r27-r28-r30.

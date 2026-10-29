@@ -1,0 +1,51 @@
+{
+  "round": 31,
+  "base": "d28705191c428ec226760413b152080f36226c10",
+  "baseEntries": 16548,
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "serviceTier": "priority",
+  "tasks": [
+    {
+      "request": {
+        "key": "revision-origen",
+        "title": "Contrarrevisión Sol de origen documental y facsímil R31",
+        "role": "review",
+        "task": "Encargo de Elies para IRoboPF; eres Sol 6.1, high, priority, explícitos. Astra solo orquesta. Haz tú el encargo sin subdelegar ni cambiar modelo. Lee íntegros /home/elies/irobopf-contexto/BRIEF.md, AGENTS.md, docs/procedencia/CONTRATO-AUDITORIA.md, COORDINACION.md y la situación actual de ESTADO/DECISIONES. La corrección urgente del usuario sustituye el modelo Astra del BRIEF. Español claro; cada decisión incluye objeción experta, respuesta y coste. No declarar cerrado el encargo global ni aceptar fiscalidad por hashes, recuentos o pruebas.\n\nT3 prepara tu worktree; exige HEAD d28705191c428ec226760413b152080f36226c10 con 16548 entradas. Antes y al terminar compara diff y TODAS las entradas físicas contra base: lstat, readlink, bytes, modo ejecutable, un blob cada vez. No basta índice ni git diff vacío. Para archivos de tu ámbito modificados identifica cambio exacto y hash anterior; todo lo demás intacto, cero borrados. Nunca jj git init dentro de worktree Git creado por T3. Ninguna operación VCS mutante: init, commit, reset, bookmark, push, PR. No crear checkouts en shell. No borrar originales, informes históricos, contexto, worktrees o trabajo ajeno. Nunca rm/mv relativos; rutas absolutas y solo scratch propio. Solo escribir en tu checkout y ámbito asignado. No tocar ESTADO/DECISIONES, confianza activa o informes ajenos. No main, PR, deploy, servidor, preview, rediseño, LFS, gasto o transferencias externas. No escribir en X ni enviar mensajes externos. Lee el padre solo para CAS/fuentes ya entregados; no leer entregas de hijos activos.\n\nVictus tiene 11 GB sin swap. Un trabajador; toma y libera el bloqueo por validación concreta, sin anidarlo ni retenerlo durante redacción, espera o consultas API. Usa flock /tmp/irobopf-validacion-pesada.lock para pruebas, tipos, renders, restauración, recorridos grandes. Cotejo de recepción físico un blob a la vez puede usar /tmp/irobopf-recepcion-acotada.lock; nunca para pruebas. Herramientas por Nix; Python con uv/run.sh, PYTHONDONTWRITEBYTECODE=1 y UV_PROJECT_ENVIRONMENT ABSOLUTO en TU .cache; jamás tools/procedencia/.venv. Sin instalación global ni pip. node_modules del padre solo lectura. Antes de Effect consulta effect-solutions list/show y fuente ~/.local/share/effect-solutions/effect; CLI disponible bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js. Lint y tipos de tu alcance, las 16 reglas anti-slop a error. Oxlint con un hilo y --disable-nested-config. No Next build ni suites legacy masivas. No maquillar fallos de entorno como pruebas correctas.\n\nContexto R31: lee correcciones/clasificacion-r31/INFORME.md, disposicion.json y recepción. R30 integró CAS externo, contrato nominal y composición parcial; esas revisiones/continuación están encargadas aparte, no necesitas sus checkouts ni entregas parciales. En R31 solo cambia el clasificador Python de preservación, después de la revisión de clasificación R30. Motor, inventario 30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7, 42 snapshots y confianza activa permanecen intactos. No hay nueva aceptación fiscal ni publicación.\n\nV5 r2 conserva corte R26 y pin 2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88, fuera de T3 en /home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/. Puedes leer paquete/sha256 y referencias entregadas, no modificar ni reexportar el corte. Crossa sigue v1 desfasado, misma casa y dueño, copia local fuera de Victus, no remota ni independiente; no escribir allí. Preserva todos los originales en sus ubicaciones actuales. Para repetir un instrumento histórico con salida en su propia carpeta, adapta una copia a TU scratch y registra el diff; no sobrescribas el informe original.\n\nEntrega sustantiva: informe español, decisiones/casos/hallazgos máquina, comandos y resultados, objeciones/costes/límites, manifiesto con rutas relativas SHA256/tamaño/baseSha256, HEAD y cotejos físicos. Patch textual gzip contra base y binarios por ruta/hash, ensaya transporte. Ningún commit. Comprime logs/controles >1 MB; no PDF originales en Git ni entornos/node_modules/copias de app en docs. Originales necesarios en CAS propio con ambos hashes, metadatos saneados y referencias para preservación futura. Revisiones: ningún fix de producto ni modificar esperados históricos; conservar rojos y distinguir hipótesis refutada de defecto. Implementaciones: rojo antes del arreglo, sin aceptación propia; no revisar tu propio trabajo como independiente. Atestación candidata solo si se pide, con identidad REAL runtime/T3 y bytes exactos, sin aliases inventados. No mutar confianza ni afirmar aceptación de regla completa. Los registros de ensayo, solo en scratch explícito. Las conclusiones nuevas requieren contraste del padre.\n\n\nRevisión independiente NUEVA y acotada del cambio del padre, sin fixes. Escribe solo docs/procedencia/revisiones/origen-documental-r31-sol/ y .cache/revision-origen-r31/. Lee la revisión recibida clasificacion-censo-r30-sol, el informe/casos/rojos R31 y el diff del recolector contra la base anterior de archivos-precommit.json. No audites recursivamente CL01 puntual ya corroborado ni repitas una restauración de 2GB. El objetivo es confirmar o refutar RC30-01/02 y la retención del contexto que ahora usa la clasificación.\n\nComprueba realmente los tres casos históricos de la revisión R30 antes y después sobre bytes exactos, las cuatro referencias JSON editoriales y sus productores. Revisa origin_kind, la prioridad documental sobre ancestros, el fin del substring source como software y el contexto saneado de observations. Añade casos propios de source/sourcePath/sourceFile frente a path destino, ausencia/valor inválido, alias conflictivos, rutas ambiguas, extensiones y MIME, sourceMimeType frente al tipo del resultado, campos documentales dentro de recortes y hash genérico con URL vecina. Distingue clasificación contextual candidata, tipo real de bytes recuperados, inferencia jurídica y publicación: ninguna de las últimas se acredita por una ruta o URL.\n\nConserva desconocidos donde el contrato no resuelva el origen; no uses la falta de cobertura general como aceptación ni conviertas cada forma no admitida en un bug por sí sola. Comprueba regresiones de selección/texto/software explícito/fixtures y que los datos emitidos permiten inspeccionar las inferencias nuevas sin ampliar la afirmación de privacidad. Los residuales prosa/FILE:// siguen abiertos y no se autoriza distribución. La lista de extensiones/MIME admitidos es deliberadamente estrecha; cuestiona pérdidas o atribuciones falsas concretas, no impongas un clasificador universal. Todos los hallazgos nuevos requieren reproducción y alcance, objeción y coste; conservar hipótesis descartadas.\n\nVerifica acotadamente el pin y el recolector histórico v5 r2 si aporta una garantía distinta; no reexportar ni ejecutar collect. Los paquetes no se reclasifican retroactivamente. Ejecuta calidad Python del alcance y discriminantes necesarios con un trabajador y lock; no build, tests fiscales masivos ni regeneración. Entrega decisión por hallazgo/contrato, fuentes y casos máquina, logs, hashes y transporte exacto. Sin atestaciones, cambios de confianza ni aceptación fiscal. El padre hace los fixes pequeños; tú no cambies el producto.",
+        "clientRequestId": "irobopf-r31-sol-revision-origen"
+      },
+      "result": {
+        "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r31-sol-revision-origen",
+        "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r31-sol-revision-origen",
+        "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r31-sol-revision-origen>",
+        "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r31-sol-revision-origen:ordinal:1",
+        "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r31-sol-revision-origen",
+        "status": "running",
+        "workState": "working",
+        "hasPendingChildRuns": false,
+        "latestTerminalRunId": null,
+        "latestTerminalStatus": null,
+        "latestTerminalSummary": null,
+        "latestTerminalResultContextTransferId": null,
+        "providerInstanceId": "codex",
+        "model": "gpt-6.1-sol",
+        "options": [
+          {
+            "id": "reasoningEffort",
+            "value": "high"
+          },
+          {
+            "id": "serviceTier",
+            "value": "priority"
+          }
+        ],
+        "summary": null,
+        "resultContextTransferId": null,
+        "hasPendingQuestion": false,
+        "pendingApproval": null,
+        "waitTimedOut": false,
+        "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+      }
+    }
+  ]
+}
