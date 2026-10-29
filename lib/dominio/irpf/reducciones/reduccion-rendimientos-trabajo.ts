@@ -182,7 +182,7 @@ const reduccionTrabajoDesde2024 = (rendimientoPrevioNeto: Decimal): Decimal =>
         )
     ),
     Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte("19747.50"),
+      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lt("19747.50"),
       () =>
         crearImporteMonetario("2364.34").minus(
           crearImporteMonetario("1.14").mul(
