@@ -2,6 +2,14 @@
 
 Anti-slop está activo. Los auditores documentales leen el motor sin modificarlo; los editores de código trabajan en checkouts aislados preparados por T3. Solo el orquestador integra, mueve `procedencia-documental` y respalda en origin.
 
+## Regla obligatoria de control de versiones (corrección de Elies)
+
+Ningún hijo ejecutará `jj git init` dentro de un checkout/worktree Git creado por T3. Esta regla revoca la instrucción inicial que autorizaba inicializar JJ en esos directorios y debe incluirse expresamente en **cada nueva delegación**. No mezclar escrituras de dos sistemas en un mismo checkout. Los hijos de esta ronda continúan editando y probando, pero entregan archivos al orquestador sin operaciones VCS mutantes.
+
+No hacer `git commit` con un índice que marque borrados no solicitados. El usuario autoriza reparar el índice con `git reset` sin `--hard` si se va a usar Git, pero no es necesario para entregar archivos al orquestador. Nunca ejecutar `reset --hard`, borrar archivos o recrear `.git`/`.jj` para ocultar la anomalía. El repositorio principal sigue gestionado por Jujutsu.
+
+Antes de **cada integración**, comparar el árbol de la entrega con su base (`git diff --stat <base>..<rama>` o equivalente JJ), enumerar todos los borrados y contrastar también los archivos reales del checkout. Un índice corrupto puede fingir borrados aunque los archivos existan; una rama sin commits no acredita los cambios todavía en disco. Rechazar cualquier borrado masivo no solicitado. Registrar la base, archivos modificados y comprobación. Si se integran archivos sueltos, comprobar contenido contra la base y aceptar solo las rutas del ámbito asignado, sin copiar metadatos VCS ni cachés.
+
 ## Reparto
 
 - Inventario: extracción reproducible de parámetros, literales, pasos y derivaciones, con cobertura anual y territorial.
