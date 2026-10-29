@@ -1,0 +1,22 @@
+{
+  "pymupdf": "1.26.7",
+  "mupdf": "1.26.12",
+  "methods": [
+    {
+      "method": "Page.get_text",
+      "signature": "(self, *args, **kwargs)",
+      "allParametersExplicit": false
+    },
+    {
+      "method": "Page.get_pixmap",
+      "signature": "(page: 'Page', *, matrix: 'matrix_like' = IdentityMatrix(1.0, 0.0, 0.0, 1.0, 0.0, 0.0), dpi=None, colorspace: pymupdf.Colorspace = None, clip: 'rect_like' = None, alpha: bool = False, annots: bool = True) -> 'Pixmap'",
+      "allParametersExplicit": true
+    },
+    {
+      "method": "Pixmap.tobytes",
+      "signature": "(self, output='png', jpg_quality=95)",
+      "allParametersExplicit": true
+    }
+  ],
+  "limit": "Stub local solo para las operaciones usadas; la evidencia se verifica además por bytes y render real."
+}

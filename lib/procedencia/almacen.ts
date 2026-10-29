@@ -184,7 +184,12 @@ export function enlacesDocumentales(
     const e = pendientes[i]
     if (e === undefined || vistos.has(e.id)) continue
     vistos.add(e.id)
-    if (vistos.size > 32) throw new Error("Recorrido documental excedido")
+    // Cuatro entidades documentales por enlace y una ocurrencia compartida.
+    const limite = Math.min(
+      snapshot.cantidad,
+      1 + 4 * snapshot.evidencias.length
+    )
+    if (vistos.size > limite) throw new Error("Recorrido documental excedido")
     const blob =
       e.tipo === "Document"
         ? e.original

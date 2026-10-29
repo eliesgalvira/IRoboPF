@@ -1,0 +1,66 @@
+{
+  "historical": {
+    "path": "docs/procedencia/enlaces/madrid-2020-limite.json",
+    "sha256": "e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258"
+  },
+  "payload": {
+    "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/payload-v2.json",
+    "sha256": "c8722b5f4aed938ae4ba73e60a3e69716900d46a89289299dbeea0428681fde6"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/ambito.json",
+    "sha256": "48a10afb7bf6a5dd82332573e4a9c6af30904f5ea9005a0e034b97c8dad72e5d"
+  },
+  "item": {
+    "id": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+    "layer": "effective",
+    "kind": "Parameter",
+    "name": "Parámetro: ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025 / [\"madrid\",\"tramos\",\"3\",\"0\"]",
+    "domain": "dominio/normativa/datos",
+    "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+    "path": "[\"madrid\",\"tramos\",\"3\",\"0\"]",
+    "expression": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025[\"madrid\"][\"tramos\"][\"3\"][\"0\"]",
+    "value": "53407.2",
+    "unit": "EUR (límite de base; periodicidad pendiente)",
+    "years": [
+      2020
+    ],
+    "territories": [
+      "madrid"
+    ],
+    "regimes": [],
+    "applicability": "datos evaluados; selección por motor pendiente",
+    "status": "pending",
+    "evidence": "pending",
+    "independentReview": "pending",
+    "relations": {
+      "itemIds": [
+        "inv-87e7254216ead566dccb0a931dc0fe4c"
+      ],
+      "ruleIds": [],
+      "citationIds": [],
+      "findingIds": []
+    },
+    "source": {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "start": 1637,
+      "end": 13058,
+      "line": 50,
+      "column": 14,
+      "offsetEncoding": "utf16"
+    },
+    "resolution": "module-evaluation"
+  },
+  "nominalValue": "53407.20",
+  "unit": "EUR",
+  "unitLimit": "El inventario dice EUR (límite de base; periodicidad pendiente). EUR se vincula al literal EUROS de la cita, sin aceptar periodicidad.",
+  "bindingReview": "pending",
+  "operationalStatus": "blocked",
+  "completeRuleAcceptance": false,
+  "blockers": [
+    "La decisión histórica no contiene conditions/year/territory/unit/value/column exigidos por verify_executable_scope.",
+    "Ruta efectiva de cuatro segmentos; el consumidor exige exactamente dos.",
+    "El consumidor restringe Madrid a 2022 y MADRID_2022; nominal-only no está admitido para esta identidad."
+  ]
+}

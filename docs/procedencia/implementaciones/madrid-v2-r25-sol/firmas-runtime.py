@@ -1,0 +1,19 @@
+"""Contrasta las firmas del subconjunto tipado con la librería realmente fijada."""
+import inspect
+import json
+from pathlib import Path
+
+import pymupdf
+
+out = Path(__file__).resolve().parent
+rows = []
+for owner, name, required in [(pymupdf.Page, 'get_text', {'option', 'clip', 'flags', 'sort'}),
+                              (pymupdf.Page, 'get_pixmap', {'dpi', 'clip', 'colorspace', 'alpha', 'annots'}),
+                              (pymupdf.Pixmap, 'tobytes', {'output'})]:
+    method = getattr(owner, name)
+    signature = inspect.signature(method)
+    explicit = required <= signature.parameters.keys()
+    rows.append({'method': owner.__name__ + '.' + name, 'signature': str(signature), 'allParametersExplicit': explicit})
+(out / 'firmas-runtime.json').write_text(json.dumps({'pymupdf': pymupdf.VersionBind, 'mupdf': pymupdf.VersionFitz,
+    'methods': rows, 'limit': 'Stub local solo para las operaciones usadas; la evidencia se verifica además por bytes y render real.'}, ensure_ascii=False, indent=2) + '\n')
+print('Firmas runtime del subconjunto tipado contrastadas.')

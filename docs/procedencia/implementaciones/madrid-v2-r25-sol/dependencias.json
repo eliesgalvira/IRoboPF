@@ -1,0 +1,98 @@
+{
+  "root": {
+    "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/payload-v2.json",
+    "sha256": "c8722b5f4aed938ae4ba73e60a3e69716900d46a89289299dbeea0428681fde6"
+  },
+  "documents": [
+    {
+      "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/payload-v2.json",
+      "sha256": "c8722b5f4aed938ae4ba73e60a3e69716900d46a89289299dbeea0428681fde6",
+      "sha512": "247530d425ebcdc280f30193e2b3f0509aebb64b8ad46febcf6bcdf61ff4aea739559bc6a22cea2bb44307a2380c16e8da19f7d5a46a1b103ac6ce8f0699bf2d",
+      "size": 2440
+    },
+    {
+      "path": "docs/procedencia/corpus/madrid-2020-limite.citation.json",
+      "sha256": "9ddaab1ca3a55d960b27b0f471535103231eda90eb755fe513a3cd43b1fa5fa4",
+      "sha512": "c64a6a95dfe23bb728688f9eba7eed1d37dec40b1e67068ffd04d7adea27a17d6bf0b1079d0ab4c7026265d9282c384489d1f3ab9db2504f02c88fb6bbd5a77a",
+      "size": 2452
+    },
+    {
+      "path": "docs/procedencia/corpus/madrid-2018-norma.manifest.json",
+      "sha256": "ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091",
+      "sha512": "87b69ade1972d691740d0fa1d3364a6f5abaa4cb4dab7e0030fc317b77589b80c8bcb5d03a05b048291af4631f83bcb2a9670e18bc048c2526f4d27db5d30b36",
+      "size": 2279
+    },
+    {
+      "path": "docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json",
+      "sha256": "9fa6fd22257a7fd803b71af1a393d1890b69509bc179dd67e206a70eb128b5ae",
+      "sha512": "a12b3f36dc186d32413b1e4f6737d450f30c2524eba57f9c0d001ad18cace36110f219122a2617f8420576115e30bb9632bdcb1748b7b8537556fa000e828359",
+      "size": 145006
+    },
+    {
+      "path": "docs/procedencia/implementaciones/madrid-v2-r25-sol/ambito.json",
+      "sha256": "48a10afb7bf6a5dd82332573e4a9c6af30904f5ea9005a0e034b97c8dad72e5d",
+      "sha512": "051ee6455050057a635f7e94e64ae6984c78727ddc9e187f47034ea066d1b74df757559ff2d2cea65740f62b9c84b070ff8275dfd42753f9abcbfc61c179bf4c",
+      "size": 1743
+    }
+  ],
+  "edges": [
+    {
+      "from": "docs/procedencia/implementaciones/madrid-v2-r25-sol/payload-v2.json",
+      "to": "docs/procedencia/corpus/madrid-2020-limite.citation.json",
+      "sha256": "9ddaab1ca3a55d960b27b0f471535103231eda90eb755fe513a3cd43b1fa5fa4"
+    },
+    {
+      "from": "docs/procedencia/implementaciones/madrid-v2-r25-sol/payload-v2.json",
+      "to": "docs/procedencia/corpus/madrid-2018-norma.manifest.json",
+      "sha256": "ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091"
+    },
+    {
+      "from": "docs/procedencia/implementaciones/madrid-v2-r25-sol/payload-v2.json",
+      "to": "docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json",
+      "sha256": "9fa6fd22257a7fd803b71af1a393d1890b69509bc179dd67e206a70eb128b5ae"
+    },
+    {
+      "from": "docs/procedencia/implementaciones/madrid-v2-r25-sol/payload-v2.json",
+      "to": "docs/procedencia/implementaciones/madrid-v2-r25-sol/ambito.json",
+      "sha256": "48a10afb7bf6a5dd82332573e4a9c6af30904f5ea9005a0e034b97c8dad72e5d"
+    },
+    {
+      "from": "docs/procedencia/implementaciones/madrid-v2-r25-sol/ambito.json",
+      "to": "docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json",
+      "sha256": "9fa6fd22257a7fd803b71af1a393d1890b69509bc179dd67e206a70eb128b5ae"
+    }
+  ],
+  "blobs": [
+    {
+      "sha256": "8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660",
+      "sha512": "1483d13889f6474852c0af8bcc0b3ede0a2aa9910c07da00b18464a7bc10ffb3f4f9a0798346538bf9791b82f0c33d34caf2e9e39f768e54bb15a5b253ca4155",
+      "size": 213826,
+      "role": "original-pdf"
+    },
+    {
+      "sha256": "95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868",
+      "sha512": "3b57aab363af5508c01978d19ce7d8e958f9ec9c56697fcc26af1410924108d05f0abbb792b19a4990d57b9273503c3980306594e8dad279e0a54093d0b35a72",
+      "size": 12673,
+      "role": "facsimile-png"
+    }
+  ],
+  "source": {
+    "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+    "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+    "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+    "tablePath": [
+      "madrid",
+      "tramos",
+      "3",
+      "0"
+    ]
+  },
+  "inventory": {
+    "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+    "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+  },
+  "authenticity": "trust-indeterminate",
+  "review": "pending",
+  "publishableAsAccepted": false,
+  "note": "Árbol de transporte candidato; no incluye una atestación. El fundamento temporal auxiliar se fija aparte en evidencias-temporales.json."
+}

@@ -140,25 +140,36 @@ export async function publicar(
       aceptacionFiscalCompleta: false,
     }
   })
-  const publicos = generado.informe.entradas.flatMap(({ entidad: e }) =>
-    e.tipo === "Document"
-      ? [
-          {
-            hash: e.original,
-            bytes: objetos.get(e.original).length,
-            mime: e.mime,
-          },
-        ]
-      : e.tipo === "Facsimile"
+  const candidatosPublicos = generado.informe.entradas.flatMap(
+    ({ entidad: e }) =>
+      e.tipo === "Document"
         ? [
             {
-              hash: e.imagen,
-              bytes: objetos.get(e.imagen).length,
-              mime: "image/png",
+              hash: e.original,
+              bytes: objetos.get(e.original).length,
+              mime: e.mime,
             },
           ]
-        : []
+        : e.tipo === "Facsimile"
+          ? [
+              {
+                hash: e.imagen,
+                bytes: objetos.get(e.imagen).length,
+                mime: "image/png",
+              },
+            ]
+          : []
   )
+  // El mismo original puede respaldar ámbitos distintos: sus nodos se
+  // conservan, pero los bytes públicos tienen una sola identidad por hash.
+  const porHashPublico = new Map()
+  for (const blob of candidatosPublicos) {
+    const previo = porHashPublico.get(blob.hash)
+    if (previo && (previo.bytes !== blob.bytes || previo.mime !== blob.mime))
+      throw new Error("Metadatos públicos incompatibles")
+    porHashPublico.set(blob.hash, blob)
+  }
+  const publicos = [...porHashPublico.values()]
   const generador = guardar(
     readFileSync(resolve(root, "scripts/procedencia/contenido-generar.mjs"))
   )

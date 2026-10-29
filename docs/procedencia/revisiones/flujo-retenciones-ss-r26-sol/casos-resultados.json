@@ -1,0 +1,2988 @@
+{
+  "cases": [
+    {
+      "id": "localizaciones-grafo-y-anexos",
+      "status": "verde",
+      "evidence": {
+        "locations": 2285
+      }
+    },
+    {
+      "id": "archivos-gzip-localizadores",
+      "status": "verde",
+      "evidence": "Rangos adicionales cotejados; no inferencia de causalidad"
+    },
+    {
+      "id": "cap-gastos-antes-irregular",
+      "status": "verde",
+      "evidence": {
+        "cap": "2000",
+        "negativo": "0"
+      }
+    },
+    {
+      "id": "irregular1-irregular2-neto-no-pension",
+      "status": "verde",
+      "evidence": {
+        "a": {
+          "_tag": "RetencionTrabajoCalculada",
+          "anio": 2025,
+          "version": "aeat-2025-01-01",
+          "rendimientoNetoTrabajoCentimos": 3750000,
+          "reduccionRendimientosTrabajoCentimos": 0,
+          "rendimientoNetoReducidoCentimos": 3550000,
+          "minimoPersonalFamiliarCentimos": 555000,
+          "baseRetencionCentimos": 3550000,
+          "cuotaRetencionCentimos": 778200,
+          "limite43Centimos": 778200,
+          "tipoRetencionPorcentaje": "19.45",
+          "importeRetencionAnualCentimos": 778000,
+          "rastro": {
+            "titulo": "Procedimiento de retención de trabajo 2025",
+            "pasos": [
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Base de retención",
+                "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Rendimiento neto del trabajo",
+                    "formula": "40000.00 euros - 0.00 euros - 0.00 euros - 2500.00 euros",
+                    "resultado": "37500.00 euros"
+                  },
+                  {
+                    "etiqueta": "Reducción por rendimientos del trabajo",
+                    "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                    "resultado": "0.00 euros"
+                  },
+                  {
+                    "etiqueta": "Base para calcular el tipo",
+                    "formula": "35500.00 euros - 0.00 euros",
+                    "resultado": "35500.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              },
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Cuota y tipo de retención",
+                "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Mínimo personal y familiar",
+                    "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                    "resultado": "5550.00 euros"
+                  },
+                  {
+                    "etiqueta": "Cuota de retención",
+                    "formula": "min(cuota escala, limite 43% 7782.00 euros)",
+                    "resultado": "7782.00 euros"
+                  },
+                  {
+                    "etiqueta": "Tipo de retención",
+                    "formula": "7782.00 euros / 40000.00 euros x 100",
+                    "resultado": "19.45%"
+                  },
+                  {
+                    "etiqueta": "Importe anual",
+                    "formula": "40000.00 euros x 19.45%",
+                    "resultado": "7780.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "b": {
+          "_tag": "RetencionTrabajoCalculada",
+          "anio": 2025,
+          "version": "aeat-2025-01-01",
+          "rendimientoNetoTrabajoCentimos": 3740000,
+          "reduccionRendimientosTrabajoCentimos": 0,
+          "rendimientoNetoReducidoCentimos": 3540000,
+          "minimoPersonalFamiliarCentimos": 555000,
+          "baseRetencionCentimos": 3540000,
+          "cuotaRetencionCentimos": 774500,
+          "limite43Centimos": 774500,
+          "tipoRetencionPorcentaje": "19.36",
+          "importeRetencionAnualCentimos": 774400,
+          "rastro": {
+            "titulo": "Procedimiento de retención de trabajo 2025",
+            "pasos": [
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Base de retención",
+                "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Rendimiento neto del trabajo",
+                    "formula": "40000.00 euros - 100.00 euros - 0.00 euros - 2500.00 euros",
+                    "resultado": "37400.00 euros"
+                  },
+                  {
+                    "etiqueta": "Reducción por rendimientos del trabajo",
+                    "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                    "resultado": "0.00 euros"
+                  },
+                  {
+                    "etiqueta": "Base para calcular el tipo",
+                    "formula": "35400.00 euros - 0.00 euros",
+                    "resultado": "35400.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              },
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Cuota y tipo de retención",
+                "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Mínimo personal y familiar",
+                    "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                    "resultado": "5550.00 euros"
+                  },
+                  {
+                    "etiqueta": "Cuota de retención",
+                    "formula": "min(cuota escala, limite 43% 7745.00 euros)",
+                    "resultado": "7745.00 euros"
+                  },
+                  {
+                    "etiqueta": "Tipo de retención",
+                    "formula": "7745.00 euros / 40000.00 euros x 100",
+                    "resultado": "19.36%"
+                  },
+                  {
+                    "etiqueta": "Importe anual",
+                    "formula": "40000.00 euros x 19.36%",
+                    "resultado": "7744.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "c": {
+          "_tag": "RetencionTrabajoCalculada",
+          "anio": 2025,
+          "version": "aeat-2025-01-01",
+          "rendimientoNetoTrabajoCentimos": 3740000,
+          "reduccionRendimientosTrabajoCentimos": 0,
+          "rendimientoNetoReducidoCentimos": 3540000,
+          "minimoPersonalFamiliarCentimos": 555000,
+          "baseRetencionCentimos": 3540000,
+          "cuotaRetencionCentimos": 774500,
+          "limite43Centimos": 774500,
+          "tipoRetencionPorcentaje": "19.36",
+          "importeRetencionAnualCentimos": 774400,
+          "rastro": {
+            "titulo": "Procedimiento de retención de trabajo 2025",
+            "pasos": [
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Base de retención",
+                "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Rendimiento neto del trabajo",
+                    "formula": "40000.00 euros - 0.00 euros - 100.00 euros - 2500.00 euros",
+                    "resultado": "37400.00 euros"
+                  },
+                  {
+                    "etiqueta": "Reducción por rendimientos del trabajo",
+                    "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                    "resultado": "0.00 euros"
+                  },
+                  {
+                    "etiqueta": "Base para calcular el tipo",
+                    "formula": "35400.00 euros - 0.00 euros",
+                    "resultado": "35400.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              },
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Cuota y tipo de retención",
+                "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Mínimo personal y familiar",
+                    "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                    "resultado": "5550.00 euros"
+                  },
+                  {
+                    "etiqueta": "Cuota de retención",
+                    "formula": "min(cuota escala, limite 43% 7745.00 euros)",
+                    "resultado": "7745.00 euros"
+                  },
+                  {
+                    "etiqueta": "Tipo de retención",
+                    "formula": "7745.00 euros / 40000.00 euros x 100",
+                    "resultado": "19.36%"
+                  },
+                  {
+                    "etiqueta": "Importe anual",
+                    "formula": "40000.00 euros x 19.36%",
+                    "resultado": "7744.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "p": {
+          "_tag": "RetencionTrabajoCalculada",
+          "anio": 2025,
+          "version": "aeat-2025-01-01",
+          "rendimientoNetoTrabajoCentimos": 3750000,
+          "reduccionRendimientosTrabajoCentimos": 0,
+          "rendimientoNetoReducidoCentimos": 3550000,
+          "minimoPersonalFamiliarCentimos": 555000,
+          "baseRetencionCentimos": 3540000,
+          "cuotaRetencionCentimos": 774500,
+          "limite43Centimos": 774500,
+          "tipoRetencionPorcentaje": "19.36",
+          "importeRetencionAnualCentimos": 774400,
+          "rastro": {
+            "titulo": "Procedimiento de retención de trabajo 2025",
+            "pasos": [
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Base de retención",
+                "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Rendimiento neto del trabajo",
+                    "formula": "40000.00 euros - 0.00 euros - 0.00 euros - 2500.00 euros",
+                    "resultado": "37500.00 euros"
+                  },
+                  {
+                    "etiqueta": "Reducción por rendimientos del trabajo",
+                    "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                    "resultado": "0.00 euros"
+                  },
+                  {
+                    "etiqueta": "Base para calcular el tipo",
+                    "formula": "35500.00 euros - 100.00 euros",
+                    "resultado": "35400.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              },
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Cuota y tipo de retención",
+                "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Mínimo personal y familiar",
+                    "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                    "resultado": "5550.00 euros"
+                  },
+                  {
+                    "etiqueta": "Cuota de retención",
+                    "formula": "min(cuota escala, limite 43% 7745.00 euros)",
+                    "resultado": "7745.00 euros"
+                  },
+                  {
+                    "etiqueta": "Tipo de retención",
+                    "formula": "7745.00 euros / 40000.00 euros x 100",
+                    "resultado": "19.36%"
+                  },
+                  {
+                    "etiqueta": "Importe anual",
+                    "formula": "40000.00 euros x 19.36%",
+                    "resultado": "7744.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "reducciones-bordes-y-default",
+      "status": "verde",
+      "evidence": [
+        {
+          "neto": "11249.99",
+          "legacy": "7302",
+          "antigua": "3700",
+          "r2019": "5565"
+        },
+        {
+          "neto": "11250",
+          "legacy": "7302",
+          "antigua": "3700",
+          "r2019": "5565"
+        },
+        {
+          "neto": "11250.01",
+          "legacy": "7302",
+          "antigua": "3699.99",
+          "r2019": "5565"
+        },
+        {
+          "neto": "13114.99",
+          "legacy": "7302",
+          "antigua": "1543.61",
+          "r2019": "5565"
+        },
+        {
+          "neto": "13115",
+          "legacy": "7302",
+          "antigua": "1543.59",
+          "r2019": "5565"
+        },
+        {
+          "neto": "13115.01",
+          "legacy": "7302",
+          "antigua": "1543.58",
+          "r2019": "5564.99"
+        },
+        {
+          "neto": "14047.49",
+          "legacy": "7302",
+          "antigua": "465.4",
+          "r2019": "4166.27"
+        },
+        {
+          "neto": "14047.5",
+          "legacy": "7302",
+          "antigua": "465.39",
+          "r2019": "4166.25"
+        },
+        {
+          "neto": "14047.51",
+          "legacy": "7302",
+          "antigua": "465.38",
+          "r2019": "4166.24"
+        },
+        {
+          "neto": "14851.99",
+          "legacy": "7302",
+          "antigua": "0",
+          "r2019": "2959.52"
+        },
+        {
+          "neto": "14852",
+          "legacy": "7302",
+          "antigua": "0",
+          "r2019": "2959.5"
+        },
+        {
+          "neto": "14852.01",
+          "legacy": "7301.98",
+          "antigua": "0",
+          "r2019": "2959.49"
+        },
+        {
+          "neto": "17673.51",
+          "legacy": "2364.36",
+          "antigua": "0",
+          "r2019": "0"
+        },
+        {
+          "neto": "17673.52",
+          "legacy": "2364.34",
+          "antigua": "0",
+          "r2019": "0"
+        },
+        {
+          "neto": "17673.53",
+          "legacy": "2364.33",
+          "antigua": "0",
+          "r2019": "0"
+        },
+        {
+          "neto": "19747.49",
+          "legacy": "0.01",
+          "antigua": "0",
+          "r2019": "0"
+        },
+        {
+          "neto": "19747.5",
+          "legacy": "0",
+          "antigua": "0",
+          "r2019": "0"
+        },
+        {
+          "neto": "19747.51",
+          "legacy": "0",
+          "antigua": "0",
+          "r2019": "0"
+        }
+      ]
+    },
+    {
+      "id": "familia-filtro-antes-beneficio-y-orden",
+      "status": "verde",
+      "evidence": {
+        "canonico": {
+          "_tag": "RetencionTrabajoCalculada",
+          "anio": 2025,
+          "version": "aeat-2025-01-01",
+          "rendimientoNetoTrabajoCentimos": 3750000,
+          "reduccionRendimientosTrabajoCentimos": 0,
+          "rendimientoNetoReducidoCentimos": 3550000,
+          "minimoPersonalFamiliarCentimos": 1065000,
+          "baseRetencionCentimos": 3550000,
+          "cuotaRetencionCentimos": 681300,
+          "limite43Centimos": 681300,
+          "tipoRetencionPorcentaje": "17.03",
+          "importeRetencionAnualCentimos": 681200,
+          "rastro": {
+            "titulo": "Procedimiento de retención de trabajo 2025",
+            "pasos": [
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Base de retención",
+                "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Rendimiento neto del trabajo",
+                    "formula": "40000.00 euros - 0.00 euros - 0.00 euros - 2500.00 euros",
+                    "resultado": "37500.00 euros"
+                  },
+                  {
+                    "etiqueta": "Reducción por rendimientos del trabajo",
+                    "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                    "resultado": "0.00 euros"
+                  },
+                  {
+                    "etiqueta": "Base para calcular el tipo",
+                    "formula": "35500.00 euros - 0.00 euros",
+                    "resultado": "35500.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              },
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Cuota y tipo de retención",
+                "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Mínimo personal y familiar",
+                    "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                    "resultado": "10650.00 euros"
+                  },
+                  {
+                    "etiqueta": "Cuota de retención",
+                    "formula": "min(cuota escala, limite 43% 6813.00 euros)",
+                    "resultado": "6813.00 euros"
+                  },
+                  {
+                    "etiqueta": "Tipo de retención",
+                    "formula": "6813.00 euros / 40000.00 euros x 100",
+                    "resultado": "17.03%"
+                  },
+                  {
+                    "etiqueta": "Importe anual",
+                    "formula": "40000.00 euros x 17.03%",
+                    "resultado": "6812.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "legacy": {
+          "_tag": "RetencionTrabajoCalculada",
+          "anio": 2025,
+          "version": "compatible-legacy",
+          "rendimientoNetoTrabajoCentimos": 3750000,
+          "reduccionRendimientosTrabajoCentimos": 0,
+          "rendimientoNetoReducidoCentimos": 3550000,
+          "minimoPersonalFamiliarCentimos": 1465000,
+          "baseRetencionCentimos": 3490000,
+          "cuotaRetencionCentimos": 574200,
+          "limite43Centimos": 574200,
+          "tipoRetencionPorcentaje": "14.35",
+          "importeRetencionAnualCentimos": 574000,
+          "rastro": {
+            "titulo": "Procedimiento de retención de trabajo 2025",
+            "pasos": [
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Base de retención",
+                "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Rendimiento neto del trabajo",
+                    "formula": "40000.00 euros - 0.00 euros - 0.00 euros - 2500.00 euros",
+                    "resultado": "37500.00 euros"
+                  },
+                  {
+                    "etiqueta": "Reducción por rendimientos del trabajo",
+                    "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                    "resultado": "0.00 euros"
+                  },
+                  {
+                    "etiqueta": "Base para calcular el tipo",
+                    "formula": "35500.00 euros - 600.00 euros",
+                    "resultado": "34900.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "Reproducción compatible-legacy; sin vigencia jurídica",
+                    "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                  }
+                ]
+              },
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Cuota y tipo de retención",
+                "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Mínimo personal y familiar",
+                    "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                    "resultado": "14650.00 euros"
+                  },
+                  {
+                    "etiqueta": "Cuota de retención",
+                    "formula": "min(cuota escala, limite 43% 5742.00 euros)",
+                    "resultado": "5742.00 euros"
+                  },
+                  {
+                    "etiqueta": "Tipo de retención",
+                    "formula": "5742.00 euros / 40000.00 euros x 100",
+                    "resultado": "14.35%"
+                  },
+                  {
+                    "etiqueta": "Importe anual",
+                    "formula": "40000.00 euros x 14.35%",
+                    "resultado": "5740.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "Reproducción compatible-legacy; sin vigencia jurídica",
+                    "referencia": "docs/fuentes/aeat/algoritmo-retenciones-2026.md"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "escala-60000-300000-version-y-resto",
+      "status": "verde",
+      "evidence": [
+        {
+          "base": 59999.99,
+          "v2020": "17901.4963",
+          "v2021": "17901.4963"
+        },
+        {
+          "base": 60000,
+          "v2020": "17901.5",
+          "v2021": "17901.5"
+        },
+        {
+          "base": 60000.01,
+          "v2020": "17901.5045",
+          "v2021": "17901.5045"
+        },
+        {
+          "base": 299999.99,
+          "v2020": "125901.4955",
+          "v2021": "125901.4955"
+        },
+        {
+          "base": 300000,
+          "v2020": "125901.5",
+          "v2021": "125901.5"
+        },
+        {
+          "base": 300000.01,
+          "v2020": "125901.5045",
+          "v2021": "125901.5047"
+        },
+        {
+          "base": 400000,
+          "v2020": "170901.5",
+          "v2021": "172901.5"
+        }
+      ]
+    },
+    {
+      "id": "alimentos-operador-y-frontera",
+      "status": "verde",
+      "evidence": [
+        {
+          "a": 0,
+          "result": "6111"
+        },
+        {
+          "a": 1,
+          "result": "5734.69"
+        },
+        {
+          "a": 6000,
+          "result": "5074.8"
+        },
+        {
+          "a": 29999.99,
+          "result": "5734.7989"
+        },
+        {
+          "a": 30000,
+          "result": "6111"
+        },
+        {
+          "a": 30000.01,
+          "result": "6111"
+        }
+      ]
+    },
+    {
+      "id": "fechas-todas-fronteras-catalogo",
+      "status": "verde",
+      "evidence": [
+        {
+          "id": "aeat-2017-01-01",
+          "desde": "2017-01-01",
+          "hasta": "2017-12-31"
+        },
+        {
+          "id": "aeat-2018-01-01",
+          "desde": "2018-01-01",
+          "hasta": "2018-07-04"
+        },
+        {
+          "id": "aeat-2018-07-05",
+          "desde": "2018-07-05",
+          "hasta": "2018-12-31"
+        },
+        {
+          "id": "aeat-2019-01-01",
+          "desde": "2019-01-01",
+          "hasta": "2019-12-31"
+        },
+        {
+          "id": "aeat-2020-01-01",
+          "desde": "2020-01-01",
+          "hasta": "2020-12-31"
+        },
+        {
+          "id": "aeat-2021-01-01",
+          "desde": "2021-01-01",
+          "hasta": "2021-10-20"
+        },
+        {
+          "id": "aeat-2021-10-21",
+          "desde": "2021-10-21",
+          "hasta": "2021-12-31"
+        },
+        {
+          "id": "aeat-2022-01-01",
+          "desde": "2022-01-01",
+          "hasta": "2022-12-31"
+        },
+        {
+          "id": "aeat-2023-01-01",
+          "desde": "2023-01-01",
+          "hasta": "2023-01-31"
+        },
+        {
+          "id": "aeat-2023-02-01",
+          "desde": "2023-02-01",
+          "hasta": "2023-12-31"
+        },
+        {
+          "id": "aeat-2024-01-01",
+          "desde": "2024-01-01",
+          "hasta": "2024-02-07"
+        },
+        {
+          "id": "aeat-2024-02-08",
+          "desde": "2024-02-08",
+          "hasta": "2024-06-27"
+        },
+        {
+          "id": "aeat-2024-06-28",
+          "desde": "2024-06-28",
+          "hasta": "2024-12-31"
+        },
+        {
+          "id": "aeat-2025-01-01",
+          "desde": "2025-01-01",
+          "hasta": "2025-11-26"
+        },
+        {
+          "id": "aeat-2025-11-27",
+          "desde": "2025-11-27",
+          "hasta": "2025-12-31"
+        },
+        {
+          "id": "aeat-2026-09-10",
+          "desde": "2026-09-10",
+          "hasta": "2026-10-29"
+        }
+      ]
+    },
+    {
+      "id": "rechazos-publicos-y-defaults",
+      "status": "verde",
+      "evidence": "Rechazos y edad omitida=40; flags ausentes no activan beneficios"
+    },
+    {
+      "id": "tabla-null-maximo-fila-real",
+      "status": "verde",
+      "evidence": {
+        "fila": 15876,
+        "maximo": 19262,
+        "null": "rechazado"
+      }
+    },
+    {
+      "id": "tabla-fecha-version-desde-y-especial2018",
+      "status": "verde",
+      "evidence": {
+        "definida": 13000,
+        "undefined": 12643
+      }
+    },
+    {
+      "id": "limite43-techo-estricto",
+      "status": "verde",
+      "evidence": [
+        {
+          "version": {
+            "anio": 2022,
+            "reduccion": "2019"
+          },
+          "R": 22000,
+          "result": "5160"
+        },
+        {
+          "version": {
+            "anio": 2022,
+            "reduccion": "2019"
+          },
+          "R": 22000.01,
+          "result": "20000"
+        },
+        {
+          "version": {
+            "anio": 2022,
+            "reduccion": "2019"
+          },
+          "R": 35200,
+          "result": "20000"
+        },
+        {
+          "version": {
+            "anio": 2022,
+            "reduccion": "2019"
+          },
+          "R": 35200.01,
+          "result": "20000"
+        },
+        {
+          "version": {
+            "anio": 2023,
+            "reduccion": "2019"
+          },
+          "R": 22000,
+          "result": "5160"
+        },
+        {
+          "version": {
+            "anio": 2023,
+            "reduccion": "2019"
+          },
+          "R": 22000.01,
+          "result": "20000"
+        },
+        {
+          "version": {
+            "anio": 2023,
+            "reduccion": "2019"
+          },
+          "R": 35200,
+          "result": "20000"
+        },
+        {
+          "version": {
+            "anio": 2023,
+            "reduccion": "2019"
+          },
+          "R": 35200.01,
+          "result": "20000"
+        },
+        {
+          "version": {
+            "anio": 2023,
+            "reduccion": "2023"
+          },
+          "R": 22000,
+          "result": "5160"
+        },
+        {
+          "version": {
+            "anio": 2023,
+            "reduccion": "2023"
+          },
+          "R": 22000.01,
+          "result": "5160.0043"
+        },
+        {
+          "version": {
+            "anio": 2023,
+            "reduccion": "2023"
+          },
+          "R": 35200,
+          "result": "10836"
+        },
+        {
+          "version": {
+            "anio": 2023,
+            "reduccion": "2023"
+          },
+          "R": 35200.01,
+          "result": "20000"
+        },
+        {
+          "R": 22000,
+          "result": "5160"
+        },
+        {
+          "R": 22000.01,
+          "result": "5160.0043"
+        },
+        {
+          "R": 35200,
+          "result": "10836"
+        },
+        {
+          "R": 35200.01,
+          "result": "20000"
+        }
+      ]
+    },
+    {
+      "id": "ceuta-vivienda-minimos-y-exencion",
+      "status": "verde",
+      "evidence": {
+        "a": {
+          "_tag": "RetencionTrabajoCalculada",
+          "anio": 2025,
+          "version": "aeat-2025-01-01",
+          "rendimientoNetoTrabajoCentimos": 935000,
+          "reduccionRendimientosTrabajoCentimos": 730200,
+          "rendimientoNetoReducidoCentimos": 4800,
+          "minimoPersonalFamiliarCentimos": 555000,
+          "baseRetencionCentimos": 4800,
+          "cuotaRetencionCentimos": 0,
+          "limite43Centimos": 0,
+          "tipoRetencionPorcentaje": "0.00",
+          "importeRetencionAnualCentimos": 0,
+          "rastro": {
+            "titulo": "Procedimiento de retención de trabajo 2025",
+            "pasos": [
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Base de retención",
+                "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Rendimiento neto del trabajo",
+                    "formula": "10000.00 euros - 0.00 euros - 0.00 euros - 650.00 euros",
+                    "resultado": "9350.00 euros"
+                  },
+                  {
+                    "etiqueta": "Reducción por rendimientos del trabajo",
+                    "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                    "resultado": "7302.00 euros"
+                  },
+                  {
+                    "etiqueta": "Base para calcular el tipo",
+                    "formula": "48.00 euros - 0.00 euros",
+                    "resultado": "48.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              },
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Cuota y tipo de retención",
+                "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Mínimo personal y familiar",
+                    "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                    "resultado": "5550.00 euros"
+                  },
+                  {
+                    "etiqueta": "Cuota de retención",
+                    "formula": "Rendimientos exentos segun tabla 1",
+                    "resultado": "0.00 euros"
+                  },
+                  {
+                    "etiqueta": "Tipo de retención",
+                    "formula": "0.00 euros / 10000.00 euros x 100",
+                    "resultado": "0.00%"
+                  },
+                  {
+                    "etiqueta": "Importe anual",
+                    "formula": "10000.00 euros x 0.00%",
+                    "resultado": "0.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "b": {
+          "_tag": "RetencionTrabajoCalculada",
+          "anio": 2025,
+          "version": "aeat-2025-01-01",
+          "rendimientoNetoTrabajoCentimos": 935000,
+          "reduccionRendimientosTrabajoCentimos": 730200,
+          "rendimientoNetoReducidoCentimos": 4800,
+          "minimoPersonalFamiliarCentimos": 555000,
+          "baseRetencionCentimos": 4800,
+          "cuotaRetencionCentimos": 0,
+          "limite43Centimos": 0,
+          "tipoRetencionPorcentaje": "6.00",
+          "importeRetencionAnualCentimos": 60000,
+          "rastro": {
+            "titulo": "Procedimiento de retención de trabajo 2025",
+            "pasos": [
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Base de retención",
+                "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Rendimiento neto del trabajo",
+                    "formula": "10000.00 euros - 0.00 euros - 0.00 euros - 650.00 euros",
+                    "resultado": "9350.00 euros"
+                  },
+                  {
+                    "etiqueta": "Reducción por rendimientos del trabajo",
+                    "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                    "resultado": "7302.00 euros"
+                  },
+                  {
+                    "etiqueta": "Base para calcular el tipo",
+                    "formula": "48.00 euros - 0.00 euros",
+                    "resultado": "48.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              },
+              {
+                "_tag": "PasoExplicacion",
+                "titulo": "Cuota y tipo de retención",
+                "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+                "lineasCalculo": [
+                  {
+                    "etiqueta": "Mínimo personal y familiar",
+                    "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                    "resultado": "5550.00 euros"
+                  },
+                  {
+                    "etiqueta": "Cuota de retención",
+                    "formula": "Rendimientos exentos segun tabla 1",
+                    "resultado": "0.00 euros"
+                  },
+                  {
+                    "etiqueta": "Tipo de retención",
+                    "formula": "0.00 euros / 10000.00 euros x 100",
+                    "resultado": "6.00%"
+                  },
+                  {
+                    "etiqueta": "Importe anual",
+                    "formula": "10000.00 euros x 6.00%",
+                    "resultado": "600.00 euros"
+                  }
+                ],
+                "fuentes": [
+                  {
+                    "titulo": "aeat-2025-01-01; SHA-256 3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+                    "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "ss-2018-saturacion-y-sin-minimos",
+      "status": "verde",
+      "evidence": [
+        {
+          "salary": 0,
+          "base": "0",
+          "excess": "0"
+        },
+        {
+          "salary": 1,
+          "base": "1",
+          "excess": "0"
+        },
+        {
+          "salary": 45014.39,
+          "base": "45014.39",
+          "excess": "0"
+        },
+        {
+          "salary": 45014.4,
+          "base": "45014.4",
+          "excess": "0"
+        },
+        {
+          "salary": 45014.41,
+          "base": "45014.404166666666667",
+          "excess": "0.005833333333333"
+        },
+        {
+          "salary": 45644.39,
+          "base": "45276.895833333333333",
+          "excess": "367.494166666666667"
+        },
+        {
+          "salary": 45644.4,
+          "base": "45276.9",
+          "excess": "367.5"
+        },
+        {
+          "salary": 45644.41,
+          "base": "45276.9",
+          "excess": "367.51"
+        },
+        {
+          "salary": 100000,
+          "base": "45276.9",
+          "excess": "54723.1"
+        }
+      ]
+    },
+    {
+      "id": "ss-bandas-y-lados-2025-2026",
+      "status": "verde",
+      "evidence": [
+        {
+          "anio": 2025,
+          "salary": "58913.99",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58913.99",
+            "excesoBase": "0",
+            "cotizacionEmpresarialOrdinaria": "18498.99286",
+            "cotizacionTrabajadorOrdinaria": "3741.038365",
+            "meiEmpresarial": "394.723733",
+            "meiTrabajador": "76.588187",
+            "solidaridadEmpresarial": "0",
+            "solidaridadTrabajador": "0",
+            "cotizacionEmpresarial": "18893.716593",
+            "cotizacionTrabajador": "3817.626552"
+          },
+          "legacy": {
+            "baseOrdinaria": "58913.99",
+            "excesoBase": "0",
+            "cotizacionEmpresarial": "18893.716593",
+            "cotizacionTrabajador": "3817.626552",
+            "cotizacionEmpresarialOrdinaria": "18498.99286",
+            "cotizacionTrabajadorOrdinaria": "3741.038365",
+            "meiEmpresarial": "394.723733",
+            "meiTrabajador": "76.588187",
+            "solidaridadEmpresarial": "0",
+            "solidaridadTrabajador": "0"
+          }
+        },
+        {
+          "anio": 2025,
+          "salary": "58914",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58914",
+            "excesoBase": "0",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "0",
+            "solidaridadTrabajador": "0",
+            "cotizacionEmpresarial": "18893.7198",
+            "cotizacionTrabajador": "3817.6272"
+          },
+          "legacy": {
+            "baseOrdinaria": "58914",
+            "excesoBase": "0",
+            "cotizacionEmpresarial": "18893.7198",
+            "cotizacionTrabajador": "3817.6272",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "0",
+            "solidaridadTrabajador": "0"
+          }
+        },
+        {
+          "anio": 2025,
+          "salary": "58914.01",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58914",
+            "excesoBase": "0.01",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "0.000077",
+            "solidaridadTrabajador": "0.000015",
+            "cotizacionEmpresarial": "18893.719877",
+            "cotizacionTrabajador": "3817.627215"
+          },
+          "legacy": {
+            "baseOrdinaria": "58914",
+            "excesoBase": "0.01",
+            "cotizacionEmpresarial": "18893.719876666666667",
+            "cotizacionTrabajador": "3817.6272153333333333",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "0.000076666666666666666667",
+            "solidaridadTrabajador": "0.000015333333333333333333"
+          }
+        },
+        {
+          "anio": 2025,
+          "salary": "64805.39",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58914",
+            "excesoBase": "5891.39",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "45.363703",
+            "solidaridadTrabajador": "8.837085",
+            "cotizacionEmpresarial": "18939.083503",
+            "cotizacionTrabajador": "3826.464285"
+          },
+          "legacy": {
+            "baseOrdinaria": "58914",
+            "excesoBase": "5891.39",
+            "cotizacionEmpresarial": "18938.887123333333333",
+            "cotizacionTrabajador": "3826.6606646666666667",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "45.167323333333333333",
+            "solidaridadTrabajador": "9.0334646666666666667"
+          }
+        },
+        {
+          "anio": 2025,
+          "salary": "64805.4",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58914",
+            "excesoBase": "5891.4",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "45.36378",
+            "solidaridadTrabajador": "8.8371",
+            "cotizacionEmpresarial": "18939.08358",
+            "cotizacionTrabajador": "3826.4643"
+          },
+          "legacy": {
+            "baseOrdinaria": "58914",
+            "excesoBase": "5891.4",
+            "cotizacionEmpresarial": "18938.8872",
+            "cotizacionTrabajador": "3826.66068",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "45.1674",
+            "solidaridadTrabajador": "9.03348"
+          }
+        },
+        {
+          "anio": 2025,
+          "salary": "64805.41",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58914",
+            "excesoBase": "5891.41",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "45.363863",
+            "solidaridadTrabajador": "8.837117",
+            "cotizacionEmpresarial": "18939.083663",
+            "cotizacionTrabajador": "3826.464317"
+          },
+          "legacy": {
+            "baseOrdinaria": "58914",
+            "excesoBase": "5891.41",
+            "cotizacionEmpresarial": "18938.887283333333333",
+            "cotizacionTrabajador": "3826.6606966666666667",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "45.167483333333333333",
+            "solidaridadTrabajador": "9.0334966666666666667"
+          }
+        },
+        {
+          "anio": 2025,
+          "salary": "88370.99",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58914",
+            "excesoBase": "29456.99",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "240.958177",
+            "solidaridadTrabajador": "48.898603",
+            "cotizacionEmpresarial": "19134.677977",
+            "cotizacionTrabajador": "3866.525803"
+          },
+          "legacy": {
+            "baseOrdinaria": "58914",
+            "excesoBase": "29456.99",
+            "cotizacionEmpresarial": "19135.267116666666667",
+            "cotizacionTrabajador": "3865.9366633333333333",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "241.54731666666666667",
+            "solidaridadTrabajador": "48.309463333333333333"
+          }
+        },
+        {
+          "anio": 2025,
+          "salary": "88371",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58914",
+            "excesoBase": "29457",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "240.95826",
+            "solidaridadTrabajador": "48.89862",
+            "cotizacionEmpresarial": "19134.67806",
+            "cotizacionTrabajador": "3866.52582"
+          },
+          "legacy": {
+            "baseOrdinaria": "58914",
+            "excesoBase": "29457",
+            "cotizacionEmpresarial": "19135.2672",
+            "cotizacionTrabajador": "3865.93668",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "241.5474",
+            "solidaridadTrabajador": "48.30948"
+          }
+        },
+        {
+          "anio": 2025,
+          "salary": "88371.01",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "58914",
+            "excesoBase": "29457.01",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "240.958358",
+            "solidaridadTrabajador": "48.898639",
+            "cotizacionEmpresarial": "19134.678158",
+            "cotizacionTrabajador": "3866.525839"
+          },
+          "legacy": {
+            "baseOrdinaria": "58914",
+            "excesoBase": "29457.01",
+            "cotizacionEmpresarial": "19135.2672975",
+            "cotizacionTrabajador": "3865.9366995",
+            "cotizacionEmpresarialOrdinaria": "18498.996",
+            "cotizacionTrabajadorOrdinaria": "3741.039",
+            "meiEmpresarial": "394.7238",
+            "meiTrabajador": "76.5882",
+            "solidaridadEmpresarial": "241.5474975",
+            "solidaridadTrabajador": "48.3094995"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "61214.39",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.39",
+            "excesoBase": "0",
+            "cotizacionEmpresarialOrdinaria": "19221.31846",
+            "cotizacionTrabajadorOrdinaria": "3887.113765",
+            "meiEmpresarial": "459.107925",
+            "meiTrabajador": "91.821585",
+            "solidaridadEmpresarial": "0",
+            "solidaridadTrabajador": "0",
+            "cotizacionEmpresarial": "19680.426385",
+            "cotizacionTrabajador": "3978.93535"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.39",
+            "excesoBase": "0",
+            "cotizacionEmpresarial": "19680.426385",
+            "cotizacionTrabajador": "3978.93535",
+            "cotizacionEmpresarialOrdinaria": "19221.31846",
+            "cotizacionTrabajadorOrdinaria": "3887.113765",
+            "meiEmpresarial": "459.107925",
+            "meiTrabajador": "91.821585",
+            "solidaridadEmpresarial": "0",
+            "solidaridadTrabajador": "0"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "61214.4",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "0",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "0",
+            "solidaridadTrabajador": "0",
+            "cotizacionEmpresarial": "19680.4296",
+            "cotizacionTrabajador": "3978.936"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "0",
+            "cotizacionEmpresarial": "19680.4296",
+            "cotizacionTrabajador": "3978.936",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "0",
+            "solidaridadTrabajador": "0"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "61214.41",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "0.01",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "0.000096",
+            "solidaridadTrabajador": "0.000019",
+            "cotizacionEmpresarial": "19680.429696",
+            "cotizacionTrabajador": "3978.936019"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "0.01",
+            "cotizacionEmpresarial": "19680.429695833333333",
+            "cotizacionTrabajador": "3978.9360191666666667",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "0.000095833333333333333333",
+            "solidaridadTrabajador": "0.000019166666666666666667"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "67335.83",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "6121.43",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "58.765728",
+            "solidaridadTrabajador": "11.630717",
+            "cotizacionEmpresarial": "19739.195328",
+            "cotizacionTrabajador": "3990.566717"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "6121.43",
+            "cotizacionEmpresarial": "19739.093304166666667",
+            "cotizacionTrabajador": "3990.6687408333333333",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "58.663704166666666667",
+            "solidaridadTrabajador": "11.732740833333333333"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "67335.84",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "6121.44",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "58.765824",
+            "solidaridadTrabajador": "11.630736",
+            "cotizacionEmpresarial": "19739.195424",
+            "cotizacionTrabajador": "3990.566736"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "6121.44",
+            "cotizacionEmpresarial": "19739.0934",
+            "cotizacionTrabajador": "3990.66876",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "58.6638",
+            "solidaridadTrabajador": "11.73276"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "67335.85",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "6121.45",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "58.765928",
+            "solidaridadTrabajador": "11.630757",
+            "cotizacionEmpresarial": "19739.195528",
+            "cotizacionTrabajador": "3990.566757"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "6121.45",
+            "cotizacionEmpresarial": "19739.093504166666667",
+            "cotizacionTrabajador": "3990.6687808333333333",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "58.663904166666666667",
+            "solidaridadTrabajador": "11.732780833333333333"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "91821.59",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "30607.19",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "313.417624",
+            "solidaridadTrabajador": "63.050811",
+            "cotizacionEmpresarial": "19993.847224",
+            "cotizacionTrabajador": "4041.986811"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "30607.19",
+            "cotizacionEmpresarial": "19994.153295833333333",
+            "cotizacionTrabajador": "4041.6807391666666667",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "313.72369583333333333",
+            "solidaridadTrabajador": "62.744739166666666667"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "91821.6",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "30607.2",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "313.417728",
+            "solidaridadTrabajador": "63.050832",
+            "cotizacionEmpresarial": "19993.847328",
+            "cotizacionTrabajador": "4041.986832"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "30607.2",
+            "cotizacionEmpresarial": "19994.1534",
+            "cotizacionTrabajador": "4041.68076",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "313.7238",
+            "solidaridadTrabajador": "62.74476"
+          }
+        },
+        {
+          "anio": 2026,
+          "salary": "91821.61",
+          "canonical": {
+            "alcance": "analitico-doce-mensualidades-uniformes",
+            "redondeoTgss": "pendiente",
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "30607.21",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "313.41785",
+            "solidaridadTrabajador": "63.050856",
+            "cotizacionEmpresarial": "19993.84745",
+            "cotizacionTrabajador": "4041.986856"
+          },
+          "legacy": {
+            "baseOrdinaria": "61214.4",
+            "excesoBase": "30607.21",
+            "cotizacionEmpresarial": "19994.153521666666667",
+            "cotizacionTrabajador": "4041.6807843333333333",
+            "cotizacionEmpresarialOrdinaria": "19221.3216",
+            "cotizacionTrabajadorOrdinaria": "3887.1144",
+            "meiEmpresarial": "459.108",
+            "meiTrabajador": "91.8216",
+            "solidaridadEmpresarial": "313.72392166666666667",
+            "solidaridadTrabajador": "62.744784333333333333"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ss-mutacion-un-lado-no-transita-al-otro",
+      "status": "verde",
+      "evidence": {
+        "a": {
+          "alcance": "analitico-doce-mensualidades-uniformes",
+          "redondeoTgss": "pendiente",
+          "baseOrdinaria": "58914",
+          "excesoBase": "41086",
+          "cotizacionEmpresarialOrdinaria": "18498.996",
+          "cotizacionTrabajadorOrdinaria": "3741.039",
+          "meiEmpresarial": "394.7238",
+          "meiTrabajador": "76.5882",
+          "solidaridadEmpresarial": "354.92246",
+          "solidaridadTrabajador": "70.99372",
+          "cotizacionEmpresarial": "19248.64226",
+          "cotizacionTrabajador": "3888.62092"
+        },
+        "b": {
+          "alcance": "analitico-doce-mensualidades-uniformes",
+          "redondeoTgss": "pendiente",
+          "baseOrdinaria": "58914",
+          "excesoBase": "41086",
+          "cotizacionEmpresarialOrdinaria": "18498.996",
+          "cotizacionTrabajadorOrdinaria": "3741.039",
+          "meiEmpresarial": "394.7238",
+          "meiTrabajador": "76.5882",
+          "solidaridadEmpresarial": "413.83646",
+          "solidaridadTrabajador": "70.99372",
+          "cotizacionEmpresarial": "19307.55626",
+          "cotizacionTrabajador": "3888.62092"
+        }
+      }
+    },
+    {
+      "id": "ss-maximo-legacy-no-base-canonica2018",
+      "status": "verde",
+      "evidence": {
+        "u": {
+          "alcance": "analitico-doce-mensualidades-uniformes",
+          "redondeoTgss": "pendiente",
+          "baseOrdinaria": "45276.9",
+          "excesoBase": "54723.1",
+          "cotizacionEmpresarialOrdinaria": "14216.9466",
+          "cotizacionTrabajadorOrdinaria": "2875.08315",
+          "meiEmpresarial": "0",
+          "meiTrabajador": "0",
+          "solidaridadEmpresarial": "0",
+          "solidaridadTrabajador": "0",
+          "cotizacionEmpresarial": "14216.9466",
+          "cotizacionTrabajador": "2875.08315"
+        },
+        "legacy": {
+          "baseOrdinaria": "40000",
+          "excesoBase": "60000",
+          "cotizacionEmpresarial": "12560",
+          "cotizacionTrabajador": "2540",
+          "cotizacionEmpresarialOrdinaria": "12560",
+          "cotizacionTrabajadorOrdinaria": "2540",
+          "meiEmpresarial": "0",
+          "meiTrabajador": "0",
+          "solidaridadEmpresarial": "0",
+          "solidaridadTrabajador": "0"
+        }
+      }
+    },
+    {
+      "id": "anual-declarados-estimacion-y-no-herencia",
+      "status": "verde",
+      "evidence": {
+        "supported": {
+          "etiqueta": "Retenciones soportadas",
+          "formula": "Importe declarado en el caso fiscal",
+          "resultado": "123.45 euros",
+          "origen": {
+            "siteId": "anual.pagos.retenciones",
+            "instanceId": "anual.pagos.retenciones.0",
+            "decimal": "123.45",
+            "unidad": "EUR"
+          },
+          "procedencia": {
+            "estado": "enlazada",
+            "snapshot": "57377f076ca1050c368c7b57934d1f8edce13104a27258409ebf7f1a8f58d146",
+            "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+            "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+            "explicacion": "af89db61f22fe3cfe5203981582d294ce8a7c9e77b42178a1fd86110c33774cc",
+            "sujeto": {
+              "id": "paso.anual.pagos.retenciones",
+              "revision": "7737d62c61ea4e0752baba8a3cc4f80e9fc4bbdad4dd107b9cc6d16fdf41db2a"
+            },
+            "href": "/procedencia/57377f076ca1050c368c7b57934d1f8edce13104a27258409ebf7f1a8f58d146/paso.anual.pagos.retenciones/7737d62c61ea4e0752baba8a3cc4f80e9fc4bbdad4dd107b9cc6d16fdf41db2a"
+          }
+        },
+        "account": {
+          "etiqueta": "Pagos a cuenta",
+          "formula": "Importe declarado más retención de trabajo estimada",
+          "resultado": "7847.89 euros",
+          "origen": {
+            "siteId": "anual.pagos.cuenta",
+            "instanceId": "anual.pagos.cuenta.0",
+            "decimal": "7847.89",
+            "unidad": "EUR"
+          },
+          "procedencia": {
+            "estado": "enlazada",
+            "snapshot": "57377f076ca1050c368c7b57934d1f8edce13104a27258409ebf7f1a8f58d146",
+            "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+            "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+            "explicacion": "af89db61f22fe3cfe5203981582d294ce8a7c9e77b42178a1fd86110c33774cc",
+            "sujeto": {
+              "id": "paso.anual.pagos.cuenta",
+              "revision": "3f646270756b5509ba3aa15e74d9915fb0f2b67cbeab1b4c0df96dc7ff57a775"
+            },
+            "href": "/procedencia/57377f076ca1050c368c7b57934d1f8edce13104a27258409ebf7f1a8f58d146/paso.anual.pagos.cuenta/3f646270756b5509ba3aa15e74d9915fb0f2b67cbeab1b4c0df96dc7ff57a775"
+          }
+        },
+        "estimatedIndependentOfAnnualGross": true
+      }
+    },
+    {
+      "id": "RSS26-01-selector-modo-llega-a-base-SS",
+      "status": "ROJO",
+      "error": "AssertionError [ERR_ASSERTION]: Falta camino de contexto.modo a S.B"
+    },
+    {
+      "id": "RSS26-02-aristas-control-distinguidas",
+      "status": "ROJO",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'valor'\n- 'control-seleccion'\n"
+    },
+    {
+      "id": "RSS26-03-conversion-cuenta-explicita",
+      "status": "ROJO",
+      "error": "AssertionError [ERR_ASSERTION]: Sitio EUR conserva suma en céntimos sin conversión en fórmula/inputs"
+    }
+  ],
+  "mutations": [
+    {
+      "id": "sin-aristas",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    },
+    {
+      "id": "arista-fuente-falsa",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    },
+    {
+      "id": "arista-destino-inexistente",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    },
+    {
+      "id": "binding-argumentos-falsos",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    },
+    {
+      "id": "sobre-subject-extra",
+      "schemaAccepts": true,
+      "limits": "El schema no promete análisis semántico; no aceptación operativa."
+    }
+  ],
+  "sources": [
+    {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "executedSha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+      "exposedFunctions": [
+        "truncar",
+        "aCentimos",
+        "euros",
+        "porcentaje",
+        "max",
+        "min",
+        "resultadoNoSoportadoRetencion",
+        "esCasoCalculable",
+        "importeOpcional",
+        "multiplicadorDescendiente",
+        "incrementoMovilidadGeografica",
+        "incrementoGastosDiscapacidadTrabajador",
+        "calcularOtrosGastos",
+        "calcularReduccionActual",
+        "reduccionLineal",
+        "calcularReduccionTrabajo",
+        "cuantiaMinimoDescendiente",
+        "esDescendienteMenorTres",
+        "calcularMinimoDescendientes",
+        "calcularMinimoAscendientes",
+        "minimoDiscapacidad",
+        "minimoAsistencia",
+        "calcularMinimoDiscapacidad",
+        "calcularMinimoPersonalFamiliar",
+        "calcularCuotaEscala",
+        "calcularCuotaRetencion",
+        "reduccionPorSituacionLaboral",
+        "cuotaRetencionInicial",
+        "calcularLimite43",
+        "calcularMinoracionVivienda",
+        "calcularDiferenciaPositiva",
+        "calcularTipoInicial",
+        "aplicarMinimoContrato",
+        "formulaCuotaRetencion",
+        "calcularRetencionTrabajo",
+        "calcularRetencionTrabajoAeat"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "executedSha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "exposedFunctions": [
+        "crearImporteMonetario",
+        "centimosAEuros",
+        "redondearImporteLiquidado",
+        "eurosACentimos",
+        "truncarImporteMonetario"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "sha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "executedSha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "exposedFunctions": [
+        "redondearHalfUp",
+        "truncarDecimal"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "sha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "executedSha256": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
+      "exposedFunctions": [
+        "tablaVigenteAlCierreDelAnio",
+        "tablaUmbralesRetencionTrabajo",
+        "umbralPorDescendientes",
+        "umbralRetencionTrabajoEuros",
+        "umbralRetencionTrabajoRequeridoEuros",
+        "maximoUmbralRetencionTrabajoEuros",
+        "esFechaCivilDelAnio"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/retenciones/versiones/catalogo.ts",
+      "sha256": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
+      "executedSha256": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
+      "exposedFunctions": [
+        "seleccionarVersionRetencion"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "executedSha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "exposedFunctions": [
+        "cuotaSolidaridad",
+        "calcularDesgloseCotizacionesPerfilUniforme"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "executedSha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "exposedFunctions": [
+        "minimo",
+        "maximo",
+        "tipoCotizacionPorLado",
+        "sumarTipoCotizacionLegacy",
+        "obtenerTiposMei",
+        "obtenerPoliticaSolidaridad",
+        "obtenerParametrosCotizacionLegacy",
+        "baseCotizacionPara",
+        "calcularTotalSolidaridad",
+        "repartirCotizacionSolidaridad",
+        "sumarCotizacionesSociales",
+        "calcularCotizacionesSocialesLegacy",
+        "calcularDesgloseCotizacionesSocialesLegacy"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+      "sha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80",
+      "executedSha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "executedSha256": "3d907f5f3c76d32c65aa16bcbef113adb616c24d6bb7faadce309a67ac65409a",
+      "exposedFunctions": [
+        "cuotaSolidaridad",
+        "calcularDesgloseCotizacionesPerfilUniforme"
+      ],
+      "mutation": {
+        "from": "empresa: [\"0.0077\", \"0.0083\", \"0.0098\"]",
+        "to": "empresa: [\"0.0177\", \"0.0083\", \"0.0098\"]"
+      }
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "executedSha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "exposedFunctions": [
+        "crearImporteMonetario",
+        "centimosAEuros",
+        "redondearImporteLiquidado",
+        "eurosACentimos",
+        "truncarImporteMonetario"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "sha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "executedSha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "exposedFunctions": [
+        "redondearHalfUp",
+        "truncarDecimal"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "executedSha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "exposedFunctions": [
+        "minimo",
+        "maximo",
+        "tipoCotizacionPorLado",
+        "sumarTipoCotizacionLegacy",
+        "obtenerTiposMei",
+        "obtenerPoliticaSolidaridad",
+        "obtenerParametrosCotizacionLegacy",
+        "baseCotizacionPara",
+        "calcularTotalSolidaridad",
+        "repartirCotizacionSolidaridad",
+        "sumarCotizacionesSociales",
+        "calcularCotizacionesSocialesLegacy",
+        "calcularDesgloseCotizacionesSocialesLegacy"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+      "sha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80",
+      "executedSha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "executedSha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "exposedFunctions": [
+        "cuotaSolidaridad",
+        "calcularDesgloseCotizacionesPerfilUniforme"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "executedSha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+      "exposedFunctions": [
+        "crearImporteMonetario",
+        "centimosAEuros",
+        "redondearImporteLiquidado",
+        "eurosACentimos",
+        "truncarImporteMonetario"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "sha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "executedSha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+      "exposedFunctions": [
+        "redondearHalfUp",
+        "truncarDecimal"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "executedSha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "exposedFunctions": [
+        "minimo",
+        "maximo",
+        "tipoCotizacionPorLado",
+        "sumarTipoCotizacionLegacy",
+        "obtenerTiposMei",
+        "obtenerPoliticaSolidaridad",
+        "obtenerParametrosCotizacionLegacy",
+        "baseCotizacionPara",
+        "calcularTotalSolidaridad",
+        "repartirCotizacionSolidaridad",
+        "sumarCotizacionesSociales",
+        "calcularCotizacionesSocialesLegacy",
+        "calcularDesgloseCotizacionesSocialesLegacy"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+      "sha256": "a7341c7b475ae1333c528205c34d403e403ec465328c2f5a2a9a9b1a1080af80",
+      "executedSha256": "32bc1c5de096d524fe928cd6c5dcb10889773b86fa3f835a465dddd0aaa1920c",
+      "exposedFunctions": [],
+      "mutation": {
+        "from": "2018: crearImporteMonetario(\"45014.4\")",
+        "to": "2018: crearImporteMonetario(\"40000\")"
+      }
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "executedSha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "exposedFunctions": [
+        "errorDerechosMinimos",
+        "construirLiquidarIrpfAnual",
+        "liquidarIrpfAnual",
+        "calcularMinimoPersonalYFamiliar",
+        "euros",
+        "porcentaje",
+        "pasoRetencionTrabajoAeat",
+        "sumarDeduccionesAutonomicasCentimos",
+        "deduccionesAutonomicasDescripcion",
+        "rastroResultadoNoSoportado"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/derechos.ts",
+      "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+      "executedSha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+      "exposedFunctions": [
+        "rechazar",
+        "fechaValida",
+        "cumpleRentas",
+        "tieneRelacion",
+        "titularesConDerecho",
+        "hayAlimentosPropiosSinMinimo"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/derechos-contrato.ts",
+      "sha256": "2f5408ef499793ca10ded6b012baf7c1870bdf68628337b8e618d2b7930d636b",
+      "executedSha256": "2f5408ef499793ca10ded6b012baf7c1870bdf68628337b8e618d2b7930d636b",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-contribuyente.ts",
+      "sha256": "10a48cc57a9e5c97fd641805c69a67c22f30f8dd3f9f6822809f4cd10927291b",
+      "executedSha256": "10a48cc57a9e5c97fd641805c69a67c22f30f8dd3f9f6822809f4cd10927291b",
+      "exposedFunctions": [
+        "minimosEstatalesDelAnio",
+        "obtenerMinimoContribuyente"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2012.ts",
+      "sha256": "31af9984461634f5cdb661b644651f5dbb48c8663a12083f991e333f15b252cd",
+      "executedSha256": "31af9984461634f5cdb661b644651f5dbb48c8663a12083f991e333f15b252cd",
+      "exposedFunctions": [
+        "discapacidad",
+        "discapacidadComun",
+        "obtenerMinimosAutonomicosIrpf2012"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/fuente-normativa.ts",
+      "sha256": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289",
+      "executedSha256": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/repositorio-parametros.ts",
+      "sha256": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
+      "executedSha256": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
+      "exposedFunctions": [
+        "parametroNormativo"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2013.ts",
+      "sha256": "690b7bd3f9f606ec94d373bfec94f55a111482b665467de8b47edf395f2ea269",
+      "executedSha256": "690b7bd3f9f606ec94d373bfec94f55a111482b665467de8b47edf395f2ea269",
+      "exposedFunctions": [
+        "discapacidad",
+        "discapacidadComun",
+        "obtenerMinimosAutonomicosIrpf2013"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+      "sha256": "f93790837f23337f5f59be935670a7be9f01136dbaca63a28bf12dcd989dc5b1",
+      "executedSha256": "f93790837f23337f5f59be935670a7be9f01136dbaca63a28bf12dcd989dc5b1",
+      "exposedFunctions": [
+        "discapacidad",
+        "discapacidadComun",
+        "obtenerMinimosAutonomicosIrpf2014"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+      "sha256": "076a58f62806baa1fe9c62174c1eb1c54c474c9022db02a06063555a07b82023",
+      "executedSha256": "076a58f62806baa1fe9c62174c1eb1c54c474c9022db02a06063555a07b82023",
+      "exposedFunctions": [
+        "discapacidad",
+        "mismaDiscapacidadParaTodos",
+        "minimos",
+        "obtenerMinimosAutonomicosIrpf2025"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+      "sha256": "b57ea494e04b9d7c0c8c8464f3806359762dd4948675628503c403848207c557",
+      "executedSha256": "b57ea494e04b9d7c0c8c8464f3806359762dd4948675628503c403848207c557",
+      "exposedFunctions": [
+        "obtenerMinimoPorDiscapacidad",
+        "obtenerMinimoDiscapacidadContribuyente",
+        "obtenerMinimoDiscapacidadFamiliares",
+        "obtenerMinimoDiscapacidadAscendientes"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/explicacion/linea-calculo.ts",
+      "sha256": "e555a831ed72ad17a3841e05cb6fabec6c916f14c2119e953bf2161410650058",
+      "executedSha256": "e555a831ed72ad17a3841e05cb6fabec6c916f14c2119e953bf2161410650058",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/procedencia/rastro-anual.ts",
+      "sha256": "44c801afeda1757a7826b2037ecb7016049d67b1339f7fb7bb6b31fd7f69d8cd",
+      "executedSha256": "44c801afeda1757a7826b2037ecb7016049d67b1339f7fb7bb6b31fd7f69d8cd",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/procedencia/modelo.ts",
+      "sha256": "71c5a5bb9b488fe55b865d69b4f4fdb4a5465194230c207c6869f56895e32a62",
+      "executedSha256": "71c5a5bb9b488fe55b865d69b4f4fdb4a5465194230c207c6869f56895e32a62",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/procedencia/rastro.ts",
+      "sha256": "01769460b2c32e621c5f696ac36e545734e6d5ec8f01cb86002fbe5d28dc7b3e",
+      "executedSha256": "01769460b2c32e621c5f696ac36e545734e6d5ec8f01cb86002fbe5d28dc7b3e",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+      "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+      "executedSha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+      "exposedFunctions": [
+        "resolverParametrosComunidadAutonoma2012",
+        "resolverParametrosComunidadAutonoma2013",
+        "resolverParametrosComunidadAutonoma2014",
+        "resolverParametrosComunidadAutonoma2015",
+        "resolverParametrosComunidadAutonoma2016",
+        "resolverParametrosComunidadAutonoma2017",
+        "resolverParametrosComunidadAutonoma2018",
+        "resolverParametrosComunidadAutonoma2019",
+        "resolverParametrosComunidadAutonoma2020",
+        "resolverParametrosComunidadAutonoma2021",
+        "resolverParametrosComunidadAutonoma2024",
+        "resolverParametrosComunidadAutonoma2023",
+        "resolverParametrosComunidadAutonoma2022",
+        "resolverParametrosComunidadAutonoma2025",
+        "resolverParametrosComunidadAutonoma2026",
+        "obtenerParametrosComunidadAutonoma",
+        "deduccionesImplementadasPorComunidad"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025.ts",
+      "sha256": "6d1d508288afa948cd430d159f2d1e096b34c8c70937b3ba843778514c789af9",
+      "executedSha256": "6d1d508288afa948cd430d159f2d1e096b34c8c70937b3ba843778514c789af9",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+      "sha256": "7f9192a87929e704806a361d3f36c0dad86018e085c3632a119318ce597790b9",
+      "executedSha256": "7f9192a87929e704806a361d3f36c0dad86018e085c3632a119318ce597790b9",
+      "exposedFunctions": [
+        "construirCatalogoDeduccionesAutonomicas2025",
+        "obtenerDeduccionAutonomicaCatalogada"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts",
+      "sha256": "577ca9eca73e340d989b41fa9e5eeefae31c7cb360c4fa966ca41ba6ffe25536",
+      "executedSha256": "577ca9eca73e340d989b41fa9e5eeefae31c7cb360c4fa966ca41ba6ffe25536",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts",
+      "sha256": "5b65317d5b6f7ba6c1666151cc584920bdfb2722e20bf94f6eeb01b3eafa8caf",
+      "executedSha256": "5b65317d5b6f7ba6c1666151cc584920bdfb2722e20bf94f6eeb01b3eafa8caf",
+      "exposedFunctions": [
+        "comunidadDesdeCodigo",
+        "categoriaCatalogadaDesdeCodigo",
+        "nombreCatalogadoDesdeCodigo",
+        "fichaImplementadaBasica",
+        "fichaImplementada",
+        "fichaImplementadaFormula"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+      "sha256": "ea794acad94a5a1371509dd5108c8168c0f2fc2bcdc1614eff48ff01239caeb4",
+      "executedSha256": "ea794acad94a5a1371509dd5108c8168c0f2fc2bcdc1614eff48ff01239caeb4",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts",
+      "sha256": "6029ac9c7112e93ef841c6b91f6142111ab3258f3d6fe216a7022549f5d201f8",
+      "executedSha256": "6029ac9c7112e93ef841c6b91f6142111ab3258f3d6fe216a7022549f5d201f8",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/illes-balears.ts",
+      "sha256": "c64e1a4580686a4b60633eed67c22d8dcd000aa853aaf79b175b94224b3e5643",
+      "executedSha256": "c64e1a4580686a4b60633eed67c22d8dcd000aa853aaf79b175b94224b3e5643",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/canarias.ts",
+      "sha256": "d982b7aaed1e2df2697ebf16c37bcd0adaad8545339d36b95a77ef4512354b15",
+      "executedSha256": "d982b7aaed1e2df2697ebf16c37bcd0adaad8545339d36b95a77ef4512354b15",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/cantabria.ts",
+      "sha256": "d766afc4483dcd5d75e52c86941a7c37fc6ec82adadb991690a1ff94c210f43a",
+      "executedSha256": "d766afc4483dcd5d75e52c86941a7c37fc6ec82adadb991690a1ff94c210f43a",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-la-mancha.ts",
+      "sha256": "3aa429d96d81c7e0945fdd922f7b638c5409b58887871b319840e6d27c17f717",
+      "executedSha256": "3aa429d96d81c7e0945fdd922f7b638c5409b58887871b319840e6d27c17f717",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-y-leon.ts",
+      "sha256": "bf45d75750d4a37f9bc50920d1a343d0966bdfcf35b62d54a1a8072e4fa579db",
+      "executedSha256": "bf45d75750d4a37f9bc50920d1a343d0966bdfcf35b62d54a1a8072e4fa579db",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "sha256": "fb40a68f65595ba332071a3220f8010e6c5555840ca33cda7f71f0aa2f3ce5ea",
+      "executedSha256": "fb40a68f65595ba332071a3220f8010e6c5555840ca33cda7f71f0aa2f3ce5ea",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/extremadura.ts",
+      "sha256": "1ffc1c1a7b9a8b6b94eed292f8b6d54eacfb64c505620d41b4efcf5a31262a9a",
+      "executedSha256": "1ffc1c1a7b9a8b6b94eed292f8b6d54eacfb64c505620d41b4efcf5a31262a9a",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/galicia.ts",
+      "sha256": "a86eb94d32f5777e9ce1559c7f71da8fbd220280afd78f17f3d55f9ed1cd6e0b",
+      "executedSha256": "a86eb94d32f5777e9ce1559c7f71da8fbd220280afd78f17f3d55f9ed1cd6e0b",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/madrid.ts",
+      "sha256": "4aaadd0db911efacc5d4e3f38849ae5f1a380650e2173d8de6062ce416ccf56c",
+      "executedSha256": "4aaadd0db911efacc5d4e3f38849ae5f1a380650e2173d8de6062ce416ccf56c",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/murcia.ts",
+      "sha256": "d14f761a9926b6a2a6ef361b13055d05735d1343bc3f381d88a7064ec319017b",
+      "executedSha256": "d14f761a9926b6a2a6ef361b13055d05735d1343bc3f381d88a7064ec319017b",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/la-rioja.ts",
+      "sha256": "dc33462bbe1ba5cb42ed3c1defec17432a7359040dc0d9b8db7934d4258d7854",
+      "executedSha256": "dc33462bbe1ba5cb42ed3c1defec17432a7359040dc0d9b8db7934d4258d7854",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts",
+      "sha256": "03f863a2834e9e21fd4a115a51f33d267e76cef32f7daa5cb70397e0fb3f520e",
+      "executedSha256": "03f863a2834e9e21fd4a115a51f33d267e76cef32f7daa5cb70397e0fb3f520e",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/ceuta.ts",
+      "sha256": "36323df1d11836f783d6159cadc0559a4b242358641454e496e617c7e4439035",
+      "executedSha256": "36323df1d11836f783d6159cadc0559a4b242358641454e496e617c7e4439035",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/melilla.ts",
+      "sha256": "17209c632446ffbbb011614d84778cc056f46ef4c608b029cfc20af48efdb893",
+      "executedSha256": "17209c632446ffbbb011614d84778cc056f46ef4c608b029cfc20af48efdb893",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts",
+      "sha256": "574bfe8a4e9729a98ca28410f3aa3c49fd0cf9944e83b8dd07b437f8e760143a",
+      "executedSha256": "574bfe8a4e9729a98ca28410f3aa3c49fd0cf9944e83b8dd07b437f8e760143a",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2025.ts",
+      "sha256": "6ac04eb3025d80ac269df77fba30b523cf62cf695bd70627396fa5673bff51b0",
+      "executedSha256": "6ac04eb3025d80ac269df77fba30b523cf62cf695bd70627396fa5673bff51b0",
+      "exposedFunctions": [
+        "tipo",
+        "escala",
+        "obtenerEscalaAutonomicaIrpf2025"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "executedSha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+      "exposedFunctions": [
+        "tipo",
+        "escala2020",
+        "reutilizarEscala2025ConFuente2020",
+        "obtenerEscalaAutonomicaIrpf2020"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2019.ts",
+      "sha256": "f1cd332b94523cc0d5b89afa7a375d753db9fc1b106745758f59dc521962efb9",
+      "executedSha256": "f1cd332b94523cc0d5b89afa7a375d753db9fc1b106745758f59dc521962efb9",
+      "exposedFunctions": [
+        "tipo",
+        "escala2019",
+        "reutilizarEscala2025ConFuente2019",
+        "obtenerEscalaAutonomicaIrpf2019"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2018.ts",
+      "sha256": "4a7bcbf0ce27ef02d519b2597d93ff48b32b484f01bee50241c903fdc5c5f0bf",
+      "executedSha256": "4a7bcbf0ce27ef02d519b2597d93ff48b32b484f01bee50241c903fdc5c5f0bf",
+      "exposedFunctions": [
+        "tipo",
+        "escala2018",
+        "reutilizarEscala2025ConFuente2018",
+        "obtenerEscalaAutonomicaIrpf2018"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2017.ts",
+      "sha256": "2e68eb054e044f3f18c2931bbb8fd491115f6b3b498afb1b8f3a712504715cdf",
+      "executedSha256": "2e68eb054e044f3f18c2931bbb8fd491115f6b3b498afb1b8f3a712504715cdf",
+      "exposedFunctions": [
+        "tipo",
+        "escala2017",
+        "reutilizarEscala2025ConFuente2017",
+        "obtenerEscalaAutonomicaIrpf2017"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+      "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e",
+      "executedSha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e",
+      "exposedFunctions": [
+        "tipo",
+        "escala2016",
+        "reutilizarEscala2025ConFuente2016",
+        "obtenerEscalaAutonomicaIrpf2016"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+      "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab",
+      "executedSha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab",
+      "exposedFunctions": [
+        "tipo",
+        "escala2015",
+        "reutilizarEscala2025ConFuente2015",
+        "fechaCivilIsoUtc",
+        "fallecidoAntesDeFechaCivil",
+        "obtenerEscalaAutonomicaIrpf2015"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+      "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7",
+      "executedSha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7",
+      "exposedFunctions": [
+        "tipo",
+        "escala2014",
+        "obtenerEscalaAutonomicaIrpf2014"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+      "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe",
+      "executedSha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe",
+      "exposedFunctions": [
+        "tipo",
+        "escala2013",
+        "obtenerEscalaAutonomicaIrpf2013"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+      "sha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1",
+      "executedSha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1",
+      "exposedFunctions": [
+        "tipo",
+        "escala2012",
+        "obtenerEscalaAutonomicaIrpf2012"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2021.ts",
+      "sha256": "3a36528508f461d59a91059ad66b19902d4be98f96dd96a6a67f7de4cebe3f65",
+      "executedSha256": "3a36528508f461d59a91059ad66b19902d4be98f96dd96a6a67f7de4cebe3f65",
+      "exposedFunctions": [
+        "tipo",
+        "escala2021",
+        "reutilizarEscala2025ConFuente2021",
+        "obtenerEscalaAutonomicaIrpf2021"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2022.ts",
+      "sha256": "12e1286393169deaf7f7be2909e30b8540a4626cfd5add976a60ba9a18d6fed7",
+      "executedSha256": "12e1286393169deaf7f7be2909e30b8540a4626cfd5add976a60ba9a18d6fed7",
+      "exposedFunctions": [
+        "tipo",
+        "escala2022",
+        "reutilizarEscala2025ConFuente2022",
+        "fechaCivilIsoUtc",
+        "fallecidoAntesDeFechaCivil",
+        "obtenerEscalaAutonomicaIrpf2022"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2023.ts",
+      "sha256": "792e4515cbc83f597ba3009f54ab2b4323b288d6c91780fc8eeabb72fb50ff23",
+      "executedSha256": "792e4515cbc83f597ba3009f54ab2b4323b288d6c91780fc8eeabb72fb50ff23",
+      "exposedFunctions": [
+        "tipo",
+        "escala2023",
+        "reutilizarEscala2025ConFuente2023",
+        "fallecidoAntesDe",
+        "obtenerEscalaAutonomicaIrpf2023"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2024.ts",
+      "sha256": "9549a3f6bd9b742d9ede3e60505a5ab214445a0a57e08983655cfa2d7ba556ca",
+      "executedSha256": "9549a3f6bd9b742d9ede3e60505a5ab214445a0a57e08983655cfa2d7ba556ca",
+      "exposedFunctions": [
+        "tipo",
+        "escala2024",
+        "reutilizarEscala2025ConFuente2024",
+        "obtenerEscalaAutonomicaIrpf2024"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2024.ts",
+      "sha256": "d7dbc0ac8eb862172aaccae40cb9e539a18111a445eced846cc715e13ec54dbe",
+      "executedSha256": "d7dbc0ac8eb862172aaccae40cb9e539a18111a445eced846cc715e13ec54dbe",
+      "exposedFunctions": [
+        "obtenerMinimosAutonomicosIrpf2024"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+      "sha256": "32a8e8c97a1d3773b65ab22804320d32eb3f81b735cb9cbedf6c69ca9bc4ee07",
+      "executedSha256": "32a8e8c97a1d3773b65ab22804320d32eb3f81b735cb9cbedf6c69ca9bc4ee07",
+      "exposedFunctions": [
+        "fallecidoAntesDe",
+        "obtenerMinimosAutonomicosIrpf2023"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+      "sha256": "68d1e7b37117df007e4ccd05d5759ee77fd53ad7422a527850bd2084a3da10d7",
+      "executedSha256": "68d1e7b37117df007e4ccd05d5759ee77fd53ad7422a527850bd2084a3da10d7",
+      "exposedFunctions": [
+        "fechaCivilIsoUtc",
+        "fallecidoAntesDeFechaCivil",
+        "obtenerMinimosAutonomicosIrpf2022"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2021.ts",
+      "sha256": "83f23600ce9e13edf0d2e4ee10db6c00978423c415cbe33f2064fe25799d7a49",
+      "executedSha256": "83f23600ce9e13edf0d2e4ee10db6c00978423c415cbe33f2064fe25799d7a49",
+      "exposedFunctions": [
+        "obtenerMinimosAutonomicosIrpf2021"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2020.ts",
+      "sha256": "6f1da95f4f69482913c9a0f187f1e8b9c7eb3ec28687cc95a6036f7d0bce3170",
+      "executedSha256": "6f1da95f4f69482913c9a0f187f1e8b9c7eb3ec28687cc95a6036f7d0bce3170",
+      "exposedFunctions": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2020"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2019.ts",
+      "sha256": "f2406060317d5b131cdae7d5eccd062d01e2e332b53a0f139efcc206e838316d",
+      "executedSha256": "f2406060317d5b131cdae7d5eccd062d01e2e332b53a0f139efcc206e838316d",
+      "exposedFunctions": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2019"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2018.ts",
+      "sha256": "93f9334dafb495e19f172c79b606372ac7a571b355f7a1c0a5f122774a64dd4e",
+      "executedSha256": "93f9334dafb495e19f172c79b606372ac7a571b355f7a1c0a5f122774a64dd4e",
+      "exposedFunctions": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2018"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2017.ts",
+      "sha256": "6e15929ce03cac49dccbf28cc5509e6ce0782e32d7a3213823f42f5bf3ef355b",
+      "executedSha256": "6e15929ce03cac49dccbf28cc5509e6ce0782e32d7a3213823f42f5bf3ef355b",
+      "exposedFunctions": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2017"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2016.ts",
+      "sha256": "28c9e6fae0aaa064f0c1ea069c5efa3808310435564533b80fba52b41f6c6ce1",
+      "executedSha256": "28c9e6fae0aaa064f0c1ea069c5efa3808310435564533b80fba52b41f6c6ce1",
+      "exposedFunctions": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2016"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2015.ts",
+      "sha256": "4484fdf822369a6342a69364e6fc7f59803111ab3c8d16a138b4f19c9520cd5c",
+      "executedSha256": "4484fdf822369a6342a69364e6fc7f59803111ab3c8d16a138b4f19c9520cd5c",
+      "exposedFunctions": [
+        "discapacidad",
+        "obtenerMinimosAutonomicosIrpf2015"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+      "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+      "executedSha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+      "exposedFunctions": [
+        "filas",
+        "obtenerEscalaAutonomicaPublicada",
+        "obtenerEscalasAhorroPublicadas"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
+      "sha256": "f4ddb6d465ecd2449a463464b8dc478ce3ffa2cc172e8ac33956f6c46536d244",
+      "executedSha256": "f4ddb6d465ecd2449a463464b8dc478ce3ffa2cc172e8ac33956f6c46536d244",
+      "exposedFunctions": [
+        "calcularCuotaDiferencialCentimos"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts",
+      "sha256": "ce5b9963990b43ce994b103e2eba481ffda8bdf3c209dd4ae37a86a33948a8ad",
+      "executedSha256": "ce5b9963990b43ce994b103e2eba481ffda8bdf3c209dd4ae37a86a33948a8ad",
+      "exposedFunctions": [
+        "calcularCuotaPorEscalaAhorro",
+        "calcularDesgloseCuotaPorEscalaAhorro",
+        "calcularCuotaComponenteAhorro",
+        "calcularAhorroConMinimos"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+      "sha256": "e199aa7dab1a4e4e4dcf5dd99ef0c4ea81daa69e0c11261b47b0568d5afadb19",
+      "executedSha256": "e199aa7dab1a4e4e4dcf5dd99ef0c4ea81daa69e0c11261b47b0568d5afadb19",
+      "exposedFunctions": [
+        "calcularCuotaPorEscalaGeneral",
+        "calcularDesgloseCuotaPorEscalaGeneral",
+        "calcularCuotaPorEscala",
+        "calcularDesgloseCuotaPorEscala"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+      "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479",
+      "executedSha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479",
+      "exposedFunctions": [
+        "sumarUnAnioFechaCivilIso",
+        "clasificarGananciaPatrimonialHasta2014",
+        "obtenerTramosIrpfLegacy",
+        "obtenerTramosIrpfAhorro"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-ahorro.ts",
+      "sha256": "f809267bb9c76979360b5165316df7088d982705bdfa493f7bdf75a6b8feffdf",
+      "executedSha256": "f809267bb9c76979360b5165316df7088d982705bdfa493f7bdf75a6b8feffdf",
+      "exposedFunctions": [
+        "calcularBaseImponibleAhorro"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+      "sha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82",
+      "executedSha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82",
+      "exposedFunctions": [
+        "calcularBaseImponibleGeneral"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-ascendientes.ts",
+      "sha256": "f51da59f85dce23231acb8396d50e58c2ce2b27202a590b863e4045226a62fca",
+      "executedSha256": "f51da59f85dce23231acb8396d50e58c2ce2b27202a590b863e4045226a62fca",
+      "exposedFunctions": [
+        "obtenerMinimoAscendientes"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+      "sha256": "21112fb07f3c815be7ca1a0f48e3f3daceafa4e05e0526d47623566cd2431e5d",
+      "executedSha256": "21112fb07f3c815be7ca1a0f48e3f3daceafa4e05e0526d47623566cd2431e5d",
+      "exposedFunctions": [
+        "minimoPorOrden",
+        "obtenerMinimoDescendientes"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+      "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+      "executedSha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+      "exposedFunctions": [
+        "sumarRendimientosCapitalInmobiliario",
+        "calcularRendimientoNetoCapitalInmobiliarioSimplificado"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+      "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+      "executedSha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+      "exposedFunctions": [
+        "calcularRendimientoNetoTrabajo",
+        "sumarRendimientosTrabajo"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+      "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+      "executedSha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+      "exposedFunctions": [
+        "calcularGananciasPatrimonialesPorTransmision",
+        "calcularGananciaPatrimonialPorTransmision",
+        "calcularGananciaExentaInmuebleUrbanoAdquirido2012",
+        "clasificarBaseGanancia",
+        "calcularGananciaExentaMayores65",
+        "calcularExencionPorReinversionEnRentaVitalicia"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+      "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+      "executedSha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+      "exposedFunctions": [
+        "maximo",
+        "calcularReduccionRendimientosTrabajo",
+        "calcularReduccionTrabajoConOtrasRentas",
+        "reduccionTrabajoHasta2014",
+        "reduccionTrabajo2015A2017",
+        "reduccionTrabajo2019A2022",
+        "fechaCivilIsoUtc",
+        "fallecidoAntesDeFechaCivil",
+        "reduccionTrabajo2018",
+        "reduccionTrabajo2023",
+        "reduccionTrabajoDesde2024"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+      "sha256": "2def18a743de7eab42d93e104368a12edfef581fb89b6d2e55734dc76ab53126",
+      "executedSha256": "2def18a743de7eab42d93e104368a12edfef581fb89b6d2e55734dc76ab53126",
+      "exposedFunctions": [
+        "importe",
+        "max",
+        "min",
+        "primerTipo",
+        "calcularIrpfFinalSimuladorLegacyHasta2014",
+        "calcularConciliacionSimuladorLegacy"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/compatibilidad-historica.ts",
+      "sha256": "2a1eee7042cab84eabb0255a2bc6d19581fdf7688606b1c7a15cc1b925975a49",
+      "executedSha256": "2a1eee7042cab84eabb0255a2bc6d19581fdf7688606b1c7a15cc1b925975a49",
+      "exposedFunctions": [
+        "maximo",
+        "sinDeduccionObtencionRendimientosTrabajo",
+        "deduccionObtencionRendimientosTrabajo2025",
+        "deduccionObtencionRendimientosTrabajo2026",
+        "obtenerMedidaDeduccionObtencionRendimientosTrabajo",
+        "obtenerDeduccionObtencionRendimientosTrabajoCompatibilidadHistorica",
+        "obtenerEspecificacionCompatibilidadHistorica"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-2026.ts",
+      "sha256": "cc6f00621fdf2050d993f6e6cc9882b51ae1a6b8c68803279fbc4ebc4fcc9110",
+      "executedSha256": "cc6f00621fdf2050d993f6e6cc9882b51ae1a6b8c68803279fbc4ebc4fcc9110",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/observabilidad/auditoria-rendimiento.ts",
+      "sha256": "88e1c0d3f2bc7c44f0652979e89eb5dadde6fb96aaed804e8becd3de32e0ab1d",
+      "executedSha256": "88e1c0d3f2bc7c44f0652979e89eb5dadde6fb96aaed804e8becd3de32e0ab1d",
+      "exposedFunctions": [
+        "ahora",
+        "redondearMilisegundos",
+        "resumenMetrica",
+        "reiniciarTiemposAgregadosAuditoria",
+        "registrarTiempoAgregadoAuditoria",
+        "medirAuditoriaSync",
+        "resumenTiemposAgregadosAuditoria",
+        "registrarResumenTiemposAuditoria",
+        "registrarMarcaAuditoria",
+        "instrumentarEffectAuditoria"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "executedSha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "exposedFunctions": [
+        "rechazar"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion-contrato.ts",
+      "sha256": "641f92b26aa607a5d8938836fd3a4768e87f2729474e9b6aa48df537492d6fe9",
+      "executedSha256": "641f92b26aa607a5d8938836fd3a4768e87f2729474e9b6aa48df537492d6fe9",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/contrato.ts",
+      "sha256": "d16aa5cb704c3649ac5f7ee4dd7a60637dbece1e42abe333bc6d67707a88a005",
+      "executedSha256": "d16aa5cb704c3649ac5f7ee4dd7a60637dbece1e42abe333bc6d67707a88a005",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/contrato.ts",
+      "sha256": "4fe8b43dae6f1607c6102cb858044982ebb637dfae18b80604468b69463a11a2",
+      "executedSha256": "4fe8b43dae6f1607c6102cb858044982ebb637dfae18b80604468b69463a11a2",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+      "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+      "executedSha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+      "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+      "executedSha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+      "exposedFunctions": [
+        "rechazo"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+      "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+      "executedSha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "executedSha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "exposedFunctions": [
+        "suma"
+      ],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/fuentes.ts",
+      "sha256": "5e16062ad74e1207a6babca731891aef8c4d527a02b27f37b556ff7d90137ab3",
+      "executedSha256": "5e16062ad74e1207a6babca731891aef8c4d527a02b27f37b556ff7d90137ab3",
+      "exposedFunctions": [],
+      "mutation": null
+    },
+    {
+      "file": "lib/dominio/irpf/caso-fiscal-anual.ts",
+      "sha256": "3ecc1dbd535b31d2b78a4dc54b6776ee7c9875b24db3b174e204dc3292e8e373",
+      "executedSha256": "3ecc1dbd535b31d2b78a4dc54b6776ee7c9875b24db3b174e204dc3292e8e373",
+      "exposedFunctions": [
+        "discapacidad33a64"
+      ],
+      "mutation": null
+    }
+  ]
+}

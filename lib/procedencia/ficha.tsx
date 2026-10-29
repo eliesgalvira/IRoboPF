@@ -3,13 +3,13 @@ import type { Entidad, EstadoEvidencia } from "./modelo"
 export function Ficha({
   entidad,
   snapshot,
-  evidencia,
+  evidencias = [],
   enlaces = [],
 }: {
   entidad: Entidad
   snapshot: string
   enlaces?: ReadonlyArray<{ titulo: string; href: string }>
-  evidencia?: typeof EstadoEvidencia.Type | undefined
+  evidencias?: ReadonlyArray<typeof EstadoEvidencia.Type>
 }) {
   return (
     <main>
@@ -19,24 +19,29 @@ export function Ficha({
           ? "Ocurrencia técnica versionada; no es una regla fiscal aceptada."
           : "Concepto editorial pendiente de enlace y revisión."}
       </p>
-      {evidencia !== undefined ? (
-        <dl>
-          <dt>Integridad</dt>
-          <dd>{evidencia.integridad}</dd>
-          <dt>Exactitud numérica del sujeto</dt>
-          <dd>{evidencia.exactitudNumerica}</dd>
-          <dt>Autenticidad según manifiesto</dt>
-          <dd>
-            {evidencia.autenticidad.estado}. Evaluación:{" "}
-            {evidencia.autenticidad.fecha}. {evidencia.autenticidad.limites}
-          </dd>
-          <dt>Interpretación</dt>
-          <dd>candidata</dd>
-          <dt>Revisión del binding</dt>
-          <dd>pendiente</dd>
-          <dt>Aceptación fiscal completa</dt>
-          <dd>false</dd>
-        </dl>
+      {evidencias.length > 0 ? (
+        evidencias.map((evidencia) => (
+          <section key={evidencia.payload}>
+            <h2>Enlace documental: {evidencia.payload}</h2>
+            <dl>
+              <dt>Integridad</dt>
+              <dd>{evidencia.integridad}</dd>
+              <dt>Exactitud numérica del enlace</dt>
+              <dd>{evidencia.exactitudNumerica}</dd>
+              <dt>Autenticidad según manifiesto</dt>
+              <dd>
+                {evidencia.autenticidad.estado}. Evaluación:{" "}
+                {evidencia.autenticidad.fecha}. {evidencia.autenticidad.limites}
+              </dd>
+              <dt>Interpretación</dt>
+              <dd>candidata</dd>
+              <dt>Revisión del binding</dt>
+              <dd>{evidencia.revisionBinding}</dd>
+              <dt>Aceptación fiscal completa</dt>
+              <dd>false</dd>
+            </dl>
+          </section>
+        ))
       ) : (
         <p>Interpretación, autenticidad y contrarrevisión: pendientes.</p>
       )}
