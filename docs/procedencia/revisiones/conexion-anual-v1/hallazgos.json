@@ -1,0 +1,55 @@
+{
+  "base": "eaed990c620b5fc4d3ff2e74dc68e0c8481c43db",
+  "dictamen": "requiere-cambios",
+  "aceptacionFiscal": false,
+  "hallazgos": [
+    {
+      "id": "CAV1-01",
+      "prioridad": "P2",
+      "dimension": "exactitud e interpretación",
+      "path": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "linea": 195,
+      "titulo": "Madrid 2025 no selecciona las cuotas fijas publicadas",
+      "reproduccion": "cuota-publicada-centimo",
+      "obtenido": "3750.12",
+      "esperado": "3750.13",
+      "unidad": "EUR, diferencial presentado",
+      "fuente": "BOE-A-2024-5610 página física 3; AEAT 2025 página 1128",
+      "rojo": "rojos.json CAV1-01",
+      "objecionExperta": "Una diferencia subcéntimo puede desaparecer al presentar y queda pendiente la política de cada casilla.",
+      "respuesta": "El contraejemplo cambia un céntimo bajo la política declarada por esta API, sin exigir equivalencia completa con Renta WEB.",
+      "coste": "Tabla publicada por ámbito, regresión y revisión de redondeos; no cambiar oracles."
+    },
+    {
+      "id": "CAV1-02",
+      "prioridad": "P2",
+      "dimension": "trazabilidad técnica",
+      "path": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "linea": 360,
+      "titulo": "Resultado sin contexto ni enlaces al snapshot",
+      "reproduccion": "rastro.json y catalogo-verificacion.json",
+      "obtenido": "Contexto ausente; cero enlaces en 15 líneas de trabajo y 23 de EDS",
+      "esperado": "Contexto y versión fijados al producir el resultado",
+      "rojo": "rojos.json CAV1-02-contexto y CAV1-02-enlaces",
+      "objecionExperta": "Un consumidor puede invocar el enlazador posteriormente.",
+      "respuesta": "Eso no preserva el snapshot del cálculo si el catálogo cambia; las 16 fichas nuevas ya existen y resuelven.",
+      "coste": "Enlazar al devolver y definir el perfil del contexto; conservar rechazo de retagging."
+    },
+    {
+      "id": "CAV1-03",
+      "prioridad": "P3",
+      "dimension": "contrato numérico",
+      "path": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "linea": 229,
+      "titulo": "Bruto agregado laboral excede la cota de DA61 aunque sus entradas sean válidas",
+      "reproduccion": "agregado-extremo-empleo-laboral, control agregado-extremo-pension",
+      "obtenido": "ResultadoNoSoportado: Entrada de deducción inválida o etapa incorrecta",
+      "esperado": "Cálculo, o límite agregado explícito y rechazo temprano coherente",
+      "rojo": "rojos.json CAV1-03",
+      "objecionExperta": "La magnitud es extrema; un límite técnico es legítimo.",
+      "respuesta": "El límite agregado no se expresa y se rechaza solo la ruta laboral que llama a una deducción nominal cero.",
+      "coste": "Definir cota agregada o representación calculada; sin ampliar automáticamente cobertura fiscal."
+    }
+  ],
+  "observacionPrecision": "20/60/80 coinciden en los dos casos anuales repetidos. DA61 a 60 cifras significativas pierde un residuo aportado de 1e-60; no se demuestra otro fallo de céntimo anual."
+}

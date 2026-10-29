@@ -12,6 +12,7 @@ import { calcularCuotaPorEscala } from "../cuotas/escalas-gravamen"
 import { crearLineaCalculo } from "../../explicacion/linea-calculo"
 import type { RastroCalculo } from "../../explicacion/rastro-calculo"
 import type { ResultadoNoSoportado } from "../liquidacion/liquidar-irpf-anual"
+import { enlazarRastroAnualActual } from "../../../procedencia/rastro-anual"
 
 const D = Decimal.clone({ precision: 80 })
 const rechazar = (motivo: string): ResultadoNoSoportado => ({
@@ -357,6 +358,10 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
     cuotaDiferencial: diferencial.toFixed(),
     cuotaDiferencialPresentada: diferencial.toFixed(2, Decimal.ROUND_HALF_UP),
     aceptacionFiscal: "pendiente" as const,
-    rastro: { titulo: "Liquidación anual explícita 2025", pasos },
+    rastro: enlazarRastroAnualActual({
+      titulo: "Liquidación anual explícita 2025",
+      contexto: { anio: 2025, territorio: "madrid", perfilCalculo: caso.perfil },
+      pasos,
+    }),
   }
 })

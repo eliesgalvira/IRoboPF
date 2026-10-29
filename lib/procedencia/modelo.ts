@@ -164,8 +164,7 @@ export type Entidad = typeof Entidad.Type
 export const Paquete = Schema.Array(
   Schema.Struct({ revision: Hash, entidad: Entidad })
 )
-export const Snapshot = Schema.Struct({
-  version: Schema.Literal(1),
+const snapshotBase = {
   inventario: Hash,
   contrato: Hash,
   generador: Hash,
@@ -186,7 +185,60 @@ export const Snapshot = Schema.Struct({
   ),
   auxiliares: Schema.Array(Hash),
   cantidad: Schema.Int,
+}
+export const EstadoEvidencia = Schema.Struct({
+  sujeto: Referencia,
+  recibo: Hash,
+  payload: Hash,
+  manifiesto: Hash,
+  integridad: Schema.Literal("verified"),
+  exactitudNumerica: Schema.Literal("verified"),
+  autenticidad: Schema.Struct({
+    estado: Schema.Literals([
+      "not-validated",
+      "unsigned",
+      "invalid",
+      "trust-indeterminate",
+    ]),
+    fecha: Texto,
+    limites: Texto,
+  }),
+  interpretacion: Schema.Literal("candidata"),
+  revisionBinding: Schema.Literal("pending"),
+  aceptacionFiscalCompleta: Schema.Literal(false),
 })
+export const IndiceBusqueda = Schema.Array(
+  Schema.Struct({
+    id: Id,
+    revision: Hash,
+    titulo: Texto,
+    ejercicios: Schema.Array(Schema.Int),
+    territorios: Schema.Array(Schema.String),
+  })
+)
+export const Snapshot = Schema.Union([
+  Schema.Struct({ version: Schema.Literal(1), ...snapshotBase }),
+  Schema.Struct({
+    version: Schema.Literal(2),
+    ...snapshotBase,
+    busqueda: Hash,
+    catalogo: Hash,
+    evidencias: Schema.Array(EstadoEvidencia),
+    publicos: Schema.Array(
+      Schema.Struct({
+        hash: Hash,
+        bytes: Schema.Int.check(Schema.isGreaterThan(0)),
+        mime: Schema.Literals(["application/pdf", "image/png"]),
+      })
+    ),
+    dependencias: Schema.Array(
+      Schema.Struct({
+        hash: Hash,
+        bytes: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)),
+      })
+    ),
+  }),
+])
 export type Snapshot = typeof Snapshot.Type
 export const RevisionExterna = Schema.Struct({
   sujeto: Referencia,

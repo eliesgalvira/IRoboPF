@@ -3,13 +3,19 @@ import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import { Schema } from "effect"
 import { readArtifactBytes } from "./inventario-artefacto.mjs"
-import { Referencia } from "../../lib/procedencia/modelo.ts"
+import { Referencia, Id } from "../../lib/procedencia/modelo.ts"
 import {
   leerSnapshot,
   leerPaquete,
+  leerBusqueda,
+  objeto,
   directorioContenido,
 } from "../../lib/procedencia/almacen.ts"
-import { hash, verificarGrafo } from "../../lib/procedencia/verificador.ts"
+import {
+  hash,
+  bytesEntidad,
+  verificarGrafo,
+} from "../../lib/procedencia/verificador.ts"
 
 export function verificarOcurrencia(entidad, item) {
   if (
@@ -45,6 +51,10 @@ export function verificarOcurrencia(entidad, item) {
 export function verificar(snapshotId, raiz = directorioContenido) {
   const snapshot = leerSnapshot(snapshotId, raiz)
   if (!snapshot) throw new Error("Snapshot desconocido")
+  return verificarContenido(snapshot, raiz)
+}
+
+export function verificarContenido(snapshot, raiz) {
   const entradas = []
   const prefijos = new Set()
   for (const paquete of snapshot.paquetes) {
@@ -107,6 +117,144 @@ export function verificar(snapshotId, raiz = directorioContenido) {
   }
   if (cotejadas !== porId.size)
     throw new Error("Cobertura de ocurrencias incompleta")
+  if (snapshot.version === 2) {
+    if (!snapshot.auxiliares.includes(snapshot.catalogo))
+      throw new Error("Catálogo no preservado")
+    const bindings = Schema.decodeUnknownSync(
+      Schema.fromJsonString(
+        Schema.Array(
+          Schema.Struct({
+            siteId: Id,
+            sujeto: Referencia,
+            unidad: Schema.Literals(["EUR", "percent"]),
+          })
+        )
+      )
+    )(objeto(raiz, snapshot.catalogo).toString(), { onExcessProperty: "error" })
+    const pasos = entradas.filter(
+      (e) => e.entidad.claseInventario === "PuntoRastro"
+    )
+    if (
+      new Set(bindings.map((b) => b.siteId)).size !== bindings.length ||
+      pasos.length !== bindings.length ||
+      bindings.some(
+        (b) =>
+          !pasos.some(
+            (p) =>
+              p.entidad.id === `paso.${b.siteId}` &&
+              p.entidad.id === b.sujeto.id &&
+              p.revision === b.sujeto.revision &&
+              p.entidad.unidadCandidata === b.unidad
+          )
+      )
+    )
+      throw new Error("Catálogo distinto de puntos del snapshot")
+    const esperado = [...entradas]
+      .sort((a, b) => a.entidad.id.localeCompare(b.entidad.id))
+      .map(({ revision, entidad: e }) => ({
+        id: e.id,
+        revision,
+        titulo: e.titulo,
+        ejercicios: e.ejerciciosCandidatos ?? [],
+        territorios: e.territoriosCandidatos ?? [],
+      }))
+    if (
+      JSON.stringify(leerBusqueda(snapshot, raiz)) !== JSON.stringify(esperado)
+    )
+      throw new Error("Índice de búsqueda distinto de entidades")
+    const cierre = new Set(snapshot.dependencias.map((d) => d.hash))
+    for (const d of snapshot.dependencias)
+      if (objeto(raiz, d.hash).length !== d.bytes)
+        throw new Error("Tamaño de dependencia incorrecto")
+    for (const h of snapshot.auxiliares)
+      if (!cierre.has(h)) throw new Error("Dependencia sin tamaño")
+    for (const e of snapshot.evidencias) {
+      const recibo = JSON.parse(objeto(raiz, e.recibo).toString())
+      const estado = recibo.estados.find(
+        (s) =>
+          s.sujeto.id === e.sujeto.id && s.sujeto.revision === e.sujeto.revision
+      )
+      if (
+        !estado ||
+        estado.payload.sha256 !== e.payload ||
+        estado.integridad !== e.integridad ||
+        estado.exactitudNumerica !== e.exactitudNumerica ||
+        estado.revisionBinding !== e.revisionBinding ||
+        estado.autenticidad !== e.autenticidad.estado ||
+        estado.aceptacionFiscalCompleta !== false
+      )
+        throw new Error("Recibo ajeno al sujeto")
+      if (
+        !entradas.some(
+          (x) =>
+            x.entidad.id === e.sujeto.id && x.revision === e.sujeto.revision
+        )
+      )
+        throw new Error("Sujeto ausente")
+      for (const historica of recibo.entradas) {
+        if (
+          !entradas.some(
+            (actual) =>
+              actual.revision === historica.revision &&
+              bytesEntidad(actual.entidad) === bytesEntidad(historica.entidad)
+          )
+        )
+          throw new Error("Grafo distinto del recibo")
+      }
+      for (const d of recibo.entrada.dependencias)
+        if (!cierre.has(d.sha256))
+          throw new Error("Dependencia del recibo ausente")
+      const payload = JSON.parse(objeto(raiz, e.payload).toString())
+      const manifiesto = JSON.parse(objeto(raiz, e.manifiesto).toString())
+      if (
+        payload.document.sha256 !== e.manifiesto ||
+        JSON.stringify(e.autenticidad) !==
+          JSON.stringify({
+            estado: manifiesto.authenticity.status,
+            fecha: manifiesto.authenticity.checkedAt,
+            limites: manifiesto.authenticity.scope,
+          })
+      )
+        throw new Error("Autenticidad distinta del manifiesto")
+    }
+    const esperadosPublicos = entradas.flatMap(({ entidad: e }) =>
+      e.tipo === "Document"
+        ? [e.original]
+        : e.tipo === "Facsimile"
+          ? [e.imagen]
+          : []
+    )
+    if (
+      new Set(snapshot.publicos.map((p) => p.hash)).size !==
+        snapshot.publicos.length ||
+      esperadosPublicos.some(
+        (h) => !snapshot.publicos.some((p) => p.hash === h)
+      )
+    )
+      throw new Error("Lista pública incompleta o duplicada")
+    for (const p of snapshot.publicos) {
+      const firma =
+        p.mime === "application/pdf"
+          ? Buffer.from("%PDF-")
+          : Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
+      if (!objeto(raiz, p.hash).subarray(0, firma.length).equals(firma))
+        throw new Error("MIME público incorrecto")
+      if (
+        !cierre.has(p.hash) ||
+        objeto(raiz, p.hash).length !== p.bytes ||
+        !entradas.some(
+          ({ entidad: e }) =>
+            (e.tipo === "Document" &&
+              e.original === p.hash &&
+              e.mime === p.mime) ||
+            (e.tipo === "Facsimile" &&
+              e.imagen === p.hash &&
+              p.mime === "image/png")
+        )
+      )
+        throw new Error("Blob público ajeno al grafo")
+    }
+  }
   return {
     ...verificarGrafo(entradas, new Set(snapshot.auxiliares)),
     cantidad: entradas.length,

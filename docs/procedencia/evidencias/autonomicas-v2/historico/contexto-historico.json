@@ -1,0 +1,1786 @@
+{
+  "baseRevision": "eaed990c620b5fc4d3ff2e74dc68e0c8481c43db",
+  "baseCandidatos": "ed6a43fd750de05609abc3710dabdc2f8261020c",
+  "snapshot": "babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68",
+  "inventory": {
+    "manifestSha256": "6872a5fb9315a4e970c5da7fb3d8ad58f2ebf74b3d84fe07101b90cb8c58564d",
+    "artifactSha256": "29fb5e311f33982395227b15f2e08705e2943bf5ea21409702f48dd8ba4e613c"
+  },
+  "generationInputs": [
+    {
+      "file": "Calculo_Salario_IRPF.py",
+      "hashCoincide": true
+    },
+    {
+      "file": "bun.lock",
+      "hashCoincide": true
+    },
+    {
+      "file": "docs/procedencia/inventario-schema.json",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/animacion.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/auditoria-graficos.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/dinero/porcentaje.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/explicacion/fuente-explicacion.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/explicacion/linea-calculo.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/explicacion/paso-explicacion.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/explicacion/rastro-calculo.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/contrato.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/fuentes.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/caso-fiscal-anual.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones/ambito.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/deducciones/contratos-2025.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-ahorro.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-ascendientes.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-contribuyente.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/perfil-calculo.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/retenciones/versiones/catalogo.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/contrato.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/anio-fiscal.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/compatibilidad-historica.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/canarias.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/cantabria.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-la-mancha.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-y-leon.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/ceuta.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/extremadura.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/galicia.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/illes-balears.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/la-rioja.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/madrid.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/melilla.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/murcia.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/ipc-2012-2026.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2017.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2018.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2019.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2021.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2022.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2023.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2024.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-autonomico-2025.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-obligacion-declarar.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-2026.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2012.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2013.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2015.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2016.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2017.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2018.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2019.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2020.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2021.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2024.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/datos/seguridad-social-2012-2026.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/fuente-normativa.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/medida-normativa.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/dominio/normativa/repositorio-parametros.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/export/auditoria-excel.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/formato.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/observabilidad/auditoria-rendimiento.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "lib/utils.ts",
+      "hashCoincide": true
+    },
+    {
+      "file": "package.json",
+      "hashCoincide": true
+    },
+    {
+      "file": "scripts/procedencia/inventario-artefacto.mjs",
+      "hashCoincide": true
+    },
+    {
+      "file": "scripts/procedencia/inventario-ast.mjs",
+      "hashCoincide": true
+    },
+    {
+      "file": "scripts/procedencia/inventario-bindings.mjs",
+      "hashCoincide": true
+    },
+    {
+      "file": "scripts/procedencia/inventario-python.py",
+      "hashCoincide": true
+    },
+    {
+      "file": "scripts/procedencia/inventario-validar.py",
+      "hashCoincide": true
+    },
+    {
+      "file": "scripts/procedencia/inventario-vitest.mjs",
+      "hashCoincide": true
+    },
+    {
+      "file": "scripts/procedencia/inventario.mjs",
+      "hashCoincide": true
+    }
+  ],
+  "manifiestoEntrega": [
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/INFORME.md",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f1-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f1-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f2-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f2-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f3-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f3-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f4-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f4-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f5-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f5-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f6-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/andalucia-2012-f6-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f1-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f1-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f2-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f2-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f3-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f3-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f4-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f4-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f5-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f5-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f6-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f6-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f7-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2020-f7-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f1-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f1-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f2-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f2-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f3-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f3-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f4-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f4-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f5-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f5-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f6-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f6-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f7-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f7-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f8-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f8-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f9-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2022-f9-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f1-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f1-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f2-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f2-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f3-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f3-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f4-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f4-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f5-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f5-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f6-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f6-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f7-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f7-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f8-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f8-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f9-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/catalunya-2024-f9-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f1-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f1-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f2-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f2-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f3-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f3-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f4-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f4-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f5-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f5-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f6-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/comunitat-valenciana-2014-f6-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f1-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f1-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f2-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f2-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f3-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f3-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f4-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f4-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f5-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/madrid-2022-f5-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-clausula-superior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-f1-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-f1-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-f2-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-f2-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-f3-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-f3-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-f4-baseInferior.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas/murcia-2022-f4-cuota.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/citas-celdas.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/cobertura.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/contexto-verificado.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/documentos/09f01627f64790629169c728da9292d81e46a99392641597d1cc93b1b1799154.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/documentos/0b1f62e13ef96a78c4d156f171eb5402a027d1276d01da22d874de8787c6b422.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/documentos/0ed3161792ae3a79877c8d9a533447a3f04db4cd31078be29f0b2c2fefd4c70d.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/documentos/60e424f977fd690377672d08d817ed3bb5e8e187d741efe25b82cec796118d14.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/documentos/7a302c1d77124747d65ad2b7181b899f023baceb96d88638d37c44a05e7ad49b.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/documentos/962a88eff2128d036bf8745c31faadb050c45abc0e93e712c3b3d50c72906bf4.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/documentos/adb7645ce524963d3768e6dfff8547c1fa3076d18e9b64c76f3af93978b214ef.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/matriz-revisiones.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f2-baseInferior-2012-5cfd30af.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f2-baseInferior-2013-37001536.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f2-baseInferior-2014-ccb5c687.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f2-baseInferior-2015-980cece7.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f2-baseInferior-2015-ae436079.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f3-baseInferior-2012-2635f385.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f3-baseInferior-2013-407dfb43.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f3-baseInferior-2014-c14d4a46.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f3-baseInferior-2015-a256b00d.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f3-baseInferior-2015-d34e6f63.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f4-baseInferior-2012-292d1da1.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f4-baseInferior-2013-225e4431.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f4-baseInferior-2014-7455e7e0.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f4-baseInferior-2015-0be1be5f.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f4-baseInferior-2015-0d085fd1.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f5-baseInferior-2012-877510a1.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f5-baseInferior-2013-d53647a0.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f5-baseInferior-2014-0294161f.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f5-baseInferior-2015-7fbde8bf.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f5-baseInferior-2015-fe988d46.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f6-baseInferior-2012-12b44d48.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f6-baseInferior-2013-169b061d.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f6-baseInferior-2014-aad94492.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f6-baseInferior-2015-72ab47a1.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/andalucia-2012-f6-baseInferior-2015-9ba52b99.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f2-baseInferior-2020-19127de5.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f2-baseInferior-2020-1e686cff.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f2-baseInferior-2021-76426221.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f2-baseInferior-2021-8113e30c.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f3-baseInferior-2020-81034964.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f3-baseInferior-2020-978bc8a6.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f3-baseInferior-2021-348097f1.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f3-baseInferior-2021-bec97190.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f4-baseInferior-2020-4c27b7c1.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f4-baseInferior-2020-b990b195.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f4-baseInferior-2021-3430d889.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f4-baseInferior-2021-ab2093bb.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f5-baseInferior-2020-4b8f5538.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f5-baseInferior-2020-e3bac258.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f5-baseInferior-2021-6c270030.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f5-baseInferior-2021-98fb4882.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f6-baseInferior-2020-c4d26ce8.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f6-baseInferior-2020-f6a850d4.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f6-baseInferior-2021-87db75ce.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f6-baseInferior-2021-cdb67b67.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f7-baseInferior-2020-51474934.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f7-baseInferior-2020-9fbfad48.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f7-baseInferior-2021-4844f934.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2020-f7-baseInferior-2021-c1a32cfb.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f2-baseInferior-2022-2717e1d2.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f2-baseInferior-2022-6ac49e81.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f2-baseInferior-2023-48df1ac4.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f2-baseInferior-2023-4db8af20.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f3-baseInferior-2022-95b6b1b4.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f3-baseInferior-2022-c769adad.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f3-baseInferior-2023-24f95e2c.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f3-baseInferior-2023-5fda2b51.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f4-baseInferior-2022-8fe0a6c2.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f4-baseInferior-2022-9442905e.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f4-baseInferior-2023-53e0a95e.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f4-baseInferior-2023-86116d1f.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f5-baseInferior-2022-0f4b5921.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f5-baseInferior-2022-3570d6ce.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f5-baseInferior-2023-2dcf6345.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f5-baseInferior-2023-6668a0b5.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f6-baseInferior-2022-d58e6f04.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f6-baseInferior-2022-d713695b.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f6-baseInferior-2023-7b971c13.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f6-baseInferior-2023-8329c578.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f7-baseInferior-2022-a5b553d6.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f7-baseInferior-2022-b8f839b4.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f7-baseInferior-2023-51bded86.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f7-baseInferior-2023-796f074b.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f8-baseInferior-2022-617a29e8.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f8-baseInferior-2022-dbf935c3.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f8-baseInferior-2023-c930c5f5.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f8-baseInferior-2023-d79de3ea.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f9-baseInferior-2022-4320d48a.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f9-baseInferior-2022-53e26fcc.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f9-baseInferior-2023-5ebc2e85.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2022-f9-baseInferior-2023-80749d0c.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f2-baseInferior-2024-21fdfe82.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f2-baseInferior-2024-392e8407.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f3-baseInferior-2024-90f40008.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f3-baseInferior-2024-b90b5d98.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f4-baseInferior-2024-51c5cedc.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f4-baseInferior-2024-b8d60450.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f5-baseInferior-2024-a7eb2a71.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f5-baseInferior-2024-f08defeb.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f6-baseInferior-2024-2b0c1e42.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f6-baseInferior-2024-2eab881c.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f7-baseInferior-2024-5512480b.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f7-baseInferior-2024-b84bc8ef.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f8-baseInferior-2024-428fc490.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f8-baseInferior-2024-b592f4df.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f9-baseInferior-2024-244e6ca5.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/catalunya-2024-f9-baseInferior-2024-728850a9.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f2-baseInferior-2014-3a6b26f9.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f2-baseInferior-2015-7a3c52f7.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f2-baseInferior-2015-c7113ba1.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f2-baseInferior-2016-c2c814b9.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f2-baseInferior-2016-d4ccef46.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f3-baseInferior-2014-9e4bced9.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f3-baseInferior-2015-40fce15f.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f3-baseInferior-2015-49ecac0f.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f3-baseInferior-2016-9f43229c.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f3-baseInferior-2016-fc0c91dc.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f4-baseInferior-2014-7606abd7.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f4-baseInferior-2015-54b97646.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f4-baseInferior-2015-8ce621ba.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f4-baseInferior-2016-9907f0df.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f4-baseInferior-2016-a98cd3a5.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f5-baseInferior-2014-6de10359.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f5-baseInferior-2015-31930d10.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f5-baseInferior-2015-ab6fe565.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f5-baseInferior-2016-4e9b2816.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f5-baseInferior-2016-ba9f5202.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f6-baseInferior-2014-e969790e.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f6-baseInferior-2015-0dea28f8.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f6-baseInferior-2015-dfc74931.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f6-baseInferior-2016-5f92046c.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/comunitat-valenciana-2014-f6-baseInferior-2016-cdc2174c.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/madrid-2022-f2-baseInferior-2022-35ed7bea.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/madrid-2022-f2-baseInferior-2022-3c628f5a.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/madrid-2022-f3-baseInferior-2022-33e5b888.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/madrid-2022-f3-baseInferior-2022-ea73f168.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/madrid-2022-f4-baseInferior-2022-18af17ac.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/madrid-2022-f4-baseInferior-2022-303b9aa8.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/madrid-2022-f5-baseInferior-2022-58765858.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/madrid-2022-f5-baseInferior-2022-601eefa3.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/murcia-2022-f2-baseInferior-2022-0dcbe666.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/murcia-2022-f2-baseInferior-2022-8991671b.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/murcia-2022-f3-baseInferior-2022-19233034.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/murcia-2022-f3-baseInferior-2022-58ccd5ef.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/murcia-2022-f4-baseInferior-2022-166a7f15.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/payloads/murcia-2022-f4-baseInferior-2022-a0afc775.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/receta.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/30b99cd92ceb9cb7ae761fc5da9b772248413bc77c54b39e2c5508895e227cba.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/3153ed278120d8a46dc584dbea7f9137ff366491861f9705cfd9d699844b85eb.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/6bc0d585a19b4718f16d9fc61eab38f12f4f76d4bdea0c96c94cf3da1f06858b.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/8d4f82978e117e9a1b2343f4e3b6ac522439dd99101b956a1c2f9713fa173959.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/9854005860be7779c5dfed11d2f0f46923eb11534c500c3a46e1b1e908d31d93.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/9eb32d0d28267a74c078070b5a83901c300ff905ebf875eaf25e0db04e7620fb.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/d428abaab2c2aeeeabe406cf2376d242858da23f9fc6882d7e844f7f2ba1d1ac.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/d9337fc79e48022252d762b824a2b6b9ac1d961949ffa50e9f07a761d13550a1.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/recortes/e31fa4f6e642c67c9cd1739784d71fb52bffba282811def7f5da27d53b967b6b.png",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/reproduccion/completar.py.txt",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/reproduccion/generar.py.txt",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/reproduccion/leer.mjs.txt",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/reproduccion/verificar.py.txt",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/verificacion-final.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    },
+    {
+      "path": "docs/procedencia/evidencias/autonomicas/verificacion.json",
+      "sha256Coincide": true,
+      "sizeCoincide": true
+    }
+  ]
+}

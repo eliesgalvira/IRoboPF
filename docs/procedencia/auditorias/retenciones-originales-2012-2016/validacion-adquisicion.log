@@ -1,0 +1,10 @@
+E701 Multiple statements on one line (colon)
+  --> .cache/procedencia/retenciones-originales-2012-2016/adquirir.py:19:50
+   |
+17 |         entry['httpStatus']=getattr(e,'code',None)
+18 |         print(entry['error'],url,flush=True)
+19 |     with (out/'adquisicion.jsonl').open('a') as f:f.write(json.dumps(entry,ensure_ascii=False)+'\n')
+   |                                                  ^
+   |
+
+Found 4 errors (3 fixed, 1 remaining).

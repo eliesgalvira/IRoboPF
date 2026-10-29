@@ -1,0 +1,197 @@
+[
+  {
+    "id": "CX-06-A",
+    "decision": "carencia-actual-roja",
+    "reason": "FamiliarFiscal solo expresa edad/discapacidad; helper devuelve 5100. Caso de dos titulares y caso de uno colisionan en la misma entrada. Rojo 5100 frente a2550 conservado.",
+    "nextAction": "Revisar primero rechazo de hechos insuficientes o entrada de reparto; conservar entero válido para un titular.",
+    "evidence": [
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 36,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 37,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 38,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 46,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 47,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 49,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 90,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      }
+    ],
+    "limit": "Es rojo de cobertura/contrato, no prueba de que toda llamada actual deba devolver2550.",
+    "expertObjection": "Es rojo de cobertura/contrato, no prueba de que toda llamada actual deba devolver2550.",
+    "cost": "No hay fix seguro de una constante.",
+    "base": "1da543754a4788b5fa3ae607adc1e98b08947cd9",
+    "integrity": "hash y bytes comprobados para referencias documentales adjuntas",
+    "authenticity": "origen oficial HTTPS; firma y confianza histórica no verificadas",
+    "interpretation": "acotada a proposición",
+    "exactness": "véanse resultados y límites",
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "CX-07-B",
+    "decision": "incoherencia-contractual-roja",
+    "reason": "Con bruto2025 nominal22038.99 >22000, API expone cuota con obligación2873.30, pero neto usa2729.59 limitada por retención. En2026 expone2936.92 frente2934.39. Rojo propio final272959 frente287330. La auditoría actual selecciona irpfConObligacion para magnitud irpf_final, pero salarioNetoAnual directamente para neto; el simulador muestra irpfFinal. No se presume equivalencia entre estas vistas.",
+    "nextAction": "Padre: coordinar elección explícita de contrato neto/retención con dueño inflación. No cambiar oracle legacy; comprobar presentación y ambas ramas.",
+    "evidence": [
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 36,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 37,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 38,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 46,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 47,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 49,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      },
+      {
+        "sha256": "95d7f10a386b345af1cb9249821faa0c8bf56a9e7b4c578ac9194c50f9b6bf94",
+        "page": 90,
+        "bbox": [
+          0,
+          0,
+          419.52801513671875,
+          595.2760009765625
+        ],
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/Normativa-IRPF25/Ley-35-2006.pdf"
+      }
+    ],
+    "limit": "La cifra2873.30 es campo del motor, no cuota fiscal aceptada. El defecto confirmado es incumplir la explicación que selecciona cuota anual al superar22000.",
+    "expertObjection": "La cifra2873.30 es campo del motor, no cuota fiscal aceptada. El defecto confirmado es incumplir la explicación que selecciona cuota anual al superar22000.",
+    "cost": "Separar reproducción histórica de resultado anunciado.",
+    "base": "1da543754a4788b5fa3ae607adc1e98b08947cd9",
+    "integrity": "hash y bytes comprobados para referencias documentales adjuntas",
+    "authenticity": "origen oficial HTTPS; firma y confianza histórica no verificadas",
+    "interpretation": "acotada a proposición",
+    "exactness": "véanse resultados y límites",
+    "fiscalAcceptance": false,
+    "engineLocations": [
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts:499",
+      "components/auditoria.tsx:2279",
+      "components/auditoria.tsx:2306",
+      "components/auditoria.tsx:2315",
+      "components/simulador.tsx:1146"
+    ]
+  }
+]

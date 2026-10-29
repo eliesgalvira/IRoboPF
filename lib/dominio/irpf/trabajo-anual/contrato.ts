@@ -11,6 +11,10 @@ export const Renta = Schema.String.check(
 const MagnitudCalculada = Schema.String.check(
   Schema.isPattern(/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,60})?$/)
 )
+/** Suma de hasta 100 rendimientos de 12 enteros y dos decimales cada uno. */
+const BrutoServiciosAcumulado = Schema.String.check(
+  Schema.isPattern(/^(0|[1-9][0-9]{0,13})(\.[0-9]{1,2})?$/)
+)
 const Hecho = Schema.Literals(["si", "no", "desconocido"])
 const Pago = Schema.Struct({ importe: Euros, satisfecho: Hecho })
 export const Rendimiento = Schema.Struct({
@@ -85,7 +89,7 @@ export const DeduccionTrabajo = Schema.Union([
     regla: Schema.Literal("da61"),
     ambito: Schema.Literal("comun-individual"),
     ejercicio: Schema.Literals([2025, 2026]),
-    brutoServicios: Euros,
+    brutoServicios: BrutoServiciosAcumulado,
     otrasRentasNoExentas: Renta,
     netoReducidoServicios: MagnitudCalculada,
     baseLiquidableGeneral: MagnitudCalculada,
