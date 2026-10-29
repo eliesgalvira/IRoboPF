@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "@effect/vitest"
 import { renderToStaticMarkup } from "react-dom/server"
 import {
   mkdtempSync,
@@ -9,10 +9,15 @@ import {
   tmpdir,
   resolve,
 } from "../lib/procedencia/io.mjs"
-import { Schema } from "effect"
+import { Effect, Schema } from "effect"
 import { Entidad, Resultado, type Ambito } from "../lib/procedencia/modelo"
 import { baseFicha } from "../scripts/procedencia/contenido-generar.mjs"
-import { verificar } from "../scripts/procedencia/contenido-verificar.mjs"
+import {
+  verificar,
+  verificarContenido,
+} from "../scripts/procedencia/contenido-verificar.mjs"
+import { GET as obtenerObjeto } from "../app/procedencia/[snapshot]/objetos/[hash]/route"
+import { GET as obtenerFicha } from "../app/procedencia/[snapshot]/[id]/[revision]/route"
 import {
   bytesEntidad,
   hash,
@@ -72,6 +77,83 @@ const snapshotId =
   "31be43e7347ee116fd6349e946914602a706dbdce56b955a5aa8290fa9f7325e"
 if (!ids.includes(snapshotId))
   throw new Error("Snapshot histórico de prueba ausente")
+
+const documentalId =
+  "efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6"
+const documental = leerSnapshot(documentalId)
+if (documental?.version !== 2)
+  throw new Error("Falta snapshot documental histórico")
+
+describe("rutas reales y cobertura documental", () => {
+  it.effect("GET de objetos sirve PDF/PNG y rechaza auxiliares privados", () =>
+    Effect.gen(function* () {
+      for (const p of documental.publicos) {
+        const response = yield* Effect.promise(() =>
+          obtenerObjeto(new Request("https://local.invalid"), {
+            params: Promise.resolve({ snapshot: documentalId, hash: p.hash }),
+          })
+        )
+        expect(response.status).toBe(200)
+        expect(response.headers.get("Content-Type")).toBe(p.mime)
+        expect(response.headers.get("X-Content-Type-Options")).toBe("nosniff")
+        const bytes = yield* Effect.promise(() => response.arrayBuffer())
+        expect(hash(Buffer.from(bytes))).toBe(p.hash)
+      }
+      const privada = yield* Effect.promise(() =>
+        obtenerObjeto(new Request("https://local.invalid"), {
+          params: Promise.resolve({
+            snapshot: documentalId,
+            hash: documental.generador,
+          }),
+        })
+      )
+      expect(privada.status).toBe(404)
+    })
+  )
+  it.effect("GET de ficha selecciona estados y enlaces del sujeto exacto", () =>
+    Effect.gen(function* () {
+      const e = documental.evidencias[0]
+      if (e === undefined) throw new Error("Falta evidencia de Madrid")
+      const response = yield* Effect.promise(() =>
+        obtenerFicha(new Request("https://local.invalid"), {
+          params: Promise.resolve({ snapshot: documentalId, ...e.sujeto }),
+        })
+      )
+      const html = yield* Effect.promise(() => response.text())
+      expect(response.status).toBe(200)
+      expect(html).toContain("Original PDF")
+      expect(html).toContain("Captura PNG")
+      expect(html).toContain("Aceptación fiscal completa")
+      const sinEvidencia = yield* Effect.promise(() =>
+        obtenerFicha(new Request("https://local.invalid"), {
+          params: Promise.resolve({
+            snapshot: documentalId,
+            id: "paso.anual.base.ahorro",
+            revision:
+              "2f22ea1b3027420052191b8972db8bd7248f600134137e7f0a2177ac15d6a61f",
+          }),
+        })
+      )
+      expect(sinEvidencia.status).toBe(200)
+      const htmlSinEvidencia = yield* Effect.promise(() => sinEvidencia.text())
+      expect(htmlSinEvidencia).not.toContain("Original PDF")
+    })
+  )
+  it("rechaza omitir o duplicar estados aunque el snapshot tenga otro hash", () => {
+    expect(() =>
+      verificarContenido({ ...documental, evidencias: [] }, directorioContenido)
+    ).toThrow("Cobertura de evidencia")
+    expect(() =>
+      verificarContenido(
+        {
+          ...documental,
+          evidencias: [...documental.evidencias, ...documental.evidencias],
+        },
+        directorioContenido
+      )
+    ).toThrow("Cobertura de evidencia")
+  }, 60_000)
+})
 
 describe("contenido versionado", () => {
   it("rechaza dos revisiones del mismo ID dentro del snapshot", () => {
@@ -527,7 +609,7 @@ it("la ruta Next entrega HTML completo o 404 sin emitir datos del caso", () =>
           return respuesta.text()
         })
         .then((html) => {
-          expect(html).toContain("<!doctype html>")
+          expect(html).toMatch(/^<!doctype html>/i)
           expect(html).not.toContain("<script")
           return GET(new Request("https://example.test/"), {
             params: Promise.resolve({

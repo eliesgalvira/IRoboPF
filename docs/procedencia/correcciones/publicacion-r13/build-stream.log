@@ -1,0 +1,46 @@
+$ vitest run --config scripts/procedencia/contenido-vitest.mjs -t "GET de"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 18 skipped (20)
+   Start at  16:33:31
+   Duration  961ms (transform 213ms, setup 0ms, import 652ms, tests 205ms, environment 0ms)
+
+$ next build --webpack
+▲ Next.js 16.1.7 (webpack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 93s
+  Running TypeScript ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/12) ...
+  Generating static pages using 1 worker (3/12) 
+  Generating static pages using 1 worker (6/12) 
+  Generating static pages using 1 worker (9/12) 
+✓ Generating static pages using 1 worker (12/12) in 297.2ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /apple-icon.png
+├ ƒ /auditoria
+├ ○ /errata
+├ ○ /icon.svg
+├ ○ /liquidacion-irpf
+├ ○ /manifest.webmanifest
+├ ○ /opengraph-image.png
+├ ƒ /procedencia
+├ ƒ /procedencia/[snapshot]
+├ ƒ /procedencia/[snapshot]/[id]/[revision]
+├ ƒ /procedencia/[snapshot]/ambito/[territorio]/[ejercicio]
+├ ƒ /procedencia/[snapshot]/objetos/[hash]
+└ ○ /twitter-image.png
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

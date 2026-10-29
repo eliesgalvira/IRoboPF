@@ -1,0 +1,34 @@
+$ vitest run tests/rastro-anual-procedencia.test.ts tests/importes-comparables.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  2 passed (2)
+      Tests  10 passed (10)
+   Start at  16:31:29
+   Duration  4.53s (transform 489ms, setup 0ms, import 1.18s, tests 3.15s, environment 0ms)
+
+$ next build --webpack
+▲ Next.js 16.1.7 (webpack)
+
+  Creating an optimized production build ...
+Failed to compile.
+
+./app/procedencia/[snapshot]/[id]/[revision]/route.ts
+Error:   x You're importing a component that imports react-dom/server. To fix it, render or return the content directly as a Server Component instead for perf and security.
+  | Learn more: https://nextjs.org/docs/app/building-your-application/rendering
+   ,-[/home/elies/Repos/IRoboPF/app/procedencia/[snapshot]/[id]/[revision]/route.ts:2:1]
+ 1 | import { createElement } from "react"
+ 2 | import { renderToStaticMarkup } from "react-dom/server"
+   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 3 | import {
+ 4 |   resolver,
+ 5 |   leerSnapshot,
+   `----
+
+Import trace for requested module:
+./app/procedencia/[snapshot]/[id]/[revision]/route.ts
+
+
+> Build failed because of webpack errors
+error: script "build" exited with code 1

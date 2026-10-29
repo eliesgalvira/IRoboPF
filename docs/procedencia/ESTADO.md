@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 16:04 CET
+## Situación más reciente, 29 de octubre, 16:41 CET
+
+La revisión de publicación encontró tres defectos reales. Dos procedían de una omisión del padre al seleccionar rutas con corchetes en JJ: el árbol comprometido no contenía el código probado en disco. Se integra con rutas literales y se comprobarán los bytes del commit. El tercero permitía omitir estados de evidencia: ya se exige cobertura por sujeto y recibo. Veinte pruebas de contenido con GET reales pasan; publicación determinista y seis pruebas de cierre físico pasan. Lint, tipos principal/vendor y las dieciséis reglas a error correctos. Informe en `correcciones/publicacion-r13/INFORME.md`.
+
+CX-07-B corregido en el contrato del gráfico: cuota y neto usan la misma selección; coste y neto concilian los componentes mostrados en céntimos. El perfil, las APIs y la exportación históricos conservan su contrato. Caso de X: cuota comparable 2.873,30 y neto 18.355,89, sin afirmar que esa cuota esté fiscalmente validada. Tres rojos previos y cinco pruebas focalizadas verdes. Pendiente contrarrevisión nueva.
+
+Inventario **51.880 ocurrencias**. Nuevo v1 `54194f5a7ec34412ac9aa4aa27d8bcea053b1e3ca2bbda2e70ce211e4ee2d613`; v2 `983a06755162fedd569a8bb6989714463e00903506a614659b94eed1d43dd1eb`, **51.953 fichas**, 713 objetos de publicación y 65 puntos de rastro. Payload Madrid `c0214519ced6467f1a450f3737b950068ef10b29e0f0692471708cfd922c93c4`: integridad/exactitud verificadas, binding pendiente, autenticidad histórica indeterminada, aceptación fiscal completa false. Se preserva la atestación candidata anterior; no se traslada al inventario nuevo.
+
+Ronda 13 restante en curso. Build webpack correcto con un trabajador y límite de memoria. Se corrigió el render incompatible de la ruta y la omisión de datos en las trazas del paquete. GET compilados correctos desde una copia exclusiva de esas trazas: 4.811 archivos, 266.814.325 bytes. Sin servidor ni despliegue. Siguen pendientes ampliar preservación, completar la evidencia jurídica y revisar contratos. Crossa conserva v1 histórico, desfasado respecto de v2; sin transferencia, LFS o gasto. No se inicia limpieza final ni se declara terminado el encargo.
+
+## Situación anterior, 29 de octubre, 16:04 CET
 
 Integradas las entregas de ronda 11 y las dos de ronda 12 por base, archivo y hash, sin borrados. Se han corregido CAV1-01/02/03 y RT11-01; informe en `correcciones/integracion-ronda11/INFORME.md`. La exportación de inflación ya reproduce las 18 hojas del Excel en el contraste de hashes independiente. El perfil heredado conserva sus límites fiscales; quedan abiertos CX-06-A (reparto entre titulares) y CX-07-B (coherencia de cuota y neto) de la nueva revisión de X.
 

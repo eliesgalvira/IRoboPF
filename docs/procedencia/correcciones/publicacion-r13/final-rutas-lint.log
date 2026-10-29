@@ -1,0 +1,32 @@
+$ vitest run --config scripts/procedencia/contenido-vitest.mjs
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/procedencia-contenido.test.tsx (20 tests | 1 failed) 19264ms
+   × la ruta Next entrega HTML completo o 404 sin emitir datos del caso 2841ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/procedencia-contenido.test.tsx > la ruta Next entrega HTML completo o 404 sin emitir datos del caso
+AssertionError: expected '<!DOCTYPE html><html lang="es"><head>…' to contain '<!doctype html>'
+
+Expected: "<!doctype html>"
+Received: "<!DOCTYPE html><html lang="es"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Procedencia documental</title></head><body><main><h1>Límite de la escala madrileña: discrepancia documentada</h1><p>Concepto editorial pendiente de enlace y revisión.</p><p>Interpretación, autenticidad y contrarrevisión: pendientes.</p><ul></ul><p>Snapshot: <!-- -->31be43e7347ee116fd6349e946914602a706dbdce56b955a5aa8290fa9f7325e</p><section><h2>formula</h2><p>pendiente<!-- -->: <!-- -->Expresión técnica disponible; formulación jurídica pendiente.</p></section><section><h2>derivacion</h2><p>pendiente<!-- -->: <!-- -->No se ha acreditado la derivación ni sus unidades.</p></section><section><h2>norma</h2><p>candidata<!-- -->: <!-- -->El informe de corrección distingue 53.407,20 en la norma y 53.407,29 en el manual de 2020. Esta ficha aún no enlaza una ocurrencia ni acepta una escala completa.</p></section><section><h2>evidencia</h2><p>pendiente<!-- -->: <!-- -->Sin cita ni facsímil enlazados y verificados.</p></section><section><h2>bordes</h2><p>pendiente<!-- -->: <!-- -->Condiciones, exclusiones y fronteras pendientes de revisión.</p></section><h2>Fuentes exactas</h2><ul><li><p>docs/procedencia/correcciones/madrid-2020.md<!-- --> · SHA-256 <!-- -->3c0042f2d3a8269eaeae3a1e502b3eb880ea6215562d986b66aa70c603cc6303</p><pre>AUT1721-MADRID-2020-LIMITE</pre></li></ul><ul></ul></main></body></html>"
+
+ ❯ tests/procedencia-contenido.test.tsx:612:24
+    610|         })
+    611|         .then((html) => {
+    612|           expect(html).toContain("<!doctype html>")
+       |                        ^
+    613|           expect(html).not.toContain("<script")
+    614|           return GET(new Request("https://example.test/"), {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 19 passed (20)
+   Start at  16:38:31
+   Duration  20.02s (transform 208ms, setup 0ms, import 652ms, tests 19.26s, environment 0ms)
+
+error: script "test" exited with code 1

@@ -1,0 +1,85 @@
+$ vitest run tests/importes-comparables.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/importes-comparables.test.ts (3 tests | 3 failed) 15ms
+     × resta la cuota que la gráfica muestra en el caso documentado 10ms
+     × concilia los céntimos visibles, incluso si el total se redondeó antes 2ms
+     × mantiene bruto, cuota, neto y cuña conciliados en ambas direcciones del IPC 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/importes-comparables.test.ts > cuota y neto de la comparación gráfica, CX-07-B > resta la cuota que la gráfica muestra en el caso documentado
+AssertionError: expected 1849960 to be 1835589 // Object.is equality
+
+- Expected
++ Received
+
+- 1835589
++ 1849960
+
+ ❯ tests/importes-comparables.test.ts:22:34
+     20|     const elegido = seleccionarImportesComparables(original)
+     21|     expect(elegido.irpfCentimos).toBe(287_330)
+     22|     expect(elegido.netoCentimos).toBe(1_835_589)
+       |                                  ^
+     23|     expect(elegido.ajusteNetoCentimos).toBe(-14_371)
+     24|     expect(original.salarioNetoAnualCentimos).toBe(1_849_960)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/importes-comparables.test.ts > cuota y neto de la comparación gráfica, CX-07-B > concilia los céntimos visibles, incluso si el total se redondeó antes
+AssertionError: expected { irpfCentimos: 601, …(5) } to deeply equal { irpfCentimos: 601, …(5) }
+
+- Expected
++ Received
+
+  {
+-   "ajusteCosteCentimos": 1,
+-   "ajusteNetoCentimos": -1,
+-   "costeLaboralCentimos": 13062,
++   "ajusteCosteCentimos": 0,
++   "ajusteNetoCentimos": 0,
++   "costeLaboralCentimos": 13061,
+    "irpfCentimos": 601,
+-   "netoCentimos": 8749,
++   "netoCentimos": 8750,
+    "origenIrpf": "resultado-final",
+  }
+
+ ❯ tests/importes-comparables.test.ts:36:54
+     34|       salarioNetoAnualCentimos: 8_750,
+     35|     }
+     36|     expect(seleccionarImportesComparables(original)).toEqual({
+       |                                                      ^
+     37|       irpfCentimos: 601,
+     38|       netoCentimos: 8_749,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/importes-comparables.test.ts > cuota y neto de la comparación gráfica, CX-07-B > mantiene bruto, cuota, neto y cuña conciliados en ambas direcciones del IPC
+AssertionError: expected 2200000 to be 2199999 // Object.is equality
+
+- Expected
++ Received
+
+- 2199999
++ 2200000
+
+ ❯ tests/importes-comparables.test.ts:60:14
+     58|           const c = seleccionarImportesComparables(d)
+     59|           expect(c.netoCentimos + c.irpfCentimos + d.cotizacionTrabaja…
+     60|             .toBe(d.salarioBrutoAnualCentimos)
+       |              ^
+     61|           expect(c.costeLaboralCentimos - c.netoCentimos).toBe(
+     62|             c.irpfCentimos + d.cotizacionTrabajadorCentimos + d.cotiza…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  16:26:12
+   Duration  393ms (transform 88ms, setup 0ms, import 269ms, tests 15ms, environment 0ms)
+
+error: script "test" exited with code 1

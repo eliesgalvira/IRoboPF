@@ -1,0 +1,14 @@
+$ vitest run tests/importes-comparables.test.ts tests/auditoria-graficos.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  16:26:35
+   Duration  524ms (transform 94ms, setup 0ms, import 296ms, tests 19ms, environment 0ms)
+
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json

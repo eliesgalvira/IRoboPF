@@ -1,0 +1,16 @@
+$ vitest run --config scripts/procedencia/contenido-vitest.mjs
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  1 passed (1)
+      Tests  20 passed (20)
+   Start at  16:20:46
+   Duration  19.97s (transform 200ms, setup 0ms, import 633ms, tests 19.23s, environment 0ms)
+
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/procedencia-contenido.test.tsx(88,68): error TS69: This code declares an async function, consider representing this async control flow with Effect values and `Effect.gen`.    effect(asyncFunction)
+tests/procedencia-contenido.test.tsx(109,69): error TS69: This code declares an async function, consider representing this async control flow with Effect values and `Effect.gen`.    effect(asyncFunction)

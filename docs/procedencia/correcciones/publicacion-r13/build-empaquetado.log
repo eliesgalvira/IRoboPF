@@ -1,0 +1,49 @@
+{"snapshot":"54194f5a7ec34412ac9aa4aa27d8bcea053b1e3ca2bbda2e70ce211e4ee2d613","ocurrencias":51880,"conceptos":4,"puntosRastro":65,"paquetes":256,"bytesComprimidos":12259505,"maximoPaquete":63507,"rss":1505484800,"aceptacionFiscal":"pendiente"}
+{"snapshot":"983a06755162fedd569a8bb6989714463e00903506a614659b94eed1d43dd1eb","evidencias":[{"sujeto":{"id":"inv-c24095c17f76bb198b34cf8b8d5a45ed","revision":"062902db3822ea35dbea719966fc4fd95f6beda7df007f2729d2395fee3c30c5"},"recibo":"a9bcdcda24d7c3b0db8a7501a76aad31cfa9957bdbba62e494dedf6ad3fba258","payload":"c0214519ced6467f1a450f3737b950068ef10b29e0f0692471708cfd922c93c4","manifiesto":"ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091","integridad":"verified","exactitudNumerica":"verified","autenticidad":{"estado":"trust-indeterminate","fecha":"2026-10-29T11:49:13.848438+00:00","limites":"Integridad criptográfica; confianza histórica/revocación y cobertura total pendientes"},"interpretacion":"candidata","revisionBinding":"pending","aceptacionFiscalCompleta":false}],"objetos":713}
+$ vitest run tests/rastro-anual-procedencia.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  16:37:21
+   Duration  4.18s (transform 464ms, setup 0ms, import 960ms, tests 3.10s, environment 0ms)
+
+$ next build --webpack
+▲ Next.js 16.1.7 (webpack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 5.2s
+  Running TypeScript ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/12) ...
+  Generating static pages using 1 worker (3/12) 
+  Generating static pages using 1 worker (6/12) 
+  Generating static pages using 1 worker (9/12) 
+✓ Generating static pages using 1 worker (12/12) in 274.2ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /apple-icon.png
+├ ƒ /auditoria
+├ ○ /errata
+├ ○ /icon.svg
+├ ○ /liquidacion-irpf
+├ ○ /manifest.webmanifest
+├ ○ /opengraph-image.png
+├ ƒ /procedencia
+├ ƒ /procedencia/[snapshot]
+├ ƒ /procedencia/[snapshot]/[id]/[revision]
+├ ƒ /procedencia/[snapshot]/ambito/[territorio]/[ejercicio]
+├ ƒ /procedencia/[snapshot]/objetos/[hash]
+└ ○ /twitter-image.png
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+{"snapshot":"983a06755162fedd569a8bb6989714463e00903506a614659b94eed1d43dd1eb","objetos":[{"status":200,"sha256":"8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660","bytes":213826,"mime":"application/pdf"},{"status":200,"sha256":"95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868","bytes":12673,"mime":"image/png"}],"ficha":{"status":200,"bytes":4501,"enlaces":true,"estados":true,"doctype":true},"trazas":[{"route":"app/procedencia/[snapshot]/[id]/[revision]/route.js","archivos":4788,"bytes":262914442,"objetosDocumentales":4722,"dependenciasDocumentalesAusentes":[]},{"route":"app/procedencia/[snapshot]/objetos/[hash]/route.js","archivos":4779,"bytes":262527155,"objetosDocumentales":4722,"dependenciasDocumentalesAusentes":[]}]}

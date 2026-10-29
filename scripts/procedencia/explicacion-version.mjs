@@ -4,6 +4,7 @@ import { hash } from "../../lib/procedencia/verificador.ts"
 
 // Orden canónico de las fuentes que definen la explicación y su comprobación.
 export const FUENTES_EXPLICACION = [
+  "next.config.mjs",
   "scripts/procedencia/contenido-publicar.mjs",
   "scripts/procedencia/evidencia-contenido.mjs",
   "lib/procedencia/ficha.tsx",

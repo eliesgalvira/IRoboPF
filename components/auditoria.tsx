@@ -98,6 +98,7 @@ import {
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
 import { calcularSalarioLegacy } from "@/lib/dominio/compatibilidad-legacy/calculo-salario-legacy"
 import { factorIpcPerfilLegacy } from "@/lib/dominio/inflacion/factor-ipc"
+import { seleccionarImportesComparables } from "@/lib/dominio/auditoria/importes-comparables"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "@/lib/dominio/normativa/datos/irpf-obligacion-declarar"
 import {
   exportarAuditoriaCompatibleExcelConProgreso,
@@ -116,8 +117,8 @@ import {
 } from "@/lib/observabilidad/auditoria-rendimiento"
 
 const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
-const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-efectivo-salario-v4"
-const VERSION_CALCULO_CUNA_FISCAL = "cuna-fiscal-salario-v1"
+const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-efectivo-salario-v5"
+const VERSION_CALCULO_CUNA_FISCAL = "cuna-fiscal-salario-v2"
 const VERSION_CALCULO_TIPO_MARGINAL_IRPF = "irpf-cuota-marginal-smi-v3"
 const pasoCalculoMarginalMaximoCentimos = 5_000
 const salarioDeclaracionConObligacionCentimos =
@@ -2276,7 +2277,7 @@ const proporcionSegura = (numerador: number, denominador: number) =>
 
 const irpfConDeclaracionCentimos = (
   desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"]
-) => desglose.irpfConObligacionDeclararCentimos ?? desglose.irpfFinalCentimos
+) => seleccionarImportesComparables(desglose).irpfCentimos
 
 const irpfBaseMarginalCentimos = (
   desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"]
@@ -2311,8 +2312,14 @@ const valorMagnitudCentimos = (
       "cotizacion_empresarial",
       () => desglose.cotizacionEmpresarialCentimos
     ),
-    Match.when("salario_neto_anual", () => desglose.salarioNetoAnualCentimos),
-    Match.when("coste_laboral", () => desglose.costeLaboralCentimos),
+    Match.when(
+      "salario_neto_anual",
+      () => seleccionarImportesComparables(desglose).netoCentimos
+    ),
+    Match.when(
+      "coste_laboral",
+      () => seleccionarImportesComparables(desglose).costeLaboralCentimos
+    ),
     Match.when(
       "carga_fiscal_efectiva",
       () =>
@@ -2633,7 +2640,10 @@ const valorComponenteCunaFiscal = ({
   return Match.value(modo).pipe(
     Match.withReturnType<number>(),
     Match.when("porcentaje", () =>
-      proporcionSegura(valorCentimos, desglose.costeLaboralCentimos)
+      proporcionSegura(
+        valorCentimos,
+        seleccionarImportesComparables(desglose).costeLaboralCentimos
+      )
     ),
     Match.when("euros-reales", () => centimosAEuros(valorCentimos)),
     Match.exhaustive
@@ -3894,15 +3904,21 @@ function FormulaTipoEfectivoIrpf({
           final usado por esta comparación histórica.
         </ExplicacionVariable>
         <ExplicacionVariable termino="IRPF_COMPARABLE_NOMINAL / REAL">
+          Esta comparación conserva la selección de cuota del perfil histórico;
+          no determina por sí sola la obligación legal de declarar ni una
+          liquidación anual completa. El neto mostrado resta la misma cuota que
+          aparece en el gráfico. Neto y coste laboral se concilian a partir de
+          los componentes mostrados en céntimos, después del ajuste por IPC;
+          pueden diferir un céntimo del total redondeado al final del cálculo.{" "}
           Importe usado en las gráficas de IRPF y diferencia. Primero se calcula
           con importes nominales y normativa nominal de cada año; después se
           ajusta por IPC a euros de {anioReferencia} para que el selector pueda
           mostrarlo directamente en euros reales o dividirlo entre
           SALARIO_BRUTO_REAL como tipo efectivo. Hasta 22.000 € de rendimientos
-          íntegros del trabajo con un pagador, si no hay obligación general de
-          declarar, se usa el IRPF final de nómina: la menor cifra entre la
-          cuota anual y el límite de retención. Al superar 22.000 €, se usa la
-          cuota anual tras deducción.
+          íntegros del trabajo con un pagador, este perfil simplificado usa el
+          IRPF final de nómina: la menor cifra entre la cuota anual y el límite
+          de retención. Al superar 22.000 €, se usa la cuota anual tras
+          deducción.
         </ExplicacionVariable>
         <ExplicacionVariable termino="SALTO EN 22.000 EUR">
           El umbral de 22.000 € no nace en 2024; ya está en el{" "}
@@ -4438,9 +4454,11 @@ function FormulaCunaFiscal({
           coste laboral.
         </ExplicacionVariable>
         <ExplicacionVariable termino="IRPF_COMPARABLE_REAL">
-          Usa el mismo IRPF comparable de TIPO EFECTIVO: normativa nominal de
-          cada año, regla de obligación de declarar de 22.000 € cuando
-          corresponde, y después ajuste por IPC a euros de {anioReferencia}.
+          Usa la misma cuota seleccionada para TIPO EFECTIVO y salario neto,
+          ajustada por IPC a euros de {anioReferencia}. La selección corresponde
+          al perfil de comparación; no acredita por sí sola la obligación de
+          declarar. Neto y coste laboral concilian los componentes mostrados en
+          céntimos.
         </ExplicacionVariable>
         <ExplicacionVariable termino="SS_TRABAJADOR_REAL">
           Cotizaciones sociales a cargo del trabajador. Se descuentan del

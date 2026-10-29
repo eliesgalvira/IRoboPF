@@ -24,7 +24,12 @@ import {
 
 it("RV3-01 rechaza software de explicación cambiado fuera del dominio", () => {
   const scratch = mkdtempSync(resolve(tmpdir(), "irobopf-rastro-software-"))
-  for (const carpeta of ["lib", "scripts", "app/procedencia"])
+  for (const carpeta of [
+    "lib",
+    "scripts",
+    "app/procedencia",
+    "next.config.mjs",
+  ])
     cpSync(resolve(carpeta), resolve(scratch, carpeta), { recursive: true })
   mkdirSync(resolve(scratch, "docs/procedencia"), { recursive: true })
   cpSync(
@@ -37,6 +42,7 @@ it("RV3-01 rechaza software de explicación cambiado fuera del dominio", () => {
     "scripts/procedencia/contenido-generar.mjs",
     "scripts/procedencia/rastro-verificar.mjs",
     "app/procedencia/[snapshot]/objetos/[hash]/route.ts",
+    "next.config.mjs",
   ]) {
     const original = readFileSync(resolve(file), "utf8")
     writeFileSync(

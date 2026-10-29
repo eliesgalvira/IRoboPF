@@ -1,0 +1,11 @@
+16 |   !item || item.value !== "53407.2" || item.unit !== "EUR" ||
+17 |   item.source.file !== payload.source.file ||
+18 |   item.source.sha256 !== payload.source.sha256 ||
+19 |   item.symbol !== payload.source.symbol ||
+20 |   JSON.stringify(item.path) !== JSON.stringify(payload.source.tablePath)
+21 | ) throw new Error("Identidad o valor de Madrid cambió; requiere otra revisión")
+                 ^
+error: Identidad o valor de Madrid cambió; requiere otra revisión
+      at /home/elies/Repos/IRoboPF/docs/procedencia/correcciones/publicacion-r13/actualizar-enlace.mjs:21:13
+
+Bun v1.3.13 (Linux x64)

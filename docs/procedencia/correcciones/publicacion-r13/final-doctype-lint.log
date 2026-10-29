@@ -1,0 +1,14 @@
+$ vitest run --config scripts/procedencia/contenido-vitest.mjs -t "la ruta Next"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 19 skipped (20)
+   Start at  16:39:43
+   Duration  3.72s (transform 213ms, setup 0ms, import 682ms, tests 2.92s, environment 0ms)
+
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
