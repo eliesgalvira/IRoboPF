@@ -1,0 +1,121 @@
+{
+  "fecha": "2026-10-29",
+  "veredicto": "aprobable",
+  "base": "d4d708f68c4cfd95d462f7503014e39042963dbf",
+  "entrega": "/home/elies/.t3/worktrees/IRoboPF/t3-3d3cd9a7",
+  "certificaFiscalidad": false,
+  "hallazgos": [],
+  "observacionesNoBloqueantes": [
+    {
+      "id": "O1",
+      "archivo": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+      "linea": 164,
+      "severidad": "defensa opcional",
+      "titulo": "Se retira rechazo runtime de tres tipos incorrectos",
+      "antes": "Fail ResultadoNoSoportado para cotizaciones string/null, contrato null o situacionLaboral numérica",
+      "despues": "String numérica, contrato null o situación numérica pueden dar Success; cotizaciones null produce Die",
+      "repro": "Caso 2025, edad 40, retribucionAnualCentimos 3000000, cotizacionesCentimos 194400, situacionFamiliar situacion3, situacionLaboral activo, contrato general, discapacidad sin-discapacidad, descendientes [], ascendientes [], contexto modo canonico; sustituir cotizacionesCentimos por \"194400\" o null. Llamar calcularRetencionTrabajoAeat con Effect.runSyncExit en base y entrega.",
+      "evidencia": "/tmp/irobopf-review-lint/contrast.ts y contrast.log; guard y servicio inspeccionados",
+      "razonNoP1P2": "No se ha localizado entrada externa que produzca estos valores: la UI construye cotizaciones numéricas y selects cerrados; legacy calcula cotizaciones y fija activo/general. El repro viola expresamente el contrato, no demuestra regresión actual de aplicación. No se deduce seguridad solo del tipo.",
+      "fixMinimoOpcional": "Conservar los checks con Match.number y Match.string, sin desactivar reglas; caracterizar Fail frente a Die si se decide conservar defensa histórica."
+    },
+    {
+      "id": "O2",
+      "archivo": "components/ui/chart.tsx",
+      "linea": 345,
+      "severidad": "compatibilidad opcional",
+      "titulo": "Struct ignora campos heredados antes consultados con in",
+      "antes": "Object.create({name:\"directa\"}) resuelve config.directa",
+      "despues": "Resuelve config.name; primitivos no nulos ahora reciben respaldo",
+      "repro": "Comparar helper anterior y nuevo con config name/directa y payload Object.create({name:\"directa\"}), key name; repetir con payload anidado.",
+      "evidencia": "/tmp/irobopf-review-lint/contrast.ts y contrast.log",
+      "razonNoP1P2": "Los productores inspeccionados usan filas con propiedades propias; primitivos no son payloads de Recharts. No hay consumidor actual identificado con campos heredados.",
+      "fixMinimoOpcional": "Si se requiere ese contrato, caracterizar y preservar lectura heredada expresamente; no simular validación con casts."
+    }
+  ],
+  "objecionesDescartadas": [
+    {
+      "tema": "Años UI",
+      "razon": "El join procede de años previamente filtrados por lista permitida; no de URL cruda."
+    },
+    {
+      "tema": "Blob",
+      "razon": "Offset/length preservados y copia de vista compartida comprobada: ambos producen [7,6,5]."
+    },
+    {
+      "tema": "Optional properties",
+      "razon": "Ramas preservan ausencia de propiedades, condiciones y valores."
+    },
+    {
+      "tema": "Tests vacíos",
+      "razon": "Assertions reales de prioridades, decode y rechazo; limitación: no ejercitan proceso hijo malformado completo."
+    },
+    {
+      "tema": "Índice anómalo",
+      "razon": "No es evidencia de borrados del contenido; 29 archivos verificados por bytes."
+    }
+  ],
+  "controles": {
+    "archivos": 29,
+    "mapaOriginal": {
+      "diagnosticos": 96,
+      "archivos": 25,
+      "todosIncluidos": true
+    },
+    "borrados": 0,
+    "hashesBaseEntregaPadre": "coinciden",
+    "parcheAplicadoEnScratch": "29 hashes coinciden",
+    "upstream": "23 fuentes, licencia y version verificadas; tag anotado confirmado",
+    "adaptacionesRuntime": [
+      "shared/dictionary-types.ts: unsafeMembers[0] -> (unsafeMembers[0] ?? null)"
+    ],
+    "reglasError": 16,
+    "testLint": "correcto",
+    "lint": "exit 0",
+    "typecheckAplicacionYVendor": "exit 0, incremental false",
+    "tests": {
+      "archivos": 4,
+      "correctos": 19,
+      "maxWorkers": 1
+    }
+  },
+  "archivosRevisados": [
+    "app/auditoria/page.tsx",
+    "app/layout.tsx",
+    "components/auditoria.tsx",
+    "components/copiar-imagen-grafico.tsx",
+    "components/liquidacion-irpf.tsx",
+    "components/ui/chart.tsx",
+    "components/ui/combobox.tsx",
+    "components/ui/select.tsx",
+    "components/ui/tooltip.tsx",
+    "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+    "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+    "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+    "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+    "lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts",
+    "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+    "lib/dominio/normativa/datos/ipc-2012-2026.ts",
+    "lib/export/auditoria-excel.ts",
+    "lib/observabilidad/auditoria-rendimiento.ts",
+    "scripts/hash-effect-sheet.ts",
+    "tests/auditoria-excel-pesada.test.ts",
+    "tests/auditoria-excel.test.ts",
+    "tests/auditoria-fixture-canonico.test.ts",
+    "tests/calculo-salario-legacy.test.ts",
+    "tests/helpers/canonical-tabular-hashes.ts",
+    "tests/progresividad-caracterizacion-legacy.test.ts",
+    "tests/lint-contratos.test.ts",
+    "docs/procedencia/LINT-CORRECCION.md",
+    "docs/procedencia/lint/diagnosticos.json",
+    "docs/procedencia/lint/por-regla-archivo.tsv"
+  ],
+  "limites": [
+    "Sin Next build ni medición de bundle",
+    "Sin suite legacy exhaustiva ni repetición de 177 tests",
+    "Sin validación fiscal",
+    "Sin navegador ni inspección visual",
+    "Aprobación limitada a bytes revisados y contratos actuales"
+  ],
+  "scratch": "/tmp/irobopf-review-lint/"
+}

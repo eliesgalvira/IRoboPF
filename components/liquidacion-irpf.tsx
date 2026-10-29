@@ -44,7 +44,6 @@ import {
 } from "@/lib/dominio/irpf/deducciones-autonomicas-aplicadas"
 import type {
   CuantiaDeduccionAutonomica,
-  CatalogoDeduccionesAutonomicasPorComunidad,
   FichaDeduccionAutonomica,
 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import { formatearPuntosPorcentuales } from "@/lib/formato"
@@ -656,116 +655,116 @@ export function LiquidacionIrpf() {
     [edad, entradasRetencionAeat, usarRetencionAeat]
   )
 
-  const caso = React.useMemo(
-    () =>
-      ({
-        anio: 2025,
-        comunidadAutonoma,
-        situacionFamiliar: {
-          tipo: "individual",
-          edad,
-          descendientes: Array.from({ length: descendientes }, (_, indice) => ({
-            edad: 10,
-            discapacidad:
-              indice < descendientesDiscapacidad65
-                ? discapacidad65OMas
-                : indice < descendientesConDiscapacidad
-                  ? discapacidad33a64({
-                      necesitaAyudaOMovilidadReducida:
-                        indice < descendientesConAsistencia,
-                    })
-                  : sinDiscapacidad,
-          })),
-          ascendientes: Array.from({ length: ascendientes }, () => ({
-            edad: 78,
-            discapacidad: sinDiscapacidad,
-          })),
-          discapacidad: sinDiscapacidad,
-        },
-        rendimientos: {
-          trabajo: [
-            {
-              importeIntegroCentimos: eurosACentimos(rendimientosTrabajoEuros),
-            },
-          ],
-          capitalInmobiliario:
-            capitalInmobiliarioEuros > 0
-              ? [
-                  {
-                    importeIntegroCentimos: eurosACentimos(
-                      capitalInmobiliarioEuros
-                    ),
-                  },
-                ]
-              : [],
-          gananciasPatrimoniales:
-            gananciaPatrimonialEuros > 0
-              ? [
-                  {
-                    importeGananciaCentimos: eurosACentimos(
-                      gananciaPatrimonialEuros
-                    ),
-                    tratamientoMayores65:
-                      tratamientoGananciaPatrimonial ===
-                      "vivienda-habitual-mayores-65"
-                        ? { _tag: "ViviendaHabitualMayores65" }
-                        : tratamientoGananciaPatrimonial ===
-                            "renta-vitalicia-mayores-65"
-                          ? {
-                              _tag: "ReinversionRentaVitaliciaMayores65",
-                              importeTransmisionCentimos: eurosACentimos(
-                                importeTransmisionEuros
-                              ),
-                              importeReinvertidoRentaVitaliciaCentimos:
-                                eurosACentimos(reinversionRentaVitaliciaEuros),
-                              reinversionesPreviasRentaVitaliciaCentimos:
-                                eurosACentimos(reinversionesPreviasEuros),
-                            }
-                          : { _tag: "SinExencionMayores65" },
-                  },
-                ]
-              : [],
-        },
-        reducciones: [],
-        deducciones: [],
-        ...(comunidadAutonoma !== "simulada-estatal" &&
-        deduccionesAutonomicasEuros > 0
-          ? {
-              deduccionAutonomicaAgregadaCentimos: eurosACentimos(
-                deduccionesAutonomicasEuros
-              ),
-            }
-          : {}),
-        retencionesSoportadasCentimos: eurosACentimos(
-          retencionesSoportadasEuros
-        ),
-        pagosACuentaCentimos: usarRetencionAeat
-          ? 0
-          : eurosACentimos(pagosACuentaEuros),
-        ...(retencionTrabajoAeat !== undefined ? { retencionTrabajoAeat } : {}),
-      }) satisfies CasoFiscalAnual,
-    [
-      ascendientes,
-      capitalInmobiliarioEuros,
+  const caso = React.useMemo(() => {
+    const base: CasoFiscalAnual = {
+      anio: 2025,
       comunidadAutonoma,
-      descendientes,
-      descendientesConAsistencia,
-      descendientesConDiscapacidad,
-      descendientesDiscapacidad65,
-      deduccionesAutonomicasEuros,
-      edad,
-      gananciaPatrimonialEuros,
-      importeTransmisionEuros,
-      pagosACuentaEuros,
-      rendimientosTrabajoEuros,
-      reinversionRentaVitaliciaEuros,
-      reinversionesPreviasEuros,
-      retencionesSoportadasEuros,
-      retencionTrabajoAeat,
-      tratamientoGananciaPatrimonial,
-      usarRetencionAeat,
-    ]
-  )
+      situacionFamiliar: {
+        tipo: "individual",
+        edad,
+        descendientes: Array.from({ length: descendientes }, (_, indice) => ({
+          edad: 10,
+          discapacidad:
+            indice < descendientesDiscapacidad65
+              ? discapacidad65OMas
+              : indice < descendientesConDiscapacidad
+                ? discapacidad33a64({
+                    necesitaAyudaOMovilidadReducida:
+                      indice < descendientesConAsistencia,
+                  })
+                : sinDiscapacidad,
+        })),
+        ascendientes: Array.from({ length: ascendientes }, () => ({
+          edad: 78,
+          discapacidad: sinDiscapacidad,
+        })),
+        discapacidad: sinDiscapacidad,
+      },
+      rendimientos: {
+        trabajo: [
+          {
+            importeIntegroCentimos: eurosACentimos(rendimientosTrabajoEuros),
+          },
+        ],
+        capitalInmobiliario:
+          capitalInmobiliarioEuros > 0
+            ? [
+                {
+                  importeIntegroCentimos: eurosACentimos(
+                    capitalInmobiliarioEuros
+                  ),
+                },
+              ]
+            : [],
+        gananciasPatrimoniales:
+          gananciaPatrimonialEuros > 0
+            ? [
+                {
+                  importeGananciaCentimos: eurosACentimos(
+                    gananciaPatrimonialEuros
+                  ),
+                  tratamientoMayores65:
+                    tratamientoGananciaPatrimonial ===
+                    "vivienda-habitual-mayores-65"
+                      ? { _tag: "ViviendaHabitualMayores65" }
+                      : tratamientoGananciaPatrimonial ===
+                          "renta-vitalicia-mayores-65"
+                        ? {
+                            _tag: "ReinversionRentaVitaliciaMayores65",
+                            importeTransmisionCentimos: eurosACentimos(
+                              importeTransmisionEuros
+                            ),
+                            importeReinvertidoRentaVitaliciaCentimos:
+                              eurosACentimos(reinversionRentaVitaliciaEuros),
+                            reinversionesPreviasRentaVitaliciaCentimos:
+                              eurosACentimos(reinversionesPreviasEuros),
+                          }
+                        : { _tag: "SinExencionMayores65" },
+                },
+              ]
+            : [],
+      },
+      reducciones: [],
+      deducciones: [],
+      retencionesSoportadasCentimos: eurosACentimos(retencionesSoportadasEuros),
+      pagosACuentaCentimos: usarRetencionAeat
+        ? 0
+        : eurosACentimos(pagosACuentaEuros),
+    }
+    const conDeducciones =
+      comunidadAutonoma !== "simulada-estatal" &&
+      deduccionesAutonomicasEuros > 0
+        ? {
+            ...base,
+            deduccionAutonomicaAgregadaCentimos: eurosACentimos(
+              deduccionesAutonomicasEuros
+            ),
+          }
+        : base
+    return retencionTrabajoAeat === undefined
+      ? conDeducciones
+      : { ...conDeducciones, retencionTrabajoAeat }
+  }, [
+    ascendientes,
+    capitalInmobiliarioEuros,
+    comunidadAutonoma,
+    descendientes,
+    descendientesConAsistencia,
+    descendientesConDiscapacidad,
+    descendientesDiscapacidad65,
+    deduccionesAutonomicasEuros,
+    edad,
+    gananciaPatrimonialEuros,
+    importeTransmisionEuros,
+    pagosACuentaEuros,
+    rendimientosTrabajoEuros,
+    reinversionRentaVitaliciaEuros,
+    reinversionesPreviasEuros,
+    retencionesSoportadasEuros,
+    retencionTrabajoAeat,
+    tratamientoGananciaPatrimonial,
+    usarRetencionAeat,
+  ])
   const resultado = React.useMemo(
     () =>
       Result.match(
@@ -966,11 +965,9 @@ function FormularioCaso({
   readonly tratamientoGananciaPatrimonial: TratamientoGananciaPatrimonial
   readonly usarRetencionAeat: boolean
 }) {
-  const catalogoDeducciones = (
-    CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor as Partial<
-      Record<ComunidadAutonoma, CatalogoDeduccionesAutonomicasPorComunidad>
-    >
-  )[comunidadAutonoma]
+  const catalogoDeducciones = Object.entries(
+    CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor
+  ).find(([comunidad]) => comunidad === comunidadAutonoma)?.[1]
   const usaComunidadAutonomicaReal = comunidadAutonoma !== "simulada-estatal"
   const deduccionesCatalogadas = catalogoDeducciones?.deducciones ?? []
   const catalogoDeduccionesVacio = deduccionesCatalogadas.length === 0

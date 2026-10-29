@@ -1,0 +1,1168 @@
+{
+  "reviews": [
+    {
+      "id": "NE-01",
+      "status": "needs-evidence",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "La cadena existe y la aritmética independiente confirma la parametrización Python. Una discrepancia con una ilustración no demuestra una carencia ejecutiva o un error fiscal del TS.",
+      "objections": [
+        "No se ejecutó TS ni se fijó un resultado fiscal oficial. El 2018 contradictorio está también en el cuerpo primario de Substack."
+      ],
+      "minimumCorrection": "Reformular como fixture público ambiguo pendiente de fijar parámetros, año y redondeos; no ordenar fix fiscal a partir de 3,97.",
+      "locations": [
+        {
+          "path": "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+          "symbol": "calcularSalarioLegacyConLiquidacionIrpfAnual",
+          "exists": true,
+          "lines": [
+            66,
+            78,
+            79
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+        "lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+        "Calculo_Salario_IRPF.py"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        },
+        {
+          "id": "substack",
+          "sha256": "22323357c8561ec9ca77e196c40e89ba5aa19f3bf3c146bfe3a73fbded57f808",
+          "url": "https://lapromesageneracional.substack.com/api/v1/posts/notas-rapidas-sobre-la-no-deflactacion"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+          "Leer lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+          "Leer Calculo_Salario_IRPF.py"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-02",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "La tabla IPC solo contiene tasas; 2026 vale 0.030 y no incorpora estado ni documento de previsión. El indicador de diciembre aún no es observable.",
+      "objections": [
+        "factorIpcEntreAnios en components/auditoria.tsx sí calcula inversos. No generalizar el comportamiento del factor privado legacy a toda la interfaz."
+      ],
+      "minimumCorrection": "Añadir estado y procedencia del indicador; mantener separada la auditoría de índices y las tasas redondeadas.",
+      "locations": [
+        {
+          "path": "lib/dominio/normativa/datos/ipc-2012-2026.ts",
+          "symbol": "IPC_ANUAL_DICIEMBRE",
+          "exists": true,
+          "lines": [
+            4
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/normativa/datos/ipc-2012-2026.ts",
+        "components/auditoria.tsx",
+        "lib/dominio/compatibilidad-legacy/progresividad-frio.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "ine-ipc",
+          "sha256": "92a97e05bf8701aa138a3ba8b2c42db6a1e099687e70f7f0ec008035da9aa17e",
+          "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=76125"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/normativa/datos/ipc-2012-2026.ts",
+          "Leer components/auditoria.tsx",
+          "Leer lib/dominio/compatibilidad-legacy/progresividad-frio.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-03",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "Las estrategias coste real y trayectoria aparecen como tipos/descripciones/decodificadores. normalizarEscenarioAuditoriaNormativa impone varianteAuditoriaPorDefecto y el cálculo histórico divide el bruto por IPC.",
+      "objections": [
+        "El desglose sí calcula coste y cotización empresarial. Lo ausente es mantener coste real mediante inversión, no calcular coste."
+      ],
+      "minimumCorrection": "Precisar ruta y normalización; documentar residual de una futura inversión bruto+SSempresa, sin equipararlo a todos los costes ETCL.",
+      "locations": [
+        {
+          "path": "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+          "symbol": "EstrategiaProyeccionSalarial",
+          "exists": true,
+          "lines": [
+            16,
+            25,
+            35,
+            77,
+            344,
+            410,
+            411,
+            414,
+            580,
+            582,
+            584
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+        "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+        "lib/dominio/laboral/cotizaciones-sociales.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "etcl",
+          "sha256": "cf99d912279baeb31f50063e0b3daba35285ca4c54f97c478ee00ae497cac773",
+          "url": "https://www.ine.es/daco/daco42/etcl/etcl0218.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/auditoria/auditoria-normativa-historica.ts",
+          "Leer lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+          "Leer lib/dominio/laboral/cotizaciones-sociales.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-04",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "RendimientoTrabajo solo aporta importe; sumarRendimientosTrabajo agrega antes de cotizar y no conserva pagador ni periodo.",
+      "objections": [
+        "CasoRetencionTrabajo permite cotizaciones y características de contrato/familia; no modela identidad de múltiples pagadores. Existe ficha catalana por varios pagadores, no un motor de obligación general."
+      ],
+      "minimumCorrection": "Acotar a identidad, periodos y obligación/regularización multipagador; no afirmar ausencia de retención.",
+      "locations": [
+        {
+          "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+          "symbol": "RendimientoTrabajo",
+          "exists": true,
+          "lines": [
+            65,
+            99
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/irpf/caso-fiscal-anual.ts",
+          "Leer lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "Leer lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "Leer lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-05",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "No hay rendimiento de actividades en el contrato ni entrada de ese resultado en la base general; la rama laboral calcula cotización salarial.",
+      "objections": [
+        "La mención RETA en un catálogo asturiano no calcula cuota RETA. AEAT 2025 apoya separación ingresos/gastos, no una historia 2012–2026."
+      ],
+      "minimumCorrection": "Mantener como ausencia estructural; vertical directa simplificada 2025 es propuesta de producto, no regla jurídica ni cobertura de autónomos.",
+      "locations": [
+        {
+          "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+          "symbol": "RendimientosCasoFiscal",
+          "exists": true,
+          "lines": [
+            98,
+            113
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "lib/dominio/irpf/integracion/base-imponible-general.ts",
+        "lib/dominio/laboral/cotizaciones-sociales.ts",
+        "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        },
+        {
+          "id": "aeat-actividad",
+          "sha256": "4eea761b3872ae9357e866ca7f6110be294855b773631aefb26a2ef38b367eb6",
+          "url": "https://www3.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/7-cumplimentacion-irpf/7_4-rendimientos-actividades-economicas/7_4_2-regimen-estimacion-directa/7_4_2_9_cumplimentacion-actividades-estimacion-directa.html"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/irpf/caso-fiscal-anual.ts",
+          "Leer lib/dominio/irpf/integracion/base-imponible-general.ts",
+          "Leer lib/dominio/laboral/cotizaciones-sociales.ts",
+          "Leer lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-06",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "La función devuelve rendimientoNeto: rendimientoIntegro y la liquidación la llama efectivamente. El contrato no permite gastos ni amortización.",
+      "objections": [
+        "Hay integración inmobiliaria real y ganancias por transmisión con exenciones; no confundir esas ramas con liquidación completa de arrendamientos."
+      ],
+      "minimumCorrection": "Conservar calificativo simplificado y no certificar un caso mixto; reglas por destino/fecha requieren evidencia tributaria específica.",
+      "locations": [
+        {
+          "path": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+          "symbol": "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+          "exists": true,
+          "lines": [
+            32
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+        "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+          "Leer lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "Leer lib/dominio/irpf/caso-fiscal-anual.ts",
+          "Leer lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-07",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "Solo SituacionFamiliarIndividual llega a liquidación. Pareja con hijos se transforma en un perceptor de 40 años con hijos fijos, no miembros con rentas ni opción conjunta.",
+      "objections": [
+        "Mínimos familiares y situación familiar de retención sí existen. CIT-06 acredita únicamente un título histórico."
+      ],
+      "minimumCorrection": "Especificar unidad fiscal frente a hogar y ampliar cita antes de justificar condiciones legales de conjunta.",
+      "locations": [
+        {
+          "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+          "symbol": "SituacionFamiliarIndividual",
+          "exists": true,
+          "lines": [
+            57,
+            112
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+        "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+        "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/irpf/caso-fiscal-anual.ts",
+          "Leer lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+          "Leer lib/dominio/auditoria/auditoria-normativa-historica.ts",
+          "Leer lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-08",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "EscenarioNormativoVersionado es contrato de estados; búsqueda de consumidores no localiza evaluador que aplique un paquete arbitrario de parámetros.",
+      "objections": [
+        "Comparaciones anuales, parámetros y medidas documentadas sí existen. No confundir ausencia de evaluador general con inexistencia de toda variante."
+      ],
+      "minimumCorrection": "Exigir escenario identidad y selección explícita de parámetros monetarios; la deflactación integral es metodología propuesta.",
+      "locations": [
+        {
+          "path": "lib/dominio/normativa/medida-normativa.ts",
+          "symbol": "EscenarioNormativoVersionado",
+          "exists": true,
+          "lines": [
+            26
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/normativa/medida-normativa.ts",
+        "lib/dominio/normativa/repositorio-parametros.ts",
+        "lib/dominio/auditoria/auditoria-progresividad-frio.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/normativa/medida-normativa.ts",
+          "Leer lib/dominio/normativa/repositorio-parametros.ts",
+          "Leer lib/dominio/auditoria/auditoria-progresividad-frio.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-09",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "La conciliación legacy toma un mínimo de cuota y límite. La liquidación anual separa cuota y saldo, pero no tiene entradas suficientes para decidir obligación general y opción del contribuyente.",
+      "objections": [
+        "calcularCuotaDiferencialCentimos resta pagos efectivos y retenciones; RetencionTrabajoAeat tiene ejecución propia. Rechazo interpretar el hallazgo como confusión de todos los motores."
+      ],
+      "minimumCorrection": "Nombrar el perfil legacy y sus supuestos; CIT-07 no prueba un umbral vigente ni todas las excepciones.",
+      "locations": [
+        {
+          "path": "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+          "symbol": "ConciliacionSimuladorLegacy",
+          "exists": true,
+          "lines": [
+            15,
+            16,
+            96,
+            110,
+            146,
+            163
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+        "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
+        "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts",
+          "Leer lib/dominio/irpf/cuotas/cuota-diferencial.ts",
+          "Leer lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "Leer lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-10",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "La trayectoria salarial propia es declarativa; no localicé ingestión versionada ETCL/IPC en las rutas del producto. Las páginas INE son selectores, no observaciones descargadas.",
+      "objections": [
+        "Los ids 11221 y 76125 corresponden a costes por trabajador e índices nacionales. Eso no prueba selección ajustada ni los valores de una serie concreta."
+      ],
+      "minimumCorrection": "Guardar dimensiones y revisiones al implementar; separar neto del salario medio de media de netos y anualización x12 de renta anual observada.",
+      "locations": [
+        {
+          "path": "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+          "symbol": "trayectoria_salarial_propia",
+          "exists": true,
+          "lines": [
+            19,
+            343,
+            426,
+            591
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+        "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+        "lib/dominio/normativa/datos/ipc-2012-2026.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "etcl",
+          "sha256": "cf99d912279baeb31f50063e0b3daba35285ca4c54f97c478ee00ae497cac773",
+          "url": "https://www.ine.es/daco/daco42/etcl/etcl0218.pdf"
+        },
+        {
+          "id": "ine-etcl",
+          "sha256": "3ef6083c366df738c422fe12edad91ce7985bb2cdb82df336dd1e753d0e3b212",
+          "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=11221"
+        },
+        {
+          "id": "ine-ipc",
+          "sha256": "92a97e05bf8701aa138a3ba8b2c42db6a1e099687e70f7f0ec008035da9aa17e",
+          "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=76125"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/auditoria/auditoria-normativa-historica.ts",
+          "Leer lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+          "Leer lib/dominio/normativa/datos/ipc-2012-2026.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-11",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "Un barrido finito no demuestra una afirmación universal sobre salarios continuos ni la exhaustividad de todos los umbrales.",
+      "objections": [
+        "El motor añade puntos normativos SMI/obligación y la interfaz calcula marginales con paso interno y cuota precisa. No es un mero barrido uniforme sin marginales."
+      ],
+      "minimumCorrection": "Incluir esas capacidades existentes; exigir inventario de fronteras antes de afirmar exhaustividad, sin añadir una falsa ausencia de marginales.",
+      "locations": [
+        {
+          "path": "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+          "symbol": "AuditoriaProgresividadFrio",
+          "exists": true,
+          "lines": [
+            76,
+            80,
+            81,
+            91,
+            105,
+            106,
+            107,
+            708,
+            709,
+            730,
+            734,
+            737,
+            738,
+            741,
+            742,
+            743,
+            746,
+            748,
+            756,
+            757,
+            759,
+            765,
+            766,
+            767,
+            770
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+        "components/auditoria.tsx",
+        "lib/dominio/compatibilidad-legacy/progresividad-frio.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+          "Leer components/auditoria.tsx",
+          "Leer lib/dominio/compatibilidad-legacy/progresividad-frio.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-12",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "17 territorios reales y simulada en contrato; resolvedores anuales 2012–2025 y rechazo real 2026. No hay forales en la unión. Cobertura jurídica íntegra no acreditada.",
+      "objections": [
+        "DeduccionesAutonomicasAplicadas sí evalúa importes y la interfaz los pasa agregados. La ruta deducciones por código rechaza; no concluir que ninguna deducción se ejecuta."
+      ],
+      "minimumCorrection": "Añadir rechazo 2026 y distinguir catálogo, evaluador UI e importe agregado. Los 15 años de cobertura son alcance requerido, no matriz validada.",
+      "locations": [
+        {
+          "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+          "symbol": "ComunidadAutonoma",
+          "exists": true,
+          "lines": [
+            4,
+            110
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+        "components/liquidacion-irpf.tsx",
+        "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/irpf/caso-fiscal-anual.ts",
+          "Leer lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+          "Leer lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+          "Leer components/liquidacion-irpf.tsx",
+          "Leer lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-13",
+      "status": "needs-evidence",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "Hay constructores y exportación XLSX efectiva. Igualdad legacy no implica validez fiscal, pero el candidato no identifica una divergencia ni un requisito concreto incumplido por celda.",
+      "objections": [
+        "exportación compatible es etiqueta descriptiva, no símbolo. El texto completo del contrato Excel en el post largo supera el prefijo verificado por X."
+      ],
+      "minimumCorrection": "Sustituir localización por construirLibroAuditoriaCompatible; definir campos de trazabilidad ausentes y fixture pequeño antes de aceptar defecto de exportación.",
+      "locations": [
+        {
+          "path": "lib/export/auditoria-excel.ts",
+          "symbol": "exportación compatible",
+          "exists": true,
+          "lines": [],
+          "symbolLiteralFound": false
+        }
+      ],
+      "codeReexamined": [
+        "lib/export/auditoria-excel.ts",
+        "lib/dominio/explicacion/fuente-explicacion.ts",
+        "lib/dominio/compatibilidad-legacy/progresividad-frio.ts"
+      ],
+      "sourcesReexamined": [],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/export/auditoria-excel.ts",
+          "Leer lib/dominio/explicacion/fuente-explicacion.ts",
+          "Leer lib/dominio/compatibilidad-legacy/progresividad-frio.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-14",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "Los perfiles cerrados generan 40 años y descendientes 8/5; no existe constructor de cohorte con cumpleaños y cambios anuales.",
+      "objections": [
+        "CasoFiscalAnual permite edad, familiares y fechaFallecimiento en casos separados: el usuario técnico puede construir manualmente distintos años."
+      ],
+      "minimumCorrection": "Acotar ausencia a trayectoria automática, no a imposibilidad de representar edades o cambios intranuales.",
+      "locations": [
+        {
+          "path": "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+          "symbol": "detallePerfilAuditoriaNormativa",
+          "exists": true,
+          "lines": [
+            241,
+            268,
+            319,
+            334
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+        "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+        "lib/dominio/irpf/caso-fiscal-anual.ts"
+      ],
+      "sourcesReexamined": [
+        {
+          "id": "lirpf-pdf",
+          "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+          "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf"
+        }
+      ],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/auditoria/auditoria-normativa-historica.ts",
+          "Leer lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+          "Leer lib/dominio/irpf/caso-fiscal-anual.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-15",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "Las entradas son rango de salarios, años y perfil; no pesos ni población. No se localizó integración de microdatos en lib/app/components.",
+      "objections": [
+        "Es ampliación analítica de producto; no defecto fiscal de un cálculo individual. Un rango salarial no es una muestra representativa."
+      ],
+      "minimumCorrection": "Conservar como capacidad fuera de alcance actual y declarar unidad/pesos antes de agregación.",
+      "locations": [
+        {
+          "path": "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+          "symbol": "EntradaAuditoriaProgresividadFrio",
+          "exists": true,
+          "lines": [
+            80,
+            708,
+            741,
+            756,
+            765
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+        "lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+        "PRODUCT.md"
+      ],
+      "sourcesReexamined": [],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+          "Leer lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+          "Leer PRODUCT.md"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    },
+    {
+      "id": "NE-16",
+      "status": "accepted",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "reason": "PRODUCT delimita auditoría salarial; código laboral modela contribuciones anuales y no carreras, supervivencia, descuento ni sistema macro completo.",
+      "objections": [
+        "Pensionista existe como situación de retención; no equivale a valorar derechos de pensión. No interpretar una propuesta macro como obligación normativa."
+      ],
+      "minimumCorrection": "Mantener frontera de producto; contribución anual, cuña y derechos futuros deben nombrarse separadamente.",
+      "locations": [
+        {
+          "path": "PRODUCT.md",
+          "symbol": "Product Purpose",
+          "exists": true,
+          "lines": [
+            15
+          ],
+          "symbolLiteralFound": true
+        }
+      ],
+      "codeReexamined": [
+        "PRODUCT.md",
+        "lib/dominio/laboral/cotizaciones-sociales.ts",
+        "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts"
+      ],
+      "sourcesReexamined": [],
+      "repro": {
+        "method": "Inspección estática y seguimiento de llamadas; no ejecución TS",
+        "steps": [
+          "Leer PRODUCT.md",
+          "Leer lib/dominio/laboral/cotizaciones-sociales.ts",
+          "Leer lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts"
+        ],
+        "additionalChecks": "arithmetic.json y Substack para NE-01; citations.json y posts.json para evidencia; búsqueda global en lib/app/components"
+      },
+      "yearsAndTerritories": "Alcance del contrato y las rutas actuales; no auditoría normativa por ejercicio/territorio."
+    }
+  ],
+  "checks": {
+    "date": "2026-10-29T10:25:38.259279+00:00",
+    "sources": [
+      {
+        "id": "etcl",
+        "sha256": "cf99d912279baeb31f50063e0b3daba35285ca4c54f97c478ee00ae497cac773",
+        "hashOk": true,
+        "sha512Ok": true,
+        "sizeOk": true
+      },
+      {
+        "id": "lirpf-pdf",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "hashOk": true,
+        "sha512Ok": true,
+        "sizeOk": true
+      },
+      {
+        "id": "aeat-actividad",
+        "sha256": "4eea761b3872ae9357e866ca7f6110be294855b773631aefb26a2ef38b367eb6",
+        "hashOk": true,
+        "sha512Ok": true,
+        "sizeOk": true
+      },
+      {
+        "id": "ine-ipc",
+        "sha256": "92a97e05bf8701aa138a3ba8b2c42db6a1e099687e70f7f0ec008035da9aa17e",
+        "hashOk": true,
+        "sha512Ok": true,
+        "sizeOk": true
+      },
+      {
+        "id": "ine-etcl",
+        "sha256": "3ef6083c366df738c422fe12edad91ce7985bb2cdb82df336dd1e753d0e3b212",
+        "hashOk": true,
+        "sha512Ok": true,
+        "sizeOk": true
+      },
+      {
+        "id": "substack",
+        "sha256": "22323357c8561ec9ca77e196c40e89ba5aa19f3bf3c146bfe3a73fbded57f808",
+        "hashOk": true,
+        "sha512Ok": true,
+        "sizeOk": true
+      }
+    ],
+    "citations": [
+      {
+        "id": "NE-CIT-01",
+        "documentId": "etcl",
+        "sha256": "cf99d912279baeb31f50063e0b3daba35285ca4c54f97c478ee00ae497cac773",
+        "hashOk": true,
+        "page": 9,
+        "boxes": [
+          [
+            70.91972351074219,
+            220.7023162841797,
+            527.4310302734375,
+            283.47491455078125
+          ]
+        ],
+        "exact": true,
+        "normalized": true,
+        "extracted": "Coste salarial: comprende todas las percepciones económicas realizadas a los trabajadores, \nen efectivo o en especie por la prestación profesional de los servicios laborales por cuenta \najena. Comprende el salario base, los complementos salariales, pagos por horas \nextraordinarias y/o complementarias, gratificaciones extraordinarias, pagos atrasados y \nsalario en especie \n",
+        "assessment": "Aceptada: definición ETCL de coste salarial."
+      },
+      {
+        "id": "NE-CIT-02",
+        "documentId": "etcl",
+        "sha256": "cf99d912279baeb31f50063e0b3daba35285ca4c54f97c478ee00ae497cac773",
+        "hashOk": true,
+        "page": 9,
+        "boxes": [
+          [
+            70.91972351074219,
+            291.9207763671875,
+            527.4526977539062,
+            316.77398681640625
+          ]
+        ],
+        "exact": true,
+        "normalized": true,
+        "extracted": "Otros Costes: incluyen las Percepciones no Salariales y las Cotizaciones obligatorias a la \nSeguridad Social. \n",
+        "assessment": "Aceptada: otros costes incluyen conceptos adicionales a SS."
+      },
+      {
+        "id": "NE-CIT-03",
+        "documentId": "lirpf-pdf",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "hashOk": true,
+        "page": 20,
+        "boxes": [
+          [
+            39.68499755859375,
+            289.90301513671875,
+            313.1828918457031,
+            369.783935546875
+          ]
+        ],
+        "exact": true,
+        "normalized": true,
+        "extracted": "1. Se considerarán rendimientos íntegros de activi-\ndades económicas aquellos que, procediendo del trabajo \npersonal y del capital conjuntamente, o de uno solo de \nestos factores, supongan por parte del contribuyente la \nordenación por cuenta propia de medios de producción y \nde recursos humanos o de uno de ambos, con la finalidad \nde intervenir en la producción o distribución de bienes o \nservicios.\n",
+        "assessment": "Aceptada solo como definición original 2006 de actividad."
+      },
+      {
+        "id": "NE-CIT-04",
+        "documentId": "lirpf-pdf",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "hashOk": true,
+        "page": 20,
+        "boxes": [
+          [
+            335.906005859375,
+            171.867919921875,
+            609.3960571289062,
+            191.3099365234375
+          ]
+        ],
+        "exact": true,
+        "normalized": true,
+        "extracted": "1. Se considerarán elementos patrimoniales afectos \na una actividad económica:\n",
+        "assessment": "Ampliar: la frase acaba en dos puntos y excluye la enumeración y afectación parcial."
+      },
+      {
+        "id": "NE-CIT-05",
+        "documentId": "lirpf-pdf",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "hashOk": true,
+        "page": 20,
+        "boxes": [
+          [
+            39.68498992919922,
+            573.514892578125,
+            313.18798828125,
+            633.2698364257812
+          ]
+        ],
+        "exact": true,
+        "normalized": true,
+        "extracted": "1. El rendimiento neto de las actividades económi-\ncas se determinará según las normas del Impuesto sobre \nSociedades, sin perjuicio de las reglas especiales conteni-\ndas en este artículo, en el artículo 30 de esta Ley para la \nestimación directa, y en el artículo 31 de esta Ley para la \nestimación objetiva.\n",
+        "assessment": "Aceptada solo como remisión conceptual original a métodos y reglas."
+      },
+      {
+        "id": "NE-CIT-06",
+        "documentId": "lirpf-pdf",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "hashOk": true,
+        "page": 37,
+        "boxes": [
+          [
+            355.74798583984375,
+            601.2769775390625,
+            519.0078735351562,
+            610.7169799804688
+          ]
+        ],
+        "exact": true,
+        "normalized": true,
+        "extracted": "Artículo 82. Tributación conjunta.\n",
+        "assessment": "Ampliar: título únicamente, no define miembros ni opción de unidad familiar."
+      },
+      {
+        "id": "NE-CIT-07",
+        "documentId": "lirpf-pdf",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "hashOk": true,
+        "page": 44,
+        "boxes": [
+          [
+            39.68500518798828,
+            698.6580200195312,
+            313.180908203125,
+            728.47900390625
+          ]
+        ],
+        "exact": true,
+        "normalized": true,
+        "extracted": "a) Cuando procedan de más de un pagador. No obs-\ntante, el límite será de 22.000 euros anuales en los \nsiguientes supuestos:\n",
+        "assessment": "Ampliar: recorte de excepción; falta límite general de ese apartado y supuestos siguientes. Nunca usar 22.000 como regla general multipagador vigente."
+      },
+      {
+        "id": "NE-CIT-08",
+        "documentId": "aeat-actividad",
+        "sha256": "4eea761b3872ae9357e866ca7f6110be294855b773631aefb26a2ef38b367eb6",
+        "hashOk": true,
+        "page": null,
+        "boxes": [],
+        "exact": false,
+        "normalized": true,
+        "extracted": "con el límite de 2.000 euros.",
+        "assessment": "Ampliar selector con porcentaje, base, régimen simplificado e incompatibilidad; 2.000 aislado no identifica suficientemente la regla."
+      }
+    ],
+    "posts": [
+      {
+        "id": "2046158624825720956",
+        "url": "https://x.com/Jongonzlz/status/2046158624825720956",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "0cc324e9e44b647376e969712165ddba438cb0132da6221149665bca423eefcb",
+        "longPost": false,
+        "comparedCharacters": 93,
+        "cachedCharacters": 93,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2048297122391285967",
+        "url": "https://x.com/Jongonzlz/status/2048297122391285967",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "901196d07965122ca5ca0f357a6619aac4c59ff444317b081cb7019e68e75049",
+        "longPost": true,
+        "comparedCharacters": 204,
+        "cachedCharacters": 270,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2047639961919234501",
+        "url": "https://x.com/Jongonzlz/status/2047639961919234501",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "805651daf7c6ba8da7678c30d0460df802d94577cda91f4d004f11cb367122b9",
+        "longPost": true,
+        "comparedCharacters": 235,
+        "cachedCharacters": 491,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2046127802378772543",
+        "url": "https://x.com/Jongonzlz/status/2046127802378772543",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "251cd59535a6b7d9ff7c6074f1ba272ac6c8ee24a2b1b41207e275bc7d101019",
+        "longPost": true,
+        "comparedCharacters": 234,
+        "cachedCharacters": 920,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2051544589387858033",
+        "url": "https://x.com/Jongonzlz/status/2051544589387858033",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "ee26e93687d15c9d5d91a907b6f2a92491aebcb9e6c0a29a3de436a1231c4f32",
+        "longPost": true,
+        "comparedCharacters": 234,
+        "cachedCharacters": 1274,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2045907384921469064",
+        "url": "https://x.com/Jongonzlz/status/2045907384921469064",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "3b63d53569d1ba5a7df4ebbd4beca1c1d4214ce9df199d59a926ce8dada0f8b6",
+        "longPost": true,
+        "comparedCharacters": 226,
+        "cachedCharacters": 546,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2048321942634053747",
+        "url": "https://x.com/Jongonzlz/status/2048321942634053747",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "a5a726e4a70f529b76d244c9ab3d87fa00dbd99d7e96d6826e811b9ff73fee1e",
+        "longPost": false,
+        "comparedCharacters": 183,
+        "cachedCharacters": 183,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2048103306296238210",
+        "url": "https://x.com/Jongonzlz/status/2048103306296238210",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "50caa6fc3d19ff3a8354f47371d7c28d1df427ec692f6af1c64ebb4387e4d042",
+        "longPost": false,
+        "comparedCharacters": 85,
+        "cachedCharacters": 85,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2051338500235030760",
+        "url": "https://x.com/Jongonzlz/status/2051338500235030760",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "5cb60d29f0ad8234ae7fb2371b63f2c7d87062a37cc0900df54dfde2919fc7fe",
+        "longPost": true,
+        "comparedCharacters": 228,
+        "cachedCharacters": 3897,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      },
+      {
+        "id": "2045769578718822452",
+        "url": "https://x.com/Jongonzlz/status/2045769578718822452",
+        "cacheHashOk": true,
+        "cachedDateOk": true,
+        "primarySha256": "882bd9154c646ad95f9859b2adccec77fc83a500cc6f5d840311dd1e6a57a9b3",
+        "longPost": true,
+        "comparedCharacters": 244,
+        "cachedCharacters": 2090,
+        "textOk": true,
+        "authorOk": true,
+        "dateOk": true
+      }
+    ],
+    "substack": {
+      "url": "https://lapromesageneracional.substack.com/api/v1/posts/notas-rapidas-sobre-la-no-deflactacion",
+      "sha256": "22323357c8561ec9ca77e196c40e89ba5aa19f3bf3c146bfe3a73fbded57f808",
+      "idOk": true,
+      "publicationOk": true,
+      "bodyHtmlEqual": true
+    },
+    "arithmetic": {
+      "pythonSha256": "16deef52f91a3aee30da6f8ec76df941cd4c4449c5bd20d1807caee1b52bdc6e",
+      "factor": "1.25820687889187531100",
+      "2019": {
+        "bruto": "14306.07343035106688561338907",
+        "ss": "908.4356628272927472364502059",
+        "reduccion": "5141.043348714338792434591710",
+        "base": "6256.594418809435345942347150",
+        "cuota": "134.2529395737927157290459585",
+        "limite": "131.6115750509587608137573001",
+        "final": "131.6115750509587608137573001"
+      },
+      "2026": {
+        "bruto": "18000",
+        "ss": "1170.0000",
+        "reduccion": "3840.500000",
+        "base": "10989.500000",
+        "cuota": "623.81500000000006",
+        "limite": "913.32",
+        "final": "623.81500000000006"
+      },
+      "historicoReexpresado": "165.5945890709106277799999977",
+      "ratio": "3.767121881819888948402635997",
+      "factorArticulo": "1.25969",
+      "brutoConFactorArticulo": "14289.22988989354523732029309",
+      "nota": "Simulación parametrizada, no liquidación oficial ni ejecución TS; Decimal 28; solo parámetros extraídos de AST; sin imports pandas ni Excel."
+    },
+    "codeSha256": {
+      "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts": "f3706abf27f982f551bf5d7240edf6e8a17065116d87c583c3df8b2045c228a3",
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts": "176ad06d179d8dc357eb2b2443097ebcadabcb439e90aa0fb85b492ce251e2eb",
+      "Calculo_Salario_IRPF.py": "16deef52f91a3aee30da6f8ec76df941cd4c4449c5bd20d1807caee1b52bdc6e",
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts": "4f9881cc833179b83ef1d2875b7dac738c822eaa9c21cb372403a5bd2d608a0d",
+      "components/auditoria.tsx": "5ec9d05169752ec575edbaa1365f7aace434fc0bf98e1467b465ddd6433782ed",
+      "lib/dominio/auditoria/auditoria-normativa-historica.ts": "af39b563dd2119e148ee1c7258ea12176ae3fdeda4cf111ab34a328288e9f3ad",
+      "lib/dominio/auditoria/auditoria-progresividad-frio.ts": "dee4c7d7c18d32e2d89ce7127355f839dcd9ed4d988fbf9151f641b2d8962add",
+      "lib/dominio/laboral/cotizaciones-sociales.ts": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+      "lib/dominio/irpf/caso-fiscal-anual.ts": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f",
+      "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts": "45fec99e7da96aea6041312d9c3fed1065637d80536e3102b8b4e72017daa5d1",
+      "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts": "8658662dd312252517300c8cb67921d48eaf2e85b3b4264c39414569f4de29e7",
+      "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts": "fb40a68f65595ba332071a3220f8010e6c5555840ca33cda7f71f0aa2f3ce5ea",
+      "lib/dominio/irpf/integracion/base-imponible-general.ts": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82",
+      "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts": "6029ac9c7112e93ef841c6b91f6142111ab3258f3d6fe216a7022549f5d201f8",
+      "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts": "aed7b7c5a8d7aba05873f5a211284b34c0667e3df90fa3bd1fa305b4ce818078",
+      "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts": "247e7a41d0116ecd9011801f9401f2564cf7630c6a338fe226e14099627b4287",
+      "lib/dominio/normativa/medida-normativa.ts": "d0842c01d707abd6d06e870f692862ad860a084cbd2a8e41facf3f35a8c5db7a",
+      "lib/dominio/normativa/repositorio-parametros.ts": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
+      "lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts": "39be2f6a00aaee1f629aa764eba3d9d4f5abb66b3c48bdfe4842d6143b1209f4",
+      "lib/dominio/irpf/cuotas/cuota-diferencial.ts": "f4ddb6d465ecd2449a463464b8dc478ce3ffa2cc172e8ac33956f6c46536d244",
+      "lib/dominio/irpf/comunidades/comunidad-autonoma.ts": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+      "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts": "e97c38bf3d609217123a0ab8b1fd4f841115784bd57c411da08ed8b29115816f",
+      "components/liquidacion-irpf.tsx": "4992845855c04a99a6191ce4d3f5aeb6a3360bf597534a20bc561d1e2b73d1b9",
+      "lib/export/auditoria-excel.ts": "b9fdd803e8cebadc27beb3708963a620910b3537a5024a3f0d5b4272f71ba54a",
+      "lib/dominio/explicacion/fuente-explicacion.ts": "0cd2770bc98027038b00f6bf9a8751592aae70e51e6eb11cd59cb094e4ca73a8",
+      "PRODUCT.md": "f3e084db176f2da2e177bd98b51e61f16f1403ab3fc3ced428f7eebefb5aec64"
+    },
+    "auditInputSha256": {
+      "docs/procedencia/auditorias/necesidades-expertas/informe.md": "04cef3b7fd7e09a14e8a2656392a81df07733cd26b8024342a5d0fe2521cbdf5",
+      "docs/procedencia/auditorias/necesidades-expertas/matriz-requisitos.json": "fd2b7eb0a8aed4d1785394514e31c1aec1b9dca0b40756fa4a3a9c4822fff871",
+      "docs/procedencia/auditorias/necesidades-expertas/verificacion-publica.json": "09aceafa236d32b978bf0e885162e5161c7fbd121987fe88461e711b8715f09f",
+      "docs/procedencia/auditorias/necesidades-expertas/fuentes.json": "b9ba9493fc1cbead3069f0b3429503d60a573fb6165400cf816dc33422bb3ebe",
+      "docs/procedencia/auditorias/necesidades-expertas/cobertura.json": "4a304dbe3e981c7fcdb4fa5ddeedb067c53971e8d4f05cca37d277f8db9f67ce",
+      "docs/procedencia/auditorias/necesidades-expertas/archivos-examinados.json": "0a9000f334da4aa54e9b79ff051b75e65bbf30286f4312814712a05751fc9287",
+      "docs/procedencia/auditorias/necesidades-expertas/hallazgos.json": "1a2b48cc24f58c357d83832c19e56b90256c2b1e357e4f19dfc2f5372b3ec71a",
+      "docs/procedencia/auditorias/necesidades-expertas/verificacion-local.json": "528c32886b0f8571e4d0ee49a077021bfb03de47c463c8aef409c2f820713ff7",
+      "docs/procedencia/auditorias/necesidades-expertas/citas-candidatas.json": "27f7365bd9fcea3afeb7a704159942ebf6c070d1ae433dce7b863f47c458dc2b"
+    },
+    "limits": [
+      "Sin ejecución TS, builds, suite Excel ni OCR/render",
+      "Sin validación de firma, CSV o autenticación independiente del emisor",
+      "Imágenes no cotejadas; no republicadas",
+      "Sin auditoría IPC completa ni validación legal histórica",
+      "Sin VCS mutante ni lectura de notas privadas para la entrega"
+    ]
+  }
+}

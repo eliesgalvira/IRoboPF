@@ -9,7 +9,7 @@ export type EntradasDeduccionesAutonomicas = {
   readonly [clave: string]: boolean | number | string
 }
 
-export const ENTRADAS_DEDUCCIONES_INICIALES: EntradasDeduccionesAutonomicas = {
+export const ENTRADAS_DEDUCCIONES_INICIALES = {
   andaluciaHijosNacimientoAdopcion: 0,
   andaluciaMenoresAcogidos: 0,
   andaluciaMunicipioDespoblacion: false,
@@ -120,7 +120,7 @@ const numeroSi = (
 
 const limitarImporteMaximo = (
   importe: number,
-  limiteMaximoEuros?: unknown
+  limiteMaximoEuros?: string
 ): number =>
   Match.value(limiteMaximoEuros).pipe(
     Match.when(Match.undefined, () => importe),
@@ -747,14 +747,14 @@ export const CONTROLES_DEDUCCIONES_ESPECIFICAS = Object.fromEntries(
     deduccion.codigo,
     deduccion.entradasPrueba,
   ])
-) as Record<string, EntradasDeduccionesAutonomicas>
+)
 
 const IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS = Object.fromEntries(
   deduccionesEspecificasAutonomicas.map((deduccion) => [
     deduccion.codigo,
     deduccion.importeEsperadoPrueba,
   ])
-) as Record<string, number>
+)
 
 export const calcularDeduccionEspecificaAutonomica = (
   codigo: string,
@@ -793,9 +793,7 @@ export const CODIGOS_DEDUCCIONES_CON_CONTROL_ESPECIFICO = new Set(
   Object.keys(CONTROLES_DEDUCCIONES_ESPECIFICAS)
 )
 
-const entradasCon = (
-  entradas: EntradasDeduccionesAutonomicas
-): EntradasDeduccionesAutonomicas => ({
+const entradasCon = (entradas: EntradasDeduccionesAutonomicas) => ({
   ...ENTRADAS_DEDUCCIONES_INICIALES,
   ...entradas,
 })
@@ -1148,9 +1146,7 @@ export const obtenerControlDeduccionAutonomica = (
     Match.not("implementada", () => Option.none<ControlDeduccionAutonomica>()),
     Match.orElse(() => {
       const entradasEspecificas =
-        CONTROLES_DEDUCCIONES_ESPECIFICAS[
-          deduccion.codigo as keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS
-        ]
+        CONTROLES_DEDUCCIONES_ESPECIFICAS[deduccion.codigo]
 
       return Option.match(Option.fromNullishOr(entradasEspecificas), {
         onSome: (entradasEspecificas) => {
@@ -1160,9 +1156,7 @@ export const obtenerControlDeduccionAutonomica = (
             codigo: deduccion.codigo,
             entradasPrueba,
             importeEsperadoPrueba:
-              IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS[
-                deduccion.codigo as keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS
-              ],
+              IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS[deduccion.codigo],
           } satisfies ControlDeduccionAutonomica)
         },
         onNone: () => {

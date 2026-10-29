@@ -53,6 +53,23 @@ export default function DisposicionRaiz({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const estiloPagina = {
+    fontFamily: "var(--mono)",
+    background: "var(--paper)",
+    color: "var(--ink)",
+    "--paper": "oklch(0.965 0.014 92)",
+    "--paper-2": "oklch(0.935 0.02 92)",
+    "--ink": "oklch(0.10 0 0)",
+    "--ink-soft": "oklch(0.30 0 0)",
+    "--rule": "oklch(0.10 0 0)",
+    "--mark": "oklch(0.93 0.18 95)",
+    "--mark-ink": "oklch(0.10 0 0)",
+    "--info": "oklch(0.50 0.18 250)",
+    "--danger": "oklch(0.58 0.22 27)",
+    "--gain": "oklch(0.55 0.16 155)",
+  } satisfies React.CSSProperties & {
+    [variable: `--${string}`]: string | undefined
+  }
   return (
     <html lang="es">
       <body
@@ -61,23 +78,7 @@ export default function DisposicionRaiz({
           fuenteMono.variable,
           "site-theme antialiased"
         )}
-        style={
-          {
-            fontFamily: "var(--mono)",
-            background: "var(--paper)",
-            color: "var(--ink)",
-            ["--paper" as string]: "oklch(0.965 0.014 92)",
-            ["--paper-2" as string]: "oklch(0.935 0.02 92)",
-            ["--ink" as string]: "oklch(0.10 0 0)",
-            ["--ink-soft" as string]: "oklch(0.30 0 0)",
-            ["--rule" as string]: "oklch(0.10 0 0)",
-            ["--mark" as string]: "oklch(0.93 0.18 95)",
-            ["--mark-ink" as string]: "oklch(0.10 0 0)",
-            ["--info" as string]: "oklch(0.50 0.18 250)",
-            ["--danger" as string]: "oklch(0.58 0.22 27)",
-            ["--gain" as string]: "oklch(0.55 0.16 155)",
-          } as React.CSSProperties
-        }
+        style={estiloPagina}
       >
         {hijos}
         <footer className="border-t-2 border-[var(--rule)] px-4 py-5 text-center text-sm leading-6 text-[var(--ink-soft)] sm:px-6 lg:px-8">

@@ -43,7 +43,8 @@ export function Tooltip({
     const cerrarAlPulsarFuera = (evento: PointerEvent) => {
       if (
         contenedor.current === null ||
-        !contenedor.current.contains(evento.target as Node)
+        !(evento.target instanceof Node) ||
+        !contenedor.current.contains(evento.target)
       ) {
         fijarAbierto(false)
       }

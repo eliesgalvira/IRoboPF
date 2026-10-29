@@ -1,3 +1,4 @@
+import { Match } from "effect"
 import { use } from "react"
 
 import { Auditoria } from "@/components/auditoria"
@@ -14,7 +15,7 @@ export default function PaginaAuditoria({
     searchParams === undefined ? {} : use(searchParams)
 
   for (const [clave, valor] of Object.entries(parametrosResueltos ?? {})) {
-    if (typeof valor === "string") {
+    if (Match.string(valor)) {
       parametros.set(clave, valor)
     } else if (Array.isArray(valor)) {
       for (const elemento of valor) {

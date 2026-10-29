@@ -1,4 +1,5 @@
-import { Effect } from "effect"
+import { aniosFiscalesLegacy } from "../lib/dominio/normativa/anio-fiscal"
+import { Schema, Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import fixture from "./fixtures/caracterizacion-legacy.json"
@@ -6,7 +7,6 @@ import {
   compararAjustadoPorIpc,
   compararPasadoAjustadoPorIpc,
   construirTablaDetalleAnualCompatible,
-  type AnioFiscal,
   type ValorCeldaCompatible,
 } from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
 
@@ -26,7 +26,9 @@ describe("perfil legacy de progresividad en frio", () => {
     () =>
       Effect.gen(function* () {
         for (const caso of fixture.casos) {
-          const anio = caso.anio as AnioFiscal
+          const anio = Schema.decodeUnknownSync(
+            Schema.Literals(aniosFiscalesLegacy)
+          )(caso.anio)
           const calculoUnitario = yield* compararAjustadoPorIpc({
             salarioBrutoAnualReferenciaCentimos: caso.salarioBrutoAnualCentimos,
             anioComparado: anio,
@@ -35,7 +37,9 @@ describe("perfil legacy de progresividad en frio", () => {
           const comparativaIpc = yield* compararAjustadoPorIpc({
             salarioBrutoAnualReferenciaCentimos: caso.salarioBrutoAnualCentimos,
             anioComparado: anio,
-            anioReferencia: fixture.anioReferenciaIpc as AnioFiscal,
+            anioReferencia: Schema.decodeUnknownSync(
+              Schema.Literals(aniosFiscalesLegacy)
+            )(fixture.anioReferenciaIpc),
           })
           const salarioBrutoEuros = caso.salarioBrutoAnualCentimos / 100
           const filaDetalleAnualCompatible = primeraFila(

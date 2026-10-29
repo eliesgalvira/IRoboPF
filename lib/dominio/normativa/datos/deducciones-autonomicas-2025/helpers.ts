@@ -140,7 +140,7 @@ export const nombreCatalogadoDesdeCodigo = (codigo: string): string => {
     Match.when("", () => codigo),
     Match.orElse((sinPrefijo) => codigo.slice(sinPrefijo.length + 1))
   )
-  const terminos: Record<string, string> = {
+  const terminos = {
     0: "0",
     3: "3",
     6: "6",
@@ -525,9 +525,10 @@ export const nombreCatalogadoDesdeCodigo = (codigo: string): string => {
     zonas: "zonas",
   }
 
+  const traducciones = new Map(Object.entries(terminos))
   const nombre = cuerpo
     .split("_")
-    .map((termino) => terminos[termino] ?? termino)
+    .map((termino) => traducciones.get(termino) ?? termino)
     .join(" ")
 
   return `Por ${nombre}`

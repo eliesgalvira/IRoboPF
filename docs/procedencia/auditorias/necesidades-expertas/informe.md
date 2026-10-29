@@ -1,10 +1,10 @@
 # Necesidades expertas: auditoría de capacidad y requisitos reproducibles
 
-Fecha: 29-10-2026. Dominio: `necesidades-expertas`. Primera ronda, todos los hallazgos candidatos pendientes de revisión independiente. No se ha modificado código, hecho commits, movido bookmarks ni ejecutado builds o suites legacy. Referencia de lectura JJ: `3e5e0717150c5eaf030f6116b75f3f4182d45b96`; checkout compartido en movimiento, por lo que se adjuntan hashes de archivos examinados.
+Fecha: 29-10-2026. Dominio: `necesidades-expertas`. Primera ronda, con contrarrevisión incorporada al final de este informe. No se ha modificado código, hecho commits, movido bookmarks ni ejecutado builds o suites legacy. Referencia de lectura JJ: `3e5e0717150c5eaf030f6116b75f3f4182d45b96`; checkout compartido en movimiento, por lo que se adjuntan hashes de archivos examinados.
 
 El producto tiene una base útil para explicar salarios y comparar años, pero no permite todavía reproducir todos los análisis de un experto. Las carencias principales son actividades económicas, varios pagadores con identidad y periodos, unidades familiares, series económicas versionadas y escenarios de deflactación ejecutables. La existencia de un tipo, un perfil o un enlace de fuente no acredita que el cálculo esté implementado ni que sea correcto.
 
-Esta entrega contiene 16 requisitos y 16 hallazgos de capacidad. **No constituye validación exhaustiva de parámetros fiscales 2012–2026.** Se examina cada año como alcance requerido; las vigencias, cuantías y algoritmos deben enlazarse con los auditores tributarios. Ninguna cifra de un post, imagen, Excel o Markdown se acepta como evidencia normativa. Hay cero hallazgos aceptados.
+Esta entrega contiene 16 requisitos y 16 hallazgos de capacidad. **No constituye validación exhaustiva de parámetros fiscales 2012–2026.** Se examina cada año como alcance requerido; las vigencias, cuantías y algoritmos deben enlazarse con los auditores tributarios. Ninguna cifra de un post, imagen, Excel o Markdown se acepta como evidencia normativa. No hay cifras fiscales aceptadas. La contrarrevisión admite catorce hallazgos de capacidad con alcance acotado; NE-01 y NE-13 siguen pendientes de evidencia.
 
 ## Evidencia y método
 
@@ -122,3 +122,9 @@ nix shell nixpkgs#python3 nixpkgs#gcc -c bash -c 'export LD_LIBRARY_PATH="$(dirn
 El primer intento de `uv` falló por Python descargado no ejecutable en NixOS; se corrigió seleccionando Python Nix. El siguiente requirió `libstdc++`; se resolvió con GCC del entorno Nix. No hubo instalación global. No se escribió TypeScript ni Effect y no corresponde ejecutar anti-slop para estos documentos/JSON.
 
 Comprobación final: 11 candidatos `missing` y 5 `ambiguous`; 8 citas candidatas (7 PDF y 1 HTML). Se verificaron los hashes dobles y tamaños de los seis originales, el contrato de los 16 hallazgos y la sintaxis JSON. Las siete cajas PDF reproducen sus citas al normalizar espacios con PyMuPDF 2.0. `verificacion-local.json` registra los resultados; esta comprobación mecánica no es la revisión independiente pendiente.
+
+## Resolución de la contrarrevisión
+
+Véase `../../revisiones/necesidades-expertas/`. Se incorporaron sus precisiones al JSON de hallazgos y a la matriz. Las aceptaciones se refieren a capacidades del software, no a parámetros ni reglas fiscales. NE-01 es un fixture público ambiguo y NE-13 requiere concretar y demostrar un defecto de trazabilidad; no justifican una corrección fiscal. El motor ya añade puntos normativos, la interfaz calcula marginales e inversos de IPC, y el evaluador de deducciones de la UI sí ejecuta importes que se transmiten agregados. La falta de trayectoria automática no impide representar manualmente distintos casos anuales.
+
+De los diez posts, tres se contrastaron completos y siete solo por prefijo normalizado. Cuatro citas (CIT-04/06/07/08) necesitan ampliar contexto antes de servir como fundamento de una regla; permanecen candidatas sin aceptación fiscal. No se amplían aquí porque esta entrega acredita necesidades y categorías, no condiciones tributarias completas.

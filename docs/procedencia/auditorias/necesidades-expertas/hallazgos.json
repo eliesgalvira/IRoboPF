@@ -37,7 +37,7 @@
       "requiredInputs": "Salario, IPC mensual, proyección separada, cotizaciones, art.19/20, cuota, retención y obligación; INE, TGSS, BOE, AEAT"
     },
     "units": "EUR/año; porcentajes y periodos explícitos según caso",
-    "reason": "2019 y 2026, soltero sin hijos, escala simulada; recalcular cada paso sin copiar la imagen",
+    "reason": "2019 y 2026, soltero sin hijos, escala simulada; recalcular cada paso sin copiar la imagen Contrarrevisión: Se reformula como fixture público ambiguo: no demuestra fallo del motor TS ni cuota legal incorrecta.",
     "sources": [
       {
         "canonicalUrl": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf",
@@ -94,8 +94,13 @@
     "edgeCases": "Fijar factor IPC y versión normativa; comparar cuota anual, límite y cantidad final por separado; comprobar 18.000 ±0,01.",
     "proposedTest": "Fijar factor IPC y versión normativa; comparar cuota anual, límite y cantidad final por separado; comprobar 18.000 ±0,01.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "needs-evidence",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "La cadena existe y la aritmética independiente confirma la parametrización Python. Una discrepancia con una ilustración no demuestra una carencia ejecutiva o un error fiscal del TS.",
+      "remainingEvidence": "Reformular como fixture público ambiguo pendiente de fijar parámetros, año y redondeos; no ordenar fix fiscal a partir de 3,97."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -183,8 +188,13 @@
     "edgeCases": "No presentar el IPC diciembre 2026 como observado; año idéntico factor 1; reciprocidad entre pares; dato ausente no debe equivaler a inflación cero.",
     "proposedTest": "No presentar el IPC diciembre 2026 como observado; año idéntico factor 1; reciprocidad entre pares; dato ausente no debe equivaler a inflación cero.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "La tabla IPC solo contiene tasas; 2026 vale 0.030 y no incorpora estado ni documento de previsión. El indicador de diciembre aún no es observable.",
+      "remainingEvidence": "Añadir estado y procedencia del indicador; mantener separada la auditoría de índices y las tasas redondeadas."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -230,7 +240,7 @@
       "requiredInputs": "Bruto, coste salarial ETCL, cotización empresarial, otros costes, IPC; INE y TGSS"
     },
     "units": "EUR/año; porcentajes y periodos explícitos según caso",
-    "reason": "Mantener 30.000 € de bruto real y después coste laboral real constante, cruzando base máxima",
+    "reason": "Mantener 30.000 € de bruto real y después coste laboral real constante, cruzando base máxima Contrarrevisión: normalizarEscenarioAuditoriaNormativa impone varianteAuditoriaPorDefecto; falta la inversión para mantener coste real, aunque sí se calcula coste laboral.",
     "sources": [
       {
         "canonicalUrl": "https://www.ine.es/daco/daco42/etcl/etcl0218.pdf",
@@ -261,8 +271,13 @@
     "edgeCases": "Resolver B+SSempresa(B)=coste objetivo por tramos; comprobar residual y que MEI altere el bruto bajo coste constante.",
     "proposedTest": "Resolver B+SSempresa(B)=coste objetivo por tramos; comprobar residual y que MEI altere el bruto bajo coste constante.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "Las estrategias coste real y trayectoria aparecen como tipos/descripciones/decodificadores. normalizarEscenarioAuditoriaNormativa impone varianteAuditoriaPorDefecto y el cálculo histórico divide el bruto por IPC.",
+      "remainingEvidence": "Precisar ruta y normalización; documentar residual de una futura inversión bruto+SSempresa, sin equipararlo a todos los costes ETCL."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -340,8 +355,13 @@
     "edgeCases": "Conservar cuota anual si bases/cotizaciones coinciden, variar pagos y obligación cuando corresponda; no deducir pagadores del número de apuntes.",
     "proposedTest": "Conservar cuota anual si bases/cotizaciones coinciden, variar pagos y obligación cuando corresponda; no deducir pagadores del número de apuntes.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "RendimientoTrabajo solo aporta importe; sumarRendimientosTrabajo agrega antes de cotizar y no conserva pagador ni periodo.",
+      "remainingEvidence": "Acotar a identidad, periodos y obligación/regularización multipagador; no afirmar ausencia de retención."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -443,8 +463,13 @@
     "edgeCases": "Rechazar explícitamente actividad no soportada; primera vertical con directa simplificada 2025 y contabilidad validada, nunca aplicar art.20 del trabajo.",
     "proposedTest": "Rechazar explícitamente actividad no soportada; primera vertical con directa simplificada 2025 y contabilidad validada, nunca aplicar art.20 del trabajo.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "No hay rendimiento de actividades en el contrato ni entrada de ese resultado en la base general; la rama laboral calcula cotización salarial.",
+      "remainingEvidence": "Mantener como ausencia estructural; vertical directa simplificada 2025 es propuesta de producto, no regla jurídica ni cobertura de autónomos."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -522,8 +547,13 @@
     "edgeCases": "Caso sin gastos y caso con gastos deben distinguirse; pérdidas y límites de intereses/reparación; alquiler como actividad requiere clasificación previa.",
     "proposedTest": "Caso sin gastos y caso con gastos deben distinguirse; pérdidas y límites de intereses/reparación; alquiler como actividad requiere clasificación previa.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "La función devuelve rendimientoNeto: rendimientoIntegro y la liquidación la llama efectivamente. El contrato no permite gastos ni amortización.",
+      "remainingEvidence": "Conservar calificativo simplificado y no certificar un caso mixto; reglas por destino/fecha requieren evidencia tributaria específica."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -601,8 +631,13 @@
     "edgeCases": "No duplicar mínimos entre progenitores; no sumar dos declaraciones individuales como si fuese conjunta; hogar estadístico separado de unidad fiscal.",
     "proposedTest": "No duplicar mínimos entre progenitores; no sumar dos declaraciones individuales como si fuese conjunta; hogar estadístico separado de unidad fiscal.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "Solo SituacionFamiliarIndividual llega a liquidación. Pareja con hijos se transforma en un perceptor de 40 años con hijos fijos, no miembros con rentas ni opción conjunta.",
+      "remainingEvidence": "Especificar unidad fiscal frente a hogar y ampliar cita antes de justificar condiciones legales de conjunta."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -680,8 +715,13 @@
     "edgeCases": "Contrafactual identidad delta cero; tasas porcentuales no se inflan; impactos secuenciados cierran con total, aislados no se suman.",
     "proposedTest": "Contrafactual identidad delta cero; tasas porcentuales no se inflan; impactos secuenciados cierran con total, aislados no se suman.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "EscenarioNormativoVersionado es contrato de estados; búsqueda de consumidores no localiza evaluador que aplique un paquete arbitrario de parámetros.",
+      "remainingEvidence": "Exigir escenario identidad y selección explícita de parámetros monetarios; la deflactación integral es metodología propuesta."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -759,8 +799,13 @@
     "edgeCases": "Exigir condiciones antes de elegir no presentar; no sustituir retenciones efectivas por límite teórico; test con saldo a devolver.",
     "proposedTest": "Exigir condiciones antes de elegir no presentar; no sustituir retenciones efectivas por límite teórico; test con saldo a devolver.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "La conciliación legacy toma un mínimo de cuota y límite. La liquidación anual separa cuota y saldo, pero no tiene entradas suficientes para decidir obligación general y opción del contribuyente.",
+      "remainingEvidence": "Nombrar el perfil legacy y sus supuestos; CIT-07 no prueba un umbral vigente ni todas las excepciones."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -885,8 +930,13 @@
     "edgeCases": "Guardar selección de dimensiones, fechas y revisiones; x12 es anualización del ritmo mensual, no ingreso anual observado; no comparar medias de universos diferentes.",
     "proposedTest": "Guardar selección de dimensiones, fechas y revisiones; x12 es anualización del ritmo mensual, no ingreso anual observado; no comparar medias de universos diferentes.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "La trayectoria salarial propia es declarativa; no localicé ingestión versionada ETCL/IPC en las rutas del producto. Las páginas INE son selectores, no observaciones descargadas.",
+      "remainingEvidence": "Guardar dimensiones y revisiones al implementar; separar neto del salario medio de media de netos y anualización x12 de renta anual observada."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -932,7 +982,7 @@
       "requiredInputs": "Escalas, mínimos, reducción, deducciones, bases y solidaridad anuales"
     },
     "units": "EUR/año; porcentajes y periodos explícitos según caso",
-    "reason": "0–100.000 en paso 1; después ±0,01 de cada umbral y salarios superiores",
+    "reason": "0–100.000 en paso 1; después ±0,01 de cada umbral y salarios superiores Contrarrevisión: El motor ya incorpora puntos normativos y la interfaz calcula marginales. Falta acreditar exhaustividad de fronteras, no toda capacidad de marginales.",
     "sources": [
       {
         "canonicalUrl": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf",
@@ -964,8 +1014,13 @@
     "edgeCases": "Tipo efectivo en bruto cero marcado no definido; marginal izquierdo/derecho con paso y denominador explícitos; saltos por obligación separados.",
     "proposedTest": "Tipo efectivo en bruto cero marcado no definido; marginal izquierdo/derecho con paso y denominador explícitos; saltos por obligación separados.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "Un barrido finito no demuestra una afirmación universal sobre salarios continuos ni la exhaustividad de todos los umbrales.",
+      "remainingEvidence": "Incluir esas capacidades existentes; exigir inventario de fronteras antes de afirmar exhaustividad, sin añadir una falsa ausencia de marginales."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -1011,7 +1066,7 @@
       "requiredInputs": "Residencia fiscal, escalas, mínimos, deducciones, condiciones anuales y especialidades territoriales; boletines/BOE/AEAT"
     },
     "units": "EUR/año; porcentajes y periodos explícitos según caso",
-    "reason": "Repetir perfil idéntico en 15 CCAA comunes, Ceuta y Melilla; forales por separado",
+    "reason": "Repetir perfil idéntico en 15 CCAA comunes, Ceuta y Melilla; forales por separado Contrarrevisión: El evaluador UI ejecuta deducciones y pasa su importe agregado; catálogo, evaluación y vía por código son contratos distintos. Los territorios reales se rechazan en 2026.",
     "sources": [
       {
         "canonicalUrl": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf",
@@ -1043,8 +1098,13 @@
     "edgeCases": "Foral debe quedar no soportado; nunca sustituir por simulada-estatal; 2026 requiere comprobar alcance técnico.",
     "proposedTest": "Foral debe quedar no soportado; nunca sustituir por simulada-estatal; 2026 requiere comprobar alcance técnico.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "17 territorios reales y simulada en contrato; resolvedores anuales 2012–2025 y rechazo real 2026. No hay forales en la unión. Cobertura jurídica íntegra no acreditada.",
+      "remainingEvidence": "Añadir rechazo 2026 y distinguir catálogo, evaluador UI e importe agregado. Los 15 años de cobertura son alcance requerido, no matriz validada."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -1080,7 +1140,7 @@
     "engineLocations": [
       {
         "path": "lib/export/auditoria-excel.ts",
-        "symbol": "exportación compatible"
+        "symbol": "construirLibroAuditoriaCompatible"
       }
     ],
     "engineValue": "Contrato tabular documentado; igualdad legacy no valida regla ni cita. No se ejecutó suite pesada en esta ronda.",
@@ -1090,14 +1150,19 @@
       "requiredInputs": "Inputs, política de redondeo, norma y hash original; datos canónicos/legacy distintos"
     },
     "units": "EUR/año; porcentajes y periodos explícitos según caso",
-    "reason": "Un caso por año más controles y fila de frontera, con versión y evidencia enlazada",
+    "reason": "Un caso por año más controles y fila de frontera, con versión y evidencia enlazada Contrarrevisión: Hay exportación XLSX efectiva. Falta identificar un requisito concreto de trazabilidad incumplido y verificarlo; no se ha demostrado divergencia tabular.",
     "sources": [],
     "legacyComparison": "Python leído como modelo simplificado: bruto único, IPC diciembre, escala conjunta y límite retención. Sin prueba fiscal por semejanza; no ejecutada suite Excel completa.",
     "edgeCases": "Fixture pequeño con filas frontera, celdas y unidades; cambio de un céntimo debe localizar primera divergencia; versiones de fuente presentes.",
     "proposedTest": "Fixture pequeño con filas frontera, celdas y unidades; cambio de un céntimo debe localizar primera divergencia; versiones de fuente presentes.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "needs-evidence",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "Hay constructores y exportación XLSX efectiva. Igualdad legacy no implica validez fiscal, pero el candidato no identifica una divergencia ni un requisito concreto incumplido por celda.",
+      "remainingEvidence": "Sustituir localización por construirLibroAuditoriaCompatible; definir campos de trazabilidad ausentes y fixture pequeño antes de aceptar defecto de exportación."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -1143,7 +1208,7 @@
       "requiredInputs": "Fechas, devengo y requisitos de convivencia/renta; BOE/AEAT"
     },
     "units": "EUR/año; porcentajes y periodos explícitos según caso",
-    "reason": "Hijo cumple 3 o 25 años, contribuyente 65/75; cambio de comunidad, discapacidad y empleo",
+    "reason": "Hijo cumple 3 o 25 años, contribuyente 65/75; cambio de comunidad, discapacidad y empleo Contrarrevisión: La carencia se refiere a evolución automática de una cohorte; sí pueden construirse casos anuales manuales con edades distintas.",
     "sources": [
       {
         "canonicalUrl": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf",
@@ -1175,8 +1240,13 @@
     "edgeCases": "Diferenciar perfil constante de cohorte envejecida; probar cumpleaños a ambos lados del devengo y fallecimiento.",
     "proposedTest": "Diferenciar perfil constante de cohorte envejecida; probar cumpleaños a ambos lados del devengo y fallecimiento.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "Los perfiles cerrados generan 40 años y descendientes 8/5; no existe constructor de cohorte con cumpleaños y cambios anuales.",
+      "remainingEvidence": "Acotar ausencia a trayectoria automática, no a imposibilidad de representar edades o cambios intranuales."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -1228,8 +1298,13 @@
     "edgeCases": "Dos individuos distintos con misma media permiten demostrar que impuesto de la media no es impuesto medio; controles de pesos y población.",
     "proposedTest": "Dos individuos distintos con misma media permiten demostrar que impuesto de la media no es impuesto medio; controles de pesos y población.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "Las entradas son rango de salarios, años y perfil; no pesos ni población. No se localizó integración de microdatos en lib/app/components.",
+      "remainingEvidence": "Conservar como capacidad fuera de alcance actual y declarar unidad/pesos antes de agregación."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
@@ -1281,8 +1356,13 @@
     "edgeCases": "No etiquetar cuña salarial como carga fiscal total ni cotización como derecho de pensión calculado.",
     "proposedTest": "No etiquetar cuña salarial como carga fiscal total ni cotización como derecho de pensión calculado.",
     "review": {
-      "status": "pendiente",
-      "reviewer": null
+      "status": "accepted",
+      "reviewer": "revision-necesidades-expertas",
+      "report": "docs/procedencia/revisiones/necesidades-expertas/revisiones.json",
+      "acceptanceScope": "Capacidad de software; no aceptación de importes, vigencia fiscal ni prioridades de producto",
+      "certifiesFiscalValues": false,
+      "reason": "PRODUCT delimita auditoría salarial; código laboral modela contribuciones anuales y no carreras, supervivencia, descuento ni sistema macro completo.",
+      "remainingEvidence": "Mantener frontera de producto; contribución anual, cuña y derechos futuros deben nombrarse separadamente."
     },
     "decision": {
       "expertObjection": "Una capacidad declarada o un post recuperado no demuestra exactitud legal ni ejecución.",
