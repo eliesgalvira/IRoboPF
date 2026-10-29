@@ -1,0 +1,131 @@
+Voy a descubrir solo en X: el hilo, las citas y las respuestas, paginando con `max_id` y `since_id`, sin descargar ni escribir nada. Empiezo por el estado, la conversación y la primera página de cada consulta.La primera página de la conversación vino llena (10). Sigo con `max_id` hacia atrás, `since_id` hacia adelante, y abro citas y subhilos.La página corta no cierra el hilo: faltaba el tramo anterior al autorrespuesta `2051954311018541064`. Sigo por ahí y cruzo padres, citas y textos de corrección.No apareció ninguna corrección fiscal nueva respecto de los siete IDs conocidos. Los siete están en la conversación `2051953980767367299`, todos de `@tzautxi`. Cinco responden al estado `2051956145145712916` y dos van en el subhilo de IPC colgado de la raíz.
+
+No abrí imágenes. En cuatro de los siete la corrección está sobre todo en la captura; el texto solo da el titular. Un fallo que viva solo dentro de una imagen no leída no sale en este pase.
+
+## Los siete, con padre
+
+| ID | Handle | Padre | Vínculo |
+|---|---|---|---|
+| `2052650251916288170` | `@tzautxi` | `2051956145145712916` | respuesta. Cotización mensual frente a anual, y deducción por SMI en cada tramo |
+| `2052721834596942280` | `@tzautxi` | `2051956145145712916` | respuesta. Situación 2, dos hijos, cónyuge sin rentas; «IRPF mal calculado». Imagen no leída |
+| `2052755365448618457` | `@tzautxi` | `2051956145145712916` | respuesta. Escalas estatal y autonómica iguales: la cuota íntegra general sería par. Imagen no leída |
+| `2052783973697282073` | `@tzautxi` | `2051956145145712916` | respuesta. Texto «investigue». Imagen no leída |
+| `2053073034500587689` | `@tzautxi` | `2051956145145712916` | respuesta. Bases liquidables «iguales» y 200 € de diferencia. Imagen no leída |
+| `2052377541227262214` | `@tzautxi` | `2051953980767367299` | respuesta a la raíz. IPC del año y frente a IPC del año y−1 |
+| `2052419389853417823` | `@tzautxi` | `2052381438239027697` | respuesta. Modelo de poder adquisitivo y deflación con el IPC de 2025 |
+
+Cadena del segundo bloque: `2052377541227262214` → `2052381438239027697` `@eliesgalvira` → `2052419389853417823` → `2052443783833198849` `@eliesgalvira`.
+
+Esas dos respuestas de `@eliesgalvira` reconocen presentación y un apartado futuro. No son correcciones nuevas.
+
+## Respuestas al estado `2051956145145712916`
+
+El contador de ese estado marca 6 respuestas y 0 citas. Abrir el estado solo pintó 2 hijas. El padre se resolvió abriendo cada post.
+
+| ID | Handle | Padre |
+|---|---|---|
+| `2051958135284232358` | `@eliesgalvira` | `2051956145145712916` |
+| `2052650251916288170` | `@tzautxi` | `2051956145145712916` |
+| `2052721834596942280` | `@tzautxi` | `2051956145145712916` |
+| `2052755365448618457` | `@tzautxi` | `2051956145145712916` |
+| `2052783973697282073` | `@tzautxi` | `2051956145145712916` |
+| `2053073034500587689` | `@tzautxi` | `2051956145145712916` |
+
+`quoted_tweet_id:2051956145145712916` devolvió 0. El operador `in_reply_to_tweet_id:2051956145145712916` falló dos veces con `DependencyError` en `search_by_raw_query/ranked_tweets`.
+
+## Conversación `2051953980767367299`
+
+La búsqueda `conversation_id` no devuelve la raíz. La raíz salió al abrir el hilo: `2051953980767367299`, `@eliesgalvira`.
+
+El contador de la raíz marca 9 respuestas y 5 citas. Resolví 8 respuestas directas a la raíz. La novena no apareció en ninguna página.
+
+Autores distintos de `@tzautxi` dentro de la conversación:
+
+| ID | Handle | Padre | Tipo |
+|---|---|---|---|
+| `2051954311018541064` | `@eliesgalvira` | raíz | hilo propio |
+| `2051954501121151263` | `@eliesgalvira` | `2051954311018541064` | hilo propio |
+| `2051954837579800679` | `@eliesgalvira` | `2051954501121151263` | hilo propio |
+| `2051956145145712916` | `@eliesgalvira` | `2051954837579800679` | estado pedido |
+| `2051958135284232358` | `@eliesgalvira` | estado | hilo propio |
+| `2051994315509924103` | `@Freedombe4Peace` | raíz | elogio de estética |
+| `2052012315289985229` | `@eliesgalvira` | `2051994315509924103` | respuesta |
+| `2052039536595628528` | `@ggonmar` | raíz | presentación de una sección. Imagen no leída |
+| `2052039591771648276` | `@ggonmar` | `2052039536595628528` | aparte |
+| `2052095066609471668` | `@eliesgalvira` | `2052039536595628528` | el hueco de IPC acumulado «es irrelevante» |
+| `2052163551565840677` | `@ggonmar` | `2052095066609471668` | pide el GitHub |
+| `2052259380993691905` | `@eliesgalvira` | `2052163551565840677` | enlace al repo |
+| `2052268905674965015` | `@eliesgalvira` | `2052259380993691905` | además cita `2051972355837079680` |
+| `2052050393065042321` | `@LatamAnalyses` | raíz | comentario de progresividad en frío |
+| `2052072886160998643` | `@DemarquiaCiu` | raíz | pide una vista simple |
+| `2052094033342681172` | `@eliesgalvira` | `2052072886160998643` | respuesta |
+| `2052114234155180326` | `@nachoiz` | raíz | comentario del nombre del repo |
+| `2052118438529708469` | `@eliesgalvira` | `2052114234155180326` | respuesta |
+| `2053052857998245948` | `@btc_remnant` | raíz | enlaza otra calculadora |
+| `2053053128790999409` | `@btc_remnant` | `2053052857998245948` | «voy a ver» la pestaña Liquidación |
+| `2052381438239027697` | `@eliesgalvira` | `2052377541227262214` | reconoce error de presentación |
+| `2052443783833198849` | `@eliesgalvira` | `2052419389853417823` | dice que añadirá un apartado |
+
+`@btc_remnant` no llegó a formular un error. La página de terceros (`-from:tzautxi -from:eliesgalvira`) trajo 9 posts; los cursores `since_id:2053053128790999409` y `max_id:2051994315509924102` devolvieron 0.
+
+## Citas de la raíz
+
+`quoted_tweet_id:2051953980767367299` trajo 6, con tope 10. Cursores vacíos: `max_id:2051960417065271728` y `since_id:2106845980499083634`. El contador de la raíz marca 5.
+
+| ID | Handle | Conversación | Cita |
+|---|---|---|---|
+| `2051960417065271729` | `@XMihura` | la misma | raíz |
+| `2051969469350580637` | `@josasis` | `2051946890845970892` | raíz |
+| `2051970471999189234` | `@gnomepises` | la misma | raíz |
+| `2051972355837079680` | `@eliesgalvira` | la misma | raíz |
+| `2052353915161620723` | `@ManuDelUni` | la misma | raíz |
+| `2106845980499083634` | `@eliesgalvira` | `2106691147204796892` | raíz |
+
+Citas de cada uno de los siete, una consulta por ID: las siete devolvieron 0. Una sola consulta con `OR` de los siete también devolvió 0; el `OR` en este buscador es poco fiable (más abajo).
+
+Dentro de la conversación, `filter:quote` solo dio `2052268905674965015`. Sus cursores `max_id:2052268905674965014` y `since_id:2052268905674965015` devolvieron 0.
+
+## Subhilos
+
+`2051960417065271729` (`@XMihura`, cita la raíz). Cuatro páginas Latest hasta página corta de 3, y `max_id:2051961268093759664` devolvió 0. `since_id:2052148438549057947` devolvió 0. La raíz de ese hilo no sale en `conversation_id`; sale en el objeto citado. El contador de respuestas de ese post marca 12; la búsqueda devolvió muchos más posts. Ningún texto leído corrige el cálculo de IRoboPF.
+
+Handles de ese subhilo, además de `@XMihura` y `@eliesgalvira`: `@juven63`, `@juliohasta2020`, `@DanielBlancoSWE`, `@TomasBalmes`, `@conradmarlowjim`, `@miguelabdonsh`, `@CrassusError`, `@GekkoYo`, `@FinanzasNoobie`, `@Gonzalo_stba`, `@Caim52`, `@alvarombt`, `@AlvaroZT_`, `@ColeTrickle_55`, `@Coscorrodrift`, `@Iudexvc`, `@J_Kidd17`, `@iagovar`, `@mario_jsg`.
+
+Citas de `2051960417065271729`: `2051999228352667891` `@futuropension` y `2051967278338494751` `@SurfistaSBE`. Página de 2. Los cursores vecinos de esa cita no se emitieron.
+
+`quoted_tweet_id:2051967937213346061` (`@J_Kidd17`, contador de citas 2) devolvió 0.
+
+`2051946890845970892`: cinco posts (`@josasis`, `@Cul_dOlla`), incluida la cita `2051969469350580637`. `max_id:2051958512230539637` y `since_id:2051987723620134989` devolvieron 0. La raíz de esa conversación no salió en la búsqueda. El texto habla de estimaciones de recaudación, no de un fallo de IRoboPF.
+
+`2051972355837079680`: tres respuestas. `2052162996302913626` `@adrilasar`; `2052698377947660487` y `2052699112651342066` `@eliesgalvira` (notas de implementación de tramos). Cursores `max_id:2052162996302913625` y `since_id:2052699112651342066` devolvieron 0.
+
+`2052353915161620723` y `2051970471999189234`: la búsqueda de su `conversation_id` devolvió 0. Esas raíces solo aparecen como citas.
+
+`2106691147204796892`: una página llena de 10. El único ID posterior a la cita `2106845980499083634` es `2106849377214251022` `@MaAlonsoA`. El tramo más viejo que `2106773029099655627` no se paginó: es la conversación anfitriona, anterior a la cita. Handles de esa página: `@MaAlonsoA`, `@eliesgalvira`, `@luisgonzaleznf`, `@FdhMiguel`, `@rdelcampog`, `@annomix24`. Ninguno corrige el cálculo.
+
+## Consultas y topes reales
+
+Cada llamada a búsqueda admite como máximo 10 posts. La herramienta no devuelve cabeceras de cupo de X. Una página de 10 obliga a seguir el cursor. Una página de menos de 10, o un cursor que devuelve 0, dice lo que devolvió esa consulta, y el contador del post no cierra el corpus: el hilo de `@XMihura` marca 12 respuestas y la búsqueda pasó de 30 posts; la raíz marca 5 citas y `quoted_tweet_id` devolvió 6; el estado marca 6 respuestas y su vista solo pintó 2.
+
+| Consulta | Resultados | Cursor siguiente |
+|---|---|---|
+| `conversation_id:2051953980767367299` Latest | 10, de `2053073034500587689` a `2052381438239027697` | seguido |
+| misma, `max_id:2052381438239027696` | 9, hasta `2052072886160998643` | seguido |
+| misma, `max_id:2052072886160998642` | 10, hasta `2051954311018541064` | seguido |
+| misma, `max_id:2051954311018541063` | 0 | raíz ausente de este índice |
+| misma, `since_id:2053073034500587689` | 0 | |
+| misma, `since:2026-05-10` | 0 | |
+| ventanas `since_id`+`max_id` entre `2052268905674965015`–`2052377541227262213`, `2052443783833198849`–`2052650251916288169`, `2052783973697282073`–`2053052857998245947` | 0 | |
+| ventana `since_id:2051958135284232358` `max_id:2052072886160998642` | 5 | los terceros de ese tramo |
+| `from:tzautxi` en la conversación | 7, exactamente los conocidos | |
+| misma, `max_id:2052377541227262213` y `since_id:2053073034500587689` | 0 | |
+| `from:tzautxi to:eliesgalvira` | los mismos 7 | |
+| `from:tzautxi (irobopf OR IRoboPF OR @eliesgalvira)` | los mismos 7 | |
+| `-from:tzautxi -from:eliesgalvira` en la conversación | 9 | cursores 0 |
+| `fallo` en la conversación | 1, el `2052377541227262214` | |
+| `irobopf (fallo OR error OR incorrecto OR bug OR "mal calculado")` | 1, `2052381438239027697` | el `OR` largo de la conversación, con las mismas palabras, devolvió 0 |
+| `filter:images -from:tzautxi` en la conversación | 3 | no incluye la raíz, que sí lleva imagen |
+| `quoted_tweet_id` de la raíz, del estado y de cada uno de los siete | 6, 0 y 0 | |
+| semántica «corrección error de cálculo IRPF en irobopf…» | posts generales de IRPF | no devolvió esta conversación ni los siete |
+
+`from:tzautxi filter:quote #IRPF` trajo otra página de citas antiguas de `@tzautxi` (pensiones, OCDE, cuota de solidaridad). Ninguna cita esta conversación ni el estado. Esa página no se paginó: cae fuera del hilo.

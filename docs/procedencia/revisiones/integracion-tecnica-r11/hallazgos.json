@@ -1,0 +1,17 @@
+{
+  "base": "eaed990c620b5fc4d3ff2e74dc68e0c8481c43db",
+  "fiscalAcceptance": "ninguna",
+  "findings": [{
+    "id": "RT11-01",
+    "priority": "P3",
+    "file": "tools/procedencia/preservacion.py",
+    "line": 186,
+    "status": "reproducido-sin-fix",
+    "summary": "mypy rechaza la clave dinámica k sobre TypedDict Fingerprint",
+    "evidence": "mypy.log",
+    "expertObjection": "El control de tipos debería pasar sin silenciar literal-required; comparar sha512 y size mediante claves literales conserva el contrato.",
+    "cost": "Corrección tipada del propietario y repetición; sin cambio de datos ni oracle."
+  }],
+  "pendingIntegration": ["EC-02: cierre físico al publicar", "EC-04: modelo y consumidor de estados"],
+  "noNewAttestation": true
+}

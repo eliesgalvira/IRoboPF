@@ -411,3 +411,36 @@ function liquidarEntradaJavaScript<Entrada extends CasoAnualJavaScript>(entrada:
   // @ts-expect-error El ensayo omite deliberadamente la garantía estática del contrato.
   return liquidarIrpfAnualExplicito(entrada)
 }
+
+it.each([
+  ["25000.02", "3750.12767", "3750.13"],
+  ["60000", "15337.60275", "15337.60"],
+])("usa la cuota publicada de Madrid para bruto %s", (bruto, exacta, presentada) => {
+  const r = Effect.runSync(liquidarEntradaJavaScript(trabajo(bruto)))
+  expect(r.cuotaDiferencial).toBe(exacta)
+  expect(r.cuotaDiferencialPresentada).toBe(presentada)
+})
+
+it("fija contexto y enlaces al devolver ambos perfiles anuales", () => {
+  for (const caso of [trabajo(), actividad()]) {
+    const r = Effect.runSync(liquidarEntradaJavaScript(caso))
+    expect(r.rastro.contexto).toEqual({
+      anio: 2025,
+      territorio: "madrid",
+      perfilCalculo: caso.perfil,
+    })
+    const lineas = r.rastro.pasos.flatMap((p) => p.lineasCalculo ?? [])
+    expect(lineas.length).toBeGreaterThan(0)
+    for (const linea of lineas) {
+      expect(linea.procedencia?.estado).toBe("enlazada")
+    }
+  }
+})
+
+it("admite el bruto calculado de varios pagadores sin ampliar cada importe aportado", () => {
+  const c = trabajo("999999999999.99")
+  c.trabajo.rendimientos.push({ ...c.trabajo.rendimientos[0]!, id: "segundo" })
+  const r = Effect.runSync(liquidarEntradaJavaScript(c))
+  expect(r.deduccionTrabajo).toBe("0")
+  expect(r.baseImponibleGeneral).toBe("1999999997999.98")
+})

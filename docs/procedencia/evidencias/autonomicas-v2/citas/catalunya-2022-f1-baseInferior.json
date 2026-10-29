@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "documentSha256": "60e424f977fd690377672d08d817ed3bb5e8e187d741efe25b82cec796118d14",
+  "page": 46,
+  "bbox": [
+    170,
+    718,
+    455,
+    776
+  ],
+  "geometry": {
+    "mediaBox": [
+      0.0,
+      0.0,
+      595.2760009765625,
+      841.8900146484375
+    ],
+    "cropBox": [
+      0.0,
+      0.0,
+      595.2760009765625,
+      841.8900146484375
+    ],
+    "rotation": 0,
+    "coordinateSystem": "pymupdf-unrotated-top-left-points"
+  },
+  "quote": "Base liquidable\nHasta (euros)\nCuota íntegra\n(euros)\nResto base liquidable\nHasta (euros)\nTipo aplicable\nPorcentaje (%)\n0,00\n0,00\n12.450,00\n10,50\n12.450,00\n1.307,25\n5.257,20\n12,00\n",
+  "normalization": "identity",
+  "extraction": "text-layer",
+  "selectors": [
+    {
+      "type": "TextQuoteSelector",
+      "exact": "Base liquidable\nHasta (euros)\nCuota íntegra\n(euros)\nResto base liquidable\nHasta (euros)\nTipo aplicable\nPorcentaje (%)\n0,00\n0,00\n12.450,00\n10,50\n12.450,00\n1.307,25\n5.257,20\n12,00\n"
+    },
+    {
+      "type": "FragmentSelector",
+      "value": "page=46",
+      "conformsTo": "https://www.rfc-editor.org/rfc/rfc8118"
+    },
+    {
+      "type": "IRoboPFPdfRectSelector",
+      "coordinateSystem": "pymupdf-unrotated-top-left-points",
+      "value": [
+        170,
+        718,
+        285,
+        58
+      ]
+    }
+  ],
+  "facsimile": {
+    "sha256": "8d4f82978e117e9a1b2343f4e3b6ac522439dd99101b956a1c2f9713fa173959",
+    "parameters": {
+      "engine": "MuPDF",
+      "pymupdf": "1.26.7",
+      "mupdf": "1.26.12",
+      "dpi": 144,
+      "colorspace": "RGB",
+      "alpha": false,
+      "annots": false,
+      "format": "png",
+      "rotation": "original",
+      "textFlags": 0,
+      "sort": false
+    }
+  },
+  "engineBinding": {
+    "number": {
+      "start": 118,
+      "end": 122,
+      "literal": "0,00"
+    },
+    "numberFormat": "es-ES",
+    "value": "0.00",
+    "unit": {
+      "start": 23,
+      "end": 28,
+      "literal": "euros"
+    },
+    "unitCode": "EUR"
+  },
+  "table": {
+    "row": "1",
+    "column": "baseInferior"
+  },
+  "semanticValidation": {
+    "status": "pending"
+  },
+  "independentReview": {
+    "status": "pending"
+  }
+}

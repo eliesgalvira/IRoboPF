@@ -34,6 +34,8 @@ jobs:
       - if: ${{ !cancelled() }}
         run: bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1
       - if: ${{ !cancelled() }}
+        run: bun run test tests/conexion-anual.test.ts tests/comparativa-inflacion-tabular.test.ts tests/redondeos-legacy-oracle.test.ts tests/correcciones-x-solidaridad.test.ts --maxWorkers=1
+      - if: ${{ !cancelled() }}
         run: bun run inventario:verificar
       - if: ${{ !cancelled() }}
         run: bun run test:inventario
@@ -64,3 +66,4 @@ jobs:
       - run: bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py
       - run: bun scripts/procedencia/verificar-enlaces.mjs
       - run: bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1
+      - run: bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1

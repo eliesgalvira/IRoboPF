@@ -1,0 +1,39 @@
+{"base": "eaed990c620b5fc4d3ff2e74dc68e0c8481c43db", "originals": 7, "citationsReextracted": 83, "rendersSameBytes": 13, "unitsCorrected": 26, "candidatePayloads": 78, "historicalPayloads": 319, "historicalCurrentEqual": 319, "coordinatorRun": false, "coordinatorBlock": "Ámbito territorial vacío y decisión sin archivo canónico; no ejecutar ni fabricar aceptación.", "authenticity": "not-validated", "acceptance": false, "pymupdf": "1.26.7"}
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-c304202c/tools/procedencia/enlaces.py", line 121, in select_decision
+    validate_schema(projection, 'legal-decision-scope')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-c304202c/tools/procedencia/corpus.py", line 85, in validate_schema
+    format_checker=jsonschema.FormatChecker()).validate(value)
+                                               ~~~~~~~~^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-c304202c/tools/procedencia/.venv/lib/python3.13/site-packages/jsonschema/validators.py", line 451, in validate
+    raise error
+jsonschema.exceptions.ValidationError: {'path': 'lib/dominio/irpf/cuotas/escalas-gravamen.ts', 'symbol': 'calcularDesgloseCuotaPorEscala', 'lines': [28, 36, 43, 56, 61], 'currentSha256': '13b042de18987e5cf54f3f626a9acfd591a2ee13d1f5b22c5f63f878da337553'} is not valid under any of the given schemas
+
+Failed validating 'oneOf' in schema['properties']['engineLocations']['items']:
+    {'oneOf': [{'type': 'string',
+                'pattern': '^lib/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.tsx?#[A-Za-z_$][A-Za-z0-9_$]*$'},
+               {'type': 'object',
+                'required': ['path'],
+                'additionalProperties': False,
+                'properties': {'path': {'type': 'string',
+                                        'pattern': '^lib/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.tsx?$'},
+                               'symbol': {'type': 'string', 'minLength': 1},
+                               'line': {'type': 'integer', 'minimum': 1},
+                               'sha256': {'type': 'string',
+                                          'pattern': '^[a-f0-9]{64}$'}}}]}
+
+On instance['engineLocations'][0]:
+    {'path': 'lib/dominio/irpf/cuotas/escalas-gravamen.ts',
+     'symbol': 'calcularDesgloseCuotaPorEscala',
+     'lines': [28, 36, 43, 56, 61],
+     'currentSha256': '13b042de18987e5cf54f3f626a9acfd591a2ee13d1f5b22c5f63f878da337553'}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-c304202c/docs/procedencia/evidencias/estatales-v2/discriminantes.py", line 39, in <module>
+    d = select_decision(ds, 'EEA-CUOTAS-FIJAS')
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-c304202c/tools/procedencia/enlaces.py", line 123, in select_decision
+    raise ValueError('Decisión jurídica ambigua o sin alcance explícito') from error
+ValueError: Decisión jurídica ambigua o sin alcance explícito

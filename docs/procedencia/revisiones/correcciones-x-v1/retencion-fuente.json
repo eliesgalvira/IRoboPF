@@ -1,0 +1,40 @@
+{
+  "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+  "sha256": "b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+  "sha512": "13522c25a25dcafedd0a52bdb372121c58946873f0bb6e185eb29e94a7b40e7012e23f0245b4455e62fb04316cbafee8fc63d9956c61f0a94c13617b0df8e1e1",
+  "rows": [
+    {
+      "sha256": "b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+      "page": 29,
+      "bbox": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9200439453125
+      ],
+      "text": " \n \nPágina 29 \n \n \n \n \nBASE PARA CALCULAR EL TIPO DE RETENCION. \n \n** Suma de reducciones: \n \nREDU = PENSION + HIJOS + DESEM + CONYUGE \n \n \n** Cálculo de la base: \n \nSi RNTREDU > REDU : BASE = RNTREDU – REDU \n \nElse: BASE = 0,00 \n \nFinsi. \n \n \nCUOTA DE RETENCIÓN \n \n \nA. RENDIMIENTOS EXENTOS DE RETENCIÓN  \n   \n \n \nSegún TABLA 1 \n \nTABLA 1 - LIMITES EXCLUYENTES DE RETENCIÓN \nArt. 81 RIRPF (según modif. Real Decreto 142/2024, de 6 de febrero): \n \n \nSITUACIÓN \nFAMILIAR \nNúmero de descendientes \n0 \n1 \n2 ó más \nSITUACIÓN 1\n--- \n17.644 \n18.694 \nSITUACIÓN 2\n17.197 \n18.130 \n19.262 \nSITUACIÓN 3\n15.876 \n16.342 \n16.867 \n \n \n \nSi RETRIB ≤ (19.262,00 + PENSION + DESEM): \n \nSi SITUFAM = SITUACION1: \n \nSi [NUMDES = 1 y RETRIB ≤ (17.644,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (18.694,00 + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \nElse: Si SITUFAM = SITUACION2: \n \nSi [NUMDES = 0 y RETRIB ≤ (17.197,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES = 1 y RETRIB ≤ (18.130,00 + PENSION + DESEM)]: EXENTOS = S \n \nElse: Si [NUMDES > 1 y RETRIB ≤ (19.262,00  + PENSION + DESEM)]: EXENTOS = S \n \nFinsi. \n \n \n \n \n \n"
+    },
+    {
+      "sha256": "b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+      "page": 31,
+      "bbox": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9200439453125
+      ],
+      "text": " \n \nPágina 31 \n \n \n \n** Anualidades: \n \n \nSi [ANUALIDADES > 0,00 y (BASE – ANUALIDADES) > 0,00]:  \n \nBASE1 = BASE – ANUALIDADES \n \n \nBASE2 = ANUALIDADES \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nCUOTA1.1 = ESCALA (BASE1) \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nCUOTA1.2 = ESCALA (BASE2) \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nCUOTA1 = CUOTA1.1+ CUOTA1.2 \n \n \n \n \n \n \n** Anualidades = 0,00 ó ≥ BASE: \nElse:  \nCUOTA1 = ESCALA (BASE) \n \n \nFinsi. \n \n \n \nB2. CUOTA2 \n \n** Calculo de la cuota 2. Función ESCALA (MINPERFA...): Consiste en la aplicación de la \nTABLA 2 \n \n \n** Anualidades: \n \n \nSi [ANUALIDADES > 0,00 y (BASE – ANUALIDADES) > 0,00]:  \n \n \n \n \n \n \n \nCUOTA 2 = ESCALA (MINPERFA + 1.980) \n \n** Anualidades = 0,00 ó ≥ BASE: \nElse:  \nCUOTA2 = ESCALA (MINPERFA) \n \nFinsi.  \n \n \nB3. CUOTA \n \n** Cálculo de la cuota: \n \n \nSi CUOTA 1 > CUOTA 2:  CUOTA = CUOTA1 - CUOTA2 \n \nElse: CUOTA = 0,00 \n \nFinsi. \n \n \n** Límite del 43 % (art. 85.3 RIRPF, según modif R.D. 1039/2022): \n \n \nSi RETRIB ≤ 35.200,00: \n \nSi SITUFAM = SITUACION1: \n \nSi NUMDES = 1: LIMITE = [RETRIB - (17.644,00 + PENSION + DESEM)] * 0,43 \n \nElse: Si NUMDES > 1: LIMITE = [RETRIB - (18.694,00 + PENSION + DESEM)] * 0,43 \n \nFinsi. \n \n \nElse:  Si SITUFAM = SITUACION2: \n \nSi NUMDES = 0: LIMITE = [RETRIB - (17.197,00 + PENSION + DESEM)] *0,43  \n"
+    },
+    {
+      "sha256": "b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+      "page": 32,
+      "bbox": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9200439453125
+      ],
+      "text": " \n \nPágina 32 \n \n \n \n \nElse: Si NUMDES = 1: LIMITE = [RETRIB - (18.130,00 + PENSION + DESEM)] * 0,43 \n \nElse: Si NUMDES > 1: LIMITE = [RETRIB - (19.262,00 + PENSION + DESEM)] * 0,43 \n \nFinsi. \n \n \n \n \n \nElse:  Si SITUFAM = SITUACION3: \n \nSi NUMDES = 0: LIMITE = [RETRIB - (15.876,00 + PENSION + DESEM)] * 0,43 \n \nElse: Si NUMDES = 1: LIMITE = [RETRIB - (16.342,00  + PENSION + DESEM)] * 0,43 \n \n \nElse: Si NUMDES > 1: LIMITE = [RETRIB - (16.867,00 + PENSION + DESEM)] *0,43 \n \n \n \nFinsi. \n \nFinsi. \n \nSi CUOTA > LIMITE: CUOTA = LIMITE  \n \n \nFinsi. \n \n \nCÁLCULO TIPO DE RETENCIÓN \n** Tratamiento de Ceuta y Melilla o Isla de la Palma \n \nSi (RESICEME = S y RENCEME = S): CEUMELI = S \nElse: CEUMELI = N \nFinsi. \nNota: Dado que la asimilación de  la Isla de la Palma a las especialidades en materia de retenciones e ingresos a \ncuenta previstas para residentes en Ceuta y/o Melilla es excepcional para el ejercicio 2023, 2024, 2025 y 2026 \n(D.A.57ª Ley IRPF – redacción dada por Real Decreto-Ley 23/2026, de 8 de septiembre), se considera conveniente \nmantener la denominación actual de las variables afectadas RESICEME, RENCEME, CEUMELI, etc… \n \n \nAPLICACION DE LA REDUCCION POR PAGO DE PRÉSTAMOS PARA ADQUISICION O \nREHABILITACION DE LA VIVIENDA HABITUAL (RD 1975/2008) \n \nSi RETRIB < 33.007,20 y PRESVIV= S: \n MINOPAGO = 2,00% *RETRIB \n \nElse: MINOPAGO = 0 \n      MINOPAGO = TRUNCAR (MINOPAGO)  \n      Finsi \n \n       Si CEUMELI = S: DIFERENCIA POSITIVA = (CUOTA* 0,40) - MINOPAGO \nElse: DIFERENCIA POSITIVA = CUOTA - MINOPAGO \n \nSi DIFERENCIAPOSITIVA < 0: DIFERENCIAPOSITIVA = 0  \nFinsi. \n \n \n1 \n"
+    }
+  ]
+}

@@ -2,6 +2,18 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
+## Situación más reciente, 29 de octubre, 16:04 CET
+
+Integradas las entregas de ronda 11 y las dos de ronda 12 por base, archivo y hash, sin borrados. Se han corregido CAV1-01/02/03 y RT11-01; informe en `correcciones/integracion-ronda11/INFORME.md`. La exportación de inflación ya reproduce las 18 hojas del Excel en el contraste de hashes independiente. El perfil heredado conserva sus límites fiscales; quedan abiertos CX-06-A (reparto entre titulares) y CX-07-B (coherencia de cuota y neto) de la nueva revisión de X.
+
+Inventario: **51.870 ocurrencias**, 243 hojas canónicas expuestas y 65 puntos de rastro. Snapshot documental local v2: **efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6**, 51.943 fichas y 711 dependencias físicas. Los dieciséis snapshots verifican. PDF y PNG de Madrid resolubles por rutas con hash; revisión del binding actual pendiente y autenticidad histórica indeterminada. Las cifras de inventario y fichas no representan reglas fiscales aceptadas.
+
+Pruebas: 553 correctas en el pase amplio y una expectativa canónica antigua corregida con derivación documental; la suite afectada repite 57 correctas. Diecisiete pruebas de contenido, dieciocho de inventario, diecinueve de preservación y las pruebas de publicación/evidencia pasan en sus pases indicados. Lint, tipos principal/vendor, Ruff/mypy de preservación y las dieciséis reglas anti-slop correctos. Recuentos solapados; no sumarlos. No se ejecutaron Next build ni las dos suites legacy pesadas en este bloque.
+
+264 candidatos de enlaces remapeados al código actual sin heredar aceptación. Siete algoritmos AEAT antiguos recuperados mediante archivos web, con fechas y tachados pendientes de revisión. TGSS añade 19 originales y 42 citas; redondeo por etapa, empates y ajuste entre componentes siguen sin acreditarse. Próximo bloque: ocho tareas nuevas de revisión y contrato familiar; el padre resolverá coherencia de cuota/neto, empaquetado operativo y ampliación del paquete de preservación.
+
+Todos los originales nuevos están conservados fuera de los worktrees en la raíz. El paquete v2 todavía no los incluye. Crossa conserva v1 histórico, misma casa y propietario, distinto de v2; no es custodia independiente. Continúa la decisión de Elies: sin LFS y sin gasto. No hay PR, despliegue, modificación de main ni limpieza final. **El encargo exhaustivo sigue abierto.**
+
 ## Encargo y límites
 
 Auditar todos los parámetros y pasos de IRPF, cotizaciones, retenciones e IPC de 2012–2026 contra fuentes primarias oficiales. Inventariar también las lagunas de cobertura territorial y material. Construir corpus por contenido, citas con coordenadas y facsímiles reproducibles, verificador, contratos de páginas y enlaces desde los rastros. Sin rediseño, despliegue, PR ni modificaciones de producción.
@@ -18,7 +30,7 @@ Se trabaja con Jujutsu en `procedencia-documental`, nacida de `main` local (`955
 6. Comparar con Python y Excel, ejecutar verificadores y comprobaciones del proyecto. Revisión adversarial final por agentes nuevos.
 7. Resumen final con cobertura medida y pendientes explícitos, respaldo remoto y limpieza autorizada de copias temporales.
 
-## Estado actual
+## Estado inicial (historial)
 
 - BRIEF leído íntegro; README, instrucciones, producto, ADR y glosario fiscal revisados.
 - GLOSSARY, documentación extensa, notas arquitectónicas y motor: lectura por ámbitos pendiente de completar.

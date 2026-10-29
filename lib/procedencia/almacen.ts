@@ -1,7 +1,14 @@
 import { readFileSync, existsSync, resolve } from "./io.mjs"
 import { gunzipSync } from "node:zlib"
 import { Schema } from "effect"
-import { Hash, Id, Paquete, Snapshot, Referencia } from "./modelo"
+import {
+  Hash,
+  Id,
+  Paquete,
+  Snapshot,
+  Referencia,
+  IndiceBusqueda,
+} from "./modelo"
 import { hash, bytesEntidad } from "./verificador"
 
 export const directorioContenido = resolve(
@@ -9,7 +16,7 @@ export const directorioContenido = resolve(
   "docs/procedencia/implementaciones/contenidos/datos"
 )
 const Indice = Schema.Array(Referencia)
-function objeto(raiz: string, revision: string) {
+export function objeto(raiz: string, revision: string) {
   Schema.decodeUnknownSync(Hash)(revision)
   const ruta = resolve(raiz, "objetos", revision)
   if (!existsSync(ruta)) throw new Error("Objeto prometido ausente")
@@ -88,6 +95,18 @@ export function buscar(
   const encontrados: Array<{ id: string; revision: string; titulo: string }> =
     []
   const q = consulta.slice(0, 120).toLocaleLowerCase("es")
+  if (snapshot.version === 2) {
+    const filas = leerBusqueda(snapshot, raiz)
+    return filas
+      .filter(
+        (e) =>
+          (territorio === "" || e.territorios.includes(territorio)) &&
+          (ejercicio === "" || e.ejercicios.includes(Number(ejercicio))) &&
+          (e.id.includes(q) || e.titulo.toLocaleLowerCase("es").includes(q))
+      )
+      .slice(0, 30)
+      .map(({ id, revision, titulo }) => ({ id, revision, titulo }))
+  }
   for (const paquete of snapshot.paquetes) {
     for (const { revision, entidad: e } of leerPaquete(
       snapshot,
@@ -111,4 +130,94 @@ export function buscar(
     }
   }
   return encontrados
+}
+
+// Un solo índice decodificado. Los bytes se releen y hashean antes de cada uso.
+let indiceReciente:
+  | { hash: string; filas: typeof IndiceBusqueda.Type }
+  | undefined
+export function leerBusqueda(snapshot: Snapshot, raiz = directorioContenido) {
+  if (snapshot.version !== 2) throw new Error("Índice v2 requerido")
+  const bytes = objeto(raiz, snapshot.busqueda)
+  if (indiceReciente?.hash === snapshot.busqueda) return indiceReciente.filas
+  const filas = Schema.decodeUnknownSync(Schema.fromJsonString(IndiceBusqueda))(
+    gunzipSync(bytes, {
+      maxOutputLength: 30_000_000,
+    }).toString("utf8"),
+    { onExcessProperty: "error" }
+  )
+  indiceReciente = { hash: snapshot.busqueda, filas }
+  return filas
+}
+export function blobPublico(
+  snapshotId: string,
+  revision: string,
+  raiz = directorioContenido
+) {
+  if (!Schema.is(Hash)(revision)) return null
+  const snapshot = leerSnapshot(snapshotId, raiz)
+  if (snapshot?.version !== 2) return null
+  const ficha = snapshot.publicos.find((p) => p.hash === revision)
+  if (ficha === undefined) return null
+  const bytes = objeto(raiz, revision)
+  if (bytes.length !== ficha.bytes) throw new Error("Tamaño público incorrecto")
+  const firma =
+    ficha.mime === "application/pdf"
+      ? Buffer.from("%PDF-")
+      : Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
+  if (!bytes.subarray(0, firma.length).equals(firma))
+    throw new Error("MIME incorrecto")
+  return { bytes, mime: ficha.mime }
+}
+
+export function enlacesDocumentales(
+  snapshotId: string,
+  entidad: (typeof Paquete.Type)[number]["entidad"],
+  raiz = directorioContenido
+) {
+  const snapshot = leerSnapshot(snapshotId, raiz)
+  if (snapshot?.version !== 2) return []
+  const pendientes = [entidad]
+  const vistos = new Set<string>()
+  const enlaces: Array<{ titulo: string; href: string }> = []
+  for (let i = 0; i < pendientes.length; i++) {
+    const e = pendientes[i]
+    if (e === undefined || vistos.has(e.id)) continue
+    vistos.add(e.id)
+    if (vistos.size > 32) throw new Error("Recorrido documental excedido")
+    const blob =
+      e.tipo === "Document"
+        ? e.original
+        : e.tipo === "Facsimile"
+          ? e.imagen
+          : null
+    if (blob !== null) {
+      if (blobPublico(snapshotId, blob, raiz) === null)
+        throw new Error("Evidencia no publicable")
+      enlaces.push({
+        titulo: e.tipo === "Document" ? "Original PDF" : "Captura PNG",
+        href: `/procedencia/${snapshotId}/objetos/${blob}`,
+      })
+    }
+    for (const a of e.aristas.filter((a) =>
+      ["norma", "evidencia", "documento", "captura"].includes(a.relacion)
+    )) {
+      const destino = resolver(
+        snapshotId,
+        a.destino.id,
+        a.destino.revision,
+        raiz
+      )
+      if (destino === null) throw new Error("Enlace documental ausente")
+      if (destino.tipo === "Citation")
+        enlaces.push({
+          titulo: "Cita literal",
+          href: `/procedencia/${snapshotId}/${a.destino.id}/${a.destino.revision}`,
+        })
+      pendientes.push(destino)
+    }
+  }
+  return enlaces.filter(
+    (e, i) => enlaces.findIndex((x) => x.href === e.href) === i
+  )
 }

@@ -1,0 +1,1433 @@
+--- a/app/procedencia/[snapshot]/[id]/[revision]/route.ts
++++ b/app/procedencia/[snapshot]/[id]/[revision]/route.ts
+@@ -1,6 +1,10 @@
+ import { createElement } from "react"
+ import { renderToStaticMarkup } from "react-dom/server"
+-import { resolver } from "@/lib/procedencia/almacen"
++import {
++  resolver,
++  leerSnapshot,
++  enlacesDocumentales,
++} from "@/lib/procedencia/almacen"
+ import { Ficha } from "@/lib/procedencia/ficha"
+ 
+ export const dynamic = "force-dynamic"
+@@ -15,8 +19,20 @@
+       const entidad = resolver(snapshot, id, revision)
+       if (entidad === null)
+         return new Response("Ficha desconocida", { status: 404 })
++      const fichaSnapshot = leerSnapshot(snapshot)
++      const evidencia =
++        fichaSnapshot?.version === 2
++          ? fichaSnapshot.evidencias.find(
++              (e) => e.sujeto.id === id && e.sujeto.revision === revision
++            )
++          : undefined
+       const html = renderToStaticMarkup(
+-        createElement(Ficha, { entidad, snapshot })
++        createElement(Ficha, {
++          entidad,
++          snapshot,
++          evidencia,
++          enlaces: enlacesDocumentales(snapshot, entidad),
++        })
+       )
+       return new Response(
+         `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Procedencia documental</title></head><body>${html}</body></html>`,
+--- a/app/procedencia/[snapshot]/objetos/[hash]/route.ts
++++ b/app/procedencia/[snapshot]/objetos/[hash]/route.ts
+@@ -0,0 +1,11 @@
++import { responderObjeto } from "@/lib/procedencia/http"
++
++export const dynamic = "force-dynamic"
++export function GET(
++  _request: Request,
++  contexto: { params: Promise<{ snapshot: string; hash: string }> }
++) {
++  return contexto.params.then(({ snapshot, hash }) =>
++    responderObjeto(snapshot, hash)
++  )
++}
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/COMANDOS.md
+@@ -0,0 +1,45 @@
++# Reproducción
++
++Desde el checkout de la base declarada, con los archivos de esta entrega y node_modules existente de solo lectura:
++
++```sh
++nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#python3 -c flock /tmp/irobopf-validacion-pesada.lock bash docs/procedencia/implementaciones/publicacion-evidencia/validar.sh
++```
++
++El script ejecutado conserva formato, generación del schema, tipos principal/vendor, lint global, ensayo de las 16 reglas, 21 pruebas focalizadas y 17 de contenido histórico. Las pruebas nuevas generan dos veces desde la misma entrada mediante el coordinador real, exigen identidad del snapshot y dejan resultado.json y metricas.json en su scratch. No actualizan el alias de rastro ni el registro de snapshots del repositorio.
++
++Para publicar en la raíz integrada, después de regenerar inventario, payload registrado y snapshot técnico v1 con los procedimientos del padre:
++
++```sh
++nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#python3 -c flock /tmp/irobopf-validacion-pesada.lock bun -e '
++import { readFileSync, writeFileSync } from "node:fs";
++import { resolve } from "node:path";
++import { prepararEntrada } from "./scripts/procedencia/evidencia-contenido.mjs";
++import { publicar } from "./scripts/procedencia/contenido-publicar.mjs";
++const root=process.cwd();
++const alias=JSON.parse(readFileSync("lib/procedencia/rastro-generado.json","utf8"));
++const entrada=prepararEntrada(root,alias.actual.versiones.snapshot);
++writeFileSync("docs/procedencia/implementaciones/publicacion-evidencia/entrada-integrada.json",JSON.stringify(entrada,null,2)+"\n");
++const datos=resolve(root,"docs/procedencia/implementaciones/contenidos/datos");
++const resultado=await publicar(root,entrada,datos,datos);
++process.stdout.write(JSON.stringify(resultado)+"\n");
++'
++```
++
++Este último comando queda preparado para el padre; no se ha ejecutado sobre la raíz compartida. PrepararEntrada es inspección de los pins existentes, no autorización editorial para añadir bindings. No descubre ni incorpora los 455 candidatos externos al registro. El alias no se cambia en este comando. Al seleccionarlo después, usar las versiones del snapshot devuelto y su catalogo exacto; conservar las referencias de resultados anteriores.
++
++Para producir el sobre de entrega, después de cerrar informes y logs:
++
++```sh
++nix shell nixpkgs#python3 -c flock /tmp/irobopf-validacion-pesada.lock python3 docs/procedencia/implementaciones/publicacion-evidencia/entrega.py
++```
++
++Las únicas operaciones Git del script son show y ls-tree. Compara cada archivo con eaed990c620b5fc4d3ff2e74dc68e0c8481c43db y verifica presencia de todo el árbol base. MANIFIESTO.json y entrega.patch son sobres sin autorreferencia. No copiar .cache, node_modules ni metadatos VCS.
++
++Comprobación adicional ejecutada del puente, sin editar sus pruebas:
++
++```sh
++nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#python3 -c flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py
++```
++
++La medición independiente se ejecutó en un proceso Bun nuevo bajo el mismo lock, importando buscar/leerSnapshot y verificarSoftwareExplicacion. Seleccionó el resultado.json más reciente del scratch de esta suite, verificó las fuentes, midió performance.now antes/después de dos búsquedas idénticas de Madrid y process.memoryUsage().rss. El resultado completo está en metricas.json; las medidas dentro del proceso de pruebas permanecen en metricas.json del propio scratch. No se deben comparar RSS del proceso de generación con el proceso nuevo como si fueran la misma carga.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/INFORME.md
+@@ -0,0 +1,53 @@
++# Publicación de evidencia por snapshot
++
++Base comprobada: eaed990c620b5fc4d3ff2e74dc68e0c8481c43db. Trabajo personal, sin subdelegación ni VCS mutante. Entrega para integración por archivos; no se actualiza el alias rastro-generado.json ni se promueven registros o atestaciones.
++
++## Contrato y decisiones
++
++1. Snapshot v2 conserva entidades v1 y añade estados técnicos separados por sujeto y revisión exactos, recibo ejecutado, payload y manifiesto de adquisición. Objeción experta: ampliar estados de todas las entidades convertiría un resultado puntual en una aceptación general. Se limita el resultado al sujeto y se conserva el contrato histórico. Coste: el consumidor combina snapshot y entidad; la entidad aislada mantiene sus estados v1 pendientes. Interpretación candidata, revisión del binding pendiente y aceptación fiscal completa false son literales cerrados.
++2. El publicador llama al adaptador real; no admite recibos ni runners inyectados. Sustituye la ocurrencia existente y añade las otras cuatro entidades. Objeción: anexar otra revisión del mismo ID introduce ambigüedad. Coste: composición explícita y rechazo de colisiones editoriales; varios bindings por ocurrencia siguen necesitando un contrato nuevo.
++3. Se conservan físicamente todas las dependencias fijadas y los objetos del snapshot origen, incluidos paquetes, índices, catálogo, código, inventario, payload, cita, revisión y adquisición. Objeción: nombrar hashes no permite recuperar bytes ausentes. Coste: almacenamiento adicional y cotejo de hashes/tamaños, sin resolver disponibilidad externa. Cada objeto debe ser local y menor o igual a 10 MB; no se genera una URL a un CAS externo no resoluble. Ningún manual grande se añade a Git.
++4. El registro se escribe al final, después del cierre físico y semántico. Objeción: publicar primero deja un snapshot visible e incompleto. Coste: objetos no registrados pueden quedar tras un fallo; no se borran y la repetición coteja los existentes. No se promete durabilidad frente a caída eléctrica, transacción multiusuario ni resistencia ABA contra un escritor hostil.
++5. Solo PDF y PNG explícitos en publicos se sirven, con hash, tamaño, firma de formato, MIME fijo, nosniff y caché inmutable. Objeción: exponer todos los auxiliares publicaría software y metadatos innecesarios. Coste: endpoint separado y rechazo 404/503; la adquisición completa queda preservada pero no se expone por HTTP.
++6. Índice de búsqueda gzip por snapshot con ID, revisión, título y dimensiones candidatas; el verificador lo coteja contra todas las entidades. Objeción: un índice coherente consigo mismo puede mentir. Coste: cotejo completo al publicar/verificar y lectura/hash de disco en cada consulta. Se conserva como máximo un índice decodificado; antes de reutilizarlo se releen y hashean los bytes de disco. No se confía en mtime. El coste es retener ese único índice en memoria; v1 mantiene su búsqueda histórica. Las medidas son descriptivas, sin umbral CI.
++7. Se excluye explícitamente lib/procedencia/rastro-generado.json de prepararEntrada. Objeción: fijar el alias que cambia al publicar crea un ciclo. Se fija el snapshot de origen exacto y v2.catalogo identifica su catálogo por hash. Se reconstruye desde los puntos de código y las revisiones del snapshot, se exige pertenencia a los auxiliares originales y se cotejan cobertura, identidades, unidades y revisiones al verificar. Coste: el padre debe seleccionar el nuevo snapshot al actualizar el alias después de integrar; no se retaguean resultados antiguos.
++8. Las fuentes nuevas de publicación, presentación y HTTP entran en FUENTES_EXPLICACION. Objeción: cambiar la explicación sin invalidar su versión permite verdes obsoletos. Coste: regeneración tras integración. No se promete HTML histórico idéntico entre versiones de React.
++
++## Regeneración en el padre
++
++Después de reunir el motor y reconstruir inventario, payload y contenido mediante las herramientas existentes, iniciar un proceso Bun nuevo. Importar prepararEntrada de scripts/procedencia/evidencia-contenido.mjs y publicar de scripts/procedencia/contenido-publicar.mjs. Preparar la entrada para el snapshot exacto recién generado y conservar su JSON como entrada revisable. Invocar publicar(root, entrada, destino, origen); origen y destino son directorios de contenido con objetos/ y snapshots.json. El destino puede ser el mismo origen: no se sustituyen objetos históricos. No usar una entrada preparada antes de integrar los archivos definitivos.
++
++El resultado identifica el snapshot nuevo; el padre puede actualizar únicamente actual.versiones del alias de rastro con las versiones de ese snapshot, conservando bindings y catalogoSha256. Después ejecutar la puerta fresca de rastro y el verificador de contenido. La publicación no constituye autorización para ampliar registros ni migrar atestaciones.
++
++Ejecutar con Bun/Node/Python de Nix, wrapper Python Nix/uv fijado y flock /tmp/irobopf-validacion-pesada.lock. Un trabajador, sin Next build. Los tests crean su propia publicación real en .cache/publicacion-evidencia-* del checkout y conservan resultado.json; esos objetos de scratch no son entrega para Git.
++
++## Límites
++
++No hay cambio numérico ni oracle modificado. EC-01, EC-02 y EC-03 del padre se conservan. La revisión del binding actual sigue pendiente. Autenticidad procede del manifiesto y conserva fecha y límites, sin repetir pdfsig ni resolver confianza histórica. Un hash no prueba identidad del emisor ni verdad jurídica. No se prueba despliegue, custodia independiente ni restauración en otra máquina.
++
++Crossa es la copia v1 histórica comunicada por el coordinador, misma casa y propietario; no una nueva verificación propia ni custodia independiente. No se altera v1 preservado, v2 ni restauraciones; sin LFS, gasto, transferencia externa o borrado.
++
++## Validación
++
++La primera comprobación de tipos señaló booleanos implícitos, una propiedad opcional y estilo de control async/logging del test. Se corrigieron sin relajar reglas. El primer ensayo de publicación detectó una edición propia concurrente de contenido-verificar.mjs y abortó: pruebas-inicial.log conserva ese resultado, no una ejecución válida de publicación. En el siguiente pase dos casos agotaron el timeout genérico de cinco segundos al recorrer el cierre completo; pruebas-tiempo.log conserva los fallos. Se usa un tiempo de prueba de 30 segundos, sin convertir tiempos de consulta en umbrales de CI.
++
++La publicación se ensaya dos veces desde la misma entrada y exige el mismo snapshot. Los controles incluyen sujeto/recibo ajeno, adquisición ausente, auxiliar corrupto, blob privado, PDF/PNG corrupto, rutas inexistentes, campos extra, aceptación false, búsqueda tras corrupción persistente, respuestas HTTP mediante el mismo helper de GET y renderToStaticMarkup. No hay servidor de producción ni navegador. La suite existente conserva los adversos de IDs/receta rehasheados y ámbitos incompatibles. Se ejecutan además las 24 pruebas existentes del puente Python con el wrapper fijado, incluidos cambios de ámbito con hashes rehechos. Las correcciones del padre permanecen intactas.
++
++Las cifras de suites no se suman a cobertura fiscal ni a resultados históricos de otros autores. La comparación histórica ensaya el snapshot 31be43e7… y el publicador verifica el origen actual 5da224c8…; no se atribuye un recorrido nuevo de todos los snapshots históricos.
++
++El primer ensayo de búsqueda sin caché se conserva en metricas-sin-cache.json. La medición final arranca un proceso nuevo y ejecuta dos consultas, conservando RSS y la comprobación fresca del software de explicación. No se vacía la caché de disco del sistema operativo, ni se mide carga concurrente o un despliegue Next. El índice evita descomprimir 256 paquetes por consulta; su decodificación sigue teniendo coste real.
++
++
++## Resultado final
++
++El script validar.sh termina con código 0: tipos principal/vendor, ESLint, oxlint, ensayo de las 16 reglas a error, 21 pruebas focalizadas y 17 de contenido histórico. El wrapper del corpus pasa las 24 pruebas del puente en 1,186 s. No se ejecutan Next build ni suites legacy completas. Las pruebas se serializan con el lock común y un trabajador.
++
++Snapshot real de scratch: 9f7e95f09c9b8ca8303c0183cd1c5ddd4a79c06ac0a2ed25fbf94f5ff15fa380. Contiene 51.655 entidades y 966 objetos de dependencia enumerados con tamaño. Catálogo exacto: 27e1a456de414cdd12ef4eeee4322f2cc83545ee24cbc5fdbbf6f926eb50b81e. La segunda generación desde los mismos pins obtiene el mismo hash. La comprobación fresca de FUENTES_EXPLICACION sobre esa publicación pasa en otro proceso.
++
++metricas.json registra la primera consulta del proceso (458,67 ms), la siguiente (116,19 ms), RSS inicial 112.226.304 bytes y RSS final 429.506.560 bytes. Son mediciones de esta máquina, con caché del sistema operativo sin vaciar y un solo índice retenido. No son una garantía de latencia ni memoria de producción. La búsqueda todavía asigna memoria al decodificar el índice; no se oculta ese coste.
++
++Los únicos blobs públicos son el PDF de Madrid (213.826 bytes, 8a77dd28…) y el PNG (12.673 bytes, 95c51f21…), con hashes completos en metricas.json. Ya existen como fixtures de la base. No se entregan binarios nuevos ni los cientos de objetos generados: el padre los regenera tras integrar, siguiendo COMANDOS.md. El scratch queda en este checkout y no es respaldo independiente.
++
++La ficha recorre hasta 32 nodos documentales para producir enlaces directos. Objeción: un grafo arbitrariamente amplio puede amplificar una petición; coste: un futuro sujeto con más dependencias documentales exige revisar este límite y ahora falla explícitamente, sin ocultar enlaces.
++
++El informe es una entrega de implementación, no una revisión independiente ni una aceptación fiscal. El padre debe integrar por manifiesto y base, regenerar y encargar la revisión nueva prevista.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/anti-slop.log
+@@ -0,0 +1,2 @@
++$ bun scripts/test-lint.mjs
++16 reglas a error; ambos plugins cargan y rechazan el fixture.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/contenido-historico.log
+@@ -0,0 +1,9 @@
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2c7f4171
++
++
++ Test Files  1 passed (1)
++      Tests  17 passed (17)
++   Start at  15:32:37
++   Duration  11.68s (transform 204ms, setup 0ms, import 613ms, tests 10.96s, environment 0ms)
++
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/entrega.py
+@@ -0,0 +1,39 @@
++"""Manifiesto contra la base leída; no muta VCS ni elimina archivos."""
++from pathlib import Path
++import subprocess
++import hashlib
++import difflib
++import json
++
++BASE = "eaed990c620b5fc4d3ff2e74dc68e0c8481c43db"
++ROOT = Path.cwd()
++OUT = ROOT / "docs/procedencia/implementaciones/publicacion-evidencia"
++FILES = [
++    "lib/procedencia/modelo.ts", "lib/procedencia/almacen.ts",
++    "lib/procedencia/ficha.tsx", "lib/procedencia/http.ts", "lib/procedencia/io.mjs",
++    "scripts/procedencia/contenido-publicar.mjs", "scripts/procedencia/contenido-verificar.mjs",
++    "scripts/procedencia/evidencia-contenido.mjs", "scripts/procedencia/explicacion-version.mjs",
++    "app/procedencia/[snapshot]/[id]/[revision]/route.ts",
++    "app/procedencia/[snapshot]/objetos/[hash]/route.ts",
++    "tests/publicacion-evidencia.test.ts", "schemas/procedencia/contenido/snapshot.schema.json",
++]
++files = FILES + [str(p.relative_to(ROOT)) for p in OUT.iterdir()
++                 if p.is_file() and p.name not in ("MANIFIESTO.json", "entrega.patch")]
++entries = []
++patch = []
++for path in sorted(files):
++    current = (ROOT / path).read_bytes()
++    previous = subprocess.run(["git", "show", f"{BASE}:{path}"], capture_output=True, check=False)
++    old = previous.stdout if previous.returncode == 0 else b""
++    entries.append({"path": path, "sha256": hashlib.sha256(current).hexdigest(),
++                    "size": len(current), "baseSha256": hashlib.sha256(old).hexdigest()
++                    if previous.returncode == 0 else None})
++    patch.extend(difflib.unified_diff(old.decode().splitlines(True), current.decode().splitlines(True),
++                 fromfile=f"a/{path}" if previous.returncode == 0 else "/dev/null", tofile=f"b/{path}"))
++base_paths = subprocess.check_output(["git", "ls-tree", "-rz", "--name-only", BASE]).decode().split("\0")
++missing = [p for p in base_paths if p and not (ROOT / p).exists()]
++if missing:
++    raise RuntimeError(f"Ausencias de base: {missing}")
++(OUT / "entrega.patch").write_text("".join(patch))
++(OUT / "MANIFIESTO.json").write_text(json.dumps({"base": BASE, "archivosBase": len([p for p in base_paths if p]),
++    "borrados": missing, "archivos": entries}, ensure_ascii=False, indent=2) + "\n")
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/formato.log
+@@ -0,0 +1,12 @@
++lib/procedencia/modelo.ts 123ms (unchanged)
++lib/procedencia/almacen.ts 46ms
++lib/procedencia/ficha.tsx 18ms (unchanged)
++lib/procedencia/http.ts 3ms (unchanged)
++lib/procedencia/io.mjs 5ms (unchanged)
++scripts/procedencia/contenido-publicar.mjs 29ms (unchanged)
++scripts/procedencia/contenido-verificar.mjs 21ms (unchanged)
++scripts/procedencia/evidencia-contenido.mjs 21ms (unchanged)
++scripts/procedencia/explicacion-version.mjs 2ms (unchanged)
++app/procedencia/[snapshot]/[id]/[revision]/route.ts 8ms (unchanged)
++app/procedencia/[snapshot]/objetos/[hash]/route.ts 8ms (unchanged)
++tests/publicacion-evidencia.test.ts 16ms (unchanged)
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/lint-final.log
+@@ -0,0 +1,3 @@
++$ bun scripts/run-lint.mjs
++$ oxlint
++$ eslint .
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/lint.log
+@@ -0,0 +1,3 @@
++$ bun scripts/run-lint.mjs
++$ oxlint
++$ eslint .
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/metricas-sin-cache.json
+@@ -0,0 +1,26 @@
++{
++  "snapshot": "70a129aef806f8e5b3faa3d23a535da386633f94c1e0d04e194a24a20c9e06ac",
++  "scratch": ".cache/publicacion-evidencia-dpWIfn",
++  "cantidad": 51655,
++  "catalogo": "27e1a456de414cdd12ef4eeee4322f2cc83545ee24cbc5fdbbf6f926eb50b81e",
++  "publicos": [
++    {
++      "hash": "8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660",
++      "bytes": 213826,
++      "mime": "application/pdf"
++    },
++    {
++      "hash": "95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868",
++      "bytes": 12673,
++      "mime": "image/png"
++    }
++  ],
++  "dependencias": 966,
++  "primeraConsultaMs": 455.501611,
++  "repetidaMs": 399.212183,
++  "rssInicial": 111226880,
++  "rssFinal": 529948672,
++  "resultados": 30,
++  "softwareExplicacion": "verificado",
++  "limite": "Proceso nuevo; no se vacía la caché de disco del sistema operativo"
++}
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/metricas.json
+@@ -0,0 +1,26 @@
++{
++  "snapshot": "9f7e95f09c9b8ca8303c0183cd1c5ddd4a79c06ac0a2ed25fbf94f5ff15fa380",
++  "scratch": ".cache/publicacion-evidencia-oPPiBo",
++  "cantidad": 51655,
++  "catalogo": "27e1a456de414cdd12ef4eeee4322f2cc83545ee24cbc5fdbbf6f926eb50b81e",
++  "publicos": [
++    {
++      "hash": "8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660",
++      "bytes": 213826,
++      "mime": "application/pdf"
++    },
++    {
++      "hash": "95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868",
++      "bytes": 12673,
++      "mime": "image/png"
++    }
++  ],
++  "dependencias": 966,
++  "primeraConsultaMs": 458.66710700000004,
++  "repetidaMs": 116.1879899999999,
++  "rssInicial": 112226304,
++  "rssFinal": 429506560,
++  "resultados": 30,
++  "softwareExplicacion": "verificado",
++  "limite": "Proceso nuevo; no se vacía la caché de disco del sistema operativo"
++}
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/pruebas-final.log
+@@ -0,0 +1,9 @@
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2c7f4171
++
++
++ Test Files  3 passed (3)
++      Tests  21 passed (21)
++   Start at  15:31:00
++   Duration  96.25s (transform 211ms, setup 0ms, import 1.44s, tests 94.48s, environment 0ms)
++
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/pruebas-inicial.log
+@@ -0,0 +1,27 @@
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2c7f4171
++
++ ❯ tests/publicacion-evidencia.test.ts (6 tests | 6 skipped) 20238ms
++
++⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/publicacion-evidencia.test.ts [ tests/publicacion-evidencia.test.ts ]
++Error: Dependencia alterada: scripts/procedencia/contenido-verificar.mjs
++ ❯ comprobarEntrada scripts/procedencia/evidencia-contenido.mjs:119:13
++    117|     seen.add(dependency.path)
++    118|     if (hash(leer(root, dependency.path)) !== dependency.sha256)
++    119|       throw new Error("Dependencia alterada: " + dependency.path)
++       |             ^
++    120|   }
++    121|   const actual = prepararEntrada(root, entrada.snapshot)
++ ❯ generarEvidencia scripts/procedencia/evidencia-contenido.mjs:136:3
++ ❯ publicar scripts/procedencia/contenido-publicar.mjs:21:20
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed | 1 passed (2)
++      Tests  13 passed | 6 skipped (19)
++   Start at  15:18:08
++   Duration  36.36s (transform 209ms, setup 0ms, import 1.06s, tests 35.09s, environment 0ms)
++
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/pruebas-tiempo.log
+@@ -0,0 +1,41 @@
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2c7f4171
++
++ ❯ tests/publicacion-evidencia.test.ts (6 tests | 2 failed) 83227ms
++     × conserva v1 y verifica cierre físico, sujeto e índice v2 6314ms
++     × rechaza recibo ajeno y auxiliar corrupto 7947ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/publicacion-evidencia.test.ts > Publicación de evidencia v2 > conserva v1 y verifica cierre físico, sujeto e índice v2
++Error: Test timed out in 5000ms.
++If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
++ ❯ tests/publicacion-evidencia.test.ts:50:3
++     48|
++     49| describe("Publicación de evidencia v2", () => {
++     50|   it("conserva v1 y verifica cierre físico, sujeto e índice v2", () =>…
++       |   ^
++     51|     expect(leerSnapshot(origen, directorioContenido)?.version).toBe(1)
++     52|     expect(verificar(id, scratch).aceptacionFiscal).toBe("pendiente")
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
++
++ FAIL  tests/publicacion-evidencia.test.ts > Publicación de evidencia v2 > rechaza recibo ajeno y auxiliar corrupto
++Error: Test timed out in 5000ms.
++If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
++ ❯ tests/publicacion-evidencia.test.ts:155:3
++    153|     }
++    154|   })
++    155|   it("rechaza recibo ajeno y auxiliar corrupto", () => {
++       |   ^
++    156|     const s = leerSnapshot(id, scratch)
++    157|     if (s?.version !== 2 || s.evidencias[0] === undefined)
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
++
++
++ Test Files  1 failed | 2 passed (3)
++      Tests  2 failed | 19 passed (21)
++   Start at  15:23:17
++   Duration  98.90s (transform 208ms, setup 0ms, import 1.45s, tests 97.11s, environment 0ms)
++
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/pruebas.log
+@@ -0,0 +1,27 @@
++
++ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2c7f4171
++
++ ❯ tests/publicacion-evidencia.test.ts (6 tests | 6 skipped) 20238ms
++
++⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  tests/publicacion-evidencia.test.ts [ tests/publicacion-evidencia.test.ts ]
++Error: Dependencia alterada: scripts/procedencia/contenido-verificar.mjs
++ ❯ comprobarEntrada scripts/procedencia/evidencia-contenido.mjs:119:13
++    117|     seen.add(dependency.path)
++    118|     if (hash(leer(root, dependency.path)) !== dependency.sha256)
++    119|       throw new Error("Dependencia alterada: " + dependency.path)
++       |             ^
++    120|   }
++    121|   const actual = prepararEntrada(root, entrada.snapshot)
++ ❯ generarEvidencia scripts/procedencia/evidencia-contenido.mjs:136:3
++ ❯ publicar scripts/procedencia/contenido-publicar.mjs:21:20
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed | 1 passed (2)
++      Tests  13 passed | 6 skipped (19)
++   Start at  15:18:08
++   Duration  36.36s (transform 209ms, setup 0ms, import 1.06s, tests 35.09s, environment 0ms)
++
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/puente.log
+@@ -0,0 +1,5 @@
++........................
++----------------------------------------------------------------------
++Ran 24 tests in 1.186s
++
++OK
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/typecheck-final.log
+@@ -0,0 +1 @@
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/typecheck-inicial.log
+@@ -0,0 +1,26 @@
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
++app/procedencia/[snapshot]/[id]/[revision]/route.ts(21,30): error TS2769: No overload matches this call.
++  The last overload gave the following error.
++    Argument of type '{ entidad: { readonly id: string; readonly tipo: "Parameter" | "Formula" | "Step" | "Derivation"; readonly expresion: string; readonly valorObservado: string | null; readonly unidadCandidata: string; ... 10 more ...; readonly secciones: { ...; }; } | { ...; } | { ...; } | { ...; } | { ...; }; snapshot: string; evide...' is not assignable to parameter of type 'Attributes & { entidad: { readonly id: string; readonly tipo: "Parameter" | "Formula" | "Step" | "Derivation"; readonly expresion: string; readonly valorObservado: string | null; ... 11 more ...; readonly secciones: { ...; }; } | { ...; } | { ...; } | { ...; } | { ...; }; snapshot: string; evidencia?: { ...; }; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
++      Type '{ entidad: { readonly id: string; readonly tipo: "Parameter" | "Formula" | "Step" | "Derivation"; readonly expresion: string; readonly valorObservado: string | null; readonly unidadCandidata: string; ... 10 more ...; readonly secciones: { ...; }; } | { ...; } | { ...; } | { ...; } | { ...; }; snapshot: string; evide...' is not assignable to type '{ entidad: { readonly id: string; readonly tipo: "Parameter" | "Formula" | "Step" | "Derivation"; readonly expresion: string; readonly valorObservado: string | null; readonly unidadCandidata: string; ... 10 more ...; readonly secciones: { ...; }; } | { ...; } | { ...; } | { ...; } | { ...; }; snapshot: string; evide...'. Two different types with this name exist, but they are unrelated.
++        Types of property 'evidencia' are incompatible.
++          Type '{ readonly integridad: "verified"; readonly autenticidad: { readonly estado: "not-validated" | "unsigned" | "invalid" | "trust-indeterminate"; readonly fecha: string; readonly limites: string; }; ... 7 more ...; readonly manifiesto: string; } | undefined' is not assignable to type '{ readonly integridad: "verified"; readonly autenticidad: { readonly estado: "not-validated" | "unsigned" | "invalid" | "trust-indeterminate"; readonly fecha: string; readonly limites: string; }; ... 7 more ...; readonly manifiesto: string; }'.
++            Type 'undefined' is not assignable to type '{ readonly integridad: "verified"; readonly autenticidad: { readonly estado: "not-validated" | "unsigned" | "invalid" | "trust-indeterminate"; readonly fecha: string; readonly limites: string; }; ... 7 more ...; readonly manifiesto: string; }'.
++lib/procedencia/almacen.ts(136,8): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++lib/procedencia/almacen.ts(136,8): error TS17: Unexpected `{ readonly mime: "image/png" | "application/pdf"; readonly hash: string; readonly bytes: number; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++lib/procedencia/ficha.tsx(20,8): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++lib/procedencia/ficha.tsx(20,8): error TS17: Unexpected `{ readonly integridad: "verified"; readonly autenticidad: { readonly estado: "not-validated" | "unsigned" | "invalid" | "trust-indeterminate"; readonly fecha: string; readonly limites: string; }; ... 7 more ...; readonly manifiesto: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++lib/procedencia/http.ts(6,10): error TS17: Unexpected `null` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++lib/procedencia/http.ts(6,10): error TS17: Unexpected `{ bytes: NonSharedBuffer; mime: "image/png" | "application/pdf"; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(19,11): error TS69: This code declares an async function, consider representing this async control flow with Effect values and `Effect.gen`.    effect(asyncFunction)
++tests/publicacion-evidencia.test.ts(62,5): error TS60: This code uses `console.log`, the corresponding Effect logging API is `Effect.log or Logger`.    effect(globalConsole)
++tests/publicacion-evidencia.test.ts(73,30): error TS17: Unexpected `{ readonly integridad: "verified"; readonly autenticidad: { readonly estado: "not-validated" | "unsigned" | "invalid" | "trust-indeterminate"; readonly fecha: string; readonly limites: string; }; ... 7 more ...; readonly manifiesto: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(76,10): error TS17: Unexpected `null` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(76,10): error TS17: Unexpected `{ readonly id: string; readonly tipo: "Citation"; readonly selector: { readonly texto: string; readonly tipo: "pdf"; readonly caja: readonly [number, number, number, number]; readonly coordenadas: "pymupdf-cropbox-sin-rotar"; ... 4 more ...; readonly receta: string; } | { ...; } | { ...; } | { ...; }; ... 7 more ......` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(76,10): error TS17: Unexpected `{ readonly id: string; readonly tipo: "Document"; readonly version: 1; readonly identidad: "ocurrencia" | "concepto"; readonly titulo: string; readonly ambito: { readonly estado: "desconocido"; readonly motivo: string; } | { ...; }; ... 6 more ...; readonly url: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(76,10): error TS17: Unexpected `{ readonly id: string; readonly tipo: "Facsimile"; readonly receta: string; readonly version: 1; readonly identidad: "ocurrencia" | "concepto"; readonly titulo: string; readonly ambito: { readonly estado: "desconocido"; readonly motivo: string; } | { ...; }; ... 5 more ...; readonly transcripcion: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(76,10): error TS17: Unexpected `{ readonly id: string; readonly tipo: "Parameter" | "Formula" | "Step" | "Derivation"; readonly expresion: string; readonly valorObservado: string | null; readonly unidadCandidata: string; ... 10 more ...; readonly secciones: { ...; }; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(76,10): error TS17: Unexpected `{ readonly id: string; readonly tipo: "Rule"; readonly version: 1; readonly identidad: "ocurrencia" | "concepto"; readonly titulo: string; readonly ambito: { readonly estado: "desconocido"; readonly motivo: string; } | { ...; }; ... 4 more ...; readonly proposicion: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(85,30): error TS17: Unexpected `{ readonly mime: "image/png" | "application/pdf"; readonly hash: string; readonly bytes: number; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(85,48): error TS17: Unexpected `{ readonly integridad: "verified"; readonly autenticidad: { readonly estado: "not-validated" | "unsigned" | "invalid" | "trust-indeterminate"; readonly fecha: string; readonly limites: string; }; ... 7 more ...; readonly manifiesto: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
++tests/publicacion-evidencia.test.ts(99,30): error TS17: Unexpected `{ readonly integridad: "verified"; readonly autenticidad: { readonly estado: "not-validated" | "unsigned" | "invalid" | "trust-indeterminate"; readonly fecha: string; readonly limites: string; }; ... 7 more ...; readonly manifiesto: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/typecheck.log
+@@ -0,0 +1 @@
++$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+--- /dev/null
++++ b/docs/procedencia/implementaciones/publicacion-evidencia/validar.sh
+@@ -0,0 +1,10 @@
++#!/usr/bin/env bash
++set -eu
++out=docs/procedencia/implementaciones/publicacion-evidencia
++bun x prettier --write lib/procedencia/modelo.ts lib/procedencia/almacen.ts lib/procedencia/ficha.tsx lib/procedencia/http.ts lib/procedencia/io.mjs scripts/procedencia/contenido-publicar.mjs scripts/procedencia/contenido-verificar.mjs scripts/procedencia/evidencia-contenido.mjs scripts/procedencia/explicacion-version.mjs 'app/procedencia/[snapshot]/[id]/[revision]/route.ts' 'app/procedencia/[snapshot]/objetos/[hash]/route.ts' tests/publicacion-evidencia.test.ts > "$out/formato.log" 2>&1
++bun -e 'import { Schema } from "effect"; import { Snapshot } from "./lib/procedencia/modelo.ts"; import { writeFileSync } from "node:fs"; const d=Schema.toJsonSchemaDocument(Snapshot); writeFileSync("schemas/procedencia/contenido/snapshot.schema.json", JSON.stringify({$schema:"https://json-schema.org/draft/2020-12/schema", ...d.schema, $defs:d.definitions})+"\n")'
++bun run typecheck > "$out/typecheck-final.log" 2>&1
++bun run lint > "$out/lint-final.log" 2>&1
++bun run test:lint > "$out/anti-slop.log" 2>&1
++bun x vitest run tests/publicacion-evidencia.test.ts tests/evidencia-contenido-procedencia.test.ts tests/contenido-integridad-procedencia.test.ts --maxWorkers=1 > "$out/pruebas-final.log" 2>&1
++bun x vitest run --config scripts/procedencia/contenido-vitest.mjs --maxWorkers=1 > "$out/contenido-historico.log" 2>&1
+--- a/lib/procedencia/almacen.ts
++++ b/lib/procedencia/almacen.ts
+@@ -1,7 +1,14 @@
+ import { readFileSync, existsSync, resolve } from "./io.mjs"
+ import { gunzipSync } from "node:zlib"
+ import { Schema } from "effect"
+-import { Hash, Id, Paquete, Snapshot, Referencia } from "./modelo"
++import {
++  Hash,
++  Id,
++  Paquete,
++  Snapshot,
++  Referencia,
++  IndiceBusqueda,
++} from "./modelo"
+ import { hash, bytesEntidad } from "./verificador"
+ 
+ export const directorioContenido = resolve(
+@@ -9,7 +16,7 @@
+   "docs/procedencia/implementaciones/contenidos/datos"
+ )
+ const Indice = Schema.Array(Referencia)
+-function objeto(raiz: string, revision: string) {
++export function objeto(raiz: string, revision: string) {
+   Schema.decodeUnknownSync(Hash)(revision)
+   const ruta = resolve(raiz, "objetos", revision)
+   if (!existsSync(ruta)) throw new Error("Objeto prometido ausente")
+@@ -88,6 +95,18 @@
+   const encontrados: Array<{ id: string; revision: string; titulo: string }> =
+     []
+   const q = consulta.slice(0, 120).toLocaleLowerCase("es")
++  if (snapshot.version === 2) {
++    const filas = leerBusqueda(snapshot, raiz)
++    return filas
++      .filter(
++        (e) =>
++          (territorio === "" || e.territorios.includes(territorio)) &&
++          (ejercicio === "" || e.ejercicios.includes(Number(ejercicio))) &&
++          (e.id.includes(q) || e.titulo.toLocaleLowerCase("es").includes(q))
++      )
++      .slice(0, 30)
++      .map(({ id, revision, titulo }) => ({ id, revision, titulo }))
++  }
+   for (const paquete of snapshot.paquetes) {
+     for (const { revision, entidad: e } of leerPaquete(
+       snapshot,
+@@ -112,3 +131,93 @@
+   }
+   return encontrados
+ }
++
++// Un solo índice decodificado. Los bytes se releen y hashean antes de cada uso.
++let indiceReciente:
++  | { hash: string; filas: typeof IndiceBusqueda.Type }
++  | undefined
++export function leerBusqueda(snapshot: Snapshot, raiz = directorioContenido) {
++  if (snapshot.version !== 2) throw new Error("Índice v2 requerido")
++  const bytes = objeto(raiz, snapshot.busqueda)
++  if (indiceReciente?.hash === snapshot.busqueda) return indiceReciente.filas
++  const filas = Schema.decodeUnknownSync(Schema.fromJsonString(IndiceBusqueda))(
++    gunzipSync(bytes, {
++      maxOutputLength: 30_000_000,
++    }).toString("utf8"),
++    { onExcessProperty: "error" }
++  )
++  indiceReciente = { hash: snapshot.busqueda, filas }
++  return filas
++}
++export function blobPublico(
++  snapshotId: string,
++  revision: string,
++  raiz = directorioContenido
++) {
++  if (!Schema.is(Hash)(revision)) return null
++  const snapshot = leerSnapshot(snapshotId, raiz)
++  if (snapshot?.version !== 2) return null
++  const ficha = snapshot.publicos.find((p) => p.hash === revision)
++  if (ficha === undefined) return null
++  const bytes = objeto(raiz, revision)
++  if (bytes.length !== ficha.bytes) throw new Error("Tamaño público incorrecto")
++  const firma =
++    ficha.mime === "application/pdf"
++      ? Buffer.from("%PDF-")
++      : Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
++  if (!bytes.subarray(0, firma.length).equals(firma))
++    throw new Error("MIME incorrecto")
++  return { bytes, mime: ficha.mime }
++}
++
++export function enlacesDocumentales(
++  snapshotId: string,
++  entidad: (typeof Paquete.Type)[number]["entidad"],
++  raiz = directorioContenido
++) {
++  const snapshot = leerSnapshot(snapshotId, raiz)
++  if (snapshot?.version !== 2) return []
++  const pendientes = [entidad]
++  const vistos = new Set<string>()
++  const enlaces: Array<{ titulo: string; href: string }> = []
++  for (let i = 0; i < pendientes.length; i++) {
++    const e = pendientes[i]
++    if (e === undefined || vistos.has(e.id)) continue
++    vistos.add(e.id)
++    if (vistos.size > 32) throw new Error("Recorrido documental excedido")
++    const blob =
++      e.tipo === "Document"
++        ? e.original
++        : e.tipo === "Facsimile"
++          ? e.imagen
++          : null
++    if (blob !== null) {
++      if (blobPublico(snapshotId, blob, raiz) === null)
++        throw new Error("Evidencia no publicable")
++      enlaces.push({
++        titulo: e.tipo === "Document" ? "Original PDF" : "Captura PNG",
++        href: `/procedencia/${snapshotId}/objetos/${blob}`,
++      })
++    }
++    for (const a of e.aristas.filter((a) =>
++      ["norma", "evidencia", "documento", "captura"].includes(a.relacion)
++    )) {
++      const destino = resolver(
++        snapshotId,
++        a.destino.id,
++        a.destino.revision,
++        raiz
++      )
++      if (destino === null) throw new Error("Enlace documental ausente")
++      if (destino.tipo === "Citation")
++        enlaces.push({
++          titulo: "Cita literal",
++          href: `/procedencia/${snapshotId}/${a.destino.id}/${a.destino.revision}`,
++        })
++      pendientes.push(destino)
++    }
++  }
++  return enlaces.filter(
++    (e, i) => enlaces.findIndex((x) => x.href === e.href) === i
++  )
++}
+--- a/lib/procedencia/ficha.tsx
++++ b/lib/procedencia/ficha.tsx
+@@ -1,11 +1,15 @@
+-import type { Entidad } from "./modelo"
++import type { Entidad, EstadoEvidencia } from "./modelo"
+ 
+ export function Ficha({
+   entidad,
+   snapshot,
++  evidencia,
++  enlaces = [],
+ }: {
+   entidad: Entidad
+   snapshot: string
++  enlaces?: ReadonlyArray<{ titulo: string; href: string }>
++  evidencia?: typeof EstadoEvidencia.Type | undefined
+ }) {
+   return (
+     <main>
+@@ -15,7 +19,37 @@
+           ? "Ocurrencia técnica versionada; no es una regla fiscal aceptada."
+           : "Concepto editorial pendiente de enlace y revisión."}
+       </p>
+-      <p>Interpretación, autenticidad y contrarrevisión: pendientes.</p>
++      {evidencia !== undefined ? (
++        <dl>
++          <dt>Integridad</dt>
++          <dd>{evidencia.integridad}</dd>
++          <dt>Exactitud numérica del sujeto</dt>
++          <dd>{evidencia.exactitudNumerica}</dd>
++          <dt>Autenticidad según manifiesto</dt>
++          <dd>
++            {evidencia.autenticidad.estado}. Evaluación:{" "}
++            {evidencia.autenticidad.fecha}. {evidencia.autenticidad.limites}
++          </dd>
++          <dt>Interpretación</dt>
++          <dd>candidata</dd>
++          <dt>Revisión del binding</dt>
++          <dd>pendiente</dd>
++          <dt>Aceptación fiscal completa</dt>
++          <dd>false</dd>
++        </dl>
++      ) : (
++        <p>Interpretación, autenticidad y contrarrevisión: pendientes.</p>
++      )}
++      <ul>
++        {enlaces.map((e) => (
++          <li key={e.href}>
++            <a href={e.href}>{e.titulo}</a>
++          </li>
++        ))}
++      </ul>
++      {entidad.tipo === "Citation" && (
++        <blockquote>{entidad.selector.texto}</blockquote>
++      )}
+       <p>Snapshot: {snapshot}</p>
+       {"expresion" in entidad && (
+         <dl>
+--- /dev/null
++++ b/lib/procedencia/http.ts
+@@ -0,0 +1,27 @@
++import { blobPublico, directorioContenido } from "./almacen"
++
++export function responderObjeto(
++  snapshot: string,
++  hash: string,
++  raiz = directorioContenido
++) {
++  try {
++    const blob = blobPublico(snapshot, hash, raiz)
++    if (blob === null)
++      return new Response("Objeto público desconocido", { status: 404 })
++    return new Response(new Uint8Array(blob.bytes), {
++      headers: {
++        "Content-Type": blob.mime,
++        "X-Content-Type-Options": "nosniff",
++        "Cache-Control": "public, max-age=31536000, immutable",
++        "Referrer-Policy": "no-referrer",
++        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
++      },
++    })
++  } catch {
++    return new Response("Objeto prometido no disponible", {
++      status: 503,
++      headers: { "Cache-Control": "no-store" },
++    })
++  }
++}
+--- a/lib/procedencia/io.mjs
++++ b/lib/procedencia/io.mjs
+@@ -5,6 +5,7 @@
+   mkdtempSync,
+   mkdirSync,
+   cpSync,
++  renameSync,
+   writeFileSync,
+ } from "node:fs"
+ export { resolve } from "node:path"
+--- a/lib/procedencia/modelo.ts
++++ b/lib/procedencia/modelo.ts
+@@ -164,8 +164,7 @@
+ export const Paquete = Schema.Array(
+   Schema.Struct({ revision: Hash, entidad: Entidad })
+ )
+-export const Snapshot = Schema.Struct({
+-  version: Schema.Literal(1),
++const snapshotBase = {
+   inventario: Hash,
+   contrato: Hash,
+   generador: Hash,
+@@ -186,7 +185,60 @@
+   ),
+   auxiliares: Schema.Array(Hash),
+   cantidad: Schema.Int,
+-})
++}
++export const EstadoEvidencia = Schema.Struct({
++  sujeto: Referencia,
++  recibo: Hash,
++  payload: Hash,
++  manifiesto: Hash,
++  integridad: Schema.Literal("verified"),
++  exactitudNumerica: Schema.Literal("verified"),
++  autenticidad: Schema.Struct({
++    estado: Schema.Literals([
++      "not-validated",
++      "unsigned",
++      "invalid",
++      "trust-indeterminate",
++    ]),
++    fecha: Texto,
++    limites: Texto,
++  }),
++  interpretacion: Schema.Literal("candidata"),
++  revisionBinding: Schema.Literal("pending"),
++  aceptacionFiscalCompleta: Schema.Literal(false),
++})
++export const IndiceBusqueda = Schema.Array(
++  Schema.Struct({
++    id: Id,
++    revision: Hash,
++    titulo: Texto,
++    ejercicios: Schema.Array(Schema.Int),
++    territorios: Schema.Array(Schema.String),
++  })
++)
++export const Snapshot = Schema.Union([
++  Schema.Struct({ version: Schema.Literal(1), ...snapshotBase }),
++  Schema.Struct({
++    version: Schema.Literal(2),
++    ...snapshotBase,
++    busqueda: Hash,
++    catalogo: Hash,
++    evidencias: Schema.Array(EstadoEvidencia),
++    publicos: Schema.Array(
++      Schema.Struct({
++        hash: Hash,
++        bytes: Schema.Int.check(Schema.isGreaterThan(0)),
++        mime: Schema.Literals(["application/pdf", "image/png"]),
++      })
++    ),
++    dependencias: Schema.Array(
++      Schema.Struct({
++        hash: Hash,
++        bytes: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)),
++      })
++    ),
++  }),
++])
+ export type Snapshot = typeof Snapshot.Type
+ export const RevisionExterna = Schema.Struct({
+   sujeto: Referencia,
+--- /dev/null
++++ b/schemas/procedencia/contenido/snapshot.schema.json
+@@ -0,0 +1 @@
++{"$schema":"https://json-schema.org/draft/2020-12/schema","anyOf":[{"type":"object","properties":{"version":{"type":"number","enum":[1]},"inventario":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"contrato":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"generador":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"politica":{"type":"string","enum":["candidata"]},"versiones":{"type":"object","properties":{"algoritmo":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"datos":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"explicacion":{"type":"string","allOf":[{"minLength":1}]}},"required":["algoritmo","datos","explicacion"],"additionalProperties":false},"paquetes":{"type":"array","items":{"type":"object","properties":{"prefijo":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{2}$"}]},"hash":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"indice":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"bytes":{"type":"integer"},"cantidad":{"type":"integer"}},"required":["prefijo","hash","indice","bytes","cantidad"],"additionalProperties":false}},"auxiliares":{"type":"array","items":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]}},"cantidad":{"type":"integer"}},"required":["version","inventario","contrato","generador","politica","versiones","paquetes","auxiliares","cantidad"],"additionalProperties":false},{"type":"object","properties":{"version":{"type":"number","enum":[2]},"inventario":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"contrato":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"generador":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"politica":{"type":"string","enum":["candidata"]},"versiones":{"type":"object","properties":{"algoritmo":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"datos":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"explicacion":{"type":"string","allOf":[{"minLength":1}]}},"required":["algoritmo","datos","explicacion"],"additionalProperties":false},"paquetes":{"type":"array","items":{"type":"object","properties":{"prefijo":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{2}$"}]},"hash":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"indice":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"bytes":{"type":"integer"},"cantidad":{"type":"integer"}},"required":["prefijo","hash","indice","bytes","cantidad"],"additionalProperties":false}},"auxiliares":{"type":"array","items":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]}},"cantidad":{"type":"integer"},"busqueda":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"catalogo":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"evidencias":{"type":"array","items":{"type":"object","properties":{"sujeto":{"type":"object","properties":{"id":{"type":"string","allOf":[{"pattern":"^[a-z][a-z0-9.-]{0,159}$"}]},"revision":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]}},"required":["id","revision"],"additionalProperties":false},"recibo":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"payload":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"manifiesto":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"integridad":{"type":"string","enum":["verified"]},"exactitudNumerica":{"type":"string","enum":["verified"]},"autenticidad":{"type":"object","properties":{"estado":{"type":"string","enum":["not-validated","unsigned","invalid","trust-indeterminate"]},"fecha":{"type":"string","allOf":[{"minLength":1}]},"limites":{"type":"string","allOf":[{"minLength":1}]}},"required":["estado","fecha","limites"],"additionalProperties":false},"interpretacion":{"type":"string","enum":["candidata"]},"revisionBinding":{"type":"string","enum":["pending"]},"aceptacionFiscalCompleta":{"type":"boolean","enum":[false]}},"required":["sujeto","recibo","payload","manifiesto","integridad","exactitudNumerica","autenticidad","interpretacion","revisionBinding","aceptacionFiscalCompleta"],"additionalProperties":false}},"publicos":{"type":"array","items":{"type":"object","properties":{"hash":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"bytes":{"type":"integer","allOf":[{"exclusiveMinimum":0}]},"mime":{"type":"string","enum":["application/pdf","image/png"]}},"required":["hash","bytes","mime"],"additionalProperties":false}},"dependencias":{"type":"array","items":{"type":"object","properties":{"hash":{"type":"string","allOf":[{"pattern":"^[a-f0-9]{64}$"}]},"bytes":{"type":"integer","allOf":[{"minimum":0}]}},"required":["hash","bytes"],"additionalProperties":false}}},"required":["version","inventario","contrato","generador","politica","versiones","paquetes","auxiliares","cantidad","busqueda","catalogo","evidencias","publicos","dependencias"],"additionalProperties":false}],"$defs":{}}
+--- /dev/null
++++ b/scripts/procedencia/contenido-publicar.mjs
+@@ -0,0 +1,216 @@
++import {
++  readFileSync,
++  writeFileSync,
++  mkdirSync,
++  existsSync,
++  renameSync,
++} from "node:fs"
++import { resolve } from "node:path"
++import { gzipSync } from "node:zlib"
++import { Schema } from "effect"
++import { Snapshot } from "../../lib/procedencia/modelo.ts"
++import {
++  leerSnapshot,
++  leerPaquete,
++  objeto,
++  directorioContenido,
++} from "../../lib/procedencia/almacen.ts"
++import { hash } from "../../lib/procedencia/verificador.ts"
++import { generarEvidencia, comprobarEntrada } from "./evidencia-contenido.mjs"
++import { verificarContenido } from "./contenido-verificar.mjs"
++import { extraerPuntos } from "./rastro-extraer.mjs"
++import { FUENTES_EXPLICACION } from "./explicacion-version.mjs"
++
++export function filaBusqueda({ revision, entidad }) {
++  return {
++    id: entidad.id,
++    revision,
++    titulo: entidad.titulo,
++    ejercicios: entidad.ejerciciosCandidatos ?? [],
++    territorios: entidad.territoriosCandidatos ?? [],
++  }
++}
++// No recibe informes ni ejecutores: el recibo nace de la ejecución real.
++export async function publicar(
++  root,
++  entrada,
++  destino,
++  origen = directorioContenido
++) {
++  const anterior = leerSnapshot(entrada.snapshot, origen)
++  if (!anterior) throw new Error("Snapshot origen desconocido")
++  verificarContenido(anterior, origen)
++  const generado = await generarEvidencia(root, entrada)
++  const objetos = new Map(generado.objetos)
++  const guardar = (bytes) => {
++    const h = hash(bytes)
++    objetos.set(h, Buffer.from(bytes))
++    return h
++  }
++  for (const h of anterior.auxiliares) objetos.set(h, objeto(origen, h))
++  const reemplazos = new Map(
++    generado.informe.entradas.map((e) => [e.entidad.id, e])
++  )
++  const entradas = []
++  for (const p of anterior.paquetes) {
++    objetos.set(p.hash, objeto(origen, p.hash))
++    objetos.set(p.indice, objeto(origen, p.indice))
++    for (const e of leerPaquete(anterior, p.prefijo, origen)) {
++      const nuevo = reemplazos.get(e.entidad.id)
++      if (nuevo && e.entidad.identidad !== "ocurrencia")
++        throw new Error("Colisión editorial")
++      entradas.push(nuevo ?? e)
++      reemplazos.delete(e.entidad.id)
++    }
++  }
++  for (const e of reemplazos.values()) {
++    if (e.entidad.identidad === "ocurrencia")
++      throw new Error("Sujeto ausente del snapshot")
++    entradas.push(e)
++  }
++  entradas.sort((a, b) => a.entidad.id.localeCompare(b.entidad.id))
++  const grupos = new Map()
++  for (const e of entradas) {
++    const prefijo = hash(e.entidad.id).slice(0, 2)
++    const grupo = grupos.get(prefijo) ?? []
++    grupo.push(e)
++    grupos.set(prefijo, grupo)
++  }
++  const paquetes = [...grupos]
++    .sort(([a], [b]) => a.localeCompare(b))
++    .map(([prefijo, grupo]) => {
++      const bytes = gzipSync(Buffer.from(JSON.stringify(grupo)), { level: 9 })
++      return {
++        prefijo,
++        hash: guardar(bytes),
++        indice: guardar(
++          Buffer.from(
++            JSON.stringify(
++              grupo.map((e) => ({ id: e.entidad.id, revision: e.revision }))
++            )
++          )
++        ),
++        bytes: bytes.length,
++        cantidad: grupo.length,
++      }
++    })
++  const manifest = JSON.parse(objeto(origen, anterior.inventario).toString())
++  const { puntos } = extraerPuntos(root, manifest.generationInputs)
++  const porId = new Map(entradas.map((e) => [e.entidad.id, e]))
++  const bindings = puntos.map((p) => {
++    const e = porId.get(`paso.${p.siteId}`)
++    if (!e) throw new Error("Punto de rastro ausente")
++    return {
++      siteId: p.siteId,
++      sujeto: { id: e.entidad.id, revision: e.revision },
++      unidad: p.unidad,
++    }
++  })
++  const catalogo = hash(JSON.stringify(bindings))
++  if (!anterior.auxiliares.includes(catalogo))
++    throw new Error("Catálogo distinto del snapshot fijado")
++  const evidencias = generado.informe.estados.map((e) => {
++    const payload = JSON.parse(objetos.get(e.payload.sha256).toString())
++    const manifiesto = JSON.parse(
++      objetos.get(payload.document.sha256).toString()
++    )
++    if (e.revisionBinding !== "pending")
++      throw new Error("Esta publicación no promueve revisiones")
++    return {
++      sujeto: e.sujeto,
++      recibo: generado.revision,
++      payload: e.payload.sha256,
++      manifiesto: payload.document.sha256,
++      integridad: e.integridad,
++      exactitudNumerica: e.exactitudNumerica,
++      autenticidad: {
++        estado: manifiesto.authenticity.status,
++        fecha: manifiesto.authenticity.checkedAt,
++        limites: manifiesto.authenticity.scope,
++      },
++      interpretacion: "candidata",
++      revisionBinding: "pending",
++      aceptacionFiscalCompleta: false,
++    }
++  })
++  const publicos = generado.informe.entradas.flatMap(({ entidad: e }) =>
++    e.tipo === "Document"
++      ? [
++          {
++            hash: e.original,
++            bytes: objetos.get(e.original).length,
++            mime: e.mime,
++          },
++        ]
++      : e.tipo === "Facsimile"
++        ? [
++            {
++              hash: e.imagen,
++              bytes: objetos.get(e.imagen).length,
++              mime: "image/png",
++            },
++          ]
++        : []
++  )
++  const generador = guardar(
++    readFileSync(resolve(root, "scripts/procedencia/contenido-generar.mjs"))
++  )
++  const fuentesSoftware = FUENTES_EXPLICACION.map((p) =>
++    guardar(readFileSync(resolve(root, p)))
++  )
++  const busqueda = guardar(
++    gzipSync(Buffer.from(JSON.stringify(entradas.map(filaBusqueda))), {
++      level: 9,
++    })
++  )
++  const snapshot = Schema.decodeUnknownSync(Snapshot)(
++    {
++      ...anterior,
++      version: 2,
++      generador,
++      versiones: {
++        ...anterior.versiones,
++        explicacion: hash(JSON.stringify({ generador, fuentesSoftware })),
++      },
++      paquetes,
++      cantidad: entradas.length,
++      busqueda,
++      catalogo,
++      evidencias,
++      publicos,
++      auxiliares: [...objetos.keys()].sort(),
++      dependencias: [...objetos]
++        .map(([hash, b]) => ({ hash, bytes: b.length }))
++        .sort((a, b) => a.hash.localeCompare(b.hash)),
++    },
++    { onExcessProperty: "error" }
++  )
++  mkdirSync(resolve(destino, "objetos"), { recursive: true })
++  for (const [h, bytes] of objetos) {
++    if (bytes.length > 10_000_000)
++      throw new Error("CAS externo no resoluble: objeto excede 10 MB")
++    const ruta = resolve(destino, "objetos", h)
++    if (!existsSync(ruta)) writeFileSync(ruta, bytes, { flag: "wx" })
++    const real = readFileSync(ruta)
++    if (hash(real) !== h || real.length !== bytes.length)
++      throw new Error("CAS corrupto")
++  }
++  verificarContenido(snapshot, destino)
++  const bytes = Buffer.from(JSON.stringify(snapshot))
++  const id = hash(bytes)
++  const ruta = resolve(destino, "objetos", id)
++  if (!existsSync(ruta)) writeFileSync(ruta, bytes, { flag: "wx" })
++  if (hash(readFileSync(ruta)) !== id) throw new Error("Snapshot corrupto")
++  comprobarEntrada(root, entrada)
++  const registro = resolve(destino, "snapshots.json")
++  const anteriores = existsSync(registro)
++    ? JSON.parse(readFileSync(registro, "utf8"))
++    : []
++  const temporal = resolve(destino, `registro-${id}.tmp`)
++  writeFileSync(
++    temporal,
++    JSON.stringify([...new Set([...anteriores, id])].sort()) + "\n"
++  )
++  renameSync(temporal, registro)
++  return { snapshot: id, evidencias, objetos: objetos.size }
++}
+--- a/scripts/procedencia/contenido-verificar.mjs
++++ b/scripts/procedencia/contenido-verificar.mjs
+@@ -3,13 +3,19 @@
+ import { fileURLToPath } from "node:url"
+ import { Schema } from "effect"
+ import { readArtifactBytes } from "./inventario-artefacto.mjs"
+-import { Referencia } from "../../lib/procedencia/modelo.ts"
++import { Referencia, Id } from "../../lib/procedencia/modelo.ts"
+ import {
+   leerSnapshot,
+   leerPaquete,
++  leerBusqueda,
++  objeto,
+   directorioContenido,
+ } from "../../lib/procedencia/almacen.ts"
+-import { hash, verificarGrafo } from "../../lib/procedencia/verificador.ts"
++import {
++  hash,
++  bytesEntidad,
++  verificarGrafo,
++} from "../../lib/procedencia/verificador.ts"
+ 
+ export function verificarOcurrencia(entidad, item) {
+   if (
+@@ -45,6 +51,10 @@
+ export function verificar(snapshotId, raiz = directorioContenido) {
+   const snapshot = leerSnapshot(snapshotId, raiz)
+   if (!snapshot) throw new Error("Snapshot desconocido")
++  return verificarContenido(snapshot, raiz)
++}
++
++export function verificarContenido(snapshot, raiz) {
+   const entradas = []
+   const prefijos = new Set()
+   for (const paquete of snapshot.paquetes) {
+@@ -107,6 +117,144 @@
+   }
+   if (cotejadas !== porId.size)
+     throw new Error("Cobertura de ocurrencias incompleta")
++  if (snapshot.version === 2) {
++    if (!snapshot.auxiliares.includes(snapshot.catalogo))
++      throw new Error("Catálogo no preservado")
++    const bindings = Schema.decodeUnknownSync(
++      Schema.fromJsonString(
++        Schema.Array(
++          Schema.Struct({
++            siteId: Id,
++            sujeto: Referencia,
++            unidad: Schema.Literals(["EUR", "percent"]),
++          })
++        )
++      )
++    )(objeto(raiz, snapshot.catalogo).toString(), { onExcessProperty: "error" })
++    const pasos = entradas.filter(
++      (e) => e.entidad.claseInventario === "PuntoRastro"
++    )
++    if (
++      new Set(bindings.map((b) => b.siteId)).size !== bindings.length ||
++      pasos.length !== bindings.length ||
++      bindings.some(
++        (b) =>
++          !pasos.some(
++            (p) =>
++              p.entidad.id === `paso.${b.siteId}` &&
++              p.entidad.id === b.sujeto.id &&
++              p.revision === b.sujeto.revision &&
++              p.entidad.unidadCandidata === b.unidad
++          )
++      )
++    )
++      throw new Error("Catálogo distinto de puntos del snapshot")
++    const esperado = [...entradas]
++      .sort((a, b) => a.entidad.id.localeCompare(b.entidad.id))
++      .map(({ revision, entidad: e }) => ({
++        id: e.id,
++        revision,
++        titulo: e.titulo,
++        ejercicios: e.ejerciciosCandidatos ?? [],
++        territorios: e.territoriosCandidatos ?? [],
++      }))
++    if (
++      JSON.stringify(leerBusqueda(snapshot, raiz)) !== JSON.stringify(esperado)
++    )
++      throw new Error("Índice de búsqueda distinto de entidades")
++    const cierre = new Set(snapshot.dependencias.map((d) => d.hash))
++    for (const d of snapshot.dependencias)
++      if (objeto(raiz, d.hash).length !== d.bytes)
++        throw new Error("Tamaño de dependencia incorrecto")
++    for (const h of snapshot.auxiliares)
++      if (!cierre.has(h)) throw new Error("Dependencia sin tamaño")
++    for (const e of snapshot.evidencias) {
++      const recibo = JSON.parse(objeto(raiz, e.recibo).toString())
++      const estado = recibo.estados.find(
++        (s) =>
++          s.sujeto.id === e.sujeto.id && s.sujeto.revision === e.sujeto.revision
++      )
++      if (
++        !estado ||
++        estado.payload.sha256 !== e.payload ||
++        estado.integridad !== e.integridad ||
++        estado.exactitudNumerica !== e.exactitudNumerica ||
++        estado.revisionBinding !== e.revisionBinding ||
++        estado.autenticidad !== e.autenticidad.estado ||
++        estado.aceptacionFiscalCompleta !== false
++      )
++        throw new Error("Recibo ajeno al sujeto")
++      if (
++        !entradas.some(
++          (x) =>
++            x.entidad.id === e.sujeto.id && x.revision === e.sujeto.revision
++        )
++      )
++        throw new Error("Sujeto ausente")
++      for (const historica of recibo.entradas) {
++        if (
++          !entradas.some(
++            (actual) =>
++              actual.revision === historica.revision &&
++              bytesEntidad(actual.entidad) === bytesEntidad(historica.entidad)
++          )
++        )
++          throw new Error("Grafo distinto del recibo")
++      }
++      for (const d of recibo.entrada.dependencias)
++        if (!cierre.has(d.sha256))
++          throw new Error("Dependencia del recibo ausente")
++      const payload = JSON.parse(objeto(raiz, e.payload).toString())
++      const manifiesto = JSON.parse(objeto(raiz, e.manifiesto).toString())
++      if (
++        payload.document.sha256 !== e.manifiesto ||
++        JSON.stringify(e.autenticidad) !==
++          JSON.stringify({
++            estado: manifiesto.authenticity.status,
++            fecha: manifiesto.authenticity.checkedAt,
++            limites: manifiesto.authenticity.scope,
++          })
++      )
++        throw new Error("Autenticidad distinta del manifiesto")
++    }
++    const esperadosPublicos = entradas.flatMap(({ entidad: e }) =>
++      e.tipo === "Document"
++        ? [e.original]
++        : e.tipo === "Facsimile"
++          ? [e.imagen]
++          : []
++    )
++    if (
++      new Set(snapshot.publicos.map((p) => p.hash)).size !==
++        snapshot.publicos.length ||
++      esperadosPublicos.some(
++        (h) => !snapshot.publicos.some((p) => p.hash === h)
++      )
++    )
++      throw new Error("Lista pública incompleta o duplicada")
++    for (const p of snapshot.publicos) {
++      const firma =
++        p.mime === "application/pdf"
++          ? Buffer.from("%PDF-")
++          : Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
++      if (!objeto(raiz, p.hash).subarray(0, firma.length).equals(firma))
++        throw new Error("MIME público incorrecto")
++      if (
++        !cierre.has(p.hash) ||
++        objeto(raiz, p.hash).length !== p.bytes ||
++        !entradas.some(
++          ({ entidad: e }) =>
++            (e.tipo === "Document" &&
++              e.original === p.hash &&
++              e.mime === p.mime) ||
++            (e.tipo === "Facsimile" &&
++              e.imagen === p.hash &&
++              p.mime === "image/png")
++        )
++      )
++        throw new Error("Blob público ajeno al grafo")
++    }
++  }
+   return {
+     ...verificarGrafo(entradas, new Set(snapshot.auxiliares)),
+     cantidad: entradas.length,
+--- a/scripts/procedencia/evidencia-contenido.mjs
++++ b/scripts/procedencia/evidencia-contenido.mjs
+@@ -3,6 +3,7 @@
+ import { Schema } from "effect"
+ import { Hash } from "../../lib/procedencia/modelo.ts"
+ import { verifyLinks } from "./verificar-enlaces.mjs"
++import { FUENTES_EXPLICACION } from "./explicacion-version.mjs"
+ import { readArtifact } from "./inventario-artefacto.mjs"
+ import { baseFicha } from "./contenido-generar.mjs"
+ import {
+@@ -22,7 +23,7 @@
+ const json = (bytes) => JSON.parse(bytes.toString("utf8"))
+ function leer(root, path) {
+   if (
+-    !/^[a-zA-Z0-9_./-]+$/.test(path) ||
++    !/^[a-zA-Z0-9_./\[\]-]+$/.test(path) ||
+     path.split("/").includes("..") ||
+     path.startsWith("/")
+   )
+@@ -48,6 +49,7 @@
+     almacen + snapshot,
+     "package.json",
+     "bun.lock",
++    ...FUENTES_EXPLICACION,
+   ])
+   const manifest = json(leer(root, inventario))
+   paths.add("docs/procedencia/" + manifest.artifact.file)
+@@ -57,7 +59,12 @@
+       withFileTypes: true,
+     })) {
+       const child = path + "/" + entry.name
+-      if (entry.name.startsWith(".") || entry.name === "__pycache__") continue
++      if (
++        entry.name.startsWith(".") ||
++        entry.name === "__pycache__" ||
++        entry.name === "rastro-generado.json"
++      )
++        continue
+       if (entry.isDirectory()) directorio(child)
+       else if (/\.(mjs|ts|py|json|nix|lock|toml|sh)$/.test(child))
+         paths.add(child)
+@@ -298,6 +305,8 @@
+   }
+   verificarGrafo(entradas, new Set(objetos.keys()))
+   comprobarEntrada(root, entrada)
++  for (const dependency of entrada.dependencias)
++    guardar(leer(root, dependency.path))
+   const informe = { version: 1, entrada, estados, entradas }
+   const revision = guardar(JSON.stringify(informe))
+   return { revision, informe, objetos }
+--- a/scripts/procedencia/explicacion-version.mjs
++++ b/scripts/procedencia/explicacion-version.mjs
+@@ -4,6 +4,12 @@
+ 
+ // Orden canónico de las fuentes que definen la explicación y su comprobación.
+ export const FUENTES_EXPLICACION = [
++  "scripts/procedencia/contenido-publicar.mjs",
++  "scripts/procedencia/evidencia-contenido.mjs",
++  "lib/procedencia/ficha.tsx",
++  "lib/procedencia/http.ts",
++  "app/procedencia/[snapshot]/[id]/[revision]/route.ts",
++  "app/procedencia/[snapshot]/objetos/[hash]/route.ts",
+   "lib/procedencia/modelo.ts",
+   "lib/procedencia/verificador.ts",
+   "lib/procedencia/almacen.ts",
+--- /dev/null
++++ b/tests/publicacion-evidencia.test.ts
+@@ -0,0 +1,178 @@
++import { createElement } from "react"
++import { renderToStaticMarkup } from "react-dom/server"
++import { Ficha } from "../lib/procedencia/ficha"
++import { beforeAll, describe, expect, it } from "vitest"
++import { Schema } from "effect"
++import {
++  renameSync,
++  resolve,
++  mkdtempSync,
++  readFileSync,
++  writeFileSync,
++} from "../lib/procedencia/io.mjs"
++import { prepararEntrada } from "../scripts/procedencia/evidencia-contenido.mjs"
++import { publicar } from "../scripts/procedencia/contenido-publicar.mjs"
++import {
++  verificar,
++  verificarContenido,
++} from "../scripts/procedencia/contenido-verificar.mjs"
++import {
++  enlacesDocumentales,
++  resolver,
++  buscar,
++  leerSnapshot,
++  blobPublico,
++  directorioContenido,
++  objeto,
++} from "../lib/procedencia/almacen"
++import { responderObjeto } from "../lib/procedencia/http"
++import { Snapshot } from "../lib/procedencia/modelo"
++import { hash } from "../lib/procedencia/verificador"
++
++const root = process.cwd()
++const scratch = mkdtempSync(resolve(root, ".cache/publicacion-evidencia-"))
++const origen = JSON.parse(
++  readFileSync(resolve(root, "lib/procedencia/rastro-generado.json"), "utf8")
++).actual.versiones.snapshot
++let id = ""
++beforeAll(() => {
++  const entrada = prepararEntrada(root, origen)
++  return publicar(root, entrada, scratch).then((resultado) => {
++    id = resultado.snapshot
++    writeFileSync(resolve(scratch, "resultado.json"), JSON.stringify(resultado))
++    return publicar(root, entrada, scratch).then((repetido) => {
++      expect(repetido.snapshot).toBe(id)
++    })
++  })
++}, 300_000)
++
++describe("Publicación de evidencia v2", { timeout: 30_000 }, () => {
++  it("conserva v1 y verifica cierre físico, sujeto e índice v2", () => {
++    expect(leerSnapshot(origen, directorioContenido)?.version).toBe(1)
++    expect(verificar(id, scratch).aceptacionFiscal).toBe("pendiente")
++    const s = leerSnapshot(id, scratch)
++    if (s?.version !== 2) throw new Error("Falta v2")
++    expect(s.evidencias).toHaveLength(1)
++    expect(s.evidencias[0]?.aceptacionFiscalCompleta).toBe(false)
++    expect(s.dependencias.length).toBeGreaterThan(100)
++    expect(Schema.decodeUnknownSync(Snapshot)(s)).toEqual(s)
++    expect(() =>
++      Schema.decodeUnknownSync(Snapshot)(
++        { ...s, extra: true },
++        { onExcessProperty: "error" }
++      )
++    ).toThrow()
++  })
++  it("sirve solo PDF/PNG declarados y rechaza auxiliares y rutas desconocidas", () => {
++    const s = leerSnapshot(id, scratch)
++    if (s?.version !== 2) throw new Error("Falta v2")
++    for (const p of s.publicos) {
++      const blob = blobPublico(id, p.hash, scratch)
++      const respuesta = responderObjeto(id, p.hash, scratch)
++      expect(respuesta.status).toBe(200)
++      expect(respuesta.headers.get("X-Content-Type-Options")).toBe("nosniff")
++      expect(respuesta.headers.get("Cache-Control")).toContain("immutable")
++      expect(blob?.mime).toBe(p.mime)
++      expect(blob?.bytes.length).toBe(p.bytes)
++    }
++    expect(blobPublico(id, s.generador, scratch)).toBeNull()
++    expect(responderObjeto(id, s.generador, scratch).status).toBe(404)
++    expect(blobPublico(id, "../privado", scratch)).toBeNull()
++    expect(
++      blobPublico("a".repeat(64), s.publicos[0]?.hash ?? "", scratch)
++    ).toBeNull()
++  })
++  it("mide consultas y detecta mutaciones persistentes sin confiar en mtime", () => {
++    const inicio = performance.now()
++    const frio = buscar(id, "Madrid", "", "", scratch)
++    const medio = performance.now()
++    expect(buscar(id, "Madrid", "", "", scratch)).toEqual(frio)
++    writeFileSync(
++      resolve(scratch, "metricas.json"),
++      JSON.stringify({
++        scratch,
++        consultaFriaMs: medio - inicio,
++        consultaCalienteMs: performance.now() - medio,
++        rss: process.memoryUsage().rss,
++      })
++    )
++    const s = leerSnapshot(id, scratch)
++    if (s?.version !== 2) throw new Error("Falta v2")
++    const ruta = resolve(scratch, "objetos", s.busqueda)
++    const bytes = readFileSync(ruta)
++    writeFileSync(ruta, Buffer.from("corrupto"))
++    expect(() => buscar(id, "Madrid", "", "", scratch)).toThrow("corrupto")
++    writeFileSync(ruta, bytes)
++  })
++  it("renderiza SSR los estados exactos y enlaces a documentos", () => {
++    const s = leerSnapshot(id, scratch)
++    if (s?.version !== 2 || s.evidencias[0] === undefined)
++      throw new Error("Falta evidencia")
++    const e = s.evidencias[0]
++    const entidad = resolver(id, e.sujeto.id, e.sujeto.revision, scratch)
++    if (entidad === null) throw new Error("Falta sujeto")
++    const html = renderToStaticMarkup(
++      createElement(Ficha, {
++        entidad,
++        snapshot: id,
++        evidencia: e,
++        enlaces: enlacesDocumentales(id, entidad, scratch),
++      })
++    )
++    expect(html).toContain("Original PDF")
++    expect(html).toContain("Captura PNG")
++    expect(html).toContain("Cita literal")
++    expect(html).toContain("trust-indeterminate")
++    expect(html).toContain("Aceptación fiscal completa")
++    expect(html).toContain("false")
++    expect(html).toContain(`/procedencia/${id}/evidencia.`)
++  })
++  it("rechaza dependencia ausente y blob público corrupto", () => {
++    const s = leerSnapshot(id, scratch)
++    if (
++      s?.version !== 2 ||
++      s.publicos[0] === undefined ||
++      s.evidencias[0] === undefined
++    )
++      throw new Error("Falta evidencia")
++    const ruta = resolve(scratch, "objetos", s.evidencias[0].manifiesto)
++    renameSync(ruta, ruta + ".retenido")
++    try {
++      expect(() => verificar(id, scratch)).toThrow()
++    } finally {
++      renameSync(ruta + ".retenido", ruta)
++    }
++    const p = s.publicos[0]
++    const rutaBlob = resolve(scratch, "objetos", p.hash)
++    const bytes = readFileSync(rutaBlob)
++    writeFileSync(rutaBlob, Buffer.from("corrupto"))
++    try {
++      expect(responderObjeto(id, p.hash, scratch).status).toBe(503)
++    } finally {
++      writeFileSync(rutaBlob, bytes)
++    }
++  })
++  it("rechaza recibo ajeno y auxiliar corrupto", () => {
++    const s = leerSnapshot(id, scratch)
++    if (s?.version !== 2 || s.evidencias[0] === undefined)
++      throw new Error("Falta evidencia")
++    const e = s.evidencias[0]
++    expect(() =>
++      verificarContenido(
++        {
++          ...s,
++          evidencias: [
++            { ...e, sujeto: { ...e.sujeto, revision: "a".repeat(64) } },
++          ],
++        },
++        scratch
++      )
++    ).toThrow("Recibo ajeno")
++    const ruta = resolve(scratch, "objetos", e.manifiesto)
++    const bytes = objeto(scratch, e.manifiesto)
++    writeFileSync(ruta, Buffer.concat([bytes, Buffer.from(" ")]))
++    expect(() => verificar(id, scratch)).toThrow()
++    writeFileSync(ruta, bytes)
++    expect(hash(bytes)).toBe(e.manifiesto)
++  })
++})

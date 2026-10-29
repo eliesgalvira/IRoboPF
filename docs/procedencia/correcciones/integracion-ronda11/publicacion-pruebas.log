@@ -1,0 +1,49 @@
+{"snapshot":"efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6","evidencias":[{"sujeto":{"id":"inv-c24095c17f76bb198b34cf8b8d5a45ed","revision":"0879a0a3ecf28ee2eb7af2cf9dab4c7a827ebf647264be986a8330b54e66bac8"},"recibo":"9165ee1974fc65639ed12dd193b32e685fffdd943b6a19d55e42ff1d25c03fd2","payload":"7e2a9cf3f953a6f3bf61c1d8af2be6e7d77e6775bbbfa0a85d4079d89cf9ecd1","manifiesto":"ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091","integridad":"verified","exactitudNumerica":"verified","autenticidad":{"estado":"trust-indeterminate","fecha":"2026-10-29T11:49:13.848438+00:00","limites":"Integridad criptográfica; confianza histórica/revocación y cobertura total pendientes"},"interpretacion":"candidata","revisionBinding":"pending","aceptacionFiscalCompleta":false}],"objetos":711}
+{"puntos":65,"snapshot":"efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6","aceptacionFiscal":"pendiente"}
+{"snapshot":"066f8cd6f9a5c046c659f0b23e000a3547ea21efccdf7f311e10a3420a241d92","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":47793}
+{"snapshot":"31be43e7347ee116fd6349e946914602a706dbdce56b955a5aa8290fa9f7325e","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":47793}
+{"snapshot":"4919c9ec5fa20e858d5a4e99f53e7628c2a6e0a9e7852a44de34513de0b0763c","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":49887}
+{"snapshot":"59befd07bfa3e6ad6beee032e3ecb921b652b45ca1c4c6205f2802378cc76545","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":51649}
+{"snapshot":"5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":51651}
+{"snapshot":"65ed048d3a7e88ea3ae74c4418e99bf1e56788b1a8be99ddf93a73da6dbfb067","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":47793}
+{"snapshot":"68cb543b033f17d44b1d7c311eda419b959c024dba623a7ffaa5215a25c1c557","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":51651}
+{"snapshot":"75b6e2f8db019edb0b9ac17ca243cd15472560d4eafe86b15195dbbbbe6e357b","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50011}
+{"snapshot":"7dd9c9c6147b6b1931b51944c885abd528550c27b5a3c31392b37e01be9f712d","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50737}
+{"snapshot":"8787155f02f4d8712648028532d966ab95c13e193ea36474f2fe2545516790e3","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":51939}
+{"snapshot":"88d2de62bb8d5fafb4cc5752a12b9464bf85a4ae3c0e25f20af030ce4530c72f","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":47793}
+{"snapshot":"9a38821d9d5ea6130e3e4019f40a0b7a3d6d57d6675f8e67643773ade14dfdec","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50011}
+{"snapshot":"9fc577465498f8059bfa42f91bbd182ffd9bc97f9e84aae7d556e097a732e7b4","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50009}
+{"snapshot":"b81dfa780bc65e49ad855f9bb2cf79bf0a9128a9201b4bb1f4fbae4e311949fc","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50009}
+{"snapshot":"babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":50699}
+{"snapshot":"efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":51943}
+$ vitest run tests/publicacion-evidencia.test.ts tests/evidencia-contenido-procedencia.test.ts tests/rastro-anual-procedencia.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/rastro-anual-procedencia.test.ts (7 tests | 1 failed) 2052ms
+   × RV3-01 rechaza software de explicación cambiado fuera del dominio 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/rastro-anual-procedencia.test.ts > RV3-01 rechaza software de explicación cambiado fuera del dominio
+Error: ENOENT: no such file or directory, open '/tmp/irobopf-rastro-software-uDdUvY/app/procedencia/[snapshot]/[id]/[revision]/route.ts'
+ ❯ scripts/procedencia/explicacion-version.mjs:30:22
+     28|   )
+     29|   const fuentesSoftware = FUENTES_EXPLICACION.map((file) =>
+     30|     hash(readFileSync(resolve(root, file)))
+       |                      ^
+     31|   )
+     32|   if (
+ ❯ verificarSoftwareExplicacion scripts/procedencia/explicacion-version.mjs:29:47
+ ❯ verificarRastroGenerado scripts/procedencia/rastro-verificar.mjs:30:31
+ ❯ tests/rastro-anual-procedencia.test.ts:34:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 25 passed (26)
+   Start at  15:56:56
+   Duration  100.69s (transform 553ms, setup 0ms, import 1.93s, tests 98.42s, environment 0ms)
+
+error: script "test" exited with code 1

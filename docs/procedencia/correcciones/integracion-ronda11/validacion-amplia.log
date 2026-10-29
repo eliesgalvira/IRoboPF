@@ -1,0 +1,48 @@
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+$ bun scripts/test-lint.mjs
+16 reglas a error; ambos plugins cargan y rechazan el fixture.
+$ vitest run --exclude tests/auditoria-excel-pesada.test.ts --exclude tests/calculo-salario-legacy.test.ts --exclude tests/publicacion-evidencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/liquidacion-irpf-anual.test.ts (57 tests | 1 failed) 133ms
+     × liquida una comunidad real con su escala autonómica de 2025 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/liquidacion-irpf-anual.test.ts > liquidarIrpfAnual > liquida una comunidad real con su escala autonómica de 2025
+AssertionError: expected { …(31) } to match object { …(5) }
+(30 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "_tag": "LiquidacionIrpfAnualCalculada",
+    "cuotaDiferencialCentimos": 459969,
+-   "cuotaIntegraGeneralCentimos": 563325,
++   "cuotaIntegraGeneralCentimos": 563326,
+    "cuotaLiquidaCentimos": 459969,
+    "cuotaMinimoPersonalCentimos": 103357,
+  }
+
+ ❯ tests/liquidacion-irpf-anual.test.ts:1844:23
+    1842|     const resultado = liquidarCasoCanonico(caso)
+    1843|
+    1844|     expect(resultado).toMatchObject({
+       |                       ^
+    1845|       _tag: "LiquidacionIrpfAnualCalculada",
+    1846|       cuotaIntegraGeneralCentimos: 563_325,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 43 passed (44)
+      Tests  1 failed | 553 passed (554)
+   Start at  15:59:54
+   Duration  62.69s (transform 1.30s, setup 0ms, import 10.59s, tests 47.56s, environment 4ms)
+
+error: script "test" exited with code 1

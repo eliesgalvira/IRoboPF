@@ -1,0 +1,14 @@
+
+ 98 |       path = resolve(path, part)
+ 99 |       if (lstatSync(path).isSymbolicLink())
+100 |         throw new Error("Symlink CAS tardío")
+101 |     }
+102 |     if (hash(readFileSync(path)) !== dependency.sha256)
+103 |       throw new Error("Objeto CAS cambió durante la verificación")
+                      ^
+error: Objeto CAS cambió durante la verificación
+      at verifyLinks (/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/integracion-tecnica-r11/scratch/scripts/procedencia/revision-recotejo.mjs:103:17)
+
+Bun v1.3.13 (Linux x64)
+
+EXIT 1

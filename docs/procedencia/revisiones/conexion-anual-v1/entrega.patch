@@ -1,0 +1,452 @@
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/INFORME.md b/docs/procedencia/revisiones/conexion-anual-v1/INFORME.md
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/INFORME.md
+@@ -0,0 +1,110 @@
++# Revisión de la conexión anual explícita, v1
++
++Base comprobada por `git rev-parse HEAD`: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Revisión personal, sin subdelegación, cambios de producto ni operaciones VCS mutantes. Esta entrega no acepta una liquidación completa ni promueve reglas o atestaciones.
++
++## Alcance y método
++
++Se leen BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, integración-ronda10 y las revisiones trabajo-anual-implementacion, contratos-v2 y actividades-implementacion. Se examinan los seis archivos de código de la entrega conexion-anual, sus informes, logs, manifiesto y parche, los adaptadores y auxiliares consumidos y el enlace del rastro. La revisión anterior de etapas no se atribuye a esta conexión nueva.
++
++Los sondeos importan la API exportada de esta base, sin mocks. `preparar.py` crea expectativas con Decimal de Python a 120 cifras, fórmulas independientes y filas publicadas; no consulta resultados del motor para definir lo esperado. Solo reutiliza la estructura de hechos de un caso EDS anterior. Todos los datos son sintéticos. `casos.json` fija entradas y expectativas; `resultados.json` conserva salidas y comparaciones. Los sondeos no sustituyen una declaración de Renta WEB ni acreditan hechos aportados.
++
++Se usa una copia de validación dentro de la única carpeta autorizada, con node_modules enlazado para lectura. No se escribe en el checkout examinado. Preflight fija presencia de archivos de base y hashes de las copias. Los 25 tests del autor se ejecutan sin modificar. Las comprobaciones pesadas se serializan con el lock común y un trabajador. No Next build, suites legacy completas, regeneración del inventario, descargas documentales ni instalaciones globales.
++
++## Decisiones, objeciones y coste
++
++1. Revisar hechos condicionados, sin autenticar declaraciones de conciliación. Objeción experta: una referencia libre o un booleano no prueba que dos certificados sean disjuntos. Se exige distinguir esa limitación de un fallo aritmético. Coste: la API sigue necesitando conciliación externa y no puede anunciar detección de identidades falsas.
++2. Excluir activos de esta conexión es coherente con la falta de conciliación histórica señalada anteriormente. Objeción: excluye también activos sencillos correctos. Coste: menor cobertura explícita; no trasladar una aceptación del adaptador a la liquidación.
++3. Contrastar cuotas publicadas, en vez de usar el motor como oracle. Objeción: una diferencia subcéntimo puede desaparecer en presentación. Se busca un caso donde cambie el céntimo y se conservan ambas magnitudes. Coste: hay que revisar la selección de escala y su contrato de redondeo, sin corregir fixtures antiguos para obtener verde.
++4. Comprobar enlaces realmente devueltos, además de resolver manualmente las fichas. Objeción: un catálogo correcto no asegura que un resultado histórico conserve su versión. Coste: la corrección debe fijar contexto y snapshot al producir el resultado; enlazarlo posteriormente con el catálogo entonces vigente no basta.
++
++## Cinco dimensiones
++
++- Integridad: hashes de base, entrega, originales reabiertos y artefactos de esta revisión. La igualdad de bytes no acredita al emisor.
++- Autenticidad: no nueva comprobación PAdES, CSV ni confianza histórica. Los originales proceden del corpus autorizado. No se afirma verificación propia de Crossa; es la copia histórica v1 comunicada por el coordinador, mismo dueño y vivienda. v1 y v2 permanecen intactos.
++- Interpretación: art19/art20, mínimos y escala de Madrid, orden de DA61 después de art80, signo de pérdidas y composición EDS. No se cierra toda la cadena jurídica del sistema ni se añade ámbito por coincidencia numérica.
++- Exactitud: pruebas y comparaciones indicadas con entradas concretas; se separan diferencias aritméticas, límites de precisión, errores de preparación y validación runtime.
++- Aceptación: ninguna nueva aceptación fiscal, binding o atestación. El resultado sigue condicionado a los hechos y a los límites descritos.
++
++## Fuentes reabiertas
++
++Ley 13/2023 de Madrid, BOE-A-2024-5610, SHA256 `502aa027788673d8f653c2cd8ce87038630a7dab13b63d625c5905bd1a5ce8de`, página física 3: escala y mínimo 5.956,65; página 14: efectos para períodos desde 1/1/2023. El manual AEAT 2025 original `02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4`, páginas 1090 y 1128, confirma esos valores en 2025; páginas 1068 y 1120 confirman el mínimo estatal 5.550 y la escala estatal utilizada en el oracle. Se reabre el original, no se utiliza la transcripción de una auditoría como prueba.
++
++Art19: Ley26/2014 páginas 11–12 y manual 2025 páginas 254–260: gastos a–e, defensa 300, f limitado y argumento del art20 sin f. DA61: Ley5/2025 páginas 46–47, mismo hash que la entrega original, orden tras art80 y limitación por cuotas atribuibles. Pérdidas: manual 2025 página 1001, integración con signo. RETA: manual página 430; art32: Ley26/2014 páginas 17–19, Ley31/2022 páginas 85–86 (6.498, 14.047,50, 19.747,50 y 7% solo 2023); RD633/2015 página 7 (5%, máximo 2.000 e incompatibilidad); Ley11/2013 páginas 16–17 (inicio después de reducciones anteriores). La Ley IRPF original de 2006 página 20 se usa para contexto de actividad, no para atribuirle cuantías reformadas posteriores.
++
++`originales-reabiertos.json` fija hashes y páginas. Las extracciones son texto, no nuevos facsímiles ni coordenadas verificadas. Poppler avisa de fuentes incrustadas del manual; el aviso se mantiene como incidencia de extracción, sin convertirlo en validación de autenticidad. No se cierra toda la cadena histórica de reformas.
++
++## Incidencias del entorno, separadas del producto
++
++El primer ejecutor directo mezcló Effect 4.1.0 resuelto por Bun en caché y la dependencia fijada del padre, al faltar node_modules junto al checkout. `error-entorno-resultados.json` conserva la traza `impl.base.get`; no se cuenta como defecto de la API. Además, el instrumento inicial intentó leer un caso fallido como éxito al inspeccionar el rastro. Se corrige el instrumento, se ejecuta con una única dependencia desde la copia cotejada y `--no-install`, sin alterar expectativas.
++
++El primer lint de la copia recorrió node_modules porque faltaba `.gitignore`; el primer typecheck carecía de cinco JSON documentales importados por tests. Se completó la copia con los archivos originales y typecheck principal/vendor pasa. El ensayo de anti-slop confirma 16 reglas a error. Los intentos de lint fuera del directorio base y sobre la copia ignorada no cuentan como verdes: durante el trabajo el padre añadió `/docs/procedencia/revisiones/*/checkout-validacion/` a su .gitignore. Por ello la salida cero del lint global de la copia no acredita cobertura. La comprobación definitiva usa `lint-input`, con seis archivos de producto y tres instrumentos idénticos, sin cambiar extensiones: oxlint y ESLint terminan en cero. `lint-archivos-reales.log` acredita los diez archivos analizados (incluye la configuración). Las 16 reglas permanecen a error; solo las rutas de carga de plugins se hacen absolutas. ESLint emite el aviso contextual de que no hay directorio pages en esa copia acotada; no hay errores de fuentes.
++
++## Dictamen y hallazgos nuevos
++
++**Requiere cambios.** Los 25 tests del autor pasan, pero los contrastes propios reproducen diferencias de cuota publicada y una conexión de rastro incompleta. No se ha aplicado ningún fix. Los rojos se conservan antes de cualquier corrección del padre.
++
++### CAV1-01 — P2: Madrid 2025 usa integración de tipos, no la cuota fija publicada
++
++Localización: `trabajo-anual/conexion.ts:195–205` llama al selector para 2025; `cuotas/escalas-publicadas.ts:121` solo contempla Madrid 2022. Devuelve undefined y se integra la escala de tipos. El informe del autor y la fórmula del rastro dicen «escala publicada Madrid», pero la columna de cuota íntegra publicada no se usa.
++
++Reproducción `cuota-publicada-centimo`: trabajo laboral bruto 25.000,02, gastos efectivos cero, f=2.000, art20=0, BLG=23.000,02, sin pagos ni DA61. Estado: escala estatal 2.532,753 menos mínimo 527,25 = **2.005,503**. Madrid: **1.739,53 + (23.000,02 − 19.004,63) × 0,128 − 5.956,65 × 0,085 = 1.744,62467**. Total **3.750,12767**, presentación half-up **3.750,13**. La API devuelve **3.750,12424**, presentación **3.750,12**.
++
++Otro control de signo: bruto 60.000 produce 15.337,605 (presenta 15.337,61), frente a 15.337,60275 con cuota publicada (presenta 15.337,60). No es un sesgo único a favor del contribuyente. Afecta también al perfil EDS; por ejemplo base 38.000: 8.136,5374 frente a 8.136,53643, aunque ese ejemplo redondea igual. No se cuentan estas discrepancias como defectos independientes.
++
++Fuente reabierta: Ley13/2023 página 3 y manual AEAT2025 página 1128, misma tabla. No se traslada a 2025 una aceptación de Madrid 2020/2022. Objeción experta: el redondeo oficial de cada casilla sigue pendiente y varias diferencias desaparecen al presentar. Respuesta: el error existe bajo la propia política publicada de conservar decimales y redondear al final; el caso discriminante cambia un céntimo. Coste propuesto: seleccionar una tabla con cuotas fijas para el ámbito correcto, mantener las pruebas rojas y revisar independientemente la política de casillas. No basta añadir un epsilon ni regenerar el oracle.
++
++### CAV1-02 — P2: el rastro de la API nueva no fija contexto ni snapshot
++
++Localización: `trabajo-anual/conexion.ts:360`. Se retorna `{titulo, pasos}` directamente, a diferencia de la API anterior que enlaza antes de devolver. El reexport de `liquidar-irpf-anual.ts` no añade ese paso.
++
++Trabajo devuelve 15 líneas y EDS del sondeo devuelve 23, todas con origen pero **cero enlaces** y contexto ausente. La unión de ambas rutas cubre los **16 siteId nuevos**. La comprobación del catálogo acredita los **65 puntos** y el snapshot `5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8`; al enlazar manualmente las líneas resuelven a fichas Step. Esa operación manual es un control positivo, no una reparación del resultado original. El cambio del padre `instancia: instancia` coincide con el manifiesto del autor al deshacer únicamente esa sustitución; la extracción de etapas funciona.
++
++Se conservan decimales anteriores al formato, unidad EUR e instancias distintas. La carencia es el contexto y la versión del resultado real, no ausencia de fichas ni error del extractor. Las fichas son técnicas y no sustituyen citas ni aceptan jurídicamente las fórmulas.
++
++Objeción experta: un consumidor podría llamar después al enlazador. Respuesta: entonces podría fijar un snapshot posterior al cálculo y perder su identidad histórica, además de que la salida actual no ofrece el enlace prometido. Coste propuesto: fijar ámbito y perfil y enlazar al producir la salida, con pruebas de resolución y rechazo de retagging. El nombre exacto del perfil del contexto debe decidirse en el contrato; el rojo `solo-trabajo` es una propuesta explícita, no una nueva regla jurídica.
++
++### CAV1-03 — P3: el agregado laboral admite por entrada una cuantía que DA61 rechaza al sumar
++
++Localización: `trabajo-anual/conexion.ts:224–229` y `trabajo-anual/contrato.ts:4–5`. Dos rendimientos laborales distintos de 999.999.999.999,99 cada uno cumplen el schema anual (hasta 100 rendimientos). El agregado de 1.999.999.999.999,98 se pasa como `brutoServicios`, cuyo schema Euros solo admite 12 enteros. Resultado: `ResultadoNoSoportado`, «Entrada de deducción inválida o etapa incorrecta». Con idénticas cuantías calificadas como pensiones se calcula, porque no se llama a DA61. La deducción laboral nominal a ese bruto es cero.
++
++Es un rechazo tipado, no Die, ni una cuota errónea devuelta. Objeción experta: el caso es extremo y es legítimo imponer límites técnicos. Respuesta: el límite del agregado no está expresado en el contrato anual y la razón atribuida a la etapa de deducción es engañosa. Coste propuesto: decidir y documentar una cota agregada temprana, o admitir la magnitud calculada necesaria sin ensanchar importes aportados. No se propone extender cobertura fiscal ni aceptar importes ilimitados.
++
++## Controles que no demuestran otro defecto
++
++- Trabajo laboral/estatutario homogéneo y pensión sola se admiten. Pensión no recibe DA61. Mezcla pensión/empleo y trabajo/EDS rechaza. Los 18 y 64 años se admiten; 17, 65 y edad fraccionaria se rechazan, igual que año, territorio, devengo o modalidad fuera del contrato.
++- Gastos reales: dos pagadores con 1.200 de SS cada uno, 600 de sindicato, 400 de colegio y 250 de defensa cada uno dejan BIG **33.600**, con colegio limitado a 500, defensa a 300 y f a 2.000 una sola vez. La cuota conserva el defecto CAV1-01; eso no invalida la comprobación de la base. El texto de conciliación declara procedencia aportada y no autentica documentos.
++- Se rechazan cotizaciones estimadas, retenciones no efectivas, de otro año y operaciones repetidas. Dos retenciones efectivas iguales con IDs distintos suman 200. Campos extra en raíz, rendimiento y pago EDS se rechazan. No se ha probado identidad real de las operaciones.
++- EDS sin activos: RETA 300 sobre ingresos 20.000 da P=19.700; opción G da BIG=18.715, o 14.972 con inicio. Cliente único da BIG=17.645,85, o 14.116,68 con inicio. Retención 1.000 y pago 130 de 100 se restan después de cuota, sin volver a deducir RETA ni art32. Repetición de operación entre retención y modelo130 y de justificante entre RETA/gasto se rechaza. Activos y mezcla se rechazan.
++- Pérdidas de trabajo y EDS se conservan en BIG y BLG, con cuota cero, sin fabricar reducción negativa ni una bolsa de arrastre ya gestionada. El alcance excluye saldos anteriores.
++- Mínimos diferenciados: casos en torno a BLG 5.550 dejan la cuota estatal en cero o fracción positiva, mientras Madrid conserva cuota cero hasta su propio mínimo 5.956,65. No se reutiliza un mínimo común para ambos componentes.
++- La ampliación de magnitudes calculadas permite art20/DA61 con cuatro o más decimales internos. No se atribuye a la API equivalencia casilla a casilla con Renta WEB.
++
++## Precisión
++
++`precision.json` repite el caso discriminante y 10.000 ingresos máximos EDS con Decimal global a 20, 60 y 80 cifras. En estos casos las salidas coinciden entre precisiones; **CAV1-01 no se corrige aumentando precisión**. El máximo probado conserva BIG 9.999.999.999.997.900 y devuelve cuota 4.499.999.999.983.372,605; la diferencia frente a 4.499.999.999.983.372,60275 vuelve a proceder de la cuota fija, no de un error nuevo de precisión demostrado.
++
++El helper DA61 admite una cuota `818.8197` seguida de ceros y un último 1 en la posición decimal 60, pero su operación a 60 cifras significativas devuelve `478.8217`, sin ese residuo diminuto. Se documenta como límite de la ampliación de schema, ya advertido por el autor, **no como fallo de céntimo anual demostrado**: las entradas ordinarias del anual no generan esa precisión. Objeción experta: 60 decimales admitidos no equivalen a 60 decimales conservados cuando existen enteros. Coste: especificar precisión significativa y cotas de las magnitudes calculadas antes de prometer exactitud decimal ilimitada. No se propone modificar auxiliares fuera de esta revisión.
++
++## Resultado final y reproducción
++
++**84 casos propios: 58 coinciden íntegramente y 26 discrepan**; 25 discrepancias remiten a CAV1-01 y una a CAV1-03. Los campos de bases y pagos pueden coincidir aunque el caso completo figure rojo por cuota. Hay 32 rechazos tipados (31 esperados y el del agregado extremo), **cero Die en el entorno corregido**. Se añaden cuatro aserciones rojas para los tres hallazgos: cuota, contexto, enlaces y rechazo extremo. No se suman estos recuentos con las 25 pruebas del autor ni con las repeticiones de precisión.
++
++Validación de producto: `tests-autor.log` 25/25; `lint-real.log` focalizado con salida cero en ambos analizadores, y `typecheck-final.log` principal/vendor sin diagnósticos y salida cero; `anti-slop.log` confirma las 16 reglas a error. El catálogo verifica 65 puntos, con las 16 incorporaciones. Las fuentes copiadas y existentes en la base coinciden byte a byte (`copias-verificadas.json`). El cotejo de entrega solo difiere en conexion.ts por el cambio explícito de instancia del padre, comprobado por sustitución inversa y SHA256.
++
++Los comandos se ejecutan desde el checkout base, usando el directorio absoluto de esta entrega como `OUT`, siempre dentro de `flock /tmp/irobopf-validacion-pesada.lock` y el shell `nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#python3 nixpkgs#poppler-utils`. No se requiere instalar dependencias:
++
++```sh
++python3 "$OUT/preparar.py"
++bun --no-install "$OUT/sondeos.mjs"   # salida 1: discrepancias deliberadamente conservadas
++bun --no-install "$OUT/precision.mjs"
++bun --no-install "$OUT/rojos.mjs"     # salida 1: cuatro aserciones rojas
++python3 "$OUT/cerrar.py"
++```
++
++Los instrumentos importan la copia exacta `checkout-validacion`, que tiene un enlace de solo lectura al node_modules del padre. El directorio de trabajo debe ser la base para resolver el contenido versionado original. `validar.sh` y `completar-validacion.sh` conservan la secuencia de pruebas/tipos/lint y la reparación de la preparación. No se debe interpretar la salida cero del shell que imprime estados como salida cero de cada comando: los logs y estados individuales mandan. No ejecutar las suites legacy completas para reproducir esta revisión.
++
++Se conserva la copia de validación para reproducibilidad y no se propone integrarla como una segunda copia del producto. La entrega a integrar es el informe, hallazgos, instrumentos, manifiesto, entradas, salidas, extracciones y logs. Ningún archivo de implementación original cambia; no hay parche de fixes. El parche adjunto añade únicamente documentación e instrumentos de esta revisión. No se borran cachés, originales, worktrees ni informes ajenos.
++
++El preflight inicial clasificó dos symlinks deliberados de fixtures de preservación como archivos no regulares. La comprobación final distingue presencia del enlace de existencia del destino: no son borrados de esta revisión ni se reparan. No se basa el dictamen de integridad en el índice Git.
++
++Reproducción del lint definitivo: ejecutar `python3 "$OUT/lint-real.py"`, entrar en `$OUT/lint-input` y ejecutar oxlint con `--threads 1` y ESLint mediante Node de Nix, con el lock común. Los paths de los binarios y comandos exactos se conservan en la entrega. No se afirma lint global verde de archivos que quedaron ignorados.
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/cerrar.py b/docs/procedencia/revisiones/conexion-anual-v1/cerrar.py
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/cerrar.py
+@@ -0,0 +1,16 @@
++from pathlib import Path
++import json,hashlib,subprocess
++out=Path(__file__).parent;root=Path('/home/elies/.t3/worktrees/IRoboPF/t3-f9097ac4')
++sha=lambda b:hashlib.sha256(b).hexdigest()
++results=json.loads((out/'resultados.json').read_text())
++summary={'total':len(results),'coinciden':sum(r['ok'] for r in results),'discrepancias':[r['id'] for r in results if not r['ok']],'dies':[r['id'] for r in results if '"Die"' in json.dumps(r['exit'])],'rechazosTipados':[r['id'] for r in results if r['exit']['_tag']=='Failure' and 'ResultadoNoSoportado' in json.dumps(r['exit'])]}
++(out/'resumen.json').write_text(json.dumps(summary,indent=2))
++copychecks=[]
++for p in (out/'checkout-validacion').rglob('*'):
++ if p.is_symlink() or not p.is_file():continue
++ rel=p.relative_to(out/'checkout-validacion');orig=root/rel
++ if orig.is_file():copychecks.append({'path':str(rel),'coincide':sha(p.read_bytes())==sha(orig.read_bytes())})
++(out/'copias-verificadas.json').write_text(json.dumps(copychecks,indent=2))
++p=Path('/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4');b=p.read_bytes();assert sha(b)==p.name
++(out/'manual-integridad.json').write_text(json.dumps({'path':str(p),'sha256':sha(b),'sha512':hashlib.sha512(b).hexdigest(),'size':len(b),'url':'https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/ManualRenta2025Parte1_es_es.pdf','paginasLeidas':[254,255,259,260,430,1001,1090,1128,1372,1373,1374]},indent=2))
++print(json.dumps(summary)); print('Copias diferentes:',[r for r in copychecks if not r['coincide']])
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/completar-validacion.sh b/docs/procedencia/revisiones/conexion-anual-v1/completar-validacion.sh
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/completar-validacion.sh
+@@ -0,0 +1,18 @@
++#!/usr/bin/env bash
++out=/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1
++src=/home/elies/.t3/worktrees/IRoboPF/t3-f9097ac4
++cd "$out/checkout-validacion" || exit 1
++for f in docs/procedencia/auditorias/actividades-economicas-2025/especificacion-implementacion.json docs/procedencia/correcciones/integracion-ronda10/caracterizacion-python.json docs/procedencia/implementaciones/redondeos-legacy/excel.json docs/procedencia/implementaciones/redondeos-legacy/python-oracle.json docs/procedencia/implementaciones/redondeos-legacy/excel-ampliado.json; do
++ mkdir -p "$(dirname "$f")"
++ cp "$src/$f" "$f"
++done
++bun run lint > "$out/lint-final.log" 2>&1
++echo lint:$?
++bun run typecheck > "$out/typecheck-final.log" 2>&1
++echo tipos:$?
++cp "$out/sondeos.mjs" scripts/revision-conexion-sondeos.mjs
++cp "$out/precision.mjs" scripts/revision-conexion-precision.mjs
++bun node_modules/oxlint/bin/oxlint scripts/revision-conexion-sondeos.mjs scripts/revision-conexion-precision.mjs > "$out/lint-instrumentos-final.log" 2>&1
++echo oxlintInstrumentos:$?
++bun node_modules/eslint/bin/eslint.js scripts/revision-conexion-sondeos.mjs scripts/revision-conexion-precision.mjs >> "$out/lint-instrumentos-final.log" 2>&1
++echo eslintInstrumentos:$?
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/cotejar.py b/docs/procedencia/revisiones/conexion-anual-v1/cotejar.py
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/cotejar.py
+@@ -0,0 +1,14 @@
++from pathlib import Path
++import hashlib,json,subprocess
++root=Path('/home/elies/.t3/worktrees/IRoboPF/t3-f9097ac4');out=Path(__file__).parent
++m=json.loads((root/'docs/procedencia/implementaciones/conexion-anual/manifiesto.json').read_text())
++result=[]
++for r in m['archivos']:
++ p=root/r['path'];b=p.read_bytes();h=hashlib.sha256(b).hexdigest()
++ result.append(dict(path=r['path'],entregado=r['sha256'],integrado=h,size=len(b),coincide=h==r['sha256']))
++p=root/'lib/dominio/irpf/trabajo-anual/conexion.ts'
++b=p.read_text().replace('instancia: instancia,','instancia,').encode()
++result.append(dict(prueba='única diferencia conexion.ts es instancia explícita',coincide=hashlib.sha256(b).hexdigest()==next(r['sha256'] for r in m['archivos'] if r['path'].endswith('/conexion.ts'))))
++(out/'cotejo-entrega.json').write_text(json.dumps(result,indent=2))
++cat=json.loads((root/'lib/procedencia/rastro-generado.json').read_text());print('Bindings:',len(cat['bindings']),'nuevos:',sum(b['siteId'].startswith('anual.explicito.') for b in cat['bindings']))
++print([r for r in result if not r['coincide']])
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/lint-real.py b/docs/procedencia/revisiones/conexion-anual-v1/lint-real.py
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/lint-real.py
+@@ -0,0 +1,9 @@
++from pathlib import Path
++import json,shutil
++out=Path(__file__).parent;root=Path('/home/elies/.t3/worktrees/IRoboPF/t3-f9097ac4');target=out/'lint-input';target.mkdir(exist_ok=True)
++config=json.loads((root/'.oxlintrc.json').read_text());config['jsPlugins']=[str(out/'checkout-validacion'/p) for p in config['jsPlugins']]
++(target/'.oxlintrc.json').write_text(json.dumps(config,indent=2))
++shutil.copy2(root/'eslint.config.mjs',target/'eslint.config.mjs')
++for r in json.loads((root/'docs/procedencia/implementaciones/conexion-anual/manifiesto.json').read_text())['archivos'][:6]:
++ p=target/r['path'];p.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(root/r['path'],p)
++for name in ['sondeos.mjs','precision.mjs','rojos.mjs']:shutil.copy2(out/name,target/name)
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/manifiestar.py b/docs/procedencia/revisiones/conexion-anual-v1/manifiestar.py
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/manifiestar.py
+@@ -0,0 +1,34 @@
++from pathlib import Path
++import os,json,hashlib,subprocess,difflib
++out=Path(__file__).parent;root=Path('/home/elies/.t3/worktrees/IRoboPF/t3-f9097ac4');base='eaed990c620b5fc4d3ff2e74dc68e0c8481c43db'
++sha=lambda b:hashlib.sha256(b).hexdigest()
++paths=subprocess.check_output(['git','ls-tree','-r','--name-only',base],cwd=root,text=True).splitlines()
++links=[{'path':p,'destino':os.readlink(root/p),'destinoExiste':(root/p).exists()} for p in paths if (root/p).is_symlink()]
++pre={'base':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'archivosBase':len(paths),'ausentes':[p for p in paths if not os.path.lexists(root/p)],'enlaces':links,'gitStatus':subprocess.check_output(['git','status','--short'],cwd=root,text=True)}
++assert pre['base']==base and not pre['ausentes'] and not pre['gitStatus']
++(out/'preflight-final.json').write_text(json.dumps(pre,indent=2))
++traces=json.loads((out/'rastro.json').read_text());sites={l['origen']['siteId'] for r in traces for l in r['lineas']};assert len(sites)==16
++for r in traces:
++ assert len({l['origen']['instanceId'] for l in r['lineas']})==len(r['lineas'])
++ assert all(l['tipo']=='Step' for l in r['resolucionManual'])
++assert next(l['origen']['decimal'] for l in traces[0]['lineas'] if l['origen']['siteId']=='anual.explicito.big')=='10291.0275'
++(out/'rastro-controles.json').write_text(json.dumps({'sitiosNuevos':sorted(sites),'decimalesEInstanciasCorrectos':True,'fichasResuelven':True,'contextoAusente':all(r['contexto'] is None for r in traces),'enlacesOriginales':sum(l.get('procedencia',{}).get('estado')=='enlazada' for r in traces for l in r['lineas'])},indent=2))
++sourcepaths=json.loads((root/'docs/procedencia/implementaciones/conexion-anual/manifiesto.json').read_text())['archivos'][:6]
++sources=[]
++for r in sourcepaths:
++ p=root/r['path'];b=p.read_bytes();original=subprocess.check_output(['git','show',base+':'+r['path']],cwd=root)
++ sources.append(dict(path=r['path'],sha256=sha(b),size=len(b),baseSha256=sha(original)))
++(out/'fuentes-revisadas.json').write_text(json.dumps(sources,indent=2))
++prefix='docs/procedencia/revisiones/conexion-anual-v1/'
++patch=''
++for p in sorted(out.iterdir()):
++ if p.is_file() and p.suffix in ['.md','.py','.mjs','.sh']:
++  rel=prefix+p.name;patch+='diff --git a/'+rel+' b/'+rel+'\nnew file mode 100644\n';patch+=''.join(difflib.unified_diff([],p.read_text().splitlines(True),fromfile='/dev/null',tofile='b/'+rel))
++(out/'entrega.patch').write_text(patch)
++files=[]
++for p in sorted(out.rglob('*')):
++ if p.name=='node_modules' or 'node_modules' in p.parts or p==out/'manifiesto.json':continue
++ if p.is_file():
++  b=p.read_bytes();files.append(dict(path=prefix+str(p.relative_to(out)),sha256=sha(b),size=len(b),baseSha256=None))
++(out/'manifiesto.json').write_text(json.dumps({'base':base,'archivos':files,'borrados':[],'excluidos':['manifiesto.json (autorrefencia)','checkout-validacion/node_modules (enlace a dependencias, no entrega)'],'implementacionModificada':False},indent=2))
++print(json.dumps({'archivos':len(files),'bytes':sum(r['size'] for r in files),'ausentes':pre['ausentes'],'sitios':len(sites)}))
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/precision.mjs b/docs/procedencia/revisiones/conexion-anual-v1/precision.mjs
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/precision.mjs
+@@ -0,0 +1,21 @@
++import { readFileSync, writeFileSync } from 'node:fs';
++import Decimal from 'decimal.js';
++import { Effect } from 'effect';
++import { liquidarIrpfAnualExplicito } from '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1/checkout-validacion/lib/dominio/irpf/trabajo-anual/conexion.ts';
++import { calcularDeduccionTrabajo } from '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1/checkout-validacion/lib/dominio/irpf/trabajo-anual/calcular.ts';
++const dir=import.meta.dirname;
++const cases=JSON.parse(readFileSync(dir+'/casos.json','utf8'));
++const out=[];
++for (const precision of [20,60,80]) {
++ Decimal.set({precision});
++ for (const id of ['cuota-publicada-centimo','eds-10000-importes-maximos']) {
++  const c=cases.find(c=>c.id===id);
++  const exit=Effect.runSyncExit(liquidarIrpfAnualExplicito(c.entrada));
++  out.push({id,precision,exit:exit._tag==='Success'?{base:exit.value.baseImponibleGeneral,cuota:exit.value.cuotaLiquidaLegal,presentada:exit.value.cuotaDiferencialPresentada}:exit});
++ }
++}
++Decimal.set({precision:20});
++const d=calcularDeduccionTrabajo({regla:'da61',ambito:'comun-individual',ejercicio:2025,brutoServicios:'16576.01',otrasRentasNoExentas:'0',netoReducidoServicios:'10291.0275',baseLiquidableGeneral:'10291.0275',cuotaIntegraGeneral:'818.819700000000000000000000000000000000000000000000000000000001',cuotaLiquidaTotal:'818.819700000000000000000000000000000000000000000000000000000001',cuotaTrasArt80:'818.819700000000000000000000000000000000000000000000000000000001',etapa:'despues-art80-sin-deduccion-trabajo',calificacion:'laboral-estatutaria-acreditada'});
++out.push({id:'magnitud-60-decimales',resultado:d});
++writeFileSync(dir+'/precision.json',JSON.stringify(out,null,2));
++console.log(JSON.stringify(out,null,2));
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/preparar.py b/docs/procedencia/revisiones/conexion-anual-v1/preparar.py
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/preparar.py
+@@ -0,0 +1,96 @@
++from pathlib import Path
++from decimal import Decimal as D, getcontext, ROUND_HALF_UP
++from copy import deepcopy
++import json
++getcontext().prec=120
++out=Path(__file__).parent
++root=Path('/home/elies/.t3/worktrees/IRoboPF/t3-f9097ac4')
++a=dict(ejercicio=2025,comunidadAutonoma='madrid',edad=40,modalidad='individual',residenciaTodoElAnio=True,devengo='2025-12-31',otrasRentas='ninguna',familiaresConDerechoMinimo='ninguno',discapacidad='ninguna',reduccionesBase='ninguna',saldosAnteriores='ninguno',deducciones='solo-da61-si-procede',rentasExtranjeras='ninguna',especialidades='ninguna')
++def trabajo(bruto='16576.01',clase='empleo-laboral'):
++ return dict(a,perfil='solo-trabajo',conciliacion=dict(ejercicio=2025,estado='totales-anuales-sin-duplicados',procedencia=['sintetico#2025']),retenciones=[],trabajo=dict(ejercicio=2025,territorio='comun',reduccionesArt18='ninguna',movilidad='ninguna',discapacidadActiva='ninguna',rendimientos=[dict(id='r1',clase=clase,integro=bruto,cotizaciones=dict(clase='efectivas',seguridadSocial='0',derechosPasivos='0',colegiosHuerfanos='0'),sindicato=dict(importe='0',satisfecho='no'),colegio=dict(importe='0',satisfecho='no',obligatorio='no',finesEsenciales='no'),defensa=dict(importe='0',satisfecho='no',litigioDirectoPagador='no'))]))
++def cuota(b):
++ b=max(D(0),D(b))
++ def escala(x,rows):
++  lo,q,t=next(r for r in reversed(rows) if x>=D(r[0])); return D(q)+(x-D(lo))*D(t)
++ e=[('0','0','.095'),('12450','1182.75','.12'),('20200','2112.75','.15'),('35200','4362.75','.185'),('60000','8950.75','.225'),('300000','62950.75','.245')]
++ m=[('0','0','.085'),('13362.22','1135.79','.107'),('19004.63','1739.53','.128'),('35425.68','3841.42','.174'),('57320.40','7651.10','.205')]
++ return escala(b,e)-escala(min(b,D(5550)),e)+escala(b,m)-escala(min(b,D('5956.65')),m)
++def expected(c):
++ rs=c['trabajo']['rendimientos']; bruto=sum(D(r['integro']) for r in rs)
++ ss=sum(sum(D(r['cotizaciones'][k]) for k in ['seguridadSocial','derechosPasivos','colegiosHuerfanos']) for r in rs)
++ sind=sum(D(r['sindicato']['importe']) for r in rs if r['sindicato']['satisfecho']=='si')
++ colegio=min(D(500),sum(D(r['colegio']['importe']) for r in rs if all(r['colegio'][k]=='si' for k in ['satisfecho','obligatorio','finesEsenciales'])))
++ defensa=min(D(300),sum(D(r['defensa']['importe']) for r in rs if all(r['defensa'][k]=='si' for k in ['satisfecho','litigioDirectoPagador'])))
++ previo=bruto-ss-sind-colegio-defensa; neto=previo-min(D(2000),max(D(0),previo))
++ red=D(7302) if previo<=14852 else D(7302)-D('1.75')*(previo-14852) if previo<=D('17673.52') else D('2364.34')-D('1.14')*(previo-D('17673.52')) if previo<D('19747.50') else D(0)
++ red=min(max(neto,D(0)),red); neto-=red
++ q=cuota(neto); ded=min(q,max(D(0),D(340)-max(D(0),bruto-16576)*D('.2'))) if rs[0]['clase']!='pension' and bruto>0 else D(0)
++ ret=sum(D(r['importe']) for r in c['retenciones']); diff=q-ded-ret
++ return {k:format(v,'f') for k,v in dict(baseImponibleGeneral=neto,baseLiquidableGeneral=neto,reduccionArt20=red,cuotaLiquidaLegal=q,deduccionTrabajo=ded,cuotaDiferencial=diff).items()}
++cases=[]
++def add(id,c,reject=False,exp=None): cases.append(dict(id=id,entrada=c,rechazo=reject,esperado={} if reject else exp if exp is not None else expected(c)))
++for clase in ['empleo-laboral','pension']:
++ for b in ['0','0.01','14851.99','14852','14852.01','16576','16576.01','17673.52','17673.53','18275.99','18276','19747.49','19747.50','25000','60000','999999999999.99']:
++  add(clase+'-'+b,trabajo(b,clase))
++for edad in [17,18,64,65,18.5]:
++ c=trabajo();c['edad']=edad;add('edad-'+str(edad),c,edad not in [18,64])
++for k,v in dict(ejercicio=2026,modalidad='conjunta',comunidadAutonoma='andalucia',residenciaTodoElAnio=False,devengo='2025-12-30',otrasRentas='presentes',extra='x').items():
++ c=trabajo();c[k]=v;add('alcance-'+k,c,True)
++for k in ['conciliacion','trabajo','retenciones']:
++ c=trabajo();c[k]=None;add('null-'+k,c,True)
++c=trabajo();c['conciliacion']['procedencia']=[];add('sin-procedencia',c,True)
++c=trabajo();c['trabajo']['rendimientos'][0]['extra']=1;add('extra-anidado',c,True)
++for b in ['-1','NaN','Infinity','1e4','16576.001']:
++ add('importe-'+b,trabajo(b),True)
++for clase in ['pension','empleo-estatutario']:
++ c=trabajo();r=deepcopy(c['trabajo']['rendimientos'][0]);r.update(id='r2',clase=clase);c['trabajo']['rendimientos'].append(r);add('mezcla-'+clase,c,clase=='pension')
++c=trabajo('20000');r=c['trabajo']['rendimientos'][0];r['cotizaciones']['seguridadSocial']='1200';r['sindicato']=dict(importe='600',satisfecho='si');r['colegio']=dict(importe='400',satisfecho='si',obligatorio='si',finesEsenciales='si');r['defensa']=dict(importe='250',satisfecho='si',litigioDirectoPagador='si');r2=deepcopy(r);r2['id']='r2';c['trabajo']['rendimientos'].append(r2);add('gastos-dos-pagadores',c)
++c=trabajo('0');c['trabajo']['rendimientos'][0]['cotizaciones']['seguridadSocial']='300';add('perdida',c)
++c=trabajo();c['trabajo']['rendimientos'][0]['cotizaciones']['clase']='estimadas';add('ss-estimada',c,True)
++for variant in ['iguales','duplicadas','estimadas','otro-ejercicio']:
++ c=trabajo();c['retenciones']=[dict(operacionId='op'+str(i),procedencia='sintetico#'+str(i),ejercicio=2025,importe='100',efectiva=True) for i in range(2)]
++ if variant=='duplicadas': c['retenciones'][1]['operacionId']='op0'
++ if variant=='estimadas': c['retenciones'][0]['efectiva']=False
++ if variant=='otro-ejercicio': c['retenciones'][0]['ejercicio']=2024
++ add('ret-'+variant,c,variant!='iguales')
++for clase in ['empleo-laboral','pension']:
++ c=trabajo('999999999999.99',clase);r=deepcopy(c['trabajo']['rendimientos'][0]);r['id']='r2';c['trabajo']['rendimientos'].append(r);add('agregado-extremo-'+clase,c)
++# Solo reutilizamos estructura de entrada anterior; expectativas de conexión nuevas.
++base=json.loads((root/'docs/procedencia/revisiones/actividades-implementacion/casos-independientes.json').read_text())[0]['entrada']
++for b in ['0','5550','5956.65','10000','40000','999999999999.99']:
++ e=deepcopy(base);e.update(ingresos=[],gastos=[],reta=[],activos=[],retenciones=[],pagosFraccionados=[],aplicarInicio=False,aplicarRentasBajas=False)
++ e['ingresos']=[dict(id='factura',justificante='factura',fecha='2025-06-01',base=b,iva='0',ivaRecuperable='0',afectacionExclusiva=True,registrado=True,categoria='servicio',clienteId='cliente',sujetoRetencion=True,rectificativa=False)]
++ net=D(b)-min(D(2000),D(b)*D('.05'));q=cuota(net)
++ add('eds-'+b,dict(a,perfil='solo-actividad-eds',actividad=e),exp={'baseImponibleGeneral':str(net),'cuotaLiquidaLegal':str(q)})
++(out/'casos.json').write_text(json.dumps(cases,indent=2))
++e=deepcopy(cases[-2]['entrada']['actividad'])
++e['ingresos'][0]['base']='20000'
++e['reta']=[dict(id='reta',justificante='extracto#op',fecha='2025-06-30',importe='300',tipo='ordinaria',propia=True,efectiva=True,periodo='2025-06')]
++e['retenciones']=[dict(id='ret',justificante='cert',fecha='2025-12-31',operacionId='op-ret',ingresoId='factura',importe='1000',efectiva=True)]
++e['pagosFraccionados']=[dict(id='pago',justificante='130',fecha='2026-01-20',operacionId='op-130',periodo='2025-4T',modelo='130',importe='100',efectivo=True)]
++for opcion,inicio,net in [('gastos-dificiles',False,'18715'),('gastos-dificiles',True,'14972'),('cliente-unico',False,'17645.85'),('cliente-unico',True,'14116.68')]:
++ c=dict(a,perfil='solo-actividad-eds',actividad=deepcopy(e));c['actividad'].update(opcion=opcion,aplicarInicio=inicio)
++ # RN=19700; adicional 6498 - (19700-14047.5)*1.14 =54.15; R32=2054.15.
++ add('eds-reta-'+opcion+'-'+str(inicio),c,exp={'baseImponibleGeneral':net,'cuotaDiferencial':str(cuota(net)-1100),'retenciones':'1000','pagosFraccionados':'100'})
++for variant in ['duplicado-pago','estimada','extra','mixto','reta-duplicada']:
++ c=dict(a,perfil='solo-actividad-eds',actividad=deepcopy(e))
++ if variant=='duplicado-pago':c['actividad']['pagosFraccionados'][0]['operacionId']='op-ret'
++ if variant=='estimada':c['actividad']['retenciones'][0]['efectiva']=False
++ if variant=='extra':c['actividad']['retenciones'][0]['extra']=1
++ if variant=='mixto':c['trabajo']=trabajo()['trabajo']
++ if variant=='reta-duplicada':
++  c['actividad']['gastos']=[dict(id='g',justificante='extracto#op',fecha='2025-06-30',base='300',iva='0',ivaRecuperable='0',afectacionExclusiva=True,registrado=True,categoria='alquiler-local',correlacion=True,rectificativa=False)]
++ add('eds-rechaza-'+variant,c,True)
++c=dict(a,perfil='solo-actividad-eds',actividad=deepcopy(e));c['actividad'].update(ingresos=[],retenciones=[],pagosFraccionados=[]);add('eds-perdida-reta',c,exp={'baseImponibleGeneral':'-300','cuotaDiferencial':'0'})
++old=json.loads((root/'docs/procedencia/revisiones/actividades-implementacion/casos-independientes.json').read_text())
++activo=next(r['entrada']['activos'][0] for r in old if r['entrada']['activos'])
++c=dict(a,perfil='solo-actividad-eds',actividad=deepcopy(e));c['actividad']['activos']=[activo];add('eds-activo-excluido',c,True)
++(out/'casos.json').write_text(json.dumps(cases,indent=2))
++c=deepcopy(next(r['entrada'] for r in cases if r['id']=='eds-999999999999.99'))
++c['actividad']['ingresos']=[dict(c['actividad']['ingresos'][0],id='i'+str(i),justificante='f'+str(i)) for i in range(10000)]
++net=D('999999999999.99')*10000-2000
++add('eds-10000-importes-maximos',c,exp={'baseImponibleGeneral':str(net),'cuotaLiquidaLegal':str(cuota(net))})
++(out/'casos.json').write_text(json.dumps(cases,indent=2))
++add('cuota-publicada-centimo',trabajo('25000.02'))
++cases[-1]['esperado']['cuotaDiferencialPresentada']=str(D(cases[-1]['esperado']['cuotaDiferencial']).quantize(D('.01'),rounding=ROUND_HALF_UP))
++(out/'casos.json').write_text(json.dumps(cases,indent=2))
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/primarias.py b/docs/procedencia/revisiones/conexion-anual-v1/primarias.py
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/primarias.py
+@@ -0,0 +1,18 @@
++from pathlib import Path
++import subprocess,hashlib,json
++out=Path(__file__).parent
++root=Path('/home/elies/.t3/worktrees/IRoboPF/t3-f9097ac4')
++cas=Path('/home/elies/Repos/IRoboPF/.cache/procedencia/sha256')
++records=json.loads((root/'docs/procedencia/revisiones/actividades-implementacion/primarias.json').read_text())
++records=[r for r in records if r['id'] in ['ley26-2014','ley31-2022','lirpf-original','rd633-2015','ley11-2013']]
++records[0]['paginas']=[[11,12],[17,19]]
++records += [dict(id='da61',sha256='9657d0c565a0b0017bee94f8544da006109f54f06286c15a0496ed4f1a3e38ac',paginas=[[46,47]])]
++records += [dict(id='madrid-ley13-2023',sha256='502aa027788673d8f653c2cd8ce87038630a7dab13b63d625c5905bd1a5ce8de',paginas=[[2,5],[14,14]])]
++manifest=[]
++for r in records:
++ p=cas/r['sha256']; data=p.read_bytes();assert hashlib.sha256(data).hexdigest()==r['sha256']
++ for lo,hi in r['paginas']:
++  target=out/f"original-{r['id']}-{lo}-{hi}.txt"
++  subprocess.run(['pdftotext','-layout','-f',str(lo),'-l',str(hi),str(p),str(target)],check=True)
++ manifest.append(dict(r,size=len(data),sha512=hashlib.sha512(data).hexdigest(),path=str(p)))
++(out/'originales-reabiertos.json').write_text(json.dumps(manifest,indent=2))
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/rojos.mjs b/docs/procedencia/revisiones/conexion-anual-v1/rojos.mjs
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/rojos.mjs
+@@ -0,0 +1,18 @@
++import { readFileSync, writeFileSync } from 'node:fs';
++import assert from 'node:assert/strict';
++const dir=import.meta.dirname;
++const resultados=JSON.parse(readFileSync(dir+'/resultados.json','utf8'));
++const rastros=JSON.parse(readFileSync(dir+'/rastro.json','utf8'));
++const pruebas=[
++ ['CAV1-01',()=>assert.equal(resultados.find(r=>r.id==='cuota-publicada-centimo').exit.value.cuotaDiferencialPresentada,'3750.13')],
++ ['CAV1-02-contexto',()=>assert.deepEqual(rastros[0].contexto,{anio:2025,territorio:'madrid',perfilCalculo:'solo-trabajo'})],
++ ['CAV1-02-enlaces',()=>assert.equal(rastros.every(r=>r.lineas.every(l=>l.procedencia?.estado==='enlazada')),true)],
++ ['CAV1-03',()=>assert.equal(resultados.find(r=>r.id==='agregado-extremo-empleo-laboral').exit._tag,'Success')],
++];
++const rojos=[];
++for(const [id,ejecutar] of pruebas){
++ try{ejecutar();rojos.push({id,estado:'verde'});}catch(error){rojos.push({id,estado:'rojo',error:String(error)});}
++}
++writeFileSync(dir+'/rojos.json',JSON.stringify(rojos,null,2));
++console.log(JSON.stringify(rojos,null,2));
++process.exitCode=rojos.some(r=>r.estado==='rojo')?1:0;
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/sondeos.mjs b/docs/procedencia/revisiones/conexion-anual-v1/sondeos.mjs
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/sondeos.mjs
+@@ -0,0 +1,26 @@
++import { readFileSync, writeFileSync } from 'node:fs';
++import { Effect, Cause } from 'effect';
++import Decimal from 'decimal.js';
++import { liquidarIrpfAnualExplicito } from '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1/checkout-validacion/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts';
++import { enlazarRastroAnualActual } from '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1/checkout-validacion/lib/procedencia/rastro-anual.ts';
++import { resolver } from '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1/checkout-validacion/lib/procedencia/almacen.ts';
++const dir='/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1';
++const cases=JSON.parse(readFileSync(dir+'/casos.json','utf8'));
++const results=cases.map(c=>{
++ const exit=Effect.runSyncExit(liquidarIrpfAnualExplicito(c.entrada));
++ const serialized=JSON.parse(JSON.stringify(exit)); if (exit._tag==='Failure') serialized.diagnostico=Cause.pretty(exit.cause);
++ const ok=exit._tag==='Success' ? !c.rechazo && Object.entries(c.esperado).every(([k,v])=>new Decimal(exit.value[k]).eq(v)) : c.rechazo && JSON.stringify(serialized).includes('ResultadoNoSoportado') && !JSON.stringify(serialized).includes('"Die"');
++ return {id:c.id,ok,esperado:c.esperado,exit:serialized};
++});
++writeFileSync(dir+'/resultados.json',JSON.stringify(results,null,2));
++const traces=results.filter(r=>r.id==='empleo-laboral-16576.01' && r.exit._tag==='Success').concat(results.filter(r=>r.id==='eds-10000' && r.exit._tag==='Success')) .map(r=>{
++ const raw=r.exit.value.rastro;
++ const linked=enlazarRastroAnualActual(raw);
++ return {id:r.id,contexto:raw.contexto??null,lineas:raw.pasos.flatMap(p=>p.lineasCalculo??[]),resolucionManual:linked.pasos.flatMap(p=>p.lineasCalculo??[]).map(l=>({origen:l.origen,procedencia:l.procedencia,tipo:resolver(l.procedencia.snapshot,l.procedencia.sujeto.id,l.procedencia.sujeto.revision)?.tipo}))};
++});
++writeFileSync(dir+'/resultados.json',JSON.stringify(results,null,2));
++writeFileSync(dir+'/rastro.json',JSON.stringify(traces,null,2));
++console.log(JSON.stringify({total:results.length,discrepancias:results.filter(r=>!r.ok).map(r=>({id:r.id,esperado:r.esperado,salida:r.exit.value ? {base:r.exit.value.baseImponibleGeneral,cuota:r.exit.value.cuotaLiquidaLegal,diferencial:r.exit.value.cuotaDiferencial,presentada:r.exit.value.cuotaDiferencialPresentada} : r.exit.cause})),rastro:traces.map(r=>({id:r.id,contexto:r.contexto,lineas:r.lineas.length,enlazadas:r.lineas.filter(l=>l.procedencia?.estado==='enlazada').length,resolubles:r.resolucionManual.filter(l=>l.tipo==='Step').length}))},null,2));
++process.exitCode=results.some(r=>!r.ok)?1:0;
++import { verificarRastroGenerado } from './checkout-validacion/scripts/procedencia/rastro-verificar.mjs';
++writeFileSync(dir+'/catalogo-verificacion.json',JSON.stringify(verificarRastroGenerado('/home/elies/.t3/worktrees/IRoboPF/t3-f9097ac4'),null,2));
+diff --git a/docs/procedencia/revisiones/conexion-anual-v1/validar.sh b/docs/procedencia/revisiones/conexion-anual-v1/validar.sh
+new file mode 100644
+--- /dev/null
++++ b/docs/procedencia/revisiones/conexion-anual-v1/validar.sh
+@@ -0,0 +1,12 @@
++#!/usr/bin/env bash
++set +e
++out=/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1
++cd "$out/checkout-validacion" || exit 1
++bun run test tests/conexion-anual.test.ts --maxWorkers=1 > "$out/tests-autor.log" 2>&1
++echo tests:$?
++bun run lint > "$out/lint.log" 2>&1
++echo lint:$?
++bun run typecheck > "$out/typecheck.log" 2>&1
++echo tipos:$?
++bun run test:lint > "$out/anti-slop.log" 2>&1
++echo reglas:$?

@@ -1,0 +1,183 @@
+[
+  {
+    "id": "RTM01",
+    "domain": "seguridad-social-redondeo",
+    "years": [
+      2025,
+      2026
+    ],
+    "status": "missing",
+    "title": "Contrato mensual ausente, no error normativo del perfil analítico",
+    "reason": "La API real declara redondeoTgss pendiente y produce 673.42246/132.74372. No admite meses variables ni reparto de céntimos.",
+    "rules": [
+      "R05",
+      "R06"
+    ],
+    "itemIds": [],
+    "engineLocations": [
+      "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts"
+    ],
+    "proposedTest": "Conservar experimentos independientes; prueba normativa mensual solo tras cerrar R05/R06/R10",
+    "legacyComparison": "No se cambia oracle; CX-02 ya corregido históricamente",
+    "review": {
+      "status": "pendiente",
+      "requires": "revisión NUEVA independiente"
+    },
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "RTM02",
+    "domain": "seguridad-social-redondeo",
+    "years": [
+      2025,
+      2026
+    ],
+    "status": "match",
+    "title": "Representabilidad discriminante",
+    "reason": "13250000 céntimos /12 deja resto 8. Ocho importes 11041.67 y cuatro 11041.66 conservan total; doce de 11041.67 suman 132500.04. Asignación temporal ilustrativa, no hecho de nómina.",
+    "rules": [
+      "R01",
+      "R07"
+    ],
+    "itemIds": [],
+    "engineLocations": [
+      "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts"
+    ],
+    "proposedTest": "Conservar experimentos independientes; prueba normativa mensual solo tras cerrar R05/R06/R10",
+    "legacyComparison": "No se cambia oracle; CX-02 ya corregido históricamente",
+    "review": {
+      "status": "pendiente",
+      "requires": "revisión NUEVA independiente"
+    },
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "RTM03",
+    "domain": "seguridad-social-redondeo",
+    "years": [
+      2025,
+      2026
+    ],
+    "status": "ambiguous",
+    "title": "Cifra de captura no acepta redondeo",
+    "reason": "673.44/132.84 coincide con HALF_UP por tres conceptos y pagador al mes; no prueba empate ni ajustes.",
+    "rules": [
+      "R02",
+      "R05"
+    ],
+    "itemIds": [],
+    "engineLocations": [
+      "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts"
+    ],
+    "proposedTest": "Conservar experimentos independientes; prueba normativa mensual solo tras cerrar R05/R06/R10",
+    "legacyComparison": "No se cambia oracle; CX-02 ya corregido históricamente",
+    "review": {
+      "status": "pendiente",
+      "requires": "revisión NUEVA independiente"
+    },
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "RTM04",
+    "domain": "seguridad-social-redondeo",
+    "years": [
+      2025,
+      2026
+    ],
+    "status": "match",
+    "title": "Tramo temporal no es tramo de solidaridad",
+    "reason": "BNR07/2024 p3 exige tres conceptos siempre en primer tramo temporal, incluso si solo cotiza empresa allí. No repartir solidaridad por cada tramo temporal.",
+    "rules": [
+      "R02"
+    ],
+    "itemIds": [],
+    "engineLocations": [
+      "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts"
+    ],
+    "proposedTest": "Conservar experimentos independientes; prueba normativa mensual solo tras cerrar R05/R06/R10",
+    "legacyComparison": "No se cambia oracle; CX-02 ya corregido históricamente",
+    "review": {
+      "status": "pendiente",
+      "requires": "revisión NUEVA independiente"
+    },
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "RTM05",
+    "domain": "seguridad-social-redondeo",
+    "years": [
+      2025,
+      2026
+    ],
+    "status": "ambiguous",
+    "title": "Ordinaria empresarial y AT/EP",
+    "reason": "18498.96 se reproduce con AT/EP agregado .015; separar IT .008 e IMS .007 redondeados produce 18499.08 bajo hipótesis HALF_UP. Falta tarifa/hechos y contrato normativo.",
+    "rules": [
+      "R10",
+      "R12"
+    ],
+    "itemIds": [],
+    "engineLocations": [
+      "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts"
+    ],
+    "proposedTest": "Conservar experimentos independientes; prueba normativa mensual solo tras cerrar R05/R06/R10",
+    "legacyComparison": "No se cambia oracle; CX-02 ya corregido históricamente",
+    "review": {
+      "status": "pendiente",
+      "requires": "revisión NUEVA independiente"
+    },
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "RTM06",
+    "domain": "seguridad-social-redondeo",
+    "years": [
+      2025,
+      2026
+    ],
+    "status": "missing",
+    "title": "Empates y acumulación pendientes",
+    "reason": "Orden2001 trata pago y empate de conversión; no basta para afirmar HALF_UP en cada producto de cuota en 2025/26.",
+    "rules": [
+      "R04",
+      "R05",
+      "R06"
+    ],
+    "itemIds": [],
+    "engineLocations": [
+      "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts"
+    ],
+    "proposedTest": "Conservar experimentos independientes; prueba normativa mensual solo tras cerrar R05/R06/R10",
+    "legacyComparison": "No se cambia oracle; CX-02 ya corregido históricamente",
+    "review": {
+      "status": "pendiente",
+      "requires": "revisión NUEVA independiente"
+    },
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "RTM07",
+    "domain": "seguridad-social-redondeo",
+    "years": [
+      2025,
+      2026
+    ],
+    "status": "match",
+    "title": "Formato de bases documentado",
+    "reason": "Fichero Bases v2.0.2 p31 especifica concepto C en céntimos. No permite transmitir 11041.666… como valor C; no demuestra precisión interna legal de una prorrata.",
+    "rules": [
+      "R01"
+    ],
+    "itemIds": [],
+    "engineLocations": [
+      "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts"
+    ],
+    "proposedTest": "Conservar experimentos independientes; prueba normativa mensual solo tras cerrar R05/R06/R10",
+    "legacyComparison": "No se cambia oracle; CX-02 ya corregido históricamente",
+    "review": {
+      "status": "pendiente",
+      "requires": "revisión NUEVA independiente"
+    },
+    "fiscalAcceptance": false
+  }
+]

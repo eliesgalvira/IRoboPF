@@ -1,0 +1,41 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2c7f4171
+
+ ❯ tests/publicacion-evidencia.test.ts (6 tests | 2 failed) 83227ms
+     × conserva v1 y verifica cierre físico, sujeto e índice v2 6314ms
+     × rechaza recibo ajeno y auxiliar corrupto 7947ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/publicacion-evidencia.test.ts > Publicación de evidencia v2 > conserva v1 y verifica cierre físico, sujeto e índice v2
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/publicacion-evidencia.test.ts:50:3
+     48|
+     49| describe("Publicación de evidencia v2", () => {
+     50|   it("conserva v1 y verifica cierre físico, sujeto e índice v2", () =>…
+       |   ^
+     51|     expect(leerSnapshot(origen, directorioContenido)?.version).toBe(1)
+     52|     expect(verificar(id, scratch).aceptacionFiscal).toBe("pendiente")
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/publicacion-evidencia.test.ts > Publicación de evidencia v2 > rechaza recibo ajeno y auxiliar corrupto
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/publicacion-evidencia.test.ts:155:3
+    153|     }
+    154|   })
+    155|   it("rechaza recibo ajeno y auxiliar corrupto", () => {
+       |   ^
+    156|     const s = leerSnapshot(id, scratch)
+    157|     if (s?.version !== 2 || s.evidencias[0] === undefined)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  2 failed | 19 passed (21)
+   Start at  15:23:17
+   Duration  98.90s (transform 208ms, setup 0ms, import 1.45s, tests 97.11s, environment 0ms)
+

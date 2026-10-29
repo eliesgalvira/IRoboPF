@@ -1,0 +1,62 @@
+$ vitest run --config .cache/revision-x/vitest.config.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-666c0a2b
+
+stdout | .cache/revision-x/casos.test.ts > CX05: tabla de retención bajo hipótesis 2026 explícitas
+[15:45:12.478] ERROR (#1): Error: {"_tag":"ResultadoNoSoportado","motivo":"Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre","fuenteReconocida":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md","rastro":{"titulo":"Procedimiento de retención de trabajo 2026","pasos":[{"_tag":"PasoExplicacion","titulo":"Caso de retención reconocido","descripcion":"El motor ha recibido rendimientos del trabajo para calcular una retención a cuenta, no una liquidación anual del IRPF.","fuentes":[{"titulo":"Contrato histórico y límites","referencia":"docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md"}]}]}}
+    at RetencionTrabajoAeat.calcular (/home/elies/.t3/worktrees/IRoboPF/t3-666c0a2b/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1055:27)
+    at RetencionTrabajoAeat.calcular (definition) (/home/elies/.t3/worktrees/IRoboPF/t3-666c0a2b/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:977:49)
+    at RetencionTrabajoAeat.calcularDesdeServicio (/home/elies/.t3/worktrees/IRoboPF/t3-666c0a2b/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1063:3)
+    at RetencionTrabajoAeat.calcularDesdeServicio (definition) (/home/elies/.t3/worktrees/IRoboPF/t3-666c0a2b/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1050:58) {
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2026',
+    pasos: [ [Object] ]
+  },
+  [cause]: undefined
+}
+
+ ❯ .cache/revision-x/casos.test.ts (5 tests | 2 failed) 27ms
+   × CX06: la API no representa el reparto entre dos titulares 5ms
+   × CX05: tabla de retención bajo hipótesis 2026 explícitas 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  .cache/revision-x/casos.test.ts > CX06: la API no representa el reparto entre dos titulares
+AssertionError: expected '5100' to be '2550' // Object.is equality
+
+Expected: "2550"
+Received: "5100"
+
+ ❯ .cache/revision-x/casos.test.ts:16:58
+     14|   // residentes, convivencia común, hijos sin rentas, declaraciones in…
+     15|   // Ambos casos colisionan en esta proyección; 2550 corresponde a cad…
+     16|   expect(obtenerMinimoDescendientes(familia).toString()).toBe("2550")
+       |                                                          ^
+     17| })
+     18| it("CX04: precisión no visible discrimina el último céntimo", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  .cache/revision-x/casos.test.ts > CX05: tabla de retención bajo hipótesis 2026 explícitas
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre',
+  fuenteReconocida: 'docs/procedencia/implementaciones/retenciones-versionadas/INFORME.md',
+  rastro: {
+    titulo: 'Procedimiento de retención de trabajo 2026',
+    pasos: [ [Object] ]
+  },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 3 passed (5)
+   Start at  15:45:11
+   Duration  810ms (transform 385ms, setup 0ms, import 669ms, tests 27ms, environment 0ms)
+
+error: script "test" exited with code 1

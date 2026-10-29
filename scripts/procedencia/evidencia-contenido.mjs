@@ -3,6 +3,7 @@ import { resolve } from "node:path"
 import { Schema } from "effect"
 import { Hash } from "../../lib/procedencia/modelo.ts"
 import { verifyLinks } from "./verificar-enlaces.mjs"
+import { FUENTES_EXPLICACION } from "./explicacion-version.mjs"
 import { readArtifact } from "./inventario-artefacto.mjs"
 import { baseFicha } from "./contenido-generar.mjs"
 import {
@@ -22,7 +23,7 @@ const fixtures = "docs/procedencia/corpus/fixtures/sha256/"
 const json = (bytes) => JSON.parse(bytes.toString("utf8"))
 function leer(root, path) {
   if (
-    !/^[a-zA-Z0-9_./-]+$/.test(path) ||
+    !/^[a-zA-Z0-9_./\[\]-]+$/.test(path) ||
     path.split("/").includes("..") ||
     path.startsWith("/")
   )
@@ -48,6 +49,7 @@ export function prepararEntrada(root, snapshot) {
     almacen + snapshot,
     "package.json",
     "bun.lock",
+    ...FUENTES_EXPLICACION,
   ])
   const manifest = json(leer(root, inventario))
   paths.add("docs/procedencia/" + manifest.artifact.file)
@@ -57,7 +59,12 @@ export function prepararEntrada(root, snapshot) {
       withFileTypes: true,
     })) {
       const child = path + "/" + entry.name
-      if (entry.name.startsWith(".") || entry.name === "__pycache__") continue
+      if (
+        entry.name.startsWith(".") ||
+        entry.name === "__pycache__" ||
+        entry.name === "rastro-generado.json"
+      )
+        continue
       if (entry.isDirectory()) directorio(child)
       else if (/\.(mjs|ts|py|json|nix|lock|toml|sh)$/.test(child))
         paths.add(child)
@@ -298,6 +305,8 @@ export async function generarEvidencia(root, entrada) {
   }
   verificarGrafo(entradas, new Set(objetos.keys()))
   comprobarEntrada(root, entrada)
+  for (const dependency of entrada.dependencias)
+    guardar(leer(root, dependency.path))
   const informe = { version: 1, entrada, estados, entradas }
   const revision = guardar(JSON.stringify(informe))
   return { revision, informe, objetos }

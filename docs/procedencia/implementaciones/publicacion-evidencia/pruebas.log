@@ -1,0 +1,27 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2c7f4171
+
+ ❯ tests/publicacion-evidencia.test.ts (6 tests | 6 skipped) 20238ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/publicacion-evidencia.test.ts [ tests/publicacion-evidencia.test.ts ]
+Error: Dependencia alterada: scripts/procedencia/contenido-verificar.mjs
+ ❯ comprobarEntrada scripts/procedencia/evidencia-contenido.mjs:119:13
+    117|     seen.add(dependency.path)
+    118|     if (hash(leer(root, dependency.path)) !== dependency.sha256)
+    119|       throw new Error("Dependencia alterada: " + dependency.path)
+       |             ^
+    120|   }
+    121|   const actual = prepararEntrada(root, entrada.snapshot)
+ ❯ generarEvidencia scripts/procedencia/evidencia-contenido.mjs:136:3
+ ❯ publicar scripts/procedencia/contenido-publicar.mjs:21:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  13 passed | 6 skipped (19)
+   Start at  15:18:08
+   Duration  36.36s (transform 209ms, setup 0ms, import 1.06s, tests 35.09s, environment 0ms)
+

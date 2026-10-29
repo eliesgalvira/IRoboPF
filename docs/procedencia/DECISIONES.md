@@ -204,3 +204,19 @@ Las copias temporales de ejecución de los revisores permanecen en disco, fuera 
 ## D042 — Correcciones públicas como afirmaciones contrastables
 
 Se conservan posts verificados, imágenes originales y transcripciones por corrección, separados del corpus oficial. Objeción: una anotación correcta puede mezclar tipos normativos, redondeo mensual e hipótesis familiares no declaradas. Coste: distinguir la discrepancia histórica ya corregida de los nueve casos todavía indeterminados y volver a revisar ambos grupos con primarios. No se fabrican hechos ni pruebas rojas; tampoco se trata la falta de datos como cierre del encargo. Solo se guardan handles públicos, contenido y metadatos de adquisición necesarios, sin perfiles adicionales.
+
+## D043 — Cuotas publicadas y rastro de la entrada anual
+
+Madrid 2025 usa las bases y cuotas fijas publicadas, después del rojo independiente y cuatro regresiones rojas del padre. No se infiere el régimen de fallecimiento ni otros años. El resultado explícito se enlaza al catálogo actual con contexto anual y territorial; la suma de salarios admite hasta cien entradas con su cota acumulada propia. Objeción: integrar marginales pierde los céntimos publicados, y una suma válida no debe rechazarse por reutilizar la cota de un pagador. Coste: tabla anual expresa, quince hojas nuevas y contrato agregado separado. La conexión sigue acotada a los hechos declarados y necesita contrarrevisión del cambio.
+
+## D044 — Publicación documental con cierre físico
+
+El snapshot v2 conserva por hash todas sus dependencias y publica únicamente PDF/PNG declarados. Un recibo nace del coordinador real contra el código actual; no se admite un informe autodeclarado como prueba. Búsqueda con índice verificado y una caché decodificada acotada; cada lectura relee y comprueba el hash. Objeción: un enlace a un objeto ausente o una caché que oculta mutaciones no es procedencia reproducible. Coste: almacenamiento, comprobaciones y límite de 10 MB por objeto local. La interpretación sigue candidata, el binding pendiente y la autenticidad históricamente indeterminada. Cambiar esos estados requerirá un contrato y revisión adicionales. No se promete transacción durable frente a corte eléctrico ni despliegue ya medido.
+
+## D045 — Nuevas identidades sin heredar aceptación
+
+Se remapean 264 propuestas por archivo, símbolo y ruta exactos; el valor y la unidad deben permanecer iguales. El territorio técnico se declara por pares explícitos, nunca por todo un archivo ni por igualdad numérica. Objeción: decisiones sobre representaciones legacy no cubren automáticamente hojas canónicas ni sus años. Coste: mantener originales y propuestas nuevas, y exigir otra revisión jurídica sin renombrar schemas históricos para forzar aceptación. Los siete algoritmos AEAT antiguos recuperados mediante archivos web conservan su procedencia secundaria, fechas discrepantes y tachados; no habilitan por sí solos el motor de 2012–2016.
+
+## D046 — Comparativa tabular y cobertura real de X
+
+La exportación de inflación mantiene el orden binario original hasta el redondeo final. Las 69 diferencias quedan corregidas sin tocar APIs monetarias ni el fixture anterior; las 18 hojas se contrastan con hashes extraídos independientemente del Excel. Objeción: una reproducción exacta no convierte una simplificación heredada en regla fiscal. Coste: dos contratos aritméticos expresos. La nueva revisión de X produce contraejemplos de reparto familiar y coherencia entre IRPF y neto; deben resolverse por contrato, sin dividir todos los mínimos por dos ni alterar el oracle silenciosamente. Siguen pendientes las reglas mensuales TGSS y la revisión de esas ampliaciones.

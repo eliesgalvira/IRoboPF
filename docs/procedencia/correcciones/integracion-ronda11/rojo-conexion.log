@@ -1,0 +1,82 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/conexion-anual.test.ts (29 tests | 4 failed) 36ms
+   × usa la cuota publicada de Madrid para bruto 25000.02 4ms
+   × usa la cuota publicada de Madrid para bruto 60000 1ms
+   × fija contexto y enlaces al devolver ambos perfiles anuales 2ms
+   × admite el bruto calculado de varios pagadores sin ampliar cada importe aportado 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/conexion-anual.test.ts > usa la cuota publicada de Madrid para bruto 25000.02
+AssertionError: expected '3750.12424' to be '3750.12767' // Object.is equality
+
+Expected: "3750.12767"
+Received: "3750.12424"
+
+ ❯ tests/conexion-anual.test.ts:420:30
+    418| ])("usa la cuota publicada de Madrid para bruto %s", (bruto, exacta, p…
+    419|   const r = Effect.runSync(liquidarEntradaJavaScript(trabajo(bruto)))
+    420|   expect(r.cuotaDiferencial).toBe(exacta)
+       |                              ^
+    421|   expect(r.cuotaDiferencialPresentada).toBe(presentada)
+    422| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/conexion-anual.test.ts > usa la cuota publicada de Madrid para bruto 60000
+AssertionError: expected '15337.605' to be '15337.60275' // Object.is equality
+
+Expected: "15337.60275"
+Received: "15337.605"
+
+ ❯ tests/conexion-anual.test.ts:420:30
+    418| ])("usa la cuota publicada de Madrid para bruto %s", (bruto, exacta, p…
+    419|   const r = Effect.runSync(liquidarEntradaJavaScript(trabajo(bruto)))
+    420|   expect(r.cuotaDiferencial).toBe(exacta)
+       |                              ^
+    421|   expect(r.cuotaDiferencialPresentada).toBe(presentada)
+    422| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/conexion-anual.test.ts > fija contexto y enlaces al devolver ambos perfiles anuales
+AssertionError: expected undefined to deeply equal { anio: 2025, …(2) }
+
+- Expected:
+{
+  "anio": 2025,
+  "perfilCalculo": "solo-trabajo",
+  "territorio": "madrid",
+}
+
++ Received:
+undefined
+
+ ❯ tests/conexion-anual.test.ts:427:31
+    425|   for (const caso of [trabajo(), actividad()]) {
+    426|     const r = Effect.runSync(liquidarEntradaJavaScript(caso))
+    427|     expect(r.rastro.contexto).toEqual({
+       |                               ^
+    428|       anio: 2025,
+    429|       territorio: "madrid",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/conexion-anual.test.ts > admite el bruto calculado de varios pagadores sin ampliar cada importe aportado
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'Entrada de deducción inválida o etapa incorrecta',
+  fuenteReconocida: 'docs/procedencia/implementaciones/conexion-anual/INFORME.md',
+  rastro: { titulo: 'Alcance anual explícito 2025', pasos: [] },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 25 passed (29)
+   Start at  15:46:48
+   Duration  811ms (transform 375ms, setup 0ms, import 659ms, tests 36ms, environment 0ms)
+

@@ -1,0 +1,69 @@
+$ vitest run --config .cache/revision-x/vitest.config.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-666c0a2b
+
+stdout | .cache/revision-x/casos.test.ts > CX07-B: el neto anunciado tras obligación de declarar debe usar esa cuota
+[15:47:15.342] ERROR (#19): Error [AssertionError]: expected 272959 to be 287330 // Object.is equality
+    at Array.<anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-666c0a2b/.cache/revision-x/casos.test.ts:41:49) {
+  actual: 272959,
+  expected: 287330,
+  showDiff: true,
+  operator: 'strictEqual',
+  [cause]: undefined
+}
+
+ ❯ .cache/revision-x/casos.test.ts (6 tests | 2 failed) 32ms
+   × CX06: la API no representa el reparto entre dos titulares 5ms
+   × CX07-B: el neto anunciado tras obligación de declarar debe usar esa cuota 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  .cache/revision-x/casos.test.ts > CX06: la API no representa el reparto entre dos titulares
+AssertionError: expected '5100' to be '2550' // Object.is equality
+
+Expected: "2550"
+Received: "5100"
+
+ ❯ .cache/revision-x/casos.test.ts:16:58
+     14|   // residentes, convivencia común, hijos sin rentas, declaraciones in…
+     15|   // Ambos casos colisionan en esta proyección; 2550 corresponde a cad…
+     16|   expect(obtenerMinimoDescendientes(familia).toString()).toBe("2550")
+       |                                                          ^
+     17| })
+     18| it("CX04: precisión no visible discrimina el último céntimo", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  .cache/revision-x/casos.test.ts > CX07-B: el neto anunciado tras obligación de declarar debe usar esa cuota
+AssertionError: expected 272959 to be 287330 // Object.is equality
+
+- Expected
++ Received
+
+- 287330
++ 272959
+
+ ❯ Array.<anonymous> .cache/revision-x/casos.test.ts:41:49
+     39|  const r=yield* compararAjustadoPorIpc({salarioBrutoAnualReferenciaCen…
+     40|  expect(r.comparado.salarioBrutoNominalAnualCentimos).toBeGreaterThan(…
+     41|  expect(r.comparado.ajustado.irpfFinalCentimos).toBe(r.comparado.ajust…
+       |                                                 ^
+     42| }))
+     43|
+ ❯ next ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 4 passed (6)
+   Start at  15:47:14
+   Duration  830ms (transform 376ms, setup 0ms, import 658ms, tests 32ms, environment 0ms)
+
+error: script "test" exited with code 1

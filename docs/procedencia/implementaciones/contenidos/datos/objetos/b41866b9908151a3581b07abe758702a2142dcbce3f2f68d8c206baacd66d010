@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Original de procedencia",
+  "type": "object",
+  "required": [
+    "canonicalUrl",
+    "finalUrl",
+    "retrievedAt",
+    "httpStatus",
+    "headers",
+    "sha256",
+    "sha512",
+    "size",
+    "mimeType",
+    "authenticity"
+  ],
+  "properties": {
+    "canonicalUrl": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "finalUrl": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "retrievedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "httpStatus": {
+      "const": 200
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "accept-ranges": {
+          "type": "string"
+        },
+        "cache-control": {
+          "type": "string"
+        },
+        "content-disposition": {
+          "type": "string"
+        },
+        "content-encoding": {
+          "type": "string"
+        },
+        "content-length": {
+          "type": "string"
+        },
+        "content-type": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "etag": {
+          "type": "string"
+        },
+        "expires": {
+          "type": "string"
+        },
+        "last-modified": {
+          "type": "string"
+        },
+        "vary": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sha512": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{128}$"
+    },
+    "size": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 67108864
+    },
+    "mimeType": {
+      "type": "string"
+    },
+    "authenticity": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "not-validated",
+            "unsigned",
+            "invalid",
+            "trust-indeterminate"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "checkedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tool": {
+          "const": "pdfsig"
+        },
+        "version": {
+          "type": "string"
+        },
+        "exitCode": {
+          "type": "integer"
+        },
+        "signatureValidations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "certificateValidations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "report": {
+          "type": "string"
+        },
+        "networkPolicy": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "schemaVersion": {
+      "const": 2
+    },
+    "importedFromLegacy": {
+      "type": "boolean"
+    },
+    "redirects": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  301,
+                  302,
+                  303,
+                  307,
+                  308
+                ]
+              },
+              "headers": {
+                "type": "object",
+                "properties": {
+                  "accept-ranges": {
+                    "type": "string"
+                  },
+                  "cache-control": {
+                    "type": "string"
+                  },
+                  "content-disposition": {
+                    "type": "string"
+                  },
+                  "content-encoding": {
+                    "type": "string"
+                  },
+                  "content-length": {
+                    "type": "string"
+                  },
+                  "content-type": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "etag": {
+                    "type": "string"
+                  },
+                  "expires": {
+                    "type": "string"
+                  },
+                  "last-modified": {
+                    "type": "string"
+                  },
+                  "vary": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "status",
+              "headers"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    "sourcePolicy": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "allowlisted"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "publication": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "pending"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "consolidation": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "pending"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "eli": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "pending"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "officialIdentifier": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "url-derived"
+          ]
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "csv": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "not-validated"
+          ]
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "verificationUrl": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "literal": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "page",
+            "literal"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
