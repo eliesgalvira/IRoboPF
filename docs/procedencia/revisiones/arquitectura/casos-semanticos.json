@@ -1,0 +1,197 @@
+{
+  "scope": "Fixtures y oráculos sintéticos, ninguna ejecución sobre motor/pipeline/rutas",
+  "oracleExecuted": [
+    {
+      "id": "boundary-2020-06-30",
+      "input": {
+        "variants": [
+          {
+            "revision": "a",
+            "from": "2020-01-01",
+            "to": "2020-07-01"
+          },
+          {
+            "revision": "b",
+            "from": "2020-07-01",
+            "to": "2021-01-01"
+          }
+        ],
+        "date": "2020-06-30"
+      },
+      "expected": [
+        "a"
+      ],
+      "oracleResult": [
+        "a"
+      ]
+    },
+    {
+      "id": "boundary-2020-07-01",
+      "input": {
+        "variants": [
+          {
+            "revision": "a",
+            "from": "2020-01-01",
+            "to": "2020-07-01"
+          },
+          {
+            "revision": "b",
+            "from": "2020-07-01",
+            "to": "2021-01-01"
+          }
+        ],
+        "date": "2020-07-01"
+      },
+      "expected": [
+        "b"
+      ],
+      "oracleResult": [
+        "b"
+      ]
+    },
+    {
+      "id": "boundary-2021-01-01",
+      "input": {
+        "variants": [
+          {
+            "revision": "a",
+            "from": "2020-01-01",
+            "to": "2020-07-01"
+          },
+          {
+            "revision": "b",
+            "from": "2020-07-01",
+            "to": "2021-01-01"
+          }
+        ],
+        "date": "2021-01-01"
+      },
+      "expected": [],
+      "oracleResult": []
+    },
+    {
+      "id": "cas-cycle",
+      "graph": {
+        "parameter": [
+          "derivation"
+        ],
+        "derivation": [
+          "parameter"
+        ]
+      },
+      "cycleExpected": true,
+      "oracleResult": true
+    },
+    {
+      "id": "cas-dag",
+      "graph": {
+        "parameter": [
+          "derivation"
+        ],
+        "derivation": [
+          "formula",
+          "input"
+        ],
+        "formula": [
+          "input"
+        ],
+        "input": []
+      },
+      "cycleExpected": false,
+      "oracleResult": false
+    },
+    {
+      "id": "page-self",
+      "graph": {
+        "formula": [
+          "formula"
+        ]
+      },
+      "cycleExpected": true,
+      "oracleResult": true
+    }
+  ],
+  "applicationTestsNotExecuted": [
+    {
+      "id": "cross-snapshot",
+      "input": {
+        "snapshotAllowed": [
+          "a"
+        ],
+        "bindingRevision": "b"
+      },
+      "expected": "rechazar referencia fuera de snapshot aunque b exista en CAS"
+    },
+    {
+      "id": "review-payload-change",
+      "input": {
+        "examinedValue": "10",
+        "promotedValue": "20",
+        "sameReport": true
+      },
+      "expected": "rechazar; nueva revisión sustantiva necesita informe nuevo"
+    },
+    {
+      "id": "review-partial",
+      "input": {
+        "acceptedProposition": "valor numérico",
+        "claim": "vigencia completa"
+      },
+      "expected": "needs-evidence, sin propagar aceptación"
+    },
+    {
+      "id": "inverse-variants",
+      "input": {
+        "supports": [
+          "concepto"
+        ],
+        "conceptVariants": [
+          "a",
+          "b"
+        ],
+        "directCitationFrom": [
+          "a"
+        ]
+      },
+      "expected": "solo a respaldada; b no hereda cita"
+    },
+    {
+      "id": "wrong-type",
+      "input": {
+        "ruleRefsKind": "document"
+      },
+      "expected": "rechazar aunque hash resuelva"
+    },
+    {
+      "id": "path-strip",
+      "input": {
+        "hasLocalPath": true,
+        "hashBeforeSanitizing": true
+      },
+      "expected": "publicación rechazada; recalcular todos los consumidores sobre documento público saneado"
+    },
+    {
+      "id": "recovery-report-missing",
+      "input": {
+        "allOriginals": true,
+        "missingReviewReport": true
+      },
+      "expected": "restauración incompleta; no acreditar aceptación"
+    },
+    {
+      "id": "trace-private-sentinel",
+      "input": {
+        "privateMarker": "SYNTHETIC-PRIVATE-49173",
+        "channels": [
+          "URL",
+          "query",
+          "referrer",
+          "analytics",
+          "console",
+          "error-report"
+        ]
+      },
+      "expected": "ningún canal externo contiene marcador ni hash determinista de entradas privadas"
+    }
+  ]
+}

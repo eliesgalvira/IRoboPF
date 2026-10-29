@@ -1,0 +1,63 @@
+{
+  "motor": {
+    "command": "nix shell nixpkgs#bun -c bun .cache/procedencia/revision-retenciones-2012-2019/ejecutar.ts",
+    "cases": 10,
+    "worker": 1
+  },
+  "reference": {
+    "command": "nix shell nixpkgs#python3 -c python .cache/procedencia/revision-retenciones-2012-2019/contraprueba.py",
+    "method": "Decimal, implementaci\u00f3n propia acotada desde originales, no c\u00f3digo del autor ni servicio AEAT"
+  },
+  "assertions": {
+    "command": "nix shell nixpkgs#bun -c bun .cache/procedencia/revision-retenciones-2012-2019/assertions.ts",
+    "exitCode": 1,
+    "passed": 2,
+    "failed": 8
+  },
+  "tables": {
+    "executed": 89,
+    "numericallyEqual": 81
+  },
+  "scripts": [
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/completar.py",
+      "sha256": "e4db1a50edca29e42e87fde8133112634268a49416c4e78644dc598e8efaa3e6"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/contraprueba.py",
+      "sha256": "8bd27c62cb77762e34910659fcefce92d32da16b55d225076f306ce8d4039ead"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/decidir.py",
+      "sha256": "4b38ab0eb6cd9c3dfa5a129befc3cb38d377fbb9935ffb59f8ebc7c46a5a890b"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/cadena.py",
+      "sha256": "e2b52c1a703838b3fbd974ed7a23781c04b5cd7781ad9771f71ffdae9258ea23"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/adquirir.py",
+      "sha256": "2c0d1f91b4f4c26d5429af7ba3f0e282adbb8397ac86dbb8e7291c8ca52e2ba2"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/ejecutar.ts",
+      "sha256": "f79edf340f18f15614957b8cd11f67d19e5110dabd4d66fbe77adedc02075609"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/assertions.ts",
+      "sha256": "01b54d1a6b1ec093e8ecae27fbbde2a63195b8f5252ad8364033c0866aebecd1"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/ampliar.py",
+      "sha256": "99bd96c42c1506dd9a83aebbf8a53a3a301255a33f16e1453492c455f3d1b5f9"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/tablas.ts",
+      "sha256": "0b4fe71b6183ed7d3598d5c3485c6ef8e9ea93c2466ada2d44ffa61bac30670e"
+    },
+    {
+      "path": ".cache/procedencia/revision-retenciones-2012-2019/evidencia.py",
+      "sha256": "24960772eeaed01eaeb7ce993ffb1e00518a505832decff0cb862467dba1ff18"
+    }
+  ]
+}

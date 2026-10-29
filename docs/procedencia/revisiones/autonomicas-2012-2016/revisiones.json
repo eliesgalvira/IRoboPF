@@ -1,0 +1,440 @@
+[
+  {
+    "id": "autonomicas-2012-2016-cuotas-andalucia",
+    "previousStatus": "mismatch",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "La integral continua no reproduce las cuotas fijas expresas de Andalucía en las bases de 60.000 y 120.000 euros. Se confirma el defecto de representación para 2012–2015.",
+    "acceptanceScope": "Cuota autonómica bruta y necesidad de conservar cuota fija. No se acepta una política global de redondeo ni una diferencia final universal.",
+    "evidenceUsed": "Decreto-ley 1/2012 art.2.1 (HTML original), Ley 3/2012 art.2.Dos PDF p4; historial del art.15 quáter de BOE-A-2009-14964 como índice; Ley 1/2015 DF4.1 sustituye desde 1/1/2016. Contraprueba: ejecución real y manuales 2014/2015.",
+    "objections": "La discrepancia no es artefacto de OCR: vista la tabla original sin tachados. Un mínimo puede cambiar el resultado final: objeción vigente, limita la aceptación.",
+    "requiredAction": "Preparar representación de cuota fija por fila y ejercicio; ejecutar liquidaciones con mínimos antes de integrar cualquier fix.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+        "line": 82,
+        "sha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+        "line": 82,
+        "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+        "line": 111,
+        "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 128,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "09f01627f64790629169c728da9292d81e46a99392641597d1cc93b1b1799154",
+      "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-cuotas-valencia",
+    "previousStatus": "mismatch",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "La cuota 22.304,90 a 120.000,20 no se reconstruye integrando tipos: motor 22.304,8932. La DF4.b de Ley 7/2014 sí cierra el inicio en 2014.",
+    "acceptanceScope": "Cuotas brutas de los puntos 120.000,20 y 175.000,20 para 2014–2016. No valida el resto de la liquidación.",
+    "evidenceUsed": "Ley 7/2014 art45 pp57–58 y DF4 p127; corrección BOE-A-2015-4032 p1 solo arts119/120; historial art2 Ley13/1997 como índice; Ley13/2016 art11 p60 y DF2 p120 cambia desde 1/1/2017. Contraprueba: ejecución y manuales de cada ejercicio.",
+    "objections": "Descartada la objeción de que faltaba una norma introductoria 2014 distinta: la misma ley establece la retroactividad. Publicación BOE 10/2/2015; DOGV 29/12/2014.",
+    "requiredAction": "Caso fallido propio entregado; preservar cuota fija legal, verificar exceso, mínimos y fronteras antes del fix.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+        "line": 111,
+        "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 128,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+        "line": 52,
+        "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+      "3635f93a28dc46573b98365eabff7818d11ac0a4f1f1344b8bb45c9d8cb2d720",
+      "0ed3161792ae3a79877c8d9a533447a3f04db4cd31078be29f0b2c2fefd4c70d"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-canarias-centimo",
+    "previousStatus": "ambiguous",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "needs-evidence",
+    "severity": "P2",
+    "reason": "Confirmadas diez bases inferiores con diferencia de un céntimo, cinco por ejercicio. Los tipos coinciden; no se ha obtenido un cálculo oficial discriminante del exceso.",
+    "acceptanceScope": "Solo constatación de representación, sin aceptar una modificación de fronteras.",
+    "evidenceUsed": "BOE-A-2015-1113 p73, tabla vista; filas AEAT 2015/2016 reextraídas y tablas actuales.",
+    "objections": "Desplazar límite superior 0,01 no se deduce del inicio inclusivo de fila; objeción válida.",
+    "requiredAction": "Obtener regla oficial o ejemplos a 12450,00/12450,01/12450,02 y demás fronteras, con cuota fija más exceso.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 128,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+        "line": 52,
+        "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+      "3635f93a28dc46573b98365eabff7818d11ac0a4f1f1344b8bb45c9d8cb2d720",
+      "ad5e2b7a25ea6b15f7728fe5058ba24f158fe10d01133d7da589b7937a437e6f"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-galicia-base",
+    "previousStatus": "match",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "needs-evidence",
+    "severity": "P2",
+    "reason": "La selección <=17707,20 y el salto al tipo inicial del 12% están expresos en art67; ejecución confirma ambas variantes. No se cierra aquí toda la cadena 2014–2015.",
+    "acceptanceScope": "Comportamiento del selector y literal de la norma; ninguna escala anual completa aceptada.",
+    "evidenceUsed": "BOE-A-2014-885 p62; irpf-autonomico-2014/2015; liquidar-irpf-anual.ts:326,374,465; casos ejecutados.",
+    "objections": "Descartado suavizar el salto. Reutilizar para el mínimo la escala elegida por base es el comportamiento observado. Falta contraprueba de liquidación completa y cierre temporal.",
+    "requiredAction": "Mantener salto; completar disposiciones temporales y reformas 2015 antes de aprobar regla anual.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+        "line": 111,
+        "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 128,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+      "bc27977f323e536d8f53eef2d7c17fafa3196cdb45205c820a122cd6e35f183f"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-baleares-fallecimiento",
+    "previousStatus": "match",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "needs-evidence",
+    "severity": "P2",
+    "reason": "El corte estricto del 31/12 coincide con la entrada excepcional de DF16.1, pero no queda validada la cadena completa de la escala previa de seis tramos.",
+    "acceptanceScope": "Entrada de la nueva escala el 31/12/2015 y comportamiento observado de las dos variantes.",
+    "evidenceUsed": "BOE-A-2016-824 pp53–54 y66, AEAT2015 p524, casos de 30/12 y31/12.",
+    "objections": "Descartado fechar la escala exclusivamente en2016 por publicación BOE. La escala anterior y su vigencia siguen pendientes de cierre.",
+    "requiredAction": "Completar Ley13/2014 y texto refundido balear con disposiciones de efecto; conservar dos variantes.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 128,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+      "30a1e836d8a81e83a4a6ab9dc6b9d33f538eda527505cde0ecf27d403fa5c09b"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-fecha-civil",
+    "previousStatus": "ambiguous",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P3",
+    "reason": "Se reproduce selección distinta para 2015-12-31T00:00:00+01:00 y la fecha ISO UTC. El contrato Date no expresa por sí mismo una fecha civil.",
+    "acceptanceScope": "Ambigüedad de API; no defecto demostrado de UI ni autorización para sustituir UTC por zona local.",
+    "evidenceUsed": "irpf-autonomico-2015.ts:69 y87; caso-fiscal-anual.ts:111; casos-ejecutados.json.",
+    "objections": "No se encontró constructor de fechaFallecimiento en components en la búsqueda realizada; no se atribuye fallo a interfaz.",
+    "requiredAction": "Definir contrato de fecha civil y añadir prueba de adaptador productor antes de cambiar selector.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 69,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-herencias2025",
+    "previousStatus": "match",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P3",
+    "reason": "Las referencias reutilizadas mantienen los valores candidatos al cargar el código actual.",
+    "acceptanceScope": "Coincidencia numérica de Castilla-La Mancha2015/2016 y Ceuta/Melilla2016. No acepta vigencia por herencia2025.",
+    "evidenceUsed": "Cargadas 90 entradas reales; filas históricas reextraídas; BOE-A-2015-1628 pp3–4 como apoyo de Castilla-La Mancha.",
+    "objections": "Alias no es autoridad histórica. Ceuta/Melilla2015 conserva escala propia y corte34000.",
+    "requiredAction": "Congelar datos históricos cuando cambie tabla2025; completar norma estatal aplicable a ciudades.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 128,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+        "line": 52,
+        "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+      "3635f93a28dc46573b98365eabff7818d11ac0a4f1f1344b8bb45c9d8cb2d720",
+      "37c9ceaab143e855155bb551bd31a3632cb63f00c514636884342d57d404d250"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-legacy-simulacion",
+    "previousStatus": "ambiguous",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P3",
+    "reason": "El Python usa límites enteros en2012–2014; el camino simulado cambia su reparto en2016.",
+    "acceptanceScope": "Diferencia técnica de representación y de desglose; no valida resultado fiscal ni todo el Excel.",
+    "evidenceUsed": "Calculo_Salario_IRPF.py:110–113; comunidad-autonoma.ts:243; liquidar-irpf-anual.ts:361; tablas actuales.",
+    "objections": "La escala conjunta legacy no prueba ninguna comunidad. No se ejecutó el libro Excel ni se certifica su transcripción.",
+    "requiredAction": "Mantener separación de simulación, cuota conjunta y reglas territoriales; no corregir por discrepancia con legacy.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+        "line": 82,
+        "sha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+        "line": 82,
+        "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+        "line": 111,
+        "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 128,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+        "line": 52,
+        "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+      "3635f93a28dc46573b98365eabff7818d11ac0a4f1f1344b8bb45c9d8cb2d720"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-aeat-ausente-2012",
+    "previousStatus": "missing",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P3",
+    "reason": "No se ha recuperado el manual2012 desde las rutas oficiales probadas: TLS del dominio antiguo y404 en sede.",
+    "acceptanceScope": "Carencia del corpus revisado, no inexistencia universal del manual ni ausencia de normas primarias.",
+    "evidenceUsed": "descargas-revision.json; Hacienda2012 original reextraído y normas BOE adicionales.",
+    "objections": "Dos rutas fallidas no prueban inexistencia. Se rechaza usar espejo privado como original oficial.",
+    "requiredAction": "Buscar archivo oficial alternativo; normas autonómicas sirven de prueba primaria por proposición, no de sustituto nominal del manual.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+        "line": 82,
+        "sha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "b061962692aaf1295c885eed9c4fce4ae58f75b9702dbc50bcd8960cb9fe47c8"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-aeat-ausente-2013",
+    "previousStatus": "missing",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P3",
+    "reason": "No se ha recuperado el manual2013 desde las rutas oficiales probadas; se obtuvo evidencia primaria equivalente para puntos concretos de Asturias y Murcia.",
+    "acceptanceScope": "Carencia de adquisición del manual; no carencia total de evidencia fiscal2013.",
+    "evidenceUsed": "descargas-revision.json; BOE-A-2013-1924 p32 y BOE-A-2013-8990 p6.",
+    "objections": "TLS no se desactivó. El original normativo prima sobre recopilación defectuosa.",
+    "requiredAction": "Continuar recuperación oficial; no bloquear los puntos acreditados por norma a la espera del manual.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+        "line": 82,
+        "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "2a8b4a73d7b64e1651593852b2c227e494f6d038e0c19942002c55ebeb5964d0"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-filas2014-2016",
+    "previousStatus": "match",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "informativa",
+    "reason": "La reextracción y comparación propia de las293 filas AEAT confirma los tipos y límites, salvo diez diferencias canarias de representación.",
+    "acceptanceScope": "Comparación numérica de celdas y tablas actuales; NO aceptación de vigencia, cuotas ni regla completa.",
+    "evidenceUsed": "cobertura-filas.json y citas-reextraidas.json; 90 tablas cargadas desde módulos actuales.",
+    "objections": "El conteo y los hashes no certifican fiscalidad. La cuota fija se revisa separadamente.",
+    "requiredAction": "No promover estas filas a aceptadas jurídicamente hasta completar cadenas por territorio.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+        "line": 111,
+        "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2015.ts",
+        "line": 128,
+        "sha256": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2016.ts",
+        "line": 52,
+        "sha256": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+      "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+      "3635f93a28dc46573b98365eabff7818d11ac0a4f1f1344b8bb45c9d8cb2d720"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-recopilaciones-inconsistentes",
+    "previousStatus": "ambiguous",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "P2",
+    "reason": "Asturias2013 tiene16.592,80 en norma original; Murcia2013 tiene55.000,00. La recopilación contiene datos defectuosos y el parser multiplica indebidamente55.000.00.",
+    "acceptanceScope": "Rechazo del artefacto5500000 como valor legal y del ancho asturiano36592,80; no certificación completa de Murcia2012.",
+    "evidenceUsed": "BOE-A-2013-1924 p32 y BOE-A-2013-8990 p6 vistos, Hacienda2012/2013 reextraído.",
+    "objections": "No es lícito corregir motor a partir del parser. Para Murcia2012 queda pendiente norma específica; no extrapolar reforma2013.",
+    "requiredAction": "Normalizador debe rechazar puntuación ambigua; mantener dato bruto y resolver con fuente primaria por año.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2013.ts",
+        "line": 82,
+        "sha256": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "b061962692aaf1295c885eed9c4fce4ae58f75b9702dbc50bcd8960cb9fe47c8",
+      "2a8b4a73d7b64e1651593852b2c227e494f6d038e0c19942002c55ebeb5964d0"
+    ]
+  },
+  {
+    "id": "autonomicas-2012-2016-canarias-retroactividad2012",
+    "previousStatus": "match",
+    "previousReview": {
+      "status": "pendiente",
+      "accepted": false,
+      "reviewer": null
+    },
+    "decision": "accepted",
+    "severity": "informativa",
+    "reason": "DF9.2 establece efectos IRPF desde1/1/2012 frente a entrada general1/7/2012.",
+    "acceptanceScope": "Se rechaza introducir variante automática por1/7/2012. No se certifica aquí la totalidad de escala ni su cadena posterior.",
+    "evidenceUsed": "BOE-A-2012-9282 pp96–97 y149, texto reextraído y disposición temporal vista.",
+    "objections": "La entrada general no desplaza los efectos específicos del IRPF. No se valida fallecimiento por inferencia de una fecha general.",
+    "requiredAction": "Conservar regla anual salvo nueva evidencia normativa específica.",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/irpf-autonomico-2012.ts",
+        "line": 82,
+        "sha256": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1"
+      }
+    ],
+    "reclassification": "Se sustituye revisión pendiente por decisión de alcance explícito; no se modifica candidato del autor.",
+    "sourceHashes": [
+      "1089fbd55b57757870eaa4463d38a8641bf2545fd7830cbe074f7f90bbacffe8"
+    ]
+  }
+]
