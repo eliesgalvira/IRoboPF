@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r19-ESTV2-2012-ordinaria-0-cuota",
+  "authorTaskId": "Codex /root orquestador integracion-r19",
+  "inventory": {
+    "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+    "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+  },
+  "itemId": "inv-3e3748fd766193094c54e3c708d45224",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "ESTATAL_ORDINARIA_2012_2014",
+    "tablePath": [
+      "0",
+      "cuota"
+    ]
+  },
+  "scope": {
+    "year": 2012,
+    "territory": "estatal-comun",
+    "unit": "EUR",
+    "claim": "Cuantía publicada ESTATAL_ORDINARIA_2012_2014, fila 0, columna cuota: 0 EUR.",
+    "conditions": [
+      "Aceptación limitada a cuantía nominal de esta celda y ejercicio, componente estatal de base general.",
+      "No acepta base del ahorro, retenciones, componente autonómico, régimen foral ni declaración completa.",
+      "La cuota tabulada es publicada: no sustituirla por integral de tipos.",
+      "Elegibilidad, minoración por mínimos, anualidades, selección del caso y redondeo final quedan fuera."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/estatales-v2/citas/escala-ordinaria-0-cuota.json",
+    "sha256": "9d6adfbf38a07df70130f88c340583d1ae7a2c6dcb7d8011eade75fbb8bac2fa"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/estatales/documentos/2010-19703.json",
+    "sha256": "233512a329ed3d2034693289d59cd4f131f085cd3011c3b6a809d5fe83619237"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-estatales-v2/decisiones-canonicas.json",
+      "sha256": "ca93109793d89d3bf4211bd01ff4fe19f1cfe444e5d42873741e00f23eaf885c"
+    },
+    "decisionId": "ESTV2-2012-ordinaria-0-cuota"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/correcciones/integracion-r19/candidatos/ambitos/ESTV2-2012-ordinaria-0-cuota.json",
+    "sha256": "afb50e607757bd759089e2094e4508de10d1d218d60bf5aae0ffc3a94311ff77"
+  }
+}

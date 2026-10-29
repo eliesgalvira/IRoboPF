@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "decision": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-comunitat-valenciana-2014-f1-cuota"
+  },
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "VALENCIA_2014_2016",
+    "tablePath": [
+      "0",
+      "cuota"
+    ]
+  },
+  "itemId": "inv-d27982e8176605d3f0c79d05bdbc9bf0",
+  "inventory": {
+    "manifestSha256": "21516a24e30d5106d229b1fead87aa0889700df3950fabfe0f4bb69b23631266",
+    "artifactSha256": "5095690502f91a0157ea0323410531f120849cf8e776c3d813fa490fb322df48"
+  },
+  "year": 2014,
+  "territory": "comunitat-valenciana",
+  "unit": "EUR",
+  "value": "0",
+  "component": "autonomico",
+  "taxBase": "general",
+  "period": "ordinary-no-death",
+  "predicate": "nominal-cell",
+  "externalConditions": [
+    "residence-unverified",
+    "eligibility-unverified"
+  ],
+  "editorialConditions": [
+    "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+    "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+    "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+    "Ámbito aceptado: cierre ordinario anual sin fallecimiento. Los supuestos de fallecimiento quedan fuera de esta decisión limitada."
+  ],
+  "completeRuleAcceptance": false
+}

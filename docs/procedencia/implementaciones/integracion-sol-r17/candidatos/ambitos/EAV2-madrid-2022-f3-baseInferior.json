@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "decision": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-madrid-2022-f3-baseInferior"
+  },
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "MADRID_2022",
+    "tablePath": [
+      "2",
+      "baseInferior"
+    ]
+  },
+  "itemId": "inv-44b501fb27f043578b911fa2bc04a8ed",
+  "inventory": {
+    "manifestSha256": "21516a24e30d5106d229b1fead87aa0889700df3950fabfe0f4bb69b23631266",
+    "artifactSha256": "5095690502f91a0157ea0323410531f120849cf8e776c3d813fa490fb322df48"
+  },
+  "year": 2022,
+  "territory": "madrid",
+  "unit": "EUR",
+  "value": "18433.2",
+  "component": "autonomico",
+  "taxBase": "general",
+  "period": "madrid-2022",
+  "predicate": "nominal-cell",
+  "externalConditions": [
+    "residence-unverified",
+    "eligibility-unverified"
+  ],
+  "editorialConditions": [
+    "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+    "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+    "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+    "Período iniciado en 2022, incluido su cierre por fallecimiento; sin extensión a 2025."
+  ],
+  "completeRuleAcceptance": false
+}

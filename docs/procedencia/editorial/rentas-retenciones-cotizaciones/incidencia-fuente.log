@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-98a20b70/.cache/editorial-b/evidencia.py", line 6, in <module>
+    p=pathlib.Path(d['path']); b=p.read_bytes(); assert hashlib.sha256(b).hexdigest()==d['sha256']; doc=pymupdf.open(p)
+                                 ~~~~~~~~~~~~^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/402d62616a31999ee0c475e7e9079870972d9361877dd74ece5607410ed87252'

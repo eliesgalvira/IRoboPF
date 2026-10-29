@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r19-ESTV2-2013-ordinaria-4-baseInferior",
+  "authorTaskId": "Codex /root orquestador integracion-r19",
+  "inventory": {
+    "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+    "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+  },
+  "itemId": "inv-d505c10c0459c256fef5724314800450",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "ESTATAL_ORDINARIA_2012_2014",
+    "tablePath": [
+      "4",
+      "baseInferior"
+    ]
+  },
+  "scope": {
+    "year": 2013,
+    "territory": "estatal-comun",
+    "unit": "EUR",
+    "claim": "Cuantía publicada ESTATAL_ORDINARIA_2012_2014, fila 4, columna baseInferior: 120000.2 EUR.",
+    "conditions": [
+      "Aceptación limitada a cuantía nominal de esta celda y ejercicio, componente estatal de base general.",
+      "No acepta base del ahorro, retenciones, componente autonómico, régimen foral ni declaración completa.",
+      "La cuota tabulada es publicada: no sustituirla por integral de tipos.",
+      "Elegibilidad, minoración por mínimos, anualidades, selección del caso y redondeo final quedan fuera."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/estatales-v2/citas/escala-ordinaria-4-baseInferior.json",
+    "sha256": "7ca937d3c8c59ef0cb68942519d320f01d768d88c9e130c50ce9e592d54ac4ad"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/estatales/documentos/2010-19703.json",
+    "sha256": "233512a329ed3d2034693289d59cd4f131f085cd3011c3b6a809d5fe83619237"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-estatales-v2/decisiones-canonicas.json",
+      "sha256": "ca93109793d89d3bf4211bd01ff4fe19f1cfe444e5d42873741e00f23eaf885c"
+    },
+    "decisionId": "ESTV2-2013-ordinaria-4-baseInferior"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/correcciones/integracion-r19/candidatos/ambitos/ESTV2-2013-ordinaria-4-baseInferior.json",
+    "sha256": "d22efdeaad5cd8c7ac1f999986430fc438bf428b391d2711512b20104f085483"
+  }
+}

@@ -7,6 +7,7 @@ import argparse
 from cas import CasResolver
 from jsonschema.exceptions import ValidationError
 from decimal import Decimal
+from datetime import date
 import hashlib
 import json
 from pathlib import Path
@@ -77,6 +78,141 @@ class DocumentaryReadSet:
         return [{'path': path, 'sha256': expected} for path, expected in sorted(self.dependencies.items())]
 
 
+def delegation_entries(registry):
+    """Formas históricas reales; sin inferir un rol de una identidad arbitraria."""
+    if isinstance(registry, list):
+        entries = registry
+    elif isinstance(registry, dict) and type(registry.get('version')) is int and registry['version'] == 1:
+        containers = [key for key in ('delegates', 'delegate', 'delegaciones') if key in registry]
+        if len(containers) != 1:
+            raise ValueError('Contenedores de delegación ambiguos')
+        entries = [registry['delegate']] if containers[0] == 'delegate' else registry[containers[0]]
+    else:
+        raise ValueError('Versión de delegaciones no soportada')
+    if not isinstance(entries, list) or any(not isinstance(d, dict) for d in entries):
+        raise ValueError('Delegaciones inválidas')
+    normalized = []
+    for entry in entries:
+        if ('key' in entry and 'clave' in entry) or ('role' in entry and 'rol' in entry):
+            raise ValueError('Aliases de delegación ambiguos')
+        converted = dict(entry)
+        if 'clave' in converted:
+            converted['key'] = converted.pop('clave')
+        if 'rol' in converted:
+            converted['role'] = converted.pop('rol')
+        normalized.append(converted)
+    entries = normalized
+    tasks = [d.get('taskId') for d in entries]
+    keys = [d['key'] for d in entries if 'key' in d]
+    if (any(not isinstance(t, str) or not t for t in tasks + keys)
+            or len(set(tasks)) != len(tasks) or len(set(keys)) != len(keys)):
+        raise ValueError('Identidades de delegación ausentes o duplicadas')
+    return entries
+
+
+def evaluate_scope(scope, context):
+    """Comprueba un contexto declarado; jamás acredita residencia o elegibilidad."""
+    required = {'year', 'territory', 'component', 'taxBase', 'periodStart',
+                'accrual', 'death', 'externalConditions'}
+    if not isinstance(context, dict) or not required <= context.keys() or context.keys() - required - {'generalBase'}:
+        raise ValueError('Contexto incompleto o no soportado')
+    for key in ('year', 'territory', 'component', 'taxBase', 'externalConditions'):
+        if context[key] != scope[key]:
+            raise ValueError('Contexto fuera de ámbito: ' + key)
+    if type(context['year']) is not int:
+        raise ValueError('Año inválido')
+    year = context['year']
+    if (scope['externalConditions'] != ['residence-unverified', 'eligibility-unverified']
+            or scope['taxBase'] != 'general'
+            or (scope['period'] == 'madrid-2022' and (year != 2022 or scope['territory'] != 'madrid'))):
+        raise ValueError('Condiciones externas o período no respaldados')
+    if context['periodStart'] != f'{year}-01-01':
+        raise ValueError('Inicio de período fuera de ámbito')
+    def civil(value):
+        if not isinstance(value, str) or not re.fullmatch(r'[0-9]{4}-[0-9]{2}-[0-9]{2}', value):
+            raise ValueError('Fecha civil requerida')
+        parsed = date.fromisoformat(value)
+        if parsed.year != year:
+            raise ValueError('Fecha de otro ejercicio')
+        return parsed
+    civil(context['accrual'])
+    death = context['death']
+    if death is not None:
+        civil(death)
+        if scope['period'] != 'madrid-2022' or year != 2022 or scope['territory'] != 'madrid':
+            raise ValueError('Fallecimiento fuera del ámbito respaldado')
+        if death != context['accrual']:
+            raise ValueError('Fallecimiento y devengo contradictorios')
+    elif context['accrual'] != f'{year}-12-31':
+        raise ValueError('Devengo ordinario contradictorio')
+    if scope['period'] not in ('ordinary-no-death', 'madrid-2022'):
+        raise ValueError('La cuantía nominal no respalda selección de período')
+    predicate = scope['predicate']
+    if predicate == 'murcia-blg-gt-60000':
+        amount = context.get('generalBase')
+        if (scope['territory'] != 'murcia' or year != 2022
+                or not isinstance(amount, str) or not re.fullmatch(r'[0-9]+(?:\.[0-9]+)?', amount)
+                or Decimal(amount) <= Decimal('60000')):
+            raise ValueError('Murcia requiere BLG estrictamente mayor que 60000')
+    elif predicate != 'nominal-cell':
+        raise ValueError('Predicado no soportado')
+    return {'periodAndPredicate': 'matched', 'externalConditions': 'unverified',
+            'applicability': 'not-established', 'completeRuleAcceptance': False}
+
+
+def verify_executable_scope(reader, payload, item):
+    """Propuesta nueva; conserva la decisión original, sin atribuirle aprobación."""
+    scope = reader.read_ref(payload['executableScope'])
+    validate_schema(scope, 'executable-cell-scope')
+    if (scope['decision'] != payload['legalReview'] or scope['source'] != payload['source']
+            or scope['inventory'] != payload['inventory'] or scope['itemId'] != item['id']
+            or scope['value'] != item['value']):
+        raise ValueError('Ámbito de otra identidad, valor o inventario')
+    for key in ('year', 'territory', 'unit'):
+        if scope[key] != payload['scope'][key]:
+            raise ValueError('Ámbito contradictorio: ' + key)
+    decisions = reader.read_ref(scope['decision']['decisions'])
+    decision = select_decision(decisions, scope['decision']['decisionId'])
+    if (scope['editorialConditions'] != decision.get('conditions')
+            or payload['scope']['conditions'] != scope['editorialConditions']):
+        raise ValueError('Condiciones editoriales omitidas o alteradas')
+    for key in ('year', 'territory', 'unit', 'value'):
+        if scope[key] != decision.get(key):
+            raise ValueError('Decisión de otra celda o ejercicio: ' + key)
+    source = scope['source']
+    if len(source['tablePath']) != 2:
+        raise ValueError('Se requiere ruta exacta de fila y columna')
+    symbol = source['symbol'] + '[' + source['tablePath'][0] + '].' + source['tablePath'][1]
+    locations = decision['engineLocations']
+    if (len(source['tablePath']) != 2 or len(locations) != 1
+            or not isinstance(locations[0], dict)
+            or locations[0].get('symbol') != symbol
+            or locations[0].get('path') != source['file']
+            or locations[0].get('sha256') != source['sha256']
+            or decision.get('column') != source['tablePath'][1]):
+        raise ValueError('Identidad exacta de celda no acreditada')
+    state = scope['territory'] == 'estatal-comun'
+    expected_period = 'nominal-only' if state else 'ordinary-no-death'
+    if scope['territory'] == 'madrid':
+        if scope['year'] != 2022 or source['symbol'] != 'MADRID_2022':
+            raise ValueError('Madrid fuera de 2022')
+        expected_period = 'madrid-2022'
+    if scope['territory'] == 'catalunya' and scope['year'] not in range(2020, 2025):
+        raise ValueError('Catalunya fuera del período revisado')
+    expected_predicate = ('murcia-blg-gt-60000' if source['symbol'] == 'MURCIA_2022'
+                          and source['tablePath'][0] == '4' else 'nominal-cell')
+    if (scope['component'] != ('estatal' if state else 'autonomico')
+            or scope['period'] != expected_period or scope['predicate'] != expected_predicate):
+        raise ValueError('Condiciones ejecutables contradictorias')
+    # Cierre documental del fundamento, no solo de su proyección.
+    for citation in decision.get('citations', []):
+        reader.read_ref(citation)
+    for key in ('chainEvidence', 'additionalCitations'):
+        if key in decision:
+            reader.read_ref(decision[key])
+    return scope
+
+
 def verify_attestation(reader, ref, payload, payload_hash):
     if ref is None:
         return 'pending'
@@ -97,14 +233,22 @@ def verify_attestation(reader, ref, payload, payload_hash):
         raise ValueError('Revisor no registrado inequívocamente por el orquestador')
     registration = matches[0]
     delegates = reader.read_ref(registration['delegationRegistry'])
-    registered = [d for d in delegates if d['taskId'] == task and d['key'].startswith('revision-')]
-    if len(registered) != 1:
+    registered = [d for d in delegation_entries(delegates) if d['taskId'] == task and ('key' not in d or d['key'].startswith('revision-'))]
+    if len(registered) != 1 or registered[0].get('role', 'review') not in ('review', 'revision'):
         raise ValueError('Delegación independiente inexistente')
     if not attestation['report']['path'].startswith(registration['reportDirectory'] + '/'):
         raise ValueError('Informe ajeno al ámbito del revisor')
     report_raw = reader.read_bytes(attestation['report']['path'])
     if sha(report_raw) != attestation['report']['sha256'] or not report_raw.strip():
         raise ValueError('Informe independiente ausente o alterado')
+    if payload.get('schemaVersion') != 2:
+        raise ValueError('Nueva aceptación requiere ámbito ejecutable v2')
+    if reviewers['schemaVersion'] != 2:
+        raise ValueError('Nueva aceptación requiere aprobación exacta del orquestador')
+    approvals = registration['approvals']
+    approved = [a for a in approvals if a['payloadSha256'] == payload_hash]
+    if len(approved) != 1 or approved[0]['attestation'] != ref:
+        raise ValueError('Payload o atestación sin aprobación exacta del orquestador')
     return 'accepted-limited'
 
 
@@ -208,6 +352,8 @@ def verify_evidence(root, context, *, cas_roots=None):
         decision = select_decision(decisions, payload['legalReview']['decisionId'])
         if not any(location_matches(loc, source) for loc in decision['engineLocations']):
             raise ValueError('Decisión no refiere a la ocurrencia del motor')
+        if payload['schemaVersion'] == 2:
+            verify_executable_scope(reader, payload, item)
         review = verify_attestation(reader, entry['attestation'], payload, entry['payload']['sha256'])
         # Dimensiones candidatas de ESTA ocurrencia, no inferencias por igualdad numérica.
         # La pertenencia evita contradicciones; no acredita vigencia ni el claim libre.

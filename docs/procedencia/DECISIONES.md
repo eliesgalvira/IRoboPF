@@ -275,3 +275,15 @@ MDV2-P01 conserva una cuestión jurídica abierta cuando el custodio pagador no 
 ## D059 — Contenido semántico antes de declarar completas las fichas
 
 Dos lotes editoriales preparan explicaciones sustantivas para los 65 sitios instrumentados y las celdas seleccionadas, con correspondencias exactas de fuente, símbolo, ruta y ámbito. Objeción: generar miles de plantillas o borrar estados pendientes no satisface la explicación experta de cada elemento. Respuesta: derivaciones, condiciones, casos independientes y citas por concepto y celda, reutilizando solo derivaciones comunes mediante referencias explícitas; el resto del inventario continúa pendiente. Coste: autoría y revisión independientes adicionales, sin prometer que 65 pasos o 264 celdas cierran las 52.461 ocurrencias. La autoría candidata no cambia estados jurídicos, motor, diseño o registros de confianza.
+
+## D060 — Integrar contratos documentales sin heredar aprobación
+
+La integración R19 conserva cambios fiscales del padre y une históricos; regenera los alias y prepara 264 payloads con identidades nuevas contra el inventario actual. Objeción: copiar un ámbito declarado o una aprobación sintética podría conferir aceptación aparente sin revisión del objeto real. Respuesta: registros, atestaciones y decisiones reales intactos; revisión técnica y jurídica independiente antes de cualquier promoción. Coste: nuevas identidades, pruebas y revisión aunque las cifras coincidan; el período nominal estatal y los hechos externos siguen sin acreditarse.
+
+## D061 — Los nuevos originales se preservan fuera de T3
+
+Los blobs de la revisión histórica de retenciones se conservan por ambos hashes en el CAS local y se excluyen del respaldo ordinario de código. Objeción: una ruta ignorada puede desaparecer al limpiar o faltar en otro checkout. Respuesta: mapa explícito de fuente y copia verificada fuera de T3; las adquisiciones, citas y manifiestos se versionan sin alterar su historia. Coste: Git no restaura por sí solo esos bytes y la ampliación local requiere cotejo posterior al corte v3. No se presenta Crossa v1 como paquete actualizado ni custodia independiente y no se autoriza gasto o transferencia.
+
+## D062 — Recibir la autoría sin confundirla con publicación
+
+Los dos lotes editoriales se incorporan como superposiciones candidatas, con identidad histórica intacta. Objeción: transportar texto que todavía no ve el usuario no completa las páginas del encargo. Respuesta: revisión independiente por afirmación antes de adaptar al publicador; la comprobación estructural solo confirma los 65 sitios y sus fuentes actuales. Coste: otra integración y revisión posterior, sin rebajar la calidad ni declarar completas las 52.461 ocurrencias por contar fichas. Los originales y facsímiles referenciados deben seguir preservados antes de limpiar.

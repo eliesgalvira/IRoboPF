@@ -1,0 +1,647 @@
+[
+  {
+    "id": "2015-enero-revision:admisibilidad",
+    "condicion": "Todas",
+    "formula": "0<PERCIBIDO<RETRIB, causa admisible y estado previo suficiente;11 incompatible con1..10;6/7/8 excluyentes;9/10 excluyentes.",
+    "decision": "candidato-documental",
+    "objecionExperta": "No basta divisor positivo para que la entrada sea admitida.",
+    "respuesta": "Validar la totalidad de condiciones antes de cociente.",
+    "coste": "No se ejecutó servicioAEAT.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:objetivo-general",
+    "condicion": "Sin circunstancia territorial especial",
+    "formula": "IMPORTEREG=CUOTA",
+    "decision": "candidato-operable",
+    "objecionExperta": "Cuota debe venir del procedimiento inicial legítimo de la versión.",
+    "respuesta": "No aceptar cuota supuesta como caso fiscal completo.",
+    "coste": "Casos de subpaso etiquetados.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:objetivo-altaCM",
+    "condicion": "CEUMELI=S,RENCEMEA=N,causa7",
+    "formula": "PERCIBIDO*CUOTA/RETRIB+(RETRIB-PERCIBIDO)*CUOTA/(2*RETRIB)",
+    "decision": "candidato-operable",
+    "objecionExperta": "La mitad territorial requiere derecho y período.",
+    "respuesta": "Exigir hechos y aplicar fórmula sin redondeo intermedio.",
+    "coste": "No valida residencia real.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:objetivo-trabajo-fuera",
+    "condicion": "RESICEME=S,RENCEME=N,RENCEMEA=S,causa8",
+    "formula": "PERCIBIDO*CUOTA/(2*RETRIB)+(RETRIB-PERCIBIDO)*CUOTA/RETRIB",
+    "decision": "candidato-operable",
+    "objecionExperta": "No confundir dejar trabajo territorial con perder residencia.",
+    "respuesta": "Conservar condiciones distintas y validar causas.",
+    "coste": "No se extiende automáticamente a causa6.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:objetivo-totalCM",
+    "condicion": "CEUMELI=S y RENCEMEA=S",
+    "formula": "CUOTA/2",
+    "decision": "candidato-operable",
+    "objecionExperta": "No depende de residencia sola.",
+    "respuesta": "Exigir ambas etapas territoriales con derecho.",
+    "coste": "Totalidad necesaria para tope reducido.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:vivienda1a8",
+    "condicion": "Con minoración previa y derecho vigente bajo umbral",
+    "formula": "MINOPAGOA+0,02*(RETRIB-RETRIBA); sin derecho actual conserva previa; sin previa0",
+    "decision": "candidato-operable",
+    "objecionExperta": "Estado previo omitido altera minoración.",
+    "respuesta": "Exigir y conciliar RETRIBA/MINOPAGOA;aplicar cap y truncado.",
+    "coste": "Cálculo puro no comprueba hipoteca.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:vivienda9",
+    "condicion": "Comunica derecho válido",
+    "formula": "Si previa:MINOPAGOA+0,02*pendiente;si no:0,02*pendiente",
+    "decision": "candidato-operable",
+    "objecionExperta": "Variación salarial simultánea exige orden.",
+    "respuesta": "Aumento:primero9 después salario;disminución:primero salario después9.",
+    "coste": "Dos eventos separados.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:vivienda10",
+    "condicion": "Comunica improcedencia y hubo minoración",
+    "formula": "MINOPAGOA-0,02*pendiente",
+    "decision": "candidato-operable",
+    "objecionExperta": "Restar más de lo permitido genera negativo.",
+    "respuesta": "Validaciones de previa y coherencia;orden como9.",
+    "coste": "Rechazar estado incoherente.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:vivienda11",
+    "condicion": "Causa11sola",
+    "formula": "Enero/2016:0,02*pendiente si derecho; julio:ajuste previa por variación o nueva sobrependiente según bloqueazul",
+    "decision": "candidato-por-version",
+    "objecionExperta": "Copiar rama julio a2016 contradice texto y datos permitidos.",
+    "respuesta": "Conservar reglas/validaciones propias de cada hash.",
+    "coste": "Historia editorial2016 indeterminada.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:tipo-acumulado",
+    "condicion": "Objetivo y vivienda determinados",
+    "formula": "trunc2(max(0,(objetivo-retenido-minoracion)*100/pendiente));topes/minimos;importe=retenido+pendiente*tipo/100",
+    "decision": "candidato-operable",
+    "objecionExperta": "Exceso retenido no prueba devolución.",
+    "respuesta": "Suelo0 antes de mínimos y no restitución por pagador.",
+    "coste": "Solo entradas admitidas.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:87.5-excepciones",
+    "condicion": "Causas5/6/8/9/10/11 delPDF",
+    "formula": "No aplica restricciones especiales; sigue máximo general",
+    "decision": "candidato-documental",
+    "objecionExperta": "CódigosPDF no son números de87.2.",
+    "respuesta": "Mapear hechos por descripción y separar topesgenerales.",
+    "coste": "No extender a todos cambios mixtos.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:87.5-no-aumento",
+    "condicion": "Causas restantes,diferencia no aumenta,tipo pretende subir",
+    "formula": "TIPOREG=TIPOA;reaplicar mínimos,recalcular importe",
+    "decision": "candidato-operable",
+    "objecionExperta": "La norma dice circunstancias exclusivamente; no todo evento mixto.",
+    "respuesta": "Exigir calificación del cambio; rechazar mixto no conciliado.",
+    "coste": "No universalizar por signo de una sola cifra.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:87.5-aumento",
+    "condicion": "Causas restantes,diferencia aumenta,importe pretende aumentar más",
+    "formula": "Techoimporte=IMPORTEA+incrementodiferencia;tipo de pendiente,truncado,revisar mínimos,recalcular",
+    "decision": "candidato-operable",
+    "objecionExperta": "El importe final tras mínimos puede requerir reconciliación.",
+    "respuesta": "Conservar orden y magnitudes de rastro.",
+    "coste": "No aceptar combinaciones de hechos insuficientes.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-enero-revision:eficacia",
+    "condicion": "Todas",
+    "formula": "87.4:1..4 desdevariación;5..11 desdecomunicación>=5días;opción1abril/julio/octubre;88subidas10días",
+    "decision": "candidato-documental",
+    "objecionExperta": "Fecha de cálculo no sustituye comunicación ni confección de nómina.",
+    "respuesta": "Adaptador con eventos y fechas civiles explícitas.",
+    "coste": "No verifica recepción real.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:admisibilidad",
+    "condicion": "Todas",
+    "formula": "0<PERCIBIDO<RETRIB, causa admisible y estado previo suficiente;11 incompatible con1..10;6/7/8 excluyentes;9/10 excluyentes.",
+    "decision": "candidato-documental",
+    "objecionExperta": "No basta divisor positivo para que la entrada sea admitida.",
+    "respuesta": "Validar la totalidad de condiciones antes de cociente.",
+    "coste": "No se ejecutó servicioAEAT.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-general",
+    "condicion": "Sin circunstancia territorial especial",
+    "formula": "IMPORTEREG=CUOTA",
+    "decision": "candidato-operable",
+    "objecionExperta": "Cuota debe venir del procedimiento inicial legítimo de la versión.",
+    "respuesta": "No aceptar cuota supuesta como caso fiscal completo.",
+    "coste": "Casos de subpaso etiquetados.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-altaCM",
+    "condicion": "CEUMELI=S,RENCEMEA=N,causa7",
+    "formula": "PERCIBIDO*CUOTA/RETRIB+(RETRIB-PERCIBIDO)*CUOTA/(2*RETRIB)",
+    "decision": "candidato-operable",
+    "objecionExperta": "La mitad territorial requiere derecho y período.",
+    "respuesta": "Exigir hechos y aplicar fórmula sin redondeo intermedio.",
+    "coste": "No valida residencia real.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-trabajo-fuera",
+    "condicion": "RESICEME=S,RENCEME=N,RENCEMEA=S,causa8",
+    "formula": "PERCIBIDO*CUOTA/(2*RETRIB)+(RETRIB-PERCIBIDO)*CUOTA/RETRIB",
+    "decision": "candidato-operable",
+    "objecionExperta": "No confundir dejar trabajo territorial con perder residencia.",
+    "respuesta": "Conservar condiciones distintas y validar causas.",
+    "coste": "No se extiende automáticamente a causa6.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-totalCM",
+    "condicion": "CEUMELI=S y RENCEMEA=S",
+    "formula": "CUOTA/2",
+    "decision": "candidato-operable",
+    "objecionExperta": "No depende de residencia sola.",
+    "respuesta": "Exigir ambas etapas territoriales con derecho.",
+    "coste": "Totalidad necesaria para tope reducido.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:objetivo-julio11-perdida-residencia",
+    "condicion": "Solo11,RESICEME=N,RENCEMEA=S",
+    "formula": "Literal no entra en condiciónRESICEME=S;6000 frente4500hipotético",
+    "decision": "bloqueo-primaria-exacto",
+    "objecionExperta": "Anuncio14julio y PDF13julio no prueban el mismo contenido corregido.",
+    "respuesta": "No fijar esperado fiscal;6+11 rechazada por75.",
+    "coste": "Necesita bytes o aclaración primaria independiente.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:vivienda1a8",
+    "condicion": "Con minoración previa y derecho vigente bajo umbral",
+    "formula": "MINOPAGOA+0,02*(RETRIB-RETRIBA); sin derecho actual conserva previa; sin previa0",
+    "decision": "candidato-operable",
+    "objecionExperta": "Estado previo omitido altera minoración.",
+    "respuesta": "Exigir y conciliar RETRIBA/MINOPAGOA;aplicar cap y truncado.",
+    "coste": "Cálculo puro no comprueba hipoteca.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:vivienda9",
+    "condicion": "Comunica derecho válido",
+    "formula": "Si previa:MINOPAGOA+0,02*pendiente;si no:0,02*pendiente",
+    "decision": "candidato-operable",
+    "objecionExperta": "Variación salarial simultánea exige orden.",
+    "respuesta": "Aumento:primero9 después salario;disminución:primero salario después9.",
+    "coste": "Dos eventos separados.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:vivienda10",
+    "condicion": "Comunica improcedencia y hubo minoración",
+    "formula": "MINOPAGOA-0,02*pendiente",
+    "decision": "candidato-operable",
+    "objecionExperta": "Restar más de lo permitido genera negativo.",
+    "respuesta": "Validaciones de previa y coherencia;orden como9.",
+    "coste": "Rechazar estado incoherente.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:vivienda11",
+    "condicion": "Causa11sola",
+    "formula": "Enero/2016:0,02*pendiente si derecho; julio:ajuste previa por variación o nueva sobrependiente según bloqueazul",
+    "decision": "candidato-por-version",
+    "objecionExperta": "Copiar rama julio a2016 contradice texto y datos permitidos.",
+    "respuesta": "Conservar reglas/validaciones propias de cada hash.",
+    "coste": "Historia editorial2016 indeterminada.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:tipo-acumulado",
+    "condicion": "Objetivo y vivienda determinados",
+    "formula": "trunc2(max(0,(objetivo-retenido-minoracion)*100/pendiente));topes/minimos;importe=retenido+pendiente*tipo/100",
+    "decision": "candidato-operable",
+    "objecionExperta": "Exceso retenido no prueba devolución.",
+    "respuesta": "Suelo0 antes de mínimos y no restitución por pagador.",
+    "coste": "Solo entradas admitidas.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:87.5-excepciones",
+    "condicion": "Causas5/6/8/9/10/11 delPDF",
+    "formula": "No aplica restricciones especiales; sigue máximo general",
+    "decision": "candidato-documental",
+    "objecionExperta": "CódigosPDF no son números de87.2.",
+    "respuesta": "Mapear hechos por descripción y separar topesgenerales.",
+    "coste": "No extender a todos cambios mixtos.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:87.5-no-aumento",
+    "condicion": "Causas restantes,diferencia no aumenta,tipo pretende subir",
+    "formula": "TIPOREG=TIPOA;reaplicar mínimos,recalcular importe",
+    "decision": "candidato-operable",
+    "objecionExperta": "La norma dice circunstancias exclusivamente; no todo evento mixto.",
+    "respuesta": "Exigir calificación del cambio; rechazar mixto no conciliado.",
+    "coste": "No universalizar por signo de una sola cifra.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:87.5-aumento",
+    "condicion": "Causas restantes,diferencia aumenta,importe pretende aumentar más",
+    "formula": "Techoimporte=IMPORTEA+incrementodiferencia;tipo de pendiente,truncado,revisar mínimos,recalcular",
+    "decision": "candidato-operable",
+    "objecionExperta": "El importe final tras mínimos puede requerir reconciliación.",
+    "respuesta": "Conservar orden y magnitudes de rastro.",
+    "coste": "No aceptar combinaciones de hechos insuficientes.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2015-julio-revision:eficacia",
+    "condicion": "Todas",
+    "formula": "87.4:1..4 desdevariación;5..11 desdecomunicación>=5días;opción1abril/julio/octubre;88subidas10días",
+    "decision": "candidato-documental",
+    "objecionExperta": "Fecha de cálculo no sustituye comunicación ni confección de nómina.",
+    "respuesta": "Adaptador con eventos y fechas civiles explícitas.",
+    "coste": "No verifica recepción real.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:admisibilidad",
+    "condicion": "Todas",
+    "formula": "0<PERCIBIDO<RETRIB, causa admisible y estado previo suficiente;11 incompatible con1..10;6/7/8 excluyentes;9/10 excluyentes.",
+    "decision": "candidato-documental",
+    "objecionExperta": "No basta divisor positivo para que la entrada sea admitida.",
+    "respuesta": "Validar la totalidad de condiciones antes de cociente.",
+    "coste": "No se ejecutó servicioAEAT.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:objetivo-general",
+    "condicion": "Sin circunstancia territorial especial",
+    "formula": "IMPORTEREG=CUOTA",
+    "decision": "candidato-operable",
+    "objecionExperta": "Cuota debe venir del procedimiento inicial legítimo de la versión.",
+    "respuesta": "No aceptar cuota supuesta como caso fiscal completo.",
+    "coste": "Casos de subpaso etiquetados.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:objetivo-altaCM",
+    "condicion": "CEUMELI=S,RENCEMEA=N,causa7",
+    "formula": "PERCIBIDO*CUOTA/RETRIB+(RETRIB-PERCIBIDO)*CUOTA/(2*RETRIB)",
+    "decision": "candidato-operable",
+    "objecionExperta": "La mitad territorial requiere derecho y período.",
+    "respuesta": "Exigir hechos y aplicar fórmula sin redondeo intermedio.",
+    "coste": "No valida residencia real.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:objetivo-trabajo-fuera",
+    "condicion": "RESICEME=S,RENCEME=N,RENCEMEA=S,causa8",
+    "formula": "PERCIBIDO*CUOTA/(2*RETRIB)+(RETRIB-PERCIBIDO)*CUOTA/RETRIB",
+    "decision": "candidato-operable",
+    "objecionExperta": "No confundir dejar trabajo territorial con perder residencia.",
+    "respuesta": "Conservar condiciones distintas y validar causas.",
+    "coste": "No se extiende automáticamente a causa6.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:objetivo-totalCM",
+    "condicion": "CEUMELI=S y RENCEMEA=S",
+    "formula": "CUOTA/2",
+    "decision": "candidato-operable",
+    "objecionExperta": "No depende de residencia sola.",
+    "respuesta": "Exigir ambas etapas territoriales con derecho.",
+    "coste": "Totalidad necesaria para tope reducido.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:vivienda1a8",
+    "condicion": "Con minoración previa y derecho vigente bajo umbral",
+    "formula": "MINOPAGOA+0,02*(RETRIB-RETRIBA); sin derecho actual conserva previa; sin previa0",
+    "decision": "candidato-operable",
+    "objecionExperta": "Estado previo omitido altera minoración.",
+    "respuesta": "Exigir y conciliar RETRIBA/MINOPAGOA;aplicar cap y truncado.",
+    "coste": "Cálculo puro no comprueba hipoteca.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:vivienda9",
+    "condicion": "Comunica derecho válido",
+    "formula": "Si previa:MINOPAGOA+0,02*pendiente;si no:0,02*pendiente",
+    "decision": "candidato-operable",
+    "objecionExperta": "Variación salarial simultánea exige orden.",
+    "respuesta": "Aumento:primero9 después salario;disminución:primero salario después9.",
+    "coste": "Dos eventos separados.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:vivienda10",
+    "condicion": "Comunica improcedencia y hubo minoración",
+    "formula": "MINOPAGOA-0,02*pendiente",
+    "decision": "candidato-operable",
+    "objecionExperta": "Restar más de lo permitido genera negativo.",
+    "respuesta": "Validaciones de previa y coherencia;orden como9.",
+    "coste": "Rechazar estado incoherente.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:vivienda11",
+    "condicion": "Causa11sola",
+    "formula": "Enero/2016:0,02*pendiente si derecho; julio:ajuste previa por variación o nueva sobrependiente según bloqueazul",
+    "decision": "candidato-por-version",
+    "objecionExperta": "Copiar rama julio a2016 contradice texto y datos permitidos.",
+    "respuesta": "Conservar reglas/validaciones propias de cada hash.",
+    "coste": "Historia editorial2016 indeterminada.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:tipo-acumulado",
+    "condicion": "Objetivo y vivienda determinados",
+    "formula": "trunc2(max(0,(objetivo-retenido-minoracion)*100/pendiente));topes/minimos;importe=retenido+pendiente*tipo/100",
+    "decision": "candidato-operable",
+    "objecionExperta": "Exceso retenido no prueba devolución.",
+    "respuesta": "Suelo0 antes de mínimos y no restitución por pagador.",
+    "coste": "Solo entradas admitidas.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:87.5-excepciones",
+    "condicion": "Causas5/6/8/9/10/11 delPDF",
+    "formula": "No aplica restricciones especiales; sigue máximo general",
+    "decision": "candidato-documental",
+    "objecionExperta": "CódigosPDF no son números de87.2.",
+    "respuesta": "Mapear hechos por descripción y separar topesgenerales.",
+    "coste": "No extender a todos cambios mixtos.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:87.5-no-aumento",
+    "condicion": "Causas restantes,diferencia no aumenta,tipo pretende subir",
+    "formula": "TIPOREG=TIPOA;reaplicar mínimos,recalcular importe",
+    "decision": "candidato-operable",
+    "objecionExperta": "La norma dice circunstancias exclusivamente; no todo evento mixto.",
+    "respuesta": "Exigir calificación del cambio; rechazar mixto no conciliado.",
+    "coste": "No universalizar por signo de una sola cifra.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:87.5-aumento",
+    "condicion": "Causas restantes,diferencia aumenta,importe pretende aumentar más",
+    "formula": "Techoimporte=IMPORTEA+incrementodiferencia;tipo de pendiente,truncado,revisar mínimos,recalcular",
+    "decision": "candidato-operable",
+    "objecionExperta": "El importe final tras mínimos puede requerir reconciliación.",
+    "respuesta": "Conservar orden y magnitudes de rastro.",
+    "coste": "No aceptar combinaciones de hechos insuficientes.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  },
+  {
+    "id": "2016-anual:eficacia",
+    "condicion": "Todas",
+    "formula": "87.4:1..4 desdevariación;5..11 desdecomunicación>=5días;opción1abril/julio/octubre;88subidas10días",
+    "decision": "candidato-documental",
+    "objecionExperta": "Fecha de cálculo no sustituye comunicación ni confección de nómina.",
+    "respuesta": "Adaptador con eventos y fechas civiles explícitas.",
+    "coste": "No verifica recepción real.",
+    "fuentes": [
+      "RIRPF87-88",
+      "citas-paginas.json",
+      "CONTRATO-CANDIDATO.md"
+    ],
+    "aceptacionFiscal": false
+  }
+]

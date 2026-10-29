@@ -1,0 +1,27 @@
+78 |       timeout: 180_000,
+79 |     }
+80 |   )
+81 |   if (run.error) throw run.error
+82 |   if (run.status !== 0)
+83 |     throw new Error(run.stderr || "Verificación documental fallida")
+                   ^
+error: Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec1d8368/tools/procedencia/enlaces.py", line 334, in verify_evidence
+    resolver.resolve(blob)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec1d8368/tools/procedencia/cas.py", line 40, in resolve
+    raise ValueError('Objeto ausente en raíces CAS explícitas: ' + sha256)
+ValueError: Objeto ausente en raíces CAS explícitas: 8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec1d8368/tools/procedencia/enlaces.py", line 376, in <module>
+    result = verify_evidence(Path.cwd(), read_json(sys.stdin.read()), cas_roots=args.cas_root)
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-ec1d8368/tools/procedencia/enlaces.py", line 336, in verify_evidence
+    raise ValueError(label + ' CAS: ' + str(error)) from error
+ValueError: Original CAS: Objeto ausente en raíces CAS explícitas: 8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660
+
+      at verifyLinks (/home/elies/.t3/worktrees/IRoboPF/t3-ec1d8368/scripts/procedencia/verificar-enlaces.mjs:83:15)
+
+Bun v1.3.13 (Linux x64)

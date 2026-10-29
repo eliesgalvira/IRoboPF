@@ -1,0 +1,38 @@
+scratch sintético listo
+58 |   assert.ok(html.includes(text), text)
+59 | const receipt = resolve(store, "objetos", evidence.recibo)
+60 | const moved = receipt + ".synthetic-moved"
+61 | renameSync(receipt, moved)
+62 | try {
+63 |   assert.throws(() => verificarContenido(snapshot, store), /ausente/)
+              ^
+AssertionError: The input did not match the regular expression /ausente/. Input:
+
+"Error: ENOENT: no such file or directory, open '/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/.cache/ambitos/e2e/docs/procedencia/implementaciones/contenidos/datos/objetos/cdfe6d9f8b2f349fd05c3a0d7e7b02f267015d4d8010ccc8470e2afecf733b54'"
+
+ generatedMessage: true,
+   expected: /ausente/,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/docs/procedencia/implementaciones/ambitos-juridicos/ensayo-publicacion.mjs:63:10
+
+139 |     snapshot.inventario,
+140 |     snapshot.contrato,
+141 |     snapshot.generador,
+142 |     ...snapshot.auxiliares,
+143 |   ]) {
+144 |     if (hash(readFileSync(resolve(raiz, "objetos", h))) !== h)
+                   ^
+ENOENT: no such file or directory, open '/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/.cache/ambitos/e2e/docs/procedencia/implementaciones/contenidos/datos/objetos/cdfe6d9f8b2f349fd05c3a0d7e7b02f267015d4d8010ccc8470e2afecf733b54'
+    path: "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/.cache/ambitos/e2e/docs/procedencia/implementaciones/contenidos/datos/objetos/cdfe6d9f8b2f349fd05c3a0d7e7b02f267015d4d8010ccc8470e2afecf733b54",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at verificarContenido (/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/scripts/procedencia/contenido-verificar.mjs:144:14)
+      at getActual (node:assert:394:7)
+      at throws (node:assert:484:33)
+      at /home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/docs/procedencia/implementaciones/ambitos-juridicos/ensayo-publicacion.mjs:63:10
+
+Bun v1.3.13 (Linux x64)

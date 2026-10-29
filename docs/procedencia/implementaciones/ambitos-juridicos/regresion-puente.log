@@ -1,0 +1,70 @@
+F................EFFF...
+======================================================================
+ERROR: test_registered_test_attestation_has_only_limited_scope (__main__.BindingTest.test_registered_test_attestation_has_only_limited_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/procedencia-enlaces_test.py", line 181, in test_registered_test_attestation_has_only_limited_scope
+    result = verify_evidence(self.root, self.context)['evidence'][0]
+             ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tools/procedencia/enlaces.py", line 351, in verify_evidence
+    review = verify_attestation(reader, entry['attestation'], payload, entry['payload']['sha256'])
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tools/procedencia/enlaces.py", line 212, in verify_attestation
+    raise ValueError('Nueva aceptación requiere ámbito ejecutable v2')
+ValueError: Nueva aceptación requiere ámbito ejecutable v2
+
+======================================================================
+FAIL: test_attestation_invalidated_by_payload_or_scope_changes (__main__.BindingTest.test_attestation_invalidated_by_payload_or_scope_changes)
+----------------------------------------------------------------------
+ValueError: Nueva aceptación requiere ámbito ejecutable v2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/procedencia-enlaces_test.py", line 203, in test_attestation_invalidated_by_payload_or_scope_changes
+    with self.assertRaisesRegex(ValueError, 'Atestación'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "Atestación" does not match "Nueva aceptación requiere ámbito ejecutable v2"
+
+======================================================================
+FAIL: test_report_cannot_be_substituted (__main__.BindingTest.test_report_cannot_be_substituted)
+----------------------------------------------------------------------
+ValueError: Nueva aceptación requiere ámbito ejecutable v2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/procedencia-enlaces_test.py", line 209, in test_report_cannot_be_substituted
+    with self.assertRaisesRegex(ValueError, 'Informe independiente'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "Informe independiente" does not match "Nueva aceptación requiere ámbito ejecutable v2"
+
+======================================================================
+FAIL: test_self_review_is_rejected (__main__.BindingTest.test_self_review_is_rejected)
+----------------------------------------------------------------------
+ValueError: Nueva aceptación requiere ámbito ejecutable v2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/procedencia-enlaces_test.py", line 189, in test_self_review_is_rejected
+    with self.assertRaisesRegex(ValueError, 'contrarrevisarse'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "contrarrevisarse" does not match "Nueva aceptación requiere ámbito ejecutable v2"
+
+======================================================================
+FAIL: test_unregistered_review_is_rejected (__main__.BindingTest.test_unregistered_review_is_rejected)
+----------------------------------------------------------------------
+ValueError: Nueva aceptación requiere ámbito ejecutable v2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/procedencia-enlaces_test.py", line 196, in test_unregistered_review_is_rejected
+    with self.assertRaisesRegex(ValueError, 'no registrado'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "no registrado" does not match "Nueva aceptación requiere ámbito ejecutable v2"
+
+----------------------------------------------------------------------
+Ran 24 tests in 1.655s
+
+FAILED (failures=4, errors=1)

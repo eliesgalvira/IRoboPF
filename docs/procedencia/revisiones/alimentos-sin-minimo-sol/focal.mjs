@@ -1,0 +1,6 @@
+import fs from 'node:fs';import crypto from 'node:crypto';
+const out='/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/alimentos-sin-minimo-sol',sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const inventory=fs.readFileSync('docs/procedencia/inventario.json'),artifact=fs.readFileSync('docs/procedencia/inventario-datos.json.gz');
+const dir='docs/procedencia/implementaciones/contenidos/datos', ids=['522677b42b24d885d415be2cf649c4e8dc38c28611bc5e27f5e4af0686e40396','259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608'];const records=[];
+for(const id of ids){const b=fs.readFileSync(dir+'/objetos/'+id);if(sha(b)!==id)throw Error('snapshot corrupto');const s=JSON.parse(b);records.push({id,version:s.version,evidencias:s.evidencias,entries:s.dependencias?.length});}
+const result={inventario:sha(inventory),artefacto:sha(artifact),snapshots:records,officialRegenerated:false};if(result.inventario!=='30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7'||result.artefacto!=='59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7')throw Error('inventario no fijado');fs.writeFileSync(out+'/publicacion-verificada.json',JSON.stringify(result,null,2));console.log('hashes inventario/artefacto y snapshots v1/v2 correctos; no regenerados');

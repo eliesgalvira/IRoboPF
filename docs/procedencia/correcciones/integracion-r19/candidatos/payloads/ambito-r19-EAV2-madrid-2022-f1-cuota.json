@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r19-EAV2-madrid-2022-f1-cuota",
+  "authorTaskId": "Codex /root orquestador integracion-r19",
+  "inventory": {
+    "manifestSha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+    "artifactSha256": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7"
+  },
+  "itemId": "inv-cfd254317aabe4b292b89f5cade748d1",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "MADRID_2022",
+    "tablePath": [
+      "0",
+      "cuota"
+    ]
+  },
+  "scope": {
+    "year": 2022,
+    "territory": "madrid",
+    "unit": "EUR",
+    "claim": "Candidato: cuota publicado, fila 1; coincidencia con identidad canónica exacta.",
+    "conditions": [
+      "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+      "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+      "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+      "Período iniciado en 2022, incluido su cierre por fallecimiento; sin extensión a 2025."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/autonomicas-v2/citas/madrid-2022-f1-cuota.json",
+    "sha256": "fb6526b2950ee386dad06f2f444e12a1d31ba5a4acae3b16c4a5e163d5b08589"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/autonomicas/documentos/7a302c1d77124747d65ad2b7181b899f023baceb96d88638d37c44a05e7ad49b.json",
+    "sha256": "21eab2b72add648f4dd1c254c1361e38a3f2366e6bdbe7c2acb5e345942d1608"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-madrid-2022-f1-cuota"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/correcciones/integracion-r19/candidatos/ambitos/EAV2-madrid-2022-f1-cuota.json",
+    "sha256": "662a74fa156ed6e7e0ed6a4d85ec2b6d2c897ac0fbb6fb2c1913ab957804a304"
+  }
+}

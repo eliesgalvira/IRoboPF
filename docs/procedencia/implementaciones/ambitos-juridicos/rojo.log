@@ -1,0 +1,53 @@
+Using CPython 3.13.15 interpreter at: /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3
+Creating virtual environment at: .cache/ambitos/venv
+Installed 6 packages in 6ms
+EEEEE
+======================================================================
+ERROR: test_decision_no_es_ambito_ejecutable (__main__.Ambitos.test_decision_no_es_ambito_ejecutable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/test_ambitos_juridicos.py", line 31, in test_decision_no_es_ambito_ejecutable
+    enlaces.select_decision([decision], 'synthetic', executable=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: select_decision() got an unexpected keyword argument 'executable'
+
+======================================================================
+ERROR: test_delegaciones_ambiguas (__main__.Ambitos.test_delegaciones_ambiguas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/test_ambitos_juridicos.py", line 24, in test_delegaciones_ambiguas
+    enlaces.delegation_entries(registry)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'enlaces' has no attribute 'delegation_entries'
+
+======================================================================
+ERROR: test_delegaciones_versionadas (__main__.Ambitos.test_delegaciones_versionadas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/test_ambitos_juridicos.py", line 16, in test_delegaciones_versionadas
+    self.assertEqual(enlaces.delegation_entries(registry), [delegate])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'enlaces' has no attribute 'delegation_entries'
+
+======================================================================
+ERROR: test_murcia_estricta (__main__.Ambitos.test_murcia_estricta)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/test_ambitos_juridicos.py", line 61, in test_murcia_estricta
+    enlaces.evaluate_scope(scope, context)
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'enlaces' has no attribute 'evaluate_scope'
+
+======================================================================
+ERROR: test_periodo_y_contexto (__main__.Ambitos.test_periodo_y_contexto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/test_ambitos_juridicos.py", line 41, in test_periodo_y_contexto
+    enlaces.evaluate_scope(scope, context)
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'enlaces' has no attribute 'evaluate_scope'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+FAILED (errors=5)

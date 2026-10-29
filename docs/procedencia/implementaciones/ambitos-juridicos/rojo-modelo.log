@@ -1,0 +1,15 @@
+1063 | /** @internal */
+1064 | export const exitMapError = /*#__PURE__*/dual(2, (self, f) => {
+1065 |   if (self._tag === "Success") return self;
+1066 |   const error = findError(self.cause);
+1067 |   if (Result.isFailure(error)) return self;
+1068 |   return exitFail(f(error.success));
+                         ^
+error: Expected "pending", got "accepted-limited"
+  at ["revisionBinding"]
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:1068:19)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/SchemaParser.js:303:52)
+      at /home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/.cache/ambitos/node-red.mjs:4:41
+      at loadAndEvaluateModule (2:1)
+
+Bun v1.3.13 (Linux x64)

@@ -1,0 +1,16 @@
+{
+  "runs": [
+    {
+      "log": "regeneracion.log",
+      "exitCode": 143,
+      "reason": "SIGTERM propio para liberar memoria entre fases"
+    },
+    {
+      "log": "regeneracion-final.log",
+      "exitCode": 143,
+      "reason": "SIGTERM propio durante segunda publicaci\u00f3n en mismo proceso; primera v2 preservada"
+    }
+  ],
+  "finalRun": "regeneracion-aislada.log",
+  "finalExitCode": 0
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-v1-EAV2-comunitat-valenciana-2015-f6-cuota",
+  "authorTaskId": "Codex /root checkout T3 t3-d3757c76",
+  "inventory": {
+    "manifestSha256": "4f00b24bfa37baa3521d54af1448d99a2ef6d1eee3e08bcf8b4d16ec97af7314",
+    "artifactSha256": "b5450d431eefa13765ec0009a6be579e15848524799f2a467a46b5746caf087f"
+  },
+  "itemId": "inv-00a0a86736d890bb33eef2aaa9c7525c",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "VALENCIA_2014_2016",
+    "tablePath": [
+      "5",
+      "cuota"
+    ]
+  },
+  "scope": {
+    "year": 2015,
+    "territory": "comunitat-valenciana",
+    "unit": "EUR",
+    "claim": "Candidato: cuota publicado, fila 6; coincidencia con identidad canónica exacta.",
+    "conditions": [
+      "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+      "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+      "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+      "Ámbito aceptado: cierre ordinario anual sin fallecimiento. Los supuestos de fallecimiento quedan fuera de esta decisión limitada."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/autonomicas-v2/citas/comunitat-valenciana-2014-f6-cuota.json",
+    "sha256": "a265473df46800be60e8abd67efbed0ff36714e2e1f30447adfd4ba3ece994d1"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/autonomicas/documentos/0ed3161792ae3a79877c8d9a533447a3f04db4cd31078be29f0b2c2fefd4c70d.json",
+    "sha256": "cad40d29a6bd9d02f18bd19c3afe8eba3c94d2393f4f7aad19a16970c9b8d9fe"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-comunitat-valenciana-2015-f6-cuota"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/implementaciones/ambitos-juridicos/ambitos/EAV2-comunitat-valenciana-2015-f6-cuota.json",
+    "sha256": "b00815d124be79a618353a5a05657ddb613ea5a6739b8b9617a48248f4dce79c"
+  }
+}

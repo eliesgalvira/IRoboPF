@@ -176,11 +176,12 @@ class BindingTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Ruta'):
             verify_evidence(self.root, self.context)
 
-    def test_registered_test_attestation_has_only_limited_scope(self):
+    def test_legacy_attestation_cannot_authorize_new_operational_acceptance(self):
         self.attest()
-        result = verify_evidence(self.root, self.context)['evidence'][0]
-        self.assertEqual(result['bindingReview'], 'accepted-limited')
-        self.assertFalse(result['completeRuleAcceptance'])
+        # La lectura histórica permanece; la puerta actual exige un payload v2
+        # y revisión del ámbito ejecutable, no la antigua proyección editorial.
+        with self.assertRaisesRegex(ValueError, 'ámbito ejecutable v2'):
+            verify_evidence(self.root, self.context)
 
     def test_self_review_is_rejected(self):
         self.attest()

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ambito-r17-EAV2-andalucia-2015-f6-cuota",
+  "authorTaskId": "Codex /root checkout T3 t3-ec1d8368 integracion-r17",
+  "inventory": {
+    "manifestSha256": "21516a24e30d5106d229b1fead87aa0889700df3950fabfe0f4bb69b23631266",
+    "artifactSha256": "5095690502f91a0157ea0323410531f120849cf8e776c3d813fa490fb322df48"
+  },
+  "itemId": "inv-fa350c41c9b0725b807075b6e6f9c24b",
+  "source": {
+    "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+    "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+    "symbol": "ANDALUCIA_2012_2015",
+    "tablePath": [
+      "5",
+      "cuota"
+    ]
+  },
+  "scope": {
+    "year": 2015,
+    "territory": "andalucia",
+    "unit": "EUR",
+    "claim": "Candidato: cuota publicado, fila 6; coincidencia con identidad canónica exacta.",
+    "conditions": [
+      "Componente autonómico de la base liquidable general; residencia territorial debe acreditarse fuera de esta decisión.",
+      "Aceptación limitada a la identidad y cuantía EUR de esta celda, en este ejercicio; no acepta mínimos, tipos como bindings, deducciones, redondeos ni liquidación completa.",
+      "No autoriza registrar el payload original ni crear atestación; el padre debe preparar y revisar un payload nuevo con estas condiciones.",
+      "Ámbito aceptado: cierre ordinario anual sin fallecimiento. Los supuestos de fallecimiento quedan fuera de esta decisión limitada."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/autonomicas-v2/citas/andalucia-2012-f6-cuota.json",
+    "sha256": "a3df67e378f2a933a0f5ca6841942d7bb6fc9adb32756dc2749d781d6a3b0376"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/autonomicas/documentos/09f01627f64790629169c728da9292d81e46a99392641597d1cc93b1b1799154.json",
+    "sha256": "6545052ad5e79dcc09cea493b43b5da739d190cc3175b2d04710ac08c67ac9ff"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/evidencias-autonomicas-v2/decisiones-canonicas.json",
+      "sha256": "49c791a8ae91e1363fd33a9d9a414942e18d2812db75747c9c978c0e9f49e379"
+    },
+    "decisionId": "EAV2-andalucia-2015-f6-cuota"
+  },
+  "executableScope": {
+    "path": "docs/procedencia/implementaciones/integracion-sol-r17/candidatos/ambitos/EAV2-andalucia-2015-f6-cuota.json",
+    "sha256": "c2b4e206c238a48cb0f2a32eb303d981d07cafa69d34317cb64526ee4746bf1e"
+  }
+}

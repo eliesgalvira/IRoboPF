@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 18:31 CET
+## Situación más reciente, 29 de octubre, 18:58 CET
+
+Integradas las entregas Sol de contratos documentales/preservación y retenciones 2015–2016, cotejadas por base y manifiesto. Los dos conflictos eran registro de snapshots y alias de rastro: unión de históricos y regeneración, sin sobrescribir los fixes familiares. Informe `correcciones/integracion-r19/INFORME.md`. La nueva revisión de alimentos confirma la exclusión como límite temporal; MDV2-P01 conserva su reserva jurídica.
+
+Los contratos de ámbito y aprobación exacta son candidatos; **264 payloads R19 pendientes**, sin promociones. Inventario fiscal intacto: 52.461 ocurrencias. Se verifican 30 snapshots previos y se conservan 32. V1 `f74f859aa5ec40532299678b9c067f2537f0e62a6a39a523711d79161a742cbb`; V2 `e6eaeed1b3058155774984016651712a54213b0d4702dc59113e7ba9e99aaa9d`, 717 objetos. Pasan 85 regresiones, 20 pruebas de contenido, 24 del puente, dos pases de seis de ámbitos y cuatro Node; tipos principal/vendor, lint, anti-slop, Ruff y mypy correctos. Recuentos solapados, sin certificación fiscal. No build ni despliegue en este bloque.
+
+La revisión de retenciones 2015–2016 completa lectura de 140 páginas y entrega 60 dictámenes y 43 ramas; conserva tres rojos documentales. Sus hallazgos nuevos se contrarrevisarán antes de aceptación. Julio editorial/territorial y la doble minoración de 600 mantienen bloqueos específicos; no se habilita ningún ejercicio.
+
+Once objetos de fuentes de esa revisión, 20.925.153 bytes, preservados fuera de T3 y del Git ordinario con mapa y ambos hashes. V3 conserva su corte de 945 objetos; los 21 faltantes familiar/TGSS de la entrega no son un censo de las incorporaciones posteriores. Crossa sigue v1 desfasado. Próximo lote: revisiones Sol High de contrato técnico, bindings exactos, preservación v3 y hallazgos nuevos de retenciones. Continúa la revisión de retenciones 2012–2014. Ambos lotes editoriales ya se han recibido por hash y base: 65 sitios, cuatro conceptos, 264 celdas y 195 hojas técnicas candidatas, sin publicación. Identidades y schemas integrados correctos; requieren contrarrevisiones nuevas y adaptación posterior al publicador. Sin gasto, LFS, transferencia, PR ni limpieza final; el encargo sigue abierto.
+
+## Situación anterior, 29 de octubre, 18:31 CET
 
 Recibida y cotejada la revisión independiente de Sol sobre derechos familiares: MDV1-01/02/03 y separación de fechas comprobados en su alcance. La reserva nueva MDV2-P01 no demuestra una cuota errónea: falta resolver el tratamiento del custodio pagador que pierde el mínimo por otras condiciones. Se excluye expresamente ese cruce de la liquidación anual, sin atribuirle una especialidad ni cambiar cuantías. Cinco rojos contractuales conservados; pasan 57 pruebas familiares, 13 de rastro/publicación, lint y tipos principal/vendor. Informe: `correcciones/alimentos-sin-minimo-r18/INFORME.md`. Queda pendiente revisión nueva de esta exclusión; la cuestión jurídica sigue abierta.
 

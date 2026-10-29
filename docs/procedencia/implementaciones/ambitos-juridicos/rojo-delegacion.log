@@ -1,0 +1,32 @@
+✔ cierre sintético exacto; omisión y movimiento del informe bloquean (2.182411ms)
+✔ otro sujeto, recibo sin registro y dependencia duplicada bloquean (0.401547ms)
+✔ rehacer la atestación no sustituye la aprobación del orquestador (0.404662ms)
+✖ claves de delegación duplicadas con tareas distintas son ambiguas (0.797232ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 244.188263
+
+✖ failing tests:
+
+test at tests/ambito-publicado.test.mjs:186:1
+✖ claves de delegación duplicadas con tareas distintas son ambiguas (0.797232ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///home/elies/.t3/worktrees/IRoboPF/t3-d3757c76/tests/ambito-publicado.test.mjs:206:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /ambigua/,
+    operator: 'throws',
+    diff: 'simple'
+  }

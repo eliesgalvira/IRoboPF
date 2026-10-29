@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-e30b0162/.cache/escalas-minimos/armar.py", line 14, in <module>
+    for e in read(OBJ/p['hash']):
+             ~~~~^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-e30b0162/.cache/escalas-minimos/armar.py", line 8, in read
+    def read(p):return json.loads(P(p).read_bytes())
+                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/json/__init__.py", line 347, in loads
+    s = s.decode(detect_encoding(s), 'surrogatepass')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte

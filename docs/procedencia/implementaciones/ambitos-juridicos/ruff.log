@@ -1,0 +1,22 @@
+E402 Module level import not at top of file
+  --> docs/procedencia/implementaciones/ambitos-juridicos/preparar.py:11:1
+   |
+ 9 | ROOT = Path(__file__).resolve().parents[4]
+10 | sys.path.insert(0, str(ROOT / 'tools/procedencia'))
+11 | from enlaces import DocumentaryReadSet, verify_executable_scope
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 | from corpus import validate_schema
+   |
+
+E402 Module level import not at top of file
+  --> docs/procedencia/implementaciones/ambitos-juridicos/preparar.py:12:1
+   |
+10 | sys.path.insert(0, str(ROOT / 'tools/procedencia'))
+11 | from enlaces import DocumentaryReadSet, verify_executable_scope
+12 | from corpus import validate_schema
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 |
+14 | OUT = ROOT / 'docs/procedencia/implementaciones/ambitos-juridicos'
+   |
+
+Found 2 errors.

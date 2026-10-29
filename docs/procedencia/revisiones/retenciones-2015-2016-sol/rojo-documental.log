@@ -1,0 +1,32 @@
+FFF
+======================================================================
+FAIL: test_ascendiente64_discapacitado_2015 (__main__.LiteralPDF.test_ascendiente64_discapacitado_2015)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-e16eb2bc/.cache/retenciones-sol/repro-rojo.py", line 9, in test_ascendiente64_discapacitado_2015
+    self.assertTrue(literal, 'Art59 permite ascendiente discapacitado cualquiera que sea su edad')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Art59 permite ascendiente discapacitado cualquiera que sea su edad
+
+======================================================================
+FAIL: test_cuarto_y_sucesivos (__main__.LiteralPDF.test_cuarto_y_sucesivos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-e16eb2bc/.cache/retenciones-sol/repro-rojo.py", line 14, in test_cuarto_y_sucesivos
+    self.assertEqual(literal_count, 1, 'Cuatro descendientes solo contienen un cuarto y sucesivos')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 4 != 1 : Cuatro descendientes solo contienen un cuarto y sucesivos
+
+======================================================================
+FAIL: test_discapacidad_segundo_hijo (__main__.LiteralPDF.test_discapacidad_segundo_hijo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-e16eb2bc/.cache/retenciones-sol/repro-rojo.py", line 20, in test_discapacidad_segundo_hijo
+    self.assertEqual(literal, 3000, 'Art60 no excluye al segundo hijo por posición')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 3000 : Art60 no excluye al segundo hijo por posición
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=3)

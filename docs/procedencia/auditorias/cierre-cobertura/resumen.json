@@ -1,0 +1,123 @@
+{
+  "ausencias": 0,
+  "base": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
+  "deducciones": 351,
+  "diff": "",
+  "entradasPresentes": 9391,
+  "idsDistintos": 70985,
+  "matricesLeidas": 584,
+  "muestraInventario": [
+    {
+      "applicability": "datos evaluados; selección por motor pendiente",
+      "domain": "dominio/normativa/datos",
+      "evidence": "pending",
+      "expression": "MINIMOS_AUTONOMICOS_IRPF_2013[\"valor\"][\"cantabria\"][\"descendientes\"][\"segundo\"]",
+      "id": "inv-0002245e57ff84ebf907e07a08a3fb22",
+      "independentReview": "pending",
+      "kind": "Parameter",
+      "layer": "effective",
+      "name": "Parámetro: MINIMOS_AUTONOMICOS_IRPF_2013 / [\"valor\",\"cantabria\",\"descendientes\",\"segundo\"]",
+      "path": "[\"valor\",\"cantabria\",\"descendientes\",\"segundo\"]",
+      "regimes": [],
+      "relations": {
+        "citationIds": [],
+        "findingIds": [],
+        "itemIds": [
+          "inv-3b5492586bb41248d2dbdf46b6e46ef6"
+        ],
+        "ruleIds": []
+      },
+      "resolution": "module-evaluation",
+      "source": {
+        "column": 14,
+        "end": 3231,
+        "file": "lib/dominio/normativa/datos/minimos-autonomicos-2013.ts",
+        "line": 86,
+        "offsetEncoding": "utf16",
+        "sha256": "690b7bd3f9f606ec94d373bfec94f55a111482b665467de8b47edf395f2ea269",
+        "start": 2892
+      },
+      "status": "pending",
+      "symbol": "MINIMOS_AUTONOMICOS_IRPF_2013",
+      "territories": [
+        "cantabria"
+      ],
+      "unit": "EUR (mínimo anual del código)",
+      "value": "2040",
+      "years": [
+        2013
+      ]
+    },
+    {
+      "applicability": "pending",
+      "domain": "dominio/normativa/datos",
+      "evidence": "pending",
+      "expression": "\"11.5\"",
+      "id": "inv-000364c5e9541fb661287b50cfc5e7ab",
+      "independentReview": "pending",
+      "kind": "Parameter",
+      "layer": "syntactic",
+      "name": "Parámetro: ESCALA_GALICIA_2014_BASE_HASTA_17707_20 / [[\"FirstStatement:ESCALA_GALICIA_2014_BASE_HASTA_17707_20\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:ESCALA_GALICIA_2014_BASE_HASTA_17707_20\",0],[\"CallExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:tramos\",0],[\"valor:tramos\",0],[\"ArrayLiteralExpression\",0],[\"CallExpression\",1],[\"StringLiteral\",0]]",
+      "path": "[[\"FirstStatement:ESCALA_GALICIA_2014_BASE_HASTA_17707_20\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:ESCALA_GALICIA_2014_BASE_HASTA_17707_20\",0],[\"CallExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:tramos\",0],[\"valor:tramos\",0],[\"ArrayLiteralExpression\",0],[\"CallExpression\",1],[\"StringLiteral\",0]]",
+      "regimes": [],
+      "relations": {
+        "citationIds": [],
+        "findingIds": [],
+        "itemIds": [],
+        "ruleIds": []
+      },
+      "source": {
+        "column": 37,
+        "end": 3622,
+        "file": "lib/dominio/normativa/datos/irpf-autonomico-2014.ts",
+        "line": 95,
+        "offsetEncoding": "utf16",
+        "sha256": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7",
+        "start": 3616
+      },
+      "status": "pending",
+      "symbol": "ESCALA_GALICIA_2014_BASE_HASTA_17707_20",
+      "territories": [],
+      "unit": "pending",
+      "value": "11.5",
+      "years": []
+    },
+    {
+      "applicability": "pending",
+      "domain": "",
+      "evidence": "pending",
+      "expression": "enumerate(p['tramos_irpf'])",
+      "id": "inv-000376ab7444704ec3e1802cfd3546a5",
+      "independentReview": "pending",
+      "kind": "Formula",
+      "layer": "syntactic",
+      "name": "Fórmula: generar_hojas_control / [\"body\",\"generar_hojas_control\",8,\"body\",\"2\",2,\"body\",\"4\",4,\"iter\"]",
+      "path": "[\"body\",\"generar_hojas_control\",8,\"body\",\"2\",2,\"body\",\"4\",4,\"iter\"]",
+      "regimes": [],
+      "relations": {
+        "citationIds": [],
+        "findingIds": [],
+        "itemIds": [],
+        "ruleIds": []
+      },
+      "source": {
+        "column": 30,
+        "endColumn": 57,
+        "endLine": 156,
+        "file": "Calculo_Salario_IRPF.py",
+        "line": 156,
+        "offsetEncoding": "utf8-column",
+        "sha256": "16deef52f91a3aee30da6f8ec76df941cd4c4449c5bd20d1807caee1b52bdc6e"
+      },
+      "status": "pending",
+      "symbol": "generar_hojas_control",
+      "territories": [],
+      "unit": "pending",
+      "value": null,
+      "years": []
+    }
+  ],
+  "ocurrencias": 52377,
+  "registrosConId": 93358,
+  "symlinks": 3
+}
