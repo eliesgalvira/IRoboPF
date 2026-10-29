@@ -18,6 +18,8 @@ Las revisiones de rentas/actividad y retenciones/SS exigen rectificar localizado
 
 V4 conserva su corte R21; Crossa conserva v1 desfasado, copia local del mismo dueño y casa, sin custodia independiente. Sin LFS, gasto, transferencia externa, PR, cambios a main, despliegue ni limpieza. El encargo global permanece abierto.
 
+Bloque integrado y respaldado en origin: `1ed8acfdf77dfee5330da0f0131f42956b45206a`, 284 archivos y 23.423.251 bytes cotejados contra el commit, cero borrados; nueva base de 15.730 entradas. Lanzadas tres tareas nuevas en worktrees T3: revisión de multiplicidad/BORM, implementación de CAS local externo y revisión del candidato Madrid2020 v2. Cada resultado del lanzador confirma `gpt-6.1-sol`, esfuerzo `high` y `priority`. Encargos y resultados íntegros en delegaciones-ronda27.json. Ninguna tarea altera confianza activa ni convierte el subconjunto de 228 en cierre de 264. Las finalizaciones reactivarán al padre; no se sondean. La cola conserva la rectificación de los grafos y las entregas R26 aún pendientes. El encargo continúa abierto.
+
 ## Situación anterior, 29 de octubre, 21:26 CET
 
 Recibidas cuatro entregas: revisión de preservación R23, flujos de escalas/mínimos y retenciones/cotizaciones, y revisión v4. Son 261 archivos y 15.696.286 bytes cotejados, con las bases físicas completas de 14.957/15.029 entradas intactas y cero borrados. Recibo en correcciones/recepcion-r23-r24-r26. La revisión R23 corrobora sus tres fixes previos y distingue schema de consumidor; los informes históricos no se reescriben.
