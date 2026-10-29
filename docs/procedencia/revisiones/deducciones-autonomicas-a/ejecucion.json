@@ -1,0 +1,2302 @@
+{
+  "items": [
+    {
+      "code": "andalucia_gastos_educativos",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "15% de gastos de enseñanza escolar o extraescolar de idiomas, informática o ambas; límite 150 euros anuales por descendiente."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "andalucia_defensa_juridica_laboral",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "100",
+        "base": "gastos de defensa jurídica derivados de la relación laboral",
+        "limiteMaximoEuros": "200"
+      },
+      "estado": "implementada",
+      "observed": 200,
+      "specificObserved": null
+    },
+    {
+      "code": "andalucia_donativos_finalidad_ecologica",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "10",
+        "base": "donativos con finalidad ecológica",
+        "limiteMaximoEuros": "150"
+      },
+      "estado": "implementada",
+      "observed": 100,
+      "specificObserved": null
+    },
+    {
+      "code": "andalucia_ejercicio_fisico_deporte",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "15",
+        "base": "cuotas de pertenencia o adhesión a gimnasios, centros deportivos, clubes, federaciones o secciones deportivas",
+        "limiteMaximoEuros": "100"
+      },
+      "estado": "implementada",
+      "observed": 100,
+      "specificObserved": null
+    },
+    {
+      "code": "andalucia_gastos_veterinarios_animales_compania_perros_asistencia",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "30",
+        "base": "gastos veterinarios deducibles por animales de compañía o perros de asistencia",
+        "limiteMaximoEuros": "100"
+      },
+      "estado": "implementada",
+      "observed": 100,
+      "specificObserved": null
+    },
+    {
+      "code": "andalucia_enfermedad_celiaca",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "100",
+        "por": "persona integrante del núcleo familiar con enfermedad celíaca diagnosticada"
+      },
+      "estado": "implementada",
+      "observed": 200,
+      "specificObserved": null
+    },
+    {
+      "code": "andalucia_inversion_vivienda_habitual_protegida_jovenes",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "6",
+        "base": "cantidades satisfechas por adquisición o rehabilitación de vivienda habitual",
+        "limiteMaximoEuros": "542.40"
+      },
+      "estado": "implementada",
+      "observed": 60,
+      "specificObserved": null
+    },
+    {
+      "code": "andalucia_alquiler_vivienda_habitual",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "15% del alquiler; límite 1.200 euros, o 1.500 euros si el contribuyente tiene discapacidad"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "andalucia_nacimiento_adopcion_acogimiento_menores",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "200 euros por hijo nacido/adoptado o menor acogido; 400 euros si el contribuyente reside en municipio con problemas de despoblación"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaHijosNacimientoAdopcion": 1
+      },
+      "specificObserved": 200
+    },
+    {
+      "code": "andalucia_adopcion_internacional",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "600",
+        "por": "hijo adoptado internacionalmente"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaHijosAdopcionInternacional": 1,
+        "andaluciaAdopcionInternacionalCumpleLimites": true
+      },
+      "specificObserved": 600
+    },
+    {
+      "code": "andalucia_familia_monoparental_ascendientes_mayores_75",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100 euros para padres o madres de familia monoparental; incremento adicional de 100 euros por ascendiente mayor de 75 años que genere derecho al mínimo por ascendientes"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaFamiliaMonoparental": true,
+        "andaluciaAscendientesMayores75": 1
+      },
+      "specificObserved": 200
+    },
+    {
+      "code": "andalucia_familia_numerosa",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "200 euros para familia numerosa de categoría general; 400 euros para categoría especial"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaCategoriaFamiliaNumerosa": "general",
+        "andaluciaFamiliaNumerosaCumpleLimites": true
+      },
+      "specificObserved": 200
+    },
+    {
+      "code": "andalucia_contribuyente_discapacidad",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "150",
+        "por": "contribuyente con discapacidad"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaContribuyenteDiscapacidad": true,
+        "andaluciaContribuyenteDiscapacidadCumpleLimites": true
+      },
+      "specificObserved": 150
+    },
+    {
+      "code": "andalucia_conyuge_pareja_discapacidad",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "100",
+        "por": "cónyuge o pareja de hecho con discapacidad"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaConyugeParejaDiscapacidad65": true,
+        "andaluciaConyugeParejaDiscapacidadCumpleRequisitos": true
+      },
+      "specificObserved": 100
+    },
+    {
+      "code": "andalucia_asistencia_personas_discapacidad",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100 euros por cada persona con discapacidad que dé derecho al mínimo por discapacidad de ascendientes o descendientes; adicionalmente, 20% de la cuota fija de Seguridad Social de empleados del hogar con límite de 500 euros si precisa ayuda de terceras personas"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaPersonasDiscapacidadConMinimo": 1,
+        "andaluciaAsistenciaDiscapacidadCumpleLimites": true
+      },
+      "specificObserved": 100
+    },
+    {
+      "code": "andalucia_ayuda_domestica",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "20",
+        "base": "cotización anual satisfecha por cuenta del empleador a la Seguridad Social por empleado del hogar familiar",
+        "limiteMaximoEuros": "500"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaCuotasAyudaDomestica": 1000,
+        "andaluciaAyudaDomesticaCumpleRequisitos": true
+      },
+      "specificObserved": 200
+    },
+    {
+      "code": "andalucia_inversion_acciones_participaciones_mercantiles",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "20% de la inversión con límite de 4.000 euros; 50% con límite de 12.000 euros para sociedades creadas o participadas por universidades o centros de investigación"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "andaluciaInversionAccionesImporte": 1000,
+        "andaluciaInversionAccionesCumpleRequisitos": true
+      },
+      "specificObserved": 200
+    },
+    {
+      "code": "aragon_nacimiento_adopcion_hijo_discapacidad_33",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "200 euros por hijo en régimen general; 240 euros por hijo si resulta aplicable el régimen de fiscalidad diferenciada."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_adopcion_internacional",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "600 euros por hijo adoptado internacionalmente; 720 euros si resulta aplicable el régimen de fiscalidad diferenciada."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_donaciones_ecologicas_idi",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "20% de donaciones dinerarias puras y simples, con límite del 10% de la cuota íntegra autonómica."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_vivienda_victimas_terrorismo",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "3",
+        "base": "cantidades satisfechas por adquisición de vivienda nueva protegida en Aragón",
+        "limiteMaximoEuros": "271.20"
+      },
+      "estado": "implementada",
+      "observed": 30,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_inversion_acciones_mab",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "20",
+        "base": "cantidades invertidas en la suscripción de acciones por ampliación de capital en el segmento de empresas en expansión del MAB",
+        "limiteMaximoEuros": "10000"
+      },
+      "estado": "implementada",
+      "observed": 200,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_inversion_entidades_nuevas_reciente_creacion",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "20",
+        "base": "inversión autonómica computable en acciones o participaciones de entidades nuevas o de reciente creación",
+        "limiteMaximoEuros": "4000"
+      },
+      "estado": "implementada",
+      "observed": 200,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_vivienda_nucleos_rurales",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "5% de cantidades satisfechas en régimen general; 7,5% con fiscalidad diferenciada; conceptos y base máxima según normativa estatal de vivienda habitual vigente a 31-12-2012."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_libros_texto_material_escolar",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100% de libros de texto y material escolar de Primaria/ESO, minorado por becas y ayudas, con límites por descendiente según base, tributación, familia numerosa y fiscalidad diferenciada."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_arrendamiento_dacion_pago",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "10",
+        "base": "cantidades satisfechas por arrendamiento vinculado a dación en pago",
+        "limiteMaximoEuros": "480"
+      },
+      "estado": "implementada",
+      "observed": 100,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_arrendamiento_vivienda_social_arrendador",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "30",
+        "base": "parte de cuota íntegra autonómica correspondiente a rendimientos netos de capital inmobiliario de viviendas sociales"
+      },
+      "estado": "implementada",
+      "observed": 300,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_primer_segundo_hijo_poblaciones_menos_10000",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100 euros por primer hijo y 150 euros por segundo; 200 y 300 euros respectivamente si la base general + ahorro no supera 23.000 individual o 35.000 conjunta."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_inversion_economia_social",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "20",
+        "base": "aportaciones realizadas para ser socio en entidades de economía social",
+        "limiteMaximoEuros": "4000"
+      },
+      "estado": "implementada",
+      "observed": 200,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_clases_apoyo_refuerzo",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "25% de clases de apoyo o refuerzo extraescolar, minorado por ayudas, con límites por descendiente según base, tributación y familia numerosa."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_formacion_autonomia_menores_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "25% de formación para autonomía y vida independiente de descendientes menores con discapacidad igual o superior al 65%, minorado por ayudas, con límites por descendiente según base, tributación y familia numerosa."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_residencia_determinados_municipios",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "600",
+        "por": "contribuyente que cumpla los requisitos de residencia"
+      },
+      "estado": "implementada",
+      "observed": 1200,
+      "specificObserved": null
+    },
+    {
+      "code": "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Régimen general: 500 euros por tercer hijo o sucesivo, o 600 euros si cumple límite reducido de bases. Fiscalidad diferenciada: 600 euros, o 720 euros si cumple límite reducido de bases"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "aragonTercerHijoSucesivos": 1
+      },
+      "specificObserved": 500
+    },
+    {
+      "code": "aragon_cuidado_personas_dependientes",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "150 euros por persona dependiente en régimen general; 300 euros si resulta aplicable el régimen de fiscalidad diferenciada"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "aragonPersonasDependientes": 1,
+        "aragonDependientesCumpleLimites": true
+      },
+      "specificObserved": 150
+    },
+    {
+      "code": "aragon_mayores_70",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "75",
+        "por": "contribuyente de 70 o más años"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "aragonMayor70CumpleRequisitos": true
+      },
+      "specificObserved": 75
+    },
+    {
+      "code": "aragon_guarderia_menores_3",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "15% de gastos de custodia; límite 250/125 euros general o 300/150 euros con fiscalidad diferenciada"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_vivienda_discapacidad",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "3",
+        "base": "cantidades satisfechas por adquisición o adecuación de vivienda habitual por discapacidad",
+        "limiteMaximoEuros": "450"
+      },
+      "estado": "implementada",
+      "observed": 30,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_vivienda_protegida",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100% del gasto efectivo por adquisición o rehabilitación de vivienda habitual protegida; límite 5.000 euros en el ejercicio de adquisición/rehabilitación y 1.000 euros en ejercicios sucesivos o cantidades pendientes."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_adopcion_internacional",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "1500",
+        "por": "menor adoptado internacionalmente"
+      },
+      "estado": "implementada",
+      "observed": 3000,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_partos_multiples_adopciones_misma_fecha",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "1000",
+        "por": "hijo nacido o adoptado en parto múltiple o adopciones múltiples de la misma fecha"
+      },
+      "estado": "implementada",
+      "observed": 2000,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_familias_monoparentales",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "500",
+        "por": "contribuyente de familia monoparental"
+      },
+      "estado": "implementada",
+      "observed": 1000,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_acogimiento_familiar_menores",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "500 euros por menor acogido si convive 183 días o más; 250 euros si convive más de 90 días y menos de 183 días."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_certificacion_gestion_forestal_sostenible",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "30",
+        "base": "cantidades invertidas para obtener certificación de gestión forestal sostenible",
+        "limiteMaximoEuros": "1000"
+      },
+      "estado": "implementada",
+      "observed": 300,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_libros_texto_material_escolar",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100% de libros de texto y material escolar de Primaria/ESO, minorado por becas y ayudas, con límites por descendiente según base, tributación y familia numerosa."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_segundo_sucesivos_hijos_concejos_despoblamiento",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "300",
+        "por": "segundo o sucesivo hijo nacido o adoptado"
+      },
+      "estado": "implementada",
+      "observed": 600,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_autonomos_concejos_despoblamiento",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "1000",
+        "por": "contribuyente autónomo con derecho"
+      },
+      "estado": "implementada",
+      "observed": 2000,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_transporte_publico_despoblamiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100% de abonos de transporte público personales del contribuyente con límite 100 euros, más 10% de abonos de descendientes estudiantes fuera del concejo con límite 300 euros por descendiente."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_formacion_trabajos_cualificados_idi",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "100",
+        "base": "gastos de formación satisfechos para trabajos especialmente cualificados de I+D, científicos o técnicos",
+        "limiteMaximoEuros": "2000"
+      },
+      "estado": "implementada",
+      "observed": 1000,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_traslado_domicilio_fiscal_motivos_laborales",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "15% de gastos generados por traslado de domicilio fiscal por motivos laborales; límite 1.000 euros general o 2.000 euros si desarrolla trabajos especialmente cualificados."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_vivienda_determinados_colectivos",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "5% de cantidades satisfechas; 10% en concejos en riesgo para jóvenes hasta 35, familias numerosas o monoparentales; base máxima 10.000 euros."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_vehiculos_electricos",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "15",
+        "base": "cantidades satisfechas por adquisición de vehículo eléctrico nuevo o kilómetro cero, minoradas por ayudas públicas",
+        "limiteMaximoEuros": "7500"
+      },
+      "estado": "implementada",
+      "observed": 150,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_cuidado_descendientes_hasta_25",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "600 euros por descendiente de hasta 25 años con derecho al mínimo; también hasta cumplir 26 años si cumple el resto de requisitos, con prorrateo por meses en el año en que cumpla 26."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_emancipacion_jovenes_hasta_35",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "100",
+        "base": "gastos directamente vinculados a la emancipación",
+        "limiteMaximoEuros": "1000"
+      },
+      "estado": "implementada",
+      "observed": 1000,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_ayudas_ela",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Resultado de aplicar los tipos medios de gravamen a la cuantía de la ayuda o subvención ELA integrada en la base liquidable."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_gastos_arrendamiento_viviendas",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "100",
+        "base": "gastos deducibles vinculados al arrendamiento de viviendas a precios con sostenibilidad social",
+        "limiteMaximoEuros": "500"
+      },
+      "estado": "implementada",
+      "observed": 500,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_gastos_vitales_hasta_35",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100% de gastos vitales; límite 2.000 euros hasta 25 años, 1.500 euros de 26 a 30 años y 1.000 euros de 31 a 35 años."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_descendiente_fallecimiento_progenitor_accidente_laboral",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "1000",
+        "por": "descendiente con derecho al mínimo"
+      },
+      "estado": "implementada",
+      "observed": 2000,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_inversion_entidades_nuevas_reciente_creacion",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "30",
+        "base": "cantidades invertidas en acciones o participaciones sociales de nuevas entidades o de reciente creación",
+        "limiteMaximoEuros": "6000"
+      },
+      "estado": "implementada",
+      "observed": 300,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_enfermedad_celiaca",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "100",
+        "por": "persona integrante del núcleo familiar con enfermedad celíaca diagnosticada"
+      },
+      "estado": "implementada",
+      "observed": 200,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_acogimiento_no_remunerado_mayores_65",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "500",
+        "por": "persona mayor de 65 años acogida"
+      },
+      "estado": "implementada",
+      "observed": 1000,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_arrendamiento_vivienda_habitual",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "10% con límite 500 euros; 30% con límite 1.500 euros para colectivos protegidos o concejos en riesgo"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_familias_numerosas",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "1.000 euros categoría general; 2.000 euros categoría especial"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "asturias_centros_cero_tres",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "15% con límite 500 euros por descendiente; 30% con límite 1.000 euros en concejos en riesgo"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_donaciones_finalidad_ecologica",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_donaciones_patrimonio_historico",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_donaciones_fines_culturales_deportivos_investigacion_docencia",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_donaciones_entidades_sin_animo_lucro",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_restauracion_bienes_interes_cultural",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_estudios_educacion_superior",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_estudios_no_superiores",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_traslado_residencia_otra_isla_trabajo",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_inversion_entidades_nuevas_reciente_creacion",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_acogimiento_menores",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_familias_monoparentales",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_custodia_guarderias",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_inversion_vivienda_habitual",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_rehabilitacion_energetica_vivienda",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_adecuacion_vivienda_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_arrendamiento_dacion_pago",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_adecuacion_inmueble_arrendamiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_primas_seguro_impago_arrendamientos",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_puesta_viviendas_mercado_arrendamiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_familiares_dependientes_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_cuotas_seguridad_social_empleados_hogar",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_nacimiento_adopcion_hijos",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "265 euros por primer o segundo hijo; 530 euros por tercero; 796 euros por cuarto; 928 euros por quinto o sucesivos. Incremento adicional por discapacidad igual o superior al 65%"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "canariasHijosNacimientoAdopcion": 1,
+        "canariasNacimientoCumpleLimites": true
+      },
+      "specificObserved": 265
+    },
+    {
+      "code": "canarias_discapacidad_mayores_65",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "400 euros por contribuyente con discapacidad igual o superior al 33%; 160 euros por contribuyente mayor de 65 años. Ambas cuantías son compatibles entre sí"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "canariasContribuyenteDiscapacidad33": true,
+        "canariasDiscapacidadMayoresCumpleLimites": true
+      },
+      "specificObserved": 400
+    },
+    {
+      "code": "canarias_familia_numerosa",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "597 euros para familia numerosa general; 796 euros para especial. Si cónyuge o descendiente con mínimo tiene discapacidad igual o superior al 65%, 1.326 euros general y 1.459 euros especial"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "canariasCategoriaFamiliaNumerosa": "general"
+      },
+      "specificObserved": 597
+    },
+    {
+      "code": "canarias_alquiler_vivienda_habitual",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "24% del alquiler; límite 740 euros, o 760 euros si menor de 40 o mayor de 75"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_gasto_enfermedad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "12% de gastos médicos/sanitarios y aparatos; límite 500/700 euros, incremento 100 euros, o límite 150 euros si supera umbral"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "canarias_contribuyentes_desempleados",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "120",
+        "por": "contribuyente desempleado"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "canariasDesempleadoCumpleRequisitos": true
+      },
+      "specificObserved": 120
+    },
+    {
+      "code": "cantabria_obras_mejora",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_acogimiento_familiar_menores",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_inversion_entidades_nuevas_reciente_creacion",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_gastos_enfermedad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_gastos_guarderia",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_familias_monoparentales",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_arrendamiento_municipios_riesgo_despoblamiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_guarderia_municipios_riesgo_despoblamiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_traslado_residencia_motivos_laborales_despoblamiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_traslado_estudios_despoblamiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_residencia_municipio_riesgo_despoblamiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_inversiones_donaciones_economia_social",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_gastos_educacion",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_ayuda_domestica",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_inversiones_nuevos_contribuyentes_extranjero",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_desplazamiento_permanencia_nuevos_residentes",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_arrendamiento_viviendas_vacias",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_arrendamiento_jovenes_mayores_discapacidad",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "10",
+        "base": "cantidades satisfechas por arrendamiento de vivienda habitual",
+        "limiteMaximoEuros": "300"
+      },
+      "estado": "implementada",
+      "observed": 100,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_cuidado_familiares",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "100",
+        "por": "familiar que cumpla requisitos"
+      },
+      "estado": "implementada",
+      "observed": 200,
+      "specificObserved": null
+    },
+    {
+      "code": "cantabria_nacimiento_adopcion_hijos",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "1400",
+        "por": "hijo nacido o adoptado"
+      },
+      "estado": "implementada",
+      "observed": 2800,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_familia_monoparental",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_libros_idiomas_otros_gastos_educacion",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_gastos_guarderia",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_cuidado_ascendientes_mayores_75",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_acogimiento_familiar_no_remunerado_menores",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_acogimiento_no_remunerado_mayores_65_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_arrendamiento_menores_36",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_arrendamiento_dacion_pago",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_arrendamiento_familias_numerosas",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_arrendamiento_familias_monoparentales",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_arrendamiento_personas_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_donaciones_cooperacion_lucha_pobreza_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_donaciones_idi_innovacion_empresarial",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_donaciones_bienes_culturales_mecenazgo",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_intereses_primera_vivienda_menores_40",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_residencia_zonas_rurales",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_traslado_vivienda_habitual",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_inversion_acciones_participaciones_mercantiles",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_inversion_economia_social",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_ahorro_inversion_primera_vivienda",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_controles_veterinarios_perros_asistencia",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "clm_nacimiento_adopcion_hijos",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "100 euros por parto o adopción de un hijo; 500 euros por parto o adopción de dos hijos; 900 euros por parto o adopción de tres o más hijos"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "clmPartosAdopcionesUnHijo": 1,
+        "clmNacimientoCumpleLimites": true
+      },
+      "specificObserved": 100
+    },
+    {
+      "code": "clm_familia_numerosa",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "200 euros general y 400 euros especial; si cónyuge o descendiente con derecho al mínimo tiene discapacidad igual o superior al 65%, 300 euros general y 900 euros especial"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "clmCategoriaFamiliaNumerosa": "general",
+        "clmFamiliaNumerosaCumpleLimites": true
+      },
+      "specificObserved": 200
+    },
+    {
+      "code": "clm_discapacidad_contribuyente",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "300",
+        "por": "contribuyente con discapacidad acreditada igual o superior al 65%"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "clmContribuyenteDiscapacidad65": true,
+        "clmDiscapacidadContribuyenteCumpleLimites": true
+      },
+      "specificObserved": 300
+    },
+    {
+      "code": "clm_discapacidad_ascendientes_descendientes",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "300",
+        "por": "ascendiente o descendiente con discapacidad acreditada igual o superior al 65%"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "clmAscDescDiscapacidad65": 1,
+        "clmAscDescDiscapacidadCumpleLimites": true
+      },
+      "specificObserved": 300
+    },
+    {
+      "code": "clm_mayores_75",
+      "method": "aritmetica-generica",
+      "cuantia": {
+        "tipo": "importe_fijo",
+        "euros": "150",
+        "por": "contribuyente mayor de 75 años"
+      },
+      "estado": "implementada",
+      "observed": 300,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_partos_adopciones_multiples",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_gastos_adopcion",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_cuidado_hijos_menores",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_cuotas_seguridad_social_empleados_hogar",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_contribuyentes_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_vivienda_jovenes_medio_rural",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_rehabilitacion_viviendas_medio_rural_alquiler",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_fomento_emprendimiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_recuperacion_patrimonio_historico_cultural_natural",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_donaciones_fundaciones_patrimonio",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_donaciones_idi",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_movilidad_sostenible",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_vivienda_nueva_construccion",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_familia_numerosa",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "600 euros general; 1.500 con cuatro descendientes; 2.500 con cinco; +1.000 por sexto y sucesivos; +600 por discapacidad"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_nacimiento_adopcion_hijos",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "General: 1.010/1.475/2.351 euros según orden. Medio rural: 1.420/2.070/3.300 euros. Se duplica por discapacidad ≥33%"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cyl_arrendamiento_vivienda_jovenes",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "20% del alquiler, límite 459 euros; 25%, límite 612 euros, en municipio o entidad local menor con población reducida"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_donativos_lengua_catalana_occitana",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_donativos_idi",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_donaciones_medio_ambiente_patrimonio_natural",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_angel_inversor",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_nacimiento_adopcion_acogimiento",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "150 euros en individual; 300 euros en conjunta o familia monoparental"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_alquiler_vivienda_habitual",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "10% del alquiler; límite 500 euros general y 1.000 euros en conjunta, familia numerosa o monoparental"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_obligacion_declarar_mas_de_un_pagador",
+      "method": "importe-manual",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "Deducción = max(cuota íntegra autonómica - cuota íntegra estatal, 0)"
+      },
+      "estado": "implementada",
+      "observed": 987654,
+      "specificObserved": null
+    },
+    {
+      "code": "cataluna_viudedad_2023_2024_2025",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "150 euros con carácter general; 300 euros si la persona viuda tiene a cargo uno o más descendientes con derecho al mínimo por descendientes"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "catalunyaViudedad": true
+      },
+      "specificObserved": 150
+    },
+    {
+      "code": "cataluna_rehabilitacion_vivienda_habitual",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "1.5",
+        "base": "cantidades satisfechas por rehabilitación de la vivienda habitual",
+        "limiteMaximoEuros": "135.60"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "catalunyaRehabilitacionVivienda": 1000
+      },
+      "specificObserved": 15
+    },
+    {
+      "code": "cataluna_intereses_prestamos_master_doctorado",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "100",
+        "base": "intereses pagados en préstamos concedidos a través de la Agencia de Gestión de Ayudas Universitarias y de Investigación"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "catalunyaInteresesMasterDoctorado": 100
+      },
+      "specificObserved": 100
+    },
+    {
+      "code": "cataluna_alquiler_victimas_violencia_machista",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "mixta",
+        "descripcion": "20% de las cantidades pagadas con máximo de 1.000 euros; 25% con máximo de 1.200 euros si hay discapacidad igual o superior al 65% o hijo menor a cargo"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "catalunyaAlquilerVictima": 1000,
+        "catalunyaVictimaViolenciaMachista": true
+      },
+      "specificObserved": 200
+    },
+    {
+      "code": "cataluna_inversion_cooperativas_agrarias_vivienda",
+      "method": "formula-especifica-parcial",
+      "cuantia": {
+        "tipo": "porcentaje",
+        "porcentaje": "20",
+        "base": "aportaciones de capital",
+        "limiteMaximoEuros": "3000"
+      },
+      "estado": "implementada",
+      "observed": 0,
+      "specificInputs": {
+        "catalunyaAportacionesCooperativas": 1000
+      },
+      "specificObserved": 200
+    }
+  ],
+  "cases": [
+    {
+      "id": "AND-MULTIPLE",
+      "code": "andalucia_nacimiento_adopcion_acogimiento_menores",
+      "inputs": {
+        "andaluciaHijosNacimientoAdopcion": 2
+      },
+      "predicted": 400,
+      "expected": 800,
+      "reason": "Gemelos, municipio no despoblado, un solo titular: 2*(200+200). Falta el incremento de 200 por hijo.",
+      "observed": 400,
+      "failsBeforeFix": true,
+      "reviewObserved": 400,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "AND-PRORRATA",
+      "code": "andalucia_nacimiento_adopcion_acogimiento_menores",
+      "inputs": {
+        "andaluciaHijosNacimientoAdopcion": 1
+      },
+      "predicted": 200,
+      "expected": 100,
+      "reason": "Un hijo, dos contribuyentes con derecho: mitad para cada uno.",
+      "observed": 200,
+      "failsBeforeFix": true,
+      "reviewObserved": 200,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "AND-INCOMPATIBLE",
+      "code": "andalucia_nacimiento_adopcion_acogimiento_menores",
+      "inputs": {
+        "andaluciaHijosNacimientoAdopcion": 1,
+        "andaluciaCategoriaFamiliaNumerosa": "general",
+        "andaluciaFamiliaNumerosaCumpleLimites": true
+      },
+      "predicted": 400,
+      "expected": 200,
+      "reason": "Nacimiento y familia numerosa incompatibles; elegir una, nunca sumar ambas.",
+      "observed": 400,
+      "failsBeforeFix": true,
+      "reviewObserved": 400,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "AND-BASE",
+      "code": "andalucia_familia_monoparental_ascendientes_mayores_75",
+      "inputs": {
+        "andaluciaFamiliaMonoparental": true,
+        "baseImponibleGeneral": 80000.01
+      },
+      "predicted": 100,
+      "expected": 0,
+      "reason": "Monoparental en individual con base total 80.000,01; no hay entrada ni validación real de base.",
+      "observed": 100,
+      "failsBeforeFix": true,
+      "reviewObserved": 100,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "ARA-DEPENDIENTES",
+      "code": "aragon_cuidado_personas_dependientes",
+      "inputs": {
+        "aragonPersonasDependientes": 2,
+        "aragonDependientesCumpleLimites": true
+      },
+      "predicted": 300,
+      "expected": 150,
+      "reason": "La cuantía es 150 por cuidado de personas dependientes, no 150 por cada dependiente; revisar artículo 110-5 antes de aceptación.",
+      "observed": 300,
+      "failsBeforeFix": true,
+      "reviewObserved": 300,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "ARA-PRORRATA",
+      "code": "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+      "inputs": {
+        "aragonTercerHijoSucesivos": 1
+      },
+      "predicted": 500,
+      "expected": 250,
+      "reason": "Dos progenitores con derecho, declaración individual, sin tipo incrementado.",
+      "observed": 500,
+      "failsBeforeFix": true,
+      "reviewObserved": 500,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CAN-ORDEN-DISCAPACIDAD",
+      "code": "canarias_nacimiento_adopcion_hijos",
+      "inputs": {
+        "canariasOrdenHijoNacimientoAdopcion": "tercero",
+        "canariasHijosNacimientoAdopcion": 1,
+        "canariasHijosNacimientoAdopcionDiscapacidad65": 1,
+        "canariasNacimientoCumpleLimites": true
+      },
+      "predicted": 1630,
+      "expected": 1130,
+      "reason": "Tercer hijo total pero primero con discapacidad >=65: 530+600; el motor asigna 1100 de incremento.",
+      "observed": 1630,
+      "failsBeforeFix": true,
+      "reviewObserved": 1630,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CAN-ORDEN-MULTIPLE",
+      "code": "canarias_nacimiento_adopcion_hijos",
+      "inputs": {
+        "canariasOrdenHijoNacimientoAdopcion": "tercero",
+        "canariasHijosNacimientoAdopcion": 2,
+        "canariasNacimientoCumpleLimites": true
+      },
+      "predicted": 1060,
+      "expected": 1326,
+      "reason": "Nacen hijos tercero y cuarto; un único campo de orden produce 2*530 en lugar de 530+796; un solo titular.",
+      "observed": 1060,
+      "failsBeforeFix": true,
+      "reviewObserved": 1060,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CAN-FAMILIA-PRORRATA",
+      "code": "canarias_familia_numerosa",
+      "inputs": {
+        "canariasCategoriaFamiliaNumerosa": "general"
+      },
+      "predicted": 597,
+      "expected": 298.5,
+      "reason": "Dos contribuyentes con derecho, individual: 597/2.",
+      "observed": 597,
+      "failsBeforeFix": true,
+      "reviewObserved": 597,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CANT-ALQUILER-CONJUNTA",
+      "code": "cantabria_arrendamiento_jovenes_mayores_discapacidad",
+      "inputs": {
+        "cantabria_arrendamiento_jovenes_mayores_discapacidad:cumple": true,
+        "cantabria_arrendamiento_jovenes_mayores_discapacidad:base": 6000
+      },
+      "predicted": 300,
+      "expected": 600,
+      "reason": "Conjunta, al menos un declarante cumple, alquiler 6000 y resto de requisitos: límite 600.",
+      "observed": 300,
+      "failsBeforeFix": true,
+      "reviewObserved": 300,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CANT-NACIMIENTO-INDIVIDUAL",
+      "code": "cantabria_nacimiento_adopcion_hijos",
+      "inputs": {
+        "cantabria_nacimiento_adopcion_hijos:cumple": true,
+        "cantabria_nacimiento_adopcion_hijos:unidades": 1
+      },
+      "predicted": 1400,
+      "expected": 700,
+      "reason": "Declaración individual: prorrateo obligatorio por mitad, incluso si el otro progenitor reside fuera.",
+      "observed": 1400,
+      "failsBeforeFix": true,
+      "reviewObserved": 1400,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CANT-CUIDADO-DOBLE",
+      "code": "cantabria_cuidado_familiares",
+      "inputs": {
+        "cantabria_cuidado_familiares:cumple": true,
+        "cantabria_cuidado_familiares:unidades": 1
+      },
+      "predicted": 100,
+      "expected": 200,
+      "reason": "Un descendiente menor de 3 con discapacidad >=65: 100 por edad más 100 por discapacidad; sin nacimiento elegible para aislar regla.",
+      "observed": 100,
+      "failsBeforeFix": true,
+      "reviewObserved": 100,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "AST-CELIACA-PRORRATA",
+      "code": "asturias_enfermedad_celiaca",
+      "inputs": {
+        "asturias_enfermedad_celiaca:cumple": true,
+        "asturias_enfermedad_celiaca:unidades": 0.5
+      },
+      "predicted": 100,
+      "expected": 50,
+      "reason": "Dos titulares por mismo descendiente; ni siquiera unidades fraccionarias permiten prorrateo porque se fuerza mínimo 1.",
+      "observed": 100,
+      "failsBeforeFix": true,
+      "reviewObserved": 100,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "AST-ARRENDAMIENTO-CONJUNTA",
+      "code": "asturias_gastos_arrendamiento_viviendas",
+      "inputs": {
+        "asturias_gastos_arrendamiento_viviendas:cumple": true,
+        "asturias_gastos_arrendamiento_viviendas:base": 1000
+      },
+      "predicted": 500,
+      "expected": 1000,
+      "reason": "Dos miembros con 500 de gasto propio elegible cada uno en conjunta: límite 500 por miembro.",
+      "observed": 500,
+      "failsBeforeFix": true,
+      "reviewObserved": 500,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CLM-INCOMPATIBLE",
+      "code": "clm_discapacidad_contribuyente",
+      "inputs": {
+        "clmContribuyenteDiscapacidad65": true,
+        "clmDiscapacidadContribuyenteCumpleLimites": true,
+        "clm_mayores_75:cumple": true,
+        "clm_mayores_75:unidades": 1
+      },
+      "predicted": 450,
+      "expected": 300,
+      "reason": "Contribuyente >75 con discapacidad >=65: discapacidad y mayores75 incompatibles.",
+      "observed": 450,
+      "failsBeforeFix": true,
+      "reviewObserved": 450,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CAT-INTERESES-ORIGEN",
+      "code": "cataluna_intereses_prestamos_master_doctorado",
+      "inputs": {
+        "catalunyaInteresesMasterDoctorado": 100
+      },
+      "predicted": 100,
+      "expected": 0,
+      "reason": "Préstamo ordinario bancario, no concedido a través de AGAUR. El motor no distingue origen.",
+      "observed": 100,
+      "failsBeforeFix": true,
+      "reviewObserved": 100,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CAT-ALQUILER-BASE",
+      "code": "cataluna_alquiler_victimas_violencia_machista",
+      "inputs": {
+        "catalunyaAlquilerVictima": 1000,
+        "catalunyaVictimaViolenciaMachista": true,
+        "baseImponibleMenosMinimo": 30000.01
+      },
+      "predicted": 200,
+      "expected": 0,
+      "reason": "Base general+ahorro-mínimo >30000, ninguna entrada efectiva controla umbral.",
+      "observed": 200,
+      "failsBeforeFix": true,
+      "reviewObserved": 200,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CAT-COOPERATIVA-TEMPORAL",
+      "code": "cataluna_inversion_cooperativas_agrarias_vivienda",
+      "inputs": {
+        "catalunyaAportacionesCooperativas": 1000
+      },
+      "predicted": 200,
+      "expected": 0,
+      "reason": "Aportación como socio temporal, expresamente excluido; no existe entrada para distinguirlo.",
+      "observed": 200,
+      "failsBeforeFix": true,
+      "reviewObserved": 200,
+      "expectedStatus": "candidato normativo, no certificado"
+    },
+    {
+      "id": "CAT-VIUDEDAD-ANTIGUA",
+      "code": "cataluna_viudedad_2023_2024_2025",
+      "inputs": {
+        "catalunyaViudedad": true
+      },
+      "predicted": 150,
+      "expected": 0,
+      "reason": "Viudedad de 2022 en ejercicio 2025; falta año de fallecimiento.",
+      "observed": 150,
+      "failsBeforeFix": true,
+      "reviewObserved": 150,
+      "expectedStatus": "candidato normativo, no certificado"
+    }
+  ],
+  "territoryProbe": {
+    "inputs": {
+      "andaluciaHijosNacimientoAdopcion": 1
+    },
+    "andalucia": 200,
+    "aragon": 200,
+    "kind": "reproducción del llamador; no navegador"
+  }
+}

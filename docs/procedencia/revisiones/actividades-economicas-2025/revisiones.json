@@ -1,0 +1,455 @@
+{
+  "schemaVersion": 1,
+  "domain": "actividades-economicas-2025",
+  "reviewer": "revisor independiente de esta ronda, trabajo personal",
+  "reviewedDate": "2026-10-29",
+  "decisions": [
+    {
+      "id": "AE25-01",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Admisión EDS: umbral 600000 del conjunto anterior, igualdad incluida, anualización y renuncia/exclusión. Aceptación parcial del predicado, no de todo el formulario.",
+      "acceptanceScope": "Admisión EDS: umbral 600000 del conjunto anterior, igualdad incluida, anualización y renuncia/exclusión. Aceptación parcial del predicado, no de todo el formulario.",
+      "evidenceUsed": [
+        "RIRPF original arts28-29",
+        "Ley26/2014 art1.17",
+        "índices de modificaciones arts28-30",
+        "manual404-410"
+      ],
+      "objections": [
+        "Falta incorporar historial de opción temporal a la admisión; revisar inicio sin año anterior y renuncias prorrogadas. No confundir límite con ingresos2025."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-02",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "rejected",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "La especificación no es aún un contrato completo de devengo: no detecta opción previa por cobros/pagos ni autoconsumos/servicios gratuitos o a precio notoriamente inferior.",
+      "acceptanceScope": "Solo ausencia funcional confirmada; propuesta normativa/contractual pendiente según razón",
+      "evidenceUsed": [
+        "RIRPF original art7.2 y7.4",
+        "LIRPF original art28.4",
+        "código actual"
+      ],
+      "objections": [
+        "Añadir rechazos y evidencias de criterio temporal vigente y ajustes de valoración; no basta sumar facturas. La lista cerrada de gastos es razonable pero no resuelve ingresos omitidos."
+      ],
+      "reclassification": "pending -> rejected; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-03",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "needs-evidence",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Fórmula coincide con manual431 para regularización ordinaria cobrada/pagada; no acepto aún interpretación primaria completa ni toda devolución.",
+      "acceptanceScope": "Solo ausencia funcional confirmada; propuesta normativa/contractual pendiente según razón",
+      "evidenceUsed": [
+        "Manual431 reextraído",
+        "intentos DGT V2518-22 devuelven buscador sin resolución"
+      ],
+      "objections": [
+        "Obtener consulta íntegra con fecha y hechos; distinguir regularización de ingresos indebidos, atrasos y rectificaciones. No inferir norma IRPF de normativa TGSS."
+      ],
+      "reclassification": "pending -> needs-evidence; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-04",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "needs-evidence",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Tabla original y amortización ordinaria elegida respaldadas; fórmula con días/365 y política monetaria siguen propuesta técnica, no regla fiscal integral aceptada.",
+      "acceptanceScope": "Solo ausencia funcional confirmada; propuesta normativa/contractual pendiente según razón",
+      "evidenceUsed": [
+        "Orden27/03/1998 p1",
+        "RD633/2015 p7",
+        "RD634/2015 pp9-10",
+        "manual455-464"
+      ],
+      "objections": [
+        "Rechazar mejoras, deterioros, cambios de método y saldos incoherentes; residual no negativo, acumulado<=base, coeficiente válido. Aclarar fecha inicial/final inclusiva. No exigir siempre máximo."
+      ],
+      "reclassification": "pending -> needs-evidence; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-05",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Solo EDS ordinaria2025 sin especialidades: 5% sobre P positivo después de amortización, tope2000 y opción excluyente art32.2.1.",
+      "acceptanceScope": "Solo EDS ordinaria2025 sin especialidades: 5% sobre P positivo después de amortización, tope2000 y opción excluyente art32.2.1.",
+      "evidenceUsed": [
+        "RD633/2015 p7 y DF2",
+        "Ley26/2014 art1.17",
+        "Ley31/2022 art60 pp85-86",
+        "índice RIRPF30",
+        "manual449"
+      ],
+      "objections": [
+        "Se descarta extrapolar7%2023: el original limita expresamente el ejercicio. No deducir provisiones duplicadas; aceptación no cubre regímenes extraordinarios."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-06",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Conservar pérdida previa; límite de reducciones no fabrica rendimiento cero. Aporte con signo, sin certificar BLG ni compensaciones.",
+      "acceptanceScope": "Conservar pérdida previa; límite de reducciones no fabrica rendimiento cero. Aporte con signo, sin certificar BLG ni compensaciones.",
+      "evidenceUsed": [
+        "Ley26/2014 p18 art32.2.4",
+        "LIRPF48",
+        "código BIG y liquidación313"
+      ],
+      "objections": [
+        "El clamp salarial existente no autoriza reutilizarlo para actividad. Caso0-1000 da RN-1000 y reducción0."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-07",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Aceptar detección y rechazo de candidatos irregulares en v1; no una implementación del30% ni todo régimen transitorio.",
+      "acceptanceScope": "Aceptar detección y rechazo de candidatos irregulares en v1; no una implementación del30% ni todo régimen transitorio.",
+      "evidenceUsed": [
+        "Ley26/2014 p17",
+        "RIRPF25",
+        "manual475-476"
+      ],
+      "objections": [
+        "La fórmula aislada no certifica habitualidad ni período de generación. Rechazar incertidumbre, no asignar reducción0 silenciosa."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-08",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "needs-evidence",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Condiciones tributarias art32.2.2 contrastadas; TRADEacreditado es todavía un hecho agregado sin contrato de prueba. No aprobar elegibilidad automática. Se completó lectura de reformas materiales2007/2011/2015/2019; pendiente convertir acreditación en entradas verificables, no un booleano.",
+      "acceptanceScope": "Solo ausencia funcional confirmada; propuesta normativa/contractual pendiente según razón",
+      "evidenceUsed": [
+        "Ley26/2014 pp17-18",
+        "RD633/2015 p6",
+        "Ley20/2007 índice arts11-12",
+        "originales adicionales adquiridos",
+        "Ley20/2007 original p8",
+        "Ley36/2011 DF2 pp140-141",
+        "Ley31/2015 art1.3 pp6-7",
+        "RDL6/2019 art7 p24"
+      ],
+      "objections": [
+        "Desglosar no subcontratación, organización propia, infraestructura relevante, riesgo, no actividad indiferenciada, exclusión despacho abierto público; contrato/registro o reconocimiento judicial con fecha. 30% incluye RETA/amortización deducibles, no solo gastos ordinarios. 70% es ingresos sujetos, no tipo retenido."
+      ],
+      "reclassification": "pending -> needs-evidence; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-09",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Adicional art32.2.1.a para2025: 6498 hasta14047.50 y descenso1.14 hasta19747.50, otras rentas<=6500; RN antes de reducción2000.",
+      "acceptanceScope": "Adicional art32.2.1.a para2025: 6498 hasta14047.50 y descenso1.14 hasta19747.50, otras rentas<=6500; RN antes de reducción2000.",
+      "evidenceUsed": [
+        "Ley31/2022 art60 p85 vigencia indefinida desde2023",
+        "Ley26/2014",
+        "índice32 sin reforma posterior",
+        "manual479-480"
+      ],
+      "objections": [
+        "No compartir parámetros art20; condición otras rentas y elegibilidad08 siguen obligatorias. Casos frontera recalculados sin redondeo anticipado."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-10",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Incremento alternativo3500/7750 para ejercicio efectivo con discapacidad y acreditación; no sumar ambos.",
+      "acceptanceScope": "Incremento alternativo3500/7750 para ejercicio efectivo con discapacidad y acreditación; no sumar ambos.",
+      "evidenceUsed": [
+        "Ley26/2014 p18",
+        "índice32",
+        "manual480"
+      ],
+      "objections": [
+        "Grado legal y ayuda/movilidad deben acreditarse; esta aceptación no cubre mecanismo documental ni prorrateos no investigados."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-11",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Reducción1620, pendiente0.405 entre8000 y12000, límite RN positivo y conjunto3700 con art20; solo incumplimiento32.2.2.",
+      "acceptanceScope": "Reducción1620, pendiente0.405 entre8000 y12000, límite RN positivo y conjunto3700 con art20; solo incumplimiento32.2.2.",
+      "evidenceUsed": [
+        "Ley26/2014 p18",
+        "índice32",
+        "manual480-482"
+      ],
+      "objections": [
+        "Elegir G cuando cumple requisitos no habilita alternativa. No generalizar T=RN fuera de cero otras rentas. 8000.01 del original corrige errata manual; fracciones subcéntimo requieren política monetaria pendiente."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-12",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Inicio20% hasta base100000 tras reducciones pertinentes, primer RN positivo y siguiente, inicio desde2013, exclusión estricta >50% empleador previo.",
+      "acceptanceScope": "Inicio20% hasta base100000 tras reducciones pertinentes, primer RN positivo y siguiente, inicio desde2013, exclusión estricta >50% empleador previo.",
+      "evidenceUsed": [
+        "Ley11/2013 pp16-17 art8.3-4",
+        "índice32",
+        "manual482-483"
+      ],
+      "objections": [
+        "Precisar ventana móvil año anterior a fechaInicio, no solo ejercicio anterior; primer positivo antes de reducciones y no reiniciar por pérdida siguiente ni segunda actividad. Fórmula aceptada solo en vertical sin irregulares."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-13",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Aceptar exclusión explícita DA60 con detector IAE/naturaleza; no certificar cálculo artístico completo.",
+      "acceptanceScope": "Aceptar exclusión explícita DA60 con detector IAE/naturaleza; no certificar cálculo artístico completo.",
+      "evidenceUsed": [
+        "Ley7/2024 DF7 pp110,112-113: efectos1/1/2025",
+        "manual484-485"
+      ],
+      "objections": [
+        "No basta título profesional. Exceso usa RN, negativos históricos0, gastos comunes proporcionales y orden posterior32.2/32.3. Publicada21/12/2024, no dato fiscal2026."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-14",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Aceptar carencia de rama y aporte firmado al saldo de rendimientos; no liquidación completa ni compensación general.",
+      "acceptanceScope": "Aceptar carencia de rama y aporte firmado al saldo de rendimientos; no liquidación completa ni compensación general.",
+      "evidenceUsed": [
+        "caso-fiscal-anual.ts98",
+        "base-imponible-general.ts6",
+        "liquidar-irpf-anual.ts302-313",
+        "LIRPF48"
+      ],
+      "objections": [
+        "No meter actividad como salario; no prometer declaración mientras BIG/BLG e historia de compensaciones estén pendientes."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-15",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Separar pagos soportados del rendimiento y evitar duplicados. Fixture2500-3000-1000=-1500 solo prueba resta condicionada.",
+      "acceptanceScope": "Separar pagos soportados del rendimiento y evitar duplicados. Fixture2500-3000-1000=-1500 solo prueba resta condicionada.",
+      "evidenceUsed": [
+        "LIRPF79 original",
+        "contratos actuales",
+        "manual414-415"
+      ],
+      "objections": [
+        "No aceptar fórmula como cuota diferencial universal: otros créditos/deducciones pueden intervenir. No acredita importe de cuota, modelo130/131 ni tipo profesional."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    },
+    {
+      "id": "AE25-16",
+      "previousStatus": "missing",
+      "previousReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "status": "accepted",
+      "engineFinding": "missing confirmado, no regla implementada incorrecta",
+      "reason": "Aceptar rechazo explícito de familias no acreditadas y ajuste de no deducibles; no aceptar sus cifras o límites como calculados.",
+      "acceptanceScope": "Aceptar rechazo explícito de familias no acreditadas y ajuste de no deducibles; no aceptar sus cifras o límites como calculados.",
+      "evidenceUsed": [
+        "LIRPF28 y30",
+        "manual434-452",
+        "lista de categorías propuesta"
+      ],
+      "objections": [
+        "Documentar rechazo en vez de eliminar gasto. Servicios profesionales puede encubrir subcontratación incompatible TRADE; cruzar categorías con elegibilidad. Donación podría incidir en deducciones fuera del rendimiento."
+      ],
+      "reclassification": "pending -> accepted; se conserva missing funcional",
+      "implementationAuthorized": false
+    }
+  ],
+  "coverage": {
+    "expectedIds": [
+      "AE25-01",
+      "AE25-02",
+      "AE25-03",
+      "AE25-04",
+      "AE25-05",
+      "AE25-06",
+      "AE25-07",
+      "AE25-08",
+      "AE25-09",
+      "AE25-10",
+      "AE25-11",
+      "AE25-12",
+      "AE25-13",
+      "AE25-14",
+      "AE25-15",
+      "AE25-16"
+    ],
+    "reviewedIds": [
+      "AE25-01",
+      "AE25-02",
+      "AE25-03",
+      "AE25-04",
+      "AE25-05",
+      "AE25-06",
+      "AE25-07",
+      "AE25-08",
+      "AE25-09",
+      "AE25-10",
+      "AE25-11",
+      "AE25-12",
+      "AE25-13",
+      "AE25-14",
+      "AE25-15",
+      "AE25-16"
+    ],
+    "omittedIds": [],
+    "examples": 18,
+    "boundaries": 16,
+    "counts": {
+      "accepted": 12,
+      "rejected": 1,
+      "needs-evidence": 3
+    }
+  },
+  "sourceSnapshots": [
+    {
+      "path": "docs/procedencia/auditorias/actividades-economicas-2025/informe.md",
+      "sha256": "b6dbcfc6eb5027261c2ffad17b467a4bea5ba9fefbaddac3bcbad78dca4f9f74"
+    },
+    {
+      "path": "docs/procedencia/auditorias/actividades-economicas-2025/fuentes.json",
+      "sha256": "c14c5bcfab759255b31ff397bfaf6af3e499691ce85b6312453efc3f440d2602"
+    },
+    {
+      "path": "docs/procedencia/auditorias/actividades-economicas-2025/cobertura.json",
+      "sha256": "5930b7649bf743b2a6baa5bb879aaa528daa2e116a81aa72d1d41f9e912975c9"
+    },
+    {
+      "path": "docs/procedencia/auditorias/actividades-economicas-2025/hallazgos.json",
+      "sha256": "9a8a146dfaf4522e7a9c2ca37a37157e8d6d4af99e89cbcd4170f681658cb476"
+    },
+    {
+      "path": "docs/procedencia/auditorias/actividades-economicas-2025/especificacion-implementacion.json",
+      "sha256": "71a28215e0d496054edb5d39b4774a0af638478e45dfae77566c18733f8ed97a"
+    },
+    {
+      "path": "docs/procedencia/auditorias/actividades-economicas-2025/citas-candidatas.json",
+      "sha256": "6d1b9a8d971717b0dd15ef36ea1f3baec76e855eec1a67a151f361ca84f80ee5"
+    }
+  ],
+  "codeSnapshots": [
+    {
+      "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+      "sha256": "5c8ecc5a67326f64c23b850860c2fd0989599ef2c14043137731a55749eb0f1f"
+    },
+    {
+      "path": "lib/dominio/irpf/integracion/base-imponible-general.ts",
+      "sha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82"
+    },
+    {
+      "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "79f210e7d7cf4cd0463ab1170b55dbc8c1df10a67b4929a1389f42576d91c06c"
+    }
+  ]
+}

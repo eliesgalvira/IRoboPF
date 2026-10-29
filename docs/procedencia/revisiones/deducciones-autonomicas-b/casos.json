@@ -1,0 +1,208 @@
+{
+  "executed": [
+    {
+      "id": "DAB-NUM-madrid_sin_requisitos",
+      "execution": "ejecutado por revisor: helper actual",
+      "input": {
+        "madridHijosNacimientoAdopcion": 1
+      },
+      "observed": 721.7,
+      "expectedCandidate": 0,
+      "facts": "Un hijo nacido en 2025, convivencia, declaración individual, base imponible total 30.930,01 euros: no tiene derecho. El helper ni recibe la base ni exige cumple.",
+      "decision": "accepted",
+      "scope": "Contraejemplo del helper previo al límite de cuota, bajo los hechos expresamente indicados. No valida íntegramente la deducción ni sus restantes supuestos.",
+      "sources": [
+        "BOE-A-2024-5610",
+        "BOE-A-2025-3303",
+        "BOE-A-2026-3218"
+      ]
+    },
+    {
+      "id": "DAB-NUM-madrid_gemelos",
+      "execution": "ejecutado por revisor: helper actual",
+      "input": {
+        "madridHijosNacimientoAdopcion": 2
+      },
+      "observed": 1443.4,
+      "expectedCandidate": 2886.8,
+      "facts": "Dos nacidos en parto múltiple 2025, un único progenitor con derecho, convivencia y bases inferiores a límites: 2 × (721,70 + 721,70). Artículo 4 del consolidado seleccionado 29-12-2025 confirma incremento por cada hijo; nota de modificación Ley 13/2023 con efectos desde 01-01-2023.",
+      "decision": "accepted",
+      "scope": "Contraejemplo del helper previo al límite de cuota, bajo los hechos expresamente indicados. No valida íntegramente la deducción ni sus restantes supuestos.",
+      "sources": [
+        "BOE-A-2024-5610",
+        "BOE-A-2025-3303",
+        "BOE-A-2026-3218"
+      ]
+    },
+    {
+      "id": "DAB-NUM-murcia_dos_hijos",
+      "execution": "ejecutado por revisor: helper actual",
+      "input": {
+        "murcia_gastos_guarderia:cumple": true,
+        "murcia_gastos_guarderia:base": 10000
+      },
+      "observed": 1000,
+      "expectedCandidate": 2000,
+      "facts": "Dos hijos con derecho al mínimo y primer ciclo en centro autorizado; 5.000 euros educativos admisibles no subvencionados por hijo; único progenitor con derecho; conviven al devengo; BI total 20.000: 2 × min(20% × 5.000, 1.000).",
+      "decision": "accepted",
+      "scope": "Contraejemplo del helper previo al límite de cuota, bajo los hechos expresamente indicados. No valida íntegramente la deducción ni sus restantes supuestos.",
+      "sources": [
+        "BOE-A-2019-2039",
+        "BOE-A-2025-16147"
+      ]
+    },
+    {
+      "id": "DAB-NUM-balears_dos_personas",
+      "execution": "ejecutado por revisor: helper actual",
+      "input": {
+        "balears_gastos_mayores_65_discapacidad:cumple": true,
+        "balears_gastos_mayores_65_discapacidad:base": 4000
+      },
+      "observed": 660,
+      "expectedCandidate": 1320,
+      "facts": "Dos ascendientes mayores de 65 con derecho al mínimo, gastos admisibles de residencia 2.000 por cada uno, pago bancario, BI 20.000 individual: 2 × min(40% × 2.000,660).",
+      "decision": "accepted",
+      "scope": "Contraejemplo del helper previo al límite de cuota, bajo los hechos expresamente indicados. No valida íntegramente la deducción ni sus restantes supuestos.",
+      "sources": [
+        "BOE-A-2025-720",
+        "BOE-A-2025-22028"
+      ]
+    },
+    {
+      "id": "DAB-NUM-valencia_reduccion",
+      "execution": "ejecutado por revisor: helper actual",
+      "input": {
+        "valenciana_ascendientes_mayores_discapacidad:cumple": true,
+        "valenciana_ascendientes_mayores_discapacidad:unidades": 1
+      },
+      "observed": 197,
+      "expectedCandidate": 98.5,
+      "facts": "Un ascendiente mayor de 75, conviviente más de medio año, renta 0, no declara, único declarante con derecho; BL total individual 28.500: 197 × (1 - (28.500-27.000)/3.000).",
+      "decision": "needs-evidence",
+      "scope": "Aceptada solo la observación 197 del helper y la ausencia de base liquidable. La expectativa 98,50 queda candidata hasta completar el cierre temporal y contraprueba jurídica.",
+      "sources": [
+        "DOGV-r-2022-90328",
+        "BOE-A-2025-11959",
+        "DOGV-r-2025-90320",
+        "DOGV-r-2026-90008"
+      ]
+    },
+    {
+      "id": "DAB-NUM-rioja_cero",
+      "execution": "ejecutado por revisor: helper actual",
+      "input": {
+        "rioja_enfermedad_celiaca:cumple": true,
+        "rioja_enfermedad_celiaca:unidades": 0
+      },
+      "observed": 250,
+      "expectedCandidate": 0,
+      "facts": "Cero personas con diagnóstico en núcleo familiar: cero euros o error de entrada contradictoria; nunca 250.",
+      "decision": "accepted",
+      "scope": "Contraejemplo del helper previo al límite de cuota, bajo los hechos expresamente indicados. No valida íntegramente la deducción ni sus restantes supuestos.",
+      "sources": [
+        "BOE-A-2026-991"
+      ]
+    },
+    {
+      "id": "DAB-NUM-manual_arbitrario",
+      "execution": "ejecutado por revisor: helper actual",
+      "input": {
+        "galicia_familias_dos_hijos:cumple": true,
+        "galicia_familias_dos_hijos:importe": 999999
+      },
+      "observed": 999999,
+      "expectedCandidate": 250,
+      "facts": "Dos hijos con derecho al mínimo, ninguna discapacidad, un único declarante con derecho, no familia numerosa: 250 euros. Importe manual 999999 no es una fórmula.",
+      "decision": "rejected",
+      "scope": "Se rechaza clasificar la admisión de importe externo como error numérico de una regla calculada.",
+      "sources": [
+        "BOE-A-2024-2777",
+        "BOE-A-2025-2145",
+        "BOE-A-2026-3385"
+      ]
+    },
+    {
+      "id": "DAB-NUM-extremadura_incompatibles",
+      "execution": "ejecutado por revisor: helper actual",
+      "input": {
+        "extremadura_trabajo_dependiente:cumple": true,
+        "extremadura_contribuyentes_viudos:cumple": true,
+        "extremadura_contribuyentes_viudos:importe": 100
+      },
+      "observed": 175,
+      "expectedCandidate": 100,
+      "facts": "Un mismo contribuyente viudo sin descendientes, trabajo 10.000, otros rendimientos 0, BI 10.000: optar por 100 de viudedad; no sumar 75 de trabajo. En conjunta la incompatibilidad es por persona, no por declaración.",
+      "decision": "accepted",
+      "scope": "Contraejemplo del helper previo al límite de cuota, bajo los hechos expresamente indicados. No valida íntegramente la deducción ni sus restantes supuestos.",
+      "sources": [
+        "BOE-A-2018-8159"
+      ]
+    }
+  ],
+  "additionalExecuted": [
+    {
+      "id": "rioja_prorrata",
+      "entrada": {
+        "rioja_enfermedad_celiaca:cumple": true,
+        "rioja_enfermedad_celiaca:unidades": 0.5
+      },
+      "esperadoCondicional": 125,
+      "hechos": "Una persona diagnosticada; dos contribuyentes con derecho; intentar representar la mitad mediante unidades revela que se fuerza a uno.",
+      "observado": 250,
+      "coincide": false,
+      "alcance": "Helper ejecutado; hechos externos no representados por su contrato; expectativa fiscal condicional, no prueba integral."
+    },
+    {
+      "id": "murcia_prorrata",
+      "entrada": {
+        "murcia_gastos_guarderia:cumple": true,
+        "murcia_gastos_guarderia:base": 5000
+      },
+      "esperadoCondicional": 500,
+      "hechos": "Un hijo; 10000 de gasto común admisible, ambos progenitores convivientes con derecho y declaraciones individuales; mitad del gasto introducida.",
+      "observado": 1000,
+      "coincide": false,
+      "alcance": "Helper ejecutado; hechos externos no representados por su contrato; expectativa fiscal condicional, no prueba integral."
+    },
+    {
+      "id": "balears_dos_ascendientes",
+      "entrada": {
+        "balears_gastos_mayores_65_discapacidad:cumple": true,
+        "balears_gastos_mayores_65_discapacidad:base": 4000
+      },
+      "esperadoCondicional": 1320,
+      "hechos": "Dos ascendientes elegibles; 2000 pagados por cada uno; bases bajo límite; sin conciliación incompatible.",
+      "observado": 660,
+      "coincide": false,
+      "alcance": "Helper ejecutado; hechos externos no representados por su contrato; expectativa fiscal condicional, no prueba integral."
+    },
+    {
+      "id": "galicia_incompatibles_misma_persona",
+      "entrada": {
+        "galicia_familias_dos_hijos:cumple": true,
+        "galicia_familias_dos_hijos:importe": 250,
+        "galicia_familia_numerosa:cumple": true,
+        "galicia_familia_numerosa:importe": 250
+      },
+      "esperadoCondicional": 250,
+      "hechos": "Mismo contribuyente con exactamente dos descendientes y título de familia numerosa general, sin incremento por discapacidad.",
+      "observado": 500,
+      "coincide": false,
+      "alcance": "Helper ejecutado; hechos externos no representados por su contrato; expectativa fiscal condicional, no prueba integral."
+    }
+  ],
+  "notExecuted": [
+    {
+      "id": "cuota-ahorro",
+      "facts": "Cuota autonómica general disponible 0; cuota autonómica del ahorro disponible 100; deducción autonómica admisible 75 sin límite especial.",
+      "currentCodeExpression": "min(75,0)=0",
+      "expectedConditional": 75,
+      "scope": "Derivación estática, no ejecución de liquidarIrpfAnual."
+    },
+    {
+      "id": "extremadura-conjunta-personas-distintas",
+      "facts": "Viudo con derecho a viudedad y otro miembro de unidad familiar con trabajo dependiente y derecho propio.",
+      "assertion": "No aplicar exclusión global por declaración. Comprobar condiciones y límites de conjunta antes de fijar cifra."
+    }
+  ]
+}

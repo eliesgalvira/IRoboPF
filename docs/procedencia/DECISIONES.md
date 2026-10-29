@@ -58,6 +58,14 @@ La segunda lectura independiente identifica 53.407,20 euros en la Ley 6/2018 y a
 
 Objeción experta: un cambio de límite no resuelve la diferencia entre integrar tipos y usar cuotas acumuladas publicadas. Motivo: la prueba elegida discrimina este error con la política monetaria actual sin exigir una decisión global aún pendiente. Coste aceptado: aceptación limitada al límite y al caso, con el resto de la política de cuotas abierto; ninguna certificación de una declaración completa. La explicación de ejercicio se corrige separadamente como defecto documental acreditado.
 
+## D013. Inventario técnico versionado y reconstrucción obligatoria
+
+Se corrigen los cuatro bloqueos técnicos de la revisión del inventario. Los IDs pasan a ser ocurrencias versionadas por fuente y valor efectivo, con rutas de segmentos no ambiguas. No sustituyen al futuro registro de conceptos fiscales estables: esa vinculación requiere snapshot y migración explícita. El verificador reconstruye todos los archivos desde el checkout actual y compara conjuntos y bytes; no acepta un artefacto porque concuerde con sus propios hashes.
+
+Objeción experta: un extractor puede repetir su propia omisión al reconstruir. Se conserva esa limitación y se exige además revisión independiente y pruebas con expectativas externas. Coste aceptado: una comprobación más cara, cambios de IDs al editar fuentes y trabajo semántico pendiente. El recorrido rechaza tipos y ciclos no soportados con ruta, en lugar de omitirlos silenciosamente; esto puede detener la generación cuando se amplíe el modelo de datos.
+
+El índice guarda solo ID y página, y el contenido completo se respalda como un artefacto gzip de unos 8,21 MB con manifiesto legible. Objeción archivística: un binario comprimido dificulta diffs y crece con cada revisión. Motivo: conservar todo el inventario ahora, reproducible sin infraestructura nueva y por debajo del límite de archivos de GitHub. Coste aceptado: lector/descompresión y crecimiento de historial; no se presenta como almacén definitivo del corpus. El archivo se verifica y la CI vuelve a generar su contenido; una diferencia de entorno se trata como fallo que investigar, no como tolerancia silenciosa.
+
 ## D004. Oxlint anti-slop junto a ESLint de Next
 
 Se mantienen los presets core-web-vitals y typescript de eslint-config-next 16.1.7 y se añade oxlint 1.78.0 con @oxlint/plugins de la misma versión exacta. El runtime anti-slop v0.1.2 queda incorporado con licencia y hashes. Las 15 reglas generales y la regla Effect están a error. El script lint ejecuta ambos analizadores y falla si cualquiera falla.

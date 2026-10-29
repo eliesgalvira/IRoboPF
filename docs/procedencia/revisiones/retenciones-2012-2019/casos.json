@@ -1,0 +1,404 @@
+[
+  {
+    "input": {
+      "anio": 2017,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [],
+      "ascendientes": []
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 1485700,
+      "tipoRetencionPorcentaje": "10.49",
+      "importeRetencionAnualCentimos": 188820
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2017,
+      "rendimientoNetoTrabajoCentimos": 1685700,
+      "reduccionRendimientosTrabajoCentimos": 379325,
+      "rendimientoNetoReducidoCentimos": 1106375,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 1106375,
+      "cuotaRetencionCentimos": 104761,
+      "limite43Centimos": 258000,
+      "tipoRetencionPorcentaje": "5.82",
+      "importeRetencionAnualCentimos": 104760
+    },
+    "differentFields": [
+      "baseRetencionCentimos",
+      "tipoRetencionPorcentaje",
+      "importeRetencionAnualCentimos"
+    ],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2017,
+      "edad": 40,
+      "retribucionAnualCentimos": 2300000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [],
+      "ascendientes": []
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 2100000,
+      "tipoRetencionPorcentaje": "14.83",
+      "importeRetencionAnualCentimos": 341090
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2017,
+      "rendimientoNetoTrabajoCentimos": 2300000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "rendimientoNetoReducidoCentimos": 2100000,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 2100000,
+      "cuotaRetencionCentimos": 341100,
+      "limite43Centimos": 473000,
+      "tipoRetencionPorcentaje": "14.83",
+      "importeRetencionAnualCentimos": 341090
+    },
+    "differentFields": [],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2017,
+      "edad": 40,
+      "retribucionAnualCentimos": 2300000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion2",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [
+        {
+          "edad": 10,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        },
+        {
+          "edad": 11,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": []
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 2100000,
+      "tipoRetencionPorcentaje": "12.72",
+      "importeRetencionAnualCentimos": 292560
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2017,
+      "rendimientoNetoTrabajoCentimos": 2300000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "rendimientoNetoReducidoCentimos": 2100000,
+      "minimoPersonalFamiliarCentimos": 810000,
+      "baseRetencionCentimos": 2100000,
+      "cuotaRetencionCentimos": 252066,
+      "limite43Centimos": 252066,
+      "tipoRetencionPorcentaje": "10.95",
+      "importeRetencionAnualCentimos": 251850
+    },
+    "differentFields": [
+      "tipoRetencionPorcentaje",
+      "importeRetencionAnualCentimos"
+    ],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2017,
+      "edad": 40,
+      "retribucionAnualCentimos": 40000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [],
+      "ascendientes": []
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 39800000,
+      "tipoRetencionPorcentaje": "42.23",
+      "importeRetencionAnualCentimos": 16892000
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2017,
+      "rendimientoNetoTrabajoCentimos": 40000000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "rendimientoNetoReducidoCentimos": 39800000,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 39800000,
+      "cuotaRetencionCentimos": 17090700,
+      "limite43Centimos": 17090700,
+      "tipoRetencionPorcentaje": "42.72",
+      "importeRetencionAnualCentimos": 17088000
+    },
+    "differentFields": [
+      "tipoRetencionPorcentaje",
+      "importeRetencionAnualCentimos"
+    ],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2019,
+      "edad": 40,
+      "retribucionAnualCentimos": 1800000,
+      "cotizacionesCentimos": 114300,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [],
+      "ascendientes": []
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 1485700,
+      "tipoRetencionPorcentaje": "9.55",
+      "importeRetencionAnualCentimos": 171900
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2019,
+      "rendimientoNetoTrabajoCentimos": 1685700,
+      "reduccionRendimientosTrabajoCentimos": 379325,
+      "rendimientoNetoReducidoCentimos": 1106375,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 1106375,
+      "cuotaRetencionCentimos": 104761,
+      "limite43Centimos": 172000,
+      "tipoRetencionPorcentaje": "5.82",
+      "importeRetencionAnualCentimos": 104760
+    },
+    "differentFields": [
+      "baseRetencionCentimos",
+      "tipoRetencionPorcentaje",
+      "importeRetencionAnualCentimos"
+    ],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2019,
+      "edad": 40,
+      "retribucionAnualCentimos": 2300000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [],
+      "ascendientes": []
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 2100000,
+      "tipoRetencionPorcentaje": "14.83",
+      "importeRetencionAnualCentimos": 341090
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2019,
+      "rendimientoNetoTrabajoCentimos": 2300000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "rendimientoNetoReducidoCentimos": 2100000,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 2100000,
+      "cuotaRetencionCentimos": 341100,
+      "limite43Centimos": 387000,
+      "tipoRetencionPorcentaje": "14.83",
+      "importeRetencionAnualCentimos": 341090
+    },
+    "differentFields": [],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2019,
+      "edad": 40,
+      "retribucionAnualCentimos": 2300000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion2",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [
+        {
+          "edad": 10,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        },
+        {
+          "edad": 11,
+          "computoPorEntero": false,
+          "discapacidad": "sin-discapacidad",
+          "movilidadReducida": false,
+          "adopcionOAcogimientoMenosTresAnios": false
+        }
+      ],
+      "ascendientes": []
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 2100000,
+      "tipoRetencionPorcentaje": "12.72",
+      "importeRetencionAnualCentimos": 292560
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2019,
+      "rendimientoNetoTrabajoCentimos": 2300000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "rendimientoNetoReducidoCentimos": 2100000,
+      "minimoPersonalFamiliarCentimos": 810000,
+      "baseRetencionCentimos": 2100000,
+      "cuotaRetencionCentimos": 230738,
+      "limite43Centimos": 230738,
+      "tipoRetencionPorcentaje": "10.03",
+      "importeRetencionAnualCentimos": 230690
+    },
+    "differentFields": [
+      "tipoRetencionPorcentaje",
+      "importeRetencionAnualCentimos"
+    ],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2019,
+      "edad": 40,
+      "retribucionAnualCentimos": 40000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "general",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [],
+      "ascendientes": []
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 39800000,
+      "tipoRetencionPorcentaje": "42.23",
+      "importeRetencionAnualCentimos": 16892000
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2019,
+      "rendimientoNetoTrabajoCentimos": 40000000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "rendimientoNetoReducidoCentimos": 39800000,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 39800000,
+      "cuotaRetencionCentimos": 17090700,
+      "limite43Centimos": 17090700,
+      "tipoRetencionPorcentaje": "42.72",
+      "importeRetencionAnualCentimos": 17088000
+    },
+    "differentFields": [
+      "tipoRetencionPorcentaje",
+      "importeRetencionAnualCentimos"
+    ],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2017,
+      "edad": 40,
+      "retribucionAnualCentimos": 1000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "especial",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [],
+      "ascendientes": [],
+      "residenciaCeutaMelilla": true,
+      "rendimientosCeutaMelilla": true
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 430000,
+      "tipoRetencionPorcentaje": "8.00",
+      "importeRetencionAnualCentimos": 80000
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2017,
+      "rendimientoNetoTrabajoCentimos": 1000000,
+      "reduccionRendimientosTrabajoCentimos": 730200,
+      "rendimientoNetoReducidoCentimos": 69800,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 69800,
+      "cuotaRetencionCentimos": 0,
+      "limite43Centimos": 0,
+      "tipoRetencionPorcentaje": "6.00",
+      "importeRetencionAnualCentimos": 60000
+    },
+    "differentFields": [
+      "baseRetencionCentimos",
+      "tipoRetencionPorcentaje",
+      "importeRetencionAnualCentimos"
+    ],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  },
+  {
+    "input": {
+      "anio": 2017,
+      "edad": 40,
+      "retribucionAnualCentimos": 1000000,
+      "cotizacionesCentimos": 0,
+      "situacionFamiliar": "situacion3",
+      "situacionLaboral": "activo",
+      "contrato": "inferior-anio",
+      "discapacidad": "sin-discapacidad",
+      "descendientes": [],
+      "ascendientes": [],
+      "residenciaCeutaMelilla": true,
+      "rendimientosCeutaMelilla": true
+    },
+    "expectedIndependent": {
+      "baseRetencionCentimos": 430000,
+      "tipoRetencionPorcentaje": "1.00",
+      "importeRetencionAnualCentimos": 10000
+    },
+    "actualExecuted": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2017,
+      "rendimientoNetoTrabajoCentimos": 1000000,
+      "reduccionRendimientosTrabajoCentimos": 730200,
+      "rendimientoNetoReducidoCentimos": 69800,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 69800,
+      "cuotaRetencionCentimos": 0,
+      "limite43Centimos": 0,
+      "tipoRetencionPorcentaje": "0.80",
+      "importeRetencionAnualCentimos": 8000
+    },
+    "differentFields": [
+      "baseRetencionCentimos",
+      "tipoRetencionPorcentaje",
+      "importeRetencionAnualCentimos"
+    ],
+    "scope": "Procedimiento inicial 2017/2019; cotizaciones dadas, derecho familiar presupuesto, sin regularización, sin otras rentas ni ajustes. No consulta servicio remoto AEAT."
+  }
+]
