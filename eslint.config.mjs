@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Runtime de terceros: se verifica por separado, conservando su fuente.
+    "tools/oxlint/anti-slop/**",
   ]),
 ])
 
