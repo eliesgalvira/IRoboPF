@@ -1,9 +1,21 @@
 import { createElement } from "react"
-import { renderToStaticMarkup } from "react-dom/server"
-import { resolver } from "@/lib/procedencia/almacen"
+import { renderToReadableStream } from "react-dom/server.edge"
+import {
+  resolver,
+  leerSnapshot,
+  enlacesDocumentales,
+} from "@/lib/procedencia/almacen"
 import { Ficha } from "@/lib/procedencia/ficha"
 
 export const dynamic = "force-dynamic"
+const noDisponible = () =>
+  new Response(
+    "Contenido prometido no disponible. No se sustituye por otra revisión.",
+    {
+      status: 503,
+      headers: { "Cache-Control": "no-store", "Retry-After": "60" },
+    }
+  )
 export function GET(
   _request: Request,
   contexto: {
@@ -15,29 +27,57 @@ export function GET(
       const entidad = resolver(snapshot, id, revision)
       if (entidad === null)
         return new Response("Ficha desconocida", { status: 404 })
-      const html = renderToStaticMarkup(
-        createElement(Ficha, { entidad, snapshot })
+      const fichaSnapshot = leerSnapshot(snapshot)
+      const evidencia =
+        fichaSnapshot?.version === 2
+          ? fichaSnapshot.evidencias.find(
+              (e) => e.sujeto.id === id && e.sujeto.revision === revision
+            )
+          : undefined
+      const documento = createElement(
+        "html",
+        { lang: "es" },
+        createElement(
+          "head",
+          null,
+          createElement("meta", { charSet: "utf-8" }),
+          createElement("meta", {
+            name: "viewport",
+            content: "width=device-width",
+          }),
+          createElement("title", null, "Procedencia documental")
+        ),
+        createElement(
+          "body",
+          null,
+          createElement(Ficha, {
+            entidad,
+            snapshot,
+            evidencia,
+            enlaces: enlacesDocumentales(snapshot, entidad),
+          })
+        )
       )
-      return new Response(
-        `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Procedencia documental</title></head><body>${html}</body></html>`,
-        {
-          headers: {
-            "Content-Type": "text/html; charset=utf-8",
-            "Cache-Control": "no-store",
-            "Content-Security-Policy":
-              "default-src 'none'; style-src 'self'; frame-ancestors 'none'",
-            "Referrer-Policy": "no-referrer",
-          },
-        }
-      )
+      // API de Web Streams expuesta por React y por el adaptador de Next.
+      // Esperar allReady permite mantener el 503 antes de enviar el documento.
+      return renderToReadableStream(documento)
+        .then((stream) =>
+          stream.allReady.then(
+            () =>
+              new Response(stream, {
+                headers: {
+                  "Content-Type": "text/html; charset=utf-8",
+                  "Cache-Control": "no-store",
+                  "Content-Security-Policy":
+                    "default-src 'none'; style-src 'self'; frame-ancestors 'none'",
+                  "Referrer-Policy": "no-referrer",
+                },
+              })
+          )
+        )
+        .catch(noDisponible)
     } catch {
-      return new Response(
-        "Contenido prometido no disponible. No se sustituye por otra revisión.",
-        {
-          status: 503,
-          headers: { "Cache-Control": "no-store", "Retry-After": "60" },
-        }
-      )
+      return noDisponible()
     }
   })
 }
