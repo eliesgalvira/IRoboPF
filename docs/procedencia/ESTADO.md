@@ -62,6 +62,12 @@ El delegado entregó un parche de 29 archivos contra `d4d708f6`, sin commit. El 
 
 Según la ejecución del delegado: lint sin diagnósticos, typecheck y ensayo anti-slop correctos; suite ampliada 177 pruebas correctas y una omitida; suite CI cinco correctas. Estos resultados aún requieren revisión e integración del orquestador. El parche no está aplicado al motor principal. Se encarga revisión independiente de preservación de comportamiento, contratos de entrada, esquema de fixtures y adaptadores de exportación/gráficos. La revisión fiscal continúa separadamente.
 
+## Necesidades expertas: primera entrega documental
+
+Recibidos 16 candidatos de capacidad: 11 carencias y cinco ambigüedades. El orquestador comprobó hashes SHA-256/SHA-512 y tamaños de los seis originales referenciados. Ningún candidato se acepta todavía; se encarga contrarrevisión de los 16 requisitos, la comprobación pública de posts/artículo, las citas y la lectura del motor.
+
+La diferencia reproducida para el ejemplo de 18.000 € compara parametrizaciones ilustrativas, no acredita una deuda tributaria: no se utilizará para corregir el motor sin contraste normativo. Las carencias de actividad económica se investigarán como una vertical distinta del salario; primera investigación delimitada a estimación directa simplificada de 2025, sin prometer cobertura de RETA ni de otros regímenes antes de acreditarlos.
+
 ## Bootstrap anti-slop completado
 
 Runtime v0.1.2 verificado, incorporado con licencia y hashes, 16 reglas a error y oxlint 1.78.0 junto a ESLint. CI nueva con límite de 15 minutos y ejecución secuencial, sin build ni suite legacy pesada. Typecheck, humo del plugin y 5 pruebas seleccionadas pasan; ESLint pasa. Lint global falla con 96 errores preexistentes en 25 archivos, registrados en [LINT.md](LINT.md) y `lint/`. No se modificó el motor ni se validó cifra fiscal alguna. Auditoría documental desbloqueada; corrección de deuda pendiente de reparto por archivo. Integración y respaldo corresponden al orquestador. No se borró contexto ni Reactivity.
