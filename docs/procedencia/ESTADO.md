@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 32 del 30 de octubre
+## Situación más reciente, ronda 33 del 30 de octubre
+
+Recibido el fragmento Sol de seis sitios de retenciones y pagos: 41 archivos, 1.881.405 bytes. ENTREGA y sobres cotejados; 16.855 entradas físicas intactas, cero borrados, todo altas del ámbito. El padre lee implementación, schema, pruebas e informe y reconstruye exactamente el artefacto: 133 puertos, 257 relaciones, 51 contratos. Las 46 pruebas pasan en el padre, junto con tipos y lint globales. Recibos en correcciones/retenciones-flujo-r33.
+
+Se integra como candidato. El padre no acepta aún valueClosed/selectionClosed: faltan el contraste semántico independiente de campos, celdas, instancias, callbacks y conversiones, y la composición anual-publico-r32. SiteClosed=false; sin wiring ni aceptación fiscal. Los siete rojos de capacidad contra un esqueleto y los ocho mutantes rechazados por pin conservan su alcance real. La revisión nueva no debe confundir igualdad de receta con exhaustividad causal.
+
+Los otros cuatro encargos R32 continúan sin sondeos ni lectura de entregas parciales. Motor, inventario, 44 snapshots y confianza activa intactos; no se regenera el publicador. V4/v5 congelados; Crossa sigue v1 desfasado, copia local fuera de Victus, mismo dueño y casa, sin custodia remota o independiente. Sin main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global permanece abierto. Se prepara una contrarrevisión nueva Sol6.1 high priority del fragmento exacto.
+
+## Situación anterior, ronda 32 del 30 de octubre
 
 Recibidas cuatro entregas Sol por manifiesto: nominal R30, CAS R30, composición parcial de retenciones/SS R30 y origen R31. Son 255 archivos y 21.162.302 bytes. Tres cotejos físicos de 16.486 entradas y uno de 16.548, cero borrados, dos modificaciones de base autorizadas. El padre contrasta los informes, fuentes, casos y límites. La recepción admite de forma expresa un único gzip técnico de 11.243.790 bytes; no cambia los límites del CAS ni autoriza originales grandes en Git. Informes y recibos en correcciones/recepcion-r30-r32.
 

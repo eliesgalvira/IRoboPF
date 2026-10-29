@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "kind",
+    "base",
+    "sources",
+    "ports",
+    "edges",
+    "sites",
+    "unresolved",
+    "contracts",
+    "admissionInterface",
+    "instances",
+    "completeRuleAcceptance",
+    "wiringAllowed"
+  ],
+  "properties": {
+    "version": { "const": 1 },
+    "kind": { "const": "retenciones-pagos-r32" },
+    "base": { "const": "846f25e183ba07414065d4e6bdf9e98311b98a17" },
+    "completeRuleAcceptance": { "const": false },
+    "wiringAllowed": { "const": false },
+    "sources": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "sha256"],
+        "properties": {
+          "file": { "type": "string" },
+          "sha256": { "$ref": "#/$defs/hash" }
+        }
+      }
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "property",
+          "instance",
+          "unit",
+          "formula",
+          "source",
+          "terminal"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "property": { "type": "string" },
+          "instance": { "type": "string" },
+          "unit": { "type": "string" },
+          "formula": { "type": "string" },
+          "source": { "$ref": "#/$defs/ref" },
+          "terminal": { "type": "boolean" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to", "role", "condition", "source"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "role": { "enum": ["value", "selection", "admission"] },
+          "condition": { "type": "string" },
+          "source": { "$ref": "#/$defs/ref" }
+        }
+      }
+    },
+    "sites": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "siteId",
+          "port",
+          "source",
+          "unit",
+          "valueClosed",
+          "selectionClosed",
+          "siteClosed",
+          "admissionRequirement",
+          "closureScope"
+        ],
+        "properties": {
+          "siteId": {
+            "enum": [
+              "anual.retencion.base",
+              "anual.retencion.cuota",
+              "anual.retencion.tipo",
+              "anual.retencion.anual",
+              "anual.pagos.retenciones",
+              "anual.pagos.cuenta"
+            ]
+          },
+          "port": { "type": "string" },
+          "source": { "$ref": "#/$defs/ref" },
+          "unit": { "enum": ["EUR", "percent"] },
+          "valueClosed": { "const": true },
+          "selectionClosed": { "const": true },
+          "siteClosed": { "const": false },
+          "admissionRequirement": { "const": "anual-publico-r32" },
+          "closureScope": {
+            "const": "public-concrete-layer; successful-supported-inputs; legacy-distinct"
+          }
+        }
+      }
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "scope", "requirement"],
+        "properties": {
+          "id": { "type": "string" },
+          "scope": { "type": "string" },
+          "requirement": { "type": "string" }
+        }
+      }
+    },
+    "contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "source",
+          "parameters",
+          "returns",
+          "calls",
+          "branches",
+          "collections",
+          "resolved"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "$ref": "#/$defs/ref" },
+          "parameters": { "type": "array", "items": { "$ref": "#/$defs/ref" } },
+          "returns": { "type": "array", "items": { "$ref": "#/$defs/ref" } },
+          "calls": { "type": "array", "items": { "type": "object" } },
+          "branches": { "type": "array", "items": { "$ref": "#/$defs/ref" } },
+          "collections": { "type": "array", "items": { "type": "object" } },
+          "resolved": { "const": true }
+        }
+      }
+    },
+    "admissionInterface": {
+      "type": "object",
+      "required": ["contractId", "errors", "nativeThrows", "annualObligations"],
+      "additionalProperties": false,
+      "properties": {
+        "contractId": { "const": "anual-publico-r32" },
+        "errors": { "type": "array", "items": { "type": "object" } },
+        "nativeThrows": { "type": "array", "items": { "$ref": "#/$defs/ref" } },
+        "annualObligations": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "instances": { "type": "array", "items": { "type": "object" } }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "sha256",
+        "start",
+        "end",
+        "syntax",
+        "offsetEncoding"
+      ],
+      "properties": {
+        "file": { "type": "string" },
+        "sha256": { "$ref": "#/$defs/hash" },
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 1 },
+        "syntax": { "type": "string" },
+        "offsetEncoding": { "const": "utf16" }
+      }
+    }
+  }
+}

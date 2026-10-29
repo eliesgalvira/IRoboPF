@@ -1,0 +1,48 @@
+[
+  {
+    "name": "reconstruccion",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/retenciones-flujo-r33/contrastar.mjs"
+    ],
+    "exitCode": 0,
+    "elapsedIncludingLockSeconds": 0.515,
+    "log": "docs/procedencia/correcciones/retenciones-flujo-r33/reconstruccion.log"
+  },
+  {
+    "name": "tests",
+    "command": [
+      "bun",
+      "x",
+      "vitest",
+      "run",
+      "tests/flujo-retenciones-r32.test.ts",
+      "--maxWorkers=1"
+    ],
+    "exitCode": 0,
+    "elapsedIncludingLockSeconds": 1.618,
+    "log": "docs/procedencia/correcciones/retenciones-flujo-r33/tests.log"
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0,
+    "elapsedIncludingLockSeconds": 5.127,
+    "log": "docs/procedencia/correcciones/retenciones-flujo-r33/typecheck.log"
+  },
+  {
+    "name": "lint",
+    "command": [
+      "bun",
+      "run",
+      "lint"
+    ],
+    "exitCode": 0,
+    "elapsedIncludingLockSeconds": 9.885,
+    "log": "docs/procedencia/correcciones/retenciones-flujo-r33/lint.log"
+  }
+]

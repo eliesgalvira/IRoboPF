@@ -1,0 +1,10 @@
+import gzip
+import json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+schema = json.loads(Path('schemas/procedencia/flujo/retenciones-r32.schema.json').read_text())
+Draft202012Validator.check_schema(schema)
+with gzip.open('docs/procedencia/implementaciones/flujo-retenciones-r32-sol/fragmento.json.gz', 'rt') as stream:
+    graph = json.load(stream)
+Draft202012Validator(schema).validate(graph)
+print('Draft202012: esquema y fragmento correctos; no aceptación fiscal')
