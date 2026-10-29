@@ -1,0 +1,2442 @@
+[
+  {
+    "id": "IPC-2013",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2013
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "0.300 % diciembre interanual",
+    "officialValue": "0,3 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2013M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1213.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/657ae8a42638307b6024315037e5b6a85f9596a6e719385139da67c95d7df07a",
+        "sha256": "657ae8a42638307b6024315037e5b6a85f9596a6e719385139da67c95d7df07a",
+        "sha512": "cbc3db1f94ccfb1f5815a6056a648818e154a653110b7659a027cc3e38840d0ed4863eefe17364b26f89f29100818636212bbd21def68592f30e10ff1b99d555",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2013M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-657ae8a426-1-84",
+      "CSV50902-L722"
+    ]
+  },
+  {
+    "id": "IPC-2014",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2014
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "-1.000 % diciembre interanual",
+    "officialValue": "-1,0 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2014M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1214.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/61df1573c170ece6e04dfd57fe63a7439be6a7d8982f44d91efc263806761dcb",
+        "sha256": "61df1573c170ece6e04dfd57fe63a7439be6a7d8982f44d91efc263806761dcb",
+        "sha512": "6269c161948d8ed32fd630d954a56b0837ae255c76b69bc62a97760ce9b0bc1b064b515574cb6d335ae799eabea05e0bfca0c480a343c04fc629cbba9541a7ed",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2014M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-61df1573c1-1-106",
+      "CSV50902-L710"
+    ]
+  },
+  {
+    "id": "IPC-2015",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2015
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "0.000 % diciembre interanual",
+    "officialValue": "0,0 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2015M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1215.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bfbcb242413bf04f5d5aad329390a62254e4f154bd759065164a19226e117086",
+        "sha256": "bfbcb242413bf04f5d5aad329390a62254e4f154bd759065164a19226e117086",
+        "sha512": "b3920b13a4bd3bf58e7434c94e7ddcf71eb2cc587ff46b9852671b3863467b9504d31b8ac1ad28b85b3f6334a676a8d6674b9d5ae9487795b6c25c367c7056ee",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2015M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-bfbcb24241-1-127",
+      "CSV50902-L698"
+    ]
+  },
+  {
+    "id": "IPC-2016",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2016
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "1.600 % diciembre interanual",
+    "officialValue": "1,6 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2016M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1216.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/2b424943125f7122ea745e26e91bd4f175b2ea1d5f6f8eec1869362ec8caba2b",
+        "sha256": "2b424943125f7122ea745e26e91bd4f175b2ea1d5f6f8eec1869362ec8caba2b",
+        "sha512": "f3d6e848c0cc31ae99f165d01782bb13346d3df2c3f7798639cb804dc0f8db0bc7f5d453191725246dba1053fc0f819e5496b8737a6f098964b6a19b26c290a7",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2016M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-2b42494312-1-147",
+      "CSV50902-L686"
+    ]
+  },
+  {
+    "id": "IPC-2017",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2017
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "1.100 % diciembre interanual",
+    "officialValue": "1,1 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2017M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1217.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f196f9b089a0ac683ec6aec647f90ed1f4ce0478d3a84feb791aefd7588812f0",
+        "sha256": "f196f9b089a0ac683ec6aec647f90ed1f4ce0478d3a84feb791aefd7588812f0",
+        "sha512": "d168dc729d1dc1394cdecd4ebe7de8de7467010ae8f528e2926b1bd40b813eccd450ef46f346ed695f15749ecf8a1492a55ef6583803b64f605990369c5a217e",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2017M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-f196f9b089-1-166",
+      "CSV50902-L674"
+    ]
+  },
+  {
+    "id": "IPC-2018",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2018
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "1.200 % diciembre interanual",
+    "officialValue": "1,2 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2018M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1218.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/2709dbc0c7ed0a7b2a72d3bbb272e1f1a903df5b8142148f4c7440108c2ab747",
+        "sha256": "2709dbc0c7ed0a7b2a72d3bbb272e1f1a903df5b8142148f4c7440108c2ab747",
+        "sha512": "719630a29a97fd5420aaecf97a0185a848d111813871594dc449ef143057f9da425f7bc5fbb287dbdb42a6636a459f2fb11d232cb1a72d4bc872fa56c6dd26e9",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2018M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-2709dbc0c7-1-184",
+      "CSV50902-L662"
+    ]
+  },
+  {
+    "id": "IPC-2019",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2019
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "0.800 % diciembre interanual",
+    "officialValue": "0,8 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2019M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1219.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/78bddb485c1ca306d6d55645cebc69a6419a8df36891bb798fd1ff8792279ff6",
+        "sha256": "78bddb485c1ca306d6d55645cebc69a6419a8df36891bb798fd1ff8792279ff6",
+        "sha512": "2fe1338c09442f3465dd7f78f3670ae8c4a898a1617d4b895e1826608c1f838262ed0d1cb9f29814c90c8bc781d698e2848da392fd223a7224aa0efaf9528be4",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2019M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-78bddb485c-1-210",
+      "CSV50902-L650"
+    ]
+  },
+  {
+    "id": "IPC-2020",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2020
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "-0.500 % diciembre interanual",
+    "officialValue": "-0,5 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2020M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1220.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/947ac708e7c05f9d9ccefce0a369aaa39423f5c5cd4b4e42f8208f97760e4d7a",
+        "sha256": "947ac708e7c05f9d9ccefce0a369aaa39423f5c5cd4b4e42f8208f97760e4d7a",
+        "sha512": "46f0dda41489ab9e1c615c9e0042484cc45dbc978d23227f833e45a120e638e49f2861a262ca53072dd3f0d286770a264026a94d6a37d50259382766f602c99e",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2020M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-947ac708e7-1-238",
+      "CSV50902-L638"
+    ]
+  },
+  {
+    "id": "IPC-2021",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2021
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "6.500 % diciembre interanual",
+    "officialValue": "6,5 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2021M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1221.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/29dafd096c17fedd513dd8c61b372d7c34b34974064f896ebd937cd86c93e226",
+        "sha256": "29dafd096c17fedd513dd8c61b372d7c34b34974064f896ebd937cd86c93e226",
+        "sha512": "7bb2be960b6dc6684a091adc65c3cbfefa8850a4bd9923508ce1d16d813ccf1bc93e14acf8dfb29b9e6ff8d4dff3101e55283e723b11cc7b8d962f8eded4a64f",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2021M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-29dafd096c-1-262",
+      "CSV50902-L626"
+    ]
+  },
+  {
+    "id": "IPC-2022",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2022
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "5.700 % diciembre interanual",
+    "officialValue": "5,7 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2022M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/daco/daco42/daco421/ipc1222.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7a5d58ba310c49722e5be7086bb7a8f9b8ac40cdc5c61edfbbb0cdc16223ac8d",
+        "sha256": "7a5d58ba310c49722e5be7086bb7a8f9b8ac40cdc5c61edfbbb0cdc16223ac8d",
+        "sha512": "0a4d0721f771f4c253f0091c6e3a391ae51809c43d9f391f9935d8b34dbd523a77b719bb62de1a2608bd029908cb9fdb802f2815e895c2569c9de0c99b82a0d9",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2022M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-7a5d58ba31-1-284",
+      "CSV50902-L614"
+    ]
+  },
+  {
+    "id": "IPC-2023",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2023
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "3.100 % diciembre interanual",
+    "officialValue": "3,1 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2023M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/dyngs/Prensa/IPC1223.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/9a7fb763165af217378b056d3622d967a26846a2fc0e0013a12eddd1e70113f3",
+        "sha256": "9a7fb763165af217378b056d3622d967a26846a2fc0e0013a12eddd1e70113f3",
+        "sha512": "948a811edf9e777c77548b6e52147ec5d2f8cab6070d69fd5e9ba8ff4e3a88dc5391aed40438d3da71a1b53a2bd38e070c34dc495dfa32b783b2b1928a5d66d2",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2023M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-9a7fb76316-1-308",
+      "CSV50902-L602"
+    ]
+  },
+  {
+    "id": "IPC-2024",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2024
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "2.800 % diciembre interanual",
+    "officialValue": "2,8 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2024M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/dyngs/Prensa/IPC1224.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/5f12cf53bb541a2dfa73ce5f5118d1b753a50546ab94ef2cd32ae96acb4aa6a6",
+        "sha256": "5f12cf53bb541a2dfa73ce5f5118d1b753a50546ab94ef2cd32ae96acb4aa6a6",
+        "sha512": "68c28fabd267842f66ee6fd65db613600d43dd68dc57f263b6703087884c294e217348831eaca99e33aa2e99a512a33beff842e15712a36c8efa1fef14118f31",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2024M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-5f12cf53bb-1-360",
+      "CSV50902-L590"
+    ]
+  },
+  {
+    "id": "IPC-2025",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2025
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "2.900 % diciembre interanual",
+    "officialValue": "2,9 % diciembre interanual",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia con fila oficial CSV tabla 50902, índice general nacional, Variación anual, 2025M12. La tasa publicada tiene un decimal; no es un índice ni media anual.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/dyngs/Prensa/IPC1225.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/5bf4b5ff0c855a5f216323bc78370ede5e3dc23bc33b769465640d0682a2c805",
+        "sha256": "5bf4b5ff0c855a5f216323bc78370ede5e3dc23bc33b769465640d0682a2c805",
+        "sha512": "c5da0e56f5af62a43a2c8e88ec7e205a52ba1f8f098deaa33d62e0e719fb8e488dd68c29c5af74a11c9c18b528369ee8ed17210da0b9e7b0d1f4c48936d601c5",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fijar fila oficial 2025M12 y comparar tasa/100.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "dato estadístico observado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-5bf4b5ff0c-1-335",
+      "CSV50902-L578"
+    ]
+  },
+  {
+    "id": "IPC-2012-BASE",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2012
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE",
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#factorIpc",
+      "lib/dominio/auditoria/auditoria-progresividad-frio.ts#factorIpc"
+    ],
+    "engineValue": "2012 no tiene tasa almacenada; factor(2012,2012)=1",
+    "officialValue": "Diciembre 2012 interanual: 2,9 %; no interviene para partir de diciembre 2012",
+    "units": "especificadas en los valores",
+    "reason": "No hay off-by-one hacia delante: producto desde base+1 hasta destino, ambos definidos como diciembre. Incluir tasa 2012 contaría diciembre 2011→2012.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "factor(2012,2013)=1.003; factor(2012,2012)=1.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "identidad matemática",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "IPC-2026-ESCENARIO",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "mismatch",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "3,0 % tratado con el mismo tipo que datos observados",
+    "officialValue": "Diciembre 2026 aún futuro al 2026-10-29; valor observado inexistente",
+    "units": "especificadas en los valores",
+    "reason": "El 3 % es supuesto heredado, sin procedencia de proyección, fecha de corte ni etiqueta en la tabla. No sustituirlo por septiembre ni por un avance.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/prensa/ipc_tabla.htm",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8eb5652395f79f0cb971c557ec92d0954133b2b907ea33c60963e30eafe5dc7e",
+        "sha256": "8eb5652395f79f0cb971c557ec92d0954133b2b907ea33c60963e30eafe5dc7e",
+        "sha512": "01693fc223a8a7ddd712109a4a597912069dc82016f544b9a8e5589f07d3f4617dcc1b936c125eb6ca3cdc2e009380c524556fec936f1d20e3197e4d9ac02473",
+        "mimeType": "text/html"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Exigir origen escenario para 2026 y rechazar clasificación observado antes de publicación.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "supuesto/proyección",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "IPC-ACUMULACION",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "ambiguous",
+    "engineLocations": [
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#factorIpc",
+      "lib/dominio/auditoria/auditoria-progresividad-frio.ts#factorIpc"
+    ],
+    "engineValue": "Producto tasas publicadas 2013–2025: 1.270974585050486216872514683",
+    "officialValue": "Cociente índices publicados 119.942/94.394: 1.270652795728542068351802021",
+    "units": "especificadas en los valores",
+    "reason": "Las tasas se publican a un decimal y los índices a tres. El producto pierde precisión acumulativamente (9.6536796583 EUR sobre 30000 EUR); tampoco el cociente de índices publicados reconstruye todos los decimales internos del INE. Mantener producto solo como contrato legacy explícito.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/metodologia/t25/metodologia_IPC_base_2025.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/95f6b1da10e7ce5807ce200c0914aa97012b722712991d33eb6a0c94576c81d6",
+        "sha256": "95f6b1da10e7ce5807ce200c0914aa97012b722712991d33eb6a0c94576c81d6",
+        "sha512": "e337eb536ee035f77bdcb4eabfa6c6fe28a56587b652096dbe798b9d1958d48e7d2cb83f4927f65c3268013a1a07073e3e5f5a264f1232895a72d565bb3fa8e0",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Comparar producto frente a cociente, fijar tolerancia y método declarado; no exigir igualdad.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "valor derivado aproximado",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-95f6b1da10-47-13"
+    ]
+  },
+  {
+    "id": "IPC-MEDIA-ANUAL",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "ambiguous",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE",
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#construirComparacionAjustadaPorIpc"
+    ],
+    "engineValue": "Diciembre a diciembre para salario anual",
+    "officialValue": "Tabla 50934: variación media 2025=2,7 %, diciembre=2,9 %",
+    "units": "especificadas en los valores",
+    "reason": "La metodología de cierre no mide el coste de la cesta durante todo el año. La elección es de producto; permitir o declarar la alternativa media anual evita interpretar cierre como media.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50934.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/5a7abcc8bbc91637f45d9726f99ab6b01fc8b972fdb25d8ba18cefa27a064e71",
+        "sha256": "5a7abcc8bbc91637f45d9726f99ab6b01fc8b972fdb25d8ba18cefa27a064e71",
+        "sha512": "2dff31b4874486f385c14dbc5576a062807cbc2d42f475c7b94c7b8df496c3443b24f5a5b3e5e8e68584195869124f32b83d2f570db36ca23c9b71a067b85b26",
+        "mimeType": "text/plain"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Distinguir ambas métricas incluso cuando coincidan (2024=2,8 %).",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "decisión metodológica",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "IPC-INVERSO",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "ambiguous",
+    "engineLocations": [
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#factorIpc",
+      "lib/dominio/auditoria/auditoria-progresividad-frio.ts#factorIpc"
+    ],
+    "engineValue": "Rango vacío devuelve 1 cuando base>referencia",
+    "officialValue": "Factor inverso debería ser recíproco si se admite esa dirección",
+    "units": "especificadas en los valores",
+    "reason": "Existe función separada compararPasadoAjustadoPorIpc legacy que invierte explícitamente. No etiquetar todos los flujos como erróneos; exigir precondición visible en cada ruta que usa el factor directo.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.ine.es/jaxiT3/files/t/csv_bdsc/50902.csv",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha512": "2377ab4592e7563007b7b2a30b7fafa90ab63a65267e4f2893d5bc21c49e9930a08b8b5b513fe7fb76dc5c142d5bada4c5270032a4c6867dd22b669941af4b27",
+        "mimeType": "text/plain"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Probar todos los 225 pares de años en cada API pública; identidad y reciprocidad o error tipado documentado.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "contrato técnico",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "IPC-AUSENCIA-CERO",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "missing",
+    "engineLocations": [
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#ipcAnualConocido",
+      "lib/dominio/auditoria/auditoria-progresividad-frio.ts#ipcAnualConocido"
+    ],
+    "engineValue": "Dato ausente → CERO",
+    "officialValue": "Ausencia no equivale a variación 0 %",
+    "units": "especificadas en los valores",
+    "reason": "No falla hoy para 2013–2026, pero ocultaría una serie incompleta. La ausencia de 2012 es identidad de origen, no evidencia de inflación cero.",
+    "sources": [],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Eliminar observación necesaria en fixture y exigir error, no factor 1.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "constante técnica",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "RED-LEGACY-EXCEL",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "mismatch",
+    "engineLocations": [
+      "lib/dominio/dinero/redondeo.ts#redondearHalfUp",
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#dineroCompatible",
+      "Calculo_Salario_IRPF.py#procesar_ano"
+    ],
+    "engineValue": "DAT_2012 D32=1.91 EUR; E12=W12=9.37 EUR",
+    "officialValue": "No se atribuye regla normativa; Excel D32=1.90, E12=W12=9.36 EUR",
+    "units": "especificadas en los valores",
+    "reason": "Contraste real de celdas y ejecución de tabla TS: 184 diferencias de 33027 celdas en rango 0–100 EUR, 15 años. En 2026 hay también divergencias de parámetros: no atribuir todas al redondeo.",
+    "sources": [],
+    "legacyComparison": "Excel leído por ZIP/XML streaming; SHA y muestras en contraste-excel.json.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Test focalizado DAT_2012 D32, E12, W12 contra original; separar contrato legacy y canónico.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "compatibilidad legacy",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "RED-MENSUAL-SIGNO",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "mismatch",
+    "engineLocations": [
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#diferenciaMensualCentimos",
+      "lib/dominio/auditoria/auditoria-progresividad-frio.ts#compararAjustadoPorIpcConLiquidacion"
+    ],
+    "engineValue": "Math.round(-18/12)=-1; Math.round(18/12)=2 céntimos",
+    "officialValue": "Política half-up declarada daría -2 y +2; no mandato fiscal sobre esta métrica",
+    "units": "especificadas en los valores",
+    "reason": "Asimetría de empates negativos y doble redondeo anual→mensual. Python calcula round(delta no redondeado/12,2), no round(delta anual liquidado/12).",
+    "sources": [],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "±6, ±18, ±30 céntimos; delta exacto anual 0.059 EUR: redondear anual→dividir da 0.01 mensual, directo da 0.00.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "decisión de producto inconsistente",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "RED-ETAPAS-IPC",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "ambiguous",
+    "engineLocations": [
+      "lib/dominio/auditoria/auditoria-progresividad-frio.ts#compararAjustadoPorIpcConLiquidacion",
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#construirComparacionAjustadaPorIpc"
+    ],
+    "engineValue": "Ruta canónica liquida salario nominal y salidas antes de reexpresar; legacy conserva decimales hasta salida",
+    "officialValue": "No mandato INE sobre redondeo de salarios fiscales",
+    "units": "especificadas en los valores",
+    "reason": "No son aritméticamente equivalentes. Ajustar por IPC importes ya liquidados puede amplificar un céntimo; conservar valor preciso solo para algunos campos no resuelve la composición del neto.",
+    "sources": [],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Fixture sintético 1.005 EUR y factor 1.5: redondeo previo 1.52 vs final 1.51; comprobar salario real que cruce tramo tras liquidar.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "decisión de producto",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "RED-PORCENTAJES",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "ambiguous",
+    "engineLocations": [
+      "lib/dominio/dinero/porcentaje.ts#porcentajeCompatibleLegacy",
+      "lib/dominio/compatibilidad-legacy/progresividad-frio.ts#cabeceraTramoIrpf",
+      "lib/export/auditoria-excel.ts#porcentaje"
+    ],
+    "engineValue": "Half-up Decimal para porcentajes legacy; Number.toFixed(2) en export educativo",
+    "officialValue": "Python round sobre float; glosario afirma half-even tabular",
+    "units": "especificadas en los valores",
+    "reason": "Glosario y código discrepan. Empate decimal 24.65 a un decimal: half-up 24.7, half-even 24.6; con float depende del valor binario. No inferir incumplimiento en cada tipo de tabla sin celda testigo.",
+    "sources": [],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Empates exactos 24.65, 24.75; 0.1+0.2; comparar valores binarios y etiquetas, no solo apariencia.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "compatibilidad legacy",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "RED-DECIMAL-PRECISION",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "ambiguous",
+    "engineLocations": [
+      "lib/dominio/dinero/importe-monetario.ts#crearImporteMonetario"
+    ],
+    "engineValue": "Decimal.js precision=20, rounding=4 observados; sin configuración local encontrada",
+    "officialValue": "No aritmética decimal de precisión infinita",
+    "units": "especificadas en los valores",
+    "reason": "Divisiones y operaciones se redondean a 20 cifras significativas aun antes de fronteras declaradas. Conversiones toNumber vuelven a IEEE754. No se demuestra error de céntimo en salarios soportados por este hecho solo.",
+    "sources": [],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Divisiones periódicas y productos IPC a precisión 50 frente a 20; entradas centimos mayores que MAX_SAFE_INTEGER deben rechazarse.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "constante técnica",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "RED-SS-LIQUIDACION",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "missing",
+    "engineLocations": [
+      "lib/dominio/laboral/cotizaciones-sociales.ts",
+      "lib/dominio/dinero/importe-monetario.ts#redondearImporteLiquidado"
+    ],
+    "engineValue": "Suma tipos y cuotas anuales sin redondeos mensuales por concepto; salida half-up",
+    "officialValue": "Regla histórica TGSS por tramo/concepto y liquidación IRPF no acreditada en este lote",
+    "units": "especificadas en los valores",
+    "reason": "No extender REDONDEAR1 de retenciones a toda SS o liquidación anual. Ejemplo matemático 12×round(1.005)=12.12 vs round(12×1.005)=12.06 no es por sí mismo caso legal. Antecedente de conversión recuperado en RED-SS-EURO-2001; no cierra la etapa por concepto.",
+    "sources": [],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Tras fuente histórica, separar cuotas mensuales por contingencia/MEI/solidaridad y comparar agregado anual.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "regla legal pendiente",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "RED-AEAT-2026",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts#redondear1",
+      "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts#truncar"
+    ],
+    "engineValue": "Half-up a dos decimales y truncamiento ROUND_DOWN a dos",
+    "officialValue": "REDONDEAR1: 0.005→0.01; TRUNCAR:17.85964523→17.85; máximo número de decimales salvo funciones explícitas",
+    "units": "especificadas en los valores",
+    "reason": "Coincidencia de las primitivas para magnitudes positivas. No acredita que todas las llamadas y etapas sean las correctas ni todos los ejercicios. Véase RED-AEAT-ETAPAS-2026 para correspondencia inicial.",
+    "sources": [
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/ALGORITMO_2026.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+        "sha256": "a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+        "sha512": "c4d3c11e77fcaf9bb4c8b819fb1b4d5f4b3cff15f599f6dfa82cf9cbdfb6235c6089af25db34d4dfaa30a9e597783294762ed23de791ef75f84541ed2be9b80b",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Ejemplos oficiales; separar tipo porcentual truncado de importe monetario; revisar todos los callsites.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "regla algoritmo AEAT",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-a15b7fee87-10-15",
+      "C-a15b7fee87-23-16",
+      "C-a15b7fee87-23-17",
+      "C-a15b7fee87-24-18",
+      "C-a15b7fee87-25-19",
+      "C-a15b7fee87-25-20",
+      "C-a15b7fee87-26-21",
+      "C-a15b7fee87-27-22",
+      "C-a15b7fee87-27-23",
+      "C-a15b7fee87-28-24",
+      "C-a15b7fee87-28-25",
+      "C-a15b7fee87-33-28",
+      "C-a15b7fee87-33-29",
+      "C-a15b7fee87-36-32"
+    ]
+  },
+  {
+    "id": "RED-AEAT-HISTORIA",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "ambiguous",
+    "engineLocations": [
+      "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts"
+    ],
+    "engineValue": "Primitivas comunes",
+    "officialValue": {
+      "documentsExamined": [
+        {
+          "year": 2026,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/ALGORITMO_2026.pdf",
+          "sha256": "a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+          "citationIds": [
+            "C-a15b7fee87-10-15",
+            "C-a15b7fee87-23-16",
+            "C-a15b7fee87-23-17",
+            "C-a15b7fee87-24-18",
+            "C-a15b7fee87-25-19",
+            "C-a15b7fee87-25-20",
+            "C-a15b7fee87-26-21",
+            "C-a15b7fee87-27-22",
+            "C-a15b7fee87-27-23",
+            "C-a15b7fee87-28-24",
+            "C-a15b7fee87-28-25",
+            "C-a15b7fee87-32-26",
+            "C-a15b7fee87-33-27",
+            "C-a15b7fee87-33-28",
+            "C-a15b7fee87-33-29",
+            "C-a15b7fee87-35-30",
+            "C-a15b7fee87-35-31",
+            "C-a15b7fee87-36-32",
+            "C-a15b7fee87-37-33",
+            "C-a15b7fee87-37-34"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2026,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/Algoritmo%20Retenciones-2026_10sept.pdf",
+          "sha256": "b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+          "citationIds": [
+            "C-b1a120d93b-10-35",
+            "C-b1a120d93b-23-36",
+            "C-b1a120d93b-23-37",
+            "C-b1a120d93b-24-38",
+            "C-b1a120d93b-25-39",
+            "C-b1a120d93b-25-40",
+            "C-b1a120d93b-26-41",
+            "C-b1a120d93b-27-42",
+            "C-b1a120d93b-27-43",
+            "C-b1a120d93b-28-44",
+            "C-b1a120d93b-28-45",
+            "C-b1a120d93b-32-46",
+            "C-b1a120d93b-33-47",
+            "C-b1a120d93b-33-48",
+            "C-b1a120d93b-33-49",
+            "C-b1a120d93b-35-50",
+            "C-b1a120d93b-35-51",
+            "C-b1a120d93b-36-52",
+            "C-b1a120d93b-37-53",
+            "C-b1a120d93b-37-54"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2021,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2021/ALGORITMO_2021_LPGE_v2.pdf",
+          "sha256": "f433d785bb13c5f0cbd019586a93dcba0bc0a0ff61c750b463ed1d6d41508b13",
+          "citationIds": [
+            "C-f433d785bb-9-375",
+            "C-f433d785bb-22-376",
+            "C-f433d785bb-22-377",
+            "C-f433d785bb-23-378",
+            "C-f433d785bb-24-379",
+            "C-f433d785bb-24-380",
+            "C-f433d785bb-25-381",
+            "C-f433d785bb-26-382",
+            "C-f433d785bb-26-383",
+            "C-f433d785bb-27-384",
+            "C-f433d785bb-27-385",
+            "C-f433d785bb-31-386",
+            "C-f433d785bb-31-387",
+            "C-f433d785bb-32-388",
+            "C-f433d785bb-32-389",
+            "C-f433d785bb-34-390",
+            "C-f433d785bb-34-391",
+            "C-f433d785bb-35-392",
+            "C-f433d785bb-36-393",
+            "C-f433d785bb-36-394"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2018,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018_a_partir_LGPE_2018.pdf",
+          "sha256": "b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+          "citationIds": [
+            "C-b7de3c41b6-9-395",
+            "C-b7de3c41b6-22-396",
+            "C-b7de3c41b6-22-397",
+            "C-b7de3c41b6-24-398",
+            "C-b7de3c41b6-25-399",
+            "C-b7de3c41b6-25-400",
+            "C-b7de3c41b6-26-401",
+            "C-b7de3c41b6-27-402",
+            "C-b7de3c41b6-27-403",
+            "C-b7de3c41b6-28-404",
+            "C-b7de3c41b6-28-405",
+            "C-b7de3c41b6-34-406",
+            "C-b7de3c41b6-34-407",
+            "C-b7de3c41b6-34-408",
+            "C-b7de3c41b6-35-409",
+            "C-b7de3c41b6-37-410",
+            "C-b7de3c41b6-37-411",
+            "C-b7de3c41b6-38-412",
+            "C-b7de3c41b6-39-413",
+            "C-b7de3c41b6-39-414"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2018,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018.pdf",
+          "sha256": "9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d",
+          "citationIds": [
+            "C-9aab28b04f-9-415",
+            "C-9aab28b04f-22-416",
+            "C-9aab28b04f-22-417",
+            "C-9aab28b04f-23-418",
+            "C-9aab28b04f-24-419",
+            "C-9aab28b04f-24-420",
+            "C-9aab28b04f-25-421",
+            "C-9aab28b04f-26-422",
+            "C-9aab28b04f-26-423",
+            "C-9aab28b04f-27-424",
+            "C-9aab28b04f-27-425",
+            "C-9aab28b04f-32-426",
+            "C-9aab28b04f-32-427",
+            "C-9aab28b04f-32-428",
+            "C-9aab28b04f-33-429",
+            "C-9aab28b04f-35-430",
+            "C-9aab28b04f-35-431",
+            "C-9aab28b04f-36-432",
+            "C-9aab28b04f-37-433",
+            "C-9aab28b04f-37-434"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2024,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-28-Junio.pdf",
+          "sha256": "349c093fe191b2e9ff645a18da3fa3140100701d6c7ae8f10ae5432a3b1706ba",
+          "citationIds": [
+            "C-349c093fe1-10-435",
+            "C-349c093fe1-23-436",
+            "C-349c093fe1-23-437",
+            "C-349c093fe1-24-438",
+            "C-349c093fe1-25-439",
+            "C-349c093fe1-25-440",
+            "C-349c093fe1-26-441",
+            "C-349c093fe1-27-442",
+            "C-349c093fe1-27-443",
+            "C-349c093fe1-28-444",
+            "C-349c093fe1-28-445",
+            "C-349c093fe1-32-446",
+            "C-349c093fe1-33-447",
+            "C-349c093fe1-33-448",
+            "C-349c093fe1-33-449",
+            "C-349c093fe1-35-450",
+            "C-349c093fe1-35-451",
+            "C-349c093fe1-36-452",
+            "C-349c093fe1-37-453",
+            "C-349c093fe1-37-454"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2025,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf",
+          "sha256": "3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+          "citationIds": [
+            "C-3ad944876c-10-455",
+            "C-3ad944876c-23-456",
+            "C-3ad944876c-23-457",
+            "C-3ad944876c-24-458",
+            "C-3ad944876c-25-459",
+            "C-3ad944876c-25-460",
+            "C-3ad944876c-26-461",
+            "C-3ad944876c-27-462",
+            "C-3ad944876c-27-463",
+            "C-3ad944876c-28-464",
+            "C-3ad944876c-28-465",
+            "C-3ad944876c-32-466",
+            "C-3ad944876c-33-467",
+            "C-3ad944876c-33-468",
+            "C-3ad944876c-33-469",
+            "C-3ad944876c-35-470",
+            "C-3ad944876c-35-471",
+            "C-3ad944876c-36-472",
+            "C-3ad944876c-37-473",
+            "C-3ad944876c-37-474"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2025,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025__27-nov.pdf",
+          "sha256": "329fc013487a93c4d74c27c332ec5302de5a8b1371b61901cfe2e4fc75054355",
+          "citationIds": [
+            "C-329fc01348-10-475",
+            "C-329fc01348-23-476",
+            "C-329fc01348-23-477",
+            "C-329fc01348-24-478",
+            "C-329fc01348-25-479",
+            "C-329fc01348-25-480",
+            "C-329fc01348-26-481",
+            "C-329fc01348-27-482",
+            "C-329fc01348-27-483",
+            "C-329fc01348-28-484",
+            "C-329fc01348-28-485",
+            "C-329fc01348-32-486",
+            "C-329fc01348-33-487",
+            "C-329fc01348-33-488",
+            "C-329fc01348-33-489",
+            "C-329fc01348-35-490",
+            "C-329fc01348-35-491",
+            "C-329fc01348-36-492",
+            "C-329fc01348-37-493",
+            "C-329fc01348-37-494"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2017,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf",
+          "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+          "citationIds": [
+            "C-1390112172-9-495",
+            "C-1390112172-22-496",
+            "C-1390112172-22-497",
+            "C-1390112172-23-498",
+            "C-1390112172-24-499",
+            "C-1390112172-24-500",
+            "C-1390112172-25-501",
+            "C-1390112172-26-502",
+            "C-1390112172-26-503",
+            "C-1390112172-27-504",
+            "C-1390112172-27-505",
+            "C-1390112172-32-506",
+            "C-1390112172-32-507",
+            "C-1390112172-32-508",
+            "C-1390112172-33-509",
+            "C-1390112172-35-510",
+            "C-1390112172-35-511",
+            "C-1390112172-36-512",
+            "C-1390112172-37-513",
+            "C-1390112172-37-514"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2019,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf",
+          "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+          "citationIds": [
+            "C-bb9aa5da3d-9-515",
+            "C-bb9aa5da3d-22-516",
+            "C-bb9aa5da3d-22-517",
+            "C-bb9aa5da3d-24-518",
+            "C-bb9aa5da3d-25-519",
+            "C-bb9aa5da3d-25-520",
+            "C-bb9aa5da3d-26-521",
+            "C-bb9aa5da3d-27-522",
+            "C-bb9aa5da3d-27-523",
+            "C-bb9aa5da3d-28-524",
+            "C-bb9aa5da3d-28-525",
+            "C-bb9aa5da3d-34-526",
+            "C-bb9aa5da3d-34-527",
+            "C-bb9aa5da3d-34-528",
+            "C-bb9aa5da3d-35-529",
+            "C-bb9aa5da3d-37-530",
+            "C-bb9aa5da3d-37-531",
+            "C-bb9aa5da3d-38-532",
+            "C-bb9aa5da3d-39-533",
+            "C-bb9aa5da3d-39-534"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2021,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2021/ALGORITMO_2021_LPGE.pdf",
+          "sha256": "8d435c1b9ffc4c46b8878e79736408518d88c0f99e48bdc24922bfe5bdf607b8",
+          "citationIds": [
+            "C-8d435c1b9f-9-535",
+            "C-8d435c1b9f-22-536",
+            "C-8d435c1b9f-22-537",
+            "C-8d435c1b9f-23-538",
+            "C-8d435c1b9f-24-539",
+            "C-8d435c1b9f-24-540",
+            "C-8d435c1b9f-25-541",
+            "C-8d435c1b9f-26-542",
+            "C-8d435c1b9f-26-543",
+            "C-8d435c1b9f-27-544",
+            "C-8d435c1b9f-27-545",
+            "C-8d435c1b9f-31-546",
+            "C-8d435c1b9f-31-547",
+            "C-8d435c1b9f-32-548",
+            "C-8d435c1b9f-32-549",
+            "C-8d435c1b9f-34-550",
+            "C-8d435c1b9f-34-551",
+            "C-8d435c1b9f-35-552",
+            "C-8d435c1b9f-36-553",
+            "C-8d435c1b9f-36-554"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2024,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-1-enero-7-febrero.pdf",
+          "sha256": "d28bef4252956fa7fc6881bdf9e3cf3359ff75ed6ff538f96d0c38c482460042",
+          "citationIds": [
+            "C-d28bef4252-10-555",
+            "C-d28bef4252-23-556",
+            "C-d28bef4252-23-557",
+            "C-d28bef4252-24-558",
+            "C-d28bef4252-25-559",
+            "C-d28bef4252-25-560",
+            "C-d28bef4252-26-561",
+            "C-d28bef4252-27-562",
+            "C-d28bef4252-27-563",
+            "C-d28bef4252-28-564",
+            "C-d28bef4252-28-565",
+            "C-d28bef4252-32-566",
+            "C-d28bef4252-33-567",
+            "C-d28bef4252-33-568",
+            "C-d28bef4252-33-569",
+            "C-d28bef4252-35-570",
+            "C-d28bef4252-35-571",
+            "C-d28bef4252-36-572",
+            "C-d28bef4252-37-573",
+            "C-d28bef4252-37-574"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2020,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2020/ALGORITMO_RETENCIONES_2020.pdf",
+          "sha256": "645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+          "citationIds": [
+            "C-645d06d2dc-9-575",
+            "C-645d06d2dc-22-576",
+            "C-645d06d2dc-22-577",
+            "C-645d06d2dc-23-578",
+            "C-645d06d2dc-24-579",
+            "C-645d06d2dc-24-580",
+            "C-645d06d2dc-25-581",
+            "C-645d06d2dc-26-582",
+            "C-645d06d2dc-26-583",
+            "C-645d06d2dc-27-584",
+            "C-645d06d2dc-27-585",
+            "C-645d06d2dc-31-586",
+            "C-645d06d2dc-31-587",
+            "C-645d06d2dc-32-588",
+            "C-645d06d2dc-32-589",
+            "C-645d06d2dc-34-590",
+            "C-645d06d2dc-34-591",
+            "C-645d06d2dc-35-592",
+            "C-645d06d2dc-36-593",
+            "C-645d06d2dc-36-594"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2023,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2023/ALGORITMO_RETENCIONES_2023_desde_1_de_febrero.pdf",
+          "sha256": "244fa7f987b8a03f8e67e3402cd7b9bc796f35e2fba89a26b69dc5b3197868de",
+          "citationIds": [
+            "C-244fa7f987-10-595",
+            "C-244fa7f987-23-596",
+            "C-244fa7f987-23-597",
+            "C-244fa7f987-24-598",
+            "C-244fa7f987-25-599",
+            "C-244fa7f987-25-600",
+            "C-244fa7f987-26-601",
+            "C-244fa7f987-27-602",
+            "C-244fa7f987-27-603",
+            "C-244fa7f987-28-604",
+            "C-244fa7f987-28-605",
+            "C-244fa7f987-32-606",
+            "C-244fa7f987-33-607",
+            "C-244fa7f987-33-608",
+            "C-244fa7f987-33-609",
+            "C-244fa7f987-35-610",
+            "C-244fa7f987-35-611",
+            "C-244fa7f987-36-612",
+            "C-244fa7f987-37-613",
+            "C-244fa7f987-37-614"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2022,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2022/ALGORITMO_RETENCIONES_2022.pdf",
+          "sha256": "a4bb4dc6ddd019f9625cf05576d46c5a9a8cd25807270a45d5762c770af6945b",
+          "citationIds": [
+            "C-a4bb4dc6dd-9-615",
+            "C-a4bb4dc6dd-22-616",
+            "C-a4bb4dc6dd-22-617",
+            "C-a4bb4dc6dd-23-618",
+            "C-a4bb4dc6dd-24-619",
+            "C-a4bb4dc6dd-24-620",
+            "C-a4bb4dc6dd-25-621",
+            "C-a4bb4dc6dd-26-622",
+            "C-a4bb4dc6dd-26-623",
+            "C-a4bb4dc6dd-27-624",
+            "C-a4bb4dc6dd-27-625",
+            "C-a4bb4dc6dd-31-626",
+            "C-a4bb4dc6dd-31-627",
+            "C-a4bb4dc6dd-32-628",
+            "C-a4bb4dc6dd-32-629",
+            "C-a4bb4dc6dd-34-630",
+            "C-a4bb4dc6dd-34-631",
+            "C-a4bb4dc6dd-35-632",
+            "C-a4bb4dc6dd-36-633",
+            "C-a4bb4dc6dd-36-634"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2024,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-8-feb-27-junio.pdf",
+          "sha256": "c4d53e76b59ee367c50c7c5bd666982e7ba5fd3a9d3eddc505abf0606e1b5fd0",
+          "citationIds": [
+            "C-c4d53e76b5-10-635",
+            "C-c4d53e76b5-23-636",
+            "C-c4d53e76b5-23-637",
+            "C-c4d53e76b5-24-638",
+            "C-c4d53e76b5-25-639",
+            "C-c4d53e76b5-25-640",
+            "C-c4d53e76b5-26-641",
+            "C-c4d53e76b5-27-642",
+            "C-c4d53e76b5-27-643",
+            "C-c4d53e76b5-28-644",
+            "C-c4d53e76b5-28-645",
+            "C-c4d53e76b5-32-646",
+            "C-c4d53e76b5-33-647",
+            "C-c4d53e76b5-33-648",
+            "C-c4d53e76b5-33-649",
+            "C-c4d53e76b5-35-650",
+            "C-c4d53e76b5-35-651",
+            "C-c4d53e76b5-36-652",
+            "C-c4d53e76b5-37-653",
+            "C-c4d53e76b5-37-654"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        },
+        {
+          "year": 2023,
+          "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2023/ALGORITMO_RETENCIONES_2023_1_a_31_de_enero.pdf",
+          "sha256": "cc2697a37b3f6389e0b407cf9df1aaa886ffe5cb5da31fd995de3785ea4ddc22",
+          "citationIds": [
+            "C-cc2697a37b-10-655",
+            "C-cc2697a37b-23-656",
+            "C-cc2697a37b-23-657",
+            "C-cc2697a37b-24-658",
+            "C-cc2697a37b-25-659",
+            "C-cc2697a37b-25-660",
+            "C-cc2697a37b-26-661",
+            "C-cc2697a37b-27-662",
+            "C-cc2697a37b-27-663",
+            "C-cc2697a37b-28-664",
+            "C-cc2697a37b-28-665",
+            "C-cc2697a37b-32-666",
+            "C-cc2697a37b-33-667",
+            "C-cc2697a37b-33-668",
+            "C-cc2697a37b-33-669",
+            "C-cc2697a37b-35-670",
+            "C-cc2697a37b-35-671",
+            "C-cc2697a37b-36-672",
+            "C-cc2697a37b-37-673",
+            "C-cc2697a37b-37-674"
+          ],
+          "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+        }
+      ],
+      "missingYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016
+      ]
+    },
+    "units": "especificadas en los valores",
+    "reason": "Hay originales históricos con primitivas coincidentes (véase documentos examinados), pero faltan años y versiones intraanuales y no se ha contrastado cada llamada. No extrapolar por semejanza.",
+    "sources": [
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/ALGORITMO_2026.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+        "sha256": "a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+        "sha512": "c4d3c11e77fcaf9bb4c8b819fb1b4d5f4b3cff15f599f6dfa82cf9cbdfb6235c6089af25db34d4dfaa30a9e597783294762ed23de791ef75f84541ed2be9b80b",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/Algoritmo%20Retenciones-2026_10sept.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+        "sha256": "b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+        "sha512": "13522c25a25dcafedd0a52bdb372121c58946873f0bb6e185eb29e94a7b40e7012e23f0245b4455e62fb04316cbafee8fc63d9956c61f0a94c13617b0df8e1e1",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2021/ALGORITMO_2021_LPGE_v2.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f433d785bb13c5f0cbd019586a93dcba0bc0a0ff61c750b463ed1d6d41508b13",
+        "sha256": "f433d785bb13c5f0cbd019586a93dcba0bc0a0ff61c750b463ed1d6d41508b13",
+        "sha512": "312b77da17bbfceee95759996afcc4d572c0ef56615dd0986e9ede69d6692e4c9a9420ce16d8eb3b8601f0f5d0a8c1c28cb6fa5e9df14862d0b3c3c902669704",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018_a_partir_LGPE_2018.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+        "sha256": "b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+        "sha512": "c6cd2b8baa82bd68ea238e534e2218e672b9dc158e9d244597ac1c0250e317a8178acaf2eaaabbe383314e4bfac548f7ca7ac08a205615b7d1486b2d256b5be9",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d",
+        "sha256": "9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d",
+        "sha512": "8efce8190b732fa9811e01a5d22a2c66bb224e48f0c65aee20fc186353813180419d7db50216c6fd04ee4cbc4babe3570ab56472e5c68218f00cc980b2389889",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-28-Junio.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/349c093fe191b2e9ff645a18da3fa3140100701d6c7ae8f10ae5432a3b1706ba",
+        "sha256": "349c093fe191b2e9ff645a18da3fa3140100701d6c7ae8f10ae5432a3b1706ba",
+        "sha512": "fc6658715ea4a042693fa73544790b64555bb1981d6a5ccccf987d023eb6cd97afd382a43a3736d9a74666812eab8f93c2099bf5c64908fe407eee49709cd6e3",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+        "sha256": "3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+        "sha512": "1ad63ca44385ad5e9a3a2747178fabe2d1d9e5eb44ed02f4ed3d15574f89b171862d25245040dcb1b5e17343b8432c22b382446e178827a488f4bb68f52707dc",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/Nota_informativa_Retenciones-8-febrero-27-junio.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7b3fb723c3e0c03fc83ba399382c4d6340a0cdef733a0c4668018980c8e99f71",
+        "sha256": "7b3fb723c3e0c03fc83ba399382c4d6340a0cdef733a0c4668018980c8e99f71",
+        "sha512": "ba04845baf90d8441a74cf94eaec7a7306e61a47393d9aec53e5846665bf4a44609f4024861172ebce10087dda53a690659db41ae20792ed4e398b3feb53b7da",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025__27-nov.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/329fc013487a93c4d74c27c332ec5302de5a8b1371b61901cfe2e4fc75054355",
+        "sha256": "329fc013487a93c4d74c27c332ec5302de5a8b1371b61901cfe2e4fc75054355",
+        "sha512": "3b1ab707f28ce5d31130f038e4f647251ebfa4fd925e9a86350a42d5ca58c1ee96f8544793f4c382c8507f036164a831521cc2c8ca9cbd48eec1940c2828bc8c",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+        "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+        "sha512": "9c9d0e5d21d1636537e8abbda5be66fd7f0a8a2c6a7de23a24f4dbaa23d9456ce59f4e95fbcf428de599eab3525fe50f8f644b27d0e2225473b8a046c9fd6d64",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/Nota_informativa_Retenciones_28-junio.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/31fb9e4d0384ae4377dcf9b3abc88ad13fc81d91b0265fcdd0ed4f0b8ef32bdc",
+        "sha256": "31fb9e4d0384ae4377dcf9b3abc88ad13fc81d91b0265fcdd0ed4f0b8ef32bdc",
+        "sha512": "34afa9eede6bdbdf64ba2f5df7931b5a5739796640ba117658da596b15df92364e46a5a8fd827ecb87c3d44ec04c8fa045d312f3c9845c9856f9693c881d0559",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+        "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+        "sha512": "c5cb0d9c7d7626f7d4cdbd34dd751c2f8e0ad7f9c852c0b0b191b4212bfe4597f10a5fa5a7c2a2af41a4ea05ec889ef5c4054d9c127d08e732c97e13a1569d40",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2021/ALGORITMO_2021_LPGE.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8d435c1b9ffc4c46b8878e79736408518d88c0f99e48bdc24922bfe5bdf607b8",
+        "sha256": "8d435c1b9ffc4c46b8878e79736408518d88c0f99e48bdc24922bfe5bdf607b8",
+        "sha512": "6161fb3a702519526775c988756f7116346c57ce50e34ec7e1023a998aae3aef7b99136cad3015fd0ecc6de3077c67cafb68bc45e1f2c5ffdf0ead090d20d820",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-1-enero-7-febrero.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/d28bef4252956fa7fc6881bdf9e3cf3359ff75ed6ff538f96d0c38c482460042",
+        "sha256": "d28bef4252956fa7fc6881bdf9e3cf3359ff75ed6ff538f96d0c38c482460042",
+        "sha512": "cb05a7acf6f5cc860b5f268af9701fff903c5d2ac0913c583972b8aea2c3772050fac3e1b5b24c4023bf65d3e9a91de266412bdbd03ff46003ce5d54f2583671",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2020/ALGORITMO_RETENCIONES_2020.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+        "sha256": "645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+        "sha512": "89892c74a4fc9c01c6be4e9907a27c760dd787d2593cab9686960468a034985ef7cb3e94d29443ea8f359ee23accd772648dc2b2c3e51db38e31eb3d6d769d40",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2023/ALGORITMO_RETENCIONES_2023_desde_1_de_febrero.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/244fa7f987b8a03f8e67e3402cd7b9bc796f35e2fba89a26b69dc5b3197868de",
+        "sha256": "244fa7f987b8a03f8e67e3402cd7b9bc796f35e2fba89a26b69dc5b3197868de",
+        "sha512": "53bfd66fb5777268a8f6d27a25cbb293fd49b6bfcd3105809690120136991d805f1b9d14d00660d7e54bf8d92443efbd90b05ec95f835b72a82f73a50fadb80a",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2022/ALGORITMO_RETENCIONES_2022.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a4bb4dc6ddd019f9625cf05576d46c5a9a8cd25807270a45d5762c770af6945b",
+        "sha256": "a4bb4dc6ddd019f9625cf05576d46c5a9a8cd25807270a45d5762c770af6945b",
+        "sha512": "456e3db7590f251a22f15600654ad70202837c8bd618e76c0ebfb64128819143ddb5491e560fa528089ce417e2e97bbe32be5a8a745a5396aba52054fd9962d9",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-8-feb-27-junio.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c4d53e76b59ee367c50c7c5bd666982e7ba5fd3a9d3eddc505abf0606e1b5fd0",
+        "sha256": "c4d53e76b59ee367c50c7c5bd666982e7ba5fd3a9d3eddc505abf0606e1b5fd0",
+        "sha512": "fb9db73f350c72d55554e7611f7487f89598b5007e1b1c67c75cf3523048f277af03bf372655240ed5494adbeb84dc6fa9086336b92c94c18ef3eef86c491544",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2023/ALGORITMO_RETENCIONES_2023_1_a_31_de_enero.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/cc2697a37b3f6389e0b407cf9df1aaa886ffe5cb5da31fd995de3785ea4ddc22",
+        "sha256": "cc2697a37b3f6389e0b407cf9df1aaa886ffe5cb5da31fd995de3785ea4ddc22",
+        "sha512": "e99e59fbc3b036af6cc8213a3dbf0feec443ef866aa1052c02230fe3bafaa20913785f760fa705f1af638a4b76474e806f1d00f6e0beecfba84455c2b344c938",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Consultar contraste-excel.json y Python; no es autoridad normativa.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Añadir prueba focalizada antes de cualquier corrección, tras revisión independiente.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "vigencia histórica pendiente",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": []
+  },
+  {
+    "id": "RED-SS-EURO-2001",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "ambiguous",
+    "engineLocations": [
+      "lib/dominio/dinero/importe-monetario.ts#redondearImporteLiquidado",
+      "lib/dominio/laboral/cotizaciones-sociales.ts"
+    ],
+    "engineValue": "Half-up de salida, aplicado a cuota anual",
+    "officialValue": "Redondeo de importes abonados en euros; texto original 25-05-2001",
+    "units": "especificadas en los valores",
+    "reason": "Orden de 23 mayo 2001 artículo 2 regula céntimo más próximo y remite al artículo 11 de Ley46/1998. El empate se expresa en contexto de conversión. Acredita antecedente jurídico, no todas las etapas de SLD ni vigencia exhaustiva 2012–2026.",
+    "sources": [
+      {
+        "canonicalUrl": "https://www.boe.es/boe/dias/2001/05/25/pdfs/A18315-18316.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/91ba19154e7fda5bab17e9dac14304d0c86841bbcefb607db7aaae9d42bd550e",
+        "sha256": "91ba19154e7fda5bab17e9dac14304d0c86841bbcefb607db7aaae9d42bd550e",
+        "sha512": "71d97093cb4922f2fe5e71e066536cfc3255de5b92e252752b01e337975804423f89853208cded27b230cbaaa21b4f1e8f829f0af8a45cb9fbad663e0b5de22d",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2001-9850",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bb9995e135c6280b906048bba95d05a2f4de74a56f688741c3aacbf32ddc71a1",
+        "sha256": "bb9995e135c6280b906048bba95d05a2f4de74a56f688741c3aacbf32ddc71a1",
+        "sha512": "6c7ff377e4f6ed82bda894ffa2178f7202fcaea31b58857a1696a246102da6e4b9d14d7f23891c5220861f1ea6234d3fa4e3b876105b8be7adacba6ec4e8d1af",
+        "mimeType": "text/html"
+      }
+    ],
+    "legacyComparison": "No confundir cobro/pago con la suma anual simplificada del oracle.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Añadir prueba de alcance y precisión tras revisión independiente; no extrapolar fuera de la operación documentada.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "regla legal",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-91ba19154e-1-327"
+    ]
+  },
+  {
+    "id": "IPC-ENLACE-BASES",
+    "itemIds": [],
+    "domain": "ipc",
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/normativa/datos/ipc-2012-2026.ts#IPC_ANUAL_DICIEMBRE"
+    ],
+    "engineValue": "Tabla de tasas publicada; no niveles ni base explícita",
+    "officialValue": "Factor 2012→2025 base2021=1.270652795728542068351802021; base2025=1.270655091953734601199287453",
+    "units": "especificadas en los valores",
+    "reason": "Se compararon niveles publicados de diciembre 2012–2025 en las series generales nacionales IPC251852 e IPC290751. Ratios difieren mínimamente por redondeo de índices. La última observación de la serie nueva es septiembre 2026. No mezclar bases dentro de un cociente.",
+    "sources": [
+      {
+        "canonicalUrl": "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/IPC251852?date=20120101:20261231",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8786d9b266a83ea6e0a6045c55e4574fa927ac13c1ab45802de92d8795afb043",
+        "sha256": "8786d9b266a83ea6e0a6045c55e4574fa927ac13c1ab45802de92d8795afb043",
+        "sha512": "f41af28c612edb2d1d71a5cf8637bf889523aeef66da38c744b6378a3d363cffd5eae32224d8617610837445862ac656df97a615b101a9565407ad429b26ab0c",
+        "mimeType": "application/json"
+      },
+      {
+        "canonicalUrl": "https://www.ine.es/metodologia/t25/metodologia_IPC_base_2025.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/95f6b1da10e7ce5807ce200c0914aa97012b722712991d33eb6a0c94576c81d6",
+        "sha256": "95f6b1da10e7ce5807ce200c0914aa97012b722712991d33eb6a0c94576c81d6",
+        "sha512": "e337eb536ee035f77bdcb4eabfa6c6fe28a56587b652096dbe798b9d1958d48e7d2cb83f4927f65c3268013a1a07073e3e5f5a264f1232895a72d565bb3fa8e0",
+        "mimeType": "application/pdf"
+      },
+      {
+        "canonicalUrl": "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/IPC290751?date=20120101:20261029",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c94efbe5606cc9d14ff09436a486b117acb2905c3da4f51d415e2d180ca841dd",
+        "sha256": "c94efbe5606cc9d14ff09436a486b117acb2905c3da4f51d415e2d180ca841dd",
+        "sha512": "8ffa327774fee6606fa4a8dd29b8ab591be24618099c2f16b03fd05b5474a76e48b9e712a19d2248b09aeb55fc004c35c0fc18dd7d10bf85a3c49ca0885ee988",
+        "mimeType": "application/json"
+      }
+    ],
+    "legacyComparison": "El oracle usa producto de tasas y no cociente de índices.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Añadir prueba de alcance y precisión tras revisión independiente; no extrapolar fuera de la operación documentada.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "contraste estadístico de fuentes, no certificación de motor",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-95f6b1da10-1-2",
+      "C-95f6b1da10-1-4",
+      "C-95f6b1da10-3-6",
+      "C-95f6b1da10-15-7",
+      "C-95f6b1da10-44-8",
+      "C-95f6b1da10-44-9",
+      "C-95f6b1da10-44-10",
+      "C-95f6b1da10-44-11",
+      "C-95f6b1da10-45-12",
+      "C-95f6b1da10-47-13",
+      "C-95f6b1da10-47-14"
+    ]
+  },
+  {
+    "id": "RED-AEAT-ETAPAS-2026",
+    "itemIds": [],
+    "domain": "redondeos",
+    "years": [
+      2026
+    ],
+    "territories": [
+      "España; IPC nacional aplicado a todos los territorios del motor"
+    ],
+    "status": "match",
+    "engineLocations": [
+      "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts#redondear1",
+      "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts#truncar"
+    ],
+    "engineValue": "Llamadas redondear1/truncar en reducción, mínimos, vivienda, tipo e importe",
+    "officialValue": "REDONDEAR1 explícito en páginas23–28/33; TRUNCAR en32–33",
+    "units": "especificadas en los valores",
+    "reason": "Correspondencia de fronteras de redondeo del cálculo inicial: RED20, MINDESG/MINDES3, 65AS/75AS, DISDES/DISAS, ASISDES/ASISAS, MINOPAGO, TIPO e IMPORTE. Quedan fuera parámetros/condiciones y regularización.",
+    "sources": [
+      {
+        "canonicalUrl": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/ALGORITMO_2026.pdf",
+        "localPath": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+        "sha256": "a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+        "sha512": "c4d3c11e77fcaf9bb4c8b819fb1b4d5f4b3cff15f599f6dfa82cf9cbdfb6235c6089af25db34d4dfaa30a9e597783294762ed23de791ef75f84541ed2be9b80b",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "legacyComparison": "Python legacy no implementa procedimiento completo AEAT.",
+    "edgeCases": [
+      "cero",
+      "negativos",
+      "empate exacto",
+      "umbral ±0,01",
+      "año igual",
+      "años invertidos"
+    ],
+    "proposedTest": "Añadir prueba de alcance y precisión tras revisión independiente; no extrapolar fuera de la operación documentada.",
+    "review": {
+      "status": "pendiente",
+      "accepted": false
+    },
+    "classification": "regla legal",
+    "decision": {
+      "expertObjection": "La coincidencia numérica aislada no valida ni la vigencia ni la etapa de cálculo.",
+      "reason": "Separar evidencia observada, contrato de producto y norma aplicable.",
+      "acceptedCost": "No aceptar ni corregir el motor en esta primera revisión."
+    },
+    "citationIds": [
+      "C-a15b7fee87-10-15",
+      "C-a15b7fee87-23-16",
+      "C-a15b7fee87-23-17",
+      "C-a15b7fee87-24-18",
+      "C-a15b7fee87-25-19",
+      "C-a15b7fee87-25-20",
+      "C-a15b7fee87-26-21",
+      "C-a15b7fee87-27-22",
+      "C-a15b7fee87-27-23",
+      "C-a15b7fee87-28-24",
+      "C-a15b7fee87-28-25",
+      "C-a15b7fee87-32-26",
+      "C-a15b7fee87-33-27",
+      "C-a15b7fee87-33-28",
+      "C-a15b7fee87-33-29",
+      "C-a15b7fee87-35-30",
+      "C-a15b7fee87-35-31",
+      "C-a15b7fee87-36-32",
+      "C-a15b7fee87-37-33",
+      "C-a15b7fee87-37-34"
+    ]
+  }
+]

@@ -1,0 +1,3422 @@
+[
+  {
+    "dominio": "arquitectura",
+    "hallazgos": 7,
+    "estados": {
+      "missing": 6,
+      "ambiguous": 1
+    },
+    "cabecerasOmitidas": 4,
+    "archivosSanitizados": [
+      "docs/procedencia/auditorias/arquitectura/fuentes.json"
+    ],
+    "fuentesReferenciadas": 15,
+    "fuentesFallidas": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/app/layout.tsx",
+        "sha256": "9a520b31ff1d3e01cacdc0b3d4a2121c3a7ba7fc2b6cc53b11e34ee268b05510",
+        "checks": {
+          "existe": true,
+          "sha256": false,
+          "sha512": false
+        },
+        "clasificacion": "Instantánea de código previa a integración lint; no es un original documental. Se conserva el hash de lo observado y se exige revisar el código actual."
+      }
+    ],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/ADR-propuesta.md",
+        "size": 26265,
+        "sha256": "6869a77767e0318ad91170999025f21f7dea7e966e126b3da77716c3939a80f8"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/citas-candidatas.json",
+        "size": 9765,
+        "sha256": "8451156327920c4e04a45eb9a5d52a771f634e522d5b298f949b8889e63c1486"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/cobertura.json",
+        "size": 5217,
+        "sha256": "7c2acbdcb080f636688180f717c7c5a2a0c664f5fb40ba5dd55390f8eeed5385"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/contratos-y-pruebas.md",
+        "size": 12658,
+        "sha256": "825d78fb6b253f2a89ba25e3fb9292c14b7f299a868aee76b25a3d320387eca9"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/fuentes.json",
+        "size": 24375,
+        "sha256": "9461b4c19130d695298baa846eda6f81a7d229b20fad3142228295a444e826eb"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/hallazgos.json",
+        "size": 12548,
+        "sha256": "40bbbbf08465ce3fc24a7a3a99c42ed4d3002b96eb67ecc9324004cef84aed3f"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/informe.md",
+        "size": 6754,
+        "sha256": "03bc0dabe1352676f2af203a3b8679740b8ea8bde2c43215808b1031ac2ee429"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/BindingIndex.schema.json",
+        "size": 197,
+        "sha256": "09ab0cfc04ad21da325c7451951a004ec155bf51ab25a5aa2a79b6c83ab1f4ef"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Citation.schema.json",
+        "size": 189,
+        "sha256": "5bc0617c256a472ecb04414df0b27c748da5814fd3ac970d82650cc9447969c6"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Derivation.schema.json",
+        "size": 193,
+        "sha256": "7fa1969cc3389e9122c32ddcd8927658d34bbdbdfe7eec5fa9b8523e0bca2c55"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Document.schema.json",
+        "size": 189,
+        "sha256": "8f4fd9ff96f1ab7145c6bc6b1601cb0f6c7d979e2071c51d15e1333e828c51c7"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Facsimile.schema.json",
+        "size": 191,
+        "sha256": "4c18c28736cc8a6858b4d60b944d803362deb0b0e4c7b71d6f3629eb0c6bfb04"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Formula.schema.json",
+        "size": 187,
+        "sha256": "b707f7f69b360f34c95d9933b213d1dfbc951ad88bbe733cea9254bf28ab2adc"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Package.schema.json",
+        "size": 187,
+        "sha256": "09b4eca985d54b7e406334b33b2665560ae8abd593f8e88b7327a5c9b43c0e4d"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/PageEnvelope.schema.json",
+        "size": 197,
+        "sha256": "aeee02a607c4c1b43e7f8b41aaa9b141a32cfd843cb48611483f9a2faf179f5a"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Parameter.schema.json",
+        "size": 191,
+        "sha256": "a5703e11ac9ecdaf50c442e013abb4a5eaf4340c3f0c68256476dd551929d02e"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Rule.schema.json",
+        "size": 181,
+        "sha256": "dcd4a8e67339956dcf5e0a63c052c2ff6f71e01d4153b198c60f575d1fe6d264"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Snapshot.schema.json",
+        "size": 189,
+        "sha256": "56259a70b759f19f7a227b92325f8ebea0da7af0ab686f7228a260ed32b557c7"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Step.schema.json",
+        "size": 181,
+        "sha256": "f912755d40adc659c7ee59ab442ce599d900779229017027afeaca285b1b0a00"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/Trace.schema.json",
+        "size": 183,
+        "sha256": "6796d3f7b881c890c524bf5bfab8ef70cf930802847bb4974928f544c954eb32"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/schemas/model.schema.json",
+        "size": 48308,
+        "sha256": "a8685151b13b5ee5b752f513a573b64ae60bc92cd6207323c096f7a336179a12"
+      },
+      {
+        "path": "docs/procedencia/auditorias/arquitectura/validacion-esquemas.json",
+        "size": 4033,
+        "sha256": "112d8de9d882ce15391ff0397fb3c0fc38300f5d8b56e8550dc3c9886d6eafab"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/e6ecc398fa1c6d598ca682ea074029f2c44efaea7f23ebf87ef837f3427c495f",
+        "sha256": "e6ecc398fa1c6d598ca682ea074029f2c44efaea7f23ebf87ef837f3427c495f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/17c61658754550e8944df25154b3cba65cafe68bdd0a8c827a690ff01bad82bd",
+        "sha256": "17c61658754550e8944df25154b3cba65cafe68bdd0a8c827a690ff01bad82bd",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/723148b417a4340e7a8d9a9ed4678e1275cfb0b09b0f7b5f1c488d5fb065e936",
+        "sha256": "723148b417a4340e7a8d9a9ed4678e1275cfb0b09b0f7b5f1c488d5fb065e936",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7e94fb2343014b837ad363b25c391724a753b8bbcfa5d9fcf1606bc33d1f06d7",
+        "sha256": "7e94fb2343014b837ad363b25c391724a753b8bbcfa5d9fcf1606bc33d1f06d7",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/18e28009c6d90ec6242857fc1ad322d2dfca026161a2f44a0d5ec57a26b716d6",
+        "sha256": "18e28009c6d90ec6242857fc1ad322d2dfca026161a2f44a0d5ec57a26b716d6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/82fc9e6270b2e9812e01c19fd7c4f071633597cfd77f17af64825137d791ed59",
+        "sha256": "82fc9e6270b2e9812e01c19fd7c4f071633597cfd77f17af64825137d791ed59",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a7513e022f56c0a6f4e99ac11aec03f3451d1ff1ce14054780b3ccfb38fa7980",
+        "sha256": "a7513e022f56c0a6f4e99ac11aec03f3451d1ff1ce14054780b3ccfb38fa7980",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/69cfa5be26b918d5754652f5b93d707abdd68c0512f2ee66b92821cb64439b57",
+        "sha256": "69cfa5be26b918d5754652f5b93d707abdd68c0512f2ee66b92821cb64439b57",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/lib/dominio/explicacion/paso-explicacion.ts",
+        "sha256": "de20289cc9d79b2e22fd83f3b41338f923b489e7a1687622b096093c603c4293",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/lib/dominio/explicacion/rastro-calculo.ts",
+        "sha256": "8a7e4b2615487d3453ad549fd8c13c46820c2a21dd768ccecb711aa361346ec9",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/lib/dominio/normativa/repositorio-parametros.ts",
+        "sha256": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/lib/dominio/normativa/fuente-normativa.ts",
+        "sha256": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "aed7b7c5a8d7aba05873f5a211284b34c0667e3df90fa3bd1fa305b4ce818078",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts",
+        "sha256": "574bfe8a4e9729a98ca28410f3aa3c49fd0cf9944e83b8dd07b437f8e760143a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/app/layout.tsx",
+        "sha256": "9a520b31ff1d3e01cacdc0b3d4a2121c3a7ba7fc2b6cc53b11e34ee268b05510",
+        "checks": {
+          "existe": true,
+          "sha256": false,
+          "sha512": false
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "escalas-estatales-ahorro",
+    "hallazgos": 42,
+    "estados": {
+      "match": 31,
+      "mismatch": 5,
+      "missing": 4,
+      "ambiguous": 2
+    },
+    "cabecerasOmitidas": 0,
+    "archivosSanitizados": [],
+    "fuentesReferenciadas": 19,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/bordes-tecnicos.json",
+        "size": 412,
+        "sha256": "9f1f5638b6bb303f660acd94372839e94614f15f67c08a8f295fb96c66c545a6"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/citas-candidatas.json",
+        "size": 2017673,
+        "sha256": "6a4b775c87de57ebee6a6162e4ac67cff0ee361900eb94e2956fefe0351df91e"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/cobertura.json",
+        "size": 400087,
+        "sha256": "c6140c53cb89118cd5c1fe94d07c231186f48b505afc1e93e1f15626135d61fd"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/comparacion-excel.json",
+        "size": 142,
+        "sha256": "985354ddd6e163a5817d2b18b19f72452276da130add6a2d37c5acc75bda4468"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/documentos.json",
+        "size": 32981,
+        "sha256": "2296ca749ded54836603f3f9ff675a0c64f9f7b1c9c10dc1ccc226a1456cc5ef"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/escalas-extraidas.json",
+        "size": 52010,
+        "sha256": "83c5095c92b17d88f1b45fcfdbb0de8a11d65fbeba22e0d63c3c0ab36b5da237"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/excel-control-tramos.json",
+        "size": 8409,
+        "sha256": "2dfac59ef11c931d2ef3bfdb192ac967bdafca0741aee16d61de7dcf82f7a29b"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/fronteras-python.json",
+        "size": 7643,
+        "sha256": "d39bdd316fc9293bbb36469fccf83800c7b9b5962a6e094b8f6e2c79e6dc2595"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/fronteras-runtime.json",
+        "size": 60836,
+        "sha256": "353dc7c0946ad7b4c4c8fd2c2ae64b77fa2f8e18e0718c5059a469a034c080aa"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/hallazgos.json",
+        "size": 490240,
+        "sha256": "bbce96b9b3679ead59b8f503d41e9130bf1925bfb30ce5f35f0d6169ce0e903a"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/informe.md",
+        "size": 19865,
+        "sha256": "7a697560e17db6f77eb079c590964d364f9d0a50d4d323c6de586b43d9a873e1"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/snapshot-motor.json",
+        "size": 3584,
+        "sha256": "633fe391db2acc5eb7ae5ef168797ea14b9196bab5ee0c0d9a81fcc0c3964ae6"
+      },
+      {
+        "path": "docs/procedencia/auditorias/escalas-estatales-ahorro/verificacion-citas.json",
+        "size": 214,
+        "sha256": "f24f32ce64ca7c288d3dec4c79a908663d289d270259b18ca0db19167752babd"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
+        "sha256": "89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/75af079fc480334e8515781b39d610680c53942d75789098767e1fc9e5dbdd9d",
+        "sha256": "75af079fc480334e8515781b39d610680c53942d75789098767e1fc9e5dbdd9d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+        "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4f50c949a20ed2759f18fd8ce534aef8a5672a75c17e56f9d33d2072c47d943c",
+        "sha256": "4f50c949a20ed2759f18fd8ce534aef8a5672a75c17e56f9d33d2072c47d943c",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/758a2d02ef82389f8d655ef560471461c22373008165a131b495b8c9634e72b3",
+        "sha256": "758a2d02ef82389f8d655ef560471461c22373008165a131b495b8c9634e72b3",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f53d6ebcc82e76b21db269185389a390d2c6abc37d93d4884d94294ee4bc3e72",
+        "sha256": "f53d6ebcc82e76b21db269185389a390d2c6abc37d93d4884d94294ee4bc3e72",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+        "sha256": "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/30427299dbf710aa9d87d6f6a904f3d82cffa887b93d107db9454f56832c543f",
+        "sha256": "30427299dbf710aa9d87d6f6a904f3d82cffa887b93d107db9454f56832c543f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/045a3795e69a03dd1251be1fd25c63e36fe2b7825b14ff3da7f30410085f072d",
+        "sha256": "045a3795e69a03dd1251be1fd25c63e36fe2b7825b14ff3da7f30410085f072d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/d0cc653515fa37c492c2379326cfe37a714c58b2fbbb8955ed43dfbea8fa5406",
+        "sha256": "d0cc653515fa37c492c2379326cfe37a714c58b2fbbb8955ed43dfbea8fa5406",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bad114cef8353d976e87afeab49d22aab82673c79b9a6f3f5a3519ebff9a27ff",
+        "sha256": "bad114cef8353d976e87afeab49d22aab82673c79b9a6f3f5a3519ebff9a27ff",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f3425e7d6646e944ab0625aa0a4257bfb024f8666b2a3bf2e916ac4005a0f6dc",
+        "sha256": "f3425e7d6646e944ab0625aa0a4257bfb024f8666b2a3bf2e916ac4005a0f6dc",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/12b6906709071f8c0e2414448bd10114ecab5d1c2293d4e06fcb32a40e8c7577",
+        "sha256": "12b6906709071f8c0e2414448bd10114ecab5d1c2293d4e06fcb32a40e8c7577",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299",
+        "sha256": "df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "autonomicas-2012-2016",
+    "hallazgos": 13,
+    "estados": {
+      "mismatch": 2,
+      "ambiguous": 4,
+      "match": 5,
+      "missing": 2
+    },
+    "cabecerasOmitidas": 0,
+    "archivosSanitizados": [],
+    "fuentesReferenciadas": 12,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/citas-candidatas.json",
+        "size": 602076,
+        "sha256": "48c3606f47fd2d463cc17fa6a2c783f738af79ed1748d3aaae804b232de19f0a"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/citas-legales-candidatas.json",
+        "size": 221411,
+        "sha256": "607a3a8845e6bed4f2773c0544e03951429d11f97c5ae45d7fc9752531c88339"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/cobertura.json",
+        "size": 125485,
+        "sha256": "51a2155a02dbbecbb1db58ad64aa9cd05d3765cc5da198118619aa52b5709ea1"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/comparacion-filas.json",
+        "size": 114414,
+        "sha256": "7bee1f3b4b0662df0b05bf7a182fae299746d1a5a9accfcb713e4dc27fe41efa"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/comparacion-hacienda-2012-2013.json",
+        "size": 63619,
+        "sha256": "208106ba6a8223e6deff79de299a52a6f731455267b8f53973dfa17b4a749767"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/documentos.json",
+        "size": 22018,
+        "sha256": "f6072ddf3abfc51b294af4867f8efa793b5977cfe8f487780275491baebd8d87"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/excel-control-primeras35filas.json",
+        "size": 13697,
+        "sha256": "f0af692c143a1b2fc5a655dfeac71a1e92e5184907099e70f60e472f37d17e14"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/hallazgos.json",
+        "size": 91537,
+        "sha256": "15691b1cec9d2c8851bcb3c61768512a7caac439b61c7bd0bb61b235a63b5741"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/informe.md",
+        "size": 14541,
+        "sha256": "2a2d7b74213afc7b995fe62fa0adb2159f1c3a2aacea89b378a8ed27a2554f20"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/intentos-fallidos.json",
+        "size": 1251,
+        "sha256": "c64bc04dfd68ae508fb364fbb6bdc29ee8d50257c9b1fc434a828206ba4ca08e"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/legacy-perfiles.json",
+        "size": 4997,
+        "sha256": "701daefe83488f270f26d06c16eecf9a64423375a69750d60a1f496c357fef47"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/vectores-bordes.json",
+        "size": 545780,
+        "sha256": "4014866f54633afbb2a8fd143e961104c228cd94ee6ff15aa498852dc8ae829e"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2012-2016/verificacion.json",
+        "size": 237,
+        "sha256": "f615b693e2ce7345b643962ab5e5605eab983007fd15666835fdffd2a767ba84"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/09f01627f64790629169c728da9292d81e46a99392641597d1cc93b1b1799154",
+        "sha256": "09f01627f64790629169c728da9292d81e46a99392641597d1cc93b1b1799154",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0ed3161792ae3a79877c8d9a533447a3f04db4cd31078be29f0b2c2fefd4c70d",
+        "sha256": "0ed3161792ae3a79877c8d9a533447a3f04db4cd31078be29f0b2c2fefd4c70d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bc27977f323e536d8f53eef2d7c17fafa3196cdb45205c820a122cd6e35f183f",
+        "sha256": "bc27977f323e536d8f53eef2d7c17fafa3196cdb45205c820a122cd6e35f183f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/37c9ceaab143e855155bb551bd31a3632cb63f00c514636884342d57d404d250",
+        "sha256": "37c9ceaab143e855155bb551bd31a3632cb63f00c514636884342d57d404d250",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/30a1e836d8a81e83a4a6ab9dc6b9d33f538eda527505cde0ecf27d403fa5c09b",
+        "sha256": "30a1e836d8a81e83a4a6ab9dc6b9d33f538eda527505cde0ecf27d403fa5c09b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ad5e2b7a25ea6b15f7728fe5058ba24f158fe10d01133d7da589b7937a437e6f",
+        "sha256": "ad5e2b7a25ea6b15f7728fe5058ba24f158fe10d01133d7da589b7937a437e6f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1089fbd55b57757870eaa4463d38a8641bf2545fd7830cbe074f7f90bbacffe8",
+        "sha256": "1089fbd55b57757870eaa4463d38a8641bf2545fd7830cbe074f7f90bbacffe8",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+        "sha256": "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/3635f93a28dc46573b98365eabff7818d11ac0a4f1f1344b8bb45c9d8cb2d720",
+        "sha256": "3635f93a28dc46573b98365eabff7818d11ac0a4f1f1344b8bb45c9d8cb2d720",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b061962692aaf1295c885eed9c4fce4ae58f75b9702dbc50bcd8960cb9fe47c8",
+        "sha256": "b061962692aaf1295c885eed9c4fce4ae58f75b9702dbc50bcd8960cb9fe47c8",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/2a8b4a73d7b64e1651593852b2c227e494f6d038e0c19942002c55ebeb5964d0",
+        "sha256": "2a8b4a73d7b64e1651593852b2c227e494f6d038e0c19942002c55ebeb5964d0",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "autonomicas-2022-2026",
+    "hallazgos": 75,
+    "estados": {
+      "match": 66,
+      "mismatch": 7,
+      "ambiguous": 2
+    },
+    "cabecerasOmitidas": 2,
+    "archivosSanitizados": [
+      "docs/procedencia/auditorias/autonomicas-2022-2026/documentos.json",
+      "docs/procedencia/auditorias/autonomicas-2022-2026/hallazgos.json"
+    ],
+    "fuentesReferenciadas": 15,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/citas-candidatas.json",
+        "size": 728443,
+        "sha256": "a446da09ef5392ac380510ce3c35a2fc7bfa3191335e132ab181b5ca042b8918"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/cobertura.json",
+        "size": 39363,
+        "sha256": "bc83d948d2b6b6628770178365077ee94733fd8e40f2ea7c72ac02ff9ca5336d"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/comparacion-filas.json",
+        "size": 159341,
+        "sha256": "961af1d34b868c22855087dab106805fe063a978ddce2a80a05a302666e6346e"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/comprobaciones-numericas.json",
+        "size": 327873,
+        "sha256": "7334260e78e67bb11d6781ac7fd39e699ab2d5a296d23ac155250d3a0a823faa"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/documentos.json",
+        "size": 54282,
+        "sha256": "278dad0317ac984ed22340de7bcd72574a4d7623ac9240228a8669ebae9d70f6"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/hallazgos.json",
+        "size": 649423,
+        "sha256": "f3286b8c4371085a4f67bc57bbe8792f751c7f296c19404ceaeae3f592bfdd3c"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/huellas-motor.json",
+        "size": 1492,
+        "sha256": "2a0ccf6a28c88105707e004d06f0218f1806947ffc933742e4d4ae130e9bff23"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/informe.md",
+        "size": 12290,
+        "sha256": "2520d4a4fbaae95fa14013cb64ba231c784c49bd22bae89cacb36f89d63f60ec"
+      },
+      {
+        "path": "docs/procedencia/auditorias/autonomicas-2022-2026/verificacion-citas.json",
+        "size": 182,
+        "sha256": "63293236118c6e79eb9cb2ea271d9b59703fe720f1e33c551079c3004309646a"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923",
+        "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b8ddf161891630ab5b130128257f9b1307fbfe7f8519b775d3022b41bd1316be",
+        "sha256": "b8ddf161891630ab5b130128257f9b1307fbfe7f8519b775d3022b41bd1316be",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c048be1b2fba82c5d8f99abe1eec9a8865a617aa99f6d3488c88540c59e6a0a0",
+        "sha256": "c048be1b2fba82c5d8f99abe1eec9a8865a617aa99f6d3488c88540c59e6a0a0",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/cfb70eef6648c840bc2917cd7b087285cc1eaa796620b8dc0e73d7ee4ba7a2b1",
+        "sha256": "cfb70eef6648c840bc2917cd7b087285cc1eaa796620b8dc0e73d7ee4ba7a2b1",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4983c8d413504568ea530d62fd2b8a04fee35cdc82d7ed146504644ac8396761",
+        "sha256": "4983c8d413504568ea530d62fd2b8a04fee35cdc82d7ed146504644ac8396761",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/682c5f8b9bcecf11afabee5d62a70b16bbf0276a0cbeb5d4fd7e30fa656381ab",
+        "sha256": "682c5f8b9bcecf11afabee5d62a70b16bbf0276a0cbeb5d4fd7e30fa656381ab",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/476e3303d24aecd7ec188dfa69429c1a2d1419b671376c70ed2807de4286d12e",
+        "sha256": "476e3303d24aecd7ec188dfa69429c1a2d1419b671376c70ed2807de4286d12e",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/29e20e7c20d8e3bd89dc24ca58185714cd080b6af62e076d38a7bedbc552865a",
+        "sha256": "29e20e7c20d8e3bd89dc24ca58185714cd080b6af62e076d38a7bedbc552865a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a9fdd78daf3f2055da93c89cf2833d81598768cfb75e64f91b5f0e194165eed6",
+        "sha256": "a9fdd78daf3f2055da93c89cf2833d81598768cfb75e64f91b5f0e194165eed6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/962a88eff2128d036bf8745c31faadb050c45abc0e93e712c3b3d50c72906bf4",
+        "sha256": "962a88eff2128d036bf8745c31faadb050c45abc0e93e712c3b3d50c72906bf4",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/254892b1a2169aa7ebd1bfee7bcdb6ee5acf067b6aa6c363c2637e2766f7e1eb",
+        "sha256": "254892b1a2169aa7ebd1bfee7bcdb6ee5acf067b6aa6c363c2637e2766f7e1eb",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8fc8ff0aff58a3e35c0f0005d4d342d6c94b1590bba0e763f1a970c0c68f8122",
+        "sha256": "8fc8ff0aff58a3e35c0f0005d4d342d6c94b1590bba0e763f1a970c0c68f8122",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/60e424f977fd690377672d08d817ed3bb5e8e187d741efe25b82cec796118d14",
+        "sha256": "60e424f977fd690377672d08d817ed3bb5e8e187d741efe25b82cec796118d14",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7a302c1d77124747d65ad2b7181b899f023baceb96d88638d37c44a05e7ad49b",
+        "sha256": "7a302c1d77124747d65ad2b7181b899f023baceb96d88638d37c44a05e7ad49b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "retenciones-2012-2019",
+    "hallazgos": 34,
+    "estados": {
+      "mismatch": 11,
+      "missing": 13,
+      "match": 5,
+      "ambiguous": 5
+    },
+    "cabecerasOmitidas": 0,
+    "archivosSanitizados": [],
+    "fuentesReferenciadas": 22,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/adquisicion-pendiente.json",
+        "size": 2117,
+        "sha256": "8017b1ecb2042ca14693fe6b542e46473d999292410fab5754435ad3ac7bd0fc"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/citas-candidatas.json",
+        "size": 3251694,
+        "sha256": "209d832ae3d89876a16a31b8ef37e9382b2db1cf724640034d69464570796e42"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/cobertura.json",
+        "size": 76044,
+        "sha256": "bf746c4ec84cf2bc40d0a301cc6add2f88c1a4763ff8aab06f5a3ebfa0a300ff"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/documentos.json",
+        "size": 88409,
+        "sha256": "964232aca234bee8e7b0b385193aaf696d92002de8bd9974123485fb2be330fa"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/ejemplos-numericos.json",
+        "size": 2961,
+        "sha256": "eab5fea6142d97ad7840edcb92bbc267e2a369e367458ca29d04e344131ade69"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/frontera-trabajo.md",
+        "size": 1933,
+        "sha256": "cc59d1a25372717b521eac77ca622f725317d9bd6f04a4e0ae9fddf96f56de31"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/hallazgos.json",
+        "size": 1015975,
+        "sha256": "5d6aa398a1a4c73ea4230ef87dcf84493bae579565829f145eb2cd16fb5843a6"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/informe.md",
+        "size": 16422,
+        "sha256": "f701695901872834c9422ef4dcd5126186db4c8866b1d04f070a6dc2bc405781"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/tablas-comparadas.json",
+        "size": 42531,
+        "sha256": "e6a35e34873cc790c4f4699cd07dd2292ce6ab375ec0e6cba86ea0564d22889c"
+      },
+      {
+        "path": "docs/procedencia/auditorias/retenciones-2012-2019/verificacion-local.json",
+        "size": 339,
+        "sha256": "faf8dd6f9fd81192b460d30c2980ad32ff33a9be8821ad2c52ac0fa8eff957c5"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/d4553aa42899b62ec2ccf8863de869308b0762507188aa7cc8f3dba7074cb479",
+        "sha256": "d4553aa42899b62ec2ccf8863de869308b0762507188aa7cc8f3dba7074cb479",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+        "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f74622c8a9801d273908ae9b7971b84ffb2fb3f01d916d87a966912cd4c927a6",
+        "sha256": "f74622c8a9801d273908ae9b7971b84ffb2fb3f01d916d87a966912cd4c927a6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+        "sha256": "b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4e6bae0d002d071f8871db9c4c135d58e9729b9fe9b314798672e8ae2261df1d",
+        "sha256": "4e6bae0d002d071f8871db9c4c135d58e9729b9fe9b314798672e8ae2261df1d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+        "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d",
+        "sha256": "9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+        "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/d241c2c57e8780746c1b0f6a789d0ed244c9d36213470bd4d61379dc8f7d01ef",
+        "sha256": "d241c2c57e8780746c1b0f6a789d0ed244c9d36213470bd4d61379dc8f7d01ef",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+        "sha256": "4b1117dfa72d18881df35fc606daecf33964016317e6a913b5ec2f940c49e90b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
+        "sha256": "6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+        "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/87e933d45bd8b5a57d04892bf2c6e62e385a9481f960ae497185c4c083e954a6",
+        "sha256": "87e933d45bd8b5a57d04892bf2c6e62e385a9481f960ae497185c4c083e954a6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
+        "sha256": "89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+        "sha256": "aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/573935380ce21d4beb5b0f5659f47c6921a5bfd55d03542e713b3dbeed3499f8",
+        "sha256": "573935380ce21d4beb5b0f5659f47c6921a5bfd55d03542e713b3dbeed3499f8",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f3d2fc77cac10d6dd311072875e254c07f16c147beccb57a95a7a78477b0a574",
+        "sha256": "f3d2fc77cac10d6dd311072875e254c07f16c147beccb57a95a7a78477b0a574",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0abb5d0eda31e6125f3a4bbc2d0235b3ace824e8894da9a7e0e9361e09ec29c2",
+        "sha256": "0abb5d0eda31e6125f3a4bbc2d0235b3ace824e8894da9a7e0e9361e09ec29c2",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0b3ef15bdae6160ad5ea130db0aee3257dacc0b4d5b19b9be1014aebdf2b1b6a",
+        "sha256": "0b3ef15bdae6160ad5ea130db0aee3257dacc0b4d5b19b9be1014aebdf2b1b6a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/75af079fc480334e8515781b39d610680c53942d75789098767e1fc9e5dbdd9d",
+        "sha256": "75af079fc480334e8515781b39d610680c53942d75789098767e1fc9e5dbdd9d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "capital-ganancias",
+    "hallazgos": 32,
+    "estados": {
+      "mismatch": 5,
+      "ambiguous": 5,
+      "missing": 20,
+      "match": 2
+    },
+    "cabecerasOmitidas": 0,
+    "archivosSanitizados": [],
+    "fuentesReferenciadas": 17,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/citas-candidatas.json",
+        "size": 735770,
+        "sha256": "a2948436ea859385bcc58efad87b22c1d26dd19411a360f8062337e2fa7db758"
+      },
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/cobertura.json",
+        "size": 265943,
+        "sha256": "fa934215d46aef0e770000f7df090165160c3f79c543cf9ed22ca7900f796d67"
+      },
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/documentos.json",
+        "size": 34342,
+        "sha256": "2b9c3a8be2f3c2a7bc35b6ef74f24b986678b76edd2f08ae4d720116ddabef89"
+      },
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/fronteras-independientes.json",
+        "size": 11904,
+        "sha256": "cbb7777ef2fde8b4c5f66a278d827ad0e364e4593b53842c08e71218245a13d2"
+      },
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/hallazgos.json",
+        "size": 242894,
+        "sha256": "bed49e3c10dde45f4b3234d40b19ff5c096dfcaaf5eaad49d7997e73ef9abd03"
+      },
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/informe.md",
+        "size": 20317,
+        "sha256": "850ef9bd1ff18171420174e20d5208004c49e5bd209c41c81eabd0e09d80b005"
+      },
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/instantanea-motor.json",
+        "size": 1253,
+        "sha256": "0b76e58bf654beeec0ffa1db3f4d9bab134682ea8e9839133973a25be8abe4ab"
+      },
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/resultados-motor.json",
+        "size": 1727,
+        "sha256": "df125ad75b2efc1ff8ea9f2f74885dcc743c8c80b6a900d5d88da0274c1f351c"
+      },
+      {
+        "path": "docs/procedencia/auditorias/capital-ganancias/verificacion-citas.json",
+        "size": 153,
+        "sha256": "a91a73a440b30f014dbc942fcec1aad4909edc421169b8961993bd0bc6c006d3"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/73e5f7ae8b2c28c61a8862b846b8ff4b119afa6252ccb9b647f31e2106151430",
+        "sha256": "73e5f7ae8b2c28c61a8862b846b8ff4b119afa6252ccb9b647f31e2106151430",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0abcd2ef5da969858a17d088738927017c0911fbc75d335e9dd7f2437f9e2550",
+        "sha256": "0abcd2ef5da969858a17d088738927017c0911fbc75d335e9dd7f2437f9e2550",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+        "sha256": "29a8febe5bcbe944fab2af99363895987aeea87ef4b810f5245021dc55d5af1a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299",
+        "sha256": "df00632182a9030767ab39a79e4cc61ded1ed520f161c448b5f5890a026f2299",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923",
+        "sha256": "15ff0d1fa69b5a2b7094a6c498403b1c55aa89a0e6eed4d87a5a2632eab34923",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/2916a4ee52ec0cf6d5c68600fdc1de8604d2eda19db4a8aa3232e23ff34ef8ab",
+        "sha256": "2916a4ee52ec0cf6d5c68600fdc1de8604d2eda19db4a8aa3232e23ff34ef8ab",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/76949adf843e46b4c552923cd268249c954d8761c983bac449479543533164e0",
+        "sha256": "76949adf843e46b4c552923cd268249c954d8761c983bac449479543533164e0",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/9defcf6903a0b7fda357dd26b7e9afa394f7b25b261a1f9b10b0d3ce9e36e2e3",
+        "sha256": "9defcf6903a0b7fda357dd26b7e9afa394f7b25b261a1f9b10b0d3ce9e36e2e3",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/9671a37a65f805dc7008d74eae2b50e3331a726ac75fb14ea1987bbc0aad6d33",
+        "sha256": "9671a37a65f805dc7008d74eae2b50e3331a726ac75fb14ea1987bbc0aad6d33",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0a93194ef3d3f1c28cbd2eddc98f49e9ea5138fe235138d6d0d3612b787d4bcd",
+        "sha256": "0a93194ef3d3f1c28cbd2eddc98f49e9ea5138fe235138d6d0d3612b787d4bcd",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0921c1ae747b86221d9d89fc3805a48eeed94717da8eadc50aa10d7cfa195a1a",
+        "sha256": "0921c1ae747b86221d9d89fc3805a48eeed94717da8eadc50aa10d7cfa195a1a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/112a5699b406a12a448a0e090d9fefa2b23461606074ffa8653126591d2ef182",
+        "sha256": "112a5699b406a12a448a0e090d9fefa2b23461606074ffa8653126591d2ef182",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "deducciones-autonomicas-a",
+    "hallazgos": 191,
+    "estados": {
+      "ambiguous": 41,
+      "missing": 114,
+      "mismatch": 36
+    },
+    "cabecerasOmitidas": 0,
+    "archivosSanitizados": [],
+    "fuentesReferenciadas": 41,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/casos-discriminantes.json",
+        "size": 7952,
+        "sha256": "1ec111414dda89577d758e3c43f9362a0cfe211f399fbbb544caee3981ca21fe"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/citas-candidatas.json",
+        "size": 3040998,
+        "sha256": "ad6020855d9431ac60d7289b93771c874387ae41417f7b26cece1bdf5ab142ea"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/citas-comunes-candidatas.json",
+        "size": 22660,
+        "sha256": "7c10167cfdca1738d3321c3af9ccaafd305486924ed0fdefd1c0d48b1f4d4e91"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/citas-normativas-candidatas.json",
+        "size": 2700070,
+        "sha256": "d537df006d554432c2473545f34df8186d9ee0b38e5c6d21fa6cb7ff62825a8a"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/citas-vigencia-candidatas.json",
+        "size": 56805,
+        "sha256": "7e6e9969dbee086db4a7d1b28e885c8dfa4e8b4780013b774c71174992aa85e8"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/cobertura.json",
+        "size": 998690,
+        "sha256": "f19bfcaa8dbaf55b4536648733874fdb7690cefdd64071d5f2eac4d60645f3d4"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/documentos.json",
+        "size": 95920,
+        "sha256": "d0d1c67ee4894608b6ac5d0ef71301f636bb25ca54a58311f80fbb28bd4135e2"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/hallazgos.json",
+        "size": 3927826,
+        "sha256": "71ad0f0f21d1e9738e5d0d87ff34613ce0854b202f9cfb7b31165f5022122569"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/informe.md",
+        "size": 22705,
+        "sha256": "e49a9a91ae4de0737e8b195a54a07b1035068ebf9d50cf39198b12dbfe2ae7b3"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/matriz.md",
+        "size": 15122,
+        "sha256": "9675c8cfb067842bf07a7af339554c1fe78dda758571df2a9e2ee68c6377bc7f"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/motor-examinado.json",
+        "size": 2012,
+        "sha256": "03745767a4db267b7698c7dbd86a2c0c2b6c52bca311c677656168c990770bc2"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/reglas-comunes.json",
+        "size": 8180,
+        "sha256": "e7390de1f544306f8b0ce051fbda4c99900b15dad05c5a3642366f399f4f54c4"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-a/verificacion-citas.json",
+        "size": 170,
+        "sha256": "a61dd5cc50e06140ff85255733def7998a03f9a7ab7a18be9adbd8b6322b27d7"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/2647d7550e91060573db7468ec2acef2a53ad57dc44c65aa480478ecef42e912",
+        "sha256": "2647d7550e91060573db7468ec2acef2a53ad57dc44c65aa480478ecef42e912",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0a0b506297d69850e728a327809cf4bdbd8aff9294455696b8de3960e15abe4b",
+        "sha256": "0a0b506297d69850e728a327809cf4bdbd8aff9294455696b8de3960e15abe4b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/fe1d0970921ff93d6204d00f219939d9de2df46183cd91fe26b9b130d0db61b6",
+        "sha256": "fe1d0970921ff93d6204d00f219939d9de2df46183cd91fe26b9b130d0db61b6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/579d67ca91fa7e17f2132af9fe151dec166aae9f8e2ac93aeb9c926c67d18c8a",
+        "sha256": "579d67ca91fa7e17f2132af9fe151dec166aae9f8e2ac93aeb9c926c67d18c8a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/3f4de0ad9b43423c4c62f7eb555da70e51304364d0fc300e3801d30dec6f4549",
+        "sha256": "3f4de0ad9b43423c4c62f7eb555da70e51304364d0fc300e3801d30dec6f4549",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/5942974fea9641dcdb67412f2b3650e6c8b1698e49197d5d154e5b28327a8fcc",
+        "sha256": "5942974fea9641dcdb67412f2b3650e6c8b1698e49197d5d154e5b28327a8fcc",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/46d2fb0592735597d601b2acbb30e66cccbda9bfe74b064ddebbcfedf799ccb2",
+        "sha256": "46d2fb0592735597d601b2acbb30e66cccbda9bfe74b064ddebbcfedf799ccb2",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/37d16a7b5e2ed966ff0723f9675b646e1caca0c61c6dec04d586b349ff7c6331",
+        "sha256": "37d16a7b5e2ed966ff0723f9675b646e1caca0c61c6dec04d586b349ff7c6331",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4983c8d413504568ea530d62fd2b8a04fee35cdc82d7ed146504644ac8396761",
+        "sha256": "4983c8d413504568ea530d62fd2b8a04fee35cdc82d7ed146504644ac8396761",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4e25029c01628fac2485e2b40e0af1558c12afae4e614473c76ec7df870cd081",
+        "sha256": "4e25029c01628fac2485e2b40e0af1558c12afae4e614473c76ec7df870cd081",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8ffaa5b7006b3ea61f3654792c877c974009a837df08258d8b3625bee31624e0",
+        "sha256": "8ffaa5b7006b3ea61f3654792c877c974009a837df08258d8b3625bee31624e0",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/69d6dff17c8274c7366393c1c8acbeed5485b2c854ed6d66bbbc65d78e4298db",
+        "sha256": "69d6dff17c8274c7366393c1c8acbeed5485b2c854ed6d66bbbc65d78e4298db",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/aa5792d99ffd822c929cb41241b34288a9bcd3f39b00bbae97f45268de946a45",
+        "sha256": "aa5792d99ffd822c929cb41241b34288a9bcd3f39b00bbae97f45268de946a45",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/e792f777c47d54fd6d19fb965e88bb846c926e8e452baecd6876daee514c47fe",
+        "sha256": "e792f777c47d54fd6d19fb965e88bb846c926e8e452baecd6876daee514c47fe",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4c08871428e7c424365ecd0a455a379428a13fc63523f19d176313f26fb09144",
+        "sha256": "4c08871428e7c424365ecd0a455a379428a13fc63523f19d176313f26fb09144",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a1249d09f922d35589881fd449a164279cccec7ba837cec8f409ffec1ac055aa",
+        "sha256": "a1249d09f922d35589881fd449a164279cccec7ba837cec8f409ffec1ac055aa",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a1eb31683df7dc83a0f934178c29795bdbb650f2d3b0cff23c9335c7f5c98b48",
+        "sha256": "a1eb31683df7dc83a0f934178c29795bdbb650f2d3b0cff23c9335c7f5c98b48",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/964788c354b772dffe96fe01987aa5fc86d9faa2ec43e8b00a5635fa5405d2ab",
+        "sha256": "964788c354b772dffe96fe01987aa5fc86d9faa2ec43e8b00a5635fa5405d2ab",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1eb1271f3424d824ca7b435016390996002b79a85983a14c612679a7429a5092",
+        "sha256": "1eb1271f3424d824ca7b435016390996002b79a85983a14c612679a7429a5092",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4711e0ce4366fa7423e7e589304fffabdb0b084f29f6347426bd1be560b609c4",
+        "sha256": "4711e0ce4366fa7423e7e589304fffabdb0b084f29f6347426bd1be560b609c4",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1c45ac49bcaee08fadef69404c611c33f131637bc7bcea24ff5202322feb1ca8",
+        "sha256": "1c45ac49bcaee08fadef69404c611c33f131637bc7bcea24ff5202322feb1ca8",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a32b6fa8bbe4bc72066ac633e7b5810cbbdcba999ee904f029cba9330ba5cf6b",
+        "sha256": "a32b6fa8bbe4bc72066ac633e7b5810cbbdcba999ee904f029cba9330ba5cf6b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/6e62d23f17da4c867c8dfdda7ed0d67dbda7a3fa680213324394e21f145acfe9",
+        "sha256": "6e62d23f17da4c867c8dfdda7ed0d67dbda7a3fa680213324394e21f145acfe9",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/76e23a58a7e7c38d536750d7f3ec9b1443c40c0e30250f44f0f285eb5aad2439",
+        "sha256": "76e23a58a7e7c38d536750d7f3ec9b1443c40c0e30250f44f0f285eb5aad2439",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/3ea74a298695e89eacad2e809b5b08bd23af98db7df203db93493b9788d2e2ac",
+        "sha256": "3ea74a298695e89eacad2e809b5b08bd23af98db7df203db93493b9788d2e2ac",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/caea629a230fe4c95120d31a1cd22e5838bfc078e8ea57f003f78b83c01782fd",
+        "sha256": "caea629a230fe4c95120d31a1cd22e5838bfc078e8ea57f003f78b83c01782fd",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c490903a992b29a8cb1bf54b3770b83987ae7219fab309299f2ea1d66c315d25",
+        "sha256": "c490903a992b29a8cb1bf54b3770b83987ae7219fab309299f2ea1d66c315d25",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/393c29a1331116f3b45336186ad53b45a11623dbe5c16d27bd5a8d5edc0604eb",
+        "sha256": "393c29a1331116f3b45336186ad53b45a11623dbe5c16d27bd5a8d5edc0604eb",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ec84e75b9f2f87227e76e5fd55c8e4ee8d5f2757eac0c0fc929cc5ebe6b6c3d1",
+        "sha256": "ec84e75b9f2f87227e76e5fd55c8e4ee8d5f2757eac0c0fc929cc5ebe6b6c3d1",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c5d1c0850c5ef5bc0a14a83a9b2c46a0b5ab663d6c4b7c24da0c7ddec8c84903",
+        "sha256": "c5d1c0850c5ef5bc0a14a83a9b2c46a0b5ab663d6c4b7c24da0c7ddec8c84903",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f8bc2a8ff30230cfbfddd7c41d691378ffe717606fdbee166d48b236f57e7d58",
+        "sha256": "f8bc2a8ff30230cfbfddd7c41d691378ffe717606fdbee166d48b236f57e7d58",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/eaa5eb98b2905536b743205fcf6b19cd6ab7cb9ffe5687aeb5ac80a9efe6c53b",
+        "sha256": "eaa5eb98b2905536b743205fcf6b19cd6ab7cb9ffe5687aeb5ac80a9efe6c53b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a9fdd78daf3f2055da93c89cf2833d81598768cfb75e64f91b5f0e194165eed6",
+        "sha256": "a9fdd78daf3f2055da93c89cf2833d81598768cfb75e64f91b5f0e194165eed6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8c79e002ffe21762a0477927aad79e1e92dcd8ece0283aba85c40bfee91b7435",
+        "sha256": "8c79e002ffe21762a0477927aad79e1e92dcd8ece0283aba85c40bfee91b7435",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f0ba60464957e90351a27cfddbe17851b6388c377d33c1ad6865ef2ab0624e87",
+        "sha256": "f0ba60464957e90351a27cfddbe17851b6388c377d33c1ad6865ef2ab0624e87",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/91b8c33af6b79496dfcd4bf61a0e1a7d530e9fc1e1200c55c4cce4da423e902b",
+        "sha256": "91b8c33af6b79496dfcd4bf61a0e1a7d530e9fc1e1200c55c4cce4da423e902b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8df6c0e37d8a3e2d63e1b47810bb3fb9fbcebe10653698785c1da667cc65ab20",
+        "sha256": "8df6c0e37d8a3e2d63e1b47810bb3fb9fbcebe10653698785c1da667cc65ab20",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/12744a323dfa31866f7ae8a9e749c0f5bb673e4ad93abafbc131cae93daea209",
+        "sha256": "12744a323dfa31866f7ae8a9e749c0f5bb673e4ad93abafbc131cae93daea209",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/669288183e1e4c8c025dcde934bc3dc1c27a122705a57e07e5c3e3296dd5a262",
+        "sha256": "669288183e1e4c8c025dcde934bc3dc1c27a122705a57e07e5c3e3296dd5a262",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/07684fe1d24d34e4fd4ba14a92a2c01a36bac6122263dae17602466b8cb30cd2",
+        "sha256": "07684fe1d24d34e4fd4ba14a92a2c01a36bac6122263dae17602466b8cb30cd2",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "deducciones-autonomicas-b",
+    "hallazgos": 196,
+    "estados": {
+      "missing": 185,
+      "mismatch": 8,
+      "ambiguous": 3
+    },
+    "cabecerasOmitidas": 0,
+    "archivosSanitizados": [],
+    "fuentesReferenciadas": 26,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/archivos-examinados-hashes.json",
+        "size": 3757,
+        "sha256": "44613dcff4ce2a5ac6ee2f6e22f6db4a3131eed1e9ae72800936f76147262cb5"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/citas-candidatas.json",
+        "size": 3689545,
+        "sha256": "536b6cc3237c0b837985ef59bd87ada48947bb9c2a18dc8e81882b43834eae1e"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/citas-legales-candidatas.json",
+        "size": 710401,
+        "sha256": "0c6097fe11df5d7e8f3bdac1108fea2283c52fa38c820f1abad6a3ac09488420"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/citas-modificadoras-candidatas.json",
+        "size": 47213,
+        "sha256": "d16a328760e2a0333740ff7bb2a5e89170bf87a73ae8bc04c364349c37dcb820"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/cobertura.json",
+        "size": 157037,
+        "sha256": "49d035e49db7ee0da627bdaed32f151209a24d4f0560e1bf2689969308630eb0"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/ejemplos-runtime.json",
+        "size": 1444,
+        "sha256": "60867be7cd970c6f4bbab94d667cf8ad9447a95d8efd19d0144fe75111583f5a"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/fuentes-legales.json",
+        "size": 51180,
+        "sha256": "02d0f527479c21889ba7a919f1fcd8e95abe872d464a703b2f159146cbeabbdf"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/hallazgos.json",
+        "size": 1935350,
+        "sha256": "bee5f8c23514696e3a52a0b1c2d75011cf7e6cd5187945b65376e8cd957b2510"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/informe.md",
+        "size": 16199,
+        "sha256": "95f5043ff16f722e165233dcc1130ff330996645938c734dcab8fab5b7940f7d"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/matriz-codigos.json",
+        "size": 522889,
+        "sha256": "f0386a0e831a7f181e077fe6e5dd75192107bfb49f7f47006573c1a8b74875f6"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/reglas-documentadas-pendientes.json",
+        "size": 1617987,
+        "sha256": "ee9f6559475ee217fe6838a558898c6c51793fe480a6ebff49d0b1d9b6d04d81"
+      },
+      {
+        "path": "docs/procedencia/auditorias/deducciones-autonomicas-b/verificacion-entrega.json",
+        "size": 758,
+        "sha256": "c9666285ae2d3fb04cfdf5e0c06159be2be84364338ebe280ad5ff10eebff38f"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7838d7f0bb8455ede87afeded45a092936419f45f3e2e53539b14705093ee23a",
+        "sha256": "7838d7f0bb8455ede87afeded45a092936419f45f3e2e53539b14705093ee23a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4e5d062987d4699c0ce5e66ce6c15fece4a69db4a2646147fe87542b07f2577f",
+        "sha256": "4e5d062987d4699c0ce5e66ce6c15fece4a69db4a2646147fe87542b07f2577f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/9e5f81eb9d923b701dff43376699c5579477691db5923c3cbab2f8300b520ef6",
+        "sha256": "9e5f81eb9d923b701dff43376699c5579477691db5923c3cbab2f8300b520ef6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0024d094b797ed40e69ea780d8bf21812b14453075cc2db67d45a02ce5d04c67",
+        "sha256": "0024d094b797ed40e69ea780d8bf21812b14453075cc2db67d45a02ce5d04c67",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ff38ae2f60d18066bb92c0e331ab37a5006a54351d55c753fc1e4294f1748818",
+        "sha256": "ff38ae2f60d18066bb92c0e331ab37a5006a54351d55c753fc1e4294f1748818",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7fdfbfb4c48d5b846f22486fe2c64b44ef2b466356da1646c5823efed777385b",
+        "sha256": "7fdfbfb4c48d5b846f22486fe2c64b44ef2b466356da1646c5823efed777385b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f6fb99a07ec59a18cf0c8a543f2e80b07c3d6e09505831b8fb392aad7228bcc5",
+        "sha256": "f6fb99a07ec59a18cf0c8a543f2e80b07c3d6e09505831b8fb392aad7228bcc5",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7a06ce4b68bebf8b251f9dc519a7e5f238d22b4c4e9b628f20400f06f063db37",
+        "sha256": "7a06ce4b68bebf8b251f9dc519a7e5f238d22b4c4e9b628f20400f06f063db37",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/502aa027788673d8f653c2cd8ce87038630a7dab13b63d625c5905bd1a5ce8de",
+        "sha256": "502aa027788673d8f653c2cd8ce87038630a7dab13b63d625c5905bd1a5ce8de",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f0a5eab9a5dc3896a2a730ad0d3d93ae338247d8f91759d40def9f96658e203c",
+        "sha256": "f0a5eab9a5dc3896a2a730ad0d3d93ae338247d8f91759d40def9f96658e203c",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+        "sha256": "aac01cdb3005f9276f021359c7a165d810fbaa5419e6e89ceec9ebe891d3150d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b8f6d9c36c677c541ff0bfb5d7a5010ae0fd04ace087ed86ebe29bae776c3a13",
+        "sha256": "b8f6d9c36c677c541ff0bfb5d7a5010ae0fd04ace087ed86ebe29bae776c3a13",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4bd35c38af86d29e1d855f556c35bd7ecc6677ffa9dce63714bb428490f27a07",
+        "sha256": "4bd35c38af86d29e1d855f556c35bd7ecc6677ffa9dce63714bb428490f27a07",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/44bf834a021cd2eb10cbdd26394b215e3f140a1037ff04a035b752ff9281e116",
+        "sha256": "44bf834a021cd2eb10cbdd26394b215e3f140a1037ff04a035b752ff9281e116",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c9987cfe452187e5053c32009fae7a147e5a83c74bb44d17c5e9bbedfba28777",
+        "sha256": "c9987cfe452187e5053c32009fae7a147e5a83c74bb44d17c5e9bbedfba28777",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c86b13a15a216eabccbe877804fede1a6cd703e621ad707162546c3f6ba2a55c",
+        "sha256": "c86b13a15a216eabccbe877804fede1a6cd703e621ad707162546c3f6ba2a55c",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1fc13e8888160d0d9abec7ec5b8e375c008fad9c8326a4506e346df6835cf1ed",
+        "sha256": "1fc13e8888160d0d9abec7ec5b8e375c008fad9c8326a4506e346df6835cf1ed",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/627a8b16e6015204dbbf4ac4e3c1302ca750f4dbcaacc00a01a5bd23cc02efd2",
+        "sha256": "627a8b16e6015204dbbf4ac4e3c1302ca750f4dbcaacc00a01a5bd23cc02efd2",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0e0ef6ab179d33975dacfef917860c9fedb690319d6943e4343e34defcc24fdb",
+        "sha256": "0e0ef6ab179d33975dacfef917860c9fedb690319d6943e4343e34defcc24fdb",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/62687b239bcf9bc6c4979a73a221a86b861333fd64886d77cbfb65065f5a1c59",
+        "sha256": "62687b239bcf9bc6c4979a73a221a86b861333fd64886d77cbfb65065f5a1c59",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bfae321f4627a8650681c34f229ca193a504df6237d58c9e9c6e278b5f4b0b48",
+        "sha256": "bfae321f4627a8650681c34f229ca193a504df6237d58c9e9c6e278b5f4b0b48",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/d0d5d589b9866075c3ef373cfb02d4bd7fdb20f39bec6633b7b872dcac85c0db",
+        "sha256": "d0d5d589b9866075c3ef373cfb02d4bd7fdb20f39bec6633b7b872dcac85c0db",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/94e8759f9bbef126723234814540f443f0cd08561c4ea629cb53d063d677248f",
+        "sha256": "94e8759f9bbef126723234814540f443f0cd08561c4ea629cb53d063d677248f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/1d31e4d303ca8321a9310772d0c10d4e72b9c36ef656ab4af25f239dfcfa44d5",
+        "sha256": "1d31e4d303ca8321a9310772d0c10d4e72b9c36ef656ab4af25f239dfcfa44d5",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "ipc-redondeos",
+    "hallazgos": 30,
+    "estados": {
+      "match": 17,
+      "mismatch": 3,
+      "ambiguous": 8,
+      "missing": 2
+    },
+    "cabecerasOmitidas": 0,
+    "archivosSanitizados": [],
+    "fuentesReferenciadas": 75,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/adquisiciones-resumen.json",
+        "size": 6990,
+        "sha256": "eaff24e2df207b492cb73cf2a74f89d41b48fae6f0536bb5e19dbc8f0857c035"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/1390112172758736-p22.png",
+        "size": 18726,
+        "sha256": "49e41cbf16f333092ed56136de1c173a1105450b612ff58755b5c560a1bbbc07"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/244fa7f987b8a03f-p23.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/2709dbc0c7ed0a7b-p1.png",
+        "size": 10340,
+        "sha256": "411a656ee6ab5860e7abd0e874cecbbd21905118fab42d30d67633badaf31d26"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/29dafd096c17fedd-p1.png",
+        "size": 11179,
+        "sha256": "9a3c5e99a0aa8e4548befb680cd45079a619a8456cffa7834d7bee5807e8f0bc"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/2b424943125f7122-p1.png",
+        "size": 11006,
+        "sha256": "743cab6cf5ebb92750589595ebc156704a82952203ce78255749a107881470cd"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/329fc013487a93c4-p23.png",
+        "size": 19356,
+        "sha256": "cb18de5d27e7c61898ee83c9a012fa22cfd820ad2e67897e6ab33bb96094184f"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/349c093fe191b2e9-p23.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/3ad944876c88da2b-p23.png",
+        "size": 19356,
+        "sha256": "cb18de5d27e7c61898ee83c9a012fa22cfd820ad2e67897e6ab33bb96094184f"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/5170b8b8f2c788fe-p1.png",
+        "size": 10267,
+        "sha256": "41da0f34bae6fce1ad5dc6550c53ea2992a60ba19a722c35375fd8e6be69c9eb"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/5bf4b5ff0c855a5f-p1.png",
+        "size": 9752,
+        "sha256": "e9dc415fbc1e9754a7d62721a8b524d8bb4ba382c0ad55e861a9f829b271883e"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/5f12cf53bb541a2d-p1.png",
+        "size": 9666,
+        "sha256": "110172424b87af09e801bf0d19822c411af9217a4f9be37431dbefe7d92d5f49"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/61df1573c170ece6-p1.png",
+        "size": 10858,
+        "sha256": "2b6c148f3736d6897121a3f338f319a517933515ed97fc684668d3cd4f6cdd79"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/645d06d2dc5a9301-p22.png",
+        "size": 19016,
+        "sha256": "5d9b0e5e7818d2e15b293034fa6b77c1e870fac931e5c32e3e7126c54d52adf2"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/657ae8a42638307b-p1.png",
+        "size": 10467,
+        "sha256": "e9c6137016c0e3a5e52d5c30bc0970accb0989a1e79e4bb569d4b8a15867802f"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/78bddb485c1ca306-p1.png",
+        "size": 10655,
+        "sha256": "6f3fb962ee3ddce89f806761af37f1407a9f875027ada6032cc0b039577517dd"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/7a5d58ba310c4972-p1.png",
+        "size": 11254,
+        "sha256": "e35cf3c2a7c7ef17c4971a35ded819fccfd9ac761ed0a5d94b39d7baa9ff350e"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/8d435c1b9ffc4c46-p22.png",
+        "size": 19018,
+        "sha256": "87a455fa9572ddedeeb93ad165fef71fdada34f0ad14f76c67d870ace2dfc418"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/91ba19154e7fda5b-p1.png",
+        "size": 24736,
+        "sha256": "f02aa0db706b98c90d3488f5baaba8767dfde2e8f7b260159df3f3e1920c91e4"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/947ac708e7c05f9d-p1.png",
+        "size": 10832,
+        "sha256": "9c1b22f4953f6dc25862a7bed880b4975ae69b2e39ef337c4b138f95855816b3"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/95f6b1da10e7ce58-p47.png",
+        "size": 31381,
+        "sha256": "ce8ec7afbd6615e02084fabe90b628604ab6e8e2912c62869e760dd8748712ca"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/9a7fb763165af217-p1.png",
+        "size": 9878,
+        "sha256": "3b0f6ec10297c7ff7b3c1555ecbd13f8e8b679f44201de2e2b5a75f506bfcc8f"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/9aab28b04f92521b-p22.png",
+        "size": 18730,
+        "sha256": "6f84e6baf3ada9e59a9c897e696261deb4f951fba17132095f724ba1b5a203e7"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/a15b7fee871d1a43-p23.png",
+        "size": 19307,
+        "sha256": "bee030bbf147a39fe3fccfa54fe7c9cc298cabd6b3600fe215cfca5bae152455"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/a4bb4dc6ddd019f9-p22.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/b1a120d93bf541de-p23.png",
+        "size": 19307,
+        "sha256": "bee030bbf147a39fe3fccfa54fe7c9cc298cabd6b3600fe215cfca5bae152455"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/b7de3c41b6119912-p22.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/bb9aa5da3d6a1fa2-p22.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/bfbcb242413bf04f-p1.png",
+        "size": 10776,
+        "sha256": "6b21cd78130b946229bc4f2058d1bb24567c54320bbd678721e147e422d21bf4"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/c4d53e76b59ee367-p23.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/cc2697a37b3f6389-p23.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/d28bef4252956fa7-p23.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/f196f9b089a0ac68-p1.png",
+        "size": 10604,
+        "sha256": "f44dbdad3a79f71ebb527696b5a841c4c54797efc351230c94eed5ea88de3eba"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas/f433d785bb13c5f0-p22.png",
+        "size": 18719,
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/capturas.json",
+        "size": 18694,
+        "sha256": "97f202fe87ca9989c801899c6e54e2f343b5c8a8d0b98e35bc267368b2a97666"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/citas-candidatas.json",
+        "size": 551487,
+        "sha256": "eaa6228ec210ffd3fbbde2fa7c2ba3afa6221a7d89f626b83a939b513b815b62"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/cobertura.json",
+        "size": 24900,
+        "sha256": "9eb0f78c4bee663ae322d4bb8cbca9fd0ac1e727e669472f1f681de872199aeb"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/comparacion-ipc.json",
+        "size": 2984,
+        "sha256": "3df7513c758f58ddde4ba44de79e29361ca353030cfd98511747bfc9df5e8a3f"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/contraste-bases.json",
+        "size": 4189,
+        "sha256": "c92f1adf6f6bc37af1f40fb3e37b9383a81515a0c4602575151275131d797827"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/contraste-excel.json",
+        "size": 22919,
+        "sha256": "ba2675a8b300ef8e29bf213b8b58ca1eba3027976705f480ee6da106c25b7b6c"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/contraste-factores.json",
+        "size": 2064,
+        "sha256": "a9d267c205f138955f82c408d57730ddcb08bd093355a0f44244d4e940043ac4"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/fuentes.json",
+        "size": 135391,
+        "sha256": "a9f91886d9399bbbe98d072baf6ea8c6bb8538161a451b3788d22dad3d2315ab"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/hallazgos.json",
+        "size": 102780,
+        "sha256": "2b698043d485196a649da3330f18e68a2694bb27c62acca8b7f00664f9cf212f"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/informe.md",
+        "size": 17858,
+        "sha256": "8ca32c796f4c9003e1a853dd1d1837c9a5bde8cbb6ad18d9cf23244f9859b4c2"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/inventario-redondeos.json",
+        "size": 53525,
+        "sha256": "d0b01b1ac36afafb81ba660420b5c685b3a052a4ae3543836f473319ac6bdd53"
+      },
+      {
+        "path": "docs/procedencia/auditorias/ipc-redondeos/verificacion-local-citas.json",
+        "size": 46500,
+        "sha256": "b003adeb4ca77ce3d320380ffae6d7dd47afd7b578868ea926fca2988023a867"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/95f6b1da10e7ce58-p47.png",
+        "sha256": "ce8ec7afbd6615e02084fabe90b628604ab6e8e2912c62869e760dd8748712ca",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/a15b7fee871d1a43-p23.png",
+        "sha256": "bee030bbf147a39fe3fccfa54fe7c9cc298cabd6b3600fe215cfca5bae152455",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/b1a120d93bf541de-p23.png",
+        "sha256": "bee030bbf147a39fe3fccfa54fe7c9cc298cabd6b3600fe215cfca5bae152455",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/5170b8b8f2c788fe-p1.png",
+        "sha256": "41da0f34bae6fce1ad5dc6550c53ea2992a60ba19a722c35375fd8e6be69c9eb",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/657ae8a42638307b-p1.png",
+        "sha256": "e9c6137016c0e3a5e52d5c30bc0970accb0989a1e79e4bb569d4b8a15867802f",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/61df1573c170ece6-p1.png",
+        "sha256": "2b6c148f3736d6897121a3f338f319a517933515ed97fc684668d3cd4f6cdd79",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/bfbcb242413bf04f-p1.png",
+        "sha256": "6b21cd78130b946229bc4f2058d1bb24567c54320bbd678721e147e422d21bf4",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/2b424943125f7122-p1.png",
+        "sha256": "743cab6cf5ebb92750589595ebc156704a82952203ce78255749a107881470cd",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/f196f9b089a0ac68-p1.png",
+        "sha256": "f44dbdad3a79f71ebb527696b5a841c4c54797efc351230c94eed5ea88de3eba",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/2709dbc0c7ed0a7b-p1.png",
+        "sha256": "411a656ee6ab5860e7abd0e874cecbbd21905118fab42d30d67633badaf31d26",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/78bddb485c1ca306-p1.png",
+        "sha256": "6f3fb962ee3ddce89f806761af37f1407a9f875027ada6032cc0b039577517dd",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/947ac708e7c05f9d-p1.png",
+        "sha256": "9c1b22f4953f6dc25862a7bed880b4975ae69b2e39ef337c4b138f95855816b3",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/29dafd096c17fedd-p1.png",
+        "sha256": "9a3c5e99a0aa8e4548befb680cd45079a619a8456cffa7834d7bee5807e8f0bc",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/7a5d58ba310c4972-p1.png",
+        "sha256": "e35cf3c2a7c7ef17c4971a35ded819fccfd9ac761ed0a5d94b39d7baa9ff350e",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/9a7fb763165af217-p1.png",
+        "sha256": "3b0f6ec10297c7ff7b3c1555ecbd13f8e8b679f44201de2e2b5a75f506bfcc8f",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/91ba19154e7fda5b-p1.png",
+        "sha256": "f02aa0db706b98c90d3488f5baaba8767dfde2e8f7b260159df3f3e1920c91e4",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/5bf4b5ff0c855a5f-p1.png",
+        "sha256": "e9dc415fbc1e9754a7d62721a8b524d8bb4ba382c0ad55e861a9f829b271883e",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/5f12cf53bb541a2d-p1.png",
+        "sha256": "110172424b87af09e801bf0d19822c411af9217a4f9be37431dbefe7d92d5f49",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/f433d785bb13c5f0-p22.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/b7de3c41b6119912-p22.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/9aab28b04f92521b-p22.png",
+        "sha256": "6f84e6baf3ada9e59a9c897e696261deb4f951fba17132095f724ba1b5a203e7",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/349c093fe191b2e9-p23.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/3ad944876c88da2b-p23.png",
+        "sha256": "cb18de5d27e7c61898ee83c9a012fa22cfd820ad2e67897e6ab33bb96094184f",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/329fc013487a93c4-p23.png",
+        "sha256": "cb18de5d27e7c61898ee83c9a012fa22cfd820ad2e67897e6ab33bb96094184f",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/1390112172758736-p22.png",
+        "sha256": "49e41cbf16f333092ed56136de1c173a1105450b612ff58755b5c560a1bbbc07",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/bb9aa5da3d6a1fa2-p22.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/8d435c1b9ffc4c46-p22.png",
+        "sha256": "87a455fa9572ddedeeb93ad165fef71fdada34f0ad14f76c67d870ace2dfc418",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/d28bef4252956fa7-p23.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/645d06d2dc5a9301-p22.png",
+        "sha256": "5d9b0e5e7818d2e15b293034fa6b77c1e870fac931e5c32e3e7126c54d52adf2",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/244fa7f987b8a03f-p23.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/a4bb4dc6ddd019f9-p22.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/c4d53e76b59ee367-p23.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/docs/procedencia/auditorias/ipc-redondeos/capturas/cc2697a37b3f6389-p23.png",
+        "sha256": "3b62b4bb0b3e30b46c0a53d2944120e38c5745a51d49cc214cae6a460e999b58",
+        "checks": {
+          "existe": true,
+          "sha256": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8eb5652395f79f0cb971c557ec92d0954133b2b907ea33c60963e30eafe5dc7e",
+        "sha256": "8eb5652395f79f0cb971c557ec92d0954133b2b907ea33c60963e30eafe5dc7e",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8786d9b266a83ea6e0a6045c55e4574fa927ac13c1ab45802de92d8795afb043",
+        "sha256": "8786d9b266a83ea6e0a6045c55e4574fa927ac13c1ab45802de92d8795afb043",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "sha256": "ee01d27596fc84f732cf0f5e6af0e17f0537ad48af0e4b81cd4f85d1405ab846",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/5a7abcc8bbc91637f45d9726f99ab6b01fc8b972fdb25d8ba18cefa27a064e71",
+        "sha256": "5a7abcc8bbc91637f45d9726f99ab6b01fc8b972fdb25d8ba18cefa27a064e71",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/95f6b1da10e7ce5807ce200c0914aa97012b722712991d33eb6a0c94576c81d6",
+        "sha256": "95f6b1da10e7ce5807ce200c0914aa97012b722712991d33eb6a0c94576c81d6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+        "sha256": "a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+        "sha256": "b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/5170b8b8f2c788fe9bc0cc568a84b4cef97e49659e59b724a2a34e3765a4595b",
+        "sha256": "5170b8b8f2c788fe9bc0cc568a84b4cef97e49659e59b724a2a34e3765a4595b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/657ae8a42638307b6024315037e5b6a85f9596a6e719385139da67c95d7df07a",
+        "sha256": "657ae8a42638307b6024315037e5b6a85f9596a6e719385139da67c95d7df07a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/61df1573c170ece6e04dfd57fe63a7439be6a7d8982f44d91efc263806761dcb",
+        "sha256": "61df1573c170ece6e04dfd57fe63a7439be6a7d8982f44d91efc263806761dcb",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bfbcb242413bf04f5d5aad329390a62254e4f154bd759065164a19226e117086",
+        "sha256": "bfbcb242413bf04f5d5aad329390a62254e4f154bd759065164a19226e117086",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/2b424943125f7122ea745e26e91bd4f175b2ea1d5f6f8eec1869362ec8caba2b",
+        "sha256": "2b424943125f7122ea745e26e91bd4f175b2ea1d5f6f8eec1869362ec8caba2b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/cf70b69eb8de7aaa2b78151b8d9eb69991da386fb572d226a53e084e32dfc263",
+        "sha256": "cf70b69eb8de7aaa2b78151b8d9eb69991da386fb572d226a53e084e32dfc263",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f196f9b089a0ac683ec6aec647f90ed1f4ce0478d3a84feb791aefd7588812f0",
+        "sha256": "f196f9b089a0ac683ec6aec647f90ed1f4ce0478d3a84feb791aefd7588812f0",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/2709dbc0c7ed0a7b2a72d3bbb272e1f1a903df5b8142148f4c7440108c2ab747",
+        "sha256": "2709dbc0c7ed0a7b2a72d3bbb272e1f1a903df5b8142148f4c7440108c2ab747",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/78bddb485c1ca306d6d55645cebc69a6419a8df36891bb798fd1ff8792279ff6",
+        "sha256": "78bddb485c1ca306d6d55645cebc69a6419a8df36891bb798fd1ff8792279ff6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/947ac708e7c05f9d9ccefce0a369aaa39423f5c5cd4b4e42f8208f97760e4d7a",
+        "sha256": "947ac708e7c05f9d9ccefce0a369aaa39423f5c5cd4b4e42f8208f97760e4d7a",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/29dafd096c17fedd513dd8c61b372d7c34b34974064f896ebd937cd86c93e226",
+        "sha256": "29dafd096c17fedd513dd8c61b372d7c34b34974064f896ebd937cd86c93e226",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7a5d58ba310c49722e5be7086bb7a8f9b8ac40cdc5c61edfbbb0cdc16223ac8d",
+        "sha256": "7a5d58ba310c49722e5be7086bb7a8f9b8ac40cdc5c61edfbbb0cdc16223ac8d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/9a7fb763165af217378b056d3622d967a26846a2fc0e0013a12eddd1e70113f3",
+        "sha256": "9a7fb763165af217378b056d3622d967a26846a2fc0e0013a12eddd1e70113f3",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/91ba19154e7fda5bab17e9dac14304d0c86841bbcefb607db7aaae9d42bd550e",
+        "sha256": "91ba19154e7fda5bab17e9dac14304d0c86841bbcefb607db7aaae9d42bd550e",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bb9995e135c6280b906048bba95d05a2f4de74a56f688741c3aacbf32ddc71a1",
+        "sha256": "bb9995e135c6280b906048bba95d05a2f4de74a56f688741c3aacbf32ddc71a1",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/5bf4b5ff0c855a5f216323bc78370ede5e3dc23bc33b769465640d0682a2c805",
+        "sha256": "5bf4b5ff0c855a5f216323bc78370ede5e3dc23bc33b769465640d0682a2c805",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c94efbe5606cc9d14ff09436a486b117acb2905c3da4f51d415e2d180ca841dd",
+        "sha256": "c94efbe5606cc9d14ff09436a486b117acb2905c3da4f51d415e2d180ca841dd",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/5f12cf53bb541a2dfa73ce5f5118d1b753a50546ab94ef2cd32ae96acb4aa6a6",
+        "sha256": "5f12cf53bb541a2dfa73ce5f5118d1b753a50546ab94ef2cd32ae96acb4aa6a6",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f433d785bb13c5f0cbd019586a93dcba0bc0a0ff61c750b463ed1d6d41508b13",
+        "sha256": "f433d785bb13c5f0cbd019586a93dcba0bc0a0ff61c750b463ed1d6d41508b13",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+        "sha256": "b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d",
+        "sha256": "9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/349c093fe191b2e9ff645a18da3fa3140100701d6c7ae8f10ae5432a3b1706ba",
+        "sha256": "349c093fe191b2e9ff645a18da3fa3140100701d6c7ae8f10ae5432a3b1706ba",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+        "sha256": "3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7b3fb723c3e0c03fc83ba399382c4d6340a0cdef733a0c4668018980c8e99f71",
+        "sha256": "7b3fb723c3e0c03fc83ba399382c4d6340a0cdef733a0c4668018980c8e99f71",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/329fc013487a93c4d74c27c332ec5302de5a8b1371b61901cfe2e4fc75054355",
+        "sha256": "329fc013487a93c4d74c27c332ec5302de5a8b1371b61901cfe2e4fc75054355",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+        "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/31fb9e4d0384ae4377dcf9b3abc88ad13fc81d91b0265fcdd0ed4f0b8ef32bdc",
+        "sha256": "31fb9e4d0384ae4377dcf9b3abc88ad13fc81d91b0265fcdd0ed4f0b8ef32bdc",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+        "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/8d435c1b9ffc4c46b8878e79736408518d88c0f99e48bdc24922bfe5bdf607b8",
+        "sha256": "8d435c1b9ffc4c46b8878e79736408518d88c0f99e48bdc24922bfe5bdf607b8",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/d28bef4252956fa7fc6881bdf9e3cf3359ff75ed6ff538f96d0c38c482460042",
+        "sha256": "d28bef4252956fa7fc6881bdf9e3cf3359ff75ed6ff538f96d0c38c482460042",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+        "sha256": "645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/244fa7f987b8a03f8e67e3402cd7b9bc796f35e2fba89a26b69dc5b3197868de",
+        "sha256": "244fa7f987b8a03f8e67e3402cd7b9bc796f35e2fba89a26b69dc5b3197868de",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/a4bb4dc6ddd019f9625cf05576d46c5a9a8cd25807270a45d5762c770af6945b",
+        "sha256": "a4bb4dc6ddd019f9625cf05576d46c5a9a8cd25807270a45d5762c770af6945b",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c4d53e76b59ee367c50c7c5bd666982e7ba5fd3a9d3eddc505abf0606e1b5fd0",
+        "sha256": "c4d53e76b59ee367c50c7c5bd666982e7ba5fd3a9d3eddc505abf0606e1b5fd0",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/cc2697a37b3f6389e0b407cf9df1aaa886ffe5cb5da31fd995de3785ea4ddc22",
+        "sha256": "cc2697a37b3f6389e0b407cf9df1aaa886ffe5cb5da31fd995de3785ea4ddc22",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  },
+  {
+    "dominio": "actividades-economicas-2025",
+    "hallazgos": 16,
+    "estados": {
+      "missing": 16
+    },
+    "cabecerasOmitidas": 0,
+    "archivosSanitizados": [],
+    "fuentesReferenciadas": 15,
+    "fuentesFallidas": [],
+    "archivos": [
+      {
+        "path": "docs/procedencia/auditorias/actividades-economicas-2025/citas-candidatas.json",
+        "size": 1828778,
+        "sha256": "6d1b9a8d971717b0dd15ef36ea1f3baec76e855eec1a67a151f361ca84f80ee5"
+      },
+      {
+        "path": "docs/procedencia/auditorias/actividades-economicas-2025/cobertura.json",
+        "size": 9004,
+        "sha256": "5930b7649bf743b2a6baa5bb879aaa528daa2e116a81aa72d1d41f9e912975c9"
+      },
+      {
+        "path": "docs/procedencia/auditorias/actividades-economicas-2025/especificacion-implementacion.json",
+        "size": 144594,
+        "sha256": "71a28215e0d496054edb5d39b4774a0af638478e45dfae77566c18733f8ed97a"
+      },
+      {
+        "path": "docs/procedencia/auditorias/actividades-economicas-2025/fuentes.json",
+        "size": 27477,
+        "sha256": "c14c5bcfab759255b31ff397bfaf6af3e499691ce85b6312453efc3f440d2602"
+      },
+      {
+        "path": "docs/procedencia/auditorias/actividades-economicas-2025/hallazgos.json",
+        "size": 213327,
+        "sha256": "9a8a146dfaf4522e7a9c2ca37a37157e8d6d4af99e89cbcd4170f681658cb476"
+      },
+      {
+        "path": "docs/procedencia/auditorias/actividades-economicas-2025/informe.md",
+        "size": 17209,
+        "sha256": "b6dbcfc6eb5027261c2ffad17b467a4bea5ba9fefbaddac3bcbad78dca4f9f74"
+      }
+    ],
+    "verificacionFuentes": [
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+        "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
+        "sha256": "6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/758a2d02ef82389f8d655ef560471461c22373008165a131b495b8c9634e72b3",
+        "sha256": "758a2d02ef82389f8d655ef560471461c22373008165a131b495b8c9634e72b3",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/42825ab0f81e591f8b4c1532f7ad56994fef404ab872b90bfb694bf88d3d0950",
+        "sha256": "42825ab0f81e591f8b4c1532f7ad56994fef404ab872b90bfb694bf88d3d0950",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/f53d6ebcc82e76b21db269185389a390d2c6abc37d93d4884d94294ee4bc3e72",
+        "sha256": "f53d6ebcc82e76b21db269185389a390d2c6abc37d93d4884d94294ee4bc3e72",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/4cf41092d9496ccbfb07cd3c4aaa5ccf48bfebfa9e355cc1b625bc8c66cc5244",
+        "sha256": "4cf41092d9496ccbfb07cd3c4aaa5ccf48bfebfa9e355cc1b625bc8c66cc5244",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/3951a3f55a505714fb4199aa8b2fbd5631b4fe733da9bc59d0a0bf7192840b64",
+        "sha256": "3951a3f55a505714fb4199aa8b2fbd5631b4fe733da9bc59d0a0bf7192840b64",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/627a8b16e6015204dbbf4ac4e3c1302ca750f4dbcaacc00a01a5bd23cc02efd2",
+        "sha256": "627a8b16e6015204dbbf4ac4e3c1302ca750f4dbcaacc00a01a5bd23cc02efd2",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/e918f08c12b85e50238ccde9efb101a95c6d7dd6c4631452deadbc2181553352",
+        "sha256": "e918f08c12b85e50238ccde9efb101a95c6d7dd6c4631452deadbc2181553352",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/d4f6b78ab199d080437bd719dabc0317e018a9e6b74ca6e4fb1559c05f7f7821",
+        "sha256": "d4f6b78ab199d080437bd719dabc0317e018a9e6b74ca6e4fb1559c05f7f7821",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/c0d947aa1d9e0295b2bc396c8d96f918967bf198fc849d6cfad48c17278dfc40",
+        "sha256": "c0d947aa1d9e0295b2bc396c8d96f918967bf198fc849d6cfad48c17278dfc40",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      },
+      {
+        "path": "/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/67c8af922fe823337e0130d589cf5d51b364720936fd0319009a4783a728b544",
+        "sha256": "67c8af922fe823337e0130d589cf5d51b364720936fd0319009a4783a728b544",
+        "checks": {
+          "existe": true,
+          "sha256": true,
+          "sha512": true,
+          "size": true
+        }
+      }
+    ],
+    "alcance": "Recepción mecánica: hashes y tamaño. No certifica citas, firma, vigencia ni interpretación fiscal. Pendiente de contrarrevisión independiente."
+  }
+]

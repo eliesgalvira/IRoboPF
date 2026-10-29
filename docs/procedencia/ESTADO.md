@@ -24,8 +24,8 @@ Se trabaja con Jujutsu en `procedencia-documental`, nacida de `main` local (`955
 - GLOSSARY, documentación extensa, notas arquitectónicas y motor: lectura por ámbitos pendiente de completar.
 - Configuración del orquestador comprobada: gpt-6-astra, xhigh, priority. Hijos: gpt-6-astra, high, priority, mediante T3.
 - Herramientas faltantes se habilitan con Nix; ninguna instalación global.
-- Anti-slop instalado: 16 reglas a error, prueba de carga superada. Bootstrap listo para iniciar auditorías documentales y repartir deuda de lint; el lint global sigue rojo (96 errores en 25 archivos). Véase [LINT.md](LINT.md).
-- Primera ronda preparada según COORDINACION.md: inventario, corpus, deuda de lint, arquitectura, necesidades expertas y trece lotes documentales. Los identificadores de delegación se guardarán en delegaciones.json. Cero hallazgos aceptados, cero cifras declaradas verificadas.
+- Anti-slop instalado: 16 reglas a error. La deuda inicial de 96 errores fue corregida, contrarrevisada e integrada; lint global y tipos pasan. Véase [LINT-CORRECCION.md](LINT-CORRECCION.md).
+- Primera ronda documental en recepción, con identificadores en delegaciones.json. Inventario y corpus tienen entregas candidatas; continúa su revisión. Hay 14 requisitos de capacidad contrarrevisados, pero ninguna cifra fiscal aceptada todavía.
 
 ## Criterios de aceptación
 
@@ -56,11 +56,11 @@ Elies avisó de 239 borrados en el índice Git de `t3-3d3cd9a7`. La inspección 
 
 Comprobación de disco: los tres checkouts conservan los 239 archivos de la base, sin ausencias. Los índices de `t3-5be43c93` y `t3-bddec546` contienen los 239 archivos y no tienen borrados preparados. Los tres árboles comprometidos siguen iguales a la base; sus ediciones aún en disco deberán compararse aparte al entregar. La corrección operativa y el registro de delegaciones quedaron respaldados en origin en `43b5ac34`.
 
-## Entrega de corrección de lint: pendiente de contrarrevisión
+## Entrega de corrección de lint: integrada tras contrarrevisión
 
 El delegado entregó un parche de 29 archivos contra `d4d708f6`, sin commit. El orquestador cotejó los hashes de cada archivo original, entregado y actual del padre: 29 comprobaciones correctas, cero borrados y cero conflictos con cambios del padre. El parche y manifiesto se conservan en `entregas/` para no depender de `/tmp` ni del índice anómalo.
 
-Según la ejecución del delegado: lint sin diagnósticos, typecheck y ensayo anti-slop correctos; suite ampliada 177 pruebas correctas y una omitida; suite CI cinco correctas. Estos resultados aún requieren revisión e integración del orquestador. El parche no está aplicado al motor principal. Se encarga revisión independiente de preservación de comportamiento, contratos de entrada, esquema de fixtures y adaptadores de exportación/gráficos. La revisión fiscal continúa separadamente.
+Según la ejecución del delegado: lint sin diagnósticos, typecheck y ensayo anti-slop correctos; suite ampliada 177 pruebas correctas y una omitida; suite CI cinco correctas. La revisión independiente de preservación de comportamiento, contratos de entrada, fixtures y adaptadores se recibió y la integración se describe a continuación. La revisión fiscal continúa separadamente.
 
 Actualización: contrarrevisión independiente aprobable, sin P1/P2 demostrados, con 29 hashes y parche verificados, upstream contrastado, lint/typecheck y 19 pruebas focalizadas correctos. El orquestador integró selectivamente los 29 archivos, sin copiar metadatos VCS. Conservó además el rechazo runtime previo de cotizaciones/contrato/situación laboral malformados mediante `Match.number`/`Match.string`: una prueba nueva falló primero con defecto Decimal ante null, antes de restaurar los predicados. No es una corrección de cuantías fiscales. El payload gráfico queda restringido a las propiedades propias de sus productores actuales, según revisión documentada.
 
@@ -81,6 +81,18 @@ Recibidos 16 candidatos de capacidad: 11 carencias y cinco ambigüedades. El orq
 La diferencia reproducida para el ejemplo de 18.000 € compara parametrizaciones ilustrativas, no acredita una deuda tributaria: no se utilizará para corregir el motor sin contraste normativo. Las carencias de actividad económica se investigarán como una vertical distinta del salario; primera investigación delimitada a estimación directa simplificada de 2025, sin prometer cobertura de RETA ni de otros regímenes antes de acreditarlos.
 
 Contrarrevisión recibida: 14 hallazgos de capacidad aceptables dentro del alcance revisado; NE-01 y NE-13 requieren evidencia adicional. No son 14 reglas fiscales validadas. El revisor confirma ocho extracciones y pide ampliar cuatro pasajes antes de usarlos como fundamento sustantivo. De los diez posts contrastados, tres textos completos y siete prefijos: no se presentará esa comprobación como autenticación del texto completo de todos los posts. Véase `revisiones/necesidades-expertas/`.
+
+## Recepción documental y contrarrevisión, 11:40
+
+Diez ámbitos adicionales entregan 736 registros candidatos, con solapamientos: arquitectura, escalas estatales/ahorro, autonómicas 2012–2016 y 2022–2026, retenciones 2012–2019, capital/ganancias, los dos grupos de deducciones, IPC/redondeos y actividades económicas 2025. No son 736 errores ni reglas aceptadas. Sus informes y matrices conservan expresamente las lagunas normativas y de ejecución. Se preparan diez revisiones independientes nuevas, una por ámbito, con respuesta individual por identificador.
+
+Recepción del orquestador en `recepciones-ronda3.json`: JSON parseables, hashes y tamaños contrastados contra los archivos locales de cada referencia; seis campos de cabeceras de sesión omitidos en arquitectura y autonómicas 2022–2026. Ningún original documental referenciado falló la comprobación. Sí cambió `app/layout.tsx` respecto de la instantánea arquitectónica, por la integración de lint: se conserva la instantánea y se exige revisión del código actual, sin alterar el hash histórico para ocultar la diferencia. Este control no verifica firmas, semántica ni coordenadas.
+
+Prioridades candidatas: parámetros de retención recientes aplicados retrospectivamente; pérdidas tratadas como exenciones negativas; mínimos estatal/autonómico del ahorro mezclados; cuotas fijas legales perdidas al integrar solo tipos; aplicación de deducciones manuales presentada como cálculo de requisitos. Murcia 2022 requiere descartar correcciones de errores antes de aceptar su diferencia de 90,83 euros. Los revisores deben distinguir cada alcance y ejecutar los casos discriminantes.
+
+Actividades económicas: investigación limitada a servicios profesionales en estimación directa simplificada 2025, con 16 candidatos. No se ha prometido cobertura general de autónomos ni conectado una cuota RETA simulada. La incorporación depende de contrarrevisión y del contrato de integración de rendimientos/pérdidas.
+
+Corpus: la revisión independiente requiere cambios por ocho hallazgos. Bloqueos principales: una atestación autocontenida permite declarar aceptación sin leer el inventario; la entrega perdería el saneamiento de cabeceras del padre. También debe corregirse origen de caché, signo Unicode, esquemas, escritura atómica de PNG, entorno reproducible y compatibilidad de hosts oficiales. No se integra esa aceptación ni se publica el parche privado. La adquisición y extracción aprovechables se incorporarán después de corregir estos puntos, sin convertir integridad en certificación fiscal.
 
 ## Bootstrap anti-slop completado
 

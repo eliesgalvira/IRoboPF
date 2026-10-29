@@ -1,0 +1,149 @@
+{
+  "reviewer": "revision-independiente-corpus",
+  "date": "2026-10-29",
+  "verdict": "changes-required",
+  "base": "d4d708f6",
+  "source": "/home/elies/.t3/worktrees/IRoboPF/t3-5be43c93",
+  "tests": {
+    "delivered": 14,
+    "passed": 14,
+    "adversarialResults": [
+      "results.json",
+      "network-results.json",
+      "extra-results.json"
+    ]
+  },
+  "findings": [
+    {
+      "id": "COR-01",
+      "severity": "P1",
+      "title": "Aceptación fiscal sin vínculo al inventario actual",
+      "locations": [
+        "tools/procedencia/corpus.py:157",
+        "tools/procedencia/corpus.py:202",
+        "schemas/procedencia/citation.schema.json:97"
+      ],
+      "reproduction": "repro.py: fabricated_acceptance; cita real bocm-celda, añadir reviewer/author inventados, evidence no-existe y semanticValidation verified.",
+      "observed": "verify(..., accepted=True) devuelve fiscalAcceptance=attested sin itemId, snapshot ni lectura del motor; value es autodeclarado.",
+      "requestedChange": "Deshabilitar aceptación fiscal hasta resolver binding mediante itemId + snapshot actual + valor/unidad tipados; validar atestaciones contra registros revisados y vinculados al mismo snapshot.",
+      "gate": "Bloquea aceptación del encargo; pipeline de integridad puede integrarse con aceptación deshabilitada.",
+      "status": "confirmed",
+      "domain": "corpus",
+      "fiscalCertification": false
+    },
+    {
+      "id": "COR-02",
+      "severity": "P1",
+      "title": "Cabeceras de sesión se vuelven publicables y se pierde saneamiento del padre",
+      "locations": [
+        "tools/procedencia/descargar.py:57",
+        "tools/procedencia/descargar.py:103",
+        "tools/procedencia/descargar.py:117",
+        "tools/procedencia/make_examples.py:28"
+      ],
+      "reproduction": "repro.py: sensitive_header_counts; inspección de rutas de copia/retorno sin imprimir valores.",
+      "observed": "Un campo sensible en bocm-firmado.manifest.json. Descarga, redirecciones, caché e importación conservan cabeceras indiscriminadas; make_examples publica el registro.",
+      "requestedChange": "Preservar filtro del padre y aplicarlo a redirecciones, retornos legacy y publicación de manifiestos; sanear copia de entrega y regenerar manifiesto de integración, sin tocar originales ni publicar parche privado.",
+      "gate": "Bloquea publicación/integración de metadatos.",
+      "status": "confirmed",
+      "domain": "corpus",
+      "fiscalCertification": false
+    },
+    {
+      "id": "COR-03",
+      "severity": "P2",
+      "title": "Política de origen acredita cadenas desconocidas o cacheadas ajenas",
+      "locations": [
+        "tools/procedencia/corpus.py:42",
+        "tools/procedencia/descargar.py:97",
+        "tools/procedencia/corpus.py:203"
+      ],
+      "reproduction": "repro.py: legacy_unknown_redirects y wrong_cache_url.",
+      "observed": "Importación con redirects=null recibe allowlisted; caché bajo clave BOE devuelve canonicalUrl y finalUrl example.org con hash íntegro.",
+      "requestedChange": "Comprobar identidad URL solicitada/índice, política de todos los saltos conocidos y URL final; cadena legacy desconocida debe permanecer pending. No aceptar solo extremos.",
+      "gate": "Bloquea afirmaciones de origen permitido.",
+      "status": "confirmed",
+      "domain": "corpus",
+      "fiscalCertification": false
+    },
+    {
+      "id": "COR-04",
+      "severity": "P2",
+      "title": "El binding elimina de hecho signos Unicode",
+      "locations": [
+        "tools/procedencia/corpus.py:159"
+      ],
+      "reproduction": "repro.py: unicode_minus, texto −8,50 %, span 8,50, value 8.50.",
+      "observed": "verify_binding devuelve True para valor positivo pese a signo negativo U+2212 inmediatamente anterior.",
+      "requestedChange": "Rechazar signos/separadores Unicode no soportados en frontera del token o analizar token completo con reglas explícitas; añadir regresiones para signo Unicode y formato no admitido.",
+      "gate": "Bloquea verificador numérico fiable.",
+      "status": "confirmed",
+      "domain": "corpus",
+      "fiscalCertification": false
+    },
+    {
+      "id": "COR-05",
+      "severity": "P2",
+      "title": "Esquemas de documento y atestaciones no son estrictos",
+      "locations": [
+        "schemas/procedencia/document.schema.json:1",
+        "schemas/procedencia/citation.schema.json:205",
+        "tools/procedencia/corpus.py:186"
+      ],
+      "reproduction": "repro.py: document_unknown_fields_status y citation_unknown_review_fields; verify usa solo esquema de cita.",
+      "observed": "Documento con unexpected=true y authenticity.status inventado valida; atestaciones aceptan estados/campos arbitrarios. API verify no valida documento aunque CLI sí lo hace.",
+      "requestedChange": "Cerrar propiedades y estados en modelos promovidos, tipar selectores/render/reviews y separar importación legacy explícita. Validar documento también en API pública.",
+      "gate": "Bloquea contrato estricto promovido; importación legacy puede conservar extensiones separadas.",
+      "status": "confirmed",
+      "domain": "corpus",
+      "fiscalCertification": false
+    },
+    {
+      "id": "COR-06",
+      "severity": "P2",
+      "title": "PNG escrito directamente deja CAS corrupto tras fallo",
+      "locations": [
+        "tools/procedencia/corpus.py:134"
+      ],
+      "reproduction": "extra.py: parche local de Path.write_bytes escribe diez bytes y lanza OSError durante cite.",
+      "observed": "PNG final existe con hash incorrecto; siguiente cite falla por CAS corrupto.",
+      "requestedChange": "Escribir PNG a temporal vecino, cerrar/verificar y reemplazar atómicamente; limpiar temporal al fallar. No reparar automáticamente corrupción existente.",
+      "gate": "Bloquea robustez de publicación de facsímiles.",
+      "status": "confirmed",
+      "domain": "corpus",
+      "fiscalCertification": false
+    },
+    {
+      "id": "COR-07",
+      "severity": "P2",
+      "title": "Entorno de reconstrucción no está fijado",
+      "locations": [
+        "tools/procedencia/run.sh:6",
+        "tools/procedencia/run.sh:8"
+      ],
+      "reproduction": "Inspección del wrapper; ejecución real usa pdfsig 26.06.0.",
+      "observed": "nixpkgs es una referencia móvil; uv recibe python sin identidad/ruta Nix fijada. Versiones PyMuPDF/jsonschema están fijadas pero no bastan para reproducir entorno.",
+      "requestedChange": "Fijar revisión nixpkgs/lock, intérprete concreto con --python y prohibición de descargas automáticas si procede; registrar sistema, Python, Poppler, MuPDF y lock de dependencias.",
+      "gate": "Necesario antes de prometer reconstrucción reproducible; comparación hash ya falla de forma cerrada si cambia renderer.",
+      "status": "confirmed",
+      "domain": "corpus",
+      "fiscalCertification": false
+    },
+    {
+      "id": "COR-08",
+      "severity": "P2",
+      "title": "Sustitución del helper interrumpe fuentes oficiales ya usadas",
+      "locations": [
+        "tools/procedencia/descargar.py:17",
+        "tools/procedencia/descargar.py:88"
+      ],
+      "reproduction": "extra.py: auditor_hosts_not_default; comprobar check_url para www3.agenciatributaria.gob.es y bocyl.jcyl.es.",
+      "observed": "La interfaz posicional se mantiene, pero ambos hosts oficiales usados en índices del padre quedan rechazados antes de leer caché. También BORM y Hacienda.",
+      "requestedChange": "Inventariar y revisar hosts oficiales usados por auditores; incluirlos explícitamente o migrar llamadores a política configurada. No autorizar indiscriminadamente hosts no oficiales de arquitectura/expertos.",
+      "gate": "Bloquea reemplazo transparente del helper durante auditorías.",
+      "status": "confirmed",
+      "domain": "corpus",
+      "fiscalCertification": false
+    }
+  ]
+}

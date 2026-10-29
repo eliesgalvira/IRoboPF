@@ -1,0 +1,84 @@
+[
+  {
+    "id": "perdida-con-ganancia",
+    "anio": 2025,
+    "expected": {
+      "sujetaAhorro": 6000,
+      "exenta": 0
+    },
+    "actual": {
+      "gananciaTotal": "6000",
+      "gananciaExenta": "-4000",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    }
+  },
+  {
+    "id": "perdida-sola",
+    "anio": 2025,
+    "expected": {
+      "saldo": -4000,
+      "exenta": 0
+    },
+    "actual": {
+      "gananciaTotal": "-4000",
+      "gananciaExenta": "-4000",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "0"
+    }
+  },
+  {
+    "id": "inmueble2012-vendido2025",
+    "anio": 2025,
+    "expected": {
+      "sujetaAhorro": 5000,
+      "exenta": 5000
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    }
+  },
+  {
+    "id": "vitalicia2014",
+    "anio": 2014,
+    "expected": {
+      "sujetaAhorro": 10000,
+      "exenta": 0
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "10000",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "0"
+    }
+  },
+  {
+    "id": "dos-vitalicias-sin-acumulador",
+    "anio": 2025,
+    "expected": {
+      "exentaMaxima": 120000
+    },
+    "actual": {
+      "gananciaTotal": "200000",
+      "gananciaExenta": "200000",
+      "gananciaSujetaAhorro": "0",
+      "gananciaSujetaGeneral": "0"
+    }
+  },
+  {
+    "id": "fechas-ausentes2014",
+    "anio": 2014,
+    "expected": {
+      "resultado": "no determinable sin antigüedad"
+    },
+    "actual": {
+      "gananciaTotal": "10000",
+      "gananciaExenta": "0",
+      "gananciaSujetaAhorro": "10000",
+      "gananciaSujetaGeneral": "0"
+    }
+  }
+]

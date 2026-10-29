@@ -1,0 +1,149 @@
+{
+  "verdict": "changes-required",
+  "reviewer": "revisor-independiente-inventario",
+  "base": "d4d708f6",
+  "delivery": "/home/elies/.t3/worktrees/IRoboPF/t3-bddec546",
+  "scope": "Revisión técnica; ninguna regla fiscal certificada",
+  "findings": [
+    {
+      "id": "INV-R01",
+      "severity": "P1",
+      "category": "blocker",
+      "title": "El validador acepta datos alterados y omisiones consistentes con su propio manifiesto",
+      "domain": "inventario",
+      "status": "confirmed",
+      "locations": [
+        {
+          "file": "scripts/procedencia/inventario-validar.py",
+          "line": 16
+        }
+      ],
+      "reproduction": "Cambiar value a 987654321 y recalcular hash de página; suprimir un elemento selected y su entrada de índice ajustando hashes y conteos locales. Ambas mutaciones pasan. También pasan línea/columna 999999, syntaxCoverage obsoleto, grafo roto, índice que apunta a missing.json y página sobrante.",
+      "recommendation": "Contrastar contra descubrimiento independiente y extracción canónica: conjunto exacto de fuentes, elementos y páginas, conteos, valores/expresiones, ubicaciones, dimensiones y correspondencia índice-elemento. Validar/hashar grafo y artefactos auxiliares. Sustituir assert por errores explícitos para no desactivar controles con python -O.",
+      "discardedObjection": "El hash detecta corrupción accidental sin actualizar manifiesto, pero no detecta un generador defectuoso que produce números erróneos y hashes coherentes.",
+      "fiscalCertification": false
+    },
+    {
+      "id": "INV-R02",
+      "severity": "P2",
+      "category": "blocker",
+      "title": "Los IDs posicionales pueden reasignar silenciosamente una cita a otro tramo",
+      "domain": "inventario",
+      "status": "confirmed",
+      "locations": [
+        {
+          "file": "scripts/procedencia/inventario-ast.mjs",
+          "line": 163
+        }
+      ],
+      "reproduction": "Extraer const t=[10,20] y después const t=[5,10,20]. El ID de 10 se reutiliza para 5; el de 20 para 10. No hay duplicado dentro de ninguna versión.",
+      "recommendation": "Separar ID fiscal estable de localizador AST versionado. Antes de enlazar páginas/citas, usar claves explícitas o migraciones comparadas entre versiones que rechacen reasignaciones. Serializar segmentos de ruta sin concatenación ambigua.",
+      "discardedObjection": "La documentación reconoce cambios de IDs al insertar arrays, pero no protege frente a reutilización del mismo ID para un elemento diferente. No es una colisión criptográfica.",
+      "fiscalCertification": false
+    },
+    {
+      "id": "INV-R03",
+      "severity": "P2",
+      "category": "blocker",
+      "title": "flatten silencia tipos no soportados y usa un discriminante Decimal falsificable",
+      "domain": "inventario",
+      "status": "confirmed",
+      "locations": [
+        {
+          "file": "scripts/procedencia/inventario.mjs",
+          "line": 42
+        }
+      ],
+      "reproduction": "flatten(42n) devuelve []; un ciclo se omite sin diagnóstico; {constructor:{name:\"Decimal\"},amount:123} produce [object Object] y pierde 123; Symbol.toStringTag Number también oculta el objeto.",
+      "recommendation": "Definir modelo de valores admitidos con comprobaciones primitivas y reconocimiento Decimal de la biblioteca; preservar BigInt como decimal o rechazarlo explícitamente. Detectar y reportar ciclos/tipos no soportados con ruta; conservar expansión por ruta de aliases compartidos.",
+      "discardedObjection": "Los datos actuales examinados con Decimal son correctos. El problema es la garantía del extractor ante formas admitidas por JS, no una discrepancia fiscal actual. Pasar anti-slop no acredita el modelo.",
+      "fiscalCertification": false
+    },
+    {
+      "id": "INV-R04",
+      "severity": "P2",
+      "category": "blocker",
+      "title": "Rounding y Condition no representan con precisión los nodos descubiertos",
+      "domain": "inventario",
+      "status": "confirmed",
+      "locations": [
+        {
+          "file": "scripts/procedencia/inventario-ast.mjs",
+          "line": 77
+        }
+      ],
+      "reproduction": "Math.floor(1.2) y Math.ceil(1.2) quedan Formula; surround(2) queda Rounding. x==2 queda Formula. En fuentes reales Math.floor aparece, por ejemplo, en lib/export/auditoria-excel.ts:145 y lib/auditoria-graficos.ts:17.",
+      "recommendation": "Reconocer operaciones por forma/callee resuelto y conjunto explícito, dejando unknown/pending cuando no pueda saberse. Cubrir operadores de comparación y NewExpression; declarar inventario sintáctico conservador separado de clasificación semántica.",
+      "discardedObjection": "Los textos de estas llamadas no desaparecen: el defecto es que consultas por clase ocultan redondeos reales y añaden falsos positivos. No se demuestra una cuantía fiscal incorrecta.",
+      "fiscalCertification": false
+    },
+    {
+      "id": "INV-R05",
+      "severity": "P2",
+      "category": "improvement",
+      "title": "La enumeración de exports no resuelve la API exportada completa",
+      "domain": "inventario",
+      "status": "bounded",
+      "locations": [
+        {
+          "file": "scripts/procedencia/inventario.mjs",
+          "line": 151
+        }
+      ],
+      "reproduction": "const local={x:42}; export {local as PUBLIC}; deja binding.exported=false y no se evalúa PUBLIC. Export star tampoco crea binding; hay barrels reales en deducciones-autonomicas-2025.ts y su index.ts.",
+      "recommendation": "Enumerar exports del módulo con TypeChecker y resolver aliases/reexports; deduplicar definición conservando rutas públicas. Añadir prueba de export nombrado, default, destructuring y reexport.",
+      "discardedObjection": "Los barrels actuales apuntan a archivos también recorridos: no he demostrado pérdida numérica actual por esos barrels. Es límite de exhaustividad y regresión potencial, no pérdida acreditada del catálogo actual.",
+      "fiscalCertification": false
+    },
+    {
+      "id": "INV-R06",
+      "severity": "P2",
+      "category": "semantic-followup",
+      "title": "Las dimensiones y unidades son heurísticas sin evidencia estructural suficiente",
+      "domain": "inventario",
+      "status": "bounded",
+      "locations": [
+        {
+          "file": "scripts/procedencia/inventario.mjs",
+          "line": 65
+        }
+      ],
+      "reproduction": "dimensions(\"MINIMOS_ESTATALES_2025\",[\"numeroPersonas\"]) devuelve EUR; una clave 2024 prevalece sobre el nombre 2025 y madrid se interpreta territorial esté donde esté.",
+      "recommendation": "Asignar dimensiones mediante adaptadores de estructuras conocidas con rutas tipadas y evidencia; marcar inferencias y confianza. Mantener pendiente ante ambigüedad.",
+      "discardedObjection": "No encontré una unidad falsa en las hojas efectivas reales muestreadas; estas fixtures muestran el límite. El manifiesto ya advierte que año de nombre no acredita vigencia.",
+      "fiscalCertification": false
+    },
+    {
+      "id": "INV-R07",
+      "severity": "P2",
+      "category": "improvement",
+      "title": "El almacenamiento duplica información y la paginación ordinal genera cambios masivos",
+      "domain": "inventario",
+      "status": "bounded",
+      "locations": [
+        {
+          "file": "scripts/procedencia/inventario.mjs",
+          "line": 368
+        }
+      ],
+      "reproduction": "67.743.304 bytes de elementos más 22.323.084 bytes de índice con símbolos/rutas repetidos. Insertar un ID ordenado desplaza los grupos de 200 y sus hashes; el generador no elimina páginas antiguas al reducirse el conjunto.",
+      "recommendation": "Normalizar fuentes y expresiones por referencia; índice mínimo id→fragmento; fragmentos por prefijo estable o hash. Preferir generación reproducible fuera de Git con manifiesto fijado y artefactos por contenido.",
+      "discardedObjection": "No hay archivo individual superior a 100 MB ni carga de cliente demostrada. El coste afecta revisión, regeneración y transporte del conjunto; compresión HTTP sola no corrige duplicación ni churn de Git.",
+      "fiscalCertification": false
+    }
+  ],
+  "verification": {
+    "deliveryHashes": 350,
+    "sourceHashesAgainstBase": 98,
+    "originalTestsPassed": 8,
+    "runtimeLeavesMatched": 411,
+    "runtimeScenarios": 9,
+    "mutationsLog": "evidencia/mutations.log"
+  },
+  "limits": [
+    "Sin regeneración de 94 MB ni suite legacy/build",
+    "Sin comprobar todas las ramas fiscales ni todos los valores efectivos contra runtime",
+    "Hash del padre posterior a lint requiere regeneración; no es defecto de la entrega original",
+    "No se ejecutó lint/typecheck independiente; lectura de config y pruebas focalizadas, no garantía estática de mjs"
+  ]
+}

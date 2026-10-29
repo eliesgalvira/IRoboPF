@@ -1,0 +1,3 @@
+import {extractTs} from '/home/elies/.t3/worktrees/IRoboPF/t3-bddec546/scripts/procedencia/inventario-ast.mjs';
+import {dimensions} from '/home/elies/.t3/worktrees/IRoboPF/t3-bddec546/scripts/procedencia/inventario.mjs';
+console.log(JSON.stringify({alias:extractTs('fixture.ts','const local={x:42}; export {local as PUBLIC};').bindings,collision:extractTs('fixture.ts','const t={"a/b":1,a:{b:2}};').items.map(i=>i.id),falseUnit:dimensions('MINIMOS_ESTATALES_2025',['numeroPersonas']),rounding:extractTs('fixture.ts','const x=Math.ceil(1.2);const y=surround(2);const z=new Decimal(3).div(100)').items.map(({kind,expression})=>({kind,expression}))},null,2));

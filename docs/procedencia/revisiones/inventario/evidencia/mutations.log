@@ -1,0 +1,17 @@
+baseline ACCEPTED 14.74
+value_with_updated_page_hash ACCEPTED 14.2
+value_without_updated_hash REJECTED AssertionError: inventario-pagina-0000.json 0.01
+stale_item_source_hash REJECTED AssertionError: lib/dominio/normativa/datos/minimos-autonomicos-2017.ts 0.01
+unauthorized_evidence REJECTED ValidationError: 'pending' was expected
+
+Failed validating 'const' in schema['properties']['evidence']:
+    {'const': 'pending'}
+
+On inst 0.01
+impossible_location ACCEPTED 12.89
+stale_coverage_and_wrong_count ACCEPTED 13.56
+broken_graph ACCEPTED 12.91
+index_points_to_missing_page ACCEPTED 12.66
+unlisted_page ACCEPTED 12.95
+omitted_selected_record ACCEPTED 13.16
+referenced_page_removed REJECTED FileNotFoundError: [Errno 2] No such file or directory: '/home/elies/Repos/IRoboPF/.cache/procedencia/revision-inventario/fixture/docs/proc 0.08
