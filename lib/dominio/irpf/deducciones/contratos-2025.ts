@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { DateTime, Option } from "effect"
 import type { AmbitoDeducciones } from "./ambito"
 
 export type ContextoDeduccion = AmbitoDeducciones & {
@@ -385,6 +386,14 @@ export type PersonaCeliacaRioja = {
     readonly ejercicioMedico: "activo" | "desconocido"
   } | null
 }
+
+function esFechaCivil(fecha: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) return false
+  const parsed = DateTime.make(`${fecha}T00:00:00Z`)
+  return (
+    Option.isSome(parsed) && DateTime.formatIsoDateUtc(parsed.value) === fecha
+  )
+}
 /** Ley 9/2025 art. 1.4 y DF única.2: efectos expresos desde 1/1/2025. */
 export function evaluarCeliaquiaRioja(
   contexto: ContextoDeduccion,
@@ -426,9 +435,8 @@ export function evaluarCeliaquiaRioja(
         "Falta certificado con diagnóstico definitivo e identificación del médico activo"
       )
     if (
-      !/^\d{4}-\d{2}-\d{2}$/.test(certificado.fechaDiagnostico) ||
-      !Number.isFinite(Date.parse(certificado.fechaDiagnostico)) ||
-      !Number.isFinite(Date.parse(certificado.fechaEmision))
+      !esFechaCivil(certificado.fechaDiagnostico) ||
+      !esFechaCivil(certificado.fechaEmision)
     )
       return noSoportado("Fechas del certificado inválidas")
     if (certificado.fechaDiagnostico > "2025-12-31") continue

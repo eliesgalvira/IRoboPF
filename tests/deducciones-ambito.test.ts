@@ -4,6 +4,23 @@ import {
   calcularDeduccionesConsignadas,
 } from "../lib/dominio/irpf/deducciones-autonomicas-aplicadas"
 
+it("CV2-01 rechaza aliases de códigos en consignaciones", () => {
+  const codigo = "andalucia_nacimiento_adopcion_acogimiento_menores"
+  const entradas = { [`${codigo}:importe`]: 100, [`${codigo}:cumple`]: true }
+  const ambito = { ejercicio: 2025, territorio: "andalucia" }
+  expect(calcularDeduccionesConsignadas(entradas, ambito)).toBe(100)
+  expect(() =>
+    calcularDeduccionesConsignadas(
+      {
+        ...entradas,
+        [`${codigo}:extra:importe`]: 100,
+        [`${codigo}:extra:cumple`]: true,
+      },
+      ambito
+    )
+  ).toThrow("Clave")
+})
+
 it("DED-I-02 solo traslada consignaciones explícitas al anual", () => {
   const entradas = {
     andaluciaHijosNacimientoAdopcion: 2,

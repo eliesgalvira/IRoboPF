@@ -1,0 +1,7 @@
+import Decimal from 'decimal.js';
+import {Option} from 'effect';
+import {calcularConciliacionSimuladorLegacy} from '../../lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts';
+for(const anio of [2014,2018])for(const cuota of [1000,2000]){
+ const c=Option.getOrThrow(calcularConciliacionSimuladorLegacy({anio,modoCuotaOrigen:'canonico',rendimientoIntegroTrabajoCentimos:6000000,cuotaLiquida:new Decimal(cuota),cuotaLiquidaCentimos:cuota*100,cuotaDiferencialCentimos:cuota*100}));
+ console.log(JSON.stringify({anio,cuota,naturaleza:c.naturaleza,irpfFinal:c.irpfFinalSimulador.toString(),formulaDescritaPanel:Decimal.min(c.cuotaTrasDeduccionSmi,c.limiteRetencionNominaCentimos/100).toString()}));
+}

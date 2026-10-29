@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "estatal-inv-14575c9d7127da2e18166eef1922c337",
+  "authorTaskId": "research-estatales-t3-78d7c69b",
+  "inventory": {
+    "manifestSha256": "6872a5fb9315a4e970c5da7fb3d8ad58f2ebf74b3d84fe07101b90cb8c58564d",
+    "artifactSha256": "29fb5e311f33982395227b15f2e08705e2943bf5ea21409702f48dd8ba4e613c"
+  },
+  "itemId": "inv-14575c9d7127da2e18166eef1922c337",
+  "source": {
+    "file": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+    "sha256": "32a8e8c97a1d3773b65ab22804320d32eb3f81b735cb9cbedf6c69ca9bc4ee07",
+    "symbol": "MINIMOS_ESTATALES_2023",
+    "tablePath": [
+      "discapacidad",
+      "ascendiente",
+      "grado33Hasta65"
+    ]
+  },
+  "scope": {
+    "year": 2023,
+    "territory": "estatal-comun",
+    "unit": "EUR",
+    "claim": "Correspondencia nominal MINIMOS_ESTATALES_2023 ['discapacidad', 'ascendiente', 'grado33Hasta65']: 3000 EUR.",
+    "conditions": [
+      "Solo cuantía nominal del concepto; no acredita elegibilidad, convivencia, reparto ni fecha de devengo.",
+      "MIN-013 acepta texto de reforma; alias anuales requieren revisión independiente."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/estatales/citas/min-2015-2025-discapacidad-familiar-grado33Hasta65.json",
+    "sha256": "9ffbe9d350f18e6a8084a067cd69dc0a5e37295d07f3339ef9e7042270a35989"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/estatales/documentos/2014-12327.json",
+    "sha256": "a1aa2263b195cafeb758fd48037c0f8c044742752e08cbb8637ca68aa154d3a5"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/minimos/revisiones.json",
+      "sha256": "62251e763ca7e2f60a1a916ea614753211cb8f4f2fe0262bfd44d11a20d84a8f"
+    },
+    "decisionId": "MIN-013"
+  }
+}

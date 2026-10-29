@@ -1,0 +1,10 @@
+import { readArtifact } from "../../scripts/procedencia/inventario-artefacto.mjs"
+import { writeFileSync } from "node:fs"
+
+const items = [...readArtifact().files]
+  .filter(([name]) => name.startsWith("inventario-pagina-"))
+  .flatMap(([, content]) => JSON.parse(content))
+writeFileSync(
+  ".cache/estatales/all-effective.json",
+  JSON.stringify(items.filter((item) => item.layer === "effective"))
+)

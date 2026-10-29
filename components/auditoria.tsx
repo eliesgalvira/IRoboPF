@@ -97,7 +97,7 @@ import {
   type PuntoAuditoriaRangoSalarial,
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
 import { calcularSalarioLegacy } from "@/lib/dominio/compatibilidad-legacy/calculo-salario-legacy"
-import { IPC_ANUAL_DICIEMBRE } from "@/lib/dominio/normativa/datos/ipc-2012-2026"
+import { factorIpcPerfilLegacy } from "@/lib/dominio/inflacion/factor-ipc"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "@/lib/dominio/normativa/datos/irpf-obligacion-declarar"
 import {
   exportarAuditoriaCompatibleExcelConProgreso,
@@ -1857,7 +1857,7 @@ const obtenerPuntosAuditoriaParaAnio = (
   perfil: PerfilAuditado,
   anio: AnioFiscal,
   anioReferenciaSeries: AnioFiscal
-): Effect.Effect<ReadonlyArray<PuntoAuditoriaRangoSalarial>> =>
+) =>
   construirPuntosAuditoriaAnioAjustado({
     salarioBrutoAnualMinimoCentimos: auditoria.salarioBrutoAnualMinimoCentimos,
     salarioBrutoAnualMaximoCentimos: auditoria.salarioBrutoAnualMaximoCentimos,
@@ -3291,28 +3291,10 @@ const construirCalculoSaltoDeclaracion = Effect.fn(
 const formatoEurosEnteros = (euros: number): string =>
   formatearCentimosEnteros(eurosACentimos(euros))
 
-const ipcAnualConocido = (anio: number): Decimal =>
-  IPC_ANUAL_DICIEMBRE[anio] ?? new Decimal(0)
-
 const factorIpcEntreAnios = (
   anioBase: AnioFiscal,
   anioReferencia: AnioFiscal
-) => {
-  if (anioBase === anioReferencia) return new Decimal(1)
-
-  const inicio = Math.min(anioBase, anioReferencia) + 1
-  const fin = Math.max(anioBase, anioReferencia)
-  const factor = Array.from(
-    { length: fin - inicio + 1 },
-    (_, indice) => inicio + indice
-  ).reduce(
-    (acumulado, anio) =>
-      acumulado.mul(new Decimal(1).plus(ipcAnualConocido(anio))),
-    new Decimal(1)
-  )
-
-  return anioBase < anioReferencia ? factor : new Decimal(1).div(factor)
-}
+) => factorIpcPerfilLegacy(anioBase, anioReferencia).factor
 
 const ajustarCentimosAAnioReferencia = ({
   centimosNominales,

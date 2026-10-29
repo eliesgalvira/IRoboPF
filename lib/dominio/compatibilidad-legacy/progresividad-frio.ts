@@ -27,7 +27,10 @@ import {
   type TramoIrpf,
   type TramosIrpf,
 } from "../normativa/datos/irpf-estatal-2012-2026"
-import { IPC_ANUAL_DICIEMBRE } from "../normativa/datos/ipc-2012-2026"
+import {
+  factorIpcPerfilLegacy,
+  type ProcedenciaIpc,
+} from "../inflacion/factor-ipc"
 import { obtenerEspecificacionCompatibilidadHistorica } from "../normativa/datos/compatibilidad-historica"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR } from "../normativa/datos/irpf-obligacion-declarar"
 
@@ -85,6 +88,7 @@ export const anotarIrpfConObligacionDeclarar = <T extends DesgloseLiquidado>(
 export interface ComparacionAjustadaPorIpc {
   readonly anioReferencia: AnioFiscal
   readonly anioComparado: AnioFiscal
+  readonly procedenciaIpc: ProcedenciaIpc
   readonly factorIpc: string
   readonly referencia: DesgloseLiquidado
   readonly comparado: {
@@ -276,27 +280,8 @@ const max = (a: Decimal, b: Decimal) =>
     Match.orElse(() => b)
   )
 
-const ipcAnualConocido = (anio: number) =>
-  Match.value(IPC_ANUAL_DICIEMBRE[anio]).pipe(
-    Match.when(Match.undefined, () => CERO),
-    Match.orElse((tipo) => tipo)
-  )
-
-const rangoNumerico = (inicio: number, fin: number): ReadonlyArray<number> =>
-  Match.value(inicio > fin).pipe(
-    Match.when(true, () => []),
-    Match.orElse(() =>
-      EffectArray.makeBy(fin - inicio + 1, (index) => inicio + index)
-    )
-  )
-
-const factorIpc = (anioBase: AnioFiscal, anioReferencia: AnioFiscal) => {
-  const anios = rangoNumerico(anioBase + 1, anioReferencia)
-  return anios.reduce(
-    (factor, anio) => factor.mul(UNO.plus(ipcAnualConocido(anio))),
-    UNO
-  )
-}
+const factorIpc = (anioBase: AnioFiscal, anioReferencia: AnioFiscal) =>
+  factorIpcPerfilLegacy(anioBase, anioReferencia).factor
 
 const reduccionTrabajoHasta2014 = (rendimientoPrevioNeto: Decimal) =>
   Match.value(rendimientoPrevioNeto).pipe(
@@ -649,6 +634,10 @@ const construirComparacionAjustadaPorIpc = (
   return {
     anioReferencia: entrada.anioReferencia,
     anioComparado: entrada.anioComparado,
+    procedenciaIpc: factorIpcPerfilLegacy(
+      entrada.anioComparado,
+      entrada.anioReferencia
+    ).procedencia,
     factorIpc: factor.toFixed(12),
     referencia: liquidar(referenciaSinLiquidar),
     comparado: {
@@ -697,6 +686,10 @@ const construirComparacionPasadaAjustadaPorIpc = (
   return {
     anioReferencia: entrada.anioReferencia,
     anioComparado: entrada.anioComparado,
+    procedenciaIpc: factorIpcPerfilLegacy(
+      entrada.anioComparado,
+      entrada.anioReferencia
+    ).procedencia,
     factorIpc: factor.toFixed(12),
     referencia: liquidar(referenciaSinLiquidar),
     comparado: {

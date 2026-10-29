@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "estatal-inv-a828b80aa6b5bb3e64cea5e76e7d530c",
+  "authorTaskId": "research-estatales-t3-78d7c69b",
+  "inventory": {
+    "manifestSha256": "6872a5fb9315a4e970c5da7fb3d8ad58f2ebf74b3d84fe07101b90cb8c58564d",
+    "artifactSha256": "29fb5e311f33982395227b15f2e08705e2943bf5ea21409702f48dd8ba4e613c"
+  },
+  "itemId": "inv-a828b80aa6b5bb3e64cea5e76e7d530c",
+  "source": {
+    "file": "lib/dominio/normativa/datos/minimos-autonomicos-2019.ts",
+    "sha256": "f2406060317d5b131cdae7d5eccd062d01e2e332b53a0f139efcc206e838316d",
+    "symbol": "MINIMOS_ESTATALES_2019",
+    "tablePath": [
+      "discapacidad",
+      "ascendiente",
+      "gastosAsistencia"
+    ]
+  },
+  "scope": {
+    "year": 2019,
+    "territory": "estatal-comun",
+    "unit": "EUR",
+    "claim": "Correspondencia nominal MINIMOS_ESTATALES_2019 ['discapacidad', 'ascendiente', 'gastosAsistencia']: 3000 EUR.",
+    "conditions": [
+      "Solo cuantía nominal del concepto; no acredita elegibilidad, convivencia, reparto ni fecha de devengo.",
+      "MIN-013 acepta texto de reforma; alias anuales requieren revisión independiente."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/estatales/citas/min-2015-2025-discapacidad-familiar-gastosAsistencia.json",
+    "sha256": "5c703247de7649a27af2573abdb60c842f3dbc491aa3c63dab33ef8a741e414f"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/estatales/documentos/2014-12327.json",
+    "sha256": "a1aa2263b195cafeb758fd48037c0f8c044742752e08cbb8637ca68aa154d3a5"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/minimos/revisiones.json",
+      "sha256": "62251e763ca7e2f60a1a916ea614753211cb8f4f2fe0262bfd44d11a20d84a8f"
+    },
+    "decisionId": "MIN-013"
+  }
+}

@@ -1,0 +1,20 @@
+tests/liquidacion-irpf-anual.test.ts:120:      conciliacionSimuladorLegacy: {
+tests/liquidacion-irpf-anual.test.ts:132:          irpfFinalSimuladorCentimos: 91_332,
+components/liquidacion-irpf.tsx:2749:              {Option.match(resultado.conciliacionSimuladorLegacy, {
+components/liquidacion-irpf.tsx:2931:        valor={formatearEuros(conciliacion.irpfFinalSimuladorCentimos)}
+lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:106:    () => Option.getOrThrow(liquidacion.conciliacionSimuladorLegacy)
+lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:128:          .minus(conciliacion.irpfFinalSimulador)
+lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:140:        irpfFinalCentimos: conciliacion.irpfFinalSimuladorCentimos,
+lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:141:        irpfFinalPrecisoEuros: conciliacion.irpfFinalSimulador.toString(),
+lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts:148:            ? conciliacion.irpfFinalSimuladorCentimos
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:20:  readonly oraculoLegacyIndependiente: false
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:31:  readonly irpfFinalSimulador: Decimal
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:32:  readonly irpfFinalSimuladorCentimos: number
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:142:      const irpfFinalSimulador =
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:150:      const irpfFinalSimuladorCentimos = eurosACentimos(irpfFinalSimulador)
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:158:        oraculoLegacyIndependiente: false,
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:172:        irpfFinalSimulador,
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:173:        irpfFinalSimuladorCentimos,
+lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy.ts:175:          cuotaDiferencialCentimos - irpfFinalSimuladorCentimos,
+lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:128:  readonly conciliacionSimuladorLegacy: Option.Option<ConciliacionSimuladorLegacy>
+lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:720:    conciliacionSimuladorLegacy: calcularConciliacionSimuladorLegacy({

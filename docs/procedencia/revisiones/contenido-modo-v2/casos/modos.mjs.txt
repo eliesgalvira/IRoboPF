@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import Decimal from 'decimal.js';
+import {Effect,Option} from 'effect';
+import {calcularSalarioLegacy} from '../../lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts';
+import {calcularSalarioNetoEIrpf} from '../../lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy.ts';
+import {liquidarIrpfAnual} from '../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts';
+import {sinDiscapacidad} from '../../lib/dominio/irpf/caso-fiscal-anual.ts';
+import {calcularDesgloseCotizacionesPerfilUniforme} from '../../lib/dominio/laboral/cotizaciones-perfil-uniforme.ts';
+import {calcularCotizacionesSocialesLegacy} from '../../lib/dominio/laboral/cotizaciones-sociales.ts';
+for(const anio of [2018,2025,2026])for(const bruto of [45000,60000,400000]){
+ const entrada={anio,salarioBrutoAnualCentimos:bruto*100};
+ const defecto=Effect.runSync(calcularSalarioLegacy(entrada));
+ for(const modo of ['canonico','compatible-legacy']){
+ const adapter=Effect.runSync(calcularSalarioLegacy({...entrada,modo}));
+ const perfil=Effect.runSync(calcularSalarioNetoEIrpf({...entrada,perfil:'legacy-progresividad-frio'},{modo}));
+ assert.deepEqual(perfil.desglose,adapter);assert.equal(perfil.modo,modo);
+ if(modo==='compatible-legacy')assert.deepEqual(defecto,adapter);
+ const anual=Effect.runSync(liquidarIrpfAnual({anio,comunidadAutonoma:'simulada-estatal',situacionFamiliar:{tipo:'individual',edad:40,discapacidad:sinDiscapacidad,descendientes:[],ascendientes:[]},rendimientos:{trabajo:[{importeIntegroCentimos:bruto*100}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0},{modo}));
+ const c=Option.getOrThrow(anual.conciliacionSimuladorLegacy);
+ assert.equal(c.modoCuotaOrigen,modo);assert.equal(c.oraculoLegacyIndependiente,false);assert.equal(c.naturaleza,'ajuste-salarial-de-cuota-suministrada');
+ assert.equal(adapter.cotizacionTrabajadorCentimos,anual.cotizacionTrabajadorCentimos);assert.equal(adapter.irpfFinalPrecisoEuros,c.irpfFinalSimulador.toString());
+ const ss=(modo==='canonico'?calcularDesgloseCotizacionesPerfilUniforme:calcularCotizacionesSocialesLegacy)({anio,salarioBrutoAnual:new Decimal(bruto)}).cotizacionTrabajador;
+ assert.equal(adapter.salarioNetoAnualCentimos,new Decimal(bruto).minus(ss).minus(c.irpfFinalSimulador).mul(100).toDecimalPlaces(0).toNumber());
+ if(anio===2018&&bruto===60000){assert.equal(adapter.cotizacionTrabajadorCentimos,modo==='canonico'?287508:285841);if(modo==='canonico'){assert.equal(adapter.irpfFinalPrecisoEuros,'15043.2192345');assert.equal(adapter.salarioNetoAnualCentimos,4208170)}}
+ console.log(JSON.stringify({anio,bruto,modo,ssPrecisa:ss.toString(),...adapter,naturaleza:c.naturaleza,oraculoLegacyIndependiente:c.oraculoLegacyIndependiente}));
+ }
+}

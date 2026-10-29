@@ -1,0 +1,80 @@
+{
+  "base": "ed6a43fd750de05609abc3710dabdc2f8261020c",
+  "veredicto": "requiere-cambios",
+  "hallazgos": [
+    {
+      "id": "RTI-01",
+      "priority": "P1",
+      "title": "El anual descuenta retención de otro ejercicio",
+      "status": "mismatch",
+      "engineLocations": [
+        {
+          "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "line": 645
+        }
+      ],
+      "observed": "Anual 2025 con subcaso 2020: Success, pagos 171900 céntimos, diferencial -68361",
+      "expected": "ResultadoNoSoportado por ejercicio incoherente",
+      "reproduction": "casos/probar.mjs.txt",
+      "results": "logs/casos.json",
+      "decision": "requiere-cambios",
+      "coste": "Validar coherencia sin confundir estimación con retenciones soportadas",
+      "aceptacionFiscal": false,
+      "preexistente": false
+    },
+    {
+      "id": "RTI-02",
+      "priority": "P2",
+      "title": "Perfil canónico sin vía para seleccionar versión",
+      "status": "mismatch",
+      "engineLocations": [
+        {
+          "path": "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+          "line": 188
+        }
+      ],
+      "observed": "Canónico 2025 sin perfil Success; con soltero_sin_hijos Die por falta de fecha/cierre",
+      "expected": "Contrato capaz de expresar selección o rechazo tipado explícito del ámbito",
+      "reproduction": "casos/probar.mjs.txt",
+      "results": "logs/casos.json",
+      "decision": "requiere-cambios",
+      "coste": "Adaptar consumidores; no introducir cierre silencioso",
+      "aceptacionFiscal": false,
+      "preexistente": false
+    },
+    {
+      "id": "RTI-03",
+      "priority": "P2",
+      "title": "Edad imposible produce mínimo y retención utilizables",
+      "status": "mismatch",
+      "engineLocations": [
+        {
+          "path": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "line": 176
+        }
+      ],
+      "observed": "Edad -1: Success, mínimo 1075000 e importe 90000 céntimos; NaN omitido silenciosamente",
+      "expected": "Rechazo tipado de edades inválidas antes de contar",
+      "reproduction": "casos/probar.mjs.txt",
+      "results": "logs/casos.json",
+      "decision": "requiere-cambios",
+      "coste": "Restringir entradas runtime; no equivale a validar derecho familiar",
+      "aceptacionFiscal": false,
+      "preexistente": true
+    }
+  ],
+  "validacion": {
+    "testsExistentes": 139,
+    "controlesPropios": 45,
+    "lint": "exit 0",
+    "typecheck": "exit 0",
+    "regularizacionAmbosModos": "rechazo tipado confirmado"
+  },
+  "limites": [
+    "Sin validación de autenticidad criptográfica",
+    "Sin aceptación fiscal completa",
+    "No se migra atestación",
+    "Sin reconstrucción de inventario",
+    "Sin prueba TGSS ni oracle Excel completo"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "baseIndicada": "ed6a43fd750de05609abc3710dabdc2f8261020c",
+  "veredicto": "aprobable-acotadamente-con-residuo-documental-P3",
+  "aceptacionFiscal": "pendiente",
+  "atestacionMadridEmitida": false,
+  "decisiones": [
+    {
+      "id": "CI-01",
+      "estado": "correccion-tecnica-verificada"
+    },
+    {
+      "id": "CI-02",
+      "estado": "correccion-tecnica-verificada"
+    },
+    {
+      "id": "CI-03",
+      "estado": "correccion-tecnica-verificada"
+    },
+    {
+      "id": "RV3-01",
+      "estado": "correccion-tecnica-verificada"
+    },
+    {
+      "id": "EMI-01",
+      "estado": "correccion-tecnica-verificada"
+    },
+    {
+      "id": "EMI-02",
+      "estado": "independencia-corregida-con-residuo-CMV2-01"
+    }
+  ],
+  "hallazgos": [
+    {
+      "id": "CMV2-01",
+      "prioridad": "P3",
+      "titulo": "El panel describe como ajuste de cuota la reconstrucción hasta 2014",
+      "archivo": "components/liquidacion-irpf.tsx",
+      "lineas": [
+        2870,
+        2873,
+        2927
+      ],
+      "motivo": "La naturaleza declarada en el resultado no gobierna la explicación visible; la fórmula anunciada no es la ejecutada hasta 2014.",
+      "reproduccion": "casos/conciliacion.mjs.txt",
+      "evidencia": "logs/conciliacion.log",
+      "observado": {
+        "anio": 2014,
+        "cuotasSuministradasEuros": [
+          1000,
+          2000
+        ],
+        "irpfFinalEuros": [
+          "16421.65042",
+          "16421.65042"
+        ],
+        "formulaPanelEuros": [
+          "1000",
+          "2000"
+        ]
+      },
+      "objecionExperta": "Negar independencia del oracle no subsana describir una derivación distinta de la ejecutada.",
+      "coste": "Seleccionar explicación y ayuda por naturaleza y probar las dos ramas sin tocar motor ni oracle.",
+      "alcance": "Presentación del procedimiento, no discrepancia fiscal nueva."
+    }
+  ]
+}

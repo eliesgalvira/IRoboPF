@@ -58,6 +58,20 @@ it("DED-I-01 una exclusión individual no cancela un cálculo parcial colectivo"
       ejercicioMedico: "activo" as const,
     },
   }
+  for (const fecha of [
+    "2025-02-29",
+    "2025-02-30",
+    "2025-04-31",
+    "2025-13-01",
+    "2025-01-01T00:00:00Z",
+  ]) {
+    for (const campo of ["fechaEmision", "fechaDiagnostico"] as const)
+      expect(
+        evaluarCeliaquiaRioja(ctx, [
+          { ...p, certificado: { ...p.certificado, [campo]: fecha } },
+        ])
+      ).toMatchObject({ estado: "no_soportado" })
+  }
   for (const otro of [
     { ...p, id: "otro", titularesDelMinimo: [] },
     {

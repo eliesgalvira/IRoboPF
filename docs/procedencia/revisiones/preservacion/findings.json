@@ -1,0 +1,66 @@
+{
+  "base": "ed6a43fd750de05609abc3710dabdc2f8261020c",
+  "verdict": "requiere-cambios",
+  "fiscalAcceptance": "ninguna",
+  "findings": [
+    {
+      "id": "PRE-01",
+      "priority": "P2",
+      "title": "Manifiesto ambiguo y campos privados se republican sin validación",
+      "location": "tools/procedencia/preservacion.py:161-169,190-213",
+      "evidence": [
+        "unknown_private_fields",
+        "duplicate_acceptance_key",
+        "version_bool_bytes_float",
+        "blob_authenticity_and_acquisition_unchecked"
+      ],
+      "reason": "json.loads resuelve claves repetidas por última aparición. validate solo comprueba versión/aceptación superior, digests, tamaño y suma; transfer publica bytes originales completos. Se conserva Cookie sintética, una aceptación contradictoria y autenticidad certificada arbitraria dentro del blob.",
+      "recommendation": "Parser que rechace duplicados y constantes no JSON, esquema cerrado con tipos exactos y validación de metadatos publicables antes de crear destino.",
+      "expertObjection": "Verificar un hash no hace publicables ni inequívocos los metadatos que lo acompañan.",
+      "cost": "Versionar esquema y migrar/rechazar entradas antes toleradas; no sanear silenciosamente el manifiesto confiado."
+    },
+    {
+      "id": "PRE-02",
+      "priority": "P2",
+      "title": "La allowlist de nombres de query no acredita privacidad de URL",
+      "location": "tools/procedencia/preservacion.py:58-72",
+      "evidence": [
+        "url_0",
+        "url_1",
+        "url_2",
+        "plan_cache_symlink"
+      ],
+      "reason": "Se conservan valores arbitrarios de id y txt, y rutas arbitrarias bajo host permitido. Un marcador sintético de caso privado llega al evento del plan. Un puerto malformado además lanza ValueError en vez de registrar exclusión.",
+      "recommendation": "Políticas por host/ruta/parámetro con formatos de valores documentales y rechazo conservador de endpoints no clasificados. Capturar errores de parseo como exclusión.",
+      "expertObjection": "Un host público y el nombre id no prueban que el valor sea un identificador documental público.",
+      "cost": "Más exclusiones y clasificación manual de endpoints; mantener originales restringidos hasta resolver privacidad, sin modificar sus bytes."
+    },
+    {
+      "id": "PRE-03",
+      "priority": "P2",
+      "title": "El plan atraviesa un ancestro symlink y el destino tampoco lo rechaza",
+      "location": "tools/procedencia/preservacion.py:92-112,190-198",
+      "evidence": [
+        "plan_cache_symlink",
+        "destination_symlink_ancestor"
+      ],
+      "reason": "Una .cache/procedencia enlazada a directorio externo aporta un blob seleccionado. La comprobación p.is_symlink solo ve hojas. transfer crea un destino nuevo bajo un ancestro enlazado. safe_source sí rechaza ese ancestro al exportar: plan exportable aparente que luego falla.",
+      "recommendation": "Comprobar raíz, caché, docs y ancestros de destinos antes de recorrer/escribir. Conservar política explícita frente a cambios concurrentes; no prometer seguridad hostil con comprobaciones previas.",
+      "expertObjection": "No seguir symlinks del recorrido no equivale a verificar sus puntos de entrada.",
+      "cost": "Rechazar disposiciones locales que usan enlaces; definir raíces autorizadas explícitas si se necesitan."
+    },
+    {
+      "id": "PRE-04",
+      "priority": "P2",
+      "title": "Publicación final no garantiza durabilidad de entradas CAS ante caída",
+      "location": "tools/procedencia/preservacion.py:190-213",
+      "evidence": [
+        "logs/fsync.json"
+      ],
+      "reason": "Se hace fsync de cada archivo y del directorio del manifiesto, pero no de sha256 que contiene las entradas nuevas ni del padre que contiene el destino nuevo. La instrumentación conserva las tres llamadas de un caso mínimo. No se ha simulado pérdida de alimentación.",
+      "recommendation": "Sincronizar directorio CAS tras objetos y permisos, publicar marcador al final y sincronizar los directorios de creación; documentar requisitos del filesystem y tratamiento de errores.",
+      "expertObjection": "Atomicidad del enlace final y fsync del contenido no son una transacción durable del árbol de directorios.",
+      "cost": "IO adicional y pruebas de fallos; aun así no protege de escritura hostil posterior ni acredita una copia remota."
+    }
+  ]
+}
