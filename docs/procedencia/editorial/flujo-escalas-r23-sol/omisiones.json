@@ -1,0 +1,654 @@
+[
+  {
+    "siteId": "anual.base.ahorro",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#baseLiquidableAhorro.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.base.general-imponible",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#baseImponibleGeneral.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.base.general-liquidable",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#baseLiquidableGeneral.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.ahorro-componente-postminimo",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#ahorroConMinimos.estatal|autonomico",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#componente.remanente",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#componente.bruta",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#componente.despuesMinimo",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#componente.minoracion",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#calcularCuotaComponenteAhorro.return",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#calcularCuotaPorEscalaAhorro.return",
+      "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts#calcularDesgloseCuotaPorEscalaAhorro.return"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.ahorro-total",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraAhorro.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.ahorro-tramo",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraAhorro.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.diferencial",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaLiquida.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#pagosACuentaAplicadosCentimos.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.general-autonomica-tramo",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralAutonomica.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.general-estatal-tramo",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralEstatal.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.general-total",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneral.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.liquida",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaLiquida.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.minimo-ahorro-total",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalAhorro.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.minimo-autonomico-tramo",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalAutonomica.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.minimo-estatal-tramo",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalEstatal.value",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuotaFija",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.selection",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].cuota@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].baseAplicada@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteInferior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].limiteSuperior@integrada",
+      "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularDesgloseCuotaPorEscala.[].tipo@integrada"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.cuota.minimo-general-total",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonal.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.deducciones.autonomicas",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#deduccionesAutonomicasAplicadas.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [
+      "No existe descomposición por código de deducción en esta ruta; lista no vacía rechaza."
+    ],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.explicito.big",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Escrituras neto y posterior localizadas por rama; falta descomponer todas las propiedades internas de los submotores trabajo/EDS y DA61, sin inferirlas del bloque compartido.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#neto.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.explicito.blg",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Escrituras neto y posterior localizadas por rama; falta descomponer todas las propiedades internas de los submotores trabajo/EDS y DA61, sin inferirlas del bloque compartido.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#neto.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.explicito.cuota.autonomica",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Escrituras neto y posterior localizadas por rama; falta descomponer todas las propiedades internas de los submotores trabajo/EDS y DA61, sin inferirlas del bloque compartido.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#cuotaAutonomica.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.explicito.cuota.estatal",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Escrituras neto y posterior localizadas por rama; falta descomponer todas las propiedades internas de los submotores trabajo/EDS y DA61, sin inferirlas del bloque compartido.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#cuotaEstatal.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.explicito.cuota.liquida-legal",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Escrituras neto y posterior localizadas por rama; falta descomponer todas las propiedades internas de los submotores trabajo/EDS y DA61, sin inferirlas del bloque compartido.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#liquida.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.explicito.cuota.posterior",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "Escrituras neto y posterior localizadas por rama; falta descomponer todas las propiedades internas de los submotores trabajo/EDS y DA61, sin inferirlas del bloque compartido.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/trabajo-anual/conexion.ts#posterior.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.minimo.ascendientes",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoAscendientes.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.minimo.autonomico",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Los submotores de trabajo/cotizaciones/ganancias/EDS se conservan como fronteras de llamada o bloque; falta descomponer cada literal y propiedad interna como arista propia. No es cierre exhaustivo de esos dominios.",
+        "El selector anual de comunidad queda localizado, pero no están descompuestos todos sus resolutores/importaciones y mínimos condicionados por renta (incluida Catalunya). No autorizar wiring de tabla anual por nombre.",
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoPersonalYFamiliarAutonomico.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.minimo.contribuyente",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoContribuyente.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.minimo.descendientes",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoDescendientes.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.minimo.discapacidad",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoDiscapacidadContribuyente.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoDiscapacidadFamiliares.value",
+      "lib/dominio/irpf/minimos/minimo-discapacidad.ts#obtenerMinimoPorDiscapacidad.return",
+      "lib/dominio/irpf/minimos/minimo-discapacidad.ts#obtenerMinimoDiscapacidadContribuyente.return",
+      "lib/dominio/irpf/minimos/minimo-discapacidad.ts#obtenerMinimoDiscapacidadFamiliares.return",
+      "lib/dominio/irpf/minimos/minimo-discapacidad.ts#obtenerMinimoDiscapacidadAscendientes.return"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  },
+  {
+    "siteId": "anual.minimo.estatal",
+    "before": {
+      "technical": "partial-explicit-omissions",
+      "legalAcceptance": false,
+      "independentReview": "pending",
+      "omissions": [
+        "Funciones terminales conservan cuerpo exacto; sus símbolos internos no se convierten automáticamente en aristas. Otra revisión debe validar y completar ese desglose antes del wiring."
+      ]
+    },
+    "after": "candidate-local-closure-with-declared-boundaries",
+    "resolvedEvidence": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#minimoPersonalYFamiliar.value"
+    ],
+    "dataContinuations": "rutas-datos.json.gz, por propiedad/año/territorio; condiciones especiales en AMPLIACION.md",
+    "notApplicable": [],
+    "exactBoundaryContracts": "fronteras.json: identidad fuente/símbolo, argumentos y salidas por llamada; no se trata un helper interno como externo.",
+    "review": "pending"
+  }
+]

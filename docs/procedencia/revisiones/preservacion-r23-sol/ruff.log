@@ -1,0 +1,167 @@
+E401 [*] Multiple imports on one line
+ --> docs/procedencia/revisiones/preservacion-r23-sol/arbol.py:1:1
+  |
+1 | import gzip, hashlib, json, os, stat, subprocess, sys
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2 | from pathlib import Path
+3 | BASE='07c07e6376a72f229be735a904ecf36517a1b571'
+  |
+help: Split imports
+
+E701 Multiple statements on one line (colon)
+ --> docs/procedencia/revisiones/preservacion-r23-sol/arbol.py:7:17
+  |
+5 | rows: list[dict[str, object]]=[]
+6 | for entry in subprocess.check_output(['git','ls-tree','-rz',BASE]).split(b'\0'):
+7 |     if not entry: continue
+  |                 ^
+8 |     meta, name=entry.split(b'\t'); mode,kind,oid=meta.split(); p=Path(os.fsdecode(name))
+9 |     blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+  |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/arbol.py:8:34
+   |
+ 6 | for entry in subprocess.check_output(['git','ls-tree','-rz',BASE]).split(b'\0'):
+ 7 |     if not entry: continue
+ 8 |     meta, name=entry.split(b'\t'); mode,kind,oid=meta.split(); p=Path(os.fsdecode(name))
+   |                                  ^
+ 9 |     blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+10 |     row: dict[str, object]={'path':str(p),'baseSha256':hashlib.sha256(blob).hexdigest(),'mode':mode.decode()}
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/arbol.py:8:62
+   |
+ 6 | for entry in subprocess.check_output(['git','ls-tree','-rz',BASE]).split(b'\0'):
+ 7 |     if not entry: continue
+ 8 |     meta, name=entry.split(b'\t'); mode,kind,oid=meta.split(); p=Path(os.fsdecode(name))
+   |                                                              ^
+ 9 |     blob=subprocess.check_output(['git','cat-file','blob',oid.decode()])
+10 |     row: dict[str, object]={'path':str(p),'baseSha256':hashlib.sha256(blob).hexdigest(),'mode':mode.decode()}
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/arbol.py:12:20
+   |
+10 |     row: dict[str, object]={'path':str(p),'baseSha256':hashlib.sha256(blob).hexdigest(),'mode':mode.decode()}
+11 |     try:
+12 |         s=p.lstat(); actual=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else p.read_bytes()
+   |                    ^
+13 |         row.update(size=len(actual),sha256=hashlib.sha256(actual).hexdigest(),lstatMode=oct(s.st_mode),readlink=os.readlink(p) if stat…
+14 |         row['equal']=actual==blob and (stat.S_ISLNK(s.st_mode) if mode==b'120000' else stat.S_ISREG(s.st_mode)) and (mode==b'120000' o…
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/arbol.py:15:28
+   |
+13 |         row.update(size=len(actual),sha256=hashlib.sha256(actual).hexdigest(),lstatMode=oct(s.st_mode),readlink=os.readlink(p) if stat…
+14 |         row['equal']=actual==blob and (stat.S_ISLNK(s.st_mode) if mode==b'120000' else stat.S_ISREG(s.st_mode)) and (mode==b'120000' o…
+15 |     except OSError as error: row.update(equal=False,error=type(error).__name__)
+   |                            ^
+16 |     rows.append(row)
+17 | with gzip.open(sys.argv[1],'wt') as f: json.dump(rows,f)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/arbol.py:17:38
+   |
+15 |     except OSError as error: row.update(equal=False,error=type(error).__name__)
+16 |     rows.append(row)
+17 | with gzip.open(sys.argv[1],'wt') as f: json.dump(rows,f)
+   |                                      ^
+18 | print(json.dumps({'head':BASE,'entries':len(rows),'different':[r for r in rows if not r['equal']]}))
+19 | assert len(rows)==14957 and all(r['equal'] for r in rows)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/fronteras.py:30:44
+   |
+28 |                 assert re.search(pattern, valid)
+29 |                 rows.append(dict(version=version, path=list(path), newlineAccepted=re.search(pattern, valid + '\n') is not None))
+30 |             for key, child in value.items(): walk(child, (*path, key))
+   |                                            ^
+31 |         elif isinstance(value, list):
+32 |             for index, child in enumerate(value): walk(child, (*path, index))
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/fronteras.py:32:49
+   |
+30 |             for key, child in value.items(): walk(child, (*path, key))
+31 |         elif isinstance(value, list):
+32 |             for index, child in enumerate(value): walk(child, (*path, index))
+   |                                                 ^
+33 |     walk(schema)
+34 | assert len(rows) == 28
+   |
+
+F401 [*] `unittest.mock.patch` imported but unused
+  --> docs/procedencia/revisiones/preservacion-r23-sol/revisar.py:10:27
+   |
+ 8 | import types
+ 9 | import unittest
+10 | from unittest.mock import patch
+   |                           ^^^^^
+11 |
+12 | ROOT = Path.cwd()
+   |
+help: Remove unused import: `unittest.mock.patch`
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/revisar.py:65:29
+   |
+63 |     def duplicate(m, f=field):
+64 |         obj = m['annex'][0]
+65 |         if f == 'references': obj[f] = ['doc.json']
+   |                             ^
+66 |         item = copy.deepcopy(obj[f][0])
+67 |         if isinstance(item, dict): item = dict(reversed(list(item.items())))
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/revisar.py:67:34
+   |
+65 |         if f == 'references': obj[f] = ['doc.json']
+66 |         item = copy.deepcopy(obj[f][0])
+67 |         if isinstance(item, dict): item = dict(reversed(list(item.items())))
+   |                                  ^
+68 |         obj[f].append(item)
+69 |     record('duplicate-reordered:' + field, duplicate)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/revisar.py:77:34
+   |
+75 |         row = dict(sha256='f' * 64, sources=['a.json', 'b.json'])
+76 |         other = copy.deepcopy(row)
+77 |         if k == 'reverse-sources': other['sources'].reverse()
+   |                                  ^
+78 |         if k == 'same-hash-different-sources': other['sources'] = ['c.json']
+79 |         if k == 'duplicate-source': row['sources'].append('a.json')
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/revisar.py:78:46
+   |
+76 |         other = copy.deepcopy(row)
+77 |         if k == 'reverse-sources': other['sources'].reverse()
+78 |         if k == 'same-hash-different-sources': other['sources'] = ['c.json']
+   |                                              ^
+79 |         if k == 'duplicate-source': row['sources'].append('a.json')
+80 |         m['unresolvedReferences'] = [row] if k == 'duplicate-source' else [row, other]
+   |
+
+E701 Multiple statements on one line (colon)
+  --> docs/procedencia/revisiones/preservacion-r23-sol/revisar.py:79:35
+   |
+77 |         if k == 'reverse-sources': other['sources'].reverse()
+78 |         if k == 'same-hash-different-sources': other['sources'] = ['c.json']
+79 |         if k == 'duplicate-source': row['sources'].append('a.json')
+   |                                   ^
+80 |         m['unresolvedReferences'] = [row] if k == 'duplicate-source' else [row, other]
+81 |     record('unresolved:' + kind, unresolved)
+   |
+
+Found 15 errors.
+[*] 2 fixable with the `--fix` option.

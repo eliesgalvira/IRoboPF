@@ -1,0 +1,219 @@
+{
+  "historical": {
+    "tests": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  "cases": [
+    {
+      "case": "duplicate-reordered:sources",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "Registros duplicados en sources"
+    },
+    {
+      "case": "duplicate-reordered:references",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "Registros duplicados en references"
+    },
+    {
+      "case": "duplicate-reordered:acquisitions",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "Registros duplicados en acquisitions"
+    },
+    {
+      "case": "absolute-end:sources:'\\n'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:sources:'\\r\\n'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:sources:'\\r'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:sources:'\\x00'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:sources:'\\u2028'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:sources:'\\u2029'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:references:'\\n'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'references', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:references:'\\r\\n'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'references', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:references:'\\r'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'references', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:references:'\\x00'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'references', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:references:'\\u2028'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'references', 0] (pattern)"
+    },
+    {
+      "case": "absolute-end:references:'\\u2029'",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'references', 0] (pattern)"
+    },
+    {
+      "case": "unresolved:row",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "Referencia no resuelta duplicada"
+    },
+    {
+      "case": "unresolved:reverse-sources",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "Referencia no resuelta duplicada"
+    },
+    {
+      "case": "unresolved:same-hash-different-sources",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "Referencia no resuelta duplicada"
+    },
+    {
+      "case": "unresolved:duplicate-source",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "Registros duplicados en fuentes de referencias no resueltas"
+    },
+    {
+      "case": "exclusion-observations",
+      "expectedReject": false,
+      "rejected": false,
+      "schemaAccepts": true,
+      "error": null
+    },
+    {
+      "case": "malformed-url:canonicalUrl:20",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "URL de adquisici\u00f3n no admitida"
+    },
+    {
+      "case": "malformed-url:finalUrl:21",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "URL de adquisici\u00f3n no admitida"
+    },
+    {
+      "case": "malformed-url:canonicalUrl:22",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "URL de adquisici\u00f3n no admitida"
+    },
+    {
+      "case": "malformed-url:finalUrl:23",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "URL de adquisici\u00f3n no admitida"
+    },
+    {
+      "case": "malformed-url:canonicalUrl:24",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "URL de adquisici\u00f3n no admitida"
+    },
+    {
+      "case": "malformed-url:finalUrl:25",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "URL de adquisici\u00f3n no admitida"
+    },
+    {
+      "case": "malformed-url:canonicalUrl:26",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "URL de adquisici\u00f3n no admitida"
+    },
+    {
+      "case": "malformed-url:finalUrl:27",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "URL de adquisici\u00f3n no admitida"
+    },
+    {
+      "case": "sensitive-extra-key",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": false,
+      "error": "Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (additionalProperties)"
+    },
+    {
+      "case": "acquisition-json-key-order",
+      "expectedReject": true,
+      "rejected": true,
+      "schemaAccepts": true,
+      "error": "Registros duplicados en acquisitions"
+    }
+  ]
+}
