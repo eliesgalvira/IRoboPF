@@ -1,0 +1,17 @@
+Downloading ast-serialize (1.3MiB)
+Downloading mypy (14.8MiB)
+ Downloaded ast-serialize
+ Downloaded mypy
+Installed 10 packages in 24ms
+docs/procedencia/revisiones/bindings-estatales-r19-sol/revisar.py:20: error: Skipping analyzing "pymupdf": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/revisar.py:21: error: Cannot find implementation or library stub for module named "corpus"  [import-not-found]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/revisar.py:22: error: Cannot find implementation or library stub for module named "enlaces"  [import-not-found]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/primarios.py:8: error: Skipping analyzing "pymupdf": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/primarios.py:26: error: Need type annotation for "selected" (hint: "selected: dict[<type>, <type>] = ...")  [var-annotated]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/fronteras.py:6: error: Cannot find implementation or library stub for module named "corpus"  [import-not-found]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/fronteras.py:7: error: Cannot find implementation or library stub for module named "enlaces"  [import-not-found]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/cerrar.py:8: error: Cannot find implementation or library stub for module named "corpus"  [import-not-found]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/cerrar.py:8: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+docs/procedencia/revisiones/bindings-estatales-r19-sol/cerrar.py:9: error: Cannot find implementation or library stub for module named "enlaces"  [import-not-found]
+docs/procedencia/revisiones/bindings-estatales-r19-sol/cerrar.py:73: error: Need type annotation for "patch" (hint: "patch: list[<type>] = ...")  [var-annotated]
+Found 10 errors in 4 files (checked 5 source files)

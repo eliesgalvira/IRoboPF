@@ -1,0 +1,39 @@
+[
+  {
+    "id": "irpf.madrid.limite-escala",
+    "sujetoAnterior": {
+      "id": "irpf.madrid.limite-escala",
+      "revision": "bf985b4457633a73d1dff2595b4125790f3f55cfee49f878b407a3494f1c27ca"
+    },
+    "estado": "candidata",
+    "ocurrencia": {
+      "id": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+      "source": {
+        "file": "lib/dominio/normativa/datos/irpf-autonomico-2020.ts",
+        "sha256": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
+        "start": 1637,
+        "end": 13058,
+        "line": 50,
+        "column": 14,
+        "offsetEncoding": "utf16"
+      },
+      "symbol": "ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025",
+      "path": "[\"madrid\",\"tramos\",\"3\",\"0\"]",
+      "years": [
+        2020
+      ],
+      "territories": [
+        "madrid"
+      ]
+    },
+    "secciones": {
+      "formula": "El límite es53407,20 EUR de base; no cuota. La cuota fija publicada en el arranque es7395,81 EUR y el tipo21%.",
+      "derivacion": "La fuente BOCM original y la hoja efectiva actual coinciden en el límite. Para base53407,29, la fórmula publicada da7395,81+(53407,29−53407,20)×0,21=7395,8289→7395,83. El motor2020 conserva su representación de integración; el ejemplo explica la diferencia y la regresión limitada, no acepta automáticamente todas sus cuotas fijas.",
+      "norma": "Ley6/2018 artículo único.Dos, BOCM20181228-1 p4; vigencia y correcciones históricas en revisión autonómica2017–2021. El manualAEAT2020 publica53407,29, contradicción conservada; no hay declaración de errataAEAT acreditada.",
+      "evidencia": "citas/madrid2020-limite.json: original8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660, p4, caja[98,628,497,748], PNG y receta144dpi.",
+      "bordes": "El enlace exacto existe en esta base: sustituye localmente la frase obsoleta aún no enlaza. Aceptación limitada al límite, ejercicio y caso revisado. BindingMadrid pendiente, autenticidad indeterminada, aceptación completa false; la ficha original y sus bytes permanecen intactos."
+    },
+    "contrarrevision": "pendiente",
+    "aceptacionFiscalCompleta": false
+  }
+]

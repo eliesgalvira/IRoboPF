@@ -1,0 +1,98 @@
+[
+  {
+    "id": "trabajo-perdida",
+    "expresion": "100-150-min(2000,max(100-150,0))",
+    "esperado": "-50",
+    "resultado": "-50",
+    "criterio": "El general da0; explícito debe preservar-50.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "gasto-f-frontera",
+    "expresion": "min(2000,max(1999.99,0))",
+    "esperado": "1999.99",
+    "resultado": "199999/100",
+    "criterio": "Contrasta gasto aplicado con tabla2000.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "eds-umbral-g",
+    "expresion": "min(2000,.05*40000.01)",
+    "esperado": "2000",
+    "resultado": "2000",
+    "criterio": "Impide5% sin tope.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "eds-30-incluye-reta",
+    "expresion": "(2500+600)/10000",
+    "esperado": "0.31",
+    "resultado": "31/100",
+    "criterio": "Rechazo cliente único aunque gastos ordinarios sean25%.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "eds-70-bases",
+    "expresion": "7000/10000",
+    "esperado": "0.7",
+    "resultado": "7/10",
+    "criterio": "Igualdad admite, retención ingresada no es el numerador.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "eds-inicio-tope",
+    "expresion": ".20*min(100000,150000)",
+    "esperado": "20000",
+    "resultado": "20000",
+    "criterio": "Tope de base, no20% sin límite.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "vitalicia-acumulado",
+    "expresion": "100000*min(1,min(200000,max(240000-200000,0))/200000)",
+    "esperado": "20000",
+    "resultado": "20000",
+    "criterio": "Segunda operación requiere previas200000.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "ss-intrannual",
+    "expresion": "7*3751.2+5*3803.7-12*3751.2",
+    "esperado": "262.5",
+    "resultado": "525/2",
+    "criterio": "Distingue canon2018 de legacy.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "ss-reparto",
+    "expresion": "1086*.0077-1086*.0092*5/6",
+    "esperado": "0.0362",
+    "resultado": "181/5000",
+    "criterio": "Empresa publicada no es5/6 del total.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "retencion-cociente",
+    "expresion": "1720*100/18000",
+    "esperado": "86/9",
+    "resultado": "86/9",
+    "criterio": "Truncar cociente a9.55 produce1719; redondearlo9.56 produce1720.8.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "duplicidad-canales",
+    "expresion": "1000-500-500",
+    "esperado": "0",
+    "resultado": "0",
+    "criterio": "Si ambos500 son mismo anticipo, saldo correcto condicionado500; conciliación externa.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  },
+  {
+    "id": "cuota-neto-modo",
+    "expresion": "30000-1944-3000",
+    "esperado": "25056",
+    "resultado": "25056",
+    "criterio": "Si cuota mostrada3000, neto debe usar3000, no retención de otro modo.",
+    "alcance": "Oracle aritmético y receta para contraste del padre; no prueba ejecutada del motor."
+  }
+]

@@ -1,0 +1,23 @@
+import json,pathlib,re,fitz
+R=pathlib.Path.cwd(); A=R/'docs/procedencia/revisiones/retenciones-2015-2016-sol'; S=R/'.cache/contraste-s1516'
+for r in json.loads((A/'originales.json').read_text()):
+ d=fitz.open(r['path']); t='\n'.join(f'\n=== {r["id"]} PAGINA {i+1} ===\n'+re.sub(r'[ \t]+',' ',p.get_text(sort=False)) for i,p in enumerate(d)); (S/(r['id']+'-lectura.txt')).write_text(re.sub(r'\n\s*\n','\n',t))
+for r in json.loads((A/'originales.json').read_text()):
+ d=fitz.open(r['path']); p=d[15]; p.get_pixmap(matrix=fitz.Matrix(3,3),clip=fitz.Rect(50,535,560,650),alpha=False).save(str(S/(r['id']+'-edad.png')))
+# Reextraer las citas legales desde los originales, sin adoptar el texto del autor.
+catalog={}
+for path in [A/'originales.json',R/'docs/procedencia/correcciones/integracion-r19/cas-retenciones.json']:
+ j=json.loads(path.read_text());
+ for r in j if isinstance(j,list) else j['objects']:catalog[r['sha256']]=r.get('path',r.get('preservedPath'))
+for r in json.loads((A/'citas-juridicas.json').read_text()):
+ h=r['documentSha256']; path=catalog.get(h)
+ if path:
+  d=fitz.open(path); (S/(r['id'].replace(':','-')+'.txt')).write_text(d[r['page']-1].get_text())
+for h,path in catalog.items():
+ if h in ['82a57fd7846f0a673df877c0978f95425eaa8c073a03973b1a74951c63eabac0','30047564cd6711476ff584701a8af5205c4bf086c6c0f9e31d3a08d958eeae6c','415158c1ddbec09d8361892b9e472148c6e1900c5926b478e49865f6784fd54e']:
+  from html.parser import HTMLParser
+  class P(HTMLParser):
+   def handle_data(self,data):
+    self.parts.append(data)
+  p=P();p.parts=[];p.feed(pathlib.Path(path).read_text());(S/(h+'.txt')).write_text(' '.join(' '.join(p.parts).split()))
+print('Extracción completa y recortes generados')

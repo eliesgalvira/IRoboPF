@@ -3,7 +3,7 @@ import assert from "node:assert/strict"
 import { createHash } from "node:crypto"
 import { verificarAceptacionLimitada } from "../scripts/procedencia/ambito-publicado.mjs"
 
-function fixture() {
+function fixture(discriminantes = { status: "accepted" }) {
   const dependencias = []
   const objetos = new Map()
   function save(path, value) {
@@ -27,7 +27,7 @@ function fixture() {
   const decisions = save("docs/procedencia/synthetic-decisions.json", [
     {
       id: "synthetic",
-      status: "accepted",
+      ...discriminantes,
       year: 2022,
       territory: "madrid",
       value: "10",
@@ -105,6 +105,37 @@ function fixture() {
   })
   return { dependencias, objetos, payload, report }
 }
+
+test("decisión requiere un discriminante único, incluso si ambos coinciden", () => {
+  for (const discriminantes of [
+    {},
+    { status: "accepted", decision: "accepted" },
+    { status: "accepted", decision: "rejected" },
+    { decision: "pending" },
+  ]) {
+    const f = fixture(discriminantes)
+    assert.throws(
+      () =>
+        verificarAceptacionLimitada(
+          f.payload.sha256,
+          "synthetic",
+          f.dependencias,
+          (h) => f.objetos.get(h)
+        ),
+      /Decisión/
+    )
+  }
+  const f = fixture({ decision: "accepted" })
+  assert.equal(
+    verificarAceptacionLimitada(
+      f.payload.sha256,
+      "synthetic",
+      f.dependencias,
+      (h) => f.objetos.get(h)
+    ).completeRuleAcceptance,
+    false
+  )
+})
 
 test("cierre sintético exacto; omisión y movimiento del informe bloquean", () => {
   const f = fixture()
@@ -192,16 +223,29 @@ test("claves de delegación duplicadas con tareas distintas son ambiguas", () =>
     f.objetos.set(dependency.sha256, bytes)
     return { path, sha256: dependency.sha256 }
   }
-  const delegationRegistry = replace("docs/procedencia/synthetic-delegates.json", {
-    version: 1, delegates: [
-      { taskId: "synthetic-review", key: "revision-duplicada" },
-      { taskId: "synthetic-other", key: "revision-duplicada" },
-    ],
-  })
+  const delegationRegistry = replace(
+    "docs/procedencia/synthetic-delegates.json",
+    {
+      version: 1,
+      delegates: [
+        { taskId: "synthetic-review", key: "revision-duplicada" },
+        { taskId: "synthetic-other", key: "revision-duplicada" },
+      ],
+    }
+  )
   const reviewersPath = "docs/procedencia/enlaces/revisores.json"
   const reviewersDep = f.dependencias.find((d) => d.path === reviewersPath)
   const reviewers = JSON.parse(f.objetos.get(reviewersDep.sha256))
   reviewers.reviewers[0].delegationRegistry = delegationRegistry
   replace(reviewersPath, reviewers)
-  assert.throws(() => verificarAceptacionLimitada(f.payload.sha256, "synthetic", f.dependencias, (h) => f.objetos.get(h)), /ambigua/)
+  assert.throws(
+    () =>
+      verificarAceptacionLimitada(
+        f.payload.sha256,
+        "synthetic",
+        f.dependencias,
+        (h) => f.objetos.get(h)
+      ),
+    /ambigua/
+  )
 })

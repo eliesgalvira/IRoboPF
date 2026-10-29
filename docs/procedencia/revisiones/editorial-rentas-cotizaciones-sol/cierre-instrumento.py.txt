@@ -1,0 +1,20 @@
+import pathlib,json,subprocess,hashlib,stat,gzip,difflib
+R=pathlib.Path.cwd();O=R/'docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol'
+head=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip();assert head=='7668bdad60a79a8b3ad8e1e1b911f3d6c223692a'
+rows=[]
+for row in json.loads(gzip.decompress((O/'arbol-head.json.gz').read_bytes())):
+ p=R/row['path'];s=p.lstat();b=str(p.readlink()).encode() if stat.S_ISLNK(s.st_mode) else p.read_bytes();assert hashlib.sha256(b).hexdigest()==row['sha256'],p;rows.append(row['path'])
+receipts=[]
+for name in ['docs/procedencia/correcciones/integracion-r19/recepcion-editoriales.json','docs/procedencia/correcciones/cambio-modelo-sol/recepcion.json']:
+ p=R/name; data=p.read_bytes();j=json.loads(data);receipts.append({'path':name,'sha256':hashlib.sha256(data).hexdigest(),'size':len(data),'tipo':type(j).__name__})
+# Recibo editorial integrado: recotejo de los45 archivos recibidos del lote asignado.
+receipt=json.loads((R/receipts[0]['path']).read_text()); lot=next(x for x in receipt if x['label']=='rentas-retenciones-cotizaciones')
+checked=[]
+for x in lot['files']:
+ p=R/x['path'];b=p.read_bytes();assert hashlib.sha256(b).hexdigest()==x['sha256'];assert len(b)==x['size'];checked.append(x['path'])
+assert len(checked)==45
+summary={'head':head,'entradasFisicasIdenticas':len(rows),'borrados':[],'diferencias':[],'recibosLeidos':receipts,'archivosReciboEditorialComprobados':checked,'diffContraHEAD':subprocess.check_output(['git','diff',head,'--stat']).decode(),'borradosContraBaseAutor':subprocess.check_output(['git','diff','--name-only','--diff-filter=D','1196269d4e73742beeed35cc05011b70c21a0b69',head]).decode()}
+(O/'cierre.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+a=(R/'docs/procedencia/editorial/rentas-retenciones-cotizaciones/verificar.py').read_text();b=(R/'.cache/revision-editorial-sol/verificador-autor.py').read_text();(O/'adaptacion-verificador.diff').write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True),fromfile='verificar.py original',tofile='copia propia salida resultado')))
+(O/'verificador_autor_copia.py').write_text(b)
+print(json.dumps({'head':head,'entradas':len(rows),'borrados':0,'reciboEditorial':len(checked)}))

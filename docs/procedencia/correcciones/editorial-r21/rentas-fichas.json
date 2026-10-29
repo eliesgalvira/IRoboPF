@@ -1,0 +1,3135 @@
+[
+  {
+    "id": "editorial.anual.trabajo.integro",
+    "titulo": "Rendimiento íntegro del trabajo",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.trabajo.integro",
+      "sujeto": {
+        "id": "paso.anual.trabajo.integro",
+        "revision": "53ff0e2ba6382aedd6a90b0727badaa061dec17858f7ff887cc28f7437501de1"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":32635,\"fin\":32961,\"siteId\":\"anual.trabajo.integro\"}",
+        "selector": {
+          "inicio": 32635,
+          "fin": 32961,
+          "siteId": "anual.trabajo.integro"
+        }
+      }
+    ],
+    "expresion": "rendimientoTrabajo.rendimientoIntegro",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "I=Σ(c_i/100)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "c_i son céntimos íntegros de cada rendimiento declarado. Convertir cada entrada a euros y sumar sin restar retenciones. Dos pagadores de 18000 y 6000 aportan 24000. No se deduce dos veces una cotización por tener dos pagadores."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.17 LIRPF: calificación del trabajo; la entrada ya se declara íntegra. El motor no determina especie, atrasos ni imputación temporal."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada. Se añade la calificación del art17 en el original de Ley35/2006; las páginas de Ley26/2014 son contexto de reformas, no el texto íntegro de art17. La entrada presupone la calificación; no cierra toda su evolución ni rentas en especie.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12",
+          "trabajo-calificacion-art17"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No interpretar el dinero recibido en banco como íntegro. La suma no acredita elegibilidad del art.18 ni una nómina real."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.trabajo.cotizacion",
+    "titulo": "Cotización deducible del trabajador",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.trabajo.cotizacion",
+      "sujeto": {
+        "id": "paso.anual.trabajo.cotizacion",
+        "revision": "dd232f1be4668ef08f5bdd7876b0662ad9f82d690173831161c0c23aa371ce79"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":32975,\"fin\":33324,\"siteId\":\"anual.trabajo.cotizacion\"}",
+        "selector": {
+          "inicio": 32975,
+          "fin": 33324,
+          "siteId": "anual.trabajo.cotizacion"
+        }
+      }
+    ],
+    "expresion": "rendimientoTrabajo.cotizacionTrabajador",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "C=C_ordinaria+C_MEI+C_solidaridad"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "El modo anual selecciona desglose uniforme o legacy y reutiliza su aportación obrera. Con componentes 1905, 39 y 0, la deducción técnica es 1944; la empresa no se resta del salario fiscal."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.19.2.a LIRPF permite cotizaciones: este sitio las estima a partir de salario, no recibe recibos efectivos."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p3",
+          "918a1c126ddf-p4",
+          "918a1c126ddf-p5",
+          "918a1c126ddf-p15",
+          "918a1c126ddf-p16",
+          "918a1c126ddf-p28"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Con pensión, alta parcial o varios empleos la inferencia salarial puede ser falsa. El perfil explícito usa cotizaciones efectivas y no llama este paso."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.trabajo.previo-neto",
+    "titulo": "Rendimiento previo neto",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.trabajo.previo-neto",
+      "sujeto": {
+        "id": "paso.anual.trabajo.previo-neto",
+        "revision": "75923a0ec53793fa66419f4a6ab1929d69f3b636d5ca44b32109f4a24fc8c63f"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":33338,\"fin\":33722,\"siteId\":\"anual.trabajo.previo-neto\"}",
+        "selector": {
+          "inicio": 33338,
+          "fin": 33722,
+          "siteId": "anual.trabajo.previo-neto"
+        }
+      }
+    ],
+    "expresion": "rendimientoTrabajo.rendimientoPrevioNeto",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "P=I−C"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Primero sumar íntegros I y después restar una sola vez C obrera. I=24000, C=1555.20 da P=22444.80. Es argumento técnico antes del gasto fijo f."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.19 y art.20 LIRPF: el argumento del art.20 excluye f, pero este perfil tampoco representa sindicato, colegio ni defensa."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No equiparar P a neto fiscal completo si hay gastos a–e distintos de C. Con C>I, P negativo se conserva aquí aunque el paso siguiente lo sature."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.trabajo.gastos",
+    "titulo": "Gastos deducibles aplicados",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.trabajo.gastos",
+      "sujeto": {
+        "id": "paso.anual.trabajo.gastos",
+        "revision": "4446644fafe17e880d83d1f1d3e27bb1d6621d2b6d29139a1783c255748c1a46"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":33736,\"fin\":34053,\"siteId\":\"anual.trabajo.gastos\"}",
+        "selector": {
+          "inicio": 33736,
+          "fin": 34053,
+          "siteId": "anual.trabajo.gastos"
+        }
+      }
+    ],
+    "expresion": "rendimientoTrabajo.gastosDeducibles",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "F=GASTOS_FIJOS_IRPF_LEGACY[año]"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Seleccionar una hoja por año: 2012–2014 devuelve 0 y desde 2015 devuelve 2000. Es valor fijo teórico, no min(2000,saldo). Con P=500 muestra F=2000 y el neto posterior será 0."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Ley26/2014 art.1 modifica art.19.2.f desde 2015. El límite por rendimiento no aparece en esta hoja legacy."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No sustituir gastos efectivos por 2000 ni multiplicar el gasto por pagador. La hoja fija no prueba el gasto efectivamente aplicado."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.trabajo.neto",
+    "titulo": "Rendimiento neto del trabajo",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.trabajo.neto",
+      "sujeto": {
+        "id": "paso.anual.trabajo.neto",
+        "revision": "6a98f95db08fc5593e77cecb58685ed4ce9f5f9609b0ff1ac9cbd6ff652fd8e9"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":34067,\"fin\":34450,\"siteId\":\"anual.trabajo.neto\"}",
+        "selector": {
+          "inicio": 34067,
+          "fin": 34450,
+          "siteId": "anual.trabajo.neto"
+        }
+      }
+    ],
+    "expresion": "rendimientoTrabajo.rendimientoNeto",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "N=max(0,I−C−F)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Restar de P el gasto fijo; después aplicar suelo técnico. I=24000,C=1555.20,F=2000 da N=20444.80. I=100,C=150,F=2000 da 0 en este perfil."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "El art.19 permite neto negativo por a–e; max(0,...) es una simplificación del contrato. No se presenta como regla general."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "La contraprueba I=1749.99,gastos a–e=1750 produce −0.01 en el módulo explícito. No usar esta saturación para borrar pérdidas acreditadas."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.trabajo.reduccion",
+    "titulo": "Reducción por rendimientos del trabajo",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.trabajo.reduccion",
+      "sujeto": {
+        "id": "paso.anual.trabajo.reduccion",
+        "revision": "6210dca901442423733d0958b23c78b5b4c4e90a1cbead9a9ce24cc6f3cce292"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":34464,\"fin\":34854,\"siteId\":\"anual.trabajo.reduccion\"}",
+        "selector": {
+          "inicio": 34464,
+          "fin": 34854,
+          "siteId": "anual.trabajo.reduccion"
+        }
+      }
+    ],
+    "expresion": "reduccionRendimientosTrabajo",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "R=art20(año,P,O,devengo)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "O suma algebraicamente alquiler neto simplificado y ganancias sujetas general/ahorro antes de compensación. Elegir rama por año y fallecimiento. En 2025 P=16000 y O=0: 7302−1.75×1148=5293. No restar f al argumento."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.20: Ley39/2010 para 2012–14; Ley26/2014 desde 2015; Ley6/2018, Ley31/2022 y RDL4/2024. Las fórmulas anuales se detallan en DERIVACIONES.md."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12",
+          "0236d8d10472-p23",
+          "aac01cdb3005-p77",
+          "aac01cdb3005-p78",
+          "aac01cdb3005-p79",
+          "758a2d02ef82-p84",
+          "758a2d02ef82-p85",
+          "e7b629a20bde-p60"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "O=6500 admite; O>6500 da 0 desde 2015 y 2652 hasta 2014. En 2018 el fallecimiento anterior al 5 de julio no usa la media; no confundir con fecha del pago de retención."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.trabajo.integro",
+    "titulo": "Trabajo íntegro",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.trabajo.integro",
+      "sujeto": {
+        "id": "paso.anual.explicito.trabajo.integro",
+        "revision": "78357bc80a0a9997565db947797b7961490d576f661ca6318ddcba22d7544ada"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":4157,\"fin\":4441,\"siteId\":\"anual.explicito.trabajo.integro\"}",
+        "selector": {
+          "inicio": 4157,
+          "fin": 4441,
+          "siteId": "anual.explicito.trabajo.integro"
+        }
+      }
+    ],
+    "expresion": "new D(trabajo.gastos.integro)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "I=Σ I_i"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Sumar importes anuales disjuntos conciliados, sin recalcular nóminas. 18000+6000=24000. El contrato admite empleo laboral/estatutario o pensión homogénea; las mezclas se rechazan."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.17 LIRPF; conexión restringida individual Madrid 2025, 18–64 años sin familiares ni discapacidad."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada. Se añade la calificación del art17 en el original de Ley35/2006; las páginas de Ley26/2014 son contexto de reformas, no el texto íntegro de art17. La entrada presupone la calificación; no cierra toda su evolución ni rentas en especie.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12",
+          "trabajo-calificacion-art17"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Un ID diferente no demuestra otro pago. La conciliación externa debe justificar que no se duplican certificados. No soporta art.18 ni movilidad."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.trabajo.gastos-a-e",
+    "titulo": "Gastos a–e",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.trabajo.gastos-a-e",
+      "sujeto": {
+        "id": "paso.anual.explicito.trabajo.gastos-a-e",
+        "revision": "c80dc8c46284f21852d7fd7324968c911362000acfa138515e6969bf469c346f"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":4451,\"fin\":4794,\"siteId\":\"anual.explicito.trabajo.gastos-a-e\"}",
+        "selector": {
+          "inicio": 4451,
+          "fin": 4794,
+          "siteId": "anual.explicito.trabajo.gastos-a-e"
+        }
+      }
+    ],
+    "expresion": "new D(trabajo.gastos.gastosAE)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "A=SS+pasivos+huérfanos+sindicato+min(colegio,500)+min(defensa,300)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Sumar solo cotizaciones efectivas y sindicato satisfecho; colegio obligatorio y fines esenciales; defensa por litigio directo con pagador. SS=1000,sindicato=100,colegio=700,defensa=400: A=1900. Los topes se aplican una vez tras agregar."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.19.2.a–e LIRPF y art.10 RIRPF para el colegio. Defensa tiene límite de 300 euros, no 350. Art10 RIRPF original: colegiación obligatoria para desempeñar el trabajo, fines esenciales y límite500€ anuales; p16–17 son un pasaje compuesto. Su continuidad hasta2025 requiere el cierre histórico individual y no se infiere por el hash."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12",
+          "colegio-art10-p16",
+          "colegio-art10-p17"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Colegio voluntario o defensa sin litigio no deducen; hecho desconocido rechaza. Sindicato no tiene el tope de 500. No limitar A a I: puede producir negativo."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.trabajo.gasto-f",
+    "titulo": "Gasto general aplicado",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.trabajo.gasto-f",
+      "sujeto": {
+        "id": "paso.anual.explicito.trabajo.gasto-f",
+        "revision": "f6251fa2576b78c0f7cecb309da319908497812fb433ad7e920487b734101dd9"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":4804,\"fin\":5106,\"siteId\":\"anual.explicito.trabajo.gasto-f\"}",
+        "selector": {
+          "inicio": 4804,
+          "fin": 5106,
+          "siteId": "anual.explicito.trabajo.gasto-f"
+        }
+      }
+    ],
+    "expresion": "new D(trabajo.gastos.generalesAplicados)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "F=min(2000,max(I−A,0))"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Obtener primero P=I−A. Aplicar gasto general anual hasta ese saldo positivo: I=2500,A=1000 da F=1500; P=2000.01 da F=2000. No se vuelve a deducir en art.20."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.19.2.f, redacción Ley26/2014; vigente en el perfil 2025. Movilidad y discapacidad tienen hechos propios excluidos de esta conexión."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "P≤0 implica F=0, conservando el negativo de a–e. 2000 es anual por contribuyente; no se prorratea por días ni por pagadores por inferencia."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.trabajo.art19",
+    "titulo": "Neto artículo 19",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.trabajo.art19",
+      "sujeto": {
+        "id": "paso.anual.explicito.trabajo.art19",
+        "revision": "237c167fe0673a7e0a536367d098309fbc1d51010b1a7a120ea5fecc4a68db13"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":5116,\"fin\":5419,\"siteId\":\"anual.explicito.trabajo.art19\"}",
+        "selector": {
+          "inicio": 5116,
+          "fin": 5419,
+          "siteId": "anual.explicito.trabajo.art19"
+        }
+      }
+    ],
+    "expresion": "new D(trabajo.rendimientoAntesArt20)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "N19=I−A−F"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Calcular A efectivo, obtener P sin f, limitar F y restarlo. I=20000,A=1200,F=2000 produce N19=16800 y argumentoArt20=18800. El adaptador conserva ambas magnitudes."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.19 LIRPF, Ley26/2014 pp11–12. Esta conexión no añade una cotización salarial estimada."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "I=1749.99,A=1750,F=0 conserva N19=−0.01. El suelo del gasto f no es suelo del neto."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.trabajo.art20",
+    "titulo": "Reducción artículo 20",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.trabajo.art20",
+      "sujeto": {
+        "id": "paso.anual.explicito.trabajo.art20",
+        "revision": "899f7642d1296ec981fae1becdec9187bbee32dffa1f80825b7bf05bc6046cca"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":5429,\"fin\":5745,\"siteId\":\"anual.explicito.trabajo.art20\"}",
+        "selector": {
+          "inicio": 5429,
+          "fin": 5745,
+          "siteId": "anual.explicito.trabajo.art20"
+        }
+      }
+    ],
+    "expresion": "reduccionArt20",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "R20=min(max(N19,0),r2025(P,O=0))"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Usar P=I−A sin gasto f y limitar resultado por N19 positivo. I=18000,A=1000 da P=17000,N19=15000,r=7302−1.75×2148=3543; R20=3543 y neto reducido=11457."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.20 según RDL4/2024, aplicable en 2025; no deducción de cuota ni cálculo de retención."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p11",
+          "7393a032cbcb-p12",
+          "0236d8d10472-p23",
+          "aac01cdb3005-p77",
+          "aac01cdb3005-p78",
+          "aac01cdb3005-p79",
+          "758a2d02ef82-p84",
+          "758a2d02ef82-p85"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "El perfil exige ausencia de otras rentas; O=0 no es una estimación por omisión. N19 negativo conserva signo y R20=0. Otros ejercicios no se habilitan por esta ficha."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.da61",
+    "titulo": "DA61",
+    "dominio": "trabajo",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.da61",
+      "sujeto": {
+        "id": "paso.anual.explicito.da61",
+        "revision": "2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":11317,\"fin\":11565,\"siteId\":\"anual.explicito.da61\"}",
+        "selector": {
+          "inicio": 11317,
+          "fin": 11565,
+          "siteId": "anual.explicito.da61"
+        }
+      }
+    ],
+    "expresion": "deduccion",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "D=min(d(I_servicios),Q_general×N_servicios/BLG,Q_tras80)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "En 2025 d= max(0,340−0.2×max(0,I_servicios−16576)). Con bruto17000, d=255.20; si límite atribuible=300 y Q_tras80=200, aplica200. BLG=0 da límite0."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "DA61 introducida por Ley5/2025 DF3, efectos 1 enero 2025. Se aplica tras art.80 y mantiene separada la cuota líquida legal anterior."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "9657d0c565a0-p46",
+          "9657d0c565a0-p47"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Pensión no es servicio efectivo para DA61; en esta conexión no genera deducción. Otras rentas>6500 excluyen; aquí se exige cero. 2026 rechazado, aunque exista otra cuantía normativa."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "trabajo"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.retenciones",
+    "titulo": "Retenciones efectivas",
+    "dominio": "pagos",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.retenciones",
+      "sujeto": {
+        "id": "paso.anual.explicito.retenciones",
+        "revision": "05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":11817,\"fin\":12055,\"siteId\":\"anual.explicito.retenciones\"}",
+        "selector": {
+          "inicio": 11817,
+          "fin": 12055,
+          "siteId": "anual.explicito.retenciones"
+        }
+      }
+    ],
+    "expresion": "retenciones",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "H=Σ h_operación"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Sumar retenciones efectivas de operaciones únicas; h=1200 y 300 da H=1500. No multiplicar bruto por un tipo calculado para reemplazar el certificado."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.79 y 99 LIRPF, pagos a cuenta separados del rendimiento; contrato de conciliación 2025."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p37",
+          "ff21371b04e3-p46"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Duplicar operacionId rechaza. No volver a introducir H como pago fraccionado o en otra rama. Solo-trabajo y EDS tienen canales de entrada distintos."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "pagos"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.pagos",
+    "titulo": "Pagos fraccionados efectivos",
+    "dominio": "pagos",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.pagos",
+      "sujeto": {
+        "id": "paso.anual.explicito.pagos",
+        "revision": "9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":12063,\"fin\":12296,\"siteId\":\"anual.explicito.pagos\"}",
+        "selector": {
+          "inicio": 12063,
+          "fin": 12296,
+          "siteId": "anual.explicito.pagos"
+        }
+      }
+    ],
+    "expresion": "pagos",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "P_cuenta=Σ p_operación"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "En EDS tomar pagos fraccionados efectivos del adaptador; 400+600=1000. En solo-trabajo el acumulador queda 0. Son anticipos, no gastos de la actividad."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.99 y 101 LIRPF; el pago efectivo no se infiere de la obligación de presentar el modelo."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p37",
+          "ff21371b04e3-p46"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Fechas trimestrales y unicidad se validan en actividad; cuarto trimestre 2025 puede pagarse hasta 30 enero 2026. No cambia su ejercicio fiscal."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "pagos"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.diferencial",
+    "titulo": "Cuota diferencial",
+    "dominio": "pagos",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.diferencial",
+      "sujeto": {
+        "id": "paso.anual.explicito.diferencial",
+        "revision": "7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":12304,\"fin\":12564,\"siteId\":\"anual.explicito.diferencial\"}",
+        "selector": {
+          "inicio": 12304,
+          "fin": 12564,
+          "siteId": "anual.explicito.diferencial"
+        }
+      }
+    ],
+    "expresion": "diferencial",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "Δ=Q_posterior−H−P_cuenta"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Con Q líquida1000, DA61=200, H=900 y P=0: Q posterior800 y Δ=−100. Un negativo es saldo a devolver del cálculo condicionado, no devolución ya reconocida."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.79 LIRPF y orden específico de DA61 tras art.80. Conserva la cuota anterior a deducción."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p37",
+          "ff21371b04e3-p46"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No truncar negativos ni confundir cuota con salario neto. El mismo modo debe determinar cuota y neto cuando se compare; esta ficha no liquida una nómina."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "pagos"
+    }
+  },
+  {
+    "id": "editorial.anual.inmobiliario.integro",
+    "titulo": "Rendimiento íntegro de capital inmobiliario",
+    "dominio": "capital",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.inmobiliario.integro",
+      "sujeto": {
+        "id": "paso.anual.inmobiliario.integro",
+        "revision": "ed68728601f0363817e3cda97aeb743fb6177250dc2fc11e80748ef0447eccc6"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":40852,\"fin\":41211,\"siteId\":\"anual.inmobiliario.integro\"}",
+        "selector": {
+          "inicio": 40852,
+          "fin": 41211,
+          "siteId": "anual.inmobiliario.integro"
+        }
+      }
+    ],
+    "expresion": "rendimientoCapitalInmobiliario.rendimientoIntegro",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "I_alquiler=Σ c_i/100"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Convertir íntegros declarados de inmuebles a euros y sumar. 6000+2400=8400. No restar financiación ni amortización en esta línea."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Arts.22–23 LIRPF: renta íntegra no es saldo bancario neto. La entrada solo representa importe íntegro, sin inmueble ni período."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p17",
+          "ff21371b04e3-p18",
+          "ff21371b04e3-p22",
+          "ff21371b04e3-p23",
+          "ff21371b04e3-p24",
+          "ff21371b04e3-p25"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Titularidad, exigibilidad, días vacíos e imputación no se derivan. Retención practicada no disminuye ingreso íntegro."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "capital"
+    }
+  },
+  {
+    "id": "editorial.anual.inmobiliario.neto",
+    "titulo": "Rendimiento neto simplificado",
+    "dominio": "capital",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.inmobiliario.neto",
+      "sujeto": {
+        "id": "paso.anual.inmobiliario.neto",
+        "revision": "c18ed071d033920ebaf4ca7893f900edb8908a9762270c8389c4d19d7ee67871"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":41225,\"fin\":41611,\"siteId\":\"anual.inmobiliario.neto\"}",
+        "selector": {
+          "inicio": 41225,
+          "fin": 41611,
+          "siteId": "anual.inmobiliario.neto"
+        }
+      }
+    ],
+    "expresion": "rendimientoCapitalInmobiliario.rendimientoNeto",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "N_técnico=I_alquiler"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "La función simplificada copia el íntegro: I=5000 devuelve N=5000. Contraste independiente con intereses/reparación7000 y otros gastos500: neto fiscal condicionado−500 y exceso2000 pendiente, cálculo que esta API no implementa."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.23 y art.13–14 RIRPF requieren gastos, límites y amortización por inmueble; el sitio no los calcula."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p17",
+          "ff21371b04e3-p18",
+          "ff21371b04e3-p22",
+          "ff21371b04e3-p23",
+          "ff21371b04e3-p24",
+          "ff21371b04e3-p25"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No anunciar las reducciones 60/50/70/90 como opciones de este perfil. Contrato, fecha, zona y uso faltan; renta turística no recibe automáticamente reducción de vivienda."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "capital"
+    }
+  },
+  {
+    "id": "editorial.anual.ganancias.total",
+    "titulo": "Ganancias patrimoniales declaradas",
+    "dominio": "capital",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ganancias.total",
+      "sujeto": {
+        "id": "paso.anual.ganancias.total",
+        "revision": "94dcc012e06f2fc63808d4ce0d761aa9b57800615ae627cbbc156c8e068ea450"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":46702,\"fin\":47023,\"siteId\":\"anual.ganancias.total\"}",
+        "selector": {
+          "inicio": 46702,
+          "fin": 47023,
+          "siteId": "anual.ganancias.total"
+        }
+      }
+    ],
+    "expresion": "gananciasPatrimoniales.gananciaTotal",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "G=Σ g_i"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "g_i es ganancia o pérdida precalculada, en céntimos convertidos a euros. 10000+(−4000)=6000; no saturar cada operación. Adquisición/transmisión, gastos y amortización son cálculo externo."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Arts.33–37 LIRPF: primero calificar computabilidad de la pérdida, después conservar signo y clasificar integración."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p17",
+          "ff21371b04e3-p18",
+          "ff21371b04e3-p22",
+          "ff21371b04e3-p23",
+          "ff21371b04e3-p24",
+          "ff21371b04e3-p25"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Donación, consumo, recompra y FIFO pueden impedir cómputo; preservar signo no acredita deducibilidad. En 2013–2014 falta fecha suficiente para clasificar ciertas transmisiones."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "capital"
+    }
+  },
+  {
+    "id": "editorial.anual.ganancias.exenta",
+    "titulo": "Ganancia patrimonial exenta",
+    "dominio": "capital",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ganancias.exenta",
+      "sujeto": {
+        "id": "paso.anual.ganancias.exenta",
+        "revision": "04e48322363ea38e4bcad8ef0f97b922af064dc9b4495258910f9f38dd08d598"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":47037,\"fin\":47465,\"siteId\":\"anual.ganancias.exenta\"}",
+        "selector": {
+          "inicio": 47037,
+          "fin": 47465,
+          "siteId": "anual.ganancias.exenta"
+        }
+      }
+    ],
+    "expresion": "gananciasPatrimoniales.gananciaExenta",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "E_i=max(0,min(g_i,E65_i+E2012_i)); E=Σ E_i"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Calcular exenciones por operación y limitar a ganancia positiva. Con pérdida−4000: E=0 y sujeto−4000. Con urbano adquirido1jun2012, venta2025 y ganancia10000 sin vinculación: E2012=5000 si no hay exención previa."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.33.4.b, art.38.3 desde2015 y DA37 LIRPF. Véanse los tres conceptos específicos; no son una sola exención de mayores."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p17",
+          "ff21371b04e3-p18",
+          "ff21371b04e3-p22",
+          "ff21371b04e3-p23",
+          "ff21371b04e3-p24",
+          "ff21371b04e3-p25"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "La adquisición 12mayo–31dic2012, no venta2012, gobierna DA37. Vitalicia no exime en2014; vivienda habitual mayor65 puede hacerlo. Requisitos materiales siguen condicionados."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "capital"
+    }
+  },
+  {
+    "id": "editorial.anual.pagos.retenciones",
+    "titulo": "Retenciones soportadas",
+    "dominio": "pagos",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.pagos.retenciones",
+      "sujeto": {
+        "id": "paso.anual.pagos.retenciones",
+        "revision": "7737d62c61ea4e0752baba8a3cc4f80e9fc4bbdad4dd107b9cc6d16fdf41db2a"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":58617,\"fin\":58944,\"siteId\":\"anual.pagos.retenciones\"}",
+        "selector": {
+          "inicio": 58617,
+          "fin": 58944,
+          "siteId": "anual.pagos.retenciones"
+        }
+      }
+    ],
+    "expresion": "centimosAEuros(caso.retencionesSoportadasCentimos)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "H_soportadas=c_retenciones/100"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Trasladar la entrada declarada en céntimos sin estimarla: 123456 céntimos son1234.56 euros. Se resta una vez al calcular diferencial."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Arts.79 y99 LIRPF. Este sitio transporta una entrada, no acredita su ingreso ni el derecho frente a falta de retención."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p37",
+          "ff21371b04e3-p46"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "La retención anual opcional estimada se suma por otro canal: conciliar para no contar dos veces la misma operación."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "pagos"
+    }
+  },
+  {
+    "id": "editorial.anual.pagos.cuenta",
+    "titulo": "Pagos a cuenta",
+    "dominio": "pagos",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.pagos.cuenta",
+      "sujeto": {
+        "id": "paso.anual.pagos.cuenta",
+        "revision": "3f646270756b5509ba3aa15e74d9915fb0f2b67cbeab1b4c0df96dc7ff57a775"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":58958,\"fin\":59412,\"siteId\":\"anual.pagos.cuenta\"}",
+        "selector": {
+          "inicio": 58958,
+          "fin": 59412,
+          "siteId": "anual.pagos.cuenta"
+        }
+      }
+    ],
+    "expresion": "centimosAEuros(pagosACuentaAplicadosCentimos)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "A_cuenta=(c_pagos+c_retenciónEstimada)/100"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "El motor agrega pagos declarados y estimación opcional de trabajo. c_pagos=50000 y c_estimada=120000 muestra1700 euros. No es por sí mismo un total de pagos efectivos."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.99 LIRPF fundamenta pagos a cuenta; sumar una estimación es contrato técnico de simulación, no justificante."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p37",
+          "ff21371b04e3-p46"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Si la retención estimada ya está en soportadas, el llamador duplicaría su resta. El contrato legado no identifica operaciones; esta limitación permanece."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "pagos"
+    }
+  },
+  {
+    "id": "editorial.anual.retencion.base",
+    "titulo": "Base de retención",
+    "dominio": "retencion",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.retencion.base",
+      "sujeto": {
+        "id": "paso.anual.retencion.base",
+        "revision": "1c0307fb3528f3497a09d092d37072d23b3f67b59b1baa81b1a3e1e3eb303746"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":64282,\"fin\":64562,\"siteId\":\"anual.retencion.base\"}",
+        "selector": {
+          "inicio": 64282,
+          "fin": 64562,
+          "siteId": "anual.retencion.base"
+        }
+      }
+    ],
+    "expresion": "centimosAEuros(retencion.baseRetencionCentimos)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "B=max(0,retribución−minoraciones_del_procedimiento)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Partir de retribución anual normalizada y restar las minoraciones admitidas por la versión; después saturar a cero. Ejemplo exclusivamente algebraico: retribución18000 y minoraciones totales6000 dan B12000. No se afirma que6000 sean minoraciones legales de cualquier perceptor18000. El cálculo de esas minoraciones es una etapa previa condicionada."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "RIRPF art.83 y algoritmo AEAT por fecha; adaptación y condiciones parciales. Cotización1143 es hecho sintético del caso, no tarifa legal."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "0f6003cfa63f-p39",
+          "0f6003cfa63f-p40",
+          "645d06d2dc5a-p3",
+          "645d06d2dc5a-p4",
+          "645d06d2dc5a-p5",
+          "645d06d2dc5a-p6",
+          "645d06d2dc5a-p7",
+          "645d06d2dc5a-p8",
+          "645d06d2dc5a-p9",
+          "645d06d2dc5a-p10"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "2012–2016 rechazados por selector actual. Regularización rechazada. En años con reformas se exige fecha o cierre permitido; 2026 solo10sept–29oct con fecha."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "retencion"
+    }
+  },
+  {
+    "id": "editorial.anual.retencion.cuota",
+    "titulo": "Cuota de retención",
+    "dominio": "retencion",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.retencion.cuota",
+      "sujeto": {
+        "id": "paso.anual.retencion.cuota",
+        "revision": "399b0c8d6a0ee8e3566f3ea995dee6bcec159d224b974084d58164f248b25241"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":64568,\"fin\":64852,\"siteId\":\"anual.retencion.cuota\"}",
+        "selector": {
+          "inicio": 64568,
+          "fin": 64852,
+          "siteId": "anual.retencion.cuota"
+        }
+      }
+    ],
+    "expresion": "centimosAEuros(retencion.cuotaRetencionCentimos)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "Q=cuota de escala(B)−cuota de escala(M), con límites del procedimiento"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "M es mínimo familiar del procedimiento, no reducción de B. Para base sintética9292 y mínimo5550, ambos dentro del tramo19%, la diferencia de cuotas es(9292−5550)×.19=710.98 antes de límites. No se atribuyen estas bases a un caso real ni se presenta la cuenta como retención final."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "RIRPF arts.85–86 y algoritmo seleccionado; parámetros y límites se encuentran en versiones y tabla de exclusión."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "0f6003cfa63f-p39",
+          "0f6003cfa63f-p40",
+          "645d06d2dc5a-p3",
+          "645d06d2dc5a-p4",
+          "645d06d2dc5a-p5",
+          "645d06d2dc5a-p6",
+          "645d06d2dc5a-p7",
+          "645d06d2dc5a-p8",
+          "645d06d2dc5a-p9",
+          "645d06d2dc5a-p10"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "La escala2020 termina45%, no47%. El límite43 solo hasta retribución22000, con salto posible al superarlo; no suavizarlo editorialmente."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "retencion"
+    }
+  },
+  {
+    "id": "editorial.anual.retencion.tipo",
+    "titulo": "Tipo de retención",
+    "dominio": "retencion",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.retencion.tipo",
+      "sujeto": {
+        "id": "paso.anual.retencion.tipo",
+        "revision": "8f2d64df31c8e996c2be73cec6624d86a5e6ae7c3391ea9e6d1ed7ab1ffc8bae"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "percent",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":64858,\"fin\":65115,\"siteId\":\"anual.retencion.tipo\"}",
+        "selector": {
+          "inicio": 64858,
+          "fin": 65115,
+          "siteId": "anual.retencion.tipo"
+        }
+      }
+    ],
+    "expresion": "new Decimal(retencion.tipoRetencionPorcentaje)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "t=truncar_2(100×Q/retribución), sujeto a mínimos y deducciones"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "t se expresa en puntos porcentuales. Q=1720,retribución18000: cociente9.555… y tipo9.55, antes de especialidades. Truncar no equivale a redondear9.56."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "RIRPF art.86 y pseudocódigo AEAT anual; tipo inicial parcial, sin regularización acumulada."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "0f6003cfa63f-p39",
+          "0f6003cfa63f-p40",
+          "645d06d2dc5a-p3",
+          "645d06d2dc5a-p4",
+          "645d06d2dc5a-p5",
+          "645d06d2dc5a-p6",
+          "645d06d2dc5a-p7",
+          "645d06d2dc5a-p8",
+          "645d06d2dc5a-p9",
+          "645d06d2dc5a-p10"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Retribución0 exige rama propia, no división por cero. Mínimos2%/15% tienen excepciones y contratos; no todo especial es15%."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "retencion"
+    }
+  },
+  {
+    "id": "editorial.anual.retencion.anual",
+    "titulo": "Retención anual",
+    "dominio": "retencion",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.retencion.anual",
+      "sujeto": {
+        "id": "paso.anual.retencion.anual",
+        "revision": "b58c749843cec327f5392f1fa92b3ad9282cc0601568c33093b250e2b90d7528"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":65121,\"fin\":65386,\"siteId\":\"anual.retencion.anual\"}",
+        "selector": {
+          "inicio": 65121,
+          "fin": 65386,
+          "siteId": "anual.retencion.anual"
+        }
+      }
+    ],
+    "expresion": "centimosAEuros(retencion.importeRetencionAnualCentimos)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "H_estimado=retribución×t/100, con política monetaria del modo"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Con18000 y t9.55 resulta1719 euros, diferente de cuota1720. El modo y ejercicio se propagan al servicio; se transforma a céntimos al salir."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Algoritmo AEAT: importe anual inicial estimado. No es cuota anual IRPF ni prueba de retención soportada."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "0f6003cfa63f-p39",
+          "0f6003cfa63f-p40",
+          "645d06d2dc5a-p3",
+          "645d06d2dc5a-p4",
+          "645d06d2dc5a-p5",
+          "645d06d2dc5a-p6",
+          "645d06d2dc5a-p7",
+          "645d06d2dc5a-p8",
+          "645d06d2dc5a-p9",
+          "645d06d2dc5a-p10"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Sin servicio opcional no se emite esta línea. Fechas fuera de catálogo y regularización se rechazan; no habilitar2012–2016 por tener sus PDFs."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "retencion"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.base",
+    "titulo": "Base ordinaria de cotización",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.base",
+      "sujeto": {
+        "id": "paso.anual.ss.base",
+        "revision": "0fd7f3744c4cb3c32088a976f02de0b1624a038ef1e35ca63e6dc4f48f2483c3"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":35604,\"fin\":36107,\"siteId\":\"anual.ss.base\"}",
+        "selector": {
+          "inicio": 35604,
+          "fin": 36107,
+          "siteId": "anual.ss.base"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.baseOrdinaria",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "B=Σ_m min(S/12,M_m); legacy B=min(S,M_anual)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "S es remuneración anual con extras prorrateadas; M mensual aplicable. En2018: siete meses3751.20 y cinco3803.70 para S alto dan45276.90; legacy usa45014.40. En2025 tope anual uniforme58914."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Órdenes anuales de cotización; 2018 cambio desde agosto según Ley6/2018 art130 y DF46."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada. El máximo2018 se enlaza a ESS55/2018 y Ley6/2018, separados de la orden2025. La derivación7/5 presupone doce meses uniformes; no sustituye el alta real, grupos, mínimos o liquidación TGSS.",
+        "citas": [
+          "918a1c126ddf-p3",
+          "918a1c126ddf-p4",
+          "918a1c126ddf-p5",
+          "918a1c126ddf-p15",
+          "918a1c126ddf-p16",
+          "918a1c126ddf-p28",
+          "ss2018-enero-maximo",
+          "ss2018-agosto-maximo",
+          "ss2018-entrada-vigor"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Faltan mínimos de grupo, jornada y altas. No compensar exceso de un mes con otro. Doce meses uniformes es supuesto declarado, no reconstrucción de nóminas."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.exceso",
+    "titulo": "Exceso sobre base máxima",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.exceso",
+      "sujeto": {
+        "id": "paso.anual.ss.exceso",
+        "revision": "f9f9836b348a61187ca93f73993b51852134fc68c2640ec579cd93432299502c"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":36121,\"fin\":36469,\"siteId\":\"anual.ss.exceso\"}",
+        "selector": {
+          "inicio": 36121,
+          "fin": 36469,
+          "siteId": "anual.ss.exceso"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.excesoBase",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "X=max(0,S−B)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Restar base ordinaria limitada a remuneración. S=60000 y B=58914 en2025: X=1086. El exceso es remuneración no cubierta por base ordinaria, no base extra del MEI."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "LGSS art.19bis y DT42; PJC178/2025 art17 para solidaridad."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p3",
+          "918a1c126ddf-p4",
+          "918a1c126ddf-p5",
+          "918a1c126ddf-p15",
+          "918a1c126ddf-p16",
+          "918a1c126ddf-p28"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "X positivo antes2025 no genera solidaridad en el código. Remuneración no cotizable debe resolverse antes; S no es cualquier renta fiscal del trabajo."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.empresarial-ordinaria",
+    "titulo": "Cotización empresarial ordinaria",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.empresarial-ordinaria",
+      "sujeto": {
+        "id": "paso.anual.ss.empresarial-ordinaria",
+        "revision": "843410cfdc2971908814eda736bf31ddeeef0f7ec495764596a5bd719565a914"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":36483,\"fin\":36868,\"siteId\":\"anual.ss.empresarial-ordinaria\"}",
+        "selector": {
+          "inicio": 36483,
+          "fin": 36868,
+          "siteId": "anual.ss.empresarial-ordinaria"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.cotizacionEmpresarialOrdinaria",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "C_E=B×(CC_E+desempleo_E+FOGASA_E+FP_E+ATEP_perfil)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Contrato indefinido ordinario2025 del perfil:23.60+5.50+0.20+0.60+1.50=31.40%. B=30000 da9420. MEI y solidaridad se suman después."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "PJC178/2025 arts4 y32; AT/EP exige tarifa y ocupación elegibles. El1.50% es supuesto heredado, no tipo universal."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p3",
+          "918a1c126ddf-p4",
+          "918a1c126ddf-p5",
+          "918a1c126ddf-p15",
+          "918a1c126ddf-p16",
+          "918a1c126ddf-p28"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Contrato temporal general puede usar6.70 desempleo; no se selecciona aquí por hechos de contrato. Cuotas ingresables requieren etapas TGSS pendientes."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.trabajador-ordinaria",
+    "titulo": "Cotización del trabajador ordinaria",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.trabajador-ordinaria",
+      "sujeto": {
+        "id": "paso.anual.ss.trabajador-ordinaria",
+        "revision": "6b3772c8bd9d95c1a6361579c85be186e7537a881df2ad62f75d9a69bc50affd"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":36882,\"fin\":37269,\"siteId\":\"anual.ss.trabajador-ordinaria\"}",
+        "selector": {
+          "inicio": 36882,
+          "fin": 37269,
+          "siteId": "anual.ss.trabajador-ordinaria"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.cotizacionTrabajadorOrdinaria",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "C_T=B×(CC_T+desempleo_T+FP_T)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Para indefinido ordinario2025:4.70+1.55+0.10=6.35%; B30000 da1905. FOGASA y AT/EP son de empresa en este perfil."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "PJC178/2025 arts4 y32, con condiciones de contrato no verificadas por esta función."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p3",
+          "918a1c126ddf-p4",
+          "918a1c126ddf-p5",
+          "918a1c126ddf-p15",
+          "918a1c126ddf-p16",
+          "918a1c126ddf-p28"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No incluir MEI dos veces. Temporal general tiene1.60% desempleo; uniformidad no demuestra elegibilidad del1.55%."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.mei-empresarial",
+    "titulo": "MEI empresarial",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.mei-empresarial",
+      "sujeto": {
+        "id": "paso.anual.ss.mei-empresarial",
+        "revision": "390f8ebeb9dbf912daa45745f1d41deec0e1de000d7fe17402464cb8a19377dd"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":37283,\"fin\":37595,\"siteId\":\"anual.ss.mei-empresarial\"}",
+        "selector": {
+          "inicio": 37283,
+          "fin": 37595,
+          "siteId": "anual.ss.mei-empresarial"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.meiEmpresarial",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "ME_E=B×m_E(año)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "En2025 m_E=0.0067; B30000 produce201. En2026 m_E=0.0075. Se usa base ordinaria, no exceso de solidaridad."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "LGSS127bis/DT43 y órdenes anuales;2025 PJC178 art16,2026 PJC297."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p15",
+          "mei2025",
+          "mei2026"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Antes2023 tipo0 en perfil. Existencia de un salario no acredita obligación por jubilación de toda situación. No trasladar código555/557 histórico como tarifa nueva."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.mei-trabajador",
+    "titulo": "MEI del trabajador",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.mei-trabajador",
+      "sujeto": {
+        "id": "paso.anual.ss.mei-trabajador",
+        "revision": "5830ed9d518fcc7405f14dbc70df1ae38521cff270d429d003999d20245c8cfd"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":37609,\"fin\":37925,\"siteId\":\"anual.ss.mei-trabajador\"}",
+        "selector": {
+          "inicio": 37609,
+          "fin": 37925,
+          "siteId": "anual.ss.mei-trabajador"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.meiTrabajador",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "ME_T=B×m_T(año)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "En2025 m_T=0.0013; B30000 produce39. En2026 m_T=0.0015. Es aportación obrera independiente de31.40/6.35 ordinarios."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "PJC178/2025 art16 y PJC297/2026; tipos por aportación, no reparto inferido desde total."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p15",
+          "mei2025",
+          "mei2026"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "El ejemplo TGSS2022 establece códigos de transmisión, no tipo2025 ni política de redondeo universal."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.solidaridad-empresarial",
+    "titulo": "Solidaridad empresarial",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.solidaridad-empresarial",
+      "sujeto": {
+        "id": "paso.anual.ss.solidaridad-empresarial",
+        "revision": "bb6769122dd582d6a26a3ae721f33043ba969e25f5a79f37c4b136d0cf000c6c"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":37939,\"fin\":38430,\"siteId\":\"anual.ss.solidaridad-empresarial\"}",
+        "selector": {
+          "inicio": 37939,
+          "fin": 38430,
+          "siteId": "anual.ss.solidaridad-empresarial"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.solidaridadEmpresarial",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "SO_E=Σ x_j×s_E,j; x1=min(X,.1M),x2=min(max(X−.1M,0),.4M),x3=max(X−.5M,0)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "M es máximo anual solo bajo doce mensualidades uniformes. En2025 tipos0.0077,0.0083,0.0098. S60000,M58914:X1086 dentro primer tramo, empresa8.3622 euros exactos. Legacy reparte5/6 del total y puede diferir."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "PJC178/2025 art17 publica reparto por tramo.2026 usa0.0096/0.0104/0.0122 según PJC297."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p16",
+          "solidaridad2025-t1",
+          "solidaridad2025-t2",
+          "solidaridad2025-t3",
+          "solidaridad2026-t1",
+          "solidaridad2026-t2",
+          "solidaridad2026-t3"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No transformar proporción5/6 en norma de céntimos. En fronteras1.1M y1.5M solo cambia marginal. Antes2025 cero en perfil."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.solidaridad-trabajador",
+    "titulo": "Solidaridad del trabajador",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.solidaridad-trabajador",
+      "sujeto": {
+        "id": "paso.anual.ss.solidaridad-trabajador",
+        "revision": "a0e1ee597ff1230aa664e689674ae3e4d860f1d16cf0ae0a2861928d67bd961c"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":38444,\"fin\":38937,\"siteId\":\"anual.ss.solidaridad-trabajador\"}",
+        "selector": {
+          "inicio": 38444,
+          "fin": 38937,
+          "siteId": "anual.ss.solidaridad-trabajador"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.solidaridadTrabajador",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "SO_T=Σ x_j×s_T,j, con los mismos excesos x_j"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "2025 tipos0.0015/0.0017/0.0019: X1086 en primer tramo da1.629 euros. 2026:0.0019/0.0021/0.0024. Calcular por aportación publicada, sin dividir cuota total por6."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "PJC178/2025 art17 y PJC297/2026. El reparto es anual/temporal según norma, no mera identidad aritmética."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p16",
+          "solidaridad2025-t1",
+          "solidaridad2025-t2",
+          "solidaridad2025-t3",
+          "solidaridad2026-t1",
+          "solidaridad2026-t2",
+          "solidaridad2026-t3"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No afirmar132.84 o132.72 como deuda TGSS sin resolver etapa mensual. Empates y residuales siguen pendientes en EO01/EO02 concluidos."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.empresarial-total",
+    "titulo": "Cotización empresarial total",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.empresarial-total",
+      "sujeto": {
+        "id": "paso.anual.ss.empresarial-total",
+        "revision": "02eb45f3814292656f3226f0860484a9c319f9b471a08452d7915712897307a5"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":38951,\"fin\":39325,\"siteId\":\"anual.ss.empresarial-total\"}",
+        "selector": {
+          "inicio": 38951,
+          "fin": 39325,
+          "siteId": "anual.ss.empresarial-total"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.cotizacionEmpresarial",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "T_E=C_E+ME_E+SO_E"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Agregar productos del mismo modo y ejercicio. B30000 en2025 sin exceso:9420+201+0=9621. Es importe analítico previo a presentación monetaria."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Suma técnica de aportaciones; las normas de cada componente se citan por separado."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p3",
+          "918a1c126ddf-p4",
+          "918a1c126ddf-p5",
+          "918a1c126ddf-p15",
+          "918a1c126ddf-p16",
+          "918a1c126ddf-p28"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No redondear cada producto y atribuir a TGSS la suma sin contrato. XML histórico6.87 frente6.88 no resuelve2025."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.trabajador-total",
+    "titulo": "Cotización total del trabajador",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.trabajador-total",
+      "sujeto": {
+        "id": "paso.anual.ss.trabajador-total",
+        "revision": "7a1e75e31e9dd7591b00f2e7bdaad340e4fd13d0be32e19beb36456ec2e9b1e5"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":39339,\"fin\":39711,\"siteId\":\"anual.ss.trabajador-total\"}",
+        "selector": {
+          "inicio": 39339,
+          "fin": 39711,
+          "siteId": "anual.ss.trabajador-total"
+        }
+      }
+    ],
+    "expresion": "cotizacionesSociales.cotizacionTrabajador",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "T_T=C_T+ME_T+SO_T"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "B30000 en2025 sin exceso:1905+39+0=1944. Esta misma magnitud se reutiliza en trabajo.cotizacion."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.19.2.a permite deducir aportación efectiva: el total aquí calculado sigue siendo estimación del perfil."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p3",
+          "918a1c126ddf-p4",
+          "918a1c126ddf-p5",
+          "918a1c126ddf-p15",
+          "918a1c126ddf-p16",
+          "918a1c126ddf-p28"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "No restar ordinaria y total simultáneamente. No sumar empresa a gasto obrero. Nómina real exige recibos y períodos."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.ss.coste-laboral",
+    "titulo": "Coste laboral",
+    "dominio": "ss",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.ss.coste-laboral",
+      "sujeto": {
+        "id": "paso.anual.ss.coste-laboral",
+        "revision": "924f484677f1263ed405331cce14f146cc77aed50387125cc1a3b89ab22eb4d8"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "localizador": "{\"inicio\":39725,\"fin\":40135,\"siteId\":\"anual.ss.coste-laboral\"}",
+        "selector": {
+          "inicio": 39725,
+          "fin": 40135,
+          "siteId": "anual.ss.coste-laboral"
+        }
+      }
+    ],
+    "expresion": "rendimientoIntegroTrabajo.plus(\n                cotizacionesSociales.cotizacionEmpresarial\n              )",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "L=S+T_E"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "S30000 más aportación empresarial9621 da coste39621. Cotización obrera ya está dentro del bruto; no añadir1944."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Identidad contable del perfil, no regla de cuota IRPF. La tarifa empresarial condiciona el resultado."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "918a1c126ddf-p3",
+          "918a1c126ddf-p4",
+          "918a1c126ddf-p5",
+          "918a1c126ddf-p15",
+          "918a1c126ddf-p16",
+          "918a1c126ddf-p28"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Bonificaciones, indemnizaciones y otros costes no representados impiden llamarlo coste universal. Neto debe restar cuota y obrero del mismo modo; pagos a cuenta no son otra cuota."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "ss"
+    }
+  },
+  {
+    "id": "editorial.anual.explicito.actividad.etapa",
+    "titulo": "Paso del cálculo anual.explicito.actividad.etapa",
+    "dominio": "actividad",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": "anual.explicito.actividad.etapa",
+      "sujeto": {
+        "id": "paso.anual.explicito.actividad.etapa",
+        "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+      }
+    },
+    "ambito": {
+      "ejercicios": [
+        2025
+      ],
+      "territorio": "madrid",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "perfil-parcial-2025"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "localizador": "{\"inicio\":7016,\"fin\":7268,\"siteId\":\"anual.explicito.actividad.etapa\"}",
+        "selector": {
+          "inicio": 7016,
+          "fin": 7268,
+          "siteId": "anual.explicito.actividad.etapa"
+        }
+      }
+    ],
+    "expresion": "new D(e.importe)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "Cada instancia usa e.importe y e.formula de calcularActividad2025"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "No es una fórmula única: ingreso, gasto, RETA, P, G, RN, art32, inicio, aporte y pagos tienen unidades EUR y signos distintos. Las derivaciones e identificadores de etapa se explican en DERIVACIONES.md, con ejemplo EDS completo."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Arts.28–32 LIRPF, art30 RIRPF y tabla de amortización. Solo servicios profesionales individuales EDS2025, devengo, régimen común; conexión anual Madrid sin activos ni discapacidad."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p17",
+          "7393a032cbcb-p18",
+          "0f6003cfa63f-p21",
+          "6fe8785ba1a1-p7",
+          "758a2d02ef82-p85",
+          "758a2d02ef82-p86",
+          "4cf41092d949-p16",
+          "4cf41092d949-p17"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Nunca aplicar art20 a EDS ni volver a restar RETA; gastos de difícil justificación incompatibles con cliente único. Negativos conservados. Regímenes, años y hechos desconocidos rechazan."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "actividad"
+    }
+  },
+  {
+    "id": "editorial.irpf.ganancias.perdidas",
+    "titulo": "Conservación de pérdidas patrimoniales",
+    "dominio": "capital",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": null,
+      "sujeto": {
+        "id": "irpf.ganancias.perdidas",
+        "revision": "75af9f6569247d5536ee02f60a2a5f3f88ad66c98e465454bfe36bfa23298986"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "docs/procedencia/correcciones/ganancias-patrimoniales.md",
+        "sha256": "a087fc1ad91c7fd081fea9f15eef87bbd92535b9e8be38f9804ea374925f777f",
+        "localizador": "CG-01",
+        "selector": null
+      }
+    ],
+    "expresion": "g_sujeta=g−max(0,min(g,E)); saldo=Σg_sujeta",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "g_sujeta=g−max(0,min(g,E)); saldo=Σg_sujeta"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Con10000 y−4000 sin exenciones, sujeto total6000 y exento0. La pérdida no se convierte en exención negativa. Su posterior destino exige separar general/ahorro y componentes."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Arts.33,46,48–49 LIRPF; Ley16/2012 altera transmisiones cortas2013–14; Ley26/2014 modifica compensación desde2015."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "ff21371b04e3-p17",
+          "ff21371b04e3-p18",
+          "ff21371b04e3-p22",
+          "ff21371b04e3-p23",
+          "ff21371b04e3-p24",
+          "ff21371b04e3-p25"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Conservar pérdidas no implementa compensación cruzada ni arrastre cuatro años. Ahorro técnico max(0,saldo) no conserva una bolsa fiscal futura. Pérdidas no computables requieren calificación previa."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "capital"
+    }
+  },
+  {
+    "id": "editorial.irpf.ganancias.exencion-inmuebles",
+    "titulo": "Exención parcial por adquisición de inmuebles",
+    "dominio": "capital",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": null,
+      "sujeto": {
+        "id": "irpf.ganancias.exencion-inmuebles",
+        "revision": "7b487eaebef690210183b197c1ecee7faaa9ae2a4f1630b4681b8051f7341081"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "docs/procedencia/correcciones/ganancias-patrimoniales.md",
+        "sha256": "a087fc1ad91c7fd081fea9f15eef87bbd92535b9e8be38f9804ea374925f777f",
+        "localizador": "CG-02",
+        "selector": null
+      }
+    ],
+    "expresion": "E2012=.50×max(0,g−E_previa), sujeto al límite conjunto g positivo",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "E2012=.50×max(0,g−E_previa), sujeto al límite conjunto g positivo"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Exigir urbano, adquisición onerosa12mayo–31dic2012 y ausencia de vinculación en adquisición/transmisión. Compra1jun2012,venta2025,g10000,Eprevia0 da5000. Compra11mayo da0."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "DA37 introducida por RDL18/2012 DF3 y continuada por Ley8/2012. La ventana fecha adquisición, no fecha venta."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "73e5f7ae8b2c-p8",
+          "402d62616a31-p11",
+          "402d62616a31-p12"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Faltan verificación material y concurrencia completa con otras exenciones. No convertir flag ausente en hecho acreditado. Vivienda habitual/reinversión requiere orden y hechos específicos."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "capital"
+    }
+  },
+  {
+    "id": "editorial.irpf.ganancias.renta-vitalicia",
+    "titulo": "Exención por reinversión en renta vitalicia",
+    "dominio": "capital",
+    "objetivo": {
+      "snapshot": "259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608",
+      "siteId": null,
+      "sujeto": {
+        "id": "irpf.ganancias.renta-vitalicia",
+        "revision": "3884932ec702fbffbb2286f1498eb8629cf0b3abd3e696a5e89880b915828213"
+      }
+    },
+    "ambito": {
+      "ejercicios": [],
+      "territorio": "comun-condicionado",
+      "calidad": "candidato; años no inferidos del nombre del archivo",
+      "contrato": "contrato-tecnico-no-regla-completa"
+    },
+    "unidad": "EUR",
+    "codigo": [
+      {
+        "archivo": "docs/procedencia/correcciones/ganancias-patrimoniales.md",
+        "sha256": "a087fc1ad91c7fd081fea9f15eef87bbd92535b9e8be38f9804ea374925f777f",
+        "localizador": "CG-03",
+        "selector": null
+      }
+    ],
+    "expresion": "E=max(g,0)×min(1,min(reinvertido,max(240000−previas,0))/transmisión)",
+    "secciones": {
+      "formula": {
+        "estado": "candidata",
+        "texto": "E=max(g,0)×min(1,min(reinvertido,max(240000−previas,0))/transmisión)"
+      },
+      "derivacion": {
+        "estado": "candidata",
+        "texto": "Desde2015 y mayor65 según contrato; transmisión positiva. g100000,transmisión200000,reinvertido200000,previas200000: margen40000 y E20000. Sin margen,E0."
+      },
+      "norma": {
+        "estado": "candidata",
+        "texto": "Art.38.3 creado por Ley26/2014, DF6 desde1enero2015; art.42 RIRPF según RD633/2015."
+      },
+      "evidencia": {
+        "estado": "candidata",
+        "texto": "Referencias a originales y páginas físicas en citas.json. Son contexto normativo candidato: no acreditan por asociación todas las condiciones ni toda la vigencia. Cada cita conserva texto, caja, receta y hash; autenticidad histórica no validada.",
+        "citas": [
+          "7393a032cbcb-p22",
+          "7393a032cbcb-p79",
+          "6fe8785ba1a1-p8",
+          "6fe8785ba1a1-p9"
+        ]
+      },
+      "bordes": {
+        "estado": "candidata",
+        "texto": "Plazo6meses tiene excepción por retenciones, periodicidad y comunicación a aseguradora no se verifican. Dos operaciones con previas0 incoherentes pueden exceder240000; cronología externa pendiente. En2014 esta exención0 sin suprimir vivienda habitual mayor65."
+      }
+    },
+    "pendientes": [
+      {
+        "afirmacion": "Aceptación fiscal completa del sitio",
+        "falta": "Nueva revisión independiente del vínculo, condiciones y vigencia; no se hereda aceptación de auditoría anterior."
+      },
+      {
+        "afirmacion": "Autenticidad jurídica histórica",
+        "falta": "Validación de firma/CSV y cadena de confianza; SHA256/SHA512 solo acreditan integridad."
+      }
+    ],
+    "aceptacionFiscalCompleta": false,
+    "contrarrevision": "pendiente",
+    "derivacionCompartida": {
+      "archivo": "docs/procedencia/editorial/rentas-retenciones-cotizaciones/DERIVACIONES.md",
+      "seccion": "capital"
+    }
+  }
+]

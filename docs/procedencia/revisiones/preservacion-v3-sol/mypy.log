@@ -1,0 +1,10 @@
+Downloading mypy (14.8MiB)
+Downloading ast-serialize (1.3MiB)
+ Downloaded ast-serialize
+ Downloaded mypy
+Installed 10 packages in 24ms
+docs/procedencia/revisiones/preservacion-v3-sol/auditar.py:66: error: Argument 1 to "append" of "list" has incompatible type "dict[str, str]"; expected "str"  [arg-type]
+docs/procedencia/revisiones/preservacion-v3-sol/auditar.py:126: error: Need type annotation for "records" (hint: "records: dict[<type>, <type>] = ...")  [var-annotated]
+docs/procedencia/revisiones/preservacion-v3-sol/evidencia.py:16: error: Need type annotation for "classes" (hint: "classes: dict[<type>, <type>] = ...")  [var-annotated]
+docs/procedencia/preservacion-v3/recolector.py:196: error: Generator has incompatible item type "object"; expected "bool"  [misc]
+Found 4 errors in 3 files (checked 9 source files)

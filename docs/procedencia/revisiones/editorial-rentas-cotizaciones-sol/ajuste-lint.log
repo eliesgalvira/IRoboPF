@@ -1,0 +1,45 @@
+E741 Ambiguous variable name: `O`
+ --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/mapear_pasajes.py:5:1
+  |
+3 | import pathlib
+4 | import re
+5 | O=pathlib.Path('docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol')
+  | ^
+6 | B=json.loads(gzip.decompress((O/'pasajes-primarios.json.gz').read_bytes())); cs={c['cita']:c for c in B}
+7 | claims=[
+  |
+
+E702 Multiple statements on one line (semicolon)
+ --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/mapear_pasajes.py:6:76
+  |
+4 | import re
+5 | O=pathlib.Path('docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol')
+6 | B=json.loads(gzip.decompress((O/'pasajes-primarios.json.gz').read_bytes())); cs={c['cita']:c for c in B}
+  |                                                                            ^
+7 | claims=[
+8 | ('ART19-AE','7393a032cbcb-p12',r'cotizaciones|derechos pasivos|colegios de huérfanos|cuotas satisfechas|defensa jurídica','a-e efectivo…
+  |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/mapear_pasajes.py:30:11
+   |
+28 | rows=[]
+29 | for id,cid,pat,note in claims:
+30 |  c=cs[cid];p=[x for x in c['pasajes'] if re.search(pat,x['texto'],re.I)];rows.append({'afirmacion':id,'cita':cid,'sha256':c['sha256'],…
+   |           ^
+31 | (O/'mapa-afirmaciones-primarias.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
+32 | print([(x['afirmacion'],len(x['pasajes'])) for x in rows])
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/mapear_pasajes.py:30:73
+   |
+28 | rows=[]
+29 | for id,cid,pat,note in claims:
+30 |  c=cs[cid];p=[x for x in c['pasajes'] if re.search(pat,x['texto'],re.I)];rows.append({'afirmacion':id,'cita':cid,'sha256':c['sha256'],…
+   |                                                                         ^
+31 | (O/'mapa-afirmaciones-primarias.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
+32 | print([(x['afirmacion'],len(x['pasajes'])) for x in rows])
+   |
+
+Found 5 errors (1 fixed, 4 remaining).
