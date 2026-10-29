@@ -100,10 +100,22 @@ export function verificarNominalPublicado(
     !p.id
   )
     throw new Error("Payload nominal ambiguo");
+  if (
+    !isDeepStrictEqual(Object.keys(p.executableScope).sort(), ["path", "sha256"])
+  )
+    throw new Error("Referencia de ámbito nominal ambigua");
+  assert.match(p.executableScope.path, /^docs\/procedencia\/[^\\]+$/);
   const decisions = json(pin);
   if (decisions.length !== 1 || decisions[0].id !== p.legalReview.decisionId)
     throw new Error("Decisión nominal ambigua");
   const d = decisions[0];
+  if (
+    !isDeepStrictEqual(p.legalReview, {
+      decisions: pin,
+      decisionId: d.id,
+    })
+  )
+    throw new Error("Revisión nominal ambigua");
   if (
     [d.independentReviewerTaskId, d.projectionAuthorTaskId].includes(
       p.authorTaskId,

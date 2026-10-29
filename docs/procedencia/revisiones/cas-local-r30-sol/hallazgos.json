@@ -1,0 +1,43 @@
+{
+  "findings": [
+    {
+      "id": "CAS30-C01",
+      "status": "corroborado",
+      "contrato": "Recorrido completo",
+      "evidence": "recorrido.json",
+      "scope": "264 pares/102 sujetos, 36 enlaces BOE grande, GET 102 fichas/20 objetos, estados separados y verificación del cierre",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "CAS30-C02",
+      "status": "corroborado",
+      "contrato": "Lectura y autorización local",
+      "evidence": "adversos-http.json",
+      "scope": "pin externo, allowlist, ausencia de fallback, sin cache persistente de integridad",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "CAS30-C03",
+      "status": "corroborado-con-limite",
+      "contrato": "Publicación exclusiva y durabilidad",
+      "evidence": "adversos-io.json",
+      "scope": "Errores concretos IO; fsync directorio puede dejar publicación visible. No se afirma persistencia tras apagón.",
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "CAS30-H01",
+      "status": "hipotesis-refutada-en-casos-ensayados",
+      "hypothesis": "Un sobre recalculado fuera del pin admitido o bytes alterados tras primera petición bastan para servir contenido",
+      "evidence": "adversos-http.json",
+      "notUniversalSecurityProof": true
+    },
+    {
+      "id": "CAS30-L01",
+      "status": "limite-operativo",
+      "scope": "Linux /proc/self/fd, memoria por buffer, IO síncrono y un editor; concurrencia/custodia/producción sin validar"
+    }
+  ],
+  "noProductFixes": true,
+  "parentContrastRequired": true,
+  "noAttestation": true
+}

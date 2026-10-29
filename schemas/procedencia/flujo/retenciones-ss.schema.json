@@ -1,0 +1,19 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"urn:irobopf:flujo:retenciones-ss:1",
+  "type":"object",
+  "required":["version","base","graph","contracts","sites","untouchedSites","completeRuleAcceptance","wiringAllowed","consumerHashes","limits"],
+  "additionalProperties":false,
+  "properties":{
+    "version":{"const":1},
+    "base":{"const":"376fb100512ca6a2f975c3c9500a20ee375dd431"},
+    "completeRuleAcceptance":{"const":false},
+    "wiringAllowed":{"const":false},
+    "graph":{"type":"object"},
+    "contracts":{"type":"array","minItems":6,"items":{"type":"object","required":["id","declaration","parameters","calls","returns","branches","divisions","review","closed"],"properties":{"closed":{"const":false},"review":{"const":"pending-independent"}}}},
+    "sites":{"type":"array","minItems":17,"maxItems":17,"items":{"type":"object","required":["siteId","consumer","unit","frequency","side","producer","value","selection","admission","closed","blockers","legalAcceptance","review"],"properties":{"closed":{"const":false},"legalAcceptance":{"const":false},"review":{"const":"pending-independent"},"frequency":{"const":"annual"},"unit":{"enum":["EUR","percent"]},"side":{"enum":["empresa","trabajador","no-aplica"]}}}},
+    "untouchedSites":{"type":"array","minItems":48,"maxItems":48},
+    "consumerHashes":{"type":"array","minItems":1},
+    "limits":{"type":"array","minItems":1}
+  }
+}

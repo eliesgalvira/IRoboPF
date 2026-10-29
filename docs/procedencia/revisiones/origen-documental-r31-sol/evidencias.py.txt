@@ -1,0 +1,25 @@
+from pathlib import Path
+import json,hashlib,gzip,subprocess
+r=Path.cwd(); o=r/'docs/procedencia/revisiones/origen-documental-r31-sol'; c=r/'.cache/revision-origen-r31'
+def fp(b):return {'sha256':hashlib.sha256(b).hexdigest(),'sha512':hashlib.sha512(b).hexdigest(),'size':len(b)}
+names=['docs/procedencia/editorial/flujo-escalas-r21-sol/verificar.py','docs/procedencia/editorial/flujo-escalas-r21-sol/verificacion.json','docs/procedencia/correcciones/editorial-r21/ediciones.json','docs/procedencia/correcciones/editorial-r21/INFORME.md','docs/procedencia/preservacion-v5-sol/recolector.py','docs/procedencia/preservacion-v5-sol/consumidor.py','docs/procedencia/preservacion-v3/recolector.py','tools/procedencia/preservacion.py','docs/procedencia/preservacion-v5-sol/urls-exactas.json','tests/test_censo_origen.py','tests/test_censo_clasificacion.py','docs/procedencia/revisiones/clasificacion-censo-r30-sol/casos.json','docs/procedencia/correcciones/clasificacion-r31/disposicion.json','docs/procedencia/correcciones/clasificacion-r31/recepcion.json']
+frozen=json.loads((o/'congelado.json').read_bytes()); software={x['path']:x for x in frozen['software']}
+rows=[]
+for n in names:
+ b=(r/n).read_bytes(); f=fp(b); rows.append({'path':n,**f,'matchesFrozen': all(f[k]==software[n][k] for k in f) if n in software else None})
+(o/'fuentes.json').write_text(json.dumps(rows,indent=2)+'\n')
+conf=json.loads((r/'.oxlintrc.json').read_bytes());rules={k:v for k,v in conf['rules'].items() if k.startswith('anti-slop')};assert len(rules)==16 and set(rules.values())=={'error'}
+(o/'reglas-anti-slop.json').write_text(json.dumps(rules,indent=2)+'\n')
+for label in ['inicio']:
+ raw=(c/f'fisico-{label}.json').read_bytes(); data=json.loads(raw);assert data['entries']==16548 and not data['differences']; (o/f'fisico-{label}.json.gz').write_bytes(gzip.compress(raw,mtime=0))
+for n in ['preparar.py','congelado.py','regresiones.py','validar.sh','calidad.sh']:
+ (o/(n+'.txt')).write_bytes((c/n).read_bytes())
+for label,args in [('trabajo',['git','diff','HEAD']),('indice',['git','diff','--cached','HEAD'])]:
+ (o/f'diff-inicio-{label}.log').write_bytes(subprocess.check_output(args))
+# CAS propio de los recolectores exactos usados; no nuevos originales fiscales.
+cas=c/'sha256';cas.mkdir(exist_ok=True)
+refs=[]
+for n in ['recolector-antes.py','recolector-congelado.py']:
+ b=(c/n).read_bytes(); f=fp(b); dest=cas/f['sha256'];dest.write_bytes(b);refs.append({'name':n,**f,'localPath':str(dest.relative_to(r)),'preservationReference':'Git base en diff-revisado.json' if n.endswith('antes.py') else 'pin externo y dependency en congelado.json','sanitized':False})
+(o/'cas-propio.json').write_text(json.dumps(refs,indent=2)+'\n')
+print('Fuentes, reglas, CAS y recepción inicial comprobados')

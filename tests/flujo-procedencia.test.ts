@@ -1,3 +1,4 @@
+import { composeR30 } from "../scripts/procedencia/flujo-retenciones-ss.mjs"
 import {
   describe,
   it,
@@ -374,3 +375,95 @@ describe("actividad aislada y selección de exenciones", () => {
     expect(calc(2015)).toBe("25")
   })
 })
+
+describe("R30: transporte de propiedades de retención", () => {
+  it("resuelve el parámetro de presentación desde su llamada anual única", () => {
+    const g = compose()
+    for (const id of ["base", "cuota", "tipo", "anual"]) {
+      const site = g.sites.find(s => s.siteId === "anual.retencion." + id)
+      expect(site).toBeDefined()
+      if (site === undefined) throw Error("Sitio ausente")
+      const traced = closure(g, site.output)
+      expect(traced.unresolved.some((u: {reason: string}) => u.reason.includes("sin binding: retencion"))).toBe(false)
+      expect(g.ports.some((p: {id: string; symbol: string}) => traced.ports.includes(p.id) && p.symbol.includes("dependencias.retencionTrabajoAeat.calcular"))).toBe(true)
+    }
+  })
+  it("suma trabajo en céntimos por elemento antes de aplicar topes SS", () => {
+    const f = load("lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts").sumarRendimientosTrabajo
+    const convert = load(money).centimosAEuros
+    expect(f([], convert).toFixed()).toBe("0")
+    expect(f([{importeIntegroCentimos: 123}, {importeIntegroCentimos: 456}], convert).toFixed()).toBe("5.79")
+  })
+})
+
+describe("R30: discriminantes numéricos y rechazos reales", () => {
+  const uniform = "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts"
+  const legacy = "lib/dominio/laboral/cotizaciones-sociales.ts"
+  it("contrasta ambos topes de 2018 sin anualizar el promedio antes de saturar", () => {
+    const f = load(uniform).calcularDesgloseCotizacionesPerfilUniforme
+    for (const gross of [0, 45014.39, 45014.4, 45014.41, 45644.39, 45644.4, 45644.41, 50000]) {
+      const r = f({ anio: 2018, salarioBrutoAnual: new Decimal(gross) })
+      const expected = (7 * Math.min(gross, 45014.4) + 5 * Math.min(gross, 45644.4)) / 12
+      expect(r.baseOrdinaria.toNumber()).toBeCloseTo(expected, 8)
+      expect(r.excesoBase.toNumber()).toBeCloseTo(Math.max(0, gross - expected), 8)
+    }
+  })
+  it("solidaridad de 2025 conserva bandas y reparto distinto entre modos", () => {
+    const f = load(uniform).calcularDesgloseCotizacionesPerfilUniforme
+    const l = load(legacy).calcularDesgloseCotizacionesSocialesLegacy
+    for (const excess of [0, 5891.39, 5891.4, 5891.41, 29457, 29457.01, 40000]) {
+      const input = {anio: 2025, salarioBrutoAnual: new Decimal(58914).plus(excess)}
+      const r = f(input), old = l(input)
+      const bands = [Math.min(excess, 5891.4), Math.min(Math.max(0, excess - 5891.4), 23565.6), Math.max(0, excess - 29457)]
+      const expectedEmployer = bands[0] * 0.0077 + bands[1] * 0.0083 + bands[2] * 0.0098
+      const expectedWorker = bands[0] * 0.0015 + bands[1] * 0.0017 + bands[2] * 0.0019
+      const oldTotal = bands[0] * 0.0092 + bands[1] * 0.0100 + bands[2] * 0.0117
+      expect(r.solidaridadEmpresarial.toNumber()).toBeCloseTo(expectedEmployer, 8)
+      expect(r.solidaridadTrabajador.toNumber()).toBeCloseTo(expectedWorker, 8)
+      expect(old.solidaridadTrabajador.toNumber()).toBeCloseTo(oldTotal / 6, 8)
+      expect(old.solidaridadEmpresarial.toNumber()).toBeCloseTo(oldTotal * 5 / 6, 8)
+      expect(r.cotizacionTrabajador.toNumber()).toBeCloseTo(58914 * (0.0635 + 0.0013) + expectedWorker, 8)
+      expect(r.cotizacionEmpresarial.toNumber()).toBeCloseTo(58914 * (0.314 + 0.0067) + expectedEmployer, 8)
+    }
+  })
+  it("rechaza divisor familiar cero, regularización y temporalidad legacy", () => {
+    const Effect = require("effect").Effect
+    const f = load("lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts").calcularRetencionTrabajoAeat
+    const base = {anio: 2025, retribucionAnualCentimos: 3000000, cotizacionesCentimos: 190500, situacionFamiliar: "situacion3", situacionLaboral: "activo", contrato: "general", descendientes: [], ascendientes: [], discapacidad: "sin-discapacidad"}
+    expect(Effect.runSyncExit(f(base, {modo:"compatible-legacy"}))._tag).toBe("Success")
+    for (const changed of [
+      {...base, ascendientes: [{edad:70, convivencia:0, discapacidad:"sin-discapacidad", movilidadReducida:false}]},
+      {...base, procedimiento:"regularizacion"},
+      {...base, fechaPago:"2025-01-01"},
+    ]) expect(Effect.runSyncExit(f(changed, {modo:"compatible-legacy"}))._tag).toBe("Failure")
+  })
+  it("selecciona versión a ambos lados del 5 de julio de 2018 y rechaza ventana ausente", () => {
+    const f = load("lib/dominio/irpf/retenciones/versiones/catalogo.ts").seleccionarVersionRetencion
+    expect(f({anio:2018,fechaPago:"2018-07-04"}).reduccion).toBe("antigua")
+    expect(f({anio:2018,fechaPago:"2018-07-05"}).reduccion).toBe("media2018")
+    expect(f({anio:2018})).toBeUndefined()
+    expect(f({anio:2026,fechaPago:"2026-09-09"})).toBeUndefined()
+    expect(f({anio:2026,fechaPago:"2026-09-10"}).id).toBeDefined()
+  })
+})
+
+it("R30: el acumulador convertido discrimina un mutante de escala monetaria", () => {
+  const input = [{importeIntegroCentimos:123}, {importeIntegroCentimos:456}]
+  const mutated = loader(money, "crearImporteMonetario(centimos).div(100)", "crearImporteMonetario(centimos).div(10)")
+  const f = mutated("lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts").sumarRendimientosTrabajo
+  expect(f(input, mutated(money).centimosAEuros).toFixed()).not.toBe("5.79")
+})
+
+it("R30: los contratos enlazan el retorno monetario concreto y conservan las divisiones", () => {
+  const r = composeR30()
+  expect(r.sites).toHaveLength(17)
+  expect(r.untouchedSites).toHaveLength(48)
+  const output = r.sites.find(s => s.siteId === "anual.retencion.base")
+  expect(output?.producer?.producer.text).toBe("aCentimos(baseRetencion)")
+  expect(r.contracts.some(c => c.id.endsWith(":esCasoCalculable") && c.declaration.text.includes("ascendiente.convivencia > 0"))).toBe(true)
+  expect(r.contracts.some(c => c.id.endsWith(":calcularTipoInicial") && c.divisions.length > 0)).toBe(true)
+  const Ajv = require("ajv")
+  const schema = JSON.parse(fs.readFileSync("schemas/procedencia/flujo/retenciones-ss.schema.json", "utf8"))
+  const check = new Ajv({allErrors:true}).compile(schema)
+  expect(check(r),JSON.stringify(check.errors)).toBe(true)
+}, 120_000)

@@ -1,0 +1,21 @@
+--- 
++++ 
+@@ -1,6 +1,6 @@
+ import difflib,gzip,hashlib,json,subprocess
+ from pathlib import Path
+-R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r30-sol';S=R/'.cache/revision-nominal-r30/transporte'
++R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r30-sol';S=R/'.cache/revision-nominal-r30/transporte-2'
+ S.mkdir(parents=True,exist_ok=False)
+ excluded={'manifiesto.json','binarios.json','entrega.patch.gz','transporte.json'}
+ rows=[];bins=[];patch=[]
+@@ -13,7 +13,9 @@
+  except (UnicodeDecodeError,AssertionError):
+   bins.append({'path':rel,'sha256':hashlib.sha256(raw).hexdigest(),'size':len(raw),'transportPath':rel});dst.write_bytes(raw);continue
+  if not raw:dst.write_bytes(raw)
+- else:patch.extend(difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile=rel))
++ else:
++  for line in difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile=rel):
++   patch.append(line if line.endswith('\n') else line+'\n\\ No newline at end of file\n')
+ payload=''.join(patch).encode();(O/'entrega.patch.gz').write_bytes(gzip.compress(payload,mtime=0))
+ run=subprocess.run(['patch','-p0','--batch'],input=payload,cwd=S,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+ assert run.returncode==0,run.stdout.decode()

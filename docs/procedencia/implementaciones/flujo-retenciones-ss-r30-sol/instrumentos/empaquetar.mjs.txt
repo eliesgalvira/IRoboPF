@@ -1,0 +1,20 @@
+import fs from 'node:fs';import cp from 'node:child_process';import zlib from 'node:zlib';import crypto from 'node:crypto';import path from 'node:path';
+const base='376fb100512ca6a2f975c3c9500a20ee375dd431',docs='docs/procedencia/implementaciones/flujo-retenciones-ss-r30-sol/',scratch='.cache/flujo-retenciones-ss-r30/',transport=scratch+'transporte';
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const envelope=['entrega.patch.gz','binarios.json','manifiesto.json','transporte.json'];
+const files=['scripts/procedencia/flujo-componer.mjs','scripts/procedencia/flujo-retenciones-ss.mjs','tests/flujo-procedencia.test.ts','schemas/procedencia/flujo/retenciones-ss.schema.json'];
+function walk(d){for(const name of fs.readdirSync(d)){const p=d+name;if(fs.lstatSync(p).isDirectory())walk(p+'/');else if(!envelope.includes(p.slice(docs.length)))files.push(p)}}walk(docs);
+fs.mkdirSync(transport,{recursive:true});const rows=[],bins=[];let patch='';
+for(const file of files){const current=fs.readFileSync(file);let original=null;try{original=cp.execFileSync('git',['cat-file','blob',base+':'+file],{stdio:['ignore','pipe','ignore']})}catch{}
+ const row={path:file,sha256:hash(current),bytes:current.length,baseSha256:original?hash(original):null,executable:Boolean(fs.statSync(file).mode&0o111)};rows.push(row);
+ const dest=transport+'/'+file;fs.mkdirSync(path.dirname(dest),{recursive:true});if(original)fs.writeFileSync(dest,original);
+ if(file.endsWith('.gz')){bins.push(row);continue}
+ const previous=scratch+'base-text';fs.writeFileSync(previous,original??Buffer.alloc(0));let text;try{text=cp.execFileSync('diff',['-u','--label',original?'a/'+file:'/dev/null','--label','b/'+file,previous,file],{maxBuffer:64*1024*1024}).toString()}catch(e){if(e.status!==1)throw e;text=e.stdout.toString()}patch+=text;
+}
+fs.writeFileSync(docs+'entrega.patch.gz',zlib.gzipSync(patch,{level:9}));fs.writeFileSync(scratch+'entrega.patch',patch);
+cp.execFileSync('patch',['--batch','-p1','-d',transport,'-i',path.resolve(scratch+'entrega.patch')]);
+for(const row of bins){const dst=transport+'/'+row.path;fs.mkdirSync(path.dirname(dst),{recursive:true});fs.copyFileSync(row.path,dst)}
+for(const row of rows){const dst=transport+'/'+row.path;if(hash(fs.readFileSync(dst))!==row.sha256)throw Error('Transporte alterado: '+row.path);fs.chmodSync(dst,row.executable?0o755:0o644)}
+fs.writeFileSync(docs+'binarios.json',JSON.stringify({base,files:bins},null,2)+'\n');
+fs.writeFileSync(docs+'manifiesto.json',JSON.stringify({base,baseEntries:16486,files:rows,envelopeExcluded:envelope.map(n=>docs+n),note:'El sobre no se incluye en su propio manifiesto; todos los archivos de payload sí. Scratch excluido y conservado.'},null,2)+'\n');
+fs.writeFileSync(docs+'transporte.json',JSON.stringify({base,files:rows.length,textPatchSha256:hash(fs.readFileSync(docs+'entrega.patch.gz')),binaries:bins.length,allPayloadBytesVerified:true,method:'patch -p1 sobre blobs originales de rutas afectadas; binarios por ruta y SHA256; sin VCS mutante'},null,2)+'\n');console.log('Transporte exacto:',rows.length,'archivos');

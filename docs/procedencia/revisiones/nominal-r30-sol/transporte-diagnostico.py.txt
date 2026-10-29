@@ -1,0 +1,8 @@
+from pathlib import Path
+import hashlib,json
+R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r30-sol';S=R/'.cache/revision-nominal-r30/transporte';rows=[]
+for p in O.iterdir():
+ q=S/p.relative_to(R)
+ if q.is_file() and q.read_bytes()!=p.read_bytes():
+  a=p.read_bytes();b=q.read_bytes();rows.append({'path':str(p.relative_to(R)),'expectedSha256':hashlib.sha256(a).hexdigest(),'actualSha256':hashlib.sha256(b).hexdigest(),'expectedSize':len(a),'actualSize':len(b),'expectedTrailing':repr(a[-60:]),'actualTrailing':repr(b[-60:])})
+(O/'transporte-fallo.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows))

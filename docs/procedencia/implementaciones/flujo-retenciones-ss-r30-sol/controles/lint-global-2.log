@@ -1,0 +1,8 @@
+$ bun scripts/run-lint.mjs
+$ oxlint --disable-nested-config
+/run/current-system/sw/bin/bash: line 1: oxlint: command not found
+error: script "lint:oxlint" exited with code 127
+$ eslint .
+/run/current-system/sw/bin/bash: line 1: eslint: command not found
+error: script "lint:eslint" exited with code 127
+error: script "lint" exited with code 1

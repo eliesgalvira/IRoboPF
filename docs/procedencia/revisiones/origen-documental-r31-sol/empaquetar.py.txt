@@ -1,0 +1,39 @@
+from pathlib import Path
+import gzip,json,hashlib,subprocess,difflib,os,stat
+root=Path.cwd(); out=root/'docs/procedencia/revisiones/origen-documental-r31-sol'; cache=root/'.cache/revision-origen-r31'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+def save(name,obj): (out/name).write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n')
+head=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip();assert head=='d28705191c428ec226760413b152080f36226c10'
+for label in ['inicio','final']:
+ raw=(cache/f'fisico-{label}.json').read_bytes();v=json.loads(raw);assert v['entries']==16548 and not v['differences'];(out/f'fisico-{label}.json.gz').write_bytes(gzip.compress(raw,mtime=0))
+for label,args in [('trabajo',['git','diff','HEAD']),('indice',['git','diff','--cached','HEAD'])]:
+ raw=subprocess.check_output(args);assert not raw;(out/f'diff-final-{label}.log').write_bytes(raw)
+save('cotejo-resumen.json',{'head':head,'baseEntries':16548,'startDifferences':[],'finalDifferences':[],'deletions':[],'baseChanges':[],'method':'lstat/readlink/bytes/ejecutabilidad un blob por vez','scope':['docs/procedencia/revisiones/origen-documental-r31-sol/','.cache/revision-origen-r31/']})
+for n in ['evidencias.py','decisiones.py','empaquetar.py']:(out/(n+'.txt')).write_bytes((cache/n).read_bytes())
+# Antes de fijar contenido, enumera todas las rutas ajenas que Git ve como nuevas.
+others=subprocess.check_output(['git','ls-files','--others','--exclude-standard','-z']).split(b'\0')
+unexpected=[os.fsdecode(n) for n in others if n and not os.fsdecode(n).startswith(('docs/procedencia/revisiones/origen-documental-r31-sol/','.cache/revision-origen-r31/'))]
+assert not unexpected,unexpected
+save('alcance.json',{'unexpectedUntracked':unexpected,'baseModified':False,'scratchEnvironmentExcluded':True})
+envelopes={'MANIFIESTO.json','entrega.patch.gz','binarios.json','transporte.json'}
+paths=sorted(p for p in out.rglob('*') if p.is_file() and p.name not in envelopes)
+rows=[];binrows=[];parts=[]
+for p in paths:
+ rel=p.relative_to(root).as_posix();b=p.read_bytes();s=p.lstat();row={'path':rel,'sha256':sha(b),'size':len(b),'baseSha256':None,'executable':bool(s.st_mode&0o111)};rows.append(row)
+ try:t=b.decode('utf-8');binary='\0' in t or not b or not t.endswith('\n')
+ except UnicodeDecodeError:binary=True
+ if binary:binrows.append(row)
+ else:parts.append(''.join(difflib.unified_diff([],t.splitlines(True),fromfile='/dev/null',tofile='b/'+rel)))
+save('MANIFIESTO.json',{'head':head,'files':rows,'excludedEnvelopes':sorted(envelopes),'baseChanges':[],'deletions':[]})
+save('binarios.json',{'files':binrows,'source':'rutas exactas en esta entrega; sin PDF, entornos o app copiada'})
+patch=gzip.compress(''.join(parts).encode(),mtime=0);(out/'entrega.patch.gz').write_bytes(patch)
+dest=cache/'transporte-r1';dest.mkdir(exist_ok=False)
+proc=subprocess.run(['patch','-p1','--batch','--forward','-d',str(dest)],input=gzip.decompress(patch),capture_output=True)
+(cache/'patch.log').write_bytes(proc.stdout+proc.stderr);assert proc.returncode==0
+for row in binrows:
+ p=dest/row['path'];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((root/row['path']).read_bytes())
+for row in rows:
+ p=dest/row['path'];p.chmod(0o755 if row['executable'] else 0o644);b=p.read_bytes();assert len(b)==row['size'] and sha(b)==row['sha256'];assert bool(p.lstat().st_mode&0o111)==row['executable']
+assert len(list(p for p in dest.rglob('*') if p.is_file()))==len(rows)
+save('transporte.json',{'head':head,'manifest':{'path':'MANIFIESTO.json','sha256':sha((out/'MANIFIESTO.json').read_bytes())},'patch':{'path':'entrega.patch.gz','sha256':sha(patch),'size':len(patch)},'binaryCatalog':{'path':'binarios.json','sha256':sha((out/'binarios.json').read_bytes())},'filesVerified':len(rows),'binaryFiles':len(binrows),'patchExit':proc.returncode,'exactBytesAndExecutable':True,'scratch':str(dest.relative_to(root)),'selfExcluded':True,'parentContrastRequired':True})
+print(json.dumps({'files':len(rows),'binaryFiles':len(binrows),'transport':'exacto','unexpected':unexpected}))

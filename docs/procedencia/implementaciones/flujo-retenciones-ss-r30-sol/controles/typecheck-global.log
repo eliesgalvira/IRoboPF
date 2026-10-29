@@ -1,0 +1,5 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/flujo-procedencia.test.ts(384,14): error TS18047: 'site.closure' is possibly 'null'.
+tests/flujo-procedencia.test.ts(384,44): error TS7006: Parameter 'u' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(385,44): error TS2339: Property 'symbol' does not exist on type 'never'.
+tests/flujo-procedencia.test.ts(454,91): error TS69: This code declares an async function, consider representing this async control flow with Effect values and `Effect.gen`.    effect(asyncFunction)

@@ -1,0 +1,24 @@
+--- docs/procedencia/implementaciones/contrato-nominal-r29-sol/recorrido.mjs
++++ .cache/revision-nominal-r30/recorrido.mjs
+@@ -3,10 +3,10 @@
+ import { pathToFileURL } from 'node:url'
+ import { createHash } from 'node:crypto'
+ import assert from 'node:assert/strict'
+-const scratch = resolve('.cache/nominal-r29/ensayo')
++const scratch = resolve('.cache/revision-nominal-r30/ensayo')
+ const { verifyLinks } = await import(pathToFileURL(resolve(scratch,'scripts/procedencia/verificar-enlaces.mjs')))
+ const { verificarNominalPublicado } = await import(pathToFileURL(resolve(scratch,'scripts/procedencia/ambito-publicado.mjs')))
+-const result = await verifyLinks(scratch,{casRoots:[resolve('.cache/nominal-r29/cas')]})
++const result = await verifyLinks(scratch,{casRoots:[resolve('.cache/revision-nominal-r30/cas')]})
+ const prefix='docs/procedencia/implementaciones/contrato-nominal-r29-sol/'
+ const p=JSON.parse(readFileSync(resolve(scratch,prefix+'payload.json'), 'utf8'))
+ const closure=JSON.parse(readFileSync('schemas/procedencia/nominal-dependencies.schema.json', 'utf8')).const
+@@ -15,7 +15,7 @@
+ const dependencies=paths.map((path)=>{
+  const raw=readFileSync(resolve(scratch,path));const sha256=createHash('sha256').update(raw).digest('hex');objects.set(sha256,raw);return {path,sha256}
+ })
+-for(const blob of closure.blobs) objects.set(blob.sha256,readFileSync(resolve('.cache/nominal-r29/cas/sha256',blob.sha256)))
++for(const blob of closure.blobs) objects.set(blob.sha256,readFileSync(resolve('.cache/revision-nominal-r30/cas/sha256',blob.sha256)))
+ objects.set(p.source.sha256,readFileSync(resolve(scratch,p.source.file)))
+ const payload=dependencies.find((d)=>d.path===prefix+'payload.json')
+ const node=verificarNominalPublicado(payload.sha256,p.itemId,dependencies,(h)=>objects.get(h))

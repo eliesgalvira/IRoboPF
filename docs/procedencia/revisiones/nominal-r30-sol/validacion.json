@@ -1,0 +1,38 @@
+{
+  "head": "376fb100512ca6a2f975c3c9500a20ee375dd431",
+  "payloadSha256": "ed018d24b02b10d4633c541d8dd17645fc5e27fcd5935c3d76d24f40b6f234d6",
+  "verdict": "blocked-for-candidate-attestation",
+  "finding": "NR30-01",
+  "attestation": null,
+  "completeRuleAcceptance": false,
+  "activeTrustChanges": false,
+  "checks": {
+    "ownNodeCases": 61,
+    "ownCoordinatorCases": 5,
+    "schemaNodeExpectedRejectionsButAccepted": 2,
+    "schemaCoordinatorRejected": 2,
+    "softwarePersistentMutationsRejected": 28,
+    "historicalNodeRegressionTests": 11,
+    "pythonNominalRegressionTests": 7,
+    "pythonHistoricalScopeTests": 6,
+    "parentSoftwareTestsReproduced": 6,
+    "originalsReextracted": 3,
+    "selectionsReproduced": 10,
+    "physicalBaseEntriesEachPass": 16486,
+    "physicalMismatches": 0,
+    "deleted": 0
+  },
+  "countsOverlap": true,
+  "quality": [
+    "oxlint 0",
+    "eslint 0",
+    "tipos-consumidor 0"
+  ],
+  "limitations": [
+    "pending-only",
+    "no-civil-context",
+    "trust-indeterminate",
+    "no-full-rule-acceptance",
+    "new-conclusions-require-parent-contrast"
+  ]
+}

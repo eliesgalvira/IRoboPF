@@ -1,0 +1,11 @@
+from pathlib import Path
+import hashlib,json
+R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r30-sol';S=R/'.cache/revision-nominal-r30/ensayo'
+names=['docs/procedencia/implementaciones/contrato-nominal-r29-sol/payload.json','docs/procedencia/implementaciones/contrato-nominal-r29-sol/ambito.json','docs/procedencia/correcciones/madrid-nominal-r29/decision-nominal.json','tools/procedencia/nominal.py','tools/procedencia/enlaces.py','scripts/procedencia/nominal-contrato.mjs','scripts/procedencia/ambito-publicado.mjs','scripts/procedencia/verificar-enlaces.mjs','scripts/procedencia/explicacion-version.mjs','schemas/procedencia/binding-payload.schema.json','schemas/procedencia/nominal-cell-scope.schema.json','schemas/procedencia/nominal-projection.schema.json','schemas/procedencia/nominal-dependencies.schema.json','tests/nominal-software-explicacion.test.mjs']
+rows=[]
+for name in names:
+ raw=(R/name).read_bytes();same=(S/name).exists() and (S/name).read_bytes()==raw
+ rows.append({'path':name,'sha256':hashlib.sha256(raw).hexdigest(),'size':len(raw),'exactScratchCopy':same})
+(O/'entradas.json').write_text(json.dumps({'head':'376fb100512ca6a2f975c3c9500a20ee375dd431','files':rows},indent=2)+'\n')
+# Las pruebas copiadas cambian solo rutas scratch y conservan diff, por lo que no se exigen bytes idénticos.
+assert all(r['exactScratchCopy'] for r in rows if not r['path'].startswith('tests/'))

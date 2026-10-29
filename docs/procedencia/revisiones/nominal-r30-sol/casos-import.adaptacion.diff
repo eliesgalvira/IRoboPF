@@ -1,0 +1,11 @@
+--- 
++++ 
+@@ -4,7 +4,7 @@
+ import { createHash } from 'node:crypto';
+ import assert from 'node:assert/strict';
+ const root=process.cwd(), scratch=resolve('.cache/revision-nominal-r30/ensayo');
+-const {verificarNominalPublicado:verify,seleccionarContextoNominal:select}=await import(pathToFileURL(resolve(root,'scripts/procedencia/ambito-publicado.mjs')));
++const {verificarNominalPublicado:verify,seleccionarContextoNominal:select}=await import(pathToFileURL(resolve(scratch,'scripts/procedencia/ambito-publicado.mjs')));
+ const prefix='docs/procedencia/implementaciones/contrato-nominal-r29-sol/';
+ const closure=JSON.parse(readFileSync('schemas/procedencia/nominal-dependencies.schema.json')).const;
+ const hash=b=>createHash('sha256').update(b).digest('hex');

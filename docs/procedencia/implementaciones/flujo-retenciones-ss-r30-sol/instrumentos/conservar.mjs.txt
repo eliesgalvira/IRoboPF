@@ -1,0 +1,4 @@
+import fs from 'node:fs';import zlib from 'node:zlib';
+const scratch='.cache/flujo-retenciones-ss-r30/',dest='docs/procedencia/implementaciones/flujo-retenciones-ss-r30-sol/';fs.mkdirSync(dest+'controles',{recursive:true});fs.mkdirSync(dest+'instrumentos',{recursive:true});
+for(const name of fs.readdirSync(scratch)){if(!/\.(log|exit|json)$/.test(name))continue;const bytes=fs.readFileSync(scratch+name),compressed=bytes.length>1000000;fs.writeFileSync(dest+'controles/'+name+(compressed?'.gz':''),compressed?zlib.gzipSync(bytes,{level:9}):bytes)}
+for(const name of ['cotejo.mjs','fisico-final.mjs','calidad.mjs','calidad2.mjs','contraste.mjs','empaquetar.mjs','conservar.mjs','check.sh','vitest.config.mjs'])fs.copyFileSync(scratch+name,dest+'instrumentos/'+name+'.txt');
