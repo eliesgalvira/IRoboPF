@@ -1,3 +1,4 @@
+import { territorioDeCodigo } from "../lib/dominio/irpf/deducciones/ambito"
 import { Effect, Option } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
@@ -55,7 +56,11 @@ describe("deducciones autonómicas aplicadas", () => {
             const control = Option.getOrThrow(controlOption)
 
             const importeCalculado = calcularDeduccionesAutonomicasAplicadas(
-              control.entradasPrueba
+              control.entradasPrueba,
+              {
+                ejercicio: 2025,
+                territorio: territorioDeCodigo(control.codigo),
+              }
             )
 
             expect(importeCalculado, control.codigo).toBeCloseTo(
@@ -86,7 +91,8 @@ describe("deducciones autonómicas aplicadas", () => {
     })
     expect(
       calcularDeduccionesAutonomicasAplicadas(
-        Option.getOrThrow(control).entradasPrueba
+        Option.getOrThrow(control).entradasPrueba,
+        { ejercicio: 2025, territorio: "andalucia" }
       )
     ).toBe(200)
   })

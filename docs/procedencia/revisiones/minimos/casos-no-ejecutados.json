@@ -1,0 +1,72 @@
+[
+  {
+    "id": "MIN-002",
+    "inputSpecification": "Descendiente10 conviviente sin discapacidad; único titular, renta no exenta8000/8000.01, sin declaración",
+    "expectedConditional": "2400/0 desde2015; rentas exentas excluidas",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-002",
+    "inputSpecification": "Descendiente10 elegible, presenta declaración con rentas1800/1800.01",
+    "expectedConditional": "2400/0 desde2015, condicionado a restantes requisitos",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-003",
+    "inputSpecification": "Ascendiente70 elegible, convivencia inferior/igual a mitad del período",
+    "expectedConditional": "0/1150 desde2015; comprobar centro especializado y fallecimiento por separado",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-004",
+    "inputSpecification": "Un hijo10 sin discapacidad y dos progenitores con igual derecho, declaraciones individuales",
+    "expectedConditional": "1200 cada uno; con discapacidad33 acreditada,1500 adicionales por cada uno",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-005",
+    "inputSpecification": "Adopción de menor10, inscripción2015; años2015/2016/2017/2018",
+    "expectedConditional": "Incremento2800/2800/2800/0; no reiniciar por conversión de acogimiento",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-006",
+    "inputSpecification": "Descendiente fallecido menor3; antes/después de2015",
+    "expectedConditional": "4080/5200 antes de reparto; separar orden de supervivientes",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-006",
+    "inputSpecification": "Ascendiente76 fallecido antes del devengo, convivencia suficiente;2014/2015",
+    "expectedConditional": "0/1150 como mínimo especial por ascendiente; no extrapolar discapacidad",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-010",
+    "inputSpecification": "BG entre mínimos estatal y autonómico; remanentes en orden inverso mediante tablas permitidas",
+    "expectedConditional": "Componentes separados; todavía sin caso anual completo ejecutado",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-015/016",
+    "inputSpecification": "Fallecimiento a medianoche civil española con offset+01:00",
+    "expectedConditional": "Fecha civil por fijar; UTC puede caer en día anterior",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  },
+  {
+    "id": "MIN-017",
+    "inputSpecification": "Fallecido Asturias02/12/2025 frente03/12/2025",
+    "expectedConditional": "Sondeo técnico ejecutado; esperado jurídico anterior sigue pendiente",
+    "executed": false,
+    "reason": "No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación."
+  }
+]

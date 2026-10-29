@@ -162,11 +162,29 @@ const esCasoCalculable = (
   readonly ascendientes: ReadonlyArray<AscendienteRetencion>
 } =>
   Match.number(caso.cotizacionesCentimos) &&
+  Number.isSafeInteger(caso.retribucionAnualCentimos) &&
+  caso.retribucionAnualCentimos >= 0 &&
+  Number.isSafeInteger(caso.cotizacionesCentimos) &&
+  caso.cotizacionesCentimos >= 0 &&
+  [
+    caso.irregular1Centimos,
+    caso.irregular2Centimos,
+    caso.pensionCompensatoriaConyugeCentimos,
+    caso.anualidadesAlimentosHijosCentimos,
+  ].every(
+    (importe) =>
+      importe === undefined || (Number.isSafeInteger(importe) && importe >= 0)
+  ) &&
   caso.situacionFamiliar !== "general" &&
   Match.string(caso.situacionLaboral) &&
   Match.string(caso.contrato) &&
   Array.isArray(caso.descendientes) &&
   Array.isArray(caso.ascendientes) &&
+  caso.ascendientes.every(
+    (ascendiente) =>
+      Number.isSafeInteger(ascendiente.convivencia) &&
+      ascendiente.convivencia > 0
+  ) &&
   !(caso.situacionFamiliar === "situacion1" && caso.descendientes.length === 0)
 
 const importeOpcional = (centimos: number | undefined): Decimal =>

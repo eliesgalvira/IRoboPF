@@ -1,0 +1,212 @@
+import json
+from pathlib import Path
+from decimal import Decimal as D
+
+p = Path("docs/procedencia/revisiones/minimos")
+tables = json.load(open(p / "tablas-runtime.json"))["tables"]
+
+
+def table(c, d, a, s, sd=None):
+    def disc(v):
+        return dict(
+            zip(["grado33Hasta65", "grado65OMas", "gastosAsistencia"], map(str, v))
+        )
+
+    return dict(
+        contribuyente=dict(
+            zip(["general", "adicionalMayor65", "adicionalMayor75"], map(str, c))
+        ),
+        descendientes=dict(
+            zip(
+                [
+                    "primero",
+                    "segundo",
+                    "tercero",
+                    "cuartoYSiguientes",
+                    "adicionalMenorTres",
+                ],
+                map(str, d),
+            )
+        ),
+        ascendientes=dict(
+            zip(["mayor65OConDiscapacidad", "adicionalMayor75"], map(str, a))
+        ),
+        discapacidad=dict(
+            contribuyente=disc(s), ascendiente=disc(s), descendiente=disc(sd or s)
+        ),
+    )
+
+
+old = (
+    [5151, 918, 1122],
+    [1836, 2040, 3672, 4182, 2244],
+    [918, 1122],
+    [2316, 7038, 2316],
+)
+new = (
+    [5550, 1150, 1400],
+    [2400, 2700, 4000, 4500, 2800],
+    [1150, 1400],
+    [3000, 9000, 3000],
+)
+variants = [
+    (2012, "aragon", table(*old), "Ley39/2010 pp61–63"),
+    (
+        2012,
+        "madrid",
+        table(old[0], [1836, 2040, "4039.20", "4600.20", 2244], old[2], old[3]),
+        "Ley5/2010 DAúnica",
+    ),
+    (
+        2014,
+        "cantabria",
+        table(old[0], [2000, 2200, 3900, 4450, 2400], [970, 1200], [2400, 7200, 2400]),
+        "Ley10/2013 pp27–28; frontera65 excluida",
+    ),
+    (
+        2014,
+        "castilla-la-mancha",
+        table(
+            old[0], ["1927.80", 2142, "3855.60", "4391.10", "2356.20"], old[2], old[3]
+        ),
+        "Ley9/2014 DTsegunda",
+    ),
+    (2015, "aragon", table(*new), "Ley26/2014 pp27–29"),
+    (
+        2015,
+        "madrid",
+        table(new[0], [2400, 2700, 4400, 4950, 2800], new[2], new[3]),
+        "Ley4/2014 p8",
+    ),
+    (
+        2015,
+        "illes-balears",
+        table(
+            [5550, 1820, 1540],
+            [2400, 2700, 4400, 4950, 2800],
+            new[2],
+            [3300, 9900, 3300],
+        ),
+        "Ley13/2014 DF2.3;1820 derivado",
+    ),
+    (2018, "la-rioja", table(*new, sd=[3300, 9900, 3000]), "Ley2/2018 pp4–5"),
+    (
+        2022,
+        "madrid",
+        table(
+            ["5777.55", "1197.15", "1457.40"],
+            ["2498.40", "2810.70", 4400, 4950, "2914.80"],
+            ["1197.15", "1457.40"],
+            [3123, 9369, 3123],
+        ),
+        "BOCM20221121 pp3–4",
+    ),
+    (
+        2023,
+        "madrid",
+        table(
+            ["5956.65", "1234.26", "1502.58"],
+            ["2575.85", "2897.83", 4400, 4950, "3005.16"],
+            ["1234.26", "1502.58"],
+            ["3219.81", "9659.44", "3219.81"],
+        ),
+        "Ley13/2023 pp3–4",
+    ),
+    (
+        2022,
+        "andalucia",
+        table(
+            [5790, 1200, 1460],
+            [2510, 2820, 4170, 4700, 2920],
+            [1200, 1460],
+            [3130, 9390, 3130],
+        ),
+        "DL7/2022 art23bis",
+    ),
+    (
+        2022,
+        "galicia",
+        table(
+            [5789, 1199, 1460],
+            [2503, 2816, 4172, 4694, 2920],
+            [1199, 1460],
+            [3129, 9387, 3129],
+        ),
+        "Ley7/2022 art2",
+    ),
+    (
+        2022,
+        "comunitat-valenciana",
+        table(
+            [6105, 1265, 1540],
+            [2640, 2970, 4400, 4950, 3080],
+            [1265, 1540],
+            [3300, 9900, 3300],
+        ),
+        "DOGV2022_9939 art3;devengo ordinario",
+    ),
+    (
+        2023,
+        "illes-balears",
+        table(
+            [5550, 1820, 1540],
+            [2400, 2970, 4400, 4950, 2800],
+            [1265, 1540],
+            [3300, 9900, 3300],
+        ),
+        "Ley11/2023 art1;devengo ordinario",
+    ),
+    (
+        2024,
+        "canarias",
+        table(
+            [5606, 1162, 1414],
+            [2424, 2727, 4040, 4545, 2828],
+            [1162, 1414],
+            [3030, 9090, 3030],
+        ),
+        "Leypresupuestos2025 DF10;reproducción oficial",
+    ),
+    (
+        2025,
+        "asturias",
+        table(
+            [6105, 1265, 1540],
+            [2640, 2970, 4400, 4950, 3080],
+            [1265, 1540],
+            [3300, 9900, 3300],
+        ),
+        "Ley3/2025;no aceptar devengos anteriores3diciembre",
+    ),
+]
+results = []
+
+
+def compare(a, b, prefix):
+    for k, v in a.items():
+        if isinstance(v, dict):
+            compare(v, b[k], prefix + [k])
+        else:
+            results.append(
+                dict(
+                    anio=y,
+                    territorio=ter,
+                    path=prefix + [k],
+                    expected=v,
+                    actual=b[k],
+                    match=D(v) == D(b[k]),
+                    source=src,
+                    scope="Correspondencia numérica de variante; no continuidad ni requisitos familiares.",
+                )
+            )
+
+
+for y, ter, expected, src in variants:
+    actual = next(
+        t for t in tables if t["anio"] == y and t["comunidadAutonoma"] == ter
+    )["minimos"]
+    compare(expected, actual, [])
+p.joinpath("cuantias-contraste.json").write_text(
+    json.dumps(results, ensure_ascii=False, indent=2)
+)
+print(len(results), sum(r["match"] for r in results))

@@ -1,0 +1,6 @@
+$ bun scripts/run-lint.mjs
+$ oxlint
+$ eslint .
+$ bun scripts/test-lint.mjs
+16 reglas a error; ambos plugins cargan y rechazan el fixture.
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json

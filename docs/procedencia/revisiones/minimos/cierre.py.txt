@@ -1,0 +1,120 @@
+import json
+import hashlib
+from pathlib import Path
+
+p = Path("docs/procedencia/revisiones/minimos")
+cases = [
+    (
+        "MIN-002",
+        "Descendiente10 conviviente sin discapacidad; único titular, renta no exenta8000/8000.01, sin declaración",
+        "2400/0 desde2015; rentas exentas excluidas",
+    ),
+    (
+        "MIN-002",
+        "Descendiente10 elegible, presenta declaración con rentas1800/1800.01",
+        "2400/0 desde2015, condicionado a restantes requisitos",
+    ),
+    (
+        "MIN-003",
+        "Ascendiente70 elegible, convivencia inferior/igual a mitad del período",
+        "0/1150 desde2015; comprobar centro especializado y fallecimiento por separado",
+    ),
+    (
+        "MIN-004",
+        "Un hijo10 sin discapacidad y dos progenitores con igual derecho, declaraciones individuales",
+        "1200 cada uno; con discapacidad33 acreditada,1500 adicionales por cada uno",
+    ),
+    (
+        "MIN-005",
+        "Adopción de menor10, inscripción2015; años2015/2016/2017/2018",
+        "Incremento2800/2800/2800/0; no reiniciar por conversión de acogimiento",
+    ),
+    (
+        "MIN-006",
+        "Descendiente fallecido menor3; antes/después de2015",
+        "4080/5200 antes de reparto; separar orden de supervivientes",
+    ),
+    (
+        "MIN-006",
+        "Ascendiente76 fallecido antes del devengo, convivencia suficiente;2014/2015",
+        "0/1150 como mínimo especial por ascendiente; no extrapolar discapacidad",
+    ),
+    (
+        "MIN-010",
+        "BG entre mínimos estatal y autonómico; remanentes en orden inverso mediante tablas permitidas",
+        "Componentes separados; todavía sin caso anual completo ejecutado",
+    ),
+    (
+        "MIN-015/016",
+        "Fallecimiento a medianoche civil española con offset+01:00",
+        "Fecha civil por fijar; UTC puede caer en día anterior",
+    ),
+    (
+        "MIN-017",
+        "Fallecido Asturias02/12/2025 frente03/12/2025",
+        "Sondeo técnico ejecutado; esperado jurídico anterior sigue pendiente",
+    ),
+]
+p.joinpath("casos-no-ejecutados.json").write_text(
+    json.dumps(
+        [
+            dict(
+                id=i,
+                inputSpecification=a,
+                expectedConditional=b,
+                executed=False,
+                reason="No representable en contrato actual o no construido como caso anual; no atribuir ejecución a esta especificación.",
+            )
+            for i, a, b in cases
+        ],
+        ensure_ascii=False,
+        indent=2,
+    )
+)
+scratch = Path(".cache/procedencia/revision-minimos")
+manifest = []
+for s in scratch.glob("*"):
+    if s.suffix not in [".py", ".mjs"]:
+        continue
+    target = p / (s.name + ".txt")
+    target.write_bytes(s.read_bytes())
+    manifest.append(
+        dict(
+            path=str(target),
+            sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
+            purpose="Receta auxiliar preservada como texto; copiar a scratch para ejecutar, no fuente de aplicación",
+        )
+    )
+p.joinpath("recetas.json").write_text(json.dumps(manifest, indent=2))
+rs = json.load(open(p / "revisiones.json"))
+tables = json.load(open(p / "tablas-runtime.json"))["tables"]
+
+
+def leaves(x):
+    if isinstance(x, dict):
+        return sum(leaves(v) for v in x.values())
+    return 1
+
+
+p.joinpath("cobertura.json").write_text(
+    json.dumps(
+        dict(
+            baseComunicada="d9ff49c7",
+            ids=33,
+            accepted=sum(r["status"] == "accepted" for r in rs),
+            needsEvidence=sum(r["status"] == "needs-evidence" for r in rs),
+            rejected=0,
+            annualRuntime=36,
+            technicalFamilyProbes=19,
+            temporalSelectors=6,
+            tableQueries=len(tables),
+            quantities2012to2025=sum(
+                leaves(t["minimos"]) for t in tables if t["anio"] <= 2025
+            ),
+            fiscalQuantitiesCertified=0,
+            scope="Decisiones individuales acotadas. No cierre de todas las cuantías, condiciones ni vigencias; no regeneración de inventario.",
+        ),
+        ensure_ascii=False,
+        indent=2,
+    )
+)

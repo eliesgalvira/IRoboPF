@@ -30,11 +30,15 @@ jobs:
       - if: ${{ !cancelled() }}
         run: bun run test:ci
       - if: ${{ !cancelled() }}
-        run: bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/reduccion-trabajo-procedencia.test.ts --maxWorkers=1
+        run: bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --maxWorkers=1
       - if: ${{ !cancelled() }}
         run: bun run inventario:verificar
       - if: ${{ !cancelled() }}
         run: bun run test:inventario
+      - if: ${{ !cancelled() }}
+        run: bun run test --config scripts/procedencia/contenido-vitest.mjs
+      - if: ${{ !cancelled() }}
+        run: bun scripts/procedencia/contenido-verificar.mjs
   corpus:
     runs-on: ubuntu-latest
     timeout-minutes: 15

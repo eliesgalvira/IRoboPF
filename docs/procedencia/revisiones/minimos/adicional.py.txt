@@ -1,0 +1,26 @@
+import json
+import hashlib
+import subprocess
+import re
+from pathlib import Path
+
+out = Path("docs/procedencia/revisiones/minimos")
+d = json.load(open(out / "documento-hacienda2013.json"))
+b = Path(d["localPath"]).read_bytes()
+assert hashlib.sha256(b).hexdigest() == d["sha256"]
+text = subprocess.check_output(["pdftotext", "-layout", d["localPath"], "-"]).decode()
+Path(".cache/procedencia/revision-minimos/hacienda2013.txt").write_text(text)
+for i, p in enumerate(text.split("\f")):
+    if "Mínimo del contribuyente" in p and "5.151" in p:
+        print("Hacienda PDF", i + 1, p)
+for name in ["ley2014"]:
+    ds = json.load(open("docs/procedencia/auditorias/minimos/documentos.json"))
+    h = next(d for d in ds if d.get("auditName") == name)
+    raw = Path(h["localPath"]).read_text()
+    print(
+        name,
+        "5550",
+        bool(re.search("5.550", raw)),
+        "5151",
+        bool(re.search("5.151", raw)),
+    )

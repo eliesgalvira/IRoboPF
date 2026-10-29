@@ -1,0 +1,26 @@
+59 |   return { files, manifest }
+60 | }
+61 | 
+62 | export function compareFiles(expected, actual) {
+63 |   if (expected.size !== actual.size)
+64 |     throw new Error("Conjunto de archivos incompleto o sobrante")
+                   ^
+error: Conjunto de archivos incompleto o sobrante
+      at compareFiles (/tmp/irobopf-review-v3/procedencia/scripts/procedencia/inventario-artefacto.mjs:64:15)
+      at buildArtifact (/tmp/irobopf-review-v3/procedencia/scripts/procedencia/inventario-artefacto.mjs:92:7)
+
+Bun v1.3.13 (Linux x64)
+OMISSION_REJECTED
+62 | export function compareFiles(expected, actual) {
+63 |   if (expected.size !== actual.size)
+64 |     throw new Error("Conjunto de archivos incompleto o sobrante")
+65 |   for (const [name, content] of expected) {
+66 |     if (actual.get(name) !== content)
+67 |       throw new Error(`Diferencia respecto a fuentes actuales: ${name}`)
+                     ^
+error: Diferencia respecto a fuentes actuales: inventario-bindings.json
+      at compareFiles (/tmp/irobopf-review-v3/procedencia/scripts/procedencia/inventario-artefacto.mjs:67:17)
+      at buildArtifact (/tmp/irobopf-review-v3/procedencia/scripts/procedencia/inventario-artefacto.mjs:92:7)
+
+Bun v1.3.13 (Linux x64)
+SOURCE_CHANGE_REJECTED

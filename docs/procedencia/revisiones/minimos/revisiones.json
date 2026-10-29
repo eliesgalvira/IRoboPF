@@ -1,0 +1,1922 @@
+[
+  {
+    "id": "MIN-001",
+    "previousStatus": "mismatch",
+    "status": "accepted",
+    "acceptanceScope": "Defecto de elegibilidad por edad y desplazamiento del orden: [30,10] sin discapacidad da 5100 en vez de 2400; [30 discapacitado,10] da 5100 como control.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          27
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          62
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "Una lista prefiltrada podría evitarlo, pero la API pública ni lo exige ni valida la edad que ya recibe.",
+    "reason": "Defecto de elegibilidad por edad y desplazamiento del orden: [30,10] sin discapacidad da 5100 en vez de 2400; [30 discapacitado,10] da 5100 como control.",
+    "action": "Filtrar quienes generan derecho antes de ordenar; añadir prueba roja integrada y contrato familiar.",
+    "cost": "Separar selección y orden; conservar pruebas de mayores con discapacidad y familiares fallecidos.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+        "symbol": "obtenerMinimoDescendientes"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-39-42a8c902a1b853fb",
+      "REV-MIN-CITA-255-d597b4d65c55e918",
+      "REV-MIN-CITA-221-ce052556de76066a",
+      "REV-MIN-CITA-38-b98518a00433fd8d",
+      "REV-MIN-CITA-504-a74a7df20d6466ec",
+      "REV-MIN-CITA-159-905957ca2175e5fc",
+      "REV-MIN-CITA-38-5032a9fb70857ac2",
+      "REV-MIN-CITA-149-bdc1c1630790d75e",
+      "REV-MIN-CITA-323-469eb89f54bf9432",
+      "REV-MIN-CITA-312-ec93dc5368fe1b18",
+      "REV-MIN-CITA-222-f9c84a9508579558",
+      "REV-MIN-CITA-48-3f42538829a90196",
+      "REV-MIN-CITA-39-1dc738473e55b034",
+      "REV-MIN-CITA-159-7924d4fdcf2f9d07",
+      "REV-MIN-CITA-216-618d007c00775d9a",
+      "REV-MIN-CITA-39-3829b41aa3c76a23",
+      "REV-MIN-CITA-255-47afecbf152a9494",
+      "REV-MIN-CITA-202-a092014c5dfa4fdf"
+    ]
+  },
+  {
+    "id": "MIN-002",
+    "previousStatus": "missing",
+    "status": "accepted",
+    "acceptanceScope": "Carencia de rentas no exentas y declaración del familiar en FamiliarFiscal; límites 8000 y 1800 no representables.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          27,
+          29
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          62
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "Renta fiscal no es ingreso bruto; no basta añadir un campo ingresos.",
+    "reason": "Carencia de rentas no exentas y declaración del familiar en FamiliarFiscal; límites 8000 y 1800 no representables.",
+    "action": "Definir magnitud fiscal y umbrales inclusivos; no ejecutar casos ficticios con campos que el tipo no admite.",
+    "cost": "Ampliar contrato con renta fiscal y declaración; los casos no pueden automatizarse aún.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "symbol": "FamiliarFiscal"
+      },
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+        "symbol": "obtenerMinimoDescendientes"
+      },
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-ascendientes.ts",
+        "symbol": "obtenerMinimoAscendientes"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-39-42a8c902a1b853fb",
+      "REV-MIN-CITA-255-d597b4d65c55e918",
+      "REV-MIN-CITA-221-ce052556de76066a",
+      "REV-MIN-CITA-38-b98518a00433fd8d",
+      "REV-MIN-CITA-504-a74a7df20d6466ec",
+      "REV-MIN-CITA-159-905957ca2175e5fc",
+      "REV-MIN-CITA-38-5032a9fb70857ac2",
+      "REV-MIN-CITA-149-bdc1c1630790d75e",
+      "REV-MIN-CITA-323-469eb89f54bf9432",
+      "REV-MIN-CITA-312-ec93dc5368fe1b18",
+      "REV-MIN-CITA-222-f9c84a9508579558",
+      "REV-MIN-CITA-48-3f42538829a90196",
+      "REV-MIN-CITA-39-1dc738473e55b034",
+      "REV-MIN-CITA-159-7924d4fdcf2f9d07",
+      "REV-MIN-CITA-216-618d007c00775d9a",
+      "REV-MIN-CITA-39-3829b41aa3c76a23",
+      "REV-MIN-CITA-255-47afecbf152a9494",
+      "REV-MIN-CITA-202-a092014c5dfa4fdf",
+      "REV-MIN-CITA-127-7bc5a89748c21e46",
+      "REV-MIN-CITA-154-be529c60eb41bbd8",
+      "REV-MIN-CITA-315-3b0a2f172b815fec",
+      "REV-MIN-CITA-411-49b61c8eab349ff7",
+      "REV-MIN-CITA-330-5505dbcf4f9c5896",
+      "REV-MIN-CITA-386-89918486ab133b4a",
+      "REV-MIN-CITA-404-5b1aea6d8105566b",
+      "REV-MIN-CITA-178-1b139bb8cae13bfd"
+    ]
+  },
+  {
+    "id": "MIN-003",
+    "previousStatus": "missing",
+    "status": "accepted",
+    "acceptanceScope": "Carencia de convivencia, dependencia, parentesco y duración; excepción de centro especializado y medio período para ascendientes.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          27,
+          28,
+          29
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          62
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "La asimilación de dependencia de 2015 no debe extenderse retrospectivamente como norma idéntica.",
+    "reason": "Carencia de convivencia, dependencia, parentesco y duración; excepción de centro especializado y medio período para ascendientes.",
+    "action": "Versionar requisitos antes y después de reforma; documentar precondiciones.",
+    "cost": "Versionar convivencia/dependencia por año y añadir datos de duración y parentesco.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "symbol": "FamiliarFiscal"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-39-42a8c902a1b853fb",
+      "REV-MIN-CITA-255-d597b4d65c55e918",
+      "REV-MIN-CITA-221-ce052556de76066a",
+      "REV-MIN-CITA-38-b98518a00433fd8d",
+      "REV-MIN-CITA-504-a74a7df20d6466ec",
+      "REV-MIN-CITA-159-905957ca2175e5fc",
+      "REV-MIN-CITA-38-5032a9fb70857ac2",
+      "REV-MIN-CITA-149-bdc1c1630790d75e",
+      "REV-MIN-CITA-323-469eb89f54bf9432",
+      "REV-MIN-CITA-312-ec93dc5368fe1b18",
+      "REV-MIN-CITA-222-f9c84a9508579558",
+      "REV-MIN-CITA-48-3f42538829a90196",
+      "REV-MIN-CITA-39-1dc738473e55b034",
+      "REV-MIN-CITA-159-7924d4fdcf2f9d07",
+      "REV-MIN-CITA-216-618d007c00775d9a",
+      "REV-MIN-CITA-39-3829b41aa3c76a23",
+      "REV-MIN-CITA-255-47afecbf152a9494",
+      "REV-MIN-CITA-202-a092014c5dfa4fdf",
+      "REV-MIN-CITA-38-4a0e2547652cfd23",
+      "REV-MIN-CITA-328-baca629d329a0aa1",
+      "REV-MIN-CITA-159-f4ce1de1badc465a",
+      "REV-MIN-CITA-38-98b3aac1c726238c",
+      "REV-MIN-CITA-226-ea698d6cf3e79b9a",
+      "REV-MIN-CITA-402-28b70c46c1fec97d",
+      "REV-MIN-CITA-311-a8dc779a8bc70de0",
+      "REV-MIN-CITA-588-850f282c8aacaa8b",
+      "REV-MIN-CITA-387-1cf831afe5f1c9e6",
+      "REV-MIN-CITA-127-7bc5a89748c21e46",
+      "REV-MIN-CITA-154-be529c60eb41bbd8",
+      "REV-MIN-CITA-315-3b0a2f172b815fec",
+      "REV-MIN-CITA-411-49b61c8eab349ff7",
+      "REV-MIN-CITA-330-5505dbcf4f9c5896",
+      "REV-MIN-CITA-386-89918486ab133b4a",
+      "REV-MIN-CITA-404-5b1aea6d8105566b",
+      "REV-MIN-CITA-178-1b139bb8cae13bfd"
+    ]
+  },
+  {
+    "id": "MIN-004",
+    "previousStatus": "missing",
+    "status": "accepted",
+    "acceptanceScope": "Carencia de cotitulares y parentesco relativo: no se puede repartir el mínimo ni el de discapacidad.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          29
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No todo hijo equivale a 50%: prioridad de grado y declaración del familiar alteran el derecho.",
+    "reason": "Carencia de cotitulares y parentesco relativo: no se puede repartir el mínimo ni el de discapacidad.",
+    "action": "Añadir contrato de derecho y reparto, con dos titulares y prioridad por grado.",
+    "cost": "Representar cotitulares y grado; evitar un reparto fijo que falsee casos particulares.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "symbol": "FamiliarFiscal"
+      },
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+        "symbol": "obtenerMinimoDiscapacidadFamiliares"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-127-7bc5a89748c21e46",
+      "REV-MIN-CITA-154-be529c60eb41bbd8",
+      "REV-MIN-CITA-315-3b0a2f172b815fec",
+      "REV-MIN-CITA-411-49b61c8eab349ff7",
+      "REV-MIN-CITA-330-5505dbcf4f9c5896",
+      "REV-MIN-CITA-386-89918486ab133b4a",
+      "REV-MIN-CITA-404-5b1aea6d8105566b",
+      "REV-MIN-CITA-178-1b139bb8cae13bfd"
+    ]
+  },
+  {
+    "id": "MIN-005",
+    "previousStatus": "missing",
+    "status": "accepted",
+    "acceptanceScope": "Adopción/acogimiento con independencia de edad por tres períodos no representados; el código solo incrementa edad<3.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          27
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          62
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No todas las modalidades actuales de guarda se equiparan y cambiar acogimiento por adopción no debe reiniciar el plazo.",
+    "reason": "Adopción/acogimiento con independencia de edad por tres períodos no representados; el código solo incrementa edad<3.",
+    "action": "Modelar hecho, fecha y modalidad por ejercicio; probar inscripción y dos años siguientes.",
+    "cost": "Añadir fechas y modalidad jurídica; mantener historial de acogimiento y adopción.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+        "symbol": "obtenerMinimoDescendientes"
+      },
+      {
+        "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "symbol": "FamiliarFiscal"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-39-42a8c902a1b853fb",
+      "REV-MIN-CITA-255-d597b4d65c55e918",
+      "REV-MIN-CITA-221-ce052556de76066a",
+      "REV-MIN-CITA-38-b98518a00433fd8d",
+      "REV-MIN-CITA-504-a74a7df20d6466ec",
+      "REV-MIN-CITA-159-905957ca2175e5fc",
+      "REV-MIN-CITA-38-5032a9fb70857ac2",
+      "REV-MIN-CITA-149-bdc1c1630790d75e",
+      "REV-MIN-CITA-323-469eb89f54bf9432",
+      "REV-MIN-CITA-312-ec93dc5368fe1b18",
+      "REV-MIN-CITA-222-f9c84a9508579558",
+      "REV-MIN-CITA-48-3f42538829a90196",
+      "REV-MIN-CITA-39-1dc738473e55b034",
+      "REV-MIN-CITA-159-7924d4fdcf2f9d07",
+      "REV-MIN-CITA-216-618d007c00775d9a",
+      "REV-MIN-CITA-39-3829b41aa3c76a23",
+      "REV-MIN-CITA-255-47afecbf152a9494",
+      "REV-MIN-CITA-202-a092014c5dfa4fdf"
+    ]
+  },
+  {
+    "id": "MIN-006",
+    "previousStatus": "missing",
+    "status": "accepted",
+    "acceptanceScope": "Fallecimiento de familiar no representable; cambio de 2015 añade ascendiente fallecido y fija 2400/1150.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          29
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          63
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf",
+        "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "pages": [
+          451
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "La cuantía especial no equivale al prorrateo por días ni a conservar el orden ordinario.",
+    "reason": "Fallecimiento de familiar no representable; cambio de 2015 añade ascendiente fallecido y fija 2400/1150.",
+    "action": "Separar fallecidos del orden; preservar regla anterior solo para descendientes y adicionales acreditados.",
+    "cost": "Añadir fallecimiento familiar y cuantías especiales; preservar régimen anterior a2015.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "symbol": "FamiliarFiscal"
+      },
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-descendientes.ts",
+        "symbol": "minimoPorOrden"
+      },
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-ascendientes.ts",
+        "symbol": "obtenerMinimoAscendientes"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-373-1c9a877344d263cf",
+      "REV-MIN-CITA-309-78d87e0c3a19fc93",
+      "REV-MIN-CITA-23-b1a1b007096cf9ca",
+      "REV-MIN-CITA-119-002806726f52d946",
+      "REV-MIN-CITA-58-aee8df817c38c20a",
+      "REV-MIN-CITA-41-d603b217bc196fc1",
+      "REV-MIN-CITA-105-7244ebf39d1d6686",
+      "REV-MIN-CITA-354-c7190964aeba6b03",
+      "REV-MIN-CITA-48-029d89b4da07f21d",
+      "REV-MIN-CITA-361-d383fd13b7d6e5be",
+      "REV-MIN-CITA-380-d474f526099be33a",
+      "REV-MIN-CITA-208-70f8ae3fae865468",
+      "REV-MIN-CITA-326-30cc95c0ebb1f8e7",
+      "REV-MIN-CITA-179-81cfed22ba2d34fb",
+      "REV-MIN-CITA-127-7bc5a89748c21e46",
+      "REV-MIN-CITA-154-be529c60eb41bbd8",
+      "REV-MIN-CITA-315-3b0a2f172b815fec",
+      "REV-MIN-CITA-411-49b61c8eab349ff7",
+      "REV-MIN-CITA-330-5505dbcf4f9c5896",
+      "REV-MIN-CITA-386-89918486ab133b4a",
+      "REV-MIN-CITA-404-5b1aea6d8105566b",
+      "REV-MIN-CITA-178-1b139bb8cae13bfd"
+    ]
+  },
+  {
+    "id": "MIN-007",
+    "previousStatus": "mismatch",
+    "status": "accepted",
+    "acceptanceScope": "Con años cumplidos a devengo, ascendiente65 produce0; contribuyente75 produce6700 y ascendiente75 produce1150. Aceptación limitada a fronteras de edad del régimen común descritas por AEAT, no conjunta ni determinación de fecha natal.",
+    "originalsReread": [
+      {
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf",
+        "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "pages": [
+          447
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/ManualRenta2025Parte1_es_es.pdf",
+        "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "pages": [
+          1069
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          27,
+          28
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://sede.agenciatributaria.gob.es/Sede/ciudadanos-familias-personas-discapacidad/minimo-personal-familiar/minimos-ascendientes.html",
+        "sha256": "1b68ff148e3d8ed5e37a804b62b76ab2d956b22c6004bda89c3cf62ed0d97c37",
+        "pages": [],
+        "reread": true,
+        "scope": "HTML original: requisito edad igual o superior65; texto normalizado en citas-html.json"
+      }
+    ],
+    "objection": "La ley dice superior/mayor; el literal aislado no decide cómo representar años cumplidos. Los manuales aclaran igual o superior para incrementos del contribuyente y la página AEAT para ascendiente65. La traslación de75 al ascendiente es interpretación coherente, no cita literal de esa página.",
+    "reason": "Con años cumplidos a devengo, ascendiente65 produce0; contribuyente75 produce6700 y ascendiente75 produce1150. Aceptación limitada a fronteras de edad del régimen común descritas por AEAT, no conjunta ni determinación de fecha natal.",
+    "action": "Fijar contrato de años cumplidos; revisar >=65 y >=75 con controles64/66/74/76. Exigir revisión adicional de cumpleaños exacto si el API pasa a recibir fechas.",
+    "cost": "Contrato explícito de años cumplidos y distinción entre cita literal e inferencia; cumpleaños con fechas sigue pendiente.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-contribuyente.ts",
+        "symbol": "obtenerMinimoContribuyente"
+      },
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-ascendientes.ts",
+        "symbol": "obtenerMinimoAscendientes"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-48-c82867884b139a2c",
+      "REV-MIN-CITA-107-4f252fdda56b5307",
+      "REV-MIN-CITA-296-c2c7456edc29c86d",
+      "REV-MIN-CITA-232-d2a102db4fdc63c3",
+      "REV-MIN-CITA-527-e46ded67b50cd525",
+      "REV-MIN-CITA-25-b3239826b08c1fd3",
+      "REV-MIN-CITA-600-3a18623e24259075",
+      "REV-MIN-CITA-338-844378bc21017962",
+      "REV-MIN-CITA-196-f9f0b995f69b08d1",
+      "REV-MIN-CITA-232-49d596ade6486e6b",
+      "REV-MIN-CITA-51-a710be9d002edb69",
+      "REV-MIN-CITA-48-47126007862ff492",
+      "REV-MIN-CITA-101-1a6c728afa6b61e9",
+      "REV-MIN-CITA-107-f3be8a2ff2796f1a",
+      "REV-MIN-CITA-292-4ef779ba0b5bd0e5",
+      "REV-MIN-CITA-229-1738d4b241facde0",
+      "REV-MIN-CITA-524-bdd8b22f1705b3ca",
+      "REV-MIN-CITA-24-d415ad61cfdb644c",
+      "REV-MIN-CITA-299-51d72186f7f42946",
+      "REV-MIN-CITA-24-79e46c14a5558a76",
+      "REV-MIN-CITA-48-3f42538829a90196",
+      "REV-MIN-CITA-39-1dc738473e55b034",
+      "REV-MIN-CITA-159-7924d4fdcf2f9d07",
+      "REV-MIN-CITA-216-618d007c00775d9a",
+      "REV-MIN-CITA-39-3829b41aa3c76a23",
+      "REV-MIN-CITA-255-47afecbf152a9494",
+      "REV-MIN-CITA-202-a092014c5dfa4fdf",
+      "REV-MIN-CITA-38-4a0e2547652cfd23",
+      "REV-MIN-CITA-328-baca629d329a0aa1",
+      "REV-MIN-CITA-159-f4ce1de1badc465a",
+      "REV-MIN-CITA-38-98b3aac1c726238c",
+      "REV-MIN-CITA-226-ea698d6cf3e79b9a",
+      "REV-MIN-CITA-402-28b70c46c1fec97d",
+      "REV-MIN-CITA-311-a8dc779a8bc70de0",
+      "REV-MIN-CITA-588-850f282c8aacaa8b",
+      "REV-MIN-CITA-387-1cf831afe5f1c9e6"
+    ]
+  },
+  {
+    "id": "MIN-008",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Aritmética de discapacidad ya acreditada: 0/3000/6000/12000 ejecutados; texto antiguo2316/7038/+2316 releído.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          28
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          62,
+          63
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "La coincidencia de ramas no acredita certificados ni elegibilidad de familiares.",
+    "reason": "Aritmética de discapacidad ya acreditada: 0/3000/6000/12000 ejecutados; texto antiguo2316/7038/+2316 releído.",
+    "action": "Conservar ramas; separar clasificación fiscal y acreditación del dato de entrada.",
+    "cost": "Separar aritmética correcta de comprobación documental de discapacidad y derecho familiar.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+        "symbol": "obtenerMinimoPorDiscapacidad"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-39-42a8c902a1b853fb",
+      "REV-MIN-CITA-255-d597b4d65c55e918",
+      "REV-MIN-CITA-221-ce052556de76066a",
+      "REV-MIN-CITA-38-b98518a00433fd8d",
+      "REV-MIN-CITA-504-a74a7df20d6466ec",
+      "REV-MIN-CITA-159-905957ca2175e5fc",
+      "REV-MIN-CITA-38-5032a9fb70857ac2",
+      "REV-MIN-CITA-149-bdc1c1630790d75e",
+      "REV-MIN-CITA-323-469eb89f54bf9432",
+      "REV-MIN-CITA-312-ec93dc5368fe1b18",
+      "REV-MIN-CITA-222-f9c84a9508579558",
+      "REV-MIN-CITA-361-d383fd13b7d6e5be",
+      "REV-MIN-CITA-380-d474f526099be33a",
+      "REV-MIN-CITA-208-70f8ae3fae865468",
+      "REV-MIN-CITA-326-30cc95c0ebb1f8e7",
+      "REV-MIN-CITA-179-81cfed22ba2d34fb",
+      "REV-MIN-CITA-38-4a0e2547652cfd23",
+      "REV-MIN-CITA-328-baca629d329a0aa1",
+      "REV-MIN-CITA-159-f4ce1de1badc465a",
+      "REV-MIN-CITA-38-98b3aac1c726238c",
+      "REV-MIN-CITA-226-ea698d6cf3e79b9a",
+      "REV-MIN-CITA-402-28b70c46c1fec97d",
+      "REV-MIN-CITA-311-a8dc779a8bc70de0",
+      "REV-MIN-CITA-588-850f282c8aacaa8b",
+      "REV-MIN-CITA-387-1cf831afe5f1c9e6"
+    ]
+  },
+  {
+    "id": "MIN-009",
+    "previousStatus": "missing",
+    "status": "accepted",
+    "acceptanceScope": "La suma de discapacidad de familiares no exige el derecho a mínimo por ascendiente/descendiente.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          28
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "El tag fiscal puede ser una preclasificación legítima; falta hacer explícito su contrato, no exigir solo certificados numéricos.",
+    "reason": "La suma de discapacidad de familiares no exige el derecho a mínimo por ascendiente/descendiente.",
+    "action": "Vincular elegibilidad y mínimo por discapacidad; mantener equivalencias legales.",
+    "cost": "Acoplar mínimos familiares a elegibilidad sin invalidar equivalencias legales de acreditación.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+        "symbol": "obtenerMinimoDiscapacidadFamiliares"
+      },
+      {
+        "path": "lib/dominio/irpf/minimos/minimo-discapacidad.ts",
+        "symbol": "obtenerMinimoDiscapacidadAscendientes"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-38-4a0e2547652cfd23",
+      "REV-MIN-CITA-328-baca629d329a0aa1",
+      "REV-MIN-CITA-159-f4ce1de1badc465a",
+      "REV-MIN-CITA-38-98b3aac1c726238c",
+      "REV-MIN-CITA-226-ea698d6cf3e79b9a",
+      "REV-MIN-CITA-402-28b70c46c1fec97d",
+      "REV-MIN-CITA-311-a8dc779a8bc70de0",
+      "REV-MIN-CITA-588-850f282c8aacaa8b",
+      "REV-MIN-CITA-387-1cf831afe5f1c9e6"
+    ]
+  },
+  {
+    "id": "MIN-010",
+    "previousStatus": "mismatch",
+    "status": "accepted",
+    "acceptanceScope": "Defecto de combinación de remanentes desde2015: Madrid2022 BG0 BA10000 liquida88227 céntimos; separado90388. Madrid2025 84824 frente88687.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          30,
+          31,
+          34
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/11/21/BOCM-20221121-1.PDF",
+        "sha256": "d246a21b9753380c1a2a7cdc0865afdd33da4460a597d69ab9b93be8f47df561",
+        "pages": [
+          3
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf",
+        "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "pages": [
+          467
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2015/07/11/pdfs/BOE-A-2015-7765.pdf",
+        "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+        "pages": [
+          9,
+          10
+        ],
+        "reread": true,
+        "scope": "Control2015: DA31 letrasc/e, original reextraído en fuentes-complementarias.json"
+      }
+    ],
+    "objection": "Una tarifa conjunta sobre máximo solo coincide cuando remanentes iguales; en2015 los tipos estatal y autonómico tampoco son mitades iguales.",
+    "reason": "Defecto de combinación de remanentes desde2015: Madrid2022 BG0 BA10000 liquida88227 céntimos; separado90388. Madrid2025 84824 frente88687.",
+    "action": "Corregir junto a EEA-MINIMOS-DISTINTOS, sin duplicar fix; conservar controles Aragón y2015.",
+    "cost": "Dos cálculos por componente y pruebas históricas; coordinar un único fix con ahorro.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "symbol": "cuotaMinimoPersonalAhorro"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-290-07f6bae5f5d0d167",
+      "REV-MIN-CITA-38-4167cd90b7fb3aa7",
+      "REV-MIN-CITA-405-058aa9d8fe3333e4",
+      "REV-MIN-CITA-85-5e518ff6c01c953e",
+      "REV-MIN-CITA-213-1875ac1a25d733e6",
+      "REV-MIN-CITA-42-3670fbc7ccfc2802",
+      "REV-MIN-CITA-224-6342e50270b8fab5",
+      "REV-MIN-CITA-117-dbc00c94f1aa8b5e",
+      "REV-MIN-CITA-178-63e9f50e8c5b87a4",
+      "REV-MIN-CITA-41-4ac5ec87449c3f0a",
+      "REV-MIN-CITA-221-e2e586b9e1d54a52",
+      "REV-MIN-CITA-132-0537202c0a52f047",
+      "REV-MIN-CITA-1298-83f5943f07a41145",
+      "REV-MIN-CITA-210-910274b8f01a29d0",
+      "REV-MIN-CITA-219-dd6c85825b5adf19",
+      "REV-MIN-CITA-208-2695948afdf11399",
+      "REV-MIN-CITA-827-1f40d95785379d1a",
+      "REV-MIN-CITA-190-1db50d44c90744e1",
+      "REV-MIN-CITA-210-0040857dc9148427",
+      "REV-MIN-CITA-418-bee975cab2263a5e",
+      "REV-MIN-CITA-211-006a1d6f3b3379c1",
+      "REV-MIN-CITA-916-7d54f5da5271aa11",
+      "REV-MIN-CITA-237-cbfcf2c6182fa5c5",
+      "REV-MIN-CITA-305-49c46e8f16494959"
+    ]
+  },
+  {
+    "id": "MIN-011",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Solo estructura leída: min(M,BG) independiente en Estado/comunidad y remanentes max(0,M-BG).",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          29,
+          30,
+          34
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          64
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No valida escalas con cuotas acumuladas ni la mezcla posterior de ahorro.",
+    "reason": "Solo estructura leída: min(M,BG) independiente en Estado/comunidad y remanentes max(0,M-BG).",
+    "action": "Conservar estructura y probar BG entre ambos mínimos antes de ampliar aceptación.",
+    "cost": "Mantener validación de cuotas y redondeo aparte; esta aceptación no certifica resultado final.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "symbol": "cuotaMinimoPersonalEstatal"
+      },
+      {
+        "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "symbol": "cuotaMinimoPersonalAutonomica"
+      },
+      {
+        "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "symbol": "remanenteMinimoPersonalParaAhorro"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-208-3e64c320b7198f64",
+      "REV-MIN-CITA-229-921875e73beaa809",
+      "REV-MIN-CITA-313-100bb65abbba7ef2",
+      "REV-MIN-CITA-326-5e14ea963ba72bf9",
+      "REV-MIN-CITA-220-0e53acb376b61c3d",
+      "REV-MIN-CITA-265-ec6eee196dea0246",
+      "REV-MIN-CITA-127-7bc5a89748c21e46",
+      "REV-MIN-CITA-154-be529c60eb41bbd8",
+      "REV-MIN-CITA-315-3b0a2f172b815fec",
+      "REV-MIN-CITA-411-49b61c8eab349ff7",
+      "REV-MIN-CITA-330-5505dbcf4f9c5896",
+      "REV-MIN-CITA-386-89918486ab133b4a",
+      "REV-MIN-CITA-404-5b1aea6d8105566b",
+      "REV-MIN-CITA-178-1b139bb8cae13bfd",
+      "REV-MIN-CITA-208-2695948afdf11399",
+      "REV-MIN-CITA-827-1f40d95785379d1a",
+      "REV-MIN-CITA-190-1db50d44c90744e1",
+      "REV-MIN-CITA-916-7d54f5da5271aa11",
+      "REV-MIN-CITA-237-cbfcf2c6182fa5c5",
+      "REV-MIN-CITA-305-49c46e8f16494959"
+    ]
+  },
+  {
+    "id": "MIN-012",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Importes estatales publicados por Ley39/2010 arts61 y62, con efectos2011 y vigencia indefinida; corroboración histórica Hacienda2013 p91, no tabla2025 retrospectiva.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          61,
+          62,
+          63
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.hacienda.gob.es/SGT/SUSCRIPCIONES_REPOSITORIO/TEXTOS_LEGALES/SEPARATA%207%202013%20IMPUESTO%20SOBRE%20LA%20RENTA%20DE%20LAS%20PERSONAS%20F%C3%8DSICAS%20EN%20LINEA.pdf",
+        "sha256": "dd7a45ded1c188e7a10613cdb69845caad077735814c515741ab6ca354b91674",
+        "pages": [
+          91
+        ],
+        "reread": true,
+        "scope": "Compilación histórica oficial, no facsímil de promulgación"
+      }
+    ],
+    "objection": "No demuestra ausencia universal de reformas indirectas ni excepciones de cada declaración.",
+    "reason": "Importes estatales publicados por Ley39/2010 arts61 y62, con efectos2011 y vigencia indefinida; corroboración histórica Hacienda2013 p91, no tabla2025 retrospectiva.",
+    "action": "Usar original y compilación histórica; mantener pendiente continuidad territorial2012–2013.",
+    "cost": "Conservar promulgación y compilación2013; queda búsqueda territorial histórica.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2012.ts",
+        "symbol": "MINIMOS_ESTATALES_2012"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2013.ts",
+        "symbol": "MINIMOS_ESTATALES_2013"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+        "symbol": "MINIMOS_ESTATALES_2014"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-40-b6f39d39a7767f02",
+      "REV-MIN-CITA-326-293572c6d47eacfe",
+      "REV-MIN-CITA-39-6a4e30eaa18cf7d9",
+      "REV-MIN-CITA-159-50b45c6a7ea37345",
+      "REV-MIN-CITA-214-be2ea8f29706dd9e",
+      "REV-MIN-CITA-39-42a8c902a1b853fb",
+      "REV-MIN-CITA-255-d597b4d65c55e918",
+      "REV-MIN-CITA-221-ce052556de76066a",
+      "REV-MIN-CITA-38-b98518a00433fd8d",
+      "REV-MIN-CITA-504-a74a7df20d6466ec",
+      "REV-MIN-CITA-159-905957ca2175e5fc",
+      "REV-MIN-CITA-38-5032a9fb70857ac2",
+      "REV-MIN-CITA-149-bdc1c1630790d75e",
+      "REV-MIN-CITA-323-469eb89f54bf9432",
+      "REV-MIN-CITA-312-ec93dc5368fe1b18",
+      "REV-MIN-CITA-222-f9c84a9508579558",
+      "REV-MIN-CITA-361-d383fd13b7d6e5be",
+      "REV-MIN-CITA-380-d474f526099be33a",
+      "REV-MIN-CITA-208-70f8ae3fae865468",
+      "REV-MIN-CITA-326-30cc95c0ebb1f8e7",
+      "REV-MIN-CITA-179-81cfed22ba2d34fb",
+      "REV-MIN-CITA-56-7ab08b992f6cb536",
+      "REV-MIN-CITA-544-45e209d9b514a95c",
+      "REV-MIN-CITA-41-ef31f2feb77374fb",
+      "REV-MIN-CITA-156-97ece7470e794569",
+      "REV-MIN-CITA-219-47ef8df9202258d8",
+      "REV-MIN-CITA-41-0aced116eeefd500",
+      "REV-MIN-CITA-293-eaba498044d42cd0",
+      "REV-MIN-CITA-458-145d05b9dc4dec68",
+      "REV-MIN-CITA-204-b6272439123c6588",
+      "REV-MIN-CITA-416-96eabadd28286e2b",
+      "REV-MIN-CITA-385-7c15cd687ea64c32",
+      "REV-MIN-CITA-297-fe6558e1c4b900c3",
+      "REV-MIN-CITA-38-2726c42b19e2d75b",
+      "REV-MIN-CITA-205-992ee02c95fef5a3",
+      "REV-MIN-CITA-504-538ceb02716e6ccc",
+      "REV-MIN-CITA-40-69992b49c3612db6",
+      "REV-MIN-CITA-326-72bd2b425f4686e3",
+      "REV-MIN-CITA-265-0871a030c3b4ab82",
+      "REV-MIN-CITA-161-86304cd869b7d8f8",
+      "REV-MIN-CITA-40-5b06326216721459",
+      "REV-MIN-CITA-218-de28a511ae2d9dbd",
+      "REV-MIN-CITA-394-f1efedd11a6e2b67",
+      "REV-MIN-CITA-329-098df197b99a9752",
+      "REV-MIN-CITA-377-5b951929eea333fa",
+      "REV-MIN-CITA-325-634bdaaa87eeb131",
+      "REV-MIN-CITA-298-4171033250700dd9",
+      "REV-MIN-CITA-56-02c43fe40affce44",
+      "REV-MIN-CITA-142-c6b9621743172052",
+      "REV-MIN-CITA-257-a7ec23c20060c02d",
+      "REV-MIN-CITA-241-e0de6fc66063f51a",
+      "REV-MIN-CITA-620-4976f3a86b33df50",
+      "REV-MIN-CITA-125-e03b574bd852a808",
+      "REV-MIN-CITA-156-d4dad379fe12836d",
+      "REV-MIN-CITA-240-c3eb8f6e22711f91",
+      "REV-MIN-CITA-328-c49522106d9006b6",
+      "REV-MIN-CITA-247-c49c5b643dff005c",
+      "REV-MIN-CITA-258-d42ca8e4e01d180d"
+    ]
+  },
+  {
+    "id": "MIN-013",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Importes de la reforma estatal aplicable desde2015; aceptación del texto publicado, no de todos los alias anuales ni condiciones.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          27,
+          28,
+          29,
+          79
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "Que una constante se llame2025 no demuestra cada año heredado.",
+    "reason": "Importes de la reforma estatal aplicable desde2015; aceptación del texto publicado, no de todos los alias anuales ni condiciones.",
+    "action": "Enlazar cada versión anual a norma y cambios, sin considerar todas las hojas certificadas.",
+    "cost": "Documentar enlaces históricos de los alias; no cerrar años por herencia de constantes.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+        "symbol": "MINIMOS_ESTATALES_2025"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-48-3f42538829a90196",
+      "REV-MIN-CITA-39-1dc738473e55b034",
+      "REV-MIN-CITA-159-7924d4fdcf2f9d07",
+      "REV-MIN-CITA-216-618d007c00775d9a",
+      "REV-MIN-CITA-39-3829b41aa3c76a23",
+      "REV-MIN-CITA-255-47afecbf152a9494",
+      "REV-MIN-CITA-202-a092014c5dfa4fdf",
+      "REV-MIN-CITA-38-4a0e2547652cfd23",
+      "REV-MIN-CITA-328-baca629d329a0aa1",
+      "REV-MIN-CITA-159-f4ce1de1badc465a",
+      "REV-MIN-CITA-38-98b3aac1c726238c",
+      "REV-MIN-CITA-226-ea698d6cf3e79b9a",
+      "REV-MIN-CITA-402-28b70c46c1fec97d",
+      "REV-MIN-CITA-311-a8dc779a8bc70de0",
+      "REV-MIN-CITA-588-850f282c8aacaa8b",
+      "REV-MIN-CITA-387-1cf831afe5f1c9e6",
+      "REV-MIN-CITA-127-7bc5a89748c21e46",
+      "REV-MIN-CITA-154-be529c60eb41bbd8",
+      "REV-MIN-CITA-315-3b0a2f172b815fec",
+      "REV-MIN-CITA-411-49b61c8eab349ff7",
+      "REV-MIN-CITA-330-5505dbcf4f9c5896",
+      "REV-MIN-CITA-386-89918486ab133b4a",
+      "REV-MIN-CITA-404-5b1aea6d8105566b",
+      "REV-MIN-CITA-178-1b139bb8cae13bfd",
+      "REV-MIN-CITA-42-6901de339bb4de7c",
+      "REV-MIN-CITA-512-9fec650dbfcd1631"
+    ]
+  },
+  {
+    "id": "MIN-014",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Madrid2022: cuantías publicadas en BOCM y mínimo básico5777.55 usado en prueba anual.",
+    "originalsReread": [
+      {
+        "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/11/21/BOCM-20221121-1.PDF",
+        "sha256": "d246a21b9753380c1a2a7cdc0865afdd33da4460a597d69ab9b93be8f47df561",
+        "pages": [
+          3,
+          4
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "Concordancia de tabla no acredita cada condición familiar ni total anual.",
+    "reason": "Madrid2022: cuantías publicadas en BOCM y mínimo básico5777.55 usado en prueba anual.",
+    "action": "Conservar cifras y enlazar cláusula temporal BOCM p4; corregir consumo en ahorro.",
+    "cost": "Preservar desigualdad entre mínimos estatal/autonómico y verificar condiciones separadamente.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+        "symbol": "MINIMOS_MADRID_2022"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-290-07f6bae5f5d0d167",
+      "REV-MIN-CITA-38-4167cd90b7fb3aa7",
+      "REV-MIN-CITA-405-058aa9d8fe3333e4",
+      "REV-MIN-CITA-85-5e518ff6c01c953e",
+      "REV-MIN-CITA-213-1875ac1a25d733e6",
+      "REV-MIN-CITA-42-3670fbc7ccfc2802",
+      "REV-MIN-CITA-224-6342e50270b8fab5",
+      "REV-MIN-CITA-117-dbc00c94f1aa8b5e",
+      "REV-MIN-CITA-178-63e9f50e8c5b87a4",
+      "REV-MIN-CITA-41-4ac5ec87449c3f0a",
+      "REV-MIN-CITA-221-e2e586b9e1d54a52",
+      "REV-MIN-CITA-132-0537202c0a52f047",
+      "REV-MIN-CITA-266-f3e36f6b12c2fa43",
+      "REV-MIN-CITA-1198-3fff2999d49c00ca",
+      "REV-MIN-CITA-16-f6a0f32ae781bc7b"
+    ]
+  },
+  {
+    "id": "MIN-015",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Selector Valencia2022 cambia en28octubre en sondeo con fechas UTC a mediodía; fuente DOGV art3 y DF4.",
+    "originalsReread": [
+      {
+        "url": "https://dogv.gva.es/datos/2022/10/27/pdf/2022_9939.pdf",
+        "sha256": "476e3303d24aecd7ec188dfa69429c1a2d1419b671376c70ed2807de4286d12e",
+        "pages": [
+          5,
+          6,
+          16
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "El tipo Date representa instantes; no certifica fechas civiles con offset ni todas las liquidaciones por fallecimiento.",
+    "reason": "Selector Valencia2022 cambia en28octubre en sondeo con fechas UTC a mediodía; fuente DOGV art3 y DF4.",
+    "action": "Fijar contrato fecha civil y añadir pruebas con offset antes de cerrar selector.",
+    "cost": "Formalizar fecha civil y probar offset antes de certificar toda selección temporal.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+        "symbol": "obtenerMinimosAutonomicosIrpf2022"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-319-44e033430bd05841",
+      "REV-MIN-CITA-113-c226cfbcbd6142b5",
+      "REV-MIN-CITA-464-d0cd580e789ad39d",
+      "REV-MIN-CITA-195-f4316b09ca0875ce",
+      "REV-MIN-CITA-289-9888fd14cc1f967e",
+      "REV-MIN-CITA-280-7977f6fbc3a5ff82",
+      "REV-MIN-CITA-397-eba591d4522eca0c",
+      "REV-MIN-CITA-316-e91b0821757b0d27",
+      "REV-MIN-CITA-105-2ce83362f51bacb2",
+      "REV-MIN-CITA-431-8dd29c6543c0a038",
+      "REV-MIN-CITA-161-9f103da2d0bb8890",
+      "REV-MIN-CITA-279-253081758bfdb0cb",
+      "REV-MIN-CITA-187-daa8c10c1836dba3",
+      "REV-MIN-CITA-433-29fe4e8be84323ea",
+      "REV-MIN-CITA-212-88764aeb9a7080f4",
+      "REV-MIN-CITA-382-f96cf2896655575e",
+      "REV-MIN-CITA-252-b72f16f00b41ffeb",
+      "REV-MIN-CITA-424-a98682bd85133013",
+      "REV-MIN-CITA-218-34cc4f295e3b08db",
+      "REV-MIN-CITA-696-feef514214add5bf",
+      "REV-MIN-CITA-1123-4a33f60c25affe57",
+      "REV-MIN-CITA-436-3ecd2ebf20864f2e",
+      "REV-MIN-CITA-129-13d3a9ea0ade8bd4",
+      "REV-MIN-CITA-365-e1d6a845581c5f0c",
+      "REV-MIN-CITA-243-333e969b6a193309",
+      "REV-MIN-CITA-263-ebdd2359850642f6",
+      "REV-MIN-CITA-211-c6e138d3dac1ea3a",
+      "REV-MIN-CITA-672-8a23ebd80a8451df",
+      "REV-MIN-CITA-998-7e7caebb3e6545d4",
+      "REV-MIN-CITA-455-0e43c441521fbcbb",
+      "REV-MIN-CITA-158-5a9955a45ac8e91f",
+      "REV-MIN-CITA-139-0ca79b7d95f74e4d"
+    ]
+  },
+  {
+    "id": "MIN-016",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Selector Balears2023 distingue25/26noviembre para componentes reformados.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2023/12/07/pdfs/BOE-A-2023-24913.pdf",
+        "sha256": "0ea2e568aa51027aefd318109c761406461aa45555149807c2de00e88f919269",
+        "pages": [
+          4,
+          19
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "La retroactividad de otros artículos de Ley11/2023 no se extiende a art1. No se acepta cualquier representación horaria.",
+    "reason": "Selector Balears2023 distingue25/26noviembre para componentes reformados.",
+    "action": "Conservar versiones y añadir controles civiles de fecha.",
+    "cost": "Mantener dos variantes2023 y distinguir efectos por artículo.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+        "symbol": "obtenerMinimosAutonomicosIrpf2023"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-1089-fe2440fc7fae9572",
+      "REV-MIN-CITA-55-cfc6da1a309a4f40",
+      "REV-MIN-CITA-189-297f1d00c0995b4b",
+      "REV-MIN-CITA-168-59094cf9dc62b0d9",
+      "REV-MIN-CITA-164-cbca1395b2740911",
+      "REV-MIN-CITA-94-5000401b423f2d0a",
+      "REV-MIN-CITA-148-64b74cf577abada0",
+      "REV-MIN-CITA-42-8e2f2bf97bc8092d",
+      "REV-MIN-CITA-148-64b74cf577abada0",
+      "REV-MIN-CITA-53-b5fa7b016c6c92ef",
+      "REV-MIN-CITA-394-3c6b237debce899b",
+      "REV-MIN-CITA-42-8e2f2bf97bc8092d",
+      "REV-MIN-CITA-191-58fc8eabe1616c6c",
+      "REV-MIN-CITA-160-5178a173568e20e8",
+      "REV-MIN-CITA-139-9d3bb541655c3e3f",
+      "REV-MIN-CITA-70-bcb4486ad4abaf02",
+      "REV-MIN-CITA-95-6f07c8cc95241163",
+      "REV-MIN-CITA-26-03862ac4a1408dbe",
+      "REV-MIN-CITA-60-b2a0004c6dbe0ef3",
+      "REV-MIN-CITA-48-cbd23adb3122cbca",
+      "REV-MIN-CITA-55-40bfd846a46619ba",
+      "REV-MIN-CITA-79-0713acfe5f1bd68f"
+    ]
+  },
+  {
+    "id": "MIN-017",
+    "previousStatus": "mismatch",
+    "status": "needs-evidence",
+    "acceptanceScope": "Confirmados mínimo6105 invariable y entrada3diciembre; no aceptada como certeza la obligación de5550 para todo fallecido anterior.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2025/12/16/pdfs/BOE-A-2025-25707.pdf",
+        "sha256": "4983c8d413504568ea530d62fd2b8a04fee35cdc82d7ed146504644ac8396761",
+        "pages": [
+          2,
+          3,
+          6
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/ccaa/bopa/2025/232/a00001-00004.pdf",
+        "sha256": "54501fc525b0550673662d8253b2020a463c5dcaaa1fa82c8dfac5a5f2f08746",
+        "pages": [
+          2,
+          3,
+          4
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2003-23186",
+        "sha256": "1a8d517292c793d7ac41757a3f8a0fb7862b44550d623cfe2534895727ebafed",
+        "pages": [],
+        "reread": true,
+        "scope": "LGT10.2 originalHTML; cita y hash independientes en fuentes-complementarias.json"
+      }
+    ],
+    "objection": "Preámbulo8 pretende aplicación2025; LGT10.2 usa inicio del período para tributos periódicos. Ni el preámbulo crea sin más retroactividad total, ni la DF aislada resuelve el alcance de esa intención.",
+    "reason": "Confirmados mínimo6105 invariable y entrada3diciembre; no aceptada como certeza la obligación de5550 para todo fallecido anterior.",
+    "action": "Solicitar criterio primario sobre fallecidos o validaciones oficiales2025; preservar hipótesis02/03diciembre y bloquear fix automático.",
+    "cost": "Posponer arreglo temporal aun con defecto de selección observado; obtener criterio primario discriminante.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "symbol": "resolverParametrosComunidadAutonoma2025"
+      },
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+        "symbol": "MINIMOS_ASTURIAS_2025"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-355-3a5138cd517fbeed",
+      "REV-MIN-CITA-673-82d26fd577558338",
+      "REV-MIN-CITA-39-1cefdd8971c91740",
+      "REV-MIN-CITA-41-25ea79687d97395b",
+      "REV-MIN-CITA-159-e2c9ebcfc63536dd",
+      "REV-MIN-CITA-215-de8aabf3cb7e8db3",
+      "REV-MIN-CITA-41-362892ff33d66609",
+      "REV-MIN-CITA-246-e15f72997350a01b",
+      "REV-MIN-CITA-42-0b16ac977474f5d6",
+      "REV-MIN-CITA-636-dd99e1f3e6d13292",
+      "REV-MIN-CITA-620-411b338f936e0b25",
+      "REV-MIN-CITA-466-b7f36b9dc1f7f75a",
+      "REV-MIN-CITA-924-209ff9758840e316",
+      "REV-MIN-CITA-79-d19548dcfc82e77e",
+      "REV-MIN-CITA-58-ae8f58f153d3153f",
+      "REV-MIN-CITA-125-be383d849def3dbc",
+      "REV-MIN-CITA-250-483c0dbb14715eda",
+      "REV-MIN-CITA-72-9c546d734fb0c191",
+      "REV-MIN-CITA-407-f7af352e3d24069e",
+      "REV-MIN-CITA-207-03b215610c19b8f7",
+      "REV-MIN-CITA-43-9d7e6ab9f6a14b0e",
+      "REV-MIN-CITA-254-c909f42dbb4297c8",
+      "REV-MIN-CITA-134-419a36b3c1253885",
+      "REV-MIN-CITA-46-73ad8ecf0fce8762",
+      "REV-MIN-CITA-153-9b34f32c43299b5f",
+      "REV-MIN-CITA-251-85d0f8f6e28b1a23",
+      "REV-MIN-CITA-224-21ef1eee87283f6b",
+      "REV-MIN-CITA-650-c1b7e6e5fc3a435a",
+      "REV-MIN-CITA-258-925aa7194bfde72c",
+      "REV-MIN-CITA-41-04d56cf7822ad176"
+    ]
+  },
+  {
+    "id": "MIN-018",
+    "previousStatus": "ambiguous",
+    "status": "accepted",
+    "acceptanceScope": "Defecto del contrato de reconstrucción histórica: un canon5550 incondicional no reproduce obligaciones2020 protegidas por STC186/2021 FJ3D. No se propone aplicar norma anulada hoy universalmente.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2021/11/25/pdfs/BOE-A-2021-19515.pdf",
+        "sha256": "8a97d5ac77d9d4f2b3afec3656329c2c2cfdee45adc09a3d20008b576cc7bdba",
+        "pages": [
+          13
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2021/11/25/pdfs/BOE-A-2021-19515.pdf",
+        "sha256": "8a97d5ac77d9d4f2b3afec3656329c2c2cfdee45adc09a3d20008b576cc7bdba",
+        "pages": [
+          1,
+          8
+        ],
+        "reread": true,
+        "scope": "Reextracción y lectura personal complementaria; ver fuentes-complementarias.json"
+      }
+    ],
+    "objection": "Nulidad no permite borrar obligaciones devengadas protegidas; protección tampoco habilita cualquier nueva pretensión fuera del fallo.",
+    "reason": "Defecto del contrato de reconstrucción histórica: un canon5550 incondicional no reproduce obligaciones2020 protegidas por STC186/2021 FJ3D. No se propone aplicar norma anulada hoy universalmente.",
+    "action": "Separar reconstrucción histórica de interpretación actual; seleccionar6105 cuando contrato y sumaBLG+BLA<=12450 correspondan.",
+    "cost": "Mantener contratos/versiones históricos y actuales distintos; no extender protección de sentencia a cualquier pretensión.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2020.ts",
+        "symbol": "MINIMOS_CATALUNYA_2020_CANONICO"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-123-1a21e1d85fda346b",
+      "REV-MIN-CITA-1430-a8601ba7d2b756c3",
+      "REV-MIN-CITA-576-fbcd14a26d018016",
+      "REV-MIN-CITA-624-ace88ee30eb4b875"
+    ]
+  },
+  {
+    "id": "MIN-019",
+    "previousStatus": "ambiguous",
+    "status": "accepted",
+    "acceptanceScope": "1820 balear es derivación:5550+1820=6105+1265=7370, no literal legal de incremento.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2015/02/05/pdfs/BOE-A-2015-1059.pdf",
+        "sha256": "d130d73eef81935a0167e20e4912ad5b8cdf86d444013d7fd3cd2afae5de57ed",
+        "pages": [
+          62
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "Igualdad de total para edad elegible no valida la trazabilidad de cada sumando ni cumpleaños.",
+    "reason": "1820 balear es derivación:5550+1820=6105+1265=7370, no literal legal de incremento.",
+    "action": "Publicar derivación; no cambiar aritmética por sustituir solo1820 por1265.",
+    "cost": "Exponer derivación de1820 además del total; no publicar sumando como literal normativo.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+        "symbol": "MINIMOS_ILLES_BALEARS_2025"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-40-6a83c2da2d72497f",
+      "REV-MIN-CITA-55-4a9b7df952f756e6",
+      "REV-MIN-CITA-189-de745b198225065d",
+      "REV-MIN-CITA-180-89f9c97cd5a1a75a",
+      "REV-MIN-CITA-54-0d194fe4b4973a6d",
+      "REV-MIN-CITA-495-c94c3b6bacce869c"
+    ]
+  },
+  {
+    "id": "MIN-020",
+    "previousStatus": "missing",
+    "status": "accepted",
+    "acceptanceScope": "Ausencia técnica:17 territorios reales rechazados2026; simulada-estatal es supuesto; tipos no incluyen forales.",
+    "originalsReread": [],
+    "objection": "Ausencia no es error de tabla ni autorización para extrapolar2025.",
+    "reason": "Ausencia técnica:17 territorios reales rechazados2026; simulada-estatal es supuesto; tipos no incluyen forales.",
+    "action": "Mantener explícita exclusión foral y conjunta;2026 no certificado.",
+    "cost": "Conservar rechazo explícito de2026 real y exclusiones forales/conjunta; no ampliar cobertura ficticia.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "symbol": "resolverParametrosComunidadAutonoma2026"
+      },
+      {
+        "path": "lib/dominio/irpf/caso-fiscal-anual.ts",
+        "symbol": "ComunidadAutonoma"
+      }
+    ],
+    "refinedCitationIds": []
+  },
+  {
+    "id": "MIN-021",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Solo cifras de descendientes Madrid Ley5/2010 DAúnica:1836/2040/4039.20/4600.20/+2244.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2010/11/23/pdfs/BOE-A-2010-17979.pdf",
+        "sha256": "98bcdf3edff3db48fc73e70b7af7ba437172cf4a162fe3a9644dee49c92b294c",
+        "pages": [
+          3,
+          5
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No cierra por sí sola continuidad de2012–2014.",
+    "reason": "Solo cifras de descendientes Madrid Ley5/2010 DAúnica:1836/2040/4039.20/4600.20/+2244.",
+    "action": "Completar cadena territorial sin extrapolar por igualdad.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2012.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2012"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-148-210c5090496e7e25",
+      "REV-MIN-CITA-179-ea1db3185cb1bad5",
+      "REV-MIN-CITA-336-5d12c318c8155f9e",
+      "REV-MIN-CITA-285-d0ae6cc0f84df0c5",
+      "REV-MIN-CITA-495-6a5468eeea86e04e",
+      "REV-MIN-CITA-43-42ff58c3d00a31a0",
+      "REV-MIN-CITA-289-858b447df3f459c9"
+    ]
+  },
+  {
+    "id": "MIN-022",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Solo cifras de descendientes Madrid Ley4/2014:2400/2700/4400/4950/+2800.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2015/02/26/pdfs/BOE-A-2015-1956.pdf",
+        "sha256": "1b30415991bdd6b219694e8c0edf165c02b34ec9910fd705384179dd8806c69d",
+        "pages": [
+          8,
+          33
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No acepta todos los ejercicios heredados ni condiciones omitidas.",
+    "reason": "Solo cifras de descendientes Madrid Ley4/2014:2400/2700/4400/4950/+2800.",
+    "action": "Conservar cuantías; completar continuidad y requisitos.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2015.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2015"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-39-d4ad492537782a98",
+      "REV-MIN-CITA-410-5bedb1cdfe73b7d3",
+      "REV-MIN-CITA-152-6d276bba9fd8c79a",
+      "REV-MIN-CITA-177-1f2b20be8bd6c4a4",
+      "REV-MIN-CITA-44-e0a0f88272b1d6d0"
+    ]
+  },
+  {
+    "id": "MIN-023",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Cuantías de Madrid Ley13/2023 y efectos a períodos iniciados1enero2023, no fecha BOE2024 como inicio.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2024/03/21/pdfs/BOE-A-2024-5610.pdf",
+        "sha256": "502aa027788673d8f653c2cd8ce87038630a7dab13b63d625c5905bd1a5ce8de",
+        "pages": [
+          3,
+          4,
+          14
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No valida requisitos familiares ni continuidad hasta cierre2026.",
+    "reason": "Cuantías de Madrid Ley13/2023 y efectos a períodos iniciados1enero2023, no fecha BOE2024 como inicio.",
+    "action": "Enlazar original y cláusula temporal; conservar desigualdad estatal/autonómica.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2023"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-38-c8435d12a776b15d",
+      "REV-MIN-CITA-408-386c9028c2878c14",
+      "REV-MIN-CITA-162-177afbcdedb85798",
+      "REV-MIN-CITA-222-9591380739993d91",
+      "REV-MIN-CITA-42-3274e8874b28502f",
+      "REV-MIN-CITA-224-243781ce8faf2e80",
+      "REV-MIN-CITA-160-f325cf3267bb1979",
+      "REV-MIN-CITA-180-ebedc2484f485238",
+      "REV-MIN-CITA-41-d3d7f53259cacff7",
+      "REV-MIN-CITA-223-e1bacc4046e6a7fb",
+      "REV-MIN-CITA-160-45fca8316d54f773",
+      "REV-MIN-CITA-44-7566fe82667c274f",
+      "REV-MIN-CITA-223-25278342d0fdc2a6",
+      "REV-MIN-CITA-325-58ea78b1f48d2c73",
+      "REV-MIN-CITA-334-ba5225a5f0ff5c67",
+      "REV-MIN-CITA-627-877dadf4e9c0736b",
+      "REV-MIN-CITA-274-f9aa74a91ddf06d5",
+      "REV-MIN-CITA-42-731848264ab573d3"
+    ]
+  },
+  {
+    "id": "MIN-024",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Cuantías Cantabria2014 cotejadas en pp27–28:2000/2200/3900/4450/+2400; ascendientes970/+1200; discapacidad2400/7200/+2400. Solo correspondencia numérica publicada.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2014/01/18/pdfs/BOE-A-2014-510.pdf",
+        "sha256": "0fb6b7898c59d088c5de931154993a74ce056207e38ae6eecb7b37c62c90d226",
+        "pages": [
+          27,
+          28
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "El original dice superior al65% en discapacidad; no se acepta aquí la frontera exacta65 ni toda continuidad anual.",
+    "reason": "Cuantías Cantabria2014 cotejadas en pp27–28:2000/2200/3900/4450/+2400; ascendientes970/+1200; discapacidad2400/7200/+2400. Solo correspondencia numérica publicada.",
+    "action": "Conservar importes; revisar frontera65 y posteriores modificaciones antes de aceptar regla completa.",
+    "cost": "Conservar discrepancia de frontera65 y completar vigencia aunque coincidan cuantías.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2014"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-76-b90702ed9219c16d",
+      "REV-MIN-CITA-84-cfeec598d6fe0246",
+      "REV-MIN-CITA-424-f06cc81b49bf57ae",
+      "REV-MIN-CITA-28-910188c9d9dcbe7d",
+      "REV-MIN-CITA-337-983128ebdaae92cf",
+      "REV-MIN-CITA-373-7e498fa21e914ff5",
+      "REV-MIN-CITA-27-15191495302fe186",
+      "REV-MIN-CITA-355-b5cfe43f5bcf2c7b",
+      "REV-MIN-CITA-357-a1853cabaaf250cc",
+      "REV-MIN-CITA-27-0bbb2a099bd72d56",
+      "REV-MIN-CITA-354-260e63b03af0bd31",
+      "REV-MIN-CITA-369-731183727750d828",
+      "REV-MIN-CITA-26-12e6dfa495fcac3b",
+      "REV-MIN-CITA-56-8c1e7b4e05864046",
+      "REV-MIN-CITA-357-a1853cabaaf250cc",
+      "REV-MIN-CITA-27-0bbb2a099bd72d56",
+      "REV-MIN-CITA-354-260e63b03af0bd31",
+      "REV-MIN-CITA-188-364341966cbe4253",
+      "REV-MIN-CITA-60-74a89275f1076937",
+      "REV-MIN-CITA-369-731183727750d828",
+      "REV-MIN-CITA-189-6aece011a4b5bec4",
+      "REV-MIN-CITA-61-53dd6c28624bc6d3",
+      "REV-MIN-CITA-74-bd61e0988144ae50",
+      "REV-MIN-CITA-322-e3c903cfdf53f223",
+      "REV-MIN-CITA-657-76a8584ba9063aae",
+      "REV-MIN-CITA-247-c5d4c4d9c4b06f47",
+      "REV-MIN-CITA-30-dfa0d2292f27b39d",
+      "REV-MIN-CITA-475-2360dbfd5059ec71",
+      "REV-MIN-CITA-19-bb08bebb821014ca"
+    ]
+  },
+  {
+    "id": "MIN-025",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "CLM DTsegunda Ley9/2014 aplica a2014:1927.80/2142/3855.60/4391.10/+2356.20; no2244.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2015/02/18/pdfs/BOE-A-2015-1628.pdf",
+        "sha256": "37c9ceaab143e855155bb551bd31a3632cb63f00c514636884342d57d404d250",
+        "pages": [
+          4,
+          7
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "Publicación BOE2015 no es el comienzo de efectos: DT y publicación regional mandan.",
+    "reason": "CLM DTsegunda Ley9/2014 aplica a2014:1927.80/2142/3855.60/4391.10/+2356.20; no2244.",
+    "action": "Conservar regla transitoria2014 y separar del régimen2015.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2014.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2014"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-76-66db49c78ceb0e22",
+      "REV-MIN-CITA-159-f6502b4fccedfc79",
+      "REV-MIN-CITA-158-ea648bfd3b21b353",
+      "REV-MIN-CITA-143-f9d925ccb61bf062",
+      "REV-MIN-CITA-244-ae230baca6eae281",
+      "REV-MIN-CITA-44-c61aa545e5c86245"
+    ]
+  },
+  {
+    "id": "MIN-026",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Andalucía art23bis DL7/2022 importes publicados y efectos1enero2022 DF2.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/ccaa/boja/2022/182/b00001-00010.pdf",
+        "sha256": "4172ea30c177934a399cf7cf9a8c1eb4d9cb45ee8a6ae5d7ad56d5a2f85b21a3",
+        "pages": [
+          6,
+          10
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "Una coincidencia no acredita todos los supuestos de familiares ni años posteriores.",
+    "reason": "Andalucía art23bis DL7/2022 importes publicados y efectos1enero2022 DF2.",
+    "action": "Conservar cifras; completar cadena de persistencia.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2022"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-829-703c3b66abfa4f90",
+      "REV-MIN-CITA-178-16baf9692013ea78",
+      "REV-MIN-CITA-354-53c7cf8ee7a072ad",
+      "REV-MIN-CITA-239-e61772fce589c01b",
+      "REV-MIN-CITA-569-e11c854e3835efb2",
+      "REV-MIN-CITA-249-92ed552c87a49f24",
+      "REV-MIN-CITA-253-c7667b7578b03200",
+      "REV-MIN-CITA-247-2cf1737fb01820aa",
+      "REV-MIN-CITA-227-9b634b6e9b13c966",
+      "REV-MIN-CITA-259-209e8d7155079470",
+      "REV-MIN-CITA-197-b72e865445e08974"
+    ]
+  },
+  {
+    "id": "MIN-027",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Galicia Ley7/2022 art2 p18 cuantías y DF4 p125 efectos1enero2022.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2023/03/11/pdfs/BOE-A-2023-6382.pdf",
+        "sha256": "9d49010c79ba461520e79d47a2c7cbddfcb9842190b91a5f93930bd7ea2311fb",
+        "pages": [
+          18,
+          125
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "Fecha2023 del BOE no desplaza efectos expresos2022.",
+    "reason": "Galicia Ley7/2022 art2 p18 cuantías y DF4 p125 efectos1enero2022.",
+    "action": "Enlazar ambos pasajes; no extrapolar2026.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2022.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2022"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-104-86ea3e8932d532eb",
+      "REV-MIN-CITA-252-143fb359d422b35f",
+      "REV-MIN-CITA-104-a0e39b5be1e8b71c",
+      "REV-MIN-CITA-138-01c07ad311b6239a",
+      "REV-MIN-CITA-102-0817457b1475e8bc",
+      "REV-MIN-CITA-176-c4e12be4d25d4b4f",
+      "REV-MIN-CITA-102-76611ea3811c37ec",
+      "REV-MIN-CITA-237-4a823bd30e2d1204",
+      "REV-MIN-CITA-267-d90fc49310c6701f",
+      "REV-MIN-CITA-43-54bca5af2b2158ca",
+      "REV-MIN-CITA-117-351728ec25773451"
+    ]
+  },
+  {
+    "id": "MIN-028",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "La Rioja discapacidad descendientes3300/9900 y asistencia3000 expresamente no modificada.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2018/02/13/pdfs/BOE-A-2018-1917.pdf",
+        "sha256": "dd4c46916f176516884f0f7ae95f75b3821f434218ccacc4eba2d4d7a65fdd8d",
+        "pages": [
+          4,
+          5
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No trasladar incremento a ascendientes ni al contribuyente.",
+    "reason": "La Rioja discapacidad descendientes3300/9900 y asistencia3000 expresamente no modificada.",
+    "action": "Conservar ramas diferenciadas, requisitos arts60/61 y continuidad pendiente.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2018.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2018"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-75-16a0034fcbf4466d",
+      "REV-MIN-CITA-315-081f1aff33d31b72",
+      "REV-MIN-CITA-309-826bdea0095fd128",
+      "REV-MIN-CITA-455-7fdd1c96f4637c7d"
+    ]
+  },
+  {
+    "id": "MIN-029",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Canarias reproducción oficial pp157–158:5606;1162/1414;2424/2727/4040/4545/+2828; ascendientes1162/+1414; discapacidad3030/9090/+3030. DFdécima p142 efectos1enero2024 y vigencia indefinida.",
+    "originalsReread": [
+      {
+        "url": "https://www3.gobiernodecanarias.org/libroazul/pdf/79458.pdf",
+        "sha256": "5ccbb06c535b54fc60a262bb4988d5672448b7abf1a16bf8c9cbb96fb5811f10",
+        "pages": [
+          142,
+          157,
+          158
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No es facsímil firmado del BOC; vigencia indefinida no acredita ausencia de reformas posteriores.",
+    "reason": "Canarias reproducción oficial pp157–158:5606;1162/1414;2424/2727/4040/4545/+2828; ascendientes1162/+1414; discapacidad3030/9090/+3030. DFdécima p142 efectos1enero2024 y vigencia indefinida.",
+    "action": "Enlazar disposición temporal y completar autenticidad/continuidad; no extrapolar2026.",
+    "cost": "Aceptar reproducción oficial con autenticidad limitada y mantener pendiente continuidad posterior.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2024.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2024"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-358-4b98f9f691e40d70",
+      "REV-MIN-CITA-167-bfd74db0e829ef94",
+      "REV-MIN-CITA-93-76f03c1ee57b06a2",
+      "REV-MIN-CITA-30-f27b2a20bd7aba37",
+      "REV-MIN-CITA-418-7d6530bebb73930b",
+      "REV-MIN-CITA-82-4067f728f284661a",
+      "REV-MIN-CITA-206-f65b9a6618a41fb8",
+      "REV-MIN-CITA-30-bde29c7d08ce29e7",
+      "REV-MIN-CITA-235-938bf67bad6e86b2",
+      "REV-MIN-CITA-115-bf71546064af3c01",
+      "REV-MIN-CITA-172-135fa6f20e49d39f",
+      "REV-MIN-CITA-30-ce21d93c54688a8c",
+      "REV-MIN-CITA-234-77281fc5b79bbc5d",
+      "REV-MIN-CITA-108-13b1d1eab68a54ac",
+      "REV-MIN-CITA-129-a15c20a5f823678a",
+      "REV-MIN-CITA-32-3dbf3b6c9e394a68",
+      "REV-MIN-CITA-234-29dc505edfbb1afd",
+      "REV-MIN-CITA-286-ad6032609250aad2",
+      "REV-MIN-CITA-218-5df50a8442cb603c",
+      "REV-MIN-CITA-459-9ac4d9a9671c81fb",
+      "REV-MIN-CITA-252-854f63197b839870",
+      "REV-MIN-CITA-3-92865bacacaf50eb",
+      "REV-MIN-CITA-117-4e47192369c3f88d",
+      "REV-MIN-CITA-400-36baf84e0f16fd67",
+      "REV-MIN-CITA-62-86169b582e0adc0f",
+      "REV-MIN-CITA-160-423430ffdb936d9b",
+      "REV-MIN-CITA-159-e24c3931e6645424",
+      "REV-MIN-CITA-34-1bfbde621f2417b4",
+      "REV-MIN-CITA-396-383a28c0d894e957",
+      "REV-MIN-CITA-32-5c98a59d358c386b",
+      "REV-MIN-CITA-56-e52f506744fccabd",
+      "REV-MIN-CITA-122-bb4030ce6793c1eb",
+      "REV-MIN-CITA-210-8bab4d46e4e5721c",
+      "REV-MIN-CITA-358-4b98f9f691e40d70",
+      "REV-MIN-CITA-71-7602ad8f872094a5",
+      "REV-MIN-CITA-68-03d697503cdf87f1",
+      "REV-MIN-CITA-277-3d23e557d7a15ecd",
+      "REV-MIN-CITA-167-bfd74db0e829ef94",
+      "REV-MIN-CITA-262-3e247b04bfe5aac6",
+      "REV-MIN-CITA-3-0965b0f962bbda13",
+      "REV-MIN-CITA-36-bae98d6c1cdf54bd",
+      "REV-MIN-CITA-13-160608483c042511",
+      "REV-MIN-CITA-13-3d7faf736ec4f2c5",
+      "REV-MIN-CITA-10-ac4fc90446df3cb0",
+      "REV-MIN-CITA-21-411dfa55ca9b90dc",
+      "REV-MIN-CITA-13-27a79f8e37a69098",
+      "REV-MIN-CITA-14-4088e62248646fca",
+      "REV-MIN-CITA-3-1a22041e5738fc19",
+      "REV-MIN-CITA-18-1ff10295e57afa8e",
+      "REV-MIN-CITA-30-5b92a1af60e005f2",
+      "REV-MIN-CITA-31-082c883922a39513",
+      "REV-MIN-CITA-31-87887b6254babe0a",
+      "REV-MIN-CITA-31-059a970bc01d3277",
+      "REV-MIN-CITA-32-110c8ea802317085",
+      "REV-MIN-CITA-38-b768c5c949a34841",
+      "REV-MIN-CITA-69-1e44283debfec875",
+      "REV-MIN-CITA-93-76f03c1ee57b06a2",
+      "REV-MIN-CITA-30-f27b2a20bd7aba37",
+      "REV-MIN-CITA-418-7d6530bebb73930b",
+      "REV-MIN-CITA-82-4067f728f284661a",
+      "REV-MIN-CITA-206-f65b9a6618a41fb8",
+      "REV-MIN-CITA-30-bde29c7d08ce29e7",
+      "REV-MIN-CITA-235-938bf67bad6e86b2",
+      "REV-MIN-CITA-115-bf71546064af3c01",
+      "REV-MIN-CITA-38-b1093d8cfaa1cb1c",
+      "REV-MIN-CITA-38-db5472058de1094b",
+      "REV-MIN-CITA-50-b79d08a2d4fcf53e",
+      "REV-MIN-CITA-172-135fa6f20e49d39f",
+      "REV-MIN-CITA-3-4f96aada18548ccf",
+      "REV-MIN-CITA-30-ce21d93c54688a8c",
+      "REV-MIN-CITA-234-77281fc5b79bbc5d",
+      "REV-MIN-CITA-108-13b1d1eab68a54ac",
+      "REV-MIN-CITA-129-a15c20a5f823678a",
+      "REV-MIN-CITA-32-3dbf3b6c9e394a68",
+      "REV-MIN-CITA-234-29dc505edfbb1afd",
+      "REV-MIN-CITA-286-ad6032609250aad2",
+      "REV-MIN-CITA-218-5df50a8442cb603c",
+      "REV-MIN-CITA-459-9ac4d9a9671c81fb",
+      "REV-MIN-CITA-252-854f63197b839870",
+      "REV-MIN-CITA-96-f26775fd91aa5077",
+      "REV-MIN-CITA-110-6497b5ea3fe09320",
+      "REV-MIN-CITA-95-c5842910d9fca914",
+      "REV-MIN-CITA-340-42528436aa772d06"
+    ]
+  },
+  {
+    "id": "MIN-030",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Balears Ley13/2014 DF2.3 incrementa10% componentes específicos;7370/8910 son totales derivados para edad elegible.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2015/02/05/pdfs/BOE-A-2015-1059.pdf",
+        "sha256": "d130d73eef81935a0167e20e4912ad5b8cdf86d444013d7fd3cd2afae5de57ed",
+        "pages": [
+          62,
+          76
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No es incremento uniforme de todo mínimo ni prueba de cumpleaños o de cualquier devengo2015.",
+    "reason": "Balears Ley13/2014 DF2.3 incrementa10% componentes específicos;7370/8910 son totales derivados para edad elegible.",
+    "action": "Conservar derivación y versionar condiciones temporales con cadenaA.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2015.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2015"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-40-6a83c2da2d72497f",
+      "REV-MIN-CITA-55-4a9b7df952f756e6",
+      "REV-MIN-CITA-189-de745b198225065d",
+      "REV-MIN-CITA-180-89f9c97cd5a1a75a",
+      "REV-MIN-CITA-54-0d194fe4b4973a6d",
+      "REV-MIN-CITA-495-c94c3b6bacce869c",
+      "REV-MIN-CITA-79-0d12d99e49d462ef"
+    ]
+  },
+  {
+    "id": "MIN-031",
+    "previousStatus": "match",
+    "status": "accepted",
+    "acceptanceScope": "Balears Ley11/2023 art1 incorpora segundo descendiente y ascendientes al10%; sondeo reproduce corte.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2023/12/07/pdfs/BOE-A-2023-24913.pdf",
+        "sha256": "0ea2e568aa51027aefd318109c761406461aa45555149807c2de00e88f919269",
+        "pages": [
+          4,
+          19
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No propagar retroactividad de otros artículos al art1.",
+    "reason": "Balears Ley11/2023 art1 incorpora segundo descendiente y ascendientes al10%; sondeo reproduce corte.",
+    "action": "Conservar modificación acotada y completar contrato de fecha civil.",
+    "cost": "Mantener referencia numérica y temporal específica de la disposición; no extender la correspondencia a condiciones familiares ni a toda continuidad anual.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/normativa/datos/minimos-autonomicos-2023.ts",
+        "symbol": "MINIMOS_AUTONOMICOS_IRPF_2023"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-1089-fe2440fc7fae9572",
+      "REV-MIN-CITA-55-cfc6da1a309a4f40",
+      "REV-MIN-CITA-189-297f1d00c0995b4b",
+      "REV-MIN-CITA-168-59094cf9dc62b0d9",
+      "REV-MIN-CITA-164-cbca1395b2740911",
+      "REV-MIN-CITA-94-5000401b423f2d0a",
+      "REV-MIN-CITA-148-64b74cf577abada0",
+      "REV-MIN-CITA-42-8e2f2bf97bc8092d",
+      "REV-MIN-CITA-148-64b74cf577abada0",
+      "REV-MIN-CITA-53-b5fa7b016c6c92ef",
+      "REV-MIN-CITA-394-3c6b237debce899b",
+      "REV-MIN-CITA-42-8e2f2bf97bc8092d",
+      "REV-MIN-CITA-191-58fc8eabe1616c6c",
+      "REV-MIN-CITA-160-5178a173568e20e8",
+      "REV-MIN-CITA-139-9d3bb541655c3e3f",
+      "REV-MIN-CITA-70-bcb4486ad4abaf02",
+      "REV-MIN-CITA-95-6f07c8cc95241163",
+      "REV-MIN-CITA-26-03862ac4a1408dbe",
+      "REV-MIN-CITA-60-b2a0004c6dbe0ef3",
+      "REV-MIN-CITA-48-cbd23adb3122cbca",
+      "REV-MIN-CITA-55-40bfd846a46619ba",
+      "REV-MIN-CITA-79-0713acfe5f1bd68f"
+    ]
+  },
+  {
+    "id": "MIN-032",
+    "previousStatus": "ambiguous",
+    "status": "accepted",
+    "acceptanceScope": "El HTML solicitado conp=20140101 contiene5550 y no5151; evidencia técnica de versión incorrecta para sostener2014.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764&p=20140101&tn=1",
+        "sha256": "e326992ae126e767854c299db73a24dd0d0287b6111431d8f251211e71fd953e",
+        "pages": [],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      }
+    ],
+    "objection": "No prueba que todas las consultas BOE históricas fallen ni corrupción del original.",
+    "reason": "El HTML solicitado conp=20140101 contiene5550 y no5151; evidencia técnica de versión incorrecta para sostener2014.",
+    "action": "Descartar esa respuesta como versión2014; usar disposición original identificada y contenido comprobado.",
+    "cost": "Rechazar evidencia histórica por contenido, aun con URL esperada; conservar respuesta para auditoría.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [],
+    "refinedCitationIds": []
+  },
+  {
+    "id": "MIN-033",
+    "previousStatus": "mismatch",
+    "status": "accepted",
+    "acceptanceScope": "Error de operación2012–2014: seis liquidaciones completas BG0 BA10000 dan117829 céntimos frente101829; controles BA0/4000 y2015 no fallan.",
+    "originalsReread": [
+      {
+        "url": "https://www.boe.es/boe/dias/2010/12/23/pdfs/BOE-A-2010-19703.pdf",
+        "sha256": "e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4",
+        "pages": [
+          64
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf",
+        "sha256": "1e86619d8084b78546299fb64dd40721b373197884ed946d3e2d959b8b6292ea",
+        "pages": [
+          467
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
+        "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
+        "pages": [
+          30,
+          31,
+          34
+        ],
+        "reread": true,
+        "scope": "Pasajes indicados; no lectura completa del documento ni firma validada"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2015/07/11/pdfs/BOE-A-2015-7765.pdf",
+        "sha256": "6e2dc7a4f5861a6f1ca6ff22f15876e1a5ba6b2e47b3e946e8f5edccbd1939f6",
+        "pages": [
+          9,
+          10
+        ],
+        "reread": true,
+        "scope": "Control2015: DA31 letrasc/e, original reextraído en fuentes-complementarias.json"
+      },
+      {
+        "url": "https://www.boe.es/boe/dias/2011/12/31/pdfs/BOE-A-2011-20638.pdf",
+        "sha256": "89eaeb5898f7383052ea8b8ea8f4fc72b549583b0e7663d63fb00e7abd9c6367",
+        "pages": [
+          53
+        ],
+        "reread": true,
+        "scope": "Reextracción y lectura personal complementaria; ver fuentes-complementarias.json"
+      }
+    ],
+    "objection": "Igualdad en primer tramo oculta diferencia; no resolver usando máximo de remanentes ni trasladar fórmula2015 atrás.",
+    "reason": "Error de operación2012–2014: seis liquidaciones completas BG0 BA10000 dan117829 céntimos frente101829; controles BA0/4000 y2015 no fallan.",
+    "action": "Coordinar fix único con EEA-MINIMO-AHORRO-2012-14 y pruebas discriminantes antes de editar.",
+    "cost": "Versionar operación antes/después2015, preservar controles dentro/fuera del primer tramo y coordinar con ahorro.",
+    "execution": "casos-ejecutados.json, contraste-independiente.json y tablas-runtime.json; los casos de campos ausentes están en casos-no-ejecutados.json",
+    "engineLocations": [
+      {
+        "path": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "symbol": "cuotaMinimoPersonalAhorro / cuotaAhorroDespuesMinimo"
+      },
+      {
+        "path": "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts",
+        "symbol": "calcularCuotaPorEscalaAhorro"
+      }
+    ],
+    "refinedCitationIds": [
+      "REV-MIN-CITA-1298-83f5943f07a41145",
+      "REV-MIN-CITA-210-910274b8f01a29d0",
+      "REV-MIN-CITA-219-dd6c85825b5adf19",
+      "REV-MIN-CITA-208-3e64c320b7198f64",
+      "REV-MIN-CITA-229-921875e73beaa809",
+      "REV-MIN-CITA-313-100bb65abbba7ef2",
+      "REV-MIN-CITA-326-5e14ea963ba72bf9",
+      "REV-MIN-CITA-220-0e53acb376b61c3d",
+      "REV-MIN-CITA-265-ec6eee196dea0246",
+      "REV-MIN-CITA-208-2695948afdf11399",
+      "REV-MIN-CITA-827-1f40d95785379d1a",
+      "REV-MIN-CITA-190-1db50d44c90744e1",
+      "REV-MIN-CITA-210-0040857dc9148427",
+      "REV-MIN-CITA-418-bee975cab2263a5e",
+      "REV-MIN-CITA-211-006a1d6f3b3379c1",
+      "REV-MIN-CITA-916-7d54f5da5271aa11",
+      "REV-MIN-CITA-237-cbfcf2c6182fa5c5",
+      "REV-MIN-CITA-305-49c46e8f16494959"
+    ]
+  }
+]

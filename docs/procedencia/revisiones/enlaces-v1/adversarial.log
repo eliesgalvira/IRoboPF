@@ -1,0 +1,10 @@
+super '⁻8,50 euros\n' REJECTED Número es substring de otro token
+sub '₋8,50 euros\n' REJECTED Número es substring de otro token
+space '− 8,50 euros\n' REJECTED Signo separado fuera del número seleccionado
+thin '− 8,50 euros\n' REJECTED Signo separado fuera del número seleccionado
+emspace '− 8,50 euros\n' REJECTED Signo separado fuera del número seleccionado
+mark '−́ 8,50 euros\n' ACCEPTED POSITIVE
+persistent-payload-change accepted-limited
+payload-hash-no-longer-matches True
+private-header verified
+mark-full-pdf-roundtrip {'integrity': 'verified', 'inventoryBinding': 'unverified', 'semanticReview': 'pending', 'independentReview': 'pending', 'fiscalAcceptance': 'pending'}

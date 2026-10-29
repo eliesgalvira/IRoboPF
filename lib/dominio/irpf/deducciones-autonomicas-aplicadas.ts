@@ -1,3 +1,7 @@
+import {
+  filtrarEntradasPorAmbito,
+  type AmbitoDeducciones,
+} from "./deducciones/ambito"
 import { Array as EffectArray, Match, Option } from "effect"
 
 import {
@@ -856,9 +860,9 @@ const calcularDeduccionGenerica = (
         Match.when({ cumple: false }, () => 0),
         Match.orElse(() => {
           const base = numeroDeduccion(entradas, `${deduccion.codigo}:base`)
-          const unidades = Math.max(
-            1,
-            numeroDeduccion(entradas, `${deduccion.codigo}:unidades`)
+          const unidades = numeroDeduccion(
+            entradas,
+            `${deduccion.codigo}:unidades`
           )
 
           return Match.value(deduccion.cuantia).pipe(
@@ -880,8 +884,10 @@ const calcularDeduccionGenerica = (
 }
 
 export const calcularDeduccionesAutonomicasAplicadas = (
-  entradas: EntradasDeduccionesAutonomicas
+  entradasOriginales: EntradasDeduccionesAutonomicas,
+  ambito: AmbitoDeducciones
 ): number => {
+  const entradas = filtrarEntradasPorAmbito(entradasOriginales, ambito)
   const andaluciaNacimiento =
     (numeroDeduccion(entradas, "andaluciaHijosNacimientoAdopcion") +
       numeroDeduccion(entradas, "andaluciaMenoresAcogidos")) *

@@ -1,0 +1,64 @@
+import json
+import hashlib
+import re
+from pathlib import Path
+import pymupdf as fitz
+
+out = Path("docs/procedencia/revisiones/minimos")
+docs = json.load(open("docs/procedencia/auditorias/minimos/documentos.json"))
+cs = json.load(open("docs/procedencia/auditorias/minimos/citas-candidatas.json"))
+checks = []
+refined = []
+texts = []
+fitz.TOOLS.set_small_glyph_heights(True)
+for d in docs:
+    p = Path(d["localPath"])
+    b = p.read_bytes()
+    checks.append(
+        dict(
+            url=d["canonicalUrl"],
+            sha256=d["sha256"],
+            sha256OK=hashlib.sha256(b).hexdigest() == d["sha256"],
+            sha512OK=hashlib.sha512(b).hexdigest() == d["sha512"],
+            sizeOK=len(b) == d["size"],
+        )
+    )
+    if not b.startswith(b"%PDF"):
+        continue
+    pdf = fitz.open(stream=b, filetype="pdf")
+    pages = sorted(
+        {c["page"] for c in cs if c["documentSha256"] == d["sha256"] and "page" in c}
+    )
+    for num in pages:
+        page = pdf[num - 1]
+        tp = page.get_textpage()
+        text = tp.extractText()
+        texts.append(
+            f"\n=== {d.get('auditName', d['canonicalUrl'])} PDF {num} ===\n{text}"
+        )
+        for block in tp.extractBLOCKS():
+            if re.search(
+                r"mínim|1\.800|8\.000|sesenta y cinco|setenta y cinco|devengad|entrada en vigor|efectos desde",
+                block[4],
+                re.I,
+            ):
+                box = list(block[:4])
+                quote = tp.extractTextbox(fitz.Rect(box))
+                refined.append(
+                    dict(
+                        documentSha256=d["sha256"],
+                        url=d["canonicalUrl"],
+                        page=num,
+                        box=box,
+                        quote=quote,
+                        coordinateSystem="PDF points top-left",
+                        method="PyMuPDF independent extraction; small glyph heights",
+                        facsimile="pendiente",
+                    )
+                )
+(out / "comprobaciones-originales.json").write_text(json.dumps(checks, indent=2))
+(out / "citas-refinadas.json").write_text(
+    json.dumps(refined, ensure_ascii=False, indent=2)
+)
+Path(".cache/procedencia/revision-minimos/originales.txt").write_text("".join(texts))
+print(len(checks), len(refined), len(texts))

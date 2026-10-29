@@ -1,0 +1,11 @@
+import Decimal from 'decimal.js';
+import {writeFileSync} from 'node:fs';
+import {obtenerParametrosComunidadAutonoma as params} from '../../../lib/dominio/irpf/comunidades/comunidad-autonoma.ts';
+const territorios=['simulada-estatal','andalucia','aragon','asturias','illes-balears','canarias','cantabria','castilla-la-mancha','castilla-y-leon','catalunya','extremadura','galicia','madrid','murcia','la-rioja','comunitat-valenciana','ceuta','melilla'];
+const tables=[];
+for(let anio=2012;anio<=2026;anio++) for(const comunidadAutonoma of territorios){
+ const p=params({anio,comunidadAutonoma,baseLiquidableGeneral:new Decimal(0)});
+ tables.push({anio,comunidadAutonoma,tag:p._tag,minimos:p.minimosAutonomicos});
+}
+const catalunya=[12450,12450.01].map(base=>({base,result:params({anio:2020,comunidadAutonoma:'catalunya',baseLiquidableGeneral:new Decimal(base)})}));
+writeFileSync('docs/procedencia/revisiones/minimos/tablas-runtime.json',JSON.stringify({tables,catalunya},null,2));

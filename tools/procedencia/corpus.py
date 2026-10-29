@@ -198,7 +198,7 @@ def verify_binding(text, binding):
     # No convertir "− 8,50" en positivo por seleccionar solo los dígitos.
     # No cruzar saltos de línea: pueden separar filas de una tabla.
     left = text[:start].rstrip(' \t')
-    if left and (unicodedata.category(left[-1]) in ('Pd', 'Sm')
+    if left and (unicodedata.category(left[-1]) in ('Pd', 'Sm', 'Mn', 'Mc', 'Me', 'Cf')
                  or any(word in unicodedata.name(left[-1], '') for word in ('MINUS', 'PLUS'))):
         raise ValueError('Signo separado fuera del número seleccionado')
     patterns = {'es-ES': r'[+-]?(?:[0-9]{1,3}(?:\.[0-9]{3})+|[0-9]+)(?:,[0-9]+)?',

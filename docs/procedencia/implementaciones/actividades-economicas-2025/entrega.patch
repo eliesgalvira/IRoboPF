@@ -1,0 +1,1913 @@
+--- /dev/null
++++ b/docs/procedencia/implementaciones/actividades-economicas-2025/INTEGRACION.md
+@@ -0,0 +1,50 @@
++# Vertical de servicios profesionales EDS 2025
++
++Implementación aislada para revisión posterior. No es un simulador general de autónomos ni una liquidación anual. `soportado` significa que los hechos suministrados entran en el contrato técnico; la autenticidad de sus justificantes y su calificación fiscal no se certifican mediante un string ni mediante los tests. `revisionFiscal` permanece `pendiente`.
++
++## Integración por el padre
++
++Entrada: `CasoActividad2025` en `lib/dominio/irpf/actividades-economicas/contrato.ts`; se exporta tanto el schema como el tipo. `calcularActividad2025` valida también en runtime, rechaza propiedades adicionales, datos incompletos y categorías ajenas, y devuelve una unión discriminada. Un rechazo no contiene un rendimiento cero utilizable.
++
++`adaptarActividadGeneral(caso)` devuelve `aporte-disponible` con `AporteActividadGeneral`, o los motivos de no soporte. Consumir `importeEurosExactos` como Decimal con signo en el saldo de rendimientos generales; conservar las pérdidas. No convertir a salario, no llamar al algoritmo de retención laboral, no reutilizar art. 20. Retenciones y pagos fraccionados son campos independientes y nunca gastos. El adaptador no suma ganancias generales, no compensa saldos, no presupone BIG=BLG y no calcula cuota diferencial.
++
++El padre deberá añadir la rama discriminada de actividad a los contratos anuales y revisar integración/compensaciones antes de conectar la salida. Los tres archivos anuales excluidos del encargo siguen intactos. El contrato de salida conserva euros decimales: su conversión a los céntimos del motor existente necesita una decisión de redondeo revisada; queda expresamente fuera de esta entrega.
++
++No hay UI, package, CI, instalación, build, regeneración del inventario ni operaciones VCS mutantes. Al integrar cambian las fuentes y queda obsoleto el inventario técnico: corresponde reconstruirlo una sola vez al padre, con su bloqueo de memoria.
++
++## Admisión y alcance
++
++Una profesión ordinaria de servicios, individual, régimen común, 2025, IVA plenamente recuperable y ninguna otra renta o actividad. Los hechos desconocidos y cualquier discriminante positivo bloquean. Declarar IAE y naturaleza no equivale a verificar administrativamente su calificación: corresponde al aportante documentar la actividad; el cálculo no tiene catálogo automático IAE.
++
++Historia completa anual desde inicio hasta 2024, con EDS continua, sin renuncias/exclusiones y siempre devengo. Se exige además régimen, renuncia, exclusión y criterio actual. Cualquier opción antigua por cobros/pagos se rechaza incluso si el criterio actual se declara devengo. La versión estrecha rechaza también cambios históricos ya extinguidos: no presume vencimiento de una renuncia a los tres años. Actividades anteriores al inicio, incluso la excepción de cesadas sin beneficios, quedan fuera; desconocido no equivale a ausencia.
++
++Volumen anterior hasta 600.000 inclusive. En inicio 2024 se comprueban días naturales desde inicio hasta fin de año y se compara `volumen*366 <= 600000*dias`; 2024 tiene 366 días. No se redondea el cociente. La vertical exige continuidad desde inicio, sin períodos interrumpidos. Inicio 2025 exige cero actividad y volumen anterior. El volumen de 2025 no determina retrospectivamente la admisión de 2025.
++
++Cada ingreso/gasto tiene ID, justificante, devengo, categoría, base, IVA y afectación. Se suman bases antes de retención. Categorías de gastos: consumibles consumidos, alquiler de local exclusivo, servicios profesionales y suministros de local exclusivo, con correlación y registro. No hay neto agregado ni casilla contabilidad validada. No admite facturas rectificativas, partidas negativas, IVA parcial, subvenciones ni gastos de familias no modeladas. Servicios gratuitos, autoconsumo, no facturados y subvalorados bloquean hasta implementar valor de mercado.
++
++Los IDs son globales entre diarios; los justificantes económicos no pueden repetirse en ingreso/gasto/activo, evitando capitalizar y deducir la misma factura. Es una política conservadora: una factura con varias líneas debe consolidarse en un asiento admisible; una factura mixta fuera del alcance se rechaza. Para pagos, `operacionId` representa la operación económica, no la copia documental. Una factura solo puede tener una retención agregada efectiva; certificado y factura no se suman. Un período solo puede tener un pago 130 agregado acreditado; no se modelan complementarias ni devoluciones. El cuarto trimestre admite pago en enero de 2026; no se calcula su deuda ni su plazo legal.
++
++RETA: únicamente cuotas ordinarias propias efectivamente pagadas en 2025 para períodos mensuales 2025, una por período. No se modelan regularizaciones, devoluciones, intereses, recargos, deudas antiguas, mutualidades ni simulación de cuotas. El justificante debe acreditar la naturaleza ordinaria: el motor no analiza PDFs.
++
++Activos: nuevos adquiridos onerosamente desde 2005, mobiliario o hardware, afectación exclusiva, IVA plenamente recuperable, en uso todo 2025, método lineal histórico y coeficiente constante documentados. Mobiliario: 5–10%; hardware: 10–26%. Base coste+puesta en marcha-residual; cuota limitada al saldo. Sin mejoras, deterioros, incentivos, subvenciones o leasing. No se aplican días/365 ni half-up. Debe funcionar y funciona el caso sin activos.
++
++Se calcula P; luego G (5%, tope 2.000, solo positivo) salvo elección de cliente único; RN conserva signo. Cliente único requiere no vinculación, gastos totales incluidos RETA y amortización <=30%, ingresos sujetos >=70%, obligaciones formales y ausencia de todas las otras rentas. TRADE se rechaza siempre. La discapacidad se representa mediante grado, ayuda/movilidad, ejercicio efectivo y documento; incremento alternativo, nunca suma de 3.500 y 7.750.
++
++Si cumple cliente único pero elige G, no se aplica 32.2.3. La elección de rentas bajas es explícita y solo actúa sin elegibilidad para 32.2.2. Inicio es explícito: 20% después de otras reducciones, base hasta 100.000; primer RN positivo antes de reducciones y ejercicio siguiente, sin prolongarlo por pérdidas. La historia suministra netos anuales anteriores, no liquidaciones ni netos después de reducciones. Se compara cada antiguo empleador por identidad única con el 50%, sin sumar empleadores distintos.
++
++## Evidencia y trazabilidad
++
++Cada etapa devuelve regla ID, fórmula, importe decimal y documentos de origen. `fuentes.ts` asocia reglas con fuentes decisorias y páginas del manual. `fuentes.json` conserva URL/hash/versión de los originales, sin rutas privadas ni cabeceras. Para citas geométricas y contrarrevisión consultar los archivos históricos de `auditorias/actividades-economicas-2025/` y `revisiones/actividades-economicas-2025/`; no se han reescrito sus decisiones ni sus ejemplos.
++
++La fórmula investigada AE25-03/04 en las referencias describe la propuesta histórica: NO es la fórmula ejecutada para regularizaciones o prorrata. Mandan la etapa concreta y los rechazos aquí documentados. El rechazo AE25-02 se aborda con historia temporal y discriminantes de valoración. Los pendientes AE25-03/04/08 se acotan a cuotas ordinarias, activos completos y cliente único. Esto exige una nueva revisión; no convierte el alcance acotado en aceptación del código.
++
++Separaciones obligatorias: los tests acreditan aritmética y defensas sobre fixtures; los hashes acreditan integridad de archivos; la interpretación jurídica depende de fuentes y hechos; la aceptación fiscal exige contrarrevisión y enlace al inventario. No se modifica la puerta cerrada `--accepted` del corpus.
++
++## Decisiones para incorporar al registro del padre
++
++1. Historia conservadora. Objeción: excluir renuncias ya revocadas y actividades cesadas sin beneficios reduce cobertura lícita. Motivo: no implementar sus transitorios por suposición. Coste: rechazo explícito y ampliación posterior; no se deniega un derecho fiscal.
++2. Decimales sin redondear, precisión local de 80 cifras, entradas de hasta 12 enteros/2 decimales y 10.000 documentos. Objeción: el consumidor anual usa céntimos y Decimal tiene precisión finita. Motivo: las sumas y multiplicaciones finitas de esta vertical caben holgadamente bajo ese límite, sin división ni truncado; no cambiar configuración Decimal global. Coste: salida distinta del contrato anual y redondeo pendiente de revisión.
++3. Solo activos completos y RETA ordinaria. Objeción: omite operaciones frecuentes. Motivo: no elevar los pendientes AE25-03/04 a reglas aceptadas. Coste: rechazos en altas intermedias, regularizaciones y devoluciones.
++4. Cliente único comprobado, TRADE excluido. Objeción: restringe el art. 32.2.1. Motivo: su acreditación tiene requisitos que un porcentaje o booleano no resuelve. Coste: cobertura parcial, con prueba separada del rechazo TRADE. Los ejemplos llamados «trade» se usan únicamente para aritmética de umbrales bajo hechos de cliente único; no prueban elegibilidad TRADE.
++5. Identidad documental conservadora y evidencia referenciada. Objeción: un ID/justificante no demuestra autenticidad ni detecta dos identidades fraudulentas del mismo cliente. Motivo: separar contrato de adquisición documental del cálculo. Coste: el padre debe normalizar identidades económicas, revisar los justificantes y agrupar pagos; no presentar soporte técnico como certificación.
++6. Adaptador sin integración anual. Objeción: no ofrece deuda final. Motivo: el contrato anual y las pérdidas necesitan revisión propia, y están fuera de propiedad. Coste: integración pendiente y utilidad limitada al rendimiento trazable.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/actividades-economicas-2025/VALIDACION.md
+@@ -0,0 +1,22 @@
++# Validación de la entrega
++
++Base indicada: `d9ff49c7`. Se entregan archivos nuevos, sin commits, bookmarks, push, PR, deploy ni reparación de índices. El enlace local node_modules solo permite usar dependencias compartidas; no se instalaron ni modificaron. No se ejecutó Next build, suite legacy, ni inventario.
++
++Comandos (entorno `nix shell nixpkgs#bun nixpkgs#nodejs -c`):
++
++- `bun run test -- tests/actividades-economicas-2025.test.ts --maxWorkers=1`: 56 pruebas correctas.
++- `bun run lint:oxlint -- lib/dominio/irpf/actividades-economicas tests/actividades-economicas-2025.test.ts`: correcto, sin desactivar reglas.
++- `bunx --no-install eslint lib/dominio/irpf/actividades-economicas tests/actividades-economicas-2025.test.ts`: correcto. También se ejecutó previamente ESLint global, correcto.
++- `flock /tmp/irobopf-validacion-pesada.lock bun run typecheck`: aplicación y vendor: correcto, código de salida 0.
++
++Se consultaron effect-solutions list, data-modeling y testing, así como Schema.ts/SchemaParser.ts de Effect v4. El primer typecheck señaló uso de opciones en Schema.is y un predicado de objeto no booleano; corregidos usando decodeUnknownResult con exceso de propiedades a error y comparación explícita contra undefined. No se ocultaron diagnósticos.
++
++La suite recorre los 18 ejemplos históricos, compara cada etapa numéricamente y no modifica las expectativas documentales. Los ejemplos llamados `trade-*` comprueban únicamente las fórmulas bajo hechos de cliente único; la entrada TRADE real tiene prueba separada de rechazo. Los importes no se redondean a céntimos: se comprueban, entre otros, G=1999.9995, reducción baja=0.00405 y las fronteras del adicional.
++
++F01: cuatro fronteras de fórmula aislada. F02: otras rentas/desconocidos. F03: gastos 30%, RETA y amortización incluidos. F04: ingresos sujetos 70%. F05: vinculación/TRADE. F06: 50% y comparación por empleador, sin sumarlos. F07: regularización/devolución rechazadas. F08: coeficiente elegido 25%, sin imponer 26%. F09: altas intermedias rechazadas. F10: límite de saldo histórico documentado. F11: categoría desconocida. F12: pagos separados/deduplicados; no se calcula cuota líquida. F13: ventana de primer positivo y siguiente, sin extensión por pérdida. F14: conjunta/múltiples actividades. F15: artísticas/irregulares/subvenciones. F16: 600.000, exceso y anualización. Los cinco casos de la revisión se traducen en rechazos o comprobaciones del contrato; no se interpreta el fixture de 2026 como normativa implementada de ese año.
++
++Se añaden pruebas del adaptador con pérdida, datos runtime inválidos, propiedades adicionales, fechas inexistentes, duplicados económicos con ID distinto, categorías desconocidas e historia de renuncia. El contrato restringe además el IVA a recuperación plena. No se hace una simulación de Renta WEB ni se afirma aceptación fiscal por el número de tests.
++
++Una defensa adicional contra acumulada positiva en un activo puesto en uso en 2025 hizo fallar el fixture F10 inicial. Se corrigió la historia del fixture, conservando el saldo documentado y la expectativa de cuota100. El cálculo de acumuladas históricas no está reconstruido por esta vertical; el saldo histórico es un dato documentado condicionado y requiere revisión.
++
++Los hashes y el parche describen integridad de la entrega, no autenticación de documentos ni interpretación normativa. El padre debe revisar el código nuevo y reconstruir el inventario después de integrar; se conservan íntegros los resultados históricos de ambos auditores.
+--- /dev/null
++++ b/docs/procedencia/implementaciones/actividades-economicas-2025/fuentes.json
+@@ -0,0 +1,327 @@
++{
++  "aceptacionCodigo": "pendiente de revisión independiente",
++  "fuentes": [
++    {
++      "id": "manual",
++      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/ManualRenta2025Parte1_es_es.pdf",
++      "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
++      "version": "Manual ejercicio 2025; edición impresa en pie 20/05/2026"
++    },
++    {
++      "id": "lirpf-original",
++      "url": "https://www.boe.es/boe/dias/2006/11/29/pdfs/A41734-41810.pdf",
++      "sha256": "ff21371b04e372bc56b65057cb792a3872cd7b4839e5547d1518d8eb77ed0525",
++      "version": "original"
++    },
++    {
++      "id": "rirpf-original",
++      "url": "https://www.boe.es/boe/dias/2007/03/31/pdfs/A14097-14149.pdf",
++      "sha256": "0f6003cfa63f80e44e4ff31bfe72432e3147d8164347940001c5de7e1c74380f",
++      "version": "original"
++    },
++    {
++      "id": "ley26-2014",
++      "url": "https://www.boe.es/boe/dias/2014/11/28/pdfs/BOE-A-2014-12327.pdf",
++      "sha256": "7393a032cbcbb47b5234894538b06420f4aae4a7106a0094af0ff50c45aaaa0f",
++      "version": "original"
++    },
++    {
++      "id": "rd633-2015",
++      "url": "https://www.boe.es/boe/dias/2015/07/11/pdfs/BOE-A-2015-7770.pdf",
++      "sha256": "6fe8785ba1a15e3c972dba1f9947afe35974e6fbd188f82105521a5a41c5c9ff",
++      "version": "original"
++    },
++    {
++      "id": "ley31-2022",
++      "url": "https://www.boe.es/boe/dias/2022/12/24/pdfs/BOE-A-2022-22128.pdf",
++      "sha256": "758a2d02ef82389f8d655ef560471461c22373008165a131b495b8c9634e72b3",
++      "version": "original"
++    },
++    {
++      "id": "orden1998",
++      "url": "https://www.boe.es/boe/dias/1998/03/28/pdfs/A10544-10545.pdf",
++      "sha256": "42825ab0f81e591f8b4c1532f7ad56994fef404ab872b90bfb694bf88d3d0950",
++      "version": "original"
++    },
++    {
++      "id": "ley7-2024",
++      "url": "https://www.boe.es/boe/dias/2024/12/21/pdfs/BOE-A-2024-26694.pdf",
++      "sha256": "f53d6ebcc82e76b21db269185389a390d2c6abc37d93d4884d94294ee4bc3e72",
++      "version": "original"
++    },
++    {
++      "id": "ley11-2013",
++      "url": "https://www.boe.es/boe/dias/2013/07/27/pdfs/BOE-A-2013-8187.pdf",
++      "sha256": "4cf41092d9496ccbfb07cd3c4aaa5ccf48bfebfa9e355cc1b625bc8c66cc5244",
++      "version": "original"
++    },
++    {
++      "id": "rd634-2015",
++      "url": "https://www.boe.es/boe/dias/2015/07/11/pdfs/BOE-A-2015-7771.pdf",
++      "sha256": "3951a3f55a505714fb4199aa8b2fbd5631b4fe733da9bc59d0a0bf7192840b64",
++      "version": "original"
++    },
++    {
++      "id": "lirpf2025",
++      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764&p=20251231&tn=1",
++      "sha256": "627a8b16e6015204dbbf4ac4e3c1302ca750f4dbcaacc00a01a5bd23cc02efd2",
++      "version": "Recuperado; consolidado actual/índice. NO prueba autónoma de vigencia 2025. La URL p=20251231 devolvió también reformas 2026."
++    },
++    {
++      "id": "rirpf2025",
++      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-6820&p=20251231&tn=1",
++      "sha256": "e918f08c12b85e50238ccde9efb101a95c6d7dd6c4631452deadbc2181553352",
++      "version": "Recuperado; consolidado actual/índice. NO prueba autónoma de vigencia 2025. La URL p=20251231 devolvió también reformas 2026."
++    },
++    {
++      "id": "aeat-indice",
++      "url": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c07-rendimientos-actividades-economicas-estimacion-directa.html",
++      "sha256": "d4f6b78ab199d080437bd719dabc0317e018a9e6b74ca6e4fb1559c05f7f7821",
++      "version": "Recuperado; consolidado actual/índice. NO prueba autónoma de vigencia 2025. La URL p=20251231 devolvió también reformas 2026."
++    },
++    {
++      "id": "rd439-consolidado",
++      "url": "https://www.boe.es/buscar/pdf/2007/BOE-A-2007-6820-consolidado.pdf",
++      "sha256": "c0d947aa1d9e0295b2bc396c8d96f918967bf198fc849d6cfad48c17278dfc40",
++      "version": "Recuperado; consolidado actual/índice. NO prueba autónoma de vigencia 2025. La URL p=20251231 devolvió también reformas 2026."
++    },
++    {
++      "id": "ley35-consolidado",
++      "url": "https://www.boe.es/buscar/pdf/2006/BOE-A-2006-20764-consolidado.pdf",
++      "sha256": "67c8af922fe823337e0130d589cf5d51b364720936fd0319009a4783a728b544",
++      "version": "Recuperado; consolidado actual/índice. NO prueba autónoma de vigencia 2025. La URL p=20251231 devolvió también reformas 2026."
++    }
++  ],
++  "reglas": [
++    {
++      "reglaId": "AE25-01",
++      "formulaInvestigada": "ejercicio=2025; individual; una actividad profesional de servicios ordinarios; EDS",
++      "fuentes": [
++        "manual",
++        "rirpf-original",
++        "ley26-2014"
++      ],
++      "paginasManual": [
++        404,
++        405,
++        406,
++        407,
++        408,
++        409,
++        410
++      ]
++    },
++    {
++      "reglaId": "AE25-02",
++      "formulaInvestigada": "P=sum(ingresos devengados computables)-sum(gastos admitidos)-amortizacion",
++      "fuentes": [
++        "manual",
++        "lirpf-original"
++      ],
++      "paginasManual": [
++        414,
++        415,
++        416,
++        417,
++        424,
++        425,
++        435,
++        437,
++        438,
++        439
++      ]
++    },
++    {
++      "reglaId": "AE25-03",
++      "formulaInvestigada": "gastoRETA=max(0,cuotasPagadas+regularizacionPagada-devolucion); ingresoRETA=max(0,devolucion-cuotasPagadas-regularizacionPagada)",
++      "fuentes": [
++        "manual",
++        "lirpf-original"
++      ],
++      "paginasManual": [
++        430,
++        431,
++        432
++      ]
++    },
++    {
++      "reglaId": "AE25-04",
++      "formulaInvestigada": "A=min(base-amortizacionFiscalAcumulada,base*coeficiente*diasFuncionamiento/365)",
++      "fuentes": [
++        "manual",
++        "orden1998",
++        "rd634-2015",
++        "rd633-2015"
++      ],
++      "paginasManual": [
++        455,
++        456,
++        457,
++        463,
++        464
++      ]
++    },
++    {
++      "reglaId": "AE25-05",
++      "formulaInvestigada": "G=min(2000,0.05*max(P,0)); RN=P-G",
++      "fuentes": [
++        "manual",
++        "rd633-2015",
++        "ley31-2022"
++      ],
++      "paginasManual": [
++        448,
++        449
++      ]
++    },
++    {
++      "reglaId": "AE25-06",
++      "formulaInvestigada": "RN negativo se conserva; reducciones=0",
++      "fuentes": [
++        "manual",
++        "lirpf-original",
++        "ley26-2014"
++      ],
++      "paginasManual": [
++        449,
++        481,
++        482
++      ]
++    },
++    {
++      "reglaId": "AE25-07",
++      "formulaInvestigada": "0.30*min(300000,rendimientoNetoElegible)",
++      "fuentes": [
++        "manual",
++        "ley26-2014",
++        "rd633-2015"
++      ],
++      "paginasManual": [
++        475,
++        476
++      ]
++    },
++    {
++      "reglaId": "AE25-08",
++      "formulaInvestigada": "R=min(max(RN,0),2000+adicional+discapacidad)",
++      "fuentes": [
++        "manual",
++        "ley26-2014",
++        "rd633-2015",
++        "ley31-2022"
++      ],
++      "paginasManual": [
++        477,
++        478,
++        479,
++        480,
++        481,
++        482
++      ]
++    },
++    {
++      "reglaId": "AE25-09",
++      "formulaInvestigada": "RN<=14047.5:6498; 14047.5<RN<19747.5:6498-1.14*(RN-14047.5); resto:0",
++      "fuentes": [
++        "manual",
++        "ley31-2022"
++      ],
++      "paginasManual": [
++        479,
++        480
++      ]
++    },
++    {
++      "reglaId": "AE25-10",
++      "formulaInvestigada": "3500; 7750 si ayuda de terceros/movilidad reducida o grado>=65%; cero si no discapacidad",
++      "fuentes": [
++        "manual",
++        "ley26-2014"
++      ],
++      "paginasManual": [
++        480
++      ]
++    },
++    {
++      "reglaId": "AE25-11",
++      "formulaInvestigada": "T<=8000:1620; 8000<T<12000:1620-0.405*(T-8000); T>=12000:0; R=min(max(RN,0),resultado)",
++      "fuentes": [
++        "manual",
++        "ley26-2014"
++      ],
++      "paginasManual": [
++        480,
++        481,
++        482
++      ]
++    },
++    {
++      "reglaId": "AE25-12",
++      "formulaInvestigada": "Rinicio=0.20*min(100000,max(RN-R32_2,0))",
++      "fuentes": [
++        "manual",
++        "ley11-2013"
++      ],
++      "paginasManual": [
++        482,
++        483
++      ]
++    },
++    {
++      "reglaId": "AE25-13",
++      "formulaInvestigada": "0.30*min(150000,exceso sobre1.30*media3años) con orden y reglas DA60",
++      "fuentes": [
++        "manual",
++        "ley7-2024"
++      ],
++      "paginasManual": [
++        484,
++        485
++      ]
++    },
++    {
++      "reglaId": "AE25-14",
++      "formulaInvestigada": "aporteActividad=RN-R32_2-Rinicio; saldoRendimientosGenerales += aporteActividad",
++      "fuentes": [
++        "manual",
++        "lirpf-original"
++      ],
++      "paginasManual": [
++        481,
++        482,
++        483
++      ]
++    },
++    {
++      "reglaId": "AE25-15",
++      "formulaInvestigada": "cuotaDiferencial=cuotaLiquida-retencionesEfectivas-pagosFraccionadosEfectivos",
++      "fuentes": [
++        "manual",
++        "lirpf-original",
++        "rirpf-original"
++      ],
++      "paginasManual": [
++        414,
++        415
++      ]
++    },
++    {
++      "reglaId": "AE25-16",
++      "formulaInvestigada": "rechazo de categoría fuera de lista; sanciones/recargos/donativos: deduccion=0 con motivo",
++      "fuentes": [
++        "manual"
++      ],
++      "paginasManual": [
++        434,
++        435,
++        438,
++        439,
++        444,
++        445,
++        450,
++        451,
++        452
++      ]
++    }
++  ]
++}
+--- /dev/null
++++ b/lib/dominio/irpf/actividades-economicas/adaptador.ts
+@@ -0,0 +1,33 @@
++import { calcularActividad2025 } from "./calcular"
++import type {
++  AporteActividadGeneral,
++  CasoActividad2025,
++  EtapaActividad,
++  MotivoActividad,
++} from "./contrato"
++
++export type AdaptacionActividadGeneral =
++  | {
++      readonly estado: "no-soportado"
++      readonly motivos: readonly MotivoActividad[]
++    }
++  | {
++      readonly estado: "aporte-disponible"
++      readonly aporte: AporteActividadGeneral
++      readonly etapas: readonly EtapaActividad[]
++      readonly aceptacionFiscal: "pendiente"
++    }
++
++/** No convierte a céntimos ni llama a la liquidación salarial/anual existente. */
++export function adaptarActividadGeneral(
++  caso: CasoActividad2025
++): AdaptacionActividadGeneral {
++  const resultado = calcularActividad2025(caso)
++  if (resultado.estado === "no-soportado") return resultado
++  return {
++    estado: "aporte-disponible",
++    aporte: resultado.aporte,
++    etapas: resultado.etapas,
++    aceptacionFiscal: "pendiente",
++  }
++}
+--- /dev/null
++++ b/lib/dominio/irpf/actividades-economicas/calcular.ts
+@@ -0,0 +1,575 @@
++import { fuentesActividad2025 } from "./fuentes"
++import Decimal from "decimal.js"
++import { Result, Schema } from "effect"
++import { CasoActividad2025 } from "./contrato"
++import type {
++  EtapaActividad,
++  MotivoActividad,
++  ResultadoActividad2025,
++} from "./contrato"
++
++// Entradas acotadas a 12 enteros, 2 decimales y 10.000 documentos.
++// 80 cifras conservan exactamente las operaciones finitas de esta vertical.
++const D = Decimal.clone({ precision: 80 })
++const suma = (valores: readonly string[]) =>
++  valores.reduce((a, b) => a.plus(b), new D(0))
++function fechaValida(fecha: string): boolean {
++  const [y = 0, m = 0, d = 0] = fecha.split("-").map(Number)
++  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)
++  const dias = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
++  return (
++    y >= 1900 &&
++    y <= 2026 &&
++    m >= 1 &&
++    m <= 12 &&
++    d >= 1 &&
++    d <= (dias[m - 1] ?? 0)
++  )
++}
++
++/** Fórmula aislada: la admisión y la incompatibilidad se comprueban en calcularActividad2025. */
++export function reduccionRentasBajas2025(RN: Decimal): Decimal {
++  return D.min(
++    D.max(RN, 0),
++    D.max(0, new D(1620).minus(D.max(0, RN.minus(8000)).times("0.405")))
++  )
++}
++
++/** Frontera tipada y comprobada en runtime; nunca interpreta un rechazo como cero. */
++export function calcularActividad2025(
++  caso: CasoActividad2025
++): ResultadoActividad2025 {
++  if (
++    Result.isFailure(
++      Schema.decodeUnknownResult(CasoActividad2025)(caso, {
++        onExcessProperty: "error",
++      })
++    )
++  ) {
++    return {
++      estado: "no-soportado",
++      motivos: [
++        {
++          reglaId: "AE25-01",
++          id: "entrada",
++          motivo: "Estructura, categoría o dato desconocido/no válido",
++        },
++      ],
++    }
++  }
++  const motivos: MotivoActividad[] = []
++  const rechazar = (reglaId: string, id: string, motivo: string) => {
++    motivos.push({ reglaId, id, motivo })
++  }
++  const etapas: EtapaActividad[] = []
++  const etapa = (
++    reglaId: string,
++    id: string,
++    formula: string,
++    valor: Decimal,
++    documentos: readonly string[] = []
++  ) => {
++    etapas.push({
++      reglaId,
++      id,
++      formula,
++      importe: valor.toFixed(),
++      fuentes:
++        fuentesActividad2025.find((f) => f.reglaId === reglaId)?.fuentes ?? [],
++      documentos,
++    })
++    return valor
++  }
++  if (
++    caso.ejercicio !== 2025 ||
++    caso.territorio !== "comun" ||
++    !caso.individual ||
++    !caso.serviciosOrdinarios
++  )
++    rechazar(
++      "AE25-01",
++      "ambito",
++      "Solo servicios profesionales individuales, régimen común y ejercicio 2025"
++    )
++  for (const [id, presente] of Object.entries(caso.hechos))
++    if (presente)
++      rechazar(
++        id === "trade" ? "AE25-08" : "AE25-01",
++        id,
++        "Hecho fuera del ámbito o desconocido; requiere ampliación y revisión"
++      )
++  if (caso.criterio2025 !== "devengo")
++    rechazar(
++      "AE25-02",
++      "criterio2025",
++      "Criterio vigente no soportado o desconocido"
++    )
++  if (caso.regimen2025 !== "eds" || caso.renuncia2025 || caso.exclusion2025)
++    rechazar("AE25-01", "regimen2025", "Renuncia o exclusión vigente")
++  const inicio = Number(caso.fechaInicio.slice(0, 4))
++  if (
++    !fechaValida(caso.fechaInicio) ||
++    !fechaValida(caso.fechaFin) ||
++    caso.fechaInicio > caso.fechaFin ||
++    caso.fechaInicio > "2025-12-31" ||
++    caso.fechaFin < "2025-01-01" ||
++    caso.fechaFin > "2025-12-31"
++  )
++    rechazar("AE25-01", "fechas", "Intervalo de actividad inválido")
++  if (caso.actividadPreviaAlInicio !== "ausente")
++    rechazar(
++      "AE25-12",
++      "historia-previa",
++      "Actividades previas (incluida atribución) o historia desconocida fuera de alcance"
++    )
++  if (caso.historial.length !== 2025 - inicio)
++    rechazar(
++      "AE25-01",
++      "historial",
++      "Se exige un registro por ejercicio desde inicio hasta 2024"
++    )
++  const anios = new Set<number>()
++  for (const h of caso.historial) {
++    if (
++      !Number.isInteger(h.ejercicio) ||
++      h.ejercicio < inicio ||
++      h.ejercicio >= 2025 ||
++      anios.has(h.ejercicio)
++    )
++      rechazar(
++        "AE25-01",
++        h.documento,
++        "Ejercicio histórico duplicado o inválido"
++      )
++    anios.add(h.ejercicio)
++    if (h.regimen !== "eds" || h.renuncia || h.exclusion)
++      rechazar(
++        "AE25-01",
++        h.documento,
++        "Solo historial EDS continuo sin renuncias/exclusiones; no presumir caducidad"
++      )
++    if (h.criterio !== "devengo")
++      rechazar(
++        "AE25-02",
++        h.documento,
++        "Opción temporal previa o desconocida: no imputar automáticamente por devengo"
++      )
++  }
++  // La anualización se compara por productos, sin redondear el cociente.
++  if (inicio === 2025) {
++    if (caso.diasActividad2024 !== 0 || !new D(caso.volumen2024).isZero())
++      rechazar(
++        "AE25-01",
++        "volumen",
++        "Inicio 2025 incompatible con actividad 2024"
++      )
++  } else {
++    const dias = caso.diasActividad2024
++    if (inicio === 2024) {
++      const [, mes = 0, dia = 0] = caso.fechaInicio.split("-").map(Number)
++      const previos = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]
++      if (dias !== 367 - ((previos[mes - 1] ?? 0) + dia))
++        rechazar(
++          "AE25-01",
++          "dias2024",
++          "Días no coinciden con inicio y actividad continua hasta fin de 2024"
++        )
++    }
++    if (
++      !Number.isInteger(dias) ||
++      dias < 1 ||
++      dias > 366 ||
++      (inicio < 2024 && dias !== 366)
++    )
++      rechazar("AE25-01", "dias2024", "Días de actividad 2024 incoherentes")
++    if (new D(caso.volumen2024).times(366).gt(new D(600000).times(dias)))
++      rechazar(
++        "AE25-01",
++        "volumen",
++        "Cifra anterior anualizada superior a 600.000 euros"
++      )
++  }
++  const ids = new Set<string>()
++  const documentos = [
++    ...caso.ingresos,
++    ...caso.gastos,
++    ...caso.reta,
++    ...caso.activos,
++    ...caso.retenciones,
++    ...caso.pagosFraccionados,
++  ]
++  if (documentos.length > 10000)
++    rechazar("AE25-01", "documentos", "Máximo técnico 10.000 registros")
++  for (const d of documentos) {
++    if (ids.has(d.id))
++      rechazar(
++        "AE25-02",
++        d.id,
++        "ID duplicado entre diarios; no sumar dos veces"
++      )
++    ids.add(d.id)
++    if (!fechaValida(d.fecha)) rechazar("AE25-02", d.id, "Fecha inexistente")
++  }
++  const facturas = new Set<string>()
++  for (const a of [...caso.ingresos, ...caso.gastos, ...caso.activos]) {
++    if (facturas.has(a.justificante))
++      rechazar(
++        "AE25-02",
++        a.id,
++        "Documento económico repetido o capitalizado y deducido como gasto"
++      )
++    facturas.add(a.justificante)
++  }
++  const clientes = new Map(caso.clientes.map((c) => [c.id, c]))
++  if (clientes.size !== caso.clientes.length)
++    rechazar("AE25-02", "clientes", "Identidad de cliente duplicada")
++  for (const c of caso.clientes)
++    if (c.vinculado)
++      rechazar("AE25-02", c.id, "Cliente vinculado fuera del ámbito")
++  for (const a of [...caso.ingresos, ...caso.gastos]) {
++    if (
++      a.fecha < "2025-01-01" ||
++      a.fecha > "2025-12-31" ||
++      a.fecha < caso.fechaInicio ||
++      a.fecha > caso.fechaFin ||
++      !a.afectacionExclusiva ||
++      !a.registrado ||
++      a.rectificativa ||
++      (a.iva !== a.ivaRecuperable && !new D(a.iva).eq(a.ivaRecuperable))
++    )
++      rechazar(
++        "AE25-02",
++        a.id,
++        "Devengo, afectación, registro, rectificación o IVA fuera del ámbito (solo IVA plenamente recuperable)"
++      )
++  }
++  for (const i of caso.ingresos)
++    if (!clientes.has(i.clienteId))
++      rechazar("AE25-02", i.id, "Cliente sin hechos documentados")
++  for (const g of caso.gastos)
++    if (!g.correlacion)
++      rechazar("AE25-16", g.id, "Correlación con ingresos no acreditada")
++  const periodosReta = new Set<string>()
++  for (const r of caso.reta) {
++    if (
++      r.tipo !== "ordinaria" ||
++      !r.propia ||
++      !r.efectiva ||
++      !/^2025-(0[1-9]|1[0-2])$/.test(r.periodo) ||
++      r.fecha < "2025-01-01" ||
++      r.fecha < caso.fechaInicio ||
++      r.periodo < caso.fechaInicio.slice(0, 7) ||
++      r.periodo > caso.fechaFin.slice(0, 7) ||
++      r.fecha > "2025-12-31" ||
++      periodosReta.has(r.periodo)
++    )
++      rechazar(
++        "AE25-03",
++        r.id,
++        "Solo cuota ordinaria propia efectivamente pagada en 2025, una por período; regularización/devolución/deuda excluidas"
++      )
++    periodosReta.add(r.periodo)
++  }
++  let amortizacion = new D(0)
++  for (const a of caso.activos) {
++    const base = new D(a.coste).plus(a.puestaMarcha).minus(a.residual)
++    const saldo = base.minus(a.acumulada)
++    const coef = new D(a.coeficiente)
++    if (
++      !new D(a.iva).eq(a.ivaRecuperable) ||
++      !a.nuevo ||
++      !a.exclusivo ||
++      !a.oneroso ||
++      a.mejoras ||
++      a.deterioros ||
++      a.subvencionado ||
++      a.leasing ||
++      a.incentivo ||
++      a.metodoHistorico !== "lineal" ||
++      a.coeficiente !== a.coeficienteHistorico ||
++      !fechaValida(a.fechaUso) ||
++      !fechaValida(a.fechaAdquisicion) ||
++      !fechaValida(a.usoHasta) ||
++      a.fechaAdquisicion < "2005-01-01" ||
++      a.fechaAdquisicion > a.fechaUso ||
++      a.fechaUso > "2025-01-01" ||
++      a.fechaUso < caso.fechaInicio ||
++      (a.fechaUso >= "2025-01-01" && new D(a.acumulada).gt(0)) ||
++      a.usoHasta !== "2025-12-31" ||
++      caso.fechaInicio > "2025-01-01" ||
++      caso.fechaFin !== "2025-12-31" ||
++      base.lt(0) ||
++      saldo.lt(0) ||
++      coef.lt(a.grupo === "hardware" ? "0.1" : "0.05") ||
++      coef.gt(a.grupo === "hardware" ? "0.26" : "0.10")
++    )
++      rechazar(
++        "AE25-04",
++        a.id,
++        "Activo, saldo, coeficiente o historia fuera de amortización lineal ordinaria de año completo"
++      )
++    const cuota = D.min(saldo, base.times(coef))
++    amortizacion = amortizacion.plus(cuota)
++    etapa(
++      "AE25-04",
++      a.id,
++      "min(coste+puestaMarcha-residual-acumulada, (coste+puestaMarcha-residual)*coeficiente)",
++      cuota,
++      [a.justificante, a.saldoDocumentado]
++    )
++    etapa(
++      "AE25-04",
++      `${a.id}:saldo`,
++      "saldoAnterior-cuota",
++      saldo.minus(cuota),
++      [a.saldoDocumentado]
++    )
++  }
++  const operaciones = new Set<string>()
++  const retenidos = new Set<string>()
++  const periodosPago = new Set<string>()
++  for (const r of [...caso.retenciones, ...caso.pagosFraccionados]) {
++    if (operaciones.has(r.operacionId))
++      rechazar(
++        "AE25-15",
++        r.id,
++        "Operación de pago duplicada, aunque cambie justificante"
++      )
++    operaciones.add(r.operacionId)
++  }
++  for (const r of caso.retenciones) {
++    const ingreso = caso.ingresos.find((i) => i.id === r.ingresoId)
++    if (
++      !r.efectiva ||
++      ingreso === undefined ||
++      !ingreso.sujetoRetencion ||
++      new D(r.importe).gt(ingreso.base) ||
++      retenidos.has(r.ingresoId) ||
++      r.fecha < "2025-01-01" ||
++      r.fecha > "2025-12-31"
++    )
++      rechazar(
++        "AE25-15",
++        r.id,
++        "Retención no soportada o factura ya cubierta por otro certificado"
++      )
++    retenidos.add(r.ingresoId)
++  }
++  for (const p of caso.pagosFraccionados) {
++    const cierre =
++      p.periodo === "2025-1T"
++        ? "2025-03-31"
++        : p.periodo === "2025-2T"
++          ? "2025-06-30"
++          : p.periodo === "2025-3T"
++            ? "2025-09-30"
++            : "2025-12-31"
++    if (
++      p.fecha <= cierre ||
++      !p.efectivo ||
++      periodosPago.has(p.periodo) ||
++      p.fecha < "2025-01-01" ||
++      p.fecha > "2026-01-30"
++    )
++      rechazar(
++        "AE25-15",
++        p.id,
++        "Pago no efectivo, duplicado o fecha fuera del ámbito"
++      )
++    periodosPago.add(p.periodo)
++  }
++  const discapacidad = caso.discapacidad
++  if (
++    !Number.isInteger(discapacidad.grado) ||
++    discapacidad.grado < 0 ||
++    discapacidad.grado > 100 ||
++    (discapacidad.ayudaOMovilidad && discapacidad.grado < 33)
++  )
++    rechazar("AE25-10", "discapacidad", "Grado/ayuda incoherentes")
++  if (motivos.length > 0) return { estado: "no-soportado", motivos }
++  for (const i of caso.ingresos)
++    etapa(
++      "AE25-02",
++      `ingreso:${i.id}`,
++      "base devengada, antes de retención y sin IVA recuperable",
++      new D(i.base),
++      [i.id]
++    )
++  for (const g of caso.gastos)
++    etapa(
++      "AE25-16",
++      `gasto:${g.id}`,
++      "base de categoría admitida correlacionada, sin IVA recuperable",
++      new D(g.base),
++      [g.id]
++    )
++  for (const r of caso.reta)
++    etapa(
++      "AE25-03",
++      `reta:${r.id}`,
++      "cuota propia ordinaria efectivamente satisfecha",
++      new D(r.importe),
++      [r.id]
++    )
++  const ingresos = etapa(
++    "AE25-02",
++    "ingresos",
++    "sum(base antes de retención; IVA recuperable excluido)",
++    suma(caso.ingresos.map((i) => i.base)),
++    caso.ingresos.map((i) => i.id)
++  )
++  const ordinarios = etapa(
++    "AE25-02",
++    "gastos",
++    "sum(base gastos admitidos)",
++    suma(caso.gastos.map((g) => g.base)),
++    caso.gastos.map((g) => g.id)
++  )
++  const reta = etapa(
++    "AE25-03",
++    "reta",
++    "sum(cuotas ordinarias efectivas)",
++    suma(caso.reta.map((r) => r.importe)),
++    caso.reta.map((r) => r.id)
++  )
++  etapa(
++    "AE25-04",
++    "amortizacion",
++    "sum(cuotas activos)",
++    amortizacion,
++    caso.activos.map((a) => a.id)
++  )
++  const gastos = ordinarios.plus(reta).plus(amortizacion)
++  const P = etapa(
++    "AE25-02",
++    "P",
++    "ingresos-gastos-RETA-amortizacion",
++    ingresos.minus(gastos)
++  )
++  const sujetos = suma(
++    caso.ingresos.filter((i) => i.sujetoRetencion).map((i) => i.base)
++  )
++  const unico = new Set(caso.ingresos.map((i) => i.clienteId)).size === 1
++  const elegible =
++    unico &&
++    ingresos.gt(0) &&
++    gastos.lte(ingresos.times("0.3")) &&
++    sujetos.gte(ingresos.times("0.7")) &&
++    caso.obligacionesFormales
++  if (caso.opcion === "cliente-unico" && !elegible)
++    return {
++      estado: "no-soportado",
++      motivos: [
++        {
++          reglaId: "AE25-08",
++          id: "opcion",
++          motivo:
++            "Elección cliente único sin cumplir todas las condiciones (30% incluye RETA y amortización; 70% ingresos sujetos)",
++        },
++      ],
++    }
++  const G = etapa(
++    "AE25-05",
++    "G",
++    "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
++    caso.opcion === "cliente-unico"
++      ? new D(0)
++      : D.min(2000, D.max(P, 0).times("0.05"))
++  )
++  const RN = etapa("AE25-06", "RN", "P-G (con signo)", P.minus(G))
++  let reduccion = new D(0)
++  if (caso.opcion === "cliente-unico") {
++    const adicional = RN.lte("14047.5")
++      ? new D(6498)
++      : D.max(0, new D(6498).minus(RN.minus("14047.5").times("1.14")))
++    const incremento =
++      discapacidad.ejercicioEfectivo && discapacidad.grado >= 33
++        ? new D(
++            discapacidad.grado >= 65 || discapacidad.ayudaOMovilidad
++              ? 7750
++              : 3500
++          )
++        : new D(0)
++    etapa(
++      "AE25-09",
++      "adicional",
++      "RN<=14047.5 ? 6498 : max(0,6498-1.14*(RN-14047.5))",
++      adicional
++    )
++    etapa(
++      "AE25-10",
++      "discapacidad",
++      "3500 o 7750 alternativos, con ejercicio efectivo y acreditación",
++      incremento,
++      [discapacidad.documento]
++    )
++    reduccion = D.min(D.max(RN, 0), adicional.plus(incremento).plus(2000))
++  } else if (!elegible && caso.aplicarRentasBajas) {
++    reduccion = reduccionRentasBajas2025(RN)
++  }
++  etapa(
++    caso.opcion === "cliente-unico" ? "AE25-08" : "AE25-11",
++    "reduccion32_2",
++    "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
++    reduccion
++  )
++  const anteriores = caso.historial
++    .filter((h) => new D(h.netoAntesReducciones).gt(0))
++    .map((h) => h.ejercicio)
++  const primerPositivo =
++    anteriores.length > 0 ? Math.min(...anteriores) : RN.gt(0) ? 2025 : null
++  const excluidoEmpleador = caso.clientes.some(
++    (c) =>
++      c.empleadorEnAnioAnteriorAlInicio &&
++      suma(
++        caso.ingresos.filter((i) => i.clienteId === c.id).map((i) => i.base)
++      ).gt(ingresos.times("0.5"))
++  )
++  const inicioElegible =
++    inicio >= 2013 &&
++    primerPositivo !== null &&
++    2025 <= primerPositivo + 1 &&
++    !excluidoEmpleador
++  const reduccionInicio = etapa(
++    "AE25-12",
++    "reduccionInicio",
++    "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
++    caso.aplicarInicio && inicioElegible
++      ? D.min(100000, D.max(0, RN.minus(reduccion))).times("0.2")
++      : new D(0)
++  )
++  const aporte = etapa(
++    "AE25-14",
++    "aporteBIG",
++    "RN-R32_2-Rinicio (con signo; no liquidación anual)",
++    RN.minus(reduccion).minus(reduccionInicio)
++  )
++  const retenciones = etapa(
++    "AE25-15",
++    "retenciones",
++    "sum(retenciones efectivas únicas); separado del rendimiento",
++    suma(caso.retenciones.map((r) => r.importe)),
++    caso.retenciones.map((r) => r.id)
++  )
++  const pagos = etapa(
++    "AE25-15",
++    "pagos",
++    "sum(pagos efectivos únicos); separado del rendimiento",
++    suma(caso.pagosFraccionados.map((p) => p.importe)),
++    caso.pagosFraccionados.map((p) => p.id)
++  )
++  return {
++    estado: "soportado",
++    revisionFiscal: "pendiente",
++    etapas,
++    elegibleClienteUnico: elegible,
++    primerPositivo,
++    aporte: {
++      clase: "rendimiento-actividad-2025",
++      importeEurosExactos: aporte.toFixed(),
++      retencionesEuros: retenciones.toFixed(),
++      pagosFraccionadosEuros: pagos.toFixed(),
++      liquidacionAnual: "no-calculada",
++    },
++  }
++}
+--- /dev/null
++++ b/lib/dominio/irpf/actividades-economicas/contrato.ts
+@@ -0,0 +1,206 @@
++import { Schema } from "effect"
++
++const Texto = Schema.String.check(Schema.isPattern(/^[^\s].{0,199}$/))
++const Importe = Schema.String.check(
++  Schema.isPattern(/^(0|[1-9][0-9]{0,11})(\.[0-9]{1,2})?$/)
++)
++const Neto = Schema.String.check(
++  Schema.isPattern(/^-?(0|[1-9][0-9]{0,11})(\.[0-9]{1,8})?$/)
++)
++const Fecha = Schema.String.check(Schema.isPattern(/^\d{4}-\d{2}-\d{2}$/))
++const Documento = { id: Texto, justificante: Texto, fecha: Fecha }
++const Asiento = {
++  ...Documento,
++  base: Importe,
++  iva: Importe,
++  ivaRecuperable: Importe,
++  afectacionExclusiva: Schema.Boolean,
++  registrado: Schema.Boolean,
++}
++
++export const CasoActividad2025 = Schema.Struct({
++  ejercicio: Schema.Number,
++  territorio: Schema.Literals(["comun", "foral", "desconocido"]),
++  individual: Schema.Boolean,
++  actividadId: Texto,
++  iae: Texto,
++  fechaInicio: Fecha,
++  fechaFin: Fecha,
++  serviciosOrdinarios: Schema.Boolean,
++  hechos: Schema.Struct({
++    otrasActividades: Schema.Boolean,
++    otrasRentas: Schema.Boolean,
++    existencias: Schema.Boolean,
++    empleados: Schema.Boolean,
++    artistica: Schema.Boolean,
++    irregular: Schema.Boolean,
++    subvenciones: Schema.Boolean,
++    transmisiones: Schema.Boolean,
++    extranjero: Schema.Boolean,
++    mutualidad: Schema.Boolean,
++    especialidadesTerritoriales: Schema.Boolean,
++    saldosPendientes: Schema.Boolean,
++    serviciosGratuitos: Schema.Boolean,
++    autoconsumo: Schema.Boolean,
++    noFacturados: Schema.Boolean,
++    subvalorados: Schema.Boolean,
++    trade: Schema.Boolean,
++    hechosDesconocidos: Schema.Boolean,
++  }),
++  // Historial completo desde el inicio: se admite solo la trayectoria limpia.
++  historial: Schema.Array(
++    Schema.Struct({
++      ejercicio: Schema.Number,
++      documento: Texto,
++      regimen: Schema.Literals(["eds", "normal", "objetiva", "desconocido"]),
++      renuncia: Schema.Boolean,
++      exclusion: Schema.Boolean,
++      criterio: Schema.Literals(["devengo", "cobros-pagos", "desconocido"]),
++      netoAntesReducciones: Neto,
++    })
++  ),
++  actividadPreviaAlInicio: Schema.Literals([
++    "ausente",
++    "presente",
++    "desconocida",
++  ]),
++  regimen2025: Schema.Literals(["eds", "normal", "objetiva", "desconocido"]),
++  criterio2025: Schema.Literals(["devengo", "cobros-pagos", "desconocido"]),
++  documentoCriterio2025: Texto,
++  renuncia2025: Schema.Boolean,
++  exclusion2025: Schema.Boolean,
++  volumen2024: Importe,
++  diasActividad2024: Schema.Number,
++  documentoVolumen2024: Texto,
++  clientes: Schema.Array(
++    Schema.Struct({
++      id: Texto,
++      vinculado: Schema.Boolean,
++      empleadorEnAnioAnteriorAlInicio: Schema.Boolean,
++      documento: Texto,
++    })
++  ),
++  ingresos: Schema.Array(
++    Schema.Struct({
++      ...Asiento,
++      categoria: Schema.Literal("servicio"),
++      clienteId: Texto,
++      sujetoRetencion: Schema.Boolean,
++      rectificativa: Schema.Boolean,
++    })
++  ),
++  gastos: Schema.Array(
++    Schema.Struct({
++      ...Asiento,
++      categoria: Schema.Literals([
++        "consumibles-consumidos",
++        "alquiler-local",
++        "servicios-profesionales",
++        "suministros-local",
++      ]),
++      correlacion: Schema.Boolean,
++      rectificativa: Schema.Boolean,
++    })
++  ),
++  reta: Schema.Array(
++    Schema.Struct({
++      ...Documento,
++      importe: Importe,
++      tipo: Schema.Literals(["ordinaria", "regularizacion", "devolucion"]),
++      propia: Schema.Boolean,
++      efectiva: Schema.Boolean,
++      periodo: Texto,
++    })
++  ),
++  activos: Schema.Array(
++    Schema.Struct({
++      ...Documento,
++      grupo: Schema.Literals(["mobiliario", "hardware"]),
++      coste: Importe,
++      puestaMarcha: Importe,
++      residual: Importe,
++      acumulada: Importe,
++      iva: Importe,
++      ivaRecuperable: Importe,
++      coeficiente: Schema.String.check(Schema.isPattern(/^0\.[0-9]{1,6}$/)),
++      fechaUso: Fecha,
++      fechaAdquisicion: Fecha,
++      usoHasta: Fecha,
++      nuevo: Schema.Boolean,
++      exclusivo: Schema.Boolean,
++      oneroso: Schema.Boolean,
++      mejoras: Schema.Boolean,
++      deterioros: Schema.Boolean,
++      subvencionado: Schema.Boolean,
++      leasing: Schema.Boolean,
++      incentivo: Schema.Boolean,
++      metodoHistorico: Schema.Literals(["lineal", "otro", "desconocido"]),
++      coeficienteHistorico: Schema.String,
++      saldoDocumentado: Texto,
++    })
++  ),
++  obligacionesFormales: Schema.Boolean,
++  documentoObligaciones: Texto,
++  discapacidad: Schema.Struct({
++    grado: Schema.Number,
++    ayudaOMovilidad: Schema.Boolean,
++    ejercicioEfectivo: Schema.Boolean,
++    documento: Texto,
++  }),
++  opcion: Schema.Literals(["gastos-dificiles", "cliente-unico"]),
++  aplicarRentasBajas: Schema.Boolean,
++  aplicarInicio: Schema.Boolean,
++  retenciones: Schema.Array(
++    Schema.Struct({
++      ...Documento,
++      operacionId: Texto,
++      ingresoId: Texto,
++      importe: Importe,
++      efectiva: Schema.Boolean,
++    })
++  ),
++  pagosFraccionados: Schema.Array(
++    Schema.Struct({
++      ...Documento,
++      operacionId: Texto,
++      periodo: Schema.Literals(["2025-1T", "2025-2T", "2025-3T", "2025-4T"]),
++      modelo: Schema.Literal("130"),
++      importe: Importe,
++      efectivo: Schema.Boolean,
++    })
++  ),
++})
++export type CasoActividad2025 = typeof CasoActividad2025.Type
++export interface MotivoActividad {
++  readonly reglaId: string
++  readonly id: string
++  readonly motivo: string
++}
++export interface EtapaActividad {
++  readonly reglaId: string
++  readonly id: string
++  readonly formula: string
++  readonly fuentes: readonly string[]
++  readonly importe: string
++  readonly documentos: readonly string[]
++}
++export interface AporteActividadGeneral {
++  readonly clase: "rendimiento-actividad-2025"
++  readonly importeEurosExactos: string
++  readonly retencionesEuros: string
++  readonly pagosFraccionadosEuros: string
++  readonly liquidacionAnual: "no-calculada"
++}
++export type ResultadoActividad2025 =
++  | {
++      readonly estado: "no-soportado"
++      readonly motivos: readonly MotivoActividad[]
++    }
++  | {
++      readonly estado: "soportado"
++      readonly revisionFiscal: "pendiente"
++      readonly etapas: readonly EtapaActividad[]
++      readonly elegibleClienteUnico: boolean
++      readonly primerPositivo: number | null
++      readonly aporte: AporteActividadGeneral
++    }
+--- /dev/null
++++ b/lib/dominio/irpf/actividades-economicas/fuentes.ts
+@@ -0,0 +1,110 @@
++// Referencias decisorias; los estados históricos no constituyen aceptación del código nuevo.
++export const fuentesActividad2025 = [
++  {
++    reglaId: "AE25-01",
++    formulaInvestigada:
++      "ejercicio=2025; individual; una actividad profesional de servicios ordinarios; EDS",
++    fuentes: ["manual", "rirpf-original", "ley26-2014"],
++    paginasManual: [404, 405, 406, 407, 408, 409, 410],
++  },
++  {
++    reglaId: "AE25-02",
++    formulaInvestigada:
++      "P=sum(ingresos devengados computables)-sum(gastos admitidos)-amortizacion",
++    fuentes: ["manual", "lirpf-original"],
++    paginasManual: [414, 415, 416, 417, 424, 425, 435, 437, 438, 439],
++  },
++  {
++    reglaId: "AE25-03",
++    formulaInvestigada:
++      "gastoRETA=max(0,cuotasPagadas+regularizacionPagada-devolucion); ingresoRETA=max(0,devolucion-cuotasPagadas-regularizacionPagada)",
++    fuentes: ["manual", "lirpf-original"],
++    paginasManual: [430, 431, 432],
++  },
++  {
++    reglaId: "AE25-04",
++    formulaInvestigada:
++      "A=min(base-amortizacionFiscalAcumulada,base*coeficiente*diasFuncionamiento/365)",
++    fuentes: ["manual", "orden1998", "rd634-2015", "rd633-2015"],
++    paginasManual: [455, 456, 457, 463, 464],
++  },
++  {
++    reglaId: "AE25-05",
++    formulaInvestigada: "G=min(2000,0.05*max(P,0)); RN=P-G",
++    fuentes: ["manual", "rd633-2015", "ley31-2022"],
++    paginasManual: [448, 449],
++  },
++  {
++    reglaId: "AE25-06",
++    formulaInvestigada: "RN negativo se conserva; reducciones=0",
++    fuentes: ["manual", "lirpf-original", "ley26-2014"],
++    paginasManual: [449, 481, 482],
++  },
++  {
++    reglaId: "AE25-07",
++    formulaInvestigada: "0.30*min(300000,rendimientoNetoElegible)",
++    fuentes: ["manual", "ley26-2014", "rd633-2015"],
++    paginasManual: [475, 476],
++  },
++  {
++    reglaId: "AE25-08",
++    formulaInvestigada: "R=min(max(RN,0),2000+adicional+discapacidad)",
++    fuentes: ["manual", "ley26-2014", "rd633-2015", "ley31-2022"],
++    paginasManual: [477, 478, 479, 480, 481, 482],
++  },
++  {
++    reglaId: "AE25-09",
++    formulaInvestigada:
++      "RN<=14047.5:6498; 14047.5<RN<19747.5:6498-1.14*(RN-14047.5); resto:0",
++    fuentes: ["manual", "ley31-2022"],
++    paginasManual: [479, 480],
++  },
++  {
++    reglaId: "AE25-10",
++    formulaInvestigada:
++      "3500; 7750 si ayuda de terceros/movilidad reducida o grado>=65%; cero si no discapacidad",
++    fuentes: ["manual", "ley26-2014"],
++    paginasManual: [480],
++  },
++  {
++    reglaId: "AE25-11",
++    formulaInvestigada:
++      "T<=8000:1620; 8000<T<12000:1620-0.405*(T-8000); T>=12000:0; R=min(max(RN,0),resultado)",
++    fuentes: ["manual", "ley26-2014"],
++    paginasManual: [480, 481, 482],
++  },
++  {
++    reglaId: "AE25-12",
++    formulaInvestigada: "Rinicio=0.20*min(100000,max(RN-R32_2,0))",
++    fuentes: ["manual", "ley11-2013"],
++    paginasManual: [482, 483],
++  },
++  {
++    reglaId: "AE25-13",
++    formulaInvestigada:
++      "0.30*min(150000,exceso sobre1.30*media3años) con orden y reglas DA60",
++    fuentes: ["manual", "ley7-2024"],
++    paginasManual: [484, 485],
++  },
++  {
++    reglaId: "AE25-14",
++    formulaInvestigada:
++      "aporteActividad=RN-R32_2-Rinicio; saldoRendimientosGenerales += aporteActividad",
++    fuentes: ["manual", "lirpf-original"],
++    paginasManual: [481, 482, 483],
++  },
++  {
++    reglaId: "AE25-15",
++    formulaInvestigada:
++      "cuotaDiferencial=cuotaLiquida-retencionesEfectivas-pagosFraccionadosEfectivos",
++    fuentes: ["manual", "lirpf-original", "rirpf-original"],
++    paginasManual: [414, 415],
++  },
++  {
++    reglaId: "AE25-16",
++    formulaInvestigada:
++      "rechazo de categoría fuera de lista; sanciones/recargos/donativos: deduccion=0 con motivo",
++    fuentes: ["manual"],
++    paginasManual: [434, 435, 438, 439, 444, 445, 450, 451, 452],
++  },
++] as const
+--- /dev/null
++++ b/tests/actividades-economicas-2025.test.ts
+@@ -0,0 +1,566 @@
++import { adaptarActividadGeneral } from "../lib/dominio/irpf/actividades-economicas/adaptador"
++import { describe, expect, it } from "vitest"
++import Decimal from "decimal.js"
++import especificacion from "../docs/procedencia/auditorias/actividades-economicas-2025/especificacion-implementacion.json"
++import {
++  calcularActividad2025,
++  reduccionRentasBajas2025,
++} from "../lib/dominio/irpf/actividades-economicas/calcular"
++import type { CasoActividad2025 } from "../lib/dominio/irpf/actividades-economicas/contrato"
++
++function casoBase(): CasoActividad2025 {
++  return {
++    ejercicio: 2025,
++    territorio: "comun",
++    individual: true,
++    actividadId: "profesion",
++    iae: "servicios",
++    fechaInicio: "2025-01-01",
++    fechaFin: "2025-12-31",
++    serviciosOrdinarios: true,
++    hechos: {
++      otrasActividades: false,
++      otrasRentas: false,
++      existencias: false,
++      empleados: false,
++      artistica: false,
++      irregular: false,
++      subvenciones: false,
++      transmisiones: false,
++      extranjero: false,
++      mutualidad: false,
++      especialidadesTerritoriales: false,
++      saldosPendientes: false,
++      serviciosGratuitos: false,
++      autoconsumo: false,
++      noFacturados: false,
++      subvalorados: false,
++      trade: false,
++      hechosDesconocidos: false,
++    },
++    historial: [],
++    actividadPreviaAlInicio: "ausente",
++    regimen2025: "eds",
++    criterio2025: "devengo",
++    documentoCriterio2025: "alta",
++    renuncia2025: false,
++    exclusion2025: false,
++    volumen2024: "0",
++    diasActividad2024: 0,
++    documentoVolumen2024: "sin-actividad",
++    clientes: [
++      {
++        id: "cliente",
++        vinculado: false,
++        empleadorEnAnioAnteriorAlInicio: false,
++        documento: "contrato",
++      },
++    ],
++    ingresos: [],
++    gastos: [],
++    reta: [],
++    activos: [],
++    obligacionesFormales: true,
++    documentoObligaciones: "libros",
++    discapacidad: {
++      grado: 0,
++      ayudaOMovilidad: false,
++      ejercicioEfectivo: true,
++      documento: "sin-discapacidad",
++    },
++    opcion: "gastos-dificiles",
++    aplicarRentasBajas: true,
++    aplicarInicio: false,
++    retenciones: [],
++    pagosFraccionados: [],
++  }
++}
++function ingreso(
++  base: string,
++  sujetoRetencion = false,
++  id = "factura",
++  clienteId = "cliente"
++): CasoActividad2025["ingresos"][number] {
++  return {
++    id,
++    justificante: id,
++    fecha: "2025-06-01",
++    base,
++    iva: "0",
++    ivaRecuperable: "0",
++    afectacionExclusiva: true,
++    registrado: true,
++    categoria: "servicio",
++    clienteId,
++    sujetoRetencion,
++    rectificativa: false,
++  }
++}
++function gasto(base: string): CasoActividad2025["gastos"][number] {
++  return {
++    id: "gasto",
++    justificante: "gasto",
++    fecha: "2025-06-01",
++    base,
++    iva: "0",
++    ivaRecuperable: "0",
++    afectacionExclusiva: true,
++    registrado: true,
++    categoria: "alquiler-local",
++    correlacion: true,
++    rectificativa: false,
++  }
++}
++function activo(): CasoActividad2025["activos"][number] {
++  return {
++    id: "pc",
++    justificante: "compra",
++    fecha: "2025-01-01",
++    grupo: "hardware",
++    coste: "1000",
++    puestaMarcha: "0",
++    residual: "0",
++    acumulada: "0",
++    iva: "210",
++    ivaRecuperable: "210",
++    coeficiente: "0.26",
++    fechaUso: "2025-01-01",
++    fechaAdquisicion: "2025-01-01",
++    usoHasta: "2025-12-31",
++    nuevo: true,
++    exclusivo: true,
++    oneroso: true,
++    mejoras: false,
++    deterioros: false,
++    subvencionado: false,
++    leasing: false,
++    incentivo: false,
++    metodoHistorico: "lineal",
++    coeficienteHistorico: "0.26",
++    saldoDocumentado: "registro-activo",
++  }
++}
++function importe(c: CasoActividad2025, id: string): string {
++  const r = calcularActividad2025(c)
++  expect(r.estado, JSON.stringify(r)).toBe("soportado")
++  if (r.estado !== "soportado") return "rechazado"
++  const e = r.etapas.find((e) => e.id === id)
++  expect(e).toBeDefined()
++  return e?.importe ?? "ausente"
++}
++function rechazo(c: CasoActividad2025, id?: string) {
++  const r = calcularActividad2025(c)
++  expect(r.estado).toBe("no-soportado")
++  if (id !== undefined && r.estado === "no-soportado")
++    expect(r.motivos.some((m) => m.id === id)).toBe(true)
++}
++
++describe("18 ejemplos documentales: aritmética condicionada, sin aceptación fiscal", () => {
++  for (const e of especificacion.independentExamples)
++    it(e.id, () => {
++      const x = e.input
++      const c: CasoActividad2025 = {
++        ...casoBase(),
++        ingresos: [ingreso(x.ingresos, x.elegibleClienteUnico)],
++        gastos: [gasto(x.gastos)],
++        reta: [
++          {
++            id: "reta",
++            justificante: "tgss",
++            fecha: "2025-06-01",
++            importe: x.RETA,
++            tipo: "ordinaria",
++            propia: true,
++            efectiva: true,
++            periodo: "2025-06",
++          },
++        ],
++        activos: x.amortizacion === "0" ? [] : [activo()],
++        opcion: x.opcionClienteUnico ? "cliente-unico" : "gastos-dificiles",
++        aplicarInicio: x.inicioElegible,
++        discapacidad: {
++          grado:
++            x.discapacidadIncremento === "7750"
++              ? 65
++              : x.discapacidadIncremento === "3500"
++                ? 33
++                : 0,
++          ayudaOMovilidad: false,
++          ejercicioEfectivo: true,
++          documento: "certificado",
++        },
++      }
++      // Los nombres históricos «trade» solo identifican aritmética; aquí se prueba cliente único.
++      for (const [id, esperado] of Object.entries(e.expected))
++        expect(new Decimal(importe(c, id)).eq(esperado)).toBe(true)
++    })
++})
++
++it.each([false, true])(
++  "sin activos y pérdida con opción rentas bajas=%s",
++  (aplicarRentasBajas) => {
++    expect(
++      importe(
++        { ...casoBase(), gastos: [gasto("1000")], aplicarRentasBajas },
++        "aporteBIG"
++      )
++    ).toBe("-1000")
++  }
++)
++it.each([
++  "serviciosGratuitos",
++  "autoconsumo",
++  "noFacturados",
++  "subvalorados",
++  "trade",
++  "otrasRentas",
++  "artistica",
++  "irregular",
++  "otrasActividades",
++  "hechosDesconocidos",
++] as const)("rechaza %s", (hecho) => {
++  const c = casoBase()
++  rechazo({ ...c, hechos: { ...c.hechos, [hecho]: true } }, hecho)
++})
++it("REV-DEVENGO: historia de cobros/pagos bloquea aunque hoy declare devengo", () => {
++  rechazo(
++    {
++      ...casoBase(),
++      fechaInicio: "2024-01-01",
++      diasActividad2024: 366,
++      historial: [
++        {
++          ejercicio: 2024,
++          documento: "declaracion2024",
++          regimen: "eds",
++          renuncia: false,
++          exclusion: false,
++          criterio: "cobros-pagos",
++          netoAntesReducciones: "0",
++        },
++      ],
++    },
++    "declaracion2024"
++  )
++})
++it.each(["cobros-pagos", "desconocido"] as const)(
++  "criterio actual %s",
++  (criterio2025) => rechazo({ ...casoBase(), criterio2025 })
++)
++it.each(["regularizacion", "devolucion"] as const)(
++  "F07 pendiente: %s rechazada",
++  (tipo) =>
++    rechazo(
++      {
++        ...casoBase(),
++        reta: [
++          {
++            id: "reta",
++            justificante: "tgss",
++            fecha: "2025-06-01",
++            importe: "1000",
++            tipo,
++            propia: true,
++            efectiva: true,
++            periodo: "2025-06",
++          },
++        ],
++      },
++      "reta"
++    )
++)
++it("F08/F10: cuota elegida y saldo, sin obligar al máximo", () => {
++  expect(
++    importe(
++      {
++        ...casoBase(),
++        activos: [
++          { ...activo(), coeficiente: "0.25", coeficienteHistorico: "0.25" },
++        ],
++      },
++      "amortizacion"
++    )
++  ).toBe("250")
++  expect(
++    importe(
++      {
++        ...casoBase(),
++        fechaInicio: "2021-01-01",
++        diasActividad2024: 366,
++        historial: [2021, 2022, 2023, 2024].map((ejercicio) => ({
++          ejercicio,
++          documento: String(ejercicio),
++          regimen: "eds",
++          renuncia: false,
++          exclusion: false,
++          criterio: "devengo",
++          netoAntesReducciones: "0",
++        })),
++        activos: [
++          {
++            ...activo(),
++            fechaUso: "2021-07-15",
++            fechaAdquisicion: "2021-07-15",
++            fecha: "2021-07-15",
++            acumulada: "900",
++          },
++        ],
++      },
++      "amortizacion"
++    )
++  ).toBe("100")
++})
++it("F09: alta intermedia rechazada; saldo incoherente e incentivo también", () => {
++  rechazo(
++    { ...casoBase(), activos: [{ ...activo(), fechaUso: "2025-09-23" }] },
++    "pc"
++  )
++  rechazo(
++    { ...casoBase(), activos: [{ ...activo(), acumulada: "1001" }] },
++    "pc"
++  )
++  rechazo({ ...casoBase(), activos: [{ ...activo(), incentivo: true }] }, "pc")
++})
++it.each(["600000", "600000.01"])("F16 umbral %s", (volumen2024) => {
++  const c: CasoActividad2025 = {
++    ...casoBase(),
++    fechaInicio: "2024-01-01",
++    diasActividad2024: 366,
++    volumen2024,
++    historial: [
++      {
++        ejercicio: 2024,
++        documento: "2024",
++        regimen: "eds",
++        renuncia: false,
++        exclusion: false,
++        criterio: "devengo",
++        netoAntesReducciones: "0",
++      },
++    ],
++  }
++  expect(calcularActividad2025(c).estado).toBe(
++    volumen2024 === "600000" ? "soportado" : "no-soportado"
++  )
++})
++it("F03 y REV-GASTOS30: incluye RETA", () => {
++  const c: CasoActividad2025 = {
++    ...casoBase(),
++    ingresos: [ingreso("10000", true)],
++    gastos: [gasto("2500")],
++    opcion: "cliente-unico",
++    reta: [
++      {
++        id: "reta",
++        justificante: "tgss",
++        fecha: "2025-06-01",
++        importe: "500",
++        tipo: "ordinaria",
++        propia: true,
++        efectiva: true,
++        periodo: "2025-06",
++      },
++    ],
++  }
++  expect(calcularActividad2025(c).estado).toBe("soportado")
++  rechazo({ ...c, reta: [{ ...c.reta[0], importe: "500.01" }] }, "opcion")
++})
++it.each(["7000", "6999.99"])("F04 ingresos sujetos %s", (sujetos) => {
++  const c: CasoActividad2025 = {
++    ...casoBase(),
++    opcion: "cliente-unico",
++    ingresos: [
++      ingreso(sujetos, true),
++      ingreso(new Decimal(10000).minus(sujetos).toFixed(), false, "otra"),
++    ],
++  }
++  expect(calcularActividad2025(c).estado).toBe(
++    sujetos === "7000" ? "soportado" : "no-soportado"
++  )
++})
++it.each(["5000", "5000.01"])("F06 empleador %s", (empleador) => {
++  const c: CasoActividad2025 = {
++    ...casoBase(),
++    aplicarInicio: true,
++    clientes: [
++      {
++        id: "a",
++        documento: "a",
++        vinculado: false,
++        empleadorEnAnioAnteriorAlInicio: true,
++      },
++      {
++        id: "b",
++        documento: "b",
++        vinculado: false,
++        empleadorEnAnioAnteriorAlInicio: true,
++      },
++    ],
++    ingresos: [
++      ingreso(empleador, false, "a", "a"),
++      ingreso(new Decimal(10000).minus(empleador).toFixed(), false, "b", "b"),
++    ],
++  }
++  expect(importe(c, "reduccionInicio")).toBe(
++    empleador === "5000" ? "1697.5" : "0"
++  )
++})
++it("F12 pagos separados y deduplicados por factura/operación", () => {
++  const c: CasoActividad2025 = {
++    ...casoBase(),
++    ingresos: [ingreso("20000", true)],
++    retenciones: [
++      {
++        id: "cert",
++        justificante: "cert",
++        fecha: "2025-12-31",
++        operacionId: "r",
++        ingresoId: "factura",
++        importe: "3000",
++        efectiva: true,
++      },
++    ],
++    pagosFraccionados: [
++      {
++        id: "pago",
++        justificante: "banco",
++        fecha: "2026-01-20",
++        operacionId: "p",
++        periodo: "2025-4T",
++        modelo: "130",
++        importe: "1000",
++        efectivo: true,
++      },
++    ],
++  }
++  expect(importe(c, "RN")).toBe("19000")
++  expect(importe(c, "retenciones")).toBe("3000")
++  expect(importe(c, "pagos")).toBe("1000")
++  rechazo({
++    ...c,
++    retenciones: [
++      ...c.retenciones,
++      { ...c.retenciones[0], id: "factura-retencion", operacionId: "otra" },
++    ],
++  })
++})
++it("F13/REV-INICIO-ORDEN: el siguiente período consume la ventana", () => {
++  const c: CasoActividad2025 = {
++    ...casoBase(),
++    fechaInicio: "2023-01-01",
++    diasActividad2024: 366,
++    aplicarInicio: true,
++    ingresos: [ingreso("10000")],
++    historial: [2023, 2024].map((ejercicio) => ({
++      ejercicio,
++      documento: String(ejercicio),
++      regimen: "eds",
++      renuncia: false,
++      exclusion: false,
++      criterio: "devengo",
++      netoAntesReducciones: ejercicio === 2023 ? "5000" : "-1000",
++    })),
++  }
++  expect(importe(c, "reduccionInicio")).toBe("0")
++})
++it("F11 y entrada incompleta: rechazo runtime sin defectos Decimal", () => {
++  const c = casoBase()
++  // @ts-expect-error Frontera JavaScript deliberadamente malformada.
++  rechazo({ ...c, gastos: [{ ...gasto("1"), categoria: "otros" }] })
++  // @ts-expect-error Frontera JavaScript deliberadamente malformada.
++  rechazo({ ...c, volumen2024: null })
++  rechazo({ ...c, ingresos: [ingreso("NaN")] })
++  rechazo({ ...c, ingresos: [{ ...ingreso("1"), fecha: "2025-02-30" }] })
++  rechazo({ ...c, ingresos: [ingreso("1"), ingreso("1")] })
++})
++
++it.each([
++  ["8000", "1620"],
++  ["8000.01", "1619.99595"],
++  ["11999.99", "0.00405"],
++  ["12000", "0"],
++])("F01 fórmula aislada %s", (rn, esperado) => {
++  expect(reduccionRentasBajas2025(new Decimal(rn)).toFixed()).toBe(esperado)
++})
++it("documento repetido con otro ID y propiedad desconocida se rechazan", () => {
++  rechazo(
++    {
++      ...casoBase(),
++      ingresos: [ingreso("100"), { ...ingreso("100"), id: "duplicado" }],
++    },
++    "duplicado"
++  )
++  // @ts-expect-error Simula payload externo con un hecho no modelado.
++  rechazo({ ...casoBase(), otroHecho: true })
++})
++it("anualización de 2024 e historial de renuncia", () => {
++  const c: CasoActividad2025 = {
++    ...casoBase(),
++    fechaInicio: "2024-07-02",
++    diasActividad2024: 183,
++    volumen2024: "300000",
++    historial: [
++      {
++        ejercicio: 2024,
++        documento: "2024",
++        regimen: "eds",
++        renuncia: false,
++        exclusion: false,
++        criterio: "devengo",
++        netoAntesReducciones: "0",
++      },
++    ],
++  }
++  expect(calcularActividad2025(c).estado).toBe("soportado")
++  rechazo({ ...c, volumen2024: "300000.01" }, "volumen")
++  rechazo({ ...c, diasActividad2024: 366 }, "dias2024")
++  rechazo({ ...c, historial: [{ ...c.historial[0], renuncia: true }] }, "2024")
++})
++it("F05 vinculación, F14 conjunta y F15 subvenciones", () => {
++  const c = casoBase()
++  rechazo({ ...c, clientes: [{ ...c.clientes[0], vinculado: true }] })
++  rechazo({ ...c, individual: false })
++  rechazo({ ...c, hechos: { ...c.hechos, subvenciones: true } })
++})
++
++it("adaptador conserva pérdidas y no produce aporte ante rechazo", () => {
++  const r = adaptarActividadGeneral({ ...casoBase(), gastos: [gasto("1000")] })
++  expect(r.estado).toBe("aporte-disponible")
++  if (r.estado === "aporte-disponible") {
++    expect(r.aporte.importeEurosExactos).toBe("-1000")
++    expect(r.aporte.liquidacionAnual).toBe("no-calculada")
++  }
++  expect(
++    adaptarActividadGeneral({ ...casoBase(), ejercicio: 2026 }).estado
++  ).toBe("no-soportado")
++})
++it("30% incluye amortización y fecha de inicio limita RETA", () => {
++  const c: CasoActividad2025 = {
++    ...casoBase(),
++    ingresos: [ingreso("10000", true)],
++    gastos: [gasto("2740")],
++    activos: [activo()],
++    opcion: "cliente-unico",
++  }
++  expect(calcularActividad2025(c).estado).toBe("soportado")
++  rechazo({ ...c, gastos: [gasto("2740.01")] }, "opcion")
++  rechazo(
++    {
++      ...casoBase(),
++      fechaInicio: "2025-07-01",
++      reta: [
++        {
++          id: "reta",
++          justificante: "tgss",
++          fecha: "2025-06-01",
++          importe: "100",
++          tipo: "ordinaria",
++          propia: true,
++          efectiva: true,
++          periodo: "2025-06",
++        },
++      ],
++    },
++    "reta"
++  )
++})

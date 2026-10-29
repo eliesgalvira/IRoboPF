@@ -14,12 +14,12 @@ export const obtenerMinimoAscendientes = (
 ): Decimal =>
   EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) => {
     const minimoPorEdad =
-      ascendiente.edad > 65 ||
+      ascendiente.edad >= 65 ||
       ascendiente.discapacidad._tag !== "SinDiscapacidad"
         ? minimos.ascendientes.mayor65OConDiscapacidad
         : IMPORTE_CERO
     const incrementoMayor75 =
-      ascendiente.edad > 75
+      ascendiente.edad >= 75
         ? minimos.ascendientes.adicionalMayor75
         : IMPORTE_CERO
 

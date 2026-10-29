@@ -1,0 +1,116 @@
+import json
+import hashlib
+import html
+import re
+from pathlib import Path
+import pymupdf as f
+
+out = Path("docs/procedencia/revisiones/minimos")
+ds = json.load(open("docs/procedencia/auditorias/minimos/documentos.json"))
+cs = json.load(open(out / "citas-refinadas.json"))
+f.TOOLS.set_small_glyph_heights(True)
+extras = {"cantabria2014": [28], "canarias2024": [142, 157, 158], "balears2023": [19]}
+d = json.load(open(out / "documento-hacienda2013.json"))
+ds.append(dict(d, auditName="hacienda2013"))
+extras["hacienda2013"] = [1, 91, 92, 93]
+for name, pages in extras.items():
+    d = next(x for x in ds if x.get("auditName") == name)
+    pdf = f.open(d["localPath"])
+    for p in pages:
+        tp = pdf[p - 1].get_textpage()
+        for block in tp.extractBLOCKS():
+            cs.append(
+                dict(
+                    documentSha256=d["sha256"],
+                    url=d["canonicalUrl"],
+                    page=p,
+                    box=list(block[:4]),
+                    quote=tp.extractTextbox(f.Rect(block[:4])),
+                    coordinateSystem="PDF points top-left",
+                    method="PyMuPDF independent extraction",
+                    facsimile="pendiente",
+                )
+            )
+for c in cs:
+    c["id"] = (
+        "REV-MIN-CITA-"
+        + str(len(c["quote"]))
+        + "-"
+        + hashlib.sha256(
+            (c["documentSha256"] + str(c["page"]) + str(c["box"])).encode()
+        ).hexdigest()[:16]
+    )
+out.joinpath("citas-refinadas.json").write_text(
+    json.dumps(cs, ensure_ascii=False, indent=2)
+)
+rs = json.load(open(out / "revisiones.json"))
+updates = {
+    24: (
+        "accepted",
+        "Cuantías Cantabria2014 cotejadas en pp27–28:2000/2200/3900/4450/+2400; ascendientes970/+1200; discapacidad2400/7200/+2400. Solo correspondencia numérica publicada.",
+        "El original dice superior al65% en discapacidad; no se acepta aquí la frontera exacta65 ni toda continuidad anual.",
+        "Conservar importes; revisar frontera65 y posteriores modificaciones antes de aceptar regla completa.",
+        [27, 28],
+    ),
+    29: (
+        "accepted",
+        "Canarias reproducción oficial pp157–158:5606;1162/1414;2424/2727/4040/4545/+2828; ascendientes1162/+1414; discapacidad3030/9090/+3030. DFdécima p142 efectos1enero2024 y vigencia indefinida.",
+        "No es facsímil firmado del BOC; vigencia indefinida no acredita ausencia de reformas posteriores.",
+        "Enlazar disposición temporal y completar autenticidad/continuidad; no extrapolar2026.",
+        [142, 157, 158],
+    ),
+}
+for r in rs:
+    n = int(r["id"].split("-")[1])
+    if n in updates:
+        st, scope, obj, action, pages = updates[n]
+        r.update(
+            status=st, acceptanceScope=scope, reason=scope, objection=obj, action=action
+        )
+        r["originalsReread"][0]["pages"] = pages
+    if n in [16, 31]:
+        r["originalsReread"][0]["pages"] = [4, 19]
+    if n == 12:
+        r["originalsReread"].append(
+            dict(
+                url=d["canonicalUrl"],
+                sha256=d["sha256"],
+                pages=[91, 92, 93],
+                reread=True,
+                scope="Compilación histórica oficial, no facsímil de promulgación",
+            )
+        )
+    r["refinedCitationIds"] = [
+        c["id"]
+        for c in cs
+        if any(
+            c["documentSha256"] == o["sha256"] and c["page"] in o["pages"]
+            for o in r["originalsReread"]
+        )
+    ]
+out.joinpath("revisiones.json").write_text(json.dumps(rs, ensure_ascii=False, indent=2))
+# HTML: releer bytes; no inventar cajas.
+htmlout = []
+for name in ["ley2014", None]:
+    for doc in ds:
+        if (name == "ley2014" and doc.get("auditName") == name) or (
+            name is None and "minimos-ascendientes.html" in doc["canonicalUrl"]
+        ):
+            raw = Path(doc["localPath"]).read_text()
+            text = html.unescape(re.sub("<[^>]*>", " ", raw))
+            text = " ".join(text.split())
+            needle = "Artículo 57." if name else "Que tengan una edad"
+            starts = [m.start() for m in re.finditer(re.escape(needle), text)]
+            for i in starts[-2:]:
+                htmlout.append(
+                    dict(
+                        url=doc["canonicalUrl"],
+                        sha256=doc["sha256"],
+                        selector="TextQuoteSelector sobre texto HTML normalizado, sin geometría PDF",
+                        quote=text[i : i + 1400],
+                    )
+                )
+out.joinpath("citas-html.json").write_text(
+    json.dumps(htmlout, ensure_ascii=False, indent=2)
+)
+print("citas", len(cs), "decisiones", len(rs))

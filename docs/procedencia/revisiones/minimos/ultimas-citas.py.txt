@@ -1,0 +1,47 @@
+import json
+import hashlib
+from pathlib import Path
+import pymupdf as f
+
+p = Path("docs/procedencia/revisiones/minimos")
+data = json.load(open(p / "fuentes-complementarias.json"))
+docs = json.load(open("docs/procedencia/auditorias/minimos/documentos.json"))
+rs = json.load(open(p / "revisiones.json"))
+for prefix, pages, ids in [
+    ("8a97d5ac", [1, 8], ["MIN-018"]),
+    ("89eaeb58", [53], ["MIN-033"]),
+]:
+    d = next(d for d in docs if d["sha256"].startswith(prefix))
+    assert hashlib.sha256(Path(d["localPath"]).read_bytes()).hexdigest() == d["sha256"]
+    pdf = f.open(d["localPath"])
+    data["documents"].append({k: d[k] for k in ["canonicalUrl", "sha256", "localPath"]})
+    for n in pages:
+        tp = pdf[n - 1].get_textpage()
+        for b in tp.extractBLOCKS():
+            data["citations"].append(
+                dict(
+                    sha256=d["sha256"],
+                    page=n,
+                    box=list(b[:4]),
+                    quote=tp.extractTextbox(f.Rect(b[:4])),
+                )
+            )
+    for r in rs:
+        if r["id"] in ids:
+            r["originalsReread"].append(
+                dict(
+                    url=d["canonicalUrl"],
+                    sha256=d["sha256"],
+                    pages=pages,
+                    reread=True,
+                    scope="Reextracción y lectura personal complementaria; ver fuentes-complementarias.json",
+                )
+            )
+p.joinpath("fuentes-complementarias.json").write_text(
+    json.dumps(data, ensure_ascii=False, indent=2)
+)
+p.joinpath("revisiones.json").write_text(json.dumps(rs, ensure_ascii=False, indent=2))
+with p.joinpath("informe.md").open("a") as out:
+    out.write(
+        "\nObjeción adicional de Catalunya: la STC p1 menciona6150 en antecedentes, mientras su FJ1 p8 transcribe el art88 con6105 y umbral12450. Se conserva la discrepancia documental: para cuantía y condición se utiliza el precepto transcrito en FJ1, y para protección temporal el FJ3D p13. No aceptar una cifra solo porque aparezca en una cita oficial.\n"
+    )
