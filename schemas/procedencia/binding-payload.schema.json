@@ -1,0 +1,201 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorTaskId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inventory": {
+      "type": "object",
+      "properties": {
+        "manifestSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "artifactSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "manifestSha256",
+        "artifactSha256"
+      ],
+      "additionalProperties": false
+    },
+    "itemId": {
+      "type": "string",
+      "pattern": "^inv-[0-9a-f]{32}$"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tablePath": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "file",
+        "sha256",
+        "symbol",
+        "tablePath"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "integer",
+          "minimum": 2012,
+          "maximum": 2026
+        },
+        "territory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "enum": [
+            "EUR",
+            "percent",
+            "year"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "completeRule": {
+          "const": false
+        }
+      },
+      "required": [
+        "year",
+        "territory",
+        "unit",
+        "claim",
+        "conditions",
+        "completeRule"
+      ],
+      "additionalProperties": false
+    },
+    "conversion": {
+      "const": "identity"
+    },
+    "citation": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^docs/procedencia/[^\\\\]+$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^docs/procedencia/[^\\\\]+$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "legalReview": {
+      "type": "object",
+      "properties": {
+        "decisions": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^docs/procedencia/[^\\\\]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "additionalProperties": false
+        },
+        "decisionId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "decisions",
+        "decisionId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "authorTaskId",
+    "inventory",
+    "itemId",
+    "source",
+    "scope",
+    "conversion",
+    "citation",
+    "document",
+    "legalReview"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

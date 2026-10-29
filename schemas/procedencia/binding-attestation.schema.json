@@ -1,0 +1,111 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "payloadSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "inventory": {
+      "type": "object",
+      "properties": {
+        "manifestSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "artifactSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "manifestSha256",
+        "artifactSha256"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "integer",
+          "minimum": 2012,
+          "maximum": 2026
+        },
+        "territory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "enum": [
+            "EUR",
+            "percent",
+            "year"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "completeRule": {
+          "const": false
+        }
+      },
+      "required": [
+        "year",
+        "territory",
+        "unit",
+        "claim",
+        "conditions",
+        "completeRule"
+      ],
+      "additionalProperties": false
+    },
+    "decision": {
+      "const": "accepted-limited"
+    },
+    "reviewTaskId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "report": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^docs/procedencia/[^\\\\]+$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "payloadSha256",
+    "inventory",
+    "scope",
+    "decision",
+    "reviewTaskId",
+    "report"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

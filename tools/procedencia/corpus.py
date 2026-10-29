@@ -12,6 +12,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import unicodedata
 
 from descargar import DEFAULT_HOSTS, archive, atomic_json, digest, download, verify_blob, verify_origin, sanitize_metadata
 
@@ -185,17 +186,29 @@ def verify_binding(text, binding):
     literal = span(text, binding['number'])
     start, end = binding['number']['start'], binding['number']['end']
     unsafe = '.,+-−﹣－＋±٫٬，．\u00a0\u202f'
-    if (start and (text[start - 1].isalnum() or text[start - 1] in unsafe)
-            or end < len(text) and (text[end].isalnum() or text[end] in unsafe)):
+
+    def unsafe_boundary(char):
+        # Categorías, no solo una lista de glifos: incluye menos super/subíndice.
+        return (char.isalnum() or char in unsafe
+                or unicodedata.category(char) in ('Pd', 'Sm', 'Mn', 'Mc', 'Me'))
+
+    if (start and unsafe_boundary(text[start - 1])
+            or end < len(text) and unsafe_boundary(text[end])):
         raise ValueError('Número es substring de otro token')
-    patterns = {'es-ES': r'[+-]?(?:\d{1,3}(?:\.\d{3})+|\d+)(?:,\d+)?',
-                'decimal': r'[+-]?\d+(?:\.\d+)?'}
+    # No convertir "− 8,50" en positivo por seleccionar solo los dígitos.
+    # No cruzar saltos de línea: pueden separar filas de una tabla.
+    left = text[:start].rstrip(' \t')
+    if left and (unicodedata.category(left[-1]) in ('Pd', 'Sm')
+                 or any(word in unicodedata.name(left[-1], '') for word in ('MINUS', 'PLUS'))):
+        raise ValueError('Signo separado fuera del número seleccionado')
+    patterns = {'es-ES': r'[+-]?(?:[0-9]{1,3}(?:\.[0-9]{3})+|[0-9]+)(?:,[0-9]+)?',
+                'decimal': r'[+-]?[0-9]+(?:\.[0-9]+)?'}
     locale = binding['numberFormat']
     if locale not in patterns or not re.fullmatch(patterns[locale], literal):
         raise ValueError('Formato decimal ambiguo o inválido')
     value = literal.replace('.', '').replace(',', '.') if locale == 'es-ES' else literal
     expected = binding['value']
-    if not isinstance(expected, str) or not re.fullmatch(r'[+-]?\d+(?:\.\d+)?', expected):
+    if not isinstance(expected, str) or not re.fullmatch(r'[+-]?[0-9]+(?:\.[0-9]+)?', expected):
         raise ValueError('Valor del motor debe ser decimal canónico como cadena')
     if Decimal(value) != Decimal(expected):
         raise ValueError('Valor del motor distinto')
@@ -203,9 +216,9 @@ def verify_binding(text, binding):
     unit_start, unit_end = binding['unit']['start'], binding['unit']['end']
     if (unit[0].isalnum() and unit_start and text[unit_start - 1].isalnum() or unit[-1].isalnum() and unit_end < len(text) and text[unit_end].isalnum()):
         raise ValueError('Unidad es substring de otro token')
-    if unit not in ('%', 'euros', '€', 'años'):
+    if unit not in ('%', 'euros', 'EUROS', '€', 'años'):
         raise ValueError('Unidad no soportada explícitamente')
-    allowed = {'%': 'percent', 'euros': 'EUR', '€': 'EUR', 'años': 'year'}
+    allowed = {'%': 'percent', 'euros': 'EUR', 'EUROS': 'EUR', '€': 'EUR', 'años': 'year'}
     if allowed[unit] != binding['unitCode']:
         raise ValueError('Unidad distinta')
     return True
