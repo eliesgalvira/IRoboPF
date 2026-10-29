@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "fecha": "2026-10-29",
+  "estado": "en-curso",
+  "base": "eaed990c620b5fc4d3ff2e74dc68e0c8481c43db",
+  "contextoComun": "Eres un hijo NUEVO del orquestador de IRoboPF. Haz el trabajo personalmente, sin subdelegar. Lee íntegros /home/elies/irobopf-contexto/BRIEF.md, AGENTS.md, docs/procedencia/{CONTRATO-AUDITORIA,COORDINACION,ESTADO,DECISIONES}.md y docs/procedencia/correcciones/integracion-ronda10/INFORME.md. Base esperada eaed990c620b5fc4d3ff2e74dc68e0c8481c43db; compruébala. Español claro, frases con espacios. Cada decisión explica objeción experta y coste. Integridad, autenticidad, interpretación, exactitud y aceptación son dimensiones distintas; nada se autoacepta fiscalmente.\nREGLA VCS: NUNCA jj git init dentro de un worktree Git T3. Ninguna operación VCS mutante: commit/init/reset/push/bookmarks/PR/deploy ni reparación de índices. Solo lecturas Git. No crear worktrees por shell. El padre integra por archivo, hash, base y cero borrados. No borrar contexto, Reactivity, originales, informes ajenos o worktrees.\nNix/uv, sin instalaciones globales. node_modules del padre /home/elies/Repos/IRoboPF puede enlazarse para lectura. No cambiar package/lockfiles/CI fuera de tu propiedad. Antes de escribir Effect: effect-solutions list/show y fuente local ~/.local/share/effect-solutions/effect; lanzador bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js dentro de nix shell nixpkgs#bun nixpkgs#nodejs. Todas las 16 reglas anti-slop a error; lint y typecheck pertinentes obligatorios, sin evadir reglas mediante extensiones.\nMáquina 11GB sin swap: pruebas, tipos, generación, lectura masiva y renders con flock /tmp/irobopf-validacion-pesada.lock y UN trabajador. No Next build ni suites legacy completas salvo autorización expresa de tu alcance. Bun/Node de Nix; añade nixpkgs#python3 cuando reconstruyas inventario/ejecutes evidencia. Python corpus: bash tools/procedencia/run.sh, Nix/uv fijados. Descargas acotadas, UA identificativo y metadatos saneados; originales por SHA256/512. Leer corpus raíz .cache/procedencia y fixtures permitido, no modificar originales. No LFS, gasto ni transferencias externas: Elies eligió dejar preparada la transferencia.\nLa copia Crossa es v1 histórico, misma casa/dueño, comunicada por coordinador; no llamarla remota/independiente ni nueva verificación propia. v1 está preservado fuera de T3 en /home/elies/Repos/IRoboPF/.cache/procedencia/preservados/manifest-2df6c208. v2 y restauración en .cache/orquestador-preservacion. No borrar ninguna.\nSolo propiedad asignada. No cambiar ESTADO, DECISIONES ni informes ajenos. Revisores escriben únicamente entrega en carpeta absoluta del padre; implementadores/investigadores escriben en su checkout y entregan para integración. Entrega INFORME.md, decisiones/hallazgos, reproducciones, rojos antes de fixes numéricos, comandos/resultados reales, límites, manifiesto por archivo (path/sha256/size/baseSha256), patch textual si cambia archivos. Binarios por archivo/hash. No reescribir oracles existentes para obtener verde. No promover registros ni atestaciones salvo autorización explícita (ninguna en esta ronda). Conservar datos personales fuera de metadatos publicables.\n",
+  "reglaVcs": "Nunca jj git init en worktree Git T3; ningún hijo muta VCS. Integración del padre por archivo, hash, base y cero borrados.",
+  "delegaciones": [
+    {
+      "clave": "contenido-publicacion",
+      "titulo": "Conectar evidencia, snapshots y rutas verificables",
+      "rol": "implementation",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-contenido-publicacion",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-contenido-publicacion",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-contenido-publicacion>",
+      "estado": "running",
+      "modelo": "gpt-6-astra",
+      "opciones": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "encargo": "Implementación mayor de la conexión de evidencia a contenido. Posees lib/procedencia/* (salvo no cambiar rastro-generado.json como entrega definitiva), scripts/procedencia/contenido*.mjs, evidencia-contenido.mjs, explicacion-version.mjs, rutas app/procedencia, tests de contenido/evidencia y schemas/procedencia/contenido; nuevos helpers propios. Carpeta docs/procedencia/implementaciones/publicacion-evidencia/. No motor, inventario extractor, puente Python/Node, registros editoriales ni atestaciones, CI/package.\nLee completos evidencia-contenido/INTEGRACION, revisiones/evidencia-contenido-v1/INFORME, correcciones/integracion-ronda10 y revisiones/contenido-modo-v2. El padre ya corrige EC-01 (dimensiones), EC-02 receta entre cita/captura y EC-03 ID único; no revocar. Implementa snapshot v2 retrocompatible con los históricos v1, estados técnicos separados y cerrados por Schema (integridad, exactitud, autenticidad tomada del manifiesto con límites, interpretación candidata, revisión del binding pendiente y aceptación fiscal completa false). Enlaza recibo ejecutado por hash al sujeto exacto y conserva físicamente TODAS las dependencias fijadas (incluidos manifiesto de adquisición, payload, cita, revisión, código/inventario), no solo nombres de hashes.\nCompón grafo reemplazando explícitamente la ocurrencia y añadiendo Document/Citation/Facsimile/Rule; conserva snapshots viejos. Nunca anexar dos revisiones del mismo ID. Materializa CAS verificando bytes y tamaños, registra snapshot solo después de verificar cierre físico/semántico; fail closed. No recibo inyectado ni badges de interpretación aceptada por igualdad numérica. Vincula toda fuente nueva que modifica explicación a FUENTES_EXPLICACION/versionado y al verificador fresco.\nRuta mínima para original PDF y PNG: permitir solo blobs públicos listados por snapshot, MIME fijo, nosniff, inmutables; nunca todos los auxiliares porque contienen software/metadata. Preferir URL versionada /procedencia/<snapshot>/objetos/<hash>. Ficha muestra enlaces reales original/cita/captura y estados exactos, español sin diseño nuevo. Madrid original pequeño puede incorporarse; NO grandes manuales al Git ni >10MB. Si CAS externo no queda resoluble en runtime, rechazo explícito y límite documentado; no publicación rota.\nAñade índice de búsqueda compacto por snapshot con id/revisión/título/dimensiones; evita descomprimir 256 paquetes para cada consulta. Verificador coteja índice contra entidades completas. Cache si hace falta muy acotada y vuelve a hash-comprobar bytes en disco para detectar mutaciones persistentes; no confiar solo mtime. Medir consulta fría/caliente y RSS, sin umbral CI frágil. Histórico v1 compatible.\nEvita ciclo al pinnear rastro-generado.json (alias derivado que la propia publicación cambia); fija snapshot/catalogo exactos y excluye explícitamente ese alias derivado si procede, con decisión. Verifica generación determinista desde entradas fijadas, ausencia de promociones, mutaciones rehasheadas de receta/ámbito/IDs, dependencia ausente, blob privado/corrupto, rutas inexistentes y HTTP/render SSR sin navegador. No Next build. Genera prueba real en scratch de tu checkout; entrega código/manifest/comandos para regenerar root, no miles de snapshots compartidos. Padre integrará, regenerará después de reunir motor y encargará revisión NUEVA."
+    },
+    {
+      "clave": "comparativa-inflacion",
+      "titulo": "Reconciliar la comparativa de inflación con el Python y Excel originales",
+      "rol": "implementation",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-comparativa-inflacion",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-comparativa-inflacion",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-comparativa-inflacion>",
+      "estado": "running",
+      "modelo": "gpt-6-astra",
+      "opciones": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "encargo": "Posees lib/dominio/compatibilidad-legacy/progresividad-frio.ts, aritmetica-tabular.ts y NUEVOS helpers tabulares y pruebas; docs/procedencia/implementaciones/comparativa-inflacion/. No modificar detalle-tabular.ts salvo informar bloqueo al padre, no factor-ipc.ts, motor fiscal canónico, corpus/contenidos, fixtures/oracles existentes, UI, package/CI.\nLee auditoría/revisión ipc-redondeos, implementaciones/redondeos-legacy, correcciones/integracion-ronda10, glosario. DAT_YYYY ya usa scalars binary NumPy/Python. COMPARATIVA_INFLACION sigue Decimal con etapas distintas. Extrae por streaming sus 1290 filas y 13 columnas del libro original150MB; ejecuta cuerpos Python originales sin cambiarlos, fijando versiones de entorno y hash. Reproduce ANTES del fix diferencias de acumulación/precisión, empates negativos, delta anual/mensual y doble redondeo; distingue perfil de presentación céntimos y hoja binaria. Implementa contrato exacto del tabular en ruta separada si hace falta, sin hacer pasar liquidación canónica por legacy. Producto tasas diciembre y escenario2026 ya declarado: conservar metadatos y método.\nPruebas independientes de todas las celdas de esa hoja, controles543 y fronteras/negativos. No epsilon, no tolerancia de un céntimo, no expectativas derivadas del mismo código. Si hace falta canonicalización para residuos XML, explícita y discriminante. No actualizar hashes de fixture antiguo para obtener verde. Detalla qué sigue distinto y qué afecta exclusivamente a exportación vs APIs de usuario. Entrega patch/hash/base y rojos/verdes; sin aceptación fiscal. No dos suites completas ni Next build."
+    },
+    {
+      "clave": "refinar-estatales",
+      "titulo": "Refinar evidencias estatales y preparar bindings de las tablas canónicas",
+      "rol": "research",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-refinar-estatales",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-refinar-estatales",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-refinar-estatales>",
+      "estado": "running",
+      "modelo": "gpt-6-astra",
+      "opciones": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "encargo": "Solo escribe tu entrega en worktree docs/procedencia/evidencias/estatales-v2/ y scratch propio; no editar lote v1, motor/extractor, registro, decisiones ajenas, atestaciones ni software productivo. Lee completos evidencias/estatales y revisiones/evidencias-estatales-v1, nuevas exposiciones canónicas y correcciones/integracion-ronda10. Subsanar ESTV1-01 con las 26 unidades geométricas en la cabecera CORRECTA de cada columna ('Hasta euros'/'Euros'), sin buscar euros en otro párrafo. Subsanar ESTV1-02 contexto compuesto p62–63 discapacidad histórica. Conservar tabla ordinaria y complementaria como identidades distintas.\nPreparar payloads nuevos solo para hojas efectivas canónicas explícitas de escalas-publicadas, a partir del inventario actual fijado: identidad fuente/símbolo/ruta/valor, no igualdad de número ajeno. Revisa matriz319 original y continuidad anual; no promover aliases2015–24 ni ampliar engineLocations para verde. Documenta año/territorio de ámbito frente dimensiones técnicas: si vacío/ambiguo, bloquear y proponer contrato explícito con evidencia, no bypass. Las decisiones jurídicas previas y binding fresco son cosas distintas. Lexer ahora admite Euros literal; conversión porcentual sigue fuera.\nReextracción propia, renders originales mismos bytes/recetas cuando se pueda, hashes, schema y casos discriminantes. Originales root .cache/procedencia o paquete persistente; no duplicar 1GB. CAS candidato configurado por directorios sha256 explícitos, sin escribir fixtures del padre. Entregar cierre de archivos con hashes, propuesta de registro SEPARADA sin tocar registro real, resultados del coordinador en scratch solamente si todos requisitos cumplidos, bloqueos individuales. Ninguna aceptación ni atestación. Receta reproducción debe fijar manifiesto/artefacto y fuentes históricos/current explícitos; no readArtifact() implícito para reproducir un lote histórico. Padre integra/revisa nuevo."
+    },
+    {
+      "clave": "refinar-autonomicas",
+      "titulo": "Refinar evidencias autonómicas y cuotas canónicas",
+      "rol": "research",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-refinar-autonomicas",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-refinar-autonomicas",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-refinar-autonomicas>",
+      "estado": "running",
+      "modelo": "gpt-6-astra",
+      "opciones": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "encargo": "Solo escribe docs/procedencia/evidencias/autonomicas-v2/ en tu worktree y scratch propio. No mutar lote v1, motor/extractor, registros, decisiones ajenas ni atestaciones. Lee evidencias/autonomicas, revisiones/evidencias-autonomicas-v1 completos y exposicion-efectiva/INFORME+correcciones/integracion-ronda10.\nResolver EAV1-01: 28 ceros ambiguos mediante fila/campo estructural (usa localizadores-refinados como punto de partida, contrasta tú), no primer valor igual. Resolver EAV1-02: receta reproducible fija manifiesto/gzip/hash y fuentes exactos, no inventario presente por defecto. Mantener 186 celdas/94selecciones/93citas/136payloads/317decisiones trazables, sin promover lo bloqueado.\nAhora 15 tablas canónicas exportadas dan228hojas: preparar NUEVOS bindings cuota/base con identidad canónica real para seis helpers anteriores y años expresos. No usar legacy como sustituto. year/territory vacío en dimensions requiere propuesta explícita y revisión, no ampliar gate ni fingir vigencia. Validar status vs decision según nuevo schema, sin convertir needs-evidence enaccepted ni ampliar engineLocations. Euros admite capitalización original. Murcia2022 estrictamente >60000: en60000 no aplicar8716.67; preservar cláusula/crop y contexto, cuotas publicadas no integrales ajustadas.\nSi cadena normativa suficiente permite resolver pendientes individuales con primarios, hacerlo y registrar candidatos, sin autoaceptar. Reextraer texto/números/unidad del encabezado propio, reproducir crops, comprobar originales/hashes y bordes. CAS separado sha256 explícito; no escribir registros/fixtures root. Entrega propuesta de registro separada, decisiones por candidato, comandos exactos y manifiesto/patch. No nueva aceptación fiscal ni atestación; revisión siguiente corresponde al padre."
+    },
+    {
+      "clave": "revision-conexion-anual",
+      "titulo": "Revisión independiente de la conexión anual 2025",
+      "rol": "review",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-conexion-anual",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-conexion-anual",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-conexion-anual>",
+      "estado": "running",
+      "modelo": "gpt-6-astra",
+      "opciones": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "encargo": "Solo escribe /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/conexion-anual-v1/. Revisa nuevo API liquidarIrpfAnualExplicito/CasoFiscalAnualExplicito y todos archivos entregados conexion-anual, cambios root explicit instancia y rastro65. Lee revisiones trabajo-anual-implementacion, contratos-v2, actividades-implementacion y fuentes originales pertinentes. Reabre originales para orden art19/art20, mínimos/escala Madrid, DA61 trasart80, pérdidas, RETA/art32/pagos no duplicados; no atribuir revisión previa a conexión nueva.\nReproduce25testsautor+propios independientes: trabajo/pensión homogéneos, mixtos rechazo, alcance Madrid2025individual18–64, gastos reales y defensa300una vez, conciliación externa declarada sin prometerautenticidad, retenciones estimadas vs efectivas/operacionId, EDSsinactivos/art32/negativos, pérdida conservada, cuota mínima estatal/autonomica, precisión60/80vs20, cifras extremas y másdedosdecimales internos, errores tipados sinDie y campos extra. Coteja16puntos nuevos y vínculos reales del rastro (contexto/decimales/snapshot) además de salidas aritméticas. Genera expectativas de originales/Decimal independiente, no motor comooracle. Sin fixes, sin aceptación de reglascompletas, sinatest. Hallazgos con rojos, repro, alcance/coste y preflight."
+    },
+    {
+      "clave": "revision-tecnica-r11",
+      "titulo": "Revisión de exposición efectiva, ámbito y recuperación de preservación",
+      "rol": "review",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-tecnica-r11",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-tecnica-r11",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-tecnica-r11>",
+      "estado": "running",
+      "modelo": "gpt-6-astra",
+      "opciones": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "encargo": "Solo escribe /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/integracion-tecnica-r11/. Revisa personalmente exposicion-efectiva íntegra y correcciones preservacion-v3/integracion-ronda10, informes previos relevantes EC01..04/PREV201/02. Nuevos rojos root: ámbito2021/Andalucía contraMadrid2020, vacío de dimensiones, símbolo2020_DISTINTAS_DE_2025 NO intervalo; ID único snapshot y receta cita=facsimile.\nComprueba228hojas por identidad, exactitud literal y extracción fresca/caché, allowlist15datos/noinvocarfunciones, añosinferidos solo candidatos nolegal, scopesrechazocontradictorios, decisionschema status/decision noambigüedad y restricciones source symbol/tablepath. CASexterno explicito: links/ancestros/corrupción/ausencias, recotejo persistente Node/Python, metadata no privada. Eurosliteral y signosU+FFFD/marcas intactos.\nPreservación: offsetrango, PublicationDurabilityUnknown tras último fsync, confirm exige pinexterno exacto/hash/tamaño/fsyncdirs y falla anteIO, no rollbackfalso. 708objetos ya verificados porautor; decide muestra/complete independiente y distingue ejecución real. NO red/LFS/gasto. Crossa v1 informado no verificado por ti, misma casa/dueño, no custodiarremota. Original v1 conservado fueraT3 en root .cache/procedencia/preservados/manifest-2df6c208; nunca borrar.\nGrafo: IDsrehasheados, recetas, físicos vsdeclarados, históricossinreinterpretación. Wiring aún lo implementa otro no asumir que exista. No fixesni atest;decisionesporID/adversos/logs/manifiesto. Serializa pruebas1workerlock."
+    },
+    {
+      "clave": "revision-redondeos",
+      "titulo": "Contrastar el detalle tabular completo con el Excel original",
+      "rol": "review",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-redondeos",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-redondeos",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-revision-redondeos>",
+      "estado": "running",
+      "modelo": "gpt-6-astra",
+      "opciones": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "encargo": "Solo escribe /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/redondeos-legacy-v1/. Revisa aritmetica-tabular/detalle-tabular/progresividad, entrega redondeos-legacy completa y correcciones/integracion-ronda10 incluido oracle_caracterizacion, adaptación tests. Sinfixes. El padre mantiene fixture canonical-tabular-hashes antiguo y su test actualmente FALLA: esos hashes fueron generados por TS previo, no extraídos delExcel aunque source lo sugiera. NO regenerarlo desde implementación ni cambiarlo.\nNecesitamos contraste exhaustivo del DAT_YYYY original (15hojas) por streaming con hash canónico independiente (misma canonicalización explicitada en tests/helpers/canonical-tabular-hashes.ts; no usar motorparaexpected), encabezados/rangos/celdas, con recuentos reales y diagnóstico de primeras discrepancias y distribución. Puedes ejecutar UNA validación completa de las hojas DAT bajo lock1worker con límitesRAM, originalExcel150MB raíz; no Nextbuild ni otra suitepesada enparalelo. Si 15hojascalentessuperantiempo, persiste parciales claros y continúa hasta completar salvo bloqueo real. Control543+Q2 y D32/E12/W12, tipos NumPy/Python en fronteras tope/tramosigualdad,2.675,negativos,subnormales/rangossuportados, precisiónBinary64 sin epsilon. Python independiente opcional enrangosacotados,no ejecutarlo generalquecreaotroExcel.\nDistingue nuevo testcaracterizacionPython tipo np.float64 para salariosnoenteros del np.int64 originaldelrango: comprobar equivalencia donde seafirma. Publica hashes independientes delExcel como nuevaevidencia, sin tocar fixtureviejo, para quepadre pueda sustituir contrato detest sustentado; si haydiferenças, producepruebasrojas. COMPARATIVA_INFLACION se corrigeotrocheckout: aquí conserva baseline de3hojasnodetalle y documenta diferencias actuales, no necesitas cerrar suimplementaciónfutura. Ningunaaceptaciónfiscal, fórmulaslegacy no vigencia."
+    },
+    {
+      "clave": "fuentes-retenciones-antiguas",
+      "titulo": "Recuperar algoritmos oficiales de retenciones 2012–2016",
+      "rol": "research",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-fuentes-retenciones-antiguas",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-fuentes-retenciones-antiguas",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r11-fuentes-retenciones-antiguas>",
+      "estado": "running",
+      "modelo": "gpt-6-astra",
+      "opciones": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "encargo": "Solo escribe docs/procedencia/auditorias/retenciones-originales-2012-2016/ en worktree y .cache/procedencia/retenciones-originales-2012-2016/ propia. Lee auditoría/revisiónretenciones2012–2019, normasprimariasactuales y contrato. Cierra el hueco de originales AEAT algoritmos2012–2016 y variantesintranuales (2015 etc): busca web oficial AEAT/AEATantiguasede/boe, APIs/índicesarchivados públicos con originalbitstream verificable. No conjeturar fórmulas desde versionesposteriores. RespetaUA/tasa y preservahashes y metadatos saneados sincookies. Consulta recuperaciónURL/nombres de manualesanteriores y enlacesencadenados; si solo Waybackcopia, distingue captura secundaria del emisororiginal yfecha no pruebasuficiente autenticidad. No gastar servicios ni pedircuentas.\nDescarga cada original real, SHA256/512,MIME/size/fecha/origen, extrae pasos/tabla/fechaefectos con cajas/quotes/facsimile reproducible de los pasajes, firmas si existen con límites. Documenta evidencia positiva y búsqueda negativa reproducible (URL/status) sin declarar inexistenciaabsoluta. Para cada añoversion y20pasos, matrizcarencias/candidato y comparaciónpreliminar con motor actual/ref2020 sinfix. NormasBOEoriginales derogaciones/correcciones/efectostransitorios cuando algpdfno aparece: apoyo explícito, no presentarlocomooriginalalgoritmo. Entrega informe, hallazgos/citas/cobertura/fuentes/manifiesto/patch + límites y siguientesbloqueosconcretos. Ningunaaceptación: revisión independiente nueva será otra tarea. Nocommit/VCS/noeditarotrosinformes."
+    }
+  ]
+}
