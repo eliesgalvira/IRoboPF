@@ -1,0 +1,17 @@
+{
+  "id": "MDV1-02",
+  "prioridad": "media",
+  "titulo": "edad de adopción por años",
+  "localizacion": "lib/dominio/irpf/minimos/derechos.ts:121",
+  "observado": "Nacimiento2007-12-31 y adopción2025-01-02: rechazo de adulto aunque tenía17",
+  "accion": "Comparar fecha civil completa; conservar exclusión realmente adulta",
+  "objecion": "Adultos están fuera de alcance",
+  "respuesta": "Este caso era menor en el evento; anual también reproduce rechazo",
+  "coste": "Regresiones antes/en/después del cumpleaños",
+  "fuente": "art.58.2; Manual2025 cuantías B",
+  "estado": "reproducido-sin-fix",
+  "aceptacionCompleta": false,
+  "base": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
+  "prueba": "casos.test.ts",
+  "log": "cierre.log"
+}
