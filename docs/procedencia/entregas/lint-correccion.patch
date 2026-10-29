@@ -1,0 +1,2351 @@
+diff --git a/app/auditoria/page.tsx b/app/auditoria/page.tsx
+--- a/app/auditoria/page.tsx
++++ b/app/auditoria/page.tsx
+@@ -1,3 +1,4 @@
++import { Match } from "effect"
+ import { use } from "react"
+ 
+ import { Auditoria } from "@/components/auditoria"
+@@ -14,7 +15,7 @@
+     searchParams === undefined ? {} : use(searchParams)
+ 
+   for (const [clave, valor] of Object.entries(parametrosResueltos ?? {})) {
+-    if (typeof valor === "string") {
++    if (Match.string(valor)) {
+       parametros.set(clave, valor)
+     } else if (Array.isArray(valor)) {
+       for (const elemento of valor) {
+diff --git a/app/layout.tsx b/app/layout.tsx
+--- a/app/layout.tsx
++++ b/app/layout.tsx
+@@ -53,6 +53,23 @@
+ }: Readonly<{
+   children: React.ReactNode
+ }>) {
++  const estiloPagina = {
++    fontFamily: "var(--mono)",
++    background: "var(--paper)",
++    color: "var(--ink)",
++    "--paper": "oklch(0.965 0.014 92)",
++    "--paper-2": "oklch(0.935 0.02 92)",
++    "--ink": "oklch(0.10 0 0)",
++    "--ink-soft": "oklch(0.30 0 0)",
++    "--rule": "oklch(0.10 0 0)",
++    "--mark": "oklch(0.93 0.18 95)",
++    "--mark-ink": "oklch(0.10 0 0)",
++    "--info": "oklch(0.50 0.18 250)",
++    "--danger": "oklch(0.58 0.22 27)",
++    "--gain": "oklch(0.55 0.16 155)",
++  } satisfies React.CSSProperties & {
++    [variable: `--${string}`]: string | undefined
++  }
+   return (
+     <html lang="es">
+       <body
+@@ -61,23 +78,7 @@
+           fuenteMono.variable,
+           "site-theme antialiased"
+         )}
+-        style={
+-          {
+-            fontFamily: "var(--mono)",
+-            background: "var(--paper)",
+-            color: "var(--ink)",
+-            ["--paper" as string]: "oklch(0.965 0.014 92)",
+-            ["--paper-2" as string]: "oklch(0.935 0.02 92)",
+-            ["--ink" as string]: "oklch(0.10 0 0)",
+-            ["--ink-soft" as string]: "oklch(0.30 0 0)",
+-            ["--rule" as string]: "oklch(0.10 0 0)",
+-            ["--mark" as string]: "oklch(0.93 0.18 95)",
+-            ["--mark-ink" as string]: "oklch(0.10 0 0)",
+-            ["--info" as string]: "oklch(0.50 0.18 250)",
+-            ["--danger" as string]: "oklch(0.58 0.22 27)",
+-            ["--gain" as string]: "oklch(0.55 0.16 155)",
+-          } as React.CSSProperties
+-        }
++        style={estiloPagina}
+       >
+         {hijos}
+         <footer className="border-t-2 border-[var(--rule)] px-4 py-5 text-center text-sm leading-6 text-[var(--ink-soft)] sm:px-6 lg:px-8">
+diff --git a/components/auditoria.tsx b/components/auditoria.tsx
+--- a/components/auditoria.tsx
++++ b/components/auditoria.tsx
+@@ -1,4 +1,5 @@
+ "use client"
++import { aniosFiscalesLegacy } from "@/lib/dominio/normativa/anio-fiscal"
+ 
+ import Decimal from "decimal.js"
+ import * as React from "react"
+@@ -7,7 +8,7 @@
+ import { NumberField } from "@base-ui/react/number-field"
+ import { Slider } from "@base-ui/react/slider"
+ import { Tabs } from "@base-ui/react/tabs"
+-import { Cause, Effect, Exit, Fiber, Match, Option } from "effect"
++import { Schema, Cause, Effect, Exit, Fiber, Match, Option } from "effect"
+ import {
+   Area,
+   AreaChart,
+@@ -1588,7 +1589,11 @@
+   clave
+     .split(",")
+     .filter((valor) => valor.length > 0)
+-    .map((valor) => Number(valor) as AnioFiscal)
++    .map((valor) =>
++      Schema.decodeUnknownSync(Schema.Literals(aniosFiscalesLegacy))(
++        Number(valor)
++      )
++    )
+ 
+ const colorSerieAuditoria = (
+   _comunidadAutonoma: ComunidadAuditada,
+@@ -1734,10 +1739,26 @@
+     )
+   )
+ 
+-type FilaTipoEfectivoIrpf = Record<string, number | string>
+-type FilaDiferenciaTipoIrpf = Record<string, number | string | undefined>
+-type FilaCunaFiscal = Record<string, number | string | undefined>
+-type FilaTipoMarginalIrpf = Record<string, number | string | undefined>
++interface FilaTipoEfectivoIrpf {
++  salarioEuros: number
++  salario: string
++  [serie: string]: number | string
++}
++interface FilaDiferenciaTipoIrpf {
++  salarioEuros: number
++  salario: string
++  [serie: string]: number | string | undefined
++}
++interface FilaCunaFiscal {
++  salarioEuros: number
++  salario: string
++  [serie: string]: number | string | undefined
++}
++interface FilaTipoMarginalIrpf {
++  salarioEuros: number
++  salario: string
++  [serie: string]: number | string | undefined
++}
+ type ModoTipoEfectivoIrpf = ModoUnidadGraficoAuditoria
+ type ModoDiferenciaTipoIrpf = ModoUnidadGraficoAuditoria
+ type ModoCunaFiscal = ModoUnidadGraficoAuditoria
+@@ -2315,7 +2336,7 @@
+   clave: string
+ ) => {
+   const valor = fila[clave]
+-  if (typeof valor === "number" && Number.isFinite(valor)) {
++  if (Match.number(valor) && Number.isFinite(valor)) {
+     return Option.some(valor)
+   }
+ 
+@@ -2910,9 +2931,7 @@
+         })
+       })
+     ),
+-    Match.orElse(() =>
+-      Effect.succeed([] as ReadonlyArray<FilaTipoEfectivoIrpf>)
+-    )
++    Match.orElse(() => Effect.succeed<ReadonlyArray<FilaTipoEfectivoIrpf>>([]))
+   )
+ 
+   const diferenciaTipoIrpf = yield* Match.value(vistaGrafico).pipe(
+@@ -2953,7 +2972,7 @@
+       })
+     ),
+     Match.orElse(() =>
+-      Effect.succeed([] as ReadonlyArray<FilaDiferenciaTipoIrpf>)
++      Effect.succeed<ReadonlyArray<FilaDiferenciaTipoIrpf>>([])
+     )
+   )
+ 
+@@ -2995,7 +3014,7 @@
+         })
+       })
+     ),
+-    Match.orElse(() => Effect.succeed([] as ReadonlyArray<FilaCunaFiscal>))
++    Match.orElse(() => Effect.succeed<ReadonlyArray<FilaCunaFiscal>>([]))
+   )
+ 
+   const tipoMarginalIrpf = yield* Match.value(vistaGrafico).pipe(
+@@ -3045,9 +3064,7 @@
+         })
+       })
+     ),
+-    Match.orElse(() =>
+-      Effect.succeed([] as ReadonlyArray<FilaTipoMarginalIrpf>)
+-    )
++    Match.orElse(() => Effect.succeed<ReadonlyArray<FilaTipoMarginalIrpf>>([]))
+   )
+ 
+   return { tipoEfectivoIrpf, diferenciaTipoIrpf, cunaFiscal, tipoMarginalIrpf }
+@@ -3060,7 +3077,7 @@
+   filas.flatMap((fila) =>
+     claves.flatMap((clave) => {
+       const valor = fila[clave]
+-      return typeof valor === "number" && Number.isFinite(valor) ? [valor] : []
++      return Match.number(valor) && Number.isFinite(valor) ? [valor] : []
+     })
+   )
+ 
+@@ -4947,7 +4964,7 @@
+         aniosTipoEfectivoIrpf.includes(anioGraficoTipoMarginalIrpf)
+       ).pipe(
+         Match.when(true, () => anioGraficoTipoMarginalIrpf),
+-        Match.orElse(() => 2025 as AnioFiscal)
++        Match.orElse(() => 2025 as const)
+       ),
+     [anioGraficoTipoMarginalIrpf, aniosTipoEfectivoIrpf]
+   )
+@@ -4962,10 +4979,10 @@
+   const anioReferenciaGraficosIrpf = Match.value(
+     permiteReferenciaTecnica2026
+   ).pipe(
+-    Match.when(true, () => 2026 as AnioFiscal),
++    Match.when(true, () => 2026 as const),
+     Match.orElse(() =>
+       Option.match(auditoria, {
+-        onNone: () => 2025 as AnioFiscal,
++        onNone: () => 2025 as const,
+         onSome: (auditoriaLista) => auditoriaLista.anioReferencia,
+       })
+     )
+diff --git a/components/copiar-imagen-grafico.tsx b/components/copiar-imagen-grafico.tsx
+--- a/components/copiar-imagen-grafico.tsx
++++ b/components/copiar-imagen-grafico.tsx
+@@ -1,4 +1,6 @@
+ "use client"
++
++import { Match } from "effect"
+ 
+ // @effect-diagnostics effect/asyncFunction:off
+ // @effect-diagnostics effect/globalConsole:off
+@@ -247,7 +249,7 @@
+   return new Promise((resolve, reject) => {
+     const lector = new FileReader()
+     lector.onload = () => {
+-      if (typeof lector.result === "string") {
++      if (Match.string(lector.result)) {
+         resolve(lector.result)
+         return
+       }
+@@ -482,6 +484,7 @@
+   const rectGrafico = grafico.getBoundingClientRect()
+   const anchoGrafico = Math.max(1, Math.ceil(rectGrafico.width))
+   const altoGrafico = Math.max(1, Math.ceil(rectGrafico.height))
++  // SAFETY: cloneNode conserva el tipo de elemento SVG del receptor grafico; solo pierde su subtipo en lib.dom.
+   const graficoClonado = grafico.cloneNode(true) as SVGSVGElement
+   copiarEstilosComputados(grafico, graficoClonado)
+   graficoClonado.querySelectorAll("text").forEach((texto) => texto.remove())
+diff --git a/components/liquidacion-irpf.tsx b/components/liquidacion-irpf.tsx
+--- a/components/liquidacion-irpf.tsx
++++ b/components/liquidacion-irpf.tsx
+@@ -44,7 +44,6 @@
+ } from "@/lib/dominio/irpf/deducciones-autonomicas-aplicadas"
+ import type {
+   CuantiaDeduccionAutonomica,
+-  CatalogoDeduccionesAutonomicasPorComunidad,
+   FichaDeduccionAutonomica,
+ } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
+ import { formatearPuntosPorcentuales } from "@/lib/formato"
+@@ -656,116 +655,116 @@
+     [edad, entradasRetencionAeat, usarRetencionAeat]
+   )
+ 
+-  const caso = React.useMemo(
+-    () =>
+-      ({
+-        anio: 2025,
+-        comunidadAutonoma,
+-        situacionFamiliar: {
+-          tipo: "individual",
+-          edad,
+-          descendientes: Array.from({ length: descendientes }, (_, indice) => ({
+-            edad: 10,
+-            discapacidad:
+-              indice < descendientesDiscapacidad65
+-                ? discapacidad65OMas
+-                : indice < descendientesConDiscapacidad
+-                  ? discapacidad33a64({
+-                      necesitaAyudaOMovilidadReducida:
+-                        indice < descendientesConAsistencia,
+-                    })
+-                  : sinDiscapacidad,
+-          })),
+-          ascendientes: Array.from({ length: ascendientes }, () => ({
+-            edad: 78,
+-            discapacidad: sinDiscapacidad,
+-          })),
++  const caso = React.useMemo(() => {
++    const base: CasoFiscalAnual = {
++      anio: 2025,
++      comunidadAutonoma,
++      situacionFamiliar: {
++        tipo: "individual",
++        edad,
++        descendientes: Array.from({ length: descendientes }, (_, indice) => ({
++          edad: 10,
++          discapacidad:
++            indice < descendientesDiscapacidad65
++              ? discapacidad65OMas
++              : indice < descendientesConDiscapacidad
++                ? discapacidad33a64({
++                    necesitaAyudaOMovilidadReducida:
++                      indice < descendientesConAsistencia,
++                  })
++                : sinDiscapacidad,
++        })),
++        ascendientes: Array.from({ length: ascendientes }, () => ({
++          edad: 78,
+           discapacidad: sinDiscapacidad,
+-        },
+-        rendimientos: {
+-          trabajo: [
+-            {
+-              importeIntegroCentimos: eurosACentimos(rendimientosTrabajoEuros),
+-            },
+-          ],
+-          capitalInmobiliario:
+-            capitalInmobiliarioEuros > 0
+-              ? [
+-                  {
+-                    importeIntegroCentimos: eurosACentimos(
+-                      capitalInmobiliarioEuros
+-                    ),
+-                  },
+-                ]
+-              : [],
+-          gananciasPatrimoniales:
+-            gananciaPatrimonialEuros > 0
+-              ? [
+-                  {
+-                    importeGananciaCentimos: eurosACentimos(
+-                      gananciaPatrimonialEuros
+-                    ),
+-                    tratamientoMayores65:
+-                      tratamientoGananciaPatrimonial ===
+-                      "vivienda-habitual-mayores-65"
+-                        ? { _tag: "ViviendaHabitualMayores65" }
+-                        : tratamientoGananciaPatrimonial ===
+-                            "renta-vitalicia-mayores-65"
+-                          ? {
+-                              _tag: "ReinversionRentaVitaliciaMayores65",
+-                              importeTransmisionCentimos: eurosACentimos(
+-                                importeTransmisionEuros
+-                              ),
+-                              importeReinvertidoRentaVitaliciaCentimos:
+-                                eurosACentimos(reinversionRentaVitaliciaEuros),
+-                              reinversionesPreviasRentaVitaliciaCentimos:
+-                                eurosACentimos(reinversionesPreviasEuros),
+-                            }
+-                          : { _tag: "SinExencionMayores65" },
+-                  },
+-                ]
+-              : [],
+-        },
+-        reducciones: [],
+-        deducciones: [],
+-        ...(comunidadAutonoma !== "simulada-estatal" &&
+-        deduccionesAutonomicasEuros > 0
+-          ? {
+-              deduccionAutonomicaAgregadaCentimos: eurosACentimos(
+-                deduccionesAutonomicasEuros
+-              ),
+-            }
+-          : {}),
+-        retencionesSoportadasCentimos: eurosACentimos(
+-          retencionesSoportadasEuros
+-        ),
+-        pagosACuentaCentimos: usarRetencionAeat
+-          ? 0
+-          : eurosACentimos(pagosACuentaEuros),
+-        ...(retencionTrabajoAeat !== undefined ? { retencionTrabajoAeat } : {}),
+-      }) satisfies CasoFiscalAnual,
+-    [
+-      ascendientes,
+-      capitalInmobiliarioEuros,
+-      comunidadAutonoma,
+-      descendientes,
+-      descendientesConAsistencia,
+-      descendientesConDiscapacidad,
+-      descendientesDiscapacidad65,
+-      deduccionesAutonomicasEuros,
+-      edad,
+-      gananciaPatrimonialEuros,
+-      importeTransmisionEuros,
+-      pagosACuentaEuros,
+-      rendimientosTrabajoEuros,
+-      reinversionRentaVitaliciaEuros,
+-      reinversionesPreviasEuros,
+-      retencionesSoportadasEuros,
+-      retencionTrabajoAeat,
+-      tratamientoGananciaPatrimonial,
+-      usarRetencionAeat,
+-    ]
+-  )
++        })),
++        discapacidad: sinDiscapacidad,
++      },
++      rendimientos: {
++        trabajo: [
++          {
++            importeIntegroCentimos: eurosACentimos(rendimientosTrabajoEuros),
++          },
++        ],
++        capitalInmobiliario:
++          capitalInmobiliarioEuros > 0
++            ? [
++                {
++                  importeIntegroCentimos: eurosACentimos(
++                    capitalInmobiliarioEuros
++                  ),
++                },
++              ]
++            : [],
++        gananciasPatrimoniales:
++          gananciaPatrimonialEuros > 0
++            ? [
++                {
++                  importeGananciaCentimos: eurosACentimos(
++                    gananciaPatrimonialEuros
++                  ),
++                  tratamientoMayores65:
++                    tratamientoGananciaPatrimonial ===
++                    "vivienda-habitual-mayores-65"
++                      ? { _tag: "ViviendaHabitualMayores65" }
++                      : tratamientoGananciaPatrimonial ===
++                          "renta-vitalicia-mayores-65"
++                        ? {
++                            _tag: "ReinversionRentaVitaliciaMayores65",
++                            importeTransmisionCentimos: eurosACentimos(
++                              importeTransmisionEuros
++                            ),
++                            importeReinvertidoRentaVitaliciaCentimos:
++                              eurosACentimos(reinversionRentaVitaliciaEuros),
++                            reinversionesPreviasRentaVitaliciaCentimos:
++                              eurosACentimos(reinversionesPreviasEuros),
++                          }
++                        : { _tag: "SinExencionMayores65" },
++                },
++              ]
++            : [],
++      },
++      reducciones: [],
++      deducciones: [],
++      retencionesSoportadasCentimos: eurosACentimos(retencionesSoportadasEuros),
++      pagosACuentaCentimos: usarRetencionAeat
++        ? 0
++        : eurosACentimos(pagosACuentaEuros),
++    }
++    const conDeducciones =
++      comunidadAutonoma !== "simulada-estatal" &&
++      deduccionesAutonomicasEuros > 0
++        ? {
++            ...base,
++            deduccionAutonomicaAgregadaCentimos: eurosACentimos(
++              deduccionesAutonomicasEuros
++            ),
++          }
++        : base
++    return retencionTrabajoAeat === undefined
++      ? conDeducciones
++      : { ...conDeducciones, retencionTrabajoAeat }
++  }, [
++    ascendientes,
++    capitalInmobiliarioEuros,
++    comunidadAutonoma,
++    descendientes,
++    descendientesConAsistencia,
++    descendientesConDiscapacidad,
++    descendientesDiscapacidad65,
++    deduccionesAutonomicasEuros,
++    edad,
++    gananciaPatrimonialEuros,
++    importeTransmisionEuros,
++    pagosACuentaEuros,
++    rendimientosTrabajoEuros,
++    reinversionRentaVitaliciaEuros,
++    reinversionesPreviasEuros,
++    retencionesSoportadasEuros,
++    retencionTrabajoAeat,
++    tratamientoGananciaPatrimonial,
++    usarRetencionAeat,
++  ])
+   const resultado = React.useMemo(
+     () =>
+       Result.match(
+@@ -966,11 +965,9 @@
+   readonly tratamientoGananciaPatrimonial: TratamientoGananciaPatrimonial
+   readonly usarRetencionAeat: boolean
+ }) {
+-  const catalogoDeducciones = (
+-    CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor as Partial<
+-      Record<ComunidadAutonoma, CatalogoDeduccionesAutonomicasPorComunidad>
+-    >
+-  )[comunidadAutonoma]
++  const catalogoDeducciones = Object.entries(
++    CATALOGO_DEDUCCIONES_AUTONOMICAS_2025.valor
++  ).find(([comunidad]) => comunidad === comunidadAutonoma)?.[1]
+   const usaComunidadAutonomicaReal = comunidadAutonoma !== "simulada-estatal"
+   const deduccionesCatalogadas = catalogoDeducciones?.deducciones ?? []
+   const catalogoDeduccionesVacio = deduccionesCatalogadas.length === 0
+diff --git a/components/ui/chart.tsx b/components/ui/chart.tsx
+--- a/components/ui/chart.tsx
++++ b/components/ui/chart.tsx
+@@ -1,11 +1,17 @@
+ "use client"
++
++import { Match, Schema } from "effect"
+ 
+ // @effect-diagnostics effect/strictBooleanExpressions:off
+ import * as React from "react"
+ import * as RechartsPrimitive from "recharts"
+-import type { TooltipValueType } from "recharts"
+-
+-import { cn } from "@/lib/utils"
++import type {
++  TooltipValueType,
++  TooltipPayloadEntry,
++  LegendPayload,
++} from "recharts"
++
++import { cn } from "../../lib/utils"
+ 
+ // Format: { THEME_NAME: CSS_SELECTOR }
+ const THEMES = { light: "", dark: ".dark" } as const
+@@ -94,15 +100,14 @@
+   return (
+     <style
+       dangerouslySetInnerHTML={{
+-        __html: Object.entries(THEMES)
++        __html: (["light", "dark"] as const)
++          .map((theme) => [theme, THEMES[theme]] as const)
+           .map(
+             ([theme, prefix]) => `
+ ${prefix} [data-chart=${id}] {
+ ${colorConfig
+   .map(([key, itemConfig]) => {
+-    const color =
+-      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ??
+-      itemConfig.color
++    const color = itemConfig.theme?.[theme] ?? itemConfig.color
+     return color ? `  --color-${key}: ${color};` : null
+   })
+   .join("\n")}
+@@ -156,7 +161,7 @@
+     const key = `${labelKey ?? item?.dataKey ?? item?.name ?? "value"}`
+     const itemConfig = getPayloadConfigFromPayload(config, item, key)
+     const value =
+-      !labelKey && typeof label === "string"
++      !labelKey && Match.string(label)
+         ? (config[label]?.label ?? label)
+         : itemConfig?.label
+ 
+@@ -204,6 +209,14 @@
+             const key = `${nameKey ?? item.name ?? item.dataKey ?? "value"}`
+             const itemConfig = getPayloadConfigFromPayload(config, item, key)
+             const indicatorColor = color ?? item.payload?.fill ?? item.color
++
++            const estiloIndicador: React.CSSProperties & {
++              "--color-bg": string | undefined
++              "--color-border": string | undefined
++            } = {
++              "--color-bg": indicatorColor,
++              "--color-border": indicatorColor,
++            }
+ 
+             return (
+               <div
+@@ -232,12 +245,7 @@
+                               "my-0.5": nestLabel && indicator === "dashed",
+                             }
+                           )}
+-                          style={
+-                            {
+-                              "--color-bg": indicatorColor,
+-                              "--color-border": indicatorColor,
+-                            } as React.CSSProperties
+-                          }
++                          style={estiloIndicador}
+                         />
+                       )
+                     )}
+@@ -255,7 +263,7 @@
+                       </div>
+                       {item.value != null && (
+                         <span className="font-mono font-medium text-foreground tabular-nums">
+-                          {typeof item.value === "number"
++                          {Match.number(item.value)
+                             ? item.value.toLocaleString()
+                             : String(item.value)}
+                         </span>
+@@ -328,40 +336,25 @@
+   )
+ }
+ 
+-function getPayloadConfigFromPayload(
++export function getPayloadConfigFromPayload(
+   config: ChartConfig,
+-  payload: unknown,
++  payload: TooltipPayloadEntry | LegendPayload | undefined,
+   key: string
+ ) {
+-  if (typeof payload !== "object" || payload === null) {
+-    return undefined
+-  }
+-
+-  const payloadPayload =
+-    "payload" in payload &&
+-    typeof payload.payload === "object" &&
+-    payload.payload !== null
+-      ? payload.payload
+-      : undefined
+-
+-  let configLabelKey: string = key
+-
+-  if (
+-    key in payload &&
+-    typeof payload[key as keyof typeof payload] === "string"
+-  ) {
+-    configLabelKey = payload[key as keyof typeof payload] as string
+-  } else if (
+-    payloadPayload &&
+-    key in payloadPayload &&
+-    typeof payloadPayload[key as keyof typeof payloadPayload] === "string"
+-  ) {
+-    configLabelKey = payloadPayload[
+-      key as keyof typeof payloadPayload
+-    ] as string
+-  }
+-
+-  return configLabelKey in config ? config[configLabelKey] : config[key]
++  const campo = Schema.Struct({ [key]: Schema.String })
++  const directo = Schema.decodeUnknownOption(campo)(payload)
++  if (directo._tag === "Some") {
++    const nombre = directo.value[key]
++    return nombre in config ? config[nombre] : config[key]
++  }
++  const anidado = Schema.decodeUnknownOption(Schema.Struct({ payload: campo }))(
++    payload
++  )
++  if (anidado._tag === "Some") {
++    const nombre = anidado.value.payload[key]
++    return nombre in config ? config[nombre] : config[key]
++  }
++  return payload == null ? undefined : config[key]
+ }
+ 
+ export {
+diff --git a/components/ui/combobox.tsx b/components/ui/combobox.tsx
+--- a/components/ui/combobox.tsx
++++ b/components/ui/combobox.tsx
+@@ -1,4 +1,6 @@
+ "use client"
++
++import { Predicate } from "effect"
+ 
+ import * as React from "react"
+ import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox"
+@@ -27,7 +29,7 @@
+   <T,>(...refs: ReadonlyArray<React.Ref<T> | undefined>) =>
+   (valor: T) => {
+     for (const ref of refs) {
+-      if (typeof ref === "function") {
++      if (Predicate.isFunction(ref)) {
+         ref(valor)
+       } else if (ref !== undefined && ref !== null) {
+         ref.current = valor
+diff --git a/components/ui/select.tsx b/components/ui/select.tsx
+--- a/components/ui/select.tsx
++++ b/components/ui/select.tsx
+@@ -36,12 +36,12 @@
+   )
+ 
+   return (
+-    <SelectPrimitive.Root
++    <SelectPrimitive.Root<TValor>
+       items={items}
+       modal={false}
+       onValueChange={(siguiente) => {
+         if (siguiente !== null) {
+-          onChange(siguiente as TValor)
++          onChange(siguiente)
+         }
+       }}
+       value={valor}
+diff --git a/components/ui/tooltip.tsx b/components/ui/tooltip.tsx
+--- a/components/ui/tooltip.tsx
++++ b/components/ui/tooltip.tsx
+@@ -43,7 +43,8 @@
+     const cerrarAlPulsarFuera = (evento: PointerEvent) => {
+       if (
+         contenedor.current === null ||
+-        !contenedor.current.contains(evento.target as Node)
++        !(evento.target instanceof Node) ||
++        !contenedor.current.contains(evento.target)
+       ) {
+         fijarAbierto(false)
+       }
+diff --git a/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts b/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts
+--- a/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts
++++ b/lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts
+@@ -216,7 +216,7 @@
+       ? casoRetencionTrabajoPerfil({ entrada, perfil })
+       : undefined
+ 
+-  return {
++  const caso: CasoFiscalAnual = {
+     anio: entrada.anio,
+     comunidadAutonoma: entrada.comunidadAutonoma ?? "simulada-estatal",
+     situacionFamiliar: {
+@@ -237,8 +237,10 @@
+     deducciones: [],
+     retencionesSoportadasCentimos: 0,
+     pagosACuentaCentimos: 0,
+-    ...(retencionTrabajoAeat !== undefined ? { retencionTrabajoAeat } : {}),
+   }
++  return retencionTrabajoAeat === undefined
++    ? caso
++    : { ...caso, retencionTrabajoAeat }
+ }
+ 
+ export class CompatibilidadSalarioLegacy extends Context.Service<
+diff --git a/lib/dominio/irpf/cuotas/escalas-gravamen.ts b/lib/dominio/irpf/cuotas/escalas-gravamen.ts
+--- a/lib/dominio/irpf/cuotas/escalas-gravamen.ts
++++ b/lib/dominio/irpf/cuotas/escalas-gravamen.ts
+@@ -76,7 +76,7 @@
+           tramos,
+           {
+             limiteAnterior: base.mul(0),
+-            tramos: [] as ReadonlyArray<TramoCuotaGeneralCalculado>,
++            tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
+           },
+           (estado, [limite, tipo]) => {
+             const baseRestante = Decimal.max(
+diff --git a/lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts b/lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts
+--- a/lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts
++++ b/lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts
+@@ -9,7 +9,7 @@
+   readonly [clave: string]: boolean | number | string
+ }
+ 
+-export const ENTRADAS_DEDUCCIONES_INICIALES: EntradasDeduccionesAutonomicas = {
++export const ENTRADAS_DEDUCCIONES_INICIALES = {
+   andaluciaHijosNacimientoAdopcion: 0,
+   andaluciaMenoresAcogidos: 0,
+   andaluciaMunicipioDespoblacion: false,
+@@ -120,7 +120,7 @@
+ 
+ const limitarImporteMaximo = (
+   importe: number,
+-  limiteMaximoEuros?: unknown
++  limiteMaximoEuros?: string
+ ): number =>
+   Match.value(limiteMaximoEuros).pipe(
+     Match.when(Match.undefined, () => importe),
+@@ -747,14 +747,14 @@
+     deduccion.codigo,
+     deduccion.entradasPrueba,
+   ])
+-) as Record<string, EntradasDeduccionesAutonomicas>
++)
+ 
+ const IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS = Object.fromEntries(
+   deduccionesEspecificasAutonomicas.map((deduccion) => [
+     deduccion.codigo,
+     deduccion.importeEsperadoPrueba,
+   ])
+-) as Record<string, number>
++)
+ 
+ export const calcularDeduccionEspecificaAutonomica = (
+   codigo: string,
+@@ -793,9 +793,7 @@
+   Object.keys(CONTROLES_DEDUCCIONES_ESPECIFICAS)
+ )
+ 
+-const entradasCon = (
+-  entradas: EntradasDeduccionesAutonomicas
+-): EntradasDeduccionesAutonomicas => ({
++const entradasCon = (entradas: EntradasDeduccionesAutonomicas) => ({
+   ...ENTRADAS_DEDUCCIONES_INICIALES,
+   ...entradas,
+ })
+@@ -1148,9 +1146,7 @@
+     Match.not("implementada", () => Option.none<ControlDeduccionAutonomica>()),
+     Match.orElse(() => {
+       const entradasEspecificas =
+-        CONTROLES_DEDUCCIONES_ESPECIFICAS[
+-          deduccion.codigo as keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS
+-        ]
++        CONTROLES_DEDUCCIONES_ESPECIFICAS[deduccion.codigo]
+ 
+       return Option.match(Option.fromNullishOr(entradasEspecificas), {
+         onSome: (entradasEspecificas) => {
+@@ -1160,9 +1156,7 @@
+             codigo: deduccion.codigo,
+             entradasPrueba,
+             importeEsperadoPrueba:
+-              IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS[
+-                deduccion.codigo as keyof typeof CONTROLES_DEDUCCIONES_ESPECIFICAS
+-              ],
++              IMPORTES_ESPERADOS_CONTROLES_ESPECIFICOS[deduccion.codigo],
+           } satisfies ControlDeduccionAutonomica)
+         },
+         onNone: () => {
+diff --git a/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts b/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts
+--- a/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts
++++ b/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts
+@@ -161,10 +161,10 @@
+   readonly descendientes: ReadonlyArray<DescendienteRetencion>
+   readonly ascendientes: ReadonlyArray<AscendienteRetencion>
+ } =>
+-  typeof caso.cotizacionesCentimos === "number" &&
++  caso.cotizacionesCentimos !== undefined &&
+   caso.situacionFamiliar !== "general" &&
+-  typeof caso.situacionLaboral === "string" &&
+-  typeof caso.contrato === "string" &&
++  caso.situacionLaboral !== undefined &&
++  caso.contrato !== undefined &&
+   Array.isArray(caso.descendientes) &&
+   Array.isArray(caso.ascendientes) &&
+   !(caso.situacionFamiliar === "situacion1" && caso.descendientes.length === 0)
+diff --git a/lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts b/lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts
+--- a/lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts
++++ b/lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts
+@@ -140,7 +140,7 @@
+     Match.when("", () => codigo),
+     Match.orElse((sinPrefijo) => codigo.slice(sinPrefijo.length + 1))
+   )
+-  const terminos: Record<string, string> = {
++  const terminos = {
+     0: "0",
+     3: "3",
+     6: "6",
+@@ -525,9 +525,10 @@
+     zonas: "zonas",
+   }
+ 
++  const traducciones = new Map(Object.entries(terminos))
+   const nombre = cuerpo
+     .split("_")
+-    .map((termino) => terminos[termino] ?? termino)
++    .map((termino) => traducciones.get(termino) ?? termino)
+     .join(" ")
+ 
+   return `Por ${nombre}`
+diff --git a/lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts b/lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts
+--- a/lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts
++++ b/lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts
+@@ -160,7 +160,9 @@
+ })
+ 
+ export const CATALOGOS_DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD =
++  // SAFETY: se construye exactamente una entrada por cada clave del objeto literal de metadatos, sin filtrar ni renombrar claves.
+   Object.fromEntries(
++    // SAFETY: metadatos es un literal local cerrado; sus claves propias coinciden con ComunidadCatalogoDeduccionesAutonomicas2025.
+     (
+       Object.keys(
+         METADATOS_CATALOGO_DEDUCCIONES_AUTONOMICAS_2025
+diff --git a/lib/dominio/normativa/datos/ipc-2012-2026.ts b/lib/dominio/normativa/datos/ipc-2012-2026.ts
+--- a/lib/dominio/normativa/datos/ipc-2012-2026.ts
++++ b/lib/dominio/normativa/datos/ipc-2012-2026.ts
+@@ -1,7 +1,9 @@
++import type { AnioFiscal } from "../anio-fiscal"
+ import { crearImporteMonetario } from "../../dinero/importe-monetario"
+ 
+ export const IPC_ANUAL_DICIEMBRE: Readonly<
+-  Record<number, ReturnType<typeof crearImporteMonetario>>
++  Record<Exclude<AnioFiscal, 2012>, ReturnType<typeof crearImporteMonetario>> &
++    Partial<Record<number, ReturnType<typeof crearImporteMonetario>>>
+ > = {
+   2013: crearImporteMonetario("0.003"),
+   2014: crearImporteMonetario("-0.010"),
+diff --git a/lib/export/auditoria-excel.ts b/lib/export/auditoria-excel.ts
+--- a/lib/export/auditoria-excel.ts
++++ b/lib/export/auditoria-excel.ts
+@@ -1,5 +1,5 @@
+ import ExcelJS from "exceljs"
+-import { Clock, DateTime, Effect } from "effect"
++import { Match, Clock, DateTime, Effect } from "effect"
+ import { Deflate } from "fflate"
+ 
+ import type {
+@@ -76,7 +76,7 @@
+   }
+ )
+ 
+-const textoCabecera = (cabecera: unknown) => {
++const textoCabecera = (cabecera: ExcelJS.Column["header"] | null) => {
+   if (cabecera === undefined) {
+     return ""
+   }
+@@ -724,9 +724,16 @@
+       })
+     )
+ 
+-    return new Blob(this.partes as unknown as BlobPart[], {
+-      type: tipoMimeXlsx,
+-    })
++    return new Blob(
++      this.partes.map((parte) =>
++        parte.buffer instanceof ArrayBuffer
++          ? new Uint8Array(parte.buffer, parte.byteOffset, parte.byteLength)
++          : new Uint8Array(parte)
++      ),
++      {
++        type: tipoMimeXlsx,
++      }
++    )
+   }
+ 
+   private anadirBytes(datos: Uint8Array) {
+@@ -764,7 +771,7 @@
+ ) => {
+   const referencia = `${columnaExcel(indiceColumna)}${indiceFila}`
+   const atributoEstilo = estilo === undefined ? "" : ` s="${estilo}"`
+-  if (typeof valor === "number") {
++  if (Match.number(valor)) {
+     return `<c r="${referencia}"${atributoEstilo}><v>${Number.isFinite(valor) ? valor : 0}</v></c>`
+   }
+ 
+diff --git a/lib/observabilidad/auditoria-rendimiento.ts b/lib/observabilidad/auditoria-rendimiento.ts
+--- a/lib/observabilidad/auditoria-rendimiento.ts
++++ b/lib/observabilidad/auditoria-rendimiento.ts
+@@ -3,6 +3,16 @@
+ // @effect-diagnostics effect/processEnv:off
+ // @effect-diagnostics effect/globalConsole:off
+ import { DateTime, Duration, Effect, Exit, Match, Metric, Option } from "effect"
++
++type DetalleAuditoria =
++  | Option.Option<number>
++  | string
++  | number
++  | boolean
++  | null
++  | undefined
++  | ReadonlyArray<DetalleAuditoria>
++  | { readonly [clave: string]: DetalleAuditoria }
+ 
+ export const diagnosticoRendimientoAuditoriaActivo =
+   process.env.IROBOPF_AUDITORIA_PERF === "1" ||
+@@ -31,8 +41,8 @@
+ )
+ 
+ const ahora = () =>
+-  Match.value(typeof performance).pipe(
+-    Match.when("undefined", () => DateTime.nowUnsafe().epochMilliseconds),
++  Match.value(globalThis.performance).pipe(
++    Match.when(Match.undefined, () => DateTime.nowUnsafe().epochMilliseconds),
+     Match.orElse(() => performance.now())
+   )
+ 
+@@ -107,7 +117,7 @@
+ 
+ export const registrarResumenTiemposAuditoria = (
+   evento: string,
+-  detalles: Record<string, unknown> = {}
++  detalles: Readonly<Record<string, DetalleAuditoria>> = {}
+ ) => {
+   if (!diagnosticoRendimientoAuditoriaActivo) return
+   console.table(resumenTiemposAgregadosAuditoria())
+@@ -119,7 +129,7 @@
+ 
+ export const registrarMarcaAuditoria = (
+   evento: string,
+-  detalles: Record<string, unknown> = {}
++  detalles: Readonly<Record<string, DetalleAuditoria>> = {}
+ ) => {
+   if (!diagnosticoRendimientoAuditoriaActivo) return
+   console.info(`[auditoria/perf] ${evento}`, {
+@@ -135,7 +145,7 @@
+   efecto,
+ }: {
+   readonly nombre: string
+-  readonly detalles?: Record<string, unknown>
++  readonly detalles?: Readonly<Record<string, DetalleAuditoria>>
+   readonly metrica: Metric.Histogram<Duration.Duration>
+   readonly efecto: Effect.Effect<A, E, R>
+ }): Effect.Effect<A, E, R> => {
+diff --git a/scripts/hash-effect-sheet.ts b/scripts/hash-effect-sheet.ts
+--- a/scripts/hash-effect-sheet.ts
++++ b/scripts/hash-effect-sheet.ts
+@@ -1,8 +1,9 @@
++import { Schema } from "effect"
+ import fixtureCanonico from "../tests/fixtures/canonical-tabular-hashes.json"
+ import {
+   hashTablaCompatibleExacta,
+   tablaEsperadaPorHoja,
+-  type FixtureCanonicoTabular,
++  FixtureCanonicoTabularSchema,
+ } from "../tests/helpers/canonical-tabular-hashes"
+ 
+ const nombreHoja = process.argv[2]
+@@ -10,7 +11,9 @@
+   throw new Error("Uso: bun scripts/hash-effect-sheet.ts <HOJA>")
+ }
+ 
+-const fixture = fixtureCanonico as FixtureCanonicoTabular
++const fixture = Schema.decodeUnknownSync(FixtureCanonicoTabularSchema)(
++  fixtureCanonico
++)
+ const hoja = fixture.sheets.find((sheet) => sheet.name === nombreHoja)
+ if (hoja === undefined) {
+   throw new Error(`Hoja no encontrada en fixture canónico: ${nombreHoja}`)
+diff --git a/tests/auditoria-excel-pesada.test.ts b/tests/auditoria-excel-pesada.test.ts
+--- a/tests/auditoria-excel-pesada.test.ts
++++ b/tests/auditoria-excel-pesada.test.ts
+@@ -8,7 +8,7 @@
+ import { existsSync } from "node:fs"
+ import { resolve } from "node:path"
+ 
+-import { Clock, Effect, Match } from "effect"
++import { Schema, Clock, Effect, Match } from "effect"
+ import { describe, expect, it } from "@effect/vitest"
+ 
+ import {
+@@ -17,7 +17,6 @@
+   construirTablaControlGeneralCompatible,
+   construirTablaControlTramosIrpfCompatible,
+   construirTablaDetalleAnualCompatible,
+-  type AnioFiscal,
+   type TablaCompatible,
+ } from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
+ 
+@@ -118,7 +117,7 @@
+ }
+ 
+ const normalizarEsperado = (valor: ValorTabular): ValorTabular => {
+-  if (typeof valor === "number") {
++  if (Match.number(valor)) {
+     return Number(valor.toFixed(2))
+   }
+ 
+@@ -134,13 +133,13 @@
+ ) => {
+   const posicion = `${hoja} fila ${fila}, columna ${columna}`
+ 
+-  if (typeof legacy !== typeof esperado) {
++  if (Match.number(legacy) !== Match.number(esperado)) {
+     throw new Error(
+-      `Tipo distinto en ${posicion}: legacy=${typeof legacy}, esperado=${typeof esperado}, legacyValor=${legacy}, esperadoValor=${esperado}`
+-    )
+-  }
+-
+-  if (typeof legacy === "number" && typeof esperado === "number") {
++      `Tipo distinto en ${posicion}: legacy=${Match.number(legacy) ? "number" : "string"}, esperado=${Match.number(esperado) ? "number" : "string"}, legacyValor=${legacy}, esperadoValor=${esperado}`
++    )
++  }
++
++  if (Match.number(legacy) && Match.number(esperado)) {
+     const centimosLegacy = Math.round(legacy * 100)
+     const centimosEsperado = Math.round(esperado * 100)
+     const diferenciaCentimos = Math.abs(centimosLegacy - centimosEsperado)
+@@ -170,7 +169,9 @@
+       (nombreHoja) => nombreHoja.startsWith("DAT_"),
+       (nombreHoja) =>
+         construirTablaDetalleAnualCompatible(
+-          Number(nombreHoja.slice(4)) as AnioFiscal
++          Schema.decodeUnknownSync(Schema.Literals(aniosFiscalesLegacy))(
++            Number(nombreHoja.slice(4))
++          )
+         )
+     ),
+     Match.orElse((nombreHoja) => {
+diff --git a/tests/auditoria-excel.test.ts b/tests/auditoria-excel.test.ts
+--- a/tests/auditoria-excel.test.ts
++++ b/tests/auditoria-excel.test.ts
+@@ -1,6 +1,6 @@
+ import ExcelJS from "exceljs"
+ import type { CellValue } from "exceljs"
+-import { Effect } from "effect"
++import { Match, Effect } from "effect"
+ import { describe, expect, it } from "@effect/vitest"
+ 
+ import {
+@@ -71,11 +71,11 @@
+     return ""
+   }
+ 
+-  if (typeof valor === "number") {
++  if (Match.number(valor)) {
+     return Number(valor.toFixed(2))
+   }
+ 
+-  if (typeof valor === "string") {
++  if (Match.string(valor)) {
+     return valor
+   }
+ 
+@@ -83,11 +83,11 @@
+     return valor.toISOString()
+   }
+ 
+-  if (typeof valor === "object" && "result" in valor) {
++  if (!(valor === true || valor === false) && "result" in valor) {
+     return valorCelda(valor.result)
+   }
+ 
+-  if (typeof valor === "object" && "text" in valor) {
++  if (!(valor === true || valor === false) && "text" in valor) {
+     return valor.text
+   }
+ 
+diff --git a/tests/auditoria-fixture-canonico.test.ts b/tests/auditoria-fixture-canonico.test.ts
+--- a/tests/auditoria-fixture-canonico.test.ts
++++ b/tests/auditoria-fixture-canonico.test.ts
+@@ -1,3 +1,4 @@
++import { Result, Schema } from "effect"
+ // Characterization harness: Node child-process/env and Vitest async boundaries
+ // are intentional here.
+ // @effect-diagnostics effect/asyncFunction:off
+@@ -11,10 +12,13 @@
+ 
+ import {
+   type HashHojaCanonica,
+-  type FixtureCanonicoTabular,
++  HashHojaCanonicaSchema,
++  FixtureCanonicoTabularSchema,
+ } from "./helpers/canonical-tabular-hashes"
+ 
+-const fixture = fixtureCanonico as FixtureCanonicoTabular
++const fixture = Schema.decodeUnknownSync(FixtureCanonicoTabularSchema)(
++  fixtureCanonico
++)
+ const CONCURRENCIA_HASH_EFFECT = Number(
+   process.env.IROBOPF_CONCURRENCIA_FIXTURE_CANONICO ?? 8
+ )
+@@ -43,7 +47,11 @@
+         return
+       }
+ 
+-      resolve(JSON.parse(stdout) as HashHojaCanonica)
++      const resultado = Schema.decodeUnknownResult(
++        Schema.fromJsonString(HashHojaCanonicaSchema)
++      )(stdout)
++      if (Result.isFailure(resultado)) reject(resultado.failure)
++      else resolve(resultado.success)
+     })
+   })
+ 
+diff --git a/tests/calculo-salario-legacy.test.ts b/tests/calculo-salario-legacy.test.ts
+--- a/tests/calculo-salario-legacy.test.ts
++++ b/tests/calculo-salario-legacy.test.ts
+@@ -1,9 +1,10 @@
++import { aniosFiscalesLegacy } from "../lib/dominio/normativa/anio-fiscal"
+ // Tests are Effect entry points; env-gated and async Vitest harness code is
+ // intentional here.
+ // @effect-diagnostics effect/asyncFunction:off
+ // @effect-diagnostics effect/processEnv:off
+ // @effect-diagnostics effect/strictEffectProvide:off
+-import { Effect } from "effect"
++import { Schema, Effect } from "effect"
+ import { describe, expect, it } from "@effect/vitest"
+ 
+ import fixture from "./fixtures/caracterizacion-legacy.json"
+@@ -23,7 +24,7 @@
+ ] as const satisfies ReadonlyArray<AnioFiscal>
+ 
+ describe("calcularSalarioLegacy", () => {
+-  const centimosDesdeCeldaEuros = (valor: unknown): number =>
++  const centimosDesdeCeldaEuros = (valor: number | string): number =>
+     Math.round(Number(valor) * 100)
+   const sinPrecisionDecimal = <
+     T extends { irpfFinalPrecisoEuros?: string | undefined },
+@@ -44,7 +45,7 @@
+   }: {
+     readonly anio: AnioFiscal
+     readonly compatibilidad: ServicioCompatibilidadSalarioLegacy
+-    readonly fila: ReadonlyArray<unknown>
++    readonly fila: ReadonlyArray<number | string>
+     readonly indice: Record<string, number>
+   }) =>
+     Effect.gen(function* () {
+@@ -196,7 +197,9 @@
+ 
+         for (const caso of casosConLiquidacionNueva) {
+           const resultado = yield* calcularSalarioLegacy({
+-            anio: caso.anio as AnioFiscal,
++            anio: Schema.decodeUnknownSync(
++              Schema.Literals(aniosFiscalesLegacy)
++            )(caso.anio),
+             salarioBrutoAnualCentimos: caso.salarioBrutoAnualCentimos,
+           })
+ 
+diff --git a/tests/helpers/canonical-tabular-hashes.ts b/tests/helpers/canonical-tabular-hashes.ts
+--- a/tests/helpers/canonical-tabular-hashes.ts
++++ b/tests/helpers/canonical-tabular-hashes.ts
+@@ -1,6 +1,6 @@
+ import { createHash } from "node:crypto"
+ 
+-import { Match } from "effect"
++import { Schema, Match } from "effect"
+ 
+ import {
+   aniosFiscalesLegacy,
+@@ -8,7 +8,6 @@
+   construirTablaControlGeneralCompatible,
+   construirTablaControlTramosIrpfCompatible,
+   construirTablaDetalleAnualCompatible,
+-  type AnioFiscal,
+   type TablaCompatible,
+   type ValorCeldaCompatible,
+ } from "../../lib/dominio/compatibilidad-legacy/progresividad-frio"
+@@ -25,20 +24,21 @@
+   ...aniosFiscalesLegacy.map((anio) => `DAT_${anio}`),
+ ] as const
+ 
+-export interface HashHojaCanonica {
+-  readonly name: string
+-  readonly columns: number
+-  readonly dataRows: number
+-  readonly headerHash: string
+-  readonly dataHash: string
+-}
+-
+-export interface FixtureCanonicoTabular {
+-  readonly schemaVersion: 1
+-  readonly source: string
+-  readonly canonicalization: string
+-  readonly sheets: ReadonlyArray<HashHojaCanonica>
+-}
++export const HashHojaCanonicaSchema = Schema.Struct({
++  name: Schema.String,
++  columns: Schema.Number,
++  dataRows: Schema.Number,
++  headerHash: Schema.String,
++  dataHash: Schema.String,
++})
++export type HashHojaCanonica = typeof HashHojaCanonicaSchema.Type
++export const FixtureCanonicoTabularSchema = Schema.Struct({
++  schemaVersion: Schema.Literal(1),
++  source: Schema.String,
++  canonicalization: Schema.String,
++  sheets: Schema.Array(HashHojaCanonicaSchema),
++})
++export type FixtureCanonicoTabular = typeof FixtureCanonicoTabularSchema.Type
+ 
+ export interface AcumuladorHashTabular {
+   readonly anadirFilaDatos: (fila: ReadonlyArray<ValorCeldaCompatible>) => void
+@@ -46,7 +46,7 @@
+ }
+ 
+ const normalizarValor = (valor: ValorCeldaCompatible) => {
+-  if (typeof valor === "number") {
++  if (Match.number(valor)) {
+     return `n:${valorACentimos(valor)}`
+   }
+ 
+@@ -121,7 +121,9 @@
+       (nombreHoja) => nombreHoja.startsWith("DAT_"),
+       (nombreHoja) =>
+         construirTablaDetalleAnualCompatible(
+-          Number(nombreHoja.slice(4)) as AnioFiscal
++          Schema.decodeUnknownSync(Schema.Literals(aniosFiscalesLegacy))(
++            Number(nombreHoja.slice(4))
++          )
+         )
+     ),
+     Match.orElse((nombreHoja) => {
+diff --git a/tests/progresividad-caracterizacion-legacy.test.ts b/tests/progresividad-caracterizacion-legacy.test.ts
+--- a/tests/progresividad-caracterizacion-legacy.test.ts
++++ b/tests/progresividad-caracterizacion-legacy.test.ts
+@@ -1,4 +1,5 @@
+-import { Effect } from "effect"
++import { aniosFiscalesLegacy } from "../lib/dominio/normativa/anio-fiscal"
++import { Schema, Effect } from "effect"
+ import { describe, expect, it } from "@effect/vitest"
+ 
+ import fixture from "./fixtures/caracterizacion-legacy.json"
+@@ -6,7 +7,6 @@
+   compararAjustadoPorIpc,
+   compararPasadoAjustadoPorIpc,
+   construirTablaDetalleAnualCompatible,
+-  type AnioFiscal,
+   type ValorCeldaCompatible,
+ } from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
+ 
+@@ -26,7 +26,9 @@
+     () =>
+       Effect.gen(function* () {
+         for (const caso of fixture.casos) {
+-          const anio = caso.anio as AnioFiscal
++          const anio = Schema.decodeUnknownSync(
++            Schema.Literals(aniosFiscalesLegacy)
++          )(caso.anio)
+           const calculoUnitario = yield* compararAjustadoPorIpc({
+             salarioBrutoAnualReferenciaCentimos: caso.salarioBrutoAnualCentimos,
+             anioComparado: anio,
+@@ -35,7 +37,9 @@
+           const comparativaIpc = yield* compararAjustadoPorIpc({
+             salarioBrutoAnualReferenciaCentimos: caso.salarioBrutoAnualCentimos,
+             anioComparado: anio,
+-            anioReferencia: fixture.anioReferenciaIpc as AnioFiscal,
++            anioReferencia: Schema.decodeUnknownSync(
++              Schema.Literals(aniosFiscalesLegacy)
++            )(fixture.anioReferenciaIpc),
+           })
+           const salarioBrutoEuros = caso.salarioBrutoAnualCentimos / 100
+           const filaDetalleAnualCompatible = primeraFila(
+diff --git a/tests/lint-contratos.test.ts b/tests/lint-contratos.test.ts
+--- /dev/null
++++ b/tests/lint-contratos.test.ts
+@@ -0,0 +1,77 @@
++import { Schema } from "effect"
++import { describe, expect, it } from "vitest"
++
++import { getPayloadConfigFromPayload } from "../components/ui/chart"
++import {
++  FixtureCanonicoTabularSchema,
++  HashHojaCanonicaSchema,
++  tablaEsperadaPorHoja,
++} from "./helpers/canonical-tabular-hashes"
++import fixture from "./fixtures/canonical-tabular-hashes.json"
++
++describe("fronteras de contratos corregidos por lint", () => {
++  const config = {
++    value: { label: "respaldo" },
++    directa: { label: "directa" },
++    anidada: { label: "anidada" },
++  }
++
++  it("conserva precedencia de clave directa, anidada y respaldo de Recharts", () => {
++    expect(
++      getPayloadConfigFromPayload(
++        config,
++        {
++          graphicalItemId: "serie-1",
++          name: "directa",
++          payload: { name: "anidada" },
++        },
++        "name"
++      )
++    ).toBe(config.directa)
++    expect(
++      getPayloadConfigFromPayload(
++        config,
++        { graphicalItemId: "serie-1", payload: { name: "anidada" } },
++        "name"
++      )
++    ).toBe(config.anidada)
++    expect(
++      getPayloadConfigFromPayload(
++        config,
++        { graphicalItemId: "serie-1", value: 3 },
++        "value"
++      )
++    ).toBe(config.value)
++    expect(
++      getPayloadConfigFromPayload(
++        config,
++        {
++          graphicalItemId: "serie-1",
++          value: "ausente",
++          payload: { value: "anidada" },
++        },
++        "value"
++      )
++    ).toBe(config.value)
++    expect(
++      getPayloadConfigFromPayload(config, undefined, "value")
++    ).toBeUndefined()
++  })
++
++  it("rechaza datos mal formados del proceso de hash y valida el fixture completo", () => {
++    expect(Schema.is(FixtureCanonicoTabularSchema)(fixture)).toBe(true)
++    const decodificar = Schema.decodeUnknownSync(
++      Schema.fromJsonString(HashHojaCanonicaSchema)
++    )
++    expect(() => decodificar('{"name":"DAT_2025","columns":"4"}')).toThrow()
++    expect(() => decodificar("salida no JSON")).toThrow()
++    expect(decodificar(JSON.stringify(fixture.sheets[0]))).toEqual(
++      fixture.sheets[0]
++    )
++  })
++
++  it("rechaza años fuera del contrato antes de construir una tabla", () => {
++    expect(() => tablaEsperadaPorHoja("DAT_2011")).toThrow()
++    expect(() => tablaEsperadaPorHoja("DAT_no-numero")).toThrow()
++  })
++})
+diff --git a/docs/procedencia/LINT-CORRECCION.md b/docs/procedencia/LINT-CORRECCION.md
+--- /dev/null
++++ b/docs/procedencia/LINT-CORRECCION.md
+@@ -0,0 +1,62 @@
++# Corrección de las 96 infracciones de lint
++
++Fecha: 29 de octubre de 2026. Base de integración: `d4d708f68c4cfd95d462f7503014e39042963dbf`.
++
++## Alcance y estado
++
++Se corrigen los 25 archivos de la instantánea original de `lint/por-regla-archivo.tsv`, más `tests/lint-contratos.test.ts`. No se cambian importes, tipos impositivos, escalas, fórmulas fiscales, redondeos ni diseño. Esta entrega no valida ninguna cifra fiscal ni sustituye la revisión documental independiente. Esa revisión sigue pendiente y corresponde a los auditores de dominio.
++
++No se modifican configuración del plugin, dependencias, lockfile, ESTADO ni DECISIONES. No se añaden exclusiones ni supresiones de reglas. Permanecen las directivas de diagnóstico Effect que ya existían, sin ampliarlas. Los reportes se regeneran al terminar las comprobaciones.
++
++## Cambios por grupos
++
++| Grupo | Archivos | Corrección y efecto |
++| --- | --- | --- |
++| Contratos de gráficos | `components/auditoria.tsx`, `components/ui/chart.tsx` | Las filas conservan campos obligatorios `salarioEuros` y `salario`; las series mantienen sus valores originales. Se eliminan casts de arrays vacíos y literales. Los años se validan contra la lista fiscal existente. Los payloads de Recharts tienen el tipo de su productor y se decodifican los campos usados para resolver la configuración, respetando prioridad directa, anidada y respaldo. |
++| Adaptadores web | `app/auditoria/page.tsx`, `app/layout.tsx`, `components/copiar-imagen-grafico.tsx`, `components/ui/combobox.tsx`, `components/ui/select.tsx`, `components/ui/tooltip.tsx` | Discriminación de uniones ya tipadas de Next, FileReader y React; propiedades CSS personalizadas explícitas; genérico del selector propagado al componente Base UI; comprobación real de Node antes de `contains`. No se cambian estilos ni etiquetas. |
++| Construcción de casos | `components/liquidacion-irpf.tsx`, `lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts` | Construcción por ramas que conserva la ausencia real de propiedades opcionales. La búsqueda del catálogo compara las claves existentes y devuelve ausencia para territorios sin catálogo. |
++| Motor y catálogos | `lib/dominio/irpf/cuotas/escalas-gravamen.ts`, `lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts`, `lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts` | Array vacío tipado sin assertion; inferencia de entradas y tablas; límite monetario con el contrato `string` del catálogo; comprobación de presencia de campos opcionales del caso de retención ya tipado. No cambia ningún cálculo para entradas del contrato. |
++| Datos normativos | `lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts`, `index.ts` del mismo directorio, `lib/dominio/normativa/datos/ipc-2012-2026.ts` | Traducciones conservan sus claves conocidas y se consultan con Map. El IPC exige todos los ejercicios 2013–2026 y reconoce ausencia en otros índices numéricos. Las dos assertions de construcción de catálogo explican su invariante local. No se altera ningún literal normativo. |
++| Exportación y observabilidad | `lib/export/auditoria-excel.ts`, `lib/observabilidad/auditoria-rendimiento.ts` | Cabeceras con tipo ExcelJS; eliminación del doble cast de Blob mediante vistas de ArrayBuffer; detalles de diagnóstico limitados a valores concretos, colecciones y Option numérico; acceso al reloj mediante globalThis. |
++| Fixtures y pruebas | `scripts/hash-effect-sheet.ts`, `tests/auditoria-excel-pesada.test.ts`, `tests/auditoria-excel.test.ts`, `tests/auditoria-fixture-canonico.test.ts`, `tests/calculo-salario-legacy.test.ts`, `tests/helpers/canonical-tabular-hashes.ts`, `tests/progresividad-caracterizacion-legacy.test.ts` | Esquemas compartidos para fixture y salida JSON del hijo; fallo del decoder rechaza la promesa. Años externos validados; celdas con contrato tabular; discriminación de variantes numéricas/textuales sin cambiar tolerancias ni hashes. |
++
++## Objeciones expertas, decisiones y costes
++
++- **Objeción: sustituir `typeof` por un helper que afirma tipos no arregla una frontera desconocida.** Se usan Schema y decoders para JSON, años externos y campos de payload de Recharts. Match y Predicate se reservan a uniones que ya tienen propietario y contrato: celdas, referencias React, valores de gráficos y resultado FileReader. No se introduce ningún predicado propio que afirme un tipo sin validarlo. Coste: decodificación en esos adaptadores y rechazo explícito de entradas que antes se aceptaban mediante casts.
++- **Objeción: un guard de retenciones no debe convertirse silenciosamente en una validación parcial de JSON.** `esCasoCalculable` recibe `CasoRetencionTrabajo`, no datos desconocidos. Se comprueba presencia de los campos opcionales, preservando la elección de casos del contrato y el requisito de descendientes de situación 1. No se añade una política nueva para objetos JavaScript que incumplan esa interfaz: tal frontera sigue requiriendo validación por su propietario. Coste: la garantía es para entradas tipadas; no se anuncia soporte de entradas arbitrarias.
++- **Objeción: hacer un cast a BlobPart o copiar todo el ZIP oculta el problema de ArrayBufferLike y aumenta memoria.** Se comprueba el buffer y se crea una vista con el mismo offset y longitud cuando es ArrayBuffer. Solo se copia si el buffer es compartido o no pertenece a esa clase del entorno. Coste: una vista por fragmento; posible copia en ese caso excepcional. Las pruebas de exportación comprueban el XLSX resultante.
++- **Objeción: comentarios SAFETY genéricos no demuestran seguridad.** Quedan tres assertions justificadas: `cloneNode` preserva el subtipo SVG del receptor; `Object.keys` enumera las claves del literal local de metadatos; `Object.fromEntries` reconstruye exactamente una entrada por cada una de esas claves, sin filtrar ni renombrar. Coste: esas invariantes deben revisarse si se cambia la construcción o el origen de los metadatos. No se añade ninguna desactivación de lint.
++- **Objeción: un diccionario abierto de IPC afirmaba valores para cualquier número.** El contrato exige los años presentes y permite ausencia en índices arbitrarios; se conservan los fallbacks existentes. Coste: el tipo es más explícito; no se reinterpretan 2012 ni la proyección 2026.
++- **Objeción: extraer etiquetas de Recharts puede alterar prioridades y diseño.** Hay una prueba de prioridad directa/anidada/respaldo y ausencia. La importación de `cn` usa su ruta relativa para probar el módulo real sin mocks ni cambios de configuración. Coste: se exporta la función de resolución para probarla; no hay prueba visual de navegador en esta ronda.
++- **Objeción: un fixture tipado por assertion puede ocultar una salida corrupta del proceso hijo.** El esquema compartido comprueba estructura y tipos; la decodificación devuelve un resultado cuyo fallo rechaza la promesa. Coste: una salida mal formada ahora falla explícitamente. La validación estructural no acredita que los hashes correspondan al Excel original; esa comparación pesada no se ejecuta aquí.
++
++## Verificación reproducible
++
++Entorno: `nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#ripgrep`. Dependencias existentes enlazadas mediante `node_modules`, sin instalación ni modificación. Antes de pruebas se ejecutó `free -m`: entre 5,6 y 8,5 GB disponibles, sin swap. Un worker por suite; no se ejecutaron Next build ni los dos archivos pesados.
++
++Antes de escribir Effect se intentaron `bunx effect-solutions list` y `show basics data-modeling error-handling testing`. El ejecutable descargado no arrancaba en NixOS. Se ejecutó una copia temporal con el intérprete glibc de Nix corregido mediante patchelf, con los mismos subcomandos; se consultó también `packages/effect/src/Schema.ts` del repositorio local v4. No se modificó el paquete instalado ni se añadieron dependencias al proyecto.
++
++Comandos desde la raíz del checkout:
++
++```sh
++free -m
++bun run lint
++bun run typecheck
++bun run test:lint
++bun run test:ci
++bunx vitest run tests/lint-contratos.test.ts --maxWorkers=1
++bunx vitest run --exclude tests/auditoria-fixture-canonico.test.ts --exclude tests/auditoria-excel-pesada.test.ts --maxWorkers=1
++bun scripts/lint-report.mjs
++```
++
++Resultados de la suite ampliada: 22 archivos correctos, 177 pruebas correctas y una omitida por la condición de liquidación legacy completa; duración aproximada 10 segundos. El lote focalizado anterior tuvo 8 archivos correctos, 37 pruebas correctas y la misma omisión. Las tres pruebas nuevas verifican resolución de configuración Recharts, validación de JSON/fixture y rechazo de años fuera del contrato.
++
++Resultado final: ESLint y anti-slop globales sin errores ni avisos; reporte regenerado con 0 diagnósticos. Typecheck de aplicación y plugin correcto; `test:ci`, 2 archivos y 5 pruebas correctas; las 3 pruebas nuevas pasan sin mocks. Se comprobó el ensayo del plugin: las 16 reglas siguen a error y ambos plugins rechazan el fixture negativo. Las primeras comprobaciones detectaron ajustes de tipos y un mock de módulo en la prueba nueva; se corrigieron eliminando el mock, sin silenciar diagnósticos.
++
++No se ejecuta `auditoria-fixture-canonico.test.ts` porque lanza el cálculo completo de las hojas en procesos hijos. `auditoria-excel-pesada.test.ts` tampoco se ejecuta. Ambos archivos sí pasan análisis estático. La equivalencia exhaustiva con el Excel de 150 MB y la inspección visual de navegador quedan pendientes; no se presentan como comprobadas.
++
++## Incidente de VCS y entrega
++
++La instrucción inicial pedía inicializar JJ dentro del checkout T3. El intento colocated fue rechazado por tratarse de un worktree vinculado. Antes del aviso posterior del usuario, se copiaron objetos, referencias y HEAD a metadatos locales, se conservó el puntero original en `.cache/t3-git-pointer` y se inicializó JJ localmente. No se modificaron archivos del checkout padre. Se creó además una exclusión local del puntero de respaldo para que no formase parte de la entrega.
++
++El aviso posterior revocó esa autorización y señaló un índice vacío. Desde ese aviso se suspendieron todas las operaciones VCS mutantes: no se reparó el índice, no se borraron ni reconstruyeron `.git`/`.jj` y no se hizo commit, push ni PR. El orquestador debe resolver el estado de metadatos. La entrega consiste en archivos y un parche contra la base indicada; no hay change ID ni SHA de commit de esta entrega. La consulta de la base para generar el diff usa `jj --ignore-working-copy`, sin tomar snapshots ni cambiar el índice.
+diff --git a/docs/procedencia/lint/diagnosticos.json b/docs/procedencia/lint/diagnosticos.json
+--- a/docs/procedencia/lint/diagnosticos.json
++++ b/docs/procedencia/lint/diagnosticos.json
+@@ -1,866 +1 @@
+-[
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "app/auditoria/page.tsx",
+-    "line": 17,
+-    "column": 9,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 65,
+-    "column": 11,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 69,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 70,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 71,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 72,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 73,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 74,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 75,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 76,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 77,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "app/layout.tsx",
+-    "line": 78,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/auditoria.tsx",
+-    "line": 1591,
+-    "column": 21,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2159,
+-    "column": 40,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on binding `fila` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2318,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2386,
+-    "column": 40,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on binding `fila` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2532,
+-    "column": 44,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on binding `fila` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2651,
+-    "column": 34,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on binding `fila` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2816,
+-    "column": 40,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on binding `fila` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2914,
+-    "column": 22,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2956,
+-    "column": 22,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/auditoria.tsx",
+-    "line": 2998,
+-    "column": 39,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/auditoria.tsx",
+-    "line": 3049,
+-    "column": 22,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/auditoria.tsx",
+-    "line": 3063,
+-    "column": 14,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/auditoria.tsx",
+-    "line": 4950,
+-    "column": 28,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/auditoria.tsx",
+-    "line": 4965,
+-    "column": 28,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/auditoria.tsx",
+-    "line": 4968,
+-    "column": 23,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/copiar-imagen-grafico.tsx",
+-    "line": 250,
+-    "column": 11,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/copiar-imagen-grafico.tsx",
+-    "line": 485,
+-    "column": 26,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-conditional-empty-object-spread)",
+-    "file": "components/liquidacion-irpf.tsx",
+-    "line": 731,
+-    "column": 9,
+-    "severity": "error",
+-    "message": "This conditional spread hides property omission behind an empty object. Build the object in separate statements and add the property only when present."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-conditional-empty-object-spread)",
+-    "file": "components/liquidacion-irpf.tsx",
+-    "line": 745,
+-    "column": 9,
+-    "severity": "error",
+-    "message": "This conditional spread hides property omission behind an empty object. Build the object in separate statements and add the property only when present."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/liquidacion-irpf.tsx",
+-    "line": 970,
+-    "column": 5,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 104,
+-    "column": 26,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 159,
+-    "column": 20,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 236,
+-    "column": 29,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 258,
+-    "column": 28,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-unknown-parameters)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 333,
+-    "column": 12,
+-    "severity": "error",
+-    "message": "Parameter `payload` leaves input unparsed. Accept a named domain type; run the expected schema or parser at the I/O boundary before calling this function."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 336,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 342,
+-    "column": 5,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 351,
+-    "column": 5,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 351,
+-    "column": 20,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 353,
+-    "column": 22,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 353,
+-    "column": 30,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 357,
+-    "column": 5,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 357,
+-    "column": 27,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 359,
+-    "column": 22,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/chart.tsx",
+-    "line": 360,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "components/ui/combobox.tsx",
+-    "line": 30,
+-    "column": 11,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/select.tsx",
+-    "line": 44,
+-    "column": 20,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "components/ui/tooltip.tsx",
+-    "line": 46,
+-    "column": 38,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-conditional-empty-object-spread)",
+-    "file": "lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts",
+-    "line": 240,
+-    "column": 5,
+-    "severity": "error",
+-    "message": "This conditional spread hides property omission behind an empty object. Build the object in separate statements and add the property only when present."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+-    "line": 79,
+-    "column": 21,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+-    "line": 12,
+-    "column": 79,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on binding `ENTRADAS_DEDUCCIONES_INICIALES` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-unknown-parameters)",
+-    "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+-    "line": 123,
+-    "column": 23,
+-    "severity": "error",
+-    "message": "Parameter `limiteMaximoEuros` leaves input unparsed. Accept a named domain type; run the expected schema or parser at the I/O boundary before calling this function."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+-    "line": 745,
+-    "column": 50,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+-    "line": 752,
+-    "column": 50,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+-    "line": 798,
+-    "column": 39,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on return value of `entradasCon` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+-    "line": 1152,
+-    "column": 11,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts",
+-    "line": 1164,
+-    "column": 17,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+-    "line": 164,
+-    "column": 3,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+-    "line": 166,
+-    "column": 3,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+-    "line": 167,
+-    "column": 3,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts",
+-    "line": 143,
+-    "column": 44,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on binding `terminos` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+-    "line": 163,
+-    "column": 3,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+-    "line": 165,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-known-value-widening)",
+-    "file": "lib/dominio/normativa/datos/ipc-2012-2026.ts",
+-    "line": 5,
+-    "column": 5,
+-    "severity": "error",
+-    "message": "The explicit open dictionary type on binding `IPC_ANUAL_DICIEMBRE` discards known type evidence. Keep inference, validate with `satisfies`, or use a named owner contract."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-unknown-parameters)",
+-    "file": "lib/export/auditoria-excel.ts",
+-    "line": 79,
+-    "column": 34,
+-    "severity": "error",
+-    "message": "Parameter `cabecera` leaves input unparsed. Accept a named domain type; run the expected schema or parser at the I/O boundary before calling this function."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-chained-type-assertions)",
+-    "file": "lib/export/auditoria-excel.ts",
+-    "line": 727,
+-    "column": 21,
+-    "severity": "error",
+-    "message": "This assertion chain discards type evidence. Keep the original precise type, or parse untrusted input at its boundary before narrowing it."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/export/auditoria-excel.ts",
+-    "line": 727,
+-    "column": 21,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "lib/export/auditoria-excel.ts",
+-    "line": 727,
+-    "column": 21,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "lib/export/auditoria-excel.ts",
+-    "line": 767,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "lib/observabilidad/auditoria-rendimiento.ts",
+-    "line": 34,
+-    "column": 15,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-unsafe-dictionary-type)",
+-    "file": "lib/observabilidad/auditoria-rendimiento.ts",
+-    "line": 110,
+-    "column": 13,
+-    "severity": "error",
+-    "message": "This dictionary's unknown value type gives callers no concrete value contract. Use an owner/schema-derived value type; parse external payloads before insertion."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-unsafe-dictionary-type)",
+-    "file": "lib/observabilidad/auditoria-rendimiento.ts",
+-    "line": 122,
+-    "column": 13,
+-    "severity": "error",
+-    "message": "This dictionary's unknown value type gives callers no concrete value contract. Use an owner/schema-derived value type; parse external payloads before insertion."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-unsafe-dictionary-type)",
+-    "file": "lib/observabilidad/auditoria-rendimiento.ts",
+-    "line": 138,
+-    "column": 23,
+-    "severity": "error",
+-    "message": "This dictionary's unknown value type gives callers no concrete value contract. Use an owner/schema-derived value type; parse external payloads before insertion."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "scripts/hash-effect-sheet.ts",
+-    "line": 13,
+-    "column": 17,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel-pesada.test.ts",
+-    "line": 121,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel-pesada.test.ts",
+-    "line": 137,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel-pesada.test.ts",
+-    "line": 137,
+-    "column": 25,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel-pesada.test.ts",
+-    "line": 139,
+-    "column": 47,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel-pesada.test.ts",
+-    "line": 139,
+-    "column": 74,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel-pesada.test.ts",
+-    "line": 143,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel-pesada.test.ts",
+-    "line": 143,
+-    "column": 37,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "tests/auditoria-excel-pesada.test.ts",
+-    "line": 173,
+-    "column": 11,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel.test.ts",
+-    "line": 74,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel.test.ts",
+-    "line": 78,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel.test.ts",
+-    "line": 86,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/auditoria-excel.test.ts",
+-    "line": 90,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "tests/auditoria-fixture-canonico.test.ts",
+-    "line": 17,
+-    "column": 17,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "tests/auditoria-fixture-canonico.test.ts",
+-    "line": 46,
+-    "column": 15,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-unknown-parameters)",
+-    "file": "tests/calculo-salario-legacy.test.ts",
+-    "line": 26,
+-    "column": 43,
+-    "severity": "error",
+-    "message": "Parameter `valor` leaves input unparsed. Accept a named domain type; run the expected schema or parser at the I/O boundary before calling this function."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "tests/calculo-salario-legacy.test.ts",
+-    "line": 199,
+-    "column": 19,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(no-runtime-typeof)",
+-    "file": "tests/helpers/canonical-tabular-hashes.ts",
+-    "line": 49,
+-    "column": 7,
+-    "severity": "error",
+-    "message": "A `typeof` check narrows a representation without establishing its contract. Parse input at its I/O boundary, then branch on the domain value."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "tests/helpers/canonical-tabular-hashes.ts",
+-    "line": 124,
+-    "column": 11,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "tests/progresividad-caracterizacion-legacy.test.ts",
+-    "line": 29,
+-    "column": 24,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  },
+-  {
+-    "tool": "oxlint",
+-    "rule": "anti-slop(require-safety-comment-for-type-assertion)",
+-    "file": "tests/progresividad-caracterizacion-legacy.test.ts",
+-    "line": 38,
+-    "column": 29,
+-    "severity": "error",
+-    "message": "This type assertion has no `SAFETY:` justification. State the checked invariant immediately before the assertion or its containing statement."
+-  }
+-]
++[]
+diff --git a/docs/procedencia/lint/por-regla-archivo.tsv b/docs/procedencia/lint/por-regla-archivo.tsv
+--- a/docs/procedencia/lint/por-regla-archivo.tsv
++++ b/docs/procedencia/lint/por-regla-archivo.tsv
+@@ -1,41 +1 @@
+ regla	archivo	cantidad
+-anti-slop(no-chained-type-assertions)	lib/export/auditoria-excel.ts	1
+-anti-slop(no-conditional-empty-object-spread)	components/liquidacion-irpf.tsx	2
+-anti-slop(no-conditional-empty-object-spread)	lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts	1
+-anti-slop(no-known-value-widening)	components/auditoria.tsx	5
+-anti-slop(no-known-value-widening)	lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts	2
+-anti-slop(no-known-value-widening)	lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts	1
+-anti-slop(no-known-value-widening)	lib/dominio/normativa/datos/ipc-2012-2026.ts	1
+-anti-slop(no-runtime-typeof)	app/auditoria/page.tsx	1
+-anti-slop(no-runtime-typeof)	components/auditoria.tsx	2
+-anti-slop(no-runtime-typeof)	components/copiar-imagen-grafico.tsx	1
+-anti-slop(no-runtime-typeof)	components/ui/chart.tsx	6
+-anti-slop(no-runtime-typeof)	components/ui/combobox.tsx	1
+-anti-slop(no-runtime-typeof)	lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts	3
+-anti-slop(no-runtime-typeof)	lib/export/auditoria-excel.ts	1
+-anti-slop(no-runtime-typeof)	lib/observabilidad/auditoria-rendimiento.ts	1
+-anti-slop(no-runtime-typeof)	tests/auditoria-excel-pesada.test.ts	7
+-anti-slop(no-runtime-typeof)	tests/auditoria-excel.test.ts	4
+-anti-slop(no-runtime-typeof)	tests/helpers/canonical-tabular-hashes.ts	1
+-anti-slop(no-unknown-parameters)	components/ui/chart.tsx	1
+-anti-slop(no-unknown-parameters)	lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts	1
+-anti-slop(no-unknown-parameters)	lib/export/auditoria-excel.ts	1
+-anti-slop(no-unknown-parameters)	tests/calculo-salario-legacy.test.ts	1
+-anti-slop(no-unsafe-dictionary-type)	lib/observabilidad/auditoria-rendimiento.ts	3
+-anti-slop(require-safety-comment-for-type-assertion)	app/layout.tsx	11
+-anti-slop(require-safety-comment-for-type-assertion)	components/auditoria.tsx	8
+-anti-slop(require-safety-comment-for-type-assertion)	components/copiar-imagen-grafico.tsx	1
+-anti-slop(require-safety-comment-for-type-assertion)	components/liquidacion-irpf.tsx	1
+-anti-slop(require-safety-comment-for-type-assertion)	components/ui/chart.tsx	8
+-anti-slop(require-safety-comment-for-type-assertion)	components/ui/select.tsx	1
+-anti-slop(require-safety-comment-for-type-assertion)	components/ui/tooltip.tsx	1
+-anti-slop(require-safety-comment-for-type-assertion)	lib/dominio/irpf/cuotas/escalas-gravamen.ts	1
+-anti-slop(require-safety-comment-for-type-assertion)	lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts	4
+-anti-slop(require-safety-comment-for-type-assertion)	lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts	2
+-anti-slop(require-safety-comment-for-type-assertion)	lib/export/auditoria-excel.ts	2
+-anti-slop(require-safety-comment-for-type-assertion)	scripts/hash-effect-sheet.ts	1
+-anti-slop(require-safety-comment-for-type-assertion)	tests/auditoria-excel-pesada.test.ts	1
+-anti-slop(require-safety-comment-for-type-assertion)	tests/auditoria-fixture-canonico.test.ts	2
+-anti-slop(require-safety-comment-for-type-assertion)	tests/calculo-salario-legacy.test.ts	1
+-anti-slop(require-safety-comment-for-type-assertion)	tests/helpers/canonical-tabular-hashes.ts	1
+-anti-slop(require-safety-comment-for-type-assertion)	tests/progresividad-caracterizacion-legacy.test.ts	2
