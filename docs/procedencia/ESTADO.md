@@ -12,6 +12,8 @@ Las otras tres tareas Sol de ronda 17 continúan: retenciones antiguas en dos pe
 
 No se afirma cierre fiscal ni se inicia limpieza final. Sin LFS, gasto o transferencia externa; Crossa conserva v1 histórico desfasado. La nueva fuente de anualidades de la revisión queda preservada en la raíz y pendiente de la futura ampliación del paquete local.
 
+Bloque respaldado en `1196269d4e73742beeed35cc05011b70c21a0b69`, 608 archivos cotejados byte a byte contra el commit y cero borrados. Recibo en `correcciones/alimentos-sin-minimo-r18/commit-comprobado.json`. Ronda 18 lanzada: revisión independiente de alimentos, autoría de escalas/bases/mínimos y autoría de rentas/retenciones/cotizaciones. Los tres lanzadores confirman gpt-6.1-sol high con prioridad; registro en `delegaciones-ronda18.json`. La autoría prepara datos candidatos, sin tocar diseño, motor, snapshots ni aceptaciones; una revisión nueva precederá a su integración. La finalización de los hijos reactivará al orquestador.
+
 ## Situación anterior, 29 de octubre, 17:35 CET
 
 Aplicada la corrección urgente de Elies: Astra solo orquesta; todos los hijos nuevos serán **gpt-6.1-sol high**, con modelo y esfuerzo explícitos. La revisión familiar de ronda 16 era la única ejecución Astra activa; se canceló y se conservaron sus avances. Las otras seis tareas ya habían terminado: recogidas por manifiesto y preservadas fuera de T3 en `.cache/orquestador-recepcion/cambio-modelo-20261029/`. No queda ningún hijo Astra activo ni se le enviará más trabajo.
