@@ -2,7 +2,21 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 21:14 CET
+## Situación más reciente, 29 de octubre, 21:26 CET
+
+Recibidas cuatro entregas: revisión de preservación R23, flujos de escalas/mínimos y retenciones/cotizaciones, y revisión v4. Son 261 archivos y 15.696.286 bytes cotejados, con las bases físicas completas de 14.957/15.029 entradas intactas y cero borrados. Recibo en correcciones/recepcion-r23-r24-r26. La revisión R23 corrobora sus tres fixes previos y distingue schema de consumidor; los informes históricos no se reescriben.
+
+El padre reproduce los cinco rojos de v4 y corrige el consumidor: unicidad, fin absoluto, conjunto exacto, prefijos auxiliares e identidades no transformadas coherentes. Añade saneamiento acotado de URLs/localizadores para sobres nuevos. El pin histórico conserva su política y sus 33 observaciones de adquisición, 23 distintas, con excepción por bytes exactos y recuentos separados. Pasan los cinco controles originales, diez nuevos y nueve regresiones; ambas copias reales verifican con el consumidor corregido, sin reexportarlas. Ruff y mypy propios correctos. Informe, comandos, rojos y recibos en correcciones/preservacion-v4-r26; revisión independiente nueva pendiente.
+
+Lint global termina con código 0, cero errores y cuatro avisos de variables sin uso en instrumentos editoriales conservados. Las cuatro fuentes oficiales ausentes de v4 están localizadas y cotejadas por ambos hashes en cachés entregadas: dos JSON INE, PDF CARM y boletín cántabro. Se prepara una edición posterior con censo tipado más amplio y restauración, sin modificar los cortes anteriores ni presentar los miles de hashes no clasificados como documentos perdidos.
+
+Los tres lotes de flujo ya están recibidos: 28 sitios de escalas, 17 de retenciones/cotizaciones y 20 de rentas/actividad. Son relaciones técnicas candidatas. Se preparan revisiones nuevas de los dos primeros. Durante este bloque terminaron las tres tareas R25; sus entregas permanecen en sus worktrees, pendientes de recepción física. La revisión de rentas identifica seis localizadores argument4 incorrectos y problemas de transporte, condiciones y evidencia. Se aplaza la composición/publicación hasta contrastar y corregirlos, sin alterar informes históricos.
+
+La revisión del registro exacto encuentra RX25-01: el recorrido completo rechaza IDs duplicados; los 264 pares corresponden a 102 sujetos. El pase aislado del auxiliar no habilita su promoción conjunta. Madrid v2 conserva identidad real de 2020 y documenta incompatibilidades del consumidor: condiciones editoriales ausentes, ruta de cuatro segmentos y ámbito nominal. Ninguna se resuelve inventando una identidad Madrid2022. Cola del siguiente bloque del padre: recibir las tres entregas R25 por manifiesto, reproducir sus bloqueos y preparar correcciones acotadas y revisión nueva. No queda ninguna tarea R25 activa ni se cambia confianza por recibir sus mensajes.
+
+Inventario, cálculos fiscales, 36 snapshots y registros activos permanecen intactos. V4 conserva R21 y Crossa conserva v1 desfasado, misma casa y propietario, sin custodia independiente. Sin LFS, gasto, transferencia externa del corpus, PR, despliegue ni limpieza. El encargo sigue abierto.
+
+## Situación anterior, 29 de octubre, 21:14 CET
 
 Recibidas tres entregas R23: 131 archivos y 12.717.896 bytes, con las 14.957 entradas de base cotejadas físicamente en cada checkout y cero borrados. Informes históricos y rojos intactos; recibo en correcciones/recepcion-r23-r25. La revisión técnica corrobora CR21-A/B; la hipótesis roja de optional chaining se conserva y se descarta como bypass del binding, sin declarar toda la suite verde. Retenciones 2012–2014 corrobora signos y techo condicionado, sin habilitar versiones ni resolver el algoritmo completo.
 

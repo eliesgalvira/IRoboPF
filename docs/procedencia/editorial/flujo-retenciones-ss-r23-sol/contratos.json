@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "review": "pendiente",
+  "publicEntry": {
+    "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+    "symbol": "liquidarIrpfAnual",
+    "arguments": ["caso: CasoFiscalAnual", "contexto: ContextoLiquidacionIrpf"],
+    "dispatch": "Servicio LiquidacionIrpfAnual.layer → construirLiquidarIrpfAnual → liquidarTrabajoIndividualSimple; guardas generales de alcance pertenecen al contrato anual del lote A y no se convierten en valores de estas salidas."
+  },
+  "annualWithholdingCall": {
+    "callee": "RetencionTrabajoAeat.calcular",
+    "actualArguments": ["caso.retencionTrabajoAeat", "contexto"],
+    "condition": "caso.retencionTrabajoAeat !== undefined y anio del subcaso igual a caso.anio; el fallo del estimador falla la liquidación",
+    "outputProperties": ["baseRetencionCentimos", "cuotaRetencionCentimos", "tipoRetencionPorcentaje", "importeRetencionAnualCentimos"],
+    "fieldMapping": "Cada caso.* de los nodos R es caso.retencionTrabajoAeat.* del anual; no caso.* del anual general. contexto.modo se pasa sin alteración.",
+    "descendientes": "Canónico filtra d.edad<25 || discapacidad != sin-discapacidad, luego transmite array filtrado a cálculo; legacy transmite original. Ordenación local por edad descendente solo en mínimo, length filtrado en umbral e hijos600.",
+    "ascendientes": "Array original comunicado; sin filtro por renta/elegibilidad. Edad/discapacidad controla mínimo65; edad controla75. Convivencia divide importes y se valida positiva.",
+    "unmappedAnnualProperties": ["comunidadAutonoma", "fechaFallecimiento", "derechosMinimos", "situacionFamiliar", "rendimientos.trabajo", "cotizacionesSociales.cotizacionTrabajador"],
+    "qualification": "No son dependencias de valor del estimador por cohabitar en el caso anual; las guardas anuales sí pueden impedir toda salida."
+  },
+  "payments": {
+    "supported": "anual.pagos.retenciones = caso.retencionesSoportadasCentimos /100, solo presentación",
+    "estimated": "retencionTrabajoAeat?.importeRetencionAnualCentimos ?? 0",
+    "onAccount": "anual.pagos.cuenta = (caso.pagosACuentaCentimos + estimadas)/100",
+    "compositionOutput": "retencionesYPagosACuentaCentimos = caso.retencionesSoportadasCentimos + pagosACuentaAplicadosCentimos; cuotaDiferencial recibe estos conceptos separadamente",
+    "excluded": "Ni cuota líquida ni las escalas anuales son entrada de retención; soportadas no se suman dentro del sitio pagos.cuenta.",
+    "obligation": "El llamador concilia hechos para no declarar la misma retención a la vez en soportadas y pagos/estimación; no existe deduplicación por igualdad numérica."
+  },
+  "socialSecurity": {
+    "actualArguments": {"anio": "caso.anio", "salarioBrutoAnual": "rendimientoIntegroTrabajo"},
+    "selector": "contexto.modo canonico → calcularDesgloseCotizacionesPerfilUniforme; compatible-legacy → calcularDesgloseCotizacionesSocialesLegacy",
+    "properties": ["baseOrdinaria", "excesoBase", "cotizacionEmpresarialOrdinaria", "cotizacionTrabajadorOrdinaria", "meiEmpresarial", "meiTrabajador", "solidaridadEmpresarial", "solidaridadTrabajador", "cotizacionEmpresarial", "cotizacionTrabajador"],
+    "cost": "eurosACentimos(rendimientoIntegroTrabajo + cotizacionEmpresarial); la cuota del trabajador ya está dentro del bruto",
+    "rendering": "Los diez componentes SS se presentan desde Decimal. Coste laboral se liquida a céntimos antes de volver a euros. No inferir que los componentes se redondean mensualmente.",
+    "retentionExclusion": "La cotización calculada anual no reemplaza cotizacionesCentimos del subcaso retención."
+  },
+  "boundaries": [
+    {
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+      "symbol": "sumarRendimientosTrabajo",
+      "actualArguments": ["caso.rendimientos.trabajo", "centimosAEuros"],
+      "outputProperty": "return Decimal EUR → rendimientoIntegroTrabajo",
+      "consumerProperties": ["salarioBrutoAnual", "costeLaboralCentimos"],
+      "owner": "lote rentas",
+      "pending": "Composición por este contrato y hash fuente de fronteras.json. No consume gastos ni neto de ese lote."
+    },
+    {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "symbol": "construirLiquidarIrpfAnual",
+      "actualArguments": ["caso", "contexto"],
+      "outputProperty": "admisión general del perfil anual antes de liquidarTrabajoIndividualSimple",
+      "owner": "lote A, contrato anual",
+      "pending": "Control de dominio global; no reproduce mínimos ni escalas de liquidación. La validación propia del subcaso retención se expande en este lote."
+    }
+  ],
+  "primitives": [
+    {"package": "decimal.js", "contract": "new Decimal, min/max, plus/minus/mul/div/comparadores; toDecimalPlaces HALF_UP/ROUND_DOWN; toFixed/toNumber en salida"},
+    {"package": "effect", "contract": "Match elige primera rama; Effect.fail impide salida; provide layer conserva implementación de servicio; ninguna aceptación jurídica por resolver Effect"},
+    {"package": "ECMAScript", "contract": "Array reduce/ sort estable/ find/ reverse/ filter; Object.values; Math.max; Number.isSafeInteger"}
+  ]
+}

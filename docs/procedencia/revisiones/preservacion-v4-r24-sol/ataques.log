@@ -1,0 +1,149 @@
+test_duplicate_index_and_untrusted_acquisition (adversos.EditionTests.test_duplicate_index_and_untrusted_acquisition) ... ok
+test_durability_recovery (adversos.EditionTests.test_durability_recovery) ... ok
+test_missing_and_corrupt (adversos.EditionTests.test_missing_and_corrupt) ... ok
+test_pin_and_marker (adversos.EditionTests.test_pin_and_marker) ... ok
+test_recursive_privacy_and_paths (adversos.EditionTests.test_recursive_privacy_and_paths) ... ok
+test_roundtrip_exclusive_and_no_hardlinks (adversos.EditionTests.test_roundtrip_exclusive_and_no_hardlinks) ... ok
+test_sanitized_source_has_distinct_identity (adversos.EditionTests.test_sanitized_source_has_distinct_identity) ... ok
+test_secondary_identity_and_dates (adversos.EditionTests.test_secondary_identity_and_dates) ... ok
+test_symlinks (adversos.EditionTests.test_symlinks) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.184s
+
+OK
+{'dependencies': 2, 'destination': '/home/elies/.t3/worktrees/IRoboPF/t3-1b749ca4/.cache/preservacion-v4-r24-sol/propios-ko9h02__/metadata-recuperada', 'status': 'bytes-materializados; no se ha ejecutado código histórico'}
+[
+  {
+    "case": "extra-fuera-de-inventario",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "ruta:'../escape'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "ruta:'a\\nb'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "ruta:'a\\r'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "ruta:'a\\x00b'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "ruta:'a\\\\b'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "ruta:'a//b'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "ruta:'a/./b'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "ruta:'a:b'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "ruta:'/abs'",
+    "outcome": "rechazado",
+    "error": "ValueError",
+    "message": "Índice fuera del schema (pattern)"
+  },
+  {
+    "case": "unicode:'a\\u202eb'",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "unicode:'café'",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "unicode:'café'",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "referencias-duplicadas",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "no-resueltas-duplicadas",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "hash512-salto-final",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "tamano-sin-cota",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "heredado-autodeclarado",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "privacidad-valores-anidados",
+    "cleaned": {
+      "nested": {
+        "url": "https://example.invalid/documento?token=SENTINELA",
+        "path": "/tmp/SENTINELA"
+      }
+    },
+    "residualSentinel": true
+  },
+  {
+    "case": "privacidad-url-en-dependencia",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "adquisiciones-duplicadas-reales",
+    "outcome": "aceptado"
+  },
+  {
+    "case": "ambos-hashes-mutados-pin-original",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "json:{\"format\":1,\"format\":2}",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "json:{\"x\":NaN}",
+    "outcome": "rechazado"
+  },
+  {
+    "case": "fallo-antes-marcador",
+    "outcome": "sin marcador; residuos conservados; recuperación en destino nuevo"
+  },
+  {
+    "case": "materializacion-fallo",
+    "outcome": "parcial conservado; destino nuevo recuperado"
+  },
+  {
+    "case": "prefijos-conflictivos-dependencias",
+    "outcome": "aceptado"
+  }
+]

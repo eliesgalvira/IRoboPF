@@ -1,0 +1,55 @@
+test_r24_conjunto_exacto (__main__.Rojos.test_r24_conjunto_exacto) ... FAIL
+test_r24_dep_identidad_coherente (__main__.Rojos.test_r24_dep_identidad_coherente) ... FAIL
+test_r24_hash512_fin_absoluto (__main__.Rojos.test_r24_hash512_fin_absoluto) ... FAIL
+test_r24_no_resueltas_unicas (__main__.Rojos.test_r24_no_resueltas_unicas) ... FAIL
+test_r24_referencias_unicas (__main__.Rojos.test_r24_referencias_unicas) ... FAIL
+
+======================================================================
+FAIL: test_r24_conjunto_exacto (__main__.Rojos.test_r24_conjunto_exacto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-1b749ca4/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 22, in test_r24_conjunto_exacto
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r24_dep_identidad_coherente (__main__.Rojos.test_r24_dep_identidad_coherente)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-1b749ca4/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 35, in test_r24_dep_identidad_coherente
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r24_hash512_fin_absoluto (__main__.Rojos.test_r24_hash512_fin_absoluto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-1b749ca4/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 28, in test_r24_hash512_fin_absoluto
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r24_no_resueltas_unicas (__main__.Rojos.test_r24_no_resueltas_unicas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-1b749ca4/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 17, in test_r24_no_resueltas_unicas
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_r24_referencias_unicas (__main__.Rojos.test_r24_referencias_unicas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-1b749ca4/docs/procedencia/revisiones/preservacion-v4-r24-sol/rojos.py", line 11, in test_r24_referencias_unicas
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.027s
+
+FAILED (failures=5)

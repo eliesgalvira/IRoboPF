@@ -1,0 +1,25 @@
+26 contrastes nuevos en TS real; ninguna aceptación jurídica
+264 selecciones por identidad de tabla actual contrastadas;102 occurrenceId, sin aceptación de ámbito jurídico
+Internal error: directory mismatch for directory "/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/.cache/flujo-escalas-r23-sol/runtime.tsconfig.json", fd 5. You don't need to do anything, but this indicates a bug.
+66 |       entrada,
+67 |       { onExcessProperty: "error" }
+68 |     ).pipe(
+69 |       Effect.mapError(
+70 |         () =>
+71 |           new DerechosMinimosNoSoportados({
+               ^
+Error: 
+ motivo: "Hechos incompletos o fuera del alcance Madrid 2025 individual sin fallecimientos ni ascendientes",
+   _tag: "DerechosMinimosNoSoportados",
+
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/lib/dominio/irpf/minimos/derechos.ts:71:11)
+      at ~effect/Utils/internal (/home/elies/Repos/IRoboPF/node_modules/effect/dist/Utils.js:75:14)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:670:53)
+      at runLoop (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:444:98)
+      at evaluate (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:412:23)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2110:9)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2188:19)
+      at <anonymous> (/home/elies/Repos/IRoboPF/node_modules/effect/dist/internal/effect.js:2201:18)
+      at /home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:74:17
+
+Bun v1.3.13 (Linux x64)

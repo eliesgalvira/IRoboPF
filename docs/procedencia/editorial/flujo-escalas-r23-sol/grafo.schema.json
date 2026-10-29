@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "head", "inventory", "direction", "sites", "edges", "wiringAllowed", "globalClosure"],
+  "properties": {
+    "version": {"const": 2},
+    "head": {"const": "07c07e6376a72f229be735a904ecf36517a1b571"},
+    "inventory": {"type": "object"},
+    "direction": {"const": "output-to-input"},
+    "wiringAllowed": {"const": false},
+    "globalClosure": {"const": false},
+    "sites": {"type": "array", "minItems": 28, "maxItems": 28, "items": {"type": "object", "required": ["siteId", "subject", "historicalSnapshot", "historicalSelector", "source", "expression", "roots", "edges", "localStatus", "legalAcceptance", "independentReview"]}},
+    "edges": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["id", "output", "inputs", "role", "formula", "condition", "evidence", "review", "legalAcceptance"], "properties": {
+      "id": {"type": "string"}, "output": {"type": "object", "required": ["file", "symbol", "property"]},
+      "inputs": {"type": "array", "items": {"type": "string"}},
+      "role": {"enum": ["value", "selection", "domain"]}, "formula": {"type": "string", "minLength": 1},
+      "condition": {"type": "string", "minLength": 1}, "evidence": {"type": "object", "required": ["source", "expression", "rangeKind"]},
+      "review": {"const": "pending-independent"}, "legalAcceptance": {"const": false}
+    }}}
+  }
+}

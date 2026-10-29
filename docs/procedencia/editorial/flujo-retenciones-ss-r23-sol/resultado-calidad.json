@@ -1,0 +1,91 @@
+{
+  "exitCode": 0,
+  "stages": [
+    "construir",
+    "casos",
+    "oxlint",
+    "tsc-checkJs",
+    "verificar-schema-localizaciones",
+    "inventario",
+    "clasificar-retencion",
+    "trazar"
+  ],
+  "cases": 28,
+  "locations": 1446,
+  "antiSlopRules": [
+    {
+      "rule": "anti-slop/no-chained-type-assertions",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-conditional-empty-object-spread",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-known-value-widening",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-module-mocking",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-object-parameters",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-reflect-apply",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-reflect-get",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-runtime-typeof",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-unsafe-dictionary-type",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-shape-in-symbol-names",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-unknown-parameters",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-unknown-returns",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-unknown-type-aliases",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/no-widen-then-assert",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop/require-safety-comment-for-type-assertion",
+      "severity": "error"
+    },
+    {
+      "rule": "anti-slop-effect/no-service-constructor-imports",
+      "severity": "error"
+    }
+  ],
+  "ruleCount": 16,
+  "initialTypeErrors": "tipos-inicial.log",
+  "independentReview": "pendiente",
+  "legalAcceptance": false,
+  "runtime": {
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "serviceTier": "solicitado priority; no recibo independiente expuesto",
+    "node": "v24.19.0"
+  }
+}

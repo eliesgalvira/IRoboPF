@@ -1,0 +1,42 @@
+1 | import fs from 'node:fs'
+2 | import assert from 'node:assert/strict'
+3 | import {createRequire} from 'node:module'
+4 | import {plugin} from 'bun'
+5 | const req=createRequire('/home/elies/Repos/IRoboPF/package.json')
+6 | await plugin({name:'dependencies-from-readonly-parent',setup(build){build.onResolve({filter:/^(effect|decimal\.js)(\/.*)?$/},args=>({path:req.resolve(args.path)}))}})
+                                                                                                                                                  ^
+RangeError: Maximum call stack size exceeded.
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+      at <anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/casos-selectores.mjs:6:143)
+
+Bun v1.3.13 (Linux x64)

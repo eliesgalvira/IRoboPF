@@ -1,0 +1,42 @@
+{
+  "base": "07c07e6376a72f229be735a904ecf36517a1b571",
+  "previous": "960773f909d4ecff290edfa3d7a7b2699a8445d3",
+  "reviewStatus": "conclusiones-nuevas-para-contraste-posterior",
+  "attestationIssued": false,
+  "fixesApplied": false,
+  "fiscalAcceptance": false,
+  "findings": [
+    {
+      "id": "PR21-SOL-01",
+      "decision": "corregido-en-alcance-reproducido",
+      "evidence": ["anterior.log", "actual.log", "anterior-casos.json", "actual-casos.json", "fronteras.json"],
+      "expertObjection": "Un anclaje corregido no demuestra portabilidad universal ni elimina carreras del filesystem.",
+      "response": "Reproducir el archivo real con LF, los 14 patrones y rutas/control de ancestros; limitar el dictamen al bypass demostrado.",
+      "cost": "Gramática conservadora; futuras ampliaciones requieren revisión y pruebas."
+    },
+    {
+      "id": "PR21-SOL-02",
+      "decision": "corregido-con-excepcion-expresa-D070",
+      "evidence": ["anterior-casos.json", "actual-casos.json", "fronteras.json", "preservacion-politica.json"],
+      "expertObjection": "La multiplicidad puede inflar cobertura si todo registro se trata como fuente.",
+      "response": "Conservar el manifiesto histórico íntegro y distinguir 4147 observaciones de 1089 registros distintos; ninguna repetición es evidencia nueva.",
+      "cost": "Todo consumidor estadístico debe mantener esa separación."
+    },
+    {
+      "id": "PR21-SOL-03",
+      "decision": "corregido-en-puerto-host-y-diagnosticos-reproducidos",
+      "evidence": ["anterior-casos.json", "actual-casos.json", "complementos.json"],
+      "expertObjection": "Los diagnósticos constantes son menos detallados y las URLs admitidas no autentican contenido.",
+      "response": "Rechazo antes de clasificar en ambos extremos URL, sin valor sintético sensible en el mensaje; autenticidad separada.",
+      "cost": "Menos detalle y mantenimiento editorial de endpoints."
+    }
+  ],
+  "newProductDefectsDemonstrated": [],
+  "limits": [
+    "El schema aislado admite entradas que load rechaza por unicidad, URL o coherencia semántica.",
+    "No hay nueva restauración íntegra; hay lectura y verify reales de ambas copias y recuperación discriminante en fixtures.",
+    "fsync confirmado no demuestra resistencia a pérdida eléctrica, avería física o custodia independiente.",
+    "V4 fuera de lectura y dictamen; Crossa v1 desfasado según contexto, sin acceso.",
+    "No hay aceptación fiscal, promoción de candidatos ni cierre global."
+  ]
+}

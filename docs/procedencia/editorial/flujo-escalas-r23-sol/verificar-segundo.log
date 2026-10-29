@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/verificar.py", line 76, in <module>
+    main()
+    ~~~~^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/verificar.py", line 70, in main
+    total = sum(check(read(name)) for name in ['grafo.json.gz','celdas.json.gz','rutas-datos.json.gz','fronteras.json','madrid.json'])
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/verificar.py", line 70, in <genexpr>
+    total = sum(check(read(name)) for name in ['grafo.json.gz','celdas.json.gz','rutas-datos.json.gz','fronteras.json','madrid.json'])
+                ~~~~~^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/verificar.py", line 42, in check
+    count += check(child)
+             ~~~~~^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/verificar.py", line 39, in check
+    count += check(child)
+             ~~~~~^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-891b177f/docs/procedencia/editorial/flujo-escalas-r23-sol/verificar.py", line 37, in check
+    assert data[src['start']*2:src['end']*2].decode('utf-16-le') == value['expression']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

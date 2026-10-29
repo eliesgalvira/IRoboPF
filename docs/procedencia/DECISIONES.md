@@ -345,3 +345,17 @@ La derivación R23 permite preparar un registro candidato v2 con dos identidades
 ## D076 — Un rojo puede conservar una hipótesis refutada
 
 La prueba nueva que esperaba rechazar optional chaining permanece roja. Objeción: tolerar un fallo podría ocultar una regresión. Respuesta: se contrasta la amenaza concreta; el acceso opcional al array const conserva el binding literal y el lector no promete ejecutar JavaScript histórico. No se altera el esperado ni se prohíbe una forma equivalente para anunciar verde. Coste: informar separadamente de esa hipótesis descartada y de los controles válidos del producto; el contrato de ejecución, si se desea, requerirá otro diseño.
+
+## D077 — Conservar un corte y endurecer su consumidor son operaciones distintas
+
+El consumidor v4 exige conjunto exacto, identidades coherentes y unicidad en sobres nuevos. Objeción: rechazar las diez adquisiciones repetidas del corte conocido destruiría restauración sin añadir evidencia. Respuesta: compatibilidad restringida al pin externo completo, con 33 observaciones y 23 registros distintos; ningún manifiesto modificado hereda esa excepción. Se conserva también la política de saneamiento histórica del pin, identificada en el recibo; los nuevos sobres usan la ampliada. Coste: versionar política y consumidor además del formato, sin certificar privacidad universal ni reescribir el paquete.
+
+## D078 — Completar el censo por referencias, no por número de hashes
+
+Las cuatro fuentes oficiales ausentes de v4 siguen en cachés recibidas y sus bytes se han cotejado. Objeción: añadirlas a mano puede ocultar más ausencias, mientras importar todo hash incluiría fixtures y documentación técnica como fiscal. Respuesta: nueva edición con censo tipado ampliado, clases y exclusiones justificadas, manteniendo el corte v4 intacto. Coste: otra exportación/restauración local y revisión; Crossa v1 continúa desfasado y no recibe transferencia implícita.
+
+## D079 — Componer las páginas conservando la dirección y el estado de cada relación
+
+Los tres lotes técnicos están recibidos, pero usan direcciones de arista y formas distintas. Objeción: unir sus JSON por nombre produciría dependencias falsas y haría parecer aceptado el texto todavía candidato. Respuesta: adaptación explícita por propiedad, argumento y condición, con correspondencias a objetos históricos, resolución de fronteras y rechazo de ambigüedades. El ensayo del publicador se prepara en scratch; las revisiones independientes siguen abiertas y no se cambia confianza activa. Coste: un adaptador y revisión posterior de composición/publicación, sin rellenar el resto del inventario con afirmaciones genéricas ni ampliar aceptación jurídica.
+
+Actualización R26 tras recibir los avisos finales R25: la composición queda aplazada por los defectos de rentas/actividad; su implementación no se lanza todavía. El recorrido conjunto de enlaces falla por IDs duplicados entre 264 pares y 102 sujetos. Coste explícito: recibir y reproducir esas entregas, corregir el contrato de multiplicidad sin perder sus condiciones y volver a revisar antes de promover. El candidato Madrid2020 conserva su identidad aunque el consumidor actual no lo admita; no se sustituye por Madrid2022 para obtener un pase.

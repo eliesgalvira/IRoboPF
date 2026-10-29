@@ -1,0 +1,15 @@
+85 | 
+86 | function fuentesHistoricas(bytes) {
+87 |   const fuente = ts.createSourceFile(
+88 |     "explicacion-version.mjs",
+89 |     bytes.toString("utf8"),
+90 |     ts.ScriptTarget.Latest,
+            ^
+TypeError: undefined is not an object (evaluating 'ts.ScriptTarget.Latest')
+      at fuentesHistoricas (/home/elies/.t3/worktrees/IRoboPF/t3-d4e6e2d6/scripts/procedencia/explicacion-version.mjs:90:8)
+      at verificarSoftwareRecibo (/home/elies/.t3/worktrees/IRoboPF/t3-d4e6e2d6/scripts/procedencia/explicacion-version.mjs:148:27)
+      at coberturaEvidencias (/home/elies/.t3/worktrees/IRoboPF/t3-d4e6e2d6/scripts/procedencia/contenido-verificar.mjs:103:5)
+      at verificarContenido (/home/elies/.t3/worktrees/IRoboPF/t3-d4e6e2d6/scripts/procedencia/contenido-verificar.mjs:185:21)
+      at /home/elies/.t3/worktrees/IRoboPF/t3-d4e6e2d6/docs/procedencia/revisiones/preservacion-r23-sol/historicos.mjs:9:29
+
+Bun v1.3.13 (Linux x64)
