@@ -50,6 +50,10 @@ No hace falta respuesta para empezar. Se documentarán decisiones y alternativas
 
 Todavía no se ha eliminado ninguna copia temporal. La eliminación de `/home/elies/irobopf-contexto/` y `/home/elies/Repos/Reactivity/` solo procede después del resumen final y su respaldo remoto, según el encargo. Conservar el repositorio local de Effect.
 
+## Incidencia de índice en un checkout delegado
+
+Elies avisó de 239 borrados en el índice Git de `t3-3d3cd9a7`. La inspección del orquestador confirma 239 archivos y 174.516 líneas marcados como borrados en el índice; el diff de commits contra la base `d4d708f6` está vacío. No se ha integrado ninguna entrega de código de esta ronda. Se ha enviado la corrección a los 18 delegados, con entrega confirmada por T3: no inicializar JJ dentro de checkouts Git de T3, no hacer commits con el índice anómalo y continuar editando sin mutaciones VCS. La regla queda en COORDINACION.md y en las instrucciones de futuras delegaciones. Se inspeccionará cada diff y cada borrado antes de integrar. No se ha ejecutado ningún reset ni borrado para reparar esta incidencia.
+
 ## Bootstrap anti-slop completado
 
 Runtime v0.1.2 verificado, incorporado con licencia y hashes, 16 reglas a error y oxlint 1.78.0 junto a ESLint. CI nueva con límite de 15 minutos y ejecución secuencial, sin build ni suite legacy pesada. Typecheck, humo del plugin y 5 pruebas seleccionadas pasan; ESLint pasa. Lint global falla con 96 errores preexistentes en 25 archivos, registrados en [LINT.md](LINT.md) y `lint/`. No se modificó el motor ni se validó cifra fiscal alguna. Auditoría documental desbloqueada; corrección de deuda pendiente de reparto por archivo. Integración y respaldo corresponden al orquestador. No se borró contexto ni Reactivity.
