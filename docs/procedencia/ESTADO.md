@@ -14,6 +14,8 @@ Las rectificaciones R28 de argumentos, constantes, fórmulas y controles quedan 
 
 La tarea R27 de CAS local externo continúa sin sondeos. Inventario, motor, 38 snapshots y confianza activa permanecen intactos; Madrid v1 sigue pendiente y registro de revisores vacío. Crossa mantiene v1 desfasado, copia local fuera de Victus del mismo dueño y casa. Sin LFS, gasto, transferencia externa, PR, main, despliegue ni limpieza. El encargo global permanece abierto.
 
+Bloque respaldado en origin: `0d1f0e26d752a9466aefec35e7f517db5ddcdc37`, 192 archivos y 21.158.847 bytes cotejados contra los blobs del commit, cero borrados; base nueva de 16.106 entradas. Lanzada una implementación nueva de contrato nominal en worktree T3. El lanzador confirma explícitamente gpt-6.1-sol, high y priority. Encargo completo, resultado y cola de recepción en delegaciones-ronda29.json. El candidato deberá recorrer el coordinador real sin promover confianza y después recibir revisión independiente nueva. Su finalización reactivará al padre; no se sondea. Los seis restos históricos siguen excluidos e intactos.
+
 ## Situación anterior, ronda 28 del 29 de octubre
 
 Recibidas las tres entregas R26: revisión de preservación, revisión de escalas/mínimos y candidato v5 r2. Son 145 archivos y 19.357.067 bytes; cotejo físico de 15.456 entradas en cada checkout, sin diferencias de base ni borrados. Los manifiestos y los informes históricos permanecen intactos. La corroboración acotada de preservación R26 no abre una revisión recursiva; el nuevo consumidor y censo v5 sí necesitan revisión independiente.
