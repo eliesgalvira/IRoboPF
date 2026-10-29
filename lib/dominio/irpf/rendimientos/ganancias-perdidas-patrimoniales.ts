@@ -88,6 +88,7 @@ const calcularGananciaPatrimonialPorTransmision = ({
 }): GananciaPatrimonialCalculada => {
   const gananciaTotal = convertirCentimos(ganancia.importeGananciaCentimos)
   const gananciaExentaMayores65 = calcularGananciaExentaMayores65({
+    anio,
     edadContribuyente,
     gananciaTotal,
     tratamiento: ganancia.tratamientoMayores65,
@@ -95,73 +96,67 @@ const calcularGananciaPatrimonialPorTransmision = ({
   })
   const gananciaExentaInmueble2012 =
     calcularGananciaExentaInmuebleUrbanoAdquirido2012({
-      anio,
       ganancia,
       gananciaTotal,
       gananciaExentaPrevia: gananciaExentaMayores65,
     })
-  const gananciaExenta = Decimal.min(
-    gananciaTotal,
-    gananciaExentaMayores65.plus(gananciaExentaInmueble2012)
+  const gananciaExenta = Decimal.max(
+    0,
+    Decimal.min(
+      gananciaTotal,
+      gananciaExentaMayores65.plus(gananciaExentaInmueble2012)
+    )
   )
 
   return {
     gananciaTotal,
     gananciaExenta,
-    gananciaSujeta: Decimal.max(0, gananciaTotal.minus(gananciaExenta)),
+    gananciaSujeta: gananciaTotal.minus(gananciaExenta),
     baseIntegracion: clasificarBaseGanancia({ anio, ganancia }),
   }
 }
 
 const calcularGananciaExentaInmuebleUrbanoAdquirido2012 = ({
-  anio,
   ganancia,
   gananciaTotal,
   gananciaExentaPrevia,
 }: {
-  readonly anio: AnioFiscal
   readonly ganancia: GananciaPatrimonialTransmision
   readonly gananciaTotal: Decimal
   readonly gananciaExentaPrevia: Decimal
 }): Decimal =>
-  Match.value(anio).pipe(
+  Match.value(ganancia.exencionInmuebleUrbanoAdquirido2012).pipe(
     Match.withReturnType<Decimal>(),
-    Match.when(2012, () =>
-      Match.value(ganancia.exencionInmuebleUrbanoAdquirido2012).pipe(
-        Match.withReturnType<Decimal>(),
-        Match.when(Match.undefined, () => IMPORTE_CERO),
-        Match.orElse((exencion) => {
-          const parametro =
-            EXENCION_50_POR_CIENTO_GANANCIAS_INMUEBLES_URBANOS_ADQUIRIDOS_2012
-          const cumpleRangoFecha =
-            exencion.fechaAdquisicion >= parametro.fechaInicioAdquisicion &&
-            exencion.fechaAdquisicion <= parametro.fechaFinAdquisicion
+    Match.when(Match.undefined, () => IMPORTE_CERO),
+    Match.orElse((exencion) => {
+      const parametro =
+        EXENCION_50_POR_CIENTO_GANANCIAS_INMUEBLES_URBANOS_ADQUIRIDOS_2012
+      const cumpleRangoFecha =
+        exencion.fechaAdquisicion >= parametro.fechaInicioAdquisicion &&
+        exencion.fechaAdquisicion <= parametro.fechaFinAdquisicion
 
-          return Match.value({
-            inmuebleUrbano: exencion.inmuebleUrbano,
-            tituloOneroso: exencion.tituloOneroso,
-            vinculada: exencion.operacionConPersonaOEntidadVinculada === true,
-            cumpleRangoFecha,
-          }).pipe(
-            Match.withReturnType<Decimal>(),
-            Match.when(
-              {
-                inmuebleUrbano: true,
-                tituloOneroso: true,
-                vinculada: false,
-                cumpleRangoFecha: true,
-              },
-              () =>
-                Decimal.max(0, gananciaTotal.minus(gananciaExentaPrevia)).mul(
-                  parametro.porcentajeExento
-                )
-            ),
-            Match.orElse(() => IMPORTE_CERO)
-          )
-        })
+      return Match.value({
+        inmuebleUrbano: exencion.inmuebleUrbano,
+        tituloOneroso: exencion.tituloOneroso,
+        vinculada: exencion.operacionConPersonaOEntidadVinculada === true,
+        cumpleRangoFecha,
+      }).pipe(
+        Match.withReturnType<Decimal>(),
+        Match.when(
+          {
+            inmuebleUrbano: true,
+            tituloOneroso: true,
+            vinculada: false,
+            cumpleRangoFecha: true,
+          },
+          () =>
+            Decimal.max(0, gananciaTotal.minus(gananciaExentaPrevia)).mul(
+              parametro.porcentajeExento
+            )
+        ),
+        Match.orElse(() => IMPORTE_CERO)
       )
-    ),
-    Match.orElse(() => IMPORTE_CERO)
+    })
   )
 
 const clasificarBaseGanancia = ({
@@ -185,11 +180,13 @@ const clasificarBaseGanancia = ({
   )
 
 const calcularGananciaExentaMayores65 = ({
+  anio,
   edadContribuyente,
   gananciaTotal,
   tratamiento,
   convertirCentimos,
 }: {
+  readonly anio: AnioFiscal
   readonly edadContribuyente: number
   readonly gananciaTotal: Decimal
   readonly tratamiento: TratamientoGananciaPatrimonialMayores65
@@ -209,16 +206,20 @@ const calcularGananciaExentaMayores65 = ({
           importeTransmisionCentimos,
           reinversionesPreviasRentaVitaliciaCentimos,
         }) =>
-          calcularExencionPorReinversionEnRentaVitalicia({
-            gananciaTotal,
-            importeTransmision: convertirCentimos(importeTransmisionCentimos),
-            importeReinvertido: convertirCentimos(
-              importeReinvertidoRentaVitaliciaCentimos
-            ),
-            reinversionesPrevias: convertirCentimos(
-              reinversionesPreviasRentaVitaliciaCentimos
-            ),
-          }),
+          anio < 2015
+            ? IMPORTE_CERO
+            : calcularExencionPorReinversionEnRentaVitalicia({
+                gananciaTotal,
+                importeTransmision: convertirCentimos(
+                  importeTransmisionCentimos
+                ),
+                importeReinvertido: convertirCentimos(
+                  importeReinvertidoRentaVitaliciaCentimos
+                ),
+                reinversionesPrevias: convertirCentimos(
+                  reinversionesPreviasRentaVitaliciaCentimos
+                ),
+              }),
       })
     )
   )
