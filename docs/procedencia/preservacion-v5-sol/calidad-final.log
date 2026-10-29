@@ -1,0 +1,32 @@
+6 files reformatted
+F821 Undefined name `Path`
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:13:41
+   |
+11 | def main():
+12 |     parser = argparse.ArgumentParser()
+13 |     parser.add_argument("--cache", type=Path, default=c.CACHE)
+   |                                         ^^^^
+14 |     parser.add_argument("--output", type=Path, default=c.HERE / "recuperacion.json")
+15 |     args = parser.parse_args()
+   |
+
+F821 Undefined name `Path`
+  --> docs/procedencia/preservacion-v5-sol/recuperar.py:14:42
+   |
+12 |     parser = argparse.ArgumentParser()
+13 |     parser.add_argument("--cache", type=Path, default=c.CACHE)
+14 |     parser.add_argument("--output", type=Path, default=c.HERE / "recuperacion.json")
+   |                                          ^^^^
+15 |     args = parser.parse_args()
+16 |     cache = args.cache
+   |
+
+Found 2 errors.
+docs/procedencia/preservacion-v5-sol/recuperar.py:13: error: Name "Path" is not defined  [name-defined]
+docs/procedencia/preservacion-v5-sol/recuperar.py:14: error: Name "Path" is not defined  [name-defined]
+docs/procedencia/preservacion-v5-sol/recolector.py:170: error: Need type annotation for "refs" (hint: "refs: dict[<type>, <type>] = ...")  [var-annotated]
+docs/procedencia/preservacion-v5-sol/recolector.py:171: error: Need type annotation for "classes"  [var-annotated]
+docs/procedencia/preservacion-v5-sol/recolector.py:173: error: Need type annotation for "counts"  [var-annotated]
+docs/procedencia/preservacion-v5-sol/recolector.py:382: error: Incompatible types in assignment (expression has type "None", variable has type "TextIOWrapper[_WrappedBuffer]")  [assignment]
+docs/procedencia/preservacion-v5-sol/recolector.py:457: error: Argument 1 to "len" has incompatible type "object"; expected "Sized"  [arg-type]
+Found 7 errors in 2 files (checked 6 source files)

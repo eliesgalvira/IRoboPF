@@ -1,0 +1,43 @@
+{
+  "mode": "antes",
+  "sourceSha256": "6e6ae9114fb1bfa0f01a64cffb5bd930a293b4165e4000a1851d42a8a24f4c9d",
+  "results": [
+    {
+      "class": "Rojos",
+      "tests": 5,
+      "failures": [
+        "rojos.Rojos.test_r24_conjunto_exacto",
+        "rojos.Rojos.test_r24_dep_identidad_coherente",
+        "rojos.Rojos.test_r24_hash512_fin_absoluto",
+        "rojos.Rojos.test_r24_no_resueltas_unicas",
+        "rojos.Rojos.test_r24_referencias_unicas"
+      ],
+      "errors": []
+    },
+    {
+      "class": "Adicionales",
+      "tests": 10,
+      "failures": [
+        "controles.Adicionales.test_r26_adquisicion_repetida_fuera_del_pin_historico",
+        "controles.Adicionales.test_r26_extra_vacio_en_carpeta_cas",
+        "controles.Adicionales.test_r26_no_transformado_exige_tres_identidades",
+        "controles.Adicionales.test_r26_origenes_no_resueltos_unicos",
+        "controles.Adicionales.test_r26_prefijos_de_dependencias",
+        "controles.Adicionales.test_r26_privacidad_url_y_localizador (value='https://example.invalid/d?token=SENTINELA')",
+        "controles.Adicionales.test_r26_privacidad_url_y_localizador (value='https://example.invalid/d?ToKeN=SENTINELA')",
+        "controles.Adicionales.test_r26_privacidad_url_y_localizador (value='https://example.invalid/d?%74oken=SENTINELA')",
+        "controles.Adicionales.test_r26_privacidad_url_y_localizador (value='https://SENTINELA@example.invalid/d')",
+        "controles.Adicionales.test_r26_privacidad_url_y_localizador (value='/tmp/SENTINELA')",
+        "controles.Adicionales.test_r26_privacidad_url_y_localizador (value='/var/tmp/SENTINELA')",
+        "controles.Adicionales.test_r26_privacidad_url_y_localizador (value='file:///tmp/SENTINELA')"
+      ],
+      "errors": []
+    },
+    {
+      "class": "EditionTests",
+      "tests": 9,
+      "failures": [],
+      "errors": []
+    }
+  ]
+}

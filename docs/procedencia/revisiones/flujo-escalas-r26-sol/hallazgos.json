@@ -1,0 +1,101 @@
+[
+  {
+    "id": "R26-01",
+    "title": "Flag literal false tratado como selección por comunidad",
+    "decision": "requiere-precision",
+    "relations": [
+      "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2012.escalaAutonomicaIgualEstatal",
+      "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2013.escalaAutonomicaIgualEstatal",
+      "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2014.escalaAutonomicaIgualEstatal",
+      "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2015.escalaAutonomicaIgualEstatal"
+    ],
+    "report": "INFORME.md",
+    "legalAcceptance": false,
+    "review": "pending-further-contrast",
+    "objection": "No atribuir al motor ni al validador garantías que no promete.",
+    "response": "Distinción expresa entre hecho de código, relación candidata, control físico y cierre compositivo.",
+    "cost": "Contraste y precisión posteriores antes de publicación; no hay fix en esta revisión."
+  },
+  {
+    "id": "R26-02",
+    "title": "Descripción simulada contradice flag2012–2015",
+    "decision": "requiere-precision",
+    "relations": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralEstatal.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralAutonomica.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralEstatal.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralAutonomica.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalEstatal.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalAutonomica.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalEstatal.value",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalAutonomica.value"
+    ],
+    "report": "INFORME.md",
+    "legalAcceptance": false,
+    "review": "pending-further-contrast",
+    "objection": "No atribuir al motor ni al validador garantías que no promete.",
+    "response": "Distinción expresa entre hecho de código, relación candidata, control físico y cierre compositivo.",
+    "cost": "Contraste y precisión posteriores antes de publicación; no hay fix en esta revisión."
+  },
+  {
+    "id": "R26-03",
+    "title": "Puertos genéricos o propiedad de salida no acotada",
+    "decision": "no-acredita-cierre",
+    "relations": [
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#importesLiquidacion.value",
+      "lib/dominio/dinero/importe-monetario.ts#centimosAEuros.return",
+      "lib/dominio/dinero/importe-monetario.ts#eurosACentimos.return",
+      "lib/dominio/dinero/importe-monetario.ts#redondearImporteLiquidado.return",
+      "lib/dominio/dinero/redondeo.ts#redondearHalfUp.return",
+      "lib/dominio/irpf/cuotas/cuota-diferencial.ts#calcularCuotaDiferencialCentimos.return",
+      "lib/dominio/normativa/datos/irpf-autonomico-2012.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2012.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2013.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2013.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2014.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2014.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2015.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2015.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2016.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2016.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2017.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2017.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2018.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2018.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2019.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2019.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2020.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2020.value",
+      "lib/dominio/normativa/datos/irpf-autonomico-2025.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2025.value",
+      "lib/dominio/irpf/minimos/derechos.ts#fechaValida.admission",
+      "lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos.admission",
+      "lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos.admission",
+      "lib/dominio/irpf/minimos/derechos.ts#hayAlimentosPropiosSinMinimo.admission",
+      "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo.deduccionLegal",
+      "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo.limiteAtribuible",
+      "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo.importeAplicable",
+      "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo.cuotaPosterior"
+    ],
+    "report": "INFORME.md",
+    "legalAcceptance": false,
+    "review": "pending-further-contrast",
+    "objection": "No atribuir al motor ni al validador garantías que no promete.",
+    "response": "Distinción expresa entre hecho de código, relación candidata, control físico y cierre compositivo.",
+    "cost": "Contraste y precisión posteriores antes de publicación; no hay fix en esta revisión."
+  },
+  {
+    "id": "R26-04",
+    "title": "Asociación por sitio sin cierre referencial y ramas no alcanzables",
+    "decision": "bloquea-composicion",
+    "relations": [],
+    "report": "INFORME.md",
+    "legalAcceptance": false,
+    "review": "pending-further-contrast",
+    "objection": "No atribuir al motor ni al validador garantías que no promete.",
+    "response": "Distinción expresa entre hecho de código, relación candidata, control físico y cierre compositivo.",
+    "cost": "Contraste y precisión posteriores antes de publicación; no hay fix en esta revisión."
+  },
+  {
+    "id": "R26-05",
+    "title": "Validador admite cinco alteraciones fuera de su garantía semántica",
+    "decision": "delimitar-garantia",
+    "relations": [],
+    "report": "INFORME.md",
+    "legalAcceptance": false,
+    "review": "pending-further-contrast",
+    "objection": "No atribuir al motor ni al validador garantías que no promete.",
+    "response": "Distinción expresa entre hecho de código, relación candidata, control físico y cierre compositivo.",
+    "cost": "Contraste y precisión posteriores antes de publicación; no hay fix en esta revisión."
+  }
+]
