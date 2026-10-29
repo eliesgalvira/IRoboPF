@@ -54,6 +54,62 @@ export function verificar(snapshotId, raiz = directorioContenido) {
   return verificarContenido(snapshot, raiz)
 }
 
+function claveSujeto(sujeto) {
+  return JSON.stringify([sujeto.id, sujeto.revision])
+}
+
+function coberturaEvidencias(snapshot, entradas, raiz) {
+  const sujetos = entradas.filter(
+    ({ entidad }) =>
+      entidad.identidad === "ocurrencia" &&
+      entidad.aristas.some((a) => a.relacion === "norma")
+  )
+  const esperados = new Set(
+    sujetos.map((e) => claveSujeto({ id: e.entidad.id, revision: e.revision }))
+  )
+  const declarados = new Set(
+    snapshot.evidencias.map((e) => claveSujeto(e.sujeto))
+  )
+  if (
+    declarados.size !== snapshot.evidencias.length ||
+    declarados.size !== esperados.size ||
+    [...esperados].some((s) => !declarados.has(s))
+  )
+    throw new Error("Cobertura de evidencia incompleta o duplicada")
+
+  const recibos = new Map()
+  const documentados = new Set()
+  for (const h of new Set(snapshot.evidencias.map((e) => e.recibo))) {
+    const recibo = JSON.parse(objeto(raiz, h).toString())
+    const estados = snapshot.evidencias.filter((e) => e.recibo === h)
+    if (
+      recibo.version !== 1 ||
+      !Array.isArray(recibo.estados) ||
+      !Array.isArray(recibo.entradas) ||
+      recibo.estados.length !== estados.length ||
+      new Set(recibo.estados.map((e) => claveSujeto(e.sujeto))).size !==
+        estados.length ||
+      recibo.estados.some(
+        (e) =>
+          !estados.some((s) => claveSujeto(s.sujeto) === claveSujeto(e.sujeto))
+      )
+    )
+      throw new Error("Cobertura de evidencia distinta del recibo")
+    for (const e of recibo.entradas)
+      documentados.add(claveSujeto({ id: e.entidad.id, revision: e.revision }))
+    recibos.set(h, recibo)
+  }
+  for (const e of entradas)
+    if (
+      ["Document", "Citation", "Facsimile"].includes(e.entidad.tipo) &&
+      !documentados.has(claveSujeto({ id: e.entidad.id, revision: e.revision }))
+    )
+      throw new Error(
+        "Cobertura de evidencia sin recibo para entidad documental"
+      )
+  return recibos
+}
+
 export function verificarContenido(snapshot, raiz) {
   const entradas = []
   const prefijos = new Set()
@@ -118,6 +174,7 @@ export function verificarContenido(snapshot, raiz) {
   if (cotejadas !== porId.size)
     throw new Error("Cobertura de ocurrencias incompleta")
   if (snapshot.version === 2) {
+    const recibos = coberturaEvidencias(snapshot, entradas, raiz)
     if (!snapshot.auxiliares.includes(snapshot.catalogo))
       throw new Error("Catálogo no preservado")
     const bindings = Schema.decodeUnknownSync(
@@ -169,7 +226,7 @@ export function verificarContenido(snapshot, raiz) {
     for (const h of snapshot.auxiliares)
       if (!cierre.has(h)) throw new Error("Dependencia sin tamaño")
     for (const e of snapshot.evidencias) {
-      const recibo = JSON.parse(objeto(raiz, e.recibo).toString())
+      const recibo = recibos.get(e.recibo)
       const estado = recibo.estados.find(
         (s) =>
           s.sujeto.id === e.sujeto.id && s.sujeto.revision === e.sujeto.revision

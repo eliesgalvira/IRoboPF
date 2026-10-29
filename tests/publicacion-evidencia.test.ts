@@ -182,7 +182,7 @@ describe("Publicación de evidencia v2", { timeout: 30_000 }, () => {
         },
         scratch
       )
-    ).toThrow("Recibo ajeno")
+    ).toThrow("Cobertura de evidencia")
     const ruta = resolve(scratch, "objetos", e.manifiesto)
     const bytes = objeto(scratch, e.manifiesto)
     writeFileSync(ruta, Buffer.concat([bytes, Buffer.from(" ")]))
