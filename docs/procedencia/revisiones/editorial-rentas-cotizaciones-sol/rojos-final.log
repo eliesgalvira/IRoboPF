@@ -1,0 +1,68 @@
+test_2026_mei_tiene_fuente_del_ejercicio (__main__.ContratosEditoriales.test_2026_mei_tiene_fuente_del_ejercicio)
+Rojo ERSC-04: cita2025 no prueba tarifa2026. ... FAIL
+test_colegio_500_tiene_pasaje_en_citas_ficha (__main__.ContratosEditoriales.test_colegio_500_tiene_pasaje_en_citas_ficha)
+Rojo ERSC-02: art19d delega límite, no acredita500. ... FAIL
+test_control_33_no_es_solo_auxiliar (__main__.ContratosEditoriales.test_control_33_no_es_solo_auxiliar)
+Rojo ERSC-03: condición material de grado sin clasificación propia. ... FAIL
+test_referencia_derivacion_resoluble (__main__.ContratosEditoriales.test_referencia_derivacion_resoluble)
+Rojo ERSC-01: dos fichas remiten a derivaciones.json inexistente. ... FAIL
+
+======================================================================
+FAIL: test_2026_mei_tiene_fuente_del_ejercicio (__main__.ContratosEditoriales.test_2026_mei_tiene_fuente_del_ejercicio)
+Rojo ERSC-04: cita2025 no prueba tarifa2026.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py", line 446, in test_2026_mei_tiene_fuente_del_ejercicio
+    self.assertTrue(any("2026" in url for url in urls), urls)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : ['https://www.boe.es/eli/es/o/2025/02/25/pjc178/dof/spa/pdf']
+
+======================================================================
+FAIL: test_colegio_500_tiene_pasaje_en_citas_ficha (__main__.ContratosEditoriales.test_colegio_500_tiene_pasaje_en_citas_ficha)
+Rojo ERSC-02: art19d delega límite, no acredita500.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py", line 424, in test_colegio_500_tiene_pasaje_en_citas_ficha
+    self.assertRegex(texts, r"(?<![\d.,])500 euros")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Regex didn't match: '(?<![\\d.,])500 euros' not found in 'BOLETÍN OFICIAL DEL ESTADO\nNúm. 288\t\nViernes 28 de noviembre de 2014\t\nSec. I.   Pág. 96870\ndespidos colectivos realizados de conformidad con lo dispuesto en el artículo 51 \ndel Estatuto de los Trabajadores.»\nDiez.\u2003 Se modifican los apartados 2 y 3 del artículo 18, que quedan redactados de la \nsiguiente forma:\n«2.\u2003 El 30 por ciento de reducción, en el caso de rendimientos íntegros \ndistintos de los previstos en el artículo 17.2. a) de esta Ley que tengan un período \nde generación superior a dos años, así como aquellos que se califiquen \nreglamentariamente como obtenidos de forma notoriamente irregular en el tiempo, \ncuando, en ambos casos, sin perjuicio de lo dispuesto en el párrafo siguiente, se \nimputen en un único período impositivo.\nTratándose de rendimientos derivados de la extinción de una relación laboral, \ncomún o especial, se considerará como período de generación el número de años \nde servicio del trabajador. En caso de que estos rendimientos se cobren de forma \nfraccionada, el cómputo del período de generación deberá tener en cuenta el \nnúmero de años de fraccionamiento, en los términos que reglamentariamente se \nestablezcan. Estos rendimientos no se tendrán en cuenta a efectos de lo \nestablecido en el párrafo siguiente.\nNo obstante, esta reducción no resultará de aplicación a los rendimientos que \ntengan un período de generación superior a dos años cuando, en el plazo de los \ncinco períodos impositivos anteriores a aquél en el que resulten exigibles, el \ncontribuyente hubiera obtenido otros rendimientos con período de generación \nsuperior a dos años, a los que hubiera aplicado la reducción prevista en este \napartado.\nLa cuantía del rendimiento íntegro a que se refiere este apartado sobre la que \nse aplicará la citada reducción no podrá superar el importe de 300.000 euros \nanuales.\nSin perjuicio del límite previsto en el párrafo anterior, en el caso de rendimientos \ndel trabajo cuya cuantía esté comprendida entre 700.000,01 euros y 1.000.000 de \neuros y deriven de la extinción de la relación laboral, común o especial, o de la \nrelación mercantil a que se refiere el artículo 17.2 e) de esta Ley, o de ambas, la \ncuantía del rendimiento sobre la que se aplicará la reducción no podrá superar el \nimporte que resulte de minorar 300.000 euros en la diferencia entre la cuantía del \nrendimiento y 700.000 euros.\nCuando la cuantía de tales rendimientos fuera igual o superior a 1.000.000 de \neuros, la cuantía de los rendimientos sobre la que se aplicará la reducción del 30 \npor ciento será cero.\nA estos efectos, la cuantía total del rendimiento del trabajo a computar vendrá \ndeterminada por la suma aritmética de los rendimientos del trabajo anteriormente \nindicados procedentes de la propia empresa o de otras empresas del grupo de \nsociedades en las que concurran las circunstancias previstas en el artículo 42 del \nCódigo de Comercio, con independencia del período impositivo al que se impute \ncada rendimiento.\n3.\u2003 El 30 por ciento de reducción, en el caso de las prestaciones establecidas \nen el artículo 17.2.a) 1.ª y 2.ª de esta Ley que se perciban en forma de capital, \nsiempre que hayan transcurrido más de dos años desde la primera aportación.\nEl plazo de dos años no resultará exigible en el caso de prestaciones por \ninvalidez.»\nOnce.\u2003 Se modifica el apartado 2 del artículo 19, que queda redactado de la siguiente \nforma:\n«2.\u2003 Tendrán la consideración de gastos deducibles exclusivamente los \nsiguientes:\na)\u2003 Las cotizaciones a la Seguridad Social o a mutualidades generales \nobligatorias de funcionarios.\ncve: BOE-A-2014-12327\n\nBOLETÍN OFICIAL DEL ESTADO\nNúm. 288\t\nViernes 28 de noviembre de 2014\t\nSec. I.   Pág. 96871\nb)\u2003 Las detracciones por derechos pasivos.\nc)\u2003 Las cotizaciones a los colegios de huérfanos o entidades similares.\nd)\u2003 Las cuotas satisfechas a sindicatos y colegios profesionales, cuando la \ncolegiación tenga carácter obligatorio, en la parte que corresponda a los fines \nesenciales de estas instituciones, y con el límite que reglamentariamente se \nestablezca.\ne)\u2003 Los gastos de defensa jurídica derivados directamente de litigios suscitados \nen la relación del contribuyente con la persona de la que percibe los rendimientos, \ncon el límite de 300 euros anuales.\nf)\u2003  En concepto de otros gastos distintos de los anteriores, 2.000 euros \nanuales.\nTratándose de contribuyentes desempleados inscritos en la oficina de empleo \nque acepten un puesto de trabajo que exija el traslado de su residencia habitual a \nun nuevo municipio, en las condiciones que reglamentariamente se determinen, se \nincrementará dicha cuantía, en el periodo impositivo en el que se produzca el \ncambio de residencia y en el siguiente, en 2.000 euros anuales adicionales.\nTratándose de personas con discapacidad que obtengan rendimientos del \ntrabajo como trabajadores activos, se incrementará dicha cuantía en 3.500 euros \nanuales. Dicho incremento será de 7.750 euros anuales, para las personas con \ndiscapacidad que siendo trabajadores activos acrediten necesitar ayuda de terceras \npersonas o movilidad reducida, o un grado de discapacidad igual o superior al 65 \npor ciento.\nLos gastos deducibles\xa0a que se refiere esta letra f) tendrán como límite el \nrendimiento íntegro del trabajo una vez minorado por el resto de gastos deducibles \nprevistos en este apartado.»\nDoce.\u2003 Se modifica el artículo 20, que queda redactado de la siguiente forma:\n«Artículo 20.\u2003 Reducción por obtención de rendimientos del trabajo.\nLos contribuyentes con rendimientos netos del trabajo inferiores a 14.450 euros \nsiempre que no tengan rentas, excluidas las exentas, distintas de las del trabajo \nsuperiores a 6.500 euros, minorarán el rendimiento neto del trabajo en las \nsiguientes cuantías:\na)\u2003 Contribuyentes con rendimientos netos del trabajo iguales o inferiores \na 11.250 euros: 3.700 euros anuales.\nb)\u2003 Contribuyentes con rendimientos netos del trabajo comprendidos \nentre 11.250 y 14.450 euros: 3.700 euros menos el resultado de multiplicar \npor 1,15625 la diferencia entre el rendimiento del trabajo y 11.250 euros anuales.\nA estos efectos, el rendimiento neto del trabajo será el resultante de minorar el \nrendimiento íntegro en los gastos previstos en las letras a), b), c), d) y e) del \nartículo 19.2 de esta Ley.\nComo consecuencia de la aplicación de la reducción prevista en este artículo, \nel saldo resultante no podrá ser negativo.»\nTrece.\u2003 Se modifican los apartados 2 y 3 del artículo 23, que quedan redactados en \nlos siguientes términos:\n«2.\u2003 En los supuestos de arrendamiento de bienes inmuebles destinados a \nvivienda, el rendimiento neto positivo calculado con arreglo a lo dispuesto en el \napartado anterior, se reducirá en un 60 por ciento. Esta reducción sólo resultará \naplicable respecto de los rendimientos declarados por el contribuyente.\n3.\u2003 Los rendimientos netos con un período de generación superior a dos años, \nasí como los que se califiquen reglamentariamente como obtenidos de forma \ncve: BOE-A-2014-12327\n'
+
+======================================================================
+FAIL: test_control_33_no_es_solo_auxiliar (__main__.ContratosEditoriales.test_control_33_no_es_solo_auxiliar)
+Rojo ERSC-03: condición material de grado sin clasificación propia.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py", line 433, in test_control_33_no_es_solo_auxiliar
+    self.assertEqual(bad, [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError: Lists differ: ['inv-052ac8b7a07f282dd9c3fb7ade0d8261'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'inv-052ac8b7a07f282dd9c3fb7ade0d8261'
+
+- ['inv-052ac8b7a07f282dd9c3fb7ade0d8261']
++ []
+
+======================================================================
+FAIL: test_referencia_derivacion_resoluble (__main__.ContratosEditoriales.test_referencia_derivacion_resoluble)
+Rojo ERSC-01: dos fichas remiten a derivaciones.json inexistente.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py", line 411, in test_referencia_derivacion_resoluble
+    self.assertEqual(bad, [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError: Lists differ: ['editorial.anual.trabajo.reduccion', 'edi[35 chars]apa'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'editorial.anual.trabajo.reduccion'
+
++ []
+- ['editorial.anual.trabajo.reduccion',
+-  'editorial.anual.explicito.actividad.etapa']
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.009s
+
+FAILED (failures=4)

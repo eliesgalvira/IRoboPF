@@ -1,0 +1,27 @@
+FF
+======================================================================
+FAIL: test_anualidad_impide_aumento_aunque_crezca_diferencia (__main__.ContrasteNuevo.test_anualidad_impide_aumento_aunque_crezca_diferencia)
+Subpaso hipotético: la condición resumida en 43 ramas omite alternativa 87.5.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-99399e12/docs/procedencia/revisiones/retenciones-2015-2016-contraste-sol/repro_nuevos.py", line 24, in test_anualidad_impide_aumento_aunque_crezca_diferencia
+    self.assertEqual(resumen_candidato, 12, 'La obligación judicial nueva requiere guardia propia de no aumento')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 18 != 12 : La obligación judicial nueva requiere guardia propia de no aumento
+
+======================================================================
+FAIL: test_cambio_visual_64_entre_2015_y_2016 (__main__.ContrasteNuevo.test_cambio_visual_64_entre_2015_y_2016)
+S1516-03 afirma que 2016 cambia <64 a <=64; el recorte es idéntico.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-99399e12/docs/procedencia/revisiones/retenciones-2015-2016-contraste-sol/repro_nuevos.py", line 15, in test_cambio_visual_64_entre_2015_y_2016
+    self.assertNotEqual(hashlib.sha256(antes).hexdigest(), hashlib.sha256(despues).hexdigest(), 'No hay cambio visual en este pasaje: ambos muestran ≤64')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '95d3c71d1205e70d25608799633f8e96d41552ace824556bdf7d525f8ebaef29' == '95d3c71d1205e70d25608799633f8e96d41552ace824556bdf7d525f8ebaef29' : No hay cambio visual en este pasaje: ambos muestran ≤64
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=2)
+
+exitCode=1

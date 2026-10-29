@@ -1,0 +1,6 @@
+set -u
+out=/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol
+nix shell nixpkgs#ruff -c ruff check "$out/revisar.py" "$out/auditar_integridad.py" "$out/mapear_pasajes.py" > "$out/lint-cierre.log" 2>&1
+printf 'ruff=%s\n' "$?" > "$out/codigos-cierre.log"
+nix shell nixpkgs#mypy -c mypy --follow-untyped-imports --python-executable /home/elies/.t3/worktrees/IRoboPF/t3-9664290b/.cache/revision-editorial-sol/venv/bin/python --cache-dir /home/elies/.t3/worktrees/IRoboPF/t3-9664290b/.cache/revision-editorial-sol/mypy "$out/revisar.py" "$out/auditar_integridad.py" "$out/mapear_pasajes.py" > "$out/tipos-cierre.log" 2>&1
+printf 'mypy=%s\n' "$?" >> "$out/codigos-cierre.log"

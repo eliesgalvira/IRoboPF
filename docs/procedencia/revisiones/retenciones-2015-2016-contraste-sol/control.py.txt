@@ -1,0 +1,21 @@
+import pathlib,subprocess,os,json,hashlib,stat,gzip
+R=pathlib.Path.cwd(); O=R/'docs/procedencia/revisiones/retenciones-2015-2016-contraste-sol'; A=R/'docs/procedencia/revisiones/retenciones-2015-2016-sol'
+def sha(b):return hashlib.sha256(b).hexdigest()
+head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(); assert head=='7668bdad60a79a8b3ad8e1e1b911f3d6c223692a'
+rows=[]
+for line in subprocess.check_output(['git','ls-tree','-rz','--full-tree',head]).split(b'\0'):
+ if not line:continue
+ meta,p=line.split(b'\t'); mode,typ,obj=meta.split(); path=R/os.fsdecode(p); s=path.lstat(); link=os.readlink(path) if stat.S_ISLNK(s.st_mode) else None
+ b=os.fsencode(link) if link is not None else path.read_bytes(); original=subprocess.check_output(['git','cat-file','blob',obj.decode()]); rows.append(dict(path=os.fsdecode(p),sha256=sha(b),size=len(b),baseSha256=sha(original),link=link,targetExists=path.exists(),equal=b==original))
+with gzip.open(O/'control-arbol.json.gz','wt') as f:json.dump(rows,f,ensure_ascii=False,indent=2)
+cas=json.loads((R/'docs/procedencia/correcciones/integracion-r19/cas-retenciones.json').read_text())['objects']; mapping={r['originalPath']:r['preservedPath'] for r in cas}; verified=[]
+m=json.loads((A/'manifiesto.json').read_text()); assert sha((A/'manifiesto.json').read_bytes())=='6900a52d0fc31d31bbb54ac336da4cead13b9e975595c7f2902aaf57cd3e2bcc'
+for r in m['files']:
+ p=R/r['path']; resolved=str(p) if p.exists() else mapping.get(r['path'],str(pathlib.Path('/home/elies/Repos/IRoboPF')/r['path'])); b=pathlib.Path(resolved).read_bytes(); assert sha(b)==r['sha256'] and len(b)==r['size']; verified.append(dict(**r,resolvedPath=resolved))
+for r in cas+json.loads((A/'originales.json').read_text()):
+ p=pathlib.Path(r.get('preservedPath',r.get('path',''))); b=p.read_bytes(); assert sha(b)==r['sha256'] and hashlib.sha512(b).hexdigest()==r['sha512'] and len(b)==r['size']
+(O/'recepcion-propia.json').write_text(json.dumps(dict(head=head,treeEntries=len(rows),missing=0,changed=[r for r in rows if not r['equal']],manifestSha256=sha((A/'manifiesto.json').read_bytes()),files=verified,casFiles=len(cas),casBytes=sum(r['size'] for r in cas)),indent=2))
+import fitz
+for r in json.loads((A/'originales.json').read_text()):
+ d=fitz.open(r['path']); text='\n'.join(f'\n=== {r["id"]} PAGINA {i+1} ===\n'+p.get_text(sort=True) for i,p in enumerate(d)); (R/'.cache/contraste-s1516'/f'{r["id"]}.txt').write_text(text)
+print(head,len(rows),len(verified),'todos presentes y coincidentes')

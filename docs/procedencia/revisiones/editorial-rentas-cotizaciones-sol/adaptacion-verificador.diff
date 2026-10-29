@@ -1,0 +1,11 @@
+--- verificar.py original
++++ copia propia salida resultado
+@@ -145,7 +145,7 @@
+               'fichas': len(fichas), 'hojasTecnicas': len(load('parametros.json')),
+               'originalesSHA256y512': len(documents), 'paginasReextraidas': reproduced,
+               'casosRacionales': len(load('casos.json')), 'aceptacionFiscal': False}
+-    (ROOT / 'resultado-pruebas.json').write_text(json.dumps(result, indent=2) + '\n')
++    pathlib.Path('/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/verificador-autor-resultado.json').write_text(json.dumps(result, indent=2) + '\n')
+     print(json.dumps(result))
+ 
+ 

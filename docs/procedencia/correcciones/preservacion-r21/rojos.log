@@ -1,0 +1,65 @@
+test_control_final_publish_fsync_and_recover (__main__.Adversos.test_control_final_publish_fsync_and_recover) ... ok
+test_control_restore_corruption_absence_marker_symlink (__main__.Adversos.test_control_restore_corruption_absence_marker_symlink) ... ok
+test_control_timestamp_and_parser (__main__.Adversos.test_control_timestamp_and_parser) ... ok
+test_pv3_01_no_nested_private_metadata (__main__.Adversos.test_pv3_01_no_nested_private_metadata) ... FAIL
+test_pv3_02_secondary_cannot_claim_primary (__main__.Adversos.test_pv3_02_secondary_cannot_claim_primary) ... FAIL
+test_pv3_03_confirm_fsync_after_publication_is_indeterminate (__main__.Adversos.test_pv3_03_confirm_fsync_after_publication_is_indeterminate) ... ERROR
+test_pv3_04_required_baseline_and_relative_dependency (__main__.Adversos.test_pv3_04_required_baseline_and_relative_dependency) ... FAIL
+test_pv3_05_url_path_payload_rejected (__main__.Adversos.test_pv3_05_url_path_payload_rejected) ... FAIL
+
+======================================================================
+ERROR: test_pv3_03_confirm_fsync_after_publication_is_indeterminate (__main__.Adversos.test_pv3_03_confirm_fsync_after_publication_is_indeterminate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v3-sol/adversos_test.py", line 118, in test_pv3_03_confirm_fsync_after_publication_is_indeterminate
+    r.transfer(self.dest, self.source)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/preservacion-v3/recolector.py", line 297, in transfer
+    return confirm(destination)
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/preservacion-v3/recolector.py", line 314, in confirm
+    p.sync_directory(destination.parent)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v3-sol/adversos_test.py", line 114, in fail
+    raise OSError('fsync padre en confirm inducido')
+OSError: fsync padre en confirm inducido
+
+======================================================================
+FAIL: test_pv3_01_no_nested_private_metadata (__main__.Adversos.test_pv3_01_no_nested_private_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v3-sol/adversos_test.py", line 99, in test_pv3_01_no_nested_private_metadata
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_pv3_02_secondary_cannot_claim_primary (__main__.Adversos.test_pv3_02_secondary_cannot_claim_primary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v3-sol/adversos_test.py", line 105, in test_pv3_02_secondary_cannot_claim_primary
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_pv3_04_required_baseline_and_relative_dependency (__main__.Adversos.test_pv3_04_required_baseline_and_relative_dependency)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v3-sol/adversos_test.py", line 125, in test_pv3_04_required_baseline_and_relative_dependency
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_pv3_05_url_path_payload_rejected (__main__.Adversos.test_pv3_05_url_path_payload_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v3-sol/adversos_test.py", line 129, in test_pv3_05_url_path_payload_rejected
+    self.assertIsNone(r.url('https://www.seg-social.es/descarga/es/PRIVATE_SENTINEL'))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'https://www.seg-social.es/descarga/es/PRIVATE_SENTINEL' is not None
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.636s
+
+FAILED (failures=4, errors=1)

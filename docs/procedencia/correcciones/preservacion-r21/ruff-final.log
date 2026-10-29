@@ -1,0 +1,12 @@
+E402 Module level import not at top of file
+  --> docs/procedencia/correcciones/preservacion-r21/adversos.py:9:1
+   |
+ 7 | ROOT = Path(__file__).resolve().parents[4]
+ 8 | sys.path.insert(0, str(ROOT / 'docs/procedencia/revisiones/preservacion-v3-sol'))
+ 9 | import adversos_test as independientes
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 |
+11 | r = independientes.r
+   |
+
+Found 1 error.

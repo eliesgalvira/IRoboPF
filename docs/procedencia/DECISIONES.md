@@ -291,3 +291,19 @@ Los dos lotes editoriales se incorporan como superposiciones candidatas, con ide
 ## D063 — Separar recepción acotada y trabajos pesados
 
 El cotejo de recepción lee un blob o archivo cada vez y conserva memoria acotada; puede usar un bloqueo propio sin esperar detrás de renders o suites. Objeción: ampliar concurrencia sin medir puede poner en riesgo Victus sin swap. Respuesta: no ejecutar compilación, render ni pruebas en esa excepción; mantener un solo lector de recepción y el bloqueo pesado para todos los trabajos de mayor consumo. Coste: dos clases de bloqueo y obligación de no reutilizar el de recepción para tareas pesadas. La tentativa de cancelar el primer cotejo ya terminado no actuó; se documentan los dos pases, sin inflar cobertura.
+
+## D064 — El recibo conserva una versión semántica de software
+
+El verificador reconstruye la explicación con el generador y las fuentes ordenadas del helper conservado, leído como AST sin ejecutar JavaScript histórico. Objeción: que un hash exista en el CAS no prueba que corresponda al path del recibo; compararlo con el checkout actual destruiría historia válida. Respuesta: cotejo por versión propia, rutas únicas y bytes. Coste: mantener el contrato de array literal o migrarlo explícitamente. Se rechazan también informes vacíos y decisiones con dos discriminantes. Las correcciones requieren revisión nueva antes de promover bindings.
+
+## D065 — Sobre cerrado y durabilidad distinguida de presencia
+
+El consumidor v3 valida todos los niveles del sobre, rutas portables y correspondencia de clase con adquisiciones. TGSS usa una lista examinada de endpoints, sin sufijos libres. Un fallo de fsync después del marcador comunica durabilidad indeterminada, conservando los bytes. Objeción: limpiar el marcador no revierte una publicación ya visible, y hashes válidos no eliminan metadatos privados. Coste: schema, lista documental y recuperación explícita; revisión adicional para nuevas URLs. Los paquetes históricos no cambian al mejorar su lector. Nuevos originales requieren una edición distinta y Crossa permanece v1 desfasado.
+
+## D066 — Rectificar pérdidas de extracción sin reescribir el original
+
+Los tres recortes de algoritmos2015/2016 muestran ≤64; se retira el supuesto cambio de operador inferido de la capa de texto. Se conservan rojo, cita y revisión anteriores con una rectificación candidata separada. El contrato añade la alternativa de alimentos87.5 independiente del signo de variación. Objeción: una imagen idéntica no sustituye su lectura y un subpaso no certifica la nómina. Respuesta: inspección personal del signo, reproducción por hash, cotejo del artículo y exclusiones expresas. Coste: revisar la rectificación y no habilitar automáticamente versiones ni resolver doble600/julio.
+
+## D067 — Enmiendas por afirmación y dependencias aún candidatas
+
+Las versiones editoriales corregidas conservan la autoría histórica y enlazan pasajes específicos por ejercicio. Se separa la renta del titular próximo de la del descendiente y se clasifican los controles materiales como tales. Objeción: enlazar todas las constantes de una función a todos sus resultados produce aristas falsas. Respuesta: retirar el vínculo500→íntegro y exigir análisis por valor, control y tránsito antes de publicar las demás relaciones. Coste: completar flujo de datos y revisión del wiring; las17 citas nuevas no cierran toda la vigencia ni las52.461 ocurrencias. No se confunde preservar candidatos con mostrar páginas completas.

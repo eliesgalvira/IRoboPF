@@ -1,0 +1,13 @@
+{"signal":null,"status":1,"output":[null,"","Error: `--stdin-filename` is not expected in this context\n"],"pid":780195,"stdout":"","stderr":"Error: `--stdin-filename` is not expected in this context\n"}
+12 | const result=spawnSync('bun',[resolve('node_modules/oxlint/bin/oxlint'),'--threads=1','--disable-nested-config','--stdin-filename','revision-antislop.ts','--format','json'],{
+13 |  input:'import { makeExample } from "./example.ts";\nexport function accept(value: unknown) { return value; }\n',encoding:'utf8'
+14 | })
+15 | console.log(JSON.stringify(result))
+16 | assert.equal(result.status,1)
+17 | const codes=JSON.parse(result.stdout).diagnostics.map(item=>item.code)
+                      ^
+SyntaxError: JSON Parse error: Unexpected EOF
+      at /home/elies/.t3/worktrees/IRoboPF/t3-56690dfb/docs/procedencia/revisiones/contratos-publicacion-r19-sol/humo.mjs:17:18
+      at loadAndEvaluateModule (2:1)
+
+Bun v1.3.13 (Linux x64)

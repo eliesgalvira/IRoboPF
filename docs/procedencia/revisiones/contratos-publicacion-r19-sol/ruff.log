@@ -1,0 +1,12 @@
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/contratos-publicacion-r19-sol/evidencia.py:10:1
+   |
+ 8 | ROOT = Path.cwd()
+ 9 | sys.path.insert(0, str(ROOT / 'tools/procedencia'))
+10 | import enlaces
+   | ^^^^^^^^^^^^^^
+11 |
+12 | OUT = ROOT / 'docs/procedencia/revisiones/contratos-publicacion-r19-sol'
+   |
+
+Found 1 error.

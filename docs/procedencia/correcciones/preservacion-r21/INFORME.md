@@ -1,0 +1,15 @@
+# Correcciones del consumidor de preservación v3
+
+El padre reprodujo los cinco adversos de la revisión Sol: cuatro fallos y un error, conservados en `rojos.log`. Corrige el consumidor; los paquetes, manifiestos y recibos históricos v1/v2/v3 permanecen intactos.
+
+El sobre tiene ahora un schema cerrado recursivamente, con propiedades requeridas, huellas, clases y rutas portables. Se rechazan campos privados incluso en dependencias y metadatos anidados. Una captura de archivo web no puede presentarse como documento primario; la clasificación se vuelve a contrastar al consumir el paquete. Las URLs adicionales de TGSS se limitan a los 35 endpoints documentales examinados del paquete, sin admitir una cadena libre detrás de `/descarga/`. Nuevos endpoints requieren revisión de esa lista.
+
+Si falla la sincronización posterior a publicar el marcador, `confirm` comunica `PublicationDurabilityUnknown`: el marcador existe y la durabilidad es indeterminada. Se conserva el paquete y se repite confirmación tras resolver el fallo; no se anuncia rollback ni persistencia confirmada. La suma del recolector acumula tamaños tipados y elimina el diagnóstico previo de mypy.
+
+La contraprueba adicional del padre descubrió que el primer patrón permitía `checkout:../fuera` y `checkout:./fuera` al cargar el índice, aunque la transferencia posterior los rechazaba. Se conservan esos dos rojos y se corrige el schema antes de crear el destino. Pasan los diez métodos finales, con los adversos independientes heredados y casos adicionales de rutas y cierre recursivo. El pase inicial de 18 métodos duplicaba ocho controles por importar la clase bajo su nombre; no son 18 pruebas independientes. Se evita esa duplicación en el instrumento final.
+
+El manifiesto v3 real pasa el schema: 945 objetos, 1.068.593.978 bytes y 1.910 referencias de dependencia. Se releyeron y verificaron los 945 objetos del paquete local con ambos hashes y tamaños. No se repitió una restauración de un gigabyte sin necesidad: la revisión independiente ya conserva su restauración nueva, y los cambios de confirmación se ejercitan con fallos inyectados y recuperación real en paquetes sintéticos.
+
+Ruff y mypy comprueban el alcance indicado en los logs. Para el instrumento PDF se sigue también el módulo no anotado PyMuPDF con `--follow-untyped-imports`, en lugar de suprimir el diagnóstico; se sustituye `list(Rect)` por coordenadas explícitas. Los diagnósticos iniciales se conservan. No equivale a tipado estricto de todo Python ni a autenticidad histórica de los documentos.
+
+Objeción experta: unos hashes correctos no aseguran estructura, privacidad ni durabilidad. Respuesta: puertas distintas y errores explícitos. Coste: schema y lista documental versionados, y nueva revisión de los cambios. El corte v3 sigue sin los objetos posteriores identificados por la revisión, ni las incorporaciones R20/R21. Crossa conserva v1 histórico y desfasado, misma casa y dueño; no es custodia independiente o remota. Sin LFS, gasto, red o transferencia externa.

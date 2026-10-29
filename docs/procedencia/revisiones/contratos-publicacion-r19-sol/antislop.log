@@ -1,0 +1,14 @@
+$ bun scripts/test-lint.mjs
+18 |   const fixture = join(directory, "sample.ts")
+19 |   // Texto deliberadamente inválido para comprobar ambos plugins, sin ejecutar Effect.
+20 |   writeFileSync(fixture, 'import { makeExample } from "./example.ts";\nexport function accept(value: unknown) { return value; }\n')
+21 |   const result = spawnSync(resolve("node_modules/.bin/oxlint"), ["--config", resolve(".oxlintrc.json"), "--format", "json", fixture], { encoding: "utf8" })
+22 |   assert.equal(result.status, 1, result.stderr)
+23 |   const codes = JSON.parse(result.stdout).diagnostics.map((item) => item.code)
+                          ^
+SyntaxError: JSON Parse error: Unexpected identifier "No"
+      at /home/elies/.t3/worktrees/IRoboPF/t3-56690dfb/scripts/test-lint.mjs:23:22
+      at loadAndEvaluateModule (2:1)
+
+Bun v1.3.13 (Linux x64)
+error: script "test:lint" exited with code 1

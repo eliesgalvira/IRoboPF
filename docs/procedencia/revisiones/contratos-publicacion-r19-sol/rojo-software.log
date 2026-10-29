@@ -1,0 +1,18 @@
+{"originalSoftware":"e0c1f038eb01d2029a49ce39242158530db307306d45acd5bcf3bd702e4c5b81","declaredSoftware":"4d3b1589ffcc560b202e31559d504b66ed8451621205dba9ead2863482c9086a","originalReceipt":"473ddb8d15323182bbe990e856e70ea742f687cdf9aa8834dcbe82183753ee8b","alteredReceipt":"a3372ada41c9015145a235ee00b203e258beeef51ffdcdeb81e38646d52ec400","explanationUnchanged":"a72ea94662ef9e239ed306e4ba5b693c163376de5588a1836a0187fba2c22b5e"}
+18 | const bytes=Buffer.from(JSON.stringify(recibo))
+19 | const nuevo=hash(bytes)
+20 | writeFileSync(resolve(destino,'objetos',nuevo),bytes)
+21 | const falso={...s,evidencias:s.evidencias.map(e=>({...e,recibo:nuevo})),auxiliares:[...s.auxiliares,nuevo].sort(),dependencias:[...s.dependencias,{hash:nuevo,bytes:bytes.length}].sort((a,b)=>a.hash.localeCompare(b.hash))}
+22 | console.log(JSON.stringify({originalSoftware:original,declaredSoftware:d.sha256,originalReceipt:s.evidencias[0].recibo,alteredReceipt:nuevo,explanationUnchanged:s.versiones.explicacion}))
+23 | assert.throws(()=>verificarContenido(falso,destino),'Debe rechazar fuente de software del recibo incoherente con la explicación conservada')
+            ^
+AssertionError: Missing expected exception: Debe rechazar fuente de software del recibo incoherente con la explicación conservada
+ generatedMessage: false,
+     actual: undefined,
+   expected: undefined,
+   operator: "throws",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/.t3/worktrees/IRoboPF/t3-56690dfb/docs/procedencia/revisiones/contratos-publicacion-r19-sol/rojo-software.mjs:23:8
+
+Bun v1.3.13 (Linux x64)

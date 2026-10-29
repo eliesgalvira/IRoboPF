@@ -2,7 +2,19 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, 29 de octubre, 19:14 CET
+## Situación más reciente, 29 de octubre, 19:50 CET
+
+Recibidas las siete revisiones R19: 581 archivos,29.829.914 bytes y13.422 entradas de base comprobadas en cada checkout, sin borrados. Informes históricos intactos. Las264 atestaciones son candidatas limitadas, sin promoción; la identidad autonómica usa la clave de comando T3 y se cotejará contra el identificador canónico antes de registrarla.
+
+El padre reproduce y corrige CP19-01/02/03: informe no vacío, decisión con discriminante único y software del recibo vinculado a la explicación conservada. Pasan los32 snapshots anteriores, siete pruebasNode, cuatro del recibo, el adverso de sustitución,28 regresiones y20 pruebas de contenido, lint y tipos. Nuevo V1 a257e37f24d5a8c2f9306d64b1b706c658de067e501128652db550a7e485280f; V2 082bfc98eb13469b45e456a3d6cc65ebe811a748c1535d606efc3b06e78370ad. Se conservan34 snapshots y719 objetos en el cierre actual. Inventario52.461 y payloadMadrid intactos; aceptación completa false. Falta nueva revisión de los cambios.
+
+Preservación: schema cerrado, clasificación secundaria, URLs examinadas y durabilidad explícita; diez pruebas finales y comprobación de945 objetos/1.068.593.978 bytes del paquetev3. No se modifica el paquete ni se lo presenta actualizado. Los objetos posteriores, incluidosR20/R21, requieren ampliación. Crossa conserva v1 histórico desfasado, misma casa/dueño, no custodia independiente.
+
+Editorial: versiones candidatas corregidas,17 citas/recortes nuevos y metadatos del apéndice recuperados. El cierre de dependencias por cada sitio sigue pendiente antes de publicar. Retenciones2015–2016: el padre inspecciona ≤64 y reproduce los tres recortes idénticos; rectifica12 entradas contractuales sobre signo y alimentos87.5. No habilita versiones; julio y doble600 mantienen reservas. La revisión nueva2012–2014 debe contrastar sus propios signos y condiciones.
+
+Se preparan revisiones nuevas Sol High y análisis de flujo editorial, además de ampliación local del paquete. No hay subagentes nuevos lanzados todavía en este bloque. Sin cambios de cálculo, LFS, gasto, transferencia externa, PR, despliegue ni limpieza. El encargo continúa.
+
+## Situación anterior, 29 de octubre, 19:14 CET
 
 Recibida la revisión Sol de retenciones 2012–2014: 420 archivos y 72.997.401 bytes cotejados; base de 10.583 blobs intacta, cero borrados. El autor completa lectura e inspección de 187 páginas, 80 decisiones y 44 ramas, y declara 496 aserciones correctas con Ruff/Pyright. El padre verifica integridad y estructura; no se atribuye esa lectura personal ni una validación del motor. Informe de recepción en `correcciones/retenciones-antiguas-r20/INFORME.md`.
 

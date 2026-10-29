@@ -1,0 +1,13 @@
+{"stdout":"No files found to lint. Please check your paths and ignore patterns.\n{ \"diagnostics\": [],\n              \"number_of_files\": 0,\n              \"number_of_rules\": 16,\n              \"threads_count\": 1,\n              \"start_time\": 0.053593095\n            }\n            ","stderr":"","status":1}
+19 |   // Texto deliberadamente inválido para comprobar ambos plugins, sin ejecutar Effect.
+20 |   writeFileSync(fixture, 'import { makeExample } from "./example.ts";\nexport function accept(value: unknown) { return value; }\n')
+21 |   const result = spawnSync("bun", [resolve("node_modules/oxlint/bin/oxlint"), "--threads=1", "--disable-nested-config", "--no-ignore", "--config", resolve(".oxlintrc.json"), "--format", "json", fixture], { encoding: "utf8" })
+22 |   console.log(JSON.stringify({stdout:result.stdout,stderr:result.stderr,status:result.status}))
+23 |   assert.equal(result.status, 1, result.stderr)
+24 |   const codes = JSON.parse(result.stdout).diagnostics.map((item) => item.code)
+                          ^
+SyntaxError: JSON Parse error: Unexpected identifier "No"
+      at /home/elies/.t3/worktrees/IRoboPF/t3-56690dfb/.cache/contratos-publicacion-r19-sol/smoke.mjs:24:22
+      at loadAndEvaluateModule (2:1)
+
+Bun v1.3.13 (Linux x64)

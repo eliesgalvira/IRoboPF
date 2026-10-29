@@ -17,6 +17,8 @@ BASE = '65cff4fd8eb8c6269c2ce97b88e770aa711bff7f'
 PARENT = Path('/home/elies/Repos/IRoboPF')
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
+TGSS_PUBLIC_URLS = frozenset(p.strict_json(
+    Path(p.__file__).with_name('preservacion_tgss_urls.json').read_bytes()))
 SKIP = {'node_modules', '.next', 'scratch', '__pycache__', 'uv', 'preservados',
         'necesidades-expertas', 'revision-necesidades-expertas', 'revision-corpus',
         'revision-inventario', 'inventario-pruebas', 'preservacion-v3', 'fixtures',
@@ -74,9 +76,7 @@ def url(value):
             or parsed.port not in (None, 443) or re.search(r'[\x00-\x20\x7f]', value)):
         return None
     if parsed.hostname == 'www.seg-social.es':
-        if (parsed.path.startswith(('/descarga/es/', '/descarga/fr/', '/wps/wcm/connect/wss/', '/wps/portal/wss/internet/'))
-                and parsed.query in ('', 'MOD=AJPERES', 'changeLanguage=es')):
-            return value
+        return value if value in TGSS_PUBLIC_URLS else None
     if (parsed.hostname == 'www.boe.es' and parsed.path == '/diario_boe/xml.php'
             and re.fullmatch(r'id=BOE-A-\d{4}-\d+', parsed.query)):
         return value
@@ -159,6 +159,7 @@ def collect():
                 event.update(canonicalUrl=canonical, finalUrl=final, source=name, sourceSha256=dependencies[name]['sha256'])
                 records.setdefault(sha, []).append(event)
     annex = []
+    annex_bytes = 0
     matrix = []
     for sha in sorted(set(locations) | set(records) | set(blobs)):
         events = records.get(sha, [])
@@ -174,6 +175,7 @@ def collect():
             annex.append({**facts[sha], 'class': kind, 'sources': sorted(locations[sha]),
                           'acquisitions': list({p.encoded(e): e for e in valid}.values()),
                           'references': sorted(refs.get(sha, set()))})
+            annex_bytes += facts[sha]['size']
         else:
             status = 'ausente' if sha not in locations else 'excluido-sin-adquisicion'
             kind = 'facsimil-o-auxiliar-sin-adquisicion'
@@ -193,14 +195,18 @@ def collect():
                 'unresolvedReferences': unresolved, 'exclusions': exclusions}
     save(HERE / 'manifest.json', envelope)
     save(HERE / 'matriz.json', matrix)
-    print({'baseline': len(blobs), 'new': len(annex), 'newBytes': sum(a['size'] for a in annex), 'matrix': len(matrix)})
+    print({'baseline': len(blobs), 'new': len(annex), 'newBytes': annex_bytes, 'matrix': len(matrix)})
 
 
 def load():
     m = p.strict_json((HERE / 'manifest.json').read_bytes())
-    if set(m) - {'format', 'formatVersion', 'edition', 'acceptance', 'base', 'baseline',
-                 'transport', 'annex', 'dependencies', 'unresolvedReferences', 'exclusions'}:
-        raise ValueError('Campo desconocido del sobre')
+    schema = p.strict_json(Path(p.__file__).with_name('preservacion_ampliacion.schema.json').read_bytes())
+    checker = p.Draft202012Validator.TYPE_CHECKER.redefine('integer', lambda _checker, value: type(value) is int)
+    validator = p.validators.extend(p.Draft202012Validator, type_checker=checker)(schema, format_checker=p.FormatChecker())
+    error = next(validator.iter_errors(m), None)
+    if error is not None:
+        # No copiar valores posiblemente privados a los diagnósticos.
+        raise ValueError(f'Sobre fuera del esquema: {list(error.absolute_path)} ({error.validator})')
     if (m['format'] != 'irobopf-ampliacion-local' or type(m['formatVersion']) is not int
             or m['formatVersion'] != 1 or type(m['edition']) is not int or m['edition'] != 3
             or m['acceptance'] != 'ninguna'):
@@ -209,6 +215,8 @@ def load():
     t = p.strict_json((HERE / 'transporte-v2.json').read_bytes())
     p.validate(t)
     deps = {d['path']: d['sha256'] for d in m['dependencies']}
+    if len(deps) != len(m['dependencies']):
+        raise ValueError('Dependencia duplicada')
     for obj in m['annex']:
         if set(obj) != {'sha256', 'sha512', 'size', 'class', 'sources', 'acquisitions', 'references'}:
             raise ValueError('Campos del objeto no admitidos')
@@ -216,6 +224,12 @@ def load():
             raise ValueError('Clase no admitida')
         if not obj['sources'] or (obj['class'] != 'facsimil' and not obj['acquisitions']):
             raise ValueError('Falta procedencia')
+        secondary = any(urlsplit(e[k]).hostname == 'web.archive.org'
+                        for e in obj['acquisitions'] for k in ('canonicalUrl', 'finalUrl'))
+        expected_class = ('captura-secundaria-URL-oficial' if secondary else
+                          'documento-primario-candidato' if obj['acquisitions'] else 'facsimil')
+        if obj['class'] != expected_class:
+            raise ValueError('Clase incompatible con la adquisición conservada')
         for event in obj['acquisitions']:
             if set(event) != {'sha256', 'sha512', 'size', 'retrievedAt', 'httpStatus',
                               'canonicalUrl', 'finalUrl', 'source', 'sourceSha256'}:
@@ -302,16 +316,23 @@ def confirm(destination):
     m, _, _ = load()
     for dep in m['dependencies']:
         p.check(p.safe_source(destination, 'dependencies/' + dep['sha256']), dep)
-    for folder in ('sha256', 'dependencies'):
-        for path in (destination / folder).iterdir():
+    try:
+        for folder in ('sha256', 'dependencies'):
+            for path in (destination / folder).iterdir():
+                with path.open('rb') as stream:
+                    os.fsync(stream.fileno())
+            p.sync_directory(destination / folder)
+        for name in ('manifest.json', 'transporte-v2.json'):
+            path = destination / name
             with path.open('rb') as stream:
                 os.fsync(stream.fileno())
-        p.sync_directory(destination / folder)
-    for name in ('manifest.json', 'transporte-v2.json'):
-        with (destination / name).open('rb') as stream:
-            os.fsync(stream.fileno())
-    p.sync_directory(destination)
-    p.sync_directory(destination.parent)
+        p.sync_directory(destination)
+        p.sync_directory(destination.parent)
+    except OSError as error:
+        raise p.PublicationDurabilityUnknown(
+            f'El marcador {destination / "manifest.json"} existe; durabilidad indeterminada. '
+            'Conservar el paquete y repetir confirm tras resolver el fallo del filesystem.'
+        ) from error
     return {**receipt, 'durability': 'fsync-confirmed'}
 
 

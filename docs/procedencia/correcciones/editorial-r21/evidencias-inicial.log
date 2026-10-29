@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/editorial-r21/evidencias.py", line 116, in <module>
+    main()
+    ~~~~^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/editorial-r21/evidencias.py", line 91, in main
+    cite('madrid-minimo-ley13-2023', madrid, 3, [115, 519, 501, 710], ['5.956,65', '2.643,85'])
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/editorial-r21/evidencias.py", line 47, in cite
+    assert token in text, (label, token)
+           ^^^^^^^^^^^^^
+AssertionError: ('madrid-minimo-ley13-2023', '2.643,85')

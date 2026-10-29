@@ -1,0 +1,22 @@
+import pathlib,json,re,html
+import fitz
+R=pathlib.Path.cwd(); A=R/'docs/procedencia/revisiones/retenciones-2015-2016-sol'; S=R/'.cache/contraste-s1516'
+rows=json.loads((A/'integridad-19.json').read_text())['records']
+for r in rows:
+ if r['sha256'].startswith(('4b1117df','6e2dc7a4','6fe8785b','7393a032')):
+  d=fitz.open(r['path']); wanted={'4b1117df':[6,7,8,9,10,13,14,15],'6e2dc7a4':[11],'6fe8785b':[9,10,19,23,24,26,27],'7393a032':[11,12,24,25,26,27,28,29,57,60,61]}
+  for n in wanted[r['sha256'][:8]]: (S/(r['sha256'][:8]+f'-p{n}.txt')).write_text(d[n-1].get_text())
+# HTML oficial preservado, selección real de bloques, no copia de citas del autor.
+cas=json.loads((R/'docs/procedencia/correcciones/integracion-r19/cas-retenciones.json').read_text())['objects']
+for r in cas:
+ if r['sha256'].startswith(('415158c1','82a57fd7','30047564')):
+  raw=pathlib.Path(r['preservedPath']).read_text()
+  chunks=re.split(r'<div[^>]+class="bloque"',raw)
+  selected=[]
+  for chunk in chunks:
+   if re.search(r'id="(?:a(?:17|18|19|20|57|58|59|60|61|68|80|81|82|83|84|85|86|87|88|89)|dt(?:sexta|duodecima|decimotercera|decimocuarta)|dt-\d+)"',chunk[:300]):
+    text=html.unescape(re.sub('<[^>]+>',' ',chunk));selected.append(' '.join(text.split()))
+  (S/(r['sha256'][:8]+'-articulos.txt')).write_text('\n\n'.join(selected))
+print('Primarios legales extraídos')
+import runpy
+runpy.run_path(str(S/'decidir.py'),run_name='__main__')

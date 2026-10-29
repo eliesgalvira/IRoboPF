@@ -1,0 +1,14 @@
+{
+  "id": "irpf.madrid.limite-escala",
+  "dictamen": "aprovechable para el límite y diferencia de representación",
+  "afirmaciones": {
+    "formula": "El límite es53407,20 EUR de base; no cuota. La cuota fija publicada en el arranque es7395,81 EUR y el tipo21%.",
+    "derivacion": "La fuente BOCM original y la hoja efectiva actual coinciden en el límite. Para base53407,29, la fórmula publicada da7395,81+(53407,29−53407,20)×0,21=7395,8289→7395,83. El motor2020 conserva su representación de integración; el ejemplo explica la diferencia y la regresión limitada, no acepta automáticamente todas sus cuotas fijas.",
+    "norma": "Ley6/2018 artículo único.Dos, BOCM20181228-1 p4; vigencia y correcciones históricas en revisión autonómica2017–2021. El manualAEAT2020 publica53407,29, contradicción conservada; no hay declaración de errataAEAT acreditada.",
+    "evidencia": "citas/madrid2020-limite.json: original8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660, p4, caja[98,628,497,748], PNG y receta144dpi.",
+    "bordes": "El enlace exacto existe en esta base: sustituye localmente la frase obsoleta aún no enlaza. Aceptación limitada al límite, ejercicio y caso revisado. BindingMadrid pendiente, autenticidad indeterminada, aceptación completa false; la ficha original y sus bytes permanecen intactos."
+  },
+  "objecion": "El ejemplo de cuota publicada no es la ejecución de integración de Madrid2020 ni prueba toda su escala.",
+  "respuesta": "La derivación dice expresamente que el motor2020 integra; mantener alcance limitado a límite y contraste. Reextraída cita BOCM, manual discrepante no sustituye norma.",
+  "coste": "No aceptar otras cuotas ni transformar el ejemplo publicado en expected universal del motor."
+}

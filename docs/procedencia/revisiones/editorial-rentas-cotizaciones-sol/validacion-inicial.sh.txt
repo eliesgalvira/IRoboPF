@@ -1,0 +1,13 @@
+set -u
+out=/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol
+export UV_PROJECT_ENVIRONMENT=/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/.cache/revision-editorial-sol/venv
+export PYTHONDONTWRITEBYTECODE=1
+bash tools/procedencia/run.sh "$out/revisar.py" rojos > "$out/rojos.log" 2>&1
+printf 'rojos=%s\n' "$?" > "$out/codigos.log"
+bash tools/procedencia/run.sh .cache/revision-editorial-sol/mapear.py > "$out/mapa.log" 2>&1
+printf 'mapa=%s\n' "$?" >> "$out/codigos.log"
+nix shell nixpkgs#ruff -c ruff format "$out/revisar.py" "$out/auditar_integridad.py" > "$out/formato.log" 2>&1
+nix shell nixpkgs#ruff -c ruff check "$out/revisar.py" "$out/auditar_integridad.py" > "$out/lint.log" 2>&1
+printf 'ruff=%s\n' "$?" >> "$out/codigos.log"
+nix shell nixpkgs#mypy -c mypy --follow-untyped-imports --python-executable "$UV_PROJECT_ENVIRONMENT/bin/python" --cache-dir /home/elies/.t3/worktrees/IRoboPF/t3-9664290b/.cache/revision-editorial-sol/mypy "$out/revisar.py" "$out/auditar_integridad.py" > "$out/tipos.log" 2>&1
+printf 'mypy=%s\n' "$?" >> "$out/codigos.log"

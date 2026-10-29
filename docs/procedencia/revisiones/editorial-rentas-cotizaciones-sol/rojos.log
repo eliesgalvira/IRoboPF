@@ -1,0 +1,58 @@
+test_2026_mei_tiene_fuente_del_ejercicio (__main__.ContratosEditoriales.test_2026_mei_tiene_fuente_del_ejercicio)
+Rojo ERSC-04: cita2025 no prueba tarifa2026. ... FAIL
+test_colegio_500_tiene_pasaje_en_citas_ficha (__main__.ContratosEditoriales.test_colegio_500_tiene_pasaje_en_citas_ficha)
+Rojo ERSC-02: art19d delega límite, no acredita500. ... ok
+test_control_33_no_es_solo_auxiliar (__main__.ContratosEditoriales.test_control_33_no_es_solo_auxiliar)
+Rojo ERSC-03: condición material de grado sin clasificación propia. ... FAIL
+test_referencia_derivacion_resoluble (__main__.ContratosEditoriales.test_referencia_derivacion_resoluble)
+Rojo ERSC-01: dos fichas remiten a derivaciones.json inexistente. ... FAIL
+
+======================================================================
+FAIL: test_2026_mei_tiene_fuente_del_ejercicio (__main__.ContratosEditoriales.test_2026_mei_tiene_fuente_del_ejercicio)
+Rojo ERSC-04: cita2025 no prueba tarifa2026.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py", line 207, in test_2026_mei_tiene_fuente_del_ejercicio
+    self.assertTrue(any('2026' in url for url in urls), urls)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : ['https://www.boe.es/eli/es/o/2025/02/25/pjc178/dof/spa/pdf']
+
+======================================================================
+FAIL: test_control_33_no_es_solo_auxiliar (__main__.ContratosEditoriales.test_control_33_no_es_solo_auxiliar)
+Rojo ERSC-03: condición material de grado sin clasificación propia.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py", line 200, in test_control_33_no_es_solo_auxiliar
+    self.assertEqual(bad, [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError: Lists differ: ['inv-052ac8b7a07f282dd9c3fb7ade0d8261'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'inv-052ac8b7a07f282dd9c3fb7ade0d8261'
+
+- ['inv-052ac8b7a07f282dd9c3fb7ade0d8261']
++ []
+
+======================================================================
+FAIL: test_referencia_derivacion_resoluble (__main__.ContratosEditoriales.test_referencia_derivacion_resoluble)
+Rojo ERSC-01: dos fichas remiten a derivaciones.json inexistente.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9664290b/docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py", line 188, in test_referencia_derivacion_resoluble
+    self.assertEqual(bad, [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError: Lists differ: ['editorial.anual.trabajo.reduccion', 'edi[35 chars]apa'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'editorial.anual.trabajo.reduccion'
+
++ []
+- ['editorial.anual.trabajo.reduccion',
+-  'editorial.anual.explicito.actividad.etapa']
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.010s
+
+FAILED (failures=3)

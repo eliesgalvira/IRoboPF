@@ -1,0 +1,12 @@
+E741 Ambiguous variable name: `O`
+ --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/mapear_pasajes.py:6:1
+  |
+4 | import re
+5 |
+6 | O = pathlib.Path("docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol")
+  | ^
+7 | B = json.loads(gzip.decompress((O / "pasajes-primarios.json.gz").read_bytes()))
+8 | cs = {c["cita"]: c for c in B}
+  |
+
+Found 1 error.

@@ -1,0 +1,43 @@
+test_control_final_publish_fsync_and_recover (adversos_test.Adversos.test_control_final_publish_fsync_and_recover) ... ok
+test_control_restore_corruption_absence_marker_symlink (adversos_test.Adversos.test_control_restore_corruption_absence_marker_symlink) ... ok
+test_control_timestamp_and_parser (adversos_test.Adversos.test_control_timestamp_and_parser) ... ok
+test_pv3_01_no_nested_private_metadata (adversos_test.Adversos.test_pv3_01_no_nested_private_metadata) ... ok
+test_pv3_02_secondary_cannot_claim_primary (adversos_test.Adversos.test_pv3_02_secondary_cannot_claim_primary) ... ok
+test_pv3_03_confirm_fsync_after_publication_is_indeterminate (adversos_test.Adversos.test_pv3_03_confirm_fsync_after_publication_is_indeterminate) ... ok
+test_pv3_04_required_baseline_and_relative_dependency (adversos_test.Adversos.test_pv3_04_required_baseline_and_relative_dependency) ... ok
+test_pv3_05_url_path_payload_rejected (adversos_test.Adversos.test_pv3_05_url_path_payload_rejected) ... ok
+test_cierre_recursivo_y_diagnostico_sin_valores (__main__.ContratoCompleto.test_cierre_recursivo_y_diagnostico_sin_valores) ... ok
+test_control_final_publish_fsync_and_recover (__main__.ContratoCompleto.test_control_final_publish_fsync_and_recover) ... ok
+test_control_restore_corruption_absence_marker_symlink (__main__.ContratoCompleto.test_control_restore_corruption_absence_marker_symlink) ... ok
+test_control_timestamp_and_parser (__main__.ContratoCompleto.test_control_timestamp_and_parser) ... ok
+test_fuentes_portables_antes_de_crear_destino (__main__.ContratoCompleto.test_fuentes_portables_antes_de_crear_destino) ... 
+  test_fuentes_portables_antes_de_crear_destino (__main__.ContratoCompleto.test_fuentes_portables_antes_de_crear_destino) (relative='../fuera') ... FAIL
+  test_fuentes_portables_antes_de_crear_destino (__main__.ContratoCompleto.test_fuentes_portables_antes_de_crear_destino) (relative='./fuera') ... FAIL
+test_pv3_01_no_nested_private_metadata (__main__.ContratoCompleto.test_pv3_01_no_nested_private_metadata) ... ok
+test_pv3_02_secondary_cannot_claim_primary (__main__.ContratoCompleto.test_pv3_02_secondary_cannot_claim_primary) ... ok
+test_pv3_03_confirm_fsync_after_publication_is_indeterminate (__main__.ContratoCompleto.test_pv3_03_confirm_fsync_after_publication_is_indeterminate) ... ok
+test_pv3_04_required_baseline_and_relative_dependency (__main__.ContratoCompleto.test_pv3_04_required_baseline_and_relative_dependency) ... ok
+test_pv3_05_url_path_payload_rejected (__main__.ContratoCompleto.test_pv3_05_url_path_payload_rejected) ... ok
+
+======================================================================
+FAIL: test_fuentes_portables_antes_de_crear_destino (__main__.ContratoCompleto.test_fuentes_portables_antes_de_crear_destino) (relative='../fuera')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/preservacion-r21/adversos.py", line 18, in test_fuentes_portables_antes_de_crear_destino
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fuentes_portables_antes_de_crear_destino (__main__.ContratoCompleto.test_fuentes_portables_antes_de_crear_destino) (relative='./fuera')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/preservacion-r21/adversos.py", line 18, in test_fuentes_portables_antes_de_crear_destino
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 18 tests in 1.139s
+
+FAILED (failures=2)

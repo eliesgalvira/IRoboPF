@@ -1,0 +1,56 @@
+E401 [*] Multiple imports on one line
+ --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/auditar_integridad.py:1:1
+  |
+1 | import pathlib, subprocess, hashlib, json, gzip, stat
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2 | import pymupdf
+  |
+help: Split imports
+
+E741 Ambiguous variable name: `O`
+ --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/auditar_integridad.py:5:1
+  |
+4 | R = pathlib.Path.cwd()
+5 | O = R / "docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol"
+  | ^
+6 | E = R / "docs/procedencia/editorial/rentas-retenciones-cotizaciones"
+  |
+
+F401 [*] `subprocess` imported but unused
+  --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py:11:8
+   |
+ 9 | import pathlib
+10 | import re
+11 | import subprocess
+   |        ^^^^^^^^^^
+12 | import sys
+13 | import unittest
+   |
+help: Remove unused import: `subprocess`
+
+F841 Local variable `cites` is assigned to but never used
+   --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py:115:5
+    |
+113 |         load("controles-tecnicos.json"),
+114 |     )
+115 |     cites = {x["id"]: x for x in load("citas.json")}
+    |     ^^^^^
+116 |     blocks = json.loads(
+117 |         gzip.decompress((OUT / "pasajes-primarios.json.gz").read_bytes())
+    |
+help: Remove assignment to unused variable `cites`
+
+F841 Local variable `occ` is assigned to but never used
+   --> docs/procedencia/revisiones/editorial-rentas-cotizaciones-sol/revisar.py:233:9
+    |
+231 |     annex = []
+232 |     for index, control in enumerate(controls, 1):
+233 |         occ = control["ocurrencia"]
+    |         ^^^
+234 |         value = control["valor"]
+235 |         material = value == "33" or (
+    |
+help: Remove assignment to unused variable `occ`
+
+Found 5 errors.
+[*] 2 fixable with the `--fix` option (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
