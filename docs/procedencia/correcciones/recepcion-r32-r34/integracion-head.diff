@@ -1,0 +1,12 @@
+--- incorporacion recibida
++++ incorporacion padre r34
+@@ -12,7 +12,8 @@
+ export const sha = (bytes) => createHash("sha256").update(bytes).digest("hex")
+ const serialize = (value) => Buffer.from(JSON.stringify(value, null, 2) + "\n")
+ export function preparar(root = source) {
+-  assert.equal(execFileSync("git", ["rev-parse", "HEAD"], {cwd:root}).toString().trim(), BASE, "HEAD inesperado")
++  // Integrar el candidato añade commits: los contenidos exigidos siguen fijados debajo.
++  execFileSync("git", ["merge-base", "--is-ancestor", BASE, "HEAD"], {cwd:root})
+   assert.equal(sha(readFileSync(resolve(root, reviewerPath))), "26d3969ac6690eeaec9ab6855e9e4d4becb9515273f51277b6a380e72ae137be")
+   const load = (p) => JSON.parse(readFileSync(resolve(root, p)).toString("utf8"))
+   const ref = (r) => {

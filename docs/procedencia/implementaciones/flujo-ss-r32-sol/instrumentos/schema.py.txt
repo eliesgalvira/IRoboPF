@@ -1,0 +1,11 @@
+import json,copy
+from pathlib import Path
+from jsonschema import Draft202012Validator
+root=Path.cwd();schema=json.loads((root/'schemas/procedencia/flujo/ss-r32.schema.json').read_text());graph=json.loads((root/'docs/procedencia/implementaciones/flujo-ss-r32-sol/fragmento.json').read_text())
+Draft202012Validator.check_schema(schema);v=Draft202012Validator(schema);v.validate(graph)
+mutants=[]
+for field,value in [('siteClosed',True),('admissionRequirement','otro')]:
+ g=copy.deepcopy(graph);g['sites'][0][field]=value
+ assert not v.is_valid(g);mutants.append(field)
+g=copy.deepcopy(graph);g['completeRuleAcceptance']=True;assert not v.is_valid(g);mutants.append('completeRuleAcceptance')
+print(json.dumps({'schema':'draft2020-12','valid':True,'mutantsRejected':mutants,'semanticValidation':'validateSS independiente del schema de forma','fiscalAcceptance':False}))

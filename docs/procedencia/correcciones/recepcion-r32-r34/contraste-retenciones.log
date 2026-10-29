@@ -1,0 +1,65 @@
+[
+  {
+    "id": "reconstruccion-bytes",
+    "expected": true,
+    "actual": true,
+    "pass": true,
+    "kind": "integridad"
+  },
+  {
+    "id": "verificador-original",
+    "expected": true,
+    "actual": true,
+    "pass": true,
+    "kind": "integridad"
+  },
+  {
+    "id": "terminal-literal-CERO",
+    "expected": true,
+    "actual": false,
+    "pass": false,
+    "kind": "cierre-propiedad"
+  },
+  {
+    "id": "terminal-literal-CIEN",
+    "expected": true,
+    "actual": false,
+    "pass": false,
+    "kind": "cierre-propiedad"
+  },
+  {
+    "id": "celdas-escala-en-puertos",
+    "expected": true,
+    "actual": false,
+    "pass": false,
+    "kind": "cierre-propiedad"
+  },
+  {
+    "id": "frontera-subcaso-por-campo",
+    "expected": true,
+    "actual": false,
+    "pass": false,
+    "kind": "cierre-propiedad"
+  },
+  {
+    "id": "cinco-llamadas-escala-inventariadas",
+    "expected": 5,
+    "actual": 5,
+    "pass": true,
+    "kind": "positivo-inventario"
+  },
+  {
+    "id": "duplicado-rechazado-verificador",
+    "expected": true,
+    "actual": true,
+    "pass": true,
+    "kind": "integridad"
+  },
+  {
+    "id": "omisiones-rechazadas-verificador",
+    "expected": true,
+    "actual": true,
+    "pass": true,
+    "kind": "integridad"
+  }
+]

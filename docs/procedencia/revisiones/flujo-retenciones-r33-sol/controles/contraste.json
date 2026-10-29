@@ -1,0 +1,157 @@
+{
+  "checks": [
+    {
+      "id": "reconstruccion-bytes",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "kind": "integridad"
+    },
+    {
+      "id": "verificador-original",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "kind": "integridad"
+    },
+    {
+      "id": "terminal-literal-CERO",
+      "expected": true,
+      "actual": false,
+      "pass": false,
+      "kind": "cierre-propiedad"
+    },
+    {
+      "id": "terminal-literal-CIEN",
+      "expected": true,
+      "actual": false,
+      "pass": false,
+      "kind": "cierre-propiedad"
+    },
+    {
+      "id": "celdas-escala-en-puertos",
+      "expected": true,
+      "actual": false,
+      "pass": false,
+      "kind": "cierre-propiedad"
+    },
+    {
+      "id": "frontera-subcaso-por-campo",
+      "expected": true,
+      "actual": false,
+      "pass": false,
+      "kind": "cierre-propiedad"
+    },
+    {
+      "id": "cinco-llamadas-escala-inventariadas",
+      "expected": 5,
+      "actual": 5,
+      "pass": true,
+      "kind": "positivo-inventario"
+    },
+    {
+      "id": "duplicado-rechazado-verificador",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "kind": "integridad"
+    },
+    {
+      "id": "omisiones-rechazadas-verificador",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "kind": "integridad"
+    }
+  ],
+  "collections": [
+    {
+      "operation": "find",
+      "receiver": "[...tramos].reverse()",
+      "callback": "({ desde }) => base.gte(desde)",
+      "seed": null,
+      "semantics": "primer elemento que cumple en orden actual; undefined si ninguno"
+    },
+    {
+      "operation": "reverse",
+      "receiver": "[...tramos]",
+      "callback": null,
+      "seed": null,
+      "semantics": "operación nativa de array; conserva orden salvo reverse/sort; cada callback enlazado al elemento"
+    }
+  ],
+  "calls": [
+    {
+      "call": "calcularCuotaEscala(base.minus(anualidades), version)",
+      "arguments": [
+        "base.minus(anualidades)",
+        "version"
+      ],
+      "formal": [
+        "base: Decimal",
+        "version: VersionRetencion | undefined"
+      ]
+    },
+    {
+      "call": "calcularCuotaEscala(anualidades, version)",
+      "arguments": [
+        "anualidades",
+        "version"
+      ],
+      "formal": [
+        "base: Decimal",
+        "version: VersionRetencion | undefined"
+      ]
+    },
+    {
+      "call": "calcularCuotaEscala(minimoPersonalFamiliar.plus(1980), version)",
+      "arguments": [
+        "minimoPersonalFamiliar.plus(1980)",
+        "version"
+      ],
+      "formal": [
+        "base: Decimal",
+        "version: VersionRetencion | undefined"
+      ]
+    },
+    {
+      "call": "calcularCuotaEscala(base, version)",
+      "arguments": [
+        "base",
+        "version"
+      ],
+      "formal": [
+        "base: Decimal",
+        "version: VersionRetencion | undefined"
+      ]
+    },
+    {
+      "call": "calcularCuotaEscala(minimoPersonalFamiliar, version)",
+      "arguments": [
+        "minimoPersonalFamiliar",
+        "version"
+      ],
+      "formal": [
+        "base: Decimal",
+        "version: VersionRetencion | undefined"
+      ]
+    }
+  ],
+  "subcaso": {
+    "id": "A.subcaso",
+    "property": "retencionTrabajoAeat",
+    "instance": "annual-public",
+    "unit": "CasoRetencionTrabajo?",
+    "formula": "caso.retencionTrabajoAeat; ausencia no invoca el servicio",
+    "source": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "start": 28188,
+      "end": 28397,
+      "syntax": "VariableDeclaration",
+      "offsetEncoding": "utf16"
+    },
+    "terminal": true
+  },
+  "nota": "Rojos de contrato previo a cualquier corrección; no se modifica producto. Una referencia al cuerpo conserva bytes pero no sustituye puertos/celdas/bindings por propiedad."
+}

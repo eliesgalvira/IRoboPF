@@ -1,0 +1,10 @@
+from pathlib import Path
+import difflib,shutil
+S=Path('.cache/revision-nominal-r32');O=Path('docs/procedencia/revisiones/nominal-r32-sol')
+shutil.copyfile(S/'casos-antes-lint.json',O/'r30-casos-node.json')
+new=(S/'casos.mjs').read_text();old=new.replace("if(!['missing-executableScope','type-executableScope','scope-null'].includes(id))","if(p.executableScope&&typeof p.executableScope.path==='string')")
+(S/'casos-antes-guard.mjs').write_text(old.replace("resolve(out,'casos-node.json')","resolve(out,'casos-node-antes-guard.json')"))
+(O/'instrumento-lint.diff').write_text(''.join(difflib.unified_diff(old.splitlines(True),new.splitlines(True),fromfile='instrumento-antes',tofile='instrumento-despues')))
+p=S/'r30-casos.mjs';a=p.read_text();b=a.replace("nominal-r32-sol/casos-node.json","nominal-r32-sol/r30-casos-node.json");p.write_text(b)
+(O/'r30-rutas-salida.diff').write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True))))
+p=S/'resultados.py';a=p.read_text().replace("(S/'casos-antes-lint.json')","(O/'casos-node-antes-guard.json')");p.write_text(a)

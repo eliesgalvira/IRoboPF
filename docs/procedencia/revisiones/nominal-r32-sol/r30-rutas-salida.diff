@@ -1,0 +1,9 @@
+--- 
++++ 
+@@ -53,5 +53,5 @@
+ const f=envelope();
+ for(const target of new Set([...f.deps.map(d=>d.sha256),...originals.keys()]))check('lectura-final-'+target,'reject',()=>{let n=0;return f.run(h=>h===target&&++n>1?Buffer.from('cambio persistente'):f.objects.get(h));});
+ const result={payloadSha256:hash(base.get(prefix+'payload.json')),cases:rows,failed:rows.filter(r=>!r.ok)};
+-writeFileSync('docs/procedencia/revisiones/nominal-r32-sol/casos-node.json',JSON.stringify(result,null,2)+'\n');
++writeFileSync('docs/procedencia/revisiones/nominal-r32-sol/r30-casos-node.json',JSON.stringify(result,null,2)+'\n');
+ console.log(JSON.stringify({cases:rows.length,failed:result.failed}));assert.equal(result.failed.length,0);

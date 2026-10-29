@@ -1,0 +1,4 @@
+[
+ {"id":"A32-P01","kind":"product-validation-gap","status":"candidate","fieldPaths":["caso.pagosACuentaCentimos","caso.retencionesSoportadasCentimos"],"observed":"Entradas negativas admitidas por anual, con pagos/retenciones de signo negativo","expectedLegal":"pendiente de contraste del padre; no se atribuye prohibición legal por este test","fixApplied":false,"test":"carencia de validación: pagos negativos pasan, no inventar rechazo jurídico"},
+ {"id":"A32-P02","kind":"product-validation-gap","status":"candidate","fieldPaths":["caso.retencionTrabajoAeat.situacionLaboral","caso.retencionTrabajoAeat.contrato"],"observed":"La guarda solo exige strings, no pertenencia completa al enum TypeScript","expectedLegal":"no determinado; frontera JS fuera del tipo sin decode integral","fixApplied":false,"evidence":"retencion.esCasoCalculable.expanded"}
+]

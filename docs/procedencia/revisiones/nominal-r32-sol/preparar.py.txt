@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,subprocess,hashlib,difflib,shutil,re
+R=Path.cwd();O=R/'docs/procedencia/revisiones/nominal-r32-sol';S=R/'.cache/revision-nominal-r32'
+(O/'inicial.json').write_text(json.dumps({'head':'846f25e183ba07414065d4e6bdf9e98311b98a17','entries':16855,'differences':[],'diff':'','complete':True,'method':'lstat/readlink/bytes/executable; one git cat-file blob at a time; completed before first write'},indent=2)+'\n')
+src=R/'docs/procedencia/correcciones/nominal-r32/preparar.py';a=src.read_text();b=a.replace('.cache/nominal-r29/','.cache/revision-nominal-r32/').replace('docs/procedencia/correcciones/nominal-r32/originales-nominal.json','docs/procedencia/revisiones/nominal-r32-sol/originales.json')
+(S/'fixture.py').write_text(b);(O/'preparar.diff').write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True),fromfile=str(src.relative_to(R)),tofile='.cache/revision-nominal-r32/fixture.py')))
+base=json.loads((R/'docs/procedencia/correcciones/recepcion-r30-r32/archivos-precommit.json').read_bytes())['base']
+name='scripts/procedencia/nominal-contrato.mjs';raw=subprocess.check_output(['git','show',base+':'+name]);old=S/'anterior'/name;old.parent.mkdir(parents=True,exist_ok=True);old.write_bytes(raw)
+shutil.copytree(R/'schemas',S/'anterior/schemas',dirs_exist_ok=True)
+(O/'consumidores.json').write_text(json.dumps({'baseAnterior':base,'path':name,'beforeSha256':hashlib.sha256(raw).hexdigest(),'currentSha256':hashlib.sha256((R/name).read_bytes()).hexdigest()},indent=2)+'\n')
+(O/'fix.diff').write_text(''.join(difflib.unified_diff(raw.decode().splitlines(True),(R/name).read_text().splitlines(True),fromfile=base+'/'+name,tofile='HEAD/'+name)))
+# Preserve all received review text/logs as references by hash; no overwrite or recopy.
+rows=[]
+for folder in ['docs/procedencia/revisiones/nominal-r30-sol','docs/procedencia/correcciones/nominal-r32']:
+ for p in sorted((R/folder).iterdir()):
+  if p.is_file():
+   raw=p.read_bytes();rows.append({'path':str(p.relative_to(R)),'sha256':hashlib.sha256(raw).hexdigest(),'size':len(raw)})
+(O/'recibidos.json').write_text(json.dumps(rows,indent=2)+'\n')

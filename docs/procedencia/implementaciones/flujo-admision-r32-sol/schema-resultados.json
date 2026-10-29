@@ -1,0 +1,72 @@
+[
+  {
+    "id": "legitimo",
+    "expected": true,
+    "actual": true,
+    "errors": null
+  },
+  {
+    "id": "aceptacion-fiscal",
+    "expected": false,
+    "actual": false,
+    "errors": [
+      {
+        "keyword": "const",
+        "dataPath": ".completeRuleAcceptance",
+        "schemaPath": "#/properties/completeRuleAcceptance/const",
+        "params": {
+          "allowedValue": false
+        },
+        "message": "should be equal to constant"
+      }
+    ]
+  },
+  {
+    "id": "wiring",
+    "expected": false,
+    "actual": false,
+    "errors": [
+      {
+        "keyword": "const",
+        "dataPath": ".wiringAllowed",
+        "schemaPath": "#/properties/wiringAllowed/const",
+        "params": {
+          "allowedValue": false
+        },
+        "message": "should be equal to constant"
+      }
+    ]
+  },
+  {
+    "id": "campo-extra",
+    "expected": false,
+    "actual": false,
+    "errors": [
+      {
+        "keyword": "additionalProperties",
+        "dataPath": "",
+        "schemaPath": "#/additionalProperties",
+        "params": {
+          "additionalProperty": "extra"
+        },
+        "message": "should NOT have additional properties"
+      }
+    ]
+  },
+  {
+    "id": "sitio-perdido",
+    "expected": false,
+    "actual": false,
+    "errors": [
+      {
+        "keyword": "minItems",
+        "dataPath": ".sites",
+        "schemaPath": "#/properties/sites/minItems",
+        "params": {
+          "limit": 17
+        },
+        "message": "should NOT have fewer than 17 items"
+      }
+    ]
+  }
+]
