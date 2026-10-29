@@ -1,0 +1,41 @@
+bun test v1.3.13 (bf2e2cec)
+
+tests/software-recibo.test.mjs:
+(pass) un recibo histórico usa sus fuentes conservadas y no las del checkout [7.00ms]
+(pass) sustituir una fuente por otro objeto íntegro no conserva la versión [2.00ms]
+(pass) duplicados, fuentes ausentes y bytes corruptos se rechazan
+(pass) la lista conservada se interpreta como datos y nunca ejecuta expresiones [3.00ms]
+(pass) el binding histórico no admite otras declaraciones, aliases o escrituras [4.00ms]
+
+docs/procedencia/revisiones/contratos-r21-sol/ast.test.mjs:
+(pass) comentario
+(pass) no exportado [3.00ms]
+(pass) export alias
+(pass) declaraciones duplicadas [1.00ms]
+(pass) spread
+(pass) expresión
+(pass) plantilla
+(pass) hueco [1.00ms]
+(pass) sintaxis rota
+(pass) ruta /abs
+(pass) ruta ../x [1.00ms]
+(pass) ruta a/../b
+(pass) ruta a/./b
+(pass) ruta a//b
+(pass) ruta a/
+(pass) ruta C:/a
+(pass) ruta a\b [1.00ms]
+(pass) ruta a?b
+(pass) ruta a#b
+(pass) ruta a%2fb
+(pass) ruta 
+(pass) ruta duplicada
+(pass) helper ausente [1.00ms]
+(pass) bytes históricos son datos, no se ejecuta ni un throw
+(pass) orden, generador, versión y pérdida de fuente no son intercambiables [1.00ms]
+(pass) CR21-A: exportación duplicada del mismo nombre debe rechazarse
+(pass) CR21-B: una redeclaración local del binding debe rechazarse
+
+ 32 pass
+ 0 fail
+Ran 32 tests across 2 files. [459.00ms]

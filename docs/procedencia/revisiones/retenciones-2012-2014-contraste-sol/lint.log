@@ -1,0 +1,54 @@
+E401 [*] Multiple imports on one line
+ --> docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/contrastar.py:1:1
+  |
+1 | import gzip, hashlib, json, subprocess
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2 | from pathlib import Path
+3 | import fitz
+  |
+help: Split imports
+
+E401 [*] Multiple imports on one line
+ --> docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/control.py:1:1
+  |
+1 | import hashlib, json, os, stat, subprocess, sys
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2 | from pathlib import Path
+  |
+help: Split imports
+
+E402 Module level import not at top of file
+  --> docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/control.py:37:1
+   |
+35 |     "diff": subprocess.check_output(["git", "diff", base, "--"], text=True),
+36 | }
+37 | import gzip
+   | ^^^^^^^^^^^
+38 |
+39 | with gzip.open(out / ("control-" + sys.argv[1] + ".json.gz"), "wt") as f:
+   |
+
+F401 [*] `hashlib` imported but unused
+ --> docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/decidir.py:3:8
+  |
+1 | """Serializa dictámenes de contraste; no decide legalidad mediante un contador."""
+2 |
+3 | import hashlib
+  |        ^^^^^^^
+4 | import json
+5 | from pathlib import Path
+  |
+help: Remove unused import: `hashlib`
+
+E401 [*] Multiple imports on one line
+ --> docs/procedencia/revisiones/retenciones-2012-2014-contraste-sol/preparar.py:1:1
+  |
+1 | import gzip, hashlib, json, shutil
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2 | from pathlib import Path
+3 | import fitz
+  |
+help: Split imports
+
+Found 5 errors.
+[*] 4 fixable with the `--fix` option.

@@ -1,0 +1,46 @@
+{
+  "head": "e6869301240add8a0bd3c8727998c83a214abd43",
+  "runtime": "gpt-6.1-sol / high / T3 Code Codex",
+  "attestationIssued": false,
+  "acceptance": false,
+  "enableVersions": [],
+  "findings": [
+    {
+      "id": "R21-01",
+      "decision": "corrección documental corroborada en dominio limitado",
+      "evidence": ["casos-numericos.json", "rojo-r21.log", "contraste-viejo.log", "contraste-nuevo.log"],
+      "objection": "El mínimo puede entrar en conflicto con el techo.",
+      "response": "El dominio exige mínimo satisfecho, calificación sin cambio y mínimo no superior al anterior; min conserva ese mínimo.",
+      "cost": "No se resuelven colisiones ni una nómina completa.",
+      "subsequentContrastRequired": true
+    },
+    {
+      "id": "R21-02",
+      "decision": "precedencia y exclusiones corroboradas para el subcontrato",
+      "evidence": ["contrato-compuesto.txt", "superposicion.json", "casos-juridicos.json", "INFORME.md"],
+      "objection": "Las filas residuales87.5-excepciones podrían convertirse en filtro jurídico.",
+      "response": "Son candidato-documental delPDF; la adenda y las celdas nuevas expresamente subordinan el filtro a hechos/calificación. No hay reutilización aislada autorizada.",
+      "cost": "Todas las concurrencias alimentarias, incluso conciliadas, siguen sin soporte y no se resuelven jurídicamente por excluirlas.",
+      "subsequentContrastRequired": true
+    },
+    {
+      "id": "R21-03",
+      "decision": "receta reproducida por bytes y texto en ambos originales fijados",
+      "evidence": ["citas-controles.json", "30047564-primaria.json", "82a57fd7-primaria.json"],
+      "objection": "Un digest bruto no es DOM#a87 ni evidencia de vigencia.",
+      "response": "Se distinguen intervalo entre atributos, selección del div y hash del texto; ningún hash acredita autenticidad histórica.",
+      "cost": "Mantener receta heredada y limitar el verde a los originales exactos.",
+      "subsequentContrastRequired": true
+    }
+  ],
+  "newObservation": {
+    "id": "R22-OBS-01",
+    "decision": "límite reproducido del contraste documental; no bloqueo de este subcontrato",
+    "claim": "verify_citation ignora cuatro metadatos descriptivos y admite sustitución coordinada si se recalcula todo el sobre.",
+    "objection": "Un consumidor operativo de recetas debería validar receta e identidad externa.",
+    "response": "La receta real coincide y se reprodujo independientemente. El instrumento revisado es fijo/documental; no ofrece esa garantía operativa.",
+    "cost": "No promocionar esta función a verificador general de producción por sus pruebas verdes.",
+    "evidence": ["citas-controles.json", "revisar.py", "INFORME.md"],
+    "subsequentContrastRequired": true
+  }
+}

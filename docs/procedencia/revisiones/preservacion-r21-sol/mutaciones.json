@@ -1,0 +1,770 @@
+[
+  {
+    "case": "missing:():format",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():formatVersion",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():edition",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():acceptance",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():base",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():baseline",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():transport",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():annex",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():dependencies",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():unresolvedReferences",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "missing:():exclusions",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (required)"
+  },
+  {
+    "case": "private:()",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: [] (additionalProperties)"
+  },
+  {
+    "case": "missing:('baseline',):sha256",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline'] (required)"
+  },
+  {
+    "case": "missing:('baseline',):sha512",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline'] (required)"
+  },
+  {
+    "case": "missing:('baseline',):size",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline'] (required)"
+  },
+  {
+    "case": "private:('baseline',)",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline'] (additionalProperties)"
+  },
+  {
+    "case": "missing:('transport',):sha256",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport'] (required)"
+  },
+  {
+    "case": "missing:('transport',):sha512",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport'] (required)"
+  },
+  {
+    "case": "missing:('transport',):size",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport'] (required)"
+  },
+  {
+    "case": "private:('transport',)",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport'] (additionalProperties)"
+  },
+  {
+    "case": "missing:('annex', 0):sha256",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0):sha512",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0):size",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0):sources",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0):acquisitions",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0):references",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0):class",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0] (required)"
+  },
+  {
+    "case": "private:('annex', 0)",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0] (additionalProperties)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):sha256",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):sha512",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):size",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):canonicalUrl",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):finalUrl",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):retrievedAt",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):httpStatus",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):source",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "missing:('annex', 0, 'acquisitions', 0):sourceSha256",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (required)"
+  },
+  {
+    "case": "private:('annex', 0, 'acquisitions', 0)",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0] (additionalProperties)"
+  },
+  {
+    "case": "missing:('dependencies', 0):path",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0] (required)"
+  },
+  {
+    "case": "missing:('dependencies', 0):sha256",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0] (required)"
+  },
+  {
+    "case": "missing:('dependencies', 0):sha512",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0] (required)"
+  },
+  {
+    "case": "missing:('dependencies', 0):size",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0] (required)"
+  },
+  {
+    "case": "private:('dependencies', 0)",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0] (additionalProperties)"
+  },
+  {
+    "case": "type:():formatVersion:True",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['formatVersion'] (type)"
+  },
+  {
+    "case": "type:():formatVersion:False",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['formatVersion'] (type)"
+  },
+  {
+    "case": "type:():formatVersion:1.0",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['formatVersion'] (type)"
+  },
+  {
+    "case": "type:():formatVersion:'1'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['formatVersion'] (type)"
+  },
+  {
+    "case": "type:():formatVersion:None",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['formatVersion'] (type)"
+  },
+  {
+    "case": "type:():formatVersion:-1",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['formatVersion'] (const)"
+  },
+  {
+    "case": "type:():edition:True",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['edition'] (type)"
+  },
+  {
+    "case": "type:():edition:False",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['edition'] (type)"
+  },
+  {
+    "case": "type:():edition:3.0",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['edition'] (type)"
+  },
+  {
+    "case": "type:():edition:'3'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['edition'] (type)"
+  },
+  {
+    "case": "type:():edition:None",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['edition'] (type)"
+  },
+  {
+    "case": "type:():edition:-1",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['edition'] (const)"
+  },
+  {
+    "case": "type:('baseline',):size:True",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline', 'size'] (type)"
+  },
+  {
+    "case": "type:('baseline',):size:False",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline', 'size'] (type)"
+  },
+  {
+    "case": "type:('baseline',):size:17.0",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline', 'size'] (type)"
+  },
+  {
+    "case": "type:('baseline',):size:'17'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline', 'size'] (type)"
+  },
+  {
+    "case": "type:('baseline',):size:None",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline', 'size'] (type)"
+  },
+  {
+    "case": "type:('baseline',):size:-1",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['baseline', 'size'] (minimum)"
+  },
+  {
+    "case": "type:('transport',):size:True",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport', 'size'] (type)"
+  },
+  {
+    "case": "type:('transport',):size:False",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport', 'size'] (type)"
+  },
+  {
+    "case": "type:('transport',):size:147.0",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport', 'size'] (type)"
+  },
+  {
+    "case": "type:('transport',):size:'147'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport', 'size'] (type)"
+  },
+  {
+    "case": "type:('transport',):size:None",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport', 'size'] (type)"
+  },
+  {
+    "case": "type:('transport',):size:-1",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['transport', 'size'] (minimum)"
+  },
+  {
+    "case": "type:('annex', 0):size:True",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0):size:False",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0):size:22.0",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0):size:'22'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0):size:None",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0):size:-1",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'size'] (minimum)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):size:True",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):size:False",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):size:22.0",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):size:'22'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):size:None",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):size:-1",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'size'] (minimum)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):httpStatus:True",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'httpStatus'] (const)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):httpStatus:False",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'httpStatus'] (const)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):httpStatus:200.0",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'httpStatus'] (type)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):httpStatus:'200'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'httpStatus'] (const)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):httpStatus:None",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'httpStatus'] (const)"
+  },
+  {
+    "case": "type:('annex', 0, 'acquisitions', 0):httpStatus:-1",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'acquisitions', 0, 'httpStatus'] (const)"
+  },
+  {
+    "case": "type:('dependencies', 0):size:True",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('dependencies', 0):size:False",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('dependencies', 0):size:17.0",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('dependencies', 0):size:'17'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('dependencies', 0):size:None",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0, 'size'] (type)"
+  },
+  {
+    "case": "type:('dependencies', 0):size:-1",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0, 'size'] (minimum)"
+  },
+  {
+    "case": "source:'checkout:../escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:./escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:/escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:a/../escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:a/./escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:a//b'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:a/'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:a\\\\b'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'checkout:a\\n'",
+    "rejected": false,
+    "expectedReject": true,
+    "error": null
+  },
+  {
+    "case": "valid:checkout:",
+    "rejected": false,
+    "expectedReject": false,
+    "error": null
+  },
+  {
+    "case": "source:'parent:../escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:./escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:/escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:a/../escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:a/./escape'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:a//b'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:a/'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:a\\\\b'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:'",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'sources', 0] (pattern)"
+  },
+  {
+    "case": "source:'parent:a\\n'",
+    "rejected": false,
+    "expectedReject": true,
+    "error": null
+  },
+  {
+    "case": "valid:parent:",
+    "rejected": false,
+    "expectedReject": false,
+    "error": null
+  },
+  {
+    "case": "duplicate:dependencies",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Dependencia duplicada"
+  },
+  {
+    "case": "duplicate:annex",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Hash duplicado"
+  },
+  {
+    "case": "duplicate:annex:sources",
+    "rejected": false,
+    "expectedReject": true,
+    "error": null
+  },
+  {
+    "case": "duplicate:annex:references",
+    "rejected": false,
+    "expectedReject": true,
+    "error": null
+  },
+  {
+    "case": "duplicate:annex:acquisitions",
+    "rejected": false,
+    "expectedReject": true,
+    "error": null
+  },
+  {
+    "case": "duplicate:unresolvedReferences",
+    "rejected": false,
+    "expectedReject": true,
+    "error": null
+  },
+  {
+    "case": "private:unresolvedReferences",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['unresolvedReferences', 0] (additionalProperties)"
+  },
+  {
+    "case": "duplicate:exclusions",
+    "rejected": false,
+    "expectedReject": true,
+    "error": null
+  },
+  {
+    "case": "private:exclusions",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['exclusions', 0] (additionalProperties)"
+  },
+  {
+    "case": "missing-event-dependency",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Adquisición incoherente"
+  },
+  {
+    "case": "wrong-event-dependency",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Adquisición incoherente"
+  },
+  {
+    "case": "secondary-primary",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Clase incompatible con la adquisición conservada"
+  },
+  {
+    "case": "secondary-facsimile",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Clase incompatible con la adquisición conservada"
+  },
+  {
+    "case": "dependency-absolute",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['dependencies', 0, 'path'] (pattern)"
+  },
+  {
+    "case": "reference-escape",
+    "rejected": true,
+    "expectedReject": true,
+    "error": "ValueError: Sobre fuera del esquema: ['annex', 0, 'references', 0] (pattern)"
+  }
+]

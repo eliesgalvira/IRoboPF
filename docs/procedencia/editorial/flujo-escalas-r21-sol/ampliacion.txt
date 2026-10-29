@@ -1,0 +1,27 @@
+    # Escrituras explícitas: no inferir flujo de la declaración inicial mutable.
+    def write_node(symbol: str, expression: str, condition: str) -> str:
+        text=Path(X).read_text(); index=text.index(expression)
+        assert text.count(expression)==1
+        key=X+'#'+symbol+'@'+str(index)
+        NODES[key]={'symbol':symbol,'source':{'file':X,'sha256':sha(X),'start':len(text[:index].encode('utf-16-le'))//2,'end':len(text[:index+len(expression)].encode('utf-16-le'))//2,'offsetEncoding':'utf16'},'expression':expression,'condition':condition}
+        return key
+    neto_work=write_node('neto','neto = new D(trabajo.rendimientoAntesArt20)','perfil solo-trabajo, adaptación disponible')
+    neto_reduce=write_node('neto','neto = neto.minus(reduccionArt20)','perfil solo-trabajo, una vez tras artículo19')
+    neto_eds=write_node('neto','neto = new D(actividad.aporte.importeEurosExactos)','perfil solo-actividad-eds, adaptación disponible')
+    posterior_da=write_node('posterior','posterior = new D(resultado.cuotaPosterior)','brutoServicios.gt(0), resultado DA61 soportado')
+    LINKS[node(X,'neto')]=[(neto_reduce,'Rama trabajo; escritura final de neto.'),(neto_eds,'Rama EDS; aporte ya reducido sin artículo20 salarial.')]
+    LINKS[neto_reduce]=[(neto_work,'Valor previo en esta rama.'),(node(X,'reduccionArt20'),'min(max(neto,0), reducción sobre argumentoArt20); otras rentas0.')]
+    LINKS[neto_work]=[(node(X,'trabajo'),'Propiedad rendimientoAntesArt20, no retenciones ni pagos.')]
+    LINKS[neto_eds]=[(node(X,'actividad'),'Solo aporte.importeEurosExactos, no retencionesEuros/pagosFraccionadosEuros.')]
+    LINKS[node(X,'posterior')]=[(node(X,'liquida'),'Inicialización y rama sin servicios.'),(posterior_da,'Sustituye valor solo cuando brutoServicios>0; no vuelve a restar DA61.')]
+    LINKS[posterior_da]=[(node(X,'resultado'),'Solo cuotaPosterior del resultado soportado.')]
+    link(X,'trabajo',[('lib/dominio/irpf/trabajo-anual/adaptador.ts','adaptarTrabajoAnual')],'Adaptación de trabajo; art19 y argumentoArt20 distintos.')
+    link(X,'actividad',[('lib/dominio/irpf/actividades-economicas/adaptador.ts','adaptarActividadGeneral')],'Aporte EDS ya contiene RETA y artículo32.')
+    link(X,'resultado',[('lib/dominio/irpf/trabajo-anual/calcular.ts','calcularDeduccionTrabajo'),(X,'liquida'),(X,'base'),(X,'brutoServicios')],'DA61 después de artículo80; brutoServicios solo de empleo, no pensión.')
+    link(X,'reduccionArt20',[('lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts','calcularReduccionTrabajoConOtrasRentas'),(X,'trabajo')],'Escritura de reduccionArt20 visible en el bloque de conexión, limita reducción al neto positivo.')
+    link('lib/dominio/irpf/trabajo-anual/adaptador.ts','adaptarTrabajoAnual',[('lib/dominio/irpf/trabajo-anual/calcular.ts','calcularGastosTrabajo')],'Consume netoArt19 y netoPrevioArt20, no íntegro aislado.')
+    link('lib/dominio/irpf/actividades-economicas/adaptador.ts','adaptarActividadGeneral',[('lib/dominio/irpf/actividades-economicas/calcular.ts','calcularActividad2025')],'Consume aporte del cálculo EDS.')
+    # La selección de titulares cambia cuantía, además de las guardas de admisión.
+    link(M+'derechos.ts','calcularDerechosMinimos',[(M+'derechos.ts','titularesConDerecho'),(M+'derechos.ts','validarDerechosMinimos'),(M+'minimo-contribuyente.ts','obtenerMinimoContribuyente'),(M+'minimo-discapacidad.ts','obtenerMinimoDiscapacidadFamiliares')],'Selección antes de ordenar y divisor por derecho; contribuyente no dividido.')
+    link(M+'derechos.ts','titularesConDerecho',[(M+'derechos.ts','cumpleRentas'),(M+'derechos.ts','tieneRelacion')],'Renta descendiente distinta de renta titulares cercanos; filtro, prioridad de grado y titulares.')
+    link(M+'derechos.ts','validarDerechosMinimos',[(M+'derechos-contrato.ts','DerechosMinimos2025')],'Schema y coherencia restringen el dominio; no sumandos monetarios.')

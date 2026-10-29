@@ -44,12 +44,51 @@ export function verificarSoftwareExplicacion(snapshot, root) {
 }
 
 // Lee la lista literal del helper conservado, sin ejecutar código histórico.
+function validarBindingHistorico(fuente, declaracion) {
+  let ambiguo = false
+  const visitar = (nodo) => {
+    if (ts.isExportDeclaration(nodo)) {
+      const clausula = nodo.exportClause
+      if (
+        !clausula ||
+        (ts.isNamedExports(clausula) &&
+          clausula.elements.some((e) => e.name.text === "FUENTES_EXPLICACION")) ||
+        (ts.isNamespaceExport(clausula) &&
+          clausula.name.text === "FUENTES_EXPLICACION")
+      )
+        ambiguo = true
+    }
+    if (
+      ts.isIdentifier(nodo) &&
+      nodo.text === "FUENTES_EXPLICACION" &&
+      nodo !== declaracion.name
+    ) {
+      // Gramática histórica admitida: lectura directa con map; sin aliases,
+      // otras declaraciones ni escrituras. No prueba ejecución del módulo.
+      const acceso = nodo.parent
+      const llamada = acceso.parent
+      if (
+        !ts.isPropertyAccessExpression(acceso) ||
+        acceso.expression !== nodo ||
+        acceso.name.text !== "map" ||
+        !ts.isCallExpression(llamada) ||
+        llamada.expression !== acceso
+      )
+        ambiguo = true
+    }
+    ts.forEachChild(nodo, visitar)
+  }
+  visitar(fuente)
+  if (ambiguo)
+    throw new Error("Lista histórica de software con binding ambiguo")
+}
+
 function fuentesHistoricas(bytes) {
   const fuente = ts.createSourceFile(
     "explicacion-version.mjs",
     bytes.toString("utf8"),
     ts.ScriptTarget.Latest,
-    false,
+    true,
     ts.ScriptKind.JS
   )
   const declaraciones = fuente.statements
@@ -63,6 +102,9 @@ function fuentesHistoricas(bytes) {
     )
   if (fuente.parseDiagnostics.length !== 0 || declaraciones.length !== 1)
     throw new Error("Lista histórica de software ausente o ambigua")
+  if (!(declaraciones[0].parent.flags & ts.NodeFlags.Const))
+    throw new Error("Lista histórica de software sin declaración const")
+  validarBindingHistorico(fuente, declaraciones[0])
   const lista = declaraciones[0].initializer
   if (
     !lista ||
@@ -77,7 +119,7 @@ function fuentesHistoricas(bytes) {
     !rutas.includes("scripts/procedencia/explicacion-version.mjs") ||
     rutas.some(
       (p) =>
-        !/^[A-Za-z0-9_./\[\]-]+$/.test(p) ||
+        /[^A-Za-z0-9_./\[\]-]/.test(p) ||
         p.startsWith("/") ||
         p.split("/").some((s) => ["", ".", ".."].includes(s))
     )

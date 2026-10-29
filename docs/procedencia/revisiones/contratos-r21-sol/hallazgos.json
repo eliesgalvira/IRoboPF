@@ -1,0 +1,35 @@
+{
+  "base": "960773f909d4ecff290edfa3d7a7b2699a8445d3",
+  "reviewState": "candidate-requires-independent-contrast",
+  "findings": [
+    {
+      "id": "CR21-A",
+      "severity": "P3",
+      "location": "scripts/procedencia/explicacion-version.mjs:55",
+      "claim": "El filtro de declaraciones exportadas no detecta una segunda exportación nominal del mismo binding.",
+      "case": "export const FUENTES_EXPLICACION = [helper,motor]; export { FUENTES_EXPLICACION };",
+      "expected": "rechazo de módulo con exportación duplicada",
+      "observed": "aceptado con versión reconstruida y hashes coherentes",
+      "test": "ast.test.mjs: CR21-A",
+      "objection": "La segunda exportación no cambia las rutas y el coordinador no genera este módulo inválido.",
+      "response": "Se limita a validación de entrada histórica y a la promesa de exportación inequívoca; no demuestra aceptación fiscal ni alteración de historia real.",
+      "cost": "Contrastar y cerrar el contrato sintáctico sin ejecutar JS ni invalidar snapshots intactos."
+    },
+    {
+      "id": "CR21-B",
+      "severity": "P2-semantic-validation",
+      "location": "scripts/procedencia/explicacion-version.mjs:55",
+      "claim": "Una redeclaración var no exportada cambia la lista efectiva, pero el parser solo considera la primera declaración exportada.",
+      "case": "export var FUENTES_EXPLICACION = [helper,motor]; var FUENTES_EXPLICACION = ['otra'];",
+      "expected": "rechazo de binding histórico redefinido",
+      "observed": "aceptado: reconstruye versión de la primera lista",
+      "test": "ast.test.mjs: CR21-B",
+      "objection": "La versión falsa se construye sintéticamente; no es salida demostrada del generador real.",
+      "response": "No se atribuye bypass del coordinador. Es contradicción semántica aceptada por la puerta histórica, cuya corrección pretendía vincular lista y versión. El código histórico nunca se ejecuta en el ensayo.",
+      "cost": "Nueva corrección y revisión de un formato literal inequívoco o manifiesto explícito, preservando los bytes históricos."
+    }
+  ],
+  "historicalFixes": ["CP19-01 reproduced old / rejected current", "CP19-02 reproduced old / rejected current", "CP19-03 reproduced old / rejected current"],
+  "promotion": "none",
+  "fiscalAcceptance": "not-issued"
+}
