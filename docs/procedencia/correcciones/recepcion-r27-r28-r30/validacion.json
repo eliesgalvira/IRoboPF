@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "check": "types-main-vendor",
+      "log": "typecheck-final.log",
+      "sha256": "123083311c92bfe6c04ea186da079244768ef4105d34283e0023f64db17732b5",
+      "expectedExit": 0
+    },
+    {
+      "check": "lint",
+      "log": "lint-final.log",
+      "sha256": "0d0b3790de30c00894df169d750577f6ac2cd1f82874783e517d2ae9caa5126f",
+      "expectedExit": 0
+    },
+    {
+      "check": "nominal-python",
+      "log": "nominal-python.log",
+      "sha256": "9928c97198be540f25b2cb1d2ad108f7aed79a15ebca980295c3601f33afdb7f",
+      "expectedExit": 0
+    },
+    {
+      "check": "nominal-node",
+      "log": "nominal-node.log",
+      "sha256": "2930943995681e6fa000e526375d9cd1dff6249bf397cdf7e6f86d80833117ab",
+      "expectedExit": 0
+    },
+    {
+      "check": "software-red",
+      "log": "nominal-software-rojo-bun.log",
+      "sha256": "4e52a8c249a8b0e550100b493695cf2b4edc8d4e8276db1de4f4a44044c4a06f",
+      "expectedExit": 1
+    },
+    {
+      "check": "software-green",
+      "log": "nominal-software-verde.log",
+      "sha256": "c0f685d770a321a660c1e390ffcec8927efbc129eae8466930278d14ab78566a",
+      "expectedExit": 0
+    },
+    {
+      "check": "flow-final",
+      "log": "flujo-repeticion.log",
+      "sha256": "52812885fb7c0a5d1932e5b15be634327fdba4b1a1ca45a3f6ece91b4d6d020b",
+      "expectedExit": 0
+    },
+    {
+      "check": "trace-publication",
+      "log": "regresiones-software.log",
+      "sha256": "5e24fc42825e85b8c79378c8ea9414c04a5fe91c7093b12dbdf86a3f1edb93a8",
+      "expectedExit": 0
+    },
+    {
+      "check": "content",
+      "log": "contenido.log",
+      "sha256": "10f18d9905a2fed963e381a276a8b067f44ce2e2b7c606f88ec7fdce0a6fb21d",
+      "expectedExit": 0
+    }
+  ],
+  "initialCombinedTests": {
+    "passed": 58,
+    "timedOut": 1,
+    "total": 59,
+    "log": "pruebas.log"
+  },
+  "flowRetested": 16,
+  "overlappingCountsNotAdditive": true,
+  "snapshotTotal": 42,
+  "activeSnapshot": "f811507b90eeb0b2e477a9abfa94c2cec6223992d94106cb6539c08d6c3c933c",
+  "algorithmSha256": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+  "inventorySha256": "30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7",
+  "candidateNominalReview": "pending",
+  "full264AuthorRunNotIndependentReview": true,
+  "reviewsPending": [
+    "CAS",
+    "nominal",
+    "classification",
+    "future-flow-implementation"
+  ],
+  "noFiscalCodeChanges": true,
+  "completeRuleAcceptance": false,
+  "buildRun": false,
+  "heavyLegacySuitesRun": false
+}

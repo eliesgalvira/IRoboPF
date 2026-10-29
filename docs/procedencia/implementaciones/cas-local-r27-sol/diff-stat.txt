@@ -1,0 +1,10 @@
+ .../[snapshot]/[id]/[revision]/route.ts            |   2 +-
+ lib/procedencia/almacen.ts                         |  38 ++--
+ lib/procedencia/http.ts                            |  27 ++-
+ lib/procedencia/io.mjs                             | 192 +++++++++++++++++++++
+ lib/procedencia/modelo.ts                          |  51 ++++--
+ schemas/procedencia/contenido/snapshot.schema.json |   2 +-
+ scripts/procedencia/contenido-publicar.mjs         | 106 +++++++++---
+ scripts/procedencia/contenido-verificar.mjs        |  34 +++-
+ scripts/procedencia/evidencia-contenido.mjs        |  10 +-
+ 9 files changed, 386 insertions(+), 76 deletions(-)

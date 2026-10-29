@@ -1,0 +1,47 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/flujo-procedencia.test.ts(2,16): error TS52: This module reference uses the `fs` module, the corresponding Effect API is `FileSystem` from `effect`.    effect(nodeBuiltinImport)
+tests/flujo-procedencia.test.ts(3,18): error TS52: This module reference uses the `path` module, the corresponding Effect API is `Path` from `effect`.    effect(nodeBuiltinImport)
+tests/flujo-procedencia.test.ts(10,89): error TS7006: Parameter 'file' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(10,560): error TS7006: Parameter 'id' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(10,565): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-procedencia.test.ts(12,21): error TS7006: Parameter 'file' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(12,26): error TS7006: Parameter 'predicate' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(12,102): error TS7006: Parameter 'n' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(12,108): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-procedencia.test.ts(12,170): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-procedencia.test.ts(14,60): error TS7006: Parameter 'n' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(14,147): error TS2339: Property 'initializer' does not exist on type 'never'.
+tests/flujo-procedencia.test.ts(18,20): error TS7006: Parameter 'g' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(18,48): error TS7006: Parameter 'g' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(18,81): error TS7006: Parameter 'g' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(18,124): error TS7006: Parameter 'g' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(18,153): error TS7006: Parameter 'g' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(18,183): error TS7006: Parameter 'g' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(18,206): error TS7006: Parameter 'g' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(22,149): error TS7034: Variable 'calls' implicitly has type 'any[]' in some locations where its type cannot be determined.
+tests/flujo-procedencia.test.ts(22,172): error TS7006: Parameter 'n' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(22,328): error TS7005: Variable 'calls' implicitly has an 'any[]' type.
+tests/flujo-procedencia.test.ts(22,346): error TS7005: Variable 'calls' implicitly has an 'any[]' type.
+tests/flujo-procedencia.test.ts(22,417): error TS7005: Variable 'calls' implicitly has an 'any[]' type.
+tests/flujo-procedencia.test.ts(22,435): error TS7005: Variable 'calls' implicitly has an 'any[]' type.
+tests/flujo-procedencia.test.ts(24,376): error TS2532: Object is possibly 'undefined'.
+tests/flujo-procedencia.test.ts(25,147): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(25,170): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(25,201): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(25,244): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(30,167): error TS7006: Parameter 'fechaFallecimiento' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(30,359): error TS59: This code constructs `new Date()`, date values are represented through `DateTime` from Effect.    effect(globalDate)
+tests/flujo-procedencia.test.ts(30,424): error TS59: This code constructs `new Date()`, date values are represented through `DateTime` from Effect.    effect(globalDate)
+tests/flujo-procedencia.test.ts(39,18): error TS7006: Parameter 'name' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(39,87): error TS7006: Parameter 'n' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(39,119): error TS18048: 'n.name' is possibly 'undefined'.
+tests/flujo-procedencia.test.ts(39,180): error TS2339: Property 'getText' does not exist on type 'never'.
+tests/flujo-procedencia.test.ts(41,399): error TS7006: Parameter 'r' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(41,401): error TS7006: Parameter 'id' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(41,420): error TS7006: Parameter 'e' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(42,303): error TS7006: Parameter 'e' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(42,396): error TS7006: Parameter 'e' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(43,391): error TS7006: Parameter 'edadContribuyente' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(43,537): error TS7006: Parameter 'n' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(44,449): error TS7006: Parameter 'anio' implicitly has an 'any' type.
+tests/flujo-procedencia.test.ts(44,519): error TS7006: Parameter 'n' implicitly has an 'any' type.

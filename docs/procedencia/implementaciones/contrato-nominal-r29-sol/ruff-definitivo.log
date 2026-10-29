@@ -1,0 +1,16 @@
+E731 Do not assign a `lambda` expression, use a `def`
+   --> docs/procedencia/implementaciones/contrato-nominal-r29-sol/empaquetar.py:116:5
+    |
+114 |               and target.stat().st_size == record["size"]
+115 |           )
+116 | /     write = lambda name, value: (OUT / name).write_text(
+117 | |         json.dumps(value, ensure_ascii=False, indent=2) + "\n"
+118 | |     )
+    | |_____^
+119 |       write(
+120 |           "manifiesto.json",
+    |
+help: Rewrite `write` as a `def`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

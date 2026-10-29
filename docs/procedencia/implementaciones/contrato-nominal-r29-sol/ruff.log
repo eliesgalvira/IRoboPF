@@ -1,0 +1,22 @@
+E402 Module level import not at top of file
+  --> tests/test_nominal_contrato.py:10:1
+   |
+ 8 | ROOT = Path(__file__).resolve().parents[1]
+ 9 | sys.path.insert(0, str(ROOT / 'tools/procedencia'))
+10 | import enlaces
+   | ^^^^^^^^^^^^^^
+11 | from nominal import verify_nominal
+   |
+
+E402 Module level import not at top of file
+  --> tests/test_nominal_contrato.py:11:1
+   |
+ 9 | sys.path.insert(0, str(ROOT / 'tools/procedencia'))
+10 | import enlaces
+11 | from nominal import verify_nominal
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 |
+13 | OUT = ROOT / 'docs/procedencia/implementaciones/contrato-nominal-r29-sol'
+   |
+
+Found 2 errors.

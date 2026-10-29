@@ -31,6 +31,8 @@ function leer(root, path) {
   const absolute = resolve(root, path)
   if (!lstatSync(absolute).isFile() || realpathSync(absolute) !== absolute)
     throw new Error("Dependencia no ordinaria")
+  if (path.startsWith(fixtures) && lstatSync(absolute).size > 100_000_000)
+    throw new Error("Original fuera del techo local de lectura")
   return readFileSync(absolute)
 }
 function cerrado(value, keys) {
@@ -164,7 +166,7 @@ export async function generarEvidencia(root, entrada) {
   const guardar = (bytes) => {
     const buffer = Buffer.from(bytes)
     const sha256 = hash(buffer)
-    objetos.set(sha256, buffer)
+    if (!objetos.has(sha256)) objetos.set(sha256, buffer)
     return sha256
   }
   const agregar = (entidad) => {
@@ -218,7 +220,9 @@ export async function generarEvidencia(root, entrada) {
         parameters: citation.facsimile.parameters,
       })
     )
-    const original = guardar(leer(root, fixtures + document.sha256))
+    const original = objetos.has(document.sha256)
+      ? document.sha256
+      : guardar(leer(root, fixtures + document.sha256))
     const imagen = guardar(leer(root, fixtures + citation.facsimile.sha256))
     const evidencia = `Original: ${document.canonicalUrl}. SHA-256: ${original}. Página PDF (desde 1): ${citation.page}. Bbox: ${JSON.stringify(citation.bbox)}; ${geometry.coordinateSystem}. Crop PNG SHA-256: ${imagen}. Cita exacta:\n${citation.quote}`
     const base = (id, titulo) => {
@@ -360,7 +364,7 @@ export async function generarEvidencia(root, entrada) {
   verificarGrafo(entradas, new Set(objetos.keys()))
   comprobarEntrada(root, entrada)
   for (const dependency of entrada.dependencias)
-    guardar(leer(root, dependency.path))
+    if (!objetos.has(dependency.sha256)) guardar(leer(root, dependency.path))
   const informe = { version: 2, entrada, estados, entradas }
   const revision = guardar(JSON.stringify(informe))
   return { revision, informe, objetos }

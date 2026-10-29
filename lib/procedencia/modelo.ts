@@ -216,27 +216,46 @@ export const IndiceBusqueda = Schema.Array(
     territorios: Schema.Array(Schema.String),
   })
 )
+export const Externo = Schema.Struct({
+  hash: Hash,
+  sha512: Schema.String.check(Schema.isPattern(/^[a-f0-9]{128}$/)),
+  bytes: Schema.Int.check(
+    Schema.isGreaterThan(10_000_000),
+    Schema.isLessThanOrEqualTo(100_000_000)
+  ),
+  mime: Schema.Literal("application/pdf"),
+  clase: Schema.Literal("original-pdf"),
+})
+const snapshotDocumental = {
+  busqueda: Hash,
+  catalogo: Hash,
+  evidencias: Schema.Array(EstadoEvidencia),
+  publicos: Schema.Array(
+    Schema.Struct({
+      hash: Hash,
+      bytes: Schema.Int.check(Schema.isGreaterThan(0)),
+      mime: Schema.Literals(["application/pdf", "image/png"]),
+    })
+  ),
+  dependencias: Schema.Array(
+    Schema.Struct({
+      hash: Hash,
+      bytes: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)),
+    })
+  ),
+}
 export const Snapshot = Schema.Union([
   Schema.Struct({ version: Schema.Literal(1), ...snapshotBase }),
   Schema.Struct({
     version: Schema.Literal(2),
     ...snapshotBase,
-    busqueda: Hash,
-    catalogo: Hash,
-    evidencias: Schema.Array(EstadoEvidencia),
-    publicos: Schema.Array(
-      Schema.Struct({
-        hash: Hash,
-        bytes: Schema.Int.check(Schema.isGreaterThan(0)),
-        mime: Schema.Literals(["application/pdf", "image/png"]),
-      })
-    ),
-    dependencias: Schema.Array(
-      Schema.Struct({
-        hash: Hash,
-        bytes: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)),
-      })
-    ),
+    ...snapshotDocumental,
+  }),
+  Schema.Struct({
+    version: Schema.Literal(3),
+    ...snapshotBase,
+    ...snapshotDocumental,
+    externos: Schema.Array(Externo),
   }),
 ])
 export type Snapshot = typeof Snapshot.Type

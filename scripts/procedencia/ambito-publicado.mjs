@@ -1,3 +1,4 @@
+export { verificarNominalPublicado, seleccionarContextoNominal } from "./nominal-contrato.mjs"
 import { Schema } from "effect"
 // Contraste del cierre ya conservado. No ejecuta ni sustituye al coordinador.
 export function verificarAceptacionLimitada(
