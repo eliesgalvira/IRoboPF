@@ -34,8 +34,13 @@ import {
 } from "../../observabilidad/auditoria-rendimiento"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "../normativa/datos/irpf-obligacion-declarar"
 
+export type SeleccionTemporalRetencion =
+  | { readonly fechaPago: string; readonly perfilTemporal?: never }
+  | { readonly perfilTemporal: "cierre"; readonly fechaPago?: never }
+
 export interface EntradaCalculoSalarioLegacy {
-  readonly modo?: "canonico" | "compatible-legacy"
+  readonly modo?: "canonico" | "compatible-legacy" | undefined
+  readonly seleccionRetencion?: SeleccionTemporalRetencion | undefined
   readonly anio: AnioFiscal
   readonly salarioBrutoAnualCentimos: number
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
@@ -45,7 +50,7 @@ export interface EntradaCalculoSalarioLegacy {
 export interface ServicioCompatibilidadSalarioLegacy {
   readonly calcular: (
     entrada: EntradaCalculoSalarioLegacy
-  ) => Effect.Effect<DesgloseLiquidado>
+  ) => Effect.Effect<DesgloseLiquidado, LiquidarIrpfAnualError>
 }
 
 // Este adaptador conserva el contrato observable salarial del perfil legacy.
@@ -92,11 +97,9 @@ const calcularSalarioLegacyConLiquidacionIrpfAnual = Effect.fn(
     casoFiscalLegacy(entrada)
   )
   const inicioLiquidacion = tiempoAuditoriaMs()
-  const liquidacion = yield* liquidacionIrpf
-    .liquidar(casoFiscal, {
-      modo: entrada.modo ?? "compatible-legacy",
-    })
-    .pipe(Effect.orDie)
+  const liquidacion = yield* liquidacionIrpf.liquidar(casoFiscal, {
+    modo: entrada.modo ?? "compatible-legacy",
+  })
   registrarTiempoAgregadoAuditoria(
     "salarioLegacy.liquidarIrpfAnual",
     tiempoAuditoriaMs() - inicioLiquidacion
@@ -185,11 +188,14 @@ const casoRetencionTrabajoPerfil = ({
   const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
 
   return {
+    ...entrada.seleccionRetencion,
     anio: entrada.anio,
     edad: 40,
     retribucionAnualCentimos: entrada.salarioBrutoAnualCentimos,
     cotizacionesCentimos: eurosACentimos(
-      calcularCotizacionesSocialesLegacy({
+      (entrada.modo === "canonico"
+        ? calcularDesgloseCotizacionesPerfilUniforme
+        : calcularCotizacionesSocialesLegacy)({
         salarioBrutoAnual: centimosAEuros(entrada.salarioBrutoAnualCentimos),
         anio: entrada.anio,
       }).cotizacionTrabajador
@@ -216,7 +222,8 @@ const casoFiscalLegacy = (
 ): CasoFiscalAnual => {
   const perfil = entrada.perfilAuditoria ?? "soltero_sin_hijos"
   const retencionTrabajoAeat =
-    entrada.perfilAuditoria !== undefined
+    entrada.perfilAuditoria !== undefined ||
+    entrada.seleccionRetencion !== undefined
       ? casoRetencionTrabajoPerfil({ entrada, perfil })
       : undefined
 
@@ -275,7 +282,7 @@ const calcularSalarioLegacyDesdeServicio = Effect.fn(
 
 export const calcularSalarioLegacy = (
   entrada: EntradaCalculoSalarioLegacy
-): Effect.Effect<DesgloseLiquidado> =>
+): Effect.Effect<DesgloseLiquidado, LiquidarIrpfAnualError> =>
   // @effect-diagnostics-next-line effect/strictEffectProvide:off
   calcularSalarioLegacyDesdeServicio(entrada).pipe(
     Effect.provide(CompatibilidadSalarioLegacy.layer)

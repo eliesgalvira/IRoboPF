@@ -1,0 +1,9 @@
+Desde la raíz del checkout; copiar primero casos/*.txt al scratch .cache/revision-contenido-modo-v2/ quitando el sufijo .txt.
+free -m
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun .cache/revision-contenido-modo-v2/sondeos.mjs
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun .cache/revision-contenido-modo-v2/modos.mjs
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bash .cache/revision-contenido-modo-v2/historicos.sh
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun .cache/revision-contenido-modo-v2/cierre.mjs
+nix shell nixpkgs#bun nixpkgs#nodejs -c bun .cache/revision-contenido-modo-v2/conciliacion.mjs
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun run test tests/contenido-integridad-procedencia.test.ts tests/rastro-anual-procedencia.test.ts tests/cotizaciones-perfil-uniforme.test.ts --maxWorkers=1
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun run test --config scripts/procedencia/contenido-vitest.mjs --maxWorkers=1

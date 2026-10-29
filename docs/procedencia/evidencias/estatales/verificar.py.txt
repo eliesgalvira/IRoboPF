@@ -1,0 +1,86 @@
+import hashlib
+import json
+import re
+import sys
+from collections import Counter
+from decimal import Decimal
+from pathlib import Path
+sys.path.insert(0, str(Path('tools/procedencia').resolve()))
+from corpus import extract, mupdf, validate_schema, verify, verify_binding
+
+ROOT = Path('docs/procedencia/evidencias/estatales')
+CAS = Path('.cache/estatales/cas')
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+def read_ref(ref):
+    raw = Path(ref['path']).read_bytes()
+    assert sha(raw) == ref['sha256']
+    return json.loads(raw)
+
+index = json.loads((ROOT / 'citas-indice.json').read_text())
+items = {i['id']: i for i in json.loads(Path('.cache/estatales/all-effective.json').read_text())}
+cov = json.loads((ROOT / 'cobertura.json').read_text())
+assert cov['inventory']['manifestSha256'] == sha(Path('docs/procedencia/inventario.json').read_bytes())
+assert cov['inventory']['artifactSha256'] == sha(Path('docs/procedencia/inventario-datos.json.gz').read_bytes())
+results = []
+for name, ref in index.items():
+    citation = read_ref(ref['citation'])
+    document = read_ref(ref['document'])
+    verify(document, citation, CAS)
+    assert ref['cellBBox'] is not None, name
+    with mupdf().open(CAS / 'sha256' / document['sha256']) as pdf:
+        # BBox de palabra puede rozar límites de glifo; ampliación fija de 0,1 pt.
+        x0, y0, x1, y1 = ref['cellBBox']
+        cell = extract(pdf[citation['page'] - 1], [x0 - .1, y0 - .1, x1 + .1, y1 + .1]).strip()
+        words = pdf[citation['page'] - 1].get_text('words', flags=0, sort=False)
+        selected = [w[4] for w in words if list(w[:4]) == ref['cellBBox']]
+        assert selected == [citation['engineBinding']['number']['literal']], (name, selected)
+    results.append({'id': name, 'integrity': 'verified', 'wordText': selected[0], 'bboxClipTextWithNeighbours': cell})
+checks = Counter()
+for path in sorted((ROOT / 'payloads').glob('*.json')):
+    p = json.loads(path.read_text())
+    validate_schema(p, 'binding-payload')
+    item = items[p['itemId']]
+    assert item['layer'] == 'effective'
+    assert p['inventory'] == cov['inventory']
+    assert p['source']['file'] == item['source']['file']
+    assert p['source']['symbol'] == item['symbol']
+    assert p['source']['tablePath'] == json.loads(item['path'])
+    assert p['source']['sha256'] == item['source']['sha256'] == sha(Path(p['source']['file']).read_bytes())
+    c = read_ref(p['citation'])
+    d = read_ref(p['document'])
+    assert c['documentSha256'] == d['sha256']
+    assert p['conversion'] == 'identity' and p['scope']['unit'] == c['engineBinding']['unitCode']
+    assert Decimal(item['value']) == Decimal(c['engineBinding']['value'])
+    ds = read_ref(p['legalReview']['decisions'])
+    dec = next(d for d in ds if d['id'] == p['legalReview']['decisionId'])
+    assert dec['status'] == 'accepted'
+    gate = any(loc['path'] == p['source']['file'] for loc in dec.get('engineLocations', []))
+    checks['numericBinding'] += 1
+    checks['legalFileGatePass' if gate else 'legalFileGateBlocked'] += 1
+# Controles negativos: lexer y exactitud, sin declarar reconstrucción de motor.
+first = read_ref(next(iter(index.values()))['citation'])
+mutated = json.loads(json.dumps(first['engineBinding']))
+mutated['value'] = str(Decimal(mutated['value']) + 1)
+try:
+    verify_binding(first['quote'], mutated)
+except ValueError:
+    checks['negativeWrongValueRejected'] += 1
+else:
+    raise AssertionError('No se rechazó valor cambiado')
+assert not any(i['source']['file'].endswith('/escalas-publicadas.ts') for i in items.values())
+checks['noEffectiveScalesConfirmed'] = 1
+# Cuotas/base comparadas con tuplas de fuente, como texto: NO exposición efectiva.
+source = Path('lib/dominio/irpf/cuotas/escalas-publicadas.ts').read_text()
+for component in ['ORDINARIA', 'COMPLEMENTARIA']:
+    block = source.split('export const ESTATAL_' + component + '_2012_2014 = filas([')[1].split('])')[0]
+    rows = re.findall(r'\["([0-9.]+)", "([0-9.]+)", "([0-9.]+)"\]', block)
+    for row, values in enumerate(rows):
+        for col, value in zip(['baseInferior', 'cuota'], values[:2]):
+            assert Decimal(index[f'escala-{component.lower()}-{row}-{col}']['value']) == Decimal(value)
+            checks['syntacticScaleCellOnly'] += 1
+report = {'checks': dict(checks), 'citations': results, 'matrixStates': dict(Counter(r['status'] for r in cov['matrix'])), 'currentCoordinatorRun': False, 'authenticity': 'not-validated', 'independentReview': 'pending', 'completeRuleAcceptance': False}
+(ROOT / 'comprobaciones.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+print(json.dumps(report['checks']))

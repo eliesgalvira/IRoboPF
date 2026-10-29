@@ -158,6 +158,20 @@ const construirLiquidarIrpfAnual = (
     )
     yield* Effect.annotateCurrentSpan("irpf.modo", contexto.modo)
 
+    if (
+      caso.retencionTrabajoAeat !== undefined &&
+      caso.retencionTrabajoAeat.anio !== caso.anio
+    ) {
+      return yield* Effect.fail({
+        _tag: "ResultadoNoSoportado",
+        motivo:
+          "La retención estimada y la liquidación deben pertenecer al mismo ejercicio",
+        fuenteReconocida:
+          "docs/procedencia/correcciones/coherencia-ronda9/INFORME.md",
+        rastro: { titulo: "Coherencia del ejercicio", pasos: [] },
+      } satisfies ResultadoNoSoportado)
+    }
+
     const inicioDeteccion = tiempoAuditoriaMs()
     const resultadoNoSoportado = yield* Match.value(
       caso.deducciones.length

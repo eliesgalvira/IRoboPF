@@ -1,0 +1,27 @@
+{
+  "commands": [
+    {
+      "cmd": "nix shell nixpkgs#bun nixpkgs#nodejs -c bun .cache/revision-trabajo-anual/casos.mjs",
+      "exit": 0,
+      "casos": 66
+    },
+    {
+      "cmd": "flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun run test tests/trabajo-anual-contratos.test.ts --maxWorkers=1",
+      "exit": 0,
+      "casos": 36
+    },
+    {
+      "cmd": "nix shell nixpkgs#bun nixpkgs#nodejs -c bun x oxlint lib/dominio/irpf/trabajo-anual tests/trabajo-anual-contratos.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "nix shell nixpkgs#bun nixpkgs#nodejs -c bun x eslint lib/dominio/irpf/trabajo-anual tests/trabajo-anual-contratos.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun x tsc --noEmit --incremental false -p docs/procedencia/implementaciones/trabajo-anual/tsconfig.json",
+      "exit": 0
+    }
+  ],
+  "nota": "Los logs vacíos de ESLint, oxlint y tsc corresponden a ejecuciones con salida 0. No se sustituyen por logs históricos del autor."
+}

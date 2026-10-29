@@ -1,0 +1,11 @@
+All checks passed!
+tools/procedencia/preservacion_urls.py:51: error: Incompatible types in assignment (expression has type "list[str]", variable has type "dict[str, str]")  [assignment]
+tools/procedencia/preservacion_urls.py:60: error: Incompatible types in assignment (expression has type "list[str]", variable has type "dict[str, str]")  [assignment]
+tools/procedencia/preservacion_urls.py:62: error: Incompatible types in assignment (expression has type "list[str]", variable has type "dict[str, str]")  [assignment]
+tools/procedencia/preservacion_urls.py:62: error: Argument 1 to "get" of "dict" has incompatible type "str | None"; expected "str"  [arg-type]
+tools/procedencia/preservacion.py:12: error: Library stubs not installed for "jsonschema"  [import-untyped]
+tools/procedencia/preservacion.py:12: note: Hint: "python3 -m pip install types-jsonschema"
+tools/procedencia/preservacion.py:12: note: (or run "mypy --install-types" to install all missing stub packages)
+tools/procedencia/preservacion.py:12: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+tools/procedencia/preservacion.py:194: error: Generator has incompatible item type "list[dict[str, str | int]] | list[str] | str | int"; expected "bool"  [misc]
+Found 6 errors in 2 files (checked 2 source files)

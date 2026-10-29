@@ -59,6 +59,11 @@ export function filtrarEntradasPorAmbito(
     throw new RangeError("Territorio sin catálogo soportado")
   return Object.fromEntries(
     Object.entries(entradas).filter(([clave, valor]) => {
+      if (
+        clave.includes(":") &&
+        !/^[^:]+:(cumple|importe|base|unidades)$/.test(clave)
+      )
+        throw new RangeError("Clave de deducción no canónica")
       const codigo = clave.split(":")[0]
       const pertenece = clave.includes(":")
         ? territorioDeCodigo(codigo) === ambito.territorio

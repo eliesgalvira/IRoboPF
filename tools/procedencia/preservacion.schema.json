@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 2
+    },
+    "acceptance": {
+      "const": "ninguna"
+    },
+    "bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "blobs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "sha512": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{128}$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "class": {
+            "const": "original-oficial-candidato"
+          },
+          "authenticity": {
+            "const": "no-certificada"
+          },
+          "acquisitions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "canonicalUrl": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "finalUrl": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "retrievedAt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "date-time"
+                },
+                "httpStatus": {
+                  "type": "integer",
+                  "const": 200
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+                },
+                "sourceSha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "canonicalUrl",
+                "finalUrl",
+                "retrievedAt",
+                "httpStatus",
+                "source",
+                "sourceSha256"
+              ]
+            },
+            "minItems": 1
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "sha256",
+          "sha512",
+          "size",
+          "sources",
+          "class",
+          "authenticity",
+          "acquisitions",
+          "references"
+        ]
+      },
+      "minItems": 0
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "sha512": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{128}$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "sha512",
+          "size"
+        ]
+      },
+      "minItems": 0
+    },
+    "unresolvedReferences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "sha256",
+          "sources"
+        ]
+      },
+      "minItems": 0
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+              },
+              "reason": {
+                "enum": [
+                  "editorial-o-fixture-no-oficial",
+                  "indice-grande-no-leido"
+                ]
+              }
+            },
+            "required": [
+              "path",
+              "reason"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "reason": {
+                "enum": [
+                  "URL-no-publicable-o-no-fiscal",
+                  "metadatos-no-concuerdan",
+                  "fecha-invalida"
+                ]
+              }
+            },
+            "required": [
+              "path",
+              "sha256",
+              "reason"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "paths": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "reason": {
+                "const": "sin-adquisicion-oficial-verificada"
+              }
+            },
+            "required": [
+              "paths",
+              "sha256",
+              "reason"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\x00-\\x1f\\x7f]+$"
+              },
+              "reason": {
+                "const": "nombre-CAS-no-coincide"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "sha512": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{128}$"
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "path",
+              "reason",
+              "sha256",
+              "sha512",
+              "size"
+            ]
+          }
+        ]
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "version",
+    "acceptance",
+    "bytes",
+    "blobs",
+    "dependencies",
+    "unresolvedReferences",
+    "exclusions"
+  ]
+}

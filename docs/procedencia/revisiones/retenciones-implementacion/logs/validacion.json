@@ -1,0 +1,13 @@
+{
+  "lint": {
+    "exitCode": 0,
+    "comando": "bun run lint"
+  },
+  "typecheck": {
+    "exitCode": 0,
+    "comando": "bun node_modules/typescript/bin/tsc --noEmit --incremental false && bun node_modules/typescript/bin/tsc --noEmit -p tools/oxlint/tsconfig.json --incremental false"
+  },
+  "entorno": "nix shell nixpkgs#bun nixpkgs#nodejs",
+  "serializacion": "flock /tmp/irobopf-validacion-pesada.lock",
+  "sinFixes": true
+}

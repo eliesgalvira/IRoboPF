@@ -1,0 +1,104 @@
+{
+  "baseDeclarada": "ed6a43fd750de05609abc3710dabdc2f8261020c",
+  "hallazgos": [
+    {
+      "id": "CV2-01",
+      "priority": "P2",
+      "status": "mismatch",
+      "domain": "deducciones-contratos",
+      "years": [
+        2025
+      ],
+      "territories": [
+        "andalucia"
+      ],
+      "itemIds": [],
+      "engineLocations": [
+        "lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts:89"
+      ],
+      "reason": "El filtro territorial valida un prefijo, pero el agregador admite un código no catalogado con segmentos extra; alias y clave canónica suman 200.",
+      "sources": [
+        {
+          "tipo": "reproduccion",
+          "path": "casos/resultados.json",
+          "casos": [
+            "consignar-sufijoExtra",
+            "consignar-duplicadoAlias"
+          ]
+        }
+      ],
+      "units": "euros",
+      "engineValue": 200,
+      "officialValue": null,
+      "legacyComparison": "No es contraste normativo ni con oracle legacy.",
+      "edgeCases": [
+        "consignar-sufijoExtra",
+        "consignar-duplicadoAlias"
+      ],
+      "proposedTest": "Validar identidad completa de la clave sin imponer límite fiscal a consignaciones.",
+      "review": {
+        "status": "pendiente-decision-padre",
+        "alcance": "API; sin fallo visible probado"
+      },
+      "aceptacionFiscal": "pendiente"
+    },
+    {
+      "id": "CV2-02",
+      "priority": "P3",
+      "status": "mismatch",
+      "domain": "deducciones-contratos",
+      "years": [
+        2025
+      ],
+      "territories": [
+        "la-rioja"
+      ],
+      "itemIds": [],
+      "engineLocations": [
+        "lib/dominio/irpf/deducciones/contratos-2025.ts"
+      ],
+      "reason": "Date.parse normaliza fechas inexistentes y la API devuelve parcial 125. El agregado continúa bloqueando parciales.",
+      "sources": [
+        {
+          "tipo": "reproduccion",
+          "path": "casos/resultados.json",
+          "casos": [
+            "rioja-fecha-inexistente-2025-02-29",
+            "rioja-fecha-inexistente-2025-02-30",
+            "rioja-fecha-inexistente-2025-04-31"
+          ]
+        }
+      ],
+      "units": "euros",
+      "engineValue": 125,
+      "officialValue": null,
+      "legacyComparison": "No es contraste normativo ni con oracle legacy.",
+      "edgeCases": [
+        "rioja-fecha-inexistente-2025-02-29",
+        "rioja-fecha-inexistente-2025-02-30",
+        "rioja-fecha-inexistente-2025-04-31"
+      ],
+      "proposedTest": "Validación estricta de calendario sin ampliar reglas jurídicas.",
+      "review": {
+        "status": "pendiente-decision-padre",
+        "alcance": "API; sin fallo visible probado"
+      },
+      "aceptacionFiscal": "pendiente"
+    }
+  ],
+  "anteriores": {
+    "DED-I-01": "reproduccion original corregida; alcance en INFORME.md",
+    "DED-I-02": "reproduccion original corregida; alcance en INFORME.md",
+    "DED-I-03": "reproduccion original corregida; alcance en INFORME.md",
+    "DED-I-04": "reproduccion original corregida; alcance en INFORME.md",
+    "DED-I-05": "reproduccion original corregida; alcance en INFORME.md",
+    "AEI-01": "reproduccion original corregida; alcance en INFORME.md",
+    "AEI-02": "reproduccion original corregida; alcance en INFORME.md",
+    "AEI-03": "reproduccion original corregida; alcance en INFORME.md"
+  },
+  "limitaciones": [
+    "AEI-02: cota conservadora sin conciliación por períodos parciales ni validación de omisiones históricas.",
+    "UI: lectura estática y función real de normalización; sin montaje interactivo.",
+    "No nueva autenticidad ni aceptación fiscal."
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "baseDeclarada": "ed6a43fd750de05609abc3710dabdc2f8261020c",
+  "dictamen": "sin-defecto-de-formula-demostrado-en-contrato-condicionado",
+  "aceptacionFiscal": "pendiente",
+  "integracionAnual": "pendiente-no-certificada",
+  "defectosBloqueantesDemostrados": [],
+  "observaciones": [
+    {
+      "id": "TAI-O1",
+      "clase": "precondicion-de-integracion",
+      "prioridad": "media",
+      "estado": "pendiente-integrador",
+      "location": "lib/dominio/irpf/trabajo-anual/calcular.ts:69",
+      "titulo": "La identidad de rendimiento no identifica pagos repetidos",
+      "observado": "Dos rendimientos con IDs distintos suman ambas cuotas sindicales de 600. Gastos 3500; si es una sola cuota material, 2900.",
+      "objecionExperta": "Importar certificados sin conciliar puede duplicar gastos aunque respete los topes.",
+      "motivo": "La precondición de importes disjuntos está declarada en ENTREGA.md; no es error de fórmula para entradas correctas.",
+      "coste": "Identidad de operación o conciliación previa; no deduplicar por importe igual.",
+      "reproduccion": "casos/resultados.json#observations/0",
+      "aceptacion": "No aceptar futura importación anual sin cierre de esta condición."
+    },
+    {
+      "id": "TAI-O2",
+      "clase": "precondicion-de-integracion",
+      "prioridad": "alta-para-conexion-anual",
+      "estado": "pendiente-integrador",
+      "location": "lib/dominio/irpf/trabajo-anual/contrato.ts:97",
+      "titulo": "La atribución de DA61 es un dato externo, no una calificación automatizada",
+      "objecionExperta": "Una etiqueta de acreditación no demuestra que se separó pensión, servicio efectivo y gastos comunes.",
+      "motivo": "El contrato de etapa asume bruto, neto atribuible, otras rentas y cuotas previamente acreditados.",
+      "coste": "Rechazar perfiles mixtos sin atribución revisada y conservar procedencia de magnitudes.",
+      "reproduccion": "casos/resultados.json#observations/1",
+      "aceptacion": "No se certifica el evaluador de hechos ni una declaración."
+    },
+    {
+      "id": "TAI-O3",
+      "clase": "precondicion-de-integracion",
+      "prioridad": "media",
+      "estado": "pendiente-integrador",
+      "location": "lib/dominio/irpf/trabajo-anual/contrato.ts:4",
+      "titulo": "Falta política de precisión entre etapas",
+      "objecionExperta": "Redondear una magnitud derivada solo para pasar el Schema puede cambiar umbrales o límites.",
+      "motivo": "Entradas admiten dos decimales; fórmulas producen 339.998 o 399.999 y cocientes aproximados a 60 cifras. La entrega declara esta limitación.",
+      "coste": "Fijar etapas de redondeo o contrato de magnitudes calculadas; no ajustar expectativas para conseguir una cuota.",
+      "reproduccion": "casos/resultados.json",
+      "aceptacion": "No acredita error final sin conexión y política fiscal definidas."
+    }
+  ],
+  "fuentes": "logs/primarias.json",
+  "pruebas": {
+    "propias": 66,
+    "propiasFallidas": 0,
+    "autor": 36,
+    "autorFallidas": 0,
+    "eslintExit": 0,
+    "oxlintExit": 0,
+    "typecheckAcotadoExit": 0
+  },
+  "separacion": {
+    "integridad": "ocho originales coinciden por SHA256",
+    "autenticidad": "firma y CSV no validados",
+    "interpretacion": "contraste independiente de etapas dentro del ámbito",
+    "exactitud": "casos de etapa; no política final de redondeo ni exactitud racional de cocientes",
+    "aceptacion": "sin modificar registros ni atestaciones"
+  }
+}

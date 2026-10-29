@@ -1,0 +1,36 @@
+import { calcularGastosTrabajo as g, calcularDeduccionTrabajo as d } from '../../lib/dominio/irpf/trabajo-anual/calcular.ts';
+import { adaptarTrabajoAnual as a } from '../../lib/dominio/irpf/trabajo-anual/adaptador.ts';
+const r=()=>({id:'A',clase:'empleo-laboral',integro:'20000',cotizaciones:{clase:'efectivas',seguridadSocial:'1000',derechosPasivos:'100',colegiosHuerfanos:'50'},sindicato:{importe:'600',satisfecho:'si'},colegio:{importe:'0',satisfecho:'si',obligatorio:'si',finesEsenciales:'si'},defensa:{importe:'0',satisfecho:'si',litigioDirectoPagador:'si'}});
+const c=()=>({ejercicio:2025,territorio:'comun',rendimientos:[r()],reduccionesArt18:'ninguna',movilidad:'ninguna',discapacidadActiva:'ninguna'});
+const h=()=>({regla:'art80bis',ambito:'comun-individual',computo:'netos-tras-art20-art32-sin-exterior-no-gravado',ejercicio:2013,baseImponible:'9000',tipoMedioEstatalPorcentaje:'2.35',tipoMedioAutonomicoPorcentaje:'3.16',rendimientoComputableTrabajoActividad:'1000',cuotaTrasArt80:'500',etapa:'despues-art80-sin-deduccion-trabajo'});
+const b=()=>({regla:'da61',ambito:'comun-individual',ejercicio:2025,brutoServicios:'16576',otrasRentasNoExentas:'0',netoReducidoServicios:'5000',baseLiquidableGeneral:'10000',cuotaIntegraGeneral:'600',cuotaLiquidaTotal:'500',cuotaTrasArt80:'400',etapa:'despues-art80-sin-deduccion-trabajo',calificacion:'laboral-estatutaria-acreditada'});
+const results=[];
+function test(id,fn,input,expected){const actual=fn(input);const pass=Object.entries(expected).every(([k,v])=>actual[k]===v);results.push({id,input,expected,actual,pass});}
+const no={estado:'no-soportado'};
+test('efectivos-tres-cotizaciones-y-sindicato',g,c(),{gastosAE:'1750',netoPrevioArt20:'18250',netoArt19:'16250'});
+for(const [n,e] of [['499.99','2249.99'],['500','2250'],['500.01','2250']]){let v=c();v.rendimientos[0].colegio.importe=n;test('colegio-'+n,g,v,{gastosAE:e});}
+for(const [n,e] of [['299.99','2049.99'],['300','2050'],['300.01','2050'],['350','2050']]){let v=c();v.rendimientos[0].defensa.importe=n;test('defensa-'+n,g,v,{gastosAE:e});}
+for(const [field,prop] of [['sindicato','satisfecho'],['colegio','satisfecho'],['colegio','obligatorio'],['colegio','finesEsenciales'],['defensa','satisfecho'],['defensa','litigioDirectoPagador']]){let v=c();v.rendimientos[0][field][prop]='desconocido';test('desconocido-'+field+prop,g,v,no);}
+for(const [n,e] of [['0','-1750'],['1749.99','-0.01'],['1750','0'],['3750','0'],['3750.01','0.01']]){let v=c();v.rendimientos[0].integro=n;test('neto-'+n,g,v,{netoArt19:e});}
+for(const [grado,ayuda,e] of [['33-a-64','no','3500'],['33-a-64','si','7750'],['65-o-mas','no','7750']]){let v=c();v.discapacidadActiva={grado,ayudaOMovilidadReducida:ayuda,acreditadaDuranteTodoElTrabajo:'si'};test('discapacidad-'+grado+ayuda,g,v,{discapacidadAplicada:e});}
+for(const change of [{ejercicio:2014},{rendimientos:[r(),{...r(),id:'B',clase:'pension'}]},{rendimientos:[r(),{...r(),id:'B'}]}]){let v={...c(),discapacidadActiva:{grado:'33-a-64',ayudaOMovilidadReducida:'no',acreditadaDuranteTodoElTrabajo:'si'},...change};test('discapacidad-exclusion-'+results.length,g,v,no);}
+for(const movilidad of ['ordinaria','dt6-2015','desconocida'])test('movilidad-'+movilidad,g,{...c(),movilidad},no);
+for(const change of [{ejercicio:2026},{territorio:'foral'},{reduccionesArt18:'pendiente'},{ejercicio:2011},{ejercicio:2025.5}])test('ambito-'+results.length,g,{...c(),...change},no);
+let multiple=c();multiple.rendimientos=[r(),{...r(),id:'B'}];test('general-una-vez',g,multiple,{generalesAplicados:'2000',gastosAE:'3500'});
+test('id-duplicado',g,{...c(),rendimientos:[r(),r()]},no);
+test('vacio',g,{...c(),rendimientos:[]},{generalesAplicados:'0',netoArt19:'0'});
+test('adaptador-argumentos',a,c(),{rendimientoAntesArt20:'16250',argumentoArt20:'18250'});
+for(const ejercicio of [2012,2013,2014])test('80bis-'+ejercicio,d,{...h(),ejercicio},{deduccionLegal:'300',limiteAtribuible:'55.1',importeAplicable:'55.1'});
+for(const [baseImponible,esperado] of [['-100','400'],['8000.01','399.999'],['12000','0']])test('80bis-BI-'+baseImponible,d,{...h(),baseImponible},{deduccionLegal:esperado});
+test('80bis-cuota',d,{...h(),cuotaTrasArt80:'25'},{importeAplicable:'25',cuotaPosterior:'0'});
+test('80bis-sin-rendimiento',d,{...h(),rendimientoComputableTrabajoActividad:'0'},{importeAplicable:'0'});
+for(const change of [{ejercicio:2015},{tipoMedioEstatalPorcentaje:'100.01'},{tipoMedioEstatalPorcentaje:'2.355'},{computo:'brutos'},{etapa:'antes-art80'}])test('80bis-rechazo-'+results.length,d,{...h(),...change},no);
+for(const [otrasRentasNoExentas,esperado] of [['-500','340'],['6500','340'],['6500.01','0']])test('DA61-otras-'+otrasRentasNoExentas,d,{...b(),otrasRentasNoExentas},{deduccionLegal:esperado});
+for(const [brutoServicios,esperado] of [['16575.99','340'],['16576','340'],['16576.01','339.998'],['18275.99','0.002'],['18276','0']])test('DA61-bruto-'+brutoServicios,d,{...b(),brutoServicios},{deduccionLegal:esperado});
+test('DA61-proporcion',d,b(),{limiteAtribuible:'300',importeAplicable:'300',cuotaPosterior:'100'});
+test('DA61-art80',d,{...b(),cuotaTrasArt80:'40'},{limiteAtribuible:'300',importeAplicable:'40',cuotaPosterior:'0'});
+for(const change of [{calificacion:'pendiente'},{ejercicio:2026},{netoReducidoServicios:'10001'},{cuotaTrasArt80:'501'},{etapa:'antes-art80'}])test('DA61-rechazo-'+results.length,d,{...b(),...change},no);
+test('DA61-sin-servicios',d,{...b(),brutoServicios:'0',netoReducidoServicios:'0'},{importeAplicable:'0'});
+const observations=[{id:'duplicacion-material-no-detectable',input:multiple,actual:g(multiple),nota:'Si ambos sindicatos de 600 representan el mismo pago, el gasto debido es 2900, no 3500. La API presupone importes disjuntos; no acredita identidad de operaciones.'},{id:'atribucion-externa',input:b(),actual:d(b()),nota:'La API no reconstruye clasificación ni otras rentas; calificacion es un hecho externo.'}];
+process.stdout.write(JSON.stringify({count:results.length,failed:results.filter(x=>!x.pass).length,results,observations},null,2)+'\n');
+process.exitCode=results.some(x=>!x.pass)?1:0;

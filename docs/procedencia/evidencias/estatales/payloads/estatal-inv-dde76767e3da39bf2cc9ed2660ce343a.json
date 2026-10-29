@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "estatal-inv-dde76767e3da39bf2cc9ed2660ce343a",
+  "authorTaskId": "research-estatales-t3-78d7c69b",
+  "inventory": {
+    "manifestSha256": "6872a5fb9315a4e970c5da7fb3d8ad58f2ebf74b3d84fe07101b90cb8c58564d",
+    "artifactSha256": "29fb5e311f33982395227b15f2e08705e2943bf5ea21409702f48dd8ba4e613c"
+  },
+  "itemId": "inv-dde76767e3da39bf2cc9ed2660ce343a",
+  "source": {
+    "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+    "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479",
+    "symbol": "GASTOS_FIJOS_IRPF_LEGACY",
+    "tablePath": [
+      "2019"
+    ]
+  },
+  "scope": {
+    "year": 2019,
+    "territory": "estatal-comun",
+    "unit": "EUR",
+    "claim": "Correspondencia nominal GASTOS_FIJOS_IRPF_LEGACY ['2019']: 2000 EUR.",
+    "conditions": [
+      "Solo gasto general nominal art19.2.f; no importe aplicado ni demás gastos.",
+      "Tabla compatible-legacy, no aceptación del evaluador canónico."
+    ],
+    "completeRule": false
+  },
+  "conversion": "identity",
+  "citation": {
+    "path": "docs/procedencia/evidencias/estatales/citas/TDE-03-gastos.json",
+    "sha256": "3b09c18261d42ec6cc5d5270e602453df663077c4ea1d863c6c6e91a9b5e9bd6"
+  },
+  "document": {
+    "path": "docs/procedencia/evidencias/estatales/documentos/2014-12327.json",
+    "sha256": "a1aa2263b195cafeb758fd48037c0f8c044742752e08cbb8637ca68aa154d3a5"
+  },
+  "legalReview": {
+    "decisions": {
+      "path": "docs/procedencia/revisiones/trabajo-deducciones-estatales/revisiones.json",
+      "sha256": "9f12161001d967061f3c845af5ece73b82e84eff9e523ac2f66b1901ee7522c7"
+    },
+    "decisionId": "TDE-03"
+  }
+}

@@ -1,0 +1,13 @@
+import { Effect } from 'effect';
+import { calcularRetencionTrabajoAeat as ret } from '../../lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts';
+import { liquidarIrpfAnual } from '../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts';
+import { calcularSalarioLegacy } from '../../lib/dominio/compatibilidad-legacy/calculo-salario-legacy.ts';
+const base={anio:2020,edad:40,retribucionAnualCentimos:1800000,cotizacionesCentimos:114300,situacionFamiliar:'situacion3',situacionLaboral:'activo',contrato:'general',descendientes:[],ascendientes:[],discapacidad:'sin-discapacidad'};
+const anual={anio:2025,comunidadAutonoma:'simulada-estatal',situacionFamiliar:{tipo:'individual',edad:40,descendientes:[],ascendientes:[],discapacidad:{_tag:'SinDiscapacidad'}},rendimientos:{trabajo:[{importeIntegroCentimos:1800000}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0};
+const rows=[];
+function run(id,fx,expected){const x=Effect.runSyncExit(fx);rows.push({id,expected,actual:x});}
+for(const modo of ['canonico','compatible-legacy'])run('regularizacion-'+modo,ret({...base,procedimiento:'regularizacion'},{modo}),'Failure');
+run('anual-ajeno',liquidarIrpfAnual({...anual,retencionTrabajoAeat:base},{modo:'canonico'}),'Failure: año subcaso 2020 distinto de 2025');
+for(const perfil of [undefined,'soltero_sin_hijos'])run('adaptador-'+perfil,calcularSalarioLegacy({anio:2025,salarioBrutoAnualCentimos:1800000,modo:'canonico',perfilAuditoria:perfil}),'perfil ordinario debe permitir selección temporal o no crear subcaso');
+for(const edad of [-1,NaN,25])run('edad-'+edad,ret({...base,descendientes:[{edad,computoPorEntero:true,discapacidad:'sin-discapacidad',movilidadReducida:false,adopcionOAcogimientoMenosTresAnios:false}]},{modo:'canonico'}),edad===25?'Success mínimo 555000':'Failure');
+console.log(JSON.stringify(rows,null,2));

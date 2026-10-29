@@ -1,0 +1,12 @@
+import {readFileSync,writeFileSync,renameSync} from 'node:fs';
+import {resolve} from 'node:path';
+import assert from 'node:assert/strict';
+import {verificar} from '../../scripts/procedencia/contenido-verificar.mjs';
+import {leerSnapshot} from '../../lib/procedencia/almacen.ts';
+const root=resolve('.cache/revision-contenido-modo-v2/cas');
+const id=JSON.parse(readFileSync('lib/procedencia/rastro-generado.json')).actual.versiones.snapshot;
+writeFileSync(resolve(root,'snapshots.json'),JSON.stringify([id]));
+const s=leerSnapshot(id,root),h=s.auxiliares.find(x=>x!==s.inventario&&x!==s.contrato&&x!==s.generador&&x!==s.versiones.datos);
+const p=resolve(root,'objetos',h),tmp=resolve(root,'retirado');
+renameSync(p,tmp);
+try{assert.throws(()=>verificar(id,root),/ENOENT/);console.log(JSON.stringify({auxiliar:h,ausenciaFisica:'rechazada'}))}finally{renameSync(tmp,p)}
