@@ -1,0 +1,785 @@
+{
+  "cutoff": "2026-10-29",
+  "years": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "territories": "IPC nacional, común a todos los territorios consumidores; no IPC autonómico ni foral separado",
+  "engineAnnual": [
+    {
+      "year": 2012,
+      "value": null,
+      "class": "base inicial",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2012-BASE"
+    },
+    {
+      "year": 2013,
+      "value": "0.003",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2013"
+    },
+    {
+      "year": 2014,
+      "value": "-0.010",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2014"
+    },
+    {
+      "year": 2015,
+      "value": "0.000",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2015"
+    },
+    {
+      "year": 2016,
+      "value": "0.016",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2016"
+    },
+    {
+      "year": 2017,
+      "value": "0.011",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2017"
+    },
+    {
+      "year": 2018,
+      "value": "0.012",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2018"
+    },
+    {
+      "year": 2019,
+      "value": "0.008",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2019"
+    },
+    {
+      "year": 2020,
+      "value": "-0.005",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2020"
+    },
+    {
+      "year": 2021,
+      "value": "0.065",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2021"
+    },
+    {
+      "year": 2022,
+      "value": "0.057",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2022"
+    },
+    {
+      "year": 2023,
+      "value": "0.031",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2023"
+    },
+    {
+      "year": 2024,
+      "value": "0.028",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2024"
+    },
+    {
+      "year": 2025,
+      "value": "0.029",
+      "class": "observado",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2025"
+    },
+    {
+      "year": 2026,
+      "value": "0.030",
+      "class": "proyección sin etiqueta",
+      "status": "pendiente revisión independiente",
+      "candidateFinding": "IPC-2026-ESCENARIO"
+    }
+  ],
+  "files": [
+    "lib/dominio/dinero/redondeo.ts",
+    "lib/dominio/dinero/porcentaje.ts",
+    "lib/dominio/dinero/importe-monetario.ts",
+    "lib/dominio/auditoria/auditoria-progresividad-frio.ts",
+    "lib/dominio/auditoria/auditoria-normativa-historica.ts",
+    "lib/dominio/compatibilidad-legacy/progresividad-frio.ts",
+    "lib/export/auditoria-excel.ts",
+    "Calculo_Salario_IRPF.py",
+    "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts"
+  ],
+  "roundingOccurrences": 119,
+  "findings": 30,
+  "accepted": 0,
+  "pending": [
+    "Reglas TGSS históricas por concepto y etapa; redondeo de liquidación anual IRPF",
+    "No se ha ejecutado suite legacy completa ni barrido fiscal de todos los tramos; muestra Excel 0–100 EUR",
+    "Pruebas de 225 pares de años de cada API pública y fronteras reales de tramos",
+    "Contrarrevisión independiente de 30 hallazgos y 639 citas; las capturas no acreditan autenticidad",
+    "Originales AEAT2012–2016 no recuperados; revisión de vigencia de versiones2017–2026 y regularizaciones",
+    "Enlace histórico de todas las bases intermedias2011/2016 no cuantificado separado; base2021 frente2025 sí contrastada",
+    "Reglas históricas de redondeo TGSS por concepto y liquidación anual IRPF no cerradas; antecedente2001 no suficiente"
+  ],
+  "excelSample": {
+    "2012": {
+      "cellsCompared": 2323,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2013": {
+      "cellsCompared": 2323,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2014": {
+      "cellsCompared": 2323,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2015": {
+      "cellsCompared": 2121,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2016": {
+      "cellsCompared": 2121,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2017": {
+      "cellsCompared": 2121,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2018": {
+      "cellsCompared": 2121,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2019": {
+      "cellsCompared": 2121,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2020": {
+      "cellsCompared": 2121,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2021": {
+      "cellsCompared": 2222,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2022": {
+      "cellsCompared": 2222,
+      "differences": 8,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2023": {
+      "cellsCompared": 2222,
+      "differences": 16,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2024": {
+      "cellsCompared": 2222,
+      "differences": 6,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2025": {
+      "cellsCompared": 2222,
+      "differences": 0,
+      "salaryRange": [
+        0,
+        100
+      ]
+    },
+    "2026": {
+      "cellsCompared": 2222,
+      "differences": 74,
+      "salaryRange": [
+        0,
+        100
+      ]
+    }
+  },
+  "historicalRoundingEvidence": [
+    {
+      "year": 2026,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/ALGORITMO_2026.pdf",
+      "sha256": "a15b7fee871d1a4387d4ad0be3cd21930cd357a5ecd3372dc4fbed3f3181bca9",
+      "citationIds": [
+        "C-a15b7fee87-10-15",
+        "C-a15b7fee87-23-16",
+        "C-a15b7fee87-23-17",
+        "C-a15b7fee87-24-18",
+        "C-a15b7fee87-25-19",
+        "C-a15b7fee87-25-20",
+        "C-a15b7fee87-26-21",
+        "C-a15b7fee87-27-22",
+        "C-a15b7fee87-27-23",
+        "C-a15b7fee87-28-24",
+        "C-a15b7fee87-28-25",
+        "C-a15b7fee87-32-26",
+        "C-a15b7fee87-33-27",
+        "C-a15b7fee87-33-28",
+        "C-a15b7fee87-33-29",
+        "C-a15b7fee87-35-30",
+        "C-a15b7fee87-35-31",
+        "C-a15b7fee87-36-32",
+        "C-a15b7fee87-37-33",
+        "C-a15b7fee87-37-34"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2026,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/Algoritmo%20Retenciones-2026_10sept.pdf",
+      "sha256": "b1a120d93bf541deb35ccbfd55f08f771eecc01a762148491e5c9e2cf0be27d3",
+      "citationIds": [
+        "C-b1a120d93b-10-35",
+        "C-b1a120d93b-23-36",
+        "C-b1a120d93b-23-37",
+        "C-b1a120d93b-24-38",
+        "C-b1a120d93b-25-39",
+        "C-b1a120d93b-25-40",
+        "C-b1a120d93b-26-41",
+        "C-b1a120d93b-27-42",
+        "C-b1a120d93b-27-43",
+        "C-b1a120d93b-28-44",
+        "C-b1a120d93b-28-45",
+        "C-b1a120d93b-32-46",
+        "C-b1a120d93b-33-47",
+        "C-b1a120d93b-33-48",
+        "C-b1a120d93b-33-49",
+        "C-b1a120d93b-35-50",
+        "C-b1a120d93b-35-51",
+        "C-b1a120d93b-36-52",
+        "C-b1a120d93b-37-53",
+        "C-b1a120d93b-37-54"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2021,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2021/ALGORITMO_2021_LPGE_v2.pdf",
+      "sha256": "f433d785bb13c5f0cbd019586a93dcba0bc0a0ff61c750b463ed1d6d41508b13",
+      "citationIds": [
+        "C-f433d785bb-9-375",
+        "C-f433d785bb-22-376",
+        "C-f433d785bb-22-377",
+        "C-f433d785bb-23-378",
+        "C-f433d785bb-24-379",
+        "C-f433d785bb-24-380",
+        "C-f433d785bb-25-381",
+        "C-f433d785bb-26-382",
+        "C-f433d785bb-26-383",
+        "C-f433d785bb-27-384",
+        "C-f433d785bb-27-385",
+        "C-f433d785bb-31-386",
+        "C-f433d785bb-31-387",
+        "C-f433d785bb-32-388",
+        "C-f433d785bb-32-389",
+        "C-f433d785bb-34-390",
+        "C-f433d785bb-34-391",
+        "C-f433d785bb-35-392",
+        "C-f433d785bb-36-393",
+        "C-f433d785bb-36-394"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2018,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018_a_partir_LGPE_2018.pdf",
+      "sha256": "b7de3c41b6119912848246817bb3292297149e288a0f0ce1a192c36fc907b7f7",
+      "citationIds": [
+        "C-b7de3c41b6-9-395",
+        "C-b7de3c41b6-22-396",
+        "C-b7de3c41b6-22-397",
+        "C-b7de3c41b6-24-398",
+        "C-b7de3c41b6-25-399",
+        "C-b7de3c41b6-25-400",
+        "C-b7de3c41b6-26-401",
+        "C-b7de3c41b6-27-402",
+        "C-b7de3c41b6-27-403",
+        "C-b7de3c41b6-28-404",
+        "C-b7de3c41b6-28-405",
+        "C-b7de3c41b6-34-406",
+        "C-b7de3c41b6-34-407",
+        "C-b7de3c41b6-34-408",
+        "C-b7de3c41b6-35-409",
+        "C-b7de3c41b6-37-410",
+        "C-b7de3c41b6-37-411",
+        "C-b7de3c41b6-38-412",
+        "C-b7de3c41b6-39-413",
+        "C-b7de3c41b6-39-414"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2018,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2018/ALGORITMO_2018.pdf",
+      "sha256": "9aab28b04f92521b77c031e1b94d1cb1c1dabbfdd8e5a78a84b9c81c723cca6d",
+      "citationIds": [
+        "C-9aab28b04f-9-415",
+        "C-9aab28b04f-22-416",
+        "C-9aab28b04f-22-417",
+        "C-9aab28b04f-23-418",
+        "C-9aab28b04f-24-419",
+        "C-9aab28b04f-24-420",
+        "C-9aab28b04f-25-421",
+        "C-9aab28b04f-26-422",
+        "C-9aab28b04f-26-423",
+        "C-9aab28b04f-27-424",
+        "C-9aab28b04f-27-425",
+        "C-9aab28b04f-32-426",
+        "C-9aab28b04f-32-427",
+        "C-9aab28b04f-32-428",
+        "C-9aab28b04f-33-429",
+        "C-9aab28b04f-35-430",
+        "C-9aab28b04f-35-431",
+        "C-9aab28b04f-36-432",
+        "C-9aab28b04f-37-433",
+        "C-9aab28b04f-37-434"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2024,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-28-Junio.pdf",
+      "sha256": "349c093fe191b2e9ff645a18da3fa3140100701d6c7ae8f10ae5432a3b1706ba",
+      "citationIds": [
+        "C-349c093fe1-10-435",
+        "C-349c093fe1-23-436",
+        "C-349c093fe1-23-437",
+        "C-349c093fe1-24-438",
+        "C-349c093fe1-25-439",
+        "C-349c093fe1-25-440",
+        "C-349c093fe1-26-441",
+        "C-349c093fe1-27-442",
+        "C-349c093fe1-27-443",
+        "C-349c093fe1-28-444",
+        "C-349c093fe1-28-445",
+        "C-349c093fe1-32-446",
+        "C-349c093fe1-33-447",
+        "C-349c093fe1-33-448",
+        "C-349c093fe1-33-449",
+        "C-349c093fe1-35-450",
+        "C-349c093fe1-35-451",
+        "C-349c093fe1-36-452",
+        "C-349c093fe1-37-453",
+        "C-349c093fe1-37-454"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2025,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025_1-ene_26-nov.pdf",
+      "sha256": "3ad944876c88da2bfed47b662de8ef56f96463618ab14ba30f0a86d848cf9100",
+      "citationIds": [
+        "C-3ad944876c-10-455",
+        "C-3ad944876c-23-456",
+        "C-3ad944876c-23-457",
+        "C-3ad944876c-24-458",
+        "C-3ad944876c-25-459",
+        "C-3ad944876c-25-460",
+        "C-3ad944876c-26-461",
+        "C-3ad944876c-27-462",
+        "C-3ad944876c-27-463",
+        "C-3ad944876c-28-464",
+        "C-3ad944876c-28-465",
+        "C-3ad944876c-32-466",
+        "C-3ad944876c-33-467",
+        "C-3ad944876c-33-468",
+        "C-3ad944876c-33-469",
+        "C-3ad944876c-35-470",
+        "C-3ad944876c-35-471",
+        "C-3ad944876c-36-472",
+        "C-3ad944876c-37-473",
+        "C-3ad944876c-37-474"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2025,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/AlgoritmoRetenciones_2025__27-nov.pdf",
+      "sha256": "329fc013487a93c4d74c27c332ec5302de5a8b1371b61901cfe2e4fc75054355",
+      "citationIds": [
+        "C-329fc01348-10-475",
+        "C-329fc01348-23-476",
+        "C-329fc01348-23-477",
+        "C-329fc01348-24-478",
+        "C-329fc01348-25-479",
+        "C-329fc01348-25-480",
+        "C-329fc01348-26-481",
+        "C-329fc01348-27-482",
+        "C-329fc01348-27-483",
+        "C-329fc01348-28-484",
+        "C-329fc01348-28-485",
+        "C-329fc01348-32-486",
+        "C-329fc01348-33-487",
+        "C-329fc01348-33-488",
+        "C-329fc01348-33-489",
+        "C-329fc01348-35-490",
+        "C-329fc01348-35-491",
+        "C-329fc01348-36-492",
+        "C-329fc01348-37-493",
+        "C-329fc01348-37-494"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2017,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf",
+      "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+      "citationIds": [
+        "C-1390112172-9-495",
+        "C-1390112172-22-496",
+        "C-1390112172-22-497",
+        "C-1390112172-23-498",
+        "C-1390112172-24-499",
+        "C-1390112172-24-500",
+        "C-1390112172-25-501",
+        "C-1390112172-26-502",
+        "C-1390112172-26-503",
+        "C-1390112172-27-504",
+        "C-1390112172-27-505",
+        "C-1390112172-32-506",
+        "C-1390112172-32-507",
+        "C-1390112172-32-508",
+        "C-1390112172-33-509",
+        "C-1390112172-35-510",
+        "C-1390112172-35-511",
+        "C-1390112172-36-512",
+        "C-1390112172-37-513",
+        "C-1390112172-37-514"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2019,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2019/ALGORITMO_2019.pdf",
+      "sha256": "bb9aa5da3d6a1fa2b94baadc62caf9b49761b3cd3c0db25af1dc1fb5fb2f31f5",
+      "citationIds": [
+        "C-bb9aa5da3d-9-515",
+        "C-bb9aa5da3d-22-516",
+        "C-bb9aa5da3d-22-517",
+        "C-bb9aa5da3d-24-518",
+        "C-bb9aa5da3d-25-519",
+        "C-bb9aa5da3d-25-520",
+        "C-bb9aa5da3d-26-521",
+        "C-bb9aa5da3d-27-522",
+        "C-bb9aa5da3d-27-523",
+        "C-bb9aa5da3d-28-524",
+        "C-bb9aa5da3d-28-525",
+        "C-bb9aa5da3d-34-526",
+        "C-bb9aa5da3d-34-527",
+        "C-bb9aa5da3d-34-528",
+        "C-bb9aa5da3d-35-529",
+        "C-bb9aa5da3d-37-530",
+        "C-bb9aa5da3d-37-531",
+        "C-bb9aa5da3d-38-532",
+        "C-bb9aa5da3d-39-533",
+        "C-bb9aa5da3d-39-534"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2021,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2021/ALGORITMO_2021_LPGE.pdf",
+      "sha256": "8d435c1b9ffc4c46b8878e79736408518d88c0f99e48bdc24922bfe5bdf607b8",
+      "citationIds": [
+        "C-8d435c1b9f-9-535",
+        "C-8d435c1b9f-22-536",
+        "C-8d435c1b9f-22-537",
+        "C-8d435c1b9f-23-538",
+        "C-8d435c1b9f-24-539",
+        "C-8d435c1b9f-24-540",
+        "C-8d435c1b9f-25-541",
+        "C-8d435c1b9f-26-542",
+        "C-8d435c1b9f-26-543",
+        "C-8d435c1b9f-27-544",
+        "C-8d435c1b9f-27-545",
+        "C-8d435c1b9f-31-546",
+        "C-8d435c1b9f-31-547",
+        "C-8d435c1b9f-32-548",
+        "C-8d435c1b9f-32-549",
+        "C-8d435c1b9f-34-550",
+        "C-8d435c1b9f-34-551",
+        "C-8d435c1b9f-35-552",
+        "C-8d435c1b9f-36-553",
+        "C-8d435c1b9f-36-554"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2024,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-1-enero-7-febrero.pdf",
+      "sha256": "d28bef4252956fa7fc6881bdf9e3cf3359ff75ed6ff538f96d0c38c482460042",
+      "citationIds": [
+        "C-d28bef4252-10-555",
+        "C-d28bef4252-23-556",
+        "C-d28bef4252-23-557",
+        "C-d28bef4252-24-558",
+        "C-d28bef4252-25-559",
+        "C-d28bef4252-25-560",
+        "C-d28bef4252-26-561",
+        "C-d28bef4252-27-562",
+        "C-d28bef4252-27-563",
+        "C-d28bef4252-28-564",
+        "C-d28bef4252-28-565",
+        "C-d28bef4252-32-566",
+        "C-d28bef4252-33-567",
+        "C-d28bef4252-33-568",
+        "C-d28bef4252-33-569",
+        "C-d28bef4252-35-570",
+        "C-d28bef4252-35-571",
+        "C-d28bef4252-36-572",
+        "C-d28bef4252-37-573",
+        "C-d28bef4252-37-574"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2020,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2020/ALGORITMO_RETENCIONES_2020.pdf",
+      "sha256": "645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+      "citationIds": [
+        "C-645d06d2dc-9-575",
+        "C-645d06d2dc-22-576",
+        "C-645d06d2dc-22-577",
+        "C-645d06d2dc-23-578",
+        "C-645d06d2dc-24-579",
+        "C-645d06d2dc-24-580",
+        "C-645d06d2dc-25-581",
+        "C-645d06d2dc-26-582",
+        "C-645d06d2dc-26-583",
+        "C-645d06d2dc-27-584",
+        "C-645d06d2dc-27-585",
+        "C-645d06d2dc-31-586",
+        "C-645d06d2dc-31-587",
+        "C-645d06d2dc-32-588",
+        "C-645d06d2dc-32-589",
+        "C-645d06d2dc-34-590",
+        "C-645d06d2dc-34-591",
+        "C-645d06d2dc-35-592",
+        "C-645d06d2dc-36-593",
+        "C-645d06d2dc-36-594"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2023,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2023/ALGORITMO_RETENCIONES_2023_desde_1_de_febrero.pdf",
+      "sha256": "244fa7f987b8a03f8e67e3402cd7b9bc796f35e2fba89a26b69dc5b3197868de",
+      "citationIds": [
+        "C-244fa7f987-10-595",
+        "C-244fa7f987-23-596",
+        "C-244fa7f987-23-597",
+        "C-244fa7f987-24-598",
+        "C-244fa7f987-25-599",
+        "C-244fa7f987-25-600",
+        "C-244fa7f987-26-601",
+        "C-244fa7f987-27-602",
+        "C-244fa7f987-27-603",
+        "C-244fa7f987-28-604",
+        "C-244fa7f987-28-605",
+        "C-244fa7f987-32-606",
+        "C-244fa7f987-33-607",
+        "C-244fa7f987-33-608",
+        "C-244fa7f987-33-609",
+        "C-244fa7f987-35-610",
+        "C-244fa7f987-35-611",
+        "C-244fa7f987-36-612",
+        "C-244fa7f987-37-613",
+        "C-244fa7f987-37-614"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2022,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2022/ALGORITMO_RETENCIONES_2022.pdf",
+      "sha256": "a4bb4dc6ddd019f9625cf05576d46c5a9a8cd25807270a45d5762c770af6945b",
+      "citationIds": [
+        "C-a4bb4dc6dd-9-615",
+        "C-a4bb4dc6dd-22-616",
+        "C-a4bb4dc6dd-22-617",
+        "C-a4bb4dc6dd-23-618",
+        "C-a4bb4dc6dd-24-619",
+        "C-a4bb4dc6dd-24-620",
+        "C-a4bb4dc6dd-25-621",
+        "C-a4bb4dc6dd-26-622",
+        "C-a4bb4dc6dd-26-623",
+        "C-a4bb4dc6dd-27-624",
+        "C-a4bb4dc6dd-27-625",
+        "C-a4bb4dc6dd-31-626",
+        "C-a4bb4dc6dd-31-627",
+        "C-a4bb4dc6dd-32-628",
+        "C-a4bb4dc6dd-32-629",
+        "C-a4bb4dc6dd-34-630",
+        "C-a4bb4dc6dd-34-631",
+        "C-a4bb4dc6dd-35-632",
+        "C-a4bb4dc6dd-36-633",
+        "C-a4bb4dc6dd-36-634"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2024,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2024/ALGORITMO_2024-8-feb-27-junio.pdf",
+      "sha256": "c4d53e76b59ee367c50c7c5bd666982e7ba5fd3a9d3eddc505abf0606e1b5fd0",
+      "citationIds": [
+        "C-c4d53e76b5-10-635",
+        "C-c4d53e76b5-23-636",
+        "C-c4d53e76b5-23-637",
+        "C-c4d53e76b5-24-638",
+        "C-c4d53e76b5-25-639",
+        "C-c4d53e76b5-25-640",
+        "C-c4d53e76b5-26-641",
+        "C-c4d53e76b5-27-642",
+        "C-c4d53e76b5-27-643",
+        "C-c4d53e76b5-28-644",
+        "C-c4d53e76b5-28-645",
+        "C-c4d53e76b5-32-646",
+        "C-c4d53e76b5-33-647",
+        "C-c4d53e76b5-33-648",
+        "C-c4d53e76b5-33-649",
+        "C-c4d53e76b5-35-650",
+        "C-c4d53e76b5-35-651",
+        "C-c4d53e76b5-36-652",
+        "C-c4d53e76b5-37-653",
+        "C-c4d53e76b5-37-654"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    },
+    {
+      "year": 2023,
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2023/ALGORITMO_RETENCIONES_2023_1_a_31_de_enero.pdf",
+      "sha256": "cc2697a37b3f6389e0b407cf9df1aaa886ffe5cb5da31fd995de3785ea4ddc22",
+      "citationIds": [
+        "C-cc2697a37b-10-655",
+        "C-cc2697a37b-23-656",
+        "C-cc2697a37b-23-657",
+        "C-cc2697a37b-24-658",
+        "C-cc2697a37b-25-659",
+        "C-cc2697a37b-25-660",
+        "C-cc2697a37b-26-661",
+        "C-cc2697a37b-27-662",
+        "C-cc2697a37b-27-663",
+        "C-cc2697a37b-28-664",
+        "C-cc2697a37b-28-665",
+        "C-cc2697a37b-32-666",
+        "C-cc2697a37b-33-667",
+        "C-cc2697a37b-33-668",
+        "C-cc2697a37b-33-669",
+        "C-cc2697a37b-35-670",
+        "C-cc2697a37b-35-671",
+        "C-cc2697a37b-36-672",
+        "C-cc2697a37b-37-673",
+        "C-cc2697a37b-37-674"
+      ],
+      "scope": "Primitivas y precisión general; no todas las operaciones ni vigencia exhaustiva."
+    }
+  ],
+  "documentCount": 42,
+  "citationCount": 667,
+  "facsimileCount": 33,
+  "citationLocalVerification": {
+    "count": 625,
+    "failed": 0,
+    "independentReview": false
+  },
+  "sourceSnapshotHashes": {
+    "lib/dominio/dinero/redondeo.ts": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
+    "lib/dominio/dinero/porcentaje.ts": "e9a837f38fa9426edbf8c924bc518b58a884b17a3d507e1cb35b5ad3c10ccf12",
+    "lib/dominio/dinero/importe-monetario.ts": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+    "lib/dominio/auditoria/auditoria-progresividad-frio.ts": "dee4c7d7c18d32e2d89ce7127355f839dcd9ed4d988fbf9151f641b2d8962add",
+    "lib/dominio/auditoria/auditoria-normativa-historica.ts": "af39b563dd2119e148ee1c7258ea12176ae3fdeda4cf111ab34a328288e9f3ad",
+    "lib/dominio/compatibilidad-legacy/progresividad-frio.ts": "176ad06d179d8dc357eb2b2443097ebcadabcb439e90aa0fb85b492ce251e2eb",
+    "lib/export/auditoria-excel.ts": "8a50f7eaa95db82ff900e8ace712ff8bbe5d8b62055cbe065dc4969691750603",
+    "Calculo_Salario_IRPF.py": "16deef52f91a3aee30da6f8ec76df941cd4c4449c5bd20d1807caee1b52bdc6e",
+    "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts": "1d414340969b896725c1e3ce6a7bc471a6d1808bd84dd5d4c6ba52a83f620ac1"
+  },
+  "statistics": {
+    "matchedObservedAnnualRates": 13,
+    "initialYear": 2012,
+    "scenarioYear": 2026,
+    "officialDecemberBulletins": 14,
+    "excelCells": 33027,
+    "excelDifferences": 184,
+    "engineFactorExportsChecked": 15
+  },
+  "findingsByStatus": {
+    "match": 17,
+    "mismatch": 3,
+    "missing": 2,
+    "ambiguous": 8
+  }
+}

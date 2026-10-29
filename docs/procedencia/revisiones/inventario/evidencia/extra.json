@@ -1,0 +1,62 @@
+{
+  "alias": [
+    {
+      "symbol": "local",
+      "expression": "{x:42}",
+      "source": {
+        "file": "fixture.ts",
+        "sha256": "cd2b8e9b19ff48fbf488b081c51a5002146817264c309fa46a82dfc39e338bb4",
+        "start": 6,
+        "end": 18,
+        "line": 1,
+        "column": 7,
+        "offsetEncoding": "utf16"
+      },
+      "exported": false,
+      "function": false
+    }
+  ],
+  "collision": [
+    "inv-9285e4dea8c9972cc2e92645728c87e0",
+    "inv-c27d928b9f8db768a85769daa3982f78",
+    "inv-d801a041cd0fd63c4cb15927a742c186",
+    "inv-e758d28ea49d573dcb552555cf08b05d"
+  ],
+  "falseUnit": {
+    "years": [
+      2025
+    ],
+    "territories": [],
+    "unit": "EUR (mínimo anual del código)"
+  },
+  "rounding": [
+    {
+      "kind": "Formula",
+      "expression": "Math.ceil(1.2)"
+    },
+    {
+      "kind": "Parameter",
+      "expression": "1.2"
+    },
+    {
+      "kind": "Rounding",
+      "expression": "surround(2)"
+    },
+    {
+      "kind": "Parameter",
+      "expression": "2"
+    },
+    {
+      "kind": "Formula",
+      "expression": "new Decimal(3).div(100)"
+    },
+    {
+      "kind": "Parameter",
+      "expression": "3"
+    },
+    {
+      "kind": "Parameter",
+      "expression": "100"
+    }
+  ]
+}
