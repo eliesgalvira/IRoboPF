@@ -964,7 +964,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             ),
             Match.orElse(
               () =>
-                `La comunidad autónoma ${parametrosComunidad.escalaAutonomica.nombre} aplica su escala autonómica general de 2025. La cuota general se calcula como cuota estatal más cuota autonómica, y las deducciones autonómicas se restan después de minorar por el mínimo personal y familiar.`
+                `La comunidad autónoma ${parametrosComunidad.escalaAutonomica.nombre} aplica su escala autonómica general de ${parametrosComunidad.anio}. La cuota general se calcula como cuota estatal más cuota autonómica, y las deducciones autonómicas se restan después de minorar por el mínimo personal y familiar.`
             )
           ),
           fuentes: [

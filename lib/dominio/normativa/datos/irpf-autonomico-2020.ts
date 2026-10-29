@@ -262,13 +262,13 @@ export const ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025 = {
       [importe(12450), tipo("9")],
       [importe(17707.2), tipo("11.2")],
       [importe(33007.2), tipo("13.3")],
-      [importe(53407.29), tipo("17.9")],
+      [importe(53407.2), tipo("17.9")],
       [importe(Infinity), tipo("21")],
     ],
     fuente: {
-      titulo: "AEAT Manual práctico de Renta 2020. Escala autonómica de Madrid",
+      titulo: "Ley 6/2018 de la Comunidad de Madrid, artículo único.Dos",
       referencia:
-        "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2020/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico/comunidad-madrid.html",
+        "https://www.bocm.es/boletin/CM_Orden_BOCM/2018/12/28/BOCM-20181228-1.PDF",
     },
   }),
   murcia: escala2020({
