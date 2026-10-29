@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "base": "65cff4fd8eb8c6269c2ce97b88e770aa711bff7f",
+  "model": "gpt-6-astra",
+  "options": {
+    "reasoningEffort": "high",
+    "serviceTier": "priority"
+  },
+  "isolation": "worktree",
+  "commonInstructions": "Eres un hijo NUEVO del orquestador de IRoboPF. Haz el trabajo personalmente, sin subdelegar. Base esperada 65cff4fd8eb8c6269c2ce97b88e770aa711bff7f; comprueba HEAD, diff contra base y presencia de todas las entradas (lstat/readlink para symlinks). Lee íntegros /home/elies/irobopf-contexto/BRIEF.md, AGENTS.md, docs/procedencia/{CONTRATO-AUDITORIA,COORDINACION,ESTADO,DECISIONES}.md y correcciones/integracion-ronda13/INFORME.md. Español claro. Para cada decisión: objeción del experto, respuesta y coste. Integridad, autenticidad, interpretación, exactitud y aceptación son dimensiones separadas.\n\nREGLA VCS: NUNCA jj git init dentro de un worktree Git creado por T3. Ninguna operación VCS mutante: init/commit/reset/push/bookmark/PR/deploy ni reparación de índices. Solo lecturas Git. No crear checkouts por shell. El padre integra por manifiesto/base/hash y ausencia de borrados. No borrar contexto, Reactivity, originales, informes ajenos o worktrees. Nunca rm/mv con rutas relativas.\n\nNix/uv, sin instalaciones globales. Puedes enlazar node_modules del padre /home/elies/Repos/IRoboPF para lectura. No modificar package/locks/CI fuera del alcance. Antes de Effect: effect-solutions list/show y fuente ~/.local/share/effect-solutions/effect; lanzador bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js en nix shell nixpkgs#bun nixpkgs#nodejs. Lint y tipos de tu alcance obligatorios; las 16 reglas anti-slop siguen a error, oxlint --disable-nested-config. No evadirlas mediante extensiones/ignores.\n\nMáquina 11 GB sin swap: toda prueba, tipos, render, generación o lectura masiva con flock /tmp/irobopf-validacion-pesada.lock, UN trabajador. No Next build ni suites legacy completas en esta ronda. No servidor/preview para verificar cambios propios. Corpus Python: bash tools/procedencia/run.sh, fijando UV_PROJECT_ENVIRONMENT a ruta ABSOLUTA de TU .cache antes del wrapper. Usa nixpkgs#python3 al reconstruir inventario. Scratch solo en tu .cache, nunca copiar fuentes/tsconfig/node_modules bajo docs publicables. Descargas acotadas, UA identificativo, metadatos saneados, SHA256/512. CAS raíz del padre puede leerse, nunca cambiar sus originales.\n\nNo LFS, gasto ni transferencias externas. Elies eligió dejar preparada la transferencia. Crossa conserva v1 histórico comunicado por coordinador, misma casa/dueño; no custodia independiente ni verificación propia. V1 preservado fuera de T3 en .cache/procedencia/preservados/manifest-2df6c208; v2/restauración en .cache/orquestador-preservacion. No borrar ni sustituirlos. Nuevos originales estatales disponibles en /home/elies/Repos/IRoboPF/.cache/procedencia/recepcion-r13/estatales/sha256 según cas-preservado.json; el CAS original de la revisión está ignorado y no estará en tu checkout.\n\nPropiedad exclusiva según tarea. No cambiar ESTADO/DECISIONES ni informes ajenos. Revisores escriben solo entrega en carpeta absoluta del padre; implementadores/investigadores en SU checkout. Entrega INFORME.md, decisiones/hallazgos individuales, citas, reproducciones/casos, comandos/resultados reales, límites y manifiesto por archivo (path/sha256/size/baseSha256); patch textual y binarios por hash. Logs mayores de 1 MB comprimidos, no árboles de ejecución. Fuente oficial primaria obligatoria para una afirmación fiscal; un post y el Excel no la sustituyen. Primero rojo antes de fix numérico. No modificar oracles antiguos para obtener verde. No promover registros, confianza ni atestaciones; solo candidatos autorizados expresamente. No consultar trabajo en curso ajeno ni esperar a otro hijo.\n\nEstado fijado: inventario 4f00b24bfa37baa3521d54af1448d99a2ef6d1eee3e08bcf8b4d16ec97af7314, artifact b5450d431eefa13765ec0009a6be579e15848524799f2a467a46b5746caf087f, 52.377 ocurrencias (no reglas aceptadas). V1 2d4c3dcdcc45fc4811d9ac65146cf991fd077908b5467a9118795c566acb8f93; v2 98c315e18130d88b18a4c85aa62ec2b1dd1d18a62d9f5cf61fd57711399e7e1a. Payload Madrid bd905a560b037ae7ab8ddfe6bcfb6790e3c5d85c3ddc0d1e1ec31f1e1471d7fc, binding pending y regla completa false. Ronda 14 cerró PE-01/02/03 y CX-07-B técnicamente, sin atestación nueva; lee su informe si afecta a tu tarea. No retaguear históricos ni heredar aceptación.\n",
+  "delegates": [
+    {
+      "key": "revision-derechos-familiares",
+      "role": "review",
+      "title": "Contrarrevisión de derechos familiares y reparto de mínimos",
+      "task": "Entrega únicamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/minimos-derechos-v1/. Sin fixes. Lee implementación minimos-derechos, derechos-contrato.ts/derechos.ts, caso-fiscal-anual.ts, liquidar-irpf-anual.ts, tests y auditoría/revisión de mínimos y CX-06-A de correcciones-x-v1.\n\nRevisa ley arts. 58/60/61 y manual 2025 primarios, efectos/erratas, sin usar Modelo 145 como norma anual. Comprueba elegibilidad completa dentro del alcance Madrid 2025 individual ordinario: rentas 8000 y declaración propia 1800 ±0,01; edad 25/discapacidad, devengo, convivencia/dependencia, custodia/alimentos, orden y prioridad de grado, reparto con uno/dos/más titulares, subida de grado por renta, censos completos, duplicados e IDs anónimos. El contribuyente declara también renta como titular: investiga coherencia con el caso anual real sin dar por válida una afirmación duplicada. Revisa adopción/acogimiento y fechas de primer evento, cumpleaños, tres años sin doble aumento, límites de alcance y rechazos tipados sin Die.\n\nRecalcula estatal/autonómico por separado y conexión con remanentes de ahorro, rastro y APIs públicas. Dos padres e hijos de 8/5 años → 2550 cada uno frente a 5100 titular único; no dividir siempre por 2. Contrasta expectativas de autor con primarios y crea casos propios discriminantes. Si una exclusión es intencionada, documenta capacidad pendiente, no la llames automáticamente error numérico. Verifica que legacy no se presenta como acreditación de derechos. No pruebes solo helper. Conserva rojos nuevos y controles sin fixes. Lint/tipos, pruebas focalizadas; no revalidar fiscalmente toda liquidación por 98 pruebas. Informe, hallazgos, acciones/costes, fuentes/citas y manifiesto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-derechos-familiares",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-derechos-familiares",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-derechos-familiares>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r15-revision-derechos-familiares:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-derechos-familiares",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "ambitos-juridicos-publicacion",
+      "role": "implementation",
+      "title": "Ejecutar ámbitos jurídicos y preparar publicación con revisión limitada",
+      "task": "Implementa en TU checkout. Propiedad: tools/procedencia/enlaces.py, schemas/procedencia de binding/decisión y contenido, scripts/procedencia del puente/evidencia/publicación/verificación y dependencias de versión necesarias, lib/procedencia/modelo.ts y render mínimo de estados si imprescindible, tests pertinentes, docs/procedencia/implementaciones/ambitos-juridicos/. No tocar motor fiscal, UI de cálculo, preservacion.py, registro/revisores reales, corpus original, inventario generado o snapshots publicados. El padre integra y regenera.\n\nProblema: select_decision proyecta solo id/status/engineLocations; condiciones de año/devengo/fallecimiento/componente no se ejecutan. Además verify_attestation espera una lista de delegaciones aunque registros recientes son objetos versionados. El publicador/modelo solo admiten pending. Lee los 78 y186 dictámenes nuevos completos de revisiones/evidencias-{estatales,autonomicas}-v2, lotes propuestas-r12, payloads y revisiones técnicas anteriores. No basta cambiar enums ni confiar en scope autodeclarado.\n\nDiseña e IMPLEMENTA contrato cerrado y versionado de alcance ejecutable, con identidad exacta de celda, hash actual, unidad/valor, año/territorio, componente/base general y condiciones de período soportadas. Convierte las condiciones editoriales en propuestas estructuradas referenciando decisión original por hash; nunca reescribir o ampliar la decisión original. Ausencia, contradicción, muerte fuera de ámbito o contexto no respaldado deben bloquear. Trata residencia/elegibilidad no acreditada como condición externa explícita, no hecho probado. Murcia conserva >60000; Madrid2022 no hereda ámbito de2025; Catalunya2025 fuera. No inventes un lenguaje jurídico general si basta un conjunto cerrado de ámbitos.\n\nPreserva lectura histórica v1/v2 y pending actuales; nuevos accepted-limited requieren ámbito ejecutable, revisión independiente identificada, payload/inventario/alcance/informe exactos, registro del orquestador y cierre físico de todas las dependencias. Admite explícitamente las formas versionadas reales de delegación, con rechazo de ambigüedad/duplicados/autor. Las pruebas positivas pueden usar fixtures claramente sintéticos; no registrar identidades ficticias en producción. Atestación no es firma ni autenticidad histórica y completeRuleAcceptance siempre false.\n\nPropaga el estado limitado desde coordinador real hasta adaptador, publicación, verificador y ficha con sujeto exacto, sin confiar en manifiestos candidatos. Ataques: ampliar años/territorios/columna/condiciones, cambiar decisión o reporte y rehacer hashes, omitir/mover recibos, autor=revisor, una revisión para otro inventario, pseudoaceptación de fixture. Consistencia entre Python/Node y datos en disco.\n\nPrepara 264 payloads NUEVOS candidatos en tu entrega y correspondencias contra inventario actual solo cuando las condiciones estén representadas sin inventar; cada bloqueo preciso. No tocar registro real ni atestaciones; el padre encargará revisión nueva de contrato y payloads exactos. No autoaceptación. Rojo técnico previo a cada cambio de puerta, pruebas positivas/negativas significativas, lint/types y Ruff/mypy pertinentes. Documenta compatibilidad, objeciones, costes y manifiesto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-ambitos-juridicos-publicacion",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-ambitos-juridicos-publicacion",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-ambitos-juridicos-publicacion>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r15-ambitos-juridicos-publicacion:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-ambitos-juridicos-publicacion",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "preservacion-v3",
+      "role": "implementation",
+      "title": "Ampliar el paquete local de preservación y restaurarlo",
+      "task": "Implementa recolector/reproducción y entrega en TU checkout bajo docs/procedencia/preservacion-v3/ y scripts propios de esa carpeta. No cambiar preservacion.py/schema ni los paquetes/manifiestos v1/v2. Se autoriza crear exclusivamente /home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/paquete-v3 y restauracion-v3 si no existen, con staging propio inequívoco; antes comprueba que no sobreescribes bytes. Esas rutas externas a T3 preservan la entrega aunque se limpien worktrees. No borrar ninguna copia. No red, LFS, gasto ni transferencia externa.\n\nLee preservacion/INFORME.md, manifest-v2, revisiones preservacion-v2/integracion-tecnica-r11 y correcciones de preservación. Es una ampliación del paquete, NO renombrar schema 2 como schema 3. Deduplica por SHA256, comprueba SHA512/tamaño y conserva metadatos saneados y dependencias.\n\nParte de708 objetos, 974801535 bytes, y audita TODOS los originales añadidos desde v2 mediante manifiestos de entregas, no solo los21 estatales. Incluye retenciones-originales-2012-2016, TGSS mensual, ampliación TGSS de ronda 13, evidencia estatal nueva, cualquier original documental adquirido después. Localizadores raíz: .cache/procedencia, .cache/redondeo-tgss-mensual/cas/sha256, docs/procedencia/revisiones/redondeo-tgss-mensual-v1/originales, .cache/procedencia/recepcion-r13/estatales/sha256. Recibos en correcciones/integracion-ronda11 e integracion-ronda13. No recorrer/copiar node_modules/builds ni datos privados de X. Distingue documento primario, captura secundaria de URL oficial, facsímil y evidencia pública no oficial. Haz matriz de inclusiones/exclusiones por hash/manifest, detecta referencias ausentes sin ocultarlas.\n\nGenera manifest de paquete nuevo, exportación local real, verify y restore vacía completas con herramientas actuales. Prueba ausencia/corrupción y recuperación/publicación durable sin alterar paquetes compartidos: adversos en scratch propio. No afirmar autenticidad fiscal o histórica por checksum. Comprueba cuota de disco local antes de duplicar 1 GB; no consultar cuota remota ni solicitar gasto. Produce recibos de todas las copias por ambos hashes y comandos reproducibles. Crossa v1 quedará desfasada: explicítalo; no la toques ni llames respaldo independiente.\n\nEntrega informe, recolector, manifiesto, punteros/preparación solo si útil sin subir, relación con v1/v2, hashes, tamaños, pruebas y límites. Lint/Ruff/mypy de tus scripts pertinentes; no instalar global. Necesitará revisión independiente nueva.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-preservacion-v3",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-preservacion-v3",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-preservacion-v3>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r15-preservacion-v3:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-preservacion-v3",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "revision-retenciones-2012-2014",
+      "role": "review",
+      "title": "Revisión jurídica y visual completa de retenciones 2012–2014",
+      "task": "Entrega únicamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2012-2014-cierre/. Sin fixes/habilitación de versiones. Lee auditoría y revisión retenciones-originales-2012-2016, sus matriz de 140 celdas, 19 fuentes, siete versiones, CONTRATO-CANDIDATO y casos; auditoría/revisión retenciones-2012-2019. Tu propiedad documental es 2012, 2013 y 2014 (incluidas versiones de 2012), el otro revisor cubrirá2015–2016.\n\nLa revisión anterior comprobó hashes y690 páginas extraídas pero semántica/visual selectivas. Completa personalmente lectura jurídica y visual de todas las páginas operativas de TU conjunto. No declarar completitud solo por extracción o un script. Registra mapa página/sección/versión/inspección visual/tachado/color, tablas,20 pasos y ramas de regularización. Usa reextracciones/citas nuevas donde la existente no alcanza. Captura secundaria de URL AEAT no prueba autenticidad histórica; separa corroboración primaria BOE de posesión del PDF.\n\nCierra vigencia de2012 enero/excepción RDL 20/2011 y variantes, 2013/2014; condiciones personales/familiares, reducciones, gastos, anualidades/pensión yHIJOS, mínimo, vivienda, límites, tipos, regularización, redondeos. Mantén umbrales literales120000.20, 175000.20 y 300000.20. Investiga RRO-09 suma PENSION + HIJOS frente a disyunción jurídica con escenarios aplicables, no suma sintética imposible. Contrasta reformas/erratas primarias necesarias.\n\nEntrega decisión individual para cada celda/version/rama de tu subset y contrato operativo candidato solo donde evidencia complete. ExpectedDecimal/racional independiente con aserciones reales: valores intermedios, fronteras±0.01, divisor 0, circunstancias yregularización. No llamar133 escenarios 133 pruebas ni esperado generado desde motor actual. API actual rechazaestosperíodos intencionadamente: no fabricar rojo por falta de soporte. Aporta información suficiente para una implementación posterior, o bloqueo exacto con búsquedas efectivas. No aceptación completa de ejercicios. Informe, primarios, citas/facsímiles, matriz, pruebas y manifiesto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-retenciones-2012-2014",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-retenciones-2012-2014",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-retenciones-2012-2014>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r15-revision-retenciones-2012-2014:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-retenciones-2012-2014",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "revision-retenciones-2015-2016",
+      "role": "review",
+      "title": "Resolver versiones, tachados y vigencias de retenciones 2015–2016",
+      "task": "Entrega únicamente en /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/retenciones-2015-2016-cierre/. Sin fixes/habilitación. Lee auditoría/revisión retenciones-originales-2012-2016,140 celdas,19 originales,7 versiones,contrato y casos; auditoría/revisión retenciones 2012–2019. Tu subset son 2015 enero/julio y 2016. Otro revisor cubre2012–2014; no esperar ni leer su trabajo activo.\n\nCompleta lectura jurídica y visual PERSONAL de todas las páginas operativas de tus versiones, mapa por página/sección/tachados/colores,20 pasos,regularización y tablas. Hash/reextracción no sustituyen lectura. Investiga con primarios AEAT/BOE la discrepancia julio13/14 y 2016nov24/dic22. El PDF julio 2015 e0f7… p34 conserva RESICEME=S y RENCEME=N azul NOtachado aunque HTMLa03f… anuncia causa11+6 corregida. No elegir la prosa del anuncio ni el PDF por conveniencia: busca bytes/versionevidencia independiente y documenta interpretación si contradicción persiste.2016 p22 MOVILGEO tachado y p21 CAMBIORESI=2015 tachado; no eliminar MOVIL=S por asociación.\n\nCierra transiciones RDL 9/2015 y RD 633/2015, opción agosto y escala+topes completos 47/24 → 46/23. RRO-08 límite de gastos RETRIB − SS vs RD1003/2014 incluyendo irregularidad: caso legalmente aplicable y efectos, no mezcla imposible. Contrasta reducciones, gastos, mínimos, vivienda, discapacidad, familia y límites históricos, ramas de regularización, fechas y redondeo.\n\nDecisión individual por celda/version/rama, contrato candidato operable donde se cierre evidencia y bloqueos exactos donde no. Casos Decimal/racionales con aserciones reales, intermedios y fronteras; no expected de TS actual ni fake rojo contra períodos rechazados por contrato. Busca erratas y fuentes antes de repetir needs-evidence; no declarar cerrada lectura que fue selectiva. Guarda originales/citas/crops por hashes y sanea metadata. Lint/tipos propios, informe, matriz, pruebas y manifiesto. No aceptación fiscal completa.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-retenciones-2015-2016",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-retenciones-2015-2016",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-retenciones-2015-2016>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r15-revision-retenciones-2015-2016:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-revision-retenciones-2015-2016",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "tgss-etapas-operativas",
+      "role": "research",
+      "title": "Precisar redondeos TGSS por concepto y etapa",
+      "task": "Investiga personalmente y entrega en TU checkout docs/procedencia/auditorias/tgss-etapas-operativas/. Sin motor ni cambios a informes anteriores. Lee TODAS las búsquedas ya hechas y revisiones de redondeo-tgss-mensual-v1, auditoría inicial y CX01/02/03; no repetir un barrido genérico ni la misma falta de evidencia como nueva conclusión.\n\nObjetivo concreto: contrato 2025 de liquidación mensual por concepto para contingencias, desempleo, FOGASA, FP, MEI y solidaridad 497–499, con secuencia base × tipo, redondeo, acumulación, reparto trabajador/empresa y ajuste residual. R05/R06/R10 todavía abiertos. La norma euro de 2001 prueba conversión/pago y el manual de 2018, p24, prueba suma 183.35 + 5.20 + 18.20 = 206.75 frente a 206.76 combinado; no extrapolar universalmente. Busca especificaciones primarias de cálculo SLD/SILTRA, RNT/RLC, recibo y ficherosrespuesta, manuales empresariales TGSS, BNR/erratas con efectos. Investiga páginas/anexos no explorados, con registro de búsquedas no redundante. AT/EP 2026, DA 61 LGSS y RDL 3/2026, tiene cadena distinta: no usar tarifa atemporal Ley 42/2006.\n\nConstruye matriz de reglas/etapas exactas por concepto, alcance temporal, empate positivo/negativo, acumulación por tramo/trabajador/mes, límites/incompatibilidades. Recalcula 21 casos previos más discriminantes que separen contratos; distingue expected normativo de escenario aritmético. No rojo contra API que declara alcance analítico ni fix por intuición de redondeo. Si se acredita regla, cita original conbbox/contexto/crop y efecto; independencia pendiente. Si después de búsqueda dirigida no se acredita, entrega contrato rechazado/parcial y alternativas numéricas, no un único valor disfrazado de oficial.\n\nOriginales nuevos con URL, fecha, SHA-256/SHA-512, tamaño, MIME y metadatos filtrados; preferir CAS reutilizado. Descargas moderadas, no contactar terceros. Entrega informe/cobertura/hallazgos/citas/contrato candidato/casos comprobables/manifiesto. Sin aceptación fiscal ni transferencias.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-tgss-etapas-operativas",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-tgss-etapas-operativas",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-tgss-etapas-operativas>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r15-tgss-etapas-operativas:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-tgss-etapas-operativas",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "key": "matriz-cierre-cobertura",
+      "role": "research",
+      "title": "Medir cobertura real y ordenar los pendientes del encargo",
+      "task": "Trabajo documental y de análisis en TU checkout, entrega docs/procedencia/auditorias/cierre-cobertura/. No modificar motor, estados de hallazgos, registros o informes previos. Lee BRIEF completo y audita entregables reales hasta esta base, inventario y TODAS las matrices de cobertura/hallazgos/revisiones/implementaciones integradas. No asumir que el total de fichas o citas es cobertura jurídica.\n\nConstruye una matriz reproducible por dominio/año/territorio/contrato soportado: estatal/autonómico/foral real, mínimos,trabajo/gastos/deducciones, retenciones, SS, capital/ganancias, ahorro, 351 deducciones autonómicas, actividades e IPC/redondeos. Relaciona IDs de hallazgos con decisión independiente, código/test del fix, evidencia primaria/vigencia, cita/facsímil, binding operativo/atestación, página/rastro. Estados separados: inventariado, candidato, contrarrevisado acotado, implementado, binding aceptado y regla completa. Nunca heredar aceptación limitada a una regla completa. Representa explícitamente faltas y mapeos ambiguos, sin resolverlos por igualdad de nombres.\n\nRevisa cierre del requisito de página española experta para cada elemento: cuántas son fichas técnicas y cuántas contienen derivación/legalidad/casos/conexión. La existencia de52.377 ocurrencias y 65 sitios no demuestra explicaciones completas. Mide cobertura documental/operativa con denominadores justificables, sin porcentaje agregado engañoso. Incluye autenticidad histórica,custodia,CI/citas, software actual,build/hosting y límites de producción. No ejecutar 32 millones de celdas ni builds: utiliza recibos independientes y una muestra propia dirigida para comprobar que no son promesas.\n\nProduce backlog accionable y priorizado para el padre: qué trabajo faltante puede cerrarse con la evidencia existente, qué requiere nueva primaria, dónde faltan contratos y qué hallazgos siguen sin fix pese a una aceptación acotada. Examina especialmente deducciones parciales antiguas aún consumidas, UI antigua y hechos ausentes y retenciones soportadas, sin confundir casos fuera del alcance explícito con bugs. Enumera posibles contradicciones entre ESTADO y artefactos para corregirlas. Revisa privacidad solo contenido publicable, no datos privados. No certificar conclusión ni pedir permisos. Informe, matrices JSON, extractor reproducible, pruebas/muestra, fuentes y manifiesto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-matriz-cierre-cobertura",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-matriz-cierre-cobertura",
+      "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-matriz-cierre-cobertura>",
+      "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r15-matriz-cierre-cobertura:ordinal:1",
+      "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r15-matriz-cierre-cobertura",
+      "status": "running",
+      "workState": "working",
+      "hasPendingChildRuns": false,
+      "latestTerminalRunId": null,
+      "latestTerminalStatus": null,
+      "latestTerminalSummary": null,
+      "latestTerminalResultContextTransferId": null,
+      "providerInstanceId": "codex",
+      "model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "high"
+        },
+        {
+          "id": "serviceTier",
+          "value": "priority"
+        }
+      ],
+      "summary": null,
+      "resultContextTransferId": null,
+      "hasPendingQuestion": false,
+      "pendingApproval": null,
+      "waitTimedOut": false,
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    }
+  ]
+}
