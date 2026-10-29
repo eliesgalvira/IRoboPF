@@ -1,0 +1,11 @@
+# Ganancias patrimoniales: CG-01, CG-02 y CG-03
+
+29 de octubre de 2026. Se aplican tres proposiciones aceptadas por la revisión independiente de `revisiones/capital-ganancias/`. Sus originales, hashes, cajas, objeciones y alcance constan en esa carpeta. No se acepta por extensión toda la liquidación anual.
+
+- CG-01: una pérdida computable conserva signo y no se convierte en exención negativa. Diez mil euros de ganancia y cuatro mil de pérdida producen saldo de seis mil, no diez mil. Una pérdida aislada conserva menos cuatro mil en su componente. Fundamento: artículo 49 LIRPF original y reforma Ley 26/2014; no se cambia la calificación previa de pérdidas computables ni se implementan aquí bolsas, recompra o compensación cruzada.
+- CG-02: la ventana del 12 de mayo al 31 de diciembre de 2012 corresponde a la adquisición onerosa del inmueble urbano. La venta posterior no extingue por sí sola el beneficio del 50 %. RDL 18/2012 DF tercera y Ley 8/2012 DF tercera, PDF páginas 11–12 de esta última. Se conservan los controles de vinculación, naturaleza y adquisición del contrato existente.
+- CG-03: la exención de reinversión en renta vitalicia se aplica desde 2015, según Ley 26/2014 artículo 1.24 y DF sexta, PDF páginas 22 y 79. La exención distinta de vivienda habitual de mayores de 65 se conserva en 2014. No se resuelve aquí el contrato de reinversiones previas CG-04 ni los requisitos de acreditación.
+
+Se añadieron 14 pruebas mantenidas con expectativas tomadas de la contrarrevisión: nueve fallaron antes del cambio y cinco controles pasaron. Después pasan las 14 y las 57 de liquidación anual: 71 en total. Hay controles de pérdidas por ejercicio, dos fronteras de adquisición, adquisición fuera de ventana, vinculación, transición 2014/2015 y vivienda habitual. Los importes de entrada representan ganancias/pérdidas previamente calculadas y fiscalmente computables, sin circunstancias excluidas.
+
+Reproducción: `nix shell nixpkgs#bun nixpkgs#nodejs -c bun run test tests/ganancias-patrimoniales-procedencia.test.ts tests/liquidacion-irpf-anual.test.ts --maxWorkers=1`. Lint y typecheck completos correctos. Inventario regenerado; sus ocurrencias cambian al cambiar el archivo. Queda pendiente integrar la evidencia en páginas y bindings finales y revisar el resultado integrado.
