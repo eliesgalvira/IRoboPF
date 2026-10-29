@@ -1,0 +1,465 @@
+--- a/lib/dominio/compatibilidad-legacy/progresividad-frio.ts
++++ b/lib/dominio/compatibilidad-legacy/progresividad-frio.ts
+@@ -1,3 +1,5 @@
++import { filaDetalleTabular } from "./detalle-tabular"
++import { mensualizarCentimosPresentacionLegacy } from "./aritmetica-tabular"
+ import Decimal from "decimal.js"
+ import {
+   Array as EffectArray,
+@@ -10,7 +12,6 @@
+   centimosAEuros,
+   crearImporteMonetario,
+   eurosACentimos,
+-  redondearImporteLiquidado,
+ } from "../dinero/importe-monetario"
+ import { porcentajeCompatibleLegacy } from "../dinero/porcentaje"
+ import { aniosFiscalesLegacy, type AnioFiscal } from "../normativa/anio-fiscal"
+@@ -262,9 +263,6 @@
+ 
+ const rangoDetalleAnualLegacy =
+   configuracionExportacionCompatibleLegacy.detalleAnual
+-
+-const dineroCompatible = (euros: Decimal) =>
+-  Number(redondearImporteLiquidado(euros).toString())
+ 
+ // Los conceptos fiscales abreviados del perfil legacy estan definidos en:
+ // docs/glosario-fiscal-motor.md
+@@ -607,7 +605,7 @@
+   )
+ 
+ const diferenciaMensualCentimos = (diferenciaAnual: number) =>
+-  Math.round(diferenciaAnual / 12)
++  mensualizarCentimosPresentacionLegacy(diferenciaAnual)
+ 
+ const construirComparacionAjustadaPorIpc = (
+   entrada: EntradaComparacionAjustadaPorIpc
+@@ -1045,20 +1043,6 @@
+     Match.when(false, () => "En adelante"),
+     Match.orElse(() => limite.toNumber())
+   )
+-
+-const calcularCuotasPorTramo = (
+-  baseImponible: Decimal,
+-  tramos: TramosIrpf
+-): ReadonlyArray<Decimal> =>
+-  tramos.map(([limite], indice) => {
+-    const limiteAnterior = Match.value(indice).pipe(
+-      Match.when(0, () => CERO),
+-      Match.orElse((indice) => tramos[indice - 1][0])
+-    )
+-    return importeBaseEnTramo(baseImponible, limiteAnterior, limite).mul(
+-      tramos[indice][1]
+-    )
+-  })
+ 
+ const cabecerasDetalleAnualCompatible = (anio: AnioFiscal) => [
+   "Salario Bruto",
+@@ -1081,46 +1065,6 @@
+   "IRPF Final",
+   "Salario Neto",
+ ]
+-
+-const construirFilaDetalleAnualCompatible = (
+-  anio: AnioFiscal,
+-  salarioBrutoEuros: number
+-): ReadonlyArray<ValorCeldaCompatible> => {
+-  const bruto = decimal(salarioBrutoEuros)
+-  const parametros = obtenerParametros(anio)
+-  const cotizaciones = calcularCotizacionesSocialesLegacy({
+-    salarioBrutoAnual: bruto,
+-    anio,
+-  })
+-  const irpf = calcularIrpf(bruto, parametros, cotizaciones)
+-  const cuotasPorTramo = calcularCuotasPorTramo(
+-    irpf.baseImponible,
+-    parametros.tramosIrpf
+-  )
+-  const salarioNeto = bruto
+-    .minus(cotizaciones.cotizacionTrabajador)
+-    .minus(irpf.irpfFinal)
+-
+-  return [
+-    salarioBrutoEuros,
+-    dineroCompatible(cotizaciones.cotizacionEmpresarial),
+-    dineroCompatible(bruto.plus(cotizaciones.cotizacionEmpresarial)),
+-    dineroCompatible(cotizaciones.cotizacionTrabajador),
+-    dineroCompatible(irpf.rendimientoPrevioNeto),
+-    parametros.gastosFijos.toNumber(),
+-    dineroCompatible(irpf.reduccionTrabajo),
+-    dineroCompatible(irpf.baseImponible),
+-    ...cuotasPorTramo.map(dineroCompatible),
+-    dineroCompatible(irpf.cuotaIntegra),
+-    dineroCompatible(irpf.cuotaMinimoPersonal),
+-    dineroCompatible(irpf.cuotaTeorica),
+-    dineroCompatible(irpf.deduccionSmi),
+-    dineroCompatible(irpf.cuotaTrasSmi),
+-    dineroCompatible(irpf.limiteRetencion),
+-    dineroCompatible(irpf.irpfFinal),
+-    dineroCompatible(salarioNeto),
+-  ]
+-}
+ 
+ export const construirTablaControlGeneralCompatible = (): TablaCompatible => ({
+   cabeceras: [
+@@ -1246,7 +1190,7 @@
+ 
+   function* filas(): Iterable<ReadonlyArray<ValorCeldaCompatible>> {
+     for (const salario of salariosDelRango(rango)) {
+-      yield construirFilaDetalleAnualCompatible(anio, Number(salario))
++      yield filaDetalleTabular(anio, Number(salario))
+     }
+   }
+ 
+--- /dev/null
++++ b/lib/dominio/compatibilidad-legacy/aritmetica-tabular.ts
+@@ -0,0 +1,43 @@
++// Perfil técnico de Calculo_Salario_IRPF.py; no es política de liquidación.
++// NumPy redondea después de escalar en binary64. Python round(float, n)
++// redondea el racional binary64 original: escalar primero puede crear un empate.
++export const redondearNumpy = (valor: number, decimales = 2): number => {
++  const escala = 10 ** decimales
++  const escalado = Math.abs(valor) * escala
++  const inferior = Math.floor(escalado)
++  const fraccion = escalado - inferior
++  const entero =
++    fraccion > 0.5 || (fraccion === 0.5 && inferior % 2 !== 0)
++      ? inferior + 1
++      : inferior
++  return Math.sign(valor) * (entero / escala)
++}
++
++export const redondearPython = (valor: number, decimales = 2): number => {
++  if (!Number.isFinite(valor) || valor === 0) return valor
++  const bits = new DataView(new ArrayBuffer(8))
++  bits.setFloat64(0, Math.abs(valor))
++  const palabra = bits.getBigUint64(0)
++  const exponente = Number((palabra >> 52n) & 2047n)
++  const mantisa =
++    (palabra & ((1n << 52n) - 1n)) + (exponente === 0 ? 0n : 1n << 52n)
++  const potencia = (exponente === 0 ? -1022 : exponente - 1023) - 52
++  const numerador =
++    mantisa *
++    10n ** BigInt(decimales) *
++    (potencia >= 0 ? 2n ** BigInt(potencia) : 1n)
++  const denominador = potencia < 0 ? 2n ** BigInt(-potencia) : 1n
++  const entero = numerador / denominador
++  const restoDoble = 2n * (numerador % denominador)
++  const ajustado =
++    restoDoble > denominador ||
++    (restoDoble === denominador && entero % 2n !== 0n)
++      ? entero + 1n
++      : entero
++  return (Math.sign(valor) * Number(ajustado)) / 10 ** decimales
++}
++
++// Mantiene la presentación histórica de la API de céntimos (empate hacia +∞).
++// No es antisimétrica ni una regla TGSS. El tabular divide euros precisos antes.
++export const mensualizarCentimosPresentacionLegacy = (anual: number): number =>
++  Math.round(anual / 12)
+--- /dev/null
++++ b/lib/dominio/compatibilidad-legacy/detalle-tabular.ts
+@@ -0,0 +1,168 @@
++import type { AnioFiscal } from "../normativa/anio-fiscal"
++import { obtenerParametrosCotizacionLegacy } from "../laboral/cotizaciones-sociales"
++import {
++  GASTOS_FIJOS_IRPF_LEGACY,
++  MINIMO_PERSONAL_IRPF_LEGACY,
++  obtenerTramosIrpfLegacy,
++} from "../normativa/datos/irpf-estatal-2012-2026"
++import { obtenerEspecificacionCompatibilidadHistorica } from "../normativa/datos/compatibilidad-historica"
++import { redondearNumpy, redondearPython } from "./aritmetica-tabular"
++
++// Una operación con np.int64/float64 propaga NumPy; constantes y tramos
++// totalmente agotados siguen siendo floats Python en el original.
++interface Escalar {
++  readonly valor: number
++  readonly numpy: boolean
++}
++const py = (valor: number): Escalar => ({ valor, numpy: false })
++const np = (valor: number): Escalar => ({ valor, numpy: true })
++const sumar = (a: Escalar, b: Escalar): Escalar => ({
++  valor: a.valor + b.valor,
++  numpy: a.numpy || b.numpy,
++})
++const restar = (a: Escalar, b: Escalar): Escalar => ({
++  valor: a.valor - b.valor,
++  numpy: a.numpy || b.numpy,
++})
++const multiplicar = (a: Escalar, b: number): Escalar => ({
++  valor: a.valor * b,
++  numpy: a.numpy,
++})
++const positivo = (a: Escalar) => (a.valor > 0 ? a : py(0))
++const redondear = (a: Escalar) =>
++  a.numpy ? redondearNumpy(a.valor) : redondearPython(a.valor)
++const reduccionLineal = (
++  r: Escalar,
++  inferior: number,
++  superior: number,
++  maxima: number,
++  pendiente: number,
++  minima = 0
++): Escalar =>
++  r.valor <= inferior
++    ? py(maxima)
++    : r.valor <= superior
++      ? positivo(
++          restar(py(maxima), multiplicar(restar(r, py(inferior)), pendiente))
++        )
++      : py(minima)
++
++const reduccion = (r: Escalar, anio: AnioFiscal): Escalar => {
++  if (anio <= 2014) return reduccionLineal(r, 9180, 13260, 4080, 0.35, 2652)
++  if (anio <= 2017) return reduccionLineal(r, 11250, 14450, 3700, 1.15625)
++  if (anio === 2018)
++    return sumar(
++      multiplicar(reduccionLineal(r, 11250, 14450, 3700, 1.15625), 0.5),
++      multiplicar(reduccionLineal(r, 13115, 16825, 5565, 1.5), 0.5)
++    )
++  if (anio <= 2022) return reduccionLineal(r, 13115, 16825, 5565, 1.5)
++  if (anio === 2023) return reduccionLineal(r, 14047.5, 19747.5, 6498, 1.14)
++  if (r.valor <= 14852) return py(7302)
++  if (r.valor <= 17673.52)
++    return restar(py(7302), multiplicar(restar(r, py(14852)), 1.75))
++  if (r.valor <= 19747.5)
++    return restar(py(2364.34), multiplicar(restar(r, py(17673.52)), 1.14))
++  return py(0)
++}
++
++export const filaDetalleTabular = (
++  anio: AnioFiscal,
++  salario: number
++): ReadonlyArray<number> => {
++  const bruto = np(salario)
++  const p = obtenerParametrosCotizacionLegacy(anio)
++  const maximo = p.baseMaxima.toNumber()
++  const base = salario <= maximo ? bruto : py(maximo)
++  const tipos = Object.values(p.tiposSeguridadSocial)
++  const empresa = multiplicar(
++    base,
++    tipos.reduce((n, t) => n + t.empresarial.toNumber(), 0) +
++      p.mei.empresarial.toNumber()
++  )
++  const trabajador = multiplicar(
++    base,
++    tipos.reduce((n, t) => n + t.trabajador.toNumber(), 0) +
++      p.mei.trabajador.toNumber()
++  )
++  const exceso = salario - maximo
++  const sol = p.solidaridad
++  const cuotaSol =
++    sol._tag === "ConSolidaridad" && exceso > 0
++      ? np(
++          Math.min(exceso, maximo * 0.1) * sol.tipoPrimerExceso.toNumber() +
++            Math.min(
++              Math.max(0, exceso - maximo * 0.1),
++              maximo * 0.5 - maximo * 0.1
++            ) *
++              sol.tipoSegundoExceso.toNumber() +
++            Math.max(0, exceso - maximo * 0.5) *
++              sol.tipoExcesoRestante.toNumber()
++        )
++      : py(0)
++  const cotEmpresa = sumar(empresa, multiplicar(cuotaSol, 5 / 6))
++  const cotTrabajador = sumar(trabajador, multiplicar(cuotaSol, 1 / 6))
++  const previo = restar(bruto, cotTrabajador)
++  const red = reduccion(previo, anio)
++  const gastos = GASTOS_FIJOS_IRPF_LEGACY[anio].toNumber()
++  const imponible = positivo(restar(positivo(restar(previo, py(gastos))), red))
++  const tramos = obtenerTramosIrpfLegacy(anio)
++  const cuotas = tramos.map(([limite, tipo], i) => {
++    const anterior = i === 0 ? 0 : tramos[i - 1][0].toNumber()
++    if (imponible.valor <= 0 || imponible.valor < anterior) return py(0)
++    return imponible.valor > limite.toNumber()
++      ? py((limite.toNumber() - anterior) * tipo.toNumber())
++      : multiplicar(restar(imponible, py(anterior)), tipo.toNumber())
++  })
++  const integra = cuotas.reduce(sumar, py(0))
++  const minimo = py(
++    MINIMO_PERSONAL_IRPF_LEGACY[anio].toNumber() * tramos[0][1].toNumber()
++  )
++  const teorica = positivo(restar(integra, minimo))
++  // Importes y umbrales del Python heredado; no cambiar por normas posteriores.
++  const deduccion =
++    anio === 2026
++      ? salario <= 17094
++        ? py(590.89)
++        : positivo(
++            restar(py(590.89), multiplicar(restar(bruto, py(17094)), 0.2))
++          )
++      : anio === 2025
++        ? salario <= 16576
++          ? py(340)
++          : salario <= 18276
++            ? positivo(
++                restar(py(340), multiplicar(restar(bruto, py(16576)), 0.2))
++              )
++            : py(0)
++        : py(0)
++  const trasSmi = positivo(restar(teorica, deduccion))
++  const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
++  const limite = positivo(
++    multiplicar(
++      restar(bruto, py(especificacion.minimoExentoRetencion.toNumber())),
++      0.43
++    )
++  )
++  const final = trasSmi.valor <= limite.valor ? trasSmi : limite
++  return [
++    salario,
++    ...[
++      cotEmpresa,
++      sumar(bruto, cotEmpresa),
++      cotTrabajador,
++      previo,
++      py(gastos),
++      red,
++      imponible,
++      ...cuotas,
++      integra,
++      minimo,
++      teorica,
++      deduccion,
++      trasSmi,
++      limite,
++      final,
++      restar(restar(bruto, cotTrabajador), final),
++    ].map(redondear),
++  ]
++}
+--- a/tests/dinero.test.ts
++++ b/tests/dinero.test.ts
+@@ -49,3 +49,42 @@
+     ).toBe("1.99")
+   })
+ })
++
++import {
++  mensualizarCentimosPresentacionLegacy,
++  redondearNumpy,
++  redondearPython,
++} from "../lib/dominio/compatibilidad-legacy/aritmetica-tabular"
++
++it("separa round binary de half-up monetario, también con signo", () => {
++  for (const signo of [-1, 1]) {
++    expect(redondearNumpy(signo * 30 * 0.0635)).toBe(signo * 1.9)
++    expect(redondearPython(signo * 30 * 0.0635)).toBe(signo * 1.91)
++    expect(redondearPython(signo * 2.675)).toBe(signo * 2.67)
++    expect(redondearNumpy(signo * 2.675)).toBe(signo * 2.68)
++    expect(
++      redondearImporteLiquidado(
++        crearImporteMonetario(signo).mul("1.905")
++      ).toNumber()
++    ).toBe(signo * 1.91)
++    expect(redondearPython(signo * 2.5, 0)).toBe(signo * 2)
++  }
++})
++
++it("declara el empate mensual de presentación legacy, sin atribuirle norma fiscal", () => {
++  expect(mensualizarCentimosPresentacionLegacy(18)).toBe(2)
++  expect(mensualizarCentimosPresentacionLegacy(-18)).toBe(-1)
++  expect(redondearNumpy(0.059 / 12)).toBe(0)
++  expect(mensualizarCentimosPresentacionLegacy(6)).toBe(1)
++})
++
++import { porcentajeCompatibleLegacy } from "../lib/dominio/dinero/porcentaje"
++
++it("caracteriza half-up de porcentajes existente sin atribuir half-even al helper", () => {
++  expect(porcentajeCompatibleLegacy(crearImporteMonetario("0.01005"), 2)).toBe(
++    1.01
++  )
++  expect(porcentajeCompatibleLegacy(crearImporteMonetario("-0.01005"), 2)).toBe(
++    -1.01
++  )
++})
+--- /dev/null
++++ b/tests/redondeos-legacy-oracle.test.ts
+@@ -0,0 +1,88 @@
++import { describe, expect, it } from "@effect/vitest"
++import { construirTablaDetalleAnualCompatible } from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
++
++const fila = (salario: number) =>
++  Array.from(
++    construirTablaDetalleAnualCompatible(2012, {
++      salarioMinimoEuros: salario,
++      salarioMaximoEuros: salario,
++      pasoEuros: 1,
++    }).filas
++  )[0]
++
++describe("contraejemplos independientes Excel (valores, no fórmulas)", () => {
++  it("D32: NumPy 30 × 0,0635", () => expect(fila(30)[3]).toBe(1.9))
++  it("E12: resta antes de redondear", () =>
++    expect(fila(10)[4]).toBeCloseTo(9.359999999999999, 12))
++  it("W12: neto antes de redondear", () =>
++    expect(fila(10)[22]).toBeCloseTo(9.359999999999999, 12))
++  it("Q2: control que ya coincide", () => expect(fila(0)[16]).toBe(1274.87))
++})
++
++import excel from "../docs/procedencia/implementaciones/redondeos-legacy/excel.json"
++import {
++  construirTablaControlGeneralCompatible,
++  construirTablaControlTramosIrpfCompatible,
++} from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
++
++it("conserva cabeceras y las 543 celdas de control del original", () => {
++  let celdas = 0
++  for (const [tabla, original] of [
++    [construirTablaControlGeneralCompatible(), excel.hojas.CONTROL_GENERAL],
++    [
++      construirTablaControlTramosIrpfCompatible(),
++      excel.hojas.CONTROL_TRAMOS_IRPF,
++    ],
++  ] as const) {
++    expect(tabla.cabeceras).toEqual(original[0])
++    expect(Array.from(tabla.filas)).toEqual(original.slice(1))
++    celdas += original.slice(1).reduce((n, row) => n + row.length, 0)
++  }
++  expect(celdas).toBe(543)
++})
++
++it("reproduce todas las celdas de DAT_2012, salarios 0–100, sin tolerancia de céntimo", () => {
++  const tabla = construirTablaDetalleAnualCompatible(2012, {
++    salarioMinimoEuros: 0,
++    salarioMaximoEuros: 100,
++    pasoEuros: 1,
++  })
++  expect(tabla.cabeceras).toEqual(excel.hojas.DAT_2012[0])
++  const filas = Array.from(tabla.filas)
++  expect(filas.length).toBe(101)
++  for (const [i, row] of filas.entries()) {
++    for (const [j, value] of row.entries()) {
++      const original = excel.hojas.DAT_2012[i + 1][j]
++      expect(Number(value), `fila ${i + 2}, columna ${j + 1}`).toBeCloseTo(
++        Number(original),
++        10
++      )
++    }
++  }
++})
++
++import python from "../docs/procedencia/implementaciones/redondeos-legacy/python-oracle.json"
++import { aniosFiscalesLegacy } from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
++
++it("contrasta 15 años con cuerpos Python originales ejecutados en rango acotado", () => {
++  for (const anio of aniosFiscalesLegacy) {
++    for (const [i, salario] of python.salarios.entries()) {
++      const tabla = construirTablaDetalleAnualCompatible(anio, {
++        salarioMinimoEuros: salario,
++        salarioMaximoEuros: salario,
++        pasoEuros: 1,
++      })
++      const original = python.filas[anio][i]
++      expect(tabla.cabeceras).toEqual(Object.keys(original))
++      expect(Array.from(tabla.filas)[0], `${anio}, salario ${salario}`).toEqual(
++        Object.values(original)
++      )
++    }
++  }
++})
++
++import ampliado from "../docs/procedencia/implementaciones/redondeos-legacy/excel-ampliado.json"
++
++it("contrasta el desacuerdo de caracterización con la fila 20002 del libro", () => {
++  expect(fila(20000)).toEqual(ampliado.hojas.DAT_2012.at(-1))
++})

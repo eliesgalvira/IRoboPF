@@ -1,0 +1,36 @@
+Using CPython 3.13.15 interpreter at: /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3
+Creating virtual environment at: tools/procedencia/.venv
+Installed 6 packages in 3ms
+....................F.E.E..............
+======================================================================
+ERROR: test_decision_spelling (__main__.ExposureTest.test_decision_spelling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5e2bd8ac/tests/procedencia-enlaces_test.py", line 227, in test_decision_spelling
+    self.assertFalse(verify_evidence(self.root, self.context)['evidence'][0]['completeRuleAcceptance'])
+                     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5e2bd8ac/tools/procedencia/enlaces.py", line 160, in verify_evidence
+    raise ValueError('Decisión jurídica independiente no aceptada o ausente')
+ValueError: Decisión jurídica independiente no aceptada o ausente
+
+======================================================================
+ERROR: test_external_cas (__main__.ExposureTest.test_external_cas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5e2bd8ac/tests/procedencia-enlaces_test.py", line 232, in test_external_cas
+    result = verify_evidence(self.root, self.context, cas_roots=[external])
+TypeError: verify_evidence() got an unexpected keyword argument 'cas_roots'
+
+======================================================================
+FAIL: test_contradiction (__main__.ExposureTest.test_contradiction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5e2bd8ac/tests/procedencia-enlaces_test.py", line 242, in test_contradiction
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 39 tests in 2.667s
+
+FAILED (failures=1, errors=2)

@@ -1,0 +1,21 @@
+E741 Ambiguous variable name: `O`
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v2/repro.py:12:1
+   |
+10 | W = Path('/home/elies/.t3/worktrees/IRoboPF/t3-9491a8b7')
+11 | R = Path('/home/elies/Repos/IRoboPF')
+12 | O = R / 'docs/procedencia/revisiones/preservacion-v2'
+   | ^
+13 | sys.path.insert(0, str(W / 'tools/procedencia'))
+14 | import preservacion as p
+   |
+
+E402 Module level import not at top of file
+  --> /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v2/repro.py:14:1
+   |
+12 | O = R / 'docs/procedencia/revisiones/preservacion-v2'
+13 | sys.path.insert(0, str(W / 'tools/procedencia'))
+14 | import preservacion as p
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+
+Found 2 errors.

@@ -1,0 +1,185 @@
+[
+  {
+    "case": "types-private-0",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: ['version'] (type)"
+  },
+  {
+    "case": "types-private-1",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: ['version'] (type)"
+  },
+  {
+    "case": "types-private-2",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: ['bytes'] (type)"
+  },
+  {
+    "case": "types-private-3",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: ['blobs', 0, 'size'] (type)"
+  },
+  {
+    "case": "types-private-4",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: ['dependencies', 0, 'size'] (type)"
+  },
+  {
+    "case": "types-private-5",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: ['blobs', 0, 'authenticity'] (const)"
+  },
+  {
+    "case": "types-private-6",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: ['blobs', 0, 'acquisitions', 0, 'httpStatus'] (type)"
+  },
+  {
+    "case": "types-private-7",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: ['blobs', 0, 'acquisitions', 0] (additionalProperties)"
+  },
+  {
+    "case": "types-private-8",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Manifiesto fuera del esquema v2: [] (additionalProperties)"
+  },
+  {
+    "case": "date-2026-02-29T00:00:00Z",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Fecha de adquisición imposible"
+  },
+  {
+    "case": "date-2026-04-31T00:00:00Z",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Fecha de adquisición imposible"
+  },
+  {
+    "case": "date-2026-01-01T24:00:00Z",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Fecha de adquisición imposible"
+  },
+  {
+    "case": "date-2026-01-01T00:00:00",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Fecha de adquisición sin formato o zona explícita"
+  },
+  {
+    "case": "date-2026-01-01T00:00:00+00:99",
+    "state": "accepted",
+    "result": null
+  },
+  {
+    "case": "date-2024-02-29T00:00:00Z",
+    "state": "accepted",
+    "result": null
+  },
+  {
+    "case": "duplicate-blobs",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Entrada duplicada"
+  },
+  {
+    "case": "duplicate-dependencies",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Entrada duplicada"
+  },
+  {
+    "case": "json-{\"a\":1,\"a\":2}",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Clave JSON repetida"
+  },
+  {
+    "case": "json-{\"a\":NaN}",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Constante no JSON"
+  },
+  {
+    "case": "json-{\"a\":Infinity}",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Constante no JSON"
+  },
+  {
+    "case": "json-{\"a\":{\"x\":1,\"x\":2}}",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Clave JSON repetida"
+  },
+  {
+    "case": "url",
+    "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764",
+    "result": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+  },
+  {
+    "case": "url",
+    "url": "https://www.boe.es/PRIVATE_SENTINEL",
+    "result": null
+  },
+  {
+    "case": "url",
+    "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764&id=BOE-A-2006-20764",
+    "result": null
+  },
+  {
+    "case": "url",
+    "url": "https://www.boe.es:wrong/a",
+    "result": null
+  },
+  {
+    "case": "url",
+    "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764&txt=SYNTHETIC",
+    "result": null
+  },
+  {
+    "case": "url",
+    "url": "https://www.boe.es/buscar/act.php?id=SYNTHETIC",
+    "result": null
+  },
+  {
+    "case": "url",
+    "url": "https://www.boe.es/private/123.pdf",
+    "result": null
+  },
+  {
+    "case": "destination-ancestor",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Ancestro enlazado no autorizado"
+  },
+  {
+    "case": "source-ancestor",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Ancestro enlazado no autorizado"
+  },
+  {
+    "case": "manifest-ancestor",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Ancestro enlazado no autorizado"
+  },
+  {
+    "case": "cache-ancestor",
+    "state": "rejected",
+    "error": "ValueError",
+    "message": "Ancestro enlazado no autorizado"
+  }
+]

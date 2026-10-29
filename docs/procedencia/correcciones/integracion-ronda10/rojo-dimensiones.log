@@ -1,0 +1,39 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/procedencia-inventario.test.mjs (17 tests | 1 failed | 15 skipped) 9ms
+     × no convierte una comparación contra 2025 en vigencia hasta 2025 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/procedencia-inventario.test.mjs > inventario sintáctico y efectivo > no convierte una comparación contra 2025 en vigencia hasta 2025
+AssertionError: expected [ 2020, 2021, 2022, 2023, 2024, 2025 ] to deeply equal [ 2020 ]
+
+- Expected
++ Received
+
+  [
+    2020,
++   2021,
++   2022,
++   2023,
++   2024,
++   2025,
+  ]
+
+ ❯ tests/procedencia-inventario.test.mjs:30:113
+     28| describe("inventario sintáctico y efectivo", () => {
+     29|   it("no convierte una comparación contra 2025 en vigencia hasta 2025"…
+     30|     expect(dimensions("ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025…
+       |                                                                                                                 ^
+     31|     expect(dimensions("TABLA_2012_2014", []).years).toEqual([2012, 201…
+     32|     expect(dimensions("REFERENCIA_2012_COMPARADA_CON_2026", []).years)…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 15 skipped (17)
+   Start at  14:58:05
+   Duration  656ms (transform 144ms, setup 0ms, import 537ms, tests 9ms, environment 0ms)
+

@@ -3,6 +3,7 @@ import { Schema, Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
 import fixture from "./fixtures/caracterizacion-legacy.json"
+import python from "../docs/procedencia/correcciones/integracion-ronda10/caracterizacion-python.json"
 import {
   compararAjustadoPorIpc,
   compararPasadoAjustadoPorIpc,
@@ -22,7 +23,7 @@ const primeraFila = (
 
 describe("perfil legacy de progresividad en frio", () => {
   it.effect(
-    "mantiene la matriz de caracterizacion del calculo unitario, IPC y exportacion compatible",
+    "conserva cálculo unitario e IPC y contrasta el detalle con el Python original",
     () =>
       Effect.gen(function* () {
         for (const caso of fixture.casos) {
@@ -61,9 +62,15 @@ describe("perfil legacy de progresividad en frio", () => {
               comparativaIpc.diferenciaPoderAdquisitivoNetoMensualCentimos,
             ajustado: comparativaIpc.comparado.ajustado,
           }).toEqual(caso.comparativaIpcContra2026)
-          expect(filaDetalleAnualCompatible).toEqual(
-            caso.filaDetalleAnualCompatible
+          // El fixture previo describe el TypeScript anterior, no el Excel/Python.
+          // Se conserva intacto: el detalle corregido usa el oracle independiente.
+          const filaPython = python.casos.find(
+            (fila) =>
+              fila.anio === anio &&
+              fila.salarioBrutoAnualCentimos === caso.salarioBrutoAnualCentimos
           )
+          expect(filaPython).toBeDefined()
+          expect(filaDetalleAnualCompatible).toEqual(filaPython?.fila)
         }
       })
   )

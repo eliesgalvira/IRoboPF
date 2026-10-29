@@ -34,6 +34,18 @@ class EvidenceTest(unittest.TestCase):
         self.box = [50, 50, 250, 90]
         self.citation = corpus.cite(self.record, self.root, 1, self.box)
 
+    def test_titlecase_euros_preserves_literal(self):
+        text = '-8,50 Euros'
+        binding = {'number': {'start': 0, 'end': 5, 'literal': '-8,50'},
+                   'numberFormat': 'es-ES', 'value': '-8.50',
+                   'unit': {'start': 6, 'end': 11, 'literal': 'Euros'}, 'unitCode': 'EUR'}
+        self.assertTrue(corpus.verify_binding(text, binding))
+        binding['number']['literal'] = '8,50'
+        binding['number']['start'] = 1
+        binding['value'] = '8.50'
+        with self.assertRaises(ValueError):
+            corpus.verify_binding(text, binding)
+
     def test_roundtrip_pending(self):
         self.assertEqual(corpus.verify(self.record, self.citation, self.root)['integrity'], 'verified')
         with self.assertRaises((ValueError, ValidationError)):

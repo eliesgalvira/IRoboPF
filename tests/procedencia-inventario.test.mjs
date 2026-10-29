@@ -26,6 +26,20 @@ import {
 } from "../scripts/procedencia/inventario-artefacto.mjs"
 
 describe("inventario sintáctico y efectivo", () => {
+  it("no convierte una comparación contra 2025 en vigencia hasta 2025", () => {
+    expect(
+      dimensions("ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025", [
+        "madrid",
+        "tramos",
+        "3",
+        "0",
+      ]).years
+    ).toEqual([2020])
+    expect(dimensions("TABLA_2012_2014", []).years).toEqual([2012, 2013, 2014])
+    expect(dimensions("REFERENCIA_2012_COMPARADA_CON_2026", []).years).toEqual(
+      []
+    )
+  })
   it("la API reconstruye valores nuevos aunque el llamador haya importado una dependencia", () => {
     const scratch = resolve(".cache/procedencia/inventario-pruebas")
     mkdirSync(scratch, { recursive: true })
@@ -43,6 +57,10 @@ describe("inventario sintáctico y efectivo", () => {
 import { readFileSync, writeFileSync } from "node:fs";
 import { generate } from "./scripts/procedencia/inventario.mjs";
 import { MINIMOS_ESTATALES_2024 } from "./lib/dominio/normativa/datos/minimos-autonomicos-2024.ts";
+import { MURCIA_2022 } from "./lib/dominio/irpf/cuotas/escalas-publicadas.ts";
+if (MURCIA_2022[4].cuota.toString() !== "8716.67") throw new Error("Fixture Murcia cambiado");
+const scaleFile = "lib/dominio/irpf/cuotas/escalas-publicadas.ts";
+writeFileSync(scaleFile, readFileSync(scaleFile, "utf8").replace('"8716.67"', '"8716.68"') + '\\nexport const NO_INVENTARIAR = 123; export const noInvocar = () => { throw new Error("No ejecutar funciones") };\\n');
 if (MINIMOS_ESTATALES_2024.contribuyente.general.toString() !== "5550") throw new Error("Fixture cambiado");
 const file = "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts";
 const old = readFileSync(file, "utf8");
@@ -52,6 +70,26 @@ const result = await generate(process.cwd(), process.cwd() + "/generated");
 const items = result.pages.flatMap(page => JSON.parse(readFileSync("generated/" + page.file, "utf8")));
 const item = items.find(item => item.layer === "effective" && item.symbol === "MINIMOS_ESTATALES_2024" && item.path === '["contribuyente","general"]');
 if (item?.value !== "5551") throw new Error("Valor cacheado: " + item?.value);
+const scales = items.filter(item => item.layer === "effective" && item.source.file.endsWith("/cuotas/escalas-publicadas.ts"));
+const expectedRows = { ESTATAL_ORDINARIA_2012_2014: 6, ESTATAL_COMPLEMENTARIA_2012_2014: 7,
+ANDALUCIA_2012_2015: 6, VALENCIA_2014_2016: 6, CATALUNYA_2020_2021: 7,
+CATALUNYA_2022_2024: 9, MADRID_2022: 5, MURCIA_2022: 5,
+AHORRO_ORDINARIO_2012_2014: 2, AHORRO_COMPLEMENTARIO_2012_2014: 3,
+AHORRO_2016_2020: 3, AHORRO_AUTONOMICO_2015: 3, AHORRO_2021_2022: 4,
+AHORRO_2023_2024: 5, AHORRO_2025: 5 };
+for (const [symbol, rows] of Object.entries(expectedRows)) {
+ for (let row = 0; row < rows; row++) for (const key of ["baseInferior", "cuota", "tipo"]) {
+  if (scales.filter(item => item.symbol === symbol && item.path === JSON.stringify([String(row), key])).length !== 1) throw new Error("Identidad de celda ausente: " + symbol + row + key);
+ }
+}
+if (scales.length !== 228) throw new Error("Hojas canónicas ausentes: " + scales.length);
+const murcia = scales.find(item => item.symbol === "MURCIA_2022" && item.path === '["4","cuota"]');
+if (murcia?.value !== "8716.68") throw new Error("Identidad Murcia ausente");
+const again = await generate(process.cwd(), process.cwd() + "/generated-again");
+for (const page of result.pages) {
+ if (readFileSync("generated/" + page.file, "utf8") !== readFileSync("generated-again/" + page.file, "utf8")) throw new Error("Generación no determinista");
+}
+if (again.counts.effective !== result.counts.effective) throw new Error("Conteo no determinista");
 console.log("5551");
 `
       )
@@ -70,13 +108,26 @@ console.log("5551");
   it("rechaza un valor adulterado aunque todos sus hashes hayan sido recalculados", () => {
     const command = ["scripts/procedencia/inventario-artefacto.mjs", "check"]
     const options = { encoding: "utf8", timeout: 60000, maxBuffer: 1024 * 1024 }
-    const baseline = spawnSync("bun", command, options)
-    expect(baseline.status, baseline.stderr).toBe(0)
     const scratch = resolve(".cache/procedencia/inventario-pruebas")
     mkdirSync(scratch, { recursive: true })
     const temporary = mkdtempSync(resolve(scratch, "alterado-"))
     try {
-      const { files, manifest } = readArtifact()
+      for (const { file } of readArtifact().manifest.generationInputs) {
+        const target = resolve(temporary, file)
+        mkdirSync(dirname(target), { recursive: true })
+        copyFileSync(resolve(file), target)
+      }
+      symlinkSync(
+        resolve("node_modules"),
+        resolve(temporary, "node_modules"),
+        "dir"
+      )
+      const baseline = spawnSync("bun", [command[0], "write"], {
+        ...options,
+        cwd: temporary,
+      })
+      expect(baseline.status, baseline.stderr).toBe(0)
+      const { files, manifest } = readArtifact(temporary)
       const page = manifest.pages[0]
       const items = JSON.parse(files.get(page.file))
       items[0].value = "987654321"

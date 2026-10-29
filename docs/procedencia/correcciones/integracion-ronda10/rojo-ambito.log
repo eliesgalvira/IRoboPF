@@ -1,0 +1,41 @@
+......FFFF.................
+======================================================================
+FAIL: test_ec01_scope_must_match_effective_dimensions (__main__.BindingTest.test_ec01_scope_must_match_effective_dimensions) (field='year')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-enlaces_test.py", line 134, in test_ec01_scope_must_match_effective_dimensions
+    with self.assertRaisesRegex(ValueError, 'Ámbito'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_ec01_scope_must_match_effective_dimensions (__main__.BindingTest.test_ec01_scope_must_match_effective_dimensions) (field='territory')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-enlaces_test.py", line 134, in test_ec01_scope_must_match_effective_dimensions
+    with self.assertRaisesRegex(ValueError, 'Ámbito'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_ec01_scope_must_match_effective_dimensions (__main__.BindingTest.test_ec01_scope_must_match_effective_dimensions) (missing='years')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-enlaces_test.py", line 142, in test_ec01_scope_must_match_effective_dimensions
+    with self.assertRaisesRegex(ValueError, 'Ámbito'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_ec01_scope_must_match_effective_dimensions (__main__.BindingTest.test_ec01_scope_must_match_effective_dimensions) (missing='territories')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-enlaces_test.py", line 142, in test_ec01_scope_must_match_effective_dimensions
+    with self.assertRaisesRegex(ValueError, 'Ámbito'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 24 tests in 1.171s
+
+FAILED (failures=4)

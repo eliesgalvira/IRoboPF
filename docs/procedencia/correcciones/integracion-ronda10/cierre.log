@@ -1,0 +1,246 @@
+{"snapshot":"68cb543b033f17d44b1d7c311eda419b959c024dba623a7ffaa5215a25c1c557","ocurrencias":51582,"conceptos":4,"puntosRastro":65,"paquetes":256,"bytesComprimidos":12171450,"maximoPaquete":60421,"rss":1445986304,"aceptacionFiscal":"pendiente"}
+{"puntos":65,"snapshot":"68cb543b033f17d44b1d7c311eda419b959c024dba623a7ffaa5215a25c1c557","aceptacionFiscal":"pendiente"}
+{
+  "inventory": "rebuilt-from-current-code",
+  "documentaryFilesVerified": 7,
+  "evidence": [
+    {
+      "id": "madrid-2020-limite-53407-20",
+      "itemId": "inv-c24095c17f76bb198b34cf8b8d5a45ed",
+      "value": "53407.2",
+      "documentSha256": "8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660",
+      "scope": {
+        "year": 2020,
+        "territory": "madrid",
+        "unit": "EUR",
+        "claim": "El límite superior del cuarto tramo autonómico general de Madrid es 53.407,20 euros en 2020.",
+        "conditions": [
+          "Base liquidable general; no base del ahorro.",
+          "Solo límite; no acepta cuotas fijas, mínimos, liquidación completa ni otros ejercicios."
+        ],
+        "completeRule": false
+      },
+      "integrity": "verified",
+      "numericBinding": "verified",
+      "legalDecision": "AUT1721-MADRID-2020-LIMITE",
+      "bindingReview": "pending",
+      "authenticity": "trust-indeterminate",
+      "completeRuleAcceptance": false
+    }
+  ]
+}
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/auditoria-fixture-canonico.test.ts (2 tests | 1 failed) 11493ms
+     × mantiene equivalencia tabular completa con las tablas Effect 11489ms
+ ❯ tests/evidencia-contenido-procedencia.test.ts (13 tests | 1 failed) 13766ms
+     × rechaza IDs duplicados y cierre sin PNG 4ms
+ ❯ tests/rastro-anual-procedencia.test.ts (7 tests | 2 failed) 2793ms
+   × RV3-01 rechaza software de explicación cambiado fuera del dominio 1148ms
+     × coteja el catálogo generado con fuentes, inventario y fichas 956ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/auditoria-fixture-canonico.test.ts > fixture canónico tabular > mantiene equivalencia tabular completa con las tablas Effect
+AssertionError: expected { schemaVersion: 1, …(3) } to deeply equal { schemaVersion: 1, …(3) }
+
+- Expected
++ Received
+
+@@ -23,109 +23,109 @@
+        "headerHash": "d85d4db6ad96ff92843d324eafa9a655609b75441e379465f1c724aea885c092",
+        "name": "CONTROL_TRAMOS_IRPF",
+      },
+      {
+        "columns": 23,
+-       "dataHash": "ef278dba8ca33f1c381afc51037388dd8b64a9002d177cd0f9d8c1baf0b619c2",
++       "dataHash": "53870a7f824bdc74ae720cbd1585e79b29f36648428cdea5106d7099039e55a7",
+        "dataRows": 100001,
+        "headerHash": "bea32e8848b5c80806d48ba30bc08ad576ae7fb40a598eefb4bac7fee3e19e76",
+        "name": "DAT_2012",
+      },
+      {
+        "columns": 23,
+-       "dataHash": "980ee41aa474390b0195247d09ab6bdccfbcc4b81c9f8558496e7c4a9d276532",
++       "dataHash": "23767e391ef12c86c41efc3c03dd730952f060a023361bdf28c192fc34126d70",
+        "dataRows": 100001,
+        "headerHash": "bea32e8848b5c80806d48ba30bc08ad576ae7fb40a598eefb4bac7fee3e19e76",
+        "name": "DAT_2013",
+      },
+      {
+        "columns": 23,
+-       "dataHash": "00d5db70314ec22d395d43f91c663c9a93ced24045ef91ba4504717fc8756201",
++       "dataHash": "6de285011ed37fea950a270faacd00e9bdc7acfcaefbb780c30c573014611cc9",
+        "dataRows": 100001,
+        "headerHash": "bea32e8848b5c80806d48ba30bc08ad576ae7fb40a598eefb4bac7fee3e19e76",
+        "name": "DAT_2014",
+      },
+      {
+        "columns": 21,
+-       "dataHash": "2de8bda0b92ef325802c8dc0cac28bc38a981d8182076cc71c29f3a0d6fdcbd3",
++       "dataHash": "64bd03003e7d2ac17d720d891ba4c66fca6b089bd157645fa72b65cc2c2214d2",
+        "dataRows": 100001,
+        "headerHash": "b99cd2044cad9150241a1bb13c0e3ee9a08b4480ba2e1a662a78d11be6623956",
+        "name": "DAT_2015",
+      },
+      {
+        "columns": 21,
+-       "dataHash": "317a8ff006f66213f81a4b5c50516182178945101af1c74f01529da4c651ebdc",
++       "dataHash": "39ae8ebe9023f89e37bb37dde4427ccbb62eea0f247b26b4710b8754bb8ec0ea",
+        "dataRows": 100001,
+        "headerHash": "866501878000e0820be2d66ecd841f69ce82bc7fcd8b9a72fc78cd6632f9f6b3",
+        "name": "DAT_2016",
+      },
+      {
+        "columns": 21,
+-       "dataHash": "34c53d613696fe65aeb84e8a6089102ee3f655743889be238048db1c94141ed5",
++       "dataHash": "3540bdc15615e936acf8a54fc6b9f79857d1ec604673b7c04758e3eeeb7ce640",
+        "dataRows": 100001,
+        "headerHash": "866501878000e0820be2d66ecd841f69ce82bc7fcd8b9a72fc78cd6632f9f6b3",
+        "name": "DAT_2017",
+      },
+      {
+        "columns": 21,
+-       "dataHash": "10ceef9759a5f2b4c00effae5412d5c78f5dd4c15d3a3240fab1bfddee5b2921",
++       "dataHash": "90e4f3dca67d01ede6b9e390854fca5432b4362663e810f953fcec8abda4bc55",
+        "dataRows": 100001,
+        "headerHash": "866501878000e0820be2d66ecd841f69ce82bc7fcd8b9a72fc78cd6632f9f6b3",
+        "name": "DAT_2018",
+      },
+      {
+        "columns": 21,
+-       "dataHash": "c7edb5e8c383023b11d61756cf51c0b26316a6cead2cc16f84af35eed23436aa",
++       "dataHash": "1c538178195fa577e4756925328c1a0980ad5490a60ad7204817e3ba965ee703",
+        "dataRows": 100001,
+        "headerHash": "866501878000e0820be2d66ecd841f69ce82bc7fcd8b9a72fc78cd6632f9f6b3",
+        "name": "DAT_2019",
+      },
+      {
+        "columns": 21,
+-       "dataHash": "c7edb5e8c383023b11d61756cf51c0b26316a6cead2cc16f84af35eed23436aa",
++       "dataHash": "1c538178195fa577e4756925328c1a0980ad5490a60ad7204817e3ba965ee703",
+        "dataRows": 100001,
+        "headerHash": "866501878000e0820be2d66ecd841f69ce82bc7fcd8b9a72fc78cd6632f9f6b3",
+        "name": "DAT_2020",
+      },
+      {
+        "columns": 22,
+-       "dataHash": "8fc06bf15bc6cf5d24a087a2a86ac7f7437df81694b7cdc5cb6ad8c777fc866b",
++       "dataHash": "c336ee7bdf530a34585772e2bbddb89fa4806bf70ec2502e0fb716fd88ea0ff3",
+        "dataRows": 100001,
+        "headerHash": "165b0adec0a1bed0e77c3c425c856af71813e386d2af6b7ba86b18d3984972d1",
+        "name": "DAT_2021",
+      },
+      {
+        "columns": 22,
+-       "dataHash": "e4c9e5d43c580739cac4e7be6403ed7f1550ddb437595983fa6c8bab4e9e619e",
++       "dataHash": "8cac732a6603d9367e036a3c6b09ac4871d32eee7707ad2485440d134f1e2106",
+        "dataRows": 100001,
+        "headerHash": "165b0adec0a1bed0e77c3c425c856af71813e386d2af6b7ba86b18d3984972d1",
+        "name": "DAT_2022",
+      },
+      {
+        "columns": 22,
+-       "dataHash": "5f1ac6b505695ae4124c199a5803e27f9df48f2226f2155b600dde187d56fc3d",
++       "dataHash": "c0c9566763a0629a12f83c4bf8eb62f607049b28c214101a710b6c5c7bb03dcc",
+        "dataRows": 100001,
+        "headerHash": "165b0adec0a1bed0e77c3c425c856af71813e386d2af6b7ba86b18d3984972d1",
+        "name": "DAT_2023",
+      },
+      {
+        "columns": 22,
+-       "dataHash": "dee6a4a113f556d7245b982d50b1c52e68fa14694219cc74dc63f92006b17ff9",
++       "dataHash": "a6c3737600416d5a6134897a30d3ae3a6105a733818e35ab756f0850c3f538a1",
+        "dataRows": 100001,
+        "headerHash": "165b0adec0a1bed0e77c3c425c856af71813e386d2af6b7ba86b18d3984972d1",
+        "name": "DAT_2024",
+      },
+      {
+        "columns": 22,
+-       "dataHash": "f1feb53955c36a27196b352010c2ceabfee04795dfc68729e86a5b4b2502eb1e",
++       "dataHash": "324b8f4265168362c3935b5ef78ba06275302b1a86738142f5220e695f46f37f",
+        "dataRows": 100001,
+        "headerHash": "165b0adec0a1bed0e77c3c425c856af71813e386d2af6b7ba86b18d3984972d1",
+        "name": "DAT_2025",
+      },
+      {
+        "columns": 22,
+-       "dataHash": "c1b8c052b9a92c50a971df0bd92b439a158f03fa4b25812a1c6144eee1e88c3e",
++       "dataHash": "762ea926051d206150f579815349ebbe7887db577cb46ef2ce3e07abab04bf16",
+        "dataRows": 100001,
+        "headerHash": "165b0adec0a1bed0e77c3c425c856af71813e386d2af6b7ba86b18d3984972d1",
+        "name": "DAT_2026",
+      },
+    ],
+
+ ❯ tests/auditoria-fixture-canonico.test.ts:98:20
+     96|     }
+     97|
+     98|     expect(actual).toEqual(esperado)
+       |                    ^
+     99|   }, 120_000)
+    100| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/evidencia-contenido-procedencia.test.ts > Evidencia desde fuentes actuales > rechaza IDs duplicados y cierre sin PNG
+AssertionError: expected [Function] to throw error including 'duplicada' but got 'ID duplicado en snapshot'
+
+Expected: "duplicada"
+Received: "ID duplicado en snapshot"
+
+ ❯ tests/evidencia-contenido-procedencia.test.ts:137:7
+    135|         new Set(resultado.objetos.keys())
+    136|       )
+    137|     ).toThrow("duplicada")
+       |       ^
+    138|     expect(() => verificarGrafo(entries)).toThrow("Blob auxiliar ausen…
+    139|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/rastro-anual-procedencia.test.ts > RV3-01 rechaza software de explicación cambiado fuera del dominio
+AssertionError: expected 65 to be 49 // Object.is equality
+
+- Expected
++ Received
+
+- 49
++ 65
+
+ ❯ tests/rastro-anual-procedencia.test.ts:34:51
+     32|     resolve(scratch, "docs/procedencia/inventario.json")
+     33|   )
+     34|   expect(verificarRastroGenerado(scratch).puntos).toBe(49)
+       |                                                   ^
+     35|   for (const file of [
+     36|     "lib/procedencia/rastro-anual.ts",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/rastro-anual-procedencia.test.ts > rastro con identidad explícita > coteja el catálogo generado con fuentes, inventario y fichas
+AssertionError: expected 65 to be 49 // Object.is equality
+
+- Expected
++ Received
+
+- 49
++ 65
+
+ ❯ tests/rastro-anual-procedencia.test.ts:160:46
+    158|   })
+    159|   it("coteja el catálogo generado con fuentes, inventario y fichas", (…
+    160|     expect(verificarRastroGenerado().puntos).toBe(49)
+       |                                              ^
+    161|   })
+    162|   it("cada línea anual propia resuelve su ficha y conserva el contexto…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  3 failed | 40 passed (43)
+      Tests  4 failed | 549 passed (553)
+   Start at  15:02:40
+   Duration  45.34s (transform 1.18s, setup 0ms, import 10.54s, tests 30.38s, environment 4ms)
+

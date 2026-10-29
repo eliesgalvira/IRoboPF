@@ -118,3 +118,6 @@ export interface CasoFiscalAnual {
   readonly pagosACuentaCentimos: number
   readonly retencionTrabajoAeat?: CasoRetencionTrabajo
 }
+
+/** Entrada optativa; no altera los contratos ni perfiles salariales anteriores. */
+export { CasoFiscalAnualExplicito } from "./trabajo-anual/conexion-contrato"

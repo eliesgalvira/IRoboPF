@@ -1,0 +1,43 @@
+lib/procedencia/verificador.ts 149ms
+{"snapshot":"5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8","ocurrencias":51582,"conceptos":4,"puntosRastro":65,"paquetes":256,"bytesComprimidos":12171450,"maximoPaquete":60421,"rss":1458941952,"aceptacionFiscal":"pendiente"}
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/evidencia-contenido-procedencia.test.ts (13 tests | 13 skipped) 1660ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/evidencia-contenido-procedencia.test.ts [ tests/evidencia-contenido-procedencia.test.ts ]
+Error: 444 |   const python = spawnSync(
+445 |     "python3",
+446 |     [`${root}/scripts/procedencia/inventario-python.py`, pythonPath],
+447 |     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+448 |   )
+449 |   if (python.status !== 0) throw new Error(python.stderr || "Falló AST Python")
+                                           ^
+error: Falló AST Python
+      at generateInProcess (/home/elies/Repos/IRoboPF/scripts/procedencia/inventario.mjs:449:38)
+
+Bun v1.3.13 (Linux x64)
+
+ ❯ generateInProcess scripts/procedencia/inventario.mjs:449:38
+    447|     { cwd: root, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }
+    448|   )
+    449|   if (python.status !== 0) throw new Error(python.stderr || "Falló AST…
+       |                                      ^
+    450|   const legacy = JSON.parse(python.stdout)
+    451|   for (const entry of legacy.items) {
+ ❯ generate scripts/procedencia/inventario.mjs:219:11
+ ❯ buildArtifact scripts/procedencia/inventario-artefacto.mjs:93:35
+ ❯ verifyLinks scripts/procedencia/verificar-enlaces.mjs:50:22
+ ❯ generarEvidencia scripts/procedencia/evidencia-contenido.mjs:133:38
+ ❯ tests/evidencia-contenido-procedencia.test.ts:34:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  7 passed | 13 skipped (20)
+   Start at  15:04:45
+   Duration  6.05s (transform 497ms, setup 0ms, import 1.41s, tests 4.41s, environment 0ms)
+

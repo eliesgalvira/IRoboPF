@@ -125,6 +125,23 @@ class BindingTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'ocurrencia'):
             verify_evidence(self.root, self.context)
 
+    def test_ec01_scope_must_match_effective_dimensions(self):
+        for field, value in [('year', 2021), ('territory', 'andalucia')]:
+            with self.subTest(field=field):
+                original = copy.deepcopy(self.payload['scope'])
+                self.payload['scope'][field] = value
+                self.change_payload()
+                with self.assertRaisesRegex(ValueError, 'Ámbito'):
+                    verify_evidence(self.root, self.context)
+                self.payload['scope'] = original
+        for field in ['years', 'territories']:
+            with self.subTest(missing=field):
+                self.change_payload()
+                context = copy.deepcopy(self.context)
+                context['items'][0][field] = []
+                with self.assertRaisesRegex(ValueError, 'Ámbito'):
+                    verify_evidence(self.root, context)
+
     def test_unreviewed_unit_conversion_is_rejected(self):
         self.payload['scope']['unit'] = 'percent'
         self.change_payload()
@@ -214,6 +231,77 @@ class BindingTest(unittest.TestCase):
         with patch('enlaces.verify', side_effect=change_after_read):
             with self.assertRaisesRegex(ValueError, 'cambió durante'):
                 verify_evidence(self.root, self.context)
+
+
+    def test_decision_spelling(self):
+        ref = self.payload['legalReview']['decisions']
+        decisions = json.loads((self.root / ref['path']).read_text())
+        decision = next(d for d in decisions if d['id'] == self.payload['legalReview']['decisionId'])
+        decision['decision'] = decision.pop('status')
+        self.payload['legalReview']['decisions'] = self.write(ref['path'], decisions)
+        self.change_payload()
+        self.assertFalse(verify_evidence(self.root, self.context)['evidence'][0]['completeRuleAcceptance'])
+
+    def test_external_cas(self):
+        external = self.root / 'external'
+        shutil.move(self.root / 'docs/procedencia/corpus/fixtures', external)
+        result = verify_evidence(self.root, self.context, cas_roots=[external])
+        self.assertEqual(result['evidence'][0]['numericBinding'], 'verified')
+
+    def test_contradiction(self):
+        ref = self.payload['legalReview']['decisions']
+        decisions = json.loads((self.root / ref['path']).read_text())
+        decision = next(d for d in decisions if d['id'] == self.payload['legalReview']['decisionId'])
+        decision['decision'] = 'needs-evidence'
+        self.payload['legalReview']['decisions'] = self.write(ref['path'], decisions)
+        self.change_payload()
+        with self.assertRaises(ValueError):
+            verify_evidence(self.root, self.context)
+
+
+class CasAndDecisionTest(unittest.TestCase):
+    def test_cas_rejects_symlinks_corruption_and_missing(self):
+        from cas import CasResolver
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'sha256').mkdir()
+            data = b'original'
+            digest = sha(data)
+            blob = root / 'sha256' / digest
+            blob.write_bytes(data)
+            resolver = CasResolver([root])
+            self.assertEqual(resolver.resolve(digest), blob)
+            blob.write_bytes(b'alterado')
+            with self.assertRaises(ValueError):
+                resolver.resolve(digest)
+            with self.assertRaises(ValueError):
+                resolver.finish()
+            blob.unlink()
+            with self.assertRaises(ValueError):
+                resolver.resolve(digest)
+            target = root / 'target'
+            target.write_bytes(data)
+            blob.symlink_to(target)
+            with self.assertRaises(ValueError):
+                resolver.resolve(digest)
+            alias = root / 'alias'
+            alias.symlink_to(root, target_is_directory=True)
+            with self.assertRaises(ValueError):
+                CasResolver([alias])
+
+    def test_decision_contract_and_scope(self):
+        from enlaces import select_decision, location_matches
+        d = {'id': 'x', 'decision': 'accepted', 'engineLocations': ['lib/a.ts#TABLE']}
+        self.assertEqual(select_decision([d], 'x'), d)
+        for extra in [{'decision': 'needs-evidence'}, {'status': 'accepted'},
+                      {'engineLocations': []}, {'engineLocations': [{'file': 'lib/a.ts'}]}]:
+            with self.assertRaises(ValueError):
+                select_decision([{**d, **extra}], 'x')
+        source = {'file': 'lib/a.ts', 'symbol': 'TABLE', 'tablePath': ['madrid', '0']}
+        self.assertTrue(location_matches('lib/a.ts#TABLE', source))
+        self.assertFalse(location_matches('lib/a.ts#OTHER', source))
+        self.assertFalse(location_matches({'path': 'lib/a.ts', 'symbol': 'TABLE.aragon'}, source))
+        self.assertTrue(location_matches({'path': 'lib/a.ts', 'symbol': 'TABLE.madrid'}, source))
 
 
 if __name__ == '__main__':

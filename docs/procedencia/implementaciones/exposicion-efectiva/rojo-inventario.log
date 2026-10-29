@@ -1,0 +1,47 @@
+$ vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-5e2bd8ac
+
+ ❯ tests/procedencia-inventario.test.mjs (16 tests | 1 failed) 33295ms
+     × la API reconstruye valores nuevos aunque el llamador haya importado una dependencia 10007ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/procedencia-inventario.test.mjs > inventario sintáctico y efectivo > la API reconstruye valores nuevos aunque el llamador haya importado una dependencia
+AssertionError: 10 | const result = await generate(process.cwd(), process.cwd() + "/generated");
+11 | const items = result.pages.flatMap(page => JSON.parse(readFileSync("generated/" + page.file, "utf8")));
+12 | const item = items.find(item => item.layer === "effective" && item.symbol === "MINIMOS_ESTATALES_2024" && item.path === '["contribuyente","general"]');
+13 | if (item?.value !== "5551") throw new Error("Valor cacheado: " + item?.value);
+14 | const scales = items.filter(item => item.layer === "effective" && item.source.file.endsWith("/cuotas/escalas-publicadas.ts"));
+15 | if (scales.length !== 228) throw new Error("Hojas canónicas ausentes: " + scales.length);
+                                          ^
+error: Hojas canónicas ausentes: 0
+      at /home/elies/.t3/worktrees/IRoboPF/t3-5e2bd8ac/.cache/procedencia/inventario-pruebas/cache-OYaiD8/cache.mjs:15:38
+
+Bun v1.3.13 (Linux x64)
+: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ .cache/procedencia/inventario-pruebas/cache-OYaiD8/cache.mjs:15:38
+ ❯ tests/procedencia-inventario.test.mjs:68:44
+     66|         maxBuffer: 1024 * 1024,
+     67|       })
+     68|       expect(result.status, result.stderr).toBe(0)
+       |                                            ^
+     69|       expect(result.stdout.trim()).toBe("5551")
+     70|     } finally {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 15 passed (16)
+   Start at  14:45:51
+   Duration  33.94s (transform 140ms, setup 0ms, import 535ms, tests 33.30s, environment 0ms)
+
+error: script "test:inventario" exited with code 1

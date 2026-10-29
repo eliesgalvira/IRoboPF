@@ -1,0 +1,52 @@
+$ vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  14:59:46
+   Duration  44.43s (transform 142ms, setup 0ms, import 533ms, tests 43.79s, environment 0ms)
+
+26 |         if (
+27 |           !ts.isPropertyAssignment(p) ||
+28 |           !ts.isIdentifier(p.name) ||
+29 |           props.has(p.name.text)
+30 |         )
+31 |           throw new Error("Propiedad del punto ambigua")
+                         ^
+error: Propiedad del punto ambigua
+      at visitar (/home/elies/Repos/IRoboPF/scripts/procedencia/rastro-extraer.mjs:31:21)
+      at visitNode2 (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32449:18)
+      at forEachChildInArrowFunction (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32549:243)
+      at forEachChild (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32970:35)
+      at visitar (/home/elies/Repos/IRoboPF/scripts/procedencia/rastro-extraer.mjs:80:8)
+      at visitNodes (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32457:22)
+      at forEachChildInCallOrNewExpression (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32924:99)
+      at forEachChild (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32970:35)
+      at visitar (/home/elies/Repos/IRoboPF/scripts/procedencia/rastro-extraer.mjs:80:8)
+      at visitNode2 (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32449:18)
+      at forEachChildInPropertyAssignment (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32508:179)
+      at forEachChild (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32970:35)
+      at visitar (/home/elies/Repos/IRoboPF/scripts/procedencia/rastro-extraer.mjs:80:8)
+      at visitNodes (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32457:22)
+      at forEachChildInObjectLiteralExpression (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32606:12)
+      at forEachChild (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32970:35)
+      at visitar (/home/elies/Repos/IRoboPF/scripts/procedencia/rastro-extraer.mjs:80:8)
+      at visitNodes (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32457:22)
+      at forEachChildInCallOrNewExpression (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32924:99)
+      at forEachChild (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32970:35)
+      at visitar (/home/elies/Repos/IRoboPF/scripts/procedencia/rastro-extraer.mjs:80:8)
+      at visitNode2 (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32449:18)
+      at forEachChildInExpressionStatement (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32679:12)
+      at forEachChild (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32970:35)
+      at visitar (/home/elies/Repos/IRoboPF/scripts/procedencia/rastro-extraer.mjs:80:8)
+      at visitNodes (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32457:22)
+      at forEachChildInBlock (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32927:10)
+      at forEachChild (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32970:35)
+      at visitar (/home/elies/Repos/IRoboPF/scripts/procedencia/rastro-extraer.mjs:80:8)
+      at visitNode2 (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32449:18)
+      at forEachChildInIfStatement (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32682:93)
+      at forEachChild (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:32970:35)
+
+Bun v1.3.13 (Linux x64)

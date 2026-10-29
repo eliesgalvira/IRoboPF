@@ -1,7 +1,7 @@
 {
   "version": 1,
   "fecha": "2026-10-29",
-  "estado": "en-curso",
+  "estado": "entregada-integrada-pendiente-de-revision-nueva",
   "base": "c61a306107f280c399eb57e57a7c45452bd68864",
   "reglaVcs": "Nunca jj git init en worktree Git T3; ningún hijo muta VCS. El padre integra por archivos con hashes, base y cero borrados.",
   "contextoComun": "Eres un hijo NUEVO de IRoboPF. Haz personalmente el trabajo, sin subdelegar. Lee íntegros /home/elies/irobopf-contexto/BRIEF.md, AGENTS.md, docs/procedencia/{CONTRATO-AUDITORIA,COORDINACION,ESTADO,DECISIONES}.md y correcciones/coherencia-ronda9/INFORME.md. Base c61a306107f280c399eb57e57a7c45452bd68864. Español claro. Explica decisión, objeción experta y coste. Distingue integridad, autenticidad, interpretación, exactitud y aceptación; ningún resultado se autoacepta fiscalmente.\nREGLA VCS: NUNCA jj git init dentro de un worktree Git creado por T3. Ninguna operación VCS mutante (commit, push, init, reset, bookmark, PR o deploy); tampoco reparar índices. Lecturas Git permitidas. Padre integra archivos comprobando base, hashes y ausencia de borrados. No crees checkout mediante shell. No borres contexto, Reactivity, originales ni archivos ajenos.\nNix y uv, sin instalaciones globales. Puedes enlazar node_modules de /home/elies/Repos/IRoboPF SOLO LECTURA. No cambiar package/lockfiles/CI sin justificar al padre. Antes de escribir Effect consulta effect-solutions list/show y fuente local ~/.local/share/effect-solutions/effect. Lanzador disponible en Nix: bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js. Todas las reglas anti-slop siguen a error. Ejecuta lint/typecheck pertinentes si escribes código; no evadir lint mediante extensiones o copias de producto.\nMáquina 11 GB sin swap: operaciones pesadas, renders, reconstrucción, tests y tipos con flock /tmp/irobopf-validacion-pesada.lock, un worker; NO Next build ni dos suites legacy pesadas. Descargas con tools/procedencia/descargar.py, originales por hash, tasas y UA del proyecto. Puedes leer corpus de /home/elies/Repos/IRoboPF/.cache/procedencia/ y fixtures; no modificar originales. Elies eligió dejar preparada la transferencia: nada de subidas LFS ni gasto, no volver a preguntar.\nNo cambies ESTADO, DECISIONES ni informes ajenos. Entrega en tu carpeta asignada INFORME.md, hallazgos/reproducciones, comandos y resultados reales, límites y manifiesto por archivo (sha256/tamaño/baseSha256), más patch textual si implementas. Binarios se entregan por archivo/hash. Los tests fallidos deben preceder a las correcciones numéricas. No reescribas el oracle para conseguir verde. Los revisores solo escriben su entrega en la carpeta absoluta de revisión del padre; los implementadores escriben en su worktree y entregan para integración.\n",
@@ -13,7 +13,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-coherencia-ipc",
       "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-coherencia-ipc",
       "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-coherencia-ipc>",
-      "estado": "running",
+      "estado": "completed",
       "modelo": "gpt-6-astra",
       "opciones": [
         {
@@ -25,7 +25,8 @@
           "value": "priority"
         }
       ],
-      "encargo": "Revisa desde cero RTI-01/02/03, AUD-MODO, CV2-01/02, CMV2-01 y separación IPC/escenario/inversión. Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/coherencia-ipc-v1/. Lee completos revisiones/retenciones-implementacion, contratos-v2, contenido-modo-v2 e ipc-redondeos y ambas carpetas de corrección. Reproduce rojos anteriores contra código actual, añade contrapruebas propias en ambos modos y las dos ramas de auditoría. Comprueba selección por ejercicio/fecha/cierre, errores tipados sin Die para rechazos previstos, cotización coherente, edades/perfiles, claves completas y fechas civiles, texto hasta 2014. IPC: observado hasta 2025, 2026 escenario heredado, no confundir producto de tasas con cociente de índices, inversos/identidad/ausencia y exportaciones. No rediseño, no fixes, no nuevas atestaciones. Entrega decisiones individuales y límites; no certificar liquidaciones completas."
+      "encargo": "Revisa desde cero RTI-01/02/03, AUD-MODO, CV2-01/02, CMV2-01 y separación IPC/escenario/inversión. Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/coherencia-ipc-v1/. Lee completos revisiones/retenciones-implementacion, contratos-v2, contenido-modo-v2 e ipc-redondeos y ambas carpetas de corrección. Reproduce rojos anteriores contra código actual, añade contrapruebas propias en ambos modos y las dos ramas de auditoría. Comprueba selección por ejercicio/fecha/cierre, errores tipados sin Die para rechazos previstos, cotización coherente, edades/perfiles, claves completas y fechas civiles, texto hasta 2014. IPC: observado hasta 2025, 2026 escenario heredado, no confundir producto de tasas con cociente de índices, inversos/identidad/ausencia y exportaciones. No rediseño, no fixes, no nuevas atestaciones. Entrega decisiones individuales y límites; no certificar liquidaciones completas.",
+      "integracion": "recibida; implementación integrada por hashes, revisión conservada sin promoción fiscal"
     },
     {
       "clave": "revision-preservacion-v2",
@@ -34,7 +35,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-preservacion-v2",
       "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-preservacion-v2",
       "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-preservacion-v2>",
-      "estado": "running",
+      "estado": "completed",
       "modelo": "gpt-6-astra",
       "opciones": [
         {
@@ -46,7 +47,8 @@
           "value": "priority"
         }
       ],
-      "encargo": "Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v2/. Lee revisión preservacion completa y actual tools/procedencia/preservacion.py, preservacion_urls.py, preservacion.schema.json, 16 pruebas y manifiesto v2. Reproduce PRE01..04 y fechas imposibles, tipos exactos, duplicados, metadatos privados, endpoints no clasificados y ancestros. Revisa orden fsync y fallos de publicación sin prometer seguridad concurrente hostil. Paquete padre /home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/paquete-v2 y restauracion-v2. Verifica 708 objetos y 974801535 bytes en flujo; hash manifiesto 1382c7186c84cdf7c1892b9b16a8ca7e222aeac54380d3ed41952deea47a67db. Una restauración propia si aporta prueba; no multiplicar copias. Comprueba diferencias frente v1 y punteros v2. No red, gasto ni subir LFS; usuario eligió preparación. No fixes. Documenta garantías reales del paquete frente estado de fuentes actual y límites de privacidad, firmas e independencia de custodia."
+      "encargo": "Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/preservacion-v2/. Lee revisión preservacion completa y actual tools/procedencia/preservacion.py, preservacion_urls.py, preservacion.schema.json, 16 pruebas y manifiesto v2. Reproduce PRE01..04 y fechas imposibles, tipos exactos, duplicados, metadatos privados, endpoints no clasificados y ancestros. Revisa orden fsync y fallos de publicación sin prometer seguridad concurrente hostil. Paquete padre /home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/paquete-v2 y restauracion-v2. Verifica 708 objetos y 974801535 bytes en flujo; hash manifiesto 1382c7186c84cdf7c1892b9b16a8ca7e222aeac54380d3ed41952deea47a67db. Una restauración propia si aporta prueba; no multiplicar copias. Comprueba diferencias frente v1 y punteros v2. No red, gasto ni subir LFS; usuario eligió preparación. No fixes. Documenta garantías reales del paquete frente estado de fuentes actual y límites de privacidad, firmas e independencia de custodia.",
+      "integracion": "recibida; implementación integrada por hashes, revisión conservada sin promoción fiscal"
     },
     {
       "clave": "revision-adaptador-evidencia",
@@ -55,7 +57,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-adaptador-evidencia",
       "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-adaptador-evidencia",
       "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-adaptador-evidencia>",
-      "estado": "running",
+      "estado": "completed",
       "modelo": "gpt-6-astra",
       "opciones": [
         {
@@ -67,7 +69,8 @@
           "value": "priority"
         }
       ],
-      "encargo": "Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/. Lee entrega implementaciones/evidencia-contenido y scripts/procedencia/evidencia-contenido.mjs, tests y modelo/verificador. Padre cambió test para pines de ejecución actuales y scratch; informes y objetos del autor siguen históricos. Revisa grafo Document/Citation/Facsimile/Rule/Parameter, cierre de blobs/dependencias, binding concreto actual Madrid, estados separados, orden de comprobaciones, inyección de recibos, IDs y geometrías. Compara con contrato y extensiones propuestas. Ejecuta positivo real y adversos que no se limiten a mutar un pin externo; distingue datos autoafirmados de revisión jurídica. El wiring aún no existe: no lo describas como defecto nuevo si es alcance declarado. Mira PNG/original. No fixes, no atestación nueva: el padre aún integrará cambios de motor que invalidan snapshot. Señala riesgos que una implementación de wiring deba resolver."
+      "encargo": "Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencia-contenido-v1/. Lee entrega implementaciones/evidencia-contenido y scripts/procedencia/evidencia-contenido.mjs, tests y modelo/verificador. Padre cambió test para pines de ejecución actuales y scratch; informes y objetos del autor siguen históricos. Revisa grafo Document/Citation/Facsimile/Rule/Parameter, cierre de blobs/dependencias, binding concreto actual Madrid, estados separados, orden de comprobaciones, inyección de recibos, IDs y geometrías. Compara con contrato y extensiones propuestas. Ejecuta positivo real y adversos que no se limiten a mutar un pin externo; distingue datos autoafirmados de revisión jurídica. El wiring aún no existe: no lo describas como defecto nuevo si es alcance declarado. Mira PNG/original. No fixes, no atestación nueva: el padre aún integrará cambios de motor que invalidan snapshot. Señala riesgos que una implementación de wiring deba resolver.",
+      "integracion": "recibida; implementación integrada por hashes, revisión conservada sin promoción fiscal"
     },
     {
       "clave": "revision-evidencias-estatales",
@@ -76,7 +79,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-evidencias-estatales",
       "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-evidencias-estatales",
       "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-evidencias-estatales>",
-      "estado": "running",
+      "estado": "completed",
       "modelo": "gpt-6-astra",
       "opciones": [
         {
@@ -88,7 +91,8 @@
           "value": "priority"
         }
       ],
-      "encargo": "Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-estatales-v1/. Lee íntegra docs/procedencia/evidencias/estatales/INFORME.md, cobertura, 319 payloads y originales/citas. Examina 81 citas numéricas+2contexto, 13 PNG y 26 celdas base/cuota sin exposición efectiva. Da decisión individual para las 319 correspondencias, diferenciando aceptación de defecto previo, cita y enlace. Reextrae y comprueba hashes/cajas/unidades/año/archivo/alias; muestra casos propios discriminantes y revisión visual por tabla/pasaje. Manifiesto autor era ed6a43fd y snapshot babfc930..., hoy no actual; los bytes históricos están en objetos de contenidos y Git de solo lectura. No marques ese desfase declarado como defecto ni reescribas candidatos. MIN012/013 y TDE tienen alcances limitados: no ampliar por coincidencia. La identidad de helper canónico ausente permanece bloqueada. No fixes, registros ni atestaciones; prepara citas/decisiones refinadas y enumera evidencia pendiente concreta."
+      "encargo": "Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-estatales-v1/. Lee íntegra docs/procedencia/evidencias/estatales/INFORME.md, cobertura, 319 payloads y originales/citas. Examina 81 citas numéricas+2contexto, 13 PNG y 26 celdas base/cuota sin exposición efectiva. Da decisión individual para las 319 correspondencias, diferenciando aceptación de defecto previo, cita y enlace. Reextrae y comprueba hashes/cajas/unidades/año/archivo/alias; muestra casos propios discriminantes y revisión visual por tabla/pasaje. Manifiesto autor era ed6a43fd y snapshot babfc930..., hoy no actual; los bytes históricos están en objetos de contenidos y Git de solo lectura. No marques ese desfase declarado como defecto ni reescribas candidatos. MIN012/013 y TDE tienen alcances limitados: no ampliar por coincidencia. La identidad de helper canónico ausente permanece bloqueada. No fixes, registros ni atestaciones; prepara citas/decisiones refinadas y enumera evidencia pendiente concreta.",
+      "integracion": "recibida; implementación integrada por hashes, revisión conservada sin promoción fiscal"
     },
     {
       "clave": "revision-evidencias-autonomicas",
@@ -97,7 +101,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-evidencias-autonomicas",
       "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-evidencias-autonomicas",
       "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-revision-evidencias-autonomicas>",
-      "estado": "running",
+      "estado": "completed",
       "modelo": "gpt-6-astra",
       "opciones": [
         {
@@ -109,7 +113,8 @@
           "value": "priority"
         }
       ],
-      "encargo": "Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v1/. Lee íntegra entrega evidencias/autonomicas y revisiones previas referidas. Cubre 186 celdas anuales, 94 selecciones, 93 citas, 9 PNG y 136 payloads con decisión individual. Reextrae contexto y celdas, coteja 317 decisiones previas sin ampliar alcance, filas/cabeceras/unidad, años y localizadores. Contrasta cláusula Murcia >60000 frente >=60000 y cuotas fijas. Helpers canónicos privados sin hoja efectiva: no sustituir por otra ocurrencia igual. Candidatos fijaron ed6/babfc930 histórico; consulta bytes guardados o Git lectura, no los migres al inventario actual. Revisa Euros/euros sin editar citas y incompatibilidad decision/status sin inventar aceptación. No fixes ni registros. Entrega hallazgos, decisiones por ID, pruebas/citas refinadas y límites."
+      "encargo": "Carpeta exclusiva /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/evidencias-autonomicas-v1/. Lee íntegra entrega evidencias/autonomicas y revisiones previas referidas. Cubre 186 celdas anuales, 94 selecciones, 93 citas, 9 PNG y 136 payloads con decisión individual. Reextrae contexto y celdas, coteja 317 decisiones previas sin ampliar alcance, filas/cabeceras/unidad, años y localizadores. Contrasta cláusula Murcia >60000 frente >=60000 y cuotas fijas. Helpers canónicos privados sin hoja efectiva: no sustituir por otra ocurrencia igual. Candidatos fijaron ed6/babfc930 histórico; consulta bytes guardados o Git lectura, no los migres al inventario actual. Revisa Euros/euros sin editar citas y incompatibilidad decision/status sin inventar aceptación. No fixes ni registros. Entrega hallazgos, decisiones por ID, pruebas/citas refinadas y límites.",
+      "integracion": "recibida; implementación integrada por hashes, revisión conservada sin promoción fiscal"
     },
     {
       "clave": "conexion-anual-contratos",
@@ -118,7 +123,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-conexion-anual-contratos",
       "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-conexion-anual-contratos",
       "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-conexion-anual-contratos>",
-      "estado": "running",
+      "estado": "completed",
       "modelo": "gpt-6-astra",
       "opciones": [
         {
@@ -130,7 +135,8 @@
           "value": "priority"
         }
       ],
-      "encargo": "Implementa integración anual explícita con alcance fiscal declarado. Posees lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts, caso-fiscal-anual.ts, trabajo-anual/ y actividades-economicas/ y NUEVOS tests de integración; docs/procedencia/implementaciones/conexion-anual/. No cambies escalas, inventario, corpus, contenidos, UI ni módulos de retención.\nLee contratos y revisiones de trabajo-anual-implementacion, actividades-implementacion, contratos-v2 completos, auditorías primarias y adaptadores. Integra la vertical EDS 2025 (solo alcance realmente soportado) y gastos efectivos/deducciones anuales de trabajo mediante una entrada NUEVA explícita, sin alterar por defecto los perfiles legacy. Usa el canal tipado ResultadoNoSoportado para incompatibilidades o hechos faltantes. Un experto rechaza: duplicar gasto/RETA, clasificar pensión como empleo, aceptar otras rentas mixtas sin atribución, truncar precisión intermedia para satisfacer schema, aplicar art20/32 dos veces o descontar retención/pago duplicado. Identifica operaciones de gasto o exige totales anuales conciliados con procedencia; no deduplicar por igualdad de euros. Distingue importes de entrada a céntimos y magnitudes calculadas con precisión, fijando etapas justificadas. Integra BIG/BLG/netos con signos y efectos en otras rentas; aplica deducciones trabajo en orden correcto preservando cuota líquida legal y nueva posterior, sin repetir deducción SMI legacy. Si no puedes justificar mezcla de rentas, rechaza ese perfil de forma explícita; entrega al menos vertical anual 2025 solo actividad y vertical 2025 solo trabajo con contratos reales, no simulaciones presentadas como liquidaciones completas. No art18, conjunta, movilidad no acreditada o 2026 por herencia. Instrumenta nuevos pasos mediante crearLineaCalculo, valores decimales/unidades/IDs estables; padre reconstruirá rastro/inventario. Pruebas rojas antes de cada corrección, casos integrados con expectativas independientes y bordes. No elevar alcance jurídico ni autoaceptar reglas. Deja dificultades concretas en informe."
+      "encargo": "Implementa integración anual explícita con alcance fiscal declarado. Posees lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts, caso-fiscal-anual.ts, trabajo-anual/ y actividades-economicas/ y NUEVOS tests de integración; docs/procedencia/implementaciones/conexion-anual/. No cambies escalas, inventario, corpus, contenidos, UI ni módulos de retención.\nLee contratos y revisiones de trabajo-anual-implementacion, actividades-implementacion, contratos-v2 completos, auditorías primarias y adaptadores. Integra la vertical EDS 2025 (solo alcance realmente soportado) y gastos efectivos/deducciones anuales de trabajo mediante una entrada NUEVA explícita, sin alterar por defecto los perfiles legacy. Usa el canal tipado ResultadoNoSoportado para incompatibilidades o hechos faltantes. Un experto rechaza: duplicar gasto/RETA, clasificar pensión como empleo, aceptar otras rentas mixtas sin atribución, truncar precisión intermedia para satisfacer schema, aplicar art20/32 dos veces o descontar retención/pago duplicado. Identifica operaciones de gasto o exige totales anuales conciliados con procedencia; no deduplicar por igualdad de euros. Distingue importes de entrada a céntimos y magnitudes calculadas con precisión, fijando etapas justificadas. Integra BIG/BLG/netos con signos y efectos en otras rentas; aplica deducciones trabajo en orden correcto preservando cuota líquida legal y nueva posterior, sin repetir deducción SMI legacy. Si no puedes justificar mezcla de rentas, rechaza ese perfil de forma explícita; entrega al menos vertical anual 2025 solo actividad y vertical 2025 solo trabajo con contratos reales, no simulaciones presentadas como liquidaciones completas. No art18, conjunta, movilidad no acreditada o 2026 por herencia. Instrumenta nuevos pasos mediante crearLineaCalculo, valores decimales/unidades/IDs estables; padre reconstruirá rastro/inventario. Pruebas rojas antes de cada corrección, casos integrados con expectativas independientes y bordes. No elevar alcance jurídico ni autoaceptar reglas. Deja dificultades concretas en informe.",
+      "integracion": "recibida; implementación integrada por hashes, revisión conservada sin promoción fiscal"
     },
     {
       "clave": "exposicion-efectiva-cuotas",
@@ -139,7 +145,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-exposicion-efectiva-cuotas",
       "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-exposicion-efectiva-cuotas",
       "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-exposicion-efectiva-cuotas>",
-      "estado": "running",
+      "estado": "completed",
       "modelo": "gpt-6-astra",
       "opciones": [
         {
@@ -151,7 +157,8 @@
           "value": "priority"
         }
       ],
-      "encargo": "Posees scripts/procedencia/inventario*.mjs y validadores/tests relacionados, lib/dominio/irpf/cuotas/escalas-publicadas.ts SOLO export/extracción sin cambiar cifras/cálculo, tools/procedencia/{enlaces,corpus}.py y sus schemas/tests relacionados, scripts/procedencia/verificar-enlaces.mjs, NUEVO resolver CAS si hace falta, docs/procedencia/implementaciones/exposicion-efectiva/. No modifiques contenido-generar/modelo/almacen/rastro ni registros/candidatos/decisiones del padre.\nLee los dos informes evidencias/{estatales,autonomicas}, últimas revisiones inventario-v2/integracion-tecnica-v3/enlaces-v2 y contratoactual. Resuelve la ausencia de hojas efectivas de escalas-publicadas (incluidos helpers privados) con lista explícita de exportaciones de datos y validación determinista en proceso fresco; no ejecutar funciones arbitrarias ni ampliar imports a todo lib. Mantén todos los invariantes anti-cache/flatten/exclusiones/IDs y tests de mutación, sin sustituir identidad por número. Exportar datos no cambia cálculos. Permite CAS real fuera del fixture para originales grandes mediante raíces explícitas por CLI/config validadas y hashes, sin seguir symlinks ni descargar implícitamente; conserva fixtures autocontenidos para CI. Adapta lectura de decisiones con schema explícito status/decision y alcance engineLocations, rechazando contradicciones/campos ambiguos; no conviertas needs-evidence en accepted ni amplíesengineLocations. Revisa unidad Euros frente euros conservando cita exacta y signos/negativos/rechazo UFFFD. Conversiones porcentaje/fracción solo si puedes diseñar y verificar contrato exacto con fuente y unidad; si no, mantenlas pendientes. Pruebas previas discriminantes. Genera inventario SOLO en destino scratch de tu worktree, no artefacto compartido ni snapshots; manifiesto/patch con padre regenerando una sola vez. No atestaciones ni abrir puerta --accepted. Revisión independiente nueva posterior."
+      "encargo": "Posees scripts/procedencia/inventario*.mjs y validadores/tests relacionados, lib/dominio/irpf/cuotas/escalas-publicadas.ts SOLO export/extracción sin cambiar cifras/cálculo, tools/procedencia/{enlaces,corpus}.py y sus schemas/tests relacionados, scripts/procedencia/verificar-enlaces.mjs, NUEVO resolver CAS si hace falta, docs/procedencia/implementaciones/exposicion-efectiva/. No modifiques contenido-generar/modelo/almacen/rastro ni registros/candidatos/decisiones del padre.\nLee los dos informes evidencias/{estatales,autonomicas}, últimas revisiones inventario-v2/integracion-tecnica-v3/enlaces-v2 y contratoactual. Resuelve la ausencia de hojas efectivas de escalas-publicadas (incluidos helpers privados) con lista explícita de exportaciones de datos y validación determinista en proceso fresco; no ejecutar funciones arbitrarias ni ampliar imports a todo lib. Mantén todos los invariantes anti-cache/flatten/exclusiones/IDs y tests de mutación, sin sustituir identidad por número. Exportar datos no cambia cálculos. Permite CAS real fuera del fixture para originales grandes mediante raíces explícitas por CLI/config validadas y hashes, sin seguir symlinks ni descargar implícitamente; conserva fixtures autocontenidos para CI. Adapta lectura de decisiones con schema explícito status/decision y alcance engineLocations, rechazando contradicciones/campos ambiguos; no conviertas needs-evidence en accepted ni amplíesengineLocations. Revisa unidad Euros frente euros conservando cita exacta y signos/negativos/rechazo UFFFD. Conversiones porcentaje/fracción solo si puedes diseñar y verificar contrato exacto con fuente y unidad; si no, mantenlas pendientes. Pruebas previas discriminantes. Genera inventario SOLO en destino scratch de tu worktree, no artefacto compartido ni snapshots; manifiesto/patch con padre regenerando una sola vez. No atestaciones ni abrir puerta --accepted. Revisión independiente nueva posterior.",
+      "integracion": "recibida; implementación integrada por hashes, revisión conservada sin promoción fiscal"
     },
     {
       "clave": "redondeos-oracle-legacy",
@@ -160,7 +167,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-redondeos-oracle-legacy",
       "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-redondeos-oracle-legacy",
       "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r10-redondeos-oracle-legacy>",
-      "estado": "running",
+      "estado": "completed",
       "modelo": "gpt-6-astra",
       "opciones": [
         {
@@ -172,7 +179,8 @@
           "value": "priority"
         }
       ],
-      "encargo": "Posees lib/dominio/compatibilidad-legacy/progresividad-frio.ts, NUEVOS helpers monetarios/tabulares si necesarios, tests/dinero.test.ts y NUEVOS tests de oracle acotado, docs/procedencia/implementaciones/redondeos-legacy/. No cambies Excel/Python originales, fixtures esperados, contratos fiscales canónicos, contenidos, corpus, UI ni factor-ipc.ts. Lee íntegros auditoría y revisión ipc-redondeos, correcciones/ipc-escenarios y glosario de motor.\nReproduce ANTES de corregir los tres contraejemplos independientes: D32 1,90 frente1,91 para S30/SS0,0635; E12/W12 9,359999999999999 frente9,37 para S10 neto; Q2control1274,87. Determina algoritmo NumPy/Python y orden exacto de operaciones en el perfil tabular, separando round binary de HALF_UP monetario; no aplicar epsilon ad hoc ni reemplazar oracle por implementación. Excel150MB en /home/elies/Repos/IRoboPF/Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx: lectura streaming de filas/celdas seleccionadas, nunca carga completa. Python mediante uv run --with numpy si hace falta, versión exacta documentada; no modificar su fuente. Preserva tablas/cabeceras/filas y entrega prueba de las 543 celdas control más contraejemplos. Revisa empates negativos mensuales: Math.round(18/12)=2, -18/12=-1; fija contrato explícito de presentación sin inventar norma TGSS ni redondeo fiscal universal, conserva legacy si oracle lo exige y separa API nueva si corresponde. Glosario half-even frente implementación porcentajes requiere decisión sustentada; informa cambios documentales propuestos si fuera de propiedad. No dos suites pesadas ni regeneración de fixture. Padres integra y encarga revisión nueva."
+      "encargo": "Posees lib/dominio/compatibilidad-legacy/progresividad-frio.ts, NUEVOS helpers monetarios/tabulares si necesarios, tests/dinero.test.ts y NUEVOS tests de oracle acotado, docs/procedencia/implementaciones/redondeos-legacy/. No cambies Excel/Python originales, fixtures esperados, contratos fiscales canónicos, contenidos, corpus, UI ni factor-ipc.ts. Lee íntegros auditoría y revisión ipc-redondeos, correcciones/ipc-escenarios y glosario de motor.\nReproduce ANTES de corregir los tres contraejemplos independientes: D32 1,90 frente1,91 para S30/SS0,0635; E12/W12 9,359999999999999 frente9,37 para S10 neto; Q2control1274,87. Determina algoritmo NumPy/Python y orden exacto de operaciones en el perfil tabular, separando round binary de HALF_UP monetario; no aplicar epsilon ad hoc ni reemplazar oracle por implementación. Excel150MB en /home/elies/Repos/IRoboPF/Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx: lectura streaming de filas/celdas seleccionadas, nunca carga completa. Python mediante uv run --with numpy si hace falta, versión exacta documentada; no modificar su fuente. Preserva tablas/cabeceras/filas y entrega prueba de las 543 celdas control más contraejemplos. Revisa empates negativos mensuales: Math.round(18/12)=2, -18/12=-1; fija contrato explícito de presentación sin inventar norma TGSS ni redondeo fiscal universal, conserva legacy si oracle lo exige y separa API nueva si corresponde. Glosario half-even frente implementación porcentajes requiere decisión sustentada; informa cambios documentales propuestos si fuera de propiedad. No dos suites pesadas ni regeneración de fixture. Padres integra y encarga revisión nueva.",
+      "integracion": "recibida; implementación integrada por hashes, revisión conservada sin promoción fiscal"
     }
   ]
 }

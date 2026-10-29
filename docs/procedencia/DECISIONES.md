@@ -176,3 +176,19 @@ Schema v2 cerrado, parser sin duplicados, tipos enteros exactos, URLs documental
 ## D035 — Candidatos documentales sin sustitución de identidad
 
 Se conservan las 455 propuestas estatales/autonómicas sin insertarlas automáticamente en el registro. La igualdad de un límite legacy no acredita una cuota de un helper canónico; tampoco extiende una aceptación acotada a todos sus aliases anuales. Objeción: añadir citas por coincidencia de número generaría una falsa cadena de prueba. Coste: ampliar exposición efectiva, resolver CAS y contratos de decisión y revisar enlaces de nuevo. El adaptador genera cinco entidades con estados técnicos separados; su wiring y revisión permanecen pendientes. Sus tests dejan los informes del autor inmutables.
+
+## D036 — Publicación visible con durabilidad indeterminada
+
+PREV2-02 demuestra que el último fsync puede fallar después de enlazar el manifiesto. Se conserva el marcador y se devuelve un error distinto; confirm coteja un manifiesto externo exacto, todos los objetos y sincroniza de nuevo. Objeción: borrar tampoco probaría rollback durable. Coste: tercer estado operativo y recuperación explícita. PREV2-01 rechaza offsets imposibles antes de normalizarlos. La copia local Crossa mitiga la pérdida de Victus pero comparte propietario y vivienda; no se anuncia como custodia independiente. Se conserva v1 fuera de T3 antes de limpiar.
+
+## D037 — Dos contratos aritméticos y un oracle independiente
+
+El detalle legacy reproduce tipos y orden binary64 NumPy/Python; importes monetarios calculados y porcentajes mantienen sus contratos explícitos. Objeción: aplicar un redondeo decimal uniforme alteraba celdas del libro; regenerar hashes desde el mismo motor no demuestra equivalencia. Coste: helper técnico adicional y fixture de hashes temporalmente rojo hasta cotejar el Excel completo. Los fixtures anteriores permanecen intactos. La caracterización del detalle se contrasta con una nueva ejecución del Python original, fijada por hash.
+
+## D038 — Conexión anual con hechos conciliados y alcance expreso
+
+Se conecta trabajo o EDS al cálculo anual 2025 mediante una entrada optativa, individual de Madrid y sin circunstancias excluidas. Las mezclas y activos con historia insuficiente se rechazan; los pagos tienen una sola entrada. Objeción: sumar aportes sin atribución de gastos y mínimos fabricaría una liquidación plausible pero falsa. Coste: cobertura pequeña, conciliación de hechos externa y aceptación fiscal pendiente. No se imputa cotización ni se cambia un perfil existente por defecto.
+
+## D039 — Identidad de ámbito y grafo
+
+El puente exige pertenencia a las dimensiones de la ocurrencia y el inventario distingue comparación nominal de intervalo. El grafo exige un solo ID y receta coherente entre cita y captura. Objeción: números iguales o nombres de hashes no prueban identidad ni preservación. Coste: bloquear ámbitos sin dimensiones explícitas y materializar el cierre antes de publicar. Las dimensiones técnicas tampoco acreditan vigencia; no se autoacepta el texto de un claim.

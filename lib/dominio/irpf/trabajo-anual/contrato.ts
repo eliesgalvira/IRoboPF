@@ -7,6 +7,10 @@ export const Euros = Schema.String.check(
 export const Renta = Schema.String.check(
   Schema.isPattern(/^-?(0|[1-9][0-9]{0,11})(\.[0-9]{1,2})?$/)
 )
+/** Magnitudes calculadas: no se redondean a céntimos entre etapas. */
+const MagnitudCalculada = Schema.String.check(
+  Schema.isPattern(/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,60})?$/)
+)
 const Hecho = Schema.Literals(["si", "no", "desconocido"])
 const Pago = Schema.Struct({ importe: Euros, satisfecho: Hecho })
 export const Rendimiento = Schema.Struct({
@@ -83,11 +87,11 @@ export const DeduccionTrabajo = Schema.Union([
     ejercicio: Schema.Literals([2025, 2026]),
     brutoServicios: Euros,
     otrasRentasNoExentas: Renta,
-    netoReducidoServicios: Euros,
-    baseLiquidableGeneral: Euros,
-    cuotaIntegraGeneral: Euros,
-    cuotaLiquidaTotal: Euros,
-    cuotaTrasArt80: Euros,
+    netoReducidoServicios: MagnitudCalculada,
+    baseLiquidableGeneral: MagnitudCalculada,
+    cuotaIntegraGeneral: MagnitudCalculada,
+    cuotaLiquidaTotal: MagnitudCalculada,
+    cuotaTrasArt80: MagnitudCalculada,
     etapa: Schema.Literal("despues-art80-sin-deduccion-trabajo"),
     calificacion: Schema.Literals([
       "laboral-estatutaria-acreditada",

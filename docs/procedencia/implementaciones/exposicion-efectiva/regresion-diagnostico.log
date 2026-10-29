@@ -1,0 +1,18 @@
+...F...................
+======================================================================
+FAIL: test_crop_tampering_is_rejected (__main__.BindingTest.test_crop_tampering_is_rejected)
+----------------------------------------------------------------------
+ValueError: Objeto CAS corrupto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-5e2bd8ac/tests/procedencia-enlaces_test.py", line 147, in test_crop_tampering_is_rejected
+    with self.assertRaisesRegex(ValueError, 'Facsímil'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "Facsímil" does not match "Objeto CAS corrupto"
+
+----------------------------------------------------------------------
+Ran 23 tests in 1.176s
+
+FAILED (failures=1)

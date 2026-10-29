@@ -29,6 +29,10 @@ class BlobLocations(TypedDict):
     paths: list[str]
 
 
+class PublicationDurabilityUnknown(OSError):
+    """El marcador existe; el filesystem no ha confirmado su persistencia."""
+
+
 def fingerprint(path: Path) -> Fingerprint:
     a, b, size = hashlib.sha256(), hashlib.sha512(), 0
     if path.is_symlink() or not path.is_file():
@@ -101,9 +105,17 @@ def publish(path, data):
         os.fsync(out.fileno())
     try:
         os.link(temp, path)
-    finally:
+    except OSError:
+        temp.unlink()
+        raise
+    try:
         temp.unlink()
         sync_directory(path.parent)
+    except OSError as error:
+        # Quitar el marcador tampoco acreditaría un rollback persistente.
+        raise PublicationDurabilityUnknown(
+            'Publicación visible; durabilidad indeterminada. Conservar destino y confirmar contra el manifiesto fijado.'
+        ) from error
 
 
 def nodes(value):
@@ -234,7 +246,7 @@ def validate(manifest):
         seen.add(b['sha256'])
         for event in b['acquisitions']:
             date = event['retrievedAt']
-            if not re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})', date):
+            if not re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)', date):
                 raise ValueError('Fecha de adquisición sin formato o zona explícita')
             try:
                 datetime.fromisoformat(date.replace('Z', '+00:00'))
@@ -273,7 +285,7 @@ def transfer(manifest_path, source, destination, restore=False):
     for blob in manifest['blobs']:
         src = safe_source(source, 'sha256/' + blob['sha256'] if restore else blob['sources'][0])
         target = destination / 'sha256' / blob['sha256']
-        # Copia en flujo, nunca hardlink al original. Un fallo no publica manifiesto.
+        # Un fallo anterior al enlace final no publica manifiesto.
         with src.open('rb') as inp, target.open('xb') as out:
             for chunk in iter(lambda: inp.read(1024 * 1024), b''):
                 out.write(chunk)
@@ -294,9 +306,35 @@ def verify(manifest_path, root):
     return {'objects': len(m['blobs']), 'bytes': m['bytes'], 'integrity': 'verified', 'acceptance': 'ninguna'}
 
 
+def confirm(manifest_path, root):
+    """Recupera una publicación visible: coteja el pin externo y repite fsync."""
+    root = no_symlink_ancestors(root)
+    manifest_path = no_symlink_ancestors(manifest_path)
+    if manifest_path.is_relative_to(root):
+        raise ValueError('Se requiere manifiesto fijado fuera del paquete')
+    expected = manifest_path.read_bytes()
+    marker = safe_source(root, 'manifest.json')
+    if marker.read_bytes() != expected:
+        raise ValueError('Marcador distinto del manifiesto fijado')
+    manifest = strict_json(expected)
+    validate(manifest)
+    for blob in manifest['blobs']:
+        target = safe_source(root, 'sha256/' + blob['sha256'])
+        check(target, blob)
+        with target.open('rb') as stream:
+            os.fsync(stream.fileno())
+    with marker.open('rb') as stream:
+        os.fsync(stream.fileno())
+    sync_directory(root / 'sha256')
+    sync_directory(root)
+    sync_directory(root.parent)
+    return {'objects': len(manifest['blobs']), 'bytes': manifest['bytes'],
+            'integrity': 'verified', 'durability': 'fsync-confirmed', 'acceptance': 'ninguna'}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['plan', 'export', 'import', 'restore', 'verify'])
+    parser.add_argument('action', choices=['plan', 'export', 'import', 'restore', 'verify', 'confirm'])
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--destination', type=Path)
@@ -305,6 +343,8 @@ def main():
         publish(args.manifest, encoded(plan(args.root)))
     elif args.action == 'verify':
         print(json.dumps(verify(args.manifest, args.root)))
+    elif args.action == 'confirm':
+        print(json.dumps(confirm(args.manifest, args.root)))
     else:
         if args.destination is None:
             parser.error('--destination requerido')

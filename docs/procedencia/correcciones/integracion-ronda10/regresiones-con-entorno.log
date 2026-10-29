@@ -1,0 +1,22 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  2 passed (2)
+      Tests  20 passed (20)
+   Start at  15:07:39
+   Duration  18.90s (transform 502ms, setup 0ms, import 1.40s, tests 17.28s, environment 0ms)
+
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  15:07:59
+   Duration  11.61s (transform 191ms, setup 0ms, import 598ms, tests 10.91s, environment 0ms)
+
+$ bun scripts/run-lint.mjs
+$ oxlint
+$ eslint .
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json

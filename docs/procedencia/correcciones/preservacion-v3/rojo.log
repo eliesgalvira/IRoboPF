@@ -1,0 +1,44 @@
+..............EFFF..
+======================================================================
+ERROR: test_prev2_confirmation_rejects_another_marker (__main__.PreservationTests.test_prev2_confirmation_rejects_another_marker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 216, in test_prev2_confirmation_rejects_another_marker
+    p.confirm(self.manifest, destination)
+    ^^^^^^^^^
+AttributeError: module 'preservacion' has no attribute 'confirm'
+
+======================================================================
+FAIL: test_prev2_offset_components_are_not_normalized (__main__.PreservationTests.test_prev2_offset_components_are_not_normalized) (offset='+00:99')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 187, in test_prev2_offset_components_are_not_normalized
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_prev2_offset_components_are_not_normalized (__main__.PreservationTests.test_prev2_offset_components_are_not_normalized) (offset='-01:60')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 187, in test_prev2_offset_components_are_not_normalized
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_prev2_visible_publication_has_explicit_indeterminate_error (__main__.PreservationTests.test_prev2_visible_publication_has_explicit_indeterminate_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Repos/IRoboPF/tests/procedencia-preservacion_test.py", line 202, in test_prev2_visible_publication_has_explicit_indeterminate_error
+    self.assertEqual(type(raised.exception).__name__, 'PublicationDurabilityUnknown')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'OSError' != 'PublicationDurabilityUnknown'
+- OSError
++ PublicationDurabilityUnknown
+
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.157s
+
+FAILED (failures=3, errors=1)

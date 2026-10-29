@@ -204,3 +204,17 @@ Exportación/restauración completa en la raíz principal: 708 originales y 974.
 Pendientes inmediatos: revisiones nuevas del bloque, revisión de los 455 payloads candidatos y del adaptador, exposición efectiva de cuotas y conexión anual de trabajo/actividades. Redondeos legacy, cobertura jurídica y medición del backend siguen abiertos. No hay PR, deploy, cambios de main ni limpieza final.
 
 Bloque respaldado en origin: `c61a306107f280c399eb57e57a7c45452bd68864`. Ronda 10 lanzada con ocho tareas nuevas: cinco revisiones independientes y tres implementaciones de conexión anual, exposición efectiva/CAS y redondeos del oracle. Modelo y opciones solicitados por Elies; registro y encargos completos en delegaciones-ronda10.json. Al llegar las entregas, el padre continuará con integración y wiring de evidencias, rendimiento de rutas y validación final. La sesión sigue abierta.
+
+### Copia local en Crossa comunicada por el coordinador
+
+El coordinador informa de una copia SFTP del paquete v1 en Crossa, portátil del mismo propietario y en la misma casa. Reporta 709 archivos, 980.219.072 bytes, manifiesto `2df6c208…` y SHA-256 de los 708 objetos coincidente con sus nombres; no ejecutó preservacion.py verify. Se registra como **copia local fuera de Victus**, no custodia independiente ni respaldo remoto, y no como comprobación propia del padre en destino. Detalle en preservacion/copia-crossa.json.
+
+La copia comunicada **no incluye el manifiesto v2 actual** `1382c718…`. Esta diferencia debe constar en el resumen final aunque ambos manifiestos mantengan los mismos objetos. Se preservará el paquete v1 fuera del worktree t3-16df10f6 antes de cualquier limpieza; no se elimina en esta fase. La decisión de Elies continúa siendo sin LFS y sin gasto.
+
+## Avance del 29 de octubre, 15:06 CET
+
+Ronda 10 recibida e integrada por archivos y hashes: conexión anual explícita 2025, 228 hojas canónicas nuevas y detalle legacy binario. Cero borrados. Corregidos offsets horarios, diagnóstico de durabilidad y recuperación local; ámbito contradictorio, intervalo inferido erróneo e identidad/receta del grafo. Informes en correcciones/integracion-ronda10 e informes originales de cada entrega. Las implementaciones nuevas requieren contrarrevisión.
+
+Inventario 51.582; fichas 51.651; 65 puntos de rastro. Snapshot 5da224c83aa1f524f4871646791e5fc4f6fbbbe28b940e7b03997d6fe615aab8. Madrid fija nuevo payload sin migrar aceptación. Hay un fallo conocido de hashes tabulares anteriores: se conserva el fixture y se prepara contraste independiente completo con el Excel; no declarar suite global verde. Los otros tres fallos del pase amplio fueron diagnóstico/recuento y tienen repetición focalizada. Los logs distinguen pruebas solapadas, límites y errores de entorno.
+
+v1 preservado fuera del worktree y comprobado con ambos hashes: .cache/procedencia/preservados/manifest-2df6c208. v2 confirmado localmente con 708 originales y fsync. Crossa conserva v1, no v2; misma casa/dueño, sin custodia independiente. No se altera la decisión sin LFS/sin gasto. La sesión continúa con conexión de evidencia a rutas, revisión de las nuevas APIs, contraste del Excel y fuentes antiguas aún ausentes; sin limpieza final.

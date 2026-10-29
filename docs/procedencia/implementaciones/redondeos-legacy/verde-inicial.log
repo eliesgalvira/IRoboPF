@@ -1,0 +1,87 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-2e2b105c
+
+stdout | tests/progresividad-caracterizacion-legacy.test.ts > perfil legacy de progresividad en frio > mantiene la matriz de caracterizacion del calculo unitario, IPC y exportacion compatible
+[14:48:51.992] ERROR (#1): Error [AssertionError]: expected [ 20000, 6280, 26280, 1270, …(19) ] to deeply equal [ 20000, 6280, 26280, 1270, …(19) ]
+    at Array.<anonymous> (/home/elies/.t3/worktrees/IRoboPF/t3-2e2b105c/tests/progresividad-caracterizacion-legacy.test.ts:64:46) {
+  actual: [
+      20000,     6280,   26280,
+       1270,    18730,       0,
+       2652,    16078,  3979.3,
+          0,        0,       0,
+          0,        0,       0,
+     3979.3,  1274.87, 2704.43,
+          0,  2704.43, 3800.34,
+    2704.43, 16025.57
+  ],
+  expected: [
+      20000,     6280,   26280,
+       1270,    18730,       0,
+       2652,    16078, 3979.31,
+          0,        0,       0,
+          0,        0,       0,
+    3979.31,  1274.87, 2704.43,
+          0,  2704.43, 3800.34,
+    2704.43, 16025.57
+  ],
+  showDiff: true,
+  operator: 'deepStrictEqual',
+  [cause]: undefined
+}
+
+ ❯ tests/progresividad-caracterizacion-legacy.test.ts (2 tests | 1 failed) 30ms
+     × mantiene la matriz de caracterizacion del calculo unitario, IPC y exportacion compatible 27ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/progresividad-caracterizacion-legacy.test.ts > perfil legacy de progresividad en frio > mantiene la matriz de caracterizacion del calculo unitario, IPC y exportacion compatible
+AssertionError: expected [ 20000, 6280, 26280, 1270, …(19) ] to deeply equal [ 20000, 6280, 26280, 1270, …(19) ]
+
+- Expected
++ Received
+
+@@ -5,18 +5,18 @@
+    1270,
+    18730,
+    0,
+    2652,
+    16078,
+-   3979.31,
++   3979.3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+-   3979.31,
++   3979.3,
+    1274.87,
+    2704.43,
+    0,
+    2704.43,
+    3800.34,
+
+ ❯ Array.<anonymous> tests/progresividad-caracterizacion-legacy.test.ts:64:46
+     62|             ajustado: comparativaIpc.comparado.ajustado,
+     63|           }).toEqual(caso.comparativaIpcContra2026)
+     64|           expect(filaDetalleAnualCompatible).toEqual(
+       |                                              ^
+     65|             caso.filaDetalleAnualCompatible
+     66|           )
+ ❯ next ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5142:8
+ ❯ runFork ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5220:18
+ ❯ runPromiseExit ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:5239:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 13 passed (14)
+   Start at  14:48:51
+   Duration  1.11s (transform 147ms, setup 0ms, import 698ms, tests 77ms, environment 0ms)
+

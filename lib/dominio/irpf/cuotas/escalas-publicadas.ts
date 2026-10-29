@@ -38,7 +38,7 @@ export const ESTATAL_COMPLEMENTARIA_2012_2014 = filas([
   ["300000.20", "13964.52", ".07"],
 ])
 // Aceptaciones limitadas a representación de cuota, no a declaración completa.
-const ANDALUCIA_2012_2015 = filas([
+export const ANDALUCIA_2012_2015 = filas([
   ["0", "0", ".12"],
   ["17707.20", "2124.86", ".14"],
   ["33007.20", "4266.86", ".185"],
@@ -46,7 +46,7 @@ const ANDALUCIA_2012_2015 = filas([
   ["60000", "9458.31", ".235"],
   ["120000", "23558.31", ".255"],
 ])
-const VALENCIA_2014_2016 = filas([
+export const VALENCIA_2014_2016 = filas([
   ["0", "0", ".119"],
   ["17707.20", "2107.16", ".1392"],
   ["33007.20", "4236.92", ".1845"],
@@ -54,7 +54,7 @@ const VALENCIA_2014_2016 = filas([
   ["120000.20", "22304.90", ".2248"],
   ["175000.20", "34668.90", ".2348"],
 ])
-const CATALUNYA_2020_2021 = filas([
+export const CATALUNYA_2020_2021 = filas([
   ["0", "0", ".12"],
   ["17707.20", "2124.86", ".14"],
   ["33007.20", "4266.86", ".185"],
@@ -63,7 +63,7 @@ const CATALUNYA_2020_2021 = filas([
   ["120000", "22958.31", ".245"],
   ["175000", "36433.31", ".255"],
 ])
-const CATALUNYA_2022_2024 = filas([
+export const CATALUNYA_2022_2024 = filas([
   ["0", "0", ".105"],
   ["12450", "1307.25", ".12"],
   ["17707.20", "1938.11", ".14"],
@@ -74,14 +74,14 @@ const CATALUNYA_2022_2024 = filas([
   ["120000", "22952.83", ".245"],
   ["175000", "36427.83", ".255"],
 ])
-const MADRID_2022 = filas([
+export const MADRID_2022 = filas([
   ["0", "0", ".085"],
   ["12960.45", "1101.64", ".107"],
   ["18433.20", "1687.22", ".128"],
   ["34360.50", "3725.91", ".174"],
   ["55596.90", "7421.04", ".205"],
 ])
-const MURCIA_2022: EscalaPublicada = [
+export const MURCIA_2022: EscalaPublicada = [
   ...filas([
     ["0", "0", ".096"],
     ["12960.45", "1244.20", ".1146"],
@@ -129,37 +129,37 @@ export const obtenerEscalaAutonomicaPublicada = ({
   return undefined
 }
 
-const AHORRO_ORDINARIO_2012_2014 = filas([
+export const AHORRO_ORDINARIO_2012_2014 = filas([
   ["0", "0", ".095"],
   ["6000", "570", ".105"],
 ])
-const AHORRO_COMPLEMENTARIO_2012_2014 = filas([
+export const AHORRO_COMPLEMENTARIO_2012_2014 = filas([
   ["0", "0", ".02"],
   ["6000", "120", ".04"],
   ["24000", "840", ".06"],
 ])
-const AHORRO_2016_2020 = filas([
+export const AHORRO_2016_2020 = filas([
   ["0", "0", ".095"],
   ["6000", "570", ".105"],
   ["50000", "5190", ".115"],
 ])
-const AHORRO_AUTONOMICO_2015 = filas([
+export const AHORRO_AUTONOMICO_2015 = filas([
   ["0", "0", ".10"],
   ["6000", "600", ".11"],
   ["50000", "5440", ".12"],
 ])
-const AHORRO_2021_2022 = [
+export const AHORRO_2021_2022 = [
   ...AHORRO_2016_2020,
   ...filas([["200000", "22440", ".13"]]),
 ]
-const AHORRO_2023_2024 = [
+export const AHORRO_2023_2024 = [
   ...AHORRO_2016_2020,
   ...filas([
     ["200000", "22440", ".135"],
     ["300000", "35940", ".14"],
   ]),
 ]
-const AHORRO_2025 = [
+export const AHORRO_2025 = [
   ...AHORRO_2016_2020,
   ...filas([
     ["200000", "22440", ".135"],

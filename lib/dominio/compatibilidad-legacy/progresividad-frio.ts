@@ -1,3 +1,5 @@
+import { filaDetalleTabular } from "./detalle-tabular"
+import { mensualizarCentimosPresentacionLegacy } from "./aritmetica-tabular"
 import Decimal from "decimal.js"
 import {
   Array as EffectArray,
@@ -10,7 +12,6 @@ import {
   centimosAEuros,
   crearImporteMonetario,
   eurosACentimos,
-  redondearImporteLiquidado,
 } from "../dinero/importe-monetario"
 import { porcentajeCompatibleLegacy } from "../dinero/porcentaje"
 import { aniosFiscalesLegacy, type AnioFiscal } from "../normativa/anio-fiscal"
@@ -262,9 +263,6 @@ const rangoComparativaInflacionLegacy =
 
 const rangoDetalleAnualLegacy =
   configuracionExportacionCompatibleLegacy.detalleAnual
-
-const dineroCompatible = (euros: Decimal) =>
-  Number(redondearImporteLiquidado(euros).toString())
 
 // Los conceptos fiscales abreviados del perfil legacy estan definidos en:
 // docs/glosario-fiscal-motor.md
@@ -607,7 +605,7 @@ const diferenciaAnualCentimos = (
   )
 
 const diferenciaMensualCentimos = (diferenciaAnual: number) =>
-  Math.round(diferenciaAnual / 12)
+  mensualizarCentimosPresentacionLegacy(diferenciaAnual)
 
 const construirComparacionAjustadaPorIpc = (
   entrada: EntradaComparacionAjustadaPorIpc
@@ -1046,20 +1044,6 @@ const valorLimiteTramo = (limite: Decimal): ValorCeldaCompatible =>
     Match.orElse(() => limite.toNumber())
   )
 
-const calcularCuotasPorTramo = (
-  baseImponible: Decimal,
-  tramos: TramosIrpf
-): ReadonlyArray<Decimal> =>
-  tramos.map(([limite], indice) => {
-    const limiteAnterior = Match.value(indice).pipe(
-      Match.when(0, () => CERO),
-      Match.orElse((indice) => tramos[indice - 1][0])
-    )
-    return importeBaseEnTramo(baseImponible, limiteAnterior, limite).mul(
-      tramos[indice][1]
-    )
-  })
-
 const cabecerasDetalleAnualCompatible = (anio: AnioFiscal) => [
   "Salario Bruto",
   "Cot. Soc. Empresa",
@@ -1081,46 +1065,6 @@ const cabecerasDetalleAnualCompatible = (anio: AnioFiscal) => [
   "IRPF Final",
   "Salario Neto",
 ]
-
-const construirFilaDetalleAnualCompatible = (
-  anio: AnioFiscal,
-  salarioBrutoEuros: number
-): ReadonlyArray<ValorCeldaCompatible> => {
-  const bruto = decimal(salarioBrutoEuros)
-  const parametros = obtenerParametros(anio)
-  const cotizaciones = calcularCotizacionesSocialesLegacy({
-    salarioBrutoAnual: bruto,
-    anio,
-  })
-  const irpf = calcularIrpf(bruto, parametros, cotizaciones)
-  const cuotasPorTramo = calcularCuotasPorTramo(
-    irpf.baseImponible,
-    parametros.tramosIrpf
-  )
-  const salarioNeto = bruto
-    .minus(cotizaciones.cotizacionTrabajador)
-    .minus(irpf.irpfFinal)
-
-  return [
-    salarioBrutoEuros,
-    dineroCompatible(cotizaciones.cotizacionEmpresarial),
-    dineroCompatible(bruto.plus(cotizaciones.cotizacionEmpresarial)),
-    dineroCompatible(cotizaciones.cotizacionTrabajador),
-    dineroCompatible(irpf.rendimientoPrevioNeto),
-    parametros.gastosFijos.toNumber(),
-    dineroCompatible(irpf.reduccionTrabajo),
-    dineroCompatible(irpf.baseImponible),
-    ...cuotasPorTramo.map(dineroCompatible),
-    dineroCompatible(irpf.cuotaIntegra),
-    dineroCompatible(irpf.cuotaMinimoPersonal),
-    dineroCompatible(irpf.cuotaTeorica),
-    dineroCompatible(irpf.deduccionSmi),
-    dineroCompatible(irpf.cuotaTrasSmi),
-    dineroCompatible(irpf.limiteRetencion),
-    dineroCompatible(irpf.irpfFinal),
-    dineroCompatible(salarioNeto),
-  ]
-}
 
 export const construirTablaControlGeneralCompatible = (): TablaCompatible => ({
   cabeceras: [
@@ -1246,7 +1190,7 @@ export const construirTablaDetalleAnualCompatible = (
 
   function* filas(): Iterable<ReadonlyArray<ValorCeldaCompatible>> {
     for (const salario of salariosDelRango(rango)) {
-      yield construirFilaDetalleAnualCompatible(anio, Number(salario))
+      yield filaDetalleTabular(anio, Number(salario))
     }
   }
 

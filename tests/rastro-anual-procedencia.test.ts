@@ -31,7 +31,7 @@ it("RV3-01 rechaza software de explicación cambiado fuera del dominio", () => {
     resolve("docs/procedencia/inventario.json"),
     resolve(scratch, "docs/procedencia/inventario.json")
   )
-  expect(verificarRastroGenerado(scratch).puntos).toBe(49)
+  expect(verificarRastroGenerado(scratch).puntos).toBe(65)
   for (const file of [
     "lib/procedencia/rastro-anual.ts",
     "scripts/procedencia/contenido-generar.mjs",
@@ -157,7 +157,7 @@ describe("rastro con identidad explícita", () => {
     ).toThrow("dinámica")
   })
   it("coteja el catálogo generado con fuentes, inventario y fichas", () => {
-    expect(verificarRastroGenerado().puntos).toBe(49)
+    expect(verificarRastroGenerado().puntos).toBe(65)
   })
   it("cada línea anual propia resuelve su ficha y conserva el contexto", () => {
     const r = Effect.runSync(

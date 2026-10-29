@@ -1,0 +1,53 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/procedencia-contenido.test.tsx (17 tests | 2 failed | 15 skipped) 14ms
+     × rechaza dos revisiones del mismo ID dentro del snapshot 8ms
+     × exige la misma receta en cita PDF y facsímil, aunque se rehashee 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/procedencia-contenido.test.tsx > contenido versionado > rechaza dos revisiones del mismo ID dentro del snapshot
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/procedencia-contenido.test.tsx:82:9
+     80|       empaquetar(original),
+     81|       empaquetar({ ...original, titulo: "Otra revisión" }),
+     82|     ])).toThrow("ID duplicado")
+       |         ^
+     83|   })
+     84|   it("exige la misma receta en cita PDF y facsímil, aunque se rehashee…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/procedencia-contenido.test.tsx > contenido versionado > exige la misma receta en cita PDF y facsímil, aunque se rehashee
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/procedencia-contenido.test.tsx:100:156
+     98|     const auxiliars = new Set(["a", "b", "c", "d"].map((s) => s.repeat…
+     99|     expect(verificarGrafo([document, citation, empaquetar(facsimile)],…
+    100|     expect(() => verificarGrafo([document, citation, empaquetar(Schema…
+       |                                                                                                                                                            ^
+    101|   })
+    102|   it("serializa de forma determinista y rechaza mutaciones de bytes", …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 15 skipped (17)
+   Start at  15:01:30
+   Duration  739ms (transform 190ms, setup 0ms, import 607ms, tests 14ms, environment 0ms)
+

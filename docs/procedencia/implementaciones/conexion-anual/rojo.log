@@ -1,0 +1,104 @@
+$ vitest run tests/conexion-anual.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-a54c2c4f
+
+ ❯ tests/conexion-anual.test.ts (11 tests | 11 failed) 11ms
+   × conserva magnitudes calculadas de más de dos decimales en DA61 7ms
+   × conecta gastos efectivos, art20 y DA61 sin cotización simulada ni doble SMI 0ms
+   × pensión sola no es empleo para DA61 0ms
+   × conserva pérdidas y no crea reducción negativa 0ms
+   × rechaza incompatibilidad o hecho ausente {"ejercicio":2026} 0ms
+   × rechaza incompatibilidad o hecho ausente {"otrasRentas":"presentes"} 0ms
+   × rechaza incompatibilidad o hecho ausente {"modalidad":"conjunta"} 0ms
+   × rechaza incompatibilidad o hecho ausente {"comunidadAutonoma":"simulada-estatal"} 0ms
+   × rechaza incompatibilidad o hecho ausente {} 0ms
+   × rechaza incompatibilidad o hecho ausente {"retencionTrabajoAeat":{}} 0ms
+   × rechaza incompatibilidad o hecho ausente {"pagosACuentaCentimos":100} 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/conexion-anual.test.ts > conserva magnitudes calculadas de más de dos decimales en DA61
+AssertionError: expected { estado: 'no-soportado', …(1) } to match object { estado: 'calculado', …(2) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "cuotaPosterior": "519.69035375",
+-   "estado": "calculado",
+-   "importeAplicable": "339.998",
++   "estado": "no-soportado",
+  }
+
+ ❯ tests/conexion-anual.test.ts:33:7
+     31|     cuotaLiquidaTotal: "859.68835375", cuotaTrasArt80: "859.68835375",
+     32|     etapa: "despues-art80-sin-deduccion-trabajo", calificacion: "labor…
+     33|   })).toMatchObject({ estado: "calculado", importeAplicable: "339.998"…
+       |       ^
+     34| })
+     35| it("conecta gastos efectivos, art20 y DA61 sin cotización simulada ni …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL  tests/conexion-anual.test.ts > conecta gastos efectivos, art20 y DA61 sin cotización simulada ni doble SMI
+TypeError: liquidarIrpfAnualExplicito is not a function
+ ❯ tests/conexion-anual.test.ts:36:28
+     34| })
+     35| it("conecta gastos efectivos, art20 y DA61 sin cotización simulada ni …
+     36|   const r = Effect.runSync(liquidarIrpfAnualExplicito(trabajo()))
+       |                            ^
+     37|   expect(r).toMatchObject({ baseImponibleGeneral: "10291.0275", baseLi…
+     38|     reduccionArt20: "4284.9825", deduccionTrabajo: "339.998", aceptaci…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL  tests/conexion-anual.test.ts > pensión sola no es empleo para DA61
+TypeError: liquidarIrpfAnualExplicito is not a function
+ ❯ tests/conexion-anual.test.ts:41:25
+     39| })
+     40| it("pensión sola no es empleo para DA61", () => {
+     41|   expect(Effect.runSync(liquidarIrpfAnualExplicito(trabajo("16576.01",…
+       |                         ^
+     42| })
+     43| it("conserva pérdidas y no crea reducción negativa", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL  tests/conexion-anual.test.ts > conserva pérdidas y no crea reducción negativa
+TypeError: liquidarIrpfAnualExplicito is not a function
+ ❯ tests/conexion-anual.test.ts:46:25
+     44|   const c = trabajo("0")
+     45|   c.trabajo.rendimientos[0]!.cotizaciones.seguridadSocial = "100"
+     46|   expect(Effect.runSync(liquidarIrpfAnualExplicito(c))).toMatchObject(…
+       |                         ^
+     47| })
+     48| it.each([
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL  tests/conexion-anual.test.ts > rechaza incompatibilidad o hecho ausente {"ejercicio":2026}
+ FAIL  tests/conexion-anual.test.ts > rechaza incompatibilidad o hecho ausente {"otrasRentas":"presentes"}
+ FAIL  tests/conexion-anual.test.ts > rechaza incompatibilidad o hecho ausente {"modalidad":"conjunta"}
+ FAIL  tests/conexion-anual.test.ts > rechaza incompatibilidad o hecho ausente {"comunidadAutonoma":"simulada-estatal"}
+ FAIL  tests/conexion-anual.test.ts > rechaza incompatibilidad o hecho ausente {}
+ FAIL  tests/conexion-anual.test.ts > rechaza incompatibilidad o hecho ausente {"retencionTrabajoAeat":{}}
+ FAIL  tests/conexion-anual.test.ts > rechaza incompatibilidad o hecho ausente {"pagosACuentaCentimos":100}
+TypeError: liquidarIrpfAnualExplicito is not a function
+ ❯ tests/conexion-anual.test.ts:53:42
+     51|   { retencionTrabajoAeat: {} }, { pagosACuentaCentimos: 100 },
+     52| ])("rechaza incompatibilidad o hecho ausente %j", (cambio) => {
+     53|   const r = Effect.runSync(Effect.result(liquidarIrpfAnualExplicito({ …
+       |                                          ^
+     54|   expect(r).toMatchObject({ _tag: "Failure", failure: { _tag: "Resulta…
+     55| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  11 failed (11)
+   Start at  14:46:58
+   Duration  774ms (transform 353ms, setup 0ms, import 632ms, tests 11ms, environment 0ms)
+
+error: script "test" exited with code 1
