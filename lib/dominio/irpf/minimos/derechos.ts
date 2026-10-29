@@ -118,22 +118,16 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
 
         if (t.custodia === "exclusiva" && t.relacion !== "convivencia")
           return yield* rechazar("Custodia exclusiva sin convivencia declarada")
-        if (
-          "fechaInicioIncremento" in t.vinculo &&
-          Number(t.vinculo.fechaInicioIncremento.slice(0, 4)) -
-            Number(d.fechaNacimiento.slice(0, 4)) >=
-            18
-        )
-          return yield* rechazar(
-            "Adopción o acogimiento en mayoría de edad pendiente de soporte"
-          )
         if (sujetos.has(t.titularId))
           return yield* rechazar(
             "Grafos con un sujeto también titular pendientes de soporte"
           )
         if (
-          t.aplicaEspecialidadAlimentos ||
-          (t.alimentosJudiciales && t.custodia === "no-procede")
+          (t.aplicaEspecialidadAlimentos &&
+            (!t.alimentosJudiciales || t.custodia !== "sin-custodia")) ||
+          (t.titularId === caso.contribuyenteId &&
+            (t.aplicaEspecialidadAlimentos ||
+              (t.alimentosJudiciales && t.custodia === "no-procede")))
         )
           return yield* rechazar(
             "Especialidad de alimentos incompatible o hechos de custodia insuficientes"
@@ -151,6 +145,32 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
           return yield* rechazar(
             "Fecha de adopción/acogimiento incompatible con nacimiento o devengo"
           )
+        if ("fechaInicioIncremento" in t.vinculo) {
+          const constitucion = t.vinculo.fechaConstitucionVinculo
+          if (
+            constitucion === undefined ||
+            !fechaValida(constitucion) ||
+            constitucion < d.fechaNacimiento ||
+            constitucion > caso.devengo
+          )
+            return yield* rechazar(
+              "Falta una fecha de constitución del vínculo compatible con nacimiento y devengo"
+            )
+          const mayoria =
+            String(Number(d.fechaNacimiento.slice(0, 4)) + 18) +
+            d.fechaNacimiento.slice(4)
+          if (
+            !fechaValida(mayoria) &&
+            constitucion === mayoria.slice(0, 4) + "-02-28"
+          )
+            return yield* rechazar(
+              "Cómputo civil del aniversario bisiesto pendiente de soporte"
+            )
+          if (constitucion >= mayoria)
+            return yield* rechazar(
+              "Adopción o acogimiento en mayoría de edad pendiente de soporte"
+            )
+        }
       }
       const posibles = d.titulares.filter(tieneRelacion)
       const grados = new Set(posibles.map((t) => t.grado))
@@ -170,6 +190,32 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
     return caso
   }
 )
+
+/** Conciliación interna del perfil anual parcial, previa a reducciones y bases. */
+export const validarRentasAnualesDerechos = Effect.fn(
+  "Minimos.validarRentasAnuales"
+)(function* (caso: DerechosMinimos2025, rentaNoExenta: Decimal) {
+  if (caso.conciliacionRentasContribuyente === undefined)
+    return yield* rechazar(
+      "Falta declarar la conciliación de rentas y gastos con el perfil anual parcial"
+    )
+  if (!rentaNoExenta.isFinite())
+    return yield* rechazar("La renta calculada del contribuyente no es finita")
+  const centimosDelPerfil = rentaNoExenta
+    .times(100)
+    .toDecimalPlaces(0, Decimal.ROUND_HALF_UP)
+  for (const d of caso.descendientes)
+    for (const t of d.titulares) {
+      if (t.titularId !== caso.contribuyenteId) continue
+      if (
+        !centimosDelPerfil.eq(t.rentasNoExentasCentimos) ||
+        rentaNoExenta.lte(8000) !== t.rentasNoExentasCentimos <= 800000
+      )
+        return yield* rechazar(
+          "La renta propia declarada no concilia con el neto del perfil anual antes de reducciones y compensaciones"
+        )
+    }
+})
 
 export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
   function* (

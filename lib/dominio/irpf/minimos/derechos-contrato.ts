@@ -37,6 +37,8 @@ const Vinculo = Schema.Union([
     ]),
     // Primer hecho que abre el plazo, incluido acogimiento previo: no reiniciarlo.
     fechaInicioIncremento: Fecha,
+    // La inscripción que abre el incremento no determina la edad al constituir.
+    fechaConstitucionVinculo: Schema.optional(Fecha),
     fundamento: Schema.Literals([
       "inscripcion-registro-civil",
       "resolucion-sin-inscripcion-necesaria",
@@ -101,6 +103,13 @@ export const DerechosMinimos2025 = Schema.Struct({
   ascendientes: Schema.Literal("ninguno"),
   fallecimientosEnElEjercicio: Schema.Literal("ninguno"),
   descendientesCompletos: Schema.Literal(true),
+  /** Solo la conexión anual exige esta declaración; no acredita hechos externos. */
+  conciliacionRentasContribuyente: Schema.optional(
+    Schema.Struct({
+      perfil: Schema.Literal("caso-anual-parcial"),
+      otrasRentasOGastosNoRepresentados: Schema.Literal("ninguno"),
+    })
+  ),
   descendientes: Schema.Array(DescendienteDerechos).check(
     Schema.isMaxLength(100)
   ),
