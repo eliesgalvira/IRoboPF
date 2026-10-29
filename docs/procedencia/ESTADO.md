@@ -14,6 +14,8 @@ Retenciones 2012–2014 recibe una edición candidata separada de doce reemplazo
 
 El flujo editorial permanece parcial: faltan propiedades, selectores, auxiliares y argumentos por instancia. Se prepara su continuación en tres lotes técnicos y nuevas revisiones de AST, preservación y contrato histórico. El paquete v4 sigue pendiente de entrega; no se sondea. Crossa conserva v1 desfasado, copia local del mismo dueño y casa, sin custodia independiente. No hay LFS, gasto, transferencia externa, PR, cambios a main, despliegue ni limpieza. El encargo continúa.
 
+Bloque respaldado en origin: `07c07e6376a72f229be735a904ecf36517a1b571`, con 367 archivos y 21.883.126 bytes cotejados contra los blobs del commit, cero borrados. Nueva base de 14.957 entradas. Lanzadas seis tareas en worktrees T3: revisión técnica/identidades, revisión de preservación, rectificaciones 2012–2014 y tres lotes de cierre de flujo. Los seis resultados del lanzador confirman `gpt-6.1-sol`, `reasoningEffort=high` y `serviceTier=priority`; registro íntegro en delegaciones-ronda23.json. Se sigue la reactivación por entrega, sin sondeos de ejecución. Las correcciones no reciben aceptación propia y el encargo global sigue abierto.
+
 ## Situación anterior, 29 de octubre, 20:25 CET
 
 Recibida la revisión Sol de rectificaciones2015–2016:41 archivos y2.199.202 bytes, con14.537 entradas de base comprobadas físicamente y cero borrados. C01 queda corroborada en el alcance visual≤64; la revisión identifica pérdida de guarda, precedencia ambigua y falta de receta del fragmentoHTML. Los informes y rojos históricos permanecen intactos.
