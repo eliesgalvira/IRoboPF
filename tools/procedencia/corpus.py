@@ -183,6 +183,10 @@ def span(text, spec):
 
 
 def verify_binding(text, binding):
+    # U+FFFD señala pérdida de información. No inferir un signo, separador
+    # ni unidad: reducir el recorte o revisar la extracción antes de enlazar.
+    if '\ufffd' in text:
+        raise ValueError('La extracción contiene un carácter de sustitución; binding ambiguo')
     literal = span(text, binding['number'])
     start, end = binding['number']['start'], binding['number']['end']
     unsafe = '.,+-−﹣－＋±٫٬，．\u00a0\u202f'

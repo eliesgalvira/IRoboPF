@@ -16,16 +16,34 @@ const maximo = (a: Decimal, b: Decimal): Decimal =>
     Match.orElse(() => b)
   )
 
-export const calcularReduccionRendimientosTrabajo = ({
-  anio,
-  fechaFallecimiento,
-  rendimientoPrevioNeto,
-}: {
+/** Perfil histórico de compatibilidad: declara expresamente ausencia de otras rentas. */
+export const calcularReduccionRendimientosTrabajo = (entrada: {
   readonly anio: AnioFiscal
   readonly fechaFallecimiento?: Date | undefined
   readonly rendimientoPrevioNeto: Decimal
 }): Decimal =>
+  calcularReduccionTrabajoConOtrasRentas({
+    ...entrada,
+    otrasRentasNoExentas: IMPORTE_CERO,
+  })
+
+export const calcularReduccionTrabajoConOtrasRentas = ({
+  anio,
+  fechaFallecimiento,
+  rendimientoPrevioNeto,
+  otrasRentasNoExentas,
+}: {
+  readonly anio: AnioFiscal
+  readonly fechaFallecimiento?: Date | undefined
+  readonly rendimientoPrevioNeto: Decimal
+  /** Suma algebraica de rentas distintas del trabajo, antes de reducciones y compensaciones. */
+  readonly otrasRentasNoExentas: Decimal
+}): Decimal =>
   Match.value(anio).pipe(
+    Match.when(
+      () => otrasRentasNoExentas.gt(6500),
+      () => (anio <= 2014 ? crearImporteMonetario(2652) : IMPORTE_CERO)
+    ),
     Match.when(
       (anio) => anio <= 2014,
       () => reduccionTrabajoHasta2014(rendimientoPrevioNeto)

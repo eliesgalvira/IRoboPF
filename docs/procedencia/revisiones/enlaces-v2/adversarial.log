@@ -1,0 +1,44 @@
+Using CPython 3.13.15 interpreter at: /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3
+Creating virtual environment at: tools/procedencia/.venv
+Installed 6 packages in 4ms
+DEPENDENCIES [{"path": "docs/procedencia/corpus/fixtures/sha256/8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660", "sha256": "8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660"}, {"path": "docs/procedencia/corpus/fixtures/sha256/95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868", "sha256": "95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868"}, {"path": "docs/procedencia/corpus/madrid-2018-norma.manifest.json", "sha256": "ef4e4902b25e71fc5709a6f52663f3a2edbb321bff50f2bebad554d4f60e7091"}, {"path": "docs/procedencia/corpus/madrid-2020-limite.citation.json", "sha256": "9ddaab1ca3a55d960b27b0f471535103231eda90eb755fe513a3cd43b1fa5fa4"}, {"path": "docs/procedencia/enlaces/madrid-2020-limite.json", "sha256": "3937b0c9561305de45755a52fa36c48fb8cfd8f75befb7294f0f2a800839d48b"}, {"path": "docs/procedencia/enlaces/registro.json", "sha256": "7296958c5df2b68f77cc7e1cb8719603cd00cc7d707e830ac4f6eac78436b913"}, {"path": "docs/procedencia/enlaces/revisores.json", "sha256": "58c1b8a10df7ca97840ee6aacd9c05da591dfacecd73b7e42d6edd371869c811"}, {"path": "docs/procedencia/fixture-delegations.json", "sha256": "c4c2c3d2b07562c096fdb380e3cd43c2b2e61002a3a684703f0b9b4a1f682380"}, {"path": "docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json", "sha256": "9fa6fd22257a7fd803b71af1a393d1890b69509bc179dd67e206a70eb128b5ae"}, {"path": "docs/procedencia/revisiones/fixture/attestation.json", "sha256": "73f27f8537dd9a3c9fb8f8d0a9f8750c335b49d99c9f09fb5c38b011ecaccc83"}, {"path": "docs/procedencia/revisiones/fixture/report.json", "sha256": "a06d72e7c3b9c1ec20ca4eee4d380dcb2fe0856ffe0e18e80e9a387de40cfde1"}]
+REJECT append docs/procedencia/corpus/fixtures/sha256/8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660 ValueError
+REJECT delete docs/procedencia/corpus/fixtures/sha256/8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660 FileNotFoundError
+REJECT symlink docs/procedencia/corpus/fixtures/sha256/8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660 ValueError
+REJECT append docs/procedencia/corpus/fixtures/sha256/95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868 ValueError
+REJECT delete docs/procedencia/corpus/fixtures/sha256/95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868 FileNotFoundError
+REJECT symlink docs/procedencia/corpus/fixtures/sha256/95c51f213a841bdc1658a260620f891f77c22311d12aa7b9d2e06c5289ba1868 ValueError
+REJECT append docs/procedencia/corpus/madrid-2018-norma.manifest.json ValueError
+REJECT delete docs/procedencia/corpus/madrid-2018-norma.manifest.json FileNotFoundError
+REJECT symlink docs/procedencia/corpus/madrid-2018-norma.manifest.json ValueError
+REJECT append docs/procedencia/corpus/madrid-2020-limite.citation.json ValueError
+REJECT delete docs/procedencia/corpus/madrid-2020-limite.citation.json FileNotFoundError
+REJECT symlink docs/procedencia/corpus/madrid-2020-limite.citation.json ValueError
+REJECT append docs/procedencia/enlaces/madrid-2020-limite.json ValueError
+REJECT delete docs/procedencia/enlaces/madrid-2020-limite.json FileNotFoundError
+REJECT symlink docs/procedencia/enlaces/madrid-2020-limite.json ValueError
+REJECT append docs/procedencia/enlaces/registro.json ValueError
+REJECT delete docs/procedencia/enlaces/registro.json FileNotFoundError
+REJECT symlink docs/procedencia/enlaces/registro.json ValueError
+REJECT append docs/procedencia/enlaces/revisores.json ValueError
+REJECT delete docs/procedencia/enlaces/revisores.json FileNotFoundError
+REJECT symlink docs/procedencia/enlaces/revisores.json ValueError
+REJECT append docs/procedencia/fixture-delegations.json ValueError
+REJECT delete docs/procedencia/fixture-delegations.json FileNotFoundError
+REJECT symlink docs/procedencia/fixture-delegations.json ValueError
+REJECT append docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json ValueError
+REJECT delete docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json FileNotFoundError
+REJECT symlink docs/procedencia/revisiones/autonomicas-2017-2021/revisiones.json ValueError
+REJECT append docs/procedencia/revisiones/fixture/attestation.json ValueError
+REJECT delete docs/procedencia/revisiones/fixture/attestation.json FileNotFoundError
+REJECT symlink docs/procedencia/revisiones/fixture/attestation.json ValueError
+REJECT append docs/procedencia/revisiones/fixture/report.json ValueError
+REJECT delete docs/procedencia/revisiones/fixture/report.json FileNotFoundError
+REJECT symlink docs/procedencia/revisiones/fixture/report.json ValueError
+ENV1-02 REJECT Documento cambió durante la verificación: docs/procedencia/enlaces/madrid-2020-limite.json
+ENV1-03 REJECT Manifiesto público debe estar saneado antes del hash
+PDF REJECT mark '−́ 8,50 euros\n' Signo separado fuera del número seleccionado
+PDF REJECT format '−\u200e 8,50 euros\n' Signo separado fuera del número seleccionado
+PDF ACCEPT plain '8,50 euros\n'
+PDF ACCEPT tab '−́�8,50 euros\n'
+PDF ACCEPT newline '−\n8,50 euros\n'

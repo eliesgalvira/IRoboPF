@@ -39,6 +39,8 @@ jobs:
         run: bun run test --config scripts/procedencia/contenido-vitest.mjs
       - if: ${{ !cancelled() }}
         run: bun scripts/procedencia/contenido-verificar.mjs
+      - if: ${{ !cancelled() }}
+        run: bun scripts/procedencia/rastro-verificar.mjs
   corpus:
     runs-on: ubuntu-latest
     timeout-minutes: 15
