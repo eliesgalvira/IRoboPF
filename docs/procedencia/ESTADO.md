@@ -12,6 +12,8 @@ El bloqueo de actividad y las variantes excluidas permanecen. Las 19 familias, c
 
 V5 conserva el corte R26; Crossa sigue en V1 desfasado, copia local fuera de Victus del mismo propietario/casa. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza. Se respalda esta entrega únicamente en origin/procedencia-documental; el recibo final queda en correcciones/cierre-r66.
 
+Informe final y cierre respaldados y verificados en origin/procedencia-documental: `c27bc60cbbea3d7e2a6e2e38bccf08245a0cfc25`, 33 archivos/4.556.297 bytes, hashes exactos y cero borrados. El encargo acotado ha terminado; las entradas históricas siguientes conservan sus estados de entonces. No queda tarea activa ni nueva ronda autorizada.
+
 ## Situación anterior, ronda 65 del 30 de octubre
 
 Recibida la única revisión de los diez explícitos: nueve valores/selecciones locales corroborados y bloqueo de actividad demostrado; R64-PUSH-01 impide cerrar la propagación completa. El padre reproduce [1,1]/cero pasos, corrige identidad de arrays e historia causal y obtiene [1,2]/dos pasos. Cotejo físico de 23.958 entradas intactas, transporte exacto de 195 rutas, 58 integradas y siete originales técnicos preservados. Informe: correcciones/push-explicitos-r65.

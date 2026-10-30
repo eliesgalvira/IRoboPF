@@ -93,5 +93,6 @@ No se ha usado LFS, autorizado gasto, transferido un paquete nuevo ni hecho limp
 | `581a7a340894a0587cb3086aff26cfccc1777fef` | Contraste y cierre condicionado de esos 28 sitios. |
 | `cd41524b432c5d4c2a7f665603debef6be5abc28` | Integración de los diez explícitos finales, pendiente entonces de revisión. |
 | `a8c7ebec1985beaf2d0f7f0125b68dec7bf4a15b` | Reparación de `push`, retorno e historia causal tras el defecto reproducido. |
+| `c27bc60cbbea3d7e2a6e2e38bccf08245a0cfc25` | Recepción favorable final, conciliación de los 65 sitios e informe de cierre; respaldado y cotejado en origin. |
 
 El historial detallado permanece en [ESTADO.md](ESTADO.md). Sus entradas anteriores describen el momento en que se escribieron; esta cabecera de cierre y los dictámenes finales prevalecen para conocer qué terminó y qué permanece fuera del alcance.
