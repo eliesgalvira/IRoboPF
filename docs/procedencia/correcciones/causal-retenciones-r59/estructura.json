@@ -1,0 +1,1108 @@
+[
+  {
+    "name": "dos",
+    "caso": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 4732101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad"
+      },
+      "pagosACuentaCentimos": 333,
+      "retencionesSoportadasCentimos": 333
+    },
+    "values": [
+      {
+        "site": "anual.retencion.base",
+        "decimal": "45000",
+        "display": "45000.00 euros"
+      },
+      {
+        "site": "anual.retencion.cuota",
+        "decimal": "11297",
+        "display": "11297.00 euros"
+      },
+      {
+        "site": "anual.retencion.tipo",
+        "decimal": "23.87",
+        "display": "23.87%"
+      },
+      {
+        "site": "anual.retencion.anual",
+        "decimal": "11295.53",
+        "display": "11295.53 euros"
+      },
+      {
+        "site": "anual.pagos.retenciones",
+        "decimal": "3.33",
+        "display": "3.33 euros"
+      },
+      {
+        "site": "anual.pagos.cuenta",
+        "decimal": "11298.86",
+        "display": "11298.86 euros"
+      }
+    ],
+    "scaleFrames": [
+      {
+        "id": "dos:f281",
+        "parent": "dos:f280",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17627:17661:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      },
+      {
+        "id": "dos:f295",
+        "parent": "dos:f280",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17677:17729:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      }
+    ],
+    "cells": [
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16377:16385:property",
+        "row": 0,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16384:16385:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16377,
+          "end": 16385,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16387:16395:property",
+        "row": 0,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16394:16395:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16387,
+          "end": 16395,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16412:16422:property",
+        "row": 0,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16418:16422:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16412,
+          "end": 16422,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16432:16445:property",
+        "row": 1,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16439:16445:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16432,
+          "end": 16445,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16496:16509:property",
+        "row": 2,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16503:16509:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16496,
+          "end": 16509,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16560:16573:property",
+        "row": 3,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16567:16573:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16560,
+          "end": 16573,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16575:16588:property",
+        "row": 3,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16582:16588:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16575,
+          "end": 16588,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16605:16615:property",
+        "row": 3,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16611:16615:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16605,
+          "end": 16615,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16625:16638:property",
+        "row": 4,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16632:16638:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16625,
+          "end": 16638,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16693:16707:property",
+        "row": 5,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16700:16707:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16693,
+          "end": 16707,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "mutations": [
+      "property",
+      "invoke",
+      "index",
+      "array-selection",
+      "seed",
+      "cell-node"
+    ]
+  },
+  {
+    "name": "tres-iguales",
+    "caso": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 4732101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad",
+        "anualidadesAlimentosHijosCentimos": 2250000
+      },
+      "pagosACuentaCentimos": 333,
+      "retencionesSoportadasCentimos": 333
+    },
+    "values": [
+      {
+        "site": "anual.retencion.base",
+        "decimal": "45000",
+        "display": "45000.00 euros"
+      },
+      {
+        "site": "anual.retencion.cuota",
+        "decimal": "8400.3",
+        "display": "8400.30 euros"
+      },
+      {
+        "site": "anual.retencion.tipo",
+        "decimal": "17.75",
+        "display": "17.75%"
+      },
+      {
+        "site": "anual.retencion.anual",
+        "decimal": "8399.48",
+        "display": "8399.48 euros"
+      },
+      {
+        "site": "anual.pagos.retenciones",
+        "decimal": "3.33",
+        "display": "3.33 euros"
+      },
+      {
+        "site": "anual.pagos.cuenta",
+        "decimal": "8402.81",
+        "display": "8402.81 euros"
+      }
+    ],
+    "scaleFrames": [
+      {
+        "id": "tres-iguales:f285",
+        "parent": "tres-iguales:f283",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17380:17433:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      },
+      {
+        "id": "tres-iguales:f301",
+        "parent": "tres-iguales:f283",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17448:17489:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      },
+      {
+        "id": "tres-iguales:f319",
+        "parent": "tres-iguales:f283",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17513:17576:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      }
+    ],
+    "cells": [
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16377:16385:property",
+        "row": 0,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16384:16385:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16377,
+          "end": 16385,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16387:16395:property",
+        "row": 0,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16394:16395:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16387,
+          "end": 16395,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16412:16422:property",
+        "row": 0,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16418:16422:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16412,
+          "end": 16422,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16432:16445:property",
+        "row": 1,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16439:16445:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16432,
+          "end": 16445,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16496:16509:property",
+        "row": 2,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16503:16509:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16496,
+          "end": 16509,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16511:16524:property",
+        "row": 2,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16518:16524:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16511,
+          "end": 16524,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16541:16550:property",
+        "row": 2,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16547:16550:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16541,
+          "end": 16550,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16560:16573:property",
+        "row": 3,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16567:16573:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16560,
+          "end": 16573,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16625:16638:property",
+        "row": 4,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16632:16638:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16625,
+          "end": 16638,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16693:16707:property",
+        "row": 5,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16700:16707:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16693,
+          "end": 16707,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "mutations": [
+      "property",
+      "invoke",
+      "index",
+      "array-selection",
+      "seed",
+      "cell-node"
+    ]
+  },
+  {
+    "name": "repetidos",
+    "caso": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 4732101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [
+          {
+            "edad": 4,
+            "computoPorEntero": false,
+            "discapacidad": "sin-discapacidad",
+            "movilidadReducida": false,
+            "adopcionOAcogimientoMenosTresAnios": false
+          },
+          {
+            "edad": 4,
+            "computoPorEntero": true,
+            "discapacidad": "sin-discapacidad",
+            "movilidadReducida": false,
+            "adopcionOAcogimientoMenosTresAnios": false
+          },
+          {
+            "edad": 30,
+            "computoPorEntero": false,
+            "discapacidad": "sin-discapacidad",
+            "movilidadReducida": false,
+            "adopcionOAcogimientoMenosTresAnios": false
+          }
+        ],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad"
+      },
+      "pagosACuentaCentimos": 333,
+      "retencionesSoportadasCentimos": 333
+    },
+    "values": [
+      {
+        "site": "anual.retencion.base",
+        "decimal": "45000",
+        "display": "45000.00 euros"
+      },
+      {
+        "site": "anual.retencion.cuota",
+        "decimal": "10556",
+        "display": "10556.00 euros"
+      },
+      {
+        "site": "anual.retencion.tipo",
+        "decimal": "22.3",
+        "display": "22.3%"
+      },
+      {
+        "site": "anual.retencion.anual",
+        "decimal": "10552.59",
+        "display": "10552.59 euros"
+      },
+      {
+        "site": "anual.pagos.retenciones",
+        "decimal": "3.33",
+        "display": "3.33 euros"
+      },
+      {
+        "site": "anual.pagos.cuenta",
+        "decimal": "10555.92",
+        "display": "10555.92 euros"
+      }
+    ],
+    "scaleFrames": [
+      {
+        "id": "repetidos:f425",
+        "parent": "repetidos:f424",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17627:17661:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      },
+      {
+        "id": "repetidos:f439",
+        "parent": "repetidos:f424",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17677:17729:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      }
+    ],
+    "cells": [
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16377:16385:property",
+        "row": 0,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16384:16385:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16377,
+          "end": 16385,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16387:16395:property",
+        "row": 0,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16394:16395:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16387,
+          "end": 16395,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16412:16422:property",
+        "row": 0,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16418:16422:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16412,
+          "end": 16422,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16432:16445:property",
+        "row": 1,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16439:16445:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16432,
+          "end": 16445,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16496:16509:property",
+        "row": 2,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16503:16509:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16496,
+          "end": 16509,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16560:16573:property",
+        "row": 3,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16567:16573:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16560,
+          "end": 16573,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16575:16588:property",
+        "row": 3,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16582:16588:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16575,
+          "end": 16588,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16605:16615:property",
+        "row": 3,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16611:16615:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16605,
+          "end": 16615,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16625:16638:property",
+        "row": 4,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16632:16638:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16625,
+          "end": 16638,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16693:16707:property",
+        "row": 5,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16700:16707:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16693,
+          "end": 16707,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "mutations": [
+      "property",
+      "invoke",
+      "index",
+      "array-selection",
+      "seed",
+      "cell-node"
+    ]
+  },
+  {
+    "name": "moderna",
+    "caso": {
+      "anio": 2025,
+      "retencionTrabajoAeat": {
+        "anio": 2025,
+        "retribucionAnualCentimos": 5032101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad",
+        "perfilTemporal": "cierre"
+      },
+      "pagosACuentaCentimos": 333,
+      "retencionesSoportadasCentimos": 333
+    },
+    "values": [
+      {
+        "site": "anual.retencion.base",
+        "decimal": "48000",
+        "display": "48000.00 euros"
+      },
+      {
+        "site": "anual.retencion.cuota",
+        "decimal": "12407",
+        "display": "12407.00 euros"
+      },
+      {
+        "site": "anual.retencion.tipo",
+        "decimal": "24.65",
+        "display": "24.65%"
+      },
+      {
+        "site": "anual.retencion.anual",
+        "decimal": "12404.13",
+        "display": "12404.13 euros"
+      },
+      {
+        "site": "anual.pagos.retenciones",
+        "decimal": "3.33",
+        "display": "3.33 euros"
+      },
+      {
+        "site": "anual.pagos.cuenta",
+        "decimal": "12407.46",
+        "display": "12407.46 euros"
+      }
+    ],
+    "scaleFrames": [
+      {
+        "id": "moderna:f295",
+        "parent": "moderna:f294",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17627:17661:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      },
+      {
+        "id": "moderna:f308",
+        "parent": "moderna:f294",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17677:17729:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      }
+    ],
+    "cells": [
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16377:16385:property",
+        "row": 0,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16384:16385:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16377,
+          "end": 16385,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16387:16395:property",
+        "row": 0,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16394:16395:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16387,
+          "end": 16395,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16412:16422:property",
+        "row": 0,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16418:16422:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16412,
+          "end": 16422,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16432:16445:property",
+        "row": 1,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16439:16445:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16432,
+          "end": 16445,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16496:16509:property",
+        "row": 2,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16503:16509:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16496,
+          "end": 16509,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16560:16573:property",
+        "row": 3,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16567:16573:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16560,
+          "end": 16573,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16575:16588:property",
+        "row": 3,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16582:16588:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16575,
+          "end": 16588,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16605:16615:property",
+        "row": 3,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16611:16615:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16605,
+          "end": 16615,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16625:16638:property",
+        "row": 4,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16632:16638:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16625,
+          "end": 16638,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16693:16707:property",
+        "row": 5,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16700:16707:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16693,
+          "end": 16707,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "mutations": [
+      "property",
+      "invoke",
+      "index",
+      "array-selection",
+      "seed",
+      "cell-node"
+    ]
+  },
+  {
+    "name": "alta",
+    "caso": {
+      "anio": 2025,
+      "retencionTrabajoAeat": {
+        "anio": 2025,
+        "retribucionAnualCentimos": 50321001,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad",
+        "perfilTemporal": "cierre"
+      },
+      "pagosACuentaCentimos": 333,
+      "retencionesSoportadasCentimos": 333
+    },
+    "values": [
+      {
+        "site": "anual.retencion.base",
+        "decimal": "500889",
+        "display": "500889.00 euros"
+      },
+      {
+        "site": "anual.retencion.cuota",
+        "decimal": "219264.83",
+        "display": "219264.83 euros"
+      },
+      {
+        "site": "anual.retencion.tipo",
+        "decimal": "43.57",
+        "display": "43.57%"
+      },
+      {
+        "site": "anual.retencion.anual",
+        "decimal": "219248.6",
+        "display": "219248.60 euros"
+      },
+      {
+        "site": "anual.pagos.retenciones",
+        "decimal": "3.33",
+        "display": "3.33 euros"
+      },
+      {
+        "site": "anual.pagos.cuenta",
+        "decimal": "219251.93",
+        "display": "219251.93 euros"
+      }
+    ],
+    "scaleFrames": [
+      {
+        "id": "alta:f295",
+        "parent": "alta:f294",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17627:17661:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      },
+      {
+        "id": "alta:f304",
+        "parent": "alta:f294",
+        "call": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:17677:17729:call",
+        "function": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16148:16945:function"
+      }
+    ],
+    "cells": [
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16377:16385:property",
+        "row": 0,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16384:16385:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16377,
+          "end": 16385,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16387:16395:property",
+        "row": 0,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16394:16395:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16387,
+          "end": 16395,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16412:16422:property",
+        "row": 0,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16418:16422:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16412,
+          "end": 16422,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16432:16445:property",
+        "row": 1,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16439:16445:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16432,
+          "end": 16445,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16496:16509:property",
+        "row": 2,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16503:16509:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16496,
+          "end": 16509,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16560:16573:property",
+        "row": 3,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16567:16573:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16560,
+          "end": 16573,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16625:16638:property",
+        "row": 4,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16632:16638:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16625,
+          "end": 16638,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16693:16707:property",
+        "row": 5,
+        "column": "desde",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16700:16707:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16693,
+          "end": 16707,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16709:16725:property",
+        "row": 5,
+        "column": "cuota",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16716:16725:literal",
+        "unit": "EUR",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16709,
+          "end": 16725,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16744:16754:property",
+        "row": 5,
+        "column": "tipo",
+        "valueNode": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:16750:16754:literal",
+        "unit": "ratio",
+        "source": {
+          "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+          "start": 16744,
+          "end": 16754,
+          "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "mutations": [
+      "property",
+      "invoke",
+      "index",
+      "array-selection",
+      "seed",
+      "cell-node"
+    ]
+  }
+]
