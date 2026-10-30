@@ -1,0 +1,16 @@
+import json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+root = Path.cwd()
+cache = root / '.cache/revision-retenciones-r36'
+schema = json.loads((root / 'schemas/procedencia/flujo/retenciones-r34.schema.json').read_text())
+Draft202012Validator.check_schema(schema)
+v = Draft202012Validator(schema)
+g = json.loads((cache / 'fragmento.json').read_text())
+p = json.loads((cache / 'pending.json').read_text())
+v.validate(g)
+v.validate(p)
+empty = dict(g)
+empty['program'] = []
+v.validate(empty)
+print('Original y pendientes válidos; schema admite program vacío. Verificador exacto requerido: no bypass.')
