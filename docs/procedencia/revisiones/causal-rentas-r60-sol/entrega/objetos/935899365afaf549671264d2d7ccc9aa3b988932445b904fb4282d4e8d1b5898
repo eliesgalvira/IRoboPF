@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict'
+import {composeCausalRentas} from '../../scripts/procedencia/causal-rentas-r59-contratos.mjs'
+import {executeCausalRentas,verifyCausalRentas} from '../../scripts/procedencia/causal-rentas-r59.mjs'
+const caso={anio:2025,situacionFamiliar:{edad:40},rendimientos:{trabajo:[]}},ctx={modo:'canonico'},execution='publico';
+const g=composeCausalRentas(),r=executeCausalRentas(g,caso,ctx,execution);assert.equal(r.lines.length,10);assert.equal(verifyCausalRentas(g,r.evidence,caso,ctx,execution),true);console.log('Control positivo: diez líneas y verificación correctas');
+if(process.argv[2]==='ausencia'){
+ const value=r.evidence.events.find(e=>e.value?.absent===true)?.value;assert.ok(value);value.absent=false;
+ assert.throws(()=>verifyCausalRentas(g,r.evidence,caso,ctx,execution),undefined,'mutar datos públicos no debe cambiar el replay');
+}else{
+ g.participants.rentas.terminals.primitives.push('terminal-publico-ajeno-r59');
+ assert.throws(()=>executeCausalRentas(g,caso,ctx),/Contrato técnico/,'la copia pública no debe cambiar el contrato reconstruido');
+}
