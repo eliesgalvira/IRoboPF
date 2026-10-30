@@ -31,3 +31,5 @@ Los 55 sitios anteriores mantienen su corroboración. Los nueve valores locales 
 Tras una revisión favorable del arreglo y el contraste del padre, procede el informe final de los 65 sitios: no iniciar familias19, composición global, admisión ni cuatro puertas. Sus flags siguen falsos. Crossa conserva v1 desfasado y V5 el corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
 
 Comprobación documental terminal: contrato y testigo actual pasan Ajv estricto; replay actual correcto. Rechazados el testigo de software anterior y la sustracción de aristas de la mutación. Se conserva testigo-actual.json.gz con ambos hashes y tamaño en documental.json. Los cuatro flags siguen false. Los originales anteriores permanecen intactos.
+
+Respaldo comprobado en origin/procedencia-documental: a8c7ebec1985beaf2d0f7f0125b68dec7bf4a15b, 103 archivos/49.450.727 bytes y cero borrados. Única revisión adicional justificada por R64-PUSH-01 lanzada con gpt-6.1-sol high priority confirmados, sobre las 24.058 entradas del commit. Registro completo en delegaciones-ronda65.json. No se lanza otra tarea ni se reabre el alcance favorable.

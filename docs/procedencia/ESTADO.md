@@ -10,6 +10,8 @@ Pasan tres pruebas finales de retorno completo y tres regresiones compartidas, a
 
 55 sitios anteriores mantienen su cierre condicionado; nueve explícitos requieren solo corroborar la reparación de propagación. El bloqueo de actividad se conserva. Después: INFORME-FINAL.md y parada, sin familias19, composición, admisión ni puertas. Crossa v1 desfasado; V5 corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
 
+Arreglo y revisión recibida respaldados en origin/procedencia-documental: `a8c7ebec1985beaf2d0f7f0125b68dec7bf4a15b`, 103 archivos/49.450.727 bytes y cero borrados, hashes exactos. Lanzado un solo contraste limitado a R64-PUSH-01 sobre sus 24.058 entradas, gpt-6.1-sol high priority confirmados; registro en delegaciones-ronda65.json. La finalización reactivará al padre, sin sondeos ni lectura parcial.
+
 ## Situación anterior, ronda 64 del 30 de octubre
 
 Recibido el último candidato: nueve sitios explícitos de trabajo/pensión y actividad.etapa bloqueada por las familias excluidas. Cotejo físico de 23.648 entradas, tres cambios autorizados y cero borrados; transporte exacto de 258 rutas, 120 integradas y 88 referencias técnicas preservadas. Detalle en correcciones/recepcion-causal-explicitos-r64.
