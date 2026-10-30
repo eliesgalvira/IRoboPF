@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -u
+ROOT=/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa
+S="$ROOT/.cache/puertos-r52-sol"
+D="$ROOT/docs/procedencia/revisiones/puertos-r52-sol"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node "$S/tipos.mjs" > "$D/tipos-final.log" 2>&1
+printf 'tipos=%s\n' "$?" > "$D/calidad.txt"
+flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c /home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --threads=1 --disable-nested-config --no-ignore --config "$S/oxlint.json" "$S/independiente.test.ts" "$S/padre.test.ts" "$S/privado.ts" "$S/sensibilidad.ts" > "$D/lint-final.log" 2>&1
+printf 'lint=%s\n' "$?" >> "$D/calidad.txt"

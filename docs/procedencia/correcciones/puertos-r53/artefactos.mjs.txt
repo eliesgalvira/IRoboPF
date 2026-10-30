@@ -1,0 +1,10 @@
+import {readFileSync,writeFileSync} from 'node:fs'
+import {gunzipSync} from 'node:zlib'
+import {produceComposition} from '/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43.ts'
+import {producePortContract,verifyPortContract} from '/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47.ts'
+const candidate=produceComposition(), contract=producePortContract(candidate)
+verifyPortContract(contract,candidate)
+const load=n=>JSON.parse(gunzipSync(readFileSync('docs/procedencia/correcciones/puertos-r52/'+n+'.json.gz')))
+if(JSON.stringify(candidate)!==JSON.stringify(load('candidato-composicion')))throw Error('Candidato recibido diferente')
+if(JSON.stringify(contract)!==JSON.stringify(load('contrato')))throw Error('Contrato recibido diferente')
+writeFileSync('/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/puertos-r53/artefactos.json',JSON.stringify({currentMatchesReceived:true,admission:candidate.admission,ports:contract.ports.filter(p=>['#adaptarTrabajoAnual','#adaptarActividadGeneral','obtenerParametrosComunidadAutonoma'].some(s=>p.target.endsWith(s)))}))

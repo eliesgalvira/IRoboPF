@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 52 del 30 de octubre
+## Situación más reciente, ronda 53 del 30 de octubre
+
+Recibida y contrastada la revisión R52: 21.985 entradas del hijo físicamente intactas, cero borrados y transporte exacto de 204 rutas. Incorporados 56 archivos documentales; 170 referencias técnicas (93 hashes únicos) preservadas. El padre reproduce 36 pruebas correctas, tipos principal/vendor y lint global. Recomposición idéntica a R52. Detalle en correcciones/puertos-r53.
+
+N01/N02/N03 y el hito acotado de puertos quedan corroborados bajo condiciones, sin defecto nuevo reproducido. No se repite otra revisión favorable idéntica. Siguiente hito: grafo transitivo por propiedad de 65 sitios y 19 familias, seguido de revisión independiente y conexión con admisión. Las cuatro puertas públicas permanecen falsas. Registro de respaldo y delegación pendiente de completar al terminar esta recepción.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 52 del 30 de octubre
 
 Recibida la revisión de puertos R51: cotejo físico de 21.896 entradas intactas, cero borrados y reconstrucción exacta de 263 rutas de payload. El padre incorpora los 35 archivos documentales y de transporte, conservando el scratch reconstruido y las 87 fuentes técnicas fuera del worktree. Detalle en correcciones/puertos-r52.
 

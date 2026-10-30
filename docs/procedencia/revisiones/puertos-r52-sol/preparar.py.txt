@@ -1,0 +1,39 @@
+from pathlib import Path
+import json,hashlib,subprocess,difflib
+r=Path.cwd();s=r/'.cache/puertos-r52-sol';d=r/'docs/procedencia/revisiones/puertos-r52-sol';p=r/'docs/procedencia/correcciones/puertos-r52'
+(d/'FISICO-INICIAL.json').write_text(json.dumps(dict(head='a527dafa804b684c2f4a13d8ee178d9590b3f367',entries=21985,bad=[],extras=['.git'],method='lstat/readlink/bytes/ejecutable; git cat-file blob uno a uno; antes de escribir'))+'\n')
+(s/'cas').mkdir(exist_ok=True)
+records=[]
+for label,manifest,cas in [('actual',p/'fuentes-actuales.json',Path('/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/puertos-r52/sha256')),('anterior',r/'docs/procedencia/revisiones/puertos-composicion-r51-sol/FUENTES.json',Path('/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/recepciones-r52/sha256'))]:
+ data=json.loads(manifest.read_text()); data=data if isinstance(data,list) else data['sources']
+ for rec in data:
+  h=rec['sha256'];b=(cas/h).read_bytes();assert hashlib.sha256(b).hexdigest()==h
+  (s/'cas'/h).write_bytes(b);records.append(dict(label=label,**rec))
+(d/'FUENTES.json').write_text(json.dumps(records,indent=2)+'\n')
+oldfiles=['flujo-escalas-r36-consumidor.mjs','flujo-rentas-r36-consumidor.mjs','flujo-escalas-r36.mjs','flujo-rentas-r36.mjs','puertos-composicion-r47.ts','composicion-r43.ts']
+for variant in ['antes','actual']:
+ folder=s/variant;folder.mkdir(exist_ok=True)
+ for f in oldfiles:
+  src='scripts/procedencia/'+f
+  b=subprocess.check_output(['git','cat-file','blob','debadd0495ce99cbec3de580c7786328ab064a61:'+src]) if variant=='antes' else (r/src).read_bytes()
+  (folder/(f+'.original')).write_bytes(b)
+  text=b.decode().replace('"./','"'+str(r)+'/scripts/procedencia/').replace('"../../lib/','"'+str(r)+'/lib/')
+  for of in oldfiles:
+   for spec in [of,of.removesuffix('.ts')]:text=text.replace('"'+str(r)+'/scripts/procedencia/'+spec+'"','"'+str(folder/spec)+'"')
+  (folder/f).write_text(text)
+ # Originales R51 conservan aserciones. Legacy congelado en ambos pases.
+ for f in ['nullproto.test.ts','observador.test.ts','propiedades.test.ts']:
+  text=(p/(f+'.txt')).read_text().replace('/home/elies/Repos/IRoboPF',str(r))
+  for of in ['composicion-r43','puertos-composicion-r47','flujo-rentas-r36-consumidor.mjs']:
+   text=text.replace(str(r)+'/scripts/procedencia/'+of,str(folder/of))
+  (folder/f).write_text(text)
+ legacy=(p/'legacy.ts.txt').read_text().replace('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r52/run',str(folder)).replace('/home/elies/Repos/IRoboPF',str(r))
+ (folder/'legacy.ts').write_text(legacy)
+ for f in ['base-flujo-escalas-r36-consumidor.mjs','base-flujo-rentas-r36-consumidor.mjs']:(folder/f).write_bytes((p/(f+'.txt')).read_bytes())
+# Preparador R47 adaptado: nunca ejecutar destino original.
+text=(r/'scripts/procedencia/puertos-composicion-r47-harness.mjs').read_text();adapt=text.replace('/.cache/puertos-composicion-r47-sol/','/.cache/puertos-r52-sol/')
+(s/'harness.mjs').write_text(adapt);(d/'harness.diff').write_text(''.join(difflib.unified_diff(text.splitlines(True),adapt.splitlines(True))))
+text=(r/'tests/puertos-r52.test.ts').read_text().replace('"../lib/','"'+str(r)+'/lib/').replace('"../scripts/','"'+str(r)+'/scripts/').replace('"../.cache/puertos-composicion-r47-sol/privado"','"'+str(s)+'/privado"')
+(s/'padre.test.ts').write_text(text)
+config='export default '+json.dumps({'resolve':{'alias':{'effect':'/home/elies/Repos/IRoboPF/node_modules/effect/dist','decimal.js':'/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs','@':str(r)}},'cacheDir':str(s/'vite'),'test':{'include':[], 'cache':False,'maxWorkers':1,'testTimeout':60000}})
+(s/'vitest.mjs').write_text(config.replace('"include": []','"include": JSON.parse(process.env.REVIEW_INCLUDE)'))

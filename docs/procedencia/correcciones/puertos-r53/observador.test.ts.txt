@@ -1,0 +1,14 @@
+import Decimal from "decimal.js"
+import { produceComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
+import { expect,it } from "vitest"
+import { executeRentasFinite } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+const fragment=produceComposition().fragments.rentas
+const expression="lib/dominio/irpf/trabajo-anual/conexion.ts:8193:8215:global"
+it("R51-N02 ROJO: hook inocuo debe preservar lectura de dato ordinario sin prototipo",()=>{
+ const minimum=Object.assign(Object.create(null),{contribuyente:{general:new Decimal(5550)}})
+ const boundaries={"boundary:MINIMOS_ESTATALES_2025":minimum}
+ const expected=executeRentasFinite(fragment,null,[],false,expression,[],boundaries).result
+ expect(expected).toBe(minimum)
+ const actual=executeRentasFinite(fragment,null,[],false,expression,[],boundaries,()=>{}).result
+ expect(actual).toEqual(expected)
+})

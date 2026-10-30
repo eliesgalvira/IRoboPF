@@ -1,0 +1,8 @@
+import subprocess,os,json,sys
+from pathlib import Path
+r=Path.cwd();s=r/'.cache/puertos-r52-sol';d=r/'docs/procedencia/revisiones/puertos-r52-sol'
+name=sys.argv[1];includes=sys.argv[2:]
+cmd=['flock','/tmp/irobopf-validacion-pesada.lock','nix','shell','nixpkgs#nodejs','-c','node','/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs','run','--configLoader','native','--config',str(s/'vitest.mjs'),'--reporter=json','--outputFile='+str(d/(name+'.json'))]
+env=dict(os.environ,NODE_PATH='/home/elies/Repos/IRoboPF/node_modules',IROBOPF_DEPENDENCIES_PACKAGE='/home/elies/Repos/IRoboPF/package.json',REVIEW_INCLUDE=json.dumps(includes))
+with (d/(name+'.log')).open('wb') as log:p=subprocess.run(cmd,env=env,stdout=log,stderr=subprocess.STDOUT)
+(d/(name+'-comando.json')).write_text(json.dumps(dict(command=cmd,include=includes,exit=p.returncode),indent=2)+'\n');print(name,p.returncode)

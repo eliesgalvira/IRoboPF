@@ -1,0 +1,15 @@
+import json,hashlib
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');C=R/".cache/orquestador-recepcion/r53";O=R/"docs/procedencia/correcciones/puertos-r53";S=Path("/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa");F="docs/procedencia/revisiones/puertos-r52-sol";SCRATCH=".cache/puertos-r52-sol";trial=C/"transporte"
+def sha(b):return hashlib.sha256(b).hexdigest()
+preserved=[];cas=R/'.cache/orquestador-preservacion/recepciones-r53/sha256';cas.mkdir(parents=True,exist_ok=True)
+for e in json.loads((S/F/'FUENTES.json').read_text()):
+ b=(trial/SCRATCH/'cas'/e['sha256']).read_bytes()
+ assert sha(b)==e['sha256'] and hashlib.sha512(b).hexdigest()==e['sha512'] and len(b)==e['size']
+ if e['label']=='actual':assert (R/e['file']).read_bytes()==b
+ dst=cas/e['sha256']
+ if dst.exists():assert dst.read_bytes()==b
+ else:dst.write_bytes(b)
+ preserved.append(dict(e,preservedPath=str(dst)))
+(O/'cas-preservado.json').write_text(json.dumps(dict(objects=preserved,kind='software-tecnico',officialDocumentsAdded=0),indent=2)+'\n')
+print("preserved",len(preserved))

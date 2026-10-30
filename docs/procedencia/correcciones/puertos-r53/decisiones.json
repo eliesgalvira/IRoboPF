@@ -1,0 +1,58 @@
+{
+  "decisions": [
+    {
+      "id": "R51-N01",
+      "decision": "Resuelto en serialización de escalas; control histórico congelado intacto.",
+      "evidence": "rojos-antes/actual; SOL-01",
+      "objection": "El fallo era histórico, no regresión fiscal.",
+      "response": "Se mantiene esa atribución y se conserva el dominio null anunciado.",
+      "cost": "Mantener serialización recursiva y controles de captura.",
+      "scope": "Datos ordinarios finitos; no proxies/ciclos/subclases hostiles.",
+      "status": "corroborated-technical-limited",
+      "parentEvidence": [
+        "suite.json",
+        "adaptaciones.diff",
+        "artefactos.json"
+      ],
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "R51-N02",
+      "decision": "Resuelta regresión del hook de rentas.",
+      "evidence": "rojos-antes/actual; SOL-01 y primer grupo del padre",
+      "objection": "El proveedor actual no genera necesariamente el dato del ensayo.",
+      "response": "Se corrobora observabilidad del intérprete, sin atribuir fallo público a mínimos.",
+      "cost": "Mantener equivalencia de serializadores.",
+      "scope": "Arnés privado, sin admisión ni autenticación.",
+      "status": "corroborated-technical-limited",
+      "parentEvidence": [
+        "suite.json",
+        "adaptaciones.diff",
+        "artefactos.json"
+      ],
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "R51-N03",
+      "decision": "Resuelto; hito acotado de puertos técnicamente corroborado bajo condiciones.",
+      "evidence": "ARTEFACTOS, INVARIANTES, seis grupos del padre y SOL-02 a SOL-07",
+      "objection": "Metadata/testigos y un recuento de 22 podrían repetir un esperado incompleto.",
+      "response": "Contraste externo con lecturas reales y sensibilidad, incluyendo selección publicada/fallback.",
+      "cost": "Contratos por propiedad y verificación separada de causalidad financiera.",
+      "scope": "65 sitios/19 instancias, admisión y fiscalidad siguen pendientes.",
+      "status": "corroborated-technical-limited",
+      "parentEvidence": [
+        "suite.json",
+        "adaptaciones.diff",
+        "artefactos.json"
+      ],
+      "completeRuleAcceptance": false
+    }
+  ],
+  "milestone": "puertos-condicionados",
+  "graph65AndInstances19": "pending",
+  "admissionClosed": false,
+  "siteClosed": false,
+  "wiringAllowed": false,
+  "completeRuleAcceptance": false
+}

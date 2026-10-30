@@ -1,0 +1,112 @@
+--- independiente.test.ts
++++ /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r53/run/independiente.test.ts
+@@ -1,14 +1,14 @@
+ import { expect, it } from "vitest"
+ import Decimal from "decimal.js"
+ import { Schema } from "effect"
+-import { GastosTrabajo } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/lib/dominio/irpf/trabajo-anual/contrato"
+-import type { CasoActividad2025 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/lib/dominio/irpf/actividades-economicas/contrato"
+-import { adaptarActividadGeneral } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/lib/dominio/irpf/actividades-economicas/adaptador"
+-import { adaptarTrabajoAnual } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/lib/dominio/irpf/trabajo-anual/adaptador"
+-import { produceComposition } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/composicion-r43"
+-import { createPortComposition, producePortContract, verifyPortContract } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/puertos-composicion-r47"
+-import { executeRentasFinite } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+-import { executeEscalasR36 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
++import { GastosTrabajo } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/contrato"
++import type { CasoActividad2025 } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/contrato"
++import { adaptarActividadGeneral } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/adaptador"
++import { adaptarTrabajoAnual } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/adaptador"
++import { produceComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
++import { createPortComposition, producePortContract, verifyPortContract } from "/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47"
++import { executeRentasFinite } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
++import { executeEscalasR36 } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+ import { routeContract } from "./sensibilidad"
+ const candidate = produceComposition()
+ const contract = producePortContract(candidate)
+--- sensibilidad.ts
++++ /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r53/run/sensibilidad.ts
+@@ -1,13 +1,13 @@
+-import { checkPortSchema } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/puertos-composicion-r47-schema"
+-import { signature, assertPortInputs } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/puertos-composicion-r47-fuentes"
+-import type { Composition } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/composicion-r43"
+-import { verifyComposition } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/composicion-r43"
+-import { hashFile } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/composicion-r43-archivos.mjs"
+-import { executeFinite as ssRun, createSSEvaluator } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-ss-r36-consumidor.mjs"
+-import { executeFinite as retentionRun, consumeAnnual } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
+-import { executeRentasFinite, consumeGeneralRentas, consumeExplicitRentas } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+-import { executeEscalasR36, consumeEscalasR36 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+-import type { CasoActividad2025 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/lib/dominio/irpf/actividades-economicas/contrato"
++import { checkPortSchema } from "/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47-schema"
++import { signature, assertPortInputs } from "/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47-fuentes"
++import type { Composition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
++import { verifyComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
++import { hashFile } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43-archivos.mjs"
++import { executeFinite as ssRun, createSSEvaluator } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36-consumidor.mjs"
++import { executeFinite as retentionRun, consumeAnnual } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
++import { executeRentasFinite, consumeGeneralRentas, consumeExplicitRentas } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
++import { executeEscalasR36, consumeEscalasR36 } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
++import type { CasoActividad2025 } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/contrato"
+ 
+ export interface Source { file: string; start: number; end: number; sha256: string; offsetEncoding: string }
+ interface Data { name?: string; key?: string; target?: string; parameters?: Parameter[]; binding?: Binding }
+--- actual/nullproto.test.ts
++++ /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r53/run/nullproto.test.ts
+@@ -1,7 +1,7 @@
+ import { createComposition as legacy } from "./legacy"
+-import { produceComposition } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/actual/composicion-r43"
++import { produceComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
+ import { expect,it } from "vitest"
+-import { createPortComposition, producePortContract } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/actual/puertos-composicion-r47"
++import { createPortComposition, producePortContract } from "/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47"
+ const candidate=produceComposition()
+ const contract=producePortContract(candidate)
+ const subcase={anio:2020,edad:40,retribucionAnualCentimos:4020000,cotizacionesCentimos:20000,situacionFamiliar:"situacion3",situacionLaboral:"activo",contrato:"general",descendientes:[],ascendientes:[],discapacidad:"sin-discapacidad"}
+--- actual/observador.test.ts
++++ /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r53/run/observador.test.ts
+@@ -1,7 +1,7 @@
+ import Decimal from "decimal.js"
+-import { produceComposition } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/actual/composicion-r43"
++import { produceComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
+ import { expect,it } from "vitest"
+-import { executeRentasFinite } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/actual/flujo-rentas-r36-consumidor.mjs"
++import { executeRentasFinite } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+ const fragment=produceComposition().fragments.rentas
+ const expression="lib/dominio/irpf/trabajo-anual/conexion.ts:8193:8215:global"
+ it("R51-N02 ROJO: hook inocuo debe preservar lectura de dato ordinario sin prototipo",()=>{
+--- actual/propiedades.test.ts
++++ /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r53/run/propiedades.test.ts
+@@ -1,6 +1,6 @@
+ import { expect,it } from "vitest"
+-import { produceComposition } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/actual/composicion-r43"
+-import { producePortContract } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/actual/puertos-composicion-r47"
++import { produceComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
++import { producePortContract } from "/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47"
+ const contract=producePortContract(produceComposition())
+ it("R51-N03a ROJO: trabajo debe declarar gastos usados para producir las líneas",()=>{
+  const port=contract.ports.find(p=>p.target.endsWith("#adaptarTrabajoAnual"))!
+--- actual/legacy.ts
++++ /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r53/run/legacy.ts
+@@ -1,13 +1,13 @@
+-import type { CasoActividad2025 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/lib/dominio/irpf/actividades-economicas/contrato"
+-import { hashFile } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/composicion-r43-archivos.mjs"
+-import { composeSS, validateSS } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-ss-r36.mjs"
+-import { composeRetencionesR34, verifyRetencionesR34 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-retenciones-r34.mjs"
+-import { composeRentasR36, verifyRentasR36 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-rentas-r36.mjs"
+-import { composeEscalasR36, verifyEscalasR36 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-escalas-r36.mjs"
+-import { executeFinite as ssRun, createSSEvaluator } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-ss-r36-consumidor.mjs"
+-import { executeFinite as retentionRun, consumeAnnual } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
+-import { executeRentasFinite, consumeGeneralRentas, consumeExplicitRentas } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/actual/base-flujo-rentas-r36-consumidor.mjs"
+-import { executeEscalasR36, consumeEscalasR36 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/actual/base-flujo-escalas-r36-consumidor.mjs"
++import type { CasoActividad2025 } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/contrato"
++import { hashFile } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43-archivos.mjs"
++import { composeSS, validateSS } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs"
++import { composeRetencionesR34, verifyRetencionesR34 } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34.mjs"
++import { composeRentasR36, verifyRentasR36 } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-rentas-r36.mjs"
++import { composeEscalasR36, verifyEscalasR36 } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-escalas-r36.mjs"
++import { executeFinite as ssRun, createSSEvaluator } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36-consumidor.mjs"
++import { executeFinite as retentionRun, consumeAnnual } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
++import { executeRentasFinite, consumeGeneralRentas, consumeExplicitRentas } from "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r53/run/base-flujo-rentas-r36-consumidor.mjs"
++import { executeEscalasR36, consumeEscalasR36 } from "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r53/run/base-flujo-escalas-r36-consumidor.mjs"
+ 
+ export const base = "05cf0e159cc0a0eb3b87d554447a2d14939115c2"
+ const money = "lib/dominio/dinero/importe-monetario.ts"

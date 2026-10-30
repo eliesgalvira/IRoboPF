@@ -1,0 +1,225 @@
+import { checkPortSchema } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/puertos-composicion-r47-schema"
+import { signature, assertPortInputs } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/puertos-composicion-r47-fuentes"
+import type { Composition } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/composicion-r43"
+import { verifyComposition } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/composicion-r43"
+import { hashFile } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/composicion-r43-archivos.mjs"
+import { executeFinite as ssRun, createSSEvaluator } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-ss-r36-consumidor.mjs"
+import { executeFinite as retentionRun, consumeAnnual } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
+import { executeRentasFinite, consumeGeneralRentas, consumeExplicitRentas } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+import { executeEscalasR36, consumeEscalasR36 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+import type { CasoActividad2025 } from "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/lib/dominio/irpf/actividades-economicas/contrato"
+
+export interface Source { file: string; start: number; end: number; sha256: string; offsetEncoding: string }
+interface Data { name?: string; key?: string; target?: string; parameters?: Parameter[]; binding?: Binding }
+interface Binding { name?: string; fields?: { key: string; binding: Binding }[]; elements?: (Binding | {binding: Binding; default: string | null} | null)[] }
+interface Parameter { binding: Binding; rest: boolean; default: string | null }
+interface Node { id: string; op: string; args: string[]; data: Data; source: Source }
+interface Global { name: string; node: string | null; source?: Source }
+interface Fragment { program: Node[]; globalBindings: Global[] }
+type Group = "rentas" | "escalas" | "ss" | "retenciones"
+type Operator = "invoke-root" | "project" | "global" | "preadmitted-identity" | "evaluate-node"
+interface Property { path: string; representation: string }
+interface Variant { when: { property: string; equals: string }; outputs: string[] }
+export interface PortCall {
+ node: string; source: Source; arguments: { index: number; operand: string; binding: Node[] }[];
+ environment: Node[]; conditions: Node[]; frames: string[]; selector: Node[]; dimensions: {node:string;property:string;unit:string;owner:string|null}[]
+}
+export interface Port {
+ id: string; consumer: "rentas" | "escalas"; target: string; kind: "financial" | "projection" | "constant" | "admission-precondition";
+ provider: { group: Group; root: string; node: string; source: Source; parameters: Parameter[]; dimensionReference: {registry:string;ids:string[]}; signature: ReturnType<typeof signature> };
+ operator: Operator; arguments: { op: "argument"; index: number }[];
+ output: Property[]; variants: Variant[]; calls: PortCall[];
+ projection: { from: string; to: string }[];
+}
+export interface PortContract {
+ version: "puertos-composicion-r47.1"; ports: Port[];
+ dependencies: { path: string; sha256: string }[];
+ domain: "ordinary-synchronous-preadmitted";
+ pending: string[];
+}
+const same = (a: ReturnType<typeof ssRun>["result"], b: ReturnType<typeof ssRun>["result"]) => JSON.stringify(a) === JSON.stringify(b)
+const indexes = new WeakMap<Fragment, Map<string, Node>>()
+function requireNode(fragment: Fragment, id: string): Node {
+ let index=indexes.get(fragment)
+ if(index === undefined){index=new Map(fragment.program.map(n=>[n.id,n]));indexes.set(fragment,index)}
+ const node = index.get(id)
+ if (node === undefined) throw Error("Operación ausente: " + id)
+ return node
+}
+function endpoint(fragment: Fragment, root: string) {
+ const binding = fragment.globalBindings.find(b => b.name === root)
+ if (binding === undefined || binding.node === null || binding.source === undefined) throw Error("Proveedor ausente: " + root)
+ const node = requireNode(fragment, binding.node)
+ return { root, node: node.id, source: binding.source, signature:signature(binding.source), parameters: node.data.parameters ?? [] }
+}
+function slice(fragment: Fragment, id: string, seen = new Set<string>()): Node[] {
+ if (seen.has(id)) return []
+ seen.add(id)
+ const n = requireNode(fragment, id)
+ return [n, ...n.args.flatMap(a => slice(fragment, a, seen))]
+}
+function targets(fragment: Fragment, id: string): string[] {
+ const n = requireNode(fragment, id)
+ if (n.op === "global") return [n.data.name!]
+ if (n.op === "conditional") return n.args.slice(1).flatMap(a => targets(fragment, a))
+ return []
+}
+function callsFor(fragment: Fragment & { fields?: {id:string;property:string;unit:string;owner:string|null}[]; propertyBindings?: {id:string;property:string;unit:string;receiver:string}[] }, target: string, constant: boolean): PortCall[] {
+ return fragment.program.filter(n => constant ? n.op === "global" && n.data.name === target :
+  n.op === "boundaryCall" ? n.data.target === target : n.op === "call" && targets(fragment, n.args[0]!).includes(target)
+ ).map(n => ({
+  node: n.id, source: n.source,
+  arguments: (constant ? [] : n.args.slice(n.op === "boundaryCall" ? 0 : 1)).map((operand,index) => ({ index, operand, binding: slice(fragment, operand) })),
+  environment: fragment.program.filter(p=>["function","bind"].includes(p.op) && p.source.file === n.source.file && (p.op === "function" ? p.source.start<=n.source.start && p.source.end>=n.source.end : p.source.start<n.source.start)),
+  conditions: fragment.program.filter(p => ["if", "conditional", "switch"].includes(p.op) && p.source.file === n.source.file && p.source.start <= n.source.start && p.source.end >= n.source.end).flatMap(p => slice(fragment,p.args[0]!)),
+  frames: fragment.program.filter(p => p.op === "function" && p.source.file === n.source.file && p.source.start <= n.source.start && p.source.end >= n.source.end).map(p=>p.id),
+  dimensions: (constant ? [] : n.args.slice(n.op === "boundaryCall" ? 0 : 1)).flatMap(id=>slice(fragment,id)).flatMap(op=>{const field=fragment.fields?.find(f=>f.id===op.id);const fieldScale=fragment.propertyBindings?.find(f=>f.id===op.id);return field !== undefined ? [{node:op.id,property:field.property,unit:field.unit,owner:field.owner}] : fieldScale !== undefined ? [{node:op.id,property:fieldScale.property,unit:fieldScale.unit,owner:fieldScale.receiver}]:[]}),
+  selector: constant || n.op === "boundaryCall" ? [] : slice(fragment,n.args[0]!),
+ }))
+}
+function dimensionReference(candidate: Composition, group: Group, source: Source, root: string) {
+ if(group === "ss")return {registry:"ss.unitContracts",ids:[root]}
+ if(group === "retenciones")return {registry:"retenciones.fieldBindings",ids:candidate.fragments.retenciones.fieldBindings.filter((f:{owner:string})=>["CasoRetencionTrabajo","ContextoRetencionTrabajo"].includes(f.owner)).map((f:{id:string})=>f.id)}
+ if(group === "rentas")return {registry:"rentas.fields",ids:candidate.fragments.rentas.fields.filter((f:{source:Source})=>f.source.file === source.file && f.source.start >= source.start && f.source.end <= source.end).map((f:{id:string})=>f.id)}
+ return {registry:"escalas.dimensionContracts",ids:root.includes("obtenerParametrosComunidadAutonoma")?["escala","minimos"]:root.includes("Escala")?["escala"]:["minimos"]}
+}
+/** El censo deriva de las fronteras de las IR recibidas. El router no tiene una segunda lista de enlaces. */
+export function producePortContract(candidate: Composition): PortContract {
+ const g = candidate.fragments
+ const ports: Port[] = []
+ const boundaries: { id: string; outputs: string[]; resultVariants: Variant[]; parameters: {binding:string}[] }[] = g.escalas.boundaryContracts
+ for (const b of boundaries) {
+  const [file,symbol] = b.id.split("#")
+  const rights = file!.endsWith("/minimos/derechos.ts")
+  const group = rights ? "escalas" : file!.startsWith("lib/dominio/laboral/") ? "ss" : "rentas"
+  const root = rights ? b.id : group === "ss" ? symbol! : file + ":" + symbol
+  const provider = rights ? { root, node: g.escalas.globalBindings.find((v:Global)=>v.name===root)!.node, source: g.escalas.globalBindings.find((v:Global)=>v.name===root)!.source, parameters: b.parameters.map(p=>({binding:{name:p.binding},rest:false,default:null})) } : endpoint(g[group],root)
+  ports.push({ id: "escalas::" + b.id, consumer:"escalas", target:b.id, kind:rights?"admission-precondition":"financial", provider:{ group,...provider,dimensionReference:dimensionReference(candidate,group,provider.source,root),signature:signature(provider.source) }, operator:rights?"preadmitted-identity":"invoke-root", arguments: Array.from({ length: provider.parameters.length },(_,index)=>({op:"argument",index})), output:b.outputs.map(v=>({path:v.split(":")[0]!,representation:v.split(":").slice(1).join(":")})), variants:b.resultVariants, calls:callsFor(g.escalas,b.id,false), projection:[] })
+ }
+ const infrastructure = new Set(["boundary:medirAuditoriaSync","boundary:enlazarRastroAnualActual"])
+ const rentProgram: Node[] = g.rentas.program
+ const rentTargets = [...new Set((rentProgram).filter(n=>n.op === "global" && n.data.name?.startsWith("boundary:") && !infrastructure.has(n.data.name)).map(n=>n.data.name!))]
+ for (const target of rentTargets) {
+  const symbol=target.slice("boundary:".length)
+  const projection=symbol === "calcularCotizacionesSocialesLegacy"
+  const constant=symbol === "MINIMOS_ESTATALES_2025"
+  const group = projection || g.ss.globalBindings.some((b:Global)=>b.name===symbol) ? "ss" : "escalas"
+  const root = group === "ss" ? projection ? "calcularDesgloseCotizacionesSocialesLegacy" : symbol : g.escalas.globalBindings.find((b:Global)=>b.name.endsWith("#"+symbol))?.name
+  if(root === undefined) throw Error("Raíz no registrada: "+target)
+  const provider=endpoint(g[group],root)
+  const reviewed = g.rentas.boundaries.find((b:{name:string})=>b.name===target)
+  if(reviewed === undefined) throw Error("Contrato recibido ausente: "+target)
+  const output: Property[] = projection ? ["cotizacionEmpresarial","cotizacionTrabajador"].map(path=>({path,representation:"EUR"})) : group === "ss" ? ["cotizacionEmpresarial","cotizacionTrabajador","meiEmpresarial","meiTrabajador","solidaridadEmpresarial","solidaridadTrabajador"].map(path=>({path,representation:"EUR"})) : reviewed.properties.map((path:string)=>({path:path.replace(/^return\./,""),representation:path === "return._tag"?"discrete":path === "return.motivo"?"string":constant?"EUR-base-Decimal":symbol === "calcularCuotaPorEscala"?"EUR-tax-Decimal":symbol === "obtenerEscalaAutonomicaPublicada"?"absent|array<{baseInferior:EUR-base-Decimal,cuota:EUR-tax-Decimal,tipo:ratio-Decimal,inferiorExclusivo?:boolean}>":path.endsWith("general")?"EUR-base-Decimal":"array<[EUR-base-Decimal,ratio-Decimal]>"}))
+  const variants: Variant[] = symbol === "obtenerParametrosComunidadAutonoma" ? [
+   {when:{property:"_tag",equals:"ParametrosComunidadAutonoma"},outputs:output.filter(p=>p.path!=="motivo").map(p=>p.path+":"+p.representation)},
+   {when:{property:"_tag",equals:"ComunidadAutonomaNoSoportada"},outputs:output.filter(p=>p.path==="_tag"||p.path==="motivo").map(p=>p.path+":"+p.representation)},
+  ] : []
+  ports.push({id:"rentas::"+target,consumer:"rentas",target,kind:constant?"constant":projection?"projection":"financial",provider:{group,...provider,dimensionReference:dimensionReference(candidate,group,provider.source,root)},operator:constant?"global":projection?"project":"invoke-root",arguments:provider.parameters.map((_,index)=>({op:"argument",index})),output,variants,calls:callsFor(g.rentas,target,constant),projection:projection?output.map(p=>({from:p.path,to:p.path})):[]})
+ }
+ const scaleProgram: Node[] = g.escalas.program
+ const ret = scaleProgram.find(n=>n.op === "boundaryCall" && n.data.target === "retencion.calcular")
+ if(ret === undefined) throw Error("Servicio de retención ausente")
+ const provider = endpoint(g.retenciones,"calcularRetencionTrabajoAeatImpl")
+ ports.push({id:"escalas::retencion.calcular",consumer:"escalas",target:"retencion.calcular",kind:"financial",provider:{group:"retenciones",...provider,dimensionReference:dimensionReference(candidate,"retenciones",provider.source,provider.root)},operator:"invoke-root",arguments:provider.parameters.map((_,index)=>({op:"argument",index})),output:[{path:"importeRetencionAnualCentimos",representation:"centimos"}],variants:[],calls:callsFor(g.escalas,"retencion.calcular",false),projection:[]})
+ const decodeBoundary=scaleProgram.find(n=>n.op === "boundaryCall" && n.data.target === "explicit.decode")
+ if(decodeBoundary === undefined)throw Error("Decodificación explícita sin extremo")
+ const decode=rentProgram.find(n=>n.op === "call" && n.source.file === decodeBoundary.source.file && n.source.start === decodeBoundary.source.start && n.source.end === decodeBoundary.source.end)
+ if(decode === undefined)throw Error("Decodificación explícita sin operación homóloga en rentas")
+ const decodeRoot=g.rentas.globalBindings.find((b:Global)=>b.source?.file === decode.source.file && b.name.endsWith(":liquidarIrpfAnualExplicito"))
+ if(decodeRoot === undefined)throw Error("Firma explícita sin raíz nominal")
+ const decodeEntry=endpoint(g.rentas,decodeRoot.name)
+ ports.push({id:"escalas::explicit.decode",consumer:"escalas",target:"explicit.decode",kind:"admission-precondition",provider:{group:"rentas",...decodeEntry,root:"expression:"+decode.id,node:decode.id,source:decode.source,dimensionReference:dimensionReference(candidate,"rentas",decode.source,decode.id)},operator:"evaluate-node",arguments:decodeEntry.parameters.map((_,index)=>({op:"argument",index})),output:[{path:"_tag",representation:"discrete"},{path:"success",representation:"decoded-explicit-structure"},{path:"failure",representation:"schema-error"}],variants:[{when:{property:"_tag",equals:"Success"},outputs:["_tag:discrete","success:decoded-explicit-structure"]},{when:{property:"_tag",equals:"Failure"},outputs:["_tag:discrete","failure:schema-error"]}],calls:callsFor(g.escalas,"explicit.decode",false),projection:[{from:"_tag",to:"_tag"},{from:"success",to:"success"},{from:"failure",to:"failure"}]})
+ return {version:"puertos-composicion-r47.1",ports,domain:"ordinary-synchronous-preadmitted",pending:["annual-public-admission","rights-validation","transitive-65-sites","19-instances","independent-review"],dependencies:["scripts/procedencia/puertos-composicion-r47.ts","scripts/procedencia/puertos-composicion-r47-fuentes.ts","scripts/procedencia/puertos-composicion-r47-schema.ts","schemas/procedencia/flujo/puertos-composicion-r47.schema.json",...candidate.dependencies.map(d=>d.path)].map(path=>({path,sha256:hashFile(path)}))}
+}
+export function inspectPortContract(contract: PortContract, candidate: Composition) {
+ const expected=producePortContract(candidate)
+ const obligations: {id:string;ok:boolean}[]=[]
+ const add=(id:string,ok:boolean)=>obligations.push({id,ok})
+ add("schema:version",contract.version===expected.version)
+ add("schema:domain",contract.domain===expected.domain)
+ add("schema:pending",same(contract.pending,expected.pending))
+ add("coverage:ports",same(contract.ports.map(p=>p.id).sort(),expected.ports.map(p=>p.id).sort()))
+ for(const e of expected.ports){
+  const p=contract.ports.find(p=>p.id===e.id)
+  for(const key of ["consumer","target","kind","provider","operator","arguments","output","variants","projection","calls"] as const) add(e.id+":"+key,same(p?.[key],e[key]))
+  for(const call of e.calls){const got=p?.calls.find(c=>c.node===call.node);for(const key of ["source","arguments","conditions","frames","selector","dimensions","environment"] as const)add(e.id+":"+call.node+":"+key,same(got?.[key],call[key]))}
+ }
+ add("hashes:dependencies",same(contract.dependencies,expected.dependencies))
+ return {status:obligations.every(o=>o.ok)?"ports-satisfied":"ports-pending",obligations,pending:expected.pending}
+}
+export function verifyPortContract(contract: PortContract, candidate: Composition) {
+ checkPortSchema(contract)
+ const report=inspectPortContract(contract,candidate)
+ const failed=report.obligations.filter(o=>!o.ok)
+ if(failed.length > 0) throw Error("Obligación de puerto: "+failed.map(o=>o.id).join(", "))
+ return structuredClone(contract)
+}
+// Los valores dinámicos solo cruzan el intérprete recibido. No se aceptan proveedores del usuario.
+type Value = ReturnType<typeof ssRun>["result"]
+export interface SnapshotFields { [key:string]: Snapshot }
+export type Snapshot = string | number | boolean | null | undefined | Snapshot[] | SnapshotFields
+export interface Witness { port: string; node: string; frames: Snapshot[]; arguments: Snapshot[]; result: Snapshot; bindings: {index:number;operand:string}[]; properties: {path:string;representation:string;value:Snapshot}[]; variant: Variant["when"] | null }
+export interface Observation { node: string; target: string; frames: Snapshot[]; arguments: Snapshot[]; result: Snapshot }
+function property(value: Value, path: string): Value {
+ if(path === "return") return value
+ return path.split(".").reduce((v,key)=>key.endsWith("[]")?v?.[key.slice(0,-2)]?.map((x:Value)=>x):Array.isArray(v)?v.map(x=>x?.[key]):v?.[key],value)
+}
+/** Dominio ordinario preadmitido: identidad de derechos no acredita validación ni fuente financiera. */
+export function createPortComposition(candidate: Composition, supplied = producePortContract(candidate)) {
+ const checked=verifyComposition(candidate)
+ const contract=verifyPortContract(supplied,checked)
+ return routeContract(checked,contract)
+}
+/** Constructor privado por módulo: las pruebas de sensibilidad usan una copia en scratch, nunca la API pública. */
+export function routeContract(candidate: Composition, contract: PortContract, transform: (target: string, result: Value) => Value = (_target, result) => result) {
+ const g=candidate.fragments
+ const witnesses: Witness[]=[]
+ const scaleBoundaries = new Map<string, (...args: Value[])=>Value>()
+ const rentBoundaries: { [name:string]: Value } = {}
+ let execution = 0
+ const observe=(consumer:"rentas"|"escalas")=>(event:Observation)=>{
+  const p=contract.ports.find(p=>p.consumer===consumer && p.target===event.target)
+  if(p === undefined) return // Infraestructura de observabilidad y enriquecimiento ya representada en R36, fuera del censo R43.
+  const call=p.calls.find(c=>c.node===event.node)
+  if(call === undefined) throw Error("Llamada sin contrato: "+p.id+" "+event.node)
+  const variant=p.variants.find(v=>property(event.result,v.when.property)===v.when.equals)
+  const outputs=variant !== undefined ? p.output.filter(o=>variant.outputs.some(s=>s.split(":")[0]===o.path)) : p.output
+  witnesses.push({port:p.id,node:event.node,frames:[{transport:++execution},...event.frames],arguments:event.arguments,result:event.result,bindings:call.arguments.map(a=>({index:a.index,operand:a.operand})),variant:variant?.when??null,properties:outputs.map(o=>({...o,value:property(event.result,o.path)}))})
+ }
+ const rent=(root:string,args:Value[])=>executeRentasFinite(g.rentas,root,args,false,null,[],rentBoundaries,observe("rentas")).result
+ const scales=(root:string,args:Value[])=>executeEscalasR36(g.escalas,root,args,false,null,[],scaleBoundaries,observe("escalas")).result
+ for(const p of contract.ports){
+  const fragment=g[p.provider.group]
+  const registered=p.operator === "evaluate-node" ? p.provider.group === "rentas" && p.provider.root === "expression:"+p.provider.node && fragment.program.some((n:Node)=>n.id===p.provider.node && n.op === "call") : fragment.globalBindings.some((b:Global)=>b.name===p.provider.root && b.node===p.provider.node)
+  if(!registered)throw Error("Proveedor ausente: "+p.id)
+  const run=(xs:Value[])=>{
+   const args=p.arguments.map(a=>xs[a.index])
+   if(p.operator === "preadmitted-identity")return args[0]
+   const expressionBindings=p.operator === "evaluate-node"?p.provider.parameters.map((parameter,index)=>{if(parameter.binding.name === undefined)throw Error("Binding de decodificación no nominal");return [parameter.binding.name,args[index]]}):[]
+   const result=p.operator === "evaluate-node"?executeRentasFinite(g.rentas,null,[],false,p.provider.node,expressionBindings,rentBoundaries,observe("rentas")).result:p.provider.group === "ss"?ssRun(g.ss,p.provider.root,args,false).result:p.provider.group === "retenciones"?retentionRun(g.retenciones,p.provider.root,args,false).result:p.provider.group === "rentas"?rent(p.provider.root,args):scales(p.provider.root,args)
+   if(p.operator !== "project" && p.operator !== "evaluate-node")return transform(p.target,result)
+   const variant=p.variants.find(v=>property(result,v.when.property)===v.when.equals)
+   return Object.fromEntries(p.projection.filter(v=>variant === undefined || variant.outputs.some(o=>o.split(":")[0]===v.to)).map(v=>[v.to,property(result,v.from)]))
+  }
+  const value=p.operator === "global"?executeEscalasR36(g.escalas,null,[],false,p.provider.node).result:(...xs:Value[])=>run(xs)
+  if(p.consumer === "escalas")scaleBoundaries.set(p.target,value)
+  else rentBoundaries[p.target]=value
+ }
+ const ss=createSSEvaluator(g.ss)
+ return {
+  contract: structuredClone(contract),
+  get witnesses(){return structuredClone(witnesses)},
+  annual(caso:Parameters<typeof ss>[0],contexto:Parameters<typeof ss>[1]){
+   assertPortInputs([caso,contexto])
+   const ssResult=ss(caso,contexto)
+   const rents=consumeGeneralRentas(g.rentas,caso,contexto,rentBoundaries,observe("rentas"))
+   const retention=consumeAnnual(g.retenciones,caso,contexto,false)
+   // Wrapper histórico: el observador se transmite por los ejecutores de las raíces.
+   const quotas=consumeEscalasR36(g.escalas,"annual",caso,contexto,scaleBoundaries,observe("escalas")).lines
+   return {lines:[...ssResult.lines,...rents.lines,...retention.lines,...quotas],admissionClosed:false,wiringAllowed:false}
+  },
+  explicit(entrada:Parameters<typeof consumeExplicitRentas>[1]){assertPortInputs([entrada]);return consumeExplicitRentas(g.rentas,entrada,rentBoundaries,observe("rentas"))},
+  activity(entrada:CasoActividad2025){assertPortInputs([entrada]);return rent("lib/dominio/irpf/actividades-economicas/calcular.ts:calcularActividad2025",[entrada])},
+  roots:{rent(root:string,args:Value[]){assertPortInputs(args);return rent(root,args)},scales(root:string,args:Value[]){assertPortInputs(args);return scales(root,args)}},
+ }
+}

@@ -1,0 +1,266 @@
+import { expect, it } from "vitest"
+import Decimal from "decimal.js"
+import { Schema } from "effect"
+import { GastosTrabajo } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/contrato"
+import type { CasoActividad2025 } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/contrato"
+import { adaptarActividadGeneral } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/adaptador"
+import { adaptarTrabajoAnual } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/adaptador"
+import { produceComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
+import { createPortComposition, producePortContract, verifyPortContract } from "/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47"
+import { executeRentasFinite } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+import { executeEscalasR36 } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+import { routeContract } from "./sensibilidad"
+const candidate = produceComposition()
+const contract = producePortContract(candidate)
+const root = "lib/dominio/irpf/trabajo-anual/conexion.ts#liquidarIrpfAnualExplicito"
+
+it("SOL-01: captura y observación preservan campos y no comparten el testigo con el dato", () => {
+ const general = new Decimal("5550.25")
+ const value = Object.assign(Object.create(null), { contribuyente: Object.assign(Object.create(null), { general }), otros: [Object.assign(Object.create(null), { texto: "ñ", importe: general })] })
+ const boundary = { "boundary:MINIMOS_ESTATALES_2025": value }
+ const expression = "lib/dominio/irpf/trabajo-anual/conexion.ts:8193:8215:global"
+ const unobserved = executeRentasFinite(candidate.fragments.rentas,null,[],false,expression,[],boundary)
+ for (const capture of [false,true]) {
+  const observed=executeRentasFinite(candidate.fragments.rentas,null,[],capture,expression,[],boundary,event=>{
+   expect(event.result).toEqual({contribuyente:{general:{decimal:"5550.25"}},otros:[{texto:"ñ",importe:{decimal:"5550.25"}}]})
+   Object.getOwnPropertyDescriptor(event.result!,"contribuyente")!.value.general.decimal="999"
+  })
+  expect(observed.result).toBe(unobserved.result)
+  expect(general.toFixed()).toBe("5550.25")
+ }
+ // Escalas: una función privada de IR acotada ejercita argumentos, retorno y marco.
+ const fragment={program:[{id:"fn",op:"function",args:["body"],data:{parameters:[{binding:{name:"x"}}]}},{id:"body",op:"return",args:["boundary"],data:{}},{id:"boundary",op:"boundaryCall",args:["x"],data:{target:"SOL-identity"}},{id:"x",op:"local",args:[],data:{name:"x"}}],globalBindings:[{name:"identity",node:"fn"}]}
+ for(const capture of [false,true]) {
+  const boundaries=new Map([["SOL-identity",(x: Decimal)=>x]])
+  const plain=executeEscalasR36(fragment,"identity",[value],capture,null,[],boundaries)
+  let calls=0
+  const actual=executeEscalasR36(fragment,"identity",[value],capture,null,[],boundaries,event=>{
+   calls++
+   expect(event.arguments[0]).toEqual({contribuyente:{general:{decimal:"5550.25"}},otros:[{texto:"ñ",importe:{decimal:"5550.25"}}]})
+   expect(event.frames.length).toBeGreaterThan(0)
+   Object.getOwnPropertyDescriptor(event.result!,"contribuyente")!.value.general.decimal="888"
+  })
+  expect(calls).toBe(1)
+  expect(actual.result).toBe(value)
+  expect(actual.trace).toEqual(plain.trace)
+  expect(general.toFixed()).toBe("5550.25")
+ }
+})
+
+it("SOL-02: trabajo real diferencia ambos gastos y los consume en EUR", () => {
+ const input=structuredClone(explicit)
+ input.trabajo.rendimientos[0]!.cotizaciones.seguridadSocial="123.45"
+ const expected=adaptarTrabajoAnual(Schema.decodeUnknownSync(GastosTrabajo)(input.trabajo))
+ expect(expected.estado).toBe("aporte-disponible")
+ if(expected.estado!=="aporte-disponible")throw Error("Fixture trabajo rechazado")
+ const router=createPortComposition(candidate,contract)
+ const result=router.roots.scales(root,[input])
+ const witness=router.witnesses.find(w=>w.port.endsWith("#adaptarTrabajoAnual"))!
+ expect(witness.properties.find(p=>p.path==="gastos.gastosAE")?.value).toBe("123.45")
+ expect(witness.properties.find(p=>p.path==="gastos.generalesAplicados")?.value).toBe("2000")
+ const expressions=["lib/dominio/irpf/trabajo-anual/conexion.ts:4451:4794:call","lib/dominio/irpf/trabajo-anual/conexion.ts:4804:5106:call"]
+ const render=(trabajo: ReturnType<typeof adaptarTrabajoAnual>)=>expressions.map(expression=>executeRentasFinite(candidate.fragments.rentas,null,[],false,expression,[["trabajo",trabajo]]).result)
+ const baseline=render(expected)
+ expect(baseline[0].origen.decimal).toBe("123.45")
+ expect(baseline[1].origen.decimal).toBe("2000")
+ for(const field of ["gastosAE","generalesAplicados"]) {
+  const altered=routeContract(candidate,contract,(target,value)=>target.endsWith("#adaptarTrabajoAnual")?{...value,gastos:{...value.gastos,[field]:"321.09"}}:value)
+  const output=altered.roots.scales(root,[input])
+  const observed=altered.witnesses.find(w=>w.port.endsWith("#adaptarTrabajoAnual"))!
+  expect(observed.properties.find(p=>p.path===`gastos.${field}`)!.value).toBe("321.09")
+  const lines=render({...expected,gastos:{...expected.gastos,[field]:"321.09"}})
+  expect(lines[field==="gastosAE"?0:1].origen.decimal).toBe("321.09")
+  expect(lines).not.toEqual(baseline)
+ }
+ const exposed=router.witnesses;exposed[0]!.result=null
+ expect(router.witnesses).not.toEqual(exposed)
+})
+
+it("SOL-03: etapas reales cambian importe, etiqueta, fórmula y orden por índice", () => {
+ const actividad=portActivityFixture()
+ const expected=adaptarActividadGeneral(actividad)
+ if(expected.estado!=="aporte-disponible")throw Error("Fixture rechazado")
+ const input={...portScope,perfil:"solo-actividad-eds",actividad}
+ const router=createPortComposition(candidate,contract)
+ const output=router.roots.scales(root,[input])
+ const render=(actividad: Extract<ReturnType<typeof adaptarActividadGeneral>, {estado:"aporte-disponible"}>)=>executeRentasFinite(candidate.fragments.rentas,null,[],false,"lib/dominio/irpf/trabajo-anual/conexion.ts:6969:7276:call",[["actividad",actividad]]).result
+ const baseline=render(expected)
+ baseline.forEach((line: {origen:{instanceId:string;unidad:string;decimal:string}},index:number)=>{
+  expect(line.origen.instanceId).toBe(`anual.explicito.actividad.etapa.${index}`)
+  expect(line.origen.unidad).toBe("EUR")
+  expect(line.origen.decimal).toBe(new Decimal(expected.etapas[index]!.importe).toFixed())
+ })
+ const text=JSON.stringify(baseline)
+ for(const etapa of expected.etapas){expect(text).toContain(etapa.reglaId+": "+etapa.id);expect(text).toContain(etapa.formula)}
+ for(const field of ["importe","reglaId","id","formula","orden"] as const) {
+  const changed=routeContract(candidate,contract,(target,value)=>{
+   if(!target.endsWith("#adaptarActividadGeneral"))return value
+   const etapas=value.etapas.map((e: {importe:string;reglaId:string;id:string;formula:string})=>({...e}))
+   if(field==="orden") etapas.reverse()
+   else etapas[0][field]=field==="importe"?"71.29":"SOL-CAMBIO"
+   return {...value,etapas}
+  })
+  const result=changed.roots.scales(root,[input])
+  const witness=changed.witnesses.find(w=>w.port.endsWith("#adaptarActividadGeneral"))!
+  const data=Object.getOwnPropertyDescriptor(witness.result!,"etapas")!.value
+  expect(render({...expected,etapas:data})).not.toEqual(baseline)
+  const selected=field==="orden"?"id":field
+  const property=witness.properties.find(p=>p.path===`etapas[].${selected}`)!
+  expect(property.value).toEqual(field==="orden"?expected.etapas.map(e=>e.id).reverse():[field==="importe"?"71.29":"SOL-CAMBIO",...expected.etapas.slice(1).map(e=>e[selected])])
+ }
+})
+
+it("SOL-04: las variantes de rechazo no atribuyen campos de éxito", () => {
+ for(const family of ["TrabajoAnual","ActividadGeneral"]) {
+  const activity=family==="ActividadGeneral"
+  const input=activity?{...portScope,perfil:"solo-actividad-eds",actividad:portActivityFixture()}:explicit
+  const router=routeContract(candidate,contract,(target,value)=>target.endsWith("#adaptar"+family)?activity?{estado:"no-soportado",motivos:[{motivo:"SOL-RECHAZO"}]}:{estado:"no-soportado",motivo:"SOL-RECHAZO"}:value)
+  expect(()=>router.roots.scales(root,[input])).toThrow(/SOL-RECHAZO/)
+  const witness=router.witnesses.find(w=>w.port.endsWith("#adaptar"+family))!
+  expect(witness.properties.map(p=>p.path)).toEqual(activity?["estado","motivos[].motivo"]:["estado","motivo"])
+ }
+ const altered=structuredClone(candidate)
+ const year=altered.fragments.rentas.program.find((n:{id:string})=>n.id==="lib/dominio/irpf/trabajo-anual/conexion.ts:7473:7477:literal")!
+ year.data.value=2030
+ expect(()=>createPortComposition(altered,contract)).toThrow()
+ const router=routeContract(altered,contract)
+ expect(router.explicit(explicit).status).not.toBe("success")
+ const witness=router.witnesses.find(w=>w.port.endsWith("obtenerParametrosComunidadAutonoma"))!
+ expect(witness.properties.map(p=>p.path)).toEqual(["_tag","motivo"])
+ expect(witness.properties[1]!.value).toContain("2030")
+ const switched=routeContract(candidate,contract,(target,value)=>target.endsWith("obtenerParametrosComunidadAutonoma")?{_tag:"ComunidadAutonomaNoSoportada",motivo:"SOL-MOTIVO"}:value)
+ expect(switched.explicit(explicit).status).not.toBe("success")
+ expect(switched.witnesses.find(w=>w.port.endsWith("obtenerParametrosComunidadAutonoma"))!.properties[1]!.value).toBe("SOL-MOTIVO")
+})
+
+it("SOL-05: alterar unidad o condición de cada familia se rechaza", () => {
+ for(const [target,path] of [["#adaptarTrabajoAnual","gastos.gastosAE"],["#adaptarTrabajoAnual","gastos.generalesAplicados"],...["importe","reglaId","id","formula"].map(f=>["#adaptarActividadGeneral",`etapas[].${f}`]),["obtenerParametrosComunidadAutonoma","_tag"],["obtenerParametrosComunidadAutonoma","motivo"]]) {
+  for(const mutation of ["unidad","condicion"]) {
+   const altered=structuredClone(contract),port=altered.ports.find(p=>p.target.endsWith(target!))!
+   if(mutation==="unidad")port.output.find(p=>p.path===path)!.representation="SOL-INCORRECTO"
+   else port.variants[0]!.when.equals="SOL-OTRA-RAMA"
+   expect(()=>verifyPortContract(altered,candidate)).toThrow()
+   expect(()=>createPortComposition(candidate,altered)).toThrow()
+  }
+ }
+})
+function portActivityFixture(): CasoActividad2025 {
+  return {
+    ejercicio: 2025,
+    territorio: "comun",
+    individual: true,
+    actividadId: "profesion",
+    iae: "servicios",
+    fechaInicio: "2025-01-01",
+    fechaFin: "2025-12-31",
+    serviciosOrdinarios: true,
+    hechos: {
+      otrasActividades: false,
+      otrasRentas: false,
+      existencias: false,
+      empleados: false,
+      artistica: false,
+      irregular: false,
+      subvenciones: false,
+      transmisiones: false,
+      extranjero: false,
+      mutualidad: false,
+      especialidadesTerritoriales: false,
+      saldosPendientes: false,
+      serviciosGratuitos: false,
+      autoconsumo: false,
+      noFacturados: false,
+      subvalorados: false,
+      trade: false,
+      hechosDesconocidos: false,
+    },
+    historial: [],
+    actividadPreviaAlInicio: "ausente",
+    regimen2025: "eds",
+    criterio2025: "devengo",
+    documentoCriterio2025: "alta",
+    renuncia2025: false,
+    exclusion2025: false,
+    volumen2024: "0",
+    diasActividad2024: 0,
+    documentoVolumen2024: "sin-actividad",
+    clientes: [
+      {
+        id: "cliente",
+        vinculado: false,
+        empleadorEnAnioAnteriorAlInicio: false,
+        documento: "contrato",
+      },
+    ],
+    ingresos: [],
+    gastos: [],
+    reta: [],
+    activos: [],
+    obligacionesFormales: true,
+    documentoObligaciones: "libros",
+    discapacidad: {
+      grado: 0,
+      ayudaOMovilidad: false,
+      ejercicioEfectivo: true,
+      documento: "sin-discapacidad",
+    },
+    opcion: "gastos-dificiles",
+    aplicarRentasBajas: true,
+    aplicarInicio: false,
+    retenciones: [],
+    pagosFraccionados: [],
+  }
+}
+
+const portScope = {
+  ejercicio: 2025,
+  comunidadAutonoma: "madrid",
+  edad: 40,
+  modalidad: "individual",
+  residenciaTodoElAnio: true,
+  devengo: "2025-12-31",
+  otrasRentas: "ninguna",
+  familiaresConDerechoMinimo: "ninguno",
+  discapacidad: "ninguna",
+  reduccionesBase: "ninguna",
+  saldosAnteriores: "ninguno",
+  deducciones: "solo-da61-si-procede",
+  rentasExtranjeras: "ninguna",
+  especialidades: "ninguna",
+}
+
+const explicit={ejercicio:2025,comunidadAutonoma:"madrid",edad:40,modalidad:"individual",residenciaTodoElAnio:true,devengo:"2025-12-31",otrasRentas:"ninguna",familiaresConDerechoMinimo:"ninguno",discapacidad:"ninguna",reduccionesBase:"ninguna",saldosAnteriores:"ninguno",deducciones:"solo-da61-si-procede",rentasExtranjeras:"ninguna",especialidades:"ninguna",perfil:"solo-trabajo",conciliacion:{ejercicio:2025,estado:"totales-anuales-sin-duplicados",procedencia:["certificado-anual#2025"]},trabajo:{ejercicio:2025,territorio:"comun",reduccionesArt18:"ninguna",movilidad:"ninguna",discapacidadActiva:"ninguna",rendimientos:[{id:"anual",clase:"empleo-laboral",integro:"30000",cotizaciones:{clase:"efectivas",seguridadSocial:"0",derechosPasivos:"0",colegiosHuerfanos:"0"},sindicato:{importe:"0",satisfecho:"no"},colegio:{importe:"0",satisfecho:"no",obligatorio:"no",finesEsenciales:"no"},defensa:{importe:"0",satisfecho:"no",litigioDirectoPagador:"no"}}]},retenciones:[]}
+
+it("SOL-06: escala y mínimo autonómicos soportados se leen y afectan el resultado", () => {
+ const baseline=routeContract(candidate,contract).explicit(explicit)
+ expect(baseline.status).toBe("success")
+ for(const field of ["escalaEstatalGeneral","minimosAutonomicos"]) {
+  const router=routeContract(candidate,contract,(target,value)=>{
+   if(!target.endsWith("obtenerParametrosComunidadAutonoma"))return value
+   return field==="escalaEstatalGeneral"?{...value,escalaEstatalGeneral:[[new Decimal(0),new Decimal("0.01")]]}:{...value,minimosAutonomicos:{...value.minimosAutonomicos,contribuyente:{...value.minimosAutonomicos.contribuyente,general:new Decimal(0)}}}
+  })
+  const result=router.explicit(explicit)
+  expect(result.status).toBe("success")
+  expect(result).not.toEqual(baseline)
+  const witness=router.witnesses.find(w=>w.port.endsWith("obtenerParametrosComunidadAutonoma"))!
+  expect(witness.variant!.equals).toBe("ParametrosComunidadAutonoma")
+  expect(witness.properties.some(p=>p.path==="motivo")).toBe(false)
+ }
+})
+
+it("SOL-07: tramos autonómicos conservan transporte y distinguen tabla publicada/fallback", () => {
+ const baseline=routeContract(candidate,contract).explicit(explicit)
+ const router=routeContract(candidate,contract,(target,value)=>target.endsWith("obtenerParametrosComunidadAutonoma")?{...value,escalaAutonomica:{...value.escalaAutonomica,tramos:[[new Decimal(0),new Decimal("0.01")]]}}:value)
+ const result=router.explicit(explicit)
+ expect(result.status).toBe("success")
+ // Madrid tiene tabla publicada: prevalece sobre los tramos transportados.
+ expect(result).toEqual(baseline)
+ const call=router.witnesses.find(w=>w.port.endsWith("calcularCuotaPorEscala") && JSON.stringify(w.arguments).includes('"0.01"'))
+ expect(call).toBeDefined()
+ const fallback=routeContract(candidate,contract,(target,value)=>target.endsWith("obtenerEscalaAutonomicaPublicada")?undefined:value).explicit(explicit)
+ const alteredFallback=routeContract(candidate,contract,(target,value)=>target.endsWith("obtenerEscalaAutonomicaPublicada")?undefined:target.endsWith("obtenerParametrosComunidadAutonoma")?{...value,escalaAutonomica:{...value.escalaAutonomica,tramos:[[new Decimal(0),new Decimal("0.01")]]}}:value).explicit(explicit)
+ expect(alteredFallback.status).toBe("success")
+ expect(alteredFallback).not.toEqual(fallback)
+ const witness=router.witnesses.find(w=>w.port.endsWith("obtenerParametrosComunidadAutonoma"))!
+ expect(witness.properties.find(p=>p.path==="escalaAutonomica.tramos")!.value).toEqual([[{decimal:"0"},{decimal:"0.01"}]])
+})

@@ -1,0 +1,30 @@
+from pathlib import Path
+import json,gzip,hashlib,stat,difflib,subprocess,os
+r=Path.cwd();s=r/'.cache/puertos-r52-sol';d=r/'docs/procedencia/revisiones/puertos-r52-sol';t=d/'transporte';t.mkdir(exist_ok=False);objects=t/'objetos';objects.mkdir();restore=s/'reconstruccion';restore.mkdir(exist_ok=False)
+sha=lambda b:hashlib.sha256(b).hexdigest()
+manifest=[];patch=[];binaries=[]
+for folder in [d,s]:
+ for f in sorted(folder.rglob('*')):
+  if not f.is_file() or t in f.parents or restore in f.parents:continue
+  p=str(f.relative_to(r));b=f.read_bytes();assert len(b)<10*1024*1024
+  mode='100755' if f.stat().st_mode&0o111 else '100644';entry=dict(path=p,sha256=sha(b),size=len(b),mode=mode,baseHash=None);manifest.append(entry)
+  try:
+   text=b.decode('utf8');assert '\0' not in text and len(b)>0
+   lines=list(difflib.unified_diff([],text.splitlines(keepends=True),fromfile='/dev/null',tofile=p))
+   for line in lines:
+    if line.endswith('\n'):patch.append(line)
+    else:patch.extend([line+'\n','\\ No newline at end of file\n'])
+  except (UnicodeDecodeError,AssertionError):
+   (objects/entry['sha256']).write_bytes(b);binaries.append(entry)
+manifest.sort(key=lambda x:x['path']);(t/'MANIFIESTO.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');(t/'BINARIOS.json').write_text(json.dumps(binaries,indent=2)+'\n');(t/'entrega.patch.gz').write_bytes(gzip.compress(''.join(patch).encode(),mtime=0))
+# Reconstrucción: solo patch y objetos transportados, jamás las fuentes de payload.
+for e in manifest:(restore/e['path']).parent.mkdir(parents=True,exist_ok=True)
+p=subprocess.run(['patch','-p0','--batch'],input=gzip.decompress((t/'entrega.patch.gz').read_bytes()),cwd=restore,stdout=subprocess.PIPE,stderr=subprocess.STDOUT);(t/'reconstruccion.log').write_bytes(p.stdout);assert p.returncode==0
+for e in binaries:(restore/e['path']).write_bytes((objects/e['sha256']).read_bytes())
+for e in manifest:
+ f=restore/e['path'];f.chmod(0o755 if e['mode']=='100755' else 0o644);b=f.read_bytes();assert sha(b)==e['sha256'] and len(b)==e['size'];assert bool(f.stat().st_mode&0o111)==(e['mode']=='100755')
+actual={str(f.relative_to(restore)) for f in restore.rglob('*') if f.is_file()};assert actual=={e['path'] for e in manifest}
+rec=dict(exact=True,entries=len(manifest),bytes=sum(e['size'] for e in manifest),extras=[],method='patch -p0 + objetos transportados; sin copiar fuente al destino')
+(d/'RECONSTRUCCION.json').write_text(json.dumps(rec,indent=2)+'\n')
+envelopeFiles=[*sorted(t.rglob('*')),d/'RECONSTRUCCION.json'];envelope=[dict(path=str(f.relative_to(r)),sha256=sha(f.read_bytes()),size=f.stat().st_size,mode='100644',baseHash=None) for f in envelopeFiles if f.is_file()]
+(d/'SOBRE.json').write_text(json.dumps(dict(payload='transporte/MANIFIESTO.json; incluye scratch/CAS fuera de docs explícitamente',files=envelope,terminalReceipt='RECIBO-TERMINAL.json.gz, fuera del payload y del sobre; referencia hash del sobre',excludedReconstruction=str(restore.relative_to(r)),selfReference=False),indent=2)+'\n');print(json.dumps(rec))

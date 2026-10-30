@@ -1,0 +1,23 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "node",
+    "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+    "run",
+    "--configLoader",
+    "native",
+    "--config",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/.cache/puertos-r52-sol/vitest.mjs",
+    "--reporter=json",
+    "--outputFile=/home/elies/.t3/worktrees/IRoboPF/t3-6bd2e9aa/docs/procedencia/revisiones/puertos-r52-sol/rojos-antes.json"
+  ],
+  "include": [
+    ".cache/puertos-r52-sol/antes/*.test.ts"
+  ],
+  "exit": 1
+}
