@@ -1,0 +1,38 @@
+[
+  {
+    "id": "R51-N01",
+    "status": "candidate-parent-contrast",
+    "severity": "media",
+    "scope": "Dominio de datos/observabilidad",
+    "evidence": "nullproto.test.ts, nullproto.json y rojos-final.json",
+    "fact": "assertPortInputs admite Object.create(null), pero annual falla en printable de escalas al serializar el marco; el control legacy también falla.",
+    "objection": "No es regresión nueva de importe ni prueba de fallo fiscal.",
+    "response": "Conservar como discrepancia entre dominio anunciado y ejecución; no atribuir su origen al nuevo router.",
+    "cost": "Alinear el dominio documentado con serializadores o corregir después de contraste; sin fix en esta entrega.",
+    "limits": "No requiere Proxy, subclase ni método alterado."
+  },
+  {
+    "id": "R51-N02",
+    "status": "candidate-parent-contrast",
+    "severity": "media",
+    "scope": "Observador opcional rentas",
+    "evidence": "observador.test.ts y rojos-final.json",
+    "fact": "La misma lectura global de mínimo sin prototipo, con Decimal auténtico, funciona con capture:false y sin hook; con hook inocuo lanza TypeError en printable.",
+    "objection": "El proveedor de mínimos del router verificado entrega hoy objeto ordinario con prototipo; no demuestra fallo del constructor público sobre sus proveedores actuales.",
+    "response": "Es regresión del intérprete observado y límite real de la garantía de observadores, reproducida sin función hostil.",
+    "cost": "Contrastar y corregir serialización o restringir garantía; mantener rojo.",
+    "limits": "Arnés privado de sensibilidad sobre dato constante, sin autenticación, admisión ni recibo."
+  },
+  {
+    "id": "R51-N03",
+    "status": "candidate-parent-contrast",
+    "severity": "alta-para-hito-documental",
+    "scope": "Suficiencia del contrato por propiedad",
+    "evidence": "propiedades.test.ts; propiedades.json; review-testigos.json; conexion.ts líneas de trabajo/actividad/parametros",
+    "fact": "Faltan dos campos de gastos, cuatro campos de etapas y el discriminante _tag de parámetros. Result contiene los campos y la fuente los consume; output/variants y properties no los acreditan.",
+    "objection": "El router preserva el objeto completo y el dinero coincide; podría parecer suficiente.",
+    "response": "Preservar dinero no cumple contrato completo por propiedad. La metadata puede vaciarse en ensayo privado sin alterar valores; el verificador propio reconstruye la misma omisión y devuelve satisfecho.",
+    "cost": "Completar contratos/testigos y revisar sensibilidades específicas tras contraste del padre.",
+    "limits": "No se demuestra cuantía fiscal incorrecta ni se reabren codec o resultados R45."
+  }
+]

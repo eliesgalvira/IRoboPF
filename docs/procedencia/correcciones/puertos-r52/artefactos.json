@@ -1,0 +1,69 @@
+{
+  "ports": 22,
+  "calls": 24,
+  "obligations": 393,
+  "status": "ports-satisfied",
+  "changedNodes": [
+    {
+      "group": "escalas",
+      "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts:192:891:boundary",
+      "beforeOutputs": [
+        "estado:discrete",
+        "rendimientoAntesArt20:EUR-string",
+        "argumentoArt20:EUR-string",
+        "gastos.integro:EUR-string",
+        "motivo:string"
+      ],
+      "afterOutputs": [
+        "estado:discrete",
+        "rendimientoAntesArt20:EUR-string",
+        "argumentoArt20:EUR-string",
+        "gastos.integro:EUR-string",
+        "gastos.gastosAE:EUR-string",
+        "gastos.generalesAplicados:EUR-string",
+        "motivo:string"
+      ]
+    },
+    {
+      "group": "escalas",
+      "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts:591:942:boundary",
+      "beforeOutputs": [
+        "estado:discrete",
+        "aporte.importeEurosExactos:EUR-string",
+        "aporte.retencionesEuros:EUR-string",
+        "aporte.pagosFraccionadosEuros:EUR-string",
+        "motivos[].motivo:string"
+      ],
+      "afterOutputs": [
+        "estado:discrete",
+        "aporte.importeEurosExactos:EUR-string",
+        "aporte.retencionesEuros:EUR-string",
+        "aporte.pagosFraccionadosEuros:EUR-string",
+        "etapas[].importe:EUR-string",
+        "etapas[].reglaId:string",
+        "etapas[].id:string",
+        "etapas[].formula:string",
+        "motivos[].motivo:string"
+      ]
+    }
+  ],
+  "financialOperationsUnchanged": true,
+  "compositionSha256": "a45efc9cda12a3e574f9bc7c87237d28524e33c855a0e5edd72653d690c43e0a",
+  "contractSha256": "027189a7570510bf7819870e0bfb0e8e21eb6df1b59af914d8bacd16dd1a3f96",
+  "pending": [
+    "annual-public-admission",
+    "rights-validation",
+    "transitive-65-sites",
+    "19-instances",
+    "independent-review"
+  ],
+  "admission": {
+    "route": "annual-public-admission",
+    "reviewedPackage": null,
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false
+  },
+  "schemaVerification": "schemas.json"
+}

@@ -732,6 +732,8 @@ export function composeRentasR36(root = process.cwd()) {
         ? ["return.cotizacionTrabajador"]
         : name === "obtenerParametrosComunidadAutonoma"
           ? [
+              "return._tag",
+              "return.motivo",
               "return.escalaEstatalGeneral",
               "return.escalaAutonomica.tramos",
               "return.minimosAutonomicos.contribuyente.general",

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "R52-I01",
+    "reason": "Ruta inicial CLI effect-solutions sin sufijo 1; list/show después correctos; sin código Effect antes de la consulta."
+  },
+  {
+    "id": "R52-I02",
+    "reason": "Dos typeof rechazados por anti-slop en serialización. Se sustituye por Schema.is(Schema.String), sin coerción ni desactivar regla; nuevo pase focalizado."
+  },
+  {
+    "id": "R52-I03",
+    "reason": "Ajv transitivo v6 no admite los schemas 2020-12 de fragmentos. El contrato de puertos draft7 verifica con su consumidor. Fragmentos se comprobarán con jsonschema Draft202012Validator, sin cambiar sus schemas."
+  }
+]

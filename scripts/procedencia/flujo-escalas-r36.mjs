@@ -54,12 +54,14 @@ const external = new Map([
       "rendimientoAntesArt20:EUR-string",
       "argumentoArt20:EUR-string",
       "gastos.integro:EUR-string",
+      "gastos.gastosAE:EUR-string",
+      "gastos.generalesAplicados:EUR-string",
       "motivo:string"
     ]
   ],
   [
     "adaptarActividadGeneral",
-    ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string", "motivos[].motivo:string"]
+    ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string", "etapas[].importe:EUR-string", "etapas[].reglaId:string", "etapas[].id:string", "etapas[].formula:string", "motivos[].motivo:string"]
   ],
   [
     "calcularDeduccionTrabajo",
@@ -77,11 +79,11 @@ const external = new Map([
 // coexistan. Las condiciones fijan el contrato por estado del productor real.
 const resultVariants = new Map([
   ["adaptarTrabajoAnual", [
-    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "rendimientoAntesArt20:EUR-string", "argumentoArt20:EUR-string", "gastos.integro:EUR-string"] },
+    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "rendimientoAntesArt20:EUR-string", "argumentoArt20:EUR-string", "gastos.integro:EUR-string", "gastos.gastosAE:EUR-string", "gastos.generalesAplicados:EUR-string"] },
     { when: { property: "estado", equals: "no-soportado" }, outputs: ["estado:discrete", "motivo:string"] }
   ]],
   ["adaptarActividadGeneral", [
-    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string"] },
+    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string", "etapas[].importe:EUR-string", "etapas[].reglaId:string", "etapas[].id:string", "etapas[].formula:string"] },
     { when: { property: "estado", equals: "no-soportado" }, outputs: ["estado:discrete", "motivos[].motivo:string"] }
   ]],
   ["calcularDeduccionTrabajo", [
