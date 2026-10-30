@@ -1,0 +1,21 @@
+--- 
++++ 
+@@ -134,6 +134,18 @@
+       const value = values.get(name)
+       if (value === undefined) throw Error(name)
+       values.set(name, Object.fromEntries(Object.entries(value).filter(([k]) => k !== output.split(":")[0])))
++      if (output === "rendimientoPrevioNeto:EUR") {
++        let observed = false
++        const bindings = new Map<string, (...args: never[]) => object>([...values].map(([n, v]) => [contract(n).id, () => v]))
++        bindings.set(contract("calcularReduccionTrabajoConOtrasRentas").id, (input: {rendimientoPrevioNeto?: Decimal}) => {
++          expect(input.rendimientoPrevioNeto).toBeUndefined()
++          observed = true
++          return d(0)
++        })
++        consumeEscalasR36(graph, "annual", caso, {modo:"canonico"}, bindings)
++        expect(observed).toBe(true)
++        return
++      }
+       const b = new Map([...values].map(([n, v]) => [contract(n).id, () => v]))
+       expect(() => consumeEscalasR36(graph, "annual", caso, { modo: name.endsWith("Legacy") ? "compatible-legacy" : "canonico" }, b)).toThrow()
+     })

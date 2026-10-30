@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 42 del 30 de octubre
+## Situación más reciente, ronda 43 del 30 de octubre
+
+Recibida la contrarrevisión de fronteras R42: 83 archivos, 3.942.193 bytes, transporte exacto y cotejo físico de 21.013 entradas intactas; cero borrados. Nueve objetos de software preservados fuera del worktree con ambos hashes. Detalle en correcciones/recepcion-fronteras-r43.
+
+El padre corrobora R40-01 y R40-02 con condiciones explícitas y conserva R40-03/admisión abiertos. Repite 41 pruebas correctas; el revisor entrega 58 distintas, sin sumar coberturas solapadas. Tipos estrictos globales detectan una anotación ausente en su arnés: adaptación mínima documentada por original/diff/hashes, AST JavaScript idéntico y 41 pruebas finales correctas. Pasan tipos principal/vendor y lint global. No cambia código de cálculo.
+
+Se prepara una única implementación nueva de composición por propiedad de los 65 sitios y 19 instancias, con Sol 6.1 high priority explícito. La admisión continúa aparte; publicación, confianza y aceptación fiscal no se habilitan por componer valor/selección. No se repite otra revisión favorable de los mismos bytes.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26; Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencias o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 42 del 30 de octubre
 
 Recibidas revisión de escalas R40 y contrarrevisión documental R41: 116 archivos, 5.792.973 bytes, transportes exactos y cotejos físicos de 20.670/20.836 entradas intactas; cero borrados. Detalle en correcciones/fronteras-escalas-r42.
 

@@ -1,0 +1,159 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75
+
+ ❯ .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts (13 tests | 10 failed | 2 skipped) 979ms
+   × la frontera declarada permite alcanzar la cuota: calcularRendimientoNetoTrabajo 28ms
+   × la frontera declarada permite alcanzar la cuota: calcularGananciasPatrimonialesPorTransmision 22ms
+   × la frontera declarada permite alcanzar la cuota: calcularDesgloseCotizacionesPerfilUniforme 20ms
+   × la frontera declarada permite alcanzar la cuota: calcularDesgloseCotizacionesSocialesLegacy 19ms
+   × firma real de lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos 16ms
+   × firma real de lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos 1ms
+   × EDS declara los pagos leídos antes de las seis salidas 5ms
+   × motivo de rechazo conservado en adaptarTrabajoAnual 7ms
+   × motivo de rechazo conservado en adaptarActividadGeneral 4ms
+   × motivo de rechazo conservado en calcularDeduccionTrabajo 11ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > la frontera declarada permite alcanzar la cuota: calcularRendimientoNetoTrabajo
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > la frontera declarada permite alcanzar la cuota: calcularGananciasPatrimonialesPorTransmision
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > la frontera declarada permite alcanzar la cuota: calcularDesgloseCotizacionesPerfilUniforme
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > la frontera declarada permite alcanzar la cuota: calcularDesgloseCotizacionesSocialesLegacy
+TypeError: Cannot read properties of undefined (reading 'toDecimalPlaces')
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:331:27
+    329|               seed: xs.length > 1 ? printable(xs[1]) : null
+    330|             })
+    331|           value = receiver[key](...xs)
+       |                           ^
+    332|         } else {
+    333|           const fn = ev(0)
+ ❯ value scripts/procedencia/flujo-escalas-r36-consumidor.mjs:234:20
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:335:19
+ ❯ value scripts/procedencia/flujo-escalas-r36-consumidor.mjs:234:20
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:335:19
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:317:28
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:317:28
+ ❯ value scripts/procedencia/flujo-escalas-r36-consumidor.mjs:234:20
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:335:19
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:359:36
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > firma real de lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos
+AssertionError: expected [] to deeply equal [ { …(4) }, { …(4) } ]
+
+- Expected
++ Received
+
+- [
+-   {
+-     "end": 8123,
+-     "file": "lib/dominio/irpf/minimos/derechos.ts",
+-     "start": 8098,
+-     "text": "caso: DerechosMinimos2025",
+-   },
+-   {
+-     "end": 8147,
+-     "file": "lib/dominio/irpf/minimos/derechos.ts",
+-     "start": 8125,
+-     "text": "rentaNoExenta: Decimal",
+-   },
+- ]
++ []
+
+ ❯ .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts:52:135
+     50|   test("firma real de " + signature.id, () => {
+     51|     const parameters = contract(signature.id.split("#")[1]!).parameters
+     52|     expect(parameters.map(p => ({ file: p.source.file, start: p.source…
+       |                                                                                                                                       ^
+     53|   })
+     54| }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > firma real de lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos
+AssertionError: expected [] to deeply equal [ { …(4) } ]
+
+- Expected
++ Received
+
+- [
+-   {
+-     "end": 2527,
+-     "file": "lib/dominio/irpf/minimos/derechos.ts",
+-     "start": 2499,
+-     "text": "entrada: DerechosMinimos2025",
+-   },
+- ]
++ []
+
+ ❯ .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts:52:135
+     50|   test("firma real de " + signature.id, () => {
+     51|     const parameters = contract(signature.id.split("#")[1]!).parameters
+     52|     expect(parameters.map(p => ({ file: p.source.file, start: p.source…
+       |                                                                                                                                       ^
+     53|   })
+     54| }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > EDS declara los pagos leídos antes de las seis salidas
+Error: [DecimalError] Invalid argument: undefined
+ ❯ new Decimal ../../../../Repos/IRoboPF/node_modules/decimal.js/decimal.js:4403:13
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:348:17
+    346|       case "new": {
+    347|         const constructor = ev(0)
+    348|         value = new constructor(...many(n.args.slice(1)))
+       |                 ^
+    349|         break
+    350|       }
+ ❯ ev scripts/procedencia/flujo-escalas-r36-consumidor.mjs:124:23
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:181:17
+ ❯ ev scripts/procedencia/flujo-escalas-r36-consumidor.mjs:124:23
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:262:17
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:246:33
+ ❯ ev scripts/procedencia/flujo-escalas-r36-consumidor.mjs:124:23
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:266:37
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:246:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > motivo de rechazo conservado en adaptarTrabajoAnual
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > motivo de rechazo conservado en calcularDeduccionTrabajo
+AssertionError: expected [Function] to throw error including 'rechazo externo discriminante' but got 'ResultadoNoSoportado: undefined'
+
+Expected: "rechazo externo discriminante"
+Received: "ResultadoNoSoportado: undefined"
+
+ ❯ .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts:92:153
+     90|     const b = explicitBoundaries()
+     91|     b.set(contract(name).id, () => payload)
+     92|     expect(() => consumeEscalasR36(graph, "explicit", explicitCase(nam…
+       |                                                                                                                                                         ^
+     93|   })
+     94| }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL  .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts > motivo de rechazo conservado en adaptarActividadGeneral
+AssertionError: expected [Function] to throw error including 'rechazo externo discriminante' but got 'Cannot read properties of undefined (…'
+
+Expected: "rechazo externo discriminante"
+Received: "Cannot read properties of undefined (reading 'map')"
+
+ ❯ .cache/revision-fronteras-escalas-r42-sol/rojo.test.ts:92:153
+     90|     const b = explicitBoundaries()
+     91|     b.set(contract(name).id, () => payload)
+     92|     expect(() => consumeEscalasR36(graph, "explicit", explicitCase(nam…
+       |                                                                                                                                                         ^
+     93|   })
+     94| }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  10 failed | 1 passed | 2 skipped (13)
+   Start at  02:42:07
+   Duration  2.04s (transform 47ms, setup 0ms, import 946ms, tests 979ms, environment 0ms)
+

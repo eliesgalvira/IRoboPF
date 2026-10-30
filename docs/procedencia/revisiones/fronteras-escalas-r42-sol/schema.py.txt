@@ -1,0 +1,23 @@
+import copy,gzip,json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+R=Path('/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75');O=R/'docs/procedencia/correcciones/fronteras-escalas-r42'
+s=json.loads((R/'schemas/procedencia/flujo/escalas-r36.schema.json').read_text());Draft202012Validator.check_schema(s);v=Draft202012Validator(s)
+for f in ['fragmento-antes.json.gz','fragmento-despues.json.gz']:
+ g=json.loads(gzip.decompress((O/f).read_bytes()));v.validate(g)
+for name in ['wiring','acceptance','variant-property','variant-state']:
+ h=copy.deepcopy(g)
+ if name=='wiring':h['wiringAllowed']=True
+ elif name=='acceptance':h['completeRuleAcceptance']=True
+ else:
+  b=next(b for b in h['boundaryContracts'] if b['resultVariants']);w=b['resultVariants'][0]['when'];w['property' if name=='variant-property' else 'equals']='inventado'
+ assert list(v.iter_errors(h)),name
+print('Dos artefactos válidos; cuatro mutaciones rechazadas. Forma compatible con histórico; verificador actual exige receta nueva.')
+
+for mode in ["omit", "empty"]:
+ h=copy.deepcopy(g)
+ for b in h["boundaryContracts"]:
+  if mode=="omit":b.pop("resultVariants",None)
+  else:b["resultVariants"]=[]
+ v.validate(h)
+print("Schema aislado admite omisión y vaciado: compatibilidad, no receta actual")

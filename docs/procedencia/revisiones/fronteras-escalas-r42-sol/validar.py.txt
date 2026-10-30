@@ -1,0 +1,10 @@
+import subprocess,json,os
+from pathlib import Path
+r=Path.cwd();s=r/'.cache/revision-fronteras-escalas-r42-sol';o=r/'docs/procedencia/revisiones/fronteras-escalas-r42-sol';parent=Path('/home/elies/Repos/IRoboPF/node_modules')
+files=[str(o/f) for f in ['contraste.mjs','replica.mjs','propios.test.ts']]
+jobs=[('types-final',['node',str(parent/'typescript/bin/tsc'),'-p',str(s/'tsconfig.json')]),('oxlint-final',['node',str(parent/'oxlint/bin/oxlint'),'--disable-nested-config','--threads=1','--config',str(s/'oxlint.json'),*files]),('lint-files',['node',str(parent/'oxlint/bin/oxlint'),'--disable-nested-config','--threads=1','--config',str(s/'oxlint.json'),'--debug','files',*files]),('eslint-final',['node',str(parent/'eslint/bin/eslint.js'),'--config','/home/elies/Repos/IRoboPF/eslint.config.mjs',*files]),('contraste-final',['node',str(o/'contraste.mjs')])]
+results=[]
+for name,cmd in jobs:
+ command=['flock','/tmp/irobopf-validacion-pesada.lock','nix','shell','nixpkgs#nodejs','-c',*cmd]
+ with (s/(name+'.log')).open('wb') as stream:p=subprocess.run(command,stdout=stream,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=command,exitCode=p.returncode));(s/'validacion.json').write_text(json.dumps(results,indent=2)+'\n');print(name,p.returncode,flush=True)

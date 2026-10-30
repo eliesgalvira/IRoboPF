@@ -1,0 +1,48 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import vm from 'node:vm'
+import {createRequire} from 'node:module'
+import {createHash} from 'node:crypto'
+import {gunzipSync} from 'node:zlib'
+import {composeEscalasR36,verifyEscalasR36} from '../../scripts/procedencia/flujo-escalas-r36.mjs'
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json'),ts=require('typescript')
+const s='.cache/revision-fronteras-escalas-r42-sol/',p='docs/procedencia/correcciones/fronteras-escalas-r42/'
+const load=f=>JSON.parse(gunzipSync(fs.readFileSync(f)).toString())
+const old=load(p+'fragmento-antes.json.gz'),current=composeEscalasR36(),received=load(p+'fragmento-despues.json.gz')
+assert.equal(createHash('sha256').update(fs.readFileSync(p+'fragmento-despues.json.gz')).digest('hex'),'93fb35fdb3fe3970505018642215f982cd083102cbb3dfb81e11c28de2869326')
+assert.deepEqual(current,received);verifyEscalasR36(current)
+assert.deepEqual(Object.keys(current).filter(k=>JSON.stringify(current[k])!==JSON.stringify(old[k])).sort(),['boundaryContracts','program'])
+const changes=[]
+for(let i=0;i<current.program.length;i++){
+ const a=old.program[i],b=current.program[i]
+ if(JSON.stringify(a)===JSON.stringify(b))continue
+ assert.equal(a.op,'boundary');assert.deepEqual({...a,data:{...a.data,outputs:[]}},{...b,data:{...b.data,outputs:[]}});changes.push({id:a.id,before:a.data.outputs,after:b.data.outputs})
+}
+assert.equal(changes.length,7);assert.equal(current.program.length,20900);assert.equal(current.sources.length,57);assert.equal(current.sites.length,28)
+assert.deepEqual(current.callBindings,old.callBindings)
+for(const b of current.boundaryContracts){
+ const before=old.boundaryContracts.find(a=>a.id===b.id)
+ if(!/validarDerechosMinimos|validarRentasAnualesDerechos/.test(b.id))assert.deepEqual(b.parameters,before.parameters)
+ for(const q of b.parameters){const text=fs.readFileSync(q.source.file,'utf8').slice(q.source.start,q.source.end);assert.equal(text,q.binding+': '+q.type)}
+}
+const producer=fs.readFileSync('scripts/procedencia/flujo-escalas-r36.mjs','utf8')
+const body=producer.slice(producer.indexOf('function boundaryFunction('),producer.indexOf('function children('))
+const extract=vm.runInNewContext(body+';boundaryFunction',{ts})
+const signatureCases=[]
+for(const [code,expected] of [
+ ['const x=(direct:string)=>{const nested=(wrong:number)=>wrong;return direct}', ['direct']],
+ ['const x=Effect.fn("owner")(function*(entrada:DerechosMinimos2025){const nested=(wrong:number)=>wrong})',['entrada']],
+ ['const x=Effect.fn("owner")(function*(caso:DerechosMinimos2025,rentaNoExenta:Decimal){})',['caso','rentaNoExenta']],
+ ['const x=unknownFactory(()=>{})',null],
+ ['const x=Effect.fn("owner")(function*(){},function*(){})',null]
+]){
+ const ast=ts.createSourceFile('sample.ts',code,ts.ScriptTarget.Latest,true),decl=ast.statements[0].declarationList.declarations[0]
+ if(expected===null)assert.throws(()=>extract(decl),/Firma de frontera no soportada/)
+ else assert.deepEqual(Array.from(extract(decl).parameters,p=>p.name.getText()),expected)
+ signatureCases.push({code,expected,status:'pass'})
+}
+const original=fs.readFileSync(p+'revisar-recibido.mjs.txt','utf8'),adapted=fs.readFileSync('docs/procedencia/revisiones/flujo-escalas-r40-sol/revisar.mjs','utf8')
+assert.equal(original.replace('const module={exports:{}}; cache.set(file,module)','const loadedModule={exports:{}}; cache.set(file,loadedModule)').replace('(local,module,module.exports)','(local,loadedModule,loadedModule.exports)').replace('return module.exports','return loadedModule.exports'),adapted)
+for(const file of ['casos.json.gz','celdas-264.json.gz'])assert.deepEqual(load(s+file),load('docs/procedencia/revisiones/flujo-escalas-r40-sol/'+file))
+fs.writeFileSync(s+'contraste.json',JSON.stringify({changes,signatureCases,operations:20900,sources:57,sites:28,callBindingsUnchanged:true,otherSignaturesUnchanged:11,replicaIdentica:true,adaptacionSoloRenombrado:true},null,2)+'\n')
+console.log('Contraste exacto, firmas, adaptación y réplica: correctos')

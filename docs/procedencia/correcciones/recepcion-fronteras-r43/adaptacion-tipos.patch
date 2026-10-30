@@ -1,0 +1,19 @@
+--- recibido/propios.test.ts
++++ integrado/propios.test.ts
+@@ -19,6 +19,7 @@
+   retencionesSoportadasCentimos: 100, pagosACuentaCentimos: 100,
+ }
+ type LineWitness = { origen: { siteId: string; decimal: string } }
++type ParameterWitness = { source: { file: string; start: number; end: number }; binding: string; type: string }
+ function annualValues() {
+   const ss = Object.fromEntries(["cotizacionTrabajador", "cotizacionEmpresarial", "meiEmpresarial", "meiTrabajador", "solidaridadEmpresarial", "solidaridadTrabajador"].map(k => [k, d(2000)]))
+   return new Map<string, object>([
+@@ -49,7 +50,7 @@
+ for (const signature of signatures) {
+   test("firma real de " + signature.id, () => {
+     const parameters = contract(signature.id.split("#")[1]!).parameters
+-    expect(parameters.map(p => ({ file: p.source.file, start: p.source.start, end: p.source.end, text: p.binding + ": " + p.type }))).toEqual(signature.expected)
++    expect(parameters.map((p: ParameterWitness) => ({ file: p.source.file, start: p.source.start, end: p.source.end, text: p.binding + ": " + p.type }))).toEqual(signature.expected)
+   })
+ }
+ 

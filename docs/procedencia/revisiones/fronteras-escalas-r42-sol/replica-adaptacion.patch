@@ -1,0 +1,15 @@
+--- recibido
++++ scratch
+@@ -5,9 +5,9 @@
+ import {createRequire} from 'node:module'
+ import {createHash} from 'node:crypto'
+ import {gunzipSync,gzipSync} from 'node:zlib'
+-import {composeEscalasR36,verifyEscalasR36} from '../../../../scripts/procedencia/flujo-escalas-r36.mjs'
+-import {executeEscalasR36,consumeEscalasR36} from '../../../../scripts/procedencia/flujo-escalas-r36-consumidor.mjs'
+-const out=path.dirname(new URL(import.meta.url).pathname)
++import {composeEscalasR36,verifyEscalasR36} from '/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/scripts/procedencia/flujo-escalas-r36.mjs'
++import {executeEscalasR36,consumeEscalasR36} from '/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/scripts/procedencia/flujo-escalas-r36-consumidor.mjs'
++const out="/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/.cache/revision-fronteras-escalas-r42-sol"
+ const require=createRequire('/home/elies/Repos/IRoboPF/package.json')
+ const ts=require('typescript'), {Decimal}=require('decimal.js'), {Effect}=require('effect')
+ const d=x=>new Decimal(x), cache=new Map(), cases=[]

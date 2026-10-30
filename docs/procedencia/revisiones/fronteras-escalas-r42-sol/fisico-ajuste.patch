@@ -1,0 +1,11 @@
+--- 
++++ 
+@@ -20,7 +20,7 @@
+  if Path(root)==r:dirs[:]=[x for x in dirs if x not in ['.git','.jj']]
+  for name in files+[x for x in dirs if (Path(root)/x).is_symlink()]:
+   p=Path(root)/name;rel=str(p.relative_to(r))
+-  if rel in known:continue
++  if rel in known or rel in ['.git','.jj']:continue
+   assert rel.startswith(('docs/procedencia/revisiones/fronteras-escalas-r42-sol/','.cache/revision-fronteras-escalas-r42-sol/')),rel
+   st=p.lstat();extra.append(dict(path=rel,size=st.st_size,symlink=stat.S_ISLNK(st.st_mode),mode=oct(stat.S_IMODE(st.st_mode))))
+ status=subprocess.check_output(['git','status','--porcelain'],text=True);diff=subprocess.check_output(['git','diff','HEAD','--'],text=True);assert not diff

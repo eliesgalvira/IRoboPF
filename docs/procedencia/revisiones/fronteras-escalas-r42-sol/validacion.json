@@ -1,0 +1,95 @@
+[
+  {
+    "name": "types-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/.cache/revision-fronteras-escalas-r42-sol/tsconfig.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint",
+      "--disable-nested-config",
+      "--threads=1",
+      "--config",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/.cache/revision-fronteras-escalas-r42-sol/oxlint.json",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/contraste.mjs",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/replica.mjs",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/propios.test.ts"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "lint-files",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint",
+      "--disable-nested-config",
+      "--threads=1",
+      "--config",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/.cache/revision-fronteras-escalas-r42-sol/oxlint.json",
+      "--debug",
+      "files",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/contraste.mjs",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/replica.mjs",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/propios.test.ts"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js",
+      "--config",
+      "/home/elies/Repos/IRoboPF/eslint.config.mjs",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/contraste.mjs",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/replica.mjs",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/propios.test.ts"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "contraste-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-a8a12c75/docs/procedencia/revisiones/fronteras-escalas-r42-sol/contraste.mjs"
+    ],
+    "exitCode": 0
+  }
+]

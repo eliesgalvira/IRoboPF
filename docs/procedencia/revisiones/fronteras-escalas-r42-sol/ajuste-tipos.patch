@@ -1,0 +1,14 @@
+--- 
++++ 
+@@ -36,7 +36,10 @@
+  ['const x=unknownFactory(()=>{})',null],
+  ['const x=Effect.fn("owner")(function*(){},function*(){})',null]
+ ]){
+- const ast=ts.createSourceFile('sample.ts',code,ts.ScriptTarget.Latest,true),decl=ast.statements[0].declarationList.declarations[0]
++ assert.equal(Array.isArray(code),false)
++ const ast=ts.createSourceFile('sample.ts',String(code),ts.ScriptTarget.Latest,true),st=ast.statements[0]
++ if(!ts.isVariableStatement(st))throw Error('Variable esperada')
++ const decl=st.declarationList.declarations[0]
+  if(expected===null)assert.throws(()=>extract(decl),/Firma de frontera no soportada/)
+  else assert.deepEqual(Array.from(extract(decl).parameters,p=>p.name.getText()),expected)
+  signatureCases.push({code,expected,status:'pass'})

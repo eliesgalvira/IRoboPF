@@ -1,0 +1,63 @@
+{
+  "reviewedBase": "4bc6fe74d9c3b3df0584457767227a64bb5294b9",
+  "decisions": [
+    {
+      "id": "R40-01",
+      "decision": "corroborado-condicionado",
+      "scope": "Siete contratos de propiedades consumidas en cortes anual/explicito",
+      "condition": "No equivalencia completa API ni admisión",
+      "parentContrast": "corroborado-en-alcance-declarado",
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R40-02",
+      "decision": "corroborado",
+      "scope": "Dos firmas Effect.fn y once directas, callBindings intactos",
+      "condition": "Composición de admisión pendiente",
+      "parentContrast": "corroborado-en-alcance-declarado",
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "R40-03",
+      "decision": "condicion-abierta",
+      "scope": "Errores normalizados y primitivas del consumidor",
+      "condition": "Limitación de equivalencia Effect y exclusiones presentación",
+      "parentContrast": "corroborado-en-alcance-declarado",
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "VARIANTES",
+      "decision": "corroborado-condicionado",
+      "scope": "Unión outputs por tres estados reales",
+      "condition": "Variantes descriptivas, sin admisión nueva",
+      "parentContrast": "corroborado-en-alcance-declarado",
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "ADAPTACION",
+      "decision": "corroborado",
+      "scope": "module a loadedModule y tipos tests",
+      "condition": "Doble identidad preservada; aviso ESLint recibido",
+      "parentContrast": "corroborado-en-alcance-declarado",
+      "fiscalAcceptance": false
+    },
+    {
+      "id": "INTEGRIDAD",
+      "decision": "corroborado-tecnico",
+      "scope": "Receta y entradas físicas de base",
+      "condition": "Ninguna aceptación fiscal",
+      "parentContrast": "corroborado-en-alcance-declarado",
+      "fiscalAcceptance": false
+    }
+  ],
+  "independentReviewRepeated": false,
+  "integrationHarnessAdaptation": "adaptacion-tipos.json",
+  "testsRepeated": 41,
+  "preservesOpen": [
+    "R40-03",
+    "admision",
+    "composicion-publica",
+    "wiring",
+    "aceptacion-fiscal"
+  ]
+}
