@@ -29,3 +29,7 @@ Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza. V5 conserva cor
 La primera selección precommit detectó los testigos regenerados por las pruebas en `.cache/causal-rentas-r59-sol/` como nuevas entradas del working copy JJ. Se detuvo antes de commit. Se censan con hashes y excluyen de la selección; no existían en la base y permanecen conservados. No se borran ni confunden con la entrega original reconstruida.
 
 Lint global: anti-slop correcto; ESLint cero errores y doce avisos históricos conservados.
+
+## Respaldo y delegación
+
+Commit `59bb5565456caa5a44078f3b9a5ac4301934fb86`, respaldado en origin/procedencia-documental: 380 archivos, 53.987.521 bytes, hashes de cada blob y conjunto de rutas verificados; cero borrados. Base resultante: 22.900 entradas. Lanzadas la única revisión de rentas y la implementación de 28 sitios de escalas, ambas gpt-6.1-sol high priority confirmados por T3. Encargos y respuestas completos en delegaciones-ronda60.json. Sus entregas reactivarán el hilo sin sondeos. Los diez sitios explícitos se tratarán después; no se amplía el alcance excluido.
