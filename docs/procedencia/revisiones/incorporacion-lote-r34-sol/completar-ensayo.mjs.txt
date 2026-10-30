@@ -1,0 +1,10 @@
+import fs from 'node:fs';import {resolve,dirname} from 'node:path';import assert from 'node:assert/strict';import {sha} from '../../scripts/procedencia/incorporacion-lote-r32.mjs';
+const root=process.cwd(),tree=resolve('.cache/incorporacion-lote-r32/revision-r34/ensayo'),out=resolve('.cache/revision-incorporacion-r34');const copied=[];const seen=new Set();
+function close(v){if(Array.isArray(v)){for(const x of v)close(x);return}if(!v||typeof v!=='object')return;if(v.path&&v.sha256&&!v.path.startsWith('/')){if(seen.has(v.path))return;seen.add(v.path);const b=fs.readFileSync(resolve(root,v.path));assert.equal(sha(b),v.sha256);const target=resolve(tree,v.path);fs.mkdirSync(dirname(target),{recursive:true});fs.writeFileSync(target,b);copied.push({path:v.path,sha256:v.sha256});if(v.path.endsWith('.json'))close(JSON.parse(b));return}for(const x of Object.values(v))close(x)}
+close(JSON.parse(fs.readFileSync('docs/procedencia/enlaces/registro.json')));
+const v5='/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/paquete/sha256/';
+const doc=JSON.parse(fs.readFileSync('docs/procedencia/corpus/madrid-2018-norma.manifest.json'));const cite=JSON.parse(fs.readFileSync('docs/procedencia/corpus/madrid-2020-limite.citation.json'));const objects=[];
+for(const h of [doc.sha256,cite.facsimile.sha256]){const b=fs.readFileSync(v5+h);assert.equal(sha(b),h);fs.writeFileSync(tree+'/docs/procedencia/corpus/fixtures/sha256/'+h,b);objects.push({source:v5+h,sha256:h,sha512:new Bun.CryptoHasher('sha512').update(b).digest('hex'),size:b.length})}
+// Todas las fuentes actuales de explicación, incluidas las nominales nuevas, desde base entregada.
+const {FUENTES_EXPLICACION}=await import(tree+'/scripts/procedencia/explicacion-version.mjs');for(const p of FUENTES_EXPLICACION){const b=fs.readFileSync(resolve(root,p));fs.writeFileSync(resolve(tree,p),b)}
+fs.writeFileSync(out+'/madrid-preservado.json',JSON.stringify({copied,objects,acceptance:'pending',completeRuleAcceptance:false},null,2)+'\n');console.log('Madrid previo conservado')

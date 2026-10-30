@@ -1,0 +1,16 @@
+import {Effect} from 'effect'
+import type * as Original from './retencion'
+import {composeRetencionesR34} from '../../scripts/procedencia/flujo-retenciones-r34.mjs'
+import {executeFinite} from '../../scripts/procedencia/flujo-retenciones-r34-consumidor.mjs'
+export type {CasoRetencionTrabajo} from './retencion'
+const g=composeRetencionesR34()
+export const calcularCuotaEscala=(...xs:Parameters<typeof Original.calcularCuotaEscala>)=>executeFinite(g,'calcularCuotaEscala',xs,false).result
+export const calcularCuotaRetencion=(...xs:Parameters<typeof Original.calcularCuotaRetencion>)=>executeFinite(g,'calcularCuotaRetencion',xs,false).result
+export const calcularMinimoDescendientes=(...xs:Parameters<typeof Original.calcularMinimoDescendientes>)=>executeFinite(g,'calcularMinimoDescendientes',xs,false).result
+export const calcularMinimoAscendientes=(...xs:Parameters<typeof Original.calcularMinimoAscendientes>)=>executeFinite(g,'calcularMinimoAscendientes',xs,false).result
+export const calcularMinimoPersonalFamiliar=(...xs:Parameters<typeof Original.calcularMinimoPersonalFamiliar>)=>executeFinite(g,'calcularMinimoPersonalFamiliar',xs,false).result
+export const calcularLimite43=(...xs:Parameters<typeof Original.calcularLimite43>)=>executeFinite(g,'calcularLimite43',xs,false).result
+export const calcularReduccionActual=(...xs:Parameters<typeof Original.calcularReduccionActual>)=>executeFinite(g,'calcularReduccionActual',xs,false).result
+export const calcularMinoracionVivienda=(...xs:Parameters<typeof Original.calcularMinoracionVivienda>)=>executeFinite(g,'calcularMinoracionVivienda',xs,false).result
+export const calcularTipoInicial=(...xs:Parameters<typeof Original.calcularTipoInicial>)=>executeFinite(g,'calcularTipoInicial',xs,false).result
+export const calcularRetencionTrabajoAeat=(...xs:Parameters<typeof Original.calcularRetencionTrabajoAeat>)=>Effect.try({try:()=>executeFinite(g,'calcularRetencionTrabajoAeatImpl',xs,false).result,catch:cause=>new Error(String(cause))})

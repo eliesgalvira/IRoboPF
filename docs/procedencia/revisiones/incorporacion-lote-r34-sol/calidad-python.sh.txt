@@ -1,0 +1,7 @@
+set -uo pipefail
+ruff check --cache-dir "$PWD/.cache/revision-incorporacion-r34/ruff-cache" .cache/revision-incorporacion-r34/consumidores.py
+r=$?
+MYPYPATH="$PWD/tools/procedencia" uv run --project tools/procedencia --frozen --python "$(command -v python3)" --with mypy mypy --follow-imports=silent --check-untyped-defs --cache-dir "$PWD/.cache/revision-incorporacion-r34/mypy" .cache/revision-incorporacion-r34/consumidores.py
+m=$?
+printf 'ruff=%s mypy=%s\n' "$r" "$m"
+exit $((r+m))

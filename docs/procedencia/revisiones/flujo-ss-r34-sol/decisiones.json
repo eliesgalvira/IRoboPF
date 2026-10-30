@@ -1,0 +1,30 @@
+[
+  {
+    "id": "SS34-D01",
+    "decision": "Corroborar aritmética por sitio sin aceptar cierre causal",
+    "objecion": "Un DAG explícito y un pin pueden repetir omisiones",
+    "respuesta": "Casos propios, fuentes reales y reservas SS34-01/02 separadas",
+    "coste": "Continuación y contraste del padre"
+  },
+  {
+    "id": "SS34-D02",
+    "decision": "Conservar rojos semánticos sin fix de producto",
+    "objecion": "Convertirlos en expected-fails ocultaría la obligación incumplida",
+    "respuesta": "Registrar expectativa 0 cierres y resultado real, además del rechazo por pin",
+    "coste": "La batería semántica termina en 1"
+  },
+  {
+    "id": "SS34-D03",
+    "decision": "Mantener admisión común fuera del dictamen",
+    "objecion": "Las funciones JS reciben entradas fuera de dominio",
+    "respuesta": "Ensayo fuera de dominio solo delimita intérprete; se exige composición anual aparte",
+    "coste": "Sin aceptación de siteClosed ni wiring"
+  },
+  {
+    "id": "SS34-D04",
+    "decision": "Usar paquetes del padre en solo lectura",
+    "objecion": "createRequire absoluto impide autonomía del transporte",
+    "respuesta": "Declarar prerrequisito local y cotejar bytes de fuentes propias",
+    "coste": "Portabilidad pendiente; sin instalación ni cambio de producto"
+  }
+]

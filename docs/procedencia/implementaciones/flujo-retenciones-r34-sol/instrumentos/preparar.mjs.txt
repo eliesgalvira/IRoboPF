@@ -1,0 +1,12 @@
+import fs from 'node:fs';import path from 'node:path';import{spawnSync}from'node:child_process';
+const root=process.cwd(),out=root+'/.cache/flujo-retenciones-r34';
+if(!fs.existsSync(out+'/node_modules'))fs.symlinkSync('/home/elies/Repos/IRoboPF/node_modules',out+'/node_modules');
+const original='lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts';
+const before=fs.readFileSync(original,'utf8');
+const after=before.replace(/from "(\.[^"]+)"/g,(_,p)=>'from '+JSON.stringify(path.resolve(path.dirname(original),p)))+'\nexport { calcularCuotaEscala, calcularCuotaRetencion, calcularMinimoDescendientes, calcularMinimoAscendientes, calcularMinimoPersonalFamiliar, calcularLimite43, calcularReduccionActual, calcularMinoracionVivienda, calcularTipoInicial };\n';
+fs.writeFileSync(out+'/retencion.ts',after);
+fs.writeFileSync(out+'/adaptacion.diff',spawnSync('diff',['-u',original,out+'/retencion.ts']).stdout);
+const test=fs.readFileSync('tests/flujo-retenciones-r32.test.ts','utf8').replaceAll('"../scripts/','"'+root+'/scripts/').replaceAll('"../lib/','"'+root+'/lib/');fs.writeFileSync(out+'/autor.test.ts',test);
+fs.writeFileSync(out+'/vitest.config.mjs',`import {defineConfig} from 'vitest/config';export default defineConfig({cacheDir:${JSON.stringify(out+'/.vite')},resolve:{alias:[{find:/^effect(\\/.*)?$/,replacement:'/home/elies/Repos/IRoboPF/node_modules/effect$1'},{find:'decimal.js',replacement:'/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs'}]},test:{include:['*.test.ts'],maxWorkers:1}});`);
+const ts=JSON.parse(fs.readFileSync('docs/procedencia/implementaciones/flujo-retenciones-r32-sol/tsconfig-calidad.json'));ts.compilerOptions.baseUrl=root;ts.include=['*.ts'];fs.writeFileSync(out+'/tsconfig.json',JSON.stringify(ts,null,2));
+const ox=JSON.parse(fs.readFileSync('.oxlintrc.json'));ox.jsPlugins=ox.jsPlugins.map(p=>path.resolve('/home/elies/Repos/IRoboPF',p));ox.ignorePatterns=[];if(Object.values(ox.rules).filter(x=>x==='error').length!==16)throw Error('16');fs.writeFileSync(out+'/oxlint.json',JSON.stringify(ox,null,2));

@@ -1,0 +1,5 @@
+set -eu
+cd /home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b
+node .cache/flujo-retenciones-r34/ensayar.mjs
+node .cache/flujo-retenciones-r34/schema.mjs
+/home/elies/Repos/IRoboPF/node_modules/.bin/vitest run --root "$PWD/.cache/flujo-retenciones-r34" --config "$PWD/.cache/flujo-retenciones-r34/vitest.config.mjs" --reporter=json --outputFile="$PWD/.cache/flujo-retenciones-r34/casos-intento1.json"

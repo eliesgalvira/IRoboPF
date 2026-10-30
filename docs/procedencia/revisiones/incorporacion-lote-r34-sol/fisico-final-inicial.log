@@ -1,0 +1,23 @@
+{"entries":17248,"differences":0,"outside":[".ruff_cache/.gitignore",".ruff_cache/0.15.14/10594758891241091830",".ruff_cache/CACHEDIR.TAG"],"diff":"","deletions":[]}
+1 | import fs from 'node:fs';import cp from 'node:child_process';import {createHash} from 'node:crypto';import {gzipSync} from 'node:zlib';import assert from 'node:assert/strict';const base='d70af62d19291c83d0deb281c09df106ee4a3575',out='.cache/revision-incorporacion-r34',sha=b=>createHash('sha256').update(b).digest('hex'),rows=[],bad=[];assert.equal(cp.execFileSync('git',['rev-parse','HEAD']).toString().trim(),base);for(const entry of cp.execFileSync('git',['ls-tree','-rz',base],{maxBuffer:20000000}).toString().split('\0').filter(Boolean)){const [meta,path]=entry.split('\t'),[mode,,oid]=meta.split(' ');try{const s=fs.lstatSync(path),expected=cp.execFileSync('git',['cat-file','blob',oid],{maxBuffer:150000000}),actual=s.isSymbolicLink()?Buffer.from(fs.readlinkSync(path)):fs.readFileSync(path),good=actual.equals(expected)&&(mode==='120000'?s.isSymbolicLink():s.isFile()&&!!(s.mode&0o111)===(mode==='100755'));const row={path,mode,size:actual.length,sha256:sha(actual),baseSha256:sha(expected),match:good};rows.push(row
+2 | const tracked=new Set(rows.map(r=>r.path)),extras=[];function walk(p=''){for(const e of fs.readdirSync(p||'.',{withFileTypes:true})){const q=p?p+'/'+e.name:e.name;if(q==='.git')continue;if(e.isDirectory())walk(q);else if(!tracked.has(q))extras.push(q)}}walk();const allowed=p=>p.startsWith('docs/procedencia/revisiones/incorporacion-lote-r34-sol/')||p.startsWith('.cache/revision-incorporacion-r34/')||p.startsWith('.cache/incorporacion-lote-r32/');const diff=cp.execFileSync('git',['diff',base,'--']).toString();const result={base,head:base,entries:rows.length,rows,differences:bad,extras,outside:extras.filter(p=>!allowed(p)),diff,deletions:bad.filter(r=>r.error)};fs.writeFileSync(out+'/fisico-final.json.gz',gzipSync(Buffer.from(JSON.stringify(result)),{level:9}));console.log(JSON.stringify({entries:rows.length,differences:bad.length,outside:result.outside,diff,deletions:result.deletions}));assert.equal(rows.length,17248);assert.deepEqual(bad,[]);assert.deepEqual(result.outside,[]);assert.equal(diff,'');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^
+AssertionError: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   '.ruff_cache/.gitignore',
++   '.ruff_cache/0.15.14/10594758891241091830',
++   '.ruff_cache/CACHEDIR.TAG'
++ ]
+- []
+
+ generatedMessage: true,
+     actual: [ ".ruff_cache/.gitignore", ".ruff_cache/0.15.14/10594758891241091830", ".ruff_cache/CACHEDIR.TAG" ],
+   expected: [],
+   operator: "deepStrictEqual",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/.t3/worktrees/IRoboPF/t3-8fd5f236/.cache/revision-incorporacion-r34/fisico.mjs:2:963
+
+Bun v1.3.13 (Linux x64)

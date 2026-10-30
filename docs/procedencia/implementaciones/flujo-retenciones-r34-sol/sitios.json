@@ -1,0 +1,178 @@
+{
+  "sites": [
+    {
+      "siteId": "anual.retencion.base",
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.retencion.cuota",
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.retencion.tipo",
+      "unit": "percent",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.retencion.anual",
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.pagos.retenciones",
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.pagos.cuenta",
+      "unit": "EUR",
+      "valueClosed": true,
+      "selectionClosed": true,
+      "siteClosed": false
+    }
+  ],
+  "mapping": [
+    {
+      "siteId": "anual.retencion.base",
+      "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:64375:64422:call",
+      "previousPort": "A.base",
+      "unit": "EUR",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64282,
+        "end": 64562,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "producer": "baseRetencionCentimos",
+      "conversion": "centimosAEuros",
+      "finalFunction": "crearLineaCalculo",
+      "finalProperty": "origen.decimal",
+      "finalOperation": "importe.toFixed()"
+    },
+    {
+      "siteId": "anual.retencion.cuota",
+      "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:64662:64710:call",
+      "previousPort": "A.cuota",
+      "unit": "EUR",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64568,
+        "end": 64852,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "producer": "cuotaRetencionCentimos",
+      "conversion": "centimosAEuros",
+      "finalFunction": "crearLineaCalculo",
+      "finalProperty": "origen.decimal",
+      "finalOperation": "importe.toFixed()"
+    },
+    {
+      "siteId": "anual.retencion.tipo",
+      "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:64951:64997:new",
+      "previousPort": "A.tipo",
+      "unit": "percent",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 64858,
+        "end": 65115,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "producer": "tipoRetencionPorcentaje",
+      "conversion": "Decimal-string-without-factor100",
+      "finalFunction": "crearLineaCalculo",
+      "finalProperty": "origen.decimal",
+      "finalOperation": "importe.toFixed()"
+    },
+    {
+      "siteId": "anual.retencion.anual",
+      "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:65215:65270:call",
+      "previousPort": "A.anual",
+      "unit": "EUR",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 65121,
+        "end": 65386,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "producer": "importeRetencionAnualCentimos",
+      "conversion": "centimosAEuros",
+      "finalFunction": "crearLineaCalculo",
+      "finalProperty": "origen.decimal",
+      "finalOperation": "importe.toFixed()"
+    },
+    {
+      "siteId": "anual.pagos.retenciones",
+      "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:58737:58787:call",
+      "previousPort": "A.soportadas",
+      "unit": "EUR",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 58617,
+        "end": 58944,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "producer": "caso.retencionesSoportadasCentimos",
+      "conversion": "centimosAEuros",
+      "finalFunction": "crearLineaCalculo",
+      "finalProperty": "origen.decimal",
+      "finalOperation": "importe.toFixed()"
+    },
+    {
+      "siteId": "anual.pagos.cuenta",
+      "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:59073:59118:call",
+      "previousPort": "A.cuenta",
+      "unit": "EUR",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 58958,
+        "end": 59412,
+        "syntax": "CallExpression",
+        "offsetEncoding": "utf16"
+      },
+      "producer": "caso.pagosACuentaCentimos+estimate.importeRetencionAnualCentimos??0",
+      "conversion": "centimosAEuros",
+      "finalFunction": "crearLineaCalculo",
+      "finalProperty": "origen.decimal",
+      "finalOperation": "importe.toFixed()"
+    }
+  ],
+  "previousArtifact": {
+    "path": "docs/procedencia/implementaciones/flujo-retenciones-r32-sol/fragmento.json.gz",
+    "sha256": "3195a3ccc73a7c2a1753159bc93b6015fec50bf71072485ed1ab5dca32ce990d"
+  },
+  "admission": {
+    "contractId": "anual-publico-r32",
+    "status": "pending-review",
+    "injectedService": "open",
+    "annualObligations": [
+      "Coherencia de ejercicio anual/subcaso antes de invocar",
+      "Validaciones anuales y derechos previos ajenos al cálculo local",
+      "Ausencia: no emitir cuatro sitios de retención y sumar cero estimado; error: no salida anual",
+      "Inyección abierta requiere implementación y guardas propias; no inferir capa por interfaz"
+    ]
+  },
+  "parentContrastRequired": true
+}

@@ -1,0 +1,100 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-ceeee716
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs (23 tests | 3 failed) 341ms
+   × RA34-01 contrato ofrece programa anual evaluable por propiedad 28ms
+   × RA34-02 selector territorial ofrece condiciones finitas resueltas 33ms
+   × RA34-03 schema y callbacks familiares enlazados con operandos de instancia 32ms
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs (4 tests | 2 failed) 97ms
+   × RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato especifico 6ms
+   × RA34-S02 agregado manual tiene puerto o binding por propiedad 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs > RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato especifico
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs:8:101
+      6| it('RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato e…
+      7|  const callee='resolverParametrosComunidadAutonoma2014'
+      8|  expect(f.bodies.some(b=>b.id.endsWith('#'+callee))||f.admissionProgra…
+       |                                                                                                     ^
+      9| })
+     10| it('RA34-S02 agregado manual tiene puerto o binding por propiedad',()=…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs > RA34-S02 agregado manual tiene puerto o binding por propiedad
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs:12:121
+     10| it('RA34-S02 agregado manual tiene puerto o binding por propiedad',()=…
+     11|  const property='deduccionAutonomicaAgregadaCentimos'
+     12|  expect(f.ports.some(p=>p.property.includes(property))||f.parameterBin…
+       |                                                                                                                         ^
+     13| })
+     14| it('RA34-S03 cuerpos reales y retencion ejecutable no son inventados',…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-01 contrato ofrece programa anual evaluable por propiedad
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:73:138
+     71| // Obligaciones de representación: rojos deliberados, sin cambiar el c…
+     72| it('RA34-01 contrato ofrece programa anual evaluable por propiedad',()…
+     73|  const f=buildAdmissionFragment();expect(f.admissionProgram.every(s=>s…
+       |                                                                                                                                          ^
+     74| })
+     75| it('RA34-02 selector territorial ofrece condiciones finitas resueltas'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-02 selector territorial ofrece condiciones finitas resueltas
+AssertionError: expected { Object (id, when, ...) } to have property "branches"
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:76:91
+     74| })
+     75| it('RA34-02 selector territorial ofrece condiciones finitas resueltas'…
+     76|  const f=buildAdmissionFragment();expect(f.admissionProgram.find(s=>s.…
+       |                                                                                           ^
+     77| })
+     78| it('RA34-03 schema y callbacks familiares enlazados con operandos de i…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-03 schema y callbacks familiares enlazados con operandos de instancia
+AssertionError: expected { id: 'derechos', …(8) } to have property "propertyContracts"
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:79:89
+     77| })
+     78| it('RA34-03 schema y callbacks familiares enlazados con operandos de i…
+     79|  const f=buildAdmissionFragment();expect(f.admissionProgram.find(s=>s.…
+       |                                                                                         ^
+     80| })
+     81|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  2 failed | 2 passed (4)
+      Tests  5 failed | 226 passed (231)
+   Start at  01:16:09
+   Duration  3.20s (transform 492ms, setup 0ms, import 1.98s, tests 771ms, environment 0ms)
+

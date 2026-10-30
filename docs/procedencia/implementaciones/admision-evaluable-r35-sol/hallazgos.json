@@ -1,0 +1,92 @@
+{
+  "status": "partial-implementation-not-accepted",
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false,
+  "resolvedCandidate": [
+    {
+      "id": "fechaValida",
+      "status": "resolved",
+      "program": "fechaValida"
+    },
+    {
+      "id": "cumpleRentas",
+      "status": "resolved",
+      "program": "cumpleRentas"
+    },
+    {
+      "id": "tieneRelacion",
+      "status": "resolved",
+      "program": "tieneRelacion"
+    },
+    {
+      "id": "titularesConDerecho",
+      "status": "resolved",
+      "program": "titularesConDerecho"
+    },
+    {
+      "id": "hayAlimentosPropiosSinMinimo",
+      "status": "resolved",
+      "program": "hayAlimentosPropiosSinMinimo"
+    },
+    {
+      "id": "validarDerechosMinimos",
+      "status": "resolved",
+      "program": "validarDerechosMinimos"
+    },
+    {
+      "id": "validarRentasAnualesDerechos",
+      "status": "resolved",
+      "program": "validarRentasAnualesDerechos"
+    },
+    {
+      "id": "calcularDerechosMinimos",
+      "status": "resolved",
+      "program": "calcularDerechosMinimos"
+    },
+    {
+      "id": "schema-familiar",
+      "status": "resolved",
+      "program": "DerechosMinimos2025"
+    }
+  ],
+  "pending": [
+    {
+      "id": "deducciones",
+      "status": "pending",
+      "program": null
+    },
+    {
+      "id": "wrapper-adaptador",
+      "status": "pending",
+      "program": null
+    },
+    {
+      "id": "puertos-renta",
+      "status": "pending",
+      "program": null
+    },
+    {
+      "id": "selector-territorial",
+      "status": "pending",
+      "program": null
+    },
+    {
+      "id": "subservicio-final",
+      "status": "pending",
+      "program": null
+    }
+  ],
+  "limits": [
+    "No programa anual completo ni creación final de 13/17 sitios",
+    "Selectores territoriales por año conservan puertos fallibles aún sin expansión de callbacks/imports/condiciones internas",
+    "Adaptador solo defaults/presencia: falta spread/proyecciones familiares/SS",
+    "Faltan propagación anual completa, revalidación monetaria y retención/contexto por identidad",
+    "Puertos financieros describen propiedades/unidades pero sus dominios de entrada/salida/error aún no están tipados ejecutablemente",
+    "Option deducciones evalúa ramas, motivos abreviados: falta paridad exacta de mensajes/catálogo real",
+    "Dominio plain data declarado pero aún no comprobado ejecutablemente contra getters/proxies; no extrapolar JS",
+    "Anclas manuales usan rango de archivo completo, no rango mínimo de cada lectura",
+    "Verificador de IR requiere endurecer IDs de sentencias, instancias/cobertura y tipos de operandos antes de cierre"
+  ],
+  "fiscalDefect": false,
+  "review": "pending-parent-and-new-independent-review"
+}

@@ -1,0 +1,12 @@
+import json,os,subprocess,time
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');O=R/'docs/procedencia/correcciones/recepcion-r36';S=R/'.cache/orquestador-recepcion/r36'
+commands=[('tests-final',['bun','x','vitest','run','--config',str(S/'vitest.mjs')]),('typecheck-final',['bun','run','typecheck']),('lint-final',['bun','run','lint'])]
+rows=[]
+for name,cmd in commands:
+ start=time.monotonic()
+ with (O/(name+'.log')).open('w') as log:r=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=R,stdout=log,stderr=subprocess.STDOUT,env=dict(os.environ,OXLINT_THREADS='1'),timeout=1200)
+ rows.append({'name':name,'command':cmd,'exitCode':r.returncode,'elapsedIncludingLockSeconds':round(time.monotonic()-start,3)})
+ (O/'calidad-final.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows[-1]),flush=True)
+ if r.returncode:break
+assert len(rows)==len(commands) and all(row['exitCode']==0 for row in rows)

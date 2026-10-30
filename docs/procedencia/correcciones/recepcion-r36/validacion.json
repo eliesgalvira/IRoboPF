@@ -1,0 +1,48 @@
+[
+  {
+    "name": "ss-semantica",
+    "command": [
+      "bun",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r36/casos-ss.mjs"
+    ],
+    "exitCode": 1,
+    "expectedExitCode": 1,
+    "elapsedIncludingLockSeconds": 1.567
+  },
+  {
+    "name": "autoridad",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r36/autoridad.mjs"
+    ],
+    "exitCode": 0,
+    "expectedExitCode": 0,
+    "elapsedIncludingLockSeconds": 0.215
+  },
+  {
+    "name": "tests",
+    "command": [
+      "bun",
+      "x",
+      "vitest",
+      "run",
+      "tests/flujo-ss-r32.test.ts",
+      "tests/flujo-retenciones-r34.test.ts",
+      "--maxWorkers=1"
+    ],
+    "exitCode": 0,
+    "expectedExitCode": 0,
+    "elapsedIncludingLockSeconds": 9.437
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 2,
+    "expectedExitCode": 0,
+    "elapsedIncludingLockSeconds": 4.375
+  }
+]

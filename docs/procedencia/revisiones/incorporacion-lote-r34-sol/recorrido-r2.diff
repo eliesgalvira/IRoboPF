@@ -1,0 +1,11 @@
+--- docs/procedencia/implementaciones/incorporacion-lote-r32-sol/recorrido-r2.mjs.txt	2026-10-30 00:56:49.664622193 +0100
++++ .cache/revision-incorporacion-r34/recorrido-r2.mjs	2026-10-30 00:57:45.460866658 +0100
+@@ -2,7 +2,7 @@
+ import { readFileSync, writeFileSync } from "node:fs"
+ import { resolve } from "node:path"
+ import { createHash } from "node:crypto"
+-const out = resolve(".cache/incorporacion-lote-r32")
++const out = resolve(".cache/incorporacion-lote-r32/revision-r34")
+ const root = resolve(out, "ensayo")
+ process.env.IROBOPF_CAS_LOCAL = resolve(out, "externo")
+ process.chdir(root)

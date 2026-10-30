@@ -1,0 +1,78 @@
+[
+  {
+    "port": "p7",
+    "source": {
+      "id": "s14",
+      "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+      "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+      "start": 1361,
+      "end": 1362,
+      "text": "0",
+      "offsetEncoding": "utf16",
+      "syntax": "FirstLiteralToken"
+    },
+    "owner": "sumarRendimientosTrabajo",
+    "literal": "0",
+    "ancestors": [
+      "calcularRendimientoNetoTrabajo"
+    ],
+    "passed": false
+  },
+  {
+    "port": "p153",
+    "source": {
+      "id": "s68",
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 940,
+      "end": 945,
+      "text": "\"0.1\"",
+      "offsetEncoding": "utf16",
+      "syntax": "StringLiteral"
+    },
+    "owner": "calcularTotalSolidaridad",
+    "literal": "\"0.10\"",
+    "ancestors": [
+      "primerExceso",
+      "cuotaSolidaridad"
+    ],
+    "passed": false
+  },
+  {
+    "port": "p155",
+    "source": {
+      "id": "s69",
+      "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+      "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+      "start": 1140,
+      "end": 1145,
+      "text": "\"0.5\"",
+      "offsetEncoding": "utf16",
+      "syntax": "StringLiteral"
+    },
+    "owner": "calcularTotalSolidaridad",
+    "literal": "\"0.50\"",
+    "ancestors": [
+      "excesoRestante",
+      "cuotaSolidaridad"
+    ],
+    "passed": false
+  }
+]
+16 | for (const value of ['0.1','0.5']) {
+17 |   const port = g.ports.find(p => p.op === 'literal' && p.detail.value === value)
+18 |   check(port, 'calcularTotalSolidaridad', JSON.stringify(value + '0'))
+19 | }
+20 | console.log(JSON.stringify(rows, null, 2))
+21 | assert.ok(rows.every(r => r.passed), 'Origen concreto de semilla y bandas legacy')
+            ^
+AssertionError: Origen concreto de semilla y bandas legacy
+ generatedMessage: false,
+     actual: false,
+   expected: true,
+   operator: "==",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-r36/origen-ss.mjs:21:8
+
+Bun v1.3.13 (Linux x64)

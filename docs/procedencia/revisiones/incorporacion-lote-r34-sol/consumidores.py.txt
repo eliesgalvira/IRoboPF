@@ -1,0 +1,80 @@
+"""Contrapruebas del auxiliar real con overlays explícitos de ensayo, sin registros activos."""
+import hashlib
+import json
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path.cwd() / 'tools/procedencia'))
+from enlaces import DocumentaryReadSet, verify_attestation
+
+ROOT = Path.cwd() / '.cache/incorporacion-lote-r32/revision-r34/ensayo'
+OUT = Path.cwd() / '.cache/revision-incorporacion-r34'
+REG = 'docs/procedencia/enlaces/revisores.json'
+entries = json.loads((ROOT / 'docs/procedencia/enlaces/registro.json').read_bytes())['entries']
+reviewers = json.loads((ROOT / REG).read_bytes())
+
+def encode(value):
+    return json.dumps(value, ensure_ascii=False).encode()
+
+class Overlay(DocumentaryReadSet):
+    def __init__(self, overrides):
+        super().__init__(ROOT)
+        self.overrides = overrides
+
+    def read_bytes(self, relative):
+        if relative in self.overrides:
+            return self.overrides[relative]
+        return super().read_bytes(relative)
+
+rows = []
+for entry in entries:
+    reader = DocumentaryReadSet(ROOT)
+    payload = reader.read_ref(entry['payload'])
+    state = verify_attestation(reader, entry['attestation'], payload, entry['payload']['sha256'])
+    assert state == ('pending' if entry['attestation'] is None else 'accepted-limited')
+    reader.finish()
+    rows.append({'payload': entry['payload']['sha256'], 'itemId': payload['itemId'], 'scope': payload['scope'], 'state': state})
+
+first = entries[1]
+payload = json.loads((ROOT / first['payload']['path']).read_bytes())
+att = json.loads((ROOT / first['attestation']['path']).read_bytes())
+controls = []
+for kind in ['identity', 'alias', 'self-review', 'payload', 'item', 'year', 'inventory', 'attestation', 'union']:
+    p = json.loads(json.dumps(payload))
+    a = json.loads(json.dumps(att))
+    r = json.loads(json.dumps(reviewers))
+    ph = first['payload']['sha256']
+    if kind == 'identity':
+        a['reviewTaskId'] = r['reviewers'][1]['taskId']
+    if kind == 'alias':
+        a['reviewTaskId'] += '-alias'
+    if kind == 'self-review':
+        p['authorTaskId'] = a['reviewTaskId']
+    if kind == 'payload':
+        a['payloadSha256'] = entries[2]['payload']['sha256']
+    if kind == 'item':
+        p['itemId'] += '-otro'
+    if kind == 'year':
+        p['scope']['year'] += 1
+        a['scope'] = p['scope']
+    if kind == 'inventory':
+        p['inventory']['manifestSha256'] = '0' * 64
+        a['inventory'] = p['inventory']
+    if kind in ['item', 'year', 'inventory', 'self-review']:
+        ph = hashlib.sha256(encode(p)).hexdigest()
+        a['payloadSha256'] = ph
+    if kind == 'attestation':
+        a['report'] = json.loads((ROOT / entries[-1]['attestation']['path']).read_bytes())['report']
+    if kind == 'union':
+        r['reviewers'][0]['approvals'] += r['reviewers'][0]['approvals'][:1]
+    ab = encode(a)
+    ref = {'path': first['attestation']['path'], 'sha256': hashlib.sha256(ab).hexdigest()}
+    reader = Overlay({ref['path']: ab, REG: encode(r)})
+    try:
+        verify_attestation(reader, ref, p, ph)
+    except (ValueError, Exception) as error:
+        controls.append({'kind': kind, 'rejected': True, 'reason': str(error)})
+    else:
+        controls.append({'kind': kind, 'rejected': False})
+assert all(c['rejected'] for c in controls), controls
+(OUT / 'consumidores.json').write_text(json.dumps({'rows': rows, 'controls': controls}, ensure_ascii=False, indent=2))
+print('265 estados y nueve cruces coherentes rechazados por el consumidor real; overlays solo de ensayo')

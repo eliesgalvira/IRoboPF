@@ -1,0 +1,7 @@
+import fs from 'node:fs';
+import {composeRetencionesR32} from '../../scripts/procedencia/flujo-retenciones-r32.mjs';
+const g=composeRetencionesR32();
+const requirements=['fieldBindings','constantBindings','program','scaleInstances','outputBindings','obligations'];
+const checks=requirements.map(id=>({id,expected:true,actual:Array.isArray(g[id])&&g[id].length>0}));
+fs.writeFileSync('.cache/flujo-retenciones-r34/rojo.json',JSON.stringify({kind:'capacidad-contractual-no-fiscal',checks},null,2));
+console.log(checks);if(checks.some(c=>c.actual!==c.expected))process.exitCode=1;

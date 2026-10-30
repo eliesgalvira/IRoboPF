@@ -1,0 +1,8 @@
+--- .cache/admision-evaluable-r35/vitest.mjs	2026-10-30 01:15:59.247266869 +0100
++++ .cache/admision-evaluable-r35/vitest-r35.mjs	2026-10-30 01:19:12.489799695 +0100
+@@ -1,4 +1,4 @@
+ process.env.IROBOPF_DEPENDENCIES_PACKAGE="/home/elies/Repos/IRoboPF/package.json";
+ import { createRequire } from 'node:module';
+ const require = createRequire('/home/elies/Repos/IRoboPF/package.json');
+-export default {cacheDir:process.cwd()+'/.cache/admision-evaluable-r35/vite',resolve:{alias:{'@':process.cwd()},plugins:[]},plugins:[{name:'dependencias-recibidas',enforce:'pre',resolveId(id){if(!id.startsWith('.')&&!id.startsWith('/')&&!id.startsWith('node:')&&!id.startsWith('@/')){try{return id==='vitest'?'/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js':require.resolve(id)}catch{return null}}}}],test:{include:['tests/flujo-admision-r32*.test.ts','docs/procedencia/revisiones/admision-anual-r34-sol/*.test.mjs'],maxWorkers:1,testTimeout:60000}};
++export default {cacheDir:process.cwd()+'/.cache/admision-evaluable-r35/vite',resolve:{alias:{'@':process.cwd()},plugins:[]},plugins:[{name:'dependencias-recibidas',enforce:'pre',resolveId(id){if(!id.startsWith('.')&&!id.startsWith('/')&&!id.startsWith('node:')&&!id.startsWith('@/')){try{return id==='vitest'?'/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js':require.resolve(id)}catch{return null}}}}],test:{include:['tests/flujo-admision-r35*.test.ts','docs/procedencia/implementaciones/admision-evaluable-r35-sol/*.test.mjs'],maxWorkers:1,testTimeout:60000}};

@@ -1,0 +1,7 @@
+set -eu
+cd /home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b
+node .cache/flujo-retenciones-r34/ensayar.mjs
+node .cache/flujo-retenciones-r34/schema.mjs
+/home/elies/Repos/IRoboPF/node_modules/.bin/vitest run --root "$PWD/.cache/flujo-retenciones-r34" --config "$PWD/.cache/flujo-retenciones-r34/vitest.config.mjs" --reporter=json --outputFile="$PWD/.cache/flujo-retenciones-r34/casos-final2.json"
+/home/elies/Repos/IRoboPF/node_modules/.bin/tsc -p .cache/flujo-retenciones-r34/tsconfig.json --incremental false
+/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --config .cache/flujo-retenciones-r34/oxlint.json --threads=1 --disable-nested-config scripts/procedencia/flujo-retenciones-r34.mjs scripts/procedencia/flujo-retenciones-r34-consumidor.mjs tests/flujo-retenciones-r34.test.ts

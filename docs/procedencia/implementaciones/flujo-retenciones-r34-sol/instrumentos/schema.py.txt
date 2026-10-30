@@ -1,0 +1,22 @@
+import gzip
+import json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+root = Path.cwd()
+cache = root / '.cache/flujo-retenciones-r34'
+schema = json.loads((root / 'schemas/procedencia/flujo/retenciones-r34.schema.json').read_text())
+Draft202012Validator.check_schema(schema)
+graph = json.loads(gzip.decompress((cache / 'fragmento.json.gz').read_bytes()))
+v = Draft202012Validator(schema)
+errors = list(v.iter_errors(graph))
+if errors:
+    for error in errors[:3]:
+        print(list(error.path), error.message[:1000])
+    raise SystemExit(1)
+for obligation in graph['obligations']:
+    obligation['status'] = 'pending'
+for site in graph['sites']:
+    site['valueClosed'] = False
+    site['selectionClosed'] = False
+v.validate(graph)
+print('Schema válido; fragmento y pendientes representables. No concede suficiencia semántica.')

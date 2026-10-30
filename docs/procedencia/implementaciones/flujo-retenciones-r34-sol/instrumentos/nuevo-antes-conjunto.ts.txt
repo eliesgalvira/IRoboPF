@@ -1,0 +1,86 @@
+import { expect, it } from "vitest"
+import Decimal from "decimal.js"
+import { Effect } from "effect"
+import { composeRetencionesR34, verifyRetencionesR34 } from "../scripts/procedencia/flujo-retenciones-r34.mjs"
+import { executeFinite, consumeAnnual } from "../scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
+import { calcularRetencionTrabajoAeat, type CasoRetencionTrabajo } from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+const g = composeRetencionesR34()
+const D = (n: Decimal.Value) => new Decimal(n)
+const base: CasoRetencionTrabajo = { anio:2020,edad:40,retribucionAnualCentimos:4020000,cotizacionesCentimos:20000,situacionFamiliar:"situacion3",situacionLaboral:"activo",contrato:"general",descendientes:[],ascendientes:[],discapacidad:"sin-discapacidad" }
+const run = (patch: Partial<CasoRetencionTrabajo>) => executeFinite(g,"calcularRetencionTrabajoAeatImpl",[{...base,...patch},{modo:"canonico"}])
+const version = executeFinite(g,"seleccionarVersionRetencion",[{anio:2020}]).result
+it("contrato completo, campos y 18 celdas con unidades",()=>{
+  expect(verifyRetencionesR34(g)).toBe(true)
+  expect(g.scaleCells).toHaveLength(18)
+  expect(g.scaleInstances).toHaveLength(5)
+  expect(g.constantBindings.map(b=>b.name).sort()).toEqual(["CIEN","CERO"])
+  expect(g.obligations.filter(o=>o.status!=="satisfied")).toEqual([])
+  expect(g.sites.every(s=>s.valueClosed&&s.selectionClosed&&!s.siteClosed)).toBe(true)
+})
+for(const collection of ["program","fieldBindings","constantBindings","collectionBindings","scaleCells","scaleInstances","outputBindings","obligations"] as const) {
+  it(`rechaza omisión ${collection}`,()=>{const m=structuredClone(g);m[collection].pop();expect(()=>verifyRetencionesR34(m)).toThrow()})
+  it(`rechaza duplicado ${collection}`,()=>{const m=structuredClone(g);m[collection].push(m[collection][0]);expect(()=>verifyRetencionesR34(m)).toThrow()})
+}
+it("rechaza propiedad cruzada sin modificar hashes",()=>{const m=structuredClone(g);m.fieldBindings[0].property="pagosACuentaCentimos";expect(()=>verifyRetencionesR34(m)).toThrow(/Correspondencia/)})
+it("rechaza unidad, selector e instancia sin cambiar fuentes",()=>{for(const target of ["unit","branch","node"]){const m=structuredClone(g);if(target==="unit")m.scaleCells[0].unit="centimos";else if(target==="branch")m.scaleInstances[0].branch="otherwise";else m.scaleInstances[0].node=m.scaleInstances[1].node;expect(()=>verifyRetencionesR34(m)).toThrow(/Correspondencia/)}})
+it("rechaza semilla desvinculada conservando todos los hashes",()=>{const m=structuredClone(g);const b=m.collectionBindings.find(x=>x.operation==="reduce");expect(b).toBeDefined();b.seed=null;expect(()=>verifyRetencionesR34(m)).toThrow(/Correspondencia/)})
+it("rechaza constante desvinculada",()=>{const m=structuredClone(g);m.constantBindings[0].node=m.constantBindings[1].node;expect(()=>verifyRetencionesR34(m)).toThrow(/Correspondencia/)})
+it("pendiente representable bloquea los cinco cierres dependientes",()=>{const m=structuredClone(g);m.obligations[0].status="pending";m.obligations[0].reason="contraste pendiente";for(const s of m.sites)if(s.siteId!=="anual.pagos.retenciones"){s.valueClosed=false;s.selectionClosed=false}expect(verifyRetencionesR34(m)).toBe(true)})
+const widths=[1245000n,775000n,1500000n,2480000n,24000000n],rates=[19n,24n,30n,37n,45n,47n]
+function rational(c:bigint){let rest=c,total=0n;for(let i=0;i<rates.length;i++){const used=rest<(widths[i]??rest)?rest:(widths[i]??rest);total+=used*rates[i];rest-=used;if(rest===0n)break}return D(total.toString()).div(10000).toFixed()}
+for(const cut of [0,1245000,2020000,3520000,6000000,30000000])for(const delta of [-1,0,1])if(cut+delta>=0)it(`IR escala racional ${cut}+${delta}`,()=>expect(executeFinite(g,"calcularCuotaEscala",[D(cut+delta).div(100),undefined]).result.toFixed()).toBe(rational(BigInt(cut+delta))))
+it("histórico45/general47 y selección concreta por fila",()=>{expect(executeFinite(g,"calcularCuotaEscala",[D(310000),version]).result.toFixed()).toBe("130401.5");expect(executeFinite(g,"calcularCuotaEscala",[D(310000),undefined]).result.toFixed()).toBe("130601.5")})
+for(const a of [0,10000,40000,40001])it(`instancias de escala y guardas estrictas alimentos ${a}`,()=>{
+ const r=executeFinite(g,"calcularCuotaRetencion",[{version,anualidades:D(a),base:D(40000),minimoPersonalFamiliar:D(5550)}])
+ const calls=r.trace.filter(t=>g.scaleInstances.some(i=>i.node===t.node))
+ expect(calls).toHaveLength(a>0&&a<40000?3:2)
+ expect(calls.map(t=>t.arguments[0].decimal)).toEqual(a>0&&a<40000?["30000","10000","7530"]:["40000","5550"])
+ expect(r.result.toFixed()).toBe(a===10000?"7634.8":"9447")
+})
+it("aritmética/retorno/origen.decimal independientes y pagos coincidentes",()=>{
+ const r=run({});expect(r.result).toMatchObject({baseRetencionCentimos:3800000,cuotaRetencionCentimos:870700,tipoRetencionPorcentaje:"21.65",importeRetencionAnualCentimos:870330})
+ const annual={retencionTrabajoAeat:base,retencionesSoportadasCentimos:101,pagosACuentaCentimos:101}
+ const values=(a:typeof annual)=>consumeAnnual(g,a,{modo:"canonico"}).lines.map(l=>[l.origen.siteId,l.origen.decimal])
+ expect(Object.fromEntries(values(annual))).toMatchObject({"anual.retencion.base":"38000","anual.retencion.cuota":"8707","anual.retencion.tipo":"21.65","anual.retencion.anual":"8703.3","anual.pagos.retenciones":"1.01","anual.pagos.cuenta":"8704.31"})
+ expect(Object.fromEntries(values({...annual,retencionesSoportadasCentimos:202}))["anual.pagos.cuenta"]).toBe("8704.31")
+ expect(Object.fromEntries(values({...annual,pagosACuentaCentimos:202}))["anual.pagos.retenciones"]).toBe("1.01")
+})
+for(const patch of [
+ {edad:75},{movilidadGeografica:true},{discapacidad:"de33a65",movilidadReducidaPerceptor:true},{contrato:"especial"},{residenciaCeutaMelilla:true},{residenciaCeutaMelilla:true,rendimientosCeutaMelilla:true},{pagosViviendaHabitual:true},{situacionLaboral:"pensionista"},{situacionLaboral:"desempleado"},{situacionFamiliar:"situacion2"},{pensionCompensatoriaConyugeCentimos:10000},{anualidadesAlimentosHijosCentimos:1000000},{irregular1Centimos:10000},{irregular2Centimos:10000},
+ {descendientes:[{edad:2,computoPorEntero:false,discapacidad:"de33a65",movilidadReducida:true,adopcionOAcogimientoMenosTresAnios:false}]},
+ {ascendientes:[{edad:75,convivencia:3,discapacidad:"desde65",movilidadReducida:false}]},
+] satisfies Partial<CasoRetencionTrabajo>[])it(`contraste suplementario de transporte ${JSON.stringify(patch)}`,()=>{
+ const actual=run(patch).result
+ const motor=Effect.runSync(calcularRetencionTrabajoAeat({...base,...patch},{modo:"canonico"}))
+ for(const field of ["baseRetencionCentimos","cuotaRetencionCentimos","tipoRetencionPorcentaje","importeRetencionAnualCentimos","minimoPersonalFamiliarCentimos"] as const)expect(actual[field]).toBe(motor[field])
+})
+it("cambio de un flag territorial conserva cuota pero altera tipo solo con ambos",()=>{expect(run({residenciaCeutaMelilla:true}).result.importeRetencionAnualCentimos).toBe(870330);const r=run({residenciaCeutaMelilla:true,rendimientosCeutaMelilla:true});expect(r.result.cuotaRetencionCentimos).toBe(870700);expect(r.result.tipoRetencionPorcentaje).toBe("8.66")})
+it("ausencia, cero y error se distinguen en el consumidor",()=>{
+ const a={retencionesSoportadasCentimos:101,pagosACuentaCentimos:101}
+ expect(consumeAnnual(g,a,{modo:"canonico"}).lines.map(l=>l.origen.decimal)).toEqual(["1.01","1.01"])
+ expect(consumeAnnual(g,{...a,retencionTrabajoAeat:{...base,retribucionAnualCentimos:0,cotizacionesCentimos:0}},{modo:"canonico"}).lines[3].origen.decimal).toBe("0")
+ expect(()=>consumeAnnual(g,{...a,retencionTrabajoAeat:{...base,procedimiento:"regularizacion"}},{modo:"canonico"})).toThrow(/ResultadoNoSoportado/)
+})
+it("límite43, vivienda y tipo: expectativas independientes del motor",()=>{
+ for(const [r,want]of [[21999.99,"3439.9957"],[22000,"3440"],[22000.01,"9999"]])expect(executeFinite(g,"calcularLimite43",[{version,cuotaInicial:D(9999),exento:false,retribucion:D(r),umbralConReducciones:D(14000)}]).result.toFixed()).toBe(want)
+ expect(executeFinite(g,"calcularTipoInicial",[{diferenciaPositiva:D(1),retribucion:D(6)}]).result.toFixed()).toBe("16.66")
+ expect(executeFinite(g,"calcularMinoracionVivienda",[{caso:{...base,pagosViviendaHabitual:true},retribucion:D("33007.19")}]).result.toFixed()).toBe("660.14")
+ expect(executeFinite(g,"calcularMinoracionVivienda",[{caso:{...base,pagosViviendaHabitual:true},retribucion:D("33007.2")}]).result.toFixed()).toBe("0")
+})
+it("defaults y flags de movilidad/discapacidad mantienen propiedades distintas",()=>{
+ expect(run({edad:undefined}).result.minimoPersonalFamiliarCentimos).toBe(run({edad:40}).result.minimoPersonalFamiliarCentimos)
+ expect(executeFinite(g,"incrementoMovilidadGeografica",[{movilidadGeografica:true}]).result.toFixed()).toBe("2000")
+ expect(executeFinite(g,"incrementoMovilidadGeografica",[{movilidadReducidaPerceptor:true}]).result.toFixed()).toBe("0")
+ for(const [situacionLaboral,discapacidad,movilidadReducidaPerceptor,want]of [["activo","de33a65",false,"3500"],["activo","de33a65",true,"7750"],["pensionista","desde65",true,"0"]])expect(executeFinite(g,"incrementoGastosDiscapacidadTrabajador",[{situacionLaboral,discapacidad,movilidadReducidaPerceptor}]).result.toFixed()).toBe(want)
+})
+it("tabla y máximo omiten null; índices familiares y selector temporal concretos",()=>{
+ const f=(fecha:string,situacionLaboral:string)=>executeFinite(g,"tablaUmbralesRetencionTrabajo",[{anio:2018,fecha,situacionLaboral}]).result
+ expect(f("2018-07-04","pensionista").situacion3.sinDescendientes).toBe(12000)
+ expect(f("2018-07-05","pensionista").situacion3.sinDescendientes).toBe(13000)
+ expect(f("2018-07-05","activo").situacion3.sinDescendientes).toBe(12643)
+ expect(executeFinite(g,"maximoUmbralRetencionTrabajoEuros",[{anio:2020}]).result).toBe(17634)
+ for(const [numeroDescendientes,want]of [[0,15456],[1,16481],[2,17634],[3,17634]])expect(executeFinite(g,"umbralRetencionTrabajoRequeridoEuros",[{anio:2020,situacionFamiliar:"situacion2",numeroDescendientes}]).result).toBe(want)
+})
+it("mínimos de contrato por territorio y versión, incluso con cuota inicial cero",()=>{
+ for(const [ceutaMelilla,contrato,want]of [[false,"especial","15"],[false,"inferior-anio","2"],[true,"especial","6"],[true,"inferior-anio","0.8"]])expect(executeFinite(g,"aplicarMinimoContrato",[{version,ceutaMelilla,contrato,tipoCalculado:D(0)}]).result.toFixed()).toBe(want)
+})

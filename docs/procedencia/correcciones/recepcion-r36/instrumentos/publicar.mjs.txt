@@ -1,0 +1,49 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {resolve} from 'node:path'
+import {createHash,randomUUID} from 'node:crypto'
+import {prepararEntrada} from '../../../scripts/procedencia/evidencia-contenido.mjs'
+import {publicar} from '../../../scripts/procedencia/contenido-publicar.mjs'
+import {verificarContenido} from '../../../scripts/procedencia/contenido-verificar.mjs'
+import {leerSnapshot} from '../../../lib/procedencia/almacen.ts'
+const root=process.cwd(),out=resolve('docs/procedencia/correcciones/recepcion-r36'),stage=resolve('.cache/orquestador-recepcion/r36/publicacion'),store=resolve('docs/procedencia/implementaciones/contenidos/datos')
+const sha=b=>createHash('sha256').update(b).digest('hex')
+process.env.IROBOPF_CAS_LOCAL=resolve('.cache/procedencia/publicacion-cas/sha256')
+assert.equal(fs.existsSync(stage),false)
+const previousRegistry=fs.readFileSync(store+'/snapshots.json'),previousRastro=fs.readFileSync('lib/procedencia/rastro-generado.json'),rastro=JSON.parse(previousRastro)
+assert.equal(rastro.actual.versiones.snapshot,'01b1978e79700018ce8f7a55cf0b98bcf2957590e159908de6ca27e87b66587a')
+assert.equal(JSON.parse(previousRegistry).length,44)
+// El publicador sustituye fichas técnicas de ocurrencia. El origen v1 evita
+// colisionar con Document/Citation ya añadidos en la publicación v2 anterior.
+const origin='2a035eed497fa2b655ef3f081eadaf9779d40244e8c52417b9d27de85314411c'
+const original=leerSnapshot(origin,store)
+assert.equal(original.version,1)
+assert.deepEqual(original.versiones,Object.fromEntries(Object.entries(rastro.actual.versiones).filter(([k])=>k!=='snapshot')))
+const entrada=prepararEntrada(root,origin)
+fs.writeFileSync(out+'/entrada-publicacion.json',JSON.stringify(entrada,null,2)+'\n')
+const start=performance.now(),result=await publicar(root,entrada,stage,store),snapshot=leerSnapshot(result.snapshot,stage)
+verificarContenido(snapshot,stage)
+assert.equal(snapshot.evidencias.length,265)
+assert.equal(new Set(snapshot.evidencias.map(e=>e.sujeto.id)).size,103)
+assert.equal(snapshot.externos.length,1)
+for(const e of snapshot.evidencias){assert.equal(e.aceptacionFiscalCompleta,false);assert.equal(e.revisionBinding,e.payload==='e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258'?'pending':'accepted-limited')}
+const copied=[]
+for(const hash of fs.readdirSync(stage+'/objetos')){
+ assert.match(hash,/^[0-9a-f]{64}$/);const bytes=fs.readFileSync(stage+'/objetos/'+hash);assert.equal(sha(bytes),hash)
+ const dest=store+'/objetos/'+hash
+ if(fs.existsSync(dest))assert.deepEqual(fs.readFileSync(dest),bytes)
+ else{const fd=fs.openSync(dest,'wx',0o600);try{fs.writeFileSync(fd,bytes);fs.fsyncSync(fd)}finally{fs.closeSync(fd)}copied.push({path:dest.slice(root.length+1),sha256:hash,size:bytes.length,publicOriginal:snapshot.publicos.some(p=>p.hash===hash)})}
+}
+function replace(path,bytes){const tmp=path+'.r36-'+randomUUID()+'.tmp';const fd=fs.openSync(tmp,'wx',0o600);try{fs.writeFileSync(fd,bytes);fs.fsyncSync(fd)}finally{fs.closeSync(fd)}fs.renameSync(tmp,path);const directory=fs.openSync(resolve(path,'..'),'r');try{fs.fsyncSync(directory)}finally{fs.closeSync(directory)}}
+const newRegistry=Buffer.from(JSON.stringify([...new Set([...JSON.parse(previousRegistry),result.snapshot])].sort())+'\n')
+const newRastro=Buffer.from(JSON.stringify({...rastro,actual:{versiones:{snapshot:result.snapshot,...snapshot.versiones},catalogoSha256:snapshot.catalogo}})+'\n')
+const state=[{path:'docs/procedencia/implementaciones/contenidos/datos/snapshots.json',before:previousRegistry,after:newRegistry},{path:'lib/procedencia/rastro-generado.json',before:previousRastro,after:newRastro}].map(f=>({...f,baseSha256:sha(f.before),sha256:sha(f.after),before:f.before.toString('base64'),after:f.after.toString('base64')}))
+fs.writeFileSync(out+'/plan-publicacion.json',JSON.stringify({files:state,serialOnly:true,completeRuleAcceptance:false},null,2)+'\n')
+for(const f of state)assert.equal(sha(fs.readFileSync(f.path)),f.baseSha256)
+const directory=fs.openSync(store+'/objetos','r');try{fs.fsyncSync(directory)}finally{fs.closeSync(directory)}
+// Registro primero; el rastro nunca apunta a un snapshot aún no enumerado.
+for(const f of state)replace(resolve(f.path),Buffer.from(f.after,'base64'))
+for(const f of state)assert.equal(sha(fs.readFileSync(f.path)),f.sha256)
+verificarContenido(leerSnapshot(result.snapshot,store),store)
+fs.writeFileSync(out+'/publicacion.json',JSON.stringify({snapshot:result.snapshot,copied,publicos:snapshot.publicos,externos:snapshot.externos,pairs:265,subjects:103,limitedPairs:264,historicalSnapshots:44,snapshotsNow:45,elapsedMs:performance.now()-start,maxRss:process.resourceUsage().maxRSS,casRoot:process.env.IROBOPF_CAS_LOCAL,completeRuleAcceptance:false},null,2)+'\n')
+console.log(JSON.stringify({snapshot:result.snapshot,copied:copied.length,pairs:265,limitedPairs:264,completeRuleAcceptance:false}))

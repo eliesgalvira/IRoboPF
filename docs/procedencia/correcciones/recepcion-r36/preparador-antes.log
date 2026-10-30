@@ -1,0 +1,25 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '1deda68b373cdbfc994128ddb97edd5941a93befbb122a50c9aea382dddc2741'
+- '1d52209d31204c67a8c4c13934b58fd46621be59e10cdb695d5785958c0bac4d'
+
+    at preparar (file:///home/elies/Repos/IRoboPF/scripts/procedencia/incorporacion-lote-r32.mjs:86:10)
+    at simulate (file:///home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-r36/preparador-estados.mjs:16:14)
+    at file:///home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-r36/preparador-estados.mjs:19:18
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '1deda68b373cdbfc994128ddb97edd5941a93befbb122a50c9aea382dddc2741',
+  expected: '1d52209d31204c67a8c4c13934b58fd46621be59e10cdb695d5785958c0bac4d',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

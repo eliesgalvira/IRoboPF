@@ -449,3 +449,19 @@ R33 corrobora únicamente el campo directo de retenciones soportadas y deja cinc
 ## D101 — Hacer evaluable la admisión y declarar su dominio
 
 La revisión R34 y el contraste del padre acreditan las rutas y el orden principal, pero no los diecisiete cierres de admisión. Objeción: otro evaluador puede repetir la validación y desincronizarse, mientras los rojos por nombres de campos no imponen una interfaz universal. Respuesta: contrato finito por propiedad con operadores, operandos, instancias, dominio y resultados success/fail/defect; correspondencias explícitas y discriminantes contra las APIs reales. Se preservan los cuerpos y casos útiles, y se corrige en adenda la ambigüedad entre Option exterior y catálogo. Coste: nueva implementación y revisión antes de componer, sin ampliar silenciosamente el dominio JS ni convertir los pagos negativos o strings desconocidos en errores fiscales demostrados.
+
+## D102 — Corregir origen sin atribuir suficiencia al cierre
+
+Los tres localizadores de semilla/bandas SS pasan de coincidencia textual global a declaración y literal únicos, tras rojos concretos. Objeción: arreglar tres referencias puede ocultar que el cierre aún acepta unidades, ramas o transportes incorrectos. Respuesta: conservar ocho rojos semánticos reproducidos y el noveno del valor de semilla; los once cierres siguen sin aceptar para composición. Coste: continuación por propiedad y revisión nueva, manteniendo los 684 casos aritméticos útiles sin convertirlos en validación fiscal.
+
+## D103 — Incorporar solo los 264 enlaces revisados y preparar recuperación local
+
+Tras la revisión independiente R34, el padre coteja decisiones individuales y autoridad real y aprueba el plan exacto por celda/año. Objeción: las dos escrituras pueden quedar parcialmente aplicadas; el pase técnico tampoco acredita una regla completa. Respuesta: diario con extremos fijados, recuperación probada después de cada escritura, rechazo de estados desconocidos y aceptación completa falsa; Madrid 2020 conserva pending. Coste: operación serial local, sin atomicidad dual ni activación de servicio. Se corrige el preparador para admitir el par previo o posterior exactos usando los previos históricos fijados; los pares mixtos requieren recuperación separada.
+
+## D104 — Separar el CAS operativo del paquete congelado y conservar la publicación anterior
+
+Los originales del lote se copian por ambos hashes desde V5 a ubicaciones ordinarias propias, sin escribir en el paquete. Objeción: excluir originales de Git hace incompleta una clonación sin datos. Respuesta: manifiesto por objeto, corte V5 fijado, receta de restauración y CAS externo explícito para el PDF grande. Coste: restauración/configuración local obligatoria; Crossa v1 sigue desfasado y no acredita custodia independiente. El publicador necesita su origen técnico v1: reutilizar v2 produjo una colisión editorial que se conserva; se selecciona el v1 con idéntico inventario/software, sin debilitar el consumidor ni borrar históricos.
+
+## D105 — Continuar componentes parciales sin promover sus booleanos
+
+Retenciones R34 avanza a operadores evaluables y requiere contraste independiente; admisión R35 aporta schema/coherencia y fronteras pero no completa el encargo. Objeción: encadenar entregas parciales y pruebas puede sustituir el resultado pedido por un inventario creciente de pendientes. Respuesta: conservar lo útil, asignar obligaciones completas y verificables por propiedad, exigir ejecución final y mantener pendientes explícitos hasta cumplirlas; abrir también la implementación de los restantes 48 sitios. Coste: trabajo sustantivo adicional y revisión posterior, sin reducir el estándar ni confundir integridad de receta con suficiencia causal.

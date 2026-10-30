@@ -1,0 +1,33 @@
+import hashlib,json,os,shutil,stat,subprocess
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');S=Path('/home/elies/.t3/worktrees/IRoboPF/t3-ceeee716')
+F='docs/procedencia/implementaciones/admision-evaluable-r35-sol';BASE='9c3edec704ead945b17e419d2e3ef0d1e8a75a29';O=R/'docs/procedencia/correcciones/recepcion-r36/admision-parcial'
+def sha(b):return hashlib.sha256(b).hexdigest()
+def git(root,*a):return subprocess.check_output(['git',*a],cwd=root)
+raw=(S/F/'MANIFIESTO.json').read_bytes();assert sha(raw)=='68a143728b906b323b43b11845ec8ff1a667cc2a41e42407232a5c04984b5a6b';m=json.loads(raw);assert m['base']==BASE
+over=(S/F/'SOBRE.json').read_bytes();assert sha(over)=='a8259fe47467ba55dc107816a2a6957d565df2febf689fc3ac3dedbaaf81db8f';d=json.loads(over)
+assert git(S,'rev-parse','HEAD').decode().strip()==BASE and not git(S,'diff','--name-status',BASE+'..HEAD').strip()
+rows=m['files']+[dict(e,baseSha256=None,envelope=True) for e in d['files']]+[{'path':F+'/SOBRE.json','sha256':sha(over),'size':len(over),'baseSha256':None,'envelope':True}]
+assert len(rows)==43 and len({e['path'] for e in rows})==43
+assert {str(p.relative_to(S)) for p in (S/F).rglob('*') if p.is_file()}=={e['path'] for e in rows if e['path'].startswith(F+'/')}
+for e in rows:
+ n=e['path'];assert (n.startswith(F+'/') or n in ['schemas/procedencia/flujo/admision-r35.schema.json','scripts/procedencia/flujo-admision-r35-fronteras.mjs','scripts/procedencia/flujo-admision-r35.mjs','tests/flujo-admision-r35.test.ts']) and '..' not in Path(n).parts
+ p=S/n;st=p.lstat();b=p.read_bytes();assert stat.S_ISREG(st.st_mode) and len(b)<10485760
+ assert e['baseSha256'] is None and sha(b)==e['sha256'] and len(b)==e['size'],n
+ assert not (R/n).exists(),n
+ if 'executable' in e:assert e['executable']==bool(st.st_mode&stat.S_IXUSR)
+p=subprocess.Popen(['git','cat-file','--batch'],cwd=R,stdin=subprocess.PIPE,stdout=subprocess.PIPE);count=0
+for ent in git(R,'ls-tree','-rz',BASE).split(b'\0'):
+ if not ent:continue
+ meta,name=ent.split(b'\t');mode,kind,oid=meta.split();assert kind==b'blob';name=name.decode();count+=1
+ p.stdin.write(oid+b'\n');p.stdin.flush();h=p.stdout.readline().split();expected=p.stdout.read(int(h[2]));assert p.stdout.read(1)==b'\n'
+ path=S/name;st=path.lstat()
+ if mode==b'120000':assert stat.S_ISLNK(st.st_mode);actual=os.readlink(path).encode()
+ else:assert stat.S_ISREG(st.st_mode) and bool(st.st_mode&stat.S_IXUSR)==(mode==b'100755');actual=path.read_bytes()
+ assert actual==expected,name
+p.stdin.close();assert p.wait()==0 and count==17306
+for e in rows:
+ src=S/e['path'];dst=R/e['path'];assert sha(src.read_bytes())==e['sha256'];dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,dst);os.chmod(dst,0o755 if e.get('executable') else 0o644);assert sha(dst.read_bytes())==e['sha256']
+O.mkdir(parents=True,exist_ok=True)
+(O/'recepcion.json').write_text(json.dumps({'source':str(S),'base':BASE,'manifestSha256':sha(raw),'envelopeSha256':sha(over),'physicalEntriesChecked':count,'baseChanges':[],'deletions':[],'files':rows},indent=2)+'\n')
+print(json.dumps({'physicalEntries':count,'files':len(rows),'bytes':sum(e['size'] for e in rows),'deletions':0}),flush=True)

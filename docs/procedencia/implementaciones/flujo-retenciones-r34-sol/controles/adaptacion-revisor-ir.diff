@@ -1,0 +1,11 @@
+--- .cache/flujo-retenciones-r34/revisor.test.ts	2026-10-30 00:59:15.395057519 +0100
++++ .cache/flujo-retenciones-r34/revisor-ir.test.ts	2026-10-30 01:06:01.750088146 +0100
+@@ -1,7 +1,7 @@
+ import { expect, it } from 'vitest'
+ import Decimal from 'decimal.js'
+ import { Effect } from 'effect'
+-import { calcularCuotaEscala, calcularCuotaRetencion, calcularMinimoDescendientes, calcularMinimoAscendientes, calcularMinimoPersonalFamiliar, calcularLimite43, calcularReduccionActual, calcularMinoracionVivienda, calcularTipoInicial, calcularRetencionTrabajoAeat, type CasoRetencionTrabajo } from './retencion'
++import { calcularCuotaEscala, calcularCuotaRetencion, calcularMinimoDescendientes, calcularMinimoAscendientes, calcularMinimoPersonalFamiliar, calcularLimite43, calcularReduccionActual, calcularMinoracionVivienda, calcularTipoInicial, calcularRetencionTrabajoAeat, type CasoRetencionTrabajo } from './modelo'
+ import { seleccionarVersionRetencion } from '/home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b/lib/dominio/irpf/retenciones/versiones/catalogo'
+ import { tablaUmbralesRetencionTrabajo, umbralRetencionTrabajoRequeridoEuros } from '/home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b/lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026'
+ import { liquidarIrpfAnual, type CasoFiscalAnual } from '/home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'

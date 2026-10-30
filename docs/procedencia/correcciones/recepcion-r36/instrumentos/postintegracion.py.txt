@@ -1,0 +1,32 @@
+import hashlib,json,os,stat,subprocess
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');O=R/'docs/procedencia/correcciones/recepcion-r36';BASE='532e4b236b82ba95c9e391a927af2c9401e250a9'
+def sha(b):return hashlib.sha256(b).hexdigest()
+def git(*a):return subprocess.check_output(['git',*a],cwd=R)
+rows=[e for receipt in json.loads((O/'recepcion.json').read_text()) for e in receipt['files']]+json.loads((O/'admision-parcial/recepcion.json').read_text())['files']
+exceptions=[]
+for e in rows:
+ b=(R/e['path']).read_bytes()
+ if sha(b)!=e['sha256']:
+  assert e['path']=='tests/flujo-retenciones-r34.test.ts'
+  exceptions.append({'path':e['path'],'receivedSha256':e['sha256'],'integratedSha256':sha(b),'reason':'Tres guardas explícitas === undefined por diagnóstico global Effect; esperado intacto'})
+ assert (R/e['path']).is_file()
+p=subprocess.Popen(['git','cat-file','--batch'],cwd=R,stdin=subprocess.PIPE,stdout=subprocess.PIPE);count=0;modified=[]
+for ent in git('ls-tree','-rz',BASE).split(b'\0'):
+ if not ent:continue
+ meta,name=ent.split(b'\t');mode,kind,oid=meta.split();assert kind==b'blob';name=name.decode();count+=1
+ p.stdin.write(oid+b'\n');p.stdin.flush();h=p.stdout.readline().split();before=p.stdout.read(int(h[2]));assert p.stdout.read(1)==b'\n'
+ path=R/name;s=path.lstat()
+ if mode==b'120000':assert stat.S_ISLNK(s.st_mode);now=os.readlink(path).encode()
+ else:assert stat.S_ISREG(s.st_mode) and bool(s.st_mode&stat.S_IXUSR)==(mode==b'100755');now=path.read_bytes()
+ if now!=before:modified.append({'path':name,'baseSha256':sha(before),'currentSha256':sha(now)})
+p.stdin.close();assert p.wait()==0 and count==17308
+allowed={'.gitignore','docs/procedencia/ESTADO.md','docs/procedencia/DECISIONES.md','scripts/procedencia/flujo-ss-r32.mjs','scripts/procedencia/incorporacion-lote-r32.mjs','docs/procedencia/enlaces/registro.json','docs/procedencia/enlaces/revisores.json','docs/procedencia/implementaciones/contenidos/datos/snapshots.json','lib/procedencia/rastro-generado.json'}
+assert {e['path'] for e in modified}==allowed
+leftovers=json.loads((R/'docs/procedencia/correcciones/recepcion-r32-r34/postintegracion.json').read_text())['historicalLeftoversExcluded']
+for e in leftovers:assert sha((R/e['path']).read_bytes())==e['sha256']
+publication=json.loads((O/'publicacion.json').read_text())
+for e in publication['copied']:
+ b=(R/e['path']).read_bytes();assert sha(b)==e['sha256'] and len(b)==e['size']
+receipt={'base':BASE,'baseEntriesChecked':count,'baseModifications':modified,'receivedFiles':len(rows),'receivedExceptions':exceptions,'deletions':[],'historicalLeftoversExcluded':leftovers,'newSnapshotObjectsVerified':len(publication['copied']),'engineAndInventoryUnchanged':True}
+(O/'postintegracion.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps({'baseEntries':count,'received':len(rows),'baseModified':len(modified),'deletions':0}))

@@ -1,0 +1,33 @@
+import importlib.util,json
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');O=R/'docs/procedencia/correcciones/recepcion-r36';S=R/'.cache/orquestador-recepcion/r36'
+spec=importlib.util.spec_from_file_location('transicion',O/'transicion.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+p=json.loads((O/'plan.json').read_text());rows=[]
+def setup(name):
+ root=S/name;assert not root.exists()
+ for f in p['files']:
+  dest=root/f['path'];dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(m.base64.b64decode(f['before']))
+ return root
+for failure in (1,2):
+ root=setup('fallo-'+str(failure))
+ try:m.transition(root,p,'after',root/'journal',fail_after=failure)
+ except OSError:pass
+ else:raise AssertionError('Inyección no ejecutada')
+ beforeRecovery=[m.digest((root/f['path']).read_bytes()) for f in p['files']]
+ assert beforeRecovery==[f['sha256'] if i<failure else f['baseSha256'] for i,f in enumerate(p['files'])]
+ recovered=m.transition(root,p,'before',root/'journal');assert recovered['finalHashes']==[f['baseSha256'] for f in p['files']]
+ applied=m.transition(root,p,'after',root/'journal');assert applied['finalHashes']==[f['sha256'] for f in p['files']]
+ assert m.transition(root,p,'after',root/'journal')['finalHashes']==applied['finalHashes']
+ rows.append({'faultAfter':failure,'observed':beforeRecovery,'recovered':recovered,'applied':applied})
+root=setup('desconocido');(root/p['files'][1]['path']).write_bytes(b'cambio no autorizado');first=(root/p['files'][0]['path']).read_bytes()
+try:m.transition(root,p,'after',root/'journal')
+except ValueError:pass
+else:raise AssertionError('Estado desconocido admitido')
+assert (root/p['files'][0]['path']).read_bytes()==first
+root=setup('enlace');original=root/p['files'][1]['path'];retained=original.with_suffix('.preservado');original.rename(retained);original.symlink_to(retained)
+try:m.transition(root,p,'after',root/'journal')
+except ValueError:pass
+else:raise AssertionError('Enlace admitido')
+assert (root/p['files'][0]['path']).read_bytes()==first
+(O/'recuperacion-probada.json').write_text(json.dumps({'cases':rows,'unknownRejectedBeforeWrites':True,'symlinkRejectedBeforeWrites':True,'serialOnly':True,'powerLossDurabilityNotProven':True},indent=2)+'\n')
+print('Recuperados fallo tras escritura 1 y 2; reaplicación idempotente, estado desconocido y symlink rechazados')

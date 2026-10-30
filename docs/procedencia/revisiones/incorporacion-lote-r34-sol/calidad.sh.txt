@@ -1,0 +1,13 @@
+set -uo pipefail
+export IROBOPF_R32_SOURCE="$PWD"
+cd "$PWD/.cache/revision-incorporacion-r34/calidad"
+node_modules/.bin/vitest run --config "$PWD/vitest.config.mjs" --configLoader runner
+v=$?
+node_modules/.bin/oxlint --threads=1 --disable-nested-config scripts/procedencia/incorporacion-lote-r32.mjs tests/incorporacion-lote-r32.test.ts
+l=$?
+node_modules/.bin/eslint scripts/procedencia/incorporacion-lote-r32.mjs tests/incorporacion-lote-r32.test.ts
+e=$?
+node_modules/.bin/tsc --noEmit -p tsconfig.json
+t=$?
+printf 'vitest=%s oxlint=%s eslint=%s tsc=%s\n' "$v" "$l" "$e" "$t"
+exit $((v+l+e+t))

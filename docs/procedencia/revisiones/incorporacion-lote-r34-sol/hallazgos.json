@@ -1,0 +1,42 @@
+{
+  "kind": "revision-independiente-candidata",
+  "parentContrastRequired": true,
+  "trustMutation": false,
+  "completeRuleAcceptance": false,
+  "newProductDefects": [],
+  "findings": [
+    {
+      "id": "RI34-01",
+      "classification": "corroboracion-tecnica-limitada",
+      "claim": "Fidelidad de incorporación a 264 decisiones y dos identidades exactas",
+      "evidence": [
+        "autoridad.json",
+        "consumidores.json",
+        "adversos.json",
+        "recorrido.json"
+      ],
+      "limits": "No nueva revisión fiscal ni autenticación histórica"
+    },
+    {
+      "id": "RI34-02",
+      "classification": "limite-serial-declarado-reproducido",
+      "claim": "EIO segunda escritura conserva estado mixto; aplicar/revertir rechazan",
+      "evidence": [
+        "parcial.json",
+        "parcial.mjs.txt"
+      ],
+      "newDefect": false,
+      "automaticRecovery": false
+    },
+    {
+      "id": "RI34-03",
+      "classification": "hipotesis-refutada-en-casos",
+      "claim": "Base descendiente permitiría alterar pines o cruzar plan sin rechazo",
+      "evidence": [
+        "adversos.json",
+        "consumidores.json"
+      ],
+      "limits": "Contratos finitos; no seguridad universal ni prueba concurrente"
+    }
+  ]
+}

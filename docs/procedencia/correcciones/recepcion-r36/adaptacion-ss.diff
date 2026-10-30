@@ -1,0 +1,23 @@
+--- casos.mjs recibido
++++ scratch padre
+@@ -1,14 +1,14 @@
+ import fs from 'node:fs'
+ import { createRequire } from 'node:module'
+ import { performance } from 'node:perf_hooks'
+-import { composeSS, createSSEvaluator, traceSSClosure, validateSS } from '../../../../scripts/procedencia/flujo-ss-r32.mjs'
+-import { calcularDesgloseCotizacionesSocialesLegacy as legacy } from '../../../../lib/dominio/laboral/cotizaciones-sociales.ts'
+-import { calcularDesgloseCotizacionesPerfilUniforme as canonico } from '../../../../lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+-import { sumarRendimientosTrabajo } from '../../../../lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
+-import { centimosAEuros } from '../../../../lib/dominio/dinero/importe-monetario.ts'
++import { composeSS, createSSEvaluator, traceSSClosure, validateSS } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r32.mjs'
++import { calcularDesgloseCotizacionesSocialesLegacy as legacy } from '/home/elies/Repos/IRoboPF/lib/dominio/laboral/cotizaciones-sociales.ts'
++import { calcularDesgloseCotizacionesPerfilUniforme as canonico } from '/home/elies/Repos/IRoboPF/lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
++import { sumarRendimientosTrabajo } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
++import { centimosAEuros } from '/home/elies/Repos/IRoboPF/lib/dominio/dinero/importe-monetario.ts'
+ const require = createRequire('/home/elies/Repos/IRoboPF/package.json')
+ const Decimal = require('decimal.js')
+-const dest = 'docs/procedencia/revisiones/flujo-ss-r34-sol/'
++const dest = 'docs/procedencia/correcciones/recepcion-r36/ss-'
+ const graph = composeSS(), evaluate = createSSEvaluator(graph)
+ const maxima = ['39150','41108.4','43164','43272','43704','45014.4','45014.4','48841.2','48841.2','48841.2','49672.8','53946','56646','58914','61214.4']
+ const fields = ['baseOrdinaria','excesoBase','cotizacionEmpresarialOrdinaria','cotizacionTrabajadorOrdinaria','meiEmpresarial','meiTrabajador','solidaridadEmpresarial','solidaridadTrabajador','cotizacionEmpresarial','cotizacionTrabajador']

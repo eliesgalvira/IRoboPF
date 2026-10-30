@@ -2,7 +2,21 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 35 del 30 de octubre
+## Situación más reciente, ronda 36 del 30 de octubre
+
+Recibidas cuatro entregas Sol: revisión SS R34, revisión de incorporación R34, retenciones por propiedad R34 y admisión parcial R35. Son 232 archivos y 17.879.699 bytes; tres cotejos de 17.248 entradas y uno de 17.306, todos físicamente intactos y sin borrados. Recibos, decisiones y pruebas del padre en correcciones/recepcion-r36.
+
+Incorporados localmente los 264 enlaces revisados sobre 102 sujetos, conservando Madrid 2020 pending. El padre coteja sus decisiones y las dos identidades reales. Recuperación serial probada ante fallo tras cada escritura; estados desconocidos rechazados. El preparador vuelve a producir el plan exacto desde previos o posteriores conocidos. No se cambia ninguna atestación ni se acepta una regla completa.
+
+Publicado localmente el snapshot d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1: 265 enlaces/103 sujetos, todos con aceptación fiscal completa false. Se conservan los 44 anteriores. CAS ordinario fuera de T3, originales verificados desde V5 por ambos hashes, sin escribir en el paquete. El primer intento sobre v2 falló por colisión editorial, conservado; el reintento desde v1 con inventario/software idénticos pasó. GET de las 103 fichas y 22 objetos correctos, 36 enlaces al BOE grande y los 45 snapshots verificados; ambos schemas correctos.
+
+Corregidos tres localizadores SS con rojo previo; 684 casos numéricos coinciden y ocho rojos semánticos permanecen. No se aceptan los once cierres causales. Retenciones R34 se conserva candidato para revisión nueva. Admisión R35 mantiene sus diecisiete cierres false y necesita completar selectores, adaptador, fronteras y propagación final. Pasan 106 pruebas focalizadas y 77 adicionales; tipos/lint globales pasan tras tres guardas explícitas en el test recibido. Ruff/mypy del procedimiento de recuperación correctos. No se atribuye tipado completo al MJS.
+
+Se prepara una tanda Sol de dos revisiones y cuatro implementaciones, con ámbitos separados, para continuar también los otros 48 sitios: 28 de escalas y 20 de rentas. No se reduce el alcance del encargo ni se aceptan parciales por recuento. Modelo de cada encargo nuevo: gpt-6.1-sol, high, priority explícitos; la salida real del lanzador se registrará al enviarlos.
+
+V5 mantiene corte R26; Crossa sigue v1 desfasado, copia local fuera de Victus del mismo dueño/casa, sin custodia independiente o remota. El nuevo CAS y los objetos públicos locales requieren restauración/configuración explícita al clonar. Sin LFS, gasto, transferencia externa, main, PR, despliegue ni limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 35 del 30 de octubre
 
 Recibida la contrarrevisión Sol de admisión anual R34: 45 archivos, 3.086.194 bytes, 17.248 entradas físicas intactas y cero borrados. El padre reproduce 27 casos: 22 correctos y cinco rojos contractuales conservados. Lint global correcto. Informe, decisiones y precisión de los dos niveles de Option en correcciones/admision-r35.
 

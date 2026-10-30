@@ -1,0 +1,33 @@
+tests/flujo-admision-r35.test.ts(10,14): error TS7006: Parameter 'effect' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(11,17): error TS7006: Parameter 'value' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(14,88): error TS18046: 'r.failure' is of type 'unknown'.
+tests/flujo-admision-r35.test.ts(17,13): error TS7006: Parameter 'value' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(19,12): error TS7006: Parameter 'change' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(53,46): error TS2345: Argument of type '{ descendientes: any[]; ejercicio: number; territorio: string; regimen: string; modalidad: string; devengo: string; contribuyenteId: string; edadContribuyenteDevengo: number; discapacidadContribuyente: { ...; }; ascendientes: string; fallecimientosEnElEjercicio: string; descendientesCompletos: boolean; conciliacionR...' is not assignable to parameter of type '{ readonly ejercicio: 2025; readonly territorio: "madrid"; readonly edadContribuyenteDevengo: number; readonly descendientes: readonly { readonly discapacidad: { readonly _tag: "SinDiscapacidad"; } | { readonly _tag: "Discapacidad33a64"; readonly necesitaAyudaOMovilidadReducida: boolean; } | { ...; }; ... 7 more ......'.
+  Types of property 'ejercicio' are incompatible.
+    Type 'number' is not assignable to type '2025'.
+tests/flujo-admision-r35.test.ts(55,50): error TS18046: 'b.failure' is of type 'unknown'.
+tests/flujo-admision-r35.test.ts(64,41): error TS2345: Argument of type '{ descendientes: { sujetoId: string; fechaNacimiento: string; edadDevengo: number; vivoAlDevengo: boolean; rentasNoExentasCentimos: number; declaracion: { modalidad: string; }; discapacidad: { ...; }; titularesCompletos: boolean; titulares: { ...; }[]; }[]; ... 11 more ...; conciliacionRentasContribuyente: { ...; }; }' is not assignable to parameter of type '{ readonly ejercicio: 2025; readonly territorio: "madrid"; readonly edadContribuyenteDevengo: number; readonly descendientes: readonly { readonly discapacidad: { readonly _tag: "SinDiscapacidad"; } | { readonly _tag: "Discapacidad33a64"; readonly necesitaAyudaOMovilidadReducida: boolean; } | { ...; }; ... 7 more ......'.
+  Types of property 'ejercicio' are incompatible.
+    Type 'number' is not assignable to type '2025'.
+tests/flujo-admision-r35.test.ts(66,47): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(66,117): error TS7006: Parameter 't' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(66,177): error TS18046: 'b.success' is of type 'unknown'.
+tests/flujo-admision-r35.test.ts(66,204): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(72,62): error TS2322: Type '({ codigo: string; } | null)[] | ({ codigo: string; } | undefined)[]' is not assignable to type 'readonly DeduccionAutonomicaCatalogadaAplicada[]'.
+  Type '({ codigo: string; } | null)[]' is not assignable to type 'readonly DeduccionAutonomicaCatalogadaAplicada[]'.
+    Type '{ codigo: string; } | null' is not assignable to type 'DeduccionAutonomicaCatalogadaAplicada'.
+      Type 'null' is not assignable to type 'DeduccionAutonomicaCatalogadaAplicada'.
+tests/flujo-admision-r35.test.ts(92,121): error TS59: This code constructs `new Date()`, date values are represented through `DateTime` from Effect.    effect(globalDate)
+tests/flujo-admision-r35.test.ts(94,85): error TS7019: Rest parameter 'a' implicitly has an 'any[]' type.
+tests/flujo-admision-r35.test.ts(96,10): error TS18048: 'args' is possibly 'undefined'.
+tests/flujo-admision-r35.test.ts(97,10): error TS2454: Variable 'args' is used before being assigned.
+tests/flujo-admision-r35.test.ts(98,42): error TS18048: 'args' is possibly 'undefined'.
+tests/flujo-admision-r35.test.ts(99,47): error TS18048: 'args' is possibly 'undefined'.
+tests/flujo-admision-r35.test.ts(109,3): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(110,3): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(111,3): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(112,3): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(113,3): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(114,3): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-admision-r35.test.ts(114,26): error TS7006: Parameter 'p' implicitly has an 'any' type.

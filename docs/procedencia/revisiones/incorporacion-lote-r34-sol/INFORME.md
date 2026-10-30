@@ -1,0 +1,69 @@
+# Revisión independiente de la incorporación R34
+
+Dictamen candidato: la incorporación local exacta de 264 pares conserva la autoridad y los límites de las decisiones recibidas. No se ha reproducido un defecto nuevo del preparador integrado. La ausencia de atomicidad de dos archivos se reproduce y permanece como límite operativo explícito. Este dictamen requiere contraste del padre; no autoriza activar confianza, no acepta fiscalidad por hashes/recuentos/pruebas y no cierra el encargo global.
+
+Trabajo personal en T3 Code, harness Codex, runtime gpt-6.1-sol, high. Priority solicitada; no hay medición independiente del scheduler. No se inventa taskId ni se emite atestación. Sin subdelegación, fix de producto, cambio de esperado histórico, VCS mutante, servidor, preview, main, PR, deploy, transferencia externa o escritura en X. Solo checkout asignado y sus dos ámbitos scratch autorizados. No se lee trabajo de hijos activos. La inspección de procesos mostró incidentalmente argumentos de otras tareas; no se utilizan como evidencia.
+
+Se leen BRIEF y AGENTS, contrato, coordinación y situación actual R34 de ESTADO/DECISIONES, recepción/postintegración/contraste y sus dos rojos por HEAD, ajuste instrumental, implementación R32, módulo y pruebas, instrumentos relevantes, derivación R23, proyección R25 y decisiones e informes R19. No se reabre NR30-01 ni se repite la revisión fiscal completa del lote. SS, admisión y continuación de retenciones quedan fuera de esta revisión.
+
+## Autoridad y decisiones por enlace
+
+La fuente es el registro T3 original de R19, SHA256 `8582f7a0658104d9d693cc5d1ef8f76d122c1b3aa95865532c7907188328574c`, incluidos sus bytes base64 en la derivación R23. No se eleva el mapa a autoridad por sí solo. La primera identidad usa la grafía canónica node:delegated-task de revisión estatal; la segunda usa la commandKey autonómica exacta. Ambas se contrastan con taskId/childNodeId, key, rol review y modelo gpt-6.1-sol de los objetos originales. Solo esas dos correspondencias; ningún alias por semejanza.
+
+`autoridad.json` coteja cada payload con la decisión individual R19: itemId, fuente/símbolo/columna, inventario, scope/condiciones, cita, documento y ámbito ejecutable. Coteja la decisión accepted-limited, payload/atestación/informe exactos, registro candidato y autor distinto de ambas grafías del revisor. Son 78 estatales y 186 autonómicos. Esta lectura comprueba la fidelidad de la incorporación a la autoridad entregada; no vuelve a determinar vigencia ni autenticidad de cada norma.
+
+Los nueve cruces del auxiliar Python real reserializan y rehashean atestaciones y, cuando corresponde, payloads y sus ámbitos/inventario. Identidad cruzada e informe ajeno se rechazan; alias inexistente se rechaza; autorrevisión explícita se rechaza. El cruce de payload falla por correspondencia. Los cambios coherentes de itemId, año o inventario llegan a la frontera de aprobación exacta y son rechazados allí, aunque concuerden internamente. La unión con aprobación duplicada tampoco se admite. `consumidores.json` conserva motivos exactos. No se atribuye a estos rechazos una comprobación causal universal del campo: algunos prueban precisamente la frontera editorial del hash aprobado.
+
+El preparador rederiva el plan en cada transición y rechaza ocho cambios del plan incluso con archivos reserializados y hashes posteriores actualizados cuando procede. Esto acredita integridad del plan, no suficiencia fiscal. La decisión por enlace y el coordinador constituyen contrastes distintos; no se suman sus recuentos como reglas aceptadas.
+
+## Base descendiente, escrituras y reversión
+
+El cambio del padre reemplaza igualdad de HEAD por `merge-base --is-ancestor` desde `846f25e183ba07414065d4e6bdf9e98311b98a17`. En HEAD R34 descendiente, el plan coincide íntegramente con plan.json recibido, incluidos los dos archivos candidatos. Nueve fuentes/preestados alterados se rechazan: derivación, proyección de revisores, registro T3, mapa, payload, atestación, informe y ambos registros previos. Los dos rojos originales por HEAD y sus esperados permanecen en recepción; no se convierten en fallos fiscales ni se vuelven a fechar. El ajuste Effect del test solo documenta dos fronteras del instrumento síncrono y no desactiva anti-slop.
+
+Aplicar/revertir operan únicamente en `.cache/incorporacion-lote-r32/revision-r34/`. Se verifica ida/vuelta exacta, segunda aplicación rechazada, preestado incorrecto del segundo archivo sin escribir el primero y reversión sobre una edición desconocida sin sobrescribirla. Se rechazan symlink de archivo, ancestro y raíz, y hardlink. No se promete resistencia a carreras concurrentes: las comprobaciones y la escritura no son una operación atómica de descriptor.
+
+Se inyecta EIO en la segunda escritura con el módulo real Node y se conserva el árbol mixto: primer archivo posterior, segundo anterior. Tanto aplicar como revertir lo rechazan. Es el coste IL32-D05 ya declarado, no un hallazgo nuevo ni una transacción corregida. No existe recuperación automática para ese estado; el operador deberá inspeccionar ambos archivos y resolverlo mediante una intervención separada y autorizada. No se modifica producto para hacer pasar ese caso.
+
+## Dos recorridos distintos
+
+Primero se adapta a scratch el restaurador recibido: siete hashes parciales, gzip global, pin v5, precondición de snapshots y 3.345 referencias/objetos. Reconstruye y verifica el histórico `b32c2166e71a4bf53d8bdaf51da7e70b11c3004179c3dd0abead3cec80303f26` en una raíz propia nueva. `restauracion.log` no es una regeneración por coordinador.
+
+Después se prepara un árbol nuevo mediante recetas recibidas adaptadas, con copia ordinaria de originales por hash desde v5 r2 de solo lectura y entorno Python propio. Se genera contenido desde inventario, se ejecuta el coordinador Python real, se comprueba ENOTDIR sin cambio del registro de snapshots y se publica en scratch. Se importan lectores y GET reales, sin HTTP externo ni servidor. El resultado vuelve a ser el mismo snapshot histórico; esa igualdad no sustituye el examen de autoridad y consumidores.
+
+El lote contiene 264 pares/102 sujetos, veinte objetos y 36 enlaces al BOE grande de 42.900.459 bytes. Con la entrada previa son 265 pares/103 sujetos y 22 objetos. Todos los GET de fichas comprueban presencia del payload y estado de aceptación completa false por enlace; los GET de objetos comprueban MIME, tamaño y SHA256. Solo Madrid2020 v1 conserva pending con payload `e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258`; no se sustituye por Madrid2022 ni por el candidato nominal. Ninguna regla completa se acepta.
+
+Recorrido nuevo: 201.177,445 ms, maxRSS de Bun 3.519.252 KiB. Incluye generación, preparación del coordinador, reextracción/publicación, ENOTDIR y GET desde la marca posterior a imports iniciales; excluye preparación de fuentes y espera del lock. No es RSS agregado de todos los procesos ni medida de concurrencia. Las demás mediciones disponibles se identifican en historia.json; no se inventa tiempo/RSS de la restauración histórica, que no fue instrumentada así.
+
+## Decisiones y acto pendiente del padre
+
+1. Corroborar fidelidad de la incorporación, sin repetir auditoría fiscal. Objeción experta: una receta fijada puede conservar una omisión. Respuesta: cotejo independiente de decisiones por enlace, autoridad y cruces de consumidores, además de regeneración. Coste: dictamen técnico limitado; vigencia, autenticidad histórica y hechos del contribuyente no se aceptan aquí.
+2. Admitir ascendencia con pines. Objeción: un descendiente puede cambiar contenidos. Respuesta: reconstrucción exacta y fuentes/preestado alterados rechazados. Coste: historia Git disponible y rechazo conservador de fuentes distintas; no se promete ejecución sobre cualquier descendiente futuro.
+3. Mantener la operación serial sin arreglarla durante revisión. Objeción: un fallo de IO puede dejar confianza a medias. Respuesta: reproducirlo y conservar el estado, limitando la API a scratch; se distingue preflight de transacción durable. Coste: acto operativo del padre debe resolver recuperación/durabilidad antes de atribuir esa garantía, y no puede reutilizar esta API como activador de registros activos.
+4. Restaurar y regenerar por separado. Objeción: copiar el candidato no prueba coordinador. Respuesta: dos raíces y dos ejecuciones reales independientes. Coste: espacio scratch y tiempo adicional, sin rehacer v5 entero ni copiar el BOE grande a Git.
+5. Conservar Madrid histórico y condiciones literales. Objeción: accepted-limited puede parecer aceptación agregada. Respuesta: estado por payload, un pendiente conservado, completeRuleAcceptance=false en todos. Coste: producto y acto editorial siguen sujetos a límites nominales/temporales exactos.
+
+Antes de un acto operativo, el padre debe contrastar esta entrega y sus bytes, emitir su propia decisión explícita sobre los 264 pares y ambas identidades, fijar preestado/archivos posteriores, conservar Madrid2020 y los 44 históricos, y especificar un procedimiento operativo con recuperación que esta API de ensayo no proporciona. Debe configurar un CAS ordinario adecuado y verificar su cierre; v5 r2 es fuente de preservación de lectura, no destino de escrituras. Este informe no concede esa autorización.
+
+Siguen explícitos Linux serial, lectura Buffer por objeto, ausencia de garantía concurrente/fsync/transacción de dos registros, autenticidad histórica pendiente, condiciones personales y custodia local. Crossa v1 está desfasado, mismo dueño y casa, copia local fuera de Victus; no acredita custodia remota o independiente. V5 mantiene corte R26 y pin `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88`; no se modifica ni reexporta. Los otros 48 sitios continúan en el encargo global.
+
+## Conservación y calidad
+
+El cotejo inicial terminó antes de editar: HEAD `d70af62d19291c83d0deb281c09df106ee4a3575`, 17.248 entradas, lstat/readlink/bytes/ejecutabilidad, blob individual, diff vacío. No se confía solo en índice. El cierre vuelve a comprobar todas las entradas y enumera altas propias por separado. No se modifica ningún archivo base ni se borra ningún original o trabajo ajeno. Los hashes anteriores de base son los del control físico; no hay cambios autorizados que describir.
+
+Los instrumentos adaptados y sus diffs se conservan; no se ejecuta ningún productor con salida en informes recibidos. COMANDOS.md, logs y controles concretos documentan resultados y límites. Los instrumentos de ensayo se archivan como texto, no como producto mantenido. No se escribe código Effect nuevo. Los controles de calidad se refieren al módulo y prueba integrados y al instrumento Python, no a todo el repositorio. El cierre de resultados separado recoge códigos reales y diagnósticos, sin presentar fallos de entorno como pases.
+
+Manifiesto por ruta relativa/SHA256/tamaño/baseSha256, patch textual gzip y binarios por ruta/hash; ensayo de transporte en scratch sin checkout ni VCS mutante. Controles mayores de 1 MB comprimidos. No se transportan entorno, node_modules, copias de aplicación ni PDF originales en docs. originales.json identifica CAS propio y preservación v5 con ambos hashes. Todos los originales permanecen donde estaban.
+
+## Resultados finales de ejecución
+
+Pasan los 25 controles independientes del preparador, nueve cruces del auxiliar real, las dos pruebas originales integradas, oxlint con 16 reglas a error, ESLint y TypeScript checkJs del alcance. ESLint conserva el aviso de pages ausente en la proyección; código 0, no un error fiscal. Ruff y mypy del instrumento Python pasan, sin suprimir diagnósticos ni cambiar esperados. autoridad.json termina correctamente con 264 decisiones individuales.
+
+Se verifican los 44 históricos con sus propios datos y se restaura además el candidato regenerado en una tercera raíz ordinaria: 3.345 objetos/referencias, inodos distintos y verificación real. Este control duró 252.893,771 ms y maxRSS Bun 2.776.304 KiB; incluye los 44 históricos, copia y verificación del regenerado, excluye espera de lock y generación. No hubo fallos nuevos de entorno/producto en las ejecuciones propias. El EIO es inyectado y el rechazo de reversión queda conservado como límite, no se cambia el esperado para volver verde una supuesta transacción.
+
+Incidencia propia de cierre: Ruff emitió tres entradas en .ruff_cache de la raíz porque no se fijó cache-dir. El primer cierre físico detectó esas altas fuera de ámbito y falló con código 1; las 17.248 entradas base sí coincidieron y no hubo borrados. Se conserva fisico-final-inicial.log/json.gz, se traslada esa caché propia por rutas absolutas a scratch autorizado sin borrar sus bytes y se corrige la receta futura con --cache-dir explícito. Se repite íntegramente el cotejo, sin ampliar la lista de ámbitos permitidos para ocultar el fallo. Esto es una desviación instrumental de esta revisión, no un defecto de producto ni un pase original correcto.
+
+El control propio partes.json verifica los hashes y tamaños de siete partes, gzip recompuesto y 2.614 objetos técnicos; no detecta cabeceras PDF/PNG. Es clasificación por cabecera, no un detector universal de formatos.
+
+Decisión sobre la incidencia de caché: conservar el cierre fallido y recolocar únicamente scratch propio. Objeción experta: excluir .ruff_cache del control ocultaría una escritura fuera del encargo. Respuesta: no se excluye ni se amplía el ámbito por esa caché; se conservan bytes/log y se repite todo el cotejo. Coste: recorrido adicional y desviación documentada. La calidad inicial sí tuvo códigos 0, pero no acreditaba por sí sola la limpieza física del checkout.
+
+Cierre físico repetido: código 0, 17.248 entradas idénticas, diff vacío, cero borrados y cero altas fuera de ámbito. HEAD sigue d70af62d19291c83d0deb281c09df106ee4a3575. La caché recogida se conserva solo en scratch propio.

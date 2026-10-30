@@ -1,0 +1,7 @@
+import fs from 'node:fs';import {gzipSync,gunzipSync}from'node:zlib';import {executeFinite,consumeAnnual}from'../../scripts/procedencia/flujo-retenciones-r34-consumidor.mjs';
+const g=JSON.parse(gunzipSync(fs.readFileSync('.cache/flujo-retenciones-r34/fragmento.json.gz')));
+const base={anio:2020,edad:40,retribucionAnualCentimos:4020000,cotizacionesCentimos:20000,situacionFamiliar:'situacion3',situacionLaboral:'activo',contrato:'general',descendientes:[],ascendientes:[],discapacidad:'sin-discapacidad'};
+const patches=[{}, {anualidadesAlimentosHijosCentimos:1000000},{residenciaCeutaMelilla:true},{residenciaCeutaMelilla:true,rendimientosCeutaMelilla:true},{edad:75},{contrato:'especial'}, {descendientes:[{edad:2,computoPorEntero:false,discapacidad:'de33a65',movilidadReducida:true,adopcionOAcogimientoMenosTresAnios:false}]}];
+const cases=patches.map((patch,index)=>({id:'R34-C'+index,patch,input:{...base,...patch},...consumeAnnual(g,{retencionTrabajoAeat:{...base,...patch},retencionesSoportadasCentimos:101,pagosACuentaCentimos:101},{modo:'canonico'})}));
+fs.writeFileSync('.cache/flujo-retenciones-r34/casos-correspondencias.json.gz',gzipSync(JSON.stringify(cases,null,2)+'\n',{level:9}));
+console.log(cases.map(c=>({id:c.id,lines:c.lines.map(l=>l.origen),scale:c.estimate.trace.filter(t=>g.scaleInstances.some(i=>i.node===t.node)).map(t=>({instance:g.scaleInstances.find(i=>i.node===t.node).id,arguments:t.arguments,result:t.result}))})));

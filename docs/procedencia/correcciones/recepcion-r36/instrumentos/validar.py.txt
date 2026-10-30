@@ -1,0 +1,22 @@
+import difflib,json,os,subprocess,time
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');S=R/'.cache/orquestador-recepcion/r36';O=R/'docs/procedencia/correcciones/recepcion-r36'
+old=(R/'docs/procedencia/revisiones/flujo-ss-r34-sol/casos.mjs').read_text()
+new=old.replace("'../../../../", "'/home/elies/Repos/IRoboPF/").replace("const dest = 'docs/procedencia/revisiones/flujo-ss-r34-sol/'", "const dest = 'docs/procedencia/correcciones/recepcion-r36/ss-'" )
+(S/'casos-ss.mjs').write_text(new)
+(O/'adaptacion-ss.diff').write_text(''.join(difflib.unified_diff(old.splitlines(True),new.splitlines(True),fromfile='casos.mjs recibido',tofile='scratch padre')))
+old=(R/'docs/procedencia/revisiones/incorporacion-lote-r34-sol/autoridad.mjs.txt').read_text()
+new=old.replace("const out='.cache/revision-incorporacion-r34'", "const out='docs/procedencia/correcciones/recepcion-r36'")
+(S/'autoridad.mjs').write_text(new)
+(O/'adaptacion-autoridad.diff').write_text(''.join(difflib.unified_diff(old.splitlines(True),new.splitlines(True),fromfile='autoridad recibida',tofile='scratch padre')))
+env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',UV_PROJECT_ENVIRONMENT=str(S/'venv'),OXLINT_THREADS='1')
+checks=[('ss-semantica',['bun',str(S/'casos-ss.mjs')],1),('autoridad',['node',str(S/'autoridad.mjs')],0),('tests',['bun','x','vitest','run','tests/flujo-ss-r32.test.ts','tests/flujo-retenciones-r34.test.ts','--maxWorkers=1'],0),('typecheck',['bun','run','typecheck'],0),('lint',['bun','run','lint'],0)]
+rows=[]
+for name,cmd,expected in checks:
+ start=time.monotonic()
+ with (O/(name+'.log')).open('w') as log:
+  result=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=R,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=1200)
+ row={'name':name,'command':cmd,'exitCode':result.returncode,'expectedExitCode':expected,'elapsedIncludingLockSeconds':round(time.monotonic()-start,3)};rows.append(row)
+ (O/'validacion.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(row),flush=True)
+ if result.returncode!=expected:break
+assert len(rows)==len(checks) and all(r['exitCode']==r['expectedExitCode'] for r in rows)

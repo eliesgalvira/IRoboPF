@@ -1,0 +1,338 @@
+{
+  "status": "pendiente-contraste-padre",
+  "admissionReviewed": false,
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false,
+  "sites": [
+    {
+      "siteId": "anual.ss.base",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "if(canonico && anio=2018,(7*min(S,45014.4)+5*min(S,45644.4))/12,min(S,M[anio]))",
+      "selectionReviewed": "anio/modo; dos saturaciones intranuales",
+      "missing": "semilla; enlace maxTable[anio] a baseMaxima",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.exceso",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "max(0,S-if(canonico,baseCanonica,M[anio]))",
+      "selectionReviewed": "modo; saturación inferior",
+      "missing": "origen de constantes y rama",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.empresarial-ordinaria",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "base*(.236+.055+.002+.006+.015)",
+      "selectionReviewed": "lado empresarial de cinco categorías",
+      "missing": "celda/callback/parametros por instancia",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.trabajador-ordinaria",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "base*(.047+.0155+0+.001+0)",
+      "selectionReviewed": "lado trabajador de cinco categorías",
+      "missing": "ceros efectivos y callback por lado",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.mei-empresarial",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "base*mei[anio].empresarial",
+      "selectionReviewed": "0 hasta 2022; .005/.0058/.0067/.0075",
+      "missing": "fuente por año/propiedad",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.mei-trabajador",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "base*mei[anio].trabajador",
+      "selectionReviewed": "0 hasta 2022; .001/.0012/.0013/.0015",
+      "missing": "fuente por año/propiedad",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.solidaridad-empresarial",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "if(canonico,weighted(bandas,tiposSolidaridad[anio].empresa),totalLegacy*5/6)",
+      "selectionReviewed": "2025/2026 empresa [0,1,2]; legacy tags y exceso<=0",
+      "missing": "fuentes .10/.50 y callback politica; reparto",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.solidaridad-trabajador",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "if(canonico,weighted(bandas,tiposSolidaridad[anio].trabajador),totalLegacy/6)",
+      "selectionReviewed": "2025/2026 trabajador [0,1,2]; legacy tags y exceso<=0",
+      "missing": "fuentes .10/.50 y callback politica; reparto",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.empresarial-total",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "(ordinariaEmpresarial+meiEmpresarial)+solidaridadEmpresarial",
+      "selectionReviewed": "mismo año/modo y lado",
+      "missing": "componer los tres sumandos con reservas",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.trabajador-total",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "(ordinariaTrabajador+meiTrabajador)+solidaridadTrabajador",
+      "selectionReviewed": "mismo año/modo y lado",
+      "missing": "componer los tres sumandos con reservas",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    },
+    {
+      "siteId": "anual.ss.coste-laboral",
+      "value": "contraste-aritmetico-condicionado-a-resultados",
+      "selection": "contraste-manual-condicionado; cierre-causal-no-acreditado",
+      "valueClosedAccepted": false,
+      "selectionClosedAccepted": false,
+      "siteClosed": false,
+      "findings": [
+        "SS34-01",
+        "SS34-02"
+      ],
+      "objecion": "No desechar operaciones ya explícitas",
+      "respuesta": "Composición candidata conserva expresión y reservas",
+      "coste": "Resolver origen y obligaciones antes de promover",
+      "expression": "S+cotizacionEmpresarial",
+      "selectionReviewed": "campo empresarial real de llamada anual",
+      "missing": "semilla y total empresarial; EUR anterior al formato",
+      "unit": "EUR",
+      "domain": {
+        "years": [
+          2012,
+          2026
+        ],
+        "modes": [
+          "canonico",
+          "compatible-legacy"
+        ],
+        "admission": "required-anual-publico-r32"
+      }
+    }
+  ]
+}

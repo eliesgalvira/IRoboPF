@@ -1,0 +1,11 @@
+76 |     objetos.set(p.hash, objeto(origen, p.hash))
+77 |     objetos.set(p.indice, objeto(origen, p.indice))
+78 |     for (const e of leerPaquete(anterior, p.prefijo, origen)) {
+79 |       const nuevo = reemplazos.get(e.entidad.id)
+80 |       if (nuevo && e.entidad.identidad !== "ocurrencia")
+81 |         throw new Error("Colisión editorial")
+                       ^
+error: Colisión editorial
+      at publicar (/home/elies/Repos/IRoboPF/scripts/procedencia/contenido-publicar.mjs:81:19)
+
+Bun v1.3.13 (Linux x64)

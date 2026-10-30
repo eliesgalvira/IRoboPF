@@ -1,0 +1,8 @@
+import json
+from pathlib import Path
+from jsonschema.validators import validator_for
+root=Path('/home/elies/Repos/IRoboPF')
+for schema_path,data_path in [
+ ('schemas/procedencia/flujo/retenciones-r34.schema.json','.cache/orquestador-recepcion/r36/retenciones.json'),
+ ('schemas/procedencia/flujo/admision-r35.schema.json','docs/procedencia/implementaciones/admision-evaluable-r35-sol/fragmento.json')]:
+ schema=json.loads((root/schema_path).read_text());data=json.loads((root/data_path).read_text());validator=validator_for(schema);validator.check_schema(schema);validator(schema).validate(data);print(schema_path,'correcto')

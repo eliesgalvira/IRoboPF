@@ -1,0 +1,58 @@
+{
+  "cases": [
+    {
+      "faultAfter": 1,
+      "observed": [
+        "1deda68b373cdbfc994128ddb97edd5941a93befbb122a50c9aea382dddc2741",
+        "3015971a9083a4be10471597c79d7cf1f382a0255bccba7d6be679185930dbd2"
+      ],
+      "recovered": {
+        "attempt": "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r36/fallo-1/journal/26d2eb4fc3b64a3e8c30ef6569cee158.json",
+        "target": "before",
+        "finalHashes": [
+          "1d52209d31204c67a8c4c13934b58fd46621be59e10cdb695d5785958c0bac4d",
+          "3015971a9083a4be10471597c79d7cf1f382a0255bccba7d6be679185930dbd2"
+        ],
+        "complete": true
+      },
+      "applied": {
+        "attempt": "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r36/fallo-1/journal/9485b7e391c44fdb828833949a6d6f76.json",
+        "target": "after",
+        "finalHashes": [
+          "1deda68b373cdbfc994128ddb97edd5941a93befbb122a50c9aea382dddc2741",
+          "26d3969ac6690eeaec9ab6855e9e4d4becb9515273f51277b6a380e72ae137be"
+        ],
+        "complete": true
+      }
+    },
+    {
+      "faultAfter": 2,
+      "observed": [
+        "1deda68b373cdbfc994128ddb97edd5941a93befbb122a50c9aea382dddc2741",
+        "26d3969ac6690eeaec9ab6855e9e4d4becb9515273f51277b6a380e72ae137be"
+      ],
+      "recovered": {
+        "attempt": "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r36/fallo-2/journal/d2b9270a63144ef7bb0995db3082d45d.json",
+        "target": "before",
+        "finalHashes": [
+          "1d52209d31204c67a8c4c13934b58fd46621be59e10cdb695d5785958c0bac4d",
+          "3015971a9083a4be10471597c79d7cf1f382a0255bccba7d6be679185930dbd2"
+        ],
+        "complete": true
+      },
+      "applied": {
+        "attempt": "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r36/fallo-2/journal/876c4498fd4643a895cdb7cac6a505c7.json",
+        "target": "after",
+        "finalHashes": [
+          "1deda68b373cdbfc994128ddb97edd5941a93befbb122a50c9aea382dddc2741",
+          "26d3969ac6690eeaec9ab6855e9e4d4becb9515273f51277b6a380e72ae137be"
+        ],
+        "complete": true
+      }
+    }
+  ],
+  "unknownRejectedBeforeWrites": true,
+  "symlinkRejectedBeforeWrites": true,
+  "serialOnly": true,
+  "powerLossDurabilityNotProven": true
+}

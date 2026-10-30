@@ -1,0 +1,30 @@
+import importlib.util,json,hashlib,os,shutil
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');O=R/'docs/procedencia/correcciones/recepcion-r36';S=R/'.cache/orquestador-recepcion/r36'
+V=R/'.cache/orquestador-preservacion/v5-r2-2b15925970d4'
+def sha(b):return hashlib.sha256(b).hexdigest()
+assert sha((V/'manifest-externo.json').read_bytes())=='2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88'
+p=json.loads((O/'plan.json').read_text())
+assert p==json.loads((R/'docs/procedencia/implementaciones/incorporacion-lote-r32-sol/plan.json').read_text())
+authority=json.loads((O/'autoridad.json').read_text());assert len(authority['rows'])==264
+sources={}
+for e in json.loads((R/'docs/procedencia/implementaciones/incorporacion-lote-r32-sol/preparacion.json').read_text())['originals']+json.loads((R/'docs/procedencia/implementaciones/incorporacion-lote-r32-sol/madrid-preservado.json').read_text())['objects']:
+ sources[e['sha256']]=e
+copied=[]
+for h,e in sources.items():
+ src=V/'paquete/sha256'/h;b=src.read_bytes();assert sha(b)==h and len(b)==e['size'] and hashlib.sha512(b).hexdigest()==e['sha512']
+ dest=R/'docs/procedencia/corpus/fixtures/sha256'/h
+ if dest.exists():assert dest.read_bytes()==b
+ else:
+  dest.parent.mkdir(parents=True,exist_ok=True)
+  with dest.open('xb') as f:f.write(b);f.flush();os.fsync(f.fileno())
+ copied.append({'path':str(dest.relative_to(R)),'sha256':h,'sha512':e['sha512'],'size':len(b),'preservedSource':str(src)})
+(O/'originales-locales.json').write_text(json.dumps(copied,indent=2)+'\n')
+cas=R/'.cache/procedencia/publicacion-cas/sha256';cas.mkdir(parents=True,exist_ok=True)
+assert cas.resolve()==cas
+decision={'kind':'aprobacion-operativa-local-padre-r36','planSha256':sha((O/'plan.json').read_bytes()),'authoritySha256':sha((O/'autoridad.json').read_bytes()),'independentReviewManifestSha256':'b49e9ae658a071e80e5dbaa3fa762ec5addfa75d55ff5acbba04de78973b059f','pairs':264,'subjects':102,'reviewerIdentities':p['identities'],'scope':'Incorporar exactamente decisiones accepted-limited por celda y año; no ampliar condiciones ni reescribir atestaciones','oldMadridPreservedPending':True,'completeRuleAcceptance':False,'externalDeployment':False,'recovery':'transicion.py con plan fijado; extremos before/after, estados desconocidos rechazados; serial, sin atomicidad dual ni garantía de apagón','casRoot':str(cas)}
+(O/'aprobacion-local.json').write_text(json.dumps(decision,indent=2)+'\n')
+spec=importlib.util.spec_from_file_location('transicion',O/'transicion.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+receipt=m.transition(R,p,'after',S/'journal-activo')
+(O/'incorporacion-local.json').write_text(json.dumps(receipt,indent=2)+'\n')
+print(json.dumps({'incorporatedPairs':264,'originals':len(copied),'cas':str(cas),'completeRuleAcceptance':False}))
