@@ -4,13 +4,13 @@
     "post": "2052650251916288170",
     "url": "https://x.com/tzautxi/status/2052650251916288170",
     "title": "Cotización mensual frente a base anual",
-    "status": "indeterminada",
+    "status": "parcial-confirmada",
     "exercise": "2012–2026 no fijado por el post",
     "scope": "Régimen General; mensualidad y distribución de salario ausentes",
     "enginePath": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
     "engineSha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
-    "reason": "La periodicidad mensual tiene apoyo documental. Con doce mensualidades uniformes y sin redondeo, anualizar es algebraicamente equivalente; no lo es con remuneración variable o redondeo por mes. El módulo declara alcance analítico y redondeo TGSS pendiente. No confirmar una cuota ingresable con datos anuales.",
-    "next": "Añadir contrato de bases/cuotas mensuales, grupo, días y contingencias, después de verificar norma técnica TGSS de redondeo. Conservar perfil analítico y legacy.",
+    "reason": "Periodicidad ordinaria mensual confirmada por RD 2064/1995 art. 16 y, para solidaridad 2025, art. 72 bis; con excepciones expresas. Ley 46/1998 fija criterio y protege saldos finales, sin imponer el mes. Un total anual de liquidaciones finales suma céntimos mensuales; el helper declara otro contrato analítico y no se altera.",
+    "next": "Definir contrato mensual con hechos laborales y unidad de cuantización antes de anunciar importes ingresables; conservar perfil analítico y legacy.",
     "expertObjectionAndCost": "No basta multiplicar una cuota mensual por doce si cambian bases, topes o días. Coste: ampliar entrada y separar tres contratos.",
     "review": "pendiente de revisión NUEVA por padre",
     "fiscalAcceptance": false,
@@ -20,11 +20,80 @@
     "numericAccuracy": "aritmética independiente cuando consta en pruebas/decimal.json",
     "input": "Ver transcripción e hipótesis, sin completar hechos ausentes",
     "expected": "Solo CX-02 tiene expectativa analítica completa; restantes no son oracles",
-    "rounding": "No inferir precisión interna desde presentación; TGSS pendiente",
+    "rounding": "Criterio de pago/conversión documentado con alcance limitado; etapa y agregación SLD pendientes. Véase redondeoLeyEuro.",
     "officialEvidence": [
-      "citas-candidatas.json"
+      "citas-candidatas.json",
+      "docs/procedencia/auditorias/redondeo-ley-euro/fuentes.json"
     ],
-    "redBeforeFix": "No fix nuevo: CX-02 ya corregido; demás indeterminados, no fabricar un rojo fiscal"
+    "redBeforeFix": "No fix nuevo: CX-02 ya corregido; demás indeterminados, no fabricar un rojo fiscal",
+    "redondeoLeyEuro": {
+      "report": "docs/procedencia/auditorias/redondeo-ley-euro/INFORME.md",
+      "criterion": "Céntimo próximo y equidistancia superior positiva; art. 11.1 Ley 46/1998 en conversión y evidencia de pago Orden 23/05/2001/RED. Imagen AEAT: finales y 0,005→0,01.",
+      "stage": "Art.11.2 protege el saldo final frente a operaciones intermedias; no determina su unidad SLD.",
+      "period": "RD 2064/1995 art. 16: liquidación mensual salvo excepción; art. 72 bis: solidaridad referida al mes de devengo. Sumar doce liquidaciones finales en céntimos difiere de redondear el anual analítico.",
+      "aggregation": "Pendiente especificación aplicable por concepto/fracción retributiva, tramo temporal, trabajador y aportación; no universalizar producto empresarial directo ante discriminante E01.",
+      "images": "Dos imágenes originales descargadas e inspeccionadas; posts del 26/04/2026 verificados por Elies. REDONDEAR1 cotejado con AEAT2017, página física 22 (impresa21), sin identificar origen exacto ni ejercicio del recorte.",
+      "expectedNormativoTgss": null,
+      "engineChange": false,
+      "evidence": [
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/ley46-original.html",
+          "url": "https://www.boe.es/eli/es/l/1998/12/17/46",
+          "sha256": "0c6dc8e7b5e588e8990cdbfdadd27828ee8438d1399d103a20efb11963513434",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/ley46-consolidada.html",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-29216",
+          "sha256": "dc1e98bc01dbac33efd44d28d5d76b4520f6a830fa08570bb2756841de8a49fa",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd2064-2025.html",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1996-1579&p=20250101&tn=1",
+          "sha256": "75aa6dffed18237ec9911e3952cde58f75aabc311465c2ef964ea9c585ab0b64",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd708-2015-original.html",
+          "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2015-8339",
+          "sha256": "f7623777a0903c82090767cf4e86f740112489778c1c2d9627c3618b6a708f24",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd322-2024-original.html",
+          "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2024-6086",
+          "sha256": "32cd73606b8ff56ac069e3ee1c79e6b77e5c39ec50b24320f8cb3ef27bf7bee6",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/euro-tgss-2001.pdf",
+          "url": "https://www.boe.es/boe/dias/2001/05/25/pdfs/A18315-18316.pdf",
+          "sha256": "91ba19154e7fda5bab17e9dac14304d0c86841bbcefb607db7aaae9d42bd550e",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/imagen-fe-erratas-aeat.jpg",
+          "url": "https://pbs.twimg.com/media/HG03Q9Fa4AAEzau.jpg?name=orig",
+          "sha256": "1de3c44f8da4de1090588b17321890c7c0cfd52e8a2aef8a58de6c5fa61bd47e",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/imagen-ley-euro.png",
+          "url": "https://pbs.twimg.com/media/HG07SqrbIAAD1ON.png?name=orig",
+          "sha256": "14c28bc0d2e2fbb8c521ba7290c8353cb40cb4e18d03202de7db0b0aa0d7d7c2",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        }
+      ],
+      "aeatOfficialMatch": {
+        "file": "docs/procedencia/auditorias/redondeo-ley-euro/aeat-algoritmo2017.pdf",
+        "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+        "page": 22,
+        "printedPage": 21,
+        "versionDate": "2016-11-25",
+        "scope": "Coincidencia textual íntegra; no identifica procedencia exacta de la captura ni algoritmo TGSS"
+      }
+    }
   },
   {
     "id": "CX-02",
@@ -64,13 +133,13 @@
     "post": "2052783973697282073",
     "url": "https://x.com/tzautxi/status/2052783973697282073",
     "title": "Céntimos mensuales anotados",
-    "status": "indeterminada",
+    "status": "aritmetica-condicional",
     "exercise": "2025",
     "scope": "Mismas entradas visibles, distribución mensual supuesta",
     "enginePath": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
     "engineSha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
-    "reason": "Redondear cada tramo mensual a céntimos y multiplicar12 produce673.44/132.84. La imagen no acredita regla de redondeo TGSS ni detalle de conceptos ordinarios. No se sustituye la salida analítica.",
-    "next": "Obtener instrucciones primarias TGSS vigentes sobre base, cuota y orden por concepto; añadir rojo contra nuevo contrato mensual con esas entradas; solo después fix. No red contra contrato que declara redondeo pendiente.",
+    "reason": "La imagen AEAT y Ley 46/1998 añaden evidencia del empate positivo superior en finales/conversión, no del redondeo por cada producto SLD. 673,44/132,84 sigue siendo aritmética condicional por fracción/mes; por agregado mensual resulta 673,44/132,72. No se sustituye la salida analítica.",
+    "next": "Obtener especificación primaria aplicable que decida cuantización por concepto/fracción/tramo y reconciliación de aportaciones; crear rojo solo contra contrato mensual definido, antes del fix.",
     "expertObjectionAndCost": "Coincidencia aritmética no es vigencia. Coste: pendiente documental concreto y sin valor ingresable.",
     "review": "pendiente de revisión NUEVA por padre",
     "fiscalAcceptance": false,
@@ -80,11 +149,80 @@
     "numericAccuracy": "aritmética independiente cuando consta en pruebas/decimal.json",
     "input": "Ver transcripción e hipótesis, sin completar hechos ausentes",
     "expected": "Solo CX-02 tiene expectativa analítica completa; restantes no son oracles",
-    "rounding": "No inferir precisión interna desde presentación; TGSS pendiente",
+    "rounding": "Criterio de pago/conversión documentado con alcance limitado; etapa y agregación SLD pendientes. Véase redondeoLeyEuro.",
     "officialEvidence": [
-      "citas-candidatas.json"
+      "citas-candidatas.json",
+      "docs/procedencia/auditorias/redondeo-ley-euro/fuentes.json"
     ],
-    "redBeforeFix": "No fix nuevo: CX-02 ya corregido; demás indeterminados, no fabricar un rojo fiscal"
+    "redBeforeFix": "No fix nuevo: CX-02 ya corregido; demás indeterminados, no fabricar un rojo fiscal",
+    "redondeoLeyEuro": {
+      "report": "docs/procedencia/auditorias/redondeo-ley-euro/INFORME.md",
+      "criterion": "Céntimo próximo y equidistancia superior positiva; art. 11.1 Ley 46/1998 en conversión y evidencia de pago Orden 23/05/2001/RED. Imagen AEAT: finales y 0,005→0,01.",
+      "stage": "Art.11.2 protege el saldo final frente a operaciones intermedias; no determina su unidad SLD.",
+      "period": "RD 2064/1995 art. 16: liquidación mensual salvo excepción; art. 72 bis: solidaridad referida al mes de devengo. Sumar doce liquidaciones finales en céntimos difiere de redondear el anual analítico.",
+      "aggregation": "Pendiente especificación aplicable por concepto/fracción retributiva, tramo temporal, trabajador y aportación; no universalizar producto empresarial directo ante discriminante E01.",
+      "images": "Dos imágenes originales descargadas e inspeccionadas; posts del 26/04/2026 verificados por Elies. REDONDEAR1 cotejado con AEAT2017, página física 22 (impresa21), sin identificar origen exacto ni ejercicio del recorte.",
+      "expectedNormativoTgss": null,
+      "engineChange": false,
+      "evidence": [
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/ley46-original.html",
+          "url": "https://www.boe.es/eli/es/l/1998/12/17/46",
+          "sha256": "0c6dc8e7b5e588e8990cdbfdadd27828ee8438d1399d103a20efb11963513434",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/ley46-consolidada.html",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-29216",
+          "sha256": "dc1e98bc01dbac33efd44d28d5d76b4520f6a830fa08570bb2756841de8a49fa",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd2064-2025.html",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1996-1579&p=20250101&tn=1",
+          "sha256": "75aa6dffed18237ec9911e3952cde58f75aabc311465c2ef964ea9c585ab0b64",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd708-2015-original.html",
+          "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2015-8339",
+          "sha256": "f7623777a0903c82090767cf4e86f740112489778c1c2d9627c3618b6a708f24",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd322-2024-original.html",
+          "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2024-6086",
+          "sha256": "32cd73606b8ff56ac069e3ee1c79e6b77e5c39ec50b24320f8cb3ef27bf7bee6",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/euro-tgss-2001.pdf",
+          "url": "https://www.boe.es/boe/dias/2001/05/25/pdfs/A18315-18316.pdf",
+          "sha256": "91ba19154e7fda5bab17e9dac14304d0c86841bbcefb607db7aaae9d42bd550e",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/imagen-fe-erratas-aeat.jpg",
+          "url": "https://pbs.twimg.com/media/HG03Q9Fa4AAEzau.jpg?name=orig",
+          "sha256": "1de3c44f8da4de1090588b17321890c7c0cfd52e8a2aef8a58de6c5fa61bd47e",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        },
+        {
+          "file": "docs/procedencia/auditorias/redondeo-ley-euro/imagen-ley-euro.png",
+          "url": "https://pbs.twimg.com/media/HG07SqrbIAAD1ON.png?name=orig",
+          "sha256": "14c28bc0d2e2fbb8c521ba7290c8353cb40cb4e18d03202de7db0b0aa0d7d7c2",
+          "scope": "Véase INFORME.md de redondeo-ley-euro; no oracle TGSS"
+        }
+      ],
+      "aeatOfficialMatch": {
+        "file": "docs/procedencia/auditorias/redondeo-ley-euro/aeat-algoritmo2017.pdf",
+        "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b",
+        "page": 22,
+        "printedPage": 21,
+        "versionDate": "2016-11-25",
+        "scope": "Coincidencia textual íntegra; no identifica procedencia exacta de la captura ni algoritmo TGSS"
+      }
+    }
   },
   {
     "id": "CX-04",

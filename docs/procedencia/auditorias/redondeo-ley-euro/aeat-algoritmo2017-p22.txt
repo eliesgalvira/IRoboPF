@@ -1,0 +1,67 @@
+                                                                             Departamento de Informática Tributaria
+
+
+
+
+REDUCCIÓN POR OBTENCION DE RENDIMIENTOS DEL TRABAJO
+
+REDUCCIÓN DE CARÁCTER GENERAL
+
+
+Si RNT ≤ 11.250,00 : RED20 = 3.700
+
+
+Else: Si RNT ≤ 14.450,00 : RED20 = 3.700,00 – [1,15625 * (RNT- 11.250,00)]
+
+
+Else: RED20 = 0,00
+
+
+Finsi.
+
+Se define la función REDONDEAR1 (...), consistente en redondear al segundo decimal magnitudes que se
+consideran “finales”, en aplicación de la normativa sobre introducción del EURO, y teniendo en cuenta que
+0,005 se redondea a 0,01.
+
+RED20 = REDONDEAR1 (RED20)
+
+
+
+
+RENDIMIENTO NETO REDUCIDO
+
+RNTREDU = RNT – OTROSGASTOS - RED20
+Si RNTRDU < 0 : RNTREDU = 0
+
+
+
+REDUCCIÓN PENSIONISTA DE LA S. SOCIAL O CLASES PASIVAS
+
+Si SITUPER = PENSIONISTA : PENSION = 600,00
+
+Else: PENSION = 0,00
+
+Finsi.
+
+
+REDUCCIÓN MAS DE DOS DESCENDIENTES
+
+Si NUMDES > 2 : HIJOS = 600,00
+
+Else: HIJOS = 0,00
+
+Finsi
+
+
+
+REDUCCIÓN POR SER DESEMPLEADO
+
+Si SITUPER = DESEMPLEADO : DESEM = 1.200,00
+
+Else: DESEM = 0,00
+
+Finsi.
+
+
+                                                  Página 21
+
