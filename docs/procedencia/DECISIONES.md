@@ -525,3 +525,7 @@ La contrarrevisión descubre tres colisiones dentro del dominio anunciado. Objec
 ## D120 — Corroborar identidad sin confundirla con aceptación de valores
 
 La revisión independiente y el contraste del padre corroboran R47-N01 y compatibilidad v3, sin nuevo defecto reproducido. Objeción: aceptar identidad del recibo podría trasladarse a sus importes o provocar una cadena interminable de revisiones idénticas. Respuesta: cerrar solo el hallazgo técnico, mantener obligaciones financieras y admisión separadas, y avanzar a la contrarrevisión pendiente del módulo de resultados R45. Coste: regeneración explícita de recibos v2 y revisión propia de la composición posterior; no promover confianza ni fiscalidad por hashes o pruebas.
+
+## D121 — Corroborar resultados finitos con su precondición de composición
+
+La revisión independiente y el contraste del padre corroboran los seis bloques de resultados R45 sin nuevo defecto. Objeción: conservar payload y variantes podría aparentar autenticación o cierre del contrato global. Respuesta: mantener originales verificados, datos ordinarios y evaluación síncrona como condiciones, distinguir señal interna de autenticación y avanzar a puertos/obligaciones sin otra revisión favorable idéntica. Coste: verificación de cuatro programas al crear consumidor y discriminación explícita antes de usar valores; las APIs de laboratorio no conceden admisión ni aceptación fiscal.

@@ -1,0 +1,251 @@
+import { expect, it } from "vitest"
+import { Effect } from "effect"
+// Lectura documental síncrona del rango fuente en el arnés, fuera del motor Effect.
+// @effect-diagnostics-next-line effect/nodeBuiltinImport:off
+import { readFileSync } from "node:fs"
+import { produceComposition, verifyComposition } from "../../../../scripts/procedencia/composicion-r43"
+import { preserveFailureOperands, captureFinite, consumeRetentionResult, consumeActivityResult, createResultConsumer } from "../../../../scripts/procedencia/composicion-r45-resultados"
+import { executeFinite } from "../../../../scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
+import { calcularRetencionTrabajoAeat } from "../../../../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+import type { CasoRetencionTrabajo } from "../../../../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+import { calcularActividad2025 } from "../../../../lib/dominio/irpf/actividades-economicas/calcular"
+import type { CasoActividad2025 } from "../../../../lib/dominio/irpf/actividades-economicas/contrato"
+
+const candidate = produceComposition()
+const subcase: CasoRetencionTrabajo = { anio: 2020, edad: 40, retribucionAnualCentimos: 1700000, cotizacionesCentimos: 120000, situacionFamiliar: "situacion3", situacionLaboral: "activo", contrato: "general", descendientes: [], ascendientes: [], discapacidad: "sin-discapacidad" }
+type Node = { id: string; op: string; args: string[]; data: { key?: string; name?: string }; source: { file: string; start: number; end: number; sha256: string; offsetEncoding: string } }
+function failNodes(program: Node[]) {
+ const nodes = new Map(program.map(n => [n.id, n]))
+ return program.filter(n => {
+  const member = nodes.get(n.args[0] ?? "")
+  const owner = nodes.get(member?.args[0] ?? "")
+  return n.op === "call" && member?.op === "get" && member.data.key === "fail" && owner?.op === "global" && owner.data.name === "Effect"
+ })
+}
+it("B1 transformación exacta, fuente y seis nodos auxiliares por llamada", () => {
+ const original = structuredClone(candidate.fragments.retenciones)
+ const adapted = preserveFailureOperands(original)
+ const fails = failNodes(original.program)
+ expect(fails.length).toBe(7)
+ const ids = new Set(fails.map(n => n.id))
+ for (const before of original.program) {
+  const after = adapted.program.find((n: Node) => n.id === before.id)
+  if (ids.has(before.id)) {
+   expect(after).toEqual({ ...before, op: "throw", args: [before.id+"::r45:signal"] })
+   const payload = adapted.program.find((n: Node) => n.id === before.id+"::r45:field:payload")
+   expect(payload.args).toEqual([before.args[1]])
+   for (const extra of adapted.program.filter((n: Node) => n.id.startsWith(before.id+"::r45:"))) expect(extra.source).toEqual(before.source)
+   const source = readFileSync(before.source.file,"utf8").slice(before.source.start,before.source.end)
+   expect(source).toContain("Effect.fail(")
+  } else expect(after).toEqual(before)
+ }
+ expect(adapted.program.length-original.program.length).toBe(fails.length*6)
+ expect(original).toEqual(candidate.fragments.retenciones)
+ expect(() => verifyComposition({ ...candidate, fragments: { ...candidate.fragments, retenciones: adapted } })).toThrow()
+})
+it("B1 solo patrón exacto, aridad y colisión; laboratorio sobre copia", () => {
+ const call = failNodes(candidate.fragments.retenciones.program)[0]!
+ for (const args of [[call.args[0]!], [...call.args,call.args[1]!]]) {
+  const copy=structuredClone(candidate.fragments.retenciones)
+  copy.program.find((n: Node) => n.id===call.id).args=args
+  expect(() => preserveFailureOperands(copy)).toThrow("Aridad")
+ }
+ for (const change of ["owner","member","call"] as const) {
+  const copy=structuredClone(candidate.fragments.retenciones)
+  const n=copy.program.find((n: Node) => n.id===call.id)
+  const member=copy.program.find((x: Node)=> x.id===n.args[0])
+  const owner=copy.program.find((x: Node)=> x.id===member.args[0])
+  if(change==="owner") owner.data.name="Other"
+  if(change==="member") member.data.key="other"
+  if(change==="call") n.op="other"
+  expect(preserveFailureOperands(copy).program.find((x: Node)=>x.id===n.id)).toEqual(n)
+ }
+ const collision=structuredClone(candidate.fragments.retenciones)
+ collision.program.push({...call,id:call.id+"::r45:signal"})
+ expect(()=>preserveFailureOperands(collision)).toThrow("Colisión")
+})
+it("B2 marcador referencial atraviesa evaluación; copia JSON no autentica pin ni señal", () => {
+ const adapted=preserveFailureOperands(candidate.fragments.retenciones)
+ const input={...subcase,retribucionAnualCentimos:-1}
+ const run=()=>executeFinite(adapted,"calcularRetencionTrabajoAeatImpl",[input,{modo:"canonico"}],false).result
+ const result=captureFinite("root",run)
+ expect(result.status).toBe("fail")
+ interface CapturedException { value?: object }
+ const caught: CapturedException={}
+ try {run()} catch(error) { if(error instanceof Object) caught.value=error }
+ expect(captureFinite("again",()=>{throw caught.value}).status).toBe("fail")
+ expect(captureFinite("json",()=>{throw JSON.parse(JSON.stringify(caught.value))}).status).toBe("defect")
+ expect(captureFinite("zero",()=>0)).toEqual({status:"success",operation:"zero",value:0})
+ for (const error of [Error("ResultadoNoSoportado"),{_tag:"ResultadoNoSoportado"},null,undefined,"fail"]) expect(captureFinite("unknown",()=>{throw error}).status).toBe("defect")
+})
+const retentionCases: [string,CasoRetencionTrabajo][]=[
+ ["antes reforma",{...subcase,anio:2018,fechaPago:"2018-07-04"}],
+ ["después reforma",{...subcase,anio:2018,fechaPago:"2018-07-05"}],
+ ["cierre",{...subcase,anio:2018,perfilTemporal:"cierre"}],
+ ["sin fecha",{...subcase,anio:2018}],
+ ["fecha inválida",{...subcase,fechaPago:"2020-02-30"}],
+ ["fecha y cierre",{...subcase,fechaPago:"2020-01-01",perfilTemporal:"cierre"}],
+ ["irregular",{...subcase,irregular1Centimos:1000000}],
+ ["manuales",{...subcase,contrato:"manuales"}],
+ ["descendiente no elegible",{...subcase,situacionFamiliar:"situacion1",descendientes:[{edad:30,computoPorEntero:true,discapacidad:"sin-discapacidad",movilidadReducida:false,adopcionOAcogimientoMenosTresAnios:false}]}],
+ ["negativa",{...subcase,retribucionAnualCentimos:-1}],
+ ["regularizacion",{...subcase,procedimiento:"regularizacion"}],
+ ["cero",{...subcase,retribucionAnualCentimos:0}],
+]
+for(const modo of ["canonico","compatible-legacy"] as const) for(const [name,input] of retentionCases) it("B3 "+modo+" "+name,()=>{
+ const real=Effect.runSync(Effect.result(calcularRetencionTrabajoAeat(input,{modo})))
+ const result=consumeRetentionResult(candidate.fragments.retenciones,input,{modo})
+ if(real._tag==="Success") {
+  expect(result.status).toBe("success")
+  if(result.status!=="success") throw Error("success ausente")
+  expect(result.value).toEqual(real.success)
+  if(modo==="canonico"&&name==="antes reforma") expect(result.value.version).toBe("aeat-2018-01-01")
+  if(modo==="canonico"&&name==="después reforma") expect(result.value.version).toBe("aeat-2018-07-05")
+ } else {
+  expect(result.status).toBe("fail")
+  if(result.status!=="fail") throw Error("fail ausente")
+  expect(result.payload).toEqual(real.failure)
+  const node=failNodes(candidate.fragments.retenciones.program).find(n=>n.id===result.operation)
+  expect(node).toBeDefined()
+  if(!node) throw Error("Nodo causante ausente")
+  const text=readFileSync(node.source.file,"utf8").slice(node.source.start,node.source.end)
+  expect(text).toContain("resultadoNoSoportadoRetencion(caso")
+  if(name==="regularizacion") expect(text).toContain("Regularización no implementada")
+  if(name==="negativa") expect(text).toBe("Effect.fail(resultadoNoSoportadoRetencion(caso))")
+  if(modo==="canonico"&&name==="manuales") expect(text).toContain("Jornales requieren")
+  if(modo==="canonico"&&name==="irregular") expect(text).toContain("IRREGULAR1 supera")
+ }
+})
+it("B3 ausencia no lee fragmento y 1900 legacy es defecto exterior al tipo anual",()=>{
+ const empty=structuredClone(candidate.fragments.retenciones);empty.program=[]
+ expect(consumeRetentionResult(empty,undefined,{modo:"canonico"}).status).toBe("not-reached")
+ const invalid={...subcase};Object.assign(invalid,{anio:1900})
+ const real=Effect.runSync(Effect.exit(calcularRetencionTrabajoAeat(invalid,{modo:"compatible-legacy"})))
+ expect(real._tag).toBe("Failure")
+ if(real._tag==="Failure") expect(real.cause.reasons.some(reason=>reason._tag==="Die")).toBe(true)
+ expect(consumeRetentionResult(candidate.fragments.retenciones,invalid,{modo:"compatible-legacy"}).status).toBe("defect")
+})
+
+// Fixture estructural recibido; discriminantes independientes abajo.
+function casoBase(): CasoActividad2025 {
+  return {
+    ejercicio: 2025,
+    territorio: "comun",
+    individual: true,
+    actividadId: "profesion",
+    iae: "servicios",
+    fechaInicio: "2025-01-01",
+    fechaFin: "2025-12-31",
+    serviciosOrdinarios: true,
+    hechos: {
+      otrasActividades: false,
+      otrasRentas: false,
+      existencias: false,
+      empleados: false,
+      artistica: false,
+      irregular: false,
+      subvenciones: false,
+      transmisiones: false,
+      extranjero: false,
+      mutualidad: false,
+      especialidadesTerritoriales: false,
+      saldosPendientes: false,
+      serviciosGratuitos: false,
+      autoconsumo: false,
+      noFacturados: false,
+      subvalorados: false,
+      trade: false,
+      hechosDesconocidos: false,
+    },
+    historial: [],
+    actividadPreviaAlInicio: "ausente",
+    regimen2025: "eds",
+    criterio2025: "devengo",
+    documentoCriterio2025: "alta",
+    renuncia2025: false,
+    exclusion2025: false,
+    volumen2024: "0",
+    diasActividad2024: 0,
+    documentoVolumen2024: "sin-actividad",
+    clientes: [
+      {
+        id: "cliente",
+        vinculado: false,
+        empleadorEnAnioAnteriorAlInicio: false,
+        documento: "contrato",
+      },
+    ],
+    ingresos: [],
+    gastos: [],
+    reta: [],
+    activos: [],
+    obligacionesFormales: true,
+    documentoObligaciones: "libros",
+    discapacidad: {
+      grado: 0,
+      ayudaOMovilidad: false,
+      ejercicioEfectivo: true,
+      documento: "sin-discapacidad",
+    },
+    opcion: "gastos-dificiles",
+    aplicarRentasBajas: true,
+    aplicarInicio: false,
+    retenciones: [],
+    pagosFraccionados: [],
+  }
+}
+it("B4 pérdidas y pagos separados, etapas y discriminantes completos",()=>{
+ const input:CasoActividad2025={...casoBase(),gastos:[{id:"g",justificante:"g-doc",fecha:"2025-02-01",base:"123.45",iva:"0",ivaRecuperable:"0",afectacionExclusiva:true,registrado:true,categoria:"alquiler-local",correlacion:true,rectificativa:false}],pagosFraccionados:[{id:"p",justificante:"p-doc",fecha:"2025-04-15",operacionId:"op-p",periodo:"2025-1T",modelo:"130",importe:"9.87",efectivo:true}]}
+ const expected=calcularActividad2025(input),result=consumeActivityResult(candidate.fragments.rentas,input)
+ expect(result.status).toBe("success")
+ if(result.status!=="success"||result.value.estado!=="soportado") throw Error("Sin actividad")
+ expect(result.value).toEqual(expected)
+ expect(result.value.aporte).toEqual({clase:"rendimiento-actividad-2025",importeEurosExactos:"-123.45",retencionesEuros:"0",pagosFraccionadosEuros:"9.87",liquidacionAnual:"no-calculada"})
+ expect(result.value.primerPositivo).toBe(null)
+ expect(result.value.elegibleClienteUnico).toBe(false)
+ expect(result.value.revisionFiscal).toBe("pendiente")
+ expect(result.value.etapas.find(e=>e.id==="G")?.importe).toBe("0")
+})
+it("B4 motivos múltiples mantienen orden y contenido sin convertirlos en cero",()=>{
+ const input:CasoActividad2025={...casoBase(),territorio:"foral",hechos:{...casoBase().hechos,trade:true,extranjero:true},criterio2025:"cobros-pagos",renuncia2025:true}
+ const expected=calcularActividad2025(input),result=consumeActivityResult(candidate.fragments.rentas,input)
+ expect(expected.estado).toBe("no-soportado")
+ if(expected.estado!=="no-soportado") throw Error("Faltan motivos")
+ expect(expected.motivos.map(m=>m.id)).toEqual(["ambito","extranjero","trade","criterio2025","regimen2025"])
+ expect(result).toEqual({status:"fail",operation:"lib/dominio/irpf/actividades-economicas/calcular.ts:calcularActividad2025",payload:expected})
+})
+it("B4 ingreso, retención y pagos no se restan del aporte",()=>{
+ const input:CasoActividad2025={...casoBase(),ingresos:[{id:"i",justificante:"i-doc",fecha:"2025-02-01",base:"30000",iva:"0",ivaRecuperable:"0",afectacionExclusiva:true,registrado:true,categoria:"servicio",clienteId:"cliente",sujetoRetencion:true,rectificativa:false}],retenciones:[{id:"r",justificante:"r-doc",fecha:"2025-02-01",operacionId:"op-r",ingresoId:"i",importe:"4500",efectiva:true}]}
+ const result=consumeActivityResult(candidate.fragments.rentas,input)
+ expect(result.status).toBe("success")
+ if(result.status!=="success"||result.value.estado!=="soportado") throw Error("Sin actividad")
+ expect(result.value).toEqual(calcularActividad2025(input))
+ expect(result.value.aporte.importeEurosExactos).toBe("28500")
+ expect(result.value.aporte.retencionesEuros).toBe("4500")
+ expect(result.value.elegibleClienteUnico).toBe(true)
+ expect(result.value.primerPositivo).toBe(2025)
+})
+it("B5 captura independiente del candidato tras verificar cuatro originales",()=>{
+ const mutable=structuredClone(candidate)
+ const consumer=createResultConsumer(mutable)
+ const real=Effect.runSync(calcularRetencionTrabajoAeat(subcase,{modo:"canonico"}))
+ for(const fragment of Object.values(mutable.fragments)) fragment.program.length=0
+ mutable.links.length=0
+ expect(()=>createResultConsumer(mutable)).toThrow()
+ expect(consumer.retention(subcase,{modo:"canonico"})).toEqual({status:"success",operation:"calcularRetencionTrabajoAeatImpl",value:real})
+ expect(consumer.activity(casoBase()).status).toBe("success")
+ expect([consumer.admissionClosed,consumer.siteClosed,consumer.wiringAllowed,consumer.completeRuleAcceptance]).toEqual([false,false,false,false])
+})
+for(const group of ["ss","retenciones","rentas","escalas"] as const) it("B5 rechaza mutación original "+group,()=>{
+ const copy=structuredClone(candidate)
+ copy.fragments[group].program[0].op="r49-invalid"
+ expect(()=>createResultConsumer(copy)).toThrow()
+})
+for(const field of ["links","dependencies","propertyPorts","admission"] as const) it("B5 rechaza contrato/pin "+field,()=>{
+ const copy=structuredClone(candidate)
+ if(field==="admission") Object.assign(copy.admission,{wiringAllowed:true})
+ else if(field==="dependencies") copy.dependencies[0]!.sha256="0".repeat(64)
+ else if(field==="links") copy.links[0]!.producer="false-root"
+ else copy.propertyPorts[0]!.conversion="r49-invalid"
+ expect(()=>createResultConsumer(copy)).toThrow()
+})
